@@ -1,0 +1,105 @@
+name: Pilotimport Mission-Dorade-Tagesbegleiter
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pilotimport-tagesbegleiter
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ziel-Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Quell-Repository laden
+        run: |
+          git clone --depth 1 https://github.com/Adler-FSA/lp-anfang.git /tmp/lp-anfang
+
+      - name: Quelle vorab prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="/tmp/lp-anfang/pages/mission-dorade-tagesbegleiter"
+          test -d "$SRC"
+          test -f "$SRC/index.html"
+          test -f "$SRC/bildergalerie.html"
+          test -f "$SRC/affiliate-link-einbau-tagesbegleiter.html"
+          test -f "$SRC/README.txt"
+
+          SOURCE_COUNT=$(find "$SRC" -type f | wc -l | tr -d ' ')
+          HTML_COUNT=$(find "$SRC" -type f \( -name '*.html' -o -name '*.htm' \) | wc -l | tr -d ' ')
+          MEDIA_COUNT=$(find "$SRC" -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.gif' -o -iname '*.mp3' -o -iname '*.mp4' -o -iname '*.pdf' \) | wc -l | tr -d ' ')
+
+          echo "SOURCE_COUNT=$SOURCE_COUNT" >> "$GITHUB_ENV"
+          echo "HTML_COUNT=$HTML_COUNT" >> "$GITHUB_ENV"
+          echo "MEDIA_COUNT=$MEDIA_COUNT" >> "$GITHUB_ENV"
+
+      - name: Tagesbegleiter vollständig übernehmen
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="/tmp/lp-anfang/pages/mission-dorade-tagesbegleiter"
+          DEST="pages/mission-dorade-tagesbegleiter"
+
+          rm -rf "$DEST"
+          mkdir -p "$(dirname "$DEST")"
+          cp -a "$SRC" "$DEST"
+          touch .nojekyll
+
+      - name: Übernahme verifizieren
+        shell: bash
+        run: |
+          set -euo pipefail
+          SRC="/tmp/lp-anfang/pages/mission-dorade-tagesbegleiter"
+          DEST="pages/mission-dorade-tagesbegleiter"
+
+          TARGET_COUNT=$(find "$DEST" -type f | wc -l | tr -d ' ')
+          if [ "$TARGET_COUNT" != "$SOURCE_COUNT" ]; then
+            echo "Dateianzahl stimmt nicht: Quelle=$SOURCE_COUNT Ziel=$TARGET_COUNT"
+            exit 1
+          fi
+
+          diff -qr "$SRC" "$DEST"
+
+          {
+            echo "# Pilotimport Mission-Dorade-Tagesbegleiter"
+            echo
+            echo "- Quelle: Adler-FSA/lp-anfang/pages/mission-dorade-tagesbegleiter"
+            echo "- Ziel: Adler-FSA/lb-tools/pages/mission-dorade-tagesbegleiter"
+            echo "- Dateien gesamt: $SOURCE_COUNT"
+            echo "- HTML-Dateien: $HTML_COUNT"
+            echo "- Medien-Dateien: $MEDIA_COUNT"
+            echo "- Ergebnis: vollständig und bytegenau übernommen"
+            echo "- Quell-Commit: $(git -C /tmp/lp-anfang rev-parse HEAD)"
+          } > PILOTIMPORT-BERICHT.md
+
+      - name: Änderungen speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Adler-FSA Pilotimport"
+          git config user.email "actions@github.com"
+          git add .nojekyll pages/mission-dorade-tagesbegleiter PILOTIMPORT-BERICHT.md
+
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen erforderlich. Der Zielstand entspricht bereits der Quelle."
+          else
+            git commit -m "Pilot: Mission-Dorade-Tagesbegleiter vollständig übernehmen"
+            git push
+          fi
+
+      - name: Prüfbericht als Artefakt sichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: pilotimport-tagesbegleiter-bericht
+          path: PILOTIMPORT-BERICHT.md
+          retention-days: 30
