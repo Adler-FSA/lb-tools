@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tagesbegleiter – Empfehlungslink einbauen</title>
+<style>
+:root{--mint:#00a7ad;--magenta:#c6006f;--navy:#132238;--line:#cfe5e6;--muted:#5e6a79}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--navy);background:linear-gradient(145deg,#edfafa,#f8f4f8 62%,#fff)}
+main{width:min(760px,calc(100% - 24px));margin:28px auto;background:#fff;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(19,34,56,.16)}
+header{padding:30px;background:linear-gradient(125deg,var(--navy),#0b4054);color:#fff}
+h1{margin:0 0 10px;font-size:clamp(2rem,6vw,3rem)}
+header p{margin:0;color:#dcebed;line-height:1.6}
+section{padding:28px}
+.notice{padding:16px;border-radius:16px;background:#f4fbfb;border-left:6px solid var(--mint);line-height:1.55}
+button{width:100%;margin-top:20px;border:0;border-radius:15px;padding:16px 18px;font:inherit;font-weight:900;cursor:pointer;background:linear-gradient(90deg,var(--mint),var(--magenta));color:#fff}
+button:disabled{opacity:.55;cursor:wait}
+#status{margin-top:16px;padding:14px;border-radius:14px;background:#f7fafb;color:var(--muted);white-space:pre-wrap;line-height:1.5}
+.ok{color:#176b3b!important;background:#effbf3!important}
+.err{color:#980055!important;background:#fff1f7!important}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+</style>
+</head>
+<body>
+<main>
+<header>
+<h1>Empfehlungslink sicher einbauen</h1>
+<p>Dieses Hilfswerkzeug lädt die aktuelle <code>index.html</code> aus demselben GitHub-Ordner, verändert ausschließlich die vereinbarten Stellen und lädt anschließend die neue vollständige Datei herunter.</p>
+</header>
+<section>
+<div class="notice">
+<strong>Unverändert bleiben:</strong> alle 365 Inhalte, alle Bilder, Bildpfade, Eintrittsdatum, Feiertage, Urlaub, Tageslogik, Gestaltung und LocalStorage-Schlüssel.
+</div>
+<button id="buildBtn" type="button">Aktuelle index.html laden und neue Datei erzeugen</button>
+<div id="status">Bereit.</div>
+</section>
+</main>
+
+<script>
+'use strict';
+
+const buildBtn=document.getElementById('buildBtn');
+const statusBox=document.getElementById('status');
+
+function replaceOnce(source, search, replacement, label){
+  const count=source.split(search).length-1;
+  if(count!==1) throw new Error(label+': erwartete Stelle wurde '+count+'-mal gefunden.');
+  return source.replace(search,replacement);
+}
+
+buildBtn.addEventListener('click',async()=>{
+  buildBtn.disabled=true;
+  statusBox.className='';
+  statusBox.textContent='Aktuelle index.html wird geladen …';
+
+  try{
+    const response=await fetch('./index.html?affiliate-patch='+Date.now(),{cache:'no-store'});
+    if(!response.ok) throw new Error('index.html konnte nicht geladen werden ('+response.status+').');
+    let html=await response.text();
+
+    if(!html.includes('const DAILY_CONTENT=[')) throw new Error('Die 365 Tagesinhalte wurden nicht gefunden. Abbruch ohne Datei.');
+    if(!html.includes('function shareSaying(text)')) throw new Error('Die bestehende Teilen-Funktion wurde nicht gefunden. Abbruch ohne Datei.');
+
+    html=replaceOnce(
+      html,
+      '<label>Eintrittsdatum als Club Partner<input id="joinDate" type="date" required></label>',
+      '<label>Eintrittsdatum als Club Partner<input id="joinDate" type="date" required></label>\\n    <label>Persönlicher Empfehlungslink<input id="referralLink" type="text" required autocomplete="off"></label>',
+      'Eingabefeld'
+    );
+
+    html=replaceOnce(
+      html,
+      "$('shareBtn').onclick=()=>shareSaying(base.saying);",
+      "$('shareBtn').onclick=()=>shareSaying(base.saying,profile.referralLink);",
+      'Übergabe an Teilen-Funktion'
+    );
+
+    html=replaceOnce(
+      html,
+      'async function shareSaying(text){',
+      'async function shareSaying(text,referralLink){',
+      'Funktionskopf Teilen'
+    );
+
+    html=replaceOnce(
+      html,
+      "  const lh=108,sy=930-((lines.length-1)*lh/2);lines.forEach((l,i)=>ctx.fillText(l,540,sy+i*lh));",
+      `  const lh=108,sy=820-((lines.length-1)*lh/2);lines.forEach((l,i)=>ctx.fillText(l,540,sy+i*lh));
+  ctx.fillStyle='#c6006f';ctx.font='900 46px Arial';ctx.fillText('Kennst Du schon Mission Dorade? Frag mich!',540,1425);
+  ctx.fillStyle='#132238';ctx.font='700 34px Arial';
+  const linkWords=String(referralLink||'').split(' '),linkLines=[];let linkLine='';
+  for(const w of linkWords){const t=linkLine?linkLine+' '+w:w;if(ctx.measureText(t).width>760&&linkLine){linkLines.push(linkLine);linkLine=w}else linkLine=t}
+  if(linkLine)linkLines.push(linkLine);
+  linkLines.forEach((l,i)=>ctx.fillText(l,540,1500+i*48));`,
+      'Text auf geteiltem Bild'
+    );
+
+    html=replaceOnce(
+      html,
+      "    joinDate:$('joinDate').value,\\n    vacationStart:$('vacationStart').value || '',",
+      "    joinDate:$('joinDate').value,\\n    referralLink:$('referralLink').value.trim(),\\n    vacationStart:$('vacationStart').value || '',",
+      'Speicherung Empfehlungslink'
+    );
+
+    html=replaceOnce(
+      html,
+      "  if(!p.firstName || !p.gender || !p.state || !p.joinDate){\\n    message.textContent='Bitte fülle Vorname, Ansprache, Bundesland und Eintrittsdatum aus. Die Urlaubsfelder sind freiwillig.';",
+      "  if(!p.firstName || !p.gender || !p.state || !p.joinDate || !p.referralLink){\\n    message.textContent='Bitte fülle Vorname, Ansprache, Bundesland, Eintrittsdatum und persönlichen Empfehlungslink aus. Die Urlaubsfelder sind freiwillig.';",
+      'Pflichtfeldprüfung'
+    );
+
+    html=replaceOnce(
+      html,
+      "$('resetBtn').addEventListener('click',()=>{const p=loadProfile();if(p){$('firstName').value=p.firstName||'';$('gender').value=p.gender||'';$('state').value=p.state||'';$('joinDate').value=p.joinDate||'';$('vacationStart').value=p.vacationStart||'';$('vacationEnd').value=p.vacationEnd||''}",
+      "$('resetBtn').addEventListener('click',()=>{const p=loadProfile();if(p){$('firstName').value=p.firstName||'';$('gender').value=p.gender||'';$('state').value=p.state||'';$('joinDate').value=p.joinDate||'';$('referralLink').value=p.referralLink||'';$('vacationStart').value=p.vacationStart||'';$('vacationEnd').value=p.vacationEnd||''}",
+      'Persönliche Daten ändern'
+    );
+
+    html=replaceOnce(
+      html,
+      "if(profile && profile.firstName && profile.gender && profile.state && profile.joinDate){",
+      "if(profile && profile.firstName && profile.gender && profile.state && profile.joinDate && profile.referralLink){",
+      'Startprüfung vorhandenes Profil'
+    );
+
+    const checks=[
+      ['365 Inhalte','const DAILY_CONTENT=['],
+      ['Empfehlungsfeld','id="referralLink"'],
+      ['CTA Bild','Kennst Du schon Mission Dorade? Frag mich!'],
+      ['Bilderlogik','selectedDailyImage'],
+      ['Urlaubsfelder','id="vacationStart"'],
+      ['Feiertagslogik','holidayName']
+    ];
+    for(const [name,needle] of checks){
+      if(!html.includes(needle)) throw new Error('Sicherheitsprüfung fehlgeschlagen: '+name);
+    }
+
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='index.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+
+    statusBox.className='ok';
+    statusBox.textContent='Fertig. Die vollständige neue index.html wurde heruntergeladen. Alle Sicherheitsprüfungen waren erfolgreich.';
+  }catch(error){
+    statusBox.className='err';
+    statusBox.textContent='Abbruch: '+error.message+'\\nEs wurde keine veränderte Datei erzeugt.';
+  }finally{
+    buildBtn.disabled=false;
+  }
+});
+</script>
+</body>
+</html>

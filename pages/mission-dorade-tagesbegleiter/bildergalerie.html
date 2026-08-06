@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#00a7ad">
+<title>Mission Dorade – Bildergalerie</title>
+<style>
+:root{
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --navy:#132238;
+  --line:#d8e7e8;
+  --bg:#f4f8f8;
+  --white:#fff;
+  --shadow:0 12px 28px rgba(19,34,56,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--navy);
+  background:
+    radial-gradient(circle at 10% 0%,rgba(0,167,173,.12),transparent 30%),
+    radial-gradient(circle at 100% 15%,rgba(198,0,111,.08),transparent 28%),
+    var(--bg);
+}
+.page{width:min(1280px,calc(100% - 24px));margin:0 auto;padding:22px 0 60px}
+.hero{
+  background:linear-gradient(135deg,var(--navy),#0b4b59);
+  color:#fff;
+  border-radius:24px;
+  padding:34px;
+  box-shadow:var(--shadow);
+}
+.kicker{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:#78e3e6}
+.hero h1{margin:10px 0 8px;font-size:clamp(2.2rem,6vw,4rem);line-height:1.03}
+.hero p{margin:0;max-width:820px;color:#dcebed;font-size:1.05rem;line-height:1.6}
+
+.nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:18px 0 30px;
+  padding:12px;
+  border-radius:16px;
+  background:#fff;
+  border:1px solid var(--line);
+}
+.nav a{
+  text-decoration:none;
+  color:var(--navy);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:900;
+  background:#fff;
+}
+.nav a:hover{border-color:var(--mint);color:var(--magenta)}
+
+.group{margin:0 0 38px;scroll-margin-top:20px}
+.group-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:16px;
+  margin:0 0 14px;
+}
+.group-head h2{margin:0;font-size:clamp(1.55rem,3vw,2.2rem)}
+.group-head span{color:#667383;font-weight:800}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+  align-items:start;
+}
+.card{
+  display:block;
+  width:100%;
+  border:0;
+  padding:0;
+  margin:0;
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  text-align:left;
+  color:var(--navy);
+}
+.image-wrap{
+  display:block;
+  width:100%;
+  aspect-ratio:16/10;
+  overflow:hidden;
+  background:#dfeaec;
+}
+.image-wrap img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  transform:scale(1.035);
+}
+.caption{
+  display:block;
+  padding:12px 14px 14px;
+  font-weight:900;
+  background:#fff;
+}
+.card:hover{transform:translateY(-2px)}
+.card{transition:transform .18s ease}
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:22px;
+  background:rgba(5,17,28,.94);
+}
+.lightbox.open{display:flex}
+.lightbox-inner{position:relative;width:min(1200px,100%)}
+.lightbox img{
+  display:block;
+  max-width:100%;
+  max-height:80vh;
+  margin:0 auto;
+  border-radius:14px;
+}
+.lightbox-title{color:#fff;text-align:center;margin-top:12px;font-weight:900}
+.close,.prev,.next{
+  position:absolute;
+  width:46px;
+  height:46px;
+  border:0;
+  border-radius:50%;
+  background:#fff;
+  color:var(--navy);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+.close{right:0;top:-58px}
+.prev{left:8px;top:50%;transform:translateY(-50%)}
+.next{right:8px;top:50%;transform:translateY(-50%)}
+.close svg,.prev svg,.next svg{width:22px;height:22px}
+
+@media(max-width:980px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero{padding:26px 22px}
+}
+@media(max-width:440px){
+  .grid{grid-template-columns:1fr}
+  .page{width:min(100% - 14px,1280px)}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <div class="kicker">Mission Dorade · Persönlicher Tagesbegleiter</div>
+    <h1>Bildergalerie</h1>
+    <p>Alle 24 Bildmotive des Tagesbegleiters, geordnet nach Monatsbildern, Clubtreffen, Stammtisch und Feiertagen.</p>
+  </header>
+
+  <nav class="nav" aria-label="Galeriegruppen">
+    <a href="#monate">Monatsbilder</a>
+    <a href="#clubtreffen">Clubtreffen</a>
+    <a href="#stammtisch">Stammtisch</a>
+    <a href="#feiertage">Feiertage</a>
+  </nav>
+
+  <section class="group" id="monate">
+    <div class="group-head"><h2>Monatsbilder</h2><span>12 Motive</span></div>
+    <div class="grid"><button class="card" type="button" data-src="monat-01-aufbruch.jpg" data-title="Monat 1 – Aufbruch">
+  <span class="image-wrap"><img src="monat-01-aufbruch.jpg" alt="Monat 1 – Aufbruch" loading="lazy"></span>
+  <span class="caption">Monat 1 – Aufbruch</span>
+</button>
+<button class="card" type="button" data-src="monat-02-neue-wege.jpg" data-title="Monat 2 – Neue Wege">
+  <span class="image-wrap"><img src="monat-02-neue-wege.jpg" alt="Monat 2 – Neue Wege" loading="lazy"></span>
+  <span class="caption">Monat 2 – Neue Wege</span>
+</button>
+<button class="card" type="button" data-src="monat-03-wachstum.jpg" data-title="Monat 3 – Wachstum">
+  <span class="image-wrap"><img src="monat-03-wachstum.jpg" alt="Monat 3 – Wachstum" loading="lazy"></span>
+  <span class="caption">Monat 3 – Wachstum</span>
+</button>
+<button class="card" type="button" data-src="monat-04-inspiration.jpg" data-title="Monat 4 – Inspiration">
+  <span class="image-wrap"><img src="monat-04-inspiration.jpg" alt="Monat 4 – Inspiration" loading="lazy"></span>
+  <span class="caption">Monat 4 – Inspiration</span>
+</button>
+<button class="card" type="button" data-src="monat-05-entfaltung.jpg" data-title="Monat 5 – Entfaltung">
+  <span class="image-wrap"><img src="monat-05-entfaltung.jpg" alt="Monat 5 – Entfaltung" loading="lazy"></span>
+  <span class="caption">Monat 5 – Entfaltung</span>
+</button>
+<button class="card" type="button" data-src="monat-06-leichtigkeit.jpg" data-title="Monat 6 – Leichtigkeit">
+  <span class="image-wrap"><img src="monat-06-leichtigkeit.jpg" alt="Monat 6 – Leichtigkeit" loading="lazy"></span>
+  <span class="caption">Monat 6 – Leichtigkeit</span>
+</button>
+<button class="card" type="button" data-src="monat-07-weite.jpg" data-title="Monat 7 – Weite">
+  <span class="image-wrap"><img src="monat-07-weite.jpg" alt="Monat 7 – Weite" loading="lazy"></span>
+  <span class="caption">Monat 7 – Weite</span>
+</button>
+<button class="card" type="button" data-src="monat-08-freiheit.jpg" data-title="Monat 8 – Freiheit">
+  <span class="image-wrap"><img src="monat-08-freiheit.jpg" alt="Monat 8 – Freiheit" loading="lazy"></span>
+  <span class="caption">Monat 8 – Freiheit</span>
+</button>
+<button class="card" type="button" data-src="monat-09-entdeckung.jpg" data-title="Monat 9 – Entdeckung">
+  <span class="image-wrap"><img src="monat-09-entdeckung.jpg" alt="Monat 9 – Entdeckung" loading="lazy"></span>
+  <span class="caption">Monat 9 – Entdeckung</span>
+</button>
+<button class="card" type="button" data-src="monat-10-dankbarkeit.jpg" data-title="Monat 10 – Dankbarkeit">
+  <span class="image-wrap"><img src="monat-10-dankbarkeit.jpg" alt="Monat 10 – Dankbarkeit" loading="lazy"></span>
+  <span class="caption">Monat 10 – Dankbarkeit</span>
+</button>
+<button class="card" type="button" data-src="monat-11-orientierung.jpg" data-title="Monat 11 – Orientierung">
+  <span class="image-wrap"><img src="monat-11-orientierung.jpg" alt="Monat 11 – Orientierung" loading="lazy"></span>
+  <span class="caption">Monat 11 – Orientierung</span>
+</button>
+<button class="card" type="button" data-src="monat-12-heimkehr.jpg" data-title="Monat 12 – Heimkehr">
+  <span class="image-wrap"><img src="monat-12-heimkehr.jpg" alt="Monat 12 – Heimkehr" loading="lazy"></span>
+  <span class="caption">Monat 12 – Heimkehr</span>
+</button></div>
+  </section>
+
+  <section class="group" id="clubtreffen">
+    <div class="group-head"><h2>Clubtreffen – Montag</h2><span>4 Motive</span></div>
+    <div class="grid"><button class="card" type="button" data-src="clubtreffen-01.jpg" data-title="Clubtreffen 1">
+  <span class="image-wrap"><img src="clubtreffen-01.jpg" alt="Clubtreffen 1" loading="lazy"></span>
+  <span class="caption">Clubtreffen 1</span>
+</button>
+<button class="card" type="button" data-src="clubtreffen-02.jpg" data-title="Clubtreffen 2">
+  <span class="image-wrap"><img src="clubtreffen-02.jpg" alt="Clubtreffen 2" loading="lazy"></span>
+  <span class="caption">Clubtreffen 2</span>
+</button>
+<button class="card" type="button" data-src="clubtreffen-03.jpg" data-title="Clubtreffen 3">
+  <span class="image-wrap"><img src="clubtreffen-03.jpg" alt="Clubtreffen 3" loading="lazy"></span>
+  <span class="caption">Clubtreffen 3</span>
+</button>
+<button class="card" type="button" data-src="clubtreffen-04.jpg" data-title="Clubtreffen 4">
+  <span class="image-wrap"><img src="clubtreffen-04.jpg" alt="Clubtreffen 4" loading="lazy"></span>
+  <span class="caption">Clubtreffen 4</span>
+</button></div>
+  </section>
+
+  <section class="group" id="stammtisch">
+    <div class="group-head"><h2>Club-Stammtisch – Mittwoch</h2><span>4 Motive</span></div>
+    <div class="grid"><button class="card" type="button" data-src="stammtisch-01.jpg" data-title="Stammtisch 1">
+  <span class="image-wrap"><img src="stammtisch-01.jpg" alt="Stammtisch 1" loading="lazy"></span>
+  <span class="caption">Stammtisch 1</span>
+</button>
+<button class="card" type="button" data-src="stammtisch-02.jpg" data-title="Stammtisch 2">
+  <span class="image-wrap"><img src="stammtisch-02.jpg" alt="Stammtisch 2" loading="lazy"></span>
+  <span class="caption">Stammtisch 2</span>
+</button>
+<button class="card" type="button" data-src="stammtisch-03.jpg" data-title="Stammtisch 3">
+  <span class="image-wrap"><img src="stammtisch-03.jpg" alt="Stammtisch 3" loading="lazy"></span>
+  <span class="caption">Stammtisch 3</span>
+</button>
+<button class="card" type="button" data-src="stammtisch-04.jpg" data-title="Stammtisch 4">
+  <span class="image-wrap"><img src="stammtisch-04.jpg" alt="Stammtisch 4" loading="lazy"></span>
+  <span class="caption">Stammtisch 4</span>
+</button></div>
+  </section>
+
+  <section class="group" id="feiertage">
+    <div class="group-head"><h2>Feiertage</h2><span>4 Motive</span></div>
+    <div class="grid"><button class="card" type="button" data-src="feiertag-01.jpg" data-title="Feiertag 1">
+  <span class="image-wrap"><img src="feiertag-01.jpg" alt="Feiertag 1" loading="lazy"></span>
+  <span class="caption">Feiertag 1</span>
+</button>
+<button class="card" type="button" data-src="feiertag-02.jpg" data-title="Feiertag 2">
+  <span class="image-wrap"><img src="feiertag-02.jpg" alt="Feiertag 2" loading="lazy"></span>
+  <span class="caption">Feiertag 2</span>
+</button>
+<button class="card" type="button" data-src="feiertag-03.jpg" data-title="Feiertag 3">
+  <span class="image-wrap"><img src="feiertag-03.jpg" alt="Feiertag 3" loading="lazy"></span>
+  <span class="caption">Feiertag 3</span>
+</button>
+<button class="card" type="button" data-src="feiertag-04.jpg" data-title="Feiertag 4">
+  <span class="image-wrap"><img src="feiertag-04.jpg" alt="Feiertag 4" loading="lazy"></span>
+  <span class="caption">Feiertag 4</span>
+</button></div>
+  </section>
+</main>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox-inner">
+    <button class="close" id="closeBtn" type="button" aria-label="Galerie schließen">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <button class="prev" id="prevBtn" type="button" aria-label="Vorheriges Bild">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <img id="lightboxImage" src="" alt="">
+    <button class="next" id="nextBtn" type="button" aria-label="Nächstes Bild">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="lightbox-title" id="lightboxTitle"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const cards=[...document.querySelectorAll('.card')];
+const lightbox=document.getElementById('lightbox');
+const image=document.getElementById('lightboxImage');
+const title=document.getElementById('lightboxTitle');
+let current=0;
+
+function openAt(index){
+  current=index;
+  const card=cards[current];
+  image.src=card.dataset.src;
+  image.alt=card.dataset.title;
+  title.textContent=card.dataset.title;
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+function closeBox(){
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+function move(step){
+  current=(current+step+cards.length)%cards.length;
+  openAt(current);
+}
+cards.forEach((card,index)=>card.addEventListener('click',()=>openAt(index)));
+document.getElementById('closeBtn').addEventListener('click',closeBox);
+document.getElementById('prevBtn').addEventListener('click',()=>move(-1));
+document.getElementById('nextBtn').addEventListener('click',()=>move(1));
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeBox()});
+document.addEventListener('keydown',e=>{
+  if(!lightbox.classList.contains('open'))return;
+  if(e.key==='Escape')closeBox();
+  if(e.key==='ArrowLeft')move(-1);
+  if(e.key==='ArrowRight')move(1);
+});
+</script>
+</body>
+</html>
