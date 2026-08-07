@@ -16,6 +16,14 @@
       "sponsorFirstName": "Michaela",
       "sponsorLastName": "Lang",
       "createdAt": "2026-08-04T10:00:00.000Z"
+    },
+    {
+      "id": "25c4d059-26e5-49dc-b7b4-c04b753d5be4",
+      "firstName": "Lars",
+      "lastName": "Klompmaker",
+      "sponsorFirstName": "Peter",
+      "sponsorLastName": "Bösing",
+      "createdAt": "2026-08-07T10:00:00.000Z"
     }
   ],
   "winners": {}
