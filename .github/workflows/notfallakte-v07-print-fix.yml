@@ -1,0 +1,40 @@
+name: Notfallakte V07 cross-browser print fix
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/notfallakte-v07-print-fix.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch only V07 print CSS inside optimizePrint
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('pages/notfallakte/index.html')
+          s=p.read_text()
+          old="@media print{@page{size:A4;margin:0!important}.printSheet{display:block!important}.pPage{width:210mm;height:297mm;padding:12mm 11mm 14mm;box-sizing:border-box;overflow:hidden;break-after:page;page-break-after:always}.pPage:last-child{break-after:auto;page-break-after:auto}.pPageInner{height:271mm;overflow:hidden}.pSection,.pRecord,.pItem,.pCallout,.pSafety,.pMessage{break-inside:avoid;page-break-inside:avoid}}"
+          new="@media print{@page{size:A4;margin:0!important}.printSheet{display:block!important}.pPage{width:210mm;height:auto;min-height:0;padding:12mm 11mm 14mm;box-sizing:border-box;overflow:visible;break-after:auto;page-break-after:auto}.pPage+.pPage{break-before:page;page-break-before:always}.pPageInner{height:auto;min-height:0;overflow:visible}.pSection,.pRecord,.pItem,.pCallout,.pSafety,.pMessage{break-inside:avoid;page-break-inside:avoid}}"
+          if old not in s:
+              raise SystemExit('Expected V07 print CSS not found; no file changed.')
+          s2=s.replace(old,new,1)
+          if s2.count(new)!=1:
+              raise SystemExit('Patch verification failed.')
+          p.write_text(s2)
+          PY
+      - name: Verify only intended browser-neutral print rules
+        run: |
+          grep -F '.pPage+.pPage{break-before:page;page-break-before:always}' pages/notfallakte/index.html
+          ! grep -F 'height:297mm;padding:12mm 11mm 14mm' pages/notfallakte/index.html
+      - name: Commit fix
+        run: |
+          git config user.name 'actions-user'
+          git config user.email 'actions@users.noreply.github.com'
+          git add pages/notfallakte/index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Fix V07 print pagination across browsers'
+          git push
