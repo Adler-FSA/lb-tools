@@ -1,0 +1,37 @@
+name: Fix Notfallakte V07 Print Engine
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-notfallakte-v07-print.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch only V07 print CSS
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('pages/notfallakte/index.html')
+          s=p.read_text()
+          old="@media print{@page{size:A4;margin:0!important}.printSheet{display:block!important}.pPage{width:210mm;height:297mm;padding:12mm 11mm 14mm;box-sizing:border-box;overflow:hidden;break-after:page;page-break-after:always}.pPage:last-child{break-after:auto;page-break-after:auto}.pPageInner{height:271mm;overflow:hidden}.pSection,.pRecord,.pItem,.pCallout,.pSafety,.pMessage{break-inside:avoid;page-break-inside:avoid}}"
+          new="@media print{@page{size:A4;margin:12mm 11mm 14mm}.printSheet{display:block!important;margin:0!important;padding:0!important}.pPage{width:auto!important;height:auto!important;min-height:0!important;padding:0!important;margin:0!important;box-sizing:border-box;overflow:visible!important;break-after:page;page-break-after:always}.pPage:last-child{break-after:auto;page-break-after:auto}.pPageInner{height:auto!important;min-height:0!important;overflow:visible!important}.pPage:empty,.pPageInner:empty{display:none!important}.pSection,.pRecord,.pItem,.pCallout,.pSafety,.pMessage{break-inside:avoid;page-break-inside:avoid}}"
+          if old not in s:
+              raise SystemExit('Expected V07 print CSS not found; refusing to modify anything else.')
+          s=s.replace(old,new,1)
+          p.write_text(s)
+          PY
+      - name: Verify only print engine changed
+        run: |
+          git diff --check
+          git diff -- pages/notfallakte/index.html
+      - name: Commit fix
+        run: |
+          git config user.name 'actions-user'
+          git config user.email 'actions@users.noreply.github.com'
+          git add pages/notfallakte/index.html
+          git commit -m 'Fix V07 cross-browser A4 page output'
+          git push
