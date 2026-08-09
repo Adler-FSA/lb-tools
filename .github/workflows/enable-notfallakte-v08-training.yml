@@ -1,0 +1,34 @@
+name: Enable Notfallakte V08 training extension
+on:
+  push:
+    paths:
+      - '.github/workflows/enable-notfallakte-v08-training.yml'
+permissions:
+  contents: write
+jobs:
+  enable:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable extension
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('pages/notfallakte/index.html')
+          s=p.read_text(encoding='utf-8')
+          old='<script src="./v08-backup.js"></script></body></html>'
+          new='<script src="./v08-backup.js"></script><script src="./v08-training.js"></script></body></html>'
+          if './v08-training.js' not in s:
+              if old not in s:
+                  raise SystemExit('script marker not found')
+              s=s.replace(old,new)
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "Adler-FSA"
+          git config user.email "ceo@liquiditybooster.de"
+          git rm .github/workflows/enable-notfallakte-v08-training.yml .github/workflows/patch-notfallakte-v08-demo-training.yml || true
+          git add pages/notfallakte/index.html pages/notfallakte/v08-training.js
+          git commit -m "Enable Notfallakte V08 demo training"
+          git push
