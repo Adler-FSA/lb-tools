@@ -1,0 +1,34 @@
+name: Patch Notfallakte V08 iPad filenames
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/patch-notfallakte-v08-ios-download.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch iPad/iPhone download handling only
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('pages/notfallakte/v08-backup.js')
+          s=p.read_text()
+          old="function download(blob,name){const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}"
+          new="function download(blob,name){const file=new File([blob],name,{type:blob.type||'application/octet-stream',lastModified:Date.now()});const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);if(isiOS&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){flash('Datei ist vorbereitet – wähle im Teilen-Menü „In Dateien sichern“ ✓');navigator.share({files:[file]}).catch(err=>{if(err&&err.name==='AbortError')return;const a=document.createElement('a');const u=URL.createObjectURL(file);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)});return}const a=document.createElement('a');const u=URL.createObjectURL(file);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}"
+          if old not in s:
+              raise SystemExit('download function signature not found')
+          s=s.replace(old,new,1)
+          p.write_text(s)
+          PY
+      - name: Commit patch and remove workflow
+        run: |
+          git config user.name "Adler-FSA"
+          git config user.email "ceo@liquiditybooster.de"
+          rm .github/workflows/patch-notfallakte-v08-ios-download.yml
+          git add pages/notfallakte/v08-backup.js .github/workflows/patch-notfallakte-v08-ios-download.yml
+          git commit -m "Fix V08 filenames on iPad and iPhone Safari"
+          git push
