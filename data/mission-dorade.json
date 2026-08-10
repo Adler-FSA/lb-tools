@@ -40,6 +40,14 @@
       "sponsorFirstName": "Michael",
       "sponsorLastName": "Rau",
       "createdAt": "2026-08-10T10:00:00.000Z"
+    },
+    {
+      "id": "1e4f245a-a2c2-46b0-bf90-f9ddaf59db07",
+      "firstName": "Daniela",
+      "lastName": "Koller",
+      "sponsorFirstName": "Daniela",
+      "sponsorLastName": "Karl",
+      "createdAt": "2026-08-10T10:00:00.000Z"
     }
   ],
   "winners": {}
