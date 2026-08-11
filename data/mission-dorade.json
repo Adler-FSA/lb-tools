@@ -56,6 +56,14 @@
       "sponsorFirstName": "Michael",
       "sponsorLastName": "Rau",
       "createdAt": "2026-08-10T10:00:00.000Z"
+    },
+    {
+      "id": "4db5115c-35e2-421d-a6de-058c66898416",
+      "firstName": "Volker",
+      "lastName": "Saal",
+      "sponsorFirstName": "Konstantin",
+      "sponsorLastName": "Ebert",
+      "createdAt": "2026-08-11T10:00:00.000Z"
     }
   ],
   "winners": {}
