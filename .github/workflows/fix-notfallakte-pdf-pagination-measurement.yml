@@ -17,40 +17,13 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import base64
           p = Path('pages/notfallakte/v08-final.js')
           s = p.read_text(encoding='utf-8')
           marker = "function installButtons(){"
           if marker not in s:
               raise SystemExit('installButtons marker not found')
-          helper = r'''function ensurePdfMeasureStyles(){if(q('#v08PdfMeasureFix'))return;const s=document.createElement('style');s.id='v08PdfMeasureFix';s.textContent=`
-#bcx_dummy{display:none}
-#printSheet{font-family:Arial,Helvetica,sans-serif;font-size:10.8pt;line-height:1.4;color:#202b39}
-#printSheet .pHead{border-bottom:2px solid #162238;padding:0 0 11px;margin-bottom:10px}
-#printSheet .pEyebrow{font-size:9pt;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#555}
-#printSheet .pHead h1{font-size:27pt;line-height:1.02;margin:7px 0 9px;color:#000}
-#printSheet .pHead p{margin:0;font-size:11.5pt}
-#printSheet .pSection{margin:0 0 9px;border:1px solid #b7bdc2;border-radius:12px;overflow:visible}
-#printSheet .pSectionHead{display:flex;gap:10px;align-items:center;padding:9px 11px;border-bottom:1px solid #d6dde0;font-size:12.5pt;font-weight:800;color:#18263a}
-#printSheet .pBody{padding:10px}
-#printSheet .pRecord{border:1px solid #d9e0e3;border-radius:9px;padding:9px;margin-bottom:8px}
-#printSheet .pRecordTitle{font-weight:800;margin-bottom:7px;color:#18263a}
-#printSheet .pGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 18px}
-#printSheet .pGrid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px 14px}
-#printSheet .pItem{min-width:0}
-#printSheet .pItem.full{grid-column:1/-1}
-#printSheet .pLabel{display:block;font-size:9.2pt;font-weight:800;color:#172438;margin-bottom:2px}
-#printSheet .pValue{display:block;overflow-wrap:anywhere;word-break:break-word;white-space:pre-wrap}
-#printSheet .pCallout{margin-top:8px;padding:9px;border:1px solid #e4c8d3;border-radius:9px;background:#fff9fb}
-#printSheet .pSafety{padding:10px;border:1px solid #bbb;border-radius:9px;margin-bottom:11px}
-#printSheet .pMessage{padding:12px;border:1px solid #d6dde0;border-radius:10px;background:#fbfdfd;margin:0 0 10px;white-space:pre-wrap}
-#printSheet .pSignGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-#printSheet .pSignLines{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
-#printSheet .pSignLine{border-top:1px solid #222;padding-top:4px;font-size:8.8pt;color:#555}
-#printSheet .pFooter{font-size:8.8pt;color:#667085;margin-top:10px}
-#printSheet .pNum{width:24px;color:#999}
-`;document.head.appendChild(s)}
-
-'''
+          helper = base64.b64decode('ZnVuY3Rpb24gZW5zdXJlUGRmTWVhc3VyZVN0eWxlcygpe2lmKHEoJyN2MDhQZGZNZWFzdXJlRml4JykpcmV0dXJuO2NvbnN0IHM9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc3R5bGUnKTtzLmlkPSd2MDhQZGZNZWFzdXJlRml4JztzLnRleHRDb250ZW50PWAKI3ByaW50U2hlZXR7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7Zm9udC1zaXplOjEwLjhwdDtsaW5lLWhlaWdodDoxLjQ7Y29sb3I6IzIwMmIzOX0KI3ByaW50U2hlZXQgLnBIZWFke2JvcmRlci1ib3R0b206MnB4IHNvbGlkICMxNjIyMzg7cGFkZGluZzowIDAgMTFweDttYXJnaW4tYm90dG9tOjEwcHh9CiNwcmludFNoZWV0IC5wRXllYnJvd3tmb250LXNpemU6OXB0O2ZvbnQtd2VpZ2h0OjgwMDtsZXR0ZXItc3BhY2luZzouMTJlbTt0ZXh0LXRyYW5zZm9ybTp1cHBlcmNhc2U7Y29sb3I6IzU1NX0KI3ByaW50U2hlZXQgLnBIZWFkIGgxe2ZvbnQtc2l6ZToyN3B0O2xpbmUtaGVpZ2h0OjEuMDI7bWFyZ2luOjdweCAwIDlweDtjb2xvcjojMDAwfQojcHJpbnRTaGVldCAucEhlYWQgcHttYXJnaW46MDtmb250LXNpemU6MTEuNXB0fQojcHJpbnRTaGVldCAucFNlY3Rpb257bWFyZ2luOjAgMCA5cHg7Ym9yZGVyOjFweCBzb2xpZCAjYjdiZGMyO2JvcmRlci1yYWRpdXM6MTJweDtvdmVyZmxvdzp2aXNpYmxlfQojcHJpbnRTaGVldCAucFNlY3Rpb25IZWFke2Rpc3BsYXk6ZmxleDtnYXA6MTBweDthbGlnbi1pdGVtczpjZW50ZXI7cGFkZGluZzo5cHggMTFweDtib3JkZXItYm90dG9tOjFweCBzb2xpZCAjZDZkZGUwO2ZvbnQtc2l6ZToxMi41cHQ7Zm9udC13ZWlnaHQ6ODAwO2NvbG9yOiMxODI2M2F9CiNwcmludFNoZWV0IC5wQm9keXtwYWRkaW5nOjEwcHh9CiNwcmludFNoZWV0IC5wUmVjb3Jke2JvcmRlcjoxcHggc29saWQgI2Q5ZTBlMztib3JkZXItcmFkaXVzOjlweDtwYWRkaW5nOjlweDttYXJnaW4tYm90dG9tOjhweH0KI3ByaW50U2hlZXQgLnBSZWNvcmRUaXRsZXtmb250LXdlaWdodDo4MDA7bWFyZ2luLWJvdHRvbTo3cHg7Y29sb3I6IzE4MjYzYX0KI3ByaW50U2hlZXQgLnBHcmlke2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6cmVwZWF0KDIsbWlubWF4KDAsMWZyKSk7Z2FwOjdweCAxOHB4fQojcHJpbnRTaGVldCAucEdyaWQze2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6cmVwZWF0KDMsbWlubWF4KDAsMWZyKSk7Z2FwOjdweCAxNHB4fQojcHJpbnRTaGVldCAucEl0ZW17bWluLXdpZHRoOjB9CiNwcmludFNoZWV0IC5wSXRlbS5mdWxse2dyaWQtY29sdW1uOjEvLTF9CiNwcmludFNoZWV0IC5wTGFiZWx7ZGlzcGxheTpibG9jaztmb250LXNpemU6OS4ycHQ7Zm9udC13ZWlnaHQ6ODAwO2NvbG9yOiMxNzI0Mzg7bWFyZ2luLWJvdHRvbToycHh9CiNwcmludFNoZWV0IC5wVmFsdWV7ZGlzcGxheTpibG9jaztvdmVyZmxvdy13cmFwOmFueXdoZXJlO3dvcmQtYnJlYWs6YnJlYWstd29yZDt3aGl0ZS1zcGFjZTpwcmUtd3JhcH0KI3ByaW50U2hlZXQgLnBDYWxsb3V0e21hcmdpbi10b3A6OHB4O3BhZGRpbmc6OXB4O2JvcmRlcjoxcHggc29saWQgI2U0YzhkMztib3JkZXItcmFkaXVzOjlweDtiYWNrZ3JvdW5kOiNmZmY5ZmJ9CiNwcmludFNoZWV0IC5wU2FmZXR5e3BhZGRpbmc6MTBweDtib3JkZXI6MXB4IHNvbGlkICNiYmI7Ym9yZGVyLXJhZGl1czo5cHg7bWFyZ2luLWJvdHRvbToxMXB4fQojcHJpbnRTaGVldCAucE1lc3NhZ2V7cGFkZGluZzoxMnB4O2JvcmRlcjoxcHggc29saWQgI2Q2ZGRlMDtib3JkZXItcmFkaXVzOjEwcHg7YmFja2dyb3VuZDojZmJmZGZkO21hcmdpbjowIDAgMTBweDt3aGl0ZS1zcGFjZTpwcmUtd3JhcH0KI3ByaW50U2hlZXQgLnBTaWduR3JpZHtkaXNwbGF5OmdyaWQ7Z3JpZC10ZW1wbGF0ZS1jb2x1bW5zOjFmciAxZnI7Z2FwOjEwcHh9CiNwcmludFNoZWV0IC5wU2lnbkxpbmVze2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6cmVwZWF0KDMsMWZyKTtnYXA6MTZweDttYXJnaW4tdG9wOjI4cHh9CiNwcmludFNoZWV0IC5wU2lnbkxpbmV7Ym9yZGVyLXRvcDoxcHggc29saWQgIzIyMjtwYWRkaW5nLXRvcDo0cHg7Zm9udC1zaXplOjguOHB0O2NvbG9yOiM1NTV9CiNwcmludFNoZWV0IC5wRm9vdGVye2ZvbnQtc2l6ZTo4LjhwdDtjb2xvcjojNjY3MDg1O21hcmdpbi10b3A6MTBweH0KI3ByaW50U2hlZXQgLnBOdW17d2lkdGg6MjRweDtjb2xvcjojOTk5fQpgO2RvY3VtZW50LmhlYWQuYXBwZW5kQ2hpbGQocyl9Cgo=').decode('utf-8')
           if 'function ensurePdfMeasureStyles()' not in s:
               s = s.replace(marker, helper + marker, 1)
           old = "q('#printBtn').classList.remove('printPulse');if(typeof optimizePrint==='function')optimizePrint();else if(typeof buildPrint==='function')buildPrint();"
