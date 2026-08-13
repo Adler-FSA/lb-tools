@@ -1,0 +1,172 @@
+name: Fix Notfallakte PDF pagination v2
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-notfallakte-pdf-pagination-v2.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair PDF page packing only
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('pages/notfallakte/index.html')
+          s=p.read_text()
+          start=s.index('function optimizePrint(){')
+          end=s.index('\nfunction exportCsv()', start)
+          new=r'''function optimizePrint(){
+buildPrint();
+const sheet=$('#printSheet');
+let style=$('#pdfEngineV07');
+if(!style){
+  style=document.createElement('style');
+  style.id='pdfEngineV07';
+  style.textContent='.pPage{width:794px;height:1123px;padding:45px 42px 53px;box-sizing:border-box;background:#fff;overflow:hidden}.pPageInner{height:1025px;overflow:hidden}.pContinue{font-size:9.4pt;font-weight:800;color:#667085;margin:0 0 6px}@media print{@page{size:A4;margin:0!important}.printSheet{display:block!important}.pPage{width:210mm;height:auto;min-height:0;padding:12mm 11mm 14mm;box-sizing:border-box;overflow:visible;break-after:auto;page-break-after:auto}.pPage+.pPage{break-before:page;page-break-before:always}.pPageInner{height:auto;min-height:0;overflow:visible}.pSection,.pRecord,.pItem,.pCallout,.pSafety,.pMessage{break-inside:avoid;page-break-inside:avoid}}';
+  document.head.appendChild(style)
+}
+const source=[...sheet.children].map(n=>n.cloneNode(true));
+sheet.innerHTML='';
+sheet.style.display='block';
+sheet.style.position='absolute';
+sheet.style.left='-100000px';
+sheet.style.top='0';
+sheet.style.width='794px';
+let page,inner;
+const newPage=()=>{
+  page=document.createElement('div');page.className='pPage';
+  inner=document.createElement('div');inner.className='pPageInner';
+  page.appendChild(inner);sheet.appendChild(page)
+};
+newPage();
+const fits=n=>{
+  inner.appendChild(n);
+  const ok=inner.scrollHeight<=inner.clientHeight+1;
+  if(!ok)inner.removeChild(n);
+  return ok
+};
+const contHead=head=>{const h=head.cloneNode(true),num=h.querySelector('.pNum');if(num)num.textContent='';h.appendChild(document.createTextNode(' – Fortsetzung'));return h};
+const addAtomic=n=>{
+  if(fits(n))return;
+  if(inner.children.length)newPage();
+  if(!fits(n))inner.appendChild(n)
+};
+const makeSection=(head,children,continuation=false)=>{
+  const sec=document.createElement('section');sec.className='pSection';
+  sec.appendChild(continuation?contHead(head):head.cloneNode(true));
+  const body=document.createElement('div');body.className='pBody';
+  children.forEach(x=>body.appendChild(x.cloneNode(true)));
+  sec.appendChild(body);return sec
+};
+const packRecords=(head,records,extras)=>{
+  let first=true;
+  let bucket=[];
+  const flush=()=>{
+    if(!bucket.length)return;
+    let sec=makeSection(head,bucket,!first);
+    if(!fits(sec)){
+      if(inner.children.length)newPage();
+      sec=makeSection(head,bucket,!first);
+      if(!fits(sec))inner.appendChild(sec)
+    }
+    first=false;bucket=[]
+  };
+  for(const rec of records){
+    const trial=[...bucket,rec];
+    const sec=makeSection(head,trial,!first);
+    if(fits(sec)){
+      inner.removeChild(sec);
+      bucket=trial;
+      continue
+    }
+    if(bucket.length){flush()}
+    const single=makeSection(head,[rec],!first);
+    if(fits(single)){
+      inner.removeChild(single);bucket=[rec];continue
+    }
+    if(inner.children.length)newPage();
+    const single2=makeSection(head,[rec],!first);
+    if(fits(single2)){
+      inner.removeChild(single2);bucket=[rec];continue
+    }
+    // Oversized record: fall back to the previous proven splitter logic.
+    const title=rec.querySelector('.pRecordTitle'),grid=rec.querySelector('.pGrid,.pGrid3'),items=grid?[...grid.children]:[];
+    if(!items.length){addAtomic(single2);first=false;continue}
+    let idx=0,partNo=0;
+    while(idx<items.length){
+      const sec=document.createElement('section');sec.className='pSection';
+      sec.appendChild((!first||partNo)?contHead(head):head.cloneNode(true));
+      const body=document.createElement('div');body.className='pBody';
+      const r=document.createElement('div');r.className='pRecord';
+      const rt=title.cloneNode(true);if(partNo)rt.textContent=rt.textContent+' – Fortsetzung';r.appendChild(rt);
+      const g=document.createElement('div');g.className=grid.className;r.appendChild(g);body.appendChild(r);sec.appendChild(body);
+      let added=0;
+      while(idx<items.length){g.appendChild(items[idx].cloneNode(true));if(fits(sec.cloneNode(true))){idx++;added++}else{g.removeChild(g.lastElementChild);break}}
+      if(!added){if(inner.children.length){newPage();continue}g.appendChild(items[idx++].cloneNode(true))}
+      addAtomic(sec);first=false;partNo++
+    }
+  }
+  flush();
+  for(const x of extras)addAtomic(x.cloneNode(true))
+};
+const addSection=sec=>{
+  const head=sec.querySelector(':scope>.pSectionHead'),body=sec.querySelector(':scope>.pBody');
+  if(!head||!body){addAtomic(sec.cloneNode(true));return}
+  // First try the whole section on the CURRENT page. This is the key packing rule.
+  if(fits(sec.cloneNode(true)))return;
+  const records=[...body.children].filter(x=>x.classList.contains('pRecord'));
+  const msg=body.querySelector(':scope>.pMessage');
+  if(records.length){
+    const extras=[...body.children].filter(x=>!x.classList.contains('pRecord'));
+    packRecords(head,records,extras);return
+  }
+  if(msg){
+    const text=(msg.textContent||'').trim(),paras=text.split(/\n\s*\n/).filter(Boolean);
+    if(!paras.length){addAtomic(sec.cloneNode(true));return}
+    let i=0,first=true;
+    while(i<paras.length){
+      const part=document.createElement('section');part.className='pSection';part.appendChild(first?head.cloneNode(true):contHead(head));
+      const b=document.createElement('div');b.className='pBody';const box=document.createElement('div');box.className='pMessage';b.appendChild(box);part.appendChild(b);
+      let arr=[];
+      while(i<paras.length){arr.push(paras[i]);box.textContent=arr.join('\n\n');if(fits(part.cloneNode(true))){i++}else{arr.pop();box.textContent=arr.join('\n\n');break}}
+      if(!arr.length){if(inner.children.length){newPage();continue}box.textContent=paras[i++]}
+      addAtomic(part);first=false
+    }
+    return
+  }
+  const kids=[...body.children];let first=true;
+  for(const k of kids){
+    const part=makeSection(head,[k],!first);
+    addAtomic(part);first=false
+  }
+};
+for(const n of source){if(n.classList.contains('pSection'))addSection(n);else addAtomic(n.cloneNode(true))}
+sheet.style.cssText='';
+}'''
+          s=s[:start]+new+s[end:]
+          p.write_text(s)
+          PY
+      - name: Syntax check embedded JavaScript
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('pages/notfallakte/index.html').read_text()
+          blocks=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+          inline='\n'.join(b for b in blocks if b.strip() and 'src=' not in b[:80])
+          Path('/tmp/notfallakte-inline.js').write_text(inline)
+          PY
+          node --check /tmp/notfallakte-inline.js
+      - name: Commit pagination repair
+        shell: bash
+        run: |
+          git config user.name "Adler-FSA"
+          git config user.email "ceo@liquiditybooster.de"
+          git add pages/notfallakte/index.html
+          git commit -m "Fix Notfallakte PDF page packing without layout changes"
+          git push
