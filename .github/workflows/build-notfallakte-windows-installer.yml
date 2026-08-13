@@ -66,7 +66,9 @@ jobs:
       - name: Installer in Auslieferungsordner übernehmen
         shell: pwsh
         run: |
-          $target = 'pages/notfallakte-desktop-download/Meine-Notfallakte-Setup.exe'
+          $targetDir = 'pages/notfallakte-desktop-download'
+          $target = Join-Path $targetDir 'Meine-Notfallakte-Setup.exe'
+          New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
           Copy-Item 'desktop/notfallakte-windows/dist/Meine-Notfallakte-Setup.exe' $target -Force
           git config user.name 'Adler-FSA Build'
           git config user.email 'ceo@liquiditybooster.de'
