@@ -1,10 +1,11 @@
-name: Protect Notfallakte PDF filename core
+name: Protect Notfallakte PDF core v2
 
 on:
   push:
     paths:
       - '.github/workflows/install-notfallakte-pdf-core.yml'
       - 'pages/notfallakte/**'
+      - 'blaupausen/pdf-core-canonical.js'
 
 permissions:
   contents: write
@@ -16,94 +17,44 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Enforce stable PDF filename core
+      - name: Enforce generated PDF core v2
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-
-          root=Path('.')
-          nf=root/'pages'/'notfallakte'
-          nf.mkdir(parents=True,exist_ok=True)
-
-          core=r'''(()=>{
-          'use strict';
-          /* FSA_PDF_FILENAME_CORE_V1
-             Fester FSA-Basisbaustein. Pagination, Demo, Excel, JSON und UI duerfen
-             diese Dateinamenslogik nicht ersetzen oder umgehen. */
-          const CORE_VERSION='FSA_PDF_FILENAME_CORE_V1';
-          let originalTitle=null,activeFilename='',restoreTimer=null;
-          const safeName=s=>(String(s||'notfallakte').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'-').replace(/^-+|-+$/g,'')||'notfallakte');
-          const stamp=(d=new Date())=>{const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`};
-          const buildFilename=({demo=false,owner='',date=new Date()}={})=>`${demo?'DEMO-':''}Notfallakte-${safeName(owner)}-${stamp(date)}.pdf`;
-          function applyTitle(filename){
-            activeFilename=filename;
-            if(originalTitle===null)originalTitle=document.title;
-            const base=filename.replace(/\.pdf$/i,'');
-            document.title=base;
-            document.documentElement.setAttribute('data-fsa-pdf-filename',filename);
-            try{sessionStorage.setItem('fsa_notfallakte_pdf_filename',filename)}catch{}
-            let meta=document.querySelector('meta[name="application-name"]');
-            if(!meta){meta=document.createElement('meta');meta.name='application-name';document.head.appendChild(meta)}
-            meta.content=base;
-            return base;
-          }
-          function prepare(opts={}){clearTimeout(restoreTimer);const filename=buildFilename(opts);applyTitle(filename);return{filename,base:filename.replace(/\.pdf$/i,''),version:CORE_VERSION}}
-          function reassert(){if(activeFilename)applyTitle(activeFilename)}
-          function markPrintDialogClosed(){clearTimeout(restoreTimer);restoreTimer=setTimeout(restore,20000)}
-          function restore(){clearTimeout(restoreTimer);if(originalTitle!==null)document.title=originalTitle;originalTitle=null;activeFilename='';document.documentElement.removeAttribute('data-fsa-pdf-filename')}
-          window.addEventListener('beforeprint',reassert);
-          window.NotfallaktePdfCore=Object.freeze({version:CORE_VERSION,buildFilename,prepare,reassert,markPrintDialogClosed,restore,printDelay:320});
-          })();
-          '''
-          core_path=nf/'pdf-core.js'
-          if not core_path.exists() or core_path.read_text(encoding='utf-8')!=core:
-              core_path.write_text(core,encoding='utf-8')
-
+          nf=Path('pages/notfallakte')
+          canonical=Path('blaupausen/pdf-core-canonical.js')
+          core=nf/'pdf-core.js'
+          exporter=nf/'pdf-document-export.js'
           index=nf/'index.html'
-          html=index.read_text(encoding='utf-8')
-          chain='<script src="./demo-stress-test.js"></script><script src="./v08-final.js"></script>'
-          protected='<script src="./demo-stress-test.js"></script><script src="./pdf-core.js"></script><script src="./v08-final.js"></script>'
-          if './pdf-core.js' not in html:
-              if chain not in html: raise SystemExit('SCHUTZSTOPP: Script-Kette der Notfallakte wurde veraendert; PDF-Core nicht automatisch ueberschrieben.')
-              html=html.replace(chain,protected,1)
-              index.write_text(html,encoding='utf-8')
-          elif html.index('./pdf-core.js')>html.index('./v08-final.js'):
-              raise SystemExit('SCHUTZSTOPP: pdf-core.js muss vor v08-final.js geladen werden.')
-
           v08=nf/'v08-final.js'
+          if not canonical.exists(): raise SystemExit('SCHUTZSTOPP: kanonischer PDF-Core fehlt')
+          wanted=canonical.read_text(encoding='utf-8')
+          if 'FSA_PDF_CORE_V2' not in wanted or 'window.print=generatedPrint' not in wanted:
+              raise SystemExit('SCHUTZSTOPP: kanonischer PDF-Core ist unvollständig')
+          if not exporter.exists() or 'FSA_PDF_DOCUMENT_EXPORT_V1' not in exporter.read_text(encoding='utf-8'):
+              raise SystemExit('SCHUTZSTOPP: echte PDF-Dokumentengine fehlt')
+          if not core.exists() or core.read_text(encoding='utf-8')!=wanted:
+              core.write_text(wanted,encoding='utf-8')
+          html=index.read_text(encoding='utf-8')
+          if './pdf-core.js' not in html or './v08-final.js' not in html:
+              raise SystemExit('SCHUTZSTOPP: PDF-Core oder V08-Script fehlt in index.html')
+          if html.index('./pdf-core.js')>html.index('./v08-final.js'):
+              raise SystemExit('SCHUTZSTOPP: pdf-core.js muss vor v08-final.js geladen werden')
           js=v08.read_text(encoding='utf-8')
-          if 'pdfCore.prepare({demo:demoMode,owner:state.owner})' not in js:
-              start=js.find("const pdfName=`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`")
-              end=js.find("setTimeout(()=>window.print(),120)",start)
-              if start<0 or end<0: raise SystemExit('SCHUTZSTOPP: PDF-Aufruf wurde strukturell veraendert; manuelle Pruefung erforderlich.')
-              end+=len("setTimeout(()=>window.print(),120)")
-              replacement="const pdfCore=window.NotfallaktePdfCore;const ticket=pdfCore?pdfCore.prepare({demo:demoMode,owner:state.owner}):null;const pdfName=ticket?.filename||`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`;if(!ticket)document.title=pdfName.replace(/\\.pdf$/i,'');actionBox('✓ PDF / Ausdruck angefordert','Der Druckdialog wird jetzt geöffnet. Prüfe Ziel, Seiten und Speicherort. Die Bedienmeldung selbst wird nicht mitgedruckt.',pdfName);const done=()=>{pdfCore?.markPrintDialogClosed();actionBox('PDF / Ausdruck – Vorgang beendet','Der Druckdialog wurde geschlossen. Wenn du als PDF gespeichert hast, kontrolliere die Datei jetzt an deinem gewählten Speicherort.',pdfName)};window.addEventListener('afterprint',done,{once:true});setTimeout(()=>{pdfCore?.reassert();window.print()},pdfCore?.printDelay||320)"
-              js=js[:start]+replacement+js[end:]
-              v08.write_text(js,encoding='utf-8')
-
-          blueprint=root/'blaupausen'/'PDF-DATEINAME-BASISBAUSTEIN.md'
-          blueprint.write_text('''# PDF-Dateiname – fester FSA-Basisbaustein\n\nDie Notfallakte verwendet `pages/notfallakte/pdf-core.js` als zentrale Dateinamenslogik.\n\nPflicht:\n- `DEMO-Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf` bzw. `Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf`.\n- `pdf-core.js` wird vor `v08-final.js` geladen.\n- Vor jedem `window.print()` wird der Dateiname erneut gesetzt.\n- Der Seitentitel wird nach dem Druck nicht sofort zurueckgesetzt, weil Browser den PDF-Namen teilweise erst spaeter uebernehmen.\n- Der Workflow `install-notfallakte-pdf-core.yml` laeuft bei jeder Aenderung unter `pages/notfallakte/**` und stellt den Basisbaustein automatisch wieder her.\n- Wenn die Struktur des PDF-Aufrufs unerwartet veraendert wurde, stoppt der Workflow mit SCHUTZSTOPP statt still etwas zu zerstoeren.\n''',encoding='utf-8')
-
-          # harter lokaler Regressionstest
-          idx=index.read_text(encoding='utf-8')
-          cur=v08.read_text(encoding='utf-8')
-          c=core_path.read_text(encoding='utf-8')
-          assert 'FSA_PDF_FILENAME_CORE_V1' in c
-          assert '<script src="./pdf-core.js"></script>' in idx
-          assert idx.index('./pdf-core.js')<idx.index('./v08-final.js')
-          assert 'pdfCore.prepare({demo:demoMode,owner:state.owner})' in cur
-          print('PDF-Dateiname Basisbaustein geschuetzt ✓')
+          if 'pdfCore.prepare({demo:demoMode,owner:state.owner})' not in js or 'window.print()' not in js:
+              raise SystemExit('SCHUTZSTOPP: V08-PDF-Aufruf wurde strukturell verändert')
+          print('PDF-Core V2 + echte Dokumentengine geschützt ✓')
           PY
       - name: Commit repair if required
         shell: bash
         run: |
           git config user.name "Adler-FSA Automation"
           git config user.email "actions@users.noreply.github.com"
-          git add pages/notfallakte/pdf-core.js pages/notfallakte/index.html pages/notfallakte/v08-final.js blaupausen/PDF-DATEINAME-BASISBAUSTEIN.md
+          git add pages/notfallakte/pdf-core.js
           if git diff --cached --quiet; then
-            echo "PDF core already protected"
+            echo "PDF core v2 already protected"
           else
-            git commit -m "Protect Notfallakte PDF filename core"
+            git commit -m "Restore protected Notfallakte PDF core v2"
             git push
           fi
