@@ -1,0 +1,61 @@
+name: Build Notfallakte Windows Installer
+
+on:
+  push:
+    branches:
+      - build/notfallakte-desktop-windows
+    paths:
+      - 'desktop/notfallakte-windows/**'
+      - 'pages/notfallakte-offline-installation/**'
+      - '.github/workflows/build-notfallakte-windows-installer.yml'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Notfallakte in Desktop-Paket kopieren
+        shell: pwsh
+        run: |
+          $src = 'pages/notfallakte-offline-installation'
+          $dst = 'desktop/notfallakte-windows/app'
+          if (Test-Path $dst) { Remove-Item $dst -Recurse -Force }
+          New-Item -ItemType Directory -Force -Path $dst | Out-Null
+          $files = @(
+            'index.html',
+            'demo-stress-test.js',
+            'pdf-core.js',
+            'pdf-core-canonical.js',
+            'pdf-document-export-v3.js',
+            'pdf-document-export.js',
+            'pdf-pagination-v08.js',
+            'v08-final.js'
+          )
+          foreach ($file in $files) {
+            Copy-Item (Join-Path $src $file) (Join-Path $dst $file) -Force
+          }
+
+      - name: Abhängigkeiten installieren
+        working-directory: desktop/notfallakte-windows
+        run: npm install
+
+      - name: Geführten Windows-Installer bauen
+        working-directory: desktop/notfallakte-windows
+        run: npx electron-builder --win nsis --x64
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+      - name: Installer als Build-Artefakt bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: Meine-Notfallakte-Windows-Setup
+          path: desktop/notfallakte-windows/dist/Meine-Notfallakte-Setup.exe
+          if-no-files-found: error
