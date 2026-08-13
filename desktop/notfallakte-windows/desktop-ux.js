@@ -10,7 +10,15 @@ const pairs=[
 ['Lokaler Arbeitsstand aus der Gerätesicherung wiederhergestellt ✓','Lokaler Arbeitsstand der Anwendung wiederhergestellt ✓']
 ];
 function text(root=document.body){if(!root)return;const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const a=[];while(w.nextNode())a.push(w.currentNode);for(const n of a){let s=n.nodeValue;for(const [x,y] of pairs)s=s.split(x).join(y);n.nodeValue=s}}
-function clean(){const i=document.querySelector('.intro .card .cardBody');if(i&&!i.dataset.win){i.innerHTML=intro;i.dataset.win='1'};const g=document.querySelector('#v08AcademyGuide .v08DetailsBody');if(g&&!g.dataset.win){const tabs=g.querySelector('.v08DeviceTabs');if(tabs){let n=tabs.nextElementSibling;while(n&&n.classList.contains('v08DevicePanel')){const x=n.nextElementSibling;n.remove();n=x}tabs.outerHTML='<div class="v08AccordionNote"><strong>Windows-Desktop-Version:</strong><br>JSON oder Excel erstellen → im Windows-Speicherdialog deinen geschützten Sicherungsordner auswählen → speichern → anschließend prüfen, ob die Datei dort vorhanden ist. Für die tägliche Nutzung ist keine Internetverbindung erforderlich.</div>'}g.dataset.win='1'};text()}
+function clean(){
+  const i=document.querySelector('.intro .card .cardBody');
+  if(i&&!i.dataset.win){i.innerHTML=intro;i.dataset.win='1'}
+  const g=document.querySelector('#v08AcademyGuide .v08DetailsBody');
+  if(g&&!g.dataset.win){const tabs=g.querySelector('.v08DeviceTabs');if(tabs){let n=tabs.nextElementSibling;while(n&&n.classList.contains('v08DevicePanel')){const x=n.nextElementSibling;n.remove();n=x}tabs.outerHTML='<div class="v08AccordionNote"><strong>Windows-Desktop-Version:</strong><br>JSON oder Excel erstellen → im Windows-Speicherdialog deinen geschützten Sicherungsordner auswählen → speichern → anschließend prüfen, ob die Datei dort vorhanden ist. Für die tägliche Nutzung ist keine Internetverbindung erforderlich.</div>'}g.dataset.win='1'}
+  text();
+  const ol=document.querySelector('#v08Onboarding .v08OnboardCard ol');
+  if(ol){const items=[...ol.querySelectorAll('li')];for(let x=items.length-1;x>0;x--){if(items[x].textContent.trim()===items[x-1].textContent.trim())items[x].remove()}}
+}
 const oldConfirm=window.confirm.bind(window);window.confirm=m=>oldConfirm(String(m).replace('Lokale Arbeitskopie wirklich vollständig aus diesem Browser löschen?','Lokale Arbeitskopie wirklich vollständig von diesem Gerät löschen?'));
 new MutationObserver(clean).observe(document.documentElement,{childList:true,subtree:true});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean);else clean();
