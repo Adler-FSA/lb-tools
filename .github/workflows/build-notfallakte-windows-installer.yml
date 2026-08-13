@@ -46,6 +46,57 @@ jobs:
             Copy-Item (Join-Path $src $file) (Join-Path $dst $file) -Force
           }
 
+      - name: Windows-Desktop-Texte bereinigen
+        shell: pwsh
+        run: |
+          @'
+          const fs = require('fs');
+
+          function patchFile(path, replacements) {
+            let text = fs.readFileSync(path, 'utf8');
+            for (const [from, to] of replacements) {
+              if (!text.includes(from)) {
+                console.log('Hinweis: Text nicht gefunden:', from.slice(0, 80));
+              }
+              text = text.split(from).join(to);
+            }
+            fs.writeFileSync(path, text, 'utf8');
+          }
+
+          const desktopIntro1 = 'Diese Notfallakte ist auf deinem Windows-Computer installiert und kann vollständig offline genutzt werden. Deine Arbeitsdaten werden lokal auf diesem Gerät gespeichert. Erstelle regelmäßig eine vollständige JSON-Master-Sicherung und bewahre sie zusätzlich an einem geschützten, selbst kontrollierten Ort auf.';
+          const desktopIntro2 = 'Für einen Gerätewechsel oder eine Neuinstallation installierst du die Windows-Version erneut und stellst anschließend deine letzte JSON-Master-Sicherung wieder her. PDF und Excel ergänzen deine Sicherung, ersetzen die JSON-Master-Sicherung aber nicht.';
+
+          patchFile('desktop/notfallakte-windows/app/index.html', [
+            ['Diese Anwendung speichert deine Angaben lokal in diesem Browser. LocalStorage ist keine Cloud-Sicherung. Nutze möglichst immer dieselbe URL und denselben Browser und erstelle regelmäßig eine externe CSV-Sicherung.', desktopIntro1],
+            ['Lege die Seite als Lesezeichen/Favorit oder auf dem Home-Bildschirm ab. Verwende keinen privaten Browsermodus. Vor Geräte- oder Browserwechsel immer zuerst CSV exportieren.', desktopIntro2]
+          ]);
+
+          const v08 = 'desktop/notfallakte-windows/app/v08-final.js';
+          let text = fs.readFileSync(v08, 'utf8');
+          const replacements = [
+            ['Diese Anwendung speichert deine Angaben lokal in diesem Browser. Die lokale Arbeitskopie ist keine dauerhafte Sicherung. Nutze möglichst immer dieselbe direkte Produkt-URL und denselben Browser und erstelle regelmäßig eine vollständige JSON-Master-Sicherung.', desktopIntro1],
+            ['Lege die Seite als Lesezeichen/Favorit oder auf dem Home-Bildschirm ab. Verwende keinen privaten Browsermodus. Vor Geräte- oder Browserwechsel immer zuerst eine aktuelle JSON-Master-Sicherung erstellen.', desktopIntro2],
+            ['Diese direkte Produkt-URL als Favorit/Lesezeichen speichern.', 'Einen geschützten Ordner „Meine Notfallakte – Sicherungen“ anlegen.'],
+            ['Bei Gerätewechsel oder neuem Browser kannst du deine letzte JSON-Master-Sicherung direkt wiederherstellen.', 'Bei einem Gerätewechsel oder einer Neuinstallation kannst du deine letzte JSON-Master-Sicherung direkt wiederherstellen.'],
+            ['Auf dem alten Gerät aktuelle JSON erstellen → auf dem neuen Gerät direkte Produkt-URL öffnen und als Favorit speichern → „Sicherung wiederherstellen“ → JSON auswählen → Daten kontrollieren → neue Master-Sicherung erstellen.', 'Auf dem bisherigen Gerät eine aktuelle JSON-Master-Sicherung erstellen → Windows-Version auf dem neuen Computer installieren → „Sicherung wiederherstellen“ → JSON auswählen → Daten kontrollieren → neue Master-Sicherung erstellen.'],
+            ['Erst danach solltest du sensible Daten aus diesem Browser löschen.', 'Erst danach solltest du sensible Daten aus der lokalen Arbeitskopie dieser Anwendung löschen.'],
+            ['Lokale Arbeitskopie wirklich vollständig aus diesem Browser löschen?', 'Lokale Arbeitskopie wirklich vollständig von diesem Gerät löschen?'],
+            ['LocalStorage, IndexedDB und interne Import-Wiederherstellungspunkte wurden entfernt.', 'Der lokale Arbeitsstand und interne Import-Wiederherstellungspunkte wurden aus dieser Anwendung entfernt.'],
+            ['Lokaler Arbeitsstand aus der Gerätesicherung wiederhergestellt ✓', 'Lokaler Arbeitsstand der Anwendung wiederhergestellt ✓']
+          ];
+          for (const [from, to] of replacements) text = text.split(from).join(to);
+
+          const deviceBlock = /<div class=\\"v08DeviceTabs\\">[\\s\\S]*?<div class=\\"v08AccordionNote\\"><strong>Gerätewechsel:<\\/strong>[\\s\\S]*?<\\/div>/;
+          const desktopGuide = '<div class=\\"v08AccordionNote\\"><strong>Windows-Desktop-Version:</strong><br>JSON oder Excel erstellen → im Windows-Speicherdialog deinen geschützten Sicherungsordner auswählen → speichern → anschließend prüfen, ob die Datei dort vorhanden ist. Für die tägliche Nutzung der Notfallakte ist keine Internetverbindung erforderlich.</div><div class=\\"v08AccordionNote\\"><strong>Gerätewechsel / Neuinstallation:</strong> Auf dem bisherigen Gerät eine aktuelle JSON-Master-Sicherung erstellen → Windows-Version auf dem neuen Computer installieren → „Sicherung wiederherstellen“ → JSON auswählen → Daten kontrollieren → neue Master-Sicherung erstellen.</div>';
+          if (deviceBlock.test(text)) text = text.replace(deviceBlock, desktopGuide);
+          else console.log('Hinweis: Geräteblock nicht gefunden');
+
+          fs.writeFileSync(v08, text, 'utf8');
+          console.log('Windows-Desktop-Texte wurden bereinigt.');
+          '@ | Set-Content -Path desktop-text-patch.js -Encoding UTF8
+          node desktop-text-patch.js
+          Remove-Item desktop-text-patch.js -Force
+
       - name: Abhängigkeiten installieren
         working-directory: desktop/notfallakte-windows
         run: npm install
