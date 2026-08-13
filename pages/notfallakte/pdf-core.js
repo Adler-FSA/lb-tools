@@ -1,12 +1,11 @@
 (()=>{
 'use strict';
-/* FSA_PDF_CORE_V2
-   Fester FSA-Basisbaustein fuer Dateiname UND echte PDF-Dateierzeugung.
-   Die PDF wird lokal erzeugt. Auf iOS/iPadOS wird bewusst KEIN navigator.share()
-   nach der asynchronen PDF-Erzeugung verwendet, weil WebKit dies ausserhalb der
-   unmittelbaren Benutzeraktivierung mit "The operation is insecure" blockiert. */
-const CORE_VERSION='FSA_PDF_CORE_V2';
-let originalTitle=null,activeFilename='',restoreTimer=null,exporterPromise=null;
+/* FSA_PDF_CORE_V3
+   Fester FSA-Basisbaustein fuer echte PDF-Dateierzeugung und benannten Download.
+   Kein Browser-Druckdialog. Kein automatischer Share-Aufruf. Die fertige PDF wird
+   nach der Erzeugung als sichtbarer Download mit festem Dateinamen angeboten. */
+const CORE_VERSION='FSA_PDF_CORE_V3';
+let originalTitle=null,activeFilename='',restoreTimer=null,exporterPromise=null,pendingUrl='';
 const safeName=s=>(String(s||'notfallakte').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'-').replace(/^-+|-+$/g,'')||'notfallakte');
 const stamp=(d=new Date())=>{const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`};
 const buildFilename=({demo=false,owner='',date=new Date()}={})=>`${demo?'DEMO-':''}Notfallakte-${safeName(owner)}-${stamp(date)}.pdf`;
@@ -15,12 +14,16 @@ function prepare(opts={}){clearTimeout(restoreTimer);const filename=buildFilenam
 function reassert(){if(activeFilename)applyTitle(activeFilename)}
 function markPrintDialogClosed(){clearTimeout(restoreTimer);restoreTimer=setTimeout(restore,20000)}
 function restore(){clearTimeout(restoreTimer);if(originalTitle!==null)document.title=originalTitle;originalTitle=null;activeFilename='';document.documentElement.removeAttribute('data-fsa-pdf-filename')}
-function showBox(title,text='',file=''){const box=document.getElementById('v08ActionBox');if(!box)return;box.className='v08ActionBox show';const t=document.getElementById('v08ActionTitle'),x=document.getElementById('v08ActionText'),f=document.getElementById('v08ActionFile');if(t)t.textContent=title;if(x)x.textContent=text;if(f){f.style.display=file?'block':'none';f.textContent=file||''}}
+function ensureActionBox(){let box=document.getElementById('v08ActionBox');if(box)return box;box=document.createElement('div');box.id='v08ActionBox';box.className='v08ActionBox';box.innerHTML='<div class="v08ActionTitle" id="v08ActionTitle"></div><div class="v08ActionText" id="v08ActionText"></div><div class="v08ActionFile" id="v08ActionFile" style="display:none"></div><div class="v08ActionButtons" id="v08ActionButtons"></div>';document.querySelector('.toolbar')?.insertAdjacentElement('afterend',box);return box}
+function showBox(title,text='',file='',download=null){const box=ensureActionBox();if(!box)return;box.className='v08ActionBox show';const t=document.getElementById('v08ActionTitle'),x=document.getElementById('v08ActionText'),f=document.getElementById('v08ActionFile'),buttons=document.getElementById('v08ActionButtons');if(t)t.textContent=title;if(x)x.textContent=text;if(f){f.style.display=file?'block':'none';f.textContent=file||''}if(buttons){buttons.innerHTML='';if(download){const a=document.createElement('a');a.className='btn primary mini';a.textContent='PDF herunterladen / speichern';a.href=download.url;a.download=download.filename;a.setAttribute('type','application/pdf');a.addEventListener('click',()=>{setTimeout(()=>showBox('✓ PDF-Download gestartet','Speichere die fertige PDF jetzt an deinem gewünschten Speicherort. Zum Ausdrucken öffnest du später einfach diese gespeicherte PDF.',download.filename,download),80)});buttons.appendChild(a)}const ok=document.createElement('button');ok.className='btn secondary mini';ok.textContent='Bestätigen';ok.onclick=()=>box.classList.remove('show');buttons.appendChild(ok)}box.scrollIntoView?.({behavior:'smooth',block:'nearest'})}
 function ensureExporter(){if(window.NotfallaktePdfExport)return Promise.resolve(window.NotfallaktePdfExport);if(exporterPromise)return exporterPromise;exporterPromise=new Promise((resolve,reject)=>{const old=document.querySelector('script[data-fsa-pdf-export]');if(old){old.addEventListener('load',()=>resolve(window.NotfallaktePdfExport),{once:true});old.addEventListener('error',reject,{once:true});return}const s=document.createElement('script');s.src='./pdf-document-export.js';s.async=true;s.dataset.fsaPdfExport='1';s.onload=()=>window.NotfallaktePdfExport?resolve(window.NotfallaktePdfExport):reject(new Error('PDF-Engine wurde geladen, ist aber nicht verfügbar.'));s.onerror=()=>reject(new Error('PDF-Engine konnte nicht geladen werden.'));document.head.appendChild(s)});return exporterPromise}
-async function saveFile(blob,name){const u=URL.createObjectURL(blob);try{const a=document.createElement('a');a.href=u;a.download=name;a.rel='noopener';a.style.display='none';document.body.appendChild(a);a.click();a.remove();return 'download'}finally{setTimeout(()=>URL.revokeObjectURL(u),60000)}}
-async function generatedPrint(){const filename=activeFilename||buildFilename({demo:typeof demoMode!=='undefined'&&!!demoMode,owner:typeof state!=='undefined'?state.owner:''});applyTitle(filename);try{const engine=await ensureExporter();showBox('PDF wird erzeugt','Die Notfallakte wird lokal Seite für Seite als eigenständige PDF-Datei aufgebaut. Browser-URL und Browser-Kopf-/Fußzeilen gehören nicht zur Datei.',filename);const result=await engine.generate({filename,onProgress:(done,total)=>{if(done===1||done===total||done%10===0)showBox(`PDF wird erzeugt – ${done} von ${total} Seiten`,'Die Datei wird vollständig lokal auf diesem Gerät erstellt.',filename)}});await saveFile(result.blob,filename);try{window.dispatchEvent(new Event('afterprint'))}catch{}setTimeout(()=>showBox('✓ PDF wurde erstellt',`Die Notfallakte wurde als eigenständige PDF-Datei mit ${result.pages} Seiten erzeugt. Keine Browser-URL und keine Browser-Kopf-/Fußzeilen wurden eingebaut.`,filename),40)}catch(err){console.error(err);showBox('PDF konnte nicht erstellt werden',err?.message||'Unbekannter Fehler bei der PDF-Erzeugung.',filename)}}
+function setPending(blob,filename){if(pendingUrl)URL.revokeObjectURL(pendingUrl);pendingUrl=URL.createObjectURL(blob);return{url:pendingUrl,filename}}
+async function generatedPdf(){const filename=activeFilename||buildFilename({demo:typeof demoMode!=='undefined'&&!!demoMode,owner:typeof state!=='undefined'?state.owner:''});applyTitle(filename);try{const engine=await ensureExporter();showBox('PDF wird erzeugt','Die Notfallakte wird lokal als eigenständige PDF-Datei aufgebaut. Es wird kein Browser-Druckdialog geöffnet.',filename);const result=await engine.generate({filename,onProgress:(done,total)=>{if(done===1||done===total||done%10===0)showBox(`PDF wird erzeugt – ${done} von ${total} Seiten`,'Die Datei wird vollständig lokal auf diesem Gerät erstellt.',filename)}});const download=setPending(result.blob,filename);showBox('✓ PDF ist fertig',`Die Notfallakte wurde mit ${result.pages} Seiten erzeugt. Klicke jetzt auf „PDF herunterladen / speichern“. Browser-URL und Browser-Kopf-/Fußzeilen sind nicht Bestandteil der Datei.`,filename,download)}catch(err){console.error(err);showBox('PDF konnte nicht erstellt werden',err?.message||'Unbekannter Fehler bei der PDF-Erzeugung.',filename)}}
+function relabel(){const b=document.getElementById('printPdf');if(b)b.textContent='Notfallakte als PDF erstellen'}
 window.addEventListener('beforeprint',reassert);
-window.NotfallaktePdfCore=Object.freeze({version:CORE_VERSION,buildFilename,prepare,reassert,markPrintDialogClosed,restore,printDelay:320,ensureExporter});
-window.print=generatedPrint;
+window.addEventListener('pagehide',()=>{if(pendingUrl)URL.revokeObjectURL(pendingUrl)});
+window.NotfallaktePdfCore=Object.freeze({version:CORE_VERSION,buildFilename,prepare,reassert,markPrintDialogClosed,restore,printDelay:0,ensureExporter});
+window.print=generatedPdf;
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',relabel,{once:true});else relabel();
 ensureExporter().catch(()=>{});
 })();
