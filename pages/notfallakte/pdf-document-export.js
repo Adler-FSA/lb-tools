@@ -1,82 +1,42 @@
 (()=>{
 'use strict';
-/* FSA_PDF_DOCUMENT_EXPORT_V1
-   Erzeugt eine echte PDF-Datei aus den bereits paginierten A4-Seiten der
-   Notfallakte. Kein window.print(), keine Browser-URL, keine Browser-Kopf-/Fußzeile. */
-const VERSION='FSA_PDF_DOCUMENT_EXPORT_V1';
-const PAGE_W=794,PAGE_H=1123,SCALE=1.25,JPEG_QUALITY=.91;
-const enc=new TextEncoder();
-const waitFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
-const bytes=s=>enc.encode(s);
+/* FSA_PDF_DOCUMENT_EXPORT_V2
+   Direkte PDF-Erzeugung aus den bereits paginierten Notfallakten-Strukturen.
+   Kein SVG foreignObject, kein Canvas, kein window.print(), keine Browser-Fußzeilen. */
+const VERSION='FSA_PDF_DOCUMENT_EXPORT_V2';
+const PW=595.28,PH=841.89,ML=34,MR=34,TOP=38,BOTTOM=42,CONTENT_W=PW-ML-MR;
+const te=new TextEncoder();
+const ascii=s=>te.encode(s);
 const concat=chunks=>{let n=0;for(const c of chunks)n+=c.length;const out=new Uint8Array(n);let p=0;for(const c of chunks){out.set(c,p);p+=c.length}return out};
-const blobToBytes=async b=>new Uint8Array(await b.arrayBuffer());
-const dataUrlToBytes=s=>{const b=atob(s.split(',')[1]);const a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a};
-const canvasBlob=(canvas,type,quality)=>new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('Canvas konnte nicht exportiert werden.')),type,quality));
-
-function collectCss(){
-  let css='';
-  for(const style of document.querySelectorAll('style')) css+='\n'+(style.textContent||'');
-  css=css.replaceAll('#printSheet ','.pdfCapture ');
-  css+='\n.pdfCapture{font-family:Arial,Helvetica,sans-serif;font-size:10.8pt;line-height:1.4;color:#202b39;background:#fff;width:794px;height:1123px;position:relative;overflow:hidden}.pdfCapture .pPage{width:794px!important;height:1123px!important;min-height:1123px!important;box-sizing:border-box!important;background:#fff!important;overflow:hidden!important;padding:45px 42px 68px!important;margin:0!important;position:relative!important}.pdfCapture .pPageInner{height:930px!important;overflow:hidden!important}.pdfCapture .fsaPdfFooter{position:absolute;left:42px;right:42px;bottom:24px;display:flex;justify-content:space-between;gap:20px;align-items:flex-end;color:#667085;font:11px/1.25 Arial,Helvetica,sans-serif}.pdfCapture .fsaPdfFooterLeft{max-width:62%}.pdfCapture .fsaPdfFooterRight{text-align:right;white-space:nowrap}';
-  return css;
-}
-
-function pageSvg(page,index,total,dateLabel,css){
-  const ns='http://www.w3.org/2000/svg',xh='http://www.w3.org/1999/xhtml';
-  const svg=document.createElementNS(ns,'svg');svg.setAttribute('xmlns',ns);svg.setAttribute('width',PAGE_W);svg.setAttribute('height',PAGE_H);svg.setAttribute('viewBox',`0 0 ${PAGE_W} ${PAGE_H}`);
-  const fo=document.createElementNS(ns,'foreignObject');fo.setAttribute('x','0');fo.setAttribute('y','0');fo.setAttribute('width',String(PAGE_W));fo.setAttribute('height',String(PAGE_H));
-  const root=document.createElementNS(xh,'div');root.setAttribute('class','pdfCapture');
-  const st=document.createElementNS(xh,'style');st.textContent=css;root.appendChild(st);
-  const clone=page.cloneNode(true);clone.removeAttribute('style');
-  const footer=document.createElementNS(xh,'div');footer.setAttribute('class','fsaPdfFooter');
-  const left=document.createElementNS(xh,'div');left.setAttribute('class','fsaPdfFooterLeft');left.textContent='Akademie für finanzielle Souveränität · Persönliche Notfallvorsorge';
-  const right=document.createElementNS(xh,'div');right.setAttribute('class','fsaPdfFooterRight');right.textContent=`${dateLabel} · Seite ${index+1} von ${total}`;
-  footer.append(left,right);clone.appendChild(footer);root.appendChild(clone);fo.appendChild(root);svg.appendChild(fo);
-  return new XMLSerializer().serializeToString(svg);
-}
-
-async function renderPage(page,index,total,dateLabel,css,onProgress){
-  const svgText=pageSvg(page,index,total,dateLabel,css);
-  const url=URL.createObjectURL(new Blob([svgText],{type:'image/svg+xml;charset=utf-8'}));
-  try{
-    const img=new Image();
-    await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=()=>reject(new Error(`PDF-Seite ${index+1} konnte nicht gerendert werden.`));img.src=url});
-    const canvas=document.createElement('canvas');canvas.width=Math.round(PAGE_W*SCALE);canvas.height=Math.round(PAGE_H*SCALE);
-    const ctx=canvas.getContext('2d',{alpha:false});ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
-    const blob=await canvasBlob(canvas,'image/jpeg',JPEG_QUALITY);onProgress?.(index+1,total);return {bytes:await blobToBytes(blob),width:canvas.width,height:canvas.height};
-  }finally{URL.revokeObjectURL(url)}
-}
-
-function makePdf(images){
-  const n=images.length;const pageIds=[],imgIds=[],contentIds=[];let id=3;
-  for(let i=0;i<n;i++){pageIds.push(id++);imgIds.push(id++);contentIds.push(id++)}
-  const objs=new Map();
-  objs.set(1,[bytes('<< /Type /Catalog /Pages 2 0 R >>')]);
-  objs.set(2,[bytes(`<< /Type /Pages /Count ${n} /Kids [${pageIds.map(x=>`${x} 0 R`).join(' ')}] >>`)]);
-  for(let i=0;i<n;i++){
-    const im=images[i],name=`Im${i+1}`;
-    objs.set(pageIds[i],[bytes(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /${name} ${imgIds[i]} 0 R >> >> /Contents ${contentIds[i]} 0 R >>`)]);
-    objs.set(imgIds[i],[bytes(`<< /Type /XObject /Subtype /Image /Width ${im.width} /Height ${im.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${im.bytes.length} >>\nstream\n`),im.bytes,bytes('\nendstream')]);
-    const stream=`q\n595.28 0 0 841.89 0 0 cm\n/${name} Do\nQ\n`;objs.set(contentIds[i],[bytes(`<< /Length ${bytes(stream).length} >>\nstream\n${stream}endstream`)]);
-  }
-  const header=bytes('%PDF-1.4\n%FSA\n');const chunks=[header];let offset=header.length;const offsets=[0];
-  for(let i=1;i<id;i++){offsets[i]=offset;const pre=bytes(`${i} 0 obj\n`),post=bytes('\nendobj\n'),parts=objs.get(i)||[bytes('<<>>')];chunks.push(pre,...parts,post);offset+=pre.length+post.length+parts.reduce((s,c)=>s+c.length,0)}
-  const xrefOffset=offset;let xref=`xref\n0 ${id}\n0000000000 65535 f \n`;for(let i=1;i<id;i++)xref+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';xref+=`trailer\n<< /Size ${id} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
-  chunks.push(bytes(xref));return concat(chunks);
-}
-
-async function generate({filename,onProgress}={}){
-  if(typeof window.optimizePrint==='function') window.optimizePrint();
-  else if(typeof window.buildPrint==='function') window.buildPrint();
-  await waitFrame();
-  const sheet=document.getElementById('printSheet');if(!sheet)throw new Error('PDF-Druckbereich wurde nicht gefunden.');
-  let pages=[...sheet.querySelectorAll('.pPage')];
-  if(!pages.length){const fallback=document.createElement('div');fallback.className='pPage';const inner=document.createElement('div');inner.className='pPageInner';while(sheet.firstChild)inner.appendChild(sheet.firstChild);fallback.appendChild(inner);sheet.appendChild(fallback);pages=[fallback]}
-  pages=pages.filter(p=>(p.textContent||'').trim()||p.querySelector('img,canvas,svg'));
-  if(!pages.length)throw new Error('Die Notfallakte enthält keine PDF-Seiten.');
-  const css=collectCss(),dateLabel=new Intl.DateTimeFormat('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date()),images=[];
-  for(let i=0;i<pages.length;i++)images.push(await renderPage(pages[i],i,pages.length,dateLabel,css,onProgress));
-  const pdf=makePdf(images),blob=new Blob([pdf],{type:'application/pdf'});return {blob,filename:filename||'Notfallakte.pdf',pages:pages.length,bytes:pdf.length,version:VERSION};
-}
+const cp1252={8364:128,8218:130,402:131,8222:132,8230:133,8224:134,8225:135,710:136,8240:137,352:138,8249:139,338:140,381:142,8216:145,8217:146,8220:147,8221:148,8226:149,8211:150,8212:151,732:152,8482:153,353:154,8250:155,339:156,382:158,376:159};
+function winBytes(s){const a=[];for(const ch of String(s??'')){const c=ch.codePointAt(0);if(c<=255)a.push(c);else if(cp1252[c]!=null)a.push(cp1252[c]);else a.push(63)}return new Uint8Array(a)}
+function hexText(s){return [...winBytes(s)].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase()}
+const clean=s=>String(s??'').replace(/\uFFFE|\uFFFF/g,'').replace(/[\t\r]+/g,' ').replace(/ +/g,' ').trim();
+function wrap(text,maxWidth,size,bold=false){const factor=bold?.56:.515;const max=Math.max(8,Math.floor(maxWidth/(size*factor)));const out=[];for(const para of String(text??'').split(/\n/)){const words=clean(para).split(/\s+/).filter(Boolean);if(!words.length){out.push('');continue}let line='';for(let word of words){while(word.length>max){if(line){out.push(line);line=''}out.push(word.slice(0,max));word=word.slice(max)}const trial=line?line+' '+word:word;if(trial.length>max&&line){out.push(line);line=word}else line=trial}if(line)out.push(line)}return out.length?out:['']}
+function rgb(c){return `${c[0]} ${c[1]} ${c[2]} rg`}
+function makePainter(){let y=PH-TOP;const c=[];const navy=[.075,.133,.22],gray=[.38,.43,.5],black=[.11,.15,.2],mint=[0,.52,.55],light=[.94,.97,.97];
+ const text=(s,x,yy,size=8,bold=false,color=black)=>{if(!clean(s))return;c.push(`BT /${bold?'F2':'F1'} ${size.toFixed(2)} Tf ${rgb(color)} ${x.toFixed(2)} ${yy.toFixed(2)} Td <${hexText(clean(s))}> Tj ET\n`)};
+ const lines=(s,x,width,size=8,bold=false,color=black,gap=1.28)=>{const ls=wrap(s,width,size,bold);for(const line of ls){if(line)text(line,x,y,size,bold,color);y-=size*gap}return ls.length};
+ const rule=(x,yy,w,color=[.78,.82,.84],lw=.55)=>c.push(`q ${color.join(' ')} RG ${lw} w ${x.toFixed(2)} ${yy.toFixed(2)} m ${(x+w).toFixed(2)} ${yy.toFixed(2)} l S Q\n`);
+ const fill=(x,yy,w,h,color=light)=>c.push(`q ${rgb(color)} ${x.toFixed(2)} ${yy.toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)} re f Q\n`);
+ const box=(x,yy,w,h,color=[.76,.8,.82],lw=.5)=>c.push(`q ${color.join(' ')} RG ${lw} w ${x.toFixed(2)} ${yy.toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)} re S Q\n`);
+ return {c,get y(){return y},set y(v){y=v},text,lines,rule,fill,box,navy,gray,black,mint};}
+function directChildren(el,sel){return [...el.children].filter(x=>x.matches(sel))}
+function sectionTitle(sec){const h=sec.querySelector(':scope > .pSectionHead');return clean(h?.textContent||'')}
+function renderHead(p,node){const eyebrow=clean(node.querySelector('.pEyebrow')?.textContent||'AKADEMIE FÜR FINANZIELLE SOUVERÄNITÄT');const title=clean(node.querySelector('h1')?.textContent||'Meine digitale & finanzielle Notfallakte');const sub=clean(node.querySelector('p')?.textContent||'');p.text(eyebrow,ML,p.y,7.2,true,p.gray);p.y-=13;p.lines(title,ML,CONTENT_W,19,true,p.navy,1.05);p.y-=3;if(sub)p.lines(sub,ML,CONTENT_W,9,false,p.black,1.2);p.y-=6;p.rule(ML,p.y,CONTENT_W,p.navy,.9);p.y-=11}
+function itemData(item){return {label:clean(item.querySelector('.pLabel')?.textContent||''),value:clean(item.querySelector('.pValue')?.textContent||item.textContent||'')}}
+function itemHeight(d,w){const ll=wrap(d.label,w,7.1,true).length,vl=wrap(d.value,w,7.7,false).length;return ll*8.6+vl*9.5+5}
+function drawItem(p,d,x,w,startY){let yy=startY;for(const line of wrap(d.label,w,7.1,true)){if(line)p.text(line,x,yy,7.1,true,p.navy);yy-=8.6}for(const line of wrap(d.value,w,7.7,false)){if(line)p.text(line,x,yy,7.7,false,p.black);yy-=9.5}return yy}
+function renderRecord(p,rec){const title=clean(rec.querySelector(':scope > .pRecordTitle')?.textContent||'');if(title){p.text(title,ML+8,p.y,8.5,true,p.navy);p.y-=12}const grid=rec.querySelector(':scope > .pGrid, :scope > .pGrid3');const items=grid?[...grid.children].filter(x=>x.classList.contains('pItem')):[];if(!items.length){const raw=clean(rec.textContent||'').replace(title,'').trim();if(raw)p.lines(raw,ML+8,CONTENT_W-16,7.7,false,p.black,1.22);p.y-=4;return}
+ const colGap=14,colW=(CONTENT_W-16-colGap)/2;let i=0;while(i<items.length){const first=items[i],full=first.classList.contains('full');if(full){const d=itemData(first),h=itemHeight(d,CONTENT_W-16);drawItem(p,d,ML+8,CONTENT_W-16,p.y);p.y-=Math.max(0,h-(p.y-(p.y)));i++;continue}const a=itemData(first),b=items[i+1]&&!items[i+1].classList.contains('full')?itemData(items[i+1]):null;const h=Math.max(itemHeight(a,colW),b?itemHeight(b,colW):0);const sy=p.y;drawItem(p,a,ML+8,colW,sy);if(b)drawItem(p,b,ML+8+colW+colGap,colW,sy);p.y=sy-h;i+=b?2:1}
+ p.y-=3;p.rule(ML+7,p.y,CONTENT_W-14,[.87,.89,.9],.4);p.y-=6}
+function renderMessage(p,node){const txt=clean(node.textContent||'');if(!txt)return;p.lines(txt,ML+8,CONTENT_W-16,7.9,false,p.black,1.24);p.y-=7}
+function renderSection(p,sec){const title=sectionTitle(sec);if(title){p.fill(ML,p.y-13,CONTENT_W,17,[.945,.965,.97]);p.text(title,ML+7,p.y-2,9.6,true,p.navy);p.y-=22}const body=sec.querySelector(':scope > .pBody');if(!body)return;for(const child of [...body.children]){if(child.classList.contains('pRecord'))renderRecord(p,child);else if(child.matches('.pMessage,.pCallout,.pSafety'))renderMessage(p,child);else{const records=child.querySelectorAll?.('.pRecord');if(records?.length)records.forEach(r=>renderRecord(p,r));else renderMessage(p,child)}}p.y-=3}
+function renderGeneric(p,node){const txt=clean(node.textContent||'');if(txt)p.lines(txt,ML,CONTENT_W,8,false,p.black,1.24)}
+function renderPage(page,index,total,dateLabel){const p=makePainter();const inner=page.querySelector('.pPageInner')||page;for(const node of [...inner.children]){if(node.classList.contains('pHead'))renderHead(p,node);else if(node.classList.contains('pSection'))renderSection(p,node);else renderGeneric(p,node)}p.rule(ML,34,CONTENT_W,[.82,.84,.86],.45);p.text('Akademie für finanzielle Souveränität · Persönliche Notfallvorsorge',ML,22,6.9,false,p.gray);p.text(`${dateLabel} · Seite ${index+1} von ${total}`,PW-MR-115,22,6.9,false,p.gray);return ascii(p.c.join(''))}
+function makePdf(streams,title){const n=streams.length;let id=5;const pageIds=[],contentIds=[];for(let i=0;i<n;i++){pageIds.push(id++);contentIds.push(id++)}const objs=new Map();objs.set(1,ascii('<< /Type /Catalog /Pages 2 0 R >>'));objs.set(2,ascii(`<< /Type /Pages /Count ${n} /Kids [${pageIds.map(x=>`${x} 0 R`).join(' ')}] >>`));objs.set(3,ascii('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>'));objs.set(4,ascii('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'));
+ for(let i=0;i<n;i++){objs.set(pageIds[i],ascii(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PW} ${PH}] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${contentIds[i]} 0 R >>`));const s=streams[i];objs.set(contentIds[i],concat([ascii(`<< /Length ${s.length} >>\nstream\n`),s,ascii('\nendstream')]))}
+ const header=ascii('%PDF-1.4\n%FSA\n'),chunks=[header],offsets=[0];let off=header.length;for(let i=1;i<id;i++){offsets[i]=off;const pre=ascii(`${i} 0 obj\n`),obj=objs.get(i),post=ascii('\nendobj\n');chunks.push(pre,obj,post);off+=pre.length+obj.length+post.length}const xrefOff=off;let x=`xref\n0 ${id}\n0000000000 65535 f \n`;for(let i=1;i<id;i++)x+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';x+=`trailer\n<< /Size ${id} /Root 1 0 R >>\nstartxref\n${xrefOff}\n%%EOF`;chunks.push(ascii(x));return concat(chunks)}
+async function generate({filename,onProgress}={}){if(typeof window.optimizePrint==='function')window.optimizePrint();else if(typeof window.buildPrint==='function')window.buildPrint();await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const sheet=document.getElementById('printSheet');if(!sheet)throw new Error('PDF-Bereich wurde nicht gefunden.');let pages=[...sheet.querySelectorAll('.pPage')].filter(p=>(p.textContent||'').trim()||p.querySelector('img,canvas,svg'));if(!pages.length)throw new Error('Die Notfallakte enthält keine PDF-Seiten.');const dateLabel=new Intl.DateTimeFormat('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date()),streams=[];for(let i=0;i<pages.length;i++){streams.push(renderPage(pages[i],i,pages.length,dateLabel));onProgress?.(i+1,pages.length);if(i%12===11)await new Promise(r=>setTimeout(r,0))}const pdf=makePdf(streams,filename||'Notfallakte.pdf');return{blob:new Blob([pdf],{type:'application/pdf'}),filename:filename||'Notfallakte.pdf',pages:pages.length,bytes:pdf.length,version:VERSION}}
 window.NotfallaktePdfExport=Object.freeze({version:VERSION,generate});
 })();
