@@ -1,0 +1,43 @@
+{
+  "name": "fsa-notfallakte-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Meine digitale & finanzielle Notfallakte",
+  "main": "main.js",
+  "author": "Akademie für finanzielle Souveränität",
+  "devDependencies": {
+    "electron": "^37.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "de.liquiditybooster.notfallakte",
+    "productName": "Meine Notfallakte",
+    "asar": true,
+    "files": [
+      "main.js",
+      "app/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Meine Notfallakte",
+      "runAfterFinish": true,
+      "installerLanguages": ["de_DE"],
+      "artifactName": "Meine-Notfallakte-Setup.${ext}"
+    }
+  }
+}
