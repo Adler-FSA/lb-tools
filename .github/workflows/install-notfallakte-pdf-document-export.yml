@@ -1,0 +1,53 @@
+name: Install Notfallakte PDF document export
+on:
+  push:
+    paths:
+      - '.github/workflows/install-notfallakte-pdf-document-export.yml'
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wire final PDF document export
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          index=Path('pages/notfallakte/index.html')
+          s=index.read_text(encoding='utf-8')
+          old='</script><script src="./demo-stress-test.js"></script><script src="./pdf-core.js"></script><script src="./v08-final.js"></script></body></html>'
+          new='</script><script src="./demo-stress-test.js"></script><script src="./pdf-core.js"></script><script src="./pdf-document-export.js"></script><script src="./v08-final.js"></script></body></html>'
+          if new not in s:
+              if old not in s: raise SystemExit('SCHUTZSTOPP: Script-Kette unerwartet verändert')
+              s=s.replace(old,new,1)
+              index.write_text(s,encoding='utf-8')
+
+          p=Path('pages/notfallakte/v08-final.js')
+          v=p.read_text(encoding='utf-8')
+          start="q('#printBtn').onclick=()=>withSecurityCheck('Erstellen der PDF / des Ausdrucks',()=>{"
+          end="});q('#resetBtn').onclick=async()=>{"
+          a=v.find(start); b=v.find(end,a)
+          if a<0 or b<0: raise SystemExit('SCHUTZSTOPP: PDF-Button-Struktur nicht gefunden')
+          replacement="""q('#printBtn').onclick=()=>withSecurityCheck('Erstellen der PDF',async()=>{q('#printBtn').classList.remove('printPulse');ensurePdfMeasureStyles();const pdfCore=window.NotfallaktePdfCore;const ticket=pdfCore?pdfCore.prepare({demo:demoMode,owner:state.owner}):null;const pdfName=ticket?.filename||`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`;const engine=window.NotfallaktePdfExport;if(!engine){actionBox('PDF-Engine nicht verfügbar','Die PDF-Datei konnte nicht erzeugt werden. Bitte Seite neu laden und erneut versuchen.','',[],true);return}actionBox('PDF wird erzeugt','Die Notfallakte wird jetzt Seite für Seite als eigenständige PDF-Datei aufgebaut. Browser-URL und Browser-Kopf-/Fußzeilen gehören nicht zur Datei.',pdfName);try{const result=await engine.generate({filename:pdfName,onProgress:(done,total)=>{if(done===1||done===total||done%10===0)actionBox(`PDF wird erzeugt – ${done} von ${total} Seiten`,`Die PDF wird lokal auf diesem Gerät erstellt.`,pdfName)}});sendFile(result.blob,pdfName);pdfCore?.markPrintDialogClosed();actionBox('✓ PDF wurde erstellt',`Die Notfallakte wurde als eigenständige PDF-Datei mit ${result.pages} Seiten erzeugt. Es werden keine Browser-URL und keine Browser-Kopf-/Fußzeilen eingebaut.`,pdfName)}catch(err){console.error(err);actionBox('PDF konnte nicht erstellt werden',err?.message||'Unbekannter Fehler bei der PDF-Erzeugung.','',[],true)}});q('#resetBtn').onclick=async()=>{"""
+          v=v[:a]+replacement+v[b+len(end):]
+          p.write_text(v,encoding='utf-8')
+          PY
+      - name: Update PDF blueprint
+        run: |
+          cat >> blaupausen/PDF-DATEINAME-BASISBAUSTEIN.md <<'EOF'
+
+## Finaler Dokument-Export
+- `pages/notfallakte/pdf-document-export.js` erzeugt die PDF als echte Datei und verwendet nicht `window.print()`.
+- Browser-URL, Browser-Datum und Browser-Kopf-/Fußzeilen dürfen niemals Bestandteil der PDF sein.
+- Eigene PDF-Fußzeile: Akademie-Hinweis + Erstelldatum + `Seite X von Y`.
+- Der Dateiname kommt weiterhin ausschließlich aus `pdf-core.js`.
+- Die PDF entsteht vollständig lokal aus dem aktuellen Datenbestand; Demo und persönliche Akte verwenden dieselbe Engine.
+EOF
+      - name: Commit installation
+        run: |
+          git config user.name 'Adler-FSA Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add pages/notfallakte/index.html pages/notfallakte/v08-final.js blaupausen/PDF-DATEINAME-BASISBAUSTEIN.md
+          git diff --cached --quiet || git commit -m 'Finalize Notfallakte PDF as generated document'
+          git push
