@@ -41,8 +41,8 @@ jobs:
               raise SystemExit('SCHUTZSTOPP: sichtbarer PDF-Download fehlt im Core V3')
           if "getElementById('printBtn')" not in wanted:
               raise SystemExit('SCHUTZSTOPP: PDF-Button ist nicht korrekt verdrahtet')
-          if not exporter.exists() or 'FSA_PDF_DOCUMENT_EXPORT_V1' not in exporter.read_text(encoding='utf-8'):
-              raise SystemExit('SCHUTZSTOPP: echte PDF-Dokumentengine fehlt')
+          if not exporter.exists() or 'FSA_PDF_DOCUMENT_EXPORT_V2' not in exporter.read_text(encoding='utf-8'):
+              raise SystemExit('SCHUTZSTOPP: direkte PDF-Dokumentengine V2 fehlt')
 
           if not core.exists() or core.read_text(encoding='utf-8') != wanted:
               core.write_text(wanted,encoding='utf-8')
@@ -51,8 +51,6 @@ jobs:
               return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
 
           html=index.read_text(encoding='utf-8')
-          # Jede geänderte JS-Datei erhält automatisch eine neue URL. Dadurch können
-          # Safari/Firefox/Brave niemals still eine alte Produktlogik weiterverwenden.
           replacements=[]
           for path, filename in [
               (demo,'demo-stress-test.js'),
@@ -70,7 +68,6 @@ jobs:
               html=new_html
               replacements.append((filename,version))
 
-          # Reihenfolge bleibt zwingend: PDF-Core vor V08.
           if html.index('./pdf-core.js?v=') > html.index('./v08-final.js?v='):
               raise SystemExit('SCHUTZSTOPP: pdf-core.js muss vor v08-final.js geladen werden')
 
@@ -79,7 +76,7 @@ jobs:
           if 'pdfCore.prepare({demo:demoMode,owner:state.owner})' not in js or 'window.print()' not in js:
               raise SystemExit('SCHUTZSTOPP: V08-PDF-Aufruf wurde strukturell verändert')
 
-          print('PDF-Core V3 + direkter Download + Cache-Schutz aktiv ✓')
+          print('PDF-Core V3 + direkter Download + PDF-Exporter V2 + Cache-Schutz aktiv ✓')
           for filename,version in replacements:
               print(f'{filename}: {version}')
           PY
