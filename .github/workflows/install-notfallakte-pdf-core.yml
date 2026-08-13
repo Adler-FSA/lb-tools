@@ -1,4 +1,4 @@
-name: Protect Notfallakte PDF core v2
+name: Protect Notfallakte PDF core v3
 
 on:
   push:
@@ -17,44 +17,81 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Enforce generated PDF core v2
+      - name: Enforce generated PDF core v3 and cache-safe wiring
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
+          import hashlib, re
+
           nf=Path('pages/notfallakte')
           canonical=Path('blaupausen/pdf-core-canonical.js')
           core=nf/'pdf-core.js'
           exporter=nf/'pdf-document-export.js'
           index=nf/'index.html'
           v08=nf/'v08-final.js'
-          if not canonical.exists(): raise SystemExit('SCHUTZSTOPP: kanonischer PDF-Core fehlt')
+          demo=nf/'demo-stress-test.js'
+
+          if not canonical.exists():
+              raise SystemExit('SCHUTZSTOPP: kanonischer PDF-Core fehlt')
           wanted=canonical.read_text(encoding='utf-8')
-          if 'FSA_PDF_CORE_V2' not in wanted or 'window.print=generatedPrint' not in wanted:
-              raise SystemExit('SCHUTZSTOPP: kanonischer PDF-Core ist unvollständig')
+          if 'FSA_PDF_CORE_V3' not in wanted or 'window.print=generatedPdf' not in wanted:
+              raise SystemExit('SCHUTZSTOPP: kanonischer PDF-Core V3 ist unvollständig')
+          if 'PDF herunterladen / speichern' not in wanted:
+              raise SystemExit('SCHUTZSTOPP: sichtbarer PDF-Download fehlt im Core V3')
+          if "getElementById('printBtn')" not in wanted:
+              raise SystemExit('SCHUTZSTOPP: PDF-Button ist nicht korrekt verdrahtet')
           if not exporter.exists() or 'FSA_PDF_DOCUMENT_EXPORT_V1' not in exporter.read_text(encoding='utf-8'):
               raise SystemExit('SCHUTZSTOPP: echte PDF-Dokumentengine fehlt')
-          if not core.exists() or core.read_text(encoding='utf-8')!=wanted:
+
+          if not core.exists() or core.read_text(encoding='utf-8') != wanted:
               core.write_text(wanted,encoding='utf-8')
+
+          def token(path):
+              return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
+
           html=index.read_text(encoding='utf-8')
-          if './pdf-core.js' not in html or './v08-final.js' not in html:
-              raise SystemExit('SCHUTZSTOPP: PDF-Core oder V08-Script fehlt in index.html')
-          if html.index('./pdf-core.js')>html.index('./v08-final.js'):
+          # Jede geänderte JS-Datei erhält automatisch eine neue URL. Dadurch können
+          # Safari/Firefox/Brave niemals still eine alte Produktlogik weiterverwenden.
+          replacements=[]
+          for path, filename in [
+              (demo,'demo-stress-test.js'),
+              (core,'pdf-core.js'),
+              (v08,'v08-final.js'),
+          ]:
+              if not path.exists():
+                  raise SystemExit(f'SCHUTZSTOPP: {filename} fehlt')
+              version=token(path)
+              pattern=rf'\.\/{re.escape(filename)}(?:\?v=[^"\']*)?'
+              replacement=f'./{filename}?v={version}'
+              new_html,count=re.subn(pattern,replacement,html)
+              if count < 1:
+                  raise SystemExit(f'SCHUTZSTOPP: Script-Verweis {filename} fehlt in index.html')
+              html=new_html
+              replacements.append((filename,version))
+
+          # Reihenfolge bleibt zwingend: PDF-Core vor V08.
+          if html.index('./pdf-core.js?v=') > html.index('./v08-final.js?v='):
               raise SystemExit('SCHUTZSTOPP: pdf-core.js muss vor v08-final.js geladen werden')
+
+          index.write_text(html,encoding='utf-8')
           js=v08.read_text(encoding='utf-8')
           if 'pdfCore.prepare({demo:demoMode,owner:state.owner})' not in js or 'window.print()' not in js:
               raise SystemExit('SCHUTZSTOPP: V08-PDF-Aufruf wurde strukturell verändert')
-          print('PDF-Core V2 + echte Dokumentengine geschützt ✓')
+
+          print('PDF-Core V3 + direkter Download + Cache-Schutz aktiv ✓')
+          for filename,version in replacements:
+              print(f'{filename}: {version}')
           PY
       - name: Commit repair if required
         shell: bash
         run: |
           git config user.name "Adler-FSA Automation"
           git config user.email "actions@users.noreply.github.com"
-          git add pages/notfallakte/pdf-core.js
+          git add pages/notfallakte/pdf-core.js pages/notfallakte/index.html
           if git diff --cached --quiet; then
-            echo "PDF core v2 already protected"
+            echo "PDF core v3 and cache wiring already protected"
           else
-            git commit -m "Restore protected Notfallakte PDF core v2"
+            git commit -m "Protect Notfallakte PDF V3 and refresh script cache keys"
             git push
           fi
