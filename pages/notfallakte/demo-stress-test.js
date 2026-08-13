@@ -25,3 +25,12 @@
 
   demo.ownWords += '\n\nZusätzlicher Demo-Langtext für den Belastungstest: Diese Notfallakte enthält absichtlich sehr viele Datensätze. Damit wird geprüft, ob lange persönliche Texte, viele Zugänge, Verträge, Wallets und Ansprechpartner in Sicherung, Excel-Übersicht und PDF vollständig und in richtiger Reihenfolge verarbeitet werden. Auch bei einem sehr großen Datenbestand darf kein Eintrag abgeschnitten, ausgelassen oder still überschrieben werden.';
 })();
+
+/* Die PDF-Reparatur gilt sowohl für die Demo als auch für die persönliche Notfallakte. */
+(function(){
+  if(document.querySelector('script[data-pdf-pagination-v08]')) return;
+  const s=document.createElement('script');
+  s.src='./pdf-pagination-v08.js';
+  s.dataset.pdfPaginationV08='1';
+  document.head.appendChild(s);
+})();
