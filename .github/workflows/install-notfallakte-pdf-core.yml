@@ -1,47 +1,44 @@
-# second push activates the already-registered workflow
-name: Install Notfallakte PDF core
+name: Protect Notfallakte PDF filename core
 
 on:
   push:
     paths:
       - '.github/workflows/install-notfallakte-pdf-core.yml'
+      - 'pages/notfallakte/**'
 
 permissions:
   contents: write
 
 jobs:
-  install:
+  protect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Install stable PDF filename core and guard
+      - name: Enforce stable PDF filename core
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
 
-          root = Path('.')
-          nf = root / 'pages' / 'notfallakte'
-          nf.mkdir(parents=True, exist_ok=True)
+          root=Path('.')
+          nf=root/'pages'/'notfallakte'
+          nf.mkdir(parents=True,exist_ok=True)
 
-          core = r'''(()=>{
+          core=r'''(()=>{
           'use strict';
           /* FSA_PDF_FILENAME_CORE_V1
-             Stabiler Basisbaustein fuer browseruebergreifende PDF-Dateinamen.
-             Darf von Pagination/Demo/Excel-Updates nicht ersetzt oder umgangen werden. */
+             Fester FSA-Basisbaustein. Pagination, Demo, Excel, JSON und UI duerfen
+             diese Dateinamenslogik nicht ersetzen oder umgehen. */
           const CORE_VERSION='FSA_PDF_FILENAME_CORE_V1';
-          let originalTitle=null;
-          let activeFilename='';
-          let restoreTimer=null;
+          let originalTitle=null,activeFilename='',restoreTimer=null;
           const safeName=s=>(String(s||'notfallakte').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'-').replace(/^-+|-+$/g,'')||'notfallakte');
           const stamp=(d=new Date())=>{const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`};
           const buildFilename=({demo=false,owner='',date=new Date()}={})=>`${demo?'DEMO-':''}Notfallakte-${safeName(owner)}-${stamp(date)}.pdf`;
           function applyTitle(filename){
             activeFilename=filename;
-            if(originalTitle===null) originalTitle=document.title;
+            if(originalTitle===null)originalTitle=document.title;
             const base=filename.replace(/\.pdf$/i,'');
             document.title=base;
             document.documentElement.setAttribute('data-fsa-pdf-filename',filename);
@@ -51,64 +48,61 @@ jobs:
             meta.content=base;
             return base;
           }
-          function prepare(opts={}){
-            clearTimeout(restoreTimer);
-            const filename=buildFilename(opts);
-            applyTitle(filename);
-            return {filename,base:filename.replace(/\.pdf$/i,''),version:CORE_VERSION};
-          }
+          function prepare(opts={}){clearTimeout(restoreTimer);const filename=buildFilename(opts);applyTitle(filename);return{filename,base:filename.replace(/\.pdf$/i,''),version:CORE_VERSION}}
           function reassert(){if(activeFilename)applyTitle(activeFilename)}
-          function markPrintDialogClosed(){
-            clearTimeout(restoreTimer);
-            restoreTimer=setTimeout(restore,20000);
-          }
-          function restore(){
-            clearTimeout(restoreTimer);
-            if(originalTitle!==null) document.title=originalTitle;
-            originalTitle=null;
-            activeFilename='';
-            document.documentElement.removeAttribute('data-fsa-pdf-filename');
-          }
+          function markPrintDialogClosed(){clearTimeout(restoreTimer);restoreTimer=setTimeout(restore,20000)}
+          function restore(){clearTimeout(restoreTimer);if(originalTitle!==null)document.title=originalTitle;originalTitle=null;activeFilename='';document.documentElement.removeAttribute('data-fsa-pdf-filename')}
           window.addEventListener('beforeprint',reassert);
           window.NotfallaktePdfCore=Object.freeze({version:CORE_VERSION,buildFilename,prepare,reassert,markPrintDialogClosed,restore,printDelay:320});
           })();
           '''
-          (nf / 'pdf-core.js').write_text(core, encoding='utf-8')
+          core_path=nf/'pdf-core.js'
+          if not core_path.exists() or core_path.read_text(encoding='utf-8')!=core:
+              core_path.write_text(core,encoding='utf-8')
 
-          index = nf / 'index.html'
-          html = index.read_text(encoding='utf-8')
-          old = '<script src="./demo-stress-test.js"></script><script src="./v08-final.js"></script>'
-          new = '<script src="./demo-stress-test.js"></script><script src="./pdf-core.js"></script><script src="./v08-final.js"></script>'
+          index=nf/'index.html'
+          html=index.read_text(encoding='utf-8')
+          chain='<script src="./demo-stress-test.js"></script><script src="./v08-final.js"></script>'
+          protected='<script src="./demo-stress-test.js"></script><script src="./pdf-core.js"></script><script src="./v08-final.js"></script>'
           if './pdf-core.js' not in html:
-              if old not in html:
-                  raise SystemExit('index.html: erwartete Script-Kette nicht gefunden')
-              html = html.replace(old,new,1)
-              index.write_text(html, encoding='utf-8')
+              if chain not in html: raise SystemExit('SCHUTZSTOPP: Script-Kette der Notfallakte wurde veraendert; PDF-Core nicht automatisch ueberschrieben.')
+              html=html.replace(chain,protected,1)
+              index.write_text(html,encoding='utf-8')
+          elif html.index('./pdf-core.js')>html.index('./v08-final.js'):
+              raise SystemExit('SCHUTZSTOPP: pdf-core.js muss vor v08-final.js geladen werden.')
 
-          v08 = nf / 'v08-final.js'
-          js = v08.read_text(encoding='utf-8')
-          if 'window.NotfallaktePdfCore' not in js:
+          v08=nf/'v08-final.js'
+          js=v08.read_text(encoding='utf-8')
+          if 'pdfCore.prepare({demo:demoMode,owner:state.owner})' not in js:
               start=js.find("const pdfName=`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`")
               end=js.find("setTimeout(()=>window.print(),120)",start)
-              if start<0 or end<0:
-                  raise SystemExit('v08-final.js: PDF-Block nicht gefunden')
-              end += len("setTimeout(()=>window.print(),120)")
+              if start<0 or end<0: raise SystemExit('SCHUTZSTOPP: PDF-Aufruf wurde strukturell veraendert; manuelle Pruefung erforderlich.')
+              end+=len("setTimeout(()=>window.print(),120)")
               replacement="const pdfCore=window.NotfallaktePdfCore;const ticket=pdfCore?pdfCore.prepare({demo:demoMode,owner:state.owner}):null;const pdfName=ticket?.filename||`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`;if(!ticket)document.title=pdfName.replace(/\\.pdf$/i,'');actionBox('✓ PDF / Ausdruck angefordert','Der Druckdialog wird jetzt geöffnet. Prüfe Ziel, Seiten und Speicherort. Die Bedienmeldung selbst wird nicht mitgedruckt.',pdfName);const done=()=>{pdfCore?.markPrintDialogClosed();actionBox('PDF / Ausdruck – Vorgang beendet','Der Druckdialog wurde geschlossen. Wenn du als PDF gespeichert hast, kontrolliere die Datei jetzt an deinem gewählten Speicherort.',pdfName)};window.addEventListener('afterprint',done,{once:true});setTimeout(()=>{pdfCore?.reassert();window.print()},pdfCore?.printDelay||320)"
               js=js[:start]+replacement+js[end:]
-              v08.write_text(js, encoding='utf-8')
+              v08.write_text(js,encoding='utf-8')
 
-          guard = '''name: Notfallakte PDF core guard\n\non:\n  push:\n    paths:\n      - 'pages/notfallakte/**'\n      - '.github/workflows/notfallakte-pdf-core-guard.yml'\n  pull_request:\n    paths:\n      - 'pages/notfallakte/**'\n\njobs:\n  guard:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify permanent PDF filename core\n        shell: bash\n        run: |\n          python - <<'PY2'\n          from pathlib import Path\n          base=Path('pages/notfallakte')\n          idx=(base/'index.html').read_text(encoding='utf-8')\n          v08=(base/'v08-final.js').read_text(encoding='utf-8')\n          core=(base/'pdf-core.js').read_text(encoding='utf-8')\n          assert 'FSA_PDF_FILENAME_CORE_V1' in core, 'PDF core marker missing'\n          assert '<script src=\"./pdf-core.js\"></script>' in idx, 'pdf-core.js is not loaded by index.html'\n          assert idx.index('./pdf-core.js') < idx.index('./v08-final.js'), 'pdf-core.js must load before v08-final.js'\n          assert 'window.NotfallaktePdfCore' in v08, 'v08-final.js bypasses PDF core'\n          assert 'pdfCore.prepare({demo:demoMode,owner:state.owner})' in v08, 'PDF button does not use central filename core'\n          print('Notfallakte PDF filename core: protected')\n          PY2\n'''
-          (root/'.github'/'workflows'/'notfallakte-pdf-core-guard.yml').write_text(guard,encoding='utf-8')
-          (root/'blaupausen'/'PDF-DATEINAME-BASISBAUSTEIN.md').write_text('''# PDF-Dateiname – fester FSA-Basisbaustein\n\nDie Notfallakte verwendet `pages/notfallakte/pdf-core.js` als alleinige zentrale Dateinamenslogik für PDF/Druck.\n\nPflichtregeln:\n- Dateiname: `DEMO-Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf` bzw. `Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf`.\n- `pdf-core.js` muss vor `v08-final.js` geladen werden.\n- Pagination, Demo, Excel, JSON und UI dürfen die Dateinamenslogik nicht selbst ersetzen.\n- Vor `window.print()` wird der Titel erneut gesetzt; nach `afterprint` wird er bewusst verzögert restauriert.\n- Der GitHub-Workflow `notfallakte-pdf-core-guard.yml` schützt diese Regeln bei späteren Änderungen.\n''',encoding='utf-8')
+          blueprint=root/'blaupausen'/'PDF-DATEINAME-BASISBAUSTEIN.md'
+          blueprint.write_text('''# PDF-Dateiname – fester FSA-Basisbaustein\n\nDie Notfallakte verwendet `pages/notfallakte/pdf-core.js` als zentrale Dateinamenslogik.\n\nPflicht:\n- `DEMO-Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf` bzw. `Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf`.\n- `pdf-core.js` wird vor `v08-final.js` geladen.\n- Vor jedem `window.print()` wird der Dateiname erneut gesetzt.\n- Der Seitentitel wird nach dem Druck nicht sofort zurueckgesetzt, weil Browser den PDF-Namen teilweise erst spaeter uebernehmen.\n- Der Workflow `install-notfallakte-pdf-core.yml` laeuft bei jeder Aenderung unter `pages/notfallakte/**` und stellt den Basisbaustein automatisch wieder her.\n- Wenn die Struktur des PDF-Aufrufs unerwartet veraendert wurde, stoppt der Workflow mit SCHUTZSTOPP statt still etwas zu zerstoeren.\n''',encoding='utf-8')
+
+          # harter lokaler Regressionstest
+          idx=index.read_text(encoding='utf-8')
+          cur=v08.read_text(encoding='utf-8')
+          c=core_path.read_text(encoding='utf-8')
+          assert 'FSA_PDF_FILENAME_CORE_V1' in c
+          assert '<script src="./pdf-core.js"></script>' in idx
+          assert idx.index('./pdf-core.js')<idx.index('./v08-final.js')
+          assert 'pdfCore.prepare({demo:demoMode,owner:state.owner})' in cur
+          print('PDF-Dateiname Basisbaustein geschuetzt ✓')
           PY
-      - name: Commit protected PDF core
+      - name: Commit repair if required
         shell: bash
         run: |
           git config user.name "Adler-FSA Automation"
           git config user.email "actions@users.noreply.github.com"
-          git add pages/notfallakte/pdf-core.js pages/notfallakte/index.html pages/notfallakte/v08-final.js .github/workflows/notfallakte-pdf-core-guard.yml blaupausen/PDF-DATEINAME-BASISBAUSTEIN.md
+          git add pages/notfallakte/pdf-core.js pages/notfallakte/index.html pages/notfallakte/v08-final.js blaupausen/PDF-DATEINAME-BASISBAUSTEIN.md
           if git diff --cached --quiet; then
-            echo "Nothing to commit"
+            echo "PDF core already protected"
           else
             git commit -m "Protect Notfallakte PDF filename core"
             git push
