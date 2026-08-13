@@ -3,7 +3,7 @@
   "short_name": "Notfallakte",
   "description": "Installierbare Offline-Arbeitsversion der digitalen und finanziellen Notfallakte.",
   "lang": "de-DE",
-  "start_url": "./install.html?launch=1",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
