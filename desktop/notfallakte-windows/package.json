@@ -15,6 +15,7 @@
     "asar": true,
     "files": [
       "main.js",
+      "desktop-ux.js",
       "app/**/*"
     ],
     "directories": {
