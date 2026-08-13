@@ -10,6 +10,9 @@ on:
       - '.github/workflows/build-notfallakte-windows-installer.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-windows:
     runs-on: windows-latest
@@ -59,3 +62,17 @@ jobs:
           name: Meine-Notfallakte-Windows-Setup
           path: desktop/notfallakte-windows/dist/Meine-Notfallakte-Setup.exe
           if-no-files-found: error
+
+      - name: Installer in Auslieferungsordner übernehmen
+        shell: pwsh
+        run: |
+          $target = 'pages/notfallakte-desktop-download/Meine-Notfallakte-Setup.exe'
+          Copy-Item 'desktop/notfallakte-windows/dist/Meine-Notfallakte-Setup.exe' $target -Force
+          git config user.name 'Adler-FSA Build'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add -- $target
+          git diff --cached --quiet
+          if ($LASTEXITCODE -ne 0) {
+            git commit -m 'Update Meine Notfallakte Windows Setup'
+            git push origin HEAD:build/notfallakte-desktop-windows
+          }
