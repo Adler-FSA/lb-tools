@@ -1,3 +1,4 @@
+# second push activates the already-registered workflow
 name: Install Notfallakte PDF core
 
 on:
@@ -59,7 +60,6 @@ jobs:
           function reassert(){if(activeFilename)applyTitle(activeFilename)}
           function markPrintDialogClosed(){
             clearTimeout(restoreTimer);
-            /* Nicht sofort restaurieren: einige Browser bestimmen den PDF-Namen erst spaet im Druckablauf. */
             restoreTimer=setTimeout(restore,20000);
           }
           function restore(){
@@ -87,58 +87,19 @@ jobs:
 
           v08 = nf / 'v08-final.js'
           js = v08.read_text(encoding='utf-8')
-          pattern = re.compile(r"const pdfName=`\$\{demoMode\?'DEMO-':''\}Notfallakte-\$\{safeName\(state\.owner\)\}-\$\{stamp\(\)\}\.pdf`,oldTitle=document\.title;document\.title=pdfName\.replace\(/\\\\\.pdf\$/i,''\);actionBox\('✓ PDF / Ausdruck angefordert','Der Druckdialog wird jetzt geöffnet\. Prüfe Ziel, Seiten und Speicherort\. Die Bedienmeldung selbst wird nicht mitgedruckt\.',pdfName\);const done=\(\)=>\{document\.title=oldTitle;actionBox\('PDF / Ausdruck – Vorgang beendet','Der Druckdialog wurde geschlossen\. Wenn du als PDF gespeichert hast, kontrolliere die Datei jetzt an deinem gewählten Speicherort\.',pdfName\)\};window\.addEventListener\('afterprint',done,\{once:true\}\);setTimeout\(\(\)=>window\.print\(\),120\)")
-          replacement = "const pdfCore=window.NotfallaktePdfCore;const ticket=pdfCore?pdfCore.prepare({demo:demoMode,owner:state.owner}):null;const pdfName=ticket?.filename||`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`;if(!ticket)document.title=pdfName.replace(/\\.pdf$/i,'');actionBox('✓ PDF / Ausdruck angefordert','Der Druckdialog wird jetzt geöffnet. Prüfe Ziel, Seiten und Speicherort. Die Bedienmeldung selbst wird nicht mitgedruckt.',pdfName);const done=()=>{pdfCore?.markPrintDialogClosed();actionBox('PDF / Ausdruck – Vorgang beendet','Der Druckdialog wurde geschlossen. Wenn du als PDF gespeichert hast, kontrolliere die Datei jetzt an deinem gewählten Speicherort.',pdfName)};window.addEventListener('afterprint',done,{once:true});setTimeout(()=>{pdfCore?.reassert();window.print()},pdfCore?.printDelay||320)"
-          if 'NotfallaktePdfCore' not in js:
-              js2,n=pattern.subn(replacement,js,count=1)
-              if n!=1:
-                  # robust fallback around the known current sequence
-                  start=js.find("const pdfName=`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`")
-                  end=js.find("setTimeout(()=>window.print(),120)",start)
-                  if start<0 or end<0:
-                      raise SystemExit('v08-final.js: PDF-Block nicht gefunden')
-                  end += len("setTimeout(()=>window.print(),120)")
-                  js2=js[:start]+replacement+js[end:]
-              v08.write_text(js2, encoding='utf-8')
+          if 'window.NotfallaktePdfCore' not in js:
+              start=js.find("const pdfName=`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`")
+              end=js.find("setTimeout(()=>window.print(),120)",start)
+              if start<0 or end<0:
+                  raise SystemExit('v08-final.js: PDF-Block nicht gefunden')
+              end += len("setTimeout(()=>window.print(),120)")
+              replacement="const pdfCore=window.NotfallaktePdfCore;const ticket=pdfCore?pdfCore.prepare({demo:demoMode,owner:state.owner}):null;const pdfName=ticket?.filename||`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`;if(!ticket)document.title=pdfName.replace(/\\.pdf$/i,'');actionBox('✓ PDF / Ausdruck angefordert','Der Druckdialog wird jetzt geöffnet. Prüfe Ziel, Seiten und Speicherort. Die Bedienmeldung selbst wird nicht mitgedruckt.',pdfName);const done=()=>{pdfCore?.markPrintDialogClosed();actionBox('PDF / Ausdruck – Vorgang beendet','Der Druckdialog wurde geschlossen. Wenn du als PDF gespeichert hast, kontrolliere die Datei jetzt an deinem gewählten Speicherort.',pdfName)};window.addEventListener('afterprint',done,{once:true});setTimeout(()=>{pdfCore?.reassert();window.print()},pdfCore?.printDelay||320)"
+              js=js[:start]+replacement+js[end:]
+              v08.write_text(js, encoding='utf-8')
 
-          guard = r'''name: Notfallakte PDF core guard
-
-on:
-  push:
-    paths:
-      - 'pages/notfallakte/**'
-      - '.github/workflows/notfallakte-pdf-core-guard.yml'
-  pull_request:
-    paths:
-      - 'pages/notfallakte/**'
-
-jobs:
-  guard:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Verify permanent PDF filename core
-        shell: bash
-        run: |
-          python - <<'PY2'
-          from pathlib import Path
-          base=Path('pages/notfallakte')
-          idx=(base/'index.html').read_text(encoding='utf-8')
-          v08=(base/'v08-final.js').read_text(encoding='utf-8')
-          core=(base/'pdf-core.js').read_text(encoding='utf-8')
-          assert 'FSA_PDF_FILENAME_CORE_V1' in core, 'PDF core marker missing'
-          assert '<script src="./pdf-core.js"></script>' in idx, 'pdf-core.js is not loaded by index.html'
-          assert idx.index('./pdf-core.js') < idx.index('./v08-final.js'), 'pdf-core.js must load before v08-final.js'
-          assert 'window.NotfallaktePdfCore' in v08, 'v08-final.js bypasses PDF core'
-          assert 'pdfCore.prepare({demo:demoMode,owner:state.owner})' in v08, 'PDF button does not use central filename core'
-          print('Notfallakte PDF filename core: protected')
-          PY2
-          '''
-          gpath=root/'.github'/'workflows'/'notfallakte-pdf-core-guard.yml'
-          gpath.write_text(guard,encoding='utf-8')
-
-          blueprint = root/'blaupausen'/'PDF-DATEINAME-BASISBAUSTEIN.md'
-          blueprint.write_text('''# PDF-Dateiname – fester FSA-Basisbaustein\n\nDie Notfallakte verwendet `pages/notfallakte/pdf-core.js` als alleinige zentrale Dateinamenslogik für PDF/Druck.\n\nPflichtregeln:\n- Dateiname: `DEMO-Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf` bzw. `Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf`.\n- `pdf-core.js` muss vor `v08-final.js` geladen werden.\n- Pagination, Demo, Excel, JSON und UI dürfen die Dateinamenslogik nicht selbst ersetzen.\n- Vor `window.print()` wird der Titel erneut gesetzt; nach `afterprint` wird er bewusst verzögert restauriert.\n- Der GitHub-Workflow `notfallakte-pdf-core-guard.yml` schützt diese Regeln bei späteren Änderungen.\n''',encoding='utf-8')
+          guard = '''name: Notfallakte PDF core guard\n\non:\n  push:\n    paths:\n      - 'pages/notfallakte/**'\n      - '.github/workflows/notfallakte-pdf-core-guard.yml'\n  pull_request:\n    paths:\n      - 'pages/notfallakte/**'\n\njobs:\n  guard:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Verify permanent PDF filename core\n        shell: bash\n        run: |\n          python - <<'PY2'\n          from pathlib import Path\n          base=Path('pages/notfallakte')\n          idx=(base/'index.html').read_text(encoding='utf-8')\n          v08=(base/'v08-final.js').read_text(encoding='utf-8')\n          core=(base/'pdf-core.js').read_text(encoding='utf-8')\n          assert 'FSA_PDF_FILENAME_CORE_V1' in core, 'PDF core marker missing'\n          assert '<script src=\"./pdf-core.js\"></script>' in idx, 'pdf-core.js is not loaded by index.html'\n          assert idx.index('./pdf-core.js') < idx.index('./v08-final.js'), 'pdf-core.js must load before v08-final.js'\n          assert 'window.NotfallaktePdfCore' in v08, 'v08-final.js bypasses PDF core'\n          assert 'pdfCore.prepare({demo:demoMode,owner:state.owner})' in v08, 'PDF button does not use central filename core'\n          print('Notfallakte PDF filename core: protected')\n          PY2\n'''
+          (root/'.github'/'workflows'/'notfallakte-pdf-core-guard.yml').write_text(guard,encoding='utf-8')
+          (root/'blaupausen'/'PDF-DATEINAME-BASISBAUSTEIN.md').write_text('''# PDF-Dateiname – fester FSA-Basisbaustein\n\nDie Notfallakte verwendet `pages/notfallakte/pdf-core.js` als alleinige zentrale Dateinamenslogik für PDF/Druck.\n\nPflichtregeln:\n- Dateiname: `DEMO-Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf` bzw. `Notfallakte-<Name>-YYYY-MM-DD-HHMM.pdf`.\n- `pdf-core.js` muss vor `v08-final.js` geladen werden.\n- Pagination, Demo, Excel, JSON und UI dürfen die Dateinamenslogik nicht selbst ersetzen.\n- Vor `window.print()` wird der Titel erneut gesetzt; nach `afterprint` wird er bewusst verzögert restauriert.\n- Der GitHub-Workflow `notfallakte-pdf-core-guard.yml` schützt diese Regeln bei späteren Änderungen.\n''',encoding='utf-8')
           PY
       - name: Commit protected PDF core
         shell: bash
