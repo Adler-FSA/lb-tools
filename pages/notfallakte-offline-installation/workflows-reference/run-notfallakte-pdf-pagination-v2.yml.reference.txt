@@ -1,0 +1,31 @@
+name: Run Notfallakte PDF pagination v2
+on:
+  push:
+    paths:
+      - '.github/workflows/run-notfallakte-pdf-pagination-v2.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply pagination repair
+        run: python3 scripts/fix_notfallakte_pdf_pagination_v2.py
+      - name: Syntax check embedded JavaScript
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('pages/notfallakte/index.html').read_text(encoding='utf-8')
+          blocks=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+          Path('/tmp/notfallakte-inline.js').write_text('\n'.join(blocks),encoding='utf-8')
+          PY
+          node --check /tmp/notfallakte-inline.js
+      - name: Commit repair
+        run: |
+          git config user.name 'Adler-FSA'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add pages/notfallakte/index.html
+          git commit -m 'Fix Notfallakte PDF page packing without layout changes'
+          git push

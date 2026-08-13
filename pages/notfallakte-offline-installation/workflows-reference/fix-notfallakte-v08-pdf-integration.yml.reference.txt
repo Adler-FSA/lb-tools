@@ -1,0 +1,44 @@
+name: Fix Notfallakte V08 PDF integration
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-notfallakte-v08-pdf-integration.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair V08 PDF integration
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          idx = Path('pages/notfallakte/index.html')
+          s = idx.read_text(encoding='utf-8')
+          old = 'Erstelle zuerst eine aktuelle CSV-Sicherung auf einem externen Datenträger und danach die PDF. Verwahre beide geschützt.'
+          new = 'Erstelle zuerst eine aktuelle JSON-Master-Sicherung an einem geschützten Speicherort und danach die PDF. Verwahre beide geschützt.'
+          if old not in s:
+              raise SystemExit('Expected legacy CSV print text not found')
+          s = s.replace(old, new)
+          idx.write_text(s, encoding='utf-8')
+
+          p = Path('pages/notfallakte/v08-final.js')
+          js = p.read_text(encoding='utf-8')
+          old_handler = "q('#printBtn').onclick=()=>withSecurityCheck('Erstellen der PDF / des Ausdrucks',()=>{q('#printBtn').classList.remove('printPulse');optimizePrint();actionBox('PDF / Ausdruck wird vorbereitet','Prüfe im Druckdialog Ziel, Seiten und Speicherort. Die PDF ist deine lesbare Endfassung und keine technische Master-Sicherung.');requestAnimationFrame(()=>window.print())});"
+          new_handler = "q('#printBtn').onclick=()=>withSecurityCheck('Erstellen der PDF / des Ausdrucks',()=>{q('#printBtn').classList.remove('printPulse');if(typeof optimizePrint==='function')optimizePrint();else if(typeof buildPrint==='function')buildPrint();let ps=q('#v08PdfPrintFix');if(!ps){ps=document.createElement('style');ps.id='v08PdfPrintFix';ps.textContent='@media print{#v08ActionBox,.v08ActionBox,.v08Modal,.notice{display:none!important}}';document.head.appendChild(ps)}const pdfName=`${demoMode?'DEMO-':''}Notfallakte-${safeName(state.owner)}-${stamp()}.pdf`,oldTitle=document.title;document.title=pdfName.replace(/\\.pdf$/i,'');actionBox('✓ PDF / Ausdruck angefordert','Der Druckdialog wird jetzt geöffnet. Prüfe Ziel, Seiten und Speicherort. Die Bedienmeldung selbst wird nicht mitgedruckt.',pdfName);const done=()=>{document.title=oldTitle;actionBox('PDF / Ausdruck – Vorgang beendet','Der Druckdialog wurde geschlossen. Wenn du als PDF gespeichert hast, kontrolliere die Datei jetzt an deinem gewählten Speicherort.',pdfName)};window.addEventListener('afterprint',done,{once:true});setTimeout(()=>window.print(),120)});"
+          if old_handler not in js:
+              raise SystemExit('Expected V08 print handler not found')
+          js = js.replace(old_handler, new_handler)
+          p.write_text(js, encoding='utf-8')
+          PY
+      - name: Syntax check
+        run: node --check pages/notfallakte/v08-final.js
+      - name: Commit repair
+        run: |
+          git config user.name 'Adler-FSA'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add pages/notfallakte/index.html pages/notfallakte/v08-final.js
+          git commit -m 'Repair V08 PDF engine integration and filename handling'
+          git push
