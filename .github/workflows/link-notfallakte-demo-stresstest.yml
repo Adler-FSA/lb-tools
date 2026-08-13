@@ -1,0 +1,24 @@
+name: Link Notfallakte Demo Stress Test
+on:
+  push:
+    paths:
+      - '.github/workflows/link-notfallakte-demo-stresstest.yml'
+permissions:
+  contents: write
+jobs:
+  link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link demo stress data before V08 runtime
+        run: |
+          python3 -c "from pathlib import Path; p=Path('pages/notfallakte/index.html'); s=p.read_text(encoding='utf-8'); old='</script><script src=\"./v08-final.js\"></script></body></html>'; new='</script><script src=\"./demo-stress-test.js\"></script><script src=\"./v08-final.js\"></script></body></html>'; assert old in s; p.write_text(s.replace(old,new,1),encoding='utf-8')"
+      - name: Verify link
+        run: grep -q 'demo-stress-test.js' pages/notfallakte/index.html
+      - name: Commit link
+        run: |
+          git config user.name 'Adler-FSA'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add pages/notfallakte/index.html
+          git commit -m 'Enable Daniel Muster stress-test demo dataset'
+          git push
