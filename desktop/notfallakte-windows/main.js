@@ -1,5 +1,6 @@
 const { app, BrowserWindow, shell } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 app.setName('Meine Notfallakte');
 app.setPath('userData', path.join(app.getPath('appData'), 'FSA-Notfallakte-Desktop'));
@@ -20,6 +21,12 @@ function createWindow(){
   });
 
   win.loadFile(path.join(__dirname, 'app', 'index.html'));
+  win.webContents.once('did-finish-load',()=>{
+    const uxPath = path.join(__dirname, 'desktop-ux.js');
+    if(fs.existsSync(uxPath)){
+      win.webContents.executeJavaScript(fs.readFileSync(uxPath,'utf8')).catch(console.error);
+    }
+  });
   win.webContents.setWindowOpenHandler(({url})=>{
     if(/^https?:/i.test(url)) shell.openExternal(url);
     return {action:'deny'};
