@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title data-i18n="title">{{PRODUCT_NAME}} – Einführung</title>
+<style>
+:root{--mint:#00a7ad;--mag:#c6006f;--navy:#132238;--line:#d8e4e7;--muted:#667085}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#253244;background:linear-gradient(180deg,#edf7f7,#fff 520px);font-size:17px;line-height:1.65}.wrap{width:min(1080px,calc(100% - 24px));margin:auto;padding:18px 0 52px}.product-image img{display:block;width:100%;height:auto;border-radius:22px;box-shadow:0 10px 30px rgba(19,34,56,.10)}.card,.cta{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 10px 30px rgba(19,34,56,.055)}h1,h2{color:var(--navy);margin:0 0 12px}.lead{font-size:1.15rem}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.mini{padding:18px;border:1px solid var(--line);border-radius:16px;background:#f9fcfc}.mini b{color:#007e86}details{margin-top:10px;border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden}summary{cursor:pointer;padding:16px 18px;font-weight:900;color:var(--navy);list-style:none}.inner{padding:0 18px 18px}.cta{text-align:center;padding:34px}.btn{display:inline-flex;margin-top:10px;padding:15px 22px;border-radius:14px;background:var(--mint);color:#fff;text-decoration:none;font-weight:900}.small{color:var(--muted);font-size:.95rem;margin-top:12px}@media(max-width:650px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main class="wrap">
+<section class="product-image"><img src="{{PRODUCT_IMAGE_PATH}}" alt="{{PRODUCT_IMAGE_ALT}}"></section>
+<section class="card"><h1 data-i18n="intro_heading">{{INTRO_HEADING}}</h1><p class="lead" data-i18n="intro_lead">{{INTRO_LEAD}}</p><p data-i18n="intro_text">{{INTRO_TEXT}}</p></section>
+<section class="card"><h2 data-i18n="benefit_heading">{{BENEFIT_HEADING}}</h2><div class="grid"><div class="mini"><b data-i18n="benefit_1_title">{{BENEFIT_1_TITLE}}</b><br><span data-i18n="benefit_1_text">{{BENEFIT_1_TEXT}}</span></div><div class="mini"><b data-i18n="benefit_2_title">{{BENEFIT_2_TITLE}}</b><br><span data-i18n="benefit_2_text">{{BENEFIT_2_TEXT}}</span></div></div></section>
+<section class="card"><h2 data-i18n="explain_heading">{{EXPLAIN_HEADING}}</h2><p data-i18n="explain_text">{{EXPLAIN_TEXT}}</p><details><summary data-i18n="detail_1_title">{{DETAIL_1_TITLE}}</summary><div class="inner" data-i18n="detail_1_text">{{DETAIL_1_TEXT}}</div></details><details><summary data-i18n="detail_2_title">{{DETAIL_2_TITLE}}</summary><div class="inner" data-i18n="detail_2_text">{{DETAIL_2_TEXT}}</div></details></section>
+<section class="card"><h2 data-i18n="security_heading">{{SECURITY_HEADING}}</h2><p data-i18n="security_text">{{SECURITY_TEXT}}</p></section>
+<section class="cta"><h2 data-i18n="cta_heading">{{CTA_HEADING}}</h2><p data-i18n="cta_text">{{CTA_TEXT}}</p><a class="btn" href="{{HANDOVER_PAGE_PATH}}" data-i18n="cta_button">{{CTA_BUTTON}}</a><div class="small" data-i18n="cta_meta">{{CTA_META}}</div></section>
+</main>
+<script>
+const I18N={de:{},en:{}};function setLang(lang){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[lang]?.[el.dataset.i18n];if(v!=null)el.textContent=v})}window.FsaBuyerCompanion={setLang};
+</script></body></html>
