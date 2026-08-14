@@ -1,0 +1,83 @@
+name: Build {{PRODUCT_NAME}} Windows Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - '{{BUILD_BRANCH}}'
+    paths:
+      - '{{DESKTOP_PATH}}/**'
+      - '{{PRODUCT_SOURCE_PATH}}/**'
+      - '.github/workflows/{{WORKFLOW_FILENAME}}'
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Freigegebenen Produktkern in Desktop-Paket kopieren
+        shell: pwsh
+        run: |
+          $src = '{{PRODUCT_SOURCE_PATH}}'
+          $dst = '{{DESKTOP_PATH}}/app'
+
+          if (Test-Path $dst) { Remove-Item $dst -Recurse -Force }
+          New-Item -ItemType Directory -Force -Path $dst | Out-Null
+
+          # MASTER: Diese Liste pro Produkt bewusst festlegen.
+          # Nur tatsächlich freigegebene Produktdateien und benötigte Engines übernehmen.
+          $files = @(
+            'index.html'
+            {{PRODUCT_FILE_LIST}}
+          )
+
+          foreach ($file in $files) {
+            Copy-Item (Join-Path $src $file) (Join-Path $dst $file) -Force
+          }
+
+      - name: Abhängigkeiten installieren
+        working-directory: '{{DESKTOP_PATH}}'
+        run: npm install
+
+      - name: Geführten Windows-Installer bauen
+        working-directory: '{{DESKTOP_PATH}}'
+        run: npx electron-builder --win nsis --x64
+        env:
+          # Referenzprodukt wurde bewusst ohne Codesignatur gebaut.
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+      - name: Installer als Build-Artefakt bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: '{{ARTIFACT_NAME}}'
+          path: '{{DESKTOP_PATH}}/dist/{{SETUP_FILENAME}}.exe'
+          if-no-files-found: error
+
+      - name: Installer in Auslieferungsordner übernehmen
+        shell: pwsh
+        run: |
+          $targetDir = '{{DELIVERY_PATH}}'
+          $target = Join-Path $targetDir '{{SETUP_FILENAME}}.exe'
+          New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
+          Copy-Item '{{DESKTOP_PATH}}/dist/{{SETUP_FILENAME}}.exe' $target -Force
+
+          git config user.name 'Adler-FSA Build'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add -- $target
+          git diff --cached --quiet
+
+          if ($LASTEXITCODE -ne 0) {
+            git commit -m 'Update {{PRODUCT_NAME}} Windows Setup'
+            git push origin HEAD:{{BUILD_BRANCH}}
+          }
