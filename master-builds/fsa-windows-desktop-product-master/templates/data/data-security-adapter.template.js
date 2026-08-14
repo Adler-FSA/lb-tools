@@ -1,0 +1,1 @@
+(()=>{'use strict';window.FsaDataSecurityAdapter=Object.freeze({version:'FSA_DATA_SECURITY_ADAPTER_V1',scan:data=>[],async beforeExport({kind,data,proceed}){const hits=this.scan(data);if(!hits.length)return proceed();throw new Error(`Sicherheitsprüfung für ${kind} hat ${hits.length} Hinweis(e) gefunden. Produktspezifische Nutzerentscheidung erforderlich.`)}});})();
