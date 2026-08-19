@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Club Partner finden</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --text:#243142;
+  --muted:#667085;
+  --line:#dde4ea;
+  --soft:#f6f8fa;
+  --mint-soft:#eefafa;
+  --shadow:0 12px 34px rgba(19,34,56,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{padding:18px}
+.wrap{max-width:980px;margin:0 auto}
+.hero{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fff,#fbfcfd);box-shadow:var(--shadow);overflow:hidden}
+.heroTop{padding:30px 30px 12px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--mint);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.eyebrow svg{flex:0 0 auto}
+h1{margin:8px 0 10px;color:var(--navy);font-size:clamp(32px,5vw,48px);line-height:1.05}
+.lead{margin:0;max-width:790px;font-size:18px;line-height:1.58;color:#3e4b5a}
+.infoGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 30px 24px}
+.info{border:1px solid var(--line);border-radius:17px;background:#fff;padding:16px 17px;line-height:1.55}
+.info strong{display:block;color:var(--navy);margin-bottom:4px}
+.info p{margin:0;color:var(--muted)}
+.searchCard{margin-top:16px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.searchHead{padding:20px 22px 12px}
+.searchHead h2{margin:0;color:var(--navy);font-size:22px}
+.searchHead p{margin:5px 0 0;color:var(--muted);line-height:1.5}
+.searchBox{padding:0 22px 18px}
+.inputWrap{position:relative}
+.inputWrap svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+input[type="search"]{width:100%;border:2px solid #cfd8df;border-radius:15px;padding:15px 16px 15px 48px;font:inherit;font-size:17px;color:var(--navy);background:#fff;outline:none;transition:.18s border-color,.18s box-shadow}
+input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,167,173,.12)}
+.results{display:none;border-top:1px solid var(--line);padding:12px 14px 14px;max-height:460px;overflow:auto}
+.results.show{display:block}
+.result{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px;border:1px solid transparent;border-radius:14px}
+.result:hover{background:var(--soft);border-color:#edf1f4}
+.person{min-width:0}
+.person strong{display:block;color:var(--navy);font-size:16px;overflow:hidden;text-overflow:ellipsis}
+.person small{display:block;color:var(--muted);margin-top:2px}
+.btn{appearance:none;border:0;border-radius:12px;padding:10px 14px;background:var(--navy);color:#fff;font:inherit;font-weight:800;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.05)}
+.btn:focus-visible{outline:3px solid rgba(0,167,173,.28);outline-offset:2px}
+.empty{padding:22px;text-align:center;color:var(--muted)}
+.selected{display:none;margin-top:16px;border:1px solid #bfe5e7;border-radius:22px;background:var(--mint-soft);box-shadow:var(--shadow);overflow:hidden}
+.selected.show{display:block}
+.selectedBody{padding:22px}
+.selectedLabel{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mint)}
+.selected h2{margin:5px 0 8px;color:var(--navy);font-size:24px}
+.confirm{margin:0 0 14px;line-height:1.55;color:#38505c}
+.urlBox{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center}
+.url{border:1px solid #b8dfe1;border-radius:12px;background:#fff;padding:12px 13px;color:var(--navy);font-size:14px;overflow-wrap:anywhere;min-height:46px;display:flex;align-items:center}
+.copy{background:var(--mint)}
+.next{margin:13px 0 0;color:var(--navy);line-height:1.55;font-weight:650}
+.status{min-height:20px;margin-top:9px;font-size:13px;color:var(--muted)}
+.error{display:none;margin-top:16px;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
+.error.show{display:block}
+@media(max-width:720px){
+  body{padding:10px}
+  .heroTop{padding:24px 18px 10px}
+  .infoGrid{grid-template-columns:1fr;padding:14px 18px 20px}
+  .searchHead{padding:18px 16px 10px}
+  .searchBox{padding:0 16px 16px}
+  .result{align-items:flex-start}
+  .urlBox{grid-template-columns:1fr}
+  .selectedBody{padding:18px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero" aria-labelledby="pageTitle">
+    <div class="heroTop">
+      <div class="eyebrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-i18n="eyebrow">Club Partner finden</span>
+      </div>
+      <h1 id="pageTitle" data-i18n="title">Kennst du schon jemanden beim LiquidityBooster?</h1>
+      <p class="lead" data-i18n="lead">Überprüfe hier, ob die Person bereits als Club Partner dabei ist. Gib einfach den Vor- oder Nachnamen ein.</p>
+    </div>
+    <div class="infoGrid">
+      <div class="info">
+        <strong data-i18n="centralTitle">Die Zentrale und dein persönlicher Ansprechpartner</strong>
+        <p data-i18n="centralText">LiquidityBooster.de ist die Zentrale. Jeder Club Partner besitzt zusätzlich seine eigene personalisierte LiquidityBooster-Webseite. Dort findest du die jeweiligen Kontaktdaten und kannst direkt Kontakt aufnehmen.</p>
+      </div>
+      <div class="info">
+        <strong data-i18n="noContactTitle">Du kennst noch niemanden persönlich?</strong>
+        <p data-i18n="noContactText">Dann gib einfach einen Buchstaben ein und wähle einen Club Partner aus. Unsere Club Partner helfen dir gerne beim Start und bei deinen Fragen. Vieles wird schneller verständlich, wenn man mit jemandem spricht, der bereits dabei ist und aus eigener Erfahrung helfen kann.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="searchCard" aria-labelledby="searchTitle">
+    <div class="searchHead">
+      <h2 id="searchTitle" data-i18n="searchTitle">Club Partner suchen</h2>
+      <p data-i18n="searchText">Die Treffer werden sofort während deiner Eingabe angezeigt.</p>
+    </div>
+    <div class="searchBox">
+      <div class="inputWrap">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.7-3.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search" type="search" autocomplete="off" spellcheck="false" data-i18n-placeholder="placeholder" placeholder="Vorname oder Nachname eingeben …" aria-controls="results">
+      </div>
+    </div>
+    <div class="results" id="results" role="listbox" aria-live="polite"></div>
+  </section>
+
+  <section class="selected" id="selected" aria-live="polite">
+    <div class="selectedBody">
+      <div class="selectedLabel" data-i18n="selectedLabel">Ausgewählter Club Partner</div>
+      <h2 id="selectedName">–</h2>
+      <p class="confirm" id="confirmText"></p>
+      <div class="urlBox">
+        <div class="url" id="selectedUrl"></div>
+        <button class="btn copy" id="copyAgain" type="button" data-i18n="copyAgain">Link erneut kopieren</button>
+      </div>
+      <p class="next" data-i18n="next">Füge den Link jetzt in die Adresszeile deines Browsers ein. Auf der personalisierten LiquidityBooster-Seite findest du die Kontaktdaten deines ausgewählten Club Partners.</p>
+      <div class="status" id="copyStatus"></div>
+    </div>
+  </section>
+
+  <div class="error" id="error" role="alert"></div>
+</div>
+
+<script>
+const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/club-partner.json';
+const $=s=>document.querySelector(s);
+let partners=[];
+let selectedPartner=null;
+
+const I18N={
+  de:{
+    eyebrow:'Club Partner finden',
+    title:'Kennst du schon jemanden beim LiquidityBooster?',
+    lead:'Überprüfe hier, ob die Person bereits als Club Partner dabei ist. Gib einfach den Vor- oder Nachnamen ein.',
+    centralTitle:'Die Zentrale und dein persönlicher Ansprechpartner',
+    centralText:'LiquidityBooster.de ist die Zentrale. Jeder Club Partner besitzt zusätzlich seine eigene personalisierte LiquidityBooster-Webseite. Dort findest du die jeweiligen Kontaktdaten und kannst direkt Kontakt aufnehmen.',
+    noContactTitle:'Du kennst noch niemanden persönlich?',
+    noContactText:'Dann gib einfach einen Buchstaben ein und wähle einen Club Partner aus. Unsere Club Partner helfen dir gerne beim Start und bei deinen Fragen. Vieles wird schneller verständlich, wenn man mit jemandem spricht, der bereits dabei ist und aus eigener Erfahrung helfen kann.',
+    searchTitle:'Club Partner suchen',
+    searchText:'Die Treffer werden sofort während deiner Eingabe angezeigt.',
+    placeholder:'Vorname oder Nachname eingeben …',
+    choose:'Übernehmen',
+    partner:'Club Partner',
+    noMatch:'Keine passende Person gefunden. Prüfe die Schreibweise oder versuche einen anderen Teil des Namens.',
+    selectedLabel:'Ausgewählter Club Partner',
+    copied:n=>'Der persönliche Link von '+n+' wurde in deine Zwischenablage kopiert.',
+    copyAgain:'Link erneut kopieren',
+    next:'Füge den Link jetzt in die Adresszeile deines Browsers ein. Auf der personalisierten LiquidityBooster-Seite findest du die Kontaktdaten deines ausgewählten Club Partners.',
+    copiedShort:'Link wurde in die Zwischenablage kopiert.',
+    copyFallback:'Der Link konnte nicht automatisch kopiert werden. Markiere ihn bitte und kopiere ihn manuell.',
+    loadError:'Die Club-Partner-Daten konnten gerade nicht geladen werden. Bitte versuche es später erneut.'
+  },
+  en:{
+    eyebrow:'Find a Club Partner',
+    title:'Do you already know someone at LiquidityBooster?',
+    lead:'Check here whether the person is already a Club Partner. Simply enter a first or last name.',
+    centralTitle:'The central site and your personal contact',
+    centralText:'LiquidityBooster.de is the central site. Each Club Partner also has a personalized LiquidityBooster page containing their contact details so you can get in touch directly.',
+    noContactTitle:'You do not know anyone personally yet?',
+    noContactText:'Simply enter a letter and choose a Club Partner. Our Club Partners are happy to help you get started and answer your questions. Many things become clearer faster when you speak with someone who is already involved and can help from personal experience.',
+    searchTitle:'Search Club Partners',
+    searchText:'Matching results appear immediately while you type.',
+    placeholder:'Enter first or last name …',
+    choose:'Select',
+    partner:'Club Partner',
+    noMatch:'No matching person found. Check the spelling or try another part of the name.',
+    selectedLabel:'Selected Club Partner',
+    copied:n=>'The personal link for '+n+' has been copied to your clipboard.',
+    copyAgain:'Copy link again',
+    next:'Paste the link into your browser address bar. On the personalized LiquidityBooster page you will find the contact details of your selected Club Partner.',
+    copiedShort:'Link copied to your clipboard.',
+    copyFallback:'The link could not be copied automatically. Please select it and copy it manually.',
+    loadError:'The Club Partner data could not be loaded right now. Please try again later.'
+  }
+};
+
+const params=new URLSearchParams(location.search);
+const lang=(params.get('lang')||document.documentElement.lang||'de').toLowerCase().startsWith('en')?'en':'de';
+document.documentElement.lang=lang;
+const t=k=>I18N[lang][k];
+
+document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(typeof t(k)==='string')el.textContent=t(k)});
+document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.dataset.i18nPlaceholder;el.placeholder=t(k)});
+
+function normalize(v){
+  return String(v||'')
+    .toLocaleLowerCase(lang==='de'?'de-DE':'en-US')
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu,'')
+    .replace(/ß/g,'ss')
+    .trim();
+}
+function fullName(p){return [p.firstName,p.lastName].filter(Boolean).join(' ').replace(/\s+/g,' ').trim()}
+function clearResults(){
+  $('#results').innerHTML='';
+  $('#results').classList.remove('show');
+}
+function renderResults(){
+  const q=normalize($('#search').value);
+  if(!q){clearResults();return}
+  const found=partners
+    .filter(p=>normalize(fullName(p)).includes(q))
+    .sort((a,b)=>fullName(a).localeCompare(fullName(b),lang==='de'?'de-DE':'en-US',{sensitivity:'base'}));
+  const box=$('#results');
+  box.innerHTML='';
+  box.classList.add('show');
+  if(!found.length){
+    const empty=document.createElement('div');
+    empty.className='empty';
+    empty.textContent=t('noMatch');
+    box.appendChild(empty);
+    return;
+  }
+  found.forEach(p=>{
+    const row=document.createElement('div');
+    row.className='result';
+    row.setAttribute('role','option');
+
+    const person=document.createElement('div');
+    person.className='person';
+    const strong=document.createElement('strong');
+    strong.textContent=fullName(p);
+    const small=document.createElement('small');
+    small.textContent=t('partner');
+    person.append(strong,small);
+
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='btn';
+    btn.textContent=t('choose');
+    btn.addEventListener('click',()=>selectPartner(p));
+
+    row.append(person,btn);
+    box.appendChild(row);
+  });
+}
+
+async function copyText(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  }catch(e){}
+  try{
+    const ta=document.createElement('textarea');
+    ta.value=text;
+    ta.setAttribute('readonly','');
+    ta.style.position='fixed';
+    ta.style.left='-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0,ta.value.length);
+    const ok=document.execCommand('copy');
+    ta.remove();
+    return ok;
+  }catch(e){return false}
+}
+
+async function selectPartner(p){
+  selectedPartner=p;
+  const n=fullName(p);
+  $('#selectedName').textContent=n;
+  $('#selectedUrl').textContent=p.affiliateUrl;
+  $('#confirmText').textContent=t('copied')(n);
+  $('#selected').classList.add('show');
+  const ok=await copyText(p.affiliateUrl);
+  $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
+  $('#selected').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+$('#copyAgain').addEventListener('click',async()=>{
+  if(!selectedPartner)return;
+  const ok=await copyText(selectedPartner.affiliateUrl);
+  $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
+});
+$('#search').addEventListener('input',renderResults);
+
+async function load(){
+  try{
+    const r=await fetch(DATA_URL+'?v='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw new Error('load');
+    const data=await r.json();
+    partners=Array.isArray(data.partners)?data.partners.filter(p=>p&&p.firstName&&p.lastName&&p.affiliateUrl):[];
+    $('#error').classList.remove('show');
+  }catch(e){
+    $('#error').textContent=t('loadError');
+    $('#error').classList.add('show');
+  }
+}
+load();
+</script>
+</body>
+</html>
