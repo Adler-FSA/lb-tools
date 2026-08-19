@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Club Control</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --text:#243142;
+  --muted:#667085;
+  --line:#dde4ea;
+  --soft:#f6f8fa;
+  --ok:#067647;
+  --danger:#b42318;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{padding:18px}
+.wrap{max-width:1180px;margin:auto}
+h1{margin:0;color:var(--navy);font-size:clamp(34px,5vw,48px);line-height:1}
+.sub{margin:8px 0 18px;color:var(--muted);font-size:15px}
+.card{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff;margin-bottom:14px}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line);font-weight:800;color:var(--navy)}
+.body{padding:16px}
+.connect{display:grid;grid-template-columns:1fr auto;gap:10px}
+input{width:100%;border:1px solid #cdd5df;border-radius:11px;padding:11px 12px;font:inherit;color:var(--text);background:#fff}
+input:focus{outline:2px solid rgba(0,167,173,.18);border-color:var(--mint)}
+.btn{border:0;border-radius:11px;padding:11px 15px;font:inherit;font-weight:800;cursor:pointer;background:var(--navy);color:#fff}
+.btn.mint{background:var(--mint)}
+.btn.light{background:var(--soft);color:var(--navy);border:1px solid var(--line)}
+.btn.danger{background:#fff;color:var(--danger);border:1px solid #f1b8b8}
+.tokenline{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--muted)}
+.tokenline input{width:auto}
+.status{font-size:13px;color:var(--danger)}
+.status.ok{color:var(--ok)}
+.hint{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.45}
+.formgrid{display:grid;grid-template-columns:1fr 1fr 2fr auto;gap:10px;align-items:end}
+.field label{display:block;margin-bottom:5px;font-size:12px;font-weight:800;color:var(--navy)}
+.error,.success{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:13px}
+.error{border:1px solid #f3b9b9;background:#fff7f7;color:#8f1d1d}
+.success{border:1px solid #b7e2cf;background:#f4fbf7;color:#05603a}
+.error.show,.success.show{display:block}
+.toolbar{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.tablewrap{overflow:auto}
+table{width:100%;min-width:760px;border-collapse:collapse}
+th,td{padding:11px 8px;border-bottom:1px solid #edf1f4;text-align:left;vertical-align:middle}
+th{font-size:12px;color:var(--muted);font-weight:800}
+td strong{color:var(--navy)}
+.url{max-width:420px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:13px}
+.actions{display:flex;gap:7px;justify-content:flex-end}
+.empty{text-align:center;color:var(--muted);padding:26px}
+.editing{background:#f8fbfc}
+@media(max-width:900px){
+  .formgrid{grid-template-columns:1fr 1fr}
+  .formgrid .wide,.formgrid .btn{grid-column:1/-1}
+}
+@media(max-width:620px){
+  body{padding:10px}
+  .connect,.toolbar,.formgrid{grid-template-columns:1fr}
+  .formgrid .wide,.formgrid .btn{grid-column:auto}
+  .head{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Club Control</h1>
+  <p class="sub">Private Verwaltung der Club-Partner-Suche.</p>
+
+  <section class="card">
+    <div class="head">
+      <span>GitHub-Verbindung</span>
+      <span class="status" id="status">Nicht verbunden</span>
+    </div>
+    <div class="body">
+      <div class="connect">
+        <input id="token" type="password" placeholder="Fine-Grained GitHub Token" autocomplete="off">
+        <button class="btn" id="connect">Verbinden & laden</button>
+      </div>
+      <div class="tokenline">
+        <label><input id="remember" type="checkbox" checked> Token auf diesem Gerät speichern</label>
+        <button class="btn light" id="removeToken">Gespeicherten Token entfernen</button>
+      </div>
+      <div class="hint">Es wird derselbe lokal gespeicherte Token-Schlüssel wie bei Mission-Control verwendet. Der Token wird niemals in die öffentliche Club-Partner-Datei geschrieben.</div>
+      <div class="error" id="error"></div>
+      <div class="success" id="success"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="head">Club Partner eintragen</div>
+    <div class="body">
+      <div class="formgrid">
+        <div class="field">
+          <label for="firstName">Vorname</label>
+          <input id="firstName" autocomplete="off" placeholder="Vorname">
+        </div>
+        <div class="field">
+          <label for="lastName">Nachname</label>
+          <input id="lastName" autocomplete="off" placeholder="Nachname">
+        </div>
+        <div class="field wide">
+          <label for="affiliateUrl">Affiliate-Link</label>
+          <input id="affiliateUrl" type="url" autocomplete="off" placeholder="https://www.liquiditybooster.de?oipid=...">
+        </div>
+        <button class="btn mint" id="savePartner">Eintragen</button>
+      </div>
+      <div class="hint">Vorname, Nachname und persönlicher Affiliate-Link – mehr wird nicht gespeichert.</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="head">Bestehende Club Partner</div>
+    <div class="body">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Name oder Affiliate-Link suchen ..." autocomplete="off">
+        <button class="btn light" id="reload">Neu laden</button>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Affiliate-Link</th>
+            <th style="text-align:right">Aktion</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+const REPO='Adler-FSA/lb-tools';
+const PATH='data/club-partner.json';
+const API=`https://api.github.com/repos/${REPO}/contents/${PATH}`;
+const KEY='md_control_github_token';
+
+let token='';
+let sha='';
+let state={version:1,partners:[]};
+let editIndex=null;
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+
+function auth(){
+  return {
+    'Accept':'application/vnd.github+json',
+    'Authorization':'Bearer '+token,
+    'X-GitHub-Api-Version':'2022-11-28'
+  };
+}
+function dec(s){return decodeURIComponent(escape(atob(s.replace(/\n/g,''))))}
+function enc(s){return btoa(unescape(encodeURIComponent(s)))}
+function showError(msg=''){
+  $('#error').textContent=msg;
+  $('#error').classList.toggle('show',!!msg);
+  if(msg) showSuccess('');
+}
+function showSuccess(msg=''){
+  $('#success').textContent=msg;
+  $('#success').classList.toggle('show',!!msg);
+  if(msg) showError('');
+}
+function normalizeUrl(v){
+  const value=String(v||'').trim();
+  if(!value) return '';
+  try{
+    const u=new URL(value);
+    if(!/^https?:$/.test(u.protocol)) return '';
+    return u.href;
+  }catch(e){return ''}
+}
+function fullName(p){return [p.firstName,p.lastName].filter(Boolean).join(' ')}
+
+async function load(){
+  token=$('#token').value.trim();
+  if(!token) return showError('Bitte Token eingeben.');
+  try{
+    const r=await fetch(API+'?ref=main',{headers:auth(),cache:'no-store'});
+    if(!r.ok) throw new Error('load');
+    const j=await r.json();
+    sha=j.sha;
+    const parsed=JSON.parse(dec(j.content));
+    state={version:parsed.version||1,partners:Array.isArray(parsed.partners)?parsed.partners:[]};
+    if($('#remember').checked) localStorage.setItem(KEY,token);
+    $('#status').textContent='Verbunden';
+    $('#status').className='status ok';
+    showError('');
+    render();
+  }catch(e){
+    $('#status').textContent='Nicht verbunden';
+    $('#status').className='status';
+    showError('Daten konnten nicht geladen werden. Bitte Token und Schreibrechte prüfen.');
+  }
+}
+
+async function saveState(message){
+  if(!token || !sha) return showError('Bitte zuerst mit GitHub verbinden.');
+  try{
+    const r=await fetch(API,{
+      method:'PUT',
+      headers:{...auth(),'Content-Type':'application/json'},
+      body:JSON.stringify({
+        message,
+        content:enc(JSON.stringify(state,null,2)),
+        sha,
+        branch:'main'
+      })
+    });
+    if(!r.ok) throw new Error('save');
+    const j=await r.json();
+    sha=j.content.sha;
+    render();
+    return true;
+  }catch(e){
+    showError('Speichern fehlgeschlagen. Bitte Verbindung neu laden und erneut versuchen.');
+    return false;
+  }
+}
+
+function resetForm(){
+  editIndex=null;
+  $('#firstName').value='';
+  $('#lastName').value='';
+  $('#affiliateUrl').value='';
+  $('#savePartner').textContent='Eintragen';
+  $('#firstName').focus();
+}
+
+function render(){
+  const q=$('#search').value.trim().toLocaleLowerCase('de');
+  const list=state.partners
+    .map((p,index)=>({p,index}))
+    .filter(({p})=>{
+      if(!q) return true;
+      const hay=(fullName(p)+' '+(p.affiliateUrl||'')).toLocaleLowerCase('de');
+      return hay.includes(q);
+    })
+    .sort((a,b)=>fullName(a.p).localeCompare(fullName(b.p),'de',{sensitivity:'base'}));
+
+  $('#rows').innerHTML=list.length?list.map(({p,index})=>`
+    <tr class="${editIndex===index?'editing':''}">
+      <td><strong>${esc(p.firstName)}</strong></td>
+      <td>${esc(p.lastName)}</td>
+      <td><div class="url" title="${esc(p.affiliateUrl)}">${esc(p.affiliateUrl)}</div></td>
+      <td>
+        <div class="actions">
+          <button class="btn light" onclick="editPartner(${index})">Bearbeiten</button>
+          <button class="btn danger" onclick="deletePartner(${index})">Löschen</button>
+        </div>
+      </td>
+    </tr>`).join(''):'<tr><td colspan="4" class="empty">Keine passenden Einträge.</td></tr>';
+}
+
+async function submitPartner(){
+  showError('');
+  showSuccess('');
+  const firstName=$('#firstName').value.trim();
+  const lastName=$('#lastName').value.trim();
+  const affiliateUrl=normalizeUrl($('#affiliateUrl').value);
+  if(!firstName || !lastName || !affiliateUrl){
+    return showError('Bitte Vorname, Nachname und einen gültigen Affiliate-Link vollständig eintragen.');
+  }
+
+  const duplicate=state.partners.findIndex((p,i)=>
+    i!==editIndex &&
+    fullName(p).toLocaleLowerCase('de')===(firstName+' '+lastName).toLocaleLowerCase('de')
+  );
+  if(duplicate>=0) return showError('Dieser Name ist bereits vorhanden. Bitte den bestehenden Eintrag bearbeiten.');
+
+  if(editIndex===null){
+    state.partners.push({firstName,lastName,affiliateUrl});
+    if(await saveState(`Add Club Partner ${firstName} ${lastName}`)){
+      showSuccess('Club Partner wurde gespeichert.');
+      resetForm();
+    }
+  }else{
+    state.partners[editIndex]={firstName,lastName,affiliateUrl};
+    if(await saveState(`Update Club Partner ${firstName} ${lastName}`)){
+      showSuccess('Änderung wurde gespeichert.');
+      resetForm();
+    }
+  }
+}
+
+window.editPartner=index=>{
+  const p=state.partners[index];
+  if(!p) return;
+  editIndex=index;
+  $('#firstName').value=p.firstName||'';
+  $('#lastName').value=p.lastName||'';
+  $('#affiliateUrl').value=p.affiliateUrl||'';
+  $('#savePartner').textContent='Änderung speichern';
+  render();
+  window.scrollTo({top:document.querySelector('.formgrid').getBoundingClientRect().top+window.scrollY-30,behavior:'smooth'});
+};
+
+window.deletePartner=async index=>{
+  const p=state.partners[index];
+  if(!p) return;
+  if(!confirm(`${fullName(p)} wirklich löschen?`)) return;
+  state.partners.splice(index,1);
+  if(editIndex===index) resetForm();
+  else if(editIndex!==null && editIndex>index) editIndex--;
+  if(await saveState(`Remove Club Partner ${fullName(p)}`)) showSuccess('Club Partner wurde gelöscht.');
+};
+
+$('#connect').onclick=load;
+$('#reload').onclick=load;
+$('#savePartner').onclick=submitPartner;
+$('#search').addEventListener('input',render);
+$('#removeToken').onclick=()=>{
+  localStorage.removeItem(KEY);
+  $('#token').value='';
+  token='';sha='';
+  $('#status').textContent='Nicht verbunden';
+  $('#status').className='status';
+  showSuccess('Gespeicherter Token wurde von diesem Gerät entfernt.');
+};
+
+['firstName','lastName','affiliateUrl'].forEach(id=>{
+  $('#'+id).addEventListener('keydown',e=>{
+    if(e.key==='Enter') submitPartner();
+  });
+});
+
+const saved=localStorage.getItem(KEY);
+if(saved){
+  $('#token').value=saved;
+  load();
+}
+</script>
+</body>
+</html>
