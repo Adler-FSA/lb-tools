@@ -134,6 +134,7 @@ const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/c
 const $=s=>document.querySelector(s);
 let partners=[];
 let selectedPartner=null;
+let loading=false;
 
 const I18N={
   de:{
@@ -285,18 +286,26 @@ $('#copyAgain').addEventListener('click',async()=>{
 $('#search').addEventListener('input',renderResults);
 
 async function load(){
+  if(loading)return;
+  loading=true;
   try{
     const r=await fetch(DATA_URL+'?v='+Date.now(),{cache:'no-store'});
     if(!r.ok)throw new Error('load');
     const data=await r.json();
     partners=Array.isArray(data.partners)?data.partners.filter(p=>p&&p.firstName&&p.lastName&&p.affiliateUrl):[];
     $('#error').classList.remove('show');
+    if($('#search').value.trim())renderResults();
   }catch(e){
     $('#error').textContent=t('loadError');
     $('#error').classList.add('show');
+  }finally{
+    loading=false;
   }
 }
 load();
+setInterval(load,60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)load()});
+window.addEventListener('focus',load);
 </script>
 </body>
 </html>
