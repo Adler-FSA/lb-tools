@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: EBA Download-Endpunkt untersuchen
+      - name: EBA Metadaten-Endpunkt isolieren
         shell: bash
         run: |
           set -euo pipefail
@@ -22,29 +22,31 @@ jobs:
           import re, requests
           from pathlib import Path
 
-          s=requests.Session()
-          s.headers.update({'User-Agent':'Mozilla/5.0 (Akademie Fruehwarn-Check)','Accept':'*/*'})
-          jsurl='https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js'
-          txt=s.get(jsurl,timeout=45).text
-          out=[f'JS size={len(txt)}\n']
+          txt=requests.get('https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js',headers={'User-Agent':'Mozilla/5.0'},timeout=45).text
+          out=[]
+          pats=[
+            r'fileMetaData=function',
+            r'\.fileMetaData=function',
+            r'fileMetaData\s*=\s*function',
+            r'golden_copy_path_context',
+            r'latest_version_relative_zip_path'
+          ]
+          for pat in pats:
+            out.append(f'===== {pat} =====\n')
+            ms=list(re.finditer(pat,txt,re.I))
+            out.append(f'count={len(ms)}\n')
+            for i,m in enumerate(ms[:20],1):
+              a=max(0,m.start()-5000); b=min(len(txt),m.end()+5000)
+              out.append(f'--- {i} ---\n'+re.sub(r'\s+',' ',txt[a:b])+'\n')
 
-          for pat in ['Downloading file :','registerDownload','pir/register','responseType:"blob"','responseType:"text"']:
-            out.append(f'\n===== {pat} =====\n')
-            matches=list(re.finditer(re.escape(pat),txt,re.I))
-            out.append(f'count={len(matches)}\n')
-            for i,m in enumerate(matches[:20],1):
-              a=max(0,m.start()-2200); b=min(len(txt),m.end()+2600)
-              chunk=re.sub(r'\s+',' ',txt[a:b])
-              out.append(f'--- match {i} ---\n{chunk}\n')
-
-          # Alle plausiblen internen REST-Pfade aus String-Literalen sammeln.
-          strings=re.findall(r'["\']([^"\']{1,300})["\']',txt)
-          vals=[]
+          # zusätzliche kurze String-Literale mit server/API/metadata/file
+          strings=re.findall(r'["\']([^"\']{1,240})["\']',txt)
+          keep=[]
           for v in strings:
-            if v.startswith('/') and any(k in v.lower() for k in ['api','pir','download','register','entity','file']):
-              if v not in vals: vals.append(v)
-          out.append('\n===== PATH STRINGS =====\n'+'\n'.join(vals[:1000])+'\n')
-
+            lv=v.lower()
+            if any(k in lv for k in ['metadata','filemeta','golden_copy','latest_version','backend','serverurl','apiurl','baseurl']):
+              if v not in keep: keep.append(v)
+          out.append('===== STRINGS =====\n'+'\n'.join(keep)+'\n')
           Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
       - name: Diagnose speichern
@@ -53,5 +55,5 @@ jobs:
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA Download-Funktion isolieren"
+          git commit -m "Frühwarn-Check: EBA Metadaten-Endpunkt isolieren"
           git push
