@@ -14,53 +14,86 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: GLEIF-Suche und Global-Status korrigieren
+
+      - name: Seitenfluss und Suchereignis stabilisieren
         run: |
           python - <<'PY'
           from pathlib import Path
-          p=Path('pages/projekt-fruehwarn-check/layer-results.js')
-          s=p.read_text(encoding='utf-8')
 
-          s=s.replace(
-              "gmbh|ag|ug|ltd|limited|llc|inc|sarl|bv|plc|s\\.?\\s*r\\.?\\s*o\\.?",
-              "gesellschaft mit beschrankter haftung|aktiengesellschaft|gmbh|ag|ug|se|kg|ohg|ltd|limited|llc|inc|sarl|sa|bv|plc|s\\.?\\s*r\\.?\\s*o\\.?"
-          )
-          s=s.replace("filter[entity.names]", "filter[entity.legalName]")
+          p = Path('pages/projekt-fruehwarn-check/index.html')
+          s = p.read_text(encoding='utf-8')
 
-          marker="  function queryTerms(q){"
-          helper="""  function setGlobalCoverage(kind){
-    const e=document.querySelector('#matches-GLOBAL .regionResult');
-    if(!e || document.querySelector('#matches-GLOBAL .match')) return;
-    e.className='regionResult partial';
-    if(kind==='match') e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: eindeutige Rechtsträger-/Identitätsspur gefunden. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';
-    else if(kind==='none') e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: Unternehmensidentität automatisch geprüft; kein eindeutiger LEI-Treffer. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';
-    else if(kind==='error') e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF ist als automatische Identitätsquelle angebunden, war bei dieser Prüfung jedoch nicht erreichbar. Globale Warnlisten bleiben teilweise Direktprüfung.';
-    else e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF prüft die Unternehmensidentität automatisch. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';
-  }
-
-"""
-          if 'function setGlobalCoverage(kind)' not in s:
-              s=s.replace(marker, helper+marker)
-
-          s=s.replace(
-              "    try{\n      const result=await lookupGLEIF(q);\n      renderGleifIdentity(result,q,seq);",
-              "    setGlobalCoverage('checking');\n    try{\n      const result=await lookupGLEIF(q);\n      setGlobalCoverage(result?.status==='match'?'match':'none');\n      renderGleifIdentity(result,q,seq);"
-          )
-          s=s.replace(
-              "      if(seq!==identitySeq||!sameActiveQuery(q))return;\n      set('#layerStatus-identity','partial','<strong>GLEIF derzeit nicht automatisch erreichbar.",
-              "      if(seq!==identitySeq||!sameActiveQuery(q))return;\n      setGlobalCoverage('error');\n      set('#layerStatus-identity','partial','<strong>GLEIF derzeit nicht automatisch erreichbar."
+          # Kein automatisches Smooth-Scrolling auf dynamisch wachsenden Ergebnissen.
+          s = s.replace(
+              'html{scroll-behavior:smooth;background:#fff}',
+              'html{scroll-behavior:auto;background:#fff}'
           )
 
-          p.write_text(s,encoding='utf-8')
+          # Nach Abschluss nur ein sauberes Ereignis auslösen; die Scrollposition bleibt beim Nutzer.
+          s = s.replace(
+              "setTimeout(()=>$('#resultShell').scrollIntoView({behavior:'smooth',block:'start'}),20)",
+              "window.dispatchEvent(new CustomEvent('fruehwarn:search-finished',{detail:{query:q}}))"
+          )
+
+          p.write_text(s, encoding='utf-8')
           PY
-      - name: Syntax prüfen
-        run: node --check pages/projekt-fruehwarn-check/layer-results.js
+
+      - name: GLEIF Mehrdeutigkeit und Observer-Rückkopplung beheben
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('pages/projekt-fruehwarn-check/layer-results.js')
+          s = p.read_text(encoding='utf-8')
+
+          old_score = "function scoreName(candidate,q){const a=stripLegalForms(candidate);const b=stripLegalForms(q);const ca=a.replace(/[^a-z0-9]/g,'');const cb=b.replace(/[^a-z0-9]/g,'');if(!ca||!cb)return 0;if(ca===cb)return 100;const at=a.split(' ').filter(Boolean);const bt=b.split(' ').filter(Boolean);if(cb.length>=7&&(ca.startsWith(cb)||cb.startsWith(ca)))return 88;if(bt.length>=2&&bt.every(x=>at.includes(x)))return 82;return 0;}"
+          new_score = "function rawComparable(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').replace(/\\s+/g,' ').trim();}\nfunction scoreName(candidate,q){const rawA=rawComparable(candidate);const rawB=rawComparable(q);if(rawA&&rawA===rawB)return 120;const a=stripLegalForms(candidate);const b=stripLegalForms(q);const ca=a.replace(/[^a-z0-9]/g,'');const cb=b.replace(/[^a-z0-9]/g,'');if(!ca||!cb)return 0;if(ca===cb)return 100;const at=a.split(' ').filter(Boolean);const bt=b.split(' ').filter(Boolean);if(cb.length>=7&&(ca.startsWith(cb)||cb.startsWith(ca)))return 88;if(bt.length>=2&&bt.every(x=>at.includes(x)))return 82;return 0;}"
+          if old_score in s:
+              s = s.replace(old_score, new_score)
+
+          old_accept = "candidates.sort((a,b)=>b.score-a.score);const best=candidates[0];const second=candidates[1];let accepted=null;if(best){if(best.score>=95)accepted=best;else if(best.score>=88&&(!second||best.score-second.score>=8))accepted=best;}const value=accepted?{status:'match',record:normalizeGleif(accepted.item,accepted.term)}:{status:'none'};gleifCache.set(cacheKey,value);return value;}"
+          new_accept = "candidates.sort((a,b)=>b.score-a.score);const unique=[];const seen=new Set();for(const c of candidates){const lei=c?.item?.attributes?.lei||c?.item?.id||'';const key=lei||rawComparable(c?.item?.attributes?.entity?.legalName?.name||'')+'|'+String(c?.item?.attributes?.entity?.jurisdiction||'');if(seen.has(key))continue;seen.add(key);unique.push(c);}const best=unique[0];const second=unique[1];const exact=unique.filter(x=>x.score>=120);const strong=unique.filter(x=>x.score>=100);let accepted=null;let ambiguous=[];if(exact.length===1)accepted=exact[0];else if(exact.length>1)ambiguous=exact;else if(strong.length===1)accepted=strong[0];else if(strong.length>1)ambiguous=strong;else if(best&&best.score>=88&&(!second||best.score-second.score>=8))accepted=best;const value=accepted?{status:'match',record:normalizeGleif(accepted.item,accepted.term)}:ambiguous.length?{status:'ambiguous',candidates:ambiguous.slice(0,5).map(x=>normalizeGleif(x.item,x.term))}:{status:'none'};gleifCache.set(cacheKey,value);return value;}"
+          if old_accept in s:
+              s = s.replace(old_accept, new_accept)
+
+          old_cov = "if(kind==='match')result.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: eindeutige Rechtsträger-/Identitätsspur gefunden. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';else if(kind==='none')result.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: Unternehmensidentität automatisch geprüft; kein eindeutiger LEI-Treffer. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';"
+          new_cov = "if(kind==='match')result.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: eindeutige Rechtsträger-/Identitätsspur gefunden. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';else if(kind==='ambiguous')result.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: mehrere mögliche Rechtsträger gefunden; keine automatische eindeutige Zuordnung vorgenommen. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';else if(kind==='none')result.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: Unternehmensidentität automatisch geprüft; kein eindeutiger LEI-Treffer. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';"
+          if old_cov in s:
+              s = s.replace(old_cov, new_cov)
+
+          old_else = "}else{set('#layerStatus-identity','partial',`<strong>Kein eindeutiger LEI-Treffer gefunden.</strong><br>Die automatische GLEIF-Prüfung konnte „${esc(q)}“ keinem LEI-Rechtsträger eindeutig zuordnen. Das bedeutet ausdrücklich nicht, dass die Firma nicht existiert. Deutsches Handels-/Unternehmensregister bzw. BRIS bleiben als Direktprüfung erforderlich.<a href=\"https://search.gleif.org/\" target=\"_blank\" rel=\"noopener\">GLEIF-Suche öffnen ↗</a>`);setGlobalCoverage('none');}}"
+          new_else = "}else if(result?.status==='ambiguous'){const list=(result.candidates||[]).slice(0,4).map(g=>`<span><b>${esc(g.legalName||'Rechtsträger')}</b>${g.country||g.jurisdiction?' · '+esc(g.country||g.jurisdiction):''}</span>`).join('');set('#layerStatus-identity','partial',`<strong>Mehrere mögliche LEI-Rechtsträger gefunden.</strong><br>Die Eingabe „${esc(q)}“ reicht für eine eindeutige Zuordnung nicht aus. Deshalb wird bewusst kein Unternehmen automatisch ausgewählt.<span class=\"identityFacts\">${list}</span><span class=\"relationHint\">Bitte für eine eindeutige Identitätsprüfung den vollständigen juristischen Firmennamen verwenden.</span><a href=\"https://search.gleif.org/\" target=\"_blank\" rel=\"noopener\">GLEIF-Suche öffnen ↗</a>`);setGlobalCoverage('ambiguous');}else{set('#layerStatus-identity','partial',`<strong>Kein eindeutiger LEI-Treffer gefunden.</strong><br>Die automatische GLEIF-Prüfung konnte „${esc(q)}“ keinem LEI-Rechtsträger eindeutig zuordnen. Das bedeutet ausdrücklich nicht, dass die Firma nicht existiert. Deutsches Handels-/Unternehmensregister bzw. BRIS bleiben als Direktprüfung erforderlich.<a href=\"https://search.gleif.org/\" target=\"_blank\" rel=\"noopener\">GLEIF-Suche öffnen ↗</a>`);setGlobalCoverage('none');}}"
+          if old_else in s:
+              s = s.replace(old_else, new_else)
+
+          old_bottom = "const obs=new MutationObserver(()=>setTimeout(updateFromVisibleQuery,50));\nwindow.addEventListener('DOMContentLoaded',()=>{setExtraSectionsVisible(false);closeTechnicalStatus();const query=$('#query');if(query){query.addEventListener('input',()=>{identitySeq++;const shown=$('#queryOut')?.textContent.trim()||'';const current=query.value.trim();if(!shown||current!==shown){setExtraSectionsVisible(false);closeTechnicalStatus();}});}const targets=['#resultShell','#queryOut','#searchFeedback','#datasetState'].map($).filter(Boolean);targets.forEach(t=>obs.observe(t,{subtree:true,childList:true,characterData:true,attributes:true}));load();});"
+          new_bottom = "let updateTimer=null;\nfunction scheduleVisibleUpdate(){if(updateTimer)clearTimeout(updateTimer);updateTimer=setTimeout(()=>{updateTimer=null;updateFromVisibleQuery();},30);}\nwindow.addEventListener('fruehwarn:search-finished',scheduleVisibleUpdate);\nwindow.addEventListener('DOMContentLoaded',()=>{setExtraSectionsVisible(false);closeTechnicalStatus();const query=$('#query');if(query){query.addEventListener('input',()=>{identitySeq++;const shown=$('#queryOut')?.textContent.trim()||'';const current=query.value.trim();if(!shown||current!==shown){setExtraSectionsVisible(false);closeTechnicalStatus();}});}const lang=$('#langBtn');if(lang)lang.addEventListener('click',()=>setTimeout(scheduleVisibleUpdate,0));load();});"
+          if old_bottom in s:
+              s = s.replace(old_bottom, new_bottom)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Änderungen prüfen
+        run: |
+          node --check pages/projekt-fruehwarn-check/layer-results.js
+          grep -q "fruehwarn:search-finished" pages/projekt-fruehwarn-check/index.html
+          grep -q "scheduleVisibleUpdate" pages/projekt-fruehwarn-check/layer-results.js
+          if grep -q "new MutationObserver" pages/projekt-fruehwarn-check/layer-results.js; then
+            echo "MutationObserver ist noch vorhanden" >&2
+            exit 1
+          fi
+          if grep -q "scrollIntoView" pages/projekt-fruehwarn-check/index.html; then
+            echo "Automatisches scrollIntoView ist noch vorhanden" >&2
+            exit 1
+          fi
+
       - name: Änderungen speichern
         run: |
           git config user.name "FSA Frühwarn-Update"
           git config user.email "actions@github.com"
-          git add pages/projekt-fruehwarn-check/layer-results.js
+          git add pages/projekt-fruehwarn-check/index.html pages/projekt-fruehwarn-check/layer-results.js
           if ! git diff --cached --quiet; then
-            git commit -m "Frühwarn-Check: GLEIF-Suche korrigiert"
+            git commit -m "Frühwarn-Check: Layout und Suchlogik stabilisieren"
             git push
           fi
