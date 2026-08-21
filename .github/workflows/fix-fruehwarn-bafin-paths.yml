@@ -1,0 +1,40 @@
+name: Projekt Frühwarn-Check – BaFin Pfadpatch
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'pages/projekt-fruehwarn-check/scripts/patch_bafin_new_paths.py'
+      - '.github/workflows/fix-fruehwarn-bafin-paths.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Neue BaFin-Pfade anwenden
+        run: python pages/projekt-fruehwarn-check/scripts/patch_bafin_new_paths.py
+
+      - name: Patch speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FSA Frühwarn-Patch"
+          git config user.email "actions@github.com"
+          git add -- pages/projekt-fruehwarn-check/scripts/update_bafin.py
+          if git diff --cached --quiet; then
+            echo "BaFin-Pfadpatch bereits angewendet."
+          else
+            git commit -m "Frühwarn-Check: BaFin neue Warnmeldungsstruktur verwenden"
+            git push
+          fi
