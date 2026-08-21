@@ -14,45 +14,57 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: EBA Institutsblock prüfen
+      - name: EBA Kreditinstitutsregister prüfen
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import hashlib, io, json, requests, zipfile
+          import collections, hashlib, io, json, requests, zipfile
           from pathlib import Path
 
-          meta_url='https://euclid.eba.europa.eu/register/api/filemetadata'
+          meta_url='https://euclid.eba.europa.eu/register/cir-api/filemetadata'
           s=requests.Session(); s.headers.update({'User-Agent':'Akademie-Fruehwarn-Check/1.0','Accept':'application/json,*/*'})
-          meta=s.get(meta_url,timeout=30).json()
+          r=s.get(meta_url,timeout=30)
+          out=[f'metadata_status={r.status_code} type={r.headers.get("content-type")}\n',f'metadata_body={r.text[:3000]}\n']
+          r.raise_for_status(); meta=r.json()
           url=meta['golden_copy_path_context']+meta['latest_version_relative_zip_path']
           raw=s.get(url,timeout=120).content
           digest=hashlib.sha256(raw).hexdigest()
-          if digest.lower()!=str(meta.get('sha256_hash','')).lower(): raise SystemExit('SHA256 mismatch')
-          out=[f'metadata={json.dumps(meta,ensure_ascii=False)}\n']
+          out += [f'zip_url={url}\n',f'zip_bytes={len(raw)}\n',f'sha256={digest}\n']
+          expected=str(meta.get('sha256_hash','')).lower()
+          if expected and digest.lower()!=expected: raise SystemExit('SHA256 mismatch')
           with zipfile.ZipFile(io.BytesIO(raw)) as z:
-            name=next(i.filename for i in z.infolist() if i.filename.lower().endswith('.json'))
+            infos=z.infolist()
+            out.append('FILES\n')
+            for info in infos: out.append(f'{info.filename}\tcompressed={info.compress_size}\tuncompressed={info.file_size}\n')
+            name=next((i.filename for i in infos if i.filename.lower().endswith('.json')),None)
+            if not name: raise SystemExit('Kein JSON im CIR-ZIP')
             data=json.loads(z.read(name).decode('utf-8-sig'))
             out.append(f'TOP type={type(data).__name__} len={len(data) if hasattr(data,"__len__") else "?"}\n')
-            if isinstance(data,list):
-              for idx,item in enumerate(data):
-                out.append(f'INDEX {idx}: type={type(item).__name__}')
-                if hasattr(item,'__len__'): out.append(f' len={len(item)}')
-                out.append('\n')
-                if isinstance(item,dict):
-                  out.append(' keys='+repr(list(item.keys())[:100])+'\n')
-                  out.append(' sample='+json.dumps(item,ensure_ascii=False)[:12000]+'\n')
-                elif isinstance(item,list):
-                  for j,x in enumerate(item[:3]):
-                    out.append(f'  CHILD {j}: type={type(x).__name__}')
-                    if hasattr(x,'__len__'): out.append(f' len={len(x)}')
-                    out.append('\n')
-                    if isinstance(x,dict):
-                      out.append('   keys='+repr(list(x.keys())[:120])+'\n')
-                      out.append('   sample='+json.dumps(x,ensure_ascii=False)[:12000]+'\n')
-                    elif isinstance(x,list) and x:
-                      out.append(f'   GRANDCHILD type={type(x[0]).__name__} len={len(x)}\n')
-                      out.append('   sample='+json.dumps(x[0],ensure_ascii=False)[:12000]+'\n')
+            counts=collections.Counter()
+            entities=[]
+            def walk(x):
+              if isinstance(x,dict):
+                if 'EntityType' in x and 'Properties' in x:
+                  entities.append(x); counts[str(x.get('EntityType'))]+=1
+                else:
+                  for v in x.values(): walk(v)
+              elif isinstance(x,list):
+                for v in x: walk(v)
+            walk(data)
+            out.append(f'ENTITY_COUNT={len(entities)}\n')
+            out.append('ENTITY_TYPES='+json.dumps(counts,ensure_ascii=False,sort_keys=True)+'\n')
+            for i,e in enumerate(entities[:5]):
+              out.append(f'SAMPLE {i}='+json.dumps(e,ensure_ascii=False)[:12000]+'\n')
+            # Deutsche Bank gezielt suchen
+            hits=[]
+            for e in entities:
+              txt=json.dumps(e.get('Properties',[]),ensure_ascii=False).lower()
+              if 'deutsche bank' in txt:
+                hits.append(e)
+                if len(hits)>=5: break
+            out.append(f'DEUTSCHE_BANK_HITS={len(hits)}\n')
+            for e in hits: out.append('DB='+json.dumps(e,ensure_ascii=False)[:12000]+'\n')
           Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
       - name: Diagnose speichern
@@ -61,5 +73,5 @@ jobs:
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA Institutsblock prüfen"
+          git commit -m "Frühwarn-Check: EBA Kreditinstitutsregister prüfen"
           git push
