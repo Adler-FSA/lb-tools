@@ -11,49 +11,47 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: EBA API-Konstanten exakt auslesen
+      - name: EBA ZIP-Struktur prüfen
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import re, requests, json
+          import hashlib, io, json, requests, zipfile
           from pathlib import Path
 
-          js='https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js'
-          txt=requests.get(js,headers={'User-Agent':'Mozilla/5.0'},timeout=45).text
-          out=[]
-
-          # Exakte Konstantenzuweisungen global suchen.
-          patterns=[
-            r'API_BASE_URL\s*[:=]\s*["\']([^"\']+)',
-            r'CIR_API_BASE_URL\s*[:=]\s*["\']([^"\']+)',
-            r'API_BASE_URL[^,;}]{0,250}',
-            r'CIR_API_BASE_URL[^,;}]{0,250}'
-          ]
-          for pat in patterns:
-            out.append(f'PATTERN {pat}\n')
-            vals=[]
-            for m in re.finditer(pat,txt,re.I):
-              vals.append(m.group(1) if m.lastindex else m.group(0))
-            out.extend(v+'\n' for v in vals[:50])
-
-          # Alle exakten Moduldefinitionen von AytR finden.
-          for pat in [r'AytR:function\([^)]*\)\{', r'["\']AytR["\']:function\([^)]*\)\{']:
-            out.append(f'MODULE PATTERN {pat}\n')
-            for m in list(re.finditer(pat,txt))[:10]:
-              out.append(re.sub(r'\s+',' ',txt[m.start():m.start()+12000])+'\n')
-
-          # URL-Literale aus dem Bundle; auf EUCLID/EBA begrenzen.
-          urls=[]
-          for u in re.findall(r'https?://[^"\'\\\s]+',txt):
-            u=u.rstrip('),};]')
-            if ('eba.europa.eu' in u or 'euclid' in u) and u not in urls:
-              urls.append(u)
-          out.append('URLS\n'+'\n'.join(urls)+'\n')
-
+          meta_url='https://euclid.eba.europa.eu/register/api/filemetadata'
+          s=requests.Session(); s.headers.update({'User-Agent':'Akademie-Fruehwarn-Check/1.0','Accept':'application/json,*/*'})
+          meta=s.get(meta_url,timeout=30).json()
+          url=meta['golden_copy_path_context']+meta['latest_version_relative_zip_path']
+          raw=s.get(url,timeout=120).content
+          digest=hashlib.sha256(raw).hexdigest()
+          if digest.lower()!=str(meta.get('sha256_hash','')).lower():
+            raise SystemExit(f'SHA256 stimmt nicht: {digest}')
+          out=[f'metadata={json.dumps(meta,ensure_ascii=False)}\n',f'zip_url={url}\n',f'zip_bytes={len(raw)}\n',f'sha256={digest}\n']
+          with zipfile.ZipFile(io.BytesIO(raw)) as z:
+            infos=z.infolist()
+            out.append('FILES\n')
+            for info in infos:
+              out.append(f'{info.filename}\tcompressed={info.compress_size}\tuncompressed={info.file_size}\n')
+            for info in infos:
+              if info.is_dir(): continue
+              low=info.filename.lower()
+              if low.endswith('.json'):
+                data=json.loads(z.read(info).decode('utf-8-sig'))
+                out.append(f'\nJSON {info.filename}\nTYPE={type(data).__name__}\n')
+                if isinstance(data,dict):
+                  out.append('KEYS='+repr(list(data.keys())[:100])+'\n')
+                  for k,v in data.items():
+                    if isinstance(v,list):
+                      out.append(f'LISTKEY={k} COUNT={len(v)}\n')
+                      if v: out.append('SAMPLE='+json.dumps(v[0],ensure_ascii=False)[:7000]+'\n')
+                      break
+                elif isinstance(data,list):
+                  out.append(f'COUNT={len(data)}\n')
+                  if data: out.append('SAMPLE='+json.dumps(data[0],ensure_ascii=False)[:7000]+'\n')
           Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
       - name: Diagnose speichern
@@ -62,5 +60,5 @@ jobs:
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA API-Konstanten auslesen"
+          git commit -m "Frühwarn-Check: EBA ZIP-Struktur prüfen"
           git push
