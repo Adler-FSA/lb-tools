@@ -1,0 +1,54 @@
+name: Projekt Frühwarn-Check – CFTC Global Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 4 * * *'
+  push:
+    paths:
+      - '.github/workflows/update-fruehwarn-cftc.yml'
+      - 'pages/projekt-fruehwarn-check/scripts/update_cftc_red.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: projekt-fruehwarn-cftc
+  cancel-in-progress: false
+
+jobs:
+  update-cftc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Parser installieren
+        run: python -m pip install --disable-pip-version-check beautifulsoup4
+      - name: CFTC RED List aktualisieren
+        run: python pages/projekt-fruehwarn-check/scripts/update_cftc_red.py
+      - name: Ergebnis validieren
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('pages/projekt-fruehwarn-check/data/records.json').read_text(encoding='utf-8'))
+          n=sum(1 for r in data.get('records',[]) if r.get('source_id')=='cftc-red-list')
+          print('CFTC RED List:',n)
+          if n < 100: raise SystemExit('CFTC-Validierung fehlgeschlagen')
+          PY
+      - name: Daten speichern
+        run: |
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add -- pages/projekt-fruehwarn-check/data/records.json pages/projekt-fruehwarn-check/data/sources.json
+          if git diff --cached --quiet; then
+            echo "Keine Datenänderung."
+          else
+            git commit -m "Frühwarn-Check: CFTC RED List aktualisieren"
+            git push
+          fi
