@@ -20,7 +20,6 @@ jobs:
           import re
           p=Path('pages/projekt-fruehwarn-check/layer-results.js')
           s=p.read_text(encoding='utf-8')
-
           ensure = '''function ensureGleifSourceUI(){
           const box=$('#sources-GLOBAL');
           const addSource=(id,name,url)=>{if(box&&!box.querySelector(`[data-live-source="${id}"]`)){const a=document.createElement('a');a.className='sourceLink';a.href=url;a.target='_blank';a.rel='noopener';a.dataset.liveSource=id;a.innerHTML=`<div class="sourceName">${name}</div><div class="sourceMode">automatisch geprüft</div>`;box.prepend(a);}};
@@ -33,7 +32,6 @@ jobs:
           }'''
           s,n=re.subn(r'function ensureGleifSourceUI\(\)\{.*?\}\nfunction setGlobalCoverage',ensure+'\nfunction setGlobalCoverage',s,count=1,flags=re.S)
           if n!=1: raise SystemExit(f'ensure function replacement count={n}')
-
           global_fn = '''function setGlobalCoverage(kind='checking'){
           const result=document.querySelector('#matches-GLOBAL .regionResult');if(!result)return;if(document.querySelector('#matches-GLOBAL .match'))return;
           result.className='regionResult partial';
@@ -45,12 +43,10 @@ jobs:
           }'''
           s,n=re.subn(r"function setGlobalCoverage\(kind='checking'\)\{.*?\}\nasync function load",global_fn+'\nasync function load',s,count=1,flags=re.S)
           if n!=1: raise SystemExit(f'global function replacement count={n}')
-
           old_re=r"const finWarn=matchedRecords\.find\(r=>.*?\);const finAuth="
           replacement="const finWarn=matchedRecords.find(r=>/bafin-warnings|esma-non-compliant|cftc-red-list/.test(String(r.source_id||''))||/warning|non_compliant|registration_deficient/.test(String(r.status||'')));const finAuth="
           s,n=re.subn(old_re,replacement,s,count=1,flags=re.S)
           if n!=1: raise SystemExit(f'finWarn replacement count={n}')
-
           p.write_text(s,encoding='utf-8')
           PY
       - name: Syntax prüfen
@@ -63,3 +59,5 @@ jobs:
           git add pages/projekt-fruehwarn-check/layer-results.js
           git commit -m "Frühwarn-Check: CFTC automatisch im Global-Ergebnis anzeigen"
           git push
+
+# Initialisierung V2
