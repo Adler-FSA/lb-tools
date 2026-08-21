@@ -1,4 +1,5 @@
 name: Projekt Frühwarn-Check – BaFin Update
+# Stand: neue BaFin-Warnmeldungsstruktur + offizielle Expertensuche
 
 on:
   workflow_dispatch:
