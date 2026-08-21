@@ -1,0 +1,59 @@
+name: Patch Frühwarn-Check GLEIF Primary Entity
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-fruehwarn-gleif-primary-entity.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch primary entity and financial wording
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('pages/projekt-fruehwarn-check/layer-results.js')
+          s=p.read_text(encoding='utf-8')
+
+          old="function normalizeGleif(item,matchedTerm){const a=item?.attributes||{};const e=a.entity||{};const r=a.registration||{};const addr=e.legalAddress||e.headquartersAddress||{};return{lei:a.lei||item?.id||'',legalName:e.legalName?.name||gleifNameCandidates(item)[0]||'',status:e.status||'',jurisdiction:e.jurisdiction||e.legalJurisdiction||addr.country||'',city:addr.city||'',country:addr.country||'',registeredAs:e.registeredAs||r.validatedAs||'',registeredAt:e.registeredAt?.id||r.validatedAt?.id||'',registrationStatus:r.status||'',matchedTerm};}"
+          new="function normalizeGleif(item,matchedTerm){const a=item?.attributes||{};const e=a.entity||{};const r=a.registration||{};const addr=e.legalAddress||e.headquartersAddress||{};return{lei:a.lei||item?.id||'',legalName:e.legalName?.name||gleifNameCandidates(item)[0]||'',status:e.status||'',category:e.category||'',subCategory:e.subCategory||'',jurisdiction:e.jurisdiction||e.legalJurisdiction||addr.country||'',city:addr.city||'',country:addr.country||'',registeredAs:e.registeredAs||r.validatedAs||'',registeredAt:e.registeredAt?.id||r.validatedAt?.id||'',registrationStatus:r.status||'',matchedTerm};}"
+          if old not in s: raise SystemExit('normalizeGleif pattern not found')
+          s=s.replace(old,new,1)
+
+          old="if(exactUnique.length>1){const active=exactUnique.filter(x=>String(x?.item?.attributes?.entity?.status||'').toUpperCase()==='ACTIVE'&&String(x?.item?.attributes?.registration?.status||'').toUpperCase()==='ISSUED');if(active.length===1){const value={status:'match',record:normalizeGleif(active[0].item,active[0].term)};gleifCache.set(cacheKey,value);return value;}const value={status:'ambiguous',candidates:exactUnique.slice(0,5).map(x=>normalizeGleif(x.item,x.term))};gleifCache.set(cacheKey,value);return value;}"
+          new="if(exactUnique.length>1){const general=exactUnique.filter(x=>String(x?.item?.attributes?.entity?.category||'').toUpperCase()==='GENERAL');const generalActive=general.filter(x=>String(x?.item?.attributes?.entity?.status||'').toUpperCase()==='ACTIVE'&&String(x?.item?.attributes?.registration?.status||'').toUpperCase()==='ISSUED');if(generalActive.length===1){const value={status:'match',record:normalizeGleif(generalActive[0].item,generalActive[0].term)};gleifCache.set(cacheKey,value);return value;}if(general.length===1){const value={status:'match',record:normalizeGleif(general[0].item,general[0].term)};gleifCache.set(cacheKey,value);return value;}const active=exactUnique.filter(x=>String(x?.item?.attributes?.entity?.status||'').toUpperCase()==='ACTIVE'&&String(x?.item?.attributes?.registration?.status||'').toUpperCase()==='ISSUED');if(active.length===1){const value={status:'match',record:normalizeGleif(active[0].item,active[0].term)};gleifCache.set(cacheKey,value);return value;}const value={status:'ambiguous',candidates:exactUnique.slice(0,5).map(x=>normalizeGleif(x.item,x.term))};gleifCache.set(cacheKey,value);return value;}"
+          if old not in s: raise SystemExit('exactUnique pattern not found')
+          s=s.replace(old,new,1)
+
+          old="if(equivalents.length>1){const active=equivalents.filter(x=>String(x?.item?.attributes?.entity?.status||'').toUpperCase()==='ACTIVE'&&String(x?.item?.attributes?.registration?.status||'').toUpperCase()==='ISSUED');if(active.length===1){const value={status:'match',record:normalizeGleif(active[0].item,active[0].term)};gleifCache.set(cacheKey,value);return value;}const value={status:'ambiguous',candidates:equivalents.slice(0,5).map(x=>normalizeGleif(x.item,x.term))};gleifCache.set(cacheKey,value);return value;}"
+          new="if(equivalents.length>1){const general=equivalents.filter(x=>String(x?.item?.attributes?.entity?.category||'').toUpperCase()==='GENERAL');const generalActive=general.filter(x=>String(x?.item?.attributes?.entity?.status||'').toUpperCase()==='ACTIVE'&&String(x?.item?.attributes?.registration?.status||'').toUpperCase()==='ISSUED');if(generalActive.length===1){const value={status:'match',record:normalizeGleif(generalActive[0].item,generalActive[0].term)};gleifCache.set(cacheKey,value);return value;}if(general.length===1){const value={status:'match',record:normalizeGleif(general[0].item,general[0].term)};gleifCache.set(cacheKey,value);return value;}const active=equivalents.filter(x=>String(x?.item?.attributes?.entity?.status||'').toUpperCase()==='ACTIVE'&&String(x?.item?.attributes?.registration?.status||'').toUpperCase()==='ISSUED');if(active.length===1){const value={status:'match',record:normalizeGleif(active[0].item,active[0].term)};gleifCache.set(cacheKey,value);return value;}const value={status:'ambiguous',candidates:equivalents.slice(0,5).map(x=>normalizeGleif(x.item,x.term))};gleifCache.set(cacheKey,value);return value;}"
+          if old not in s: raise SystemExit('equivalents pattern not found')
+          s=s.replace(old,new,1)
+
+          old="if(g.jurisdiction)facts.push(`<span><b>Jurisdiktion:</b> ${esc(g.jurisdiction)}</span>`);if(g.registeredAs)facts.push(`<span><b>Registerkennung:</b> ${esc(g.registeredAs)}</span>`);"
+          new="if(g.jurisdiction)facts.push(`<span><b>Jurisdiktion:</b> ${esc(g.jurisdiction)}</span>`);if(g.category)facts.push(`<span><b>Rechtsträger-Kategorie:</b> ${esc(g.category)}</span>`);if(g.registeredAs)facts.push(`<span><b>Registerkennung:</b> ${esc(g.registeredAs)}</span>`);"
+          if old not in s: raise SystemExit('render facts pattern not found')
+          s=s.replace(old,new,1)
+
+          old="else{set('#layerStatus-financial','good','<strong>Kein eindeutiger Treffer.</strong><br>In den automatisch geprüften BaFin- und ESMA-Daten wurde kein eindeutiger Warn- oder Zulassungstreffer zugeordnet.');}"
+          new="else{set('#layerStatus-financial','partial','<strong>Derzeit nur teilweise automatisch geprüft.</strong><br>Automatisch geprüft werden aktuell BaFin-Verbraucherwarnungen sowie die angebundenen ESMA-MiCA-Register. Die allgemeine BaFin-Unternehmensdatenbank und weitere sektorale Aufsichtsregister sind noch als Direktprüfung angebunden. Aus diesem Feld kann deshalb derzeit keine Aussage abgeleitet werden, ob eine Bank, Versicherung oder ein sonstiges Finanzunternehmen beaufsichtigt bzw. zugelassen ist.<a href=\"https://portal.mvp.bafin.de/database/InstInfo/\" target=\"_blank\" rel=\"noopener\">BaFin-Unternehmensdatenbank direkt prüfen ↗</a>');}"
+          if old not in s: raise SystemExit('financial wording pattern not found')
+          s=s.replace(old,new,1)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: JavaScript syntax check
+        run: node --check pages/projekt-fruehwarn-check/layer-results.js
+      - name: Commit patch
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pages/projekt-fruehwarn-check/layer-results.js
+          git commit -m "Frühwarn-Check: Hauptrechtsträger vor Niederlassungen priorisieren"
+          git push
