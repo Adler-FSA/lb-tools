@@ -14,39 +14,55 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: EBA Metadaten-Endpunkt isolieren
+      - name: EBA Basis-URL und Metadaten prüfen
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import re, requests
+          import re, requests, json
           from pathlib import Path
 
-          txt=requests.get('https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js',headers={'User-Agent':'Mozilla/5.0'},timeout=45).text
+          jsurl='https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js'
+          txt=requests.get(jsurl,headers={'User-Agent':'Mozilla/5.0'},timeout=45).text
           out=[]
-          pats=[
-            r'fileMetaData=function',
-            r'\.fileMetaData=function',
-            r'fileMetaData\s*=\s*function',
-            r'golden_copy_path_context',
-            r'latest_version_relative_zip_path'
-          ]
-          for pat in pats:
-            out.append(f'===== {pat} =====\n')
-            ms=list(re.finditer(pat,txt,re.I))
-            out.append(f'count={len(ms)}\n')
-            for i,m in enumerate(ms[:20],1):
-              a=max(0,m.start()-5000); b=min(len(txt),m.end()+5000)
-              out.append(f'--- {i} ---\n'+re.sub(r'\s+',' ',txt[a:b])+'\n')
 
-          # zusätzliche kurze String-Literale mit server/API/metadata/file
-          strings=re.findall(r'["\']([^"\']{1,240})["\']',txt)
-          keep=[]
-          for v in strings:
-            lv=v.lower()
-            if any(k in lv for k in ['metadata','filemeta','golden_copy','latest_version','backend','serverurl','apiurl','baseurl']):
-              if v not in keep: keep.append(v)
-          out.append('===== STRINGS =====\n'+'\n'.join(keep)+'\n')
+          # Modul mit den API-Konstanten isolieren.
+          m=re.search(r'"AytR":function\(e,t,n\)\{(.{0,12000}?)\},"',txt,re.S)
+          if m:
+            chunk=re.sub(r'\s+',' ',m.group(1))
+            out.append('===== AytR MODULE =====\n'+chunk+'\n')
+          else:
+            for mm in list(re.finditer('AytR',txt))[:10]:
+              a=max(0,mm.start()-2500); b=min(len(txt),mm.end()+5000)
+              out.append('===== AytR CONTEXT =====\n'+re.sub(r'\s+',' ',txt[a:b])+'\n')
+
+          # Alle absoluten URLs und strings nahe API_BASE_URL extrahieren.
+          for mm in re.finditer(r'(?:CIR_)?API_BASE_URL',txt):
+            a=max(0,mm.start()-1500); b=min(len(txt),mm.end()+2500)
+            out.append('===== API_BASE_URL CONTEXT =====\n'+re.sub(r'\s+',' ',txt[a:b])+'\n')
+
+          urls=[]
+          for u in re.findall(r'https?://[^"\'\\\s]{5,300}',txt):
+            if any(k in u.lower() for k in ['eba','euclid','api','register']):
+              if u not in urls: urls.append(u)
+          out.append('===== URLS =====\n'+'\n'.join(urls[:300])+'\n')
+
+          # Naheliegende Endpunkte testen; erfolgreiche JSON-Antworten vollständig notieren.
+          candidates=[
+            'https://euclid.eba.europa.eu/register/api/filemetadata',
+            'https://euclid.eba.europa.eu/api/filemetadata',
+            'https://euclid.eba.europa.eu/register/pir-api/filemetadata',
+            'https://euclid.eba.europa.eu/register/pir/api/filemetadata',
+            'https://euclid.eba.europa.eu/register/api/pir/filemetadata'
+          ]
+          s=requests.Session(); s.headers.update({'User-Agent':'Mozilla/5.0','Accept':'application/json,*/*'})
+          for u in candidates:
+            try:
+              r=s.get(u,timeout=25,allow_redirects=True)
+              out.append(f'TEST {u}\nstatus={r.status_code} type={r.headers.get("content-type")} len={len(r.content)} final={r.url}\nbody={r.text[:1500]}\n')
+            except Exception as e:
+              out.append(f'TEST ERROR {u}: {e}\n')
+
           Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
       - name: Diagnose speichern
@@ -55,5 +71,5 @@ jobs:
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA Metadaten-Endpunkt isolieren"
+          git commit -m "Frühwarn-Check: EBA Basis-URL diagnostizieren"
           git push
