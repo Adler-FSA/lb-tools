@@ -1,0 +1,67 @@
+name: Projekt Frühwarn-Check – ESMA Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 5 * * *'
+  push:
+    paths:
+      - '.github/workflows/update-fruehwarn-esma.yml'
+      - 'pages/projekt-fruehwarn-check/scripts/update_esma.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: projekt-fruehwarn-esma
+  cancel-in-progress: false
+
+jobs:
+  update-esma:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: ESMA CASP und Non-Compliant aktualisieren
+        run: python pages/projekt-fruehwarn-check/scripts/update_esma.py
+
+      - name: Ergebnis prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('pages/projekt-fruehwarn-check/data/records.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          casp = sum(1 for r in data.get('records', []) if r.get('source_id') == 'esma-casp')
+          ncasp = sum(1 for r in data.get('records', []) if r.get('source_id') == 'esma-non-compliant')
+          print(f'CASP: {casp}')
+          print(f'Non-Compliant: {ncasp}')
+          if casp < 100 or ncasp < 50:
+              raise SystemExit('Validierung fehlgeschlagen – bestehender Datenbestand wird nicht überschrieben.')
+          PY
+
+      - name: Aktualisierten Datenbestand speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add -- pages/projekt-fruehwarn-check/data/records.json pages/projekt-fruehwarn-check/data/sources.json
+          if git diff --cached --quiet; then
+            echo "Keine Datenänderung seit dem letzten erfolgreichen Lauf."
+          else
+            git commit -m "Frühwarn-Check: ESMA Daten aktualisieren"
+            git push
+          fi
