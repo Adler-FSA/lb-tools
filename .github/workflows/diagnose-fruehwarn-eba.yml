@@ -1,4 +1,4 @@
-name: Diagnose Frühwarn-Check EBA Download
+name: Diagnose Frühwarn-Check EBA CIR
 
 on:
   push:
@@ -11,45 +11,87 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: EBA CIR Query aus offiziellem Frontend extrahieren
+      - name: EBA Kreditinstituts-Suche exakt testen
         shell: bash
         run: |
+          set -euo pipefail
           python - <<'PY'
-          import re, requests
+          import json, requests
           from pathlib import Path
 
-          js='https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js'
-          txt=requests.get(js,headers={'User-Agent':'Mozilla/5.0'},timeout=45).text
+          url='https://euclid.eba.europa.eu/register/api/search/entities'
+          headers={
+            'User-Agent':'Mozilla/5.0 (Akademie Fruehwarn-Check)',
+            'Accept':'application/json, text/plain, */*',
+            'Content-Type':'application/json'
+          }
+          tests={
+            'deutsche_bank_exact': {
+              '$and': [
+                {'_messagetype':'EUCLIDMD'},
+                {'_payload.EntityType':'CRD_CRE_INS'},
+                {'_searchkeys':{'$elemMatch':{
+                  'T':'P',
+                  'K':{'$in':['ENT_NAM','ENT_NAM_NON_LAT']},
+                  'V':{'$regex':'deutsche bank ag'}
+                }}}
+              ]
+            },
+            'credit_institutions_all': {
+              '$and': [
+                {'_messagetype':'EUCLIDMD'},
+                {'_payload.EntityType':'CRD_CRE_INS'}
+              ]
+            }
+          }
+
           out=[]
+          for name, body in tests.items():
+            try:
+              r=requests.post(url,headers=headers,json=body,timeout=90)
+              out.append(f'===== {name} =====\n')
+              out.append(f'status={r.status_code} type={r.headers.get("content-type")} bytes={len(r.content)}\n')
+              if r.status_code != 200:
+                out.append('body='+r.text[:3000]+'\n')
+                continue
+              data=r.json()
+              out.append(f'json_type={type(data).__name__}\n')
+              if isinstance(data,list):
+                out.append(f'count={len(data)}\n')
+                for row in data[:8]:
+                  p=row.get('_payload',row) if isinstance(row,dict) else {}
+                  props={}
+                  for item in p.get('Properties',[]) or []:
+                    if isinstance(item,dict): props.update(item)
+                  summary={
+                    'EntityType':p.get('EntityType'),
+                    'EntityCode':p.get('EntityCode'),
+                    'CA_OwnerID':p.get('CA_OwnerID'),
+                    'ENT_NAM':props.get('ENT_NAM'),
+                    'ENT_NAM_NON_LAT':props.get('ENT_NAM_NON_LAT'),
+                    'ENT_NAT_REF_COD':props.get('ENT_NAT_REF_COD'),
+                    'ENT_COU_RES':props.get('ENT_COU_RES'),
+                    'ENT_TOW_CIT_RES':props.get('ENT_TOW_CIT_RES'),
+                    'ENT_AUT':props.get('ENT_AUT'),
+                    'LEI':props.get('LEI') or props.get('ENT_LEI')
+                  }
+                  out.append(json.dumps(summary,ensure_ascii=False)+'\n')
+              elif isinstance(data,dict):
+                out.append('keys='+repr(list(data.keys())[:30])+'\n')
+                out.append(json.dumps(data,ensure_ascii=False)[:5000]+'\n')
+            except Exception as e:
+              out.append(f'ERROR {name}: {e}\n')
 
-          pats=[
-            'CRD_CRE_INS',
-            'CRD_EEA_BR',
-            'CRD_NON_EEA_BR',
-            'searchEntities(',
-            'querySearch',
-            'queryLoad',
-            'ENT_NAM',
-            'cir/search'
-          ]
-          for pat in pats:
-            out.append(f'\n===== {pat} =====\n')
-            ms=list(re.finditer(re.escape(pat),txt,re.I))
-            out.append(f'count={len(ms)}\n')
-            for i,m in enumerate(ms[:35],1):
-              a=max(0,m.start()-1800); b=min(len(txt),m.end()+2600)
-              out.append(f'--- {i} ---\n'+re.sub(r'\s+',' ',txt[a:b])+'\n')
-
-          Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
+          Path('pages/projekt-fruehwarn-check/data/eba-cir-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
       - name: Diagnose speichern
         run: |
           git config user.name "FSA Frühwarn-Diagnose"
           git config user.email "actions@github.com"
-          git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
+          git add pages/projekt-fruehwarn-check/data/eba-cir-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA CIR Frontend-Query extrahieren"
+          git commit -m "Frühwarn-Check: EBA CIR Suchabfrage testen"
           git push
