@@ -32,13 +32,12 @@ jobs:
           out.append('scripts='+repr(scripts)+'\n')
 
           for src in scripts:
-            jsurl=urllib.parse.urljoin(r.url,src)
+            jsurl=urllib.parse.urljoin('https://euclid.eba.europa.eu/register/',src)
             j=s.get(jsurl,timeout=45)
             txt=j.text
             if 'registerDownload' not in txt and '/api/' not in txt and 'download' not in txt.lower():
               continue
             out.append(f'\n### {jsurl} size={len(txt)}\n')
-            # Relevante String-Literale und URL-Fragmente herausziehen.
             strings=re.findall(r'["\']([^"\']{3,260})["\']',txt)
             interesting=[]
             for v in strings:
@@ -46,8 +45,6 @@ jobs:
               if any(k in low for k in ['registerdownload','/api/','download','export','json','pir/','register-file']):
                 if v not in interesting: interesting.append(v)
             out.append('INTERESTING STRINGS:\n'+'\n'.join(interesting[:500])+'\n')
-
-            # Kontext rund um alle relevanten Stellen.
             for pat in ['registerDownload','/api/','downloadFile','fileDownload','responseType','blob']:
               for m in list(re.finditer(re.escape(pat),txt,re.I))[:40]:
                 a=max(0,m.start()-350); b=min(len(txt),m.end()+500)
