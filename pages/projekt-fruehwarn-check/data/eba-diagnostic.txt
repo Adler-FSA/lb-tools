@@ -1,16 +1,216 @@
-metadata={"latest_version_relative_zip_path": "20260821/download-PSDMD-202608211600.zip", "latest_version_relative_zip_size": "19828507", "latest_version_relative_sha256_path": "20260821/download-PSDMD-202608211600.zip.sha256", "sha256_hash": "d73d975d68b408dd69a2af8c37d06eecd35a7fe2b5a9e18f5ae0670be9ef1439", "timestamp": "Fri Aug 21 16:00:05 UTC 2026", "golden_copy_path_context": "https://euclid.eba.europa.eu/register/downloads/PSDMD/"}
-TOP type=list len=2
-INDEX 0: type=list len=1
-  CHILD 0: type=dict len=1
-   keys=['__EBA_Disclaimer']
-   sample={"__EBA_Disclaimer": {"disclaimer": {"sectionHeader": "Disclaimer", "line1": "The present Register has been set up by the EBA solely on the basis of information provided by national competent authorities of the EEA Member States. Therefore, unlike national registers under PSD2, this Register has no legal significance and confers no rights in law. If an unauthorised institution is inadvertently included in the Register, its legal status is in no way altered; similarly, if an institution has inadvertently been omitted from the Register, the validity of its authorisation will not be affected.", "line2": "With regard to any content in the field ‘Name of the institutions’ that describes the ‘legal form’ of the institution, it should be noted that such content is in most cases untranslatable and that any terminological similarities between two such entries are not to be taken to indicate that the legal status is the same.", "line3": "The European Banking Authority is responsible only for the accurate reproduction of the information received by competent authorities for each natural or legal person included in the register, while responsibility for the accuracy of that information lies with the competent authorities at national level.", "line4": "Please note that the United Kingdom (UK) is no longer an EU Member State. Information on UK entities and on EEA entities operating in the UK is in the process of being removed from the EBA’s register. Until this process is complete, where such information is still temporarily available in the register, please note that EU law does not apply to the UK."}, "disclaimerOnDataProtection": {"sectionHeader": "Disclaimer on Data Protection", "line1": "The processing of personal data in the Union institutions and bodies like agencies is regulated by Regulation (EU) 2018/1725 of the European Parliament and of the Council of 23 October 2018 on the protection of natural persons with regard to the processing of personal data by the Union institutions, bodies, offices and agencies and on the free movement of such data, and repealing Regulation (EC) No 45/2001 and Decision No 1247/2002/EC.", "line2": "The data subject shall have the right of access to his/her personal data and the right to rectify any such data that is inaccurate or incomplete. Should the data subject have any queries concerning the processing of his/her personal data, (s)he shall address them to the European Banking Authority which is the controller. More information on the processing of your personal data and the contact details of the controller are included in the Specific Privacy Notice.", "line3": "Specific private notice on use of personal data in the EBA Register on payment and electronic money institutions", "line4": "https://eba.europa.eu/documents/10180/2620199/Specific+privacy+notice++-+EBA+Register+under+PSD2+%28002%29%20%28002%29%20%28003%29.pdf/e1e236f4-1115-4ba8-afab-a372416b624e"}, "registerDownload": {"sectionHeader": "Register Download", "line1": "The European Banking Authority is responsible only for the accurate reproduction of the information received by competent authorities for each natural or legal person included in the register, while responsibility for the accuracy of that information lies with the competent authorities at national level.", "line2": "This file, which is available for download, reproduces the information contained on the EBA register of payment and electronic money institutions. It is updated on regular basis, with the update times being displayed on the register. For transparency reasons, public users of the register should be aware that there may be a discrepancy between the information contained on the file and the information contained on the actual register depending on the time of the update of the information on the file and the timing of its download."}}}
-INDEX 1: type=list len=329126
-  CHILD 0: type=dict len=6
-   keys=['CA_OwnerID', 'EntityCode', 'EntityType', 'Properties', 'Services', '__EBA_EntityVersion']
-   sample={"CA_OwnerID": "MT_MFSA", "EntityCode": "MFSA!WIND", "EntityType": "PSD_PI", "Properties": [{"ENT_AUT": ["2024-09-11"]}, {"ENT_NAT_REF_COD": "C106255"}, {"ENT_NAM": "Windcave Limited"}, {"ENT_ADD": "Level 4 The Penthouse Suite 29, Ewropa Business Centre, Triq Dun Karm"}, {"ENT_TOW_CIT_RES": "Birkirkara"}, {"ENT_POS_COD": "BKR 9034"}, {"ENT_COU_RES": "MT"}], "Services": [{"MT": ["PS_05A", "PS_05B"]}, {"AT": "PS_05B"}, {"BE": "PS_05B"}, {"BG": "PS_05B"}, {"CY": "PS_05B"}, {"CZ": "PS_05B"}, {"DE": "PS_05B"}, {"PL": "PS_05B"}, {"PT": "PS_05B"}, {"RO": "PS_05B"}, {"SE": "PS_05B"}, {"SI": "PS_05B"}, {"SK": "PS_05B"}, {"LT": "PS_05B"}, {"LU": "PS_05B"}, {"LV": "PS_05B"}, {"NL": "PS_05B"}, {"NO": "PS_05B"}, {"HR": "PS_05B"}, {"HU": "PS_05B"}, {"IE": "PS_05B"}, {"IS": "PS_05B"}, {"IT": "PS_05B"}, {"LI": "PS_05B"}, {"DK": "PS_05B"}, {"EE": "PS_05B"}, {"ES": "PS_05B"}, {"FI": "PS_05B"}, {"FR": "PS_05B"}, {"GR": "PS_05B"}], "__EBA_EntityVersion": "20260821065403580"}
-  CHILD 1: type=dict len=6
-   keys=['CA_OwnerID', 'EntityCode', 'EntityType', 'Properties', 'Services', '__EBA_EntityVersion']
-   sample={"CA_OwnerID": "CZ_CNB", "EntityCode": "CZ_CNB!29142024", "EntityType": "PSD_PI", "Properties": [{"ENT_AUT": ["2017-05-30", "2019-07-12", "2024-07-12"]}, {"ENT_NAT_REF_COD": "29142024"}, {"ENT_NAM": "MMG Corporation s.r.o. "}, {"ENT_ADD": "Vyskočilova 1481/4"}, {"ENT_TOW_CIT_RES": "Praha"}, {"ENT_POS_COD": "14000"}, {"ENT_COU_RES": "CZ"}], "Services": [{"AT": ["PS_03A", "PS_03B", "PS_03C"]}, {"FR": ["PS_03A", "PS_03B", "PS_03C"]}, {"SK": ["PS_03A", "PS_03B", "PS_03C"]}, {"HR": ["PS_03A", "PS_03B", "PS_03C"]}, {"IT": ["PS_03A", "PS_03B", "PS_03C"]}, {"DE": ["PS_03A", "PS_03B", "PS_03C"]}, {"DK": ["PS_03A", "PS_03B", "PS_03C"]}, {"HU": ["PS_03A", "PS_03B", "PS_03C"]}, {"NL": ["PS_03A", "PS_03B", "PS_03C"]}, {"LI": ["PS_03A", "PS_03B", "PS_03C"]}, {"BE": ["PS_03A", "PS_03B", "PS_03C"]}, {"IE": ["PS_03A", "PS_03B", "PS_03C"]}, {"IS": ["PS_03A", "PS_03B", "PS_03C"]}, {"PL": ["PS_03A", "PS_03B", "PS_03C"]}, {"SE": ["PS_03A", "PS_03B", "PS_03C"]}, {"LU": ["PS_03A", "PS_03B", "PS_03C"]}, {"NO": ["PS_03A", "PS_03B", "PS_03C"]}, {"BG": ["PS_03A", "PS_03B", "PS_03C"]}, {"ES": ["PS_03A", "PS_03B", "PS_03C"]}, {"CZ": ["PS_03A", "PS_03B", "PS_03C", "PS_05A", "PS_05B"]}, {"CY": ["PS_03A", "PS_03B", "PS_03C", "PS_05A", "PS_05B"]}, {"LV": ["PS_03A", "PS_03B", "PS_03C", "PS_05A", "PS_05B"]}, {"RO": ["PS_03A", "PS_03B", "PS_03C", "PS_05A", "PS_05B"]}, {"FI": ["PS_03A", "PS_03B", "PS_03C", "PS_05A", "PS_05B"]}, {"PT": ["PS_03A", "PS_03B", "PS_03C", "PS_05A", "PS_05B"]}], "__EBA_EntityVersion": "20260820190047319"}
-  CHILD 2: type=dict len=6
-   keys=['CA_OwnerID', 'EntityCode', 'EntityType', 'Properties', 'Services', '__EBA_EntityVersion']
-   sample={"CA_OwnerID": "SE_FINA", "EntityCode": "SE_FINA!87158", "EntityType": "PSD_PI", "Properties": [{"ENT_AUT": ["2026-08-19"]}, {"ENT_NAT_REF_COD": "559571-7918"}, {"ENT_NAM": "Digitala Kassan Europe AB"}, {"ENT_ADD": "Blekholmsterrassen 36"}, {"ENT_TOW_CIT_RES": "Stockholm"}, {"ENT_POS_COD": "111 64"}, {"ENT_COU_RES": "SE"}], "Services": [{"SE": ["PS_03A", "PS_03B", "PS_03C"]}], "__EBA_EntityVersion": "20260820103300207"}
+URL=https://euclid.eba.europa.eu/register/cir-api/filemetadata
+STATUS=404
+TYPE=text/html
+FINAL=https://euclid.eba.europa.eu/register/cir-api/filemetadata
+BODY=<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>EBA | 404</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      font-size: .7em;
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      background: #EEEEEE;
+    }
+
+    fieldset {
+      padding: 0 15px 10px 15px;
+    }
+
+    h1 {
+      font-size: 2.4em;
+      margin: 0;
+      color: #FFFFFF;
+    }
+
+    h2 {
+      font-size: 1.7em;
+      margin: 0;
+      color: #55809B;
+    }
+
+    h3 {
+      font-size: 1.2em;
+      margin: 10px 0 0 0;
+      color: #000000;
+    }
+
+    #header {
+      width: 96%;
+      margin: 0 0 0 0;
+      padding: 6px 2% 6px 2%;
+      color: #FFFFFF;
+      background-color: #487490;
+    }
+
+    #content {
+      margin: 0 0 0 2%;
+      position: relative;
+    }
+
+    .content-container {
+      background: #FFFFFF;
+      width: 96%;
+      margin-top: 8px;
+      padding: 10px;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <h1>
+      <table border="0" width="100%">
+        <tr>
+          <td width="195px"><img src="/images/logo.gif" alt="EBA" title="EBA" /></td>
+          <td align="right">Error (404)</td>
+        </tr>
+      </table>
+    </h1>
+  </div>
+  <div id="content">
+    <div class="content-container">
+      <fieldset>
+        <table border="0" width="100%">
+          <tr>
+            <td>
+              <h2>Not Found (404)</h2>
+              <h3>Sorry, the page that you are looking for appears to have been moved, deleted or does not exist.<br><br>
+                You could go back to <a href="https://euclid.eba.europa.eu/register/"
+                  title="Payment Institutions Register"
+                  >Payment Institutions Register</a>
+                or head straight to the European Banking Authority <a href="https://www.eba.europa.eu"
+                  title="European Banking Authority - EBA">homepage</a>.
+              </h3>
+            </td>
+            <td width="200px" align="right"><img src="/images/impossible_box_50x.png"
+                alt="Ooops!" title="Ooops!" /></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center"><a href="https://www.eba.europa.eu"
+                title="European Banking Authority - EBA">www.eba.europa.eu</a></td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+</body>
+
+</html>
+
+---
+URL=https://euclid.eba.europa.eu/register/api/filemetadata
+STATUS=200
+TYPE=application/json; charset=utf-8
+FINAL=https://euclid.eba.europa.eu/register/api/filemetadata
+BODY={"latest_version_relative_zip_path":"20260821/download-PSDMD-202608211600.zip","latest_version_relative_zip_size":"19828507","latest_version_relative_sha256_path":"20260821/download-PSDMD-202608211600.zip.sha256","sha256_hash":"d73d975d68b408dd69a2af8c37d06eecd35a7fe2b5a9e18f5ae0670be9ef1439","timestamp":"Fri Aug 21 16:00:05 UTC 2026","golden_copy_path_context":"https://euclid.eba.europa.eu/register/downloads/PSDMD/"}
+---
+URL=https://euclid.eba.europa.eu/register/pir-api/filemetadata
+STATUS=404
+TYPE=text/html
+FINAL=https://euclid.eba.europa.eu/register/pir-api/filemetadata
+BODY=<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>EBA | 404</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      font-size: .7em;
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      background: #EEEEEE;
+    }
+
+    fieldset {
+      padding: 0 15px 10px 15px;
+    }
+
+    h1 {
+      font-size: 2.4em;
+      margin: 0;
+      color: #FFFFFF;
+    }
+
+    h2 {
+      font-size: 1.7em;
+      margin: 0;
+      color: #55809B;
+    }
+
+    h3 {
+      font-size: 1.2em;
+      margin: 10px 0 0 0;
+      color: #000000;
+    }
+
+    #header {
+      width: 96%;
+      margin: 0 0 0 0;
+      padding: 6px 2% 6px 2%;
+      color: #FFFFFF;
+      background-color: #487490;
+    }
+
+    #content {
+      margin: 0 0 0 2%;
+      position: relative;
+    }
+
+    .content-container {
+      background: #FFFFFF;
+      width: 96%;
+      margin-top: 8px;
+      padding: 10px;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <h1>
+      <table border="0" width="100%">
+        <tr>
+          <td width="195px"><img src="/images/logo.gif" alt="EBA" title="EBA" /></td>
+          <td align="right">Error (404)</td>
+        </tr>
+      </table>
+    </h1>
+  </div>
+  <div id="content">
+    <div class="content-container">
+      <fieldset>
+        <table border="0" width="100%">
+          <tr>
+            <td>
+              <h2>Not Found (404)</h2>
+              <h3>Sorry, the page that you are looking for appears to have been moved, deleted or does not exist.<br><br>
+                You could go back to <a href="https://euclid.eba.europa.eu/register/"
+                  title="Payment Institutions Register"
+                  >Payment Institutions Register</a>
+                or head straight to the European Banking Authority <a href="https://www.eba.europa.eu"
+                  title="European Banking Authority - EBA">homepage</a>.
+              </h3>
+            </td>
+            <td width="200px" align="right"><img src="/images/impossible_box_50x.png"
+                alt="Ooops!" title="Ooops!" /></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center"><a href="https://www.eba.europa.eu"
+                title="European Banking Authority - EBA">www.eba.europa.eu</a></td>
+          </tr>
+        </table>
+      </fieldset>
+    </div>
+  </div>
+</body>
+
+</html>
+
+---
