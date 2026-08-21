@@ -36,9 +36,38 @@ jobs:
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
 
       - name: BaFin Verbraucherwarnungen aktualisieren
-        run: python pages/projekt-fruehwarn-check/scripts/update_bafin.py
+        shell: bash
+        run: |
+          set +e
+          python pages/projekt-fruehwarn-check/scripts/update_bafin.py 2>&1 | tee /tmp/bafin-update.log
+          CODE=${PIPESTATUS[0]}
+          echo "BAFIN_EXIT=$CODE" >> "$GITHUB_ENV"
+          if [ "$CODE" -ne 0 ]; then
+            cp /tmp/bafin-update.log pages/projekt-fruehwarn-check/data/bafin-last-error.txt
+          else
+            rm -f pages/projekt-fruehwarn-check/data/bafin-last-error.txt
+          fi
+          exit 0
+
+      - name: Fehlerdiagnose speichern
+        if: env.BAFIN_EXIT != '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add -- pages/projekt-fruehwarn-check/data/bafin-last-error.txt
+          if ! git diff --cached --quiet; then
+            git commit -m "Frühwarn-Check: BaFin Importfehler protokollieren"
+            git push
+          fi
+
+      - name: Fehlgeschlagenen Import stoppen
+        if: env.BAFIN_EXIT != '0'
+        run: exit 1
 
       - name: Ergebnis prüfen
+        if: env.BAFIN_EXIT == '0'
         shell: bash
         run: |
           set -euo pipefail
@@ -58,6 +87,7 @@ jobs:
           PY
 
       - name: Aktualisierten Datenbestand speichern
+        if: env.BAFIN_EXIT == '0'
         shell: bash
         run: |
           set -euo pipefail
