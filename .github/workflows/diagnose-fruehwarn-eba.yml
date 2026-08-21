@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: EBA Basis-URL und Metadaten prüfen
+      - name: EBA API-Konstanten exakt auslesen
         shell: bash
         run: |
           set -euo pipefail
@@ -22,46 +22,37 @@ jobs:
           import re, requests, json
           from pathlib import Path
 
-          jsurl='https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js'
-          txt=requests.get(jsurl,headers={'User-Agent':'Mozilla/5.0'},timeout=45).text
+          js='https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js'
+          txt=requests.get(js,headers={'User-Agent':'Mozilla/5.0'},timeout=45).text
           out=[]
 
-          # Modul mit den API-Konstanten isolieren.
-          m=re.search(r'"AytR":function\(e,t,n\)\{(.{0,12000}?)\},"',txt,re.S)
-          if m:
-            chunk=re.sub(r'\s+',' ',m.group(1))
-            out.append('===== AytR MODULE =====\n'+chunk+'\n')
-          else:
-            for mm in list(re.finditer('AytR',txt))[:10]:
-              a=max(0,mm.start()-2500); b=min(len(txt),mm.end()+5000)
-              out.append('===== AytR CONTEXT =====\n'+re.sub(r'\s+',' ',txt[a:b])+'\n')
-
-          # Alle absoluten URLs und strings nahe API_BASE_URL extrahieren.
-          for mm in re.finditer(r'(?:CIR_)?API_BASE_URL',txt):
-            a=max(0,mm.start()-1500); b=min(len(txt),mm.end()+2500)
-            out.append('===== API_BASE_URL CONTEXT =====\n'+re.sub(r'\s+',' ',txt[a:b])+'\n')
-
-          urls=[]
-          for u in re.findall(r'https?://[^"\'\\\s]{5,300}',txt):
-            if any(k in u.lower() for k in ['eba','euclid','api','register']):
-              if u not in urls: urls.append(u)
-          out.append('===== URLS =====\n'+'\n'.join(urls[:300])+'\n')
-
-          # Naheliegende Endpunkte testen; erfolgreiche JSON-Antworten vollständig notieren.
-          candidates=[
-            'https://euclid.eba.europa.eu/register/api/filemetadata',
-            'https://euclid.eba.europa.eu/api/filemetadata',
-            'https://euclid.eba.europa.eu/register/pir-api/filemetadata',
-            'https://euclid.eba.europa.eu/register/pir/api/filemetadata',
-            'https://euclid.eba.europa.eu/register/api/pir/filemetadata'
+          # Exakte Konstantenzuweisungen global suchen.
+          patterns=[
+            r'API_BASE_URL\s*[:=]\s*["\']([^"\']+)',
+            r'CIR_API_BASE_URL\s*[:=]\s*["\']([^"\']+)',
+            r'API_BASE_URL[^,;}]{0,250}',
+            r'CIR_API_BASE_URL[^,;}]{0,250}'
           ]
-          s=requests.Session(); s.headers.update({'User-Agent':'Mozilla/5.0','Accept':'application/json,*/*'})
-          for u in candidates:
-            try:
-              r=s.get(u,timeout=25,allow_redirects=True)
-              out.append(f'TEST {u}\nstatus={r.status_code} type={r.headers.get("content-type")} len={len(r.content)} final={r.url}\nbody={r.text[:1500]}\n')
-            except Exception as e:
-              out.append(f'TEST ERROR {u}: {e}\n')
+          for pat in patterns:
+            out.append(f'PATTERN {pat}\n')
+            vals=[]
+            for m in re.finditer(pat,txt,re.I):
+              vals.append(m.group(1) if m.lastindex else m.group(0))
+            out.extend(v+'\n' for v in vals[:50])
+
+          # Alle exakten Moduldefinitionen von AytR finden.
+          for pat in [r'AytR:function\([^)]*\)\{', r'["\']AytR["\']:function\([^)]*\)\{']:
+            out.append(f'MODULE PATTERN {pat}\n')
+            for m in list(re.finditer(pat,txt))[:10]:
+              out.append(re.sub(r'\s+',' ',txt[m.start():m.start()+12000])+'\n')
+
+          # URL-Literale aus dem Bundle; auf EUCLID/EBA begrenzen.
+          urls=[]
+          for u in re.findall(r'https?://[^"\'\\\s]+',txt):
+            u=u.rstrip('),};]')
+            if ('eba.europa.eu' in u or 'euclid' in u) and u not in urls:
+              urls.append(u)
+          out.append('URLS\n'+'\n'.join(urls)+'\n')
 
           Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
@@ -71,5 +62,5 @@ jobs:
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA Basis-URL diagnostizieren"
+          git commit -m "Frühwarn-Check: EBA API-Konstanten auslesen"
           git push
