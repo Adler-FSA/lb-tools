@@ -66,3 +66,5 @@ jobs:
             git commit -m "Frühwarn-Check: FCA Warnliste aktualisieren"
             git push
           fi
+
+# Initialisierung: diese Änderung löst den ersten FCA-Import aus.
