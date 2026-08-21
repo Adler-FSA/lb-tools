@@ -31,12 +31,19 @@
   }
   function sourceLabel(rec){
     if(!rec)return'';
-    const a=rec.authority||'';
-    if(rec.source_type==='verified_secondary_authority_quote' && a) return a;
-    return a;
+    return rec.authority||'';
   }
   function closeTechnicalStatus(){
     document.querySelectorAll('.sourceStatus details').forEach(d=>{d.open=false});
+  }
+  function setExtraSectionsVisible(show){
+    document.querySelectorAll('.layers,.sourceStatus').forEach(el=>{
+      el.style.display=show?'':'none';
+    });
+  }
+  function searchFinished(){
+    const feedback=$('#searchFeedback');
+    return !!(feedback&&feedback.classList.contains('done'));
   }
   function polishVisibleResultCards(q,matchedRecords,matchedTraces){
     const cq=compact(q);
@@ -104,12 +111,34 @@
     closeTechnicalStatus();
   }
   function updateFromVisibleQuery(){
-    const shell=$('#resultShell'), q=$('#queryOut');
-    if(shell&&shell.classList.contains('show')&&q&&q.textContent.trim()) update(q.textContent.trim());
+    const shell=$('#resultShell');
+    const q=$('#queryOut');
+    const query=$('#query');
+    const shown=q?q.textContent.trim():'';
+    const current=query?query.value.trim():'';
+    if(shell&&shell.classList.contains('show')&&shown&&current===shown&&searchFinished()){
+      setExtraSectionsVisible(true);
+      update(shown);
+    }else{
+      setExtraSectionsVisible(false);
+      closeTechnicalStatus();
+    }
   }
   const obs=new MutationObserver(()=>setTimeout(updateFromVisibleQuery,40));
   window.addEventListener('DOMContentLoaded',()=>{
+    setExtraSectionsVisible(false);
     closeTechnicalStatus();
+    const query=$('#query');
+    if(query){
+      query.addEventListener('input',()=>{
+        const shown=$('#queryOut')?.textContent.trim()||'';
+        const current=query.value.trim();
+        if(!shown||current!==shown){
+          setExtraSectionsVisible(false);
+          closeTechnicalStatus();
+        }
+      });
+    }
     const targets=['#resultShell','#queryOut','#searchFeedback','#datasetState'].map($).filter(Boolean);
     targets.forEach(t=>obs.observe(t,{subtree:true,childList:true,characterData:true,attributes:true}));
     load();
