@@ -19,22 +19,18 @@ jobs:
           from pathlib import Path
           p=Path('pages/projekt-fruehwarn-check/layer-results.js')
           s=p.read_text(encoding='utf-8')
-
           old="function ensureGleifSourceUI(){const box=$('#sources-GLOBAL');if(box&&!box.querySelector('[data-live-source=\"gleif\"]')){const a=document.createElement('a');a.className='sourceLink';a.href='https://search.gleif.org/';a.target='_blank';a.rel='noopener';a.dataset.liveSource='gleif';a.innerHTML='<div class=\"sourceName\">GLEIF / Global LEI Index</div><div class=\"sourceMode\">automatisch geprüft</div>';box.prepend(a);}const rows=$('#statusRows');if(rows&&!rows.querySelector('[data-live-source=\"gleif\"]')){const tr=document.createElement('tr');tr.dataset.liveSource='gleif';tr.innerHTML='<td>GLEIF / Global LEI Index</td><td><span class=\"badge auto\">automatisch geprüft</span></td>';rows.appendChild(tr);}}"
           new="function ensureGleifSourceUI(){const box=$('#sources-GLOBAL');if(box&&!box.querySelector('[data-live-source=\"gleif\"]')){const a=document.createElement('a');a.className='sourceLink';a.href='https://search.gleif.org/';a.target='_blank';a.rel='noopener';a.dataset.liveSource='gleif';a.innerHTML='<div class=\"sourceName\">GLEIF / Global LEI Index</div><div class=\"sourceMode\">automatisch geprüft</div>';box.prepend(a);}if(box&&!box.querySelector('[data-live-source=\"cftc-red-list\"]')){const a=document.createElement('a');a.className='sourceLink';a.href='https://www.cftc.gov/LearnAndProtect/Resources/Check/redlist.htm';a.target='_blank';a.rel='noopener';a.dataset.liveSource='cftc-red-list';a.innerHTML='<div class=\"sourceName\">CFTC RED List (USA)</div><div class=\"sourceMode\">automatisch geprüft</div>';box.prepend(a);}const rows=$('#statusRows');if(rows&&!rows.querySelector('[data-live-source=\"gleif\"]')){const tr=document.createElement('tr');tr.dataset.liveSource='gleif';tr.innerHTML='<td>GLEIF / Global LEI Index</td><td><span class=\"badge auto\">automatisch geprüft</span></td>';rows.appendChild(tr);}if(rows&&!rows.querySelector('[data-live-source=\"cftc-red-list\"]')){const tr=document.createElement('tr');tr.dataset.liveSource='cftc-red-list';tr.innerHTML='<td>CFTC RED List (USA)</td><td><span class=\"badge auto\">automatisch geprüft</span></td>';rows.appendChild(tr);}}"
           if old not in s: raise SystemExit('ensureGleifSourceUI pattern not found')
           s=s.replace(old,new,1)
-
           start=s.index("function setGlobalCoverage(kind='checking')")
           end=s.index("async function load()", start)
           new_global="""function setGlobalCoverage(kind='checking'){const result=document.querySelector('#matches-GLOBAL .regionResult');if(!result)return;if(document.querySelector('#matches-GLOBAL .match'))return;result.className='regionResult partial';if(kind==='match')result.innerHTML='<strong>Globale Quellen automatisch geprüft</strong>GLEIF hat eine eindeutige Rechtsträger-/Identitätsspur gefunden. Zusätzlich wird die CFTC RED List (USA) automatisch gegen Firmenname und Domain geprüft. Weitere internationale Aufsichten werden schrittweise ergänzt.';else if(kind==='ambiguous')result.innerHTML='<strong>Globale Quellen automatisch geprüft</strong>GLEIF konnte die Rechtsträger-Identität nicht eindeutig zuordnen. Die CFTC RED List (USA) wurde dennoch automatisch gegen Firmenname und Domain geprüft.';else if(kind==='none')result.innerHTML='<strong>Globale Quellen automatisch geprüft</strong>GLEIF: kein eindeutiger LEI-Treffer. Die CFTC RED List (USA) wurde automatisch gegen Firmenname und Domain geprüft.';else if(kind==='error')result.innerHTML='<strong>Globale Prüfung teilweise abgeschlossen</strong>GLEIF war bei dieser Prüfung nicht erreichbar; die lokal gespiegelt vorliegende CFTC RED List (USA) wird unabhängig davon automatisch geprüft.';else result.innerHTML='<strong>Globale Quellen werden geprüft</strong>GLEIF prüft die Identität; die CFTC RED List (USA) wird automatisch gegen Firmenname und Domain abgeglichen.';}\n"
           s=s[:start]+new_global+s[end:]
-
           old="const finWarn=matchedRecords.find(r=>/bafin-warnings|esma-non-compliant/.test(String(r.source_id||''))||/warning|non_compliant/.test(String(r.status||'')));"
           new="const finWarn=matchedRecords.find(r=>/bafin-warnings|esma-non-compliant|cftc-red-list/.test(String(r.source_id||''))||/warning|non_compliant|registration_deficient/.test(String(r.status||'')));"
           if old not in s: raise SystemExit('finWarn pattern not found')
           s=s.replace(old,new,1)
-
           p.write_text(s,encoding='utf-8')
           PY
       - name: JavaScript Syntax prüfen
@@ -47,3 +43,5 @@ jobs:
           git add pages/projekt-fruehwarn-check/layer-results.js
           git commit -m "Frühwarn-Check: CFTC automatisch im Global-Ergebnis anzeigen"
           git push
+
+# Initialisierung: Änderung löst den Patch aus.
