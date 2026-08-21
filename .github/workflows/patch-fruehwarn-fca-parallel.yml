@@ -64,7 +64,6 @@ jobs:
             if completed % 50 == 0:
                 print(f"  {completed}/{pages-1} Seiten verarbeitet: {len(all_records)} eindeutige Einträge")
 
-    # Einzelne temporäre Abruffehler nochmals seriell versuchen.
     if failures:
         print(f"FCA: {len(failures)} Seiten werden erneut versucht")
         still_failed = []
@@ -100,3 +99,5 @@ jobs:
           git add pages/projekt-fruehwarn-check/scripts/update_fca.py
           git commit -m "Frühwarn-Check: FCA Vollabzug parallelisieren"
           git push
+
+# Initialisierung: Änderung löst den Patch-Lauf aus.
