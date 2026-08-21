@@ -16,61 +16,38 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: EBA in sichtbare Ergebnislogik integrieren
+      - name: Finanzaufsichtstext an angeschlossene Quellen angleichen
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-
           p=Path('pages/projekt-fruehwarn-check/index.html')
           s=p.read_text(encoding='utf-8')
-
-          old="""else if(region==='DE'&&d.auto.length){result.className='regionResult clear';result.innerHTML='<strong>'+(state.lang==='de'?'BaFin: kein eindeutiger Warnhinweis gefunden':'BaFin: no unambiguous warning found')+'</strong>'+(state.lang==='de'?'In den automatisch geprüften BaFin-Verbraucherwarnungen liegt zu dieser Eingabe derzeit kein eindeutiger Treffer vor.':'No unambiguous match was found for this search in the automatically checked BaFin consumer warnings.')}else if(region==='EU'&&d.auto.length){result.className='regionResult clear';result.innerHTML='<strong>'+(state.lang==='de'?'ESMA: kein eindeutiger Treffer gefunden':'ESMA: no unambiguous match found')+'</strong>'+(state.lang==='de'?'Weder im automatisch geprüften MiCA-CASP-Register noch bei den Non-Compliant Entities wurde ein eindeutiger Treffer gefunden.':'No unambiguous match was found in the automatically checked MiCA CASP register or Non-Compliant Entities.')}else if(auth.length){result.className='regionResult clear';result.innerHTML='<strong>'+(state.lang==='de'?'Offizieller Registertreffer gefunden':'Official register match found')+'</strong>'+(state.lang==='de'?'Mindestens ein eindeutiger Zulassungs- oder Registertreffer wurde gefunden.':'At least one unambiguous authorisation or register match was found.')}"""
-          new="""else if(auth.length){result.className='regionResult clear';result.innerHTML='<strong>'+(state.lang==='de'?'Offizieller Zulassungs-/Registertreffer gefunden':'Official authorisation/register match found')+'</strong>'+(state.lang==='de'?'Mindestens ein eindeutiger offizieller Zulassungs- oder Registertreffer wurde gefunden. Die genaue Quelle und der dort geführte Status stehen direkt darunter.':'At least one unambiguous official authorisation or register match was found. The exact source and recorded status are shown directly below.')}else if(region==='DE'&&d.auto.length){result.className='regionResult clear';result.innerHTML='<strong>'+(state.lang==='de'?'BaFin: kein eindeutiger Warnhinweis gefunden':'BaFin: no unambiguous warning found')+'</strong>'+(state.lang==='de'?'In den automatisch geprüften BaFin-Verbraucherwarnungen liegt zu dieser Eingabe derzeit kein eindeutiger Treffer vor.':'No unambiguous match was found for this search in the automatically checked BaFin consumer warnings.')}else if(region==='EU'&&d.auto.length){result.className='regionResult clear';result.innerHTML='<strong>'+(state.lang==='de'?'ESMA / EBA: kein eindeutiger Treffer gefunden':'ESMA / EBA: no unambiguous match found')+'</strong>'+(state.lang==='de'?'In den automatisch geprüften ESMA-MiCA- und EBA-Registerdaten wurde zu dieser Eingabe kein eindeutiger Treffer zugeordnet.':'No unambiguous match was assigned for this search in the automatically checked ESMA MiCA and EBA register data.')}"""
+          old="BaFin und ESMA automatisch geprüft: kein eindeutiger Warn- oder Zulassungstreffer gefunden."
+          new="BaFin, ESMA und EBA automatisch geprüft: kein eindeutiger Warn- oder Zulassungs-/Registertreffer gefunden."
           if old not in s:
-              raise SystemExit('renderRegion-Zielblock nicht gefunden – kein unsicherer Patch')
-          s=s.replace(old,new,1)
-
-          old_fin="""/^bafin-|^esma-/.test(String(r.source_id||''))"""
-          new_fin="""/^bafin-|^esma-|^eba-/.test(String(r.source_id||''))"""
-          if old_fin not in s:
-              raise SystemExit('Finanzaufsicht-Quellenmuster nicht gefunden')
-          s=s.replace(old_fin,new_fin,1)
-
-          old_de="""'In den aktuell automatisch geprüften BaFin- und ESMA-Daten wurde zu „'+q+'“ kein eindeutiger Treffer gefunden. Das ist das konkrete Ergebnis dieser automatischen Prüfung – aber kein Gütesiegel. Weitere Register und globale Warnlisten sind derzeit teilweise nur als Direktprüfung angebunden.'"""
-          new_de="""'In den aktuell automatisch geprüften BaFin-, ESMA-, EBA- und weiteren angeschlossenen Datenquellen wurde zu „'+q+'“ kein eindeutiger Warn- oder Registertreffer gefunden. Das ist das konkrete Ergebnis dieser automatischen Prüfung – aber kein Gütesiegel. Quellen, die technisch keine verlässliche automatische Abfrage zulassen, werden getrennt als Direktprüfung ausgewiesen.'"""
-          if old_de not in s:
-              raise SystemExit('Gesamtergebnis-DE-Text nicht gefunden')
-          s=s.replace(old_de,new_de,1)
-
-          old_en="""'No unambiguous match for “'+q+'” was found in the BaFin and ESMA data currently checked automatically. This is the concrete result of the automatic check, but not a seal of approval. Further registers and global warning lists are partly available only as direct checks.'"""
-          new_en="""'No unambiguous warning or register match for “'+q+'” was found in the BaFin, ESMA, EBA and other connected data sources currently checked automatically. This is the concrete result of the automatic check, but not a seal of approval. Sources that do not technically permit a reliable automatic query are shown separately as direct checks.'"""
-          if old_en not in s:
-              raise SystemExit('Gesamtergebnis-EN-Text nicht gefunden')
-          s=s.replace(old_en,new_en,1)
-
-          old_sub='<span>ESMA · MiCA · EU-Register · Eurojust</span>'
-          new_sub='<span>ESMA · EBA · MiCA · EU-Register · Eurojust</span>'
-          if old_sub in s:
-              s=s.replace(old_sub,new_sub,1)
-
-          p.write_text(s,encoding='utf-8')
+              if new in s:
+                  print('Text bereits aktuell.')
+              else:
+                  raise SystemExit('Zieltext nicht gefunden – kein unsicherer Patch')
+          else:
+              s=s.replace(old,new,1)
+              p.write_text(s,encoding='utf-8')
           PY
 
-      - name: Änderungen prüfen und speichern
+      - name: Änderungen speichern
         shell: bash
         run: |
           set -euo pipefail
-          grep -q "ESMA / EBA: kein eindeutiger Treffer gefunden" pages/projekt-fruehwarn-check/index.html
-          grep -q "^eba-" pages/projekt-fruehwarn-check/index.html || grep -q "esma-|^eba-" pages/projekt-fruehwarn-check/index.html
+          grep -q "BaFin, ESMA und EBA automatisch geprüft" pages/projekt-fruehwarn-check/index.html
           git config user.name "FSA Frühwarn-Update"
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/index.html
           if git diff --cached --quiet; then
             echo "Keine Änderung notwendig."
           else
-            git commit -m "Frühwarn-Check: EBA Kreditinstitutsanzeige aktivieren"
+            git commit -m "Frühwarn-Check: EBA Finanzaufsichtstext aktualisieren"
             git pull --rebase
             git push
           fi
