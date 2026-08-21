@@ -1,0 +1,51 @@
+name: Fix Frühwarn GLEIF Exactness
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-fruehwarn-gleif-exactness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: GLEIF-Matching konservativ korrigieren
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('pages/projekt-fruehwarn-check/layer-results.js')
+          s=p.read_text(encoding='utf-8')
+
+          old="if(exact.length===1)accepted=exact[0];else if(exact.length>1)ambiguous=exact;else if(strong.length===1)accepted=strong[0];else if(strong.length>1)ambiguous=strong;else if(best&&best.score>=88&&(!second||best.score-second.score>=8))accepted=best;"
+          new="if(exact.length===1)accepted=exact[0];else if(exact.length>1)ambiguous=exact;else if(strong.length)ambiguous=strong;else if(best&&best.score>=82)ambiguous=unique.filter(x=>x.score>=82).slice(0,5);"
+          if old not in s:
+              raise SystemExit('Erwartete GLEIF-Akzeptanzlogik nicht gefunden')
+          s=s.replace(old,new,1)
+
+          old2="else if(kind==='ambiguous')result.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: mehrere mögliche Rechtsträger gefunden; keine automatische eindeutige Zuordnung vorgenommen. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';"
+          new2="else if(kind==='ambiguous')result.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: keine eindeutige Rechtsträger-Zuordnung vorgenommen. Ein ähnlicher Name oder eine abweichende Rechtsform reicht dafür nicht aus. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';"
+          if old2 in s:
+              s=s.replace(old2,new2,1)
+
+          old3="else if(result?.status==='ambiguous'){const list=(result.candidates||[]).slice(0,4).map(g=>`<span><b>${esc(g.legalName||'Rechtsträger')}</b>${g.country||g.jurisdiction?' · '+esc(g.country||g.jurisdiction):''}</span>`).join('');set('#layerStatus-identity','partial',`<strong>Mehrere mögliche LEI-Rechtsträger gefunden.</strong><br>Die Eingabe „${esc(q)}“ reicht für eine eindeutige Zuordnung nicht aus. Deshalb wird bewusst kein Unternehmen automatisch ausgewählt.<span class=\"identityFacts\">${list}</span><span class=\"relationHint\">Bitte für eine eindeutige Identitätsprüfung den vollständigen juristischen Firmennamen verwenden.</span><a href=\"https://search.gleif.org/\" target=\"_blank\" rel=\"noopener\">GLEIF-Suche öffnen ↗</a>`);setGlobalCoverage('ambiguous');}"
+          new3="else if(result?.status==='ambiguous'){const candidates=(result.candidates||[]).slice(0,4);const list=candidates.map(g=>`<span><b>${esc(g.legalName||'Rechtsträger')}</b>${g.country||g.jurisdiction?' · '+esc(g.country||g.jurisdiction):''}</span>`).join('');const headline=candidates.length>1?'Mehrere mögliche LEI-Rechtsträger gefunden.':'Möglicher LEI-Rechtsträger gefunden – nicht eindeutig.';set('#layerStatus-identity','partial',`<strong>${headline}</strong><br>Die Eingabe „${esc(q)}“ reicht für eine eindeutige Zuordnung nicht aus. Eine zusätzliche oder abweichende Rechtsform wird nicht automatisch dem eingegebenen Unternehmen zugerechnet.<span class=\"identityFacts\">${list}</span><span class=\"relationHint\">Bitte für eine eindeutige Identitätsprüfung den vollständigen juristischen Firmennamen verwenden.</span><a href=\"https://search.gleif.org/\" target=\"_blank\" rel=\"noopener\">GLEIF-Suche öffnen ↗</a>`);setGlobalCoverage('ambiguous');}"
+          if old3 not in s:
+              raise SystemExit('Erwartete Ambiguous-Ausgabe nicht gefunden')
+          s=s.replace(old3,new3,1)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: JavaScript Syntax prüfen
+        run: node --check pages/projekt-fruehwarn-check/layer-results.js
+      - name: Änderung speichern
+        run: |
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add pages/projekt-fruehwarn-check/layer-results.js
+          git commit -m "Frühwarn-Check: GLEIF nur bei exaktem Firmennamen zuordnen"
+          git push
