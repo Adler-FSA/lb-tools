@@ -21952,6 +21952,40 @@
         "YZA335",
         "yza335.it"
       ]
+    },
+    {
+      "id": "legal-orange-cat-muehlhausen-2026-07-08",
+      "source_id": "legal-public-confirmed",
+      "region": "DE",
+      "type": "legal",
+      "status": "investigation",
+      "category": "legal",
+      "name": "Orange Cat Energy Technology Co. Ltd.",
+      "aliases": [
+        "Orange Cat",
+        "Orange Cat Energy",
+        "Orangecat"
+      ],
+      "domains": [],
+      "authority": "Staatsanwaltschaft Mühlhausen / Landeskriminalamt Thüringen",
+      "country": "DE",
+      "date": "2026-07-08",
+      "title": "Ermittlungen und Durchsuchungen im Zusammenhang mit Orange Cat",
+      "summary_de": "Öffentlich bestätigt: Die Staatsanwaltschaft Mühlhausen ermittelt gegen zwei Männer wegen des Verdachts des gewerbs- und bandenmäßigen Betrugs. Bei Durchsuchungen in Erfurt und Mühlhausen wurden Beweismittel gesichert. Die Ermittler gehen allein in Deutschland von mehr als 100.000 Anlegern und damit potenziell Geschädigten aus. Ein Ermittlungsverfahren ist keine Verurteilung.",
+      "summary_en": "Publicly confirmed: the Mühlhausen public prosecutor is investigating two men on suspicion of organised commercial fraud. Searches were conducted in Erfurt and Mühlhausen. Investigators estimate more than 100,000 investors and thus potentially affected persons in Germany. An investigation is not a conviction.",
+      "source_url": "https://www.tagesschau.de/inland/regional/thueringen/powerbank-orange-cat-anleger-%2Cmuehlhausen-erfurt-durchsuchungen-betrug-100.html",
+      "source_level": "officially_confirmed_via_public_broadcaster",
+      "flags": [
+        "investigation",
+        "search_seizure",
+        "potential_victims_over_100000"
+      ],
+      "match_terms": [
+        "Orange Cat",
+        "Orange Cat Energy",
+        "Orange Cat Energy Technology Co. Ltd.",
+        "Orangecat"
+      ]
     }
   ]
 }
