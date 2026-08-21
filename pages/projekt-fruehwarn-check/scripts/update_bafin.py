@@ -19,9 +19,8 @@ SOURCES_FILE = DATA_DIR / "sources.json"
 
 BAFIN_BASE = "https://www.bafin.de"
 BAFIN_WARNINGS = "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_node.html"
-BAFIN_ALL_WARNINGS = "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_artikel.html?nn=19643416"
 USER_AGENT = "Akademie-Fruehwarn-Check/1.0 (+https://tools.liquiditybooster.de/pages/projekt-fruehwarn-check/)"
-MAX_LIST_PAGES = 45
+MAX_LIST_PAGES = 60
 
 
 def now_iso():
@@ -66,11 +65,19 @@ def canonical_list_url(url):
     parsed = urlparse(urljoin(BAFIN_BASE, url))
     if parsed.netloc not in {"www.bafin.de", "bafin.de"}:
         return ""
-    if "/DE/Verbraucher/Aktuelles/" not in parsed.path:
+
+    path = re.sub(r";jsessionid=[^/?]+", "", parsed.path, flags=re.I)
+    allowed = (
+        path.endswith("verbraucher_node.html")
+        or path.endswith("verbraucher_artikel.html")
+        or "service-leiste_warnmeldungen_alle.html" in path
+    )
+    if not allowed:
         return ""
-    if not parsed.path.endswith(("verbraucher_node.html", "verbraucher_artikel.html")):
+    if "/DE/" not in path:
         return ""
-    return parsed._replace(fragment="").geturl()
+
+    return parsed._replace(path=path, fragment="").geturl()
 
 
 def is_navigation_link(a):
@@ -78,14 +85,17 @@ def is_navigation_link(a):
     text = clean(a.get_text(" ", strip=True)).lower()
     if not href:
         return False
-    if "cms_gtp=" in href or "cms_gts=" in href:
+    low_href = href.lower()
+    if "service-leiste_warnmeldungen_alle.html" in low_href:
         return True
-    if "verbraucher_artikel.html" in href:
+    if "cms_gtp=" in low_href or "cms_gts=" in low_href:
+        return True
+    if "verbraucher_artikel.html" in low_href:
         return True
     if "alle warnmeldungen" in text or "alle warnungen" in text:
         return True
     labels = " ".join([a.get("aria-label", ""), a.get("title", "")]).lower()
-    if any(x in labels for x in ("nächste", "naechste", "next", "seite")) and "Aktuelles" in href:
+    if any(x in labels for x in ("nächste", "naechste", "next", "seite")):
         return True
     return False
 
@@ -94,7 +104,7 @@ def collect_article_links(session):
     links = []
     seen_articles = set()
     seen_lists = set()
-    queue = deque([BAFIN_WARNINGS, BAFIN_ALL_WARNINGS])
+    queue = deque([BAFIN_WARNINGS])
 
     while queue and len(seen_lists) < MAX_LIST_PAGES:
         raw_url = queue.popleft()
@@ -102,6 +112,7 @@ def collect_article_links(session):
         if not url or url in seen_lists:
             continue
         seen_lists.add(url)
+
         html = session_get(session, url).text
         soup = BeautifulSoup(html, "html.parser")
         new_articles = 0
