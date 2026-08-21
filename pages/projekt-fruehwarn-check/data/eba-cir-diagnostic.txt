@@ -1,0 +1,16 @@
+===== deutsche_bank_exact =====
+status=200 type=application/json; charset=utf-8 bytes=2
+json_type=list
+count=0
+===== credit_institutions_all =====
+status=200 type=application/json; charset=utf-8 bytes=1607536
+json_type=list
+count=3655
+{"EntityType": "CRD_CRE_INS", "EntityCode": "5967007LIEEXZX7JF455", "CA_OwnerID": "NO_FSA", "ENT_NAM": "EIKA DIGITALBANK AS", "ENT_NAM_NON_LAT": null, "ENT_NAT_REF_COD": "989997254", "ENT_COU_RES": "NO", "ENT_TOW_CIT_RES": "OSLO", "ENT_AUT": ["2019-04-28"], "LEI": null}
+{"EntityType": "CRD_CRE_INS", "EntityCode": "1VUV7VQFKUOQSJ21A208", "CA_OwnerID": "FR_ACPR", "ENT_NAM": "CREDIT AGRICOLE CORPORATE AND INVESTMENT BANK", "ENT_NAM_NON_LAT": null, "ENT_NAT_REF_COD": "31489", "ENT_COU_RES": "FR", "ENT_TOW_CIT_RES": "MONTROUGE CEDEX", "ENT_AUT": ["2016-10-28"], "LEI": null}
+{"EntityType": "CRD_CRE_INS", "EntityCode": "529900CCYCFJRG4F2935", "CA_OwnerID": "AT_FMA", "ENT_NAM": "Bankhaus Carl Spängler & Co. Aktiengesellschaft", "ENT_NAM_NON_LAT": null, "ENT_NAT_REF_COD": "2440792", "ENT_COU_RES": "AT", "ENT_TOW_CIT_RES": "Salzburg", "ENT_AUT": ["2014-11-19"], "LEI": null}
+{"EntityType": "CRD_CRE_INS", "EntityCode": "894500S9LZOPYQB3WP87", "CA_OwnerID": "SE_FINA", "ENT_NAM": "Sambla Group AB", "ENT_NAM_NON_LAT": "Sambla Group AB", "ENT_NAT_REF_COD": "556974-8378", "ENT_COU_RES": "SE", "ENT_TOW_CIT_RES": "Stockholm", "ENT_AUT": ["2026-06-08"], "LEI": null}
+{"EntityType": "CRD_CRE_INS", "EntityCode": "213800TKOS7J5UA3ZI07", "CA_OwnerID": "FR_ACPR", "ENT_NAM": "ARAB BANK EUROPE SA", "ENT_NAM_NON_LAT": null, "ENT_NAT_REF_COD": "17979", "ENT_COU_RES": "FR", "ENT_TOW_CIT_RES": "PARIS 08", "ENT_AUT": ["2020-12-31"], "LEI": null}
+{"EntityType": "CRD_CRE_INS", "EntityCode": "213800DH6UHCSVBP7F78", "CA_OwnerID": "MT_MFSA", "ENT_NAM": "Bank DiMare Limited", "ENT_NAM_NON_LAT": null, "ENT_NAT_REF_COD": "C46997", "ENT_COU_RES": "MT", "ENT_TOW_CIT_RES": "L-IMSIDA", "ENT_AUT": ["2014-10-29"], "LEI": null}
+{"EntityType": "CRD_CRE_INS", "EntityCode": "5299008F7LLV7TEYIT04", "CA_OwnerID": "DE_BAFIN", "ENT_NAM": "Volksbank Düsseldorf Neuss eG", "ENT_NAM_NON_LAT": null, "ENT_NAT_REF_COD": "103229", "ENT_COU_RES": "DE", "ENT_TOW_CIT_RES": "Düsseldorf", "ENT_AUT": ["2013-11-20"], "LEI": null}
+{"EntityType": "CRD_CRE_INS", "EntityCode": "529900DADVVDC7X65L89", "CA_OwnerID": "AT_FMA", "ENT_NAM": "Austrian Anadi Bank AG", "ENT_NAM_NON_LAT": null, "ENT_NAT_REF_COD": "1629387", "ENT_COU_RES": "AT", "ENT_TOW_CIT_RES": "Klagenfurt am Wörthersee", "ENT_AUT": ["2014-09-04"], "LEI": null}
