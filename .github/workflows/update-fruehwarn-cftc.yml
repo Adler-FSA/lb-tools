@@ -52,3 +52,5 @@ jobs:
             git commit -m "Frühwarn-Check: CFTC RED List aktualisieren"
             git push
           fi
+
+# Initialisierung: diese Änderung löst den ersten CFTC-Import aus.
