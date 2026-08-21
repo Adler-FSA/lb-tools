@@ -1,0 +1,78 @@
+name: Projekt Frühwarn-Check – EBA Kreditinstitute Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * *'
+  push:
+    paths:
+      - '.github/workflows/update-fruehwarn-eba-cir.yml'
+      - 'pages/projekt-fruehwarn-check/scripts/update_eba_cir.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: projekt-fruehwarn-eba-cir
+  cancel-in-progress: false
+
+jobs:
+  update-eba-cir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: EBA Kreditinstitute aktualisieren
+        run: python pages/projekt-fruehwarn-check/scripts/update_eba_cir.py
+
+      - name: Ergebnis validieren
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p=Path('pages/projekt-fruehwarn-check/data/records.json')
+          data=json.loads(p.read_text(encoding='utf-8'))
+          rows=[r for r in data.get('records',[]) if r.get('source_id')=='eba-credit-institutions']
+          print('EBA Kreditinstitute:',len(rows))
+          if len(rows)<3000:
+              raise SystemExit('EBA CIR Validierung fehlgeschlagen')
+
+          db=[r for r in rows if 'deutsche bank' in str(r.get('name','')).lower() and r.get('country')=='DE']
+          print('Deutsche-Bank-Treffer:',len(db))
+          for r in db[:5]:
+              print(r.get('name'),r.get('entity_code'),r.get('status'),r.get('competent_authority_code'))
+          if not db:
+              raise SystemExit('Regression fehlgeschlagen: Deutsche Bank fehlt')
+
+          active=sum(1 for r in rows if r.get('status')=='authorized')
+          print('Aktiv geführte Kreditinstitute:',active)
+          if active<2000:
+              raise SystemExit('EBA CIR Aktivstatus unplausibel')
+          PY
+
+      - name: Aktualisierten Datenbestand speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add -- pages/projekt-fruehwarn-check/data/records.json pages/projekt-fruehwarn-check/data/sources.json
+          if git diff --cached --quiet; then
+            echo "Keine Datenänderung seit dem letzten erfolgreichen Lauf."
+          else
+            git commit -m "Frühwarn-Check: EBA Kreditinstitute aktualisieren"
+            git pull --rebase
+            git push
+          fi
