@@ -1,5 +1,5 @@
 name: Projekt Frühwarn-Check – BaFin Update
-# Stand: neue BaFin-Warnmeldungsstruktur + offizielle Expertensuche
+# Stand: BaFin Expertensuche · laufendes Jahr · 50 Treffer · nur gtp-Pagination
 
 on:
   workflow_dispatch:
