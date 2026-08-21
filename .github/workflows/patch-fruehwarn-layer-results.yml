@@ -14,23 +14,53 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Externes Ergebnis-Skript einbinden
+      - name: GLEIF-Suche und Global-Status korrigieren
         run: |
           python - <<'PY'
           from pathlib import Path
-          p=Path('pages/projekt-fruehwarn-check/index.html')
+          p=Path('pages/projekt-fruehwarn-check/layer-results.js')
           s=p.read_text(encoding='utf-8')
-          tag='<script src="./layer-results.js"></script>'
-          if tag not in s:
-              s=s.replace('</body>',tag+'\n</body>')
-              p.write_text(s,encoding='utf-8')
+
+          s=s.replace(
+              "gmbh|ag|ug|ltd|limited|llc|inc|sarl|bv|plc|s\\.?\\s*r\\.?\\s*o\\.?",
+              "gesellschaft mit beschrankter haftung|aktiengesellschaft|gmbh|ag|ug|se|kg|ohg|ltd|limited|llc|inc|sarl|sa|bv|plc|s\\.?\\s*r\\.?\\s*o\\.?"
+          )
+          s=s.replace("filter[entity.names]", "filter[entity.legalName]")
+
+          marker="  function queryTerms(q){"
+          helper="""  function setGlobalCoverage(kind){
+    const e=document.querySelector('#matches-GLOBAL .regionResult');
+    if(!e || document.querySelector('#matches-GLOBAL .match')) return;
+    e.className='regionResult partial';
+    if(kind==='match') e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: eindeutige Rechtsträger-/Identitätsspur gefunden. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';
+    else if(kind==='none') e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF: Unternehmensidentität automatisch geprüft; kein eindeutiger LEI-Treffer. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';
+    else if(kind==='error') e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF ist als automatische Identitätsquelle angebunden, war bei dieser Prüfung jedoch nicht erreichbar. Globale Warnlisten bleiben teilweise Direktprüfung.';
+    else e.innerHTML='<strong>Teilweise automatisch geprüft</strong>GLEIF prüft die Unternehmensidentität automatisch. Globale Warnlisten sind derzeit überwiegend als Direktprüfung angebunden.';
+  }
+
+"""
+          if 'function setGlobalCoverage(kind)' not in s:
+              s=s.replace(marker, helper+marker)
+
+          s=s.replace(
+              "    try{\n      const result=await lookupGLEIF(q);\n      renderGleifIdentity(result,q,seq);",
+              "    setGlobalCoverage('checking');\n    try{\n      const result=await lookupGLEIF(q);\n      setGlobalCoverage(result?.status==='match'?'match':'none');\n      renderGleifIdentity(result,q,seq);"
+          )
+          s=s.replace(
+              "      if(seq!==identitySeq||!sameActiveQuery(q))return;\n      set('#layerStatus-identity','partial','<strong>GLEIF derzeit nicht automatisch erreichbar.",
+              "      if(seq!==identitySeq||!sameActiveQuery(q))return;\n      setGlobalCoverage('error');\n      set('#layerStatus-identity','partial','<strong>GLEIF derzeit nicht automatisch erreichbar."
+          )
+
+          p.write_text(s,encoding='utf-8')
           PY
+      - name: Syntax prüfen
+        run: node --check pages/projekt-fruehwarn-check/layer-results.js
       - name: Änderungen speichern
         run: |
           git config user.name "FSA Frühwarn-Update"
           git config user.email "actions@github.com"
-          git add pages/projekt-fruehwarn-check/index.html
+          git add pages/projekt-fruehwarn-check/layer-results.js
           if ! git diff --cached --quiet; then
-            git commit -m "Frühwarn-Check: Prüfbereich-Ergebnisse aktivieren"
+            git commit -m "Frühwarn-Check: GLEIF-Suche korrigiert"
             git push
           fi
