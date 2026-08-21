@@ -89,6 +89,7 @@ def is_navigation_link(a):
 
 def collect_article_links(session):
     links = []
+    title_hints = {}
     seen_articles = set()
     seen_lists = set()
     queue = deque(BAFIN_LIST_SEEDS)
@@ -117,6 +118,9 @@ def collect_article_links(session):
             href = a.get("href", "")
             if "/SharedDocs/Veroeffentlichungen/DE/Verbrauchermitteilung/" in href:
                 absolute = urljoin(BAFIN_BASE, href.split("?")[0])
+                title_hint = clean(a.get_text(" ", strip=True))
+                if title_hint and title_hint.lower() != "mehr erfahren":
+                    title_hints[absolute] = title_hint
                 if absolute not in seen_articles:
                     seen_articles.add(absolute)
                     links.append(absolute)
@@ -135,7 +139,7 @@ def collect_article_links(session):
     print(f"BaFin Listenansichten geprüft: {len(seen_lists)}")
     print(f"BaFin Warnmeldungs-Links gefunden: {len(links)}")
     print(f"BaFin nicht erreichbare Listenquellen: {len(list_errors)}")
-    return links, len(seen_lists), list_errors
+    return links, title_hints, len(seen_lists), list_errors
 
 
 def extract_date(text):
@@ -169,6 +173,44 @@ def extract_domains(text):
         if domain not in domains:
             domains.append(domain)
     return domains[:40]
+
+
+def is_bad_title(value):
+    value = clean(value).lower()
+    return not value or value in {
+        "hinweis zur verwendung von cookies",
+        "cookies",
+        "cookie-einstellungen",
+    }
+
+
+def extract_article_title(soup, title_hint=""):
+    title_hint = clean(title_hint)
+    if not is_bad_title(title_hint):
+        return title_hint
+
+    main = soup.find("main") or soup.find(id="content")
+    for scope in (main, soup):
+        if not scope:
+            continue
+        for heading in scope.find_all(["h1", "h2"]):
+            candidate = clean(heading.get_text(" ", strip=True))
+            if not is_bad_title(candidate):
+                return candidate
+
+    for selector in ('meta[property="og:title"]', 'meta[name="twitter:title"]'):
+        node = soup.select_one(selector)
+        if node:
+            candidate = clean(node.get("content", ""))
+            if not is_bad_title(candidate):
+                return candidate
+
+    if soup.title:
+        candidate = clean(soup.title.get_text(" ", strip=True))
+        if not is_bad_title(candidate):
+            return candidate
+
+    return "BaFin-Verbraucherwarnung"
 
 
 def record_name(title):
@@ -215,11 +257,10 @@ def classify(text, title):
     return flags
 
 
-def parse_article(session, url):
+def parse_article(session, url, title_hint=""):
     response = session_get(session, url)
     soup = BeautifulSoup(response.text, "html.parser")
-    h1 = soup.find("h1")
-    title = clean(h1.get_text(" ", strip=True) if h1 else soup.title.get_text(" ", strip=True) if soup.title else "")
+    title = extract_article_title(soup, title_hint)
     main = soup.find("main") or soup.find(id="content") or soup.body
     text = clean(main.get_text(" ", strip=True) if main else soup.get_text(" ", strip=True))
     date = extract_date(text)
@@ -274,20 +315,26 @@ def main():
     others = [r for r in old_records if r.get("source_id") != "bafin-warnings"]
     by_url = {r.get("source_url"): r for r in old_bafin if r.get("source_url")}
 
-    links, list_pages_checked, list_errors = collect_article_links(session)
+    links, title_hints, list_pages_checked, list_errors = collect_article_links(session)
     if len(links) < 40:
         raise RuntimeError(f"BaFin-Validierung fehlgeschlagen: nur {len(links)} Warnmeldungs-Links gefunden")
 
     new_count = 0
+    refreshed_count = 0
     article_errors = []
     for url in links:
-        if url in by_url:
+        existing_record = by_url.get(url)
+        if existing_record and not is_bad_title(existing_record.get("title", "")):
             continue
         try:
-            record = parse_article(session, url)
+            record = parse_article(session, url, title_hints.get(url, ""))
             by_url[url] = record
-            new_count += 1
-            print(f"Neu {new_count}: {record['date']} | {record['title'][:100]}")
+            if existing_record:
+                refreshed_count += 1
+                print(f"Korrigiert {refreshed_count}: {record['date']} | {record['title'][:100]}")
+            else:
+                new_count += 1
+                print(f"Neu {new_count}: {record['date']} | {record['title'][:100]}")
         except Exception as exc:
             article_errors.append(f"{url}: {exc}")
             print(f"WARNUNG: {url}: {exc}", file=sys.stderr)
@@ -297,7 +344,7 @@ def main():
     orange = [r for r in bafin_records if "orange cat" in " ".join(r.get("match_terms", [])).lower()]
     if not orange:
         raise RuntimeError("Abnahmetest fehlgeschlagen: Orange Cat wurde in den erfassten BaFin-Meldungen nicht gefunden.")
-    if new_count == 0 and not old_bafin:
+    if new_count == 0 and refreshed_count == 0 and not old_bafin:
         raise RuntimeError("BaFin-Import lieferte keinen Datensatz.")
 
     generated = now_iso()
@@ -325,7 +372,7 @@ def main():
     write_json(RECORDS_FILE, payload)
     update_sources(generated, len(bafin_records))
 
-    print(f"OK: {len(bafin_records)} BaFin-Meldungen im Archiv, davon {new_count} neu.")
+    print(f"OK: {len(bafin_records)} BaFin-Meldungen im Archiv, davon {new_count} neu und {refreshed_count} mit korrigiertem Titel.")
     print(f"Orange-Cat-Abnahmetest: {len(orange)} Treffer.")
     print(f"Gesamtbestand: {len(combined)} Datensätze")
 
