@@ -1,0 +1,96 @@
+name: Projekt Frühwarn-Check – dynamische Prüfbereiche
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/patch-fruehwarn-dynamic-pruefbereiche.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prüfbereiche dynamisch machen und bestätigte Justizspur ergänzen
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          base = Path('pages/projekt-fruehwarn-check')
+          index = base / 'index.html'
+          records_file = base / 'data' / 'records.json'
+
+          html = index.read_text(encoding='utf-8')
+
+          # 1) Die fünf bisherigen Erklärkästen werden zu echten Ergebnisfeldern.
+          new_layers = '''<section class="layers"><div class="layersHead"><h2>Ergebnisse nach Prüfbereich</h2><p>Jeder Bereich zeigt den Stand der tatsächlich angeschlossenen Quellen zur aktuellen Eingabe.</p></div><div class="layerGrid"><div class="layer"><svg viewBox="0 0 24 24"><path d="M4 19V8l8-4 8 4v11"/><path d="M8 19v-6h8v6"/></svg><b>Unternehmensidentität</b><span class="layerStatus pending" id="layerStatus-identity">Wird nach einer Suche bewertet.</span></div><div class="layer"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.8 2.9 8.2 7 10"/></svg><b>Finanzaufsicht</b><span class="layerStatus pending" id="layerStatus-financial">Wird nach einer Suche bewertet.</span></div><div class="layer"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/></svg><b>Juristische Hinweise</b><span class="layerStatus pending" id="layerStatus-legal">Wird nach einer Suche bewertet.</span></div><div class="layer"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8"/></svg><b>Wirtschaftlicher Status</b><span class="layerStatus pending" id="layerStatus-economic">Wird nach einer Suche bewertet.</span></div><div class="layer"><svg viewBox="0 0 24 24"><path d="M4 12h4l3-7 3 14 3-7h3"/></svg><b>Werbespuren</b><span class="layerStatus pending" id="layerStatus-ads">Wird nach einer Suche bewertet.</span></div></div></section>'''
+          m = re.search(r'<section class="layers">.*?</section>', html, flags=re.S)
+          if not m:
+              raise SystemExit('Prüfbereich-Sektion nicht gefunden')
+          html = html[:m.start()] + new_layers + html[m.end():]
+
+          # 2) Sichtbare Statusfarben innerhalb der fünf Ergebnisfelder.
+          css_anchor = '.layer span{display:block;margin-top:3px;color:var(--muted);font-size:.8rem}'
+          css_extra = '.layerStatus{margin-top:9px!important;padding:9px 10px;border-radius:10px;border:1px solid var(--line);line-height:1.4}.layerStatus.ok{background:var(--green-soft);border-color:#d5eadf;color:#27684f}.layerStatus.hit{background:var(--red-soft);border-color:#efd1d6;color:#7d2d37}.layerStatus.legal{background:var(--amber-soft);border-color:#efdfbd;color:#705827}.layerStatus.pending{background:var(--grey-soft);color:#65717b}'
+          if css_extra not in html:
+              if css_anchor not in html:
+                  raise SystemExit('CSS-Anker nicht gefunden')
+              html = html.replace(css_anchor, css_anchor + css_extra, 1)
+
+          # 3) Ergebnislogik: die fünf Felder lesen denselben echten Datenbestand wie die Hauptsuche.
+          fn = r'''function setLayerStatus(id,kind,text){const e=$('#layerStatus-'+id);if(!e)return;e.className='layerStatus '+kind;e.textContent=text}function recordSignal(r){return ((r.type||'')+' '+(r.status||'')+' '+(r.category||'')+' '+((r.flags||[]).join(' '))).toLowerCase()}function renderLayerResults(q){const all=regions.flatMap(r=>regionData(r,q).matches);const financial=all.filter(r=>/^bafin-|^esma-/.test(String(r.source_id||''))||/warning|authorized|authorised|non.?compliant|prospectus|unauthorized/.test(recordSignal(r)));const financialWarn=financial.filter(r=>cls(r)==='warning');const financialAuth=financial.filter(r=>cls(r)==='authorized');const legal=all.filter(r=>/legal|investigation|ermitt|indict|charge|court|proceed|conviction|acquitt|dismiss|search_seizure/.test(recordSignal(r)));const identity=all.filter(r=>/identity/.test(recordSignal(r))||cls(r)==='identity');const economic=all.filter(r=>/insolv|liquidat|dissolv|economic/.test(recordSignal(r)));const ads=all.filter(r=>/advertis|werbung|marketing/.test(recordSignal(r)));if(identity.length){setLayerStatus('identity','ok','Eindeutige Unternehmens-/Registerspur gefunden: '+(identity[0].name||identity[0].title||q)+'.')}else{setLayerStatus('identity','pending','Noch nicht automatisch vollständig geprüft. Offizielle Unternehmensregister stehen als Direktprüfung bereit.')}if(financialWarn.length){setLayerStatus('financial','hit',financialWarn.length+' eindeutige behördliche Warn-/Maßnahmenspur'+(financialWarn.length===1?'':'en')+' gefunden. Details stehen oben im Deutschland-/Europa-Bereich.')}else if(financialAuth.length){setLayerStatus('financial','ok','Offizieller Zulassungs-/Registertreffer gefunden; in den automatisch geprüften Warnquellen wurde kein eindeutiger Warnhinweis zugeordnet.')}else{setLayerStatus('financial','ok','BaFin und ESMA automatisch geprüft: kein eindeutiger Warn- oder Zulassungstreffer gefunden.')}if(legal.length){const r=legal[0];let txt=(r.summary_de||r.summary_en||'Öffentlich bestätigte juristische Spur gefunden.');setLayerStatus('legal','legal',txt)}else{setLayerStatus('legal','pending','Noch keine universelle automatische Justizprüfung. Bereits quellenbestätigte Ermittlungs-/Gerichtsspuren werden angezeigt, sobald sie eindeutig zugeordnet sind.')}if(economic.length){setLayerStatus('economic','hit','Öffentliche wirtschaftliche Status-/Insolvenzspur gefunden. Details stehen im Trefferbereich.')}else{setLayerStatus('economic','pending','Noch nicht automatisch vollständig geprüft. Insolvenz- und Registerquellen stehen derzeit als Direktprüfung bereit.')}if(ads.length){setLayerStatus('ads','legal','Öffentliche Werbespur gefunden. Werbung allein ist kein Warnsignal; entscheidend sind Widersprüche zu offiziellen Fakten.')}else{setLayerStatus('ads','pending','Noch nicht automatisch vollständig geprüft. Meta- und TikTok-Werbebibliotheken stehen als Direktprüfung bereit.')}}'''
+          if 'function renderLayerResults(q)' not in html:
+              anchor = 'function renderStatus(){'
+              if anchor not in html:
+                  raise SystemExit('JS-Anker nicht gefunden')
+              html = html.replace(anchor, fn + anchor, 1)
+
+          # Nach jeder Suche und beim Sprachwechsel neu berechnen.
+          html = html.replace("renderOverall(q);$('#datasetState')", "renderOverall(q);renderLayerResults(q);$('#datasetState')")
+          index.write_text(html, encoding='utf-8')
+
+          # 4) Öffentlich bestätigte Justizspur für den Orange-Cat-Abnahmetest.
+          data = json.loads(records_file.read_text(encoding='utf-8'))
+          records = data.setdefault('records', [])
+          rid = 'legal-orange-cat-muehlhausen-2026-07-08'
+          records = [r for r in records if r.get('id') != rid]
+          records.append({
+              'id': rid,
+              'source_id': 'legal-public-confirmed',
+              'region': 'DE',
+              'type': 'legal',
+              'status': 'investigation',
+              'category': 'legal',
+              'name': 'Orange Cat Energy Technology Co. Ltd.',
+              'aliases': ['Orange Cat', 'Orange Cat Energy', 'Orangecat'],
+              'domains': [],
+              'authority': 'Staatsanwaltschaft Mühlhausen / Landeskriminalamt Thüringen',
+              'country': 'DE',
+              'date': '2026-07-08',
+              'title': 'Ermittlungen und Durchsuchungen im Zusammenhang mit Orange Cat',
+              'summary_de': 'Öffentlich bestätigt: Die Staatsanwaltschaft Mühlhausen ermittelt gegen zwei Männer wegen des Verdachts des gewerbs- und bandenmäßigen Betrugs. Bei Durchsuchungen in Erfurt und Mühlhausen wurden Beweismittel gesichert. Die Ermittler gehen allein in Deutschland von mehr als 100.000 Anlegern und damit potenziell Geschädigten aus. Ein Ermittlungsverfahren ist keine Verurteilung.',
+              'summary_en': 'Publicly confirmed: the Mühlhausen public prosecutor is investigating two men on suspicion of organised commercial fraud. Searches were conducted in Erfurt and Mühlhausen. Investigators estimate more than 100,000 investors and thus potentially affected persons in Germany. An investigation is not a conviction.',
+              'source_url': 'https://www.tagesschau.de/inland/regional/thueringen/powerbank-orange-cat-anleger-%2Cmuehlhausen-erfurt-durchsuchungen-betrug-100.html',
+              'source_level': 'officially_confirmed_via_public_broadcaster',
+              'flags': ['investigation', 'search_seizure', 'potential_victims_over_100000'],
+              'match_terms': ['Orange Cat', 'Orange Cat Energy', 'Orange Cat Energy Technology Co. Ltd.', 'Orangecat']
+          })
+          data['records'] = records
+          records_file.write_text(json.dumps(data, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          PY
+
+      - name: Änderungen speichern
+        run: |
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add pages/projekt-fruehwarn-check/index.html pages/projekt-fruehwarn-check/data/records.json
+          git commit -m "Frühwarn-Check: echte Ergebnisse in fünf Prüfbereichen" || exit 0
+          git push
