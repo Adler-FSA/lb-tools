@@ -6,11 +6,12 @@ path = Path(__file__).resolve().with_name("update_bafin.py")
 text = path.read_text(encoding="utf-8")
 original = text
 
-new_url = "https://www.bafin.de/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/warnmeldungen_node.html"
+warnings_url = "https://www.bafin.de/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/warnmeldungen_node.html"
+search_url = "https://www.bafin.de/SiteGlobals/Forms/Suche/Expertensuche/Servicesuche_Formular.html?pageLocale=de&cl2Categories_Format=meldung&sortOrder=searchDate_dt%20desc"
 
 text = re.sub(
-    r'BAFIN_WARNINGS = "[^"]+"\nBAFIN_LIST_SEEDS = \[.*?\n\]\n',
-    f'BAFIN_WARNINGS = "{new_url}"\nBAFIN_LIST_SEEDS = [BAFIN_WARNINGS]\n',
+    r'BAFIN_WARNINGS = "[^"]+"\n(?:BAFIN_SEARCH = "[^"]+"\n)?BAFIN_LIST_SEEDS = .*?\nUSER_AGENT',
+    f'BAFIN_WARNINGS = "{warnings_url}"\nBAFIN_SEARCH = "{search_url}"\nBAFIN_LIST_SEEDS = [BAFIN_SEARCH, BAFIN_WARNINGS]\nUSER_AGENT',
     text,
     flags=re.S,
 )
@@ -21,9 +22,12 @@ canonical = '''def canonical_list_url(url):
         return ""
 
     path = re.sub(r";jsessionid=[^/?]+", "", parsed.path, flags=re.I)
-    if "/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/" not in path:
-        return ""
-    if "warnmeldungen_node" not in path:
+    is_warning_page = (
+        "/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/" in path
+        and "warnmeldungen_node" in path
+    )
+    is_expert_search = path.endswith("/SiteGlobals/Forms/Suche/Expertensuche/Servicesuche_Formular.html")
+    if not (is_warning_page or is_expert_search):
         return ""
 
     return parsed._replace(path=path, fragment="").geturl()
@@ -40,7 +44,9 @@ navigation = '''def is_navigation_link(a):
     if not href:
         return False
     low_href = href.lower()
-    if "cms_gtp=" in low_href or "cms_gts=" in low_href:
+    if "servicesuche_formular.html" in low_href:
+        return True
+    if "cms_gtp=" in low_href or "cms_gts=" in low_href or "pageno=" in low_href or "page=" in low_href:
         return True
     if "warnmeldungen_node" in low_href:
         return True
@@ -62,4 +68,4 @@ if text == original:
     print("Kein Patch erforderlich oder Suchmuster nicht gefunden.")
 else:
     path.write_text(text, encoding="utf-8")
-    print("BaFin-Importer auf neue Warnmeldungsstruktur umgestellt.")
+    print("BaFin-Importer auf offizielle Expertensuche als Sammelquelle umgestellt.")
