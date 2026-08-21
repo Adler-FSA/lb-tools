@@ -19,7 +19,8 @@ SOURCES_FILE = DATA_DIR / "sources.json"
 
 BAFIN_BASE = "https://www.bafin.de"
 BAFIN_WARNINGS = "https://www.bafin.de/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/warnmeldungen_node.html"
-BAFIN_LIST_SEEDS = [BAFIN_WARNINGS]
+BAFIN_SEARCH = "https://www.bafin.de/SiteGlobals/Forms/Suche/Expertensuche/Servicesuche_Formular.html?pageLocale=de&cl2Categories_Format=meldung&sortOrder=searchDate_dt%20desc"
+BAFIN_LIST_SEEDS = [BAFIN_SEARCH, BAFIN_WARNINGS]
 USER_AGENT = "Akademie-Fruehwarn-Check/1.0 (+https://tools.liquiditybooster.de/pages/projekt-fruehwarn-check/)"
 MAX_LIST_PAGES = 80
 
@@ -68,9 +69,12 @@ def canonical_list_url(url):
         return ""
 
     path = re.sub(r";jsessionid=[^/?]+", "", parsed.path, flags=re.I)
-    if "/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/" not in path:
-        return ""
-    if "warnmeldungen_node" not in path:
+    is_warning_page = (
+        "/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/" in path
+        and "warnmeldungen_node" in path
+    )
+    is_expert_search = path.endswith("/SiteGlobals/Forms/Suche/Expertensuche/Servicesuche_Formular.html")
+    if not (is_warning_page or is_expert_search):
         return ""
 
     return parsed._replace(path=path, fragment="").geturl()
@@ -81,7 +85,9 @@ def is_navigation_link(a):
     if not href:
         return False
     low_href = href.lower()
-    if "cms_gtp=" in low_href or "cms_gts=" in low_href:
+    if "servicesuche_formular.html" in low_href:
+        return True
+    if "cms_gtp=" in low_href or "cms_gts=" in low_href or "pageno=" in low_href or "page=" in low_href:
         return True
     if "warnmeldungen_node" in low_href:
         return True
