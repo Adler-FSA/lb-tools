@@ -11,28 +11,47 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
-      - name: EBA CIR Metadaten prüfen
+      - name: EBA CIR Such-API prüfen
         shell: bash
         run: |
           python - <<'PY'
           import json, requests
           from pathlib import Path
-          urls=[
-            'https://euclid.eba.europa.eu/register/cir-api/filemetadata',
-            'https://euclid.eba.europa.eu/register/api/filemetadata',
-            'https://euclid.eba.europa.eu/register/pir-api/filemetadata'
-          ]
-          s=requests.Session(); s.headers.update({'User-Agent':'Akademie-Fruehwarn-Check/1.0','Accept':'application/json,*/*'})
+
+          url='https://euclid.eba.europa.eu/register/cir-api/search/entities'
+          s=requests.Session(); s.headers.update({'User-Agent':'Akademie-Fruehwarn-Check/1.0','Accept':'application/json,*/*','Content-Type':'application/json'})
+          payloads=[{}, {'$and':[]}, {'_payload.EntityType':'CRD_CRE_INS'}, {'$and':[{'_payload.EntityType':'CRD_CRE_INS'}]}]
           out=[]
-          for u in urls:
+          for payload in payloads:
             try:
-              r=s.get(u,timeout=30,allow_redirects=True)
-              out.append(f'URL={u}\nSTATUS={r.status_code}\nTYPE={r.headers.get("content-type")}\nFINAL={r.url}\nBODY={r.text[:5000]}\n---\n')
+              r=s.post(url,json=payload,timeout=60)
+              out.append('PAYLOAD='+json.dumps(payload,ensure_ascii=False)+'\n')
+              out.append(f'STATUS={r.status_code}\nTYPE={r.headers.get("content-type")}\nLEN={len(r.content)}\n')
+              try:
+                data=r.json()
+                out.append(f'JSONTYPE={type(data).__name__}\n')
+                if hasattr(data,'__len__'): out.append(f'COUNT={len(data)}\n')
+                if isinstance(data,list) and data:
+                  out.append('SAMPLE='+json.dumps(data[0],ensure_ascii=False)[:12000]+'\n')
+                  db=[]
+                  for item in data:
+                    text=json.dumps(item,ensure_ascii=False).lower()
+                    if 'deutsche bank' in text:
+                      db.append(item)
+                      if len(db)>=5: break
+                  out.append(f'DEUTSCHE_BANK_HITS={len(db)}\n')
+                  for item in db: out.append('DB='+json.dumps(item,ensure_ascii=False)[:12000]+'\n')
+                elif isinstance(data,dict):
+                  out.append('KEYS='+repr(list(data.keys())[:100])+'\n')
+                  out.append('BODYJSON='+json.dumps(data,ensure_ascii=False)[:12000]+'\n')
+              except Exception:
+                out.append('BODY='+r.text[:12000]+'\n')
             except Exception as e:
-              out.append(f'URL={u}\nERROR={e}\n---\n')
+              out.append('ERROR='+repr(e)+'\n')
+            out.append('---\n')
           Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
       - name: Diagnose speichern
@@ -41,5 +60,5 @@ jobs:
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA CIR Metadaten prüfen"
+          git commit -m "Frühwarn-Check: EBA CIR Such-API prüfen"
           git push
