@@ -18,15 +18,8 @@ RECORDS_FILE = DATA_DIR / "records.json"
 SOURCES_FILE = DATA_DIR / "sources.json"
 
 BAFIN_BASE = "https://www.bafin.de"
-BAFIN_WARNINGS = "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_node.html"
-BAFIN_LIST_SEEDS = [
-    BAFIN_WARNINGS,
-    "https://www.bafin.de/DE/Startseite/_function/service-leiste_warnmeldungen_alle.html?nn=19643416",
-    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_massnahmen_unerlaubte.html?nn=19643416",
-    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_marktmanipulation.html?nn=19643416",
-    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_prospekte.html?nn=19643416",
-    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_weitere.html?nn=19643416",
-]
+BAFIN_WARNINGS = "https://www.bafin.de/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/warnmeldungen_node.html"
+BAFIN_LIST_SEEDS = [BAFIN_WARNINGS]
 USER_AGENT = "Akademie-Fruehwarn-Check/1.0 (+https://tools.liquiditybooster.de/pages/projekt-fruehwarn-check/)"
 MAX_LIST_PAGES = 80
 
@@ -75,13 +68,9 @@ def canonical_list_url(url):
         return ""
 
     path = re.sub(r";jsessionid=[^/?]+", "", parsed.path, flags=re.I)
-    allowed = (
-        path.endswith("verbraucher_node.html")
-        or path.endswith("verbraucher_artikel.html")
-        or "service-leiste_warnmeldungen_alle.html" in path
-        or "verbraucher_meldungen_" in path
-    )
-    if not allowed or "/DE/" not in path:
+    if "/DE/verbraucherinnen-verbraucher/news-warnungen/warnmeldungen/" not in path:
+        return ""
+    if "warnmeldungen_node" not in path:
         return ""
 
     return parsed._replace(path=path, fragment="").geturl()
@@ -89,21 +78,18 @@ def canonical_list_url(url):
 
 def is_navigation_link(a):
     href = a.get("href", "")
-    text = clean(a.get_text(" ", strip=True)).lower()
     if not href:
         return False
     low_href = href.lower()
-    if "service-leiste_warnmeldungen_alle.html" in low_href:
-        return True
-    if "verbraucher_meldungen_" in low_href:
-        return True
     if "cms_gtp=" in low_href or "cms_gts=" in low_href:
         return True
-    if "verbraucher_artikel.html" in low_href:
+    if "warnmeldungen_node" in low_href:
         return True
-    if "alle warnmeldungen" in text or "alle warnungen" in text:
-        return True
-    labels = " ".join([a.get("aria-label", ""), a.get("title", "")]).lower()
+    labels = " ".join([
+        clean(a.get_text(" ", strip=True)),
+        a.get("aria-label", ""),
+        a.get("title", ""),
+    ]).lower()
     return any(x in labels for x in ("nächste", "naechste", "next", "seite"))
 
 
