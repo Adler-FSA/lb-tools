@@ -8,6 +8,7 @@ on:
     paths:
       - '.github/workflows/update-fruehwarn-bafin.yml'
       - 'pages/projekt-fruehwarn-check/scripts/update_bafin.py'
+      - 'pages/projekt-fruehwarn-check/scripts/diagnose_bafin_links.py'
 
 permissions:
   contents: write
@@ -39,7 +40,11 @@ jobs:
         shell: bash
         run: |
           set +e
-          python pages/projekt-fruehwarn-check/scripts/update_bafin.py 2>&1 | tee /tmp/bafin-update.log
+          {
+            python pages/projekt-fruehwarn-check/scripts/diagnose_bafin_links.py
+            echo
+            python pages/projekt-fruehwarn-check/scripts/update_bafin.py
+          } 2>&1 | tee /tmp/bafin-update.log
           CODE=${PIPESTATUS[0]}
           echo "BAFIN_EXIT=$CODE" >> "$GITHUB_ENV"
           if [ "$CODE" -ne 0 ]; then
