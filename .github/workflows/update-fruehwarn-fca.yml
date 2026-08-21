@@ -1,0 +1,68 @@
+name: Projekt Frühwarn-Check – FCA Global Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 */6 * * *'
+  push:
+    paths:
+      - '.github/workflows/update-fruehwarn-fca.yml'
+      - 'pages/projekt-fruehwarn-check/scripts/update_fca.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: projekt-fruehwarn-fca
+  cancel-in-progress: false
+
+jobs:
+  update-fca:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Parser installieren
+        run: python -m pip install --disable-pip-version-check beautifulsoup4
+
+      - name: FCA Warning List aktualisieren
+        run: python pages/projekt-fruehwarn-check/scripts/update_fca.py
+
+      - name: Ergebnis prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('pages/projekt-fruehwarn-check/data/records.json')
+          data = json.loads(p.read_text(encoding='utf-8'))
+          count = sum(1 for r in data.get('records', []) if r.get('source_id') == 'fca-warning-list')
+          print(f'FCA-Warnungen im lokalen Bestand: {count}')
+          if count < 100:
+              raise SystemExit('Validierung fehlgeschlagen – bestehender Datenbestand wird nicht überschrieben.')
+          PY
+
+      - name: Aktualisierten Datenbestand speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add -- pages/projekt-fruehwarn-check/data/records.json pages/projekt-fruehwarn-check/data/sources.json
+          if git diff --cached --quiet; then
+            echo "Keine Datenänderung seit dem letzten erfolgreichen Lauf."
+          else
+            git commit -m "Frühwarn-Check: FCA Warnliste aktualisieren"
+            git push
+          fi
