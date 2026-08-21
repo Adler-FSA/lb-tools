@@ -114,10 +114,23 @@
     try{ if(/^https?:\/\//i.test(s)){ const u=new URL(s); s=u.hostname.replace(/^www\./,''); } }catch(_){ }
     return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/^www\./,'').replace(/\b(gmbh|ag|ug|ltd|limited|llc|inc|sarl|bv|plc)\b/g,' ').replace(/[^a-z0-9.]+/g,' ').replace(/\s+/g,' ').trim();
   }
-  function recordTerms(r){ return [r.name,r.title,r.authority,...(r.aliases||[]),...(r.domains||[]),...(r.match_terms||[])].filter(Boolean).map(normalize); }
-  function matchRecord(r,q){
-    const nq=normalize(q); if(!nq) return false;
-    return recordTerms(r).some(term => term===nq || term.includes(nq) || nq.includes(term));
+  function recordTerms(r){ return [r.name,r.title,...(r.aliases||[]),...(r.domains||[]),...(r.match_terms||[])].filter(Boolean).map(normalize); }
+  function termTokens(term){ return term.split(/[\s.\-_/]+/).filter(Boolean); }
+  function matchQuality(r,q){
+    const nq=normalize(q); if(!nq) return 0;
+    const qTokens=termTokens(nq);
+    let similar=false;
+    for(const term of recordTerms(r)){
+      if(!term) continue;
+      if(term===nq) return 3;
+      const tokens=termTokens(term);
+      if(qTokens.length===1 && tokens.includes(nq)) return 3;
+      if(qTokens.length>1 && (term.startsWith(nq+' ') || term.startsWith(nq+'.') || term.startsWith(nq+'-'))) return 3;
+      if(nq.includes('.') && (term===nq || term.endsWith('.'+nq))) return 3;
+      if(nq.length>=4 && tokens.some(token=>token.startsWith(nq))) similar=true;
+      else if(nq.length>=3 && term.includes(nq)) similar=true;
+    }
+    return similar ? 1 : 0;
   }
   function recordClass(r){
     const s=String(r.status||r.type||'').toLowerCase();
@@ -132,7 +145,9 @@
   function renderMatches(region,q){
     const box=$('#matches-'+region); box.innerHTML='';
     const regionRecords=state.records.filter(r=>r.region===region);
-    const matches=regionRecords.filter(r=>matchRecord(r,q));
+    const graded=regionRecords.map(r=>({record:r,quality:matchQuality(r,q)})).filter(x=>x.quality>0);
+    const matches=graded.filter(x=>x.quality>=3).map(x=>x.record);
+    const similar=graded.filter(x=>x.quality===1).map(x=>x.record).slice(0,8);
     const automaticSources=state.sources.filter(s=>s.region===region && ['auto','local'].includes(s.mode));
     if(matches.length){
       matches.forEach(r=>{
@@ -149,6 +164,17 @@
       if(!automaticSources.length && !regionRecords.length) div.innerHTML='<strong>'+esc(t('noAuto'))+'</strong><br>'+esc(t('noAutoSub'));
       else div.textContent=t('noMatch');
       box.appendChild(div);
+    }
+    if(similar.length){
+      const note=document.createElement('div'); note.className='directTitle'; note.textContent=state.lang==='en'?'Similar names – not assigned':'Ähnliche Bezeichnungen – nicht zugeordnet'; box.appendChild(note);
+      similar.forEach(r=>{
+        const div=document.createElement('div'); div.className='match notice';
+        div.innerHTML='<div class="matchTop"><div class="matchTitle">'+esc(state.lang==='en'?'Possible name similarity':'Mögliche Namensähnlichkeit')+'</div></div>'+
+          '<div class="matchMeta">'+esc(r.authority||'')+'</div>'+
+          '<div class="matchSummary"><strong>'+esc(r.name||r.title||q)+'</strong><br>'+esc(state.lang==='en'?'This entry is not automatically attributed to the searched provider. Please compare the name and domain.':'Dieser Eintrag wird dem gesuchten Anbieter nicht automatisch zugeordnet. Bitte Name und Domain vergleichen.')+'</div>'+
+          (r.source_url?'<a href="'+esc(r.source_url)+'" target="_blank" rel="noopener">'+esc(t('resultSource'))+' ↗</a>':'');
+        box.appendChild(div);
+      });
     }
   }
   function renderSources(region){
