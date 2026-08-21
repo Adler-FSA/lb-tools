@@ -65,3 +65,5 @@ jobs:
             git commit -m "Frühwarn-Check: ESMA Daten aktualisieren"
             git push
           fi
+
+# Initialisierung: Änderung an dieser Datei löst den ersten Import über push aus.
