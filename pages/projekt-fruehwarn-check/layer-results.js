@@ -24,6 +24,7 @@
       records=Array.isArray(r.records)?r.records:[];
       traces=Array.isArray(t.records)?t.records:[];
     }catch(e){ records=[]; traces=[]; }
+    ensureGleifSourceUI();
     updateFromVisibleQuery();
   }
 
@@ -43,6 +44,27 @@
     const shown=$('#queryOut')?.textContent.trim()||'';
     const current=$('#query')?.value.trim()||'';
     return !!q && shown===q && current===shown && searchFinished();
+  }
+
+  function ensureGleifSourceUI(){
+    const box=$('#sources-GLOBAL');
+    if(box && !box.querySelector('[data-live-source="gleif"]')){
+      const a=document.createElement('a');
+      a.className='sourceLink';
+      a.href='https://search.gleif.org/';
+      a.target='_blank';
+      a.rel='noopener';
+      a.dataset.liveSource='gleif';
+      a.innerHTML='<div class="sourceName">GLEIF / Global LEI Index</div><div class="sourceMode">automatisch geprüft</div>';
+      box.prepend(a);
+    }
+    const rows=$('#statusRows');
+    if(rows && !rows.querySelector('[data-live-source="gleif"]')){
+      const tr=document.createElement('tr');
+      tr.dataset.liveSource='gleif';
+      tr.innerHTML='<td>GLEIF / Global LEI Index</td><td><span class="badge auto">automatisch geprüft</span></td>';
+      rows.appendChild(tr);
+    }
   }
 
   function queryTerms(q){
@@ -224,6 +246,7 @@
   }
 
   function updateFromVisibleQuery(){
+    ensureGleifSourceUI();
     const shell=$('#resultShell');
     const q=$('#queryOut');
     const query=$('#query');
@@ -242,6 +265,7 @@
   window.addEventListener('DOMContentLoaded',()=>{
     setExtraSectionsVisible(false);
     closeTechnicalStatus();
+    ensureGleifSourceUI();
     const query=$('#query');
     if(query){
       query.addEventListener('input',()=>{
@@ -254,7 +278,7 @@
         }
       });
     }
-    const targets=['#resultShell','#queryOut','#searchFeedback','#datasetState'].map($).filter(Boolean);
+    const targets=['#resultShell','#queryOut','#searchFeedback','#datasetState','#statusRows'].map($).filter(Boolean);
     targets.forEach(t=>obs.observe(t,{subtree:true,childList:true,characterData:true,attributes:true}));
     load();
   });
