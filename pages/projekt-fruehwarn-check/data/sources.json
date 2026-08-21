@@ -213,6 +213,32 @@
       "note_en": "Automatically updated from the official CFTC RED List.",
       "last_success": "2026-08-21T20:34:29Z",
       "record_count": 284
+    },
+    {
+      "id": "eba-psd2-register",
+      "region": "EU",
+      "category": "financial_supervision",
+      "name": "EBA PSD2 – Zahlungs- und E-Geld-Institute",
+      "authority": "European Banking Authority",
+      "mode": "auto",
+      "status": "available",
+      "url": "https://www.eba.europa.eu/risk-and-data-analysis/data/registers/payment-institutions-register",
+      "note_de": "Automatisch aus dem offiziellen maschinenlesbaren EBA-PSD2-Gesamtdatensatz aktualisiert. Agenten und Niederlassungen werden fuer den Fruehwarn-Check nicht als eigene Suchtreffer gespiegelt. Das EBA-Zentralregister hat keine eigene Rechtswirkung; rechtlich massgeblich bleiben die nationalen Register.",
+      "note_en": "Automatically updated from the official machine-readable EBA PSD2 full dataset. Agents and branches are not mirrored as separate search results. The EBA central register has no legal significance of its own; national registers remain legally authoritative.",
+      "last_success": "2026-08-21T21:02:42Z",
+      "record_count": 6410,
+      "dataset_url": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20260821/download-PSDMD-202608211600.zip",
+      "dataset_timestamp": "Fri Aug 21 16:00:05 UTC 2026",
+      "dataset_sha256": "d73d975d68b408dd69a2af8c37d06eecd35a7fe2b5a9e18f5ae0670be9ef1439",
+      "entity_type_counts": {
+        "PSD_PI": 1013,
+        "PSD_EMI": 427,
+        "PSD_AISP": 129,
+        "PSD_EEMI": 88,
+        "PSD_EPI": 2758,
+        "PSD_EXC": 1659,
+        "PSD_ENL": 336
+      }
     }
   ]
 }
