@@ -19,36 +19,31 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
-          import re, requests, urllib.parse
+          import re, requests
           from pathlib import Path
 
-          out=[]
           s=requests.Session()
           s.headers.update({'User-Agent':'Mozilla/5.0 (Akademie Fruehwarn-Check)','Accept':'*/*'})
-          root='https://euclid.eba.europa.eu/register/pir/registerDownload'
-          r=s.get(root,timeout=30)
-          out.append(f'ROOT status={r.status_code} type={r.headers.get("content-type")} len={len(r.content)}\n')
-          scripts=re.findall(r'<script[^>]+src=["\']([^"\']+)',r.text,re.I)
-          out.append('scripts='+repr(scripts)+'\n')
+          jsurl='https://euclid.eba.europa.eu/register/main.0f59f6811f5cb8c0bd29.js'
+          txt=s.get(jsurl,timeout=45).text
+          out=[f'JS size={len(txt)}\n']
 
-          for src in scripts:
-            jsurl=urllib.parse.urljoin('https://euclid.eba.europa.eu/register/',src)
-            j=s.get(jsurl,timeout=45)
-            txt=j.text
-            if 'registerDownload' not in txt and '/api/' not in txt and 'download' not in txt.lower():
-              continue
-            out.append(f'\n### {jsurl} size={len(txt)}\n')
-            strings=re.findall(r'["\']([^"\']{3,260})["\']',txt)
-            interesting=[]
-            for v in strings:
-              low=v.lower()
-              if any(k in low for k in ['registerdownload','/api/','download','export','json','pir/','register-file']):
-                if v not in interesting: interesting.append(v)
-            out.append('INTERESTING STRINGS:\n'+'\n'.join(interesting[:500])+'\n')
-            for pat in ['registerDownload','/api/','downloadFile','fileDownload','responseType','blob']:
-              for m in list(re.finditer(re.escape(pat),txt,re.I))[:40]:
-                a=max(0,m.start()-350); b=min(len(txt),m.end()+500)
-                out.append(f'CTX {pat}: '+re.sub(r'\s+',' ',txt[a:b])+'\n')
+          for pat in ['Downloading file :','registerDownload','pir/register','responseType:"blob"','responseType:"text"']:
+            out.append(f'\n===== {pat} =====\n')
+            matches=list(re.finditer(re.escape(pat),txt,re.I))
+            out.append(f'count={len(matches)}\n')
+            for i,m in enumerate(matches[:20],1):
+              a=max(0,m.start()-2200); b=min(len(txt),m.end()+2600)
+              chunk=re.sub(r'\s+',' ',txt[a:b])
+              out.append(f'--- match {i} ---\n{chunk}\n')
+
+          # Alle plausiblen internen REST-Pfade aus String-Literalen sammeln.
+          strings=re.findall(r'["\']([^"\']{1,300})["\']',txt)
+          vals=[]
+          for v in strings:
+            if v.startswith('/') and any(k in v.lower() for k in ['api','pir','download','register','entity','file']):
+              if v not in vals: vals.append(v)
+          out.append('\n===== PATH STRINGS =====\n'+'\n'.join(vals[:1000])+'\n')
 
           Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
           PY
@@ -58,5 +53,5 @@ jobs:
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: EBA API-Pfad diagnostizieren"
+          git commit -m "Frühwarn-Check: EBA Download-Funktion isolieren"
           git push
