@@ -1,0 +1,43 @@
+name: Projekt Frühwarn-Check – Trefferpräzision
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/fix-fruehwarn-search-precision.yml'
+      - 'pages/projekt-fruehwarn-check/scripts/patch_search_precision.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: projekt-fruehwarn-search-precision
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Trefferlogik korrigieren
+        run: python pages/projekt-fruehwarn-check/scripts/patch_search_precision.py
+
+      - name: Änderung prüfen und speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add -- pages/projekt-fruehwarn-check/index.html
+          if git diff --cached --quiet; then
+            echo "Trefferlogik ist bereits aktuell."
+          else
+            git commit -m "Frühwarn-Check: exakte und ähnliche Treffer trennen"
+            git push
+          fi
