@@ -1,0 +1,80 @@
+name: Diagnose Frühwarn-Check EBA Download
+
+on:
+  push:
+    paths:
+      - '.github/workflows/diagnose-fruehwarn-eba.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: EBA Download-Endpunkt untersuchen
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import re, requests, urllib.parse
+          from pathlib import Path
+
+          out=[]
+          s=requests.Session()
+          s.headers.update({'User-Agent':'Mozilla/5.0 (Akademie Fruehwarn-Check)','Accept':'*/*'})
+          urls=[
+            'https://euclid.eba.europa.eu/register/pir/registerDownload',
+            'https://euclid.eba.europa.eu/register/pir/search',
+            'https://euclid.eba.europa.eu/register/'
+          ]
+          for u in urls:
+            try:
+              r=s.get(u,timeout=30,allow_redirects=True)
+              out.append(f'GET {u}\nstatus={r.status_code}\nfinal={r.url}\ncontent-type={r.headers.get("content-type")}\ncontent-disposition={r.headers.get("content-disposition")}\ncookies={s.cookies.get_dict()}\nbody-prefix={r.text[:500].replace(chr(10)," ")}\n')
+              if 'text/html' in (r.headers.get('content-type') or ''):
+                scripts=re.findall(r'<script[^>]+src=["\']([^"\']+)',r.text,re.I)
+                out.append('scripts='+repr(scripts)+'\n')
+                for src in scripts[-8:]:
+                  jsurl=urllib.parse.urljoin(r.url,src)
+                  try:
+                    j=s.get(jsurl,timeout=30)
+                    txt=j.text
+                    hits=[]
+                    for pat in ['registerDownload','download','/api/','pir/']:
+                      if pat.lower() in txt.lower(): hits.append(pat)
+                    if hits:
+                      out.append(f'JS {jsurl} hits={hits}\n')
+                      for m in re.finditer(r'.{0,180}(?:registerDownload|register-download|download.{0,60}json|/api/).{0,220}',txt,re.I|re.S):
+                        out.append(re.sub(r'\s+',' ',m.group(0))[:800]+'\n')
+                  except Exception as e:
+                    out.append(f'JS ERROR {jsurl}: {e}\n')
+            except Exception as e:
+              out.append(f'ERROR {u}: {e}\n')
+
+          # Häufige maschinenlesbare Varianten gezielt testen.
+          candidates=[
+            'https://euclid.eba.europa.eu/register/pir/registerDownload?format=json',
+            'https://euclid.eba.europa.eu/register/pir/registerDownload/json',
+            'https://euclid.eba.europa.eu/register/pir/download',
+            'https://euclid.eba.europa.eu/register/pir/api/registerDownload',
+            'https://euclid.eba.europa.eu/register/api/pir/registerDownload'
+          ]
+          for u in candidates:
+            try:
+              r=s.get(u,timeout=20,allow_redirects=True)
+              out.append(f'TEST {u} status={r.status_code} type={r.headers.get("content-type")} disp={r.headers.get("content-disposition")} len={len(r.content)} final={r.url}\n')
+            except Exception as e:
+              out.append(f'TEST ERROR {u}: {e}\n')
+
+          Path('pages/projekt-fruehwarn-check/data/eba-diagnostic.txt').write_text(''.join(out),encoding='utf-8')
+          PY
+      - name: Diagnose speichern
+        run: |
+          git config user.name "FSA Frühwarn-Diagnose"
+          git config user.email "actions@github.com"
+          git add pages/projekt-fruehwarn-check/data/eba-diagnostic.txt
+          git commit -m "Frühwarn-Check: EBA Download-Endpunkt diagnostizieren"
+          git push
