@@ -1,0 +1,65 @@
+name: Patch Frühwarn-Check CFTC Globalanzeige V2
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-fruehwarn-global-cftc-ui-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: CFTC robust integrieren
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('pages/projekt-fruehwarn-check/layer-results.js')
+          s=p.read_text(encoding='utf-8')
+
+          ensure = '''function ensureGleifSourceUI(){
+          const box=$('#sources-GLOBAL');
+          const addSource=(id,name,url)=>{if(box&&!box.querySelector(`[data-live-source="${id}"]`)){const a=document.createElement('a');a.className='sourceLink';a.href=url;a.target='_blank';a.rel='noopener';a.dataset.liveSource=id;a.innerHTML=`<div class="sourceName">${name}</div><div class="sourceMode">automatisch geprüft</div>`;box.prepend(a);}};
+          addSource('gleif','GLEIF / Global LEI Index','https://search.gleif.org/');
+          addSource('cftc-red-list','CFTC RED List (USA)','https://www.cftc.gov/LearnAndProtect/Resources/Check/redlist.htm');
+          const rows=$('#statusRows');
+          const addRow=(id,name)=>{if(rows&&!rows.querySelector(`[data-live-source="${id}"]`)){const tr=document.createElement('tr');tr.dataset.liveSource=id;tr.innerHTML=`<td>${name}</td><td><span class="badge auto">automatisch geprüft</span></td>`;rows.appendChild(tr);}};
+          addRow('gleif','GLEIF / Global LEI Index');
+          addRow('cftc-red-list','CFTC RED List (USA)');
+          }'''
+          s,n=re.subn(r'function ensureGleifSourceUI\(\)\{.*?\}\nfunction setGlobalCoverage',ensure+'\nfunction setGlobalCoverage',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit(f'ensure function replacement count={n}')
+
+          global_fn = '''function setGlobalCoverage(kind='checking'){
+          const result=document.querySelector('#matches-GLOBAL .regionResult');if(!result)return;if(document.querySelector('#matches-GLOBAL .match'))return;
+          result.className='regionResult partial';
+          if(kind==='match')result.innerHTML='<strong>Globale Quellen automatisch geprüft</strong>GLEIF hat eine eindeutige Rechtsträger-/Identitätsspur gefunden. Die CFTC RED List (USA) wurde zusätzlich automatisch gegen Firmenname und Domain geprüft.';
+          else if(kind==='ambiguous')result.innerHTML='<strong>Globale Quellen automatisch geprüft</strong>GLEIF konnte die Rechtsträger-Identität nicht eindeutig zuordnen. Die CFTC RED List (USA) wurde dennoch automatisch gegen Firmenname und Domain geprüft.';
+          else if(kind==='none')result.innerHTML='<strong>Globale Quellen automatisch geprüft</strong>GLEIF: kein eindeutiger LEI-Treffer. Die CFTC RED List (USA) wurde automatisch gegen Firmenname und Domain geprüft.';
+          else if(kind==='error')result.innerHTML='<strong>Globale Prüfung durchgeführt</strong>GLEIF war bei dieser Prüfung nicht erreichbar; die lokal gespiegelt vorliegende CFTC RED List (USA) wurde unabhängig davon automatisch geprüft.';
+          else result.innerHTML='<strong>Globale Quellen werden automatisch geprüft</strong>GLEIF prüft die Unternehmensidentität; parallel wird die CFTC RED List (USA) gegen Firmenname und Domain abgeglichen.';
+          }'''
+          s,n=re.subn(r"function setGlobalCoverage\(kind='checking'\)\{.*?\}\nasync function load",global_fn+'\nasync function load',s,count=1,flags=re.S)
+          if n!=1: raise SystemExit(f'global function replacement count={n}')
+
+          old_re=r"const finWarn=matchedRecords\.find\(r=>.*?\);const finAuth="
+          replacement="const finWarn=matchedRecords.find(r=>/bafin-warnings|esma-non-compliant|cftc-red-list/.test(String(r.source_id||''))||/warning|non_compliant|registration_deficient/.test(String(r.status||'')));const finAuth="
+          s,n=re.subn(old_re,replacement,s,count=1,flags=re.S)
+          if n!=1: raise SystemExit(f'finWarn replacement count={n}')
+
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Syntax prüfen
+        run: node --check pages/projekt-fruehwarn-check/layer-results.js
+      - name: Commit
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pages/projekt-fruehwarn-check/layer-results.js
+          git commit -m "Frühwarn-Check: CFTC automatisch im Global-Ergebnis anzeigen"
+          git push
