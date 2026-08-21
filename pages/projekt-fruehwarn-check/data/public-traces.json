@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "note_de": "Verifizierte öffentliche Zusatzspuren. Jeder Datensatz enthält Quellenart und Originalquelle; Sekundärquellen werden nicht als Behördenoriginal ausgegeben.",
+  "records": [
+    {
+      "id": "orange-cat-sk-register-2026",
+      "category": "identity",
+      "status": "registered",
+      "source_type": "official_register",
+      "region": "EU",
+      "name": "Orange Cat Energy Co.,Ltd. s. r. o.",
+      "match_terms": ["Orange Cat", "Orange Cat Energy", "OrangeCat", "Orange Cat Energy Technology", "Orange Cat Energy Co Ltd"],
+      "date": "2026-02-23",
+      "authority": "Ministerium der Justiz der Slowakischen Republik / Obchodný vestník",
+      "summary_de": "Im offiziellen slowakischen Handelsregister wurde Orange Cat Energy Co.,Ltd. s. r. o. mit Sitz in Bratislava eingetragen. Der Registereintrag bestätigt die Existenz dieser Gesellschaft, ist aber kein Nachweis für Seriosität oder eine finanzaufsichtliche Erlaubnis.",
+      "source_url": "https://obchodnyvestnik.justice.gov.sk/ObchodnyVestnik/Formular/FormularDetail.aspx?IdFormular=4605761"
+    },
+    {
+      "id": "orange-cat-investigation-2026-07-08",
+      "category": "legal",
+      "status": "investigation",
+      "source_type": "verified_secondary_authority_quote",
+      "region": "DE",
+      "name": "Orange Cat",
+      "match_terms": ["Orange Cat", "Orange Cat Energy", "OrangeCat", "Orange Cat Energy Technology Co. Ltd."],
+      "date": "2026-07-08",
+      "authority": "MDR Thüringen unter Berufung auf die Staatsanwaltschaft Mühlhausen",
+      "summary_de": "Öffentlich bestätigte juristische Spur: Nach Angaben der Staatsanwaltschaft Mühlhausen wird gegen zwei Männer wegen des Verdachts des gewerbs- und bandenmäßigen Betrugs ermittelt. Wohn- und Geschäftsräume in Erfurt und Mühlhausen wurden durchsucht; das Landeskriminalamt sicherte Beweismittel. Die Ermittler gehen allein in Deutschland von mehr als 100.000 Anlegern und damit potenziell Geschädigten aus. Ein Ermittlungsverfahren ist keine Verurteilung; bis zu einer rechtskräftigen Entscheidung gilt die Unschuldsvermutung.",
+      "source_url": "https://www.mdr.de/nachrichten/thueringen/nord-thueringen/unstrut-hainich/powerbank-orange-cat-anleger-%2Cmuehlhausen-erfurt-durchsuchungen-betrug-100.html"
+    },
+    {
+      "id": "orange-cat-ad-trace-2026-07-08",
+      "category": "ads",
+      "status": "public_trace",
+      "source_type": "verified_secondary_authority_quote",
+      "region": "DE",
+      "name": "Orange Cat",
+      "match_terms": ["Orange Cat", "Orange Cat Energy", "OrangeCat", "Orange Cat Energy Technology Co. Ltd."],
+      "date": "2026-07-08",
+      "authority": "MDR Thüringen unter Berufung auf Ermittlungsangaben",
+      "summary_de": "Öffentliche Werbespur dokumentiert: Das Angebot wurde nach dem veröffentlichten Ermittlungsstand unter anderem über Messenger-Dienste, soziale Netzwerke und aufwendige Marketingveranstaltungen beworben. Diese Werbespur ist für sich allein kein Betrugsnachweis.",
+      "source_url": "https://www.mdr.de/nachrichten/thueringen/nord-thueringen/unstrut-hainich/powerbank-orange-cat-anleger-%2Cmuehlhausen-erfurt-durchsuchungen-betrug-100.html"
+    }
+  ]
+}
