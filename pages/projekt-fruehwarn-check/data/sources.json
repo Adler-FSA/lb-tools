@@ -8,11 +8,13 @@
       "category": "financial_supervision",
       "name": "BaFin – Verbraucherwarnungen",
       "authority": "Bundesanstalt für Finanzdienstleistungsaufsicht",
-      "mode": "prepared",
-      "status": "prepared",
+      "mode": "auto",
+      "status": "available",
       "url": "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_node.html",
-      "note_de": "Offizielle Warnungen, Maßnahmen und Hinweise der BaFin. Automatischer Import wird separat verdrahtet.",
-      "note_en": "Official BaFin warnings, measures and notices. Automated import will be connected separately."
+      "note_de": "Automatisch aus den offiziellen BaFin-Verbraucherwarnungen aktualisiert; bereits erfasste Meldungen bleiben im lokalen Frühwarn-Archiv erhalten.",
+      "note_en": "Automatically updated from official BaFin consumer warnings; previously captured notices remain in the local early-warning archive.",
+      "last_success": "2026-08-21T13:42:57Z",
+      "record_count": 281
     },
     {
       "id": "bafin-company",
