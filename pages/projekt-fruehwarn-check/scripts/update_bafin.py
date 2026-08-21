@@ -19,8 +19,16 @@ SOURCES_FILE = DATA_DIR / "sources.json"
 
 BAFIN_BASE = "https://www.bafin.de"
 BAFIN_WARNINGS = "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_node.html"
+BAFIN_LIST_SEEDS = [
+    BAFIN_WARNINGS,
+    "https://www.bafin.de/DE/Startseite/_function/service-leiste_warnmeldungen_alle.html?nn=19643416",
+    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_massnahmen_unerlaubte.html?nn=19643416",
+    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_marktmanipulation.html?nn=19643416",
+    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_prospekte.html?nn=19643416",
+    "https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_weitere.html?nn=19643416",
+]
 USER_AGENT = "Akademie-Fruehwarn-Check/1.0 (+https://tools.liquiditybooster.de/pages/projekt-fruehwarn-check/)"
-MAX_LIST_PAGES = 60
+MAX_LIST_PAGES = 80
 
 
 def now_iso():
@@ -71,10 +79,9 @@ def canonical_list_url(url):
         path.endswith("verbraucher_node.html")
         or path.endswith("verbraucher_artikel.html")
         or "service-leiste_warnmeldungen_alle.html" in path
+        or "verbraucher_meldungen_" in path
     )
-    if not allowed:
-        return ""
-    if "/DE/" not in path:
+    if not allowed or "/DE/" not in path:
         return ""
 
     return parsed._replace(path=path, fragment="").geturl()
@@ -88,6 +95,8 @@ def is_navigation_link(a):
     low_href = href.lower()
     if "service-leiste_warnmeldungen_alle.html" in low_href:
         return True
+    if "verbraucher_meldungen_" in low_href:
+        return True
     if "cms_gtp=" in low_href or "cms_gts=" in low_href:
         return True
     if "verbraucher_artikel.html" in low_href:
@@ -95,16 +104,15 @@ def is_navigation_link(a):
     if "alle warnmeldungen" in text or "alle warnungen" in text:
         return True
     labels = " ".join([a.get("aria-label", ""), a.get("title", "")]).lower()
-    if any(x in labels for x in ("nächste", "naechste", "next", "seite")):
-        return True
-    return False
+    return any(x in labels for x in ("nächste", "naechste", "next", "seite"))
 
 
 def collect_article_links(session):
     links = []
     seen_articles = set()
     seen_lists = set()
-    queue = deque([BAFIN_WARNINGS])
+    queue = deque(BAFIN_LIST_SEEDS)
+    list_errors = []
 
     while queue and len(seen_lists) < MAX_LIST_PAGES:
         raw_url = queue.popleft()
@@ -113,7 +121,14 @@ def collect_article_links(session):
             continue
         seen_lists.add(url)
 
-        html = session_get(session, url).text
+        try:
+            html = session_get(session, url).text
+        except Exception as exc:
+            msg = f"Listenquelle nicht erreichbar: {url}: {exc}"
+            print(f"LISTENWARNUNG: {msg}", file=sys.stderr)
+            list_errors.append(msg)
+            continue
+
         soup = BeautifulSoup(html, "html.parser")
         new_articles = 0
         new_pages = 0
@@ -139,7 +154,8 @@ def collect_article_links(session):
 
     print(f"BaFin Listenansichten geprüft: {len(seen_lists)}")
     print(f"BaFin Warnmeldungs-Links gefunden: {len(links)}")
-    return links, len(seen_lists)
+    print(f"BaFin nicht erreichbare Listenquellen: {len(list_errors)}")
+    return links, len(seen_lists), list_errors
 
 
 def extract_date(text):
@@ -200,8 +216,7 @@ def first_paragraphs(main):
         parts.append(txt)
         if len(" ".join(parts)) >= 620 or len(parts) >= 3:
             break
-    summary = " ".join(parts)
-    return summary[:900].rstrip()
+    return " ".join(parts)[:900].rstrip()
 
 
 def classify(text, title):
@@ -279,12 +294,12 @@ def main():
     others = [r for r in old_records if r.get("source_id") != "bafin-warnings"]
     by_url = {r.get("source_url"): r for r in old_bafin if r.get("source_url")}
 
-    links, list_pages_checked = collect_article_links(session)
+    links, list_pages_checked, list_errors = collect_article_links(session)
     if len(links) < 40:
         raise RuntimeError(f"BaFin-Validierung fehlgeschlagen: nur {len(links)} Warnmeldungs-Links gefunden")
 
     new_count = 0
-    errors = []
+    article_errors = []
     for url in links:
         if url in by_url:
             continue
@@ -294,7 +309,7 @@ def main():
             new_count += 1
             print(f"Neu {new_count}: {record['date']} | {record['title'][:100]}")
         except Exception as exc:
-            errors.append(f"{url}: {exc}")
+            article_errors.append(f"{url}: {exc}")
             print(f"WARNUNG: {url}: {exc}", file=sys.stderr)
         time.sleep(0.08)
 
@@ -317,7 +332,8 @@ def main():
         "new_records": new_count,
         "list_pages_checked": list_pages_checked,
         "dataset": BAFIN_WARNINGS,
-        "errors": len(errors),
+        "list_errors": len(list_errors),
+        "article_errors": len(article_errors),
     }
 
     payload = {
