@@ -199,6 +199,20 @@
       "url": "https://library.tiktok.com/ads/",
       "note_de": "Öffentliche Werbespur. Keine Bewertung allein aufgrund der Werbeaktivität.",
       "note_en": "Public advertising trace. No assessment based solely on advertising activity."
+    },
+    {
+      "id": "cftc-red-list",
+      "region": "GLOBAL",
+      "category": "warning",
+      "name": "CFTC RED List",
+      "authority": "Commodity Futures Trading Commission (USA)",
+      "mode": "auto",
+      "status": "available",
+      "url": "https://www.cftc.gov/LearnAndProtect/Resources/Check/redlist.htm",
+      "note_de": "Automatisch aus der offiziellen CFTC RED List aktualisiert.",
+      "note_en": "Automatically updated from the official CFTC RED List.",
+      "last_success": "2026-08-21T20:34:09Z",
+      "record_count": 284
     }
   ]
 }
