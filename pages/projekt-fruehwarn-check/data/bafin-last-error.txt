@@ -1,4 +1,10 @@
+LISTENWARNUNG: Listenquelle nicht erreichbar: https://www.bafin.de/DE/Startseite/_function/service-leiste_warnmeldungen_alle.html?nn=19643416: 404 Client Error: Not Found for url: https://www.bafin.de/DE/Startseite/_function/service-leiste_warnmeldungen_alle.html?nn=19643416
+LISTENWARNUNG: Listenquelle nicht erreichbar: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_massnahmen_unerlaubte.html?nn=19643416: 404 Client Error: Not Found for url: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_massnahmen_unerlaubte.html?nn=19643416
+LISTENWARNUNG: Listenquelle nicht erreichbar: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_marktmanipulation.html?nn=19643416: 404 Client Error: Not Found for url: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_marktmanipulation.html?nn=19643416
+LISTENWARNUNG: Listenquelle nicht erreichbar: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_prospekte.html?nn=19643416: 404 Client Error: Not Found for url: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_prospekte.html?nn=19643416
+LISTENWARNUNG: Listenquelle nicht erreichbar: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_weitere.html?nn=19643416: 404 Client Error: Not Found for url: https://www.bafin.de/DE/Verbraucher/Aktuelles/verbraucher_meldungen_weitere.html?nn=19643416
 FEHLER: BaFin-Validierung fehlgeschlagen: nur 24 Warnmeldungs-Links gefunden
 BaFin Listenansicht 1: 24 neue Meldungen, 0 weitere Listenlinks
-BaFin Listenansichten geprüft: 1
+BaFin Listenansichten geprüft: 6
 BaFin Warnmeldungs-Links gefunden: 24
+BaFin nicht erreichbare Listenquellen: 5
