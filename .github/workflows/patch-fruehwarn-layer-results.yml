@@ -1,0 +1,36 @@
+name: Patch Frühwarn-Check Layer Results
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-fruehwarn-layer-results.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Externes Ergebnis-Skript einbinden
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('pages/projekt-fruehwarn-check/index.html')
+          s=p.read_text(encoding='utf-8')
+          tag='<script src="./layer-results.js"></script>'
+          if tag not in s:
+              s=s.replace('</body>',tag+'\n</body>')
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Änderungen speichern
+        run: |
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add pages/projekt-fruehwarn-check/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Frühwarn-Check: Prüfbereich-Ergebnisse aktivieren"
+            git push
+          fi
