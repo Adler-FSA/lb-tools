@@ -1,0 +1,67 @@
+name: Research Engine – Browser Live Once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/research-engine-live-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Engine installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt pytest
+          python -m playwright install chromium
+      - name: Tests
+        run: python -m pytest -q research-engine/tests
+      - name: Echter KryptoSavings Lauf
+        shell: bash
+        run: |
+          set +e
+          python research-engine/engine.py 'https://www.kryptosavings.com/ref/DCEWQSVZ' --output research-engine/output/kryptosavings-live.json
+          CODE=$?
+          set -e
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('research-engine/output/kryptosavings-live.json')
+          d=json.loads(p.read_text(encoding='utf-8')) if p.exists() else {'status':'missing_output'}
+          a=d.get('analysis',{})
+          summary={
+            'status': d.get('status'),
+            'domain': d.get('context',{}).get('domain'),
+            'resolved_url': d.get('context',{}).get('resolved_url'),
+            'pages': len(a.get('pages',[])),
+            'fetch_modes': sorted({x.get('fetch_mode') for x in a.get('pages',[]) if x.get('fetch_mode')}),
+            'max_percentage': a.get('max_percentage'),
+            'detected': a.get('detected',{}),
+            'legal_entities': a.get('legal_entities',[]),
+            'social_video_count': len(a.get('social_and_video_links',[])),
+            'risk_signal_count': len(a.get('risk_signals',[])),
+          }
+          Path('research-engine/output/live-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
+          PY
+          echo "engine_exit_code=$CODE" >> "$GITHUB_ENV"
+      - name: Ergebnis sichern
+        if: always()
+        run: |
+          git config user.name 'Akademie Research Engine'
+          git config user.email 'actions@github.com'
+          git add research-engine/output/kryptosavings-live.json research-engine/output/live-summary.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Research Engine: Browser-Livetest auswerten'
+          git pull --rebase
+          git push
