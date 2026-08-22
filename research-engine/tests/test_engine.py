@@ -123,3 +123,6 @@ def test_competitor_table_does_not_raise_project_commission():
     )
     out = mod.analyze_pages([page], ctx)
     assert out["max_commission_percentage"] == 30.0
+
+
+# Bewusster Trigger für den Klaus-Live-Lauf mit ausschließlich dem Projektnamen.
