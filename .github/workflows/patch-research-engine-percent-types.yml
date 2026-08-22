@@ -16,203 +16,38 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Klaus-Semantik sauber patchen
+      - name: Rendite und Provision trennen
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-          import re
+          p=Path('research-engine/engine.py')
+          s=p.read_text(encoding='utf-8')
 
-          p = Path('research-engine/engine.py')
-          s = p.read_text(encoding='utf-8')
+          old='''def extract_percentages(text: str) -> list[float]:\n    values: list[float] = []\n    for m in PERCENT_RE.finditer(text or ""):\n        n = float(m.group(1).replace(",", "."))\n        if 0 < n <= 500:\n            values.append(n)\n    return sorted(set(values), reverse=True)\n'''
+          new='''def extract_percentages(text: str) -> list[float]:\n    values: list[float] = []\n    for m in PERCENT_RE.finditer(text or ""):\n        n = float(m.group(1).replace(",", "."))\n        if 0 < n <= 500:\n            values.append(n)\n    return sorted(set(values), reverse=True)\n\n\ndef percentage_kind(text: str, match: re.Match) -> str:\n    \"\"\"Ordnet Prozentwerte nach Kontext ein: Rendite, Provision oder sonstig.\"\"\"\n    start=max(0, match.start()-120)\n    end=min(len(text), match.end()+120)\n    ctx=clean_text(text[start:end]).lower()\n    # Vertriebsbegriffe haben Vorrang: \"earn 30% commission\" ist keine Rendite.\n    if re.search(r"\\b(commission|provision|affiliate|referral|milestone bonus|partner commission|earning .* commission)\\b", ctx, re.I):\n        return "commission"\n    suffix=(match.group(2) or "").lower()\n    if suffix or re.search(r"\\b(apy|apr|p\\.?a\\.?|yield|interest|rendite|zinsen?|staking yield|earn on crypto)\\b", ctx, re.I):\n        return "yield"\n    return "other"\n\n\ndef direct_commission_claim(text: str, match: re.Match) -> bool:\n    start=max(0, match.start()-140)\n    end=min(len(text), match.end()+140)\n    ctx=clean_text(text[start:end]).lower()\n    return bool(re.search(r"(earn up to|earning|you earn|your tier|commission rate|lifetime commission)", ctx, re.I))\n'''
+          if old not in s:
+              raise SystemExit('extract_percentages block not found')
+          s=s.replace(old,new)
 
-          new_percent = r'''def percentage_kind(text: str, match: re.Match) -> str:
-    """Ordnet einen Prozentwert nur nach seinem engen, belegbaren Kontext ein."""
-    suffix = (match.group(2) or "").lower()
-    before = clean_text(text[max(0, match.start()-70):match.start()]).lower()
-    after = clean_text(text[match.end():min(len(text), match.end()+55)]).lower()
-    ctx = clean_text(text[max(0, match.start()-85):min(len(text), match.end()+85)]).lower()
+          old='''    # Rendite-/Prozentangaben pro Quelle erfassen.\n    max_percent = None\n    for page in pages:\n        vals = extract_percentages(page.text)\n        if vals:\n            max_percent = vals[0] if max_percent is None else max(max_percent, vals[0])\n            for m in PERCENT_RE.finditer(page.text):\n                n = float(m.group(1).replace(",", "."))\n                if 0 < n <= 500:\n                    findings.append(Finding("percentage", f"{n:g}%", page.url, snippet(page.text, m), "high"))\n'''
+          new='''    # Prozentangaben fachlich trennen: Projektrendite ist nicht Affiliate-Provision.\n    max_yield_percent = None\n    max_commission_percent = None\n    for page in pages:\n        for m in PERCENT_RE.finditer(page.text):\n            n = float(m.group(1).replace(",", "."))\n            if not (0 < n <= 500):\n                continue\n            kind = percentage_kind(page.text, m)\n            if kind == "yield":\n                max_yield_percent = n if max_yield_percent is None else max(max_yield_percent, n)\n                findings.append(Finding("yield_percentage", f"{n:g}%", page.url, snippet(page.text, m), "high"))\n            elif kind == "commission":\n                findings.append(Finding("commission_percentage", f"{n:g}%", page.url, snippet(page.text, m), "high"))\n                if direct_commission_claim(page.text, m):\n                    max_commission_percent = n if max_commission_percent is None else max(max_commission_percent, n)\n            else:\n                findings.append(Finding("percentage_other", f"{n:g}%", page.url, snippet(page.text, m), "medium"))\n'''
+          if old not in s:
+              raise SystemExit('analysis percentage block not found')
+          s=s.replace(old,new)
 
-    # Eine direkt am Wert stehende Renditeeinheit ist der stärkste Beleg.
-    if suffix:
-        return "yield"
-
-    # Direkte Provisionsaussage: "30% commission" / "20% provision".
-    if re.match(r"^(?:\s|[:|–—-])*(?:commission|provision)\b", after, re.I):
-        return "commission"
-
-    # Verlust-, Bonus-, Rabatt- und ähnliche Werte sind keine Rendite. Damit kann
-    # z. B. "lose 100% ... Yield Generation" nicht mehr zu 100% Rendite werden.
-    if re.search(
-        r"\b(lose|loss|lost|verlust|price swing|drawdown|welcome bonus|bonus|discount|"
-        r"save|saving|subscription|donation|cashback|fee|attack|safe|ownership|share)\b",
-        ctx, re.I
-    ):
-        return "other"
-
-    # Rendite ohne explizites Suffix nur bei enger sprachlicher Bindung an den Wert.
-    if re.search(
-        r"\b(apy|apr|yield|interest|rendite|zinsen?|earn(?:ing)?|return)"
-        r"(?:\s+(?:rate|of|up to|as high as))?[^.%]{0,28}$",
-        before, re.I
-    ):
-        return "yield"
-
-    # Affiliate-/Vergleichstabellen bleiben als Provisionshinweis dokumentiert,
-    # setzen aber nicht automatisch die eigene Maximalprovision des Projekts.
-    if re.search(r"\b(commission|provision|affiliate|referral|partner commission)\b", ctx, re.I):
-        return "commission"
-    return "other"
-
-
-def direct_commission_claim(text: str, match: re.Match) -> bool:
-    """Nur eine unmittelbar am Prozentwert stehende eigene Provisionsaussage zählt."""
-    after = clean_text(text[match.end():min(len(text), match.end()+32)]).lower()
-    return bool(re.match(r"^(?:\s|[:|–—-])*(?:commission|provision)\b", after, re.I))'''
-
-          pattern = r'def percentage_kind\(text: str, match: re\.Match\) -> str:.*?\n\ndef find_regex'
-          s, count = re.subn(pattern, new_percent + '\n\ndef find_regex', s, count=1, flags=re.S)
-          if count != 1:
-              raise SystemExit(f'Prozentblock nicht eindeutig gefunden: {count}')
-
-          needle = '''    return out\n\n\ndef source_label(url: str) -> str:'''
-          helper = r'''    return out
-
-
-def find_non_negated_regex(pages: Iterable[Page], pattern: str, flags=re.I) -> list[tuple[Page, re.Match]]:
-    """Treffer nur werten, wenn direkt davor keine klare Verneinung steht."""
-    rx = re.compile(pattern, flags)
-    out: list[tuple[Page, re.Match]] = []
-    for page in pages:
-        for m in rx.finditer(page.text):
-            prefix = clean_text(page.text[max(0, m.start()-32):m.start()]).lower()
-            if re.search(r"\b(no|not|never|without|nicht|kein|keine|keinen|keiner|niemals)\b", prefix, re.I):
-                continue
-            out.append((page, m))
-            break
-    return out
-
-
-def source_label(url: str) -> str:'''
-          if needle not in s:
-              raise SystemExit('Einfügepunkt für Negationsprüfung nicht gefunden')
-          s = s.replace(needle, helper, 1)
-
-          old_detect = '''    detected = {}
-    for kind, pattern in keyword_groups.items():
-        hits = find_regex(pages, pattern)
-        detected[kind] = bool(hits)
-        for page, m in hits[:3]:
-            findings.append(Finding(kind, m.group(0), page.url, snippet(page.text, m), "medium"))
-'''
-          new_detect = '''    detected = {}
-    for kind, pattern in keyword_groups.items():
-        hits = find_non_negated_regex(pages, pattern) if kind == "guarantee" else find_regex(pages, pattern)
-        detected[kind] = bool(hits)
-        for page, m in hits[:3]:
-            findings.append(Finding(kind, m.group(0), page.url, snippet(page.text, m), "medium"))
-'''
-          if old_detect not in s:
-              raise SystemExit('Detection-Block nicht gefunden')
-          s = s.replace(old_detect, new_detect, 1)
-          p.write_text(s, encoding='utf-8')
-
-          tests = Path('research-engine/tests/test_engine.py')
-          t = tests.read_text(encoding='utf-8')
-          if 'def test_loss_percentage_is_not_yield():' not in t:
-              t += '''
-
-
-def test_loss_percentage_is_not_yield():
-    text = "In a worst-case scenario, you may lose 100% of your deposited assets. Yield Generation & Performance Risk follows."
-    match = mod.PERCENT_RE.search(text)
-    assert mod.percentage_kind(text, match) == "other"
-
-
-def test_welcome_bonus_is_not_yield_even_near_apy_title():
-    text = "KryptoSavings — Earn up to 23% APY on Crypto Get 15% Welcome Bonus on your first deposit."
-    matches = list(mod.PERCENT_RE.finditer(text))
-    assert mod.percentage_kind(text, matches[0]) == "yield"
-    assert mod.percentage_kind(text, matches[1]) == "other"
-
-
-def test_competitor_table_does_not_raise_project_commission():
-    ctx = {"input_url": ""}
-    page = mod.Page(
-        url="https://example.com/affiliate",
-        status=200,
-        title="Affiliate",
-        text=(
-            "Earn up to 30% commission with no fixed time limit. "
-            "Max commission rate | 30% | 10% | 5% | 50% | Duration | Lifetime"
-        ),
-        links=[],
-    )
-    out = mod.analyze_pages([page], ctx)
-    assert out["max_commission_percentage"] == 30.0
-
-
-def test_negated_guarantee_is_not_positive_claim():
-    ctx = {"input_url": ""}
-    page = mod.Page(
-        url="https://example.com/risk",
-        status=200,
-        title="Risk",
-        text="Returns are not guaranteed and capital is at risk.",
-        links=[],
-    )
-    out = mod.analyze_pages([page], ctx)
-    assert out["detected"]["guarantee"] is False
-'''
-              tests.write_text(t, encoding='utf-8')
-
-          wf = Path('.github/workflows/research-engine-kryptosavings-test.yml')
-          w = wf.read_text(encoding='utf-8')
-          w = w.replace('default: "https://www.kryptosavings.com/ref/DCEWQSVZ"', 'default: "KryptoSavings"')
-          w = w.replace('QUERY="${INPUT_QUERY:-https://www.kryptosavings.com/ref/DCEWQSVZ}"', 'QUERY="${INPUT_QUERY:-KryptoSavings}"')
-
-          klaus_step = '''      - name: Klaus-Prüfpunkte – nur Projektname
-        id: klaus
-        continue-on-error: true
-        run: |
-          python - <<'PY2'
-          import json
-          from pathlib import Path
-          data=json.loads(Path('research-engine/output/kryptosavings-live.json').read_text(encoding='utf-8'))
-          assert data.get('status') == 'ok', data.get('status')
-          ctx=data['context']
-          ana=data['analysis']
-          assert ctx.get('input_kind') == 'name', ctx
-          assert ctx.get('project_name') == 'KryptoSavings', ctx
-          assert ctx.get('domain') == 'kryptosavings.com', ctx
-          assert ana.get('max_yield_percentage') == 23.0, ana.get('max_yield_percentage')
-          assert ana.get('max_commission_percentage') == 30.0, ana.get('max_commission_percentage')
-          assert ana.get('detected', {}).get('referral') is True
-          urls=[p.get('url','') for p in ana.get('pages',[])]
-          assert any('/affiliate' in u for u in urls), urls
-          assert any('/strategy' in u for u in urls), urls
-          print('Klaus-Test OK:', ctx.get('domain'), '23% APY, 30% Provision, Referral erkannt')
-          PY2
-
-'''
-          if 'Klaus-Prüfpunkte – nur Projektname' not in w:
-              w = w.replace('      - name: Diagnose schreiben\n', klaus_step + '      - name: Diagnose schreiben\n', 1)
-              w = w.replace('          LIVE: ${{ steps.live.outcome }}\n', '          LIVE: ${{ steps.live.outcome }}\n          KLAUS: ${{ steps.klaus.outcome }}\n', 1)
-              w = w.replace("            'live_research': os.environ.get('LIVE'),\n", "            'live_research': os.environ.get('LIVE'),\n            'klaus_checks': os.environ.get('KLAUS'),\n", 1)
-          wf.write_text(w, encoding='utf-8')
+          s=s.replace('''    if max_percent is not None:\n        severity = "high" if max_percent >= 15 else "medium" if max_percent >= 8 else "info"\n        risk_signals.append({\n            "id": "yield_level", "severity": severity,\n            "title": "Rendite-/Zinsangabe erkannt",\n            "explanation": f"Öffentlich wurde mindestens eine Prozentangabe bis {max_percent:g}% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."\n        })\n''','''    if max_yield_percent is not None:\n        severity = "high" if max_yield_percent >= 15 else "medium" if max_yield_percent >= 8 else "info"\n        risk_signals.append({\n            "id": "yield_level", "severity": severity,\n            "title": "Rendite-/Zinsangabe erkannt",\n            "explanation": f"Öffentlich wurde eine Rendite-/Zinsangabe bis {max_yield_percent:g}% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."\n        })\n    if max_commission_percent is not None:\n        risk_signals.append({\n            "id": "affiliate_commission", "severity": "medium",\n            "title": "Affiliate-Provision erkannt",\n            "explanation": f"Im eigenen Vertriebs-/Affiliate-Bereich wird eine Provision bis {max_commission_percent:g}% beworben. Das ist ein wirtschaftlicher Anreiz für Empfehlungen und keine Projektrendite."\n        })\n''')
+          s=s.replace('''    if max_percent is not None:\n        questions.append("Wodurch wird die beworbene Rendite tatsächlich erwirtschaftet und welcher maximale Verlust ist möglich?")\n''','''    if max_yield_percent is not None:\n        questions.append("Wodurch wird die beworbene Rendite tatsächlich erwirtschaftet und welcher maximale Verlust ist möglich?")\n''')
+          s=s.replace('''        "max_percentage": max_percent,\n''','''        "max_percentage": max_yield_percent,\n        "max_yield_percentage": max_yield_percent,\n        "max_commission_percentage": max_commission_percent,\n''')
+          p.write_text(s,encoding='utf-8')
           PY
 
           python -m py_compile research-engine/engine.py
-
-      - name: Änderungen sichern und Patch-Workflow zurücksetzen
-        run: |
           git config user.name "Akademie Research Engine"
           git config user.email "actions@github.com"
-          git checkout HEAD^ -- .github/workflows/patch-research-engine-percent-types.yml
-          git rm -f .github/workflows/patch-research-engine-klaus-semantics-once.yml || true
-          git add research-engine/engine.py research-engine/tests/test_engine.py .github/workflows/research-engine-kryptosavings-test.yml .github/workflows/patch-research-engine-percent-types.yml
-          git commit -m "Research Engine: Klaus-Test semantisch absichern"
+          git add research-engine/engine.py
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Research Engine: Rendite und Affiliate-Provision trennen"
           git pull --rebase
           git push
