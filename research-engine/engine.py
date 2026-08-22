@@ -246,9 +246,11 @@ def fetch_page(url: str) -> Page | None:
             # Für die Analyse zählt nur der eigentliche Markdown-Inhalt plus Seitentitel.
             body = raw.split("Markdown Content:", 1)[1] if "Markdown Content:" in raw else raw
             body = clean_text(body)
-            analysis_text = clean_text((title + " " + body).strip())
-            if len(analysis_text) < 60:
+            # Ein Seitentitel allein ist kein belastbarer Seitenfund. Solche Reader-Shells
+            # entstehen u. a. bei erfundenen Routerpfaden wie /withdrawal.
+            if len(body) < 120:
                 continue
+            analysis_text = clean_text((title + " " + body).strip())
             return Page(
                 url=url, status=200, title=title, text=analysis_text,
                 links=reader_links(body), fetch_mode="reader-fallback"
@@ -452,6 +454,20 @@ def find_regex(pages: Iterable[Page], pattern: str, flags=re.I) -> list[tuple[Pa
     return out
 
 
+def find_non_negated_regex(pages: Iterable[Page], pattern: str, flags=re.I) -> list[tuple[Page, re.Match]]:
+    """Treffer nur werten, wenn direkt davor keine klare Verneinung steht."""
+    rx = re.compile(pattern, flags)
+    out: list[tuple[Page, re.Match]] = []
+    for page in pages:
+        for m in rx.finditer(page.text):
+            prefix = clean_text(page.text[max(0, m.start()-32):m.start()]).lower()
+            if re.search(r"\b(no|not|never|without|nicht|kein|keine|keinen|keiner|niemals)\b", prefix, re.I):
+                continue
+            out.append((page, m))
+            break
+    return out
+
+
 def source_label(url: str) -> str:
     host = (urlparse(url).hostname or "").removeprefix("www.")
     return host or url
@@ -506,16 +522,19 @@ def analyze_pages(pages: list[Page], ctx: dict) -> dict:
 
     detected = {}
     for kind, pattern in keyword_groups.items():
-        hits = find_regex(pages, pattern)
+        hits = find_non_negated_regex(pages, pattern) if kind == "guarantee" else find_regex(pages, pattern)
         detected[kind] = bool(hits)
         for page, m in hits[:3]:
             findings.append(Finding(kind, m.group(0), page.url, snippet(page.text, m), "medium"))
 
-    # Rechtsträgerhinweise.
+    # Rechtsträgerhinweise. Kommaübergreifende Treffer aus flachgezogenem Adress-/Seitentext
+    # werden konservativ verworfen, statt einen falschen Rechtsträger zu behaupten.
     legal_entities = []
     for page in pages:
         for m in LEGAL_FORMS.finditer(page.text):
             value = clean_text(m.group(1))
+            if "," in value:
+                continue
             if value and value not in legal_entities:
                 legal_entities.append(value)
                 findings.append(Finding("legal_entity", value, page.url, snippet(page.text, m), "medium"))
