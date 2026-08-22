@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "status": "ok",
+  "context": {
+    "input": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+    "input_kind": "url",
+    "input_url": "https://kryptosavings.com/ref/DCEWQSVZ",
+    "project_name": "",
+    "domain": "kryptosavings.com",
+    "resolved_url": "https://kryptosavings.com/ref/DCEWQSVZ"
+  },
+  "discovery_attempts": [],
+  "analysis": {
+    "pages": [
+      {
+        "url": "https://kryptosavings.com/ref/DCEWQSVZ",
+        "title": "",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 384
+      }
+    ],
+    "max_percentage": null,
+    "detected": {
+      "staking": false,
+      "yield_or_interest": false,
+      "defi": false,
+      "trading": false,
+      "leverage": false,
+      "lending": false,
+      "lockup": false,
+      "withdrawal": false,
+      "kyc": false,
+      "custody": false,
+      "referral": true,
+      "bonus": false,
+      "guarantee": false
+    },
+    "legal_entities": [],
+    "social_and_video_links": [],
+    "findings": [
+      {
+        "type": "referral_input",
+        "value": "personal_referral_parameter",
+        "source_url": "https://kryptosavings.com/ref/DCEWQSVZ",
+        "evidence": "Der eingegebene Link enthält eine Referral-/Affiliate-/Partnerkennung.",
+        "confidence": "high"
+      }
+    ],
+    "risk_signals": [
+      {
+        "id": "distribution_incentive",
+        "severity": "medium",
+        "title": "Vertriebs-/Empfehlungsanreize erkannt",
+        "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
+      },
+      {
+        "id": "operator_identity",
+        "severity": "medium",
+        "title": "Rechtsträger nicht eindeutig erkannt",
+        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
+      }
+    ],
+    "questions": [
+      "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
+      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+    ]
+  },
+  "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
+}
