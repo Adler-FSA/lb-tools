@@ -68,9 +68,6 @@ jobs:
           if old not in s: raise SystemExit('GLEIF unresolved target fehlt')
           s=s.replace(old,new,1)
 
-          old="setGlobalCoverage('ambiguous');}else{"
-          # ambiguous was already replaced above as part of larger block; no second operation needed.
-
           oldfin="set('#layerStatus-financial','partial','<strong>Derzeit nur teilweise automatisch geprüft.</strong><br>Automatisch geprüft werden aktuell BaFin-Verbraucherwarnungen sowie die angebundenen ESMA-MiCA-Register. Die allgemeine BaFin-Unternehmensdatenbank und weitere sektorale Aufsichtsregister sind noch als Direktprüfung angebunden. Aus diesem Feld kann deshalb derzeit keine Aussage abgeleitet werden, ob eine Bank, Versicherung oder ein sonstiges Finanzunternehmen beaufsichtigt bzw. zugelassen ist.<a href=\"https://portal.mvp.bafin.de/database/InstInfo/\" target=\"_blank\" rel=\"noopener\">BaFin-Unternehmensdatenbank direkt prüfen ↗</a>');"
           newfin="set('#layerStatus-financial','partial','<strong>Automatische Aufsichtsquellen geprüft – Rechtsträger noch nicht eindeutig.</strong><br>BaFin-Verbraucherwarnungen, ESMA-MiCA sowie die angebundenen EBA-Register werden automatisch geprüft. Ohne eindeutig identifizierten Betreiber/Rechtsträger kann ein fehlender Zulassungs- oder Warnhinweis jedoch nicht als Entwarnung gewertet werden.');"
           if oldfin not in s: raise SystemExit('financial partial target fehlt')
@@ -92,3 +89,5 @@ jobs:
           git commit -m "Frühwarn-Check: Markenname ohne Scheinsicherheit behandeln"
           git pull --rebase
           git push
+
+# trigger 2026-08-22
