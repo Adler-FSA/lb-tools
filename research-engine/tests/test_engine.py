@@ -125,4 +125,30 @@ def test_competitor_table_does_not_raise_project_commission():
     assert out["max_commission_percentage"] == 30.0
 
 
+def test_negated_guarantee_is_not_positive_claim():
+    ctx = {"input_url": ""}
+    page = mod.Page(
+        url="https://example.com/risk",
+        status=200,
+        title="Risk",
+        text="Returns are targeted, not guaranteed. The strategy is not risk-free.",
+        links=[],
+    )
+    out = mod.analyze_pages([page], ctx)
+    assert out["detected"]["guarantee"] is False
+
+
+def test_smeared_address_is_not_accepted_as_legal_entity():
+    ctx = {"input_url": ""}
+    page = mod.Page(
+        url="https://example.com/terms",
+        status=200,
+        title="Terms",
+        text="Bancorp Room 2, 3rd floor, Junction Mall, Ngong Road, Nairobi, Kenya Open Delta DAO LLC PO Box 1",
+        links=[],
+    )
+    out = mod.analyze_pages([page], ctx)
+    assert not any("Kenya Open Delta DAO LLC" in x for x in out["legal_entities"])
+
+
 # Bewusster Trigger für den Klaus-Live-Lauf mit ausschließlich dem Projektnamen.
