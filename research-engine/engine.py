@@ -90,8 +90,6 @@ def normalize_url(value: str) -> str:
         value = "https://" + value
     p = urlparse(value)
     host = (p.hostname or "").lower()
-    if host.startswith("www."):
-        host = host[4:]
     scheme = p.scheme or "https"
     path = p.path or "/"
     result = f"{scheme}://{host}{path}"
@@ -105,8 +103,9 @@ def parse_input(value: str) -> dict:
     is_url = bool(re.match(r"^(?:https?://|www\.)", raw, re.I) or re.match(r"^[a-z0-9.-]+\.[a-z]{2,}(?:/|$)", raw, re.I))
     if is_url:
         url = normalize_url(raw)
-        host = (urlparse(url).hostname or "").removeprefix("www.")
-        return {"raw": raw, "kind": "url", "url": url, "domain": host, "name": ""}
+        fetch_host = (urlparse(url).hostname or "").lower()
+        domain = fetch_host.removeprefix("www.")
+        return {"raw": raw, "kind": "url", "url": url, "domain": domain, "fetch_host": fetch_host, "name": ""}
     return {"raw": raw, "kind": "name", "url": "", "domain": "", "name": raw}
 
 
@@ -271,15 +270,17 @@ def verifies_brand(page: Page, name: str, domain: str) -> bool:
 def discover_project(name: str) -> tuple[str, Page | None, list[dict]]:
     attempts: list[dict] = []
     for domain in candidate_domains(name):
-        if not host_exists(domain):
+        hosts = [h for h in ("www." + domain, domain) if host_exists(h)]
+        if not hosts:
             continue
-        for scheme in ("https", "http"):
-            url = f"{scheme}://{domain}/"
-            page = fetch_page(url)
-            attempts.append({"domain": domain, "url": url, "readable": bool(page)})
-            if page and verifies_brand(page, name, domain):
-                final_host = (urlparse(page.url).hostname or domain).removeprefix("www.")
-                return final_host, page, attempts
+        for host in hosts:
+            for scheme in ("https", "http"):
+                url = f"{scheme}://{host}/"
+                page = fetch_page(url)
+                attempts.append({"domain": domain, "url": url, "readable": bool(page)})
+                if page and verifies_brand(page, name, domain):
+                    final_host = (urlparse(page.url).hostname or domain).removeprefix("www.")
+                    return final_host, page, attempts
     return "", None, attempts
 
 
@@ -330,7 +331,8 @@ def link_priority(url: str) -> int:
 def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAGES) -> list[Page]:
     pages = [seed]
     seen = {urldefrag(seed.url)[0]}
-    root = f"https://{domain}/"
+    seed_host = (urlparse(seed.url).hostname or domain).lower()
+    root = f"https://{seed_host}/"
     queue: list[str] = []
 
     # Ein Referral-/Deep-Link darf nie die einzige gelesene Seite bleiben.
@@ -339,7 +341,7 @@ def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAG
     queue.append(root)
 
     # Öffentliche Sitemap zuerst; danach typische Informationsseiten als robuste Reserve.
-    queue.extend(sitemap_urls(domain))
+    queue.extend(sitemap_urls(seed_host))
     queue.extend(urljoin(root, path) for path in COMMON_PATHS)
     queue.extend(u for u in seed.links if same_domain(u, domain))
     queue = list(dict.fromkeys(queue))
@@ -542,7 +544,7 @@ def run(query: str) -> dict:
         seed = fetch_page(parsed["url"])
         if not seed:
             # Fallback auf Domain-Startseite, falls ein Referral-Pfad geschützt ist.
-            seed = fetch_page(f"https://{parsed['domain']}/")
+            seed = fetch_page(f"https://{parsed.get('fetch_host') or parsed['domain']}/")
         if not seed:
             return {"version": 1, "status": "no_readable_website", "context": ctx, "discovery_attempts": []}
         ctx["domain"] = (urlparse(seed.url).hostname or parsed["domain"]).removeprefix("www.")
