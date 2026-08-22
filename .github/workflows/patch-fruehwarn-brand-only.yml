@@ -1,0 +1,94 @@
+name: Projekt Frühwarn-Check – Markenname sauber behandeln
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-fruehwarn-brand-only.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Marken-/Projektname und Ergebnisstatus korrigieren
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          # 1) Zwei-Feld-Oberfläche: Markenname zulassen und alte Domain-Anzeige entfernen.
+          p=Path('pages/projekt-fruehwarn-check/dual-input.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('data-dual-de="Offizieller Firmen-/Rechtsträgername" data-dual-en="Official company / legal entity name">Offizieller Firmen-/Rechtsträgername</label>', 'data-dual-de="Firmen-, Projekt- oder Markenname" data-dual-en="Company, project or brand name">Firmen-, Projekt- oder Markenname</label>')
+          s=s.replace('placeholder="z. B. Deutsche Bank Aktiengesellschaft"', 'placeholder="z. B. KryptoSavings oder Deutsche Bank AG"')
+          s=s.replace('data-dual-de="Bitte möglichst den offiziellen Namen einschließlich Rechtsform eingeben." data-dual-en="Please enter the official name including legal form where possible.">Bitte möglichst den offiziellen Namen einschließlich Rechtsform eingeben.</span>', 'data-dual-de="Wenn nur der Name aus einer Werbung bekannt ist, genügt dieser. Ein exakter Rechtsträgername verbessert die Zuordnung." data-dual-en="If you only know the name from an advert, that is enough. An exact legal entity name improves matching.">Wenn nur der Name aus einer Werbung bekannt ist, genügt dieser. Ein exakter Rechtsträgername verbessert die Zuordnung.</span>')
+          s=s.replace("if(topLabel)topLabel.textContent=en?'Enter company identity':'Unternehmen oder Projekt eindeutig angeben';", "if(topLabel)topLabel.textContent=en?'Enter the name or identity you know':'Bekannten Namen oder Identität eingeben';")
+          s=s.replace("if(oldHint)oldHint.textContent=en?'Enter the official legal entity name and/or the website domain. At least one valid entry is required. If both are entered, both are used as identity keys.':'Offiziellen Firmen-/Rechtsträgernamen und/oder die Website-Domain eingeben. Mindestens eine gültige Angabe ist erforderlich. Sind beide vorhanden, werden beide als Identitätsschlüssel verwendet.';", "if(oldHint)oldHint.textContent=en?'Enter the company, project or brand name and/or website domain. A name from an advert is enough to start; if both are known, both are checked together.':'Firmen-, Projekt- oder Markennamen und/oder die Website-Domain eingeben. Auch ein Name aus einer Werbung genügt zum Start; sind beide Angaben bekannt, werden sie gemeinsam geprüft.';")
+          old="const queryOut=$('#queryOut');if(queryOut)queryOut.textContent='';"
+          new="const queryOut=$('#queryOut');if(queryOut)queryOut.textContent='';document.querySelectorAll('.domainResultKey').forEach(el=>el.remove());"
+          if old not in s: raise SystemExit('dual-input invalidate target fehlt')
+          s=s.replace(old,new,1)
+          old="const line=document.querySelector('.queryLine');\n if(line&&ctx.domain&&!line.querySelector('.domainResultKey')){"
+          new="const line=document.querySelector('.queryLine');\n if(line)line.querySelectorAll('.domainResultKey').forEach(el=>el.remove());\n if(line&&ctx.domain){"
+          if old not in s: raise SystemExit('dual-input result-domain target fehlt')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+
+          # 2) Ähnliche Registertreffer: keine Kurzformen wie SA/AD als Ähnlichkeit werten.
+          p=Path('pages/projekt-fruehwarn-check/index.html')
+          s=p.read_text(encoding='utf-8')
+          old="if(nq.length>=4&&(nt.includes(nq)||nq.includes(nt)))sim=true"
+          new="if(nq.length>=4&&nt.length>=4&&(nt.includes(nq)||nq.includes(nt)))sim=true"
+          if old not in s: raise SystemExit('strict similarity target fehlt')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+
+          # 3) Kein identifizierter Rechtsträger => keine grüne Entwarnungswirkung.
+          p=Path('pages/projekt-fruehwarn-check/layer-results.js')
+          s=p.read_text(encoding='utf-8')
+          old=".identityFacts{display:grid;gap:2px;margin-top:5px}.identityFacts b{display:inline!important;margin:0!important;color:inherit!important}`;"
+          new=".identityFacts{display:grid;gap:2px;margin-top:5px}.identityFacts b{display:inline!important;margin:0!important;color:inherit!important}.overallBox.caution{border-color:#efdfbd;background:var(--amber-soft)}.overallBox.caution .overallIcon svg{stroke:var(--amber)}`;"
+          if old not in s: raise SystemExit('style target fehlt')
+          s=s.replace(old,new,1)
+
+          marker="function renderGleifIdentity(result,q,seq){"
+          helper="""function setUnresolvedOverall(q){const b=$('#overallBox');if(!b)return;if(document.querySelector('.match.warning,.match.authorized'))return;b.className='overallBox caution';const title=$('#overallTitle');const text=$('#overallText');if(title)title.textContent='Anbieteridentität nicht eindeutig geklärt';if(text)text.textContent='Zu „'+q+'“ wurden die angeschlossenen Warn- und Registerquellen automatisch geprüft. Der eingegebene Name konnte jedoch keinem eindeutigen Rechtsträger zugeordnet werden. Deshalb ist das Fehlen eines Warnhinweises keine Entwarnung. Vor einer finanziellen Entscheidung muss zunächst geklärt werden, welcher Betreiber bzw. Rechtsträger hinter dem Namen steht.';}\n"""
+          if marker not in s: raise SystemExit('renderGleifIdentity marker fehlt')
+          s=s.replace(marker,helper+marker,1)
+
+          old="setGlobalCoverage('ambiguous');}else{set('#layerStatus-identity','partial',`<strong>Kein eindeutiger LEI-Treffer gefunden.</strong><br>Die automatische GLEIF-Prüfung konnte „${esc(q)}“ keinem LEI-Rechtsträger eindeutig zuordnen. Das bedeutet ausdrücklich nicht, dass die Firma nicht existiert. Deutsches Handels-/Unternehmensregister bzw. BRIS bleiben als Direktprüfung erforderlich.<a href=\"https://search.gleif.org/\" target=\"_blank\" rel=\"noopener\">GLEIF-Suche öffnen ↗</a>`);setGlobalCoverage('none');}}"
+          new="setGlobalCoverage('ambiguous');setUnresolvedOverall(q);}else{set('#layerStatus-identity','partial',`<strong>Anbieteridentität noch nicht eindeutig geklärt.</strong><br>Die automatische GLEIF-Prüfung konnte „${esc(q)}“ keinem LEI-Rechtsträger eindeutig zuordnen. Der eingegebene Begriff kann ein Firmen-, Projekt- oder Markenname sein. Das Fehlen eines LEI-Treffers bedeutet weder, dass der Anbieter nicht existiert, noch dass er seriös ist.<a href=\"https://search.gleif.org/\" target=\"_blank\" rel=\"noopener\">GLEIF-Suche öffnen ↗</a>`);setGlobalCoverage('none');setUnresolvedOverall(q);}}"
+          if old not in s: raise SystemExit('GLEIF unresolved target fehlt')
+          s=s.replace(old,new,1)
+
+          old="setGlobalCoverage('ambiguous');}else{"
+          # ambiguous was already replaced above as part of larger block; no second operation needed.
+
+          oldfin="set('#layerStatus-financial','partial','<strong>Derzeit nur teilweise automatisch geprüft.</strong><br>Automatisch geprüft werden aktuell BaFin-Verbraucherwarnungen sowie die angebundenen ESMA-MiCA-Register. Die allgemeine BaFin-Unternehmensdatenbank und weitere sektorale Aufsichtsregister sind noch als Direktprüfung angebunden. Aus diesem Feld kann deshalb derzeit keine Aussage abgeleitet werden, ob eine Bank, Versicherung oder ein sonstiges Finanzunternehmen beaufsichtigt bzw. zugelassen ist.<a href=\"https://portal.mvp.bafin.de/database/InstInfo/\" target=\"_blank\" rel=\"noopener\">BaFin-Unternehmensdatenbank direkt prüfen ↗</a>');"
+          newfin="set('#layerStatus-financial','partial','<strong>Automatische Aufsichtsquellen geprüft – Rechtsträger noch nicht eindeutig.</strong><br>BaFin-Verbraucherwarnungen, ESMA-MiCA sowie die angebundenen EBA-Register werden automatisch geprüft. Ohne eindeutig identifizierten Betreiber/Rechtsträger kann ein fehlender Zulassungs- oder Warnhinweis jedoch nicht als Entwarnung gewertet werden.');"
+          if oldfin not in s: raise SystemExit('financial partial target fehlt')
+          s=s.replace(oldfin,newfin,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Patch validieren und speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q "Anbieteridentität nicht eindeutig geklärt" pages/projekt-fruehwarn-check/layer-results.js
+          grep -q "Firmen-, Projekt- oder Markenname" pages/projekt-fruehwarn-check/dual-input.js
+          grep -q "nt.length>=4" pages/projekt-fruehwarn-check/index.html
+          git config user.name "FSA Frühwarn-Update"
+          git config user.email "actions@github.com"
+          git add pages/projekt-fruehwarn-check/index.html pages/projekt-fruehwarn-check/dual-input.js pages/projekt-fruehwarn-check/layer-results.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Frühwarn-Check: Markenname ohne Scheinsicherheit behandeln"
+          git pull --rebase
+          git push
