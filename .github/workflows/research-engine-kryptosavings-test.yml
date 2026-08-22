@@ -30,49 +30,71 @@ jobs:
           python-version: "3.12"
 
       - name: Python-Abhängigkeiten installieren
+        id: deps
+        continue-on-error: true
         run: |
           python -m pip install --upgrade pip
           pip install -r research-engine/requirements.txt pytest
 
       - name: Chromium für Browser-Fallback installieren
+        id: browser
+        continue-on-error: true
         run: python -m playwright install chromium
 
       - name: Regressionstests
+        id: tests
+        continue-on-error: true
         run: python -m pytest -q research-engine/tests
 
       - name: Live-Recherche ausführen
+        id: live
+        continue-on-error: true
         shell: bash
         env:
           INPUT_QUERY: ${{ github.event.inputs.query }}
         run: |
           QUERY="${INPUT_QUERY:-https://www.kryptosavings.com/ref/DCEWQSVZ}"
           echo "Recherche: $QUERY"
-          python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json || true
-          test -s research-engine/output/kryptosavings-live.json
+          python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json
+
+      - name: Diagnose schreiben
+        if: always()
+        env:
+          DEPS: ${{ steps.deps.outcome }}
+          BROWSER: ${{ steps.browser.outcome }}
+          TESTS: ${{ steps.tests.outcome }}
+          LIVE: ${{ steps.live.outcome }}
+        run: |
+          mkdir -p research-engine/output
           python - <<'PY'
-          import json
+          import json, os
+          from datetime import datetime, timezone
           from pathlib import Path
-          p=Path('research-engine/output/kryptosavings-live.json')
-          d=json.loads(p.read_text(encoding='utf-8'))
-          print('Status:', d.get('status'))
-          print('Domain:', d.get('context',{}).get('domain'))
-          a=d.get('analysis',{})
-          print('Gelesene Seiten:', len(a.get('pages',[])))
-          print('Max. Prozentangabe:', a.get('max_percentage'))
-          print('Rechtsträger:', a.get('legal_entities'))
-          print('Social/Video:', len(a.get('social_and_video_links',[])))
-          print('Risikosignale:', len(a.get('risk_signals',[])))
+          status={
+            'generated_at': datetime.now(timezone.utc).isoformat(),
+            'dependencies': os.environ.get('DEPS'),
+            'chromium': os.environ.get('BROWSER'),
+            'tests': os.environ.get('TESTS'),
+            'live_research': os.environ.get('LIVE'),
+          }
+          p=Path('research-engine/output/test-status.json')
+          p.write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(status)
           PY
 
-      - name: Live-Ergebnis im Repo sichern
+      - name: Ergebnisse im Repo sichern
+        if: always()
         run: |
           git config user.name "Akademie Research Engine"
           git config user.email "actions@github.com"
-          git add research-engine/output/kryptosavings-live.json
+          git add research-engine/output/test-status.json
+          if [ -f research-engine/output/kryptosavings-live.json ]; then
+            git add research-engine/output/kryptosavings-live.json
+          fi
           if git diff --cached --quiet; then
-            echo "Keine Änderung am Live-Ergebnis."
+            echo "Keine Änderung am Testergebnis."
             exit 0
           fi
-          git commit -m "Research Engine: KryptoSavings Live-Ergebnis aktualisieren"
+          git commit -m "Research Engine: Testdiagnose aktualisieren"
           git pull --rebase
           git push
