@@ -246,8 +246,7 @@ def fetch_page(url: str) -> Page | None:
             # Für die Analyse zählt nur der eigentliche Markdown-Inhalt plus Seitentitel.
             body = raw.split("Markdown Content:", 1)[1] if "Markdown Content:" in raw else raw
             body = clean_text(body)
-            # Ein Seitentitel allein ist kein belastbarer Seitenfund. Solche Reader-Shells
-            # entstehen u. a. bei erfundenen Routerpfaden wie /withdrawal.
+            # Ein Seitentitel allein ist kein belastbarer Seitenfund.
             if len(body) < 120:
                 continue
             analysis_text = clean_text((title + " " + body).strip())
@@ -345,19 +344,25 @@ def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAG
     root = f"https://{seed_host}/"
     queue: list[str] = []
 
-    # Ein Referral-/Deep-Link darf nie die einzige gelesene Seite bleiben.
+    # Reale Links aus Startseite/Sitemap müssen vor geratenen Standardpfaden kommen.
+    discovered_urls = [u for u in seed.links if same_domain(u, domain)]
+    discovered_urls.extend(sitemap_urls(seed_host))
+    discovered_urls = list(dict.fromkeys(urldefrag(u)[0] for u in discovered_urls))
+    discovered_set = set(discovered_urls)
+
     if input_url and same_domain(input_url, domain):
         queue.append(input_url)
+        discovered_set.add(urldefrag(input_url)[0])
     queue.append(root)
-
-    # Öffentliche Sitemap zuerst; danach typische Informationsseiten als robuste Reserve.
-    queue.extend(sitemap_urls(seed_host))
+    queue.extend(discovered_urls)
     queue.extend(urljoin(root, path) for path in COMMON_PATHS)
-    queue.extend(u for u in seed.links if same_domain(u, domain))
     queue = list(dict.fromkeys(queue))
 
     while queue and len(pages) < max_pages:
-        queue.sort(key=link_priority, reverse=True)
+        queue.sort(
+            key=lambda u: link_priority(u) + (30 if urldefrag(u)[0] in discovered_set else 0),
+            reverse=True,
+        )
         url = queue.pop(0)
         canonical = urldefrag(url)[0]
         if canonical in seen:
@@ -376,6 +381,8 @@ def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAG
         for link in page.links:
             c = urldefrag(link)[0]
             if same_domain(c, domain) and c not in seen and len(queue) < 120:
+                if c not in discovered_set:
+                    discovered_set.add(c)
                 queue.append(c)
         time.sleep(0.15)
     return pages
@@ -424,6 +431,10 @@ def percentage_kind(text: str, match: re.Match) -> str:
     ):
         return "other"
 
+    # Referral-/Affiliate-Kontext hat Vorrang vor dem unscharfen Verb "earn".
+    if re.search(r"\b(commission|provision|affiliate|referral|refer|friends' interest|partner commission)\b", ctx, re.I):
+        return "commission"
+
     # Rendite ohne explizites Suffix nur bei enger sprachlicher Bindung an den Wert.
     if re.search(
         r"\b(apy|apr|yield|interest|rendite|zinsen?|earn(?:ing)?|return)"
@@ -431,10 +442,6 @@ def percentage_kind(text: str, match: re.Match) -> str:
         before, re.I
     ):
         return "yield"
-
-    # Affiliate-/Vergleichstabellen als Provisionskontext dokumentieren.
-    if re.search(r"\b(commission|provision|affiliate|referral|partner commission)\b", ctx, re.I):
-        return "commission"
     return "other"
 
 
