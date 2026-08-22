@@ -33,12 +33,12 @@ const dual=document.createElement('div');
 dual.className='dualSearch';
 dual.innerHTML=`
   <div class="dualField">
-    <label for="companyQuery" data-dual-de="Offizieller Firmen-/Rechtsträgername" data-dual-en="Official company / legal entity name">Offizieller Firmen-/Rechtsträgername</label>
+    <label for="companyQuery" data-dual-de="Firmen-, Projekt- oder Markenname" data-dual-en="Company, project or brand name">Firmen-, Projekt- oder Markenname</label>
     <div class="dualInputWrap">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h2m2 0h2m-6 4h2m2 0h2m-6 4h6"/></svg>
-      <input id="companyQuery" class="dualInput" autocomplete="organization" placeholder="z. B. Deutsche Bank Aktiengesellschaft">
+      <input id="companyQuery" class="dualInput" autocomplete="organization" placeholder="z. B. KryptoSavings oder Deutsche Bank AG">
     </div>
-    <span class="dualHelp" data-dual-de="Bitte möglichst den offiziellen Namen einschließlich Rechtsform eingeben." data-dual-en="Please enter the official name including legal form where possible.">Bitte möglichst den offiziellen Namen einschließlich Rechtsform eingeben.</span>
+    <span class="dualHelp" data-dual-de="Wenn nur der Name aus einer Werbung bekannt ist, genügt dieser. Ein exakter Rechtsträgername verbessert die Zuordnung." data-dual-en="If you only know the name from an advert, that is enough. An exact legal entity name improves matching.">Wenn nur der Name aus einer Werbung bekannt ist, genügt dieser. Ein exakter Rechtsträgername verbessert die Zuordnung.</span>
   </div>
   <div class="dualField">
     <label for="domainQuery" data-dual-de="Website / Domain" data-dual-en="Website / domain">Website / Domain</label>
@@ -96,15 +96,15 @@ function applyLanguage(){
  const en=document.documentElement.lang==='en';
  document.querySelectorAll('[data-dual-de]').forEach(el=>{el.textContent=en?el.dataset.dualEn:el.dataset.dualDe});
  btn.textContent=en?'START EARLY WARNING CHECK':'FRÜHWARN-CHECK STARTEN';
- if(topLabel)topLabel.textContent=en?'Enter company identity':'Unternehmen oder Projekt eindeutig angeben';
- if(oldHint)oldHint.textContent=en?'Enter the official legal entity name and/or the website domain. At least one valid entry is required. If both are entered, both are used as identity keys.':'Offiziellen Firmen-/Rechtsträgernamen und/oder die Website-Domain eingeben. Mindestens eine gültige Angabe ist erforderlich. Sind beide vorhanden, werden beide als Identitätsschlüssel verwendet.';
+ if(topLabel)topLabel.textContent=en?'Enter the name or identity you know':'Bekannten Namen oder Identität eingeben';
+ if(oldHint)oldHint.textContent=en?'Enter the company, project or brand name and/or website domain. A name from an advert is enough to start; if both are known, both are checked together.':'Firmen-, Projekt- oder Markennamen und/oder die Website-Domain eingeben. Auch ein Name aus einer Werbung genügt zum Start; sind beide Angaben bekannt, werden sie gemeinsam geprüft.';
  validate(false);
 }
 function invalidateOldResult(){
  const ctx=updateContext();
  const shell=$('#resultShell');
  if(shell)shell.classList.remove('show');
- const queryOut=$('#queryOut');if(queryOut)queryOut.textContent='';
+ const queryOut=$('#queryOut');if(queryOut)queryOut.textContent='';document.querySelectorAll('.domainResultKey').forEach(el=>el.remove());
  document.querySelectorAll('.layers,.sourceStatus').forEach(el=>el.style.display='none');
  document.querySelectorAll('.sourceStatus details').forEach(d=>d.open=false);
  engineInput.value=ctx.company||ctx.domain||'';
@@ -157,7 +157,8 @@ window.addEventListener('fruehwarn:search-finished',()=>{
  btn.textContent=en?'CHECK COMPLETED ✓':'PRÜFUNG ABGESCHLOSSEN ✓';
  if(feedback){feedback.className='searchFeedback show done';feedback.textContent='✓ '+(en?'Check completed for: ':'Prüfung abgeschlossen für: ')+contextLabel(ctx);}
  const line=document.querySelector('.queryLine');
- if(line&&ctx.domain&&!line.querySelector('.domainResultKey')){
+ if(line)line.querySelectorAll('.domainResultKey').forEach(el=>el.remove());
+ if(line&&ctx.domain){
    const span=document.createElement('span');span.className='domainResultKey';span.textContent=(en?'Domain: ':'Domain: ')+ctx.domain;line.appendChild(span);
  }
  setTimeout(()=>{validate(false);},900);
