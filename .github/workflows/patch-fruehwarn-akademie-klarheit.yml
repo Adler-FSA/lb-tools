@@ -46,7 +46,13 @@ jobs:
           "Investigation, charge and judgment remain clearly separated.":"Explain risks and open questions clearly without blanket approval or condemnation.",
           "No result is not a seal of approval":"Detect early instead of reacting late",
           "No authority notice does not automatically mean legitimacy.":"Warning signs may be visible before authorities or media notice a project.",
-          "Early warning check result":"Official sources & register traces"
+          "Early warning check result":"Official sources & register traces",
+          "overallLabel:'Prüfergebnis'":"overallLabel:'Behörden-/Registerergebnis'",
+          "overallLabel:'Check result'":"overallLabel:'Authority/register result'",
+          "else if(region==='DE'&&d.auto.length){result.className='regionResult clear';":"else if(region==='DE'&&d.auto.length){result.className='regionResult';",
+          "else if(region==='EU'&&d.auto.length){result.className='regionResult clear';":"else if(region==='EU'&&d.auto.length){result.className='regionResult';",
+          "else{b.className='overallBox clear';$('#overallTitle').textContent=state.lang==='de'?'Kein eindeutiger Warn- oder Zulassungshinweis gefunden'":"else{b.className='overallBox neutral';$('#overallTitle').textContent=state.lang==='de'?'Kein eindeutiger Warn- oder Zulassungshinweis gefunden'",
+          "setLayerStatus('financial','ok','BaFin, ESMA und EBA automatisch geprüft: kein eindeutiger Warn- oder Zulassungs-/Registertreffer gefunden.')":"setLayerStatus('financial','pending','BaFin, ESMA und EBA automatisch geprüft: kein eindeutiger Warn- oder Zulassungs-/Registertreffer gefunden.')"
           }
           for a,b in reps.items(): s=s.replace(a,b)
           if './academy-guidance.js' not in s:
@@ -54,12 +60,13 @@ jobs:
           p.write_text(s,encoding='utf-8')
           PY
           grep -q 'academy-guidance.js' pages/projekt-fruehwarn-check/index.html
+          grep -q "overallLabel:'Behörden-/Registerergebnis'" pages/projekt-fruehwarn-check/index.html
           git config user.name "FSA Frühwarn-Check"
           git config user.email "actions@github.com"
           git add pages/projekt-fruehwarn-check/index.html
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Frühwarn-Check: Akademie-Auswertung vor Quellencheck stellen"
+          git commit -m "Frühwarn-Check: Behörden-Nulltreffer neutral darstellen"
           git pull --rebase
           git push
 
-# trigger 2026-08-22T08:09+02:00
+# trigger 2026-08-22T08:14+02:00
