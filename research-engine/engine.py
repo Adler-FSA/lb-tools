@@ -145,6 +145,25 @@ def _soup_to_page(url: str, response: requests.Response, mode: str) -> Page:
     return Page(url=response.url or url, status=response.status_code, title=title, text=text, links=list(dict.fromkeys(links)), fetch_mode=mode)
 
 
+def reader_error(text: str) -> bool:
+    low = (text or "").lower()
+    markers = (
+        "404: not_found", "404: not found", "target url returned error 404",
+        "403: forbidden", "target url returned error 403",
+        "410: gone", "target url returned error 410",
+    )
+    return any(marker in low for marker in markers)
+
+
+def reader_links(text: str) -> list[str]:
+    links = []
+    for u in re.findall(r"https?://[^\s)\]>\"']+", text or "", re.I):
+        u = u.rstrip(".,;:")
+        if u not in links:
+            links.append(u)
+    return links[:120]
+
+
 def fetch_page(url: str) -> Page | None:
     headers = {"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"}
     try:
@@ -156,16 +175,29 @@ def fetch_page(url: str) -> Page | None:
     except requests.RequestException:
         pass
 
-    # Lesefallback für JS-lastige öffentliche Seiten. Nicht als einzige Quelle verwenden.
-    try:
-        fallback = "https://r.jina.ai/http://" + urlparse(url).netloc + (urlparse(url).path or "/")
-        if urlparse(url).query:
-            fallback += "?" + urlparse(url).query
-        r = requests.get(fallback, headers={"User-Agent": UA, "Accept": "text/plain"}, timeout=TIMEOUT)
-        if r.ok and len(r.text) >= 350:
-            return Page(url=url, status=200, title="", text=clean_text(r.text), links=[], fetch_mode="reader-fallback")
-    except requests.RequestException:
-        pass
+    # Lesefallback für JS-lastige öffentliche Seiten. Erst die echte HTTPS/HTTP-URL lesen.
+    parsed = urlparse(url)
+    canonical = f"{parsed.scheme or 'https'}://{parsed.netloc}{parsed.path or '/'}"
+    if parsed.query:
+        canonical += "?" + parsed.query
+    fallbacks = ["https://r.jina.ai/" + canonical]
+    if canonical.startswith("https://"):
+        fallbacks.append("https://r.jina.ai/http://" + canonical[len("https://"):])
+
+    for fallback in fallbacks:
+        try:
+            r = requests.get(fallback, headers={"User-Agent": UA, "Accept": "text/plain"}, timeout=TIMEOUT)
+            raw = r.text if r.ok else ""
+            if not raw or len(raw) < 350 or reader_error(raw):
+                continue
+            title_match = re.search(r"(?:^|\n)Title:\s*(.+)", raw, re.I)
+            title = clean_text(title_match.group(1)) if title_match else ""
+            return Page(
+                url=url, status=200, title=title, text=clean_text(raw),
+                links=reader_links(raw), fetch_mode="reader-fallback"
+            )
+        except requests.RequestException:
+            continue
     return None
 
 
