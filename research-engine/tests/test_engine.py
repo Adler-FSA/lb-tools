@@ -19,6 +19,16 @@ def test_multiple_percentages_highest_first():
     assert vals == [20.0, 15.5, 7.0]
 
 
+def test_percentage_kind_separates_yield_and_commission():
+    yield_text = "Earn up to 23% APY on your crypto assets."
+    yield_match = mod.PERCENT_RE.search(yield_text)
+    assert mod.percentage_kind(yield_text, yield_match) == "yield"
+
+    commission_text = "Earn up to 30% commission with no fixed time limit."
+    commission_match = mod.PERCENT_RE.search(commission_text)
+    assert mod.percentage_kind(commission_text, commission_match) == "commission"
+
+
 def test_reader_404_is_rejected():
     assert mod.reader_error("Title: 404: NOT_FOUND Warning: Target URL returned error 404: Not Found") is True
     assert mod.reader_error("Title: KryptoSavings Earn up to 23% APY") is False
@@ -49,7 +59,7 @@ def test_referral_input_detected():
     out = mod.analyze_pages([page], ctx)
     assert out["detected"]["referral"] is True
     assert any(x["type"] == "referral_input" for x in out["findings"])
-    assert out["max_percentage"] == 20.0
+    assert out["max_yield_percentage"] == 20.0
 
 
 def test_legal_entity_detection():
