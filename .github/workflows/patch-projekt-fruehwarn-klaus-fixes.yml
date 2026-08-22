@@ -54,3 +54,5 @@ jobs:
           git commit -m "Projekt Frühwarn: Klaus-Test Auswertung korrigieren"
           git pull --rebase
           git push
+
+# trigger 2026-08-22T08:34+02:00
