@@ -1,0 +1,75 @@
+name: Akademie Research Engine – KryptoSavings Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Projektname, Domain oder Referral-Link"
+        required: false
+        default: "https://www.kryptosavings.com/ref/DCEWQSVZ"
+  push:
+    paths:
+      - "research-engine/engine.py"
+      - "research-engine/requirements.txt"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-kryptosavings-test.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  research-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeiten installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt pytest
+
+      - name: Regressionstests
+        run: python -m pytest -q research-engine/tests
+
+      - name: Live-Recherche ausführen
+        shell: bash
+        env:
+          INPUT_QUERY: ${{ github.event.inputs.query }}
+        run: |
+          QUERY="${INPUT_QUERY:-https://www.kryptosavings.com/ref/DCEWQSVZ}"
+          echo "Recherche: $QUERY"
+          python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json || true
+          test -s research-engine/output/kryptosavings-live.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('research-engine/output/kryptosavings-live.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          print('Status:', d.get('status'))
+          print('Domain:', d.get('context',{}).get('domain'))
+          a=d.get('analysis',{})
+          print('Gelesene Seiten:', len(a.get('pages',[])))
+          print('Max. Prozentangabe:', a.get('max_percentage'))
+          print('Rechtsträger:', a.get('legal_entities'))
+          print('Social/Video:', len(a.get('social_and_video_links',[])))
+          print('Risikosignale:', len(a.get('risk_signals',[])))
+          PY
+
+      - name: Live-Ergebnis im Repo sichern
+        run: |
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/output/kryptosavings-live.json
+          if git diff --cached --quiet; then
+            echo "Keine Änderung am Live-Ergebnis."
+            exit 0
+          fi
+          git commit -m "Research Engine: KryptoSavings Live-Ergebnis aktualisieren"
+          git pull --rebase
+          git push
