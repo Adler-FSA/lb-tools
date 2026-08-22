@@ -31,6 +31,13 @@ PRIORITY_WORDS = (
     "partner", "bonus", "security", "custody", "risk", "strategy", "trading",
 )
 
+COMMON_PATHS = (
+    "/", "/about", "/about-us", "/faq", "/how-it-works", "/earn", "/staking",
+    "/rates", "/terms", "/legal", "/imprint", "/impressum", "/privacy",
+    "/security", "/custody", "/withdrawal", "/fees", "/referral", "/affiliate",
+    "/partner", "/risk", "/strategy",
+)
+
 SOCIAL_HOSTS = {
     "youtube.com": "youtube", "youtu.be": "youtube", "t.me": "telegram",
     "telegram.me": "telegram", "facebook.com": "facebook", "instagram.com": "instagram",
@@ -193,6 +200,38 @@ def same_domain(url: str, domain: str) -> bool:
     return host == domain or host.endswith("." + domain)
 
 
+def sitemap_urls(domain: str) -> list[str]:
+    """Liest öffentliche Sitemap-Hinweise ohne von ihnen abhängig zu sein."""
+    headers = {"User-Agent": UA, "Accept": "text/plain,application/xml,text/xml"}
+    sitemap_targets = [f"https://{domain}/sitemap.xml"]
+    found: list[str] = []
+    try:
+        r = requests.get(f"https://{domain}/robots.txt", headers=headers, timeout=TIMEOUT)
+        if r.ok:
+            for line in r.text.splitlines():
+                if line.lower().startswith("sitemap:"):
+                    u = line.split(":", 1)[1].strip()
+                    if u.startswith(("http://", "https://")):
+                        sitemap_targets.append(u)
+    except requests.RequestException:
+        pass
+
+    for target in list(dict.fromkeys(sitemap_targets))[:5]:
+        try:
+            r = requests.get(target, headers=headers, timeout=TIMEOUT)
+            if not r.ok:
+                continue
+            for u in re.findall(r"<loc>\s*(https?://[^<]+?)\s*</loc>", r.text, re.I):
+                u = clean_text(u.replace("&amp;", "&"))
+                if same_domain(u, domain) and u not in found:
+                    found.append(u)
+                if len(found) >= 100:
+                    return found
+        except requests.RequestException:
+            continue
+    return found
+
+
 def link_priority(url: str) -> int:
     low = url.lower()
     score = sum(4 for word in PRIORITY_WORDS if word in low)
@@ -203,9 +242,18 @@ def link_priority(url: str) -> int:
 def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAGES) -> list[Page]:
     pages = [seed]
     seen = {urldefrag(seed.url)[0]}
-    queue = [u for u in seed.links if same_domain(u, domain)]
+    root = f"https://{domain}/"
+    queue: list[str] = []
+
+    # Ein Referral-/Deep-Link darf nie die einzige gelesene Seite bleiben.
     if input_url and same_domain(input_url, domain):
-        queue.insert(0, input_url)
+        queue.append(input_url)
+    queue.append(root)
+
+    # Öffentliche Sitemap zuerst; danach typische Informationsseiten als robuste Reserve.
+    queue.extend(sitemap_urls(domain))
+    queue.extend(urljoin(root, path) for path in COMMON_PATHS)
+    queue.extend(u for u in seed.links if same_domain(u, domain))
     queue = list(dict.fromkeys(queue))
 
     while queue and len(pages) < max_pages:
