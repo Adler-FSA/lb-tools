@@ -40,3 +40,5 @@ jobs:
           git commit -m "Frühwarn-Check: automatische Webspur-Suche aktivieren"
           git pull --rebase
           git push
+
+# trigger 2026-08-22
