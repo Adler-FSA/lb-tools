@@ -19,6 +19,11 @@ def test_multiple_percentages_highest_first():
     assert vals == [20.0, 15.5, 7.0]
 
 
+def test_reader_404_is_rejected():
+    assert mod.reader_error("Title: 404: NOT_FOUND Warning: Target URL returned error 404: Not Found") is True
+    assert mod.reader_error("Title: KryptoSavings Earn up to 23% APY") is False
+
+
 def test_parse_referral_url_preserves_domain():
     parsed = mod.parse_input("https://www.kryptosavings.com/ref/ABC123")
     assert parsed["kind"] == "url"
