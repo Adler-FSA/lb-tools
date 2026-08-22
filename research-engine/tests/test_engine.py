@@ -24,6 +24,10 @@ def test_reader_404_is_rejected():
     assert mod.reader_error("Title: KryptoSavings Earn up to 23% APY") is False
 
 
+def test_candidate_domain_contains_exact_brand_com():
+    assert "kryptosavings.com" in mod.candidate_domains("KryptoSavings")
+
+
 def test_parse_referral_url_preserves_domain():
     parsed = mod.parse_input("https://www.kryptosavings.com/ref/ABC123")
     assert parsed["kind"] == "url"
