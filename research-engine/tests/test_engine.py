@@ -25,7 +25,9 @@ def test_reader_404_is_rejected():
 
 
 def test_candidate_domain_contains_exact_brand_com():
-    assert "kryptosavings.com" in mod.candidate_domains("KryptoSavings")
+    cands = mod.candidate_domains("KryptoSavings")
+    assert "kryptosavings.com" in cands
+    assert cands.index("kryptosavings.com") == 0
 
 
 def test_parse_referral_url_preserves_domain():
