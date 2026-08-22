@@ -1,0 +1,42 @@
+name: Research Engine – Reader V3 Patch
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-research-engine-reader-v3.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reader Fallback und 404 Filter korrigieren
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('research-engine/engine.py')
+          s=p.read_text(encoding='utf-8')
+          old='''def fetch_page(url: str) -> Page | None:\n    headers = {"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"}\n    try:\n        r = requests.get(url, headers=headers, timeout=TIMEOUT, allow_redirects=True)\n        if r.ok:\n            page = _soup_to_page(url, r, "direct")\n            if len(page.text) >= 350:\n                return page\n    except requests.RequestException:\n        pass\n\n    # Lesefallback für JS-lastige öffentliche Seiten. Nicht als einzige Quelle verwenden.\n    try:\n        fallback = "https://r.jina.ai/http://" + urlparse(url).netloc + (urlparse(url).path or "/")\n        if urlparse(url).query:\n            fallback += "?" + urlparse(url).query\n        r = requests.get(fallback, headers={"User-Agent": UA, "Accept": "text/plain"}, timeout=TIMEOUT)\n        if r.ok and len(r.text) >= 350:\n            return Page(url=url, status=200, title="", text=clean_text(r.text), links=[], fetch_mode="reader-fallback")\n    except requests.RequestException:\n        pass\n    return None\n'''
+          new='''def reader_error(text: str) -> bool:\n    low = (text or "").lower()\n    markers = (\n        "404: not_found", "404: not found", "target url returned error 404",\n        "403: forbidden", "target url returned error 403",\n        "410: gone", "target url returned error 410",\n    )\n    return any(marker in low for marker in markers)\n\n\ndef reader_links(text: str) -> list[str]:\n    links = []\n    for u in re.findall(r"https?://[^\\s)\\]>\\\"']+", text or "", re.I):\n        u = u.rstrip(".,;:")\n        if u not in links:\n            links.append(u)\n    return links[:120]\n\n\ndef fetch_page(url: str) -> Page | None:\n    headers = {"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"}\n    try:\n        r = requests.get(url, headers=headers, timeout=TIMEOUT, allow_redirects=True)\n        if r.ok:\n            page = _soup_to_page(url, r, "direct")\n            if len(page.text) >= 350:\n                return page\n    except requests.RequestException:\n        pass\n\n    # Lesefallback für JS-lastige öffentliche Seiten. Erst die echte HTTPS/HTTP-URL lesen.\n    parsed = urlparse(url)\n    canonical = f"{parsed.scheme or 'https'}://{parsed.netloc}{parsed.path or '/'}"\n    if parsed.query:\n        canonical += "?" + parsed.query\n    fallbacks = ["https://r.jina.ai/" + canonical]\n    if canonical.startswith("https://"):\n        fallbacks.append("https://r.jina.ai/http://" + canonical[len("https://"):])\n\n    for fallback in fallbacks:\n        try:\n            r = requests.get(fallback, headers={"User-Agent": UA, "Accept": "text/plain"}, timeout=TIMEOUT)\n            raw = r.text if r.ok else ""\n            if not raw or len(raw) < 350 or reader_error(raw):\n                continue\n            title_match = re.search(r"(?:^|\\n)Title:\\s*(.+)", raw, re.I)\n            title = clean_text(title_match.group(1)) if title_match else ""\n            return Page(\n                url=url, status=200, title=title, text=clean_text(raw),\n                links=reader_links(raw), fetch_mode="reader-fallback"\n            )\n        except requests.RequestException:\n            continue\n    return None\n'''
+          if old not in s:
+              raise SystemExit('fetch_page block not found')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m py_compile research-engine/engine.py
+          grep -q "def reader_error" research-engine/engine.py
+          grep -q "https://r.jina.ai/.*canonical" research-engine/engine.py
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/engine.py
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Research Engine: Reader-Fallback und 404-Filter korrigieren"
+          git pull --rebase
+          git push
