@@ -385,6 +385,27 @@ def extract_percentages(text: str) -> list[float]:
     return sorted(set(values), reverse=True)
 
 
+def percentage_kind(text: str, match: re.Match) -> str:
+    """Ordnet Prozentwerte nach Kontext ein: Rendite, Provision oder sonstig."""
+    start=max(0, match.start()-120)
+    end=min(len(text), match.end()+120)
+    ctx=clean_text(text[start:end]).lower()
+    # Vertriebsbegriffe haben Vorrang: "earn 30% commission" ist keine Rendite.
+    if re.search(r"\b(commission|provision|affiliate|referral|milestone bonus|partner commission|earning .* commission)\b", ctx, re.I):
+        return "commission"
+    suffix=(match.group(2) or "").lower()
+    if suffix or re.search(r"\b(apy|apr|p\.?a\.?|yield|interest|rendite|zinsen?|staking yield|earn on crypto)\b", ctx, re.I):
+        return "yield"
+    return "other"
+
+
+def direct_commission_claim(text: str, match: re.Match) -> bool:
+    start=max(0, match.start()-140)
+    end=min(len(text), match.end()+140)
+    ctx=clean_text(text[start:end]).lower()
+    return bool(re.search(r"(earn up to|earning|you earn|your tier|commission rate|lifetime commission)", ctx, re.I))
+
+
 def find_regex(pages: Iterable[Page], pattern: str, flags=re.I) -> list[tuple[Page, re.Match]]:
     rx = re.compile(pattern, flags)
     out: list[tuple[Page, re.Match]] = []
@@ -412,16 +433,24 @@ def analyze_pages(pages: list[Page], ctx: dict) -> dict:
             "text_chars": len(page.text),
         })
 
-    # Rendite-/Prozentangaben pro Quelle erfassen.
-    max_percent = None
+    # Prozentangaben fachlich trennen: Projektrendite ist nicht Affiliate-Provision.
+    max_yield_percent = None
+    max_commission_percent = None
     for page in pages:
-        vals = extract_percentages(page.text)
-        if vals:
-            max_percent = vals[0] if max_percent is None else max(max_percent, vals[0])
-            for m in PERCENT_RE.finditer(page.text):
-                n = float(m.group(1).replace(",", "."))
-                if 0 < n <= 500:
-                    findings.append(Finding("percentage", f"{n:g}%", page.url, snippet(page.text, m), "high"))
+        for m in PERCENT_RE.finditer(page.text):
+            n = float(m.group(1).replace(",", "."))
+            if not (0 < n <= 500):
+                continue
+            kind = percentage_kind(page.text, m)
+            if kind == "yield":
+                max_yield_percent = n if max_yield_percent is None else max(max_yield_percent, n)
+                findings.append(Finding("yield_percentage", f"{n:g}%", page.url, snippet(page.text, m), "high"))
+            elif kind == "commission":
+                findings.append(Finding("commission_percentage", f"{n:g}%", page.url, snippet(page.text, m), "high"))
+                if direct_commission_claim(page.text, m):
+                    max_commission_percent = n if max_commission_percent is None else max(max_commission_percent, n)
+            else:
+                findings.append(Finding("percentage_other", f"{n:g}%", page.url, snippet(page.text, m), "medium"))
 
     keyword_groups = {
         "staking": r"\bstak(?:e|ing|ed)\b",
@@ -479,12 +508,18 @@ def analyze_pages(pages: list[Page], ctx: dict) -> dict:
         detected["referral"] = True
 
     risk_signals = []
-    if max_percent is not None:
-        severity = "high" if max_percent >= 15 else "medium" if max_percent >= 8 else "info"
+    if max_yield_percent is not None:
+        severity = "high" if max_yield_percent >= 15 else "medium" if max_yield_percent >= 8 else "info"
         risk_signals.append({
             "id": "yield_level", "severity": severity,
             "title": "Rendite-/Zinsangabe erkannt",
-            "explanation": f"Öffentlich wurde mindestens eine Prozentangabe bis {max_percent:g}% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."
+            "explanation": f"Öffentlich wurde eine Rendite-/Zinsangabe bis {max_yield_percent:g}% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."
+        })
+    if max_commission_percent is not None:
+        risk_signals.append({
+            "id": "affiliate_commission", "severity": "medium",
+            "title": "Affiliate-Provision erkannt",
+            "explanation": f"Im eigenen Vertriebs-/Affiliate-Bereich wird eine Provision bis {max_commission_percent:g}% beworben. Das ist ein wirtschaftlicher Anreiz für Empfehlungen und keine Projektrendite."
         })
     if detected.get("leverage"):
         risk_signals.append({"id": "leverage", "severity": "high", "title": "Hebel/Leverage erwähnt", "explanation": "Hebel kann Gewinne und Verluste verstärken. Die tatsächliche Risikobegrenzung muss nachvollziehbar sein."})
@@ -498,7 +533,7 @@ def analyze_pages(pages: list[Page], ctx: dict) -> dict:
         risk_signals.append({"id": "operator_identity", "severity": "medium", "title": "Rechtsträger nicht eindeutig erkannt", "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."})
 
     questions = []
-    if max_percent is not None:
+    if max_yield_percent is not None:
         questions.append("Wodurch wird die beworbene Rendite tatsächlich erwirtschaftet und welcher maximale Verlust ist möglich?")
     if detected.get("referral") or detected.get("bonus"):
         questions.append("Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?")
@@ -515,7 +550,9 @@ def analyze_pages(pages: list[Page], ctx: dict) -> dict:
 
     return {
         "pages": page_summaries,
-        "max_percentage": max_percent,
+        "max_percentage": max_yield_percent,
+        "max_yield_percentage": max_yield_percent,
+        "max_commission_percentage": max_commission_percent,
         "detected": detected,
         "legal_entities": legal_entities,
         "social_and_video_links": social[:30],
