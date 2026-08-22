@@ -164,6 +164,57 @@ def reader_links(text: str) -> list[str]:
     return links[:120]
 
 
+_BROWSER_USES = 0
+_BROWSER_MAX = 5
+
+def browser_fetch_page(url: str) -> Page | None:
+    """Rendert eine öffentliche JS-Seite mit Chromium. Kein Login/CAPTCHA-Bypass."""
+    global _BROWSER_USES
+    if _BROWSER_USES >= _BROWSER_MAX:
+        return None
+    _BROWSER_USES += 1
+    try:
+        from playwright.sync_api import sync_playwright
+    except Exception:
+        return None
+    browser = None
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True, args=["--disable-dev-shm-usage", "--no-sandbox"])
+            context = browser.new_context(user_agent=UA, locale="de-DE")
+            page = context.new_page()
+            response = page.goto(url, wait_until="domcontentloaded", timeout=22000)
+            if response is not None and response.status >= 400:
+                browser.close()
+                return None
+            try:
+                page.wait_for_load_state("networkidle", timeout=6000)
+            except Exception:
+                pass
+            page.wait_for_timeout(1800)
+            title = clean_text(page.title())
+            try:
+                text = clean_text(page.locator("body").inner_text(timeout=6000))
+            except Exception:
+                text = ""
+            try:
+                links = page.eval_on_selector_all("a[href]", "els => els.map(e => e.href).filter(Boolean)")
+            except Exception:
+                links = []
+            final_url = page.url or url
+            browser.close()
+            if len(text) < 350 or reader_error(text):
+                return None
+            return Page(url=final_url, status=200, title=title, text=text, links=list(dict.fromkeys(links))[:160], fetch_mode="browser")
+    except Exception:
+        try:
+            if browser:
+                browser.close()
+        except Exception:
+            pass
+        return None
+
+
 def fetch_page(url: str) -> Page | None:
     headers = {"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"}
     try:
@@ -198,6 +249,11 @@ def fetch_page(url: str) -> Page | None:
             )
         except requests.RequestException:
             continue
+
+    # Letzte Stufe: echter Headless-Browser für JS-lastige öffentliche Seiten.
+    browser_page = browser_fetch_page(url)
+    if browser_page:
+        return browser_page
     return None
 
 
