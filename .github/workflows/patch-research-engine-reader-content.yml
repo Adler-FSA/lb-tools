@@ -1,0 +1,55 @@
+name: Research Engine Reader-Inhalt bereinigen
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-research-engine-reader-content.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reader-Metadaten entfernen und Duplikate filtern
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('research-engine/engine.py')
+          s=p.read_text(encoding='utf-8')
+
+          old='''            title_match = re.search(r"(?:^|\\n)Title:\\s*(.+)", raw, re.I)\n            title = clean_text(title_match.group(1)) if title_match else ""\n            return Page(\n                url=url, status=200, title=title, text=clean_text(raw),\n                links=reader_links(raw), fetch_mode="reader-fallback"\n            )\n'''
+          new='''            title_match = re.search(r"(?:^|\\n)Title:\\s*(.+)", raw, re.I)\n            title = clean_text(title_match.group(1)) if title_match else ""\n            # Jina liefert technische Kopfzeilen (Title/URL Source/Published Time/Warning).\n            # Für die Analyse zählt nur der eigentliche Markdown-Inhalt plus Seitentitel.\n            body = raw.split("Markdown Content:", 1)[1] if "Markdown Content:" in raw else raw\n            body = clean_text(body)\n            analysis_text = clean_text((title + " " + body).strip())\n            if len(analysis_text) < 60:\n                continue\n            return Page(\n                url=url, status=200, title=title, text=analysis_text,\n                links=reader_links(body), fetch_mode="reader-fallback"\n            )\n'''
+          if old not in s:
+              raise SystemExit('reader return block not found')
+          s=s.replace(old,new)
+
+          old='''def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAGES) -> list[Page]:\n    pages = [seed]\n    seen = {urldefrag(seed.url)[0]}\n    seed_host = (urlparse(seed.url).hostname or domain).lower()\n'''
+          new='''def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAGES) -> list[Page]:\n    pages = [seed]\n    seen = {urldefrag(seed.url)[0]}\n    fingerprints = {compact(seed.title + " " + seed.text[:4000])}\n    seed_host = (urlparse(seed.url).hostname or domain).lower()\n'''
+          if old not in s:
+              raise SystemExit('crawl head not found')
+          s=s.replace(old,new)
+
+          old='''        page = fetch_page(canonical)\n        if not page:\n            continue\n        pages.append(page)\n        for link in page.links:\n'''
+          new='''        page = fetch_page(canonical)\n        if not page:\n            continue\n        fp = compact(page.title + " " + page.text[:4000])\n        if fp and fp in fingerprints:\n            # Soft-404s und identische Router-Seiten nicht mehrfach analysieren.\n            continue\n        if fp:\n            fingerprints.add(fp)\n        pages.append(page)\n        for link in page.links:\n'''
+          if old not in s:
+              raise SystemExit('crawl append block not found')
+          s=s.replace(old,new)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m py_compile research-engine/engine.py
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/engine.py
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Research Engine: Reader-Inhalt bereinigen und Duplikate filtern"
+          git pull --rebase
+          git push
