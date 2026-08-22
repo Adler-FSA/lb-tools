@@ -94,3 +94,32 @@ def test_lockup_and_kyc_questions():
     joined = " ".join(out["questions"])
     assert "ausgezahlt" in joined
     assert "KYC" in joined
+
+
+def test_loss_percentage_is_not_yield():
+    text = "In a worst-case scenario, you may lose 100% of your deposited assets. Yield Generation & Performance Risk follows."
+    match = mod.PERCENT_RE.search(text)
+    assert mod.percentage_kind(text, match) == "other"
+
+
+def test_welcome_bonus_is_not_yield_even_near_apy_title():
+    text = "KryptoSavings — Earn up to 23% APY on Crypto Get 15% Welcome Bonus on your first deposit."
+    matches = list(mod.PERCENT_RE.finditer(text))
+    assert mod.percentage_kind(text, matches[0]) == "yield"
+    assert mod.percentage_kind(text, matches[1]) == "other"
+
+
+def test_competitor_table_does_not_raise_project_commission():
+    ctx = {"input_url": ""}
+    page = mod.Page(
+        url="https://example.com/affiliate",
+        status=200,
+        title="Affiliate",
+        text=(
+            "Earn up to 30% commission with no fixed time limit. "
+            "Max commission rate | 30% | 10% | 5% | 50% | Duration | Lifetime"
+        ),
+        links=[],
+    )
+    out = mod.analyze_pages([page], ctx)
+    assert out["max_commission_percentage"] == 30.0
