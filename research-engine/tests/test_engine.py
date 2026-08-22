@@ -19,6 +19,13 @@ def test_multiple_percentages_highest_first():
     assert vals == [20.0, 15.5, 7.0]
 
 
+def test_parse_referral_url_preserves_domain():
+    parsed = mod.parse_input("https://www.kryptosavings.com/ref/ABC123")
+    assert parsed["kind"] == "url"
+    assert parsed["domain"] == "kryptosavings.com"
+    assert "/ref/ABC123" in parsed["url"]
+
+
 def test_referral_input_detected():
     ctx = {"input_url": "https://example.com/ref/ABC123"}
     page = mod.Page(
