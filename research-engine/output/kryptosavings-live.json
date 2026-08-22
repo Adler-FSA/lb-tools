@@ -29,6 +29,24 @@
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 2178
+      },
+      {
+        "url": "https://www.kryptosavings.com/register",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 208
+      },
+      {
+        "url": "https://www.kryptosavings.com/gold",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 2187
+      },
+      {
+        "url": "https://www.kryptosavings.com/login",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 188
       }
     ],
     "max_percentage": 23.0,
@@ -277,11 +295,11 @@
         "confidence": "high"
       },
       {
-        "type": "percentage_other",
+        "type": "commission_percentage",
         "value": "10%",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "up, complete KYC, deposit crypto and earn competitive yields. 03 ### You earn 10% Receive 10% of their interest earnings automatically — directly into your wallet. [Get your referr",
-        "confidence": "medium"
+        "confidence": "high"
       },
       {
         "type": "yield_percentage",
@@ -354,6 +372,34 @@
         "confidence": "medium"
       },
       {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/register",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Con",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/register",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Confirm password Already have an account? [Log in](https://",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/gold",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto [Krypto Savings](https://www.kryptosavings.com/)[← Home](https://www.kryptosavi",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/login",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Welcome back Log in to your KryptoSavings account Email Password Don't have",
+        "confidence": "high"
+      },
+      {
         "type": "staking",
         "value": "staking",
         "source_url": "https://www.kryptosavings.com/",
@@ -372,6 +418,13 @@
         "value": "Earn",
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at le",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_or_interest",
+        "value": "Earn",
+        "source_url": "https://www.kryptosavings.com/register",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Emai",
         "confidence": "medium"
       },
       {
@@ -407,6 +460,13 @@
         "value": "365 days",
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your ",
+        "confidence": "medium"
+      },
+      {
+        "type": "lockup",
+        "value": "fixed term",
+        "source_url": "https://www.kryptosavings.com/gold",
+        "evidence": "term; on an early exit the goal falls away. That is not possible. A gold goal runs for a fixed term, and that term is binding — the position cannot be closed before its maturity da",
         "confidence": "medium"
       },
       {
