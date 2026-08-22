@@ -28,6 +28,10 @@ def test_percentage_kind_separates_yield_and_commission():
     commission_match = mod.PERCENT_RE.search(commission_text)
     assert mod.percentage_kind(commission_text, commission_match) == "commission"
 
+    other_text = "Save 50% on the annual subscription price."
+    other_match = mod.PERCENT_RE.search(other_text)
+    assert mod.percentage_kind(other_text, other_match) == "other"
+
 
 def test_reader_404_is_rejected():
     assert mod.reader_error("Title: 404: NOT_FOUND Warning: Target URL returned error 404: Not Found") is True
