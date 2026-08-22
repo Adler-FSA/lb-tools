@@ -242,9 +242,16 @@ def fetch_page(url: str) -> Page | None:
                 continue
             title_match = re.search(r"(?:^|\n)Title:\s*(.+)", raw, re.I)
             title = clean_text(title_match.group(1)) if title_match else ""
+            # Jina liefert technische Kopfzeilen (Title/URL Source/Published Time/Warning).
+            # Für die Analyse zählt nur der eigentliche Markdown-Inhalt plus Seitentitel.
+            body = raw.split("Markdown Content:", 1)[1] if "Markdown Content:" in raw else raw
+            body = clean_text(body)
+            analysis_text = clean_text((title + " " + body).strip())
+            if len(analysis_text) < 60:
+                continue
             return Page(
-                url=url, status=200, title=title, text=clean_text(raw),
-                links=reader_links(raw), fetch_mode="reader-fallback"
+                url=url, status=200, title=title, text=analysis_text,
+                links=reader_links(body), fetch_mode="reader-fallback"
             )
         except requests.RequestException:
             continue
@@ -331,6 +338,7 @@ def link_priority(url: str) -> int:
 def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAGES) -> list[Page]:
     pages = [seed]
     seen = {urldefrag(seed.url)[0]}
+    fingerprints = {compact(seed.title + " " + seed.text[:4000])}
     seed_host = (urlparse(seed.url).hostname or domain).lower()
     root = f"https://{seed_host}/"
     queue: list[str] = []
@@ -356,6 +364,12 @@ def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAG
         page = fetch_page(canonical)
         if not page:
             continue
+        fp = compact(page.title + " " + page.text[:4000])
+        if fp and fp in fingerprints:
+            # Soft-404s und identische Router-Seiten nicht mehrfach analysieren.
+            continue
+        if fp:
+            fingerprints.add(fp)
         pages.append(page)
         for link in page.links:
             c = urldefrag(link)[0]
