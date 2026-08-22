@@ -6,7 +6,7 @@ on:
       query:
         description: "Projektname, Domain oder Referral-Link"
         required: false
-        default: "https://www.kryptosavings.com/ref/DCEWQSVZ"
+        default: "KryptoSavings"
   push:
     paths:
       - "research-engine/engine.py"
@@ -53,9 +53,35 @@ jobs:
         env:
           INPUT_QUERY: ${{ github.event.inputs.query }}
         run: |
-          QUERY="${INPUT_QUERY:-https://www.kryptosavings.com/ref/DCEWQSVZ}"
+          QUERY="${INPUT_QUERY:-KryptoSavings}"
           echo "Recherche: $QUERY"
           python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json
+
+      - name: Klaus-Prüfpunkte – nur Projektname
+        id: klaus
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path('research-engine/output/kryptosavings-live.json').read_text(encoding='utf-8'))
+          assert data.get('status') == 'ok', data.get('status')
+
+          ctx = data['context']
+          ana = data['analysis']
+          assert ctx.get('input_kind') == 'name', ctx
+          assert ctx.get('project_name') == 'KryptoSavings', ctx
+          assert ctx.get('domain') == 'kryptosavings.com', ctx
+          assert ana.get('max_yield_percentage') == 23.0, ana.get('max_yield_percentage')
+          assert ana.get('max_commission_percentage') == 30.0, ana.get('max_commission_percentage')
+          assert ana.get('detected', {}).get('referral') is True
+
+          urls = [p.get('url', '') for p in ana.get('pages', [])]
+          assert any('/affiliate' in u for u in urls), urls
+          assert any('/strategy' in u for u in urls), urls
+          print('Klaus-Test OK: kryptosavings.com | 23% APY | 30% Provision | Referral erkannt')
+          PY
 
       - name: Diagnose schreiben
         if: always()
@@ -64,6 +90,7 @@ jobs:
           BROWSER: ${{ steps.browser.outcome }}
           TESTS: ${{ steps.tests.outcome }}
           LIVE: ${{ steps.live.outcome }}
+          KLAUS: ${{ steps.klaus.outcome }}
         run: |
           mkdir -p research-engine/output
           python - <<'PY'
@@ -76,6 +103,7 @@ jobs:
             'chromium': os.environ.get('BROWSER'),
             'tests': os.environ.get('TESTS'),
             'live_research': os.environ.get('LIVE'),
+            'klaus_checks': os.environ.get('KLAUS'),
           }
           p=Path('research-engine/output/test-status.json')
           p.write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
