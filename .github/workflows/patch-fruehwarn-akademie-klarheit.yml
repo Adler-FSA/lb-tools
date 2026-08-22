@@ -37,7 +37,7 @@ jobs:
           "Ergebnis des Frühwarn-Checks":"Offizielle Quellen & Registerspuren",
           "Ergebnisse nach Prüfbereich":"Vertiefende Quellen- & Prüfhinweise",
           "Jeder Bereich zeigt den Stand der tatsächlich angeschlossenen Quellen zur aktuellen Eingabe.":"Diese Ebene ergänzt die Akademie-Auswertung mit Identitäts-, Aufsichts-, Justiz-, Status- und Werbespuren.",
-          "Frühwarnsystem · official traces":"Early warning system · Academy clarity",
+          "Early warning system · official traces":"Early warning system · Academy clarity",
           "One name. Three levels. Official sources from Germany, Europe and the world – before advertising, recommendations or interest turn into a financial decision.":"One name is enough. The Academy gathers public traces, recognises promises and possible pitfalls, and shows what should be clarified before the next step.",
           "Check independently. Make official traces visible. Decide for yourself.":"Understand. Make risks visible. Decide sovereignly.",
           "Official sources first":"Understand public traces",
@@ -61,3 +61,5 @@ jobs:
           git commit -m "Frühwarn-Check: Akademie-Auswertung vor Quellencheck stellen"
           git pull --rebase
           git push
+
+# trigger 2026-08-22T08:09+02:00
