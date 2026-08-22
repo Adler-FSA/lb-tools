@@ -1,0 +1,28 @@
+{
+  "status": "ok",
+  "domain": "kryptosavings.com",
+  "resolved_url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+  "pages": 14,
+  "fetch_modes": [
+    "reader-fallback"
+  ],
+  "max_percentage": 50.0,
+  "detected": {
+    "staking": true,
+    "yield_or_interest": true,
+    "defi": true,
+    "trading": false,
+    "leverage": false,
+    "lending": false,
+    "lockup": true,
+    "withdrawal": true,
+    "kyc": false,
+    "custody": true,
+    "referral": true,
+    "bonus": true,
+    "guarantee": false
+  },
+  "legal_entities": [],
+  "social_video_count": 0,
+  "risk_signal_count": 4
+}

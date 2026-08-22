@@ -1,13 +1,421 @@
 {
   "version": 1,
-  "status": "no_readable_website",
+  "status": "ok",
   "context": {
     "input": "https://www.kryptosavings.com/ref/DCEWQSVZ",
     "input_kind": "url",
-    "input_url": "https://kryptosavings.com/ref/DCEWQSVZ",
+    "input_url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
     "project_name": "",
     "domain": "kryptosavings.com",
-    "resolved_url": "https://kryptosavings.com/ref/DCEWQSVZ"
+    "resolved_url": "https://www.kryptosavings.com/ref/DCEWQSVZ"
   },
-  "discovery_attempts": []
+  "discovery_attempts": [],
+  "analysis": {
+    "pages": [
+      {
+        "url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 395
+      },
+      {
+        "url": "https://www.kryptosavings.com/withdrawal",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 393
+      },
+      {
+        "url": "https://www.kryptosavings.com/about",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 388
+      },
+      {
+        "url": "https://www.kryptosavings.com/earn",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 387
+      },
+      {
+        "url": "https://www.kryptosavings.com/staking",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 390
+      },
+      {
+        "url": "https://www.kryptosavings.com/legal",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 388
+      },
+      {
+        "url": "https://www.kryptosavings.com/imprint",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 390
+      },
+      {
+        "url": "https://www.kryptosavings.com/privacy",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 390
+      },
+      {
+        "url": "https://www.kryptosavings.com/security",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 391
+      },
+      {
+        "url": "https://www.kryptosavings.com/custody",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 390
+      },
+      {
+        "url": "https://www.kryptosavings.com/fees",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 387
+      },
+      {
+        "url": "https://www.kryptosavings.com/referral",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 391
+      },
+      {
+        "url": "https://www.kryptosavings.com/affiliate",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 4647
+      },
+      {
+        "url": "https://www.kryptosavings.com/partner",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 390
+      }
+    ],
+    "max_percentage": 50.0,
+    "detected": {
+      "staking": true,
+      "yield_or_interest": true,
+      "defi": true,
+      "trading": false,
+      "leverage": false,
+      "lending": false,
+      "lockup": true,
+      "withdrawal": true,
+      "kyc": false,
+      "custody": true,
+      "referral": true,
+      "bonus": true,
+      "guarantee": false
+    },
+    "legal_entities": [],
+    "social_and_video_links": [],
+    "findings": [
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/ref/D",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/withdrawal",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/withd",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/about",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/about",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/earn",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/earn",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/staking",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/staki",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/legal",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/legal",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/imprint",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/impri",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/privacy",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/priva",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/security",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/secur",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/custody",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/custo",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/fees",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/fees",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/referral",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/refer",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto URL Source: https://www.kryptosavings.com/affiliate Markdown Content: Affiliate",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "30%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": ".kryptosavings.com/affiliate Markdown Content: Affiliate Program · Now live ## Earn up to 30% commission with no fixed time limit. Refer users to KryptoSavings and earn lifetime co",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "m/register)[Calculate earnings](https://www.kryptosavings.com/affiliate#calculator) Up to 23% p.a. Institutional Custody EU-Hosted Infrastructure Earn commissions on yields from: B",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "20%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "ferrals Total volume you generate $100,000 Yields per year $15,000 Your tier Gold Earning 20% commission You earn per month $250 $3,000 / year Over 5 years (lifetime) $15,000 Proje",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "30%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "S | Nexo | YouHodler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bon",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "xo | YouHodler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bonuses |",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "ouHodler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bonuses | 9 ($5",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "50%",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "ler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bonuses | 9 ($500–$2",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/partner",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/partn",
+        "confidence": "high"
+      },
+      {
+        "type": "staking",
+        "value": "Staking",
+        "source_url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/ref/DCEWQSVZ Published Time: S",
+        "confidence": "medium"
+      },
+      {
+        "type": "staking",
+        "value": "Staking",
+        "source_url": "https://www.kryptosavings.com/withdrawal",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/withdrawal Published Time: Sat",
+        "confidence": "medium"
+      },
+      {
+        "type": "staking",
+        "value": "Staking",
+        "source_url": "https://www.kryptosavings.com/about",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/about Published Time: Sat, 22",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_or_interest",
+        "value": "Earn",
+        "source_url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosav",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_or_interest",
+        "value": "Earn",
+        "source_url": "https://www.kryptosavings.com/withdrawal",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosav",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_or_interest",
+        "value": "Earn",
+        "source_url": "https://www.kryptosavings.com/about",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosav",
+        "confidence": "medium"
+      },
+      {
+        "type": "defi",
+        "value": "DeFi",
+        "source_url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/ref/DCEWQSVZ Published",
+        "confidence": "medium"
+      },
+      {
+        "type": "defi",
+        "value": "DeFi",
+        "source_url": "https://www.kryptosavings.com/withdrawal",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/withdrawal Published T",
+        "confidence": "medium"
+      },
+      {
+        "type": "defi",
+        "value": "DeFi",
+        "source_url": "https://www.kryptosavings.com/about",
+        "evidence": "Title: KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/about Published Time:",
+        "confidence": "medium"
+      },
+      {
+        "type": "lockup",
+        "value": "fixed term",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "t. Refer users to KryptoSavings and earn lifetime commissions from their crypto yield. No fixed term. [Become an affiliate](https://www.kryptosavings.com/register)[Calculate earnin",
+        "confidence": "medium"
+      },
+      {
+        "type": "withdrawal",
+        "value": "withdrawal",
+        "source_url": "https://www.kryptosavings.com/withdrawal",
+        "evidence": "% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/withdrawal Published Time: Sat, 22 Aug 2026 07:18:18 GMT Warning: This page maybe not yet ",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "custody",
+        "source_url": "https://www.kryptosavings.com/custody",
+        "evidence": "% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/custody Published Time: Sat, 22 Aug 2026 07:18:18 GMT Warning: This page maybe not yet ful",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "Institutional Custody",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "r)[Calculate earnings](https://www.kryptosavings.com/affiliate#calculator) Up to 23% p.a. Institutional Custody EU-Hosted Infrastructure Earn commissions on yields from: Bitcoin Et",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral",
+        "value": "referral",
+        "source_url": "https://www.kryptosavings.com/referral",
+        "evidence": "% APY on Crypto | DeFi Staking & Yield Platform URL Source: https://www.kryptosavings.com/referral Published Time: Sat, 22 Aug 2026 07:18:18 GMT Warning: This page maybe not yet fu",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral",
+        "value": "affiliate",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "e: KryptoSavings — Earn up to 23% APY on Crypto URL Source: https://www.kryptosavings.com/affiliate Markdown Content: Affiliate Program · Now live ## Earn up to 30% commission with",
+        "confidence": "medium"
+      },
+      {
+        "type": "bonus",
+        "value": "bonus",
+        "source_url": "https://www.kryptosavings.com/affiliate",
+        "evidence": "years, assuming your referrals stay active. Milestone bonuses unlocked + $1,500 One-time bonus on top of commissions. [Start earning $250/month →](https://www.kryptosavings.com/reg",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral_input",
+        "value": "personal_referral_parameter",
+        "source_url": "https://www.kryptosavings.com/ref/DCEWQSVZ",
+        "evidence": "Der eingegebene Link enthält eine Referral-/Affiliate-/Partnerkennung.",
+        "confidence": "high"
+      }
+    ],
+    "risk_signals": [
+      {
+        "id": "yield_level",
+        "severity": "high",
+        "title": "Rendite-/Zinsangabe erkannt",
+        "explanation": "Öffentlich wurde mindestens eine Prozentangabe bis 50% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."
+      },
+      {
+        "id": "capital_binding",
+        "severity": "medium",
+        "title": "Hinweise auf Kapitalbindung/Laufzeiten",
+        "explanation": "Vor einer Einzahlung sollte klar sein, wann und unter welchen Bedingungen Kapital wieder verfügbar ist."
+      },
+      {
+        "id": "distribution_incentive",
+        "severity": "medium",
+        "title": "Vertriebs-/Empfehlungsanreize erkannt",
+        "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
+      },
+      {
+        "id": "operator_identity",
+        "severity": "medium",
+        "title": "Rechtsträger nicht eindeutig erkannt",
+        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
+      }
+    ],
+    "questions": [
+      "Wodurch wird die beworbene Rendite tatsächlich erwirtschaftet und welcher maximale Verlust ist möglich?",
+      "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
+      "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
+      "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
+      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+    ]
+  },
+  "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
 }
