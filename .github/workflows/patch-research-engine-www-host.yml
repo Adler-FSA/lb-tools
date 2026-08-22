@@ -1,0 +1,81 @@
+name: Research Engine – WWW Host Fix
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-research-engine-www-host.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Originalen Host beim Abruf erhalten
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('research-engine/engine.py')
+          s=p.read_text(encoding='utf-8')
+
+          old='''    host = (p.hostname or "").lower()\n    if host.startswith("www."):\n        host = host[4:]\n    scheme = p.scheme or "https"\n    path = p.path or "/"\n    result = f"{scheme}://{host}{path}"'''
+          new='''    host = (p.hostname or "").lower()\n    scheme = p.scheme or "https"\n    path = p.path or "/"\n    result = f"{scheme}://{host}{path}"'''
+          if old not in s:
+              raise SystemExit('normalize_url block not found')
+          s=s.replace(old,new,1)
+
+          old='''        host = (urlparse(url).hostname or "").removeprefix("www.")\n        return {"raw": raw, "kind": "url", "url": url, "domain": host, "name": ""}'''
+          new='''        fetch_host = (urlparse(url).hostname or "").lower()\n        domain = fetch_host.removeprefix("www.")\n        return {"raw": raw, "kind": "url", "url": url, "domain": domain, "fetch_host": fetch_host, "name": ""}'''
+          if old not in s:
+              raise SystemExit('parse_input block not found')
+          s=s.replace(old,new,1)
+
+          old='''            seed = fetch_page(f"https://{parsed['domain']}/")'''
+          new='''            seed = fetch_page(f"https://{parsed.get('fetch_host') or parsed['domain']}/")'''
+          if old not in s:
+              raise SystemExit('seed fallback not found')
+          s=s.replace(old,new,1)
+
+          old='''    root = f"https://{domain}/"'''
+          new='''    seed_host = (urlparse(seed.url).hostname or domain).lower()\n    root = f"https://{seed_host}/"'''
+          if old not in s:
+              raise SystemExit('crawl root not found')
+          s=s.replace(old,new,1)
+
+          old='''    queue.extend(sitemap_urls(domain))'''
+          new='''    queue.extend(sitemap_urls(seed_host))'''
+          if old not in s:
+              raise SystemExit('sitemap call not found')
+          s=s.replace(old,new,1)
+
+          # Namenssuche: sowohl www als auch Bare-Domain testen.
+          old='''    for domain in candidate_domains(name):\n        if not host_exists(domain):\n            continue\n        for scheme in ("https", "http"):\n            url = f"{scheme}://{domain}/"\n            page = fetch_page(url)'''
+          new='''    for domain in candidate_domains(name):\n        hosts = [h for h in ("www." + domain, domain) if host_exists(h)]\n        if not hosts:\n            continue\n        for host in hosts:\n            for scheme in ("https", "http"):\n                url = f"{scheme}://{host}/"\n                page = fetch_page(url)'''
+          if old not in s:
+              raise SystemExit('discover loop not found')
+          s=s.replace(old,new,1)
+
+          # Einrückung des Folgeteils nach neuer Host-Schleife korrigieren.
+          old='''            attempts.append({"domain": domain, "url": url, "readable": bool(page)})\n            if page and verifies_brand(page, name, domain):\n                final_host = (urlparse(page.url).hostname or domain).removeprefix("www.")\n                return final_host, page, attempts'''
+          new='''                attempts.append({"domain": domain, "url": url, "readable": bool(page)})\n                if page and verifies_brand(page, name, domain):\n                    final_host = (urlparse(page.url).hostname or domain).removeprefix("www.")\n                    return final_host, page, attempts'''
+          if old not in s:
+              raise SystemExit('discover body not found')
+          s=s.replace(old,new,1)
+
+          p.write_text(s,encoding='utf-8')
+          PY
+          python -m py_compile research-engine/engine.py
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/engine.py
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Research Engine: Originalen WWW-Host beim Abruf erhalten"
+          git pull --rebase
+          git push
