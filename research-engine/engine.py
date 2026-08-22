@@ -400,24 +400,46 @@ def extract_percentages(text: str) -> list[float]:
 
 
 def percentage_kind(text: str, match: re.Match) -> str:
-    """Ordnet Prozentwerte nach Kontext ein: Rendite, Provision oder sonstig."""
-    start=max(0, match.start()-120)
-    end=min(len(text), match.end()+120)
-    ctx=clean_text(text[start:end]).lower()
-    # Vertriebsbegriffe haben Vorrang: "earn 30% commission" ist keine Rendite.
-    if re.search(r"\b(commission|provision|affiliate|referral|milestone bonus|partner commission|earning .* commission)\b", ctx, re.I):
-        return "commission"
-    suffix=(match.group(2) or "").lower()
-    if suffix or re.search(r"\b(apy|apr|p\.?a\.?|yield|interest|rendite|zinsen?|staking yield|earn on crypto)\b", ctx, re.I):
+    """Ordnet einen Prozentwert nur nach seinem engen, belegbaren Kontext ein."""
+    suffix = (match.group(2) or "").lower()
+    before = clean_text(text[max(0, match.start()-70):match.start()]).lower()
+    after = clean_text(text[match.end():min(len(text), match.end()+55)]).lower()
+    ctx = clean_text(text[max(0, match.start()-85):min(len(text), match.end()+85)]).lower()
+
+    # Eine direkt am Wert stehende Renditeeinheit ist der stärkste Beleg.
+    if suffix:
         return "yield"
+
+    # Direkte Provisionsaussage: "30% commission" / "20% provision".
+    if re.match(r"^(?:\s|[:|–—-])*(?:commission|provision)\b", after, re.I):
+        return "commission"
+
+    # Verlust-, Bonus-, Rabatt- und ähnliche Werte sind keine Rendite.
+    if re.search(
+        r"\b(lose|loss|lost|verlust|price swing|drawdown|welcome bonus|bonus|discount|"
+        r"save|saving|subscription|donation|cashback|fee|attack|safe|ownership|share)\b",
+        ctx, re.I
+    ):
+        return "other"
+
+    # Rendite ohne explizites Suffix nur bei enger sprachlicher Bindung an den Wert.
+    if re.search(
+        r"\b(apy|apr|yield|interest|rendite|zinsen?|earn(?:ing)?|return)"
+        r"(?:\s+(?:rate|of|up to|as high as))?[^.%]{0,28}$",
+        before, re.I
+    ):
+        return "yield"
+
+    # Affiliate-/Vergleichstabellen als Provisionskontext dokumentieren.
+    if re.search(r"\b(commission|provision|affiliate|referral|partner commission)\b", ctx, re.I):
+        return "commission"
     return "other"
 
 
 def direct_commission_claim(text: str, match: re.Match) -> bool:
-    start=max(0, match.start()-140)
-    end=min(len(text), match.end()+140)
-    ctx=clean_text(text[start:end]).lower()
-    return bool(re.search(r"(earn up to|earning|you earn|your tier|commission rate|lifetime commission)", ctx, re.I))
+    """Nur eine unmittelbar am Prozentwert stehende eigene Provisionsaussage zählt."""
+    after = clean_text(text[match.end():min(len(text), match.end()+32)]).lower()
+    return bool(re.match(r"^(?:\s|[:|–—-])*(?:commission|provision)\b", after, re.I))
 
 
 def find_regex(pages: Iterable[Page], pattern: str, flags=re.I) -> list[tuple[Page, re.Match]]:
