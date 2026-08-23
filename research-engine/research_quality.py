@@ -87,6 +87,8 @@ BAD_ENTITY_START = re.compile(
     re.I,
 )
 
+LEADING_YEAR_RE = re.compile(r"^(?:©\s*)?(?:(?:19|20)\d{2})\s+(?=[A-ZÄÖÜ])")
+
 LEGAL_END = re.compile(
     r"\b(?:GmbH|AG|Aktiengesellschaft|SE|Ltd\.?|Limited|LLC|Inc\.?|PLC|S\.?A\.?|S\.p\.A\.|B\.V\.|Sarl|S\.à\s*r\.l\.?)$",
     re.I,
@@ -96,6 +98,7 @@ LEGAL_END = re.compile(
 def clean_entity_candidate(value: str) -> str:
     value = clean_text(value).strip(" -–—:;,.()[]")
     value = CLAUSE_PREFIX.sub("", value).strip(" -–—:;,.()[]")
+    value = LEADING_YEAR_RE.sub("", value).strip(" -–—:;,.()[]")
     if not value or len(value) > 78:
         return ""
     if BAD_ENTITY_CONTEXT.search(value):
