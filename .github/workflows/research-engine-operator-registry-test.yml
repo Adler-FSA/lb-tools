@@ -114,16 +114,30 @@ jobs:
           assert 'Delta West Credit Bank Ltd' in entity_names, entity_names
           assert 'GBH Coriolis Bancorp' in entity_names, entity_names
 
-          # Der Mwali-Registerfund muss institutionell eingeordnet werden. Dafür erwartet der
-          # Referenzlauf mindestens eine direkte Gegenquelle der Banque Centrale des Comores.
           claimed=[r for r in records if r.get('source_role') == 'claimed_regulator_or_registry']
           assert claimed, 'Keine Mwali-Registerspur gefunden'
+          claimed_by_entity={r.get('entity'):r for r in claimed}
+
+          delta=claimed_by_entity.get('Delta West Credit Bank Ltd')
+          gbh=claimed_by_entity.get('GBH Coriolis Bancorp')
+          assert delta, claimed_by_entity.keys()
+          assert gbh, claimed_by_entity.keys()
+          assert delta.get('license_number') == 'B20110086', delta
+          assert delta.get('status_text') == 'Active', delta
+          assert delta.get('project_connection') == 'not_shown', delta
+          assert gbh.get('license_number') == 'B20070016', gbh
+          assert gbh.get('status_text') == 'Active', gbh
+          assert gbh.get('project_connection') == 'not_shown', gbh
+
+          # Der Mwali-Registerfund muss institutionell eingeordnet werden. Dafür erwartet der
+          # Referenzlauf mindestens eine direkte Gegenquelle der Banque Centrale des Comores.
           assert contexts, 'Kein übergeordneter Behördenkontext zum Mwali-Register gefunden'
           assert any((urlparse(c.get('source_url','')).hostname or '').endswith('banque-comores.km') for c in contexts), contexts
           assert all(c.get('source_role') in {'regulator','government'} for c in contexts)
           assert all(c.get('authority_confidence') == 'high' for c in contexts)
 
           print(f"Betreiber-Research OK: {len(profiles)} Rechtsträger | {len(records)} externe Spuren | {len(contexts)} Behörden-Kontextquellen")
+          print('Lizenzcheck OK: Delta West B20110086 / Active | GBH Coriolis B20070016 / Active | beide ohne extern belegte KryptoSavings-Verbindung')
           for p in profiles:
               print(f"ENTITY: {p['entity']} | Existenz={p['existence_status']} | KryptoSavings-Verbindung={p['project_connection_status']} | Records={p['record_count']} | Behördenkontext={len(p.get('authority_context_records') or [])}")
           for r in records[:16]:
