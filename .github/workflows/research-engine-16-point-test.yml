@@ -12,9 +12,12 @@ on:
     paths:
       - "research-engine/analysis_standard_16.json"
       - "research-engine/sixteen_point_analysis.py"
+      - "research-engine/sixteen_point_people_adapter.py"
       - "research-engine/build_16_monitor.py"
       - "research-engine/academy_analysis.py"
       - "research-engine/people_history_research.py"
+      - "research-engine/people_history_pipeline.py"
+      - "research-engine/entity_people_crawler.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
@@ -24,9 +27,12 @@ on:
     paths:
       - "research-engine/analysis_standard_16.json"
       - "research-engine/sixteen_point_analysis.py"
+      - "research-engine/sixteen_point_people_adapter.py"
       - "research-engine/build_16_monitor.py"
       - "research-engine/academy_analysis.py"
       - "research-engine/people_history_research.py"
+      - "research-engine/people_history_pipeline.py"
+      - "research-engine/entity_people_crawler.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
@@ -84,7 +90,7 @@ jobs:
       - name: Personen Management Historie
         id: people
         run: |
-          python research-engine/people_history_research.py \
+          python research-engine/people_history_pipeline.py \
             --input research-engine/output/kryptosavings-operators.json \
             --output research-engine/output/kryptosavings-people.json
 
@@ -97,16 +103,24 @@ jobs:
           data=json.loads(Path('research-engine/output/kryptosavings-people.json').read_text(encoding='utf-8'))
           block=data.get('people_history_research') or {}
           summary=block.get('summary') or {}
-          assert block.get('status') in {'ok','no_people_confirmed'}
+          profiles=block.get('profiles') or []
+          assert block.get('status') == 'ok'
           assert block.get('guardrails') == {
               'entity_person_implies_project_person': False,
               'founder_or_ceo_implies_ubo': False,
               'ubo_without_ownership_source': False,
           }
+          assert summary.get('person_profile_count',0) >= 1
+          assert summary.get('project_linked_person_count') == 0
           assert summary.get('verified_ubo_count') == 0
-          assert all(p.get('ubo_verified') is False for p in block.get('profiles') or [])
+          assert all(p.get('ubo_verified') is False for p in profiles)
+          open_delta=[p for p in profiles if p.get('entity') == 'Open Delta DAO LLC']
+          assert open_delta
+          names={p.get('person_name') for p in open_delta}
+          assert {'Konstantin Wünscher','Nick Schteringard'} & names
+          assert 'Maarten Botman' not in names
           print('Personen-Research OK:', summary)
-          for p in block.get('profiles') or []:
+          for p in profiles:
               print(f"PERSON: {p.get('person_name')} | entity={p.get('entity')} | entity_link={p.get('entity_connection_status')} | project_link={p.get('project_connection_status')} | ownership={p.get('ownership_status')} | roles={','.join(p.get('roles') or [])}")
           PY
 
@@ -120,7 +134,7 @@ jobs:
       - name: 16-Punkte-Prüfung
         id: sixteen
         run: |
-          python research-engine/sixteen_point_analysis.py \
+          python research-engine/sixteen_point_people_adapter.py \
             --input research-engine/output/kryptosavings-academy.json \
             --output research-engine/output/kryptosavings-16-points.json
 
@@ -149,6 +163,10 @@ jobs:
           by_id={q['id']:q for q in questions}
           assert by_id[1]['state'] in {'partially_answered','supported'}
           assert by_id[4]['state'] in {'clarification_needed','conflict_found'}
+          assert by_id[5]['state'] == 'clarification_needed'
+          assert 'Konstantin Wünscher' in by_id[5]['finding'] or 'Nick Schteringard' in by_id[5]['finding']
+          assert 'nicht automatisch bei KryptoSavings' in by_id[5]['finding']
+          assert by_id[5]['traffic_light'] is None
           assert by_id[6]['state'] == 'conflict_found'
           assert by_id[9]['state'] == 'clarification_needed'
           assert '23%' in by_id[9]['finding']
@@ -158,6 +176,7 @@ jobs:
           assert by_id[16]['state'] == 'overall_not_ready'
           assert by_id[16]['traffic_light'] is None
           assert block['summary']['overall_assessment_ready'] is False
+          assert block['guardrails']['structured_people_q5_used'] is True
           assert block['guardrails']['overall_traffic_light_created'] is False
           assert block['guardrails']['fraud_verdict_created'] is False
           assert monitor.get('status') == 'ok'
