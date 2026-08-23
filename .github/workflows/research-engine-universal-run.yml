@@ -1,0 +1,67 @@
+name: Research Engine – Universal Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 'Projektname, Domain, URL, Referral-Link oder technische Kennung'
+        required: true
+        type: string
+      mode:
+        description: 'Produktmodus'
+        required: true
+        default: quick
+        type: choice
+        options:
+          - quick
+          - deep
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      RESEARCH_QUERY: ${{ inputs.query }}
+      RESEARCH_MODE: ${{ inputs.mode }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Engine installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt
+          python -m playwright install chromium
+      - name: Universellen Research-Lauf starten
+        run: |
+          python research-engine/universal_pipeline.py "$RESEARCH_QUERY" \
+            --mode "$RESEARCH_MODE" \
+            --output research-engine/output/universal-result.json
+      - name: Ergebnis zusammenfassen
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('research-engine/output/universal-result.json')
+          d = json.loads(p.read_text(encoding='utf-8'))
+          orchestration = d.get('research_orchestration') or {}
+          request = orchestration.get('request') or {}
+          quick = d.get('quick_check') or {}
+          print(json.dumps({
+              'status': d.get('status'),
+              'product': d.get('product') or request.get('product'),
+              'mode': request.get('mode'),
+              'input_kind': request.get('input_kind'),
+              'route': request.get('route'),
+              'project': quick.get('project_name') or (d.get('context') or {}).get('project_name'),
+              'domain': quick.get('domain') or (d.get('context') or {}).get('domain'),
+              'capabilities': orchestration.get('capabilities') or [],
+          }, ensure_ascii=False, indent=2))
+          PY
+      - name: Research-Ergebnis als Artefakt sichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: universal-research-${{ inputs.mode }}
+          path: research-engine/output/universal-result.json
+          if-no-files-found: error
