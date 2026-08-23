@@ -29,10 +29,25 @@ sixteen = load_module("universal_runtime_sixteen", "universal_sixteen_analysis.p
 quality = load_module("universal_runtime_quality", "research_quality.py")
 
 # Universal erweiterte Rechtsformen. Keine projektbezogenen Namen.
-pipeline.engine.LEGAL_FORMS = re.compile(
+CORE_LEGAL_FORMS = re.compile(
     r"\b([A-ZÄÖÜ0-9][A-Za-zÄÖÜäöüß0-9&.,'’\- ]{1,90}\s(?:GmbH|AG|Aktiengesellschaft|SE|"
     r"Ltd\.?|Limited|LLC|Inc\.?|PLC|S\.?A\.?|S\.p\.A\.|B\.V\.|Sarl|S\.à\s*r\.l\.?|S\.?R\.?L\.?))\b"
 )
+LEGAL_SUFFIX = re.compile(
+    r"\b(?:DAO\s+LLC|LLC|Ltd\.?|Limited|Inc\.?|PLC|GmbH|AG|S\.?A\.?|S\.?R\.?L\.?)\b",
+    re.I,
+)
+LEGAL_END = re.compile(
+    r"\b(?:GmbH|AG|Aktiengesellschaft|SE|Ltd\.?|Limited|LLC|Inc\.?|PLC|S\.?A\.?|S\.p\.A\.|B\.V\.|Sarl|S\.à\s*r\.l\.?|S\.?R\.?L\.?)$",
+    re.I,
+)
+pipeline.engine.LEGAL_FORMS = CORE_LEGAL_FORMS
+quality.LEGAL_END = LEGAL_END
+# Betreiber- und Personenmodule müssen dieselbe Rechtsform kennen.
+if hasattr(pipeline.operator, "base"):
+    pipeline.operator.base.LEGAL_SUFFIX_RE = LEGAL_SUFFIX
+if hasattr(pipeline.people, "pipeline") and hasattr(pipeline.people.pipeline, "base"):
+    pipeline.people.pipeline.base.LEGAL_SUFFIX_RE = LEGAL_SUFFIX
 
 # Nur die Deep-Ausgabeschichten werden ersetzt. Routing, Identifikation und
 # Register-/Personenmodule bleiben dieselben.
