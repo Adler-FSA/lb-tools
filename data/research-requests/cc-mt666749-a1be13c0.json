@@ -1,0 +1,14 @@
+{
+  "schema": "academy-research-request-v1",
+  "request_id": "cc-mt666749-a1be13c0",
+  "query": "https://app.wefi.co/register?ref=d14o0mtv7g",
+  "mode": "deep",
+  "created_at": "2026-08-23T18:57:41.769Z",
+  "source": "research-control-center",
+  "input_basis_hint": {
+    "type": "referral_or_registration_link",
+    "strength": "very_high",
+    "label": "Sehr starker Beweisanker",
+    "text": "Referral-/Registrierungslink erkannt. Genau dieses Fundstück wird als Originalspur erhalten und die Zielseite daraus untersucht."
+  }
+}
