@@ -6,7 +6,8 @@ sein Ergebnis und präzisiert ausschließlich Frage 5 anhand des strukturierten
 people_history_research-Blocks.
 
 Wichtig:
-- Person bei einem Rechtsträger != Person bei KryptoSavings.
+- Person bei einem Rechtsträger != Person beim Projekt.
+- Projekt-Team-Angabe != unabhängige Bestätigung.
 - Founder/CEO/Director != Eigentümer/UBO.
 - Fehlender UBO-Nachweis != Betrugsnachweis.
 """
@@ -34,12 +35,30 @@ def _people_evidence(data: dict) -> list[dict]:
         entity = base.clean(profile.get("entity") or "")
         roles = [base.clean(x) for x in profile.get("roles") or [] if base.clean(x)]
         label = " · ".join(x for x in [person, "/".join(roles), entity] if x)
+
         for record in profile.get("records") or []:
             out.append(base._ev(
                 record.get("source_url") or "",
                 record.get("source_role") or "unknown",
                 label or "Personenspur",
                 record.get("evidence") or "",
+            ))
+
+        claim = profile.get("project_claim_source") or {}
+        if claim.get("source_url") or claim.get("evidence"):
+            out.append(base._ev(
+                claim.get("source_url") or "",
+                "project_owned",
+                (label or "Personenspur") + " · Projekt-Team-Angabe",
+                claim.get("evidence") or "",
+            ))
+
+        for confirmation in profile.get("external_project_confirmations") or []:
+            out.append(base._ev(
+                confirmation.get("source_url") or "",
+                confirmation.get("source_relation") or "independent",
+                (label or "Personenspur") + " · externe Bestätigung",
+                confirmation.get("evidence") or "",
             ))
     return base._dedupe(out)
 
@@ -78,15 +97,14 @@ def apply_q5(data: dict, result: dict) -> dict:
     elif project_linked:
         state = "clarification_needed"
         finding = (
-            "Strukturierte Personen-/Managementspuren liegen vor und mindestens eine Person ist extern mit KryptoSavings "
+            "Strukturierte Personen-/Managementspuren liegen vor und mindestens eine Person ist extern mit dem Projekt "
             "verknüpft. Eigentümer/UBO und die tatsächliche Kontrollstruktur sind jedoch nicht belastbar bestätigt."
         )
     else:
         state = "clarification_needed"
         finding = (
-            "Zu bereits erkannten Rechtsträgern wurden strukturierte Managementspuren gefunden, aber keine dieser Personen "
-            "ist bislang unabhängig als Person, Eigentümer oder Kontrollinstanz von KryptoSavings bestätigt. "
-            "Die Funde belegen Rollen beim jeweiligen Rechtsträger, nicht automatisch bei KryptoSavings."
+            "Strukturierte Managementspuren wurden gefunden, aber keine Person ist bislang unabhängig als Eigentümer "
+            "oder Kontrollinstanz des Projekts bestätigt. Rollenangaben belegen nicht automatisch Eigentum oder UBO."
         )
 
     if names:
@@ -94,9 +112,9 @@ def apply_q5(data: dict, result: dict) -> dict:
 
     gaps = []
     if not project_linked:
-        gaps.append("Direkte, unabhängige Personen-/Kontrollverbindung zu KryptoSavings fehlt.")
+        gaps.append("Direkte, unabhängige Personen-/Kontrollverbindung zum Projekt fehlt.")
     if not verified_ubos:
-        gaps.append("Eigentümer-/UBO-Struktur von KryptoSavings ist nicht verifiziert.")
+        gaps.append("Eigentümer-/UBO-Struktur des Projekts ist nicht verifiziert.")
     gaps.extend([
         "Historie, Qualifikation und frühere Projekte der relevanten Personen sind noch nicht vollständig geprüft.",
         "Verbundene Gesellschaften, frühere Firmen, Insolvenz- und Behörden-/Warnspuren sind noch zu vertiefen.",
