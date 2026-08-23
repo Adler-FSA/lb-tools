@@ -7,6 +7,7 @@ außerhalb der Projektwebsite. Er trennt ausdrücklich:
 - regulatorische oder lizenzbezogene Aussagen,
 - eigene Aussagen des Rechtsträgers,
 - unabhängige Hinweise,
+- die behauptete Zuständigkeit eines Registers/Aufsichtssystems,
 - und die Frage, ob eine externe Quelle die Verbindung zum Projekt bestätigt.
 
 Keine Gesamtbewertung, kein Betrugs- oder Seriositätsurteil.
@@ -40,6 +41,7 @@ AUTHORITY_HOSTS = {
     "eba.europa.eu": "regulator",
     "europa.eu": "government",
     "gov.uk": "government",
+    "banque-comores.km": "regulator",
 }
 
 CLAIMED_AUTHORITY_HOSTS = {
@@ -48,25 +50,36 @@ CLAIMED_AUTHORITY_HOSTS = {
     "mwaliregistrar.com",
 }
 
+# Kuratierte Behörden-Gegenquellen für bekannte Register-/Aufsichtssysteme.
+# Das ist keine Bewertung eines Projekts; es beschreibt nur den institutionellen
+# Kontext der Quelle, die eine Lizenz/Registerstellung behauptet.
+CLAIMED_AUTHORITY_CONTEXT = {
+    "mwaliregistrar.info": {
+        "name": "Mwali International Services Authority",
+        "aliases": ["Mwali International Services Authority", "M.I.S.A", "MISA", "Mwali", "Mohéli", "offshore", "off-shore"],
+        "authority_urls": [
+            "https://banque-comores.km/page/show/textes-reglementaires",
+            "https://banque-comores.km/article/show/communique-sur-lexercice-illegal-dactivites-bancaires-offshores",
+            "https://banque-comores.km/article/show/communique-du-8-decembre-2025",
+        ],
+    }
+}
+
 WARNING_WORDS = re.compile(
-    r"\b(?:warning|warned|unauthori[sz]ed|unlicensed|suspended|revoked|clone|scam|fraud|"
-    r"warnung|unerlaubt|nicht zugelassen|lizenz entzogen|suspendiert)\b",
+    r"\b(?:warning|warned|unauthori[sz]ed|unlicensed|suspended|revoked|clone|scam|fraud|illegal|"
+    r"fictitious|fictive|illégal|illégale|illégales|warnung|unerlaubt|nicht zugelassen|"
+    r"lizenz entzogen|suspendiert)\b",
     re.I,
 )
 LICENSE_WORDS = re.compile(
     r"\b(?:licen[cs]e|licen[cs]ed|registration|registered|register|authori[sz]ed|regulated|"
-    r"banking company|banking licence|banking license|lizenz|registriert|zugelassen|reguliert)\b",
+    r"banking company|banking licence|banking license|agrément|agrement|lizenz|registriert|zugelassen|reguliert)\b",
     re.I,
 )
 ACTIVE_WORDS = re.compile(r"\b(?:active|valid|authori[sz]ed|licensed|registered|aktiv|gültig)\b", re.I)
 INACTIVE_WORDS = re.compile(r"\b(?:suspended|revoked|inactive|expired|cancelled|dissolved|suspendiert|widerrufen|inaktiv|abgelaufen)\b", re.I)
 LICENSE_NO_RE = re.compile(r"\b(?:licen[cs]e\s*(?:no\.?|number)?|registration\s*(?:no\.?|number)?|reg\.?\s*no\.?)\s*[:#-]?\s*([A-Z0-9][A-Z0-9./-]{4,30})", re.I)
 
-# Die Website-Engine erkennt klassische Rechtsformen. Banknamen wie "... Bancorp"
-# können aber echte Betreiberhinweise sein. Solche Kandidaten werden hier aus den
-# bereits gespeicherten Beleg-Snippets nachgezogen und anschließend extern geprüft.
-# Bewusst case-sensitiv am Namensanfang, damit normale Wörter vor dem Eigennamen
-# nicht in den Rechtsträger hineingezogen werden.
 BANCORP_ENTITY_RE = re.compile(r"\b([A-Z][A-Za-z0-9&.'’\- ]{1,70}\s+Bancorp)\b")
 
 
@@ -88,6 +101,20 @@ class EntityRecord:
     found_via: str
 
 
+@dataclass
+class AuthorityContextRecord:
+    claimed_authority: str
+    claimed_authority_host: str
+    source_role: str
+    source_url: str
+    title: str
+    evidence: str
+    published_at: str
+    context_type: str
+    authority_confidence: str
+    fetched: bool
+
+
 def clean(value: str) -> str:
     return ext.clean_text(value)
 
@@ -98,6 +125,16 @@ def host_of(url: str) -> str:
 
 def same_domain(url: str, domain: str) -> bool:
     return ext.same_domain(url, domain)
+
+
+def claimed_authority_key(host: str) -> str:
+    host = (host or "").lower().removeprefix("www.")
+    for candidate in CLAIMED_AUTHORITY_HOSTS:
+        if host == candidate or host.endswith("." + candidate):
+            if candidate.startswith("mwaliregistrar"):
+                return "mwaliregistrar.info"
+            return candidate
+    return ""
 
 
 def derived_entities_from_evidence(analysis: dict) -> list[str]:
@@ -119,7 +156,7 @@ def source_role(url: str, entity: str, title: str, text: str) -> tuple[str, str]
     for suffix, role in AUTHORITY_HOSTS.items():
         if host == suffix or host.endswith("." + suffix):
             return role, "high"
-    if host in CLAIMED_AUTHORITY_HOSTS or any(host.endswith("." + h) for h in CLAIMED_AUTHORITY_HOSTS):
+    if claimed_authority_key(host):
         return "claimed_regulator_or_registry", "medium"
 
     hay = clean(" ".join([title, text[:5000]])).lower()
@@ -127,8 +164,9 @@ def source_role(url: str, entity: str, title: str, text: str) -> tuple[str, str]
     host_compact = ext.compact(host.split(".")[0])
     if entity_compact and host_compact and (entity_compact.startswith(host_compact) or host_compact in entity_compact):
         return "entity_owned", "medium"
-    if "privacy" in hay or "terms of use" in hay or "contact" in hay:
-        if ext.compact(entity.split()[0]) in ext.compact(host):
+    if entity and ("privacy" in hay or "terms of use" in hay or "contact" in hay):
+        first = entity.split()[0] if entity.split() else ""
+        if first and ext.compact(first) in ext.compact(host):
             return "entity_owned", "medium"
     return "independent", "low"
 
@@ -173,12 +211,12 @@ def extract_license_number(text: str) -> str:
     return clean(m.group(1)) if m else ""
 
 
-def evidence(text: str, entity: str, project_name: str, fallback: str, width: int = 430) -> str:
+def evidence(text: str, needle_primary: str, needle_secondary: str, fallback: str, width: int = 430) -> str:
     body = clean(text)
     if not body:
         return clean(fallback)[:width]
     low = body.lower()
-    for needle in (entity, project_name):
+    for needle in (needle_primary, needle_secondary):
         needle = clean(needle)
         idx = low.find(needle.lower()) if needle else -1
         if idx >= 0:
@@ -206,6 +244,56 @@ def _rank_role(role: str) -> int:
         "entity_owned": 3,
         "independent": 2,
     }.get(role, 0)
+
+
+def authority_context_relevant(info: dict, text: str) -> bool:
+    hay = clean(text).lower()
+    aliases = [clean(x).lower() for x in info.get("aliases") or [] if clean(x)]
+    return any(alias in hay for alias in aliases)
+
+
+def collect_authority_context(records: list[EntityRecord]) -> list[AuthorityContextRecord]:
+    keys: set[str] = set()
+    for rec in records:
+        if rec.source_role == "claimed_regulator_or_registry":
+            key = claimed_authority_key(host_of(rec.source_url))
+            if key:
+                keys.add(key)
+
+    out: list[AuthorityContextRecord] = []
+    seen_urls: set[str] = set()
+    for key in keys:
+        info = CLAIMED_AUTHORITY_CONTEXT.get(key) or {}
+        name = clean(info.get("name") or key)
+        for url in info.get("authority_urls") or []:
+            canonical = ext.canonical_url(url)
+            if not canonical or canonical in seen_urls:
+                continue
+            seen_urls.add(canonical)
+            page = ext.read_public_page(canonical)
+            if not page.get("ok"):
+                continue
+            title = clean(page.get("title") or "")
+            text = page.get("text") or ""
+            if not authority_context_relevant(info, title + " " + text):
+                continue
+            role, confidence = source_role(page.get("url") or canonical, "", title, text)
+            if role not in {"regulator", "government"}:
+                continue
+            context_type = "authority_warning" if WARNING_WORDS.search(clean(title + " " + text)) else "authority_context"
+            out.append(AuthorityContextRecord(
+                claimed_authority=name,
+                claimed_authority_host=key,
+                source_role=role,
+                source_url=page.get("url") or canonical,
+                title=title,
+                evidence=evidence(text, name, "offshore", title),
+                published_at=clean(page.get("published_at") or ""),
+                context_type=context_type,
+                authority_confidence=confidence,
+                fetched=True,
+            ))
+    return out
 
 
 def enrich(data: dict) -> dict:
@@ -277,6 +365,8 @@ def enrich(data: dict) -> dict:
             dedup[key] = rec
     records = list(dedup.values())
 
+    authority_context = collect_authority_context(records)
+
     profiles = []
     for entity in entities:
         ers = [r for r in records if r.entity == entity]
@@ -285,6 +375,8 @@ def enrich(data: dict) -> dict:
         independent = [r for r in ers if r.source_role == "independent"]
         linked = [r for r in ers if r.project_connection == "externally_linked"]
         warnings = [r for r in ers if r.record_type == "warning_or_adverse_notice"]
+        claimed_keys = {claimed_authority_key(host_of(r.source_url)) for r in official if r.source_role == "claimed_regulator_or_registry"}
+        contexts = [c for c in authority_context if c.claimed_authority_host in claimed_keys]
 
         if any(r.source_role in {"regulator", "government", "claimed_regulator_or_registry"} and r.record_type == "registry_or_license_record" for r in official):
             existence = "registry_or_authority_trace"
@@ -303,13 +395,14 @@ def enrich(data: dict) -> dict:
             "entity_owned_records": [asdict(r) for r in self_sources],
             "independent_records": [asdict(r) for r in independent],
             "warning_records": [asdict(r) for r in warnings],
+            "authority_context_records": [asdict(c) for c in contexts],
             "record_count": len(ers),
         })
 
     result["operator_registry_research"] = {
         "status": "ok" if entities else "no_legal_entities",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "principle": "Existenz/Registerspur und Projektverbindung werden getrennt geprüft. Eine gefundene Firma bestätigt nicht automatisch ihre behauptete Rolle beim Projekt.",
+        "principle": "Existenz/Registerspur, institutioneller Behördenkontext und Projektverbindung werden getrennt geprüft. Eine gefundene Firma oder Lizenzliste bestätigt nicht automatisch ihre behauptete Rolle beim Projekt.",
         "project_name": project_name,
         "project_domain": project_domain,
         "entities_from_project_website": entities,
@@ -317,6 +410,7 @@ def enrich(data: dict) -> dict:
         "search_attempts": attempts,
         "profiles": profiles,
         "records": [asdict(r) for r in sorted(records, key=lambda r: (r.entity.lower(), -_rank_role(r.source_role), r.title.lower()))],
+        "authority_context_records": [asdict(c) for c in authority_context],
     }
     return result
 
