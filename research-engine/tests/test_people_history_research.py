@@ -46,6 +46,18 @@ def test_trusted_entity_host_is_derived_from_operator_evidence():
     assert mod._host_is_trusted("https://blog.opendelta.com/archive/", ["opendelta.com"]) is True
 
 
+def test_people_search_combines_providers_instead_of_stopping_at_rss(monkeypatch):
+    a = mod.ext.SearchHit("https://a.example/x", "A", "OpenDelta CEO A Person", "q", "bing")
+    b = mod.ext.SearchHit("https://b.example/y", "B", "OpenDelta CEO B Person", "q", "duckduckgo")
+    c = mod.ext.SearchHit("https://c.example/z", "C", "noise", "q", "bing-rss")
+    monkeypatch.setattr(mod.ext, "search_bing", lambda q, limit: [a])
+    monkeypatch.setattr(mod.ext, "search_duckduckgo", lambda q, limit: [b])
+    monkeypatch.setattr(mod.ext, "search_bing_rss", lambda q, limit: [c])
+    hits, attempts = mod.people_search("q", 6)
+    assert {h.url for h in hits} == {a.url, b.url, c.url}
+    assert [x["provider"] for x in attempts] == ["bing", "duckduckgo", "bing-rss"]
+
+
 def test_ceo_does_not_imply_ubo():
     page = {
         "ok": True,
@@ -109,7 +121,7 @@ def test_verified_entity_brand_host_can_create_entity_only_person_trace(monkeypa
             }
         return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
 
-    monkeypatch.setattr(mod.ext, "web_search", fake_search)
+    monkeypatch.setattr(mod, "people_search", fake_search)
     monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
     out = mod.enrich(data)["people_history_research"]
     names = {p["person_name"] for p in out["profiles"]}
@@ -149,7 +161,7 @@ def test_owner_word_is_only_claim_not_verified_ubo(monkeypatch):
             return {"ok": True, "url": url, "title": "OpenDelta profile", "text": "Open Delta DAO LLC founder Konstantin Wünscher, Chief Executive Officer.", "published_at": ""}
         return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
 
-    monkeypatch.setattr(mod.ext, "web_search", fake_search)
+    monkeypatch.setattr(mod, "people_search", fake_search)
     monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
     out = mod.enrich(base_result())["people_history_research"]
     profile = next(p for p in out["profiles"] if p["person_name"] == "Konstantin Wünscher")
@@ -180,7 +192,7 @@ def test_project_link_requires_project_name_or_domain(monkeypatch):
             return {"ok": True, "url": url, "title": "OpenDelta profile", "text": "Open Delta DAO LLC founder Konstantin Wünscher, CEO.", "published_at": ""}
         return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
 
-    monkeypatch.setattr(mod.ext, "web_search", fake_search)
+    monkeypatch.setattr(mod, "people_search", fake_search)
     monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
     out = mod.enrich(base_result())["people_history_research"]
     assert out["summary"]["person_profile_count"] >= 1
