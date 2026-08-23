@@ -13,6 +13,12 @@ on:
       - "research-engine/requirements.txt"
       - "research-engine/tests/**"
       - ".github/workflows/research-engine-kryptosavings-test.yml"
+  pull_request:
+    paths:
+      - "research-engine/engine.py"
+      - "research-engine/requirements.txt"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-kryptosavings-test.yml"
 
 permissions:
   contents: write
@@ -111,7 +117,7 @@ jobs:
           PY
 
       - name: Ergebnisse im Repo sichern
-        if: always()
+        if: always() && github.event_name != 'pull_request'
         run: |
           git config user.name "Akademie Research Engine"
           git config user.email "actions@github.com"
