@@ -29,6 +29,7 @@ def load_module(name: str, filename: str):
 
 
 router = load_module("universal_research_router", "research_router.py")
+identity = load_module("universal_identity_resolver", "identity_resolver.py")
 engine = load_module("universal_core_engine", "engine.py")
 external = load_module("universal_external_research", "external_research.py")
 operator = load_module("universal_operator_research", "universal_operator_research.py")
@@ -94,6 +95,48 @@ def run_core(query: str, max_pages: int) -> dict:
     }
 
 
+def resolve_and_run_core(request, max_pages: int) -> dict:
+    """Löst Namenseingaben zuerst über Webkandidaten auf; Domainraten ist nur Fallback."""
+    if request.input_kind != "name":
+        return run_core(request.normalized_input, max_pages)
+
+    resolution = identity.resolve(request.normalized_input)
+    if resolution.get("status") == "resolved" and resolution.get("resolved_url"):
+        data = run_core(resolution["resolved_url"], max_pages)
+        ctx = data.setdefault("context", {})
+        ctx.update({
+            "input": request.raw,
+            "input_kind": "name",
+            "input_url": "",
+            "project_name": request.raw,
+            "domain": resolution.get("domain") or ctx.get("domain") or "",
+            "resolved_url": resolution.get("resolved_url") or ctx.get("resolved_url") or "",
+        })
+        data["identity_resolution"] = {**resolution, "fallback_used": False}
+        return data
+
+    if resolution.get("status") == "ambiguous":
+        return {
+            "version": 2,
+            "status": "identity_ambiguous",
+            "context": {
+                "input": request.raw,
+                "input_kind": "name",
+                "project_name": request.raw,
+                "domain": "",
+                "resolved_url": "",
+            },
+            "identity_resolution": {**resolution, "fallback_used": False},
+            "principle": "Bei mehreren ähnlich plausiblen Projekten wird keine Website geraten.",
+        }
+
+    # Suchprovider können temporär ausfallen. Der alte konservative Domainresolver bleibt
+    # deshalb als dokumentierter Fallback erhalten, nicht mehr als erste Identitätslogik.
+    data = run_core(request.normalized_input, max_pages)
+    data["identity_resolution"] = {**resolution, "fallback_used": True}
+    return data
+
+
 def build_quick_view(data: dict) -> dict:
     ctx = data.get("context") or {}
     analysis = data.get("analysis") or {}
@@ -152,7 +195,7 @@ def run(query: str, mode: str = "quick") -> dict:
         }
 
     max_pages = 8 if request.mode == "quick" else engine.MAX_PAGES
-    data = run_core(request.normalized_input, max_pages)
+    data = resolve_and_run_core(request, max_pages)
     plan = router.module_plan(request, data)
     runs = _module_runs(plan)
     data["research_orchestration"] = router.request_payload(request, data)
@@ -206,7 +249,7 @@ def main() -> int:
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(payload, encoding="utf-8")
     print(target)
-    return 0 if result.get("status") in {"ok", "specialized_route_required"} else 2
+    return 0 if result.get("status") in {"ok", "specialized_route_required", "identity_ambiguous"} else 2
 
 
 if __name__ == "__main__":

@@ -4,19 +4,23 @@ on:
   push:
     paths:
       - 'research-engine/research_router.py'
+      - 'research-engine/identity_resolver.py'
       - 'research-engine/universal_pipeline.py'
       - 'research-engine/registry_adapters.py'
       - 'research-engine/universal_operator_research.py'
       - 'research-engine/tests/test_universal_research_router.py'
+      - 'research-engine/tests/test_identity_resolver.py'
       - 'research-engine/tests/test_registry_adapters.py'
       - '.github/workflows/research-engine-universal-test.yml'
   pull_request:
     paths:
       - 'research-engine/research_router.py'
+      - 'research-engine/identity_resolver.py'
       - 'research-engine/universal_pipeline.py'
       - 'research-engine/registry_adapters.py'
       - 'research-engine/universal_operator_research.py'
       - 'research-engine/tests/test_universal_research_router.py'
+      - 'research-engine/tests/test_identity_resolver.py'
       - 'research-engine/tests/test_registry_adapters.py'
       - '.github/workflows/research-engine-universal-test.yml'
 
@@ -31,5 +35,5 @@ jobs:
           python-version: '3.12'
       - name: Dependencies
         run: pip install -r research-engine/requirements.txt pytest
-      - name: Universal router, product split and registry adapter tests
-        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_registry_adapters.py
+      - name: Universal router, identity, product split and registry adapter tests
+        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_identity_resolver.py research-engine/tests/test_registry_adapters.py
