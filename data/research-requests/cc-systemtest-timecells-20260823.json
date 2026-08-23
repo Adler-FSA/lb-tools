@@ -1,0 +1,8 @@
+{
+  "schema": "academy-research-request-v1",
+  "request_id": "cc-systemtest-timecells-20260823",
+  "query": "Timecells",
+  "mode": "quick",
+  "created_at": "2026-08-23T14:44:00+02:00",
+  "source": "system-test"
+}
