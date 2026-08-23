@@ -61,6 +61,18 @@ def test_match_confidence_is_attribution_not_source_quality():
     assert match == "search_context_only"
 
 
+def test_hyphenated_generic_name_is_only_medium_match():
+    confidence, match = mod.match_confidence(
+        "KryptoSavings",
+        "kryptosavings.com",
+        "AdvCash mit neuer Funktion Krypto-Savings mit Nexo",
+        "Krypto-Savings zum Geld verdienen mit Kryptowährungen",
+        "",
+    )
+    assert confidence == "medium"
+    assert match == "name_normalized"
+
+
 def test_query_plan_covers_external_categories_and_legal_entities():
     plan = mod.query_plan("KryptoSavings", "kryptosavings.com", ["Open Delta DAO LLC"])
     categories = {category for category, _ in plan}
@@ -77,6 +89,25 @@ def test_extract_published_at_from_meta():
         "html.parser",
     )
     assert mod.extract_published_at(soup) == "2026-08-20T10:00:00Z"
+
+
+def test_bing_rss_parser(monkeypatch):
+    rss = """<?xml version="1.0"?><rss><channel><item>
+    <title>KryptoSavings review</title>
+    <link>https://example.com/kryptosavings</link>
+    <description><![CDATA[Independent <b>KryptoSavings</b> review]]></description>
+    </item></channel></rss>"""
+
+    class Response:
+        ok = True
+        text = rss
+
+    monkeypatch.setattr(mod.requests, "get", lambda *args, **kwargs: Response())
+    hits = mod.search_bing_rss('"KryptoSavings"')
+    assert len(hits) == 1
+    assert hits[0].provider == "bing-rss"
+    assert hits[0].url == "https://example.com/kryptosavings"
+    assert hits[0].snippet == "Independent KryptoSavings review"
 
 
 def test_enrich_keeps_confirmed_trace_and_rejects_search_context_only(monkeypatch):
@@ -130,6 +161,36 @@ def test_enrich_keeps_confirmed_trace_and_rejects_search_context_only(monkeypatc
     assert trace["published_at"] == "2026-08-20"
     assert trace["attribution_confidence"] == "high"
     assert "KryptoSavings" in trace["evidence"]
+
+
+def test_normalized_name_similarity_goes_to_review_candidates(monkeypatch):
+    candidate = mod.SearchHit(
+        url="https://example.com/old-krypto-savings",
+        title="AdvCash Krypto-Savings mit Nexo",
+        snippet="Krypto-Savings zum Geld verdienen mit Kryptowährungen",
+        query='"KryptoSavings"',
+        provider="test",
+    )
+    monkeypatch.setattr(
+        mod,
+        "web_search",
+        lambda query, limit=6: ([candidate], [{"query": query, "provider": "test", "results": 1}]) if query == '"KryptoSavings"' else ([], []),
+    )
+    monkeypatch.setattr(
+        mod,
+        "read_public_page",
+        lambda url: {
+            "ok": True,
+            "url": url,
+            "title": "AdvCash Krypto-Savings mit Nexo",
+            "text": "AdvCash bietet eine Funktion Krypto-Savings mit Nexo an.",
+            "published_at": "2021-10-01",
+        },
+    )
+    ext = mod.enrich(core_result())["external_research"]
+    assert ext["traces"] == []
+    assert len(ext["review_candidates"]) == 1
+    assert ext["review_candidates"][0]["attribution_confidence"] == "medium"
 
 
 def test_project_owned_external_hit_is_not_misrepresented_as_independent(monkeypatch):
