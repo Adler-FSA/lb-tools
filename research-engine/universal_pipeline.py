@@ -31,7 +31,7 @@ def load_module(name: str, filename: str):
 router = load_module("universal_research_router", "research_router.py")
 engine = load_module("universal_core_engine", "engine.py")
 external = load_module("universal_external_research", "external_research.py")
-operator = load_module("universal_operator_research", "operator_registry_research.py")
+operator = load_module("universal_operator_research", "universal_operator_research.py")
 people = load_module("universal_people_pipeline", "people_history_pipeline.py")
 academy = load_module("universal_academy_analysis", "academy_analysis.py")
 sixteen = load_module("universal_sixteen_adapter", "sixteen_point_people_adapter.py")
