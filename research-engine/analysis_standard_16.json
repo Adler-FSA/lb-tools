@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "source": "Akademie-Projektanalyse · verbindlicher Arbeitsstandard",
+  "source_repo": "Adler-FSA/lp-anfang",
+  "source_path": "pages/projekt-analysen/projektpruefung-rechtsrahmen.html",
+  "principle": "Jeder Punkt erhält Feststellung, Nachweis, Gegenprüfung, Bewertung und Begründung. Fehlende Informationen sind kein Betrugsbeweis, sondern eine Forschungslücke.",
+  "questions": [
+    {
+      "id": 1,
+      "title": "Was ist das konkrete Produkt?",
+      "standard": "Produkt technisch und wirtschaftlich erklären: Was kauft, überträgt oder erhält der Kunde tatsächlich? Token, Karte, Earn-Produkt, Beteiligung, Lizenz, Service, Mining, Staking, Trading, Reiseprodukt oder Mischmodell sauber trennen."
+    },
+    {
+      "id": 2,
+      "title": "Welches reale Problem soll gelöst werden?",
+      "standard": "Problem, Zielgruppe und Nutzen prüfen. Gibt es dafür einen realen Markt? Ist der Nutzen eigenständig oder entsteht Attraktivität hauptsächlich durch Rendite, Bonus oder Empfehlungssystem?"
+    },
+    {
+      "id": 3,
+      "title": "Ist die öffentliche Beschreibung sachlich und konsistent?",
+      "standard": "Website, FAQ, Whitepaper, Präsentationen, Calls und Vertriebsaussagen vergleichen. Begriffe wie garantiert, dezentral, Bank, Kreditkarte, risikofrei, institutionell, Self-Custody oder lebenslang separat prüfen."
+    },
+    {
+      "id": 4,
+      "title": "Wer ist der Betreiber?",
+      "standard": "Vollständiger Rechtsträger, Firmennummer, Sitz, Geschäftsanschrift, Gründungsdatum, Registerstatus, wirtschaftlich Berechtigte, Direktoren und verbundene Gesellschaften recherchieren."
+    },
+    {
+      "id": 5,
+      "title": "Wer kontrolliert das Unternehmen und welche Historie besteht?",
+      "standard": "Management, Eigentümer, frühere Firmen, berufliche Historie, Qualifikation, frühere Projekte, Insolvenz- oder Warnsignale und tatsächliche operative Substanz prüfen. Identitätsverifikation ist kein Leistungsnachweis."
+    },
+    {
+      "id": 6,
+      "title": "Welche regulatorische Erlaubnis liegt vor?",
+      "standard": "Nicht nur reguliert ja/nein. Zuständige Behörde, Lizenznummer, konkrete juristische Person, erlaubte Dienstleistungen, Zielmarkt, Passporting, Status und mögliche Widerrufe dokumentieren."
+    },
+    {
+      "id": 7,
+      "title": "Wo befinden sich Kundengelder und wer kontrolliert sie?",
+      "standard": "Custody, Wallet-Architektur, Private-Key-Kontrolle, Sammelwallets, Segregation, Insolvenzschutz, Sperrrechte, Auszahlungsfreigaben, Banking-Partner und Gegenparteien nachvollziehen."
+    },
+    {
+      "id": 8,
+      "title": "Wie transparent und vollständig sind Gebühren?",
+      "standard": "Einstieg, laufende Gebühren, Spreads, FX, Gas, Performance Fee, Exit, Withdrawal, Netzwerk-, Karten-, Dritt- und versteckte Kosten erfassen. Effektive Kosten mit Beispielen berechnen."
+    },
+    {
+      "id": 9,
+      "title": "Ist Preis oder Rendite marktüblich und plausibel?",
+      "standard": "Marktvergleich durchführen. Bei Renditen Zinseszins, notwendige Bruttorendite, Verlustphasen, Drawdowns, Leverage, Volatilität und Kosten mathematisch gegenrechnen."
+    },
+    {
+      "id": 10,
+      "title": "Woher entstehen Einnahmen und Erträge tatsächlich?",
+      "standard": "Operative Umsätze, Trading, Gebühren, Token-Emission, Neu-Kapital, Subventionen, Affiliate, Revenue Share oder andere Quellen trennen. Ertragsquelle braucht unabhängige Nachweise, nicht nur Dashboard-Zahlen."
+    },
+    {
+      "id": 11,
+      "title": "Gibt es Empfehlungs-, Partner- oder Mehrstufenvergütung?",
+      "standard": "Vergütungsplan vollständig zerlegen: Ebenen, Ränge, Voraussetzungen, direkte und indirekte Provision, Umsatzbezug, Einzahlungsbezug, laufende Beteiligung und wirtschaftliche Bedeutung des Neukundenzuflusses."
+    },
+    {
+      "id": 12,
+      "title": "Ist das Modell ohne neue Teilnehmer nachhaltig?",
+      "standard": "Prüfen, ob externe operative Erträge die Kundenrenditen, Boni, Provisionen, Betrieb, Compliance und Rückstellungen tragen können. Wenn möglich Szenarien und Break-even-Rechnung erstellen."
+    },
+    {
+      "id": 13,
+      "title": "Was beweisen Auszahlungen, Boni und Garantien wirklich?",
+      "standard": "Einzelne Auszahlungen sind kein Solvenznachweis. Boni brauchen Finanzierungsquelle. Garantien, Laufzeitversprechen und lebenslang-Aussagen benötigen belastbare Vertragsgrundlage und tragfähigen Verpflichteten."
+    },
+    {
+      "id": 14,
+      "title": "Ist das Produkt konkurrenzfähig und praktisch nutzbar?",
+      "standard": "Funktion, Gebühren, Liquidität, Verfügbarkeit, Limits, Nutzerrechte, Support, Ein- und Auszahlung und Alternativen vergleichen. Nicht nur Features, sondern reale Nutzbarkeit bewerten."
+    },
+    {
+      "id": 15,
+      "title": "Welche Hauptrisiken und Red Flags bestehen?",
+      "standard": "Markt-, Liquiditäts-, Gegenpartei-, Verwahr-, Cyber-, Smart-Contract-, Insolvenz-, Rechts-, Steuer-, Vertriebs-, Token-, Governance-, Schlüssel- und Auszahlungsrisiken zusammenführen. Wechselwirkungen ausdrücklich benennen."
+    },
+    {
+      "id": 16,
+      "title": "Akademie-Gesamtbewertung",
+      "standard": "Das Gesamturteil muss positive Nachweise, offene Punkte und negative Signale gemeinsam gewichten. Kein einzelner grüner Punkt darf mehrere zentrale rote Kernrisiken überdecken. Ergebnis mit klarer Ampel und Begründung."
+    }
+  ]
+}
