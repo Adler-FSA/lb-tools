@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-23T16:56:33.295136+00:00",
+  "generated_at": "2026-08-23T17:02:30.096419+00:00",
   "engine_exit_code": 0,
   "status": "ok",
   "product": "projektanalyse",
@@ -194,14 +194,14 @@
   "people_research": {
     "status": "ok",
     "summary": {
-      "person_profile_count": 13,
+      "person_profile_count": 14,
       "project_linked_person_count": 0,
       "ownership_claim_profile_count": 0,
       "verified_ubo_count": 0,
       "adverse_record_count": 0,
       "entity_domain_crawl_count": 0,
       "entity_domain_finding_count": 0,
-      "project_claimed_person_count": 13
+      "project_claimed_person_count": 14
     },
     "profiles": [
       {
@@ -218,7 +218,7 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Exflow Roman Rossov",
+        "person_name": "Roman Rossov",
         "entity": "",
         "roles": [
           "Board member"
@@ -231,7 +231,7 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Wise Reeve Collins",
+        "person_name": "Reeve Collins",
         "entity": "",
         "roles": [
           "Board member"
@@ -244,33 +244,7 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Tether Maksym Sakharov Group",
-        "entity": "",
-        "roles": [
-          "CEO"
-        ],
-        "entity_connection_status": "not_assessed",
-        "project_connection_status": "project_claim_only",
-        "ownership_status": "not_verified",
-        "ubo_verified": false,
-        "history_record_count": 0,
-        "adverse_record_count": 0
-      },
-      {
-        "person_name": "Tether Roman Rossov",
-        "entity": "",
-        "roles": [
-          "Chief Product Officer"
-        ],
-        "entity_connection_status": "not_assessed",
-        "project_connection_status": "project_claim_only",
-        "ownership_status": "not_verified",
-        "ubo_verified": false,
-        "history_record_count": 0,
-        "adverse_record_count": 0
-      },
-      {
-        "person_name": "Wise Yusuf Mirakhmedov",
+        "person_name": "Yusuf Mirakhmedov",
         "entity": "",
         "roles": [
           "Board member"
@@ -283,7 +257,7 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Tradeleaf Khaled Suleiman",
+        "person_name": "Khaled Suleiman",
         "entity": "",
         "roles": [
           "Board member"
@@ -296,7 +270,7 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Abu Dhabi Henry Kukk",
+        "person_name": "Henry Kukk",
         "entity": "",
         "roles": [
           "Chief Technology Officer"
@@ -309,7 +283,7 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Bitget Yusuf Mirakhmedov",
+        "person_name": "Kerel Verwaerde",
         "entity": "",
         "roles": [
           "Board member"
@@ -322,10 +296,10 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Bitget Sathya Partha Design",
+        "person_name": "Sathya Partha",
         "entity": "",
         "roles": [
-          "Director"
+          "Design Director"
         ],
         "entity_connection_status": "not_assessed",
         "project_connection_status": "project_claim_only",
@@ -335,10 +309,10 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "VISA Artem Dushkin Creative",
+        "person_name": "Ricky Rose",
         "entity": "",
         "roles": [
-          "Director"
+          "VP of Customer Success"
         ],
         "entity_connection_status": "not_assessed",
         "project_connection_status": "project_claim_only",
@@ -348,10 +322,10 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Production Sathya Partha Design",
+        "person_name": "Michael Batuev",
         "entity": "",
         "roles": [
-          "Director"
+          "Head of Payments"
         ],
         "entity_connection_status": "not_assessed",
         "project_connection_status": "project_claim_only",
@@ -361,10 +335,49 @@
         "adverse_record_count": 0
       },
       {
-        "person_name": "Group CEO",
+        "person_name": "Artem Dushkin",
         "entity": "",
         "roles": [
-          "Board member"
+          "Creative Director"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Core Values",
+        "entity": "",
+        "roles": [
+          "founder"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Stay Relentless",
+        "entity": "",
+        "roles": [
+          "founder"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Own It End-to-End",
+        "entity": "",
+        "roles": [
+          "founder"
         ],
         "entity_connection_status": "not_assessed",
         "project_connection_status": "project_claim_only",
@@ -388,11 +401,11 @@
       "comparison_count": 4,
       "counts_by_assessment": {
         "independently_supported": 0,
-        "contradicted": 0,
         "context_challenged": 0,
-        "partially_supported": 4,
         "open": 0,
-        "not_independently_verified": 0
+        "contradicted": 0,
+        "not_independently_verified": 0,
+        "partially_supported": 4
       },
       "open_question_count": 9,
       "tension_count": 0
@@ -495,7 +508,7 @@
         "id": 5,
         "title": "Wer kontrolliert das Unternehmen und welche Historie besteht?",
         "state": "clarification_needed",
-        "finding": "Die Projektwebsite von https://app.wefi.co/register?ref=d14o0mtv7g nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum noch UBO- oder Kontrollstatus. Gefundene Rollen: Maksym Sakharov (Board member), Exflow Roman Rossov (Board member), Wise Reeve Collins (Board member), Tether Maksym Sakharov Group (CEO), Tether Roman Rossov (Chief Product Officer), Wise Yusuf Mirakhmedov (Board member), Tradeleaf Khaled Suleiman (Board member), Abu Dhabi Henry Kukk (Chief Technology Officer).",
+        "finding": "Die Projektwebsite von https://app.wefi.co/register?ref=d14o0mtv7g nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum noch UBO- oder Kontrollstatus. Gefundene Rollen: Maksym Sakharov (Board member), Roman Rossov (Board member), Reeve Collins (Board member), Yusuf Mirakhmedov (Board member), Khaled Suleiman (Board member), Henry Kukk (Chief Technology Officer), Kerel Verwaerde (Board member), Sathya Partha (Design Director).",
         "gaps": [
           "Direkte, unabhaengige Personen-/Kontrollverbindung zu https://app.wefi.co/register?ref=d14o0mtv7g fehlt.",
           "Eigentümer-/UBO-Struktur von https://app.wefi.co/register?ref=d14o0mtv7g ist nicht verifiziert.",
@@ -507,7 +520,7 @@
           "Offizielle Eigentümer-/UBO-Quellen und verbundene Gesellschaften pruefen.",
           "Berufshistorie, fruehere Projekte, Insolvenzen, Sanktionen und Behoerdenwarnungen personengenau recherchieren."
         ],
-        "evidence_count": 13,
+        "evidence_count": 14,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
