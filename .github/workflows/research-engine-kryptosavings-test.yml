@@ -63,30 +63,51 @@ jobs:
           echo "Recherche: $QUERY"
           python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json
 
-      - name: Klaus-Prüfpunkte – nur Projektname
+      - name: Klaus-Prüfpunkte – vollständiger Website-Rohresearch
         id: klaus
         continue-on-error: true
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
+          from urllib.parse import urlparse
 
           data = json.loads(Path('research-engine/output/kryptosavings-live.json').read_text(encoding='utf-8'))
           assert data.get('status') == 'ok', data.get('status')
 
           ctx = data['context']
           ana = data['analysis']
+          detected = ana.get('detected', {})
+
+          # Start wirklich nur über den Projektnamen.
           assert ctx.get('input_kind') == 'name', ctx
+          assert ctx.get('input_url') == '', ctx
           assert ctx.get('project_name') == 'KryptoSavings', ctx
           assert ctx.get('domain') == 'kryptosavings.com', ctx
+
+          # Rendite und Vertrieb fachlich getrennt.
           assert ana.get('max_yield_percentage') == 23.0, ana.get('max_yield_percentage')
           assert ana.get('max_commission_percentage') == 30.0, ana.get('max_commission_percentage')
-          assert ana.get('detected', {}).get('referral') is True
+          assert detected.get('referral') is True
+          assert detected.get('guarantee') is False, detected.get('guarantee')
+
+          # Die für den Website-Rohresearch vereinbarten Sachverhalte müssen erkennbar sein.
+          for key in ('defi', 'trading', 'lockup', 'withdrawal', 'kyc', 'custody'):
+              assert detected.get(key) is True, f'{key}: {detected.get(key)}'
+          assert ana.get('legal_entities'), 'Kein Betreiber-/Rechtsträgerhinweis erkannt'
 
           urls = [p.get('url', '') for p in ana.get('pages', [])]
-          assert any('/affiliate' in u for u in urls), urls
-          assert any('/strategy' in u for u in urls), urls
-          print('Klaus-Test OK: kryptosavings.com | 23% APY | 30% Provision | Referral erkannt')
+          paths = [(urlparse(u).path or '/').lower() for u in urls]
+          assert any('affiliate' in p for p in paths), urls
+          assert any('strategy' in p for p in paths), urls
+          assert any('terms' in p or 'legal' in p for p in paths), urls
+          assert any('risk' in p for p in paths), urls
+
+          # Statische Assets sind keine recherchierten Seiten.
+          forbidden = ('.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg', '.css', '.js', '.mp4', '.webm')
+          assert not any(p.endswith(forbidden) for p in paths), urls
+
+          print('Klaus-Test OK: Name → kryptosavings.com | 23% APY | 30% Provision | Affiliate/Strategy/Terms/Risk | KYC/Custody/Withdrawal | Betreiberhinweis')
           PY
 
       - name: Diagnose schreiben
