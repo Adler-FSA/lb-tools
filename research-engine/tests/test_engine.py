@@ -151,4 +151,16 @@ def test_smeared_address_is_not_accepted_as_legal_entity():
     assert not any("Kenya Open Delta DAO LLC" in x for x in out["legal_entities"])
 
 
+def test_research_pages_outrank_discovered_login_and_register():
+    # crawl() addiert real gefundenen Links +30. Fachlich wichtige Research-Seiten
+    # müssen selbst dann vor Login/Registrierung bleiben.
+    discovered_bonus = 30
+    affiliate = mod.link_priority("https://example.com/affiliate")
+    strategy = mod.link_priority("https://example.com/strategy")
+    login = mod.link_priority("https://example.com/login") + discovered_bonus
+    register = mod.link_priority("https://example.com/register") + discovered_bonus
+    assert affiliate > login
+    assert strategy > register
+
+
 # Bewusster Trigger für den Klaus-Live-Lauf mit ausschließlich dem Projektnamen.
