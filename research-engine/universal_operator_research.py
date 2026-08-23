@@ -25,6 +25,7 @@ def load_module(name: str, filename: str):
 base = load_module("operator_registry_research_base_for_universal", "operator_registry_research.py")
 adapters = load_module("registry_adapters_for_universal", "registry_adapters.py")
 identifiers = load_module("entity_identifier_research_for_universal", "entity_identifier_research.py")
+fintrac = load_module("fintrac_registry_research_for_universal", "fintrac_registry_research.py")
 
 
 def _compatible_record(record: dict) -> dict:
@@ -47,6 +48,16 @@ def _compatible_record(record: dict) -> dict:
     }
 
 
+def _refresh_summary(block: dict) -> None:
+    profiles = list(block.get("profiles") or [])
+    summary = block.setdefault("summary", {})
+    summary["official_or_registry_record_count"] = sum(len(p.get("official_or_registry_records") or []) for p in profiles)
+    summary["independent_record_count"] = sum(len(p.get("independent_records") or []) for p in profiles)
+    summary["record_count"] = sum(len(p.get("all_records") or []) for p in profiles)
+    summary["authority_context_record_count"] = sum(len(p.get("authority_context_records") or []) for p in profiles)
+    summary["identifier_name_conflict_count"] = sum(len(p.get("identifier_name_conflicts") or []) for p in profiles)
+
+
 def _merge_identifier_research(out: dict) -> None:
     identifier_block = identifiers.research(out)
     block = out.setdefault("operator_registry_research", {})
@@ -59,7 +70,7 @@ def _merge_identifier_research(out: dict) -> None:
         records = [x for x in identifier_block.get("records") or [] if str(x.get("entity") or "").lower() == entity.lower()]
         profile["identifier_claims"] = claims
         profile["identifier_records"] = records
-        conflicts = []
+        conflicts = list(profile.get("identifier_name_conflicts") or [])
         for rec in records:
             for name in rec.get("alternate_legal_names") or []:
                 if name.lower() != entity.lower() and name.lower() not in {x.lower() for x in conflicts}:
@@ -97,10 +108,93 @@ def _merge_identifier_research(out: dict) -> None:
         "independent_identifier_record_count": ids.get("independent_identifier_record_count", 0),
         "identifier_name_conflict_count": ids.get("identifier_name_conflict_count", 0),
     })
-    # Kompatible Gesamtzähler nach dem Merge neu berechnen.
-    summary["official_or_registry_record_count"] = sum(len(p.get("official_or_registry_records") or []) for p in profiles)
-    summary["independent_record_count"] = sum(len(p.get("independent_records") or []) for p in profiles)
-    summary["record_count"] = sum(len(p.get("all_records") or []) for p in profiles)
+    _refresh_summary(block)
+
+
+def _fintrac_record(profile: dict, match: dict) -> dict:
+    evidence = (
+        f"FINTRAC registry match. Organization: {match.get('organization_names') or '—'}; "
+        f"MSB status: {match.get('registration_status') or '—'}; MSB number: {match.get('msb_registration_number') or '—'}; "
+        f"incorporation number: {match.get('incorporation_number') or '—'}; jurisdiction: {match.get('jurisdiction_of_incorporation') or '—'}; "
+        f"address: {match.get('business_address') or '—'}."
+    )
+    return {
+        "entity": profile.get("entity") or "",
+        "source_role": "regulator",
+        "source_url": match.get("source_url") or fintrac.CSV_URL,
+        "title": "FINTRAC Money Services Business Registry",
+        "evidence": evidence,
+        "published_at": "",
+        "record_type": "registry_record",
+        "status_text": match.get("registration_status") or "",
+        "license_number": match.get("msb_registration_number") or match.get("incorporation_number") or "",
+        "project_connection": "identifier_match_only",
+        "project_match": ", ".join(match.get("matched_identifiers") or []),
+        "authority_confidence": "high",
+        "fetched": True,
+        "found_via": "FINTRAC official CSV registry",
+    }
+
+
+def _merge_fintrac(out: dict) -> None:
+    result = fintrac.research(out)
+    block = out.setdefault("operator_registry_research", {})
+    block["fintrac_registry_research"] = result
+    if result.get("status") not in {"ok", "no_match"}:
+        _refresh_summary(block)
+        return
+
+    profiles = list(block.get("profiles") or [])
+    scope = result.get("scope_context") or {}
+    for profile in profiles:
+        entity = str(profile.get("entity") or "")
+        claim_ids = {str(x.get("identifier_compact") or "") for x in profile.get("identifier_claims") or [] if x.get("identifier_compact")}
+        relevant = [m for m in result.get("matches") or [] if claim_ids.intersection(set(m.get("matched_identifiers") or []))]
+        if not relevant:
+            continue
+
+        official = list(profile.get("official_or_registry_records") or [])
+        all_records = list(profile.get("all_records") or [])
+        conflicts = list(profile.get("identifier_name_conflicts") or [])
+        for match in relevant:
+            rec = _fintrac_record(profile, match)
+            if not any(x.get("source_url") == rec["source_url"] and x.get("license_number") == rec["license_number"] for x in official):
+                official.append(rec)
+            if not any(x.get("source_url") == rec["source_url"] and x.get("license_number") == rec["license_number"] for x in all_records):
+                all_records.append(rec)
+            names = str(match.get("organization_names") or "")
+            for candidate in identifiers._alternate_names(names, entity):
+                if candidate.lower() != entity.lower() and candidate.lower() not in {x.lower() for x in conflicts}:
+                    conflicts.append(candidate)
+
+        profile["official_or_registry_records"] = official
+        profile["all_records"] = all_records
+        profile["identifier_name_conflicts"] = conflicts
+        profile["existence_status"] = "official_or_registry_trace_found"
+        if profile.get("project_connection_status") == "project_claim_only_or_not_shown":
+            profile["project_connection_status"] = "identifier_matched_officially_project_role_open"
+
+        contexts = list(profile.get("authority_context_records") or [])
+        context_rec = {
+            "claimed_authority": "FINTRAC",
+            "claimed_authority_host": "fintrac-canafe.canada.ca",
+            "source_role": scope.get("source_role") or "regulator",
+            "source_url": scope.get("source_url") or fintrac.REGISTRY_URL,
+            "title": scope.get("title") or "FINTRAC registry scope",
+            "evidence": scope.get("evidence") or "",
+            "published_at": "",
+            "context_type": scope.get("context_type") or "registration_scope",
+            "authority_confidence": scope.get("authority_confidence") or "high",
+            "fetched": True,
+        }
+        if not any(x.get("source_url") == context_rec["source_url"] and x.get("context_type") == context_rec["context_type"] for x in contexts):
+            contexts.append(context_rec)
+        profile["authority_context_records"] = contexts
+
+    summary = block.setdefault("summary", {})
+    summary["fintrac_match_count"] = len(result.get("matches") or [])
+    summary["fintrac_registry_status"] = result.get("status")
+    _refresh_summary(block)
 
 
 def enrich(data: dict) -> dict:
@@ -129,6 +223,8 @@ def enrich(data: dict) -> dict:
             "principle": "Spezialregister werden nur bei passendem Jurisdiktionshinweis aktiviert.",
         }
         _merge_identifier_research(out)
+        if "fintrac_canada" in selected:
+            _merge_fintrac(out)
         return out
     finally:
         base.DIRECT_REGISTRY_PROBES = original_probes
