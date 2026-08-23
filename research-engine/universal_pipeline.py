@@ -96,10 +96,22 @@ def run_core(query: str, max_pages: int) -> dict:
     }
 
 
+def _attach_input_basis(data: dict, request) -> dict:
+    ctx = data.setdefault("context", {})
+    ctx["input"] = request.raw
+    ctx["input_kind"] = request.input_kind
+    ctx["original_evidence_anchor"] = request.raw
+    ctx["anchor_type"] = request.anchor_type
+    ctx["anchor_strength"] = request.anchor_strength
+    if request.input_kind == "url":
+        ctx["input_url"] = request.normalized_input
+    return data
+
+
 def resolve_and_run_core(request, max_pages: int) -> dict:
-    """Löst Namenseingaben zuerst über Webkandidaten auf; Domainraten ist nur Fallback."""
+    """Konkrete Links direkt prüfen; reine Namen nur nach bestätigter Web-Identität."""
     if request.input_kind != "name":
-        return run_core(request.normalized_input, max_pages)
+        return _attach_input_basis(run_core(request.normalized_input, max_pages), request)
 
     resolution = identity.resolve(request.normalized_input)
     if resolution.get("status") == "resolved" and resolution.get("resolved_url"):
@@ -112,6 +124,9 @@ def resolve_and_run_core(request, max_pages: int) -> dict:
             "project_name": request.raw,
             "domain": resolution.get("domain") or ctx.get("domain") or "",
             "resolved_url": resolution.get("resolved_url") or ctx.get("resolved_url") or "",
+            "original_evidence_anchor": request.raw,
+            "anchor_type": request.anchor_type,
+            "anchor_strength": request.anchor_strength,
         })
         data["identity_resolution"] = {**resolution, "fallback_used": False}
         return data
@@ -126,16 +141,32 @@ def resolve_and_run_core(request, max_pages: int) -> dict:
                 "project_name": request.raw,
                 "domain": "",
                 "resolved_url": "",
+                "original_evidence_anchor": request.raw,
+                "anchor_type": request.anchor_type,
+                "anchor_strength": request.anchor_strength,
             },
             "identity_resolution": {**resolution, "fallback_used": False},
+            "note": "Der Name allein führt zu mehreren plausiblen Projekten. Bitte möglichst den Original-Link, die Domain oder einen Referral-/Registrierungslink ergänzen.",
             "principle": "Bei mehreren ähnlich plausiblen Projekten wird keine Website geraten.",
         }
 
-    # Suchprovider können temporär ausfallen. Der alte konservative Domainresolver bleibt
-    # deshalb als dokumentierter Fallback erhalten, nicht mehr als erste Identitätslogik.
-    data = run_core(request.normalized_input, max_pages)
-    data["identity_resolution"] = {**resolution, "fallback_used": True}
-    return data
+    return {
+        "version": 2,
+        "status": "website_not_resolved",
+        "context": {
+            "input": request.raw,
+            "input_kind": "name",
+            "project_name": request.raw,
+            "domain": "",
+            "resolved_url": "",
+            "original_evidence_anchor": request.raw,
+            "anchor_type": request.anchor_type,
+            "anchor_strength": request.anchor_strength,
+        },
+        "identity_resolution": {**resolution, "fallback_used": False},
+        "note": "Nur der Firmen-/Projektname reicht noch nicht für eine belastbare Zuordnung. Bitte möglichst den Original-Link aus Werbung/WhatsApp/Telegram, die Domain oder einen Referral-/Registrierungslink verwenden.",
+        "principle": "Keine Projektwebsite aus einem Namen erraten: Erst Identität bestätigen, dann recherchieren.",
+    }
 
 
 def build_quick_view(data: dict) -> dict:
@@ -151,6 +182,8 @@ def build_quick_view(data: dict) -> dict:
         ) if detected.get(key)
     ]
     gaps = []
+    if ctx.get("anchor_strength") == "low":
+        gaps.append("Ausgangsbasis war nur ein Firmen-/Projektname; ein Original-Link oder eine Domain würde die Zuordnung zusätzlich absichern.")
     if not analysis.get("legal_entities"):
         gaps.append("Vertragspartner/Rechtsträger auf der Projektwebsite noch nicht eindeutig erkannt.")
     if ext.get("status") == "no_confirmed_external_traces":
@@ -165,6 +198,9 @@ def build_quick_view(data: dict) -> dict:
         "project_name": ctx.get("project_name") or ctx.get("input") or "",
         "domain": ctx.get("domain") or "",
         "resolved_url": ctx.get("resolved_url") or "",
+        "original_evidence_anchor": ctx.get("original_evidence_anchor") or ctx.get("input") or "",
+        "anchor_type": ctx.get("anchor_type") or "",
+        "anchor_strength": ctx.get("anchor_strength") or "",
         "max_yield_percentage": analysis.get("max_yield_percentage"),
         "max_commission_percentage": analysis.get("max_commission_percentage"),
         "legal_entities_claimed": analysis.get("legal_entities") or [],
@@ -174,7 +210,7 @@ def build_quick_view(data: dict) -> dict:
         "research_gaps": gaps,
         "deep_research_recommended": bool(gaps or detected.get("leverage") or detected.get("guarantee")),
         "research_depth": "quick",
-        "principle": "Erste Klarheit, kein Seriositäts- oder Betrugsurteil.",
+        "principle": "Erste Klarheit auf Basis des konkreten Fundstücks; kein Seriositäts- oder Betrugsurteil.",
     }
 
 
@@ -241,7 +277,7 @@ def run(query: str, mode: str = "quick") -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Akademie Universal Research Engine")
-    ap.add_argument("query", help="Projektname, Domain, URL, Referral-Link oder technische Kennung")
+    ap.add_argument("query", help="Bevorzugt: Original-/Referral-/Registrierungslink oder Domain; alternativ Firmen-/Projektname")
     ap.add_argument("--mode", choices=("quick", "deep"), default="quick")
     ap.add_argument("--output", default="", help="Optionaler Zielpfad. Standard: output/<slug>-<mode>.json")
     args = ap.parse_args()
