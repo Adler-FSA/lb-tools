@@ -89,7 +89,10 @@ jobs:
           assert op.get('status') == 'ok'
           assert op.get('project_name') == 'KryptoSavings'
           assert op.get('project_domain') == 'kryptosavings.com'
-          assert set(op.get('entities_from_project_website') or []) >= {'Delta West Credit Bank Ltd','Open Delta DAO LLC'}
+          assert set(op.get('entities_from_project_website') or []) >= {
+              'Delta West Credit Bank Ltd', 'Open Delta DAO LLC', 'GBH Coriolis Bancorp'
+          }
+          assert op.get('derived_entity_count',0) >= 1, 'GBH Coriolis Bancorp wurde nicht aus der Website-Fundstelle nachgezogen'
           assert attempts, 'Keine Betreiber-/Register-Suchen protokolliert'
           assert profiles, 'Keine Entity-Profile erzeugt'
 
@@ -97,7 +100,6 @@ jobs:
               assert p.get('existence_status') in {'registry_or_authority_trace','entity_self_trace','independent_trace','not_verified'}
               assert p.get('project_connection_status') in {'externally_linked','not_independently_linked'}
 
-          # Live-Testziel: mindestens eine externe Spur zu einem der auf der Website genannten Rechtsträger.
           assert records, 'Keine externe Rechtsträgerspur gefunden'
           for r in records:
               assert r.get('entity')
@@ -106,10 +108,16 @@ jobs:
               assert r.get('project_connection') in {'externally_linked','possible_link','not_shown'}
               assert r.get('evidence')
 
+          # Für den KryptoSavings-Referenzfall sollen wir mindestens für die beiden Banknamen
+          # eine externe Spur finden. Ein Registerfund bestätigt dabei NICHT automatisch die Projektrolle.
+          entity_names={r.get('entity') for r in records}
+          assert 'Delta West Credit Bank Ltd' in entity_names, entity_names
+          assert 'GBH Coriolis Bancorp' in entity_names, entity_names
+
           print(f"Betreiber-Research OK: {len(profiles)} Rechtsträger | {len(records)} externe Spuren")
           for p in profiles:
               print(f"ENTITY: {p['entity']} | Existenz={p['existence_status']} | KryptoSavings-Verbindung={p['project_connection_status']} | Records={p['record_count']}")
-          for r in records[:12]:
+          for r in records[:16]:
               print(f"RECORD: [{r['source_role']}/{r['record_type']}] {r['entity']} | {r.get('status_text') or '-'} | {r.get('license_number') or '-'} | Link={r['project_connection']} -> {r['source_url']}")
           PY
 
