@@ -156,6 +156,17 @@ jobs:
           print(status)
           PY
 
+      - name: Liveoutputs als Debug-Artefakt sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-engine-16-point-${{ github.run_id }}
+          path: |
+            research-engine/output/16-point-status.json
+            research-engine/output/kryptosavings-16-points.json
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Ergebnisse auf main sichern
         if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
