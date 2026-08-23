@@ -1,0 +1,159 @@
+name: Akademie Research Engine – Betreiber Register Behörden
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Projektname"
+        required: false
+        default: "KryptoSavings"
+  push:
+    branches:
+      - main
+    paths:
+      - "research-engine/operator_registry_research.py"
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-operator-registry-test.yml"
+  pull_request:
+    paths:
+      - "research-engine/operator_registry_research.py"
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-operator-registry-test.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  operator-registry-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeiten installieren
+        id: deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt pytest
+
+      - name: Regressionstests
+        id: tests
+        run: python -m pytest -q research-engine/tests
+
+      - name: Website-Rohresearch
+        id: website
+        shell: bash
+        env:
+          INPUT_QUERY: ${{ github.event.inputs.query }}
+        run: |
+          QUERY="${INPUT_QUERY:-KryptoSavings}"
+          python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json
+
+      - name: Externe Rohrecherche
+        id: external
+        run: |
+          python research-engine/external_research.py \
+            --input research-engine/output/kryptosavings-live.json \
+            --output research-engine/output/kryptosavings-external.json
+
+      - name: Betreiber Register Behörden recherchieren
+        id: operator
+        run: |
+          python research-engine/operator_registry_research.py \
+            --input research-engine/output/kryptosavings-external.json \
+            --output research-engine/output/kryptosavings-operators.json
+
+      - name: Betreiber-Ergebnis prüfen
+        id: checks
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data=json.loads(Path('research-engine/output/kryptosavings-operators.json').read_text(encoding='utf-8'))
+          op=data.get('operator_registry_research') or {}
+          profiles=op.get('profiles') or []
+          records=op.get('records') or []
+          attempts=op.get('search_attempts') or []
+
+          assert data.get('status') == 'ok'
+          assert op.get('status') == 'ok'
+          assert op.get('project_name') == 'KryptoSavings'
+          assert op.get('project_domain') == 'kryptosavings.com'
+          assert set(op.get('entities_from_project_website') or []) >= {'Delta West Credit Bank Ltd','Open Delta DAO LLC'}
+          assert attempts, 'Keine Betreiber-/Register-Suchen protokolliert'
+          assert profiles, 'Keine Entity-Profile erzeugt'
+
+          for p in profiles:
+              assert p.get('existence_status') in {'registry_or_authority_trace','entity_self_trace','independent_trace','not_verified'}
+              assert p.get('project_connection_status') in {'externally_linked','not_independently_linked'}
+
+          # Live-Testziel: mindestens eine externe Spur zu einem der auf der Website genannten Rechtsträger.
+          assert records, 'Keine externe Rechtsträgerspur gefunden'
+          for r in records:
+              assert r.get('entity')
+              assert r.get('source_url','').startswith(('http://','https://'))
+              assert r.get('source_role') in {'regulator','government','claimed_regulator_or_registry','entity_owned','independent'}
+              assert r.get('project_connection') in {'externally_linked','possible_link','not_shown'}
+              assert r.get('evidence')
+
+          print(f"Betreiber-Research OK: {len(profiles)} Rechtsträger | {len(records)} externe Spuren")
+          for p in profiles:
+              print(f"ENTITY: {p['entity']} | Existenz={p['existence_status']} | KryptoSavings-Verbindung={p['project_connection_status']} | Records={p['record_count']}")
+          for r in records[:12]:
+              print(f"RECORD: [{r['source_role']}/{r['record_type']}] {r['entity']} | {r.get('status_text') or '-'} | {r.get('license_number') or '-'} | Link={r['project_connection']} -> {r['source_url']}")
+          PY
+
+      - name: Diagnose schreiben
+        if: always()
+        env:
+          DEPS: ${{ steps.deps.outcome }}
+          TESTS: ${{ steps.tests.outcome }}
+          WEBSITE: ${{ steps.website.outcome }}
+          EXTERNAL: ${{ steps.external.outcome }}
+          OPERATOR: ${{ steps.operator.outcome }}
+          CHECKS: ${{ steps.checks.outcome }}
+        run: |
+          mkdir -p research-engine/output
+          python - <<'PY'
+          import json,os
+          from datetime import datetime,timezone
+          from pathlib import Path
+          status={
+            'generated_at':datetime.now(timezone.utc).isoformat(),
+            'dependencies':os.environ.get('DEPS'),
+            'tests':os.environ.get('TESTS'),
+            'website_research':os.environ.get('WEBSITE'),
+            'external_research':os.environ.get('EXTERNAL'),
+            'operator_registry_research':os.environ.get('OPERATOR'),
+            'operator_checks':os.environ.get('CHECKS'),
+          }
+          Path('research-engine/output/operator-status.json').write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(status)
+          PY
+
+      - name: Ergebnisse auf main sichern
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/output/operator-status.json
+          if [ -f research-engine/output/kryptosavings-operators.json ]; then
+            git add research-engine/output/kryptosavings-operators.json
+          fi
+          if git diff --cached --quiet; then
+            echo "Keine Änderung am Betreiber-Testergebnis."
+            exit 0
+          fi
+          git commit -m "Research Engine: Betreiber-Testdiagnose aktualisieren"
+          git pull --rebase
+          git push
