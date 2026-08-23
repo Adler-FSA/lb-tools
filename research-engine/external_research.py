@@ -323,12 +323,14 @@ def match_confidence(project_name: str, domain: str, title: str, snippet: str, p
     name = clean_text(project_name).lower()
     name_compact = compact(project_name)
     domain = (domain or "").lower().removeprefix("www.")
+    name_negated = bool(name and _negated_identity_reference(hay, name))
+    domain_negated = bool(domain and _negated_identity_reference(hay, domain))
 
-    if domain and domain in hay and not _negated_identity_reference(hay, domain):
+    if domain and domain in hay and not domain_negated:
         return "high", "domain_exact"
-    if name and name in hay and not _negated_identity_reference(hay, name):
+    if name and name in hay and not name_negated:
         return "high", "name_exact"
-    if len(name_compact) >= 6 and name_compact in compact(hay):
+    if len(name_compact) >= 6 and name_compact in compact(hay) and not name_negated:
         return "medium", "name_normalized"
     return "low", "search_context_only"
 
