@@ -5,8 +5,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'data/research-requests/**'
 
 permissions:
   contents: write
@@ -17,6 +15,7 @@ concurrency:
 
 jobs:
   research-request:
+    if: startsWith(github.event.head_commit.message, 'Research Auftrag')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
