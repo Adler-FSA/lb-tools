@@ -8,6 +8,7 @@ bewusst schlank und bekommt ein eigenes Zeit-/Fetch-Budget.
 from __future__ import annotations
 
 import importlib.util
+import re
 import sys
 from pathlib import Path
 
@@ -26,6 +27,12 @@ pipeline = load_module("universal_pipeline_runtime_base", "universal_pipeline.py
 academy = load_module("universal_runtime_academy", "universal_academy_analysis.py")
 sixteen = load_module("universal_runtime_sixteen", "universal_sixteen_analysis.py")
 quality = load_module("universal_runtime_quality", "research_quality.py")
+
+# Universal erweiterte Rechtsformen. Keine projektbezogenen Namen.
+pipeline.engine.LEGAL_FORMS = re.compile(
+    r"\b([A-ZÄÖÜ0-9][A-Za-zÄÖÜäöüß0-9&.,'’\- ]{1,90}\s(?:GmbH|AG|Aktiengesellschaft|SE|"
+    r"Ltd\.?|Limited|LLC|Inc\.?|PLC|S\.?A\.?|S\.p\.A\.|B\.V\.|Sarl|S\.à\s*r\.l\.?|S\.?R\.?L\.?))\b"
+)
 
 # Nur die Deep-Ausgabeschichten werden ersetzt. Routing, Identifikation und
 # Register-/Personenmodule bleiben dieselben.
@@ -81,7 +88,6 @@ def run(query: str, mode: str = "quick") -> dict:
     """Produktiver Lauf mit getrennten Quick-/Deep-Budgets und Qualitätsfilter."""
     mode = (mode or "quick").lower()
     if mode == "quick":
-        # Der SchnellCheck soll nicht minutenlang an blockierten Einzelquellen hängen.
         pipeline.engine.TIMEOUT = 7
         pipeline.engine._BROWSER_MAX = 2
         pipeline.quick_external.QUICK_MAX_FETCHED_PAGES = 4
@@ -109,8 +115,6 @@ def run(query: str, mode: str = "quick") -> dict:
     return result
 
 
-# pipeline.main() löst den Namen `run` zur Laufzeit im Pipeline-Modul auf.
-# Deshalb erhält auch der CLI-/Workflow-Aufruf automatisch dasselbe Zeitbudget.
 pipeline.run = run
 slugify = pipeline.slugify
 
