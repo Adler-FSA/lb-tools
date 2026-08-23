@@ -1,52 +1,121 @@
 # Akademie Research Engine
 
-Interner Recherche-Motor für den **Projekt Frühwarn-Check** der Akademie für finanzielle Souveränität.
+Interner, universeller Recherche-Motor der Akademie fuer finanzielle Souveraenitaet.
 
-## Aufgabe
+Leitprinzip: **Klarheit, bevor Geld fliesst.**
 
-Die Engine bekommt das, was ein Nutzer tatsächlich kennt: einen Projekt-/Markennamen, eine Domain oder einen Referral-/Affiliate-Link. Daraus baut sie schrittweise eine belegbare öffentliche Faktenbasis auf.
+Die Engine bewertet nicht automatisch, ob ein Projekt serioes oder unserioes ist. Sie sammelt, trennt und vergleicht oeffentlich auffindbare Hinweise, Quellen, Gegenquellen und Forschungsluecken.
 
-Sie soll **nicht** entscheiden, ob ein Projekt seriös oder unseriös ist. Sie sammelt und strukturiert öffentlich auffindbare Hinweise, damit die Akademie anschließend Risiken, Fallstricke, Widersprüche und offene Fragen verständlich erklären kann.
+## Ein Motor, zwei Produkte
 
-## Recherche-Kaskade V1
+### 1. SchnellCheck (`quick`)
 
-1. Eingabe normalisieren.
-2. Projektwebsite/Domain identifizieren.
-3. Startseite und relevante Unterseiten lesen.
-4. Produkt-/Geschäftsmodell-Hinweise erkennen.
-5. Rendite-/APY-/APR-Angaben extrahieren.
-6. Referral-/Affiliate-/Partnerstrukturen erkennen.
-7. Laufzeiten und mögliche Kapitalbindung erkennen.
-8. Auszahlung/KYC erkennen.
-9. Trading/Leverage/Strategiehinweise erkennen.
-10. Verwahrungs-/Custody-Aussagen erkennen.
-11. Betreiber-/Rechtsträgerhinweise extrahieren.
-12. Social-/Video-Spuren sammeln.
-13. Alle Fundstellen mit Quelle speichern.
+Der SchnellCheck ist die spaetere einfache Nutzeranwendung. Die Eingabe kann ein Projektname, eine Domain, eine URL oder ein Referral-Link sein.
 
-## Was V1 bewusst noch nicht tut
+Der Quick-Modus arbeitet bewusst begrenzt:
 
-- keine automatische Gesamtbewertung;
-- keine Behauptung „Betrug“/„seriös“;
-- noch keine vollständige freie Websuche nach Presse, Foren und Nutzerstimmen;
-- noch keine direkte Ausgabe für Klaus;
-- Behörden-/Registerdaten bleiben ein eigener Quellenbaustein der großen Projektanalyse und können später als Adapter zugeschaltet werden.
+1. Projektidentitaet aufloesen.
+2. Projektwebsite bestaetigen.
+3. wenige relevante Projektseiten lesen.
+4. Kernaussagen, Produktmerkmale, Rendite-/Provisionshinweise und Rechtstraegerhinweise erkennen.
+5. wenige priorisierte externe Spuren suchen.
+6. Research-Luecken benennen.
+7. nur dann Deep Research empfehlen, wenn weitere Klaerung sinnvoll ist.
 
-## Dateien
+Der SchnellCheck startet **keine vollstaendige Personen-, Register-, Social-, Community- oder 16-Punkte-Recherche**.
 
-- `engine.py` – Recherche-Motor
-- `requirements.txt` – Python-Abhängigkeiten
-- `tests/test_engine.py` – Regressionstests
-- `output/` – strukturierte Test-/Rechercheergebnisse
+### 2. Projektanalyse / Deep Research (`deep`)
+
+Der Deep-Modus nutzt denselben Motor, erweitert ihn aber um die volle Akademie-Recherche:
+
+- breite externe Recherche;
+- Betreiber und Rechtstraeger;
+- triggerbasierte Register-/Behoerdenadapter;
+- Management, Personen, Historie und UBO-Trennung;
+- Akademie-Vergleich Projektbehauptung ↔ externe Quelle ↔ Gegenquelle;
+- vollstaendige 16-Punkte-Akademiepruefung.
+
+Die Gesamtampel bleibt gesperrt, solange wesentliche Forschungsluecken oder Quellenkonflikte bestehen.
+
+## Universelle Eingaben
+
+Der Request-Router in `research_router.py` unterscheidet unter anderem:
+
+- bloßer Projekt-/Markenname;
+- Domain oder normale URL;
+- Referral-/Affiliate-Link;
+- Social-Link;
+- Blockchain-/Contract-Adresse.
+
+Bei bloßen Namen wird die Website ueber `identity_resolver.py` gesucht und nur bei ausreichender Namens-/Domain-/Seitenuebereinstimmung automatisch bestaetigt. Bei mehreren plausiblen Kandidaten wird keine Website geraten.
+
+## Trigger statt Sondercode
+
+Spezielle Research-Module werden nur zugeschaltet, wenn der aktuelle Datensatz einen passenden Hinweis liefert.
+
+Beispiel: Ein Mwali-/MISA-Registeradapter darf nur aktiviert werden, wenn im aktuell untersuchten Projekt oder in seiner externen Recherche ein entsprechender Jurisdiktionshinweis vorkommt. Andere Projekte bekommen diesen Adapter nicht.
+
+Dasselbe Prinzip gilt fuer Personen-, Blockchain-, Vertriebs- und spaetere Fachmodule.
+
+## Wichtige Universal-Dateien
+
+- `research_router.py` – klassifiziert Eingaben und plant Module
+- `identity_resolver.py` – universelle Projekt-/Website-Identifikation
+- `engine.py` – Website-Crawl und Kernaussagen
+- `quick_external_research.py` – begrenzte Fremdrecherche fuer SchnellCheck
+- `universal_operator_research.py` – generische Betreiberrecherche plus triggerbasierte Registeradapter
+- `universal_people_research.py` – generische Personen-/Managementfilter ohne Testprojektwissen
+- `universal_academy_analysis.py` – dynamische Akademie-Ausgabe fuer das aktuelle Projekt
+- `universal_sixteen_analysis.py` – dynamische Q4/Q5/Q6-Ausgabe fuer das aktuelle Projekt
+- `universal_pipeline.py` – gemeinsame Forschungs-Pipeline
+- `universal_runtime.py` – produktiver Universal-Runtime
+
+## Referenzprojekt vs. Produktcode
+
+KryptoSavings ist **kein fest eingebautes Projekt der Engine**. Es ist ein historischer Referenz- und Regressionstestfall.
+
+Die Referenz liegt unter:
+
+`tests/fixtures/kryptosavings/reference.json`
+
+Sie ist mit `runtime_dependency: false` gekennzeichnet. Produktiver Universal-Code darf diese Fixture nicht importieren oder fuer Entscheidungen verwenden.
+
+Neutrale Routing-/Universaltests liegen unter:
+
+`tests/fixtures/universal/`
+
+Dadurch koennen neue Projekte gegen denselben Motor getestet werden, ohne fuer jedes Projekt Sondercode zu schreiben.
+
+## 16-Punkte-Standard
+
+Der verbindliche Akademie-Standard liegt maschinenlesbar in:
+
+`analysis_standard_16.json`
+
+Jeder Punkt arbeitet mit:
+
+- Feststellung;
+- Nachweis;
+- Gegenpruefung;
+- Bewertung des Recherche-Stands;
+- Begruendung;
+- offenen Forschungsluecken;
+- naechstem Recherche-Schritt.
+
+Fehlende Informationen sind **kein Betrugsbeweis**. Ein Registereintrag beweist **nicht automatisch** eine Projektverbindung. Founder/CEO bedeutet **nicht automatisch** Eigentümer oder UBO.
 
 ## Datenprinzip
 
-Jede Feststellung soll möglichst enthalten:
+Jede belastbare Feststellung soll moeglichst enthalten:
 
 - `type` – Art des Hinweises
 - `value` – erkannter Wert
 - `source_url` – Fundstelle
 - `evidence` – kurze belegende Textstelle
-- `confidence` – technisch eindeutige Zuordnung (`high`, `medium`, `low`)
+- `confidence` – Zuordnungssicherheit
 
-Fehlende Informationen werden nicht als Entwarnung behandelt.
+Projektquelle, unabhaengige Quelle, Plattform-/Communityspur, Registerspur und Behoerdenkontext werden getrennt gehalten.
+
+## Produktregel
+
+**Im Hintergrund so tief wie noetig. Im SchnellCheck nur so viel wie fuer erste Klarheit erforderlich.**
