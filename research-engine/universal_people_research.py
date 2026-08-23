@@ -47,6 +47,13 @@ CRAWLER_BAD_WORDS = {
     "team", "leadership", "management", "corporate", "board",
 }
 
+PROJECT_SLOGAN_RE = re.compile(
+    r"\b(?:core\s+values?|our\s+values?|company\s+values?|mission|vision|our\s+mission|our\s+vision|"
+    r"stay\s+relentless|own\s+it(?:\s+end[- ]to[- ]end)?|end[- ]to[- ]end|culture|principles?|"
+    r"what\s+we\s+believe|how\s+we\s+work|why\s+we\s+exist)\b",
+    re.I,
+)
+
 
 def generic_crawler_name_ok(name: str) -> bool:
     n = pipeline.base.clean(name).strip(" .,:;()[]\"'")
@@ -57,6 +64,20 @@ def generic_crawler_name_ok(name: str) -> bool:
     if any(word in CRAWLER_BAD_WORDS for word in normalized):
         return False
     return not all(len(re.sub(r"[^A-Za-zÀ-ÖØ-öø-ÿ]", "", p)) <= 2 for p in parts)
+
+
+def generic_project_name_ok(value: str, *, flat_fallback: bool = False) -> bool:
+    """Projektseiten dürfen Teamnamen liefern, aber keine Werte-/Slogan-Überschriften."""
+    name = pipeline.base.clean(value).strip(" .,:;()[]\"'")
+    if not project_people._base_name_ok(name, flat_fallback=flat_fallback):
+        return False
+    if PROJECT_SLOGAN_RE.search(name):
+        return False
+    # Menschliche Namen bestehen im Regelfall nicht komplett aus Imperativen/Claims.
+    lowered = name.lower()
+    if any(phrase in lowered for phrase in ("stay ", "own it", "our ", "we ")):
+        return False
+    return True
 
 
 def _merge_project_claims(out: dict, discovery: dict) -> None:
@@ -127,11 +148,15 @@ def enrich(data: dict) -> dict:
     original_org_stop = pipeline.base.ORG_STOP
     original_bad_words = pipeline.base.BAD_WORDS
     original_crawler_name_ok = pipeline.crawler._name_ok
+    original_project_name_ok = project_people._name_ok
 
     try:
         pipeline.base.ORG_STOP = set(GENERIC_ORG_STOP)
         pipeline.base.BAD_WORDS = set(GENERIC_BAD_WORDS)
         pipeline.crawler._name_ok = generic_crawler_name_ok
+        # Referenz auf die unveränderte Basisprüfung, damit unser Wrapper sie aufrufen kann.
+        project_people._base_name_ok = original_project_name_ok
+        project_people._name_ok = generic_project_name_ok
         out = pipeline.enrich(data)
         discovery = project_people.discover_claims(out)
         _merge_project_claims(out, discovery)
@@ -148,3 +173,6 @@ def enrich(data: dict) -> dict:
         pipeline.base.ORG_STOP = original_org_stop
         pipeline.base.BAD_WORDS = original_bad_words
         pipeline.crawler._name_ok = original_crawler_name_ok
+        project_people._name_ok = original_project_name_ok
+        if hasattr(project_people, "_base_name_ok"):
+            delattr(project_people, "_base_name_ok")
