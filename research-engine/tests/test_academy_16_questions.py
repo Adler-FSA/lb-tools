@@ -115,7 +115,8 @@ def test_registry_existence_does_not_turn_operator_question_green():
     out = mod.enrich(sample_data())["academy_16_questions"]
     q4 = next(q for q in out["questions"] if q["number"] == 4)
     assert q4["traffic_light"] == "red"
-    assert "nicht" in q4["finding"].lower()
+    assert "unabhängig" in q4["finding"].lower()
+    assert "bestätigt" in q4["finding"].lower()
     assert any(x["source_role"] == "regulator" for x in q4["evidence"])
 
 
