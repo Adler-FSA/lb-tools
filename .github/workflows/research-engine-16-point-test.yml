@@ -12,6 +12,7 @@ on:
     paths:
       - "research-engine/analysis_standard_16.json"
       - "research-engine/sixteen_point_analysis.py"
+      - "research-engine/build_16_monitor.py"
       - "research-engine/academy_analysis.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
@@ -22,6 +23,7 @@ on:
     paths:
       - "research-engine/analysis_standard_16.json"
       - "research-engine/sixteen_point_analysis.py"
+      - "research-engine/build_16_monitor.py"
       - "research-engine/academy_analysis.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
@@ -91,6 +93,13 @@ jobs:
             --input research-engine/output/kryptosavings-academy.json \
             --output research-engine/output/kryptosavings-16-points.json
 
+      - name: Monitor-Datei erzeugen
+        id: monitor
+        run: |
+          python research-engine/build_16_monitor.py \
+            --input research-engine/output/kryptosavings-16-points.json \
+            --output research-engine/output/kryptosavings-16-monitor.json
+
       - name: 16-Punkte-Ergebnis prüfen
         id: checks
         run: |
@@ -99,6 +108,7 @@ jobs:
           from pathlib import Path
 
           data=json.loads(Path('research-engine/output/kryptosavings-16-points.json').read_text(encoding='utf-8'))
+          monitor=json.loads(Path('research-engine/output/kryptosavings-16-monitor.json').read_text(encoding='utf-8'))
           block=data.get('sixteen_point_analysis') or {}
           questions=block.get('questions') or []
           assert data.get('status') == 'ok'
@@ -119,6 +129,9 @@ jobs:
           assert block['summary']['overall_assessment_ready'] is False
           assert block['guardrails']['overall_traffic_light_created'] is False
           assert block['guardrails']['fraud_verdict_created'] is False
+          assert monitor.get('status') == 'ok'
+          assert len(monitor.get('questions') or []) == 16
+          assert monitor.get('summary',{}).get('overall_assessment_ready') is False
           print('16-Punkte OK:', block['summary']['counts_by_state'])
           for q in questions:
               print(f"Q{q['id']:02d} [{q['state']}] {q['title']} -> {q['finding']}")
@@ -134,6 +147,7 @@ jobs:
           OPERATOR: ${{ steps.operator.outcome }}
           ACADEMY: ${{ steps.academy.outcome }}
           SIXTEEN: ${{ steps.sixteen.outcome }}
+          MONITOR: ${{ steps.monitor.outcome }}
           CHECKS: ${{ steps.checks.outcome }}
         run: |
           mkdir -p research-engine/output
@@ -150,6 +164,7 @@ jobs:
             'operator_registry_research':os.environ.get('OPERATOR'),
             'academy_analysis':os.environ.get('ACADEMY'),
             'sixteen_point_analysis':os.environ.get('SIXTEEN'),
+            'monitor_export':os.environ.get('MONITOR'),
             'sixteen_point_checks':os.environ.get('CHECKS'),
           }
           Path('research-engine/output/16-point-status.json').write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
@@ -164,6 +179,7 @@ jobs:
           path: |
             research-engine/output/16-point-status.json
             research-engine/output/kryptosavings-16-points.json
+            research-engine/output/kryptosavings-16-monitor.json
           if-no-files-found: warn
           retention-days: 14
 
@@ -175,6 +191,9 @@ jobs:
           git add research-engine/output/16-point-status.json
           if [ -f research-engine/output/kryptosavings-16-points.json ]; then
             git add research-engine/output/kryptosavings-16-points.json
+          fi
+          if [ -f research-engine/output/kryptosavings-16-monitor.json ]; then
+            git add research-engine/output/kryptosavings-16-monitor.json
           fi
           if git diff --cached --quiet; then
             echo "Keine Änderung am 16-Punkte-Ergebnis."
