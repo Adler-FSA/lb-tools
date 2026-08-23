@@ -11,6 +11,8 @@ on:
     branches: [main]
     paths:
       - "research-engine/people_history_research.py"
+      - "research-engine/people_history_pipeline.py"
+      - "research-engine/entity_people_crawler.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
@@ -19,6 +21,8 @@ on:
   pull_request:
     paths:
       - "research-engine/people_history_research.py"
+      - "research-engine/people_history_pipeline.py"
+      - "research-engine/entity_people_crawler.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
@@ -76,7 +80,7 @@ jobs:
       - name: Personen Management Historie
         id: people
         run: |
-          python research-engine/people_history_research.py \
+          python research-engine/people_history_pipeline.py \
             --input research-engine/output/kryptosavings-operators.json \
             --output research-engine/output/kryptosavings-people.json
 
@@ -90,23 +94,34 @@ jobs:
           data=json.loads(Path('research-engine/output/kryptosavings-people.json').read_text(encoding='utf-8'))
           block=data.get('people_history_research') or {}
           summary=block.get('summary') or {}
+          profiles=block.get('profiles') or []
           assert data.get('status') == 'ok'
-          assert block.get('status') in {'ok','no_people_confirmed'}
+          assert block.get('status') == 'ok'
           assert block.get('guardrails') == {
               'entity_person_implies_project_person': False,
               'founder_or_ceo_implies_ubo': False,
               'ubo_without_ownership_source': False,
           }
+          assert summary.get('person_profile_count',0) >= 1
+          assert summary.get('entity_domain_crawl_count',0) >= 1
+          assert summary.get('entity_domain_finding_count',0) >= 1
+          assert summary.get('project_linked_person_count') == 0
           assert summary.get('verified_ubo_count') == 0
-          assert all(p.get('ubo_verified') is False for p in block.get('profiles') or [])
+          assert all(p.get('ubo_verified') is False for p in profiles)
+          open_delta=[p for p in profiles if p.get('entity') == 'Open Delta DAO LLC']
+          assert open_delta
+          names={p.get('person_name') for p in open_delta}
+          assert {'Konstantin Wünscher','Nick Schteringard'} & names
+          assert 'Maarten Botman' not in names
+          assert all(p.get('project_connection_status') == 'not_independently_linked' for p in open_delta)
           print(
               'Personen-Research OK:',
               summary.get('person_profile_count',0), 'Profile |',
               summary.get('project_linked_person_count',0), 'projektverknüpft |',
-              summary.get('ownership_claim_profile_count',0), 'Eigentumsclaims |',
+              summary.get('entity_domain_finding_count',0), 'Entity-Domain-Funde |',
               summary.get('verified_ubo_count',0), 'UBO verifiziert'
           )
-          for p in block.get('profiles') or []:
+          for p in profiles:
               print(
                   f"PERSON: {p.get('person_name')} | entity={p.get('entity')} | "
                   f"entity_link={p.get('entity_connection_status')} | "
