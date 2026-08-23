@@ -56,6 +56,18 @@ def test_entity_owned_source_is_not_regulator():
     assert confidence == "medium"
 
 
+def test_bancorp_is_derived_from_saved_website_evidence():
+    analysis = {
+        "findings": [
+            {
+                "type": "legal_entity",
+                "evidence": "Responsible entities include GBH Coriolis Bancorp and Open Delta DAO LLC."
+            }
+        ]
+    }
+    assert mod.derived_entities_from_evidence(analysis) == ["GBH Coriolis Bancorp"]
+
+
 def test_exact_entity_required():
     assert mod.exact_entity_present(
         "Open Delta DAO LLC", "OpenDelta", "crypto protocol", "Open Delta DAO LLC operates the platform"
