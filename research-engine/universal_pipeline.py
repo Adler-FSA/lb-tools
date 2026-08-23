@@ -38,11 +38,37 @@ people = load_module("universal_people_pipeline", "universal_people_research.py"
 academy = load_module("universal_academy_analysis", "academy_analysis.py")
 sixteen = load_module("universal_sixteen_adapter", "sixteen_point_people_adapter.py")
 
+COMMON_PUBLIC_SECOND_LEVEL = {"co", "com", "org", "net", "gov", "ac", "edu"}
+
 
 def slugify(value: str) -> str:
     value = re.sub(r"^https?://", "", (value or "").strip(), flags=re.I)
     value = re.sub(r"[^a-zA-Z0-9]+", "-", value).strip("-").lower()
     return value[:72] or "research"
+
+
+def parent_host_candidates(host: str) -> list[str]:
+    """Erzeugt kontrollierte Host-Fallbacks von einer Subdomain zur Projekt-Domain.
+
+    Beispiel: app.example.com -> app.example.com, example.com.
+    Bei bekannten zweistufigen Länder-Suffixen wird nicht bis co.uk o. ä. abgestiegen.
+    """
+    host = (host or "").strip().lower().strip(".").removeprefix("www.")
+    parts = [p for p in host.split(".") if p]
+    if len(parts) < 2:
+        return [host] if host else []
+
+    out: list[str] = []
+    for i in range(0, len(parts) - 1):
+        candidate = ".".join(parts[i:])
+        cparts = candidate.split(".")
+        if len(cparts) < 2:
+            continue
+        if len(cparts) == 2 and len(cparts[1]) == 2 and cparts[0] in COMMON_PUBLIC_SECOND_LEVEL:
+            continue
+        if candidate not in out:
+            out.append(candidate)
+    return out
 
 
 def _module_runs(plan) -> set[str]:
@@ -65,13 +91,46 @@ def run_core(query: str, max_pages: int) -> dict:
     discovery_attempts = []
 
     if parsed["kind"] == "url":
+        original_host = parsed.get("fetch_host") or parsed["domain"]
         seed = engine.fetch_page(parsed["url"])
+
         if not seed:
-            seed = engine.fetch_page(f"https://{parsed.get('fetch_host') or parsed['domain']}/")
+            hosts = parent_host_candidates(original_host)
+            for index, host in enumerate(hosts):
+                urls = [f"https://{host}/"]
+                if index > 0 and not host.startswith("www."):
+                    urls.append(f"https://www.{host}/")
+                for candidate_url in urls:
+                    page = engine.fetch_page(candidate_url)
+                    discovery_attempts.append({
+                        "type": "anchor_host_fallback",
+                        "from_host": original_host,
+                        "host": host,
+                        "url": candidate_url,
+                        "readable": bool(page),
+                    })
+                    if page:
+                        seed = page
+                        break
+                if seed:
+                    break
+
         if not seed:
-            return {"version": 2, "status": "no_readable_website", "context": ctx, "discovery_attempts": []}
-        ctx["domain"] = (engine.urlparse(seed.url).hostname or parsed["domain"]).removeprefix("www.")
+            ctx["anchor_target_host"] = original_host
+            ctx["anchor_fallback_used"] = False
+            return {
+                "version": 2,
+                "status": "no_readable_website",
+                "context": ctx,
+                "discovery_attempts": discovery_attempts,
+                "note": "Der konkrete Link wurde als Beweisanker gesichert, aber weder Zielseite noch eine kontrolliert abgeleitete Projekt-Hauptdomain waren ausreichend lesbar.",
+            }
+
+        final_host = (engine.urlparse(seed.url).hostname or parsed["domain"]).removeprefix("www.")
+        ctx["domain"] = final_host
         ctx["resolved_url"] = seed.url
+        ctx["anchor_target_host"] = original_host
+        ctx["anchor_fallback_used"] = final_host != (original_host or "").removeprefix("www.")
     else:
         domain, seed, discovery_attempts = engine.discover_project(parsed["name"])
         if not domain or not seed:
