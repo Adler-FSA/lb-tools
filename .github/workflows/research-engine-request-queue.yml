@@ -1,45 +1,36 @@
 name: Research Engine – Request Queue
-run-name: "Research Queue · ${{ github.event.client_payload.request_id || github.sha }}"
+run-name: "Research Queue · ${{ github.sha }}"
 
 on:
-  repository_dispatch:
-    types:
-      - research_request
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/research-requests/**'
 
 permissions:
   contents: write
 
+concurrency:
+  group: research-request-${{ github.sha }}
+  cancel-in-progress: false
+
 jobs:
   research-request:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 1
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: 'pip'
-          cache-dependency-path: research-engine/requirements.txt
-
-      - name: Chromium-Cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-py312-1.47.0
+          fetch-depth: 2
 
       - name: Research-Auftrag lesen
         shell: bash
-        env:
-          DISPATCH_REQUEST_ID: ${{ github.event.client_payload.request_id }}
         run: |
-          REQUEST_ID="$(printf '%s' "$DISPATCH_REQUEST_ID" | sed -E 's/[^a-zA-Z0-9_-]+/-/g' | cut -c1-80)"
-          REQUEST_PATH="data/research-requests/${REQUEST_ID}.json"
-          if [ -z "$REQUEST_ID" ] || [ ! -f "$REQUEST_PATH" ]; then
-            echo "Research-Auftragsdatei nicht gefunden: $REQUEST_PATH"
+          REQUEST_PATH="$(git diff-tree --no-commit-id --name-only -r HEAD | grep -E '^data/research-requests/[^/]+\.json$' | tail -n 1)"
+          if [ -z "$REQUEST_PATH" ] || [ ! -f "$REQUEST_PATH" ]; then
+            echo "Keine Research-Auftragsdatei im auslösenden Commit gefunden."
             exit 1
           fi
           echo "RESEARCH_REQUEST_PATH=$REQUEST_PATH" >> "$GITHUB_ENV"
@@ -64,17 +55,64 @@ jobs:
           print(json.dumps({'request_id': request_id, 'query': query, 'mode': mode}, ensure_ascii=False))
           PY
 
-      - name: Engine installieren
+      - name: Startstatus für Control Center schreiben
+        shell: bash
         run: |
-          python -m pip install --disable-pip-version-check -r research-engine/requirements.txt
-          python -m playwright install chromium
+          mkdir -p research-engine/output/control-center-status
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          rid = os.environ['RESEARCH_REQUEST_ID']
+          path = Path('research-engine/output/control-center-status') / f'{rid}.json'
+          path.write_text(json.dumps({
+              'schema': 'academy-research-run-status-v1',
+              'request_id': rid,
+              'state': 'started',
+              'mode': os.environ.get('RESEARCH_MODE', 'quick'),
+              'query': os.environ.get('RESEARCH_QUERY', ''),
+              'started_at': datetime.now(timezone.utc).isoformat(),
+              'github_sha': os.environ.get('GITHUB_SHA', '')
+          }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "research-engine/output/control-center-status/${RESEARCH_REQUEST_ID}.json"
+          git commit -m "Research Engine: Start ${RESEARCH_REQUEST_ID}"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: research-engine/requirements.txt
+
+      - name: Chromium-Cache
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-py312-1.47.0
+
+      - name: Engine-Abhängigkeiten installieren
+        run: python -m pip install --disable-pip-version-check -r research-engine/requirements.txt
+
+      - name: Chromium installieren
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: python -m playwright install chromium
 
       - name: Universelle Research Engine ausführen
         shell: bash
         run: |
           mkdir -p research-engine/output/control-center
           set +e
-          python research-engine/universal_runtime.py "$RESEARCH_QUERY" \
+          if [ "$RESEARCH_MODE" = "quick" ]; then
+            LIMIT=240
+          else
+            LIMIT=1200
+          fi
+          timeout "${LIMIT}s" python research-engine/universal_runtime.py "$RESEARCH_QUERY" \
             --mode "$RESEARCH_MODE" \
             --output research-engine/output/universal-result.json
           rc=$?
@@ -84,12 +122,15 @@ jobs:
           import json, os
           from datetime import datetime, timezone
           from pathlib import Path
+          rc = int(os.environ.get('ENGINE_RC', '1'))
+          status = 'engine_timeout' if rc == 124 else 'engine_output_missing'
+          principle = 'Das SchnellCheck-Zeitbudget wurde erreicht; vorhandene Teilspuren werden nicht als vollständige Analyse ausgegeben.' if rc == 124 else 'Der Lauf wurde beendet, bevor ein Research-Ergebnis geschrieben werden konnte.'
           Path('research-engine/output/universal-result.json').write_text(json.dumps({
               'version': 2,
-              'status': 'engine_output_missing',
+              'status': status,
               'generated_at': datetime.now(timezone.utc).isoformat(),
               'context': {'input': os.environ.get('RESEARCH_QUERY', '')},
-              'principle': 'Der Lauf wurde beendet, bevor ein Research-Ergebnis geschrieben werden konnte.'
+              'principle': principle
           }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           PY
           fi
@@ -107,6 +148,7 @@ jobs:
             --engine-exit-code "${ENGINE_RC:-0}"
 
       - name: Ergebnis als Artefakt sichern
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: research-request-${{ env.RESEARCH_REQUEST_ID }}
@@ -118,9 +160,22 @@ jobs:
       - name: Ergebnis für das Control Center speichern
         shell: bash
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "research-engine/output/control-center/${RESEARCH_REQUEST_ID}.json"
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          rid = os.environ['RESEARCH_REQUEST_ID']
+          path = Path('research-engine/output/control-center-status') / f'{rid}.json'
+          path.write_text(json.dumps({
+              'schema': 'academy-research-run-status-v1',
+              'request_id': rid,
+              'state': 'completed',
+              'mode': os.environ.get('RESEARCH_MODE', 'quick'),
+              'engine_exit_code': int(os.environ.get('ENGINE_RC', '0')),
+              'completed_at': datetime.now(timezone.utc).isoformat()
+          }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+          git add "research-engine/output/control-center/${RESEARCH_REQUEST_ID}.json" "research-engine/output/control-center-status/${RESEARCH_REQUEST_ID}.json"
           if git diff --cached --quiet; then
             exit 0
           fi
