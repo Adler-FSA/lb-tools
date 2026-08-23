@@ -3,6 +3,10 @@
 
 Der Router trifft nur Strukturentscheidungen. Er bewertet kein Projekt und
 enthält keine projektspezifischen Namen, Domains, Personen oder Register.
+
+Eingaben werden zusätzlich nach ihrer Qualität als Ausgangsspur eingeordnet:
+Ein konkreter Referral-/Registrierungslink ist belastbarer als eine Domain;
+eine Domain/URL ist belastbarer als ein bloßer Projekt- oder Firmenname.
 """
 from __future__ import annotations
 
@@ -19,7 +23,11 @@ URLISH_RE = re.compile(
     re.I,
 )
 REFERRAL_RE = re.compile(
-    r"(?:/ref(?:erral)?/|/invite/|/partner/|[?&](?:ref|referral|affiliate|partner|sponsor|invite)=)",
+    r"(?:/ref(?:erral)?/|/invite/|/partner/|/affiliate/|[?&](?:ref|referral|affiliate|partner|sponsor|invite)=)",
+    re.I,
+)
+ENTRY_PATH_RE = re.compile(
+    r"/(?:register|registration|signup|sign-up|join|invite|ref(?:erral)?|affiliate|partner|create-account)(?:/|$|\?)",
     re.I,
 )
 SOCIAL_HOSTS = {
@@ -44,6 +52,8 @@ class ResearchRequest:
     referral_hint: bool
     blockchain_hint: bool
     social_hint: bool
+    anchor_type: str
+    anchor_strength: str
 
 
 @dataclass(frozen=True)
@@ -86,6 +96,8 @@ def classify_input(value: str) -> dict:
             "referral_hint": False,
             "blockchain_hint": True,
             "social_hint": False,
+            "anchor_type": "technical_identifier",
+            "anchor_strength": "specialized",
         }
 
     if " " not in raw and SOLANA_ADDRESS_RE.fullmatch(raw) and any(ch.isdigit() for ch in raw):
@@ -97,20 +109,31 @@ def classify_input(value: str) -> dict:
             "referral_hint": False,
             "blockchain_hint": True,
             "social_hint": False,
+            "anchor_type": "technical_identifier",
+            "anchor_strength": "specialized",
         }
 
     if URLISH_RE.search(raw):
         url = normalize_url(raw)
         host = (urlparse(url).hostname or "").lower().removeprefix("www.")
         social = any(host == h or host.endswith("." + h) for h in SOCIAL_HOSTS)
+        referral = bool(REFERRAL_RE.search(url) or ENTRY_PATH_RE.search(url))
+        if referral:
+            anchor_type, anchor_strength = "referral_or_registration_link", "very_high"
+        elif social:
+            anchor_type, anchor_strength = "social_trace_url", "medium"
+        else:
+            anchor_type, anchor_strength = "direct_url_or_domain", "high"
         return {
             "input_kind": "url",
             "route": "web_identity",
             "normalized_input": url,
             "domain_hint": host,
-            "referral_hint": bool(REFERRAL_RE.search(url)),
+            "referral_hint": referral,
             "blockchain_hint": bool(CHAIN_HINT_WORDS.search(raw)),
             "social_hint": social,
+            "anchor_type": anchor_type,
+            "anchor_strength": anchor_strength,
         }
 
     return {
@@ -121,6 +144,8 @@ def classify_input(value: str) -> dict:
         "referral_hint": False,
         "blockchain_hint": bool(CHAIN_HINT_WORDS.search(raw)),
         "social_hint": False,
+        "anchor_type": "company_or_project_name",
+        "anchor_strength": "low",
     }
 
 
@@ -177,8 +202,17 @@ def module_plan(request: ResearchRequest, core_result: dict | None = None) -> li
             ModuleDecision("project_analysis_16", False, "Erst nach Identitätsauflösung und Belegsammlung.", "deep"),
         ]
 
+    if request.input_kind == "name":
+        website_reason = "Nur Firmen-/Projektname vorhanden: Website erst nach bestätigter Identitätsauflösung untersuchen."
+    elif request.referral_hint:
+        website_reason = "Konkreter Referral-/Registrierungslink: Originalfund als starken Beweisanker sichern und Zielseite untersuchen."
+    elif request.social_hint:
+        website_reason = "Social-Link ist eine konkrete Werbespur; Projektidentität und Zielseite müssen daraus sauber abgeleitet werden."
+    else:
+        website_reason = "Konkrete Domain/URL: direkte technische Ausgangsspur für die Projektprüfung."
+
     decisions = [
-        ModuleDecision("website_research", True, "Web-/Namenseingabe: Projektwebsite und Kernaussagen ermitteln.", "quick"),
+        ModuleDecision("website_research", True, website_reason, "quick"),
     ]
     if not core_result:
         decisions.append(ModuleDecision("external_research", False, "Wird nach bestätigter Projektidentität geplant.", "quick"))
@@ -228,5 +262,11 @@ def request_payload(request: ResearchRequest, core_result: dict | None = None) -
         "request": asdict(request),
         "capabilities": capabilities(core_result, request),
         "module_plan": [asdict(x) for x in module_plan(request, core_result)],
-        "principle": "Im Hintergrund so tief wie nötig; im SchnellCheck nur so viel wie für erste Klarheit erforderlich.",
+        "input_basis": {
+            "anchor_type": request.anchor_type,
+            "anchor_strength": request.anchor_strength,
+            "original_evidence_anchor": request.raw,
+            "identity_confirmation_required": request.input_kind == "name" or request.social_hint,
+        },
+        "principle": "Konkrete Fundstücke vor Namenssuche: Im Hintergrund so tief wie nötig; im SchnellCheck nur so viel wie für erste Klarheit erforderlich.",
     }
