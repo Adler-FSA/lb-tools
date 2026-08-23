@@ -1,12 +1,10 @@
 name: Research Engine – Request Queue
-run-name: "Research Queue · ${{ github.sha }}"
+run-name: "Research Queue · ${{ github.event.client_payload.request_id || github.sha }}"
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'data/research-requests/*.json'
+  repository_dispatch:
+    types:
+      - research_request
 
 permissions:
   contents: write
@@ -18,7 +16,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          ref: main
+          fetch-depth: 1
 
       - uses: actions/setup-python@v5
         with:
@@ -26,10 +25,13 @@ jobs:
 
       - name: Research-Auftrag lesen
         shell: bash
+        env:
+          DISPATCH_REQUEST_ID: ${{ github.event.client_payload.request_id }}
         run: |
-          REQUEST_PATH="$(git diff-tree --no-commit-id --name-only -r HEAD | grep -E '^data/research-requests/[^/]+\.json$' | tail -n 1)"
-          if [ -z "$REQUEST_PATH" ] || [ ! -f "$REQUEST_PATH" ]; then
-            echo "Keine Research-Auftragsdatei im auslösenden Commit gefunden."
+          REQUEST_ID="$(printf '%s' "$DISPATCH_REQUEST_ID" | sed -E 's/[^a-zA-Z0-9_-]+/-/g' | cut -c1-80)"
+          REQUEST_PATH="data/research-requests/${REQUEST_ID}.json"
+          if [ -z "$REQUEST_ID" ] || [ ! -f "$REQUEST_PATH" ]; then
+            echo "Research-Auftragsdatei nicht gefunden: $REQUEST_PATH"
             exit 1
           fi
           echo "RESEARCH_REQUEST_PATH=$REQUEST_PATH" >> "$GITHUB_ENV"
