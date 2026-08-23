@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-23T14:45:22.659683+00:00",
+  "generated_at": "2026-08-23T15:08:52.238783+00:00",
   "engine_exit_code": 1,
   "status": "engine_output_missing",
   "product": null,
@@ -80,5 +80,5 @@
   },
   "specialized_route": null,
   "note": null,
-  "principle": "Der Lauf wurde beendet, bevor ein Research-Ergebnis geschrieben werden konnte."
+  "principle": "Der Research-Lauf ist vor dem Schreiben des Ergebnisses abgebrochen. Die technische Ursache wurde für die interne Diagnose gespeichert."
 }
