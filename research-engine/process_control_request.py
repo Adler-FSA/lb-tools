@@ -37,15 +37,36 @@ def sanitize_id(value: str) -> str:
     return re.sub(r"[^a-zA-Z0-9_-]+", "-", value).strip("-")[:80]
 
 
-def write_fallback(target: Path, query: str, status: str, message: str) -> None:
+def tail(value: str, limit: int = 6000) -> str:
+    value = str(value or "").strip()
+    return value[-limit:] if value else ""
+
+
+def write_fallback(
+    target: Path,
+    query: str,
+    status: str,
+    message: str,
+    *,
+    engine_exit_code: int | None = None,
+    stderr: str = "",
+    stdout: str = "",
+) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps({
+    payload = {
         "version": 2,
         "status": status,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "context": {"input": query},
         "principle": message,
-    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    }
+    if engine_exit_code is not None:
+        payload["technical_error"] = {
+            "engine_exit_code": int(engine_exit_code),
+            "stderr_tail": tail(stderr),
+            "stdout_tail": tail(stdout),
+        }
+    target.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> int:
@@ -74,6 +95,9 @@ def main() -> int:
     }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     raw_output = ROOT / "output" / "universal-result.json"
+    # Nie ein altes Ergebnis eines vorherigen Runs wiederverwenden.
+    raw_output.unlink(missing_ok=True)
+
     timeout_seconds = 240 if mode == "quick" else 1200
     cmd = [
         sys.executable,
@@ -83,24 +107,54 @@ def main() -> int:
         "--output", str(raw_output),
     ]
     engine_rc = 0
+    engine_stdout = ""
+    engine_stderr = ""
     try:
-        completed = subprocess.run(cmd, cwd=REPO, timeout=timeout_seconds)
+        completed = subprocess.run(
+            cmd,
+            cwd=REPO,
+            timeout=timeout_seconds,
+            text=True,
+            capture_output=True,
+        )
         engine_rc = int(completed.returncode)
-    except subprocess.TimeoutExpired:
+        engine_stdout = completed.stdout or ""
+        engine_stderr = completed.stderr or ""
+        # Der Runtime schreibt bei normalem Ende selbst sein JSON. Bei einem Python-Abbruch
+        # gibt es dagegen keine Datei; dann die echte Fehlermeldung konservieren.
+        if engine_rc != 0 and not raw_output.exists():
+            write_fallback(
+                raw_output,
+                query,
+                "engine_output_missing",
+                "Der Research-Lauf ist vor dem Schreiben des Ergebnisses abgebrochen. Die technische Ursache wurde für die interne Diagnose gespeichert.",
+                engine_exit_code=engine_rc,
+                stderr=engine_stderr,
+                stdout=engine_stdout,
+            )
+    except subprocess.TimeoutExpired as exc:
         engine_rc = 124
+        engine_stdout = (exc.stdout or "") if isinstance(exc.stdout, str) else ""
+        engine_stderr = (exc.stderr or "") if isinstance(exc.stderr, str) else ""
         write_fallback(
             raw_output,
             query,
             "engine_timeout",
             "Das Zeitbudget der Recherche wurde erreicht. Es wird kein vollständiges Ergebnis vorgetäuscht.",
+            engine_exit_code=engine_rc,
+            stderr=engine_stderr,
+            stdout=engine_stdout,
         )
     except Exception as exc:
         engine_rc = 125
+        engine_stderr = f"{type(exc).__name__}: {exc}"
         write_fallback(
             raw_output,
             query,
             "engine_runner_error",
             f"Der Research-Runner konnte nicht vollständig ausgeführt werden: {type(exc).__name__}",
+            engine_exit_code=engine_rc,
+            stderr=engine_stderr,
         )
 
     if not raw_output.exists():
@@ -109,6 +163,9 @@ def main() -> int:
             query,
             "engine_output_missing",
             "Der Lauf wurde beendet, bevor ein Research-Ergebnis geschrieben werden konnte.",
+            engine_exit_code=engine_rc,
+            stderr=engine_stderr,
+            stdout=engine_stdout,
         )
 
     result_path = result_dir / f"{request_id}.json"
@@ -123,7 +180,14 @@ def main() -> int:
         "--engine-exit-code", str(engine_rc),
     ], cwd=REPO, check=True)
 
-    status_path.write_text(json.dumps({
+    technical_error = None
+    try:
+        raw_data = json.loads(raw_output.read_text(encoding="utf-8"))
+        technical_error = raw_data.get("technical_error")
+    except Exception:
+        pass
+
+    status_payload = {
         "schema": "academy-research-run-status-v1",
         "request_id": request_id,
         "state": "completed",
@@ -132,7 +196,10 @@ def main() -> int:
         "started_at": started,
         "completed_at": datetime.now(timezone.utc).isoformat(),
         "result_path": str(result_path.relative_to(REPO)),
-    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    }
+    if technical_error:
+        status_payload["technical_error"] = technical_error
+    status_path.write_text(json.dumps(status_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(json.dumps({
         "request_id": request_id,
