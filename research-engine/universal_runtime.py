@@ -34,6 +34,37 @@ pipeline.sixteen = sixteen
 
 _base_run = pipeline.run
 _base_resolve = pipeline.resolve_and_run_core
+_base_fetch_page = pipeline.engine.fetch_page
+
+
+def _looks_like_challenge(page) -> bool:
+    if not page:
+        return False
+    hay = (str(getattr(page, "title", "")) + " " + str(getattr(page, "text", ""))).lower()
+    strong = (
+        "verify you are human",
+        "checking your browser",
+        "enable javascript and cookies to continue",
+        "cloudflare ray id",
+        "challenge-platform",
+        "cf-chl-",
+        "security verification",
+        "attention required! | cloudflare",
+    )
+    if any(marker in hay for marker in strong):
+        return True
+    if "just a moment" in hay and any(marker in hay for marker in ("cloudflare", "javascript", "verify", "security")):
+        return True
+    return False
+
+
+def _fetch_without_challenge(url: str):
+    """Anti-Bot-/Challenge-Seiten sind keine Projektinhalte und lösen Host-Fallback aus."""
+    page = _base_fetch_page(url)
+    return None if _looks_like_challenge(page) else page
+
+
+pipeline.engine.fetch_page = _fetch_without_challenge
 
 
 def _resolve_with_budget(request, max_pages: int):
