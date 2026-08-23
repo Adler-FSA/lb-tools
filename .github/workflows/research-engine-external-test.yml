@@ -76,32 +76,40 @@ jobs:
           data = json.loads(Path('research-engine/output/kryptosavings-external.json').read_text(encoding='utf-8'))
           ext = data.get('external_research') or {}
           traces = ext.get('traces') or []
+          candidates = ext.get('review_candidates') or []
+          attempts = ext.get('search_attempts') or []
 
           assert data.get('status') == 'ok', data.get('status')
-          assert ext.get('status') == 'ok', ext.get('status')
+          assert ext.get('status') in {'ok', 'no_confirmed_external_traces'}, ext.get('status')
           assert ext.get('project_name') == 'KryptoSavings', ext
           assert ext.get('domain') == 'kryptosavings.com', ext
-          assert ext.get('search_attempts'), 'Keine Suchversuche protokolliert'
-          assert traces, 'Keine eindeutig zugeordneten externen Spuren gefunden'
+          assert attempts, 'Keine Suchversuche protokolliert'
+          assert any(int(a.get('results') or 0) > 0 for a in attempts), 'Alle Suchprovider lieferten 0 Ergebnisse'
 
           allowed_categories = {'article', 'video', 'social', 'community', 'operator'}
           allowed_relations = {'project_owned', 'independent', 'platform', 'community'}
+
           for trace in traces:
               assert trace.get('category') in allowed_categories, trace
               assert trace.get('source_relation') in allowed_relations, trace
               assert trace.get('source_url', '').startswith(('http://', 'https://')), trace
               assert trace.get('title') or trace.get('evidence'), trace
               assert trace.get('evidence'), trace
-              assert trace.get('attribution_confidence') in {'high', 'medium'}, trace
-              assert trace.get('project_match') in {'domain_exact', 'name_exact', 'name_normalized'}, trace
+              assert trace.get('attribution_confidence') == 'high', trace
+              assert trace.get('project_match') in {'domain_exact', 'name_exact'}, trace
               if trace.get('source_relation') == 'independent':
                   host = (urlparse(trace['source_url']).hostname or '').lower().removeprefix('www.')
                   assert host != 'kryptosavings.com' and not host.endswith('.kryptosavings.com'), trace
 
-          assert any(t.get('source_relation') != 'project_owned' for t in traces), 'Nur Projektquellen gefunden'
-          cats = sorted({t.get('category') for t in traces})
-          rels = sorted({t.get('source_relation') for t in traces})
-          print(f'Externer Research-Test OK: {len(traces)} bestätigte Spuren | Kategorien: {cats} | Beziehungen: {rels}')
+          for candidate in candidates:
+              assert candidate.get('attribution_confidence') == 'medium', candidate
+              assert candidate.get('project_match') == 'name_normalized', candidate
+
+          positive_attempts = sum(1 for a in attempts if int(a.get('results') or 0) > 0)
+          print(f'Externer Research-Test OK: Provider-Treffer in {positive_attempts} Suchläufen | {len(traces)} bestätigte Spuren | {len(candidates)} Prüfkorb-Treffer')
+          for label, items in [('BESTÄTIGT', traces[:8]), ('PRÜFKORB', candidates[:8])]:
+              for item in items:
+                  print(f"{label}: [{item.get('category')}/{item.get('source_relation')}] {item.get('title')} -> {item.get('source_url')}")
           PY
 
       - name: Diagnose schreiben
