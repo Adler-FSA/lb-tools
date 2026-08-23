@@ -54,6 +54,12 @@ PERCENT_RE = re.compile(
     re.I,
 )
 
+STATIC_ASSET_RE = re.compile(
+    r"\.(?:avif|bmp|gif|ico|jpe?g|png|svg|webp|css|mjs|js|map|woff2?|ttf|otf|eot|"
+    r"mp3|wav|ogg|m4a|mp4|webm|mov)(?:$|[?#])",
+    re.I,
+)
+
 
 @dataclass
 class Page:
@@ -163,6 +169,12 @@ def reader_links(text: str) -> list[str]:
     return links[:120]
 
 
+def is_crawlable_url(url: str) -> bool:
+    """Lässt Dokumente wie PDF zu, aber keine Bilder, Skripte, Styles, Fonts oder Medien."""
+    path = urlparse(url).path or "/"
+    return not bool(STATIC_ASSET_RE.search(path))
+
+
 _BROWSER_USES = 0
 _BROWSER_MAX = 5
 
@@ -215,6 +227,9 @@ def browser_fetch_page(url: str) -> Page | None:
 
 
 def fetch_page(url: str) -> Page | None:
+    if not is_crawlable_url(url):
+        return None
+
     headers = {"User-Agent": UA, "Accept": "text/html,application/xhtml+xml"}
     try:
         r = requests.get(url, headers=headers, timeout=TIMEOUT, allow_redirects=True)
@@ -320,7 +335,7 @@ def sitemap_urls(domain: str) -> list[str]:
                 continue
             for u in re.findall(r"<loc>\s*(https?://[^<]+?)\s*</loc>", r.text, re.I):
                 u = clean_text(u.replace("&amp;", "&"))
-                if same_domain(u, domain) and u not in found:
+                if same_domain(u, domain) and is_crawlable_url(u) and u not in found:
                     found.append(u)
                 if len(found) >= 100:
                     return found
@@ -359,12 +374,12 @@ def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAG
     queue: list[str] = []
 
     # Reale Links aus Startseite/Sitemap müssen vor geratenen Standardpfaden kommen.
-    discovered_urls = [u for u in seed.links if same_domain(u, domain)]
+    discovered_urls = [u for u in seed.links if same_domain(u, domain) and is_crawlable_url(u)]
     discovered_urls.extend(sitemap_urls(seed_host))
     discovered_urls = list(dict.fromkeys(urldefrag(u)[0] for u in discovered_urls))
     discovered_set = set(discovered_urls)
 
-    if input_url and same_domain(input_url, domain):
+    if input_url and same_domain(input_url, domain) and is_crawlable_url(input_url):
         queue.append(input_url)
         discovered_set.add(urldefrag(input_url)[0])
     queue.append(root)
@@ -379,7 +394,7 @@ def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAG
         )
         url = queue.pop(0)
         canonical = urldefrag(url)[0]
-        if canonical in seen:
+        if canonical in seen or not is_crawlable_url(canonical):
             continue
         seen.add(canonical)
         page = fetch_page(canonical)
@@ -394,7 +409,7 @@ def crawl(seed: Page, domain: str, input_url: str = "", max_pages: int = MAX_PAG
         pages.append(page)
         for link in page.links:
             c = urldefrag(link)[0]
-            if same_domain(c, domain) and c not in seen and len(queue) < 120:
+            if same_domain(c, domain) and is_crawlable_url(c) and c not in seen and len(queue) < 120:
                 if c not in discovered_set:
                     discovered_set.add(c)
                 queue.append(c)
@@ -423,11 +438,13 @@ def extract_percentages(text: str) -> list[float]:
 
 
 def percentage_kind(text: str, match: re.Match) -> str:
-    """Ordnet einen Prozentwert nur nach seinem engen, belegbaren Kontext ein."""
+    """Ordnet einen Prozentwert nur nach seinem belegbaren sprachlichen Kontext ein."""
     suffix = (match.group(2) or "").lower()
     before = clean_text(text[max(0, match.start()-70):match.start()]).lower()
     after = clean_text(text[match.end():min(len(text), match.end()+55)]).lower()
     ctx = clean_text(text[max(0, match.start()-85):min(len(text), match.end()+85)]).lower()
+    referral_ctx = clean_text(text[max(0, match.start()-280):min(len(text), match.end()+120)]).lower()
+    rate_ctx = clean_text(text[max(0, match.start()-220):min(len(text), match.end()+80)]).lower()
 
     # Eine direkt am Wert stehende Renditeeinheit ist der stärkste Beleg.
     if suffix:
@@ -445,9 +462,22 @@ def percentage_kind(text: str, match: re.Match) -> str:
     ):
         return "other"
 
-    # Referral-/Affiliate-Kontext hat Vorrang vor dem unscharfen Verb "earn".
-    if re.search(r"\b(commission|provision|affiliate|referral|refer|friends' interest|partner commission)\b", ctx, re.I):
+    # Referral-/Affiliate-Kontext darf auch über eine kurze Karten-/Abschnittsgrenze reichen.
+    # Dadurch wird etwa "Referral Program ... You earn 10%" nicht als Projektrendite gezählt.
+    if re.search(
+        r"\b(commission|provision|affiliate|referral|refer(?:ral)?|refer users?|refer a friend|"
+        r"friends' interest|partner commission|invite friends?)\b",
+        referral_ctx,
+        re.I,
+    ):
         return "commission"
+
+    # Raten-Tabellen verlieren beim Reader ihre Spaltenstruktur. Ein klarer annual-rate-Kontext
+    # zusammen mit unterstützten Assets reicht deshalb als Renditebeleg für die Tabellenwerte.
+    if re.search(r"\b(fixed annual rate|annual rates?|standard rates?|apy rates?)\b", rate_ctx, re.I) and re.search(
+        r"\b(usdt|usdc|btc|bitcoin|eth|ethereum|stablecoins?)\b", rate_ctx, re.I
+    ):
+        return "yield"
 
     # Rendite ohne explizites Suffix nur bei enger sprachlicher Bindung an den Wert.
     if re.search(
@@ -476,14 +506,23 @@ def find_regex(pages: Iterable[Page], pattern: str, flags=re.I) -> list[tuple[Pa
 
 
 def find_non_negated_regex(pages: Iterable[Page], pattern: str, flags=re.I) -> list[tuple[Page, re.Match]]:
-    """Treffer nur werten, wenn direkt davor keine klare Verneinung steht."""
+    """Treffer nur werten, wenn davor keine direkte oder listenweite Verneinung steht."""
     rx = re.compile(pattern, flags)
     out: list[tuple[Page, re.Match]] = []
     for page in pages:
         for m in rx.finditer(page.text):
-            prefix = clean_text(page.text[max(0, m.start()-32):m.start()]).lower()
-            if re.search(r"\b(no|not|never|without|nicht|kein|keine|keinen|keiner|niemals)\b", prefix, re.I):
+            short_prefix = clean_text(page.text[max(0, m.start()-48):m.start()]).lower()
+            long_prefix = clean_text(page.text[max(0, m.start()-280):m.start()]).lower()
+
+            # Direkte Form: "not guaranteed", "nicht garantiert", "never risk-free".
+            if re.search(r"\b(no|not|never|without|nicht|kein|keine|keinen|keiner|niemals)\b", short_prefix, re.I):
                 continue
+
+            # Reader flatten Markdown-Listen. "Funds are not: * insured * protected * guaranteed"
+            # bleibt eine gemeinsame Verneinung, auch wenn "not" weiter als 48 Zeichen zurückliegt.
+            if re.search(r"\b(?:are|is|remain|will be)\s+not\s*:\s*[^.]{0,240}$", long_prefix, re.I):
+                continue
+
             out.append((page, m))
             break
     return out
