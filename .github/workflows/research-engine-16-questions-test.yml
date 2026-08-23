@@ -1,0 +1,195 @@
+name: Akademie Research Engine – 16-Punkte-Prüfung
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Projektname"
+        required: false
+        default: "KryptoSavings"
+  push:
+    branches:
+      - main
+    paths:
+      - "research-engine/academy_16_questions.py"
+      - "research-engine/academy_analysis.py"
+      - "research-engine/operator_registry_research.py"
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-16-questions-test.yml"
+  pull_request:
+    paths:
+      - "research-engine/academy_16_questions.py"
+      - "research-engine/academy_analysis.py"
+      - "research-engine/operator_registry_research.py"
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-16-questions-test.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  sixteen-question-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeiten installieren
+        id: deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt pytest
+
+      - name: Regressionstests
+        id: tests
+        run: python -m pytest -q research-engine/tests
+
+      - name: Website-Rohresearch
+        id: website
+        shell: bash
+        env:
+          INPUT_QUERY: ${{ github.event.inputs.query }}
+        run: |
+          QUERY="${INPUT_QUERY:-KryptoSavings}"
+          python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json
+
+      - name: Externe Rohrecherche
+        id: external
+        run: |
+          python research-engine/external_research.py \
+            --input research-engine/output/kryptosavings-live.json \
+            --output research-engine/output/kryptosavings-external.json
+
+      - name: Betreiber Register Behörden
+        id: operator
+        run: |
+          python research-engine/operator_registry_research.py \
+            --input research-engine/output/kryptosavings-external.json \
+            --output research-engine/output/kryptosavings-operators.json
+
+      - name: Akademie Vergleichsmotor
+        id: academy
+        run: |
+          python research-engine/academy_analysis.py \
+            --input research-engine/output/kryptosavings-operators.json \
+            --output research-engine/output/kryptosavings-academy.json
+
+      - name: 16-Punkte-Akademieprüfung
+        id: sixteen
+        run: |
+          python research-engine/academy_16_questions.py \
+            --input research-engine/output/kryptosavings-academy.json \
+            --output research-engine/output/kryptosavings-16-questions.json
+
+      - name: 16-Punkte-Ergebnis prüfen
+        id: checks
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data=json.loads(Path('research-engine/output/kryptosavings-16-questions.json').read_text(encoding='utf-8'))
+          q16=data.get('academy_16_questions') or {}
+          questions=q16.get('questions') or []
+          summary=q16.get('summary') or {}
+
+          assert data.get('status') == 'ok'
+          assert q16.get('status') == 'ok'
+          assert len(questions) == 16
+          assert [q.get('number') for q in questions] == list(range(1,17))
+          assert questions[0].get('question') == 'Was ist das konkrete Produkt?'
+          assert questions[3].get('question') == 'Wer ist der Betreiber?'
+          assert questions[5].get('question') == 'Welche regulatorische Erlaubnis liegt vor?'
+          assert questions[10].get('question') == 'Gibt es Empfehlungs-, Partner- oder Mehrstufenvergütung?'
+          assert questions[15].get('question') == 'Akademie-Gesamtbewertung'
+
+          allowed={'green','green-yellow','yellow','yellow-red','red'}
+          assert all(q.get('traffic_light') in allowed for q in questions)
+          assert summary.get('question_count') == 16
+          assert summary.get('overall_is_provisional') is True
+          assert q16.get('guardrails') == {
+              'fraud_verdict_created': False,
+              'investment_recommendation_created': False,
+              'overall_is_provisional': True,
+          }
+
+          by={q['number']:q for q in questions}
+          assert by[4]['traffic_light'] in {'yellow-red','red'}
+          assert by[6]['traffic_light'] == 'red'
+          assert by[11]['traffic_light'] == 'yellow'
+          assert '30%' in by[11]['finding']
+          assert by[16]['provisional'] is True
+          assert by[16]['traffic_light'] in {'yellow-red','red'}
+
+          # Rot darf nicht als Betrugsaussage formuliert werden.
+          text=' '.join((q.get('finding','')+' '+q.get('reasoning','')).lower() for q in questions)
+          assert 'ist betrug' not in text
+          assert 'betrügerisch' not in text
+
+          print(
+              f"16-Punkte-Check OK: {len(questions)} Fragen | Gesamt={summary.get('overall_traffic_light')} | "
+              f"offene Nachweise={summary.get('missing_evidence_count')}"
+          )
+          for q in questions:
+              print(f"Q{q['number']:02d}: [{q['traffic_light']}] {q['question']} -> {q['finding'][:180]}")
+          PY
+
+      - name: Diagnose schreiben
+        if: always()
+        env:
+          DEPS: ${{ steps.deps.outcome }}
+          TESTS: ${{ steps.tests.outcome }}
+          WEBSITE: ${{ steps.website.outcome }}
+          EXTERNAL: ${{ steps.external.outcome }}
+          OPERATOR: ${{ steps.operator.outcome }}
+          ACADEMY: ${{ steps.academy.outcome }}
+          SIXTEEN: ${{ steps.sixteen.outcome }}
+          CHECKS: ${{ steps.checks.outcome }}
+        run: |
+          mkdir -p research-engine/output
+          python - <<'PY'
+          import json,os
+          from datetime import datetime,timezone
+          from pathlib import Path
+          status={
+            'generated_at':datetime.now(timezone.utc).isoformat(),
+            'dependencies':os.environ.get('DEPS'),
+            'tests':os.environ.get('TESTS'),
+            'website_research':os.environ.get('WEBSITE'),
+            'external_research':os.environ.get('EXTERNAL'),
+            'operator_registry_research':os.environ.get('OPERATOR'),
+            'academy_analysis':os.environ.get('ACADEMY'),
+            'academy_16_questions':os.environ.get('SIXTEEN'),
+            'sixteen_checks':os.environ.get('CHECKS'),
+          }
+          Path('research-engine/output/16-questions-status.json').write_text(
+              json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'
+          )
+          print(status)
+          PY
+
+      - name: Ergebnisse auf main sichern
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/output/16-questions-status.json
+          if [ -f research-engine/output/kryptosavings-16-questions.json ]; then
+            git add research-engine/output/kryptosavings-16-questions.json
+          fi
+          if git diff --cached --quiet; then
+            echo "Keine Änderung am 16-Punkte-Testergebnis."
+            exit 0
+          fi
+          git commit -m "Research Engine: 16-Punkte-Testdiagnose aktualisieren"
+          git pull --rebase
+          git push
