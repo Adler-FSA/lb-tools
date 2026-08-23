@@ -151,6 +151,53 @@ def test_url_keeps_original_evidence_anchor_after_core_resolution(monkeypatch):
     assert out["context"]["anchor_strength"] == "very_high"
 
 
+def test_parent_host_candidates_climb_from_app_to_project_domain():
+    assert pipeline.parent_host_candidates("app.example.com") == ["app.example.com", "example.com"]
+    assert pipeline.parent_host_candidates("secure.example.co.uk") == ["secure.example.co.uk", "example.co.uk"]
+    assert pipeline.parent_host_candidates("example.com") == ["example.com"]
+
+
+def test_url_core_falls_back_from_unreadable_app_subdomain_to_parent_domain(monkeypatch):
+    seed = pipeline.engine.Page(
+        url="https://example.test/",
+        status=200,
+        title="Example Project",
+        text="Example Project " * 40,
+        links=[],
+    )
+    seen = []
+
+    def fake_fetch(url):
+        seen.append(url)
+        if url == "https://example.test/":
+            return seed
+        return None
+
+    monkeypatch.setattr(pipeline.engine, "fetch_page", fake_fetch)
+    monkeypatch.setattr(pipeline.engine, "crawl", lambda page, domain, input_url, max_pages: [page])
+    monkeypatch.setattr(pipeline.engine, "analyze_pages", lambda pages, ctx: {
+        "max_yield_percentage": None,
+        "max_commission_percentage": None,
+        "legal_entities": [],
+        "detected": {},
+        "social_and_video_links": [],
+        "findings": [],
+        "risk_signals": [],
+        "questions": [],
+        "pages": [],
+    })
+
+    out = pipeline.run_core("https://app.example.test/register?ref=abc", 5)
+    assert out["status"] == "ok"
+    assert out["context"]["domain"] == "example.test"
+    assert out["context"]["resolved_url"] == "https://example.test/"
+    assert out["context"]["anchor_target_host"] == "app.example.test"
+    assert out["context"]["anchor_fallback_used"] is True
+    assert "https://app.example.test/register?ref=abc" in seen
+    assert "https://app.example.test/" in seen
+    assert "https://example.test/" in seen
+
+
 def test_quick_mode_stops_before_deep_operator_people_and_16():
     req = router.build_request("Example Yield", "quick")
     plan = router.module_plan(req, core_sample())
