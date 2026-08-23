@@ -7,7 +7,6 @@ Rechtsträger-Kandidaten konservativer filtern und wichtige Funde mit Belegen b�
 from __future__ import annotations
 
 import re
-from urllib.parse import urlparse
 
 
 def clean_text(value: str) -> str:
@@ -89,7 +88,6 @@ def clean_entity_candidate(value: str) -> str:
         return ""
     if not LEGAL_END.search(value):
         return ""
-    # Mindestens ein plausibler Namensbestandteil vor der Rechtsform.
     words = re.findall(r"[A-Za-zÄÖÜäöüß0-9&'’.-]+", value)
     if len(words) < 2:
         return ""
@@ -139,6 +137,24 @@ def evidence_highlights(analysis: dict, limit: int = 14) -> list[dict]:
     return out
 
 
+def _append_claim_evidence_to_quick(quick: dict, highlights: list[dict]) -> None:
+    """Starke Claims werden im bereits sichtbaren 'Noch genauer prüfen'-Bereich belegt."""
+    gaps = list(quick.get("research_gaps") or [])
+    for item in highlights:
+        if item.get("type") != "guarantee":
+            continue
+        evidence = clean_text(item.get("evidence"))
+        source = clean_text(item.get("source_url"))
+        text = "Garantie-/Sicherheitsaussage erkannt und deshalb genauer zu prüfen."
+        if evidence:
+            text += f" Beleg: {evidence}"
+        if source:
+            text += f" Quelle: {source}"
+        if text not in gaps:
+            gaps.append(text)
+    quick["research_gaps"] = gaps[:12]
+
+
 def postprocess(data: dict) -> dict:
     if not isinstance(data, dict):
         return data
@@ -149,12 +165,14 @@ def postprocess(data: dict) -> dict:
         cleaned = clean_legal_entities(list(analysis.get("legal_entities") or []))
         analysis["legal_entities"] = cleaned
         context["project_name"] = derive_project_name(context, analysis)
-        analysis["evidence_highlights"] = evidence_highlights(analysis)
+        highlights = evidence_highlights(analysis)
+        analysis["evidence_highlights"] = highlights
 
         quick = data.get("quick_check")
         if isinstance(quick, dict):
             quick["project_name"] = context.get("project_name") or quick.get("project_name")
             quick["legal_entities_claimed"] = cleaned
-            quick["evidence_highlights"] = list(analysis.get("evidence_highlights") or [])
+            quick["evidence_highlights"] = list(highlights)
+            _append_claim_evidence_to_quick(quick, highlights)
 
     return data
