@@ -1,0 +1,84 @@
+{
+  "schema": "academy-research-control-center-v1",
+  "request_id": "cc-mt5x20hy-ff8deae4",
+  "generated_at": "2026-08-23T14:45:22.659683+00:00",
+  "engine_exit_code": 1,
+  "status": "engine_output_missing",
+  "product": null,
+  "mode": "deep",
+  "query": "https://app.wefi.co/register?ref=d14o0mtv7g",
+  "input_basis": {
+    "anchor_type": null,
+    "anchor_strength": null,
+    "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "identity_confirmation_required": false
+  },
+  "context": {
+    "input": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "input_kind": null,
+    "project_name": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "domain": null,
+    "resolved_url": null,
+    "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "anchor_type": null,
+    "anchor_strength": null
+  },
+  "identity": {
+    "status": null,
+    "fallback_used": null,
+    "candidate_count": 0,
+    "candidates": []
+  },
+  "orchestration": {
+    "capabilities": [],
+    "module_plan": [],
+    "core_max_pages": null,
+    "external_depth": null
+  },
+  "quick_check": {},
+  "website_analysis": {
+    "max_yield_percentage": null,
+    "max_commission_percentage": null,
+    "legal_entities": [],
+    "detected": {},
+    "risk_signals": [],
+    "questions": [],
+    "page_count": 0,
+    "finding_count": 0
+  },
+  "external_research": {
+    "status": null,
+    "research_depth": null,
+    "trace_count": 0,
+    "review_candidate_count": 0,
+    "project_owned_echo_count": 0,
+    "traces": []
+  },
+  "operator_research": {
+    "status": null,
+    "summary": {},
+    "registry_routing": {},
+    "profiles": []
+  },
+  "people_research": {
+    "status": null,
+    "summary": {},
+    "profiles": [],
+    "universal_routing": {}
+  },
+  "academy_analysis": {
+    "status": null,
+    "summary": {},
+    "open_questions": [],
+    "tensions": []
+  },
+  "sixteen_point": {
+    "status": null,
+    "summary": {},
+    "questions": [],
+    "guardrails": {}
+  },
+  "specialized_route": null,
+  "note": null,
+  "principle": "Der Lauf wurde beendet, bevor ein Research-Ergebnis geschrieben werden konnte."
+}
