@@ -1,0 +1,43 @@
+{
+  "fixture_type": "universal_input_matrix",
+  "cases": [
+    {
+      "id": "plain_name",
+      "input": "Nordlicht Energie",
+      "expected_input_kind": "name",
+      "expected_route": "web_identity",
+      "expected_referral_hint": false,
+      "expected_blockchain_hint": false
+    },
+    {
+      "id": "plain_domain",
+      "input": "nordlicht.example",
+      "expected_input_kind": "url",
+      "expected_route": "web_identity",
+      "expected_referral_hint": false,
+      "expected_blockchain_hint": false
+    },
+    {
+      "id": "referral_url",
+      "input": "https://nordlicht.example/register?ref=ABC123",
+      "expected_input_kind": "url",
+      "expected_route": "web_identity",
+      "expected_referral_hint": true,
+      "expected_blockchain_hint": false
+    },
+    {
+      "id": "social_url",
+      "input": "https://www.youtube.com/@nordlicht-demo",
+      "expected_input_kind": "url",
+      "expected_route": "web_identity",
+      "expected_social_hint": true
+    },
+    {
+      "id": "evm_address",
+      "input": "0x1111111111111111111111111111111111111111",
+      "expected_input_kind": "evm_contract_or_address",
+      "expected_route": "blockchain_identity",
+      "expected_blockchain_hint": true
+    }
+  ]
+}
