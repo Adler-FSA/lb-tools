@@ -9,8 +9,24 @@ from __future__ import annotations
 import re
 
 
+def _repair_mojibake(value: str) -> str:
+    text = str(value or "")
+    if not any(marker in text for marker in ("Ã", "Â", "â", "\u0080", "\u0094")):
+        return text
+    for enc in ("latin1", "cp1252"):
+        try:
+            repaired = text.encode(enc).decode("utf-8")
+        except (UnicodeEncodeError, UnicodeDecodeError):
+            continue
+        before = sum(text.count(m) for m in ("Ã", "Â", "â", "\u0080", "\u0094"))
+        after = sum(repaired.count(m) for m in ("Ã", "Â", "â", "\u0080", "\u0094"))
+        if after < before:
+            return repaired
+    return text
+
+
 def clean_text(value: str) -> str:
-    return re.sub(r"\s+", " ", str(value or "")).strip()
+    return re.sub(r"\s+", " ", _repair_mojibake(str(value or ""))).strip()
 
 
 def compact(value: str) -> str:
@@ -107,7 +123,6 @@ def clean_legal_entities(values: list[str]) -> list[str]:
 
 
 def evidence_highlights(analysis: dict, limit: int = 14) -> list[dict]:
-    """Wählt für den SchnellCheck verständliche, belegte Kernaussagen aus."""
     wanted = {
         "yield_percentage", "commission_percentage", "trading", "lending", "withdrawal",
         "kyc", "custody", "referral", "bonus", "guarantee", "legal_entity", "referral_input",
@@ -125,20 +140,13 @@ def evidence_highlights(analysis: dict, limit: int = 14) -> list[dict]:
         if not evidence or key in seen:
             continue
         seen.add(key)
-        out.append({
-            "type": kind,
-            "value": value,
-            "source_url": source_url,
-            "evidence": evidence,
-            "confidence": item.get("confidence") or "medium",
-        })
+        out.append({"type": kind, "value": value, "source_url": source_url, "evidence": evidence, "confidence": item.get("confidence") or "medium"})
         if len(out) >= limit:
             break
     return out
 
 
 def _append_claim_evidence_to_quick(quick: dict, highlights: list[dict]) -> None:
-    """Starke Claims werden im bereits sichtbaren 'Noch genauer prüfen'-Bereich belegt."""
     gaps = list(quick.get("research_gaps") or [])
     for item in highlights:
         if item.get("type") != "guarantee":
