@@ -25,12 +25,6 @@
         "text_chars": 21051
       },
       {
-        "url": "https://www.kryptosavings.com/affiliate",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 4570
-      },
-      {
         "url": "https://www.kryptosavings.com/strategy",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
@@ -43,24 +37,6 @@
         "text_chars": 2178
       },
       {
-        "url": "https://www.kryptosavings.com/terms-of-service",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 11216
-      },
-      {
-        "url": "https://www.kryptosavings.com/risk-disclaimer",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 11729
-      },
-      {
-        "url": "https://www.kryptosavings.com/privacy-policy",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 8485
-      },
-      {
         "url": "https://www.kryptosavings.com/gold",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
@@ -69,7 +45,7 @@
     ],
     "max_percentage": 23.0,
     "max_yield_percentage": 23.0,
-    "max_commission_percentage": 30.0,
+    "max_commission_percentage": null,
     "detected": {
       "staking": true,
       "yield_or_interest": true,
@@ -85,10 +61,7 @@
       "bonus": true,
       "guarantee": false
     },
-    "legal_entities": [
-      "Delta West Credit Bank Ltd",
-      "Open Delta DAO LLC"
-    ],
+    "legal_entities": [],
     "social_and_video_links": [],
     "findings": [
       {
@@ -277,28 +250,28 @@
         "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6471 BTC / ≈ 20.52 ETH at the current rate",
+        "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6460 BTC / ≈ 20.43 ETH at the current rate",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6471 BTC / ≈ 20.52 ETH at the current rate 🔒 365-d",
+        "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6460 BTC / ≈ 20.43 ETH at the current rate 🔒 365-d",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "18%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6471 BTC / ≈ 20.52 ETH at the current rate 🔒 365-day lock",
+        "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6460 BTC / ≈ 20.43 ETH at the current rate 🔒 365-day lock",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6471 BTC / ≈ 20.52 ETH at the current rate 🔒 365-day lock ⛔ No e",
+        "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6460 BTC / ≈ 20.43 ETH at the current rate 🔒 365-day lock ⛔ No e",
         "confidence": "high"
       },
       {
@@ -367,62 +340,6 @@
       {
         "type": "yield_percentage",
         "value": "23%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Affiliate Program · Now live ## Earn up to 30% commission with no fixed time li",
-        "confidence": "high"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "30%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Affiliate Program · Now live ## Earn up to 30% commission with no fixed time limit. Refer users to KryptoSavings and earn lifetime comm",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "m/register)[Calculate earnings](https://www.kryptosavings.com/affiliate#calculator) Up to 23% p.a. Institutional Custody EU-Hosted Infrastructure Earn commissions on yields from: B",
-        "confidence": "high"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "20%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "ferrals Total volume you generate $100,000 Yields per year $15,000 Your tier Gold Earning 20% commission You earn per month $250 $3,000 / year Over 5 years (lifetime) $15,000 Proje",
-        "confidence": "high"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "30%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "S | Nexo | YouHodler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bon",
-        "confidence": "high"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "10%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "xo | YouHodler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bonuses |",
-        "confidence": "high"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "5%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "ouHodler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bonuses | 9 ($5",
-        "confidence": "high"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "50%",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "ler | Coinbase | | --- | --- | --- | --- | --- | | Max commission rate | 30% | 10% | 5% | 50%* | | Duration | Lifetime | Varies | Varies | Varies | | Milestone bonuses | 9 ($500–$2",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
         "source_url": "https://www.kryptosavings.com/strategy",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of directional bet",
         "confidence": "high"
@@ -465,69 +382,6 @@
       {
         "type": "yield_percentage",
         "value": "23%",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## 1. Introduction Welcome to KryptoSavings (\"we,\" \"our,\" \"us,\" or the \"Platfor",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ### High-Risk Investment Warning Crypto assets are highly volatile and speculat",
-        "confidence": "high"
-      },
-      {
-        "type": "percentage_other",
-        "value": "10%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "value within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets oper",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "20%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "e within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate ",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "50%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "hin short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate 24/7 ",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "100%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "res or blockchain vulnerabilities **Risk Impact:** In a worst-case scenario, you may lose 100% of your deposited assets. ## 4. Yield Generation & Performance Risk Advertised APY ra",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "51%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "n Networks:** Bitcoin, Ethereum, and Tron networks may experience congestion, hard forks, 51% attacks, or protocol failures * **Technology Vendors:** Hosting, cloud services, and e",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "51%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "contentious hard forks may result in asset duplication, loss, or value fragmentation * **51% Attacks:** Malicious actors with majority hash power may double-spend or reverse transa",
-        "confidence": "medium"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/privacy-policy",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## 1. Introduction KryptoSavings (\"we,\" \"our,\" \"us\") is committed to protecting",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
         "source_url": "https://www.kryptosavings.com/gold",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto [Krypto Savings](https://www.kryptosavings.com/)[← Home](https://www.kryptosavi",
         "confidence": "high"
@@ -549,15 +403,15 @@
       {
         "type": "yield_or_interest",
         "value": "Earn",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Affiliate Program · Now live ## Earn up to 30% commission with no",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of d",
         "confidence": "medium"
       },
       {
         "type": "yield_or_interest",
         "value": "Earn",
-        "source_url": "https://www.kryptosavings.com/strategy",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of d",
+        "source_url": "https://www.kryptosavings.com/welcome-bonus",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at le",
         "confidence": "medium"
       },
       {
@@ -589,13 +443,6 @@
         "confidence": "medium"
       },
       {
-        "type": "trading",
-        "value": "trading",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "## 9. Yield Generation Returns on your deposits are generated through institutional-grade trading strategies executed on our behalf, including but not limited to: * Algorithmic gri",
-        "confidence": "medium"
-      },
-      {
         "type": "leverage",
         "value": "leverage",
         "source_url": "https://www.kryptosavings.com/",
@@ -607,13 +454,6 @@
         "value": "leverage",
         "source_url": "https://www.kryptosavings.com/strategy",
         "evidence": "strategies, we collect ongoing premiums with clearly limited risk. ## Intelligent, hedged leverage Market-neutral spreads only produce institutionally relevant returns when the cap",
-        "confidence": "medium"
-      },
-      {
-        "type": "leverage",
-        "value": "leverage",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "strategy, as described on our strategy page. This strategy involves active deployment and leverage; it is not a custodial deposit held in reserve. ## 10. Platform Risks By using ou",
         "confidence": "medium"
       },
       {
@@ -632,16 +472,16 @@
       },
       {
         "type": "lockup",
-        "value": "fixed term",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "t. Refer users to KryptoSavings and earn lifetime commissions from their crypto yield. No fixed term. [Become an affiliate](https://www.kryptosavings.com/register)[Calculate earnin",
+        "value": "365 days",
+        "source_url": "https://www.kryptosavings.com/welcome-bonus",
+        "evidence": "to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your ",
         "confidence": "medium"
       },
       {
         "type": "lockup",
         "value": "365 days",
-        "source_url": "https://www.kryptosavings.com/welcome-bonus",
-        "evidence": "to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your ",
+        "source_url": "https://www.kryptosavings.com/gold",
+        "evidence": ", from 100 USD); the interest buys the target, your capital returns at the end. Gold runs 365 days, vouchers 90 or 365. We arrange delivery by hand — you receive the voucher code b",
         "confidence": "medium"
       },
       {
@@ -649,20 +489,6 @@
         "value": "Withdraw",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "12 for ETH, 20 for USDT on Tron), your balance is credited automatically. ### Withdrawing Withdraw to any external wallet address you control. 1. 1 Verify once, at withdrawal Ident",
-        "confidence": "medium"
-      },
-      {
-        "type": "withdrawal",
-        "value": "withdraw",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "ng lock-up periods and annual percentage yields (APY): * **Flexible:** No lock-up period, withdraw anytime without penalty * **90 Days:** Fixed 90-day lock-up period with higher AP",
-        "confidence": "medium"
-      },
-      {
-        "type": "withdrawal",
-        "value": "withdrawal",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "s **Risk Impact:** The value of your deposited assets may decline significantly, and your withdrawal may be worth substantially less than your deposit, even after accounting for an",
         "confidence": "medium"
       },
       {
@@ -680,24 +506,10 @@
         "confidence": "medium"
       },
       {
-        "type": "kyc",
-        "value": "KYC",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "he right to refuse service to anyone at our sole discretion. ## 3. Account Registration & KYC To access our Services, you must complete our registration and Know Your Customer (KYC",
-        "confidence": "medium"
-      },
-      {
         "type": "custody",
         "value": "institutional custody",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": ".kryptosavings.com/welcome-bonus) Trusted by thousands • Secured by industry leaders With institutional custody. Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC ",
-        "confidence": "medium"
-      },
-      {
-        "type": "custody",
-        "value": "Institutional Custody",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "r)[Calculate earnings](https://www.kryptosavings.com/affiliate#calculator) Up to 23% p.a. Institutional Custody EU-Hosted Infrastructure Earn commissions on yields from: Bitcoin Et",
         "confidence": "medium"
       },
       {
@@ -708,17 +520,17 @@
         "confidence": "medium"
       },
       {
-        "type": "referral",
-        "value": "Referral",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "rly exit 📅 Paid out monthly [Open Premium Income](https://www.kryptosavings.com/register) Referral Program Share your referral link and earn **10% of your friends' interest earning",
+        "type": "custody",
+        "value": "Institutional custody",
+        "source_url": "https://www.kryptosavings.com/welcome-bonus",
+        "evidence": "capital plus the full interest is paid out at maturity — never less than you put in. ### Institutional custody Earn funds held under institutional-grade custody with qualified cust",
         "confidence": "medium"
       },
       {
         "type": "referral",
-        "value": "Affiliate",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Affiliate Program · Now live ## Earn up to 30% commission with no fixed time limit. Refer users to",
+        "value": "Referral",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "rly exit 📅 Paid out monthly [Open Premium Income](https://www.kryptosavings.com/register) Referral Program Share your referral link and earn **10% of your friends' interest earning",
         "confidence": "medium"
       },
       {
@@ -738,29 +550,8 @@
       {
         "type": "bonus",
         "value": "bonus",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "years, assuming your referrals stay active. Milestone bonuses unlocked + $1,500 One-time bonus on top of commissions. [Start earning $250/month →](https://www.kryptosavings.com/reg",
-        "confidence": "medium"
-      },
-      {
-        "type": "bonus",
-        "value": "bonus",
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "ive Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your principal, the interest and the bonus.",
-        "confidence": "medium"
-      },
-      {
-        "type": "legal_entity",
-        "value": "Delta West Credit Bank Ltd",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "h services through this website. The Services are provided by the following entities: * **Delta West Credit Bank Ltd.** 1 Canada Square, Canary Wharf, London E14 5AA, United Kingdo",
-        "confidence": "medium"
-      },
-      {
-        "type": "legal_entity",
-        "value": "Open Delta DAO LLC",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "**GBH Coriolis Bancorp** Room 2, 3rd floor, Junction Mall, Ngong Road, Nairobi, Kenya * **Open Delta DAO LLC** PO Box 852, Long Island Dr, Majuro, Marshall Islands MH 96960 ## 2. E",
         "confidence": "medium"
       }
     ],
@@ -770,12 +561,6 @@
         "severity": "high",
         "title": "Rendite-/Zinsangabe erkannt",
         "explanation": "Öffentlich wurde eine Rendite-/Zinsangabe bis 23% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."
-      },
-      {
-        "id": "affiliate_commission",
-        "severity": "medium",
-        "title": "Affiliate-Provision erkannt",
-        "explanation": "Im eigenen Vertriebs-/Affiliate-Bereich wird eine Provision bis 30% beworben. Das ist ein wirtschaftlicher Anreiz für Empfehlungen und keine Projektrendite."
       },
       {
         "id": "leverage",
@@ -800,6 +585,12 @@
         "severity": "medium",
         "title": "Vertriebs-/Empfehlungsanreize erkannt",
         "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
+      },
+      {
+        "id": "operator_identity",
+        "severity": "medium",
+        "title": "Rechtsträger nicht eindeutig erkannt",
+        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
       }
     ],
     "questions": [
@@ -808,7 +599,8 @@
       "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
       "Zu welchem Zeitpunkt wird KYC/Identitätsprüfung verlangt und kann sie eine Auszahlung verzögern oder verhindern?",
       "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
-      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?"
+      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?",
+      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
     ]
   },
   "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
