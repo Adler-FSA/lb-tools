@@ -54,8 +54,8 @@ def test_discover_links_stays_on_trusted_root(monkeypatch):
 
     monkeypatch.setattr(mod.ext.requests, "get", lambda *a, **k: Resp())
     links = mod.discover_same_domain_links("https://blog.opendelta.com/archive/", "opendelta.com")
-    assert "https://blog.opendelta.com/article-one" in links
-    assert "https://blog.opendelta.com/article-two" in links
+    assert "https://blog.opendelta.com/article-one/" in links
+    assert "https://blog.opendelta.com/article-two/" in links
     assert all("evil.example" not in x for x in links)
     assert all(not x.endswith(".png") for x in links)
 
