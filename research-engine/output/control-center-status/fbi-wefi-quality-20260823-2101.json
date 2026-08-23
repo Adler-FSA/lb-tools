@@ -1,0 +1,10 @@
+{
+  "schema": "academy-research-run-status-v1",
+  "request_id": "fbi-wefi-quality-20260823-2101",
+  "state": "completed",
+  "mode": "deep",
+  "engine_exit_code": 0,
+  "started_at": "2026-08-23T19:04:35.967359+00:00",
+  "completed_at": "2026-08-23T19:07:35.643816+00:00",
+  "result_path": "research-engine/output/control-center/fbi-wefi-quality-20260823-2101.json"
+}
