@@ -41,6 +41,22 @@ ADAPTERS = (
             "https://mwaliregistrar.info/list_of_entities.html",
         ),
     ),
+    RegistryAdapter(
+        adapter_id="fintrac_canada",
+        label="Canada / FINTRAC MSB Registry",
+        trigger_terms=(
+            "financial transactions and reports analysis centre of canada",
+            "fintrac",
+            "money services business",
+            "msb registration",
+        ),
+        trigger_hosts=(
+            "fintrac-canafe.canada.ca",
+        ),
+        # Das eigentliche FINTRAC-Register ist ein strukturierter CSV-Datensatz
+        # und wird vom spezialisierten Adapter gelesen, nicht vom HTML-Prober.
+        direct_probe_urls=(),
+    ),
 )
 
 
