@@ -27,6 +27,7 @@ pipeline = load_module("universal_pipeline_runtime_base", "universal_pipeline.py
 academy = load_module("universal_runtime_academy", "universal_academy_analysis.py")
 sixteen = load_module("universal_runtime_sixteen", "universal_sixteen_analysis.py")
 quality = load_module("universal_runtime_quality", "research_quality.py")
+entity_roles = load_module("universal_runtime_entity_roles", "entity_role_analysis.py")
 
 # Universal erweiterte Rechtsformen. Keine projektbezogenen Namen.
 CORE_LEGAL_FORMS = re.compile(
@@ -91,15 +92,16 @@ pipeline.engine.fetch_page = _fetch_without_challenge
 
 
 def _operator_with_clean_entities(data: dict) -> dict:
-    """Deep-Registermodule bekommen nur bereinigte, deduplizierte Rechtsträger."""
+    """Deep-Registermodule bekommen nur bereinigte Rechtsträger plus getrennte Rollenclaims."""
     analysis = data.get("analysis") or {}
     if not analysis:
-        return _base_operator_enrich(data)
+        return entity_roles.attach(_base_operator_enrich(data))
     prepared = dict(data)
     prepared_analysis = dict(analysis)
     prepared_analysis["legal_entities"] = quality.clean_legal_entities(list(analysis.get("legal_entities") or []))
     prepared["analysis"] = prepared_analysis
-    return _base_operator_enrich(prepared)
+    out = _base_operator_enrich(prepared)
+    return entity_roles.attach(out)
 
 
 pipeline.operator.enrich = _operator_with_clean_entities
