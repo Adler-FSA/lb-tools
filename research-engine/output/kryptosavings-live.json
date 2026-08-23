@@ -65,18 +65,6 @@
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 2523
-      },
-      {
-        "url": "https://www.kryptosavings.com/register",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 208
-      },
-      {
-        "url": "https://www.kryptosavings.com/login",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 188
       }
     ],
     "max_percentage": 23.0,
@@ -542,27 +530,6 @@
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/gold",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto [Krypto Savings](https://www.kryptosavings.com/)[← Home](https://www.kryptosavi",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Con",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Confirm password Already have an account? [Log in](https://",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/login",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Welcome back Log in to your KryptoSavings account Email Password Don't have",
         "confidence": "high"
       },
       {
