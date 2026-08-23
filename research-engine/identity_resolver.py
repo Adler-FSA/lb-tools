@@ -34,6 +34,13 @@ BLOCKED_HOSTS = {
     "crunchbase.com", "bloomberg.com", "wikipedia.org",
 }
 
+COMMON_MULTI_LABEL_SUFFIXES = {
+    "co.uk", "org.uk", "gov.uk", "ac.uk",
+    "com.au", "net.au", "org.au",
+    "co.nz", "com.br", "com.mx", "co.jp", "co.in", "com.sg",
+    "com.tr", "com.cn", "com.hk", "com.tw", "co.za", "com.ar",
+}
+
 
 @dataclass
 class IdentityCandidate:
@@ -62,6 +69,22 @@ def registrableish_host(url: str) -> str:
     return (urlparse(url).hostname or "").lower().removeprefix("www.")
 
 
+def domain_family(host: str) -> str:
+    """Gruppiert normale Subdomains unter derselben Hauptdomain.
+
+    Das ist bewusst klein und konservativ; für bekannte mehrteilige Länder-Suffixe
+    bleibt z. B. example.co.uk zusammen, statt fälschlich nur co.uk zu bilden.
+    """
+    host = (host or "").lower().strip(".").removeprefix("www.")
+    parts = [p for p in host.split(".") if p]
+    if len(parts) <= 2:
+        return host
+    suffix2 = ".".join(parts[-2:])
+    if suffix2 in COMMON_MULTI_LABEL_SUFFIXES and len(parts) >= 3:
+        return ".".join(parts[-3:])
+    return suffix2
+
+
 def blocked_host(host: str) -> bool:
     return any(host == x or host.endswith("." + x) for x in BLOCKED_HOSTS)
 
@@ -88,14 +111,15 @@ def candidate_score(name: str, url: str, title: str, snippet: str, page_text: st
     name_low = name_clean.lower()
     name_compact = compact(name_clean)
     host = registrableish_host(url)
-    host_stem = compact(host.split(".")[0])
+    family = domain_family(host)
+    family_stem = compact(family.split(".")[0])
     hay = clean(" ".join([title, snippet, page_text[:12000]]))
     hay_low = hay.lower()
     hay_compact = compact(hay)
 
     exact = bool(name_low and name_low in hay_low)
     normalized = bool(len(name_compact) >= 4 and name_compact in hay_compact)
-    domain_match = bool(name_compact and (host_stem == name_compact or name_compact in compact(host)))
+    domain_match = bool(name_compact and (family_stem == name_compact or name_compact in compact(family)))
 
     score = 0
     if exact:
@@ -166,14 +190,23 @@ def resolve(name: str, limit_per_query: int = 6) -> dict:
                 readable=bool(page.get("ok")),
                 **flags,
             )
-            current = candidates.get(item.domain)
-            if current is None or (item.score, item.readable) > (current.score, current.readable):
-                candidates[item.domain] = item
+            family = domain_family(item.domain)
+            current = candidates.get(family)
+            item_rank = (item.score, int(item.readable), int(item.domain == family), -len(item.domain))
+            current_rank = (
+                current.score,
+                int(current.readable),
+                int(current.domain == family),
+                -len(current.domain),
+            ) if current else None
+            if current is None or item_rank > current_rank:
+                candidates[family] = item
 
-    rows = sorted(candidates.values(), key=lambda x: (x.score, x.readable), reverse=True)
+    rows = sorted(candidates.values(), key=lambda x: (x.score, x.readable, x.domain == domain_family(x.domain)), reverse=True)
     confirmed = [x for x in rows if x.score >= 70 and x.readable]
 
-    # Nur ein klarer Spitzenkandidat darf automatisch bestätigt werden.
+    # Nur ein klarer Spitzenkandidat darf automatisch bestätigt werden. Subdomains
+    # derselben Domainfamilie wurden vorher bereits zu einem Kandidaten zusammengeführt.
     selected = None
     if confirmed:
         if len(confirmed) == 1 or confirmed[0].score >= confirmed[1].score + 12:
@@ -184,8 +217,9 @@ def resolve(name: str, limit_per_query: int = 6) -> dict:
         "project_name": name,
         "resolved_url": selected.url if selected else "",
         "domain": selected.domain if selected else "",
+        "domain_family": domain_family(selected.domain) if selected else "",
         "selected": asdict(selected) if selected else None,
         "candidates": [asdict(x) for x in rows[:12]],
         "search_attempts": attempts,
-        "principle": "Eine Suchmaschinenposition allein bestätigt keine Projektidentität; Domain und Seiteninhalt müssen zusammenpassen.",
+        "principle": "Eine Suchmaschinenposition allein bestätigt keine Projektidentität; Domain und Seiteninhalt müssen zusammenpassen. Subdomains derselben Hauptdomain zählen nicht als konkurrierende Projekte.",
     }
