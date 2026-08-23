@@ -1,0 +1,46 @@
+{
+  "status": "success",
+  "generated_at": "2026-08-23T12:17:45.788705+00:00",
+  "engine": "universal_runtime.py",
+  "mode": "quick",
+  "project_count": 4,
+  "product_separation_verified": true,
+  "projects": [
+    {
+      "file": "kryptosavings.json",
+      "input": "KryptoSavings",
+      "project_name": "KryptoSavings",
+      "domain": "kryptosavings.com",
+      "status": "ok",
+      "product": "schnellcheck",
+      "identity_status": "not_resolved"
+    },
+    {
+      "file": "orange-cat.json",
+      "input": "Orange CAT",
+      "project_name": "Orange CAT",
+      "domain": "",
+      "status": "identity_ambiguous",
+      "product": null,
+      "identity_status": "ambiguous"
+    },
+    {
+      "file": "rainbow-shared-energy.json",
+      "input": "Rainbow Shared Energy",
+      "project_name": "Rainbow Shared Energy",
+      "domain": "",
+      "status": "website_not_resolved",
+      "product": null,
+      "identity_status": "not_resolved"
+    },
+    {
+      "file": "vow-tln.json",
+      "input": "VOW TLN",
+      "project_name": "VOW TLN",
+      "domain": "",
+      "status": "website_not_resolved",
+      "product": null,
+      "identity_status": "not_resolved"
+    }
+  ]
+}
