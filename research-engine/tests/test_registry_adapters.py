@@ -26,6 +26,23 @@ def test_unrelated_project_selects_no_special_registry():
     assert adapters.probe_urls([]) == []
 
 
+def test_short_misa_trigger_does_not_match_inside_unrelated_word():
+    data = {
+        "context": {"project_name": "Misaligned Ventures", "domain": "misaligned.example"},
+        "analysis": {"legal_entities": ["Misaligned Ventures Ltd"]},
+    }
+    assert adapters.select_adapter_ids(data) == []
+
+
+def test_explicit_misa_term_selects_adapter():
+    data = {
+        "analysis": {
+            "findings": [{"type": "regulator", "evidence": "Registered with MISA for the stated entity."}]
+        }
+    }
+    assert adapters.select_adapter_ids(data) == ["mwali_misa"]
+
+
 def test_mwali_hint_selects_only_mwali_adapter():
     data = {
         "external_research": {
