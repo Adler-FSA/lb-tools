@@ -54,6 +54,18 @@ def core_sample():
     }
 
 
+def identity_sample():
+    return {
+        "status": "resolved",
+        "project_name": "Example Yield",
+        "resolved_url": "https://example-yield.test/",
+        "domain": "example-yield.test",
+        "selected": {"domain": "example-yield.test", "score": 100},
+        "candidates": [],
+        "search_attempts": [],
+    }
+
+
 def test_plain_company_name_routes_to_web_identity():
     req = router.build_request("Nordlicht Energie GmbH", "quick")
     assert req.input_kind == "name"
@@ -110,6 +122,7 @@ def test_deep_mode_unlocks_deep_modules_only_when_relevant():
 
 
 def test_quick_pipeline_builds_small_product_view_and_skips_deep_modules(monkeypatch):
+    monkeypatch.setattr(pipeline.identity, "resolve", lambda name: identity_sample())
     monkeypatch.setattr(pipeline, "run_core", lambda query, max_pages: core_sample())
 
     def enrich_external(data):
@@ -128,10 +141,12 @@ def test_quick_pipeline_builds_small_product_view_and_skips_deep_modules(monkeyp
     assert out["product"] == "schnellcheck"
     assert out["quick_check"]["max_yield_percentage"] == 12.0
     assert out["quick_check"]["deep_research_recommended"] is True
+    assert out["identity_resolution"]["fallback_used"] is False
     assert "sixteen_point_analysis" not in out
 
 
 def test_deep_pipeline_runs_existing_deep_engine_in_order(monkeypatch):
+    monkeypatch.setattr(pipeline.identity, "resolve", lambda name: identity_sample())
     monkeypatch.setattr(pipeline, "run_core", lambda query, max_pages: core_sample())
     calls = []
 
@@ -158,7 +173,9 @@ def test_deep_pipeline_runs_existing_deep_engine_in_order(monkeypatch):
     assert calls == ["external", "operator", "people", "academy", "sixteen"]
 
 
-def test_universal_router_and_pipeline_contain_no_fixture_project_names():
-    source = (ROOT / "research_router.py").read_text(encoding="utf-8") + (ROOT / "universal_pipeline.py").read_text(encoding="utf-8")
+def test_universal_router_pipeline_and_identity_contain_no_fixture_project_names():
+    source = "".join((ROOT / name).read_text(encoding="utf-8") for name in (
+        "research_router.py", "universal_pipeline.py", "identity_resolver.py"
+    ))
     for forbidden in ("KryptoSavings", "OpenDelta", "Open Delta DAO", "Mwali", "Delta West", "GBH Coriolis"):
         assert forbidden not in source
