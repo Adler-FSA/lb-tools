@@ -1,4 +1,4 @@
-name: Akademie Research Engine – 16 Punkte
+name: Akademie Research Engine – Personen Management Historie
 
 on:
   workflow_dispatch:
@@ -10,11 +10,6 @@ on:
   push:
     branches: [main]
     paths:
-      - "research-engine/analysis_standard_16.json"
-      - "research-engine/sixteen_point_analysis.py"
-      - "research-engine/sixteen_point_people_adapter.py"
-      - "research-engine/build_16_monitor.py"
-      - "research-engine/academy_analysis.py"
       - "research-engine/people_history_research.py"
       - "research-engine/people_history_pipeline.py"
       - "research-engine/entity_people_crawler.py"
@@ -22,14 +17,9 @@ on:
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
       - "research-engine/tests/**"
-      - ".github/workflows/research-engine-16-point-test.yml"
+      - ".github/workflows/research-engine-people-history-test.yml"
   pull_request:
     paths:
-      - "research-engine/analysis_standard_16.json"
-      - "research-engine/sixteen_point_analysis.py"
-      - "research-engine/sixteen_point_people_adapter.py"
-      - "research-engine/build_16_monitor.py"
-      - "research-engine/academy_analysis.py"
       - "research-engine/people_history_research.py"
       - "research-engine/people_history_pipeline.py"
       - "research-engine/entity_people_crawler.py"
@@ -37,13 +27,13 @@ on:
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
       - "research-engine/tests/**"
-      - ".github/workflows/research-engine-16-point-test.yml"
+      - ".github/workflows/research-engine-people-history-test.yml"
 
 permissions:
   contents: write
 
 jobs:
-  sixteen-point-test:
+  people-history-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -94,16 +84,18 @@ jobs:
             --input research-engine/output/kryptosavings-operators.json \
             --output research-engine/output/kryptosavings-people.json
 
-      - name: Personen-Trennlogik prüfen
-        id: people_checks
+      - name: Personen-Ergebnis prüfen
+        id: checks
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
+
           data=json.loads(Path('research-engine/output/kryptosavings-people.json').read_text(encoding='utf-8'))
           block=data.get('people_history_research') or {}
           summary=block.get('summary') or {}
           profiles=block.get('profiles') or []
+          assert data.get('status') == 'ok'
           assert block.get('status') == 'ok'
           assert block.get('guardrails') == {
               'entity_person_implies_project_person': False,
@@ -111,6 +103,8 @@ jobs:
               'ubo_without_ownership_source': False,
           }
           assert summary.get('person_profile_count',0) >= 1
+          assert summary.get('entity_domain_crawl_count',0) >= 1
+          assert summary.get('entity_domain_finding_count',0) >= 1
           assert summary.get('project_linked_person_count') == 0
           assert summary.get('verified_ubo_count') == 0
           assert all(p.get('ubo_verified') is False for p in profiles)
@@ -119,72 +113,21 @@ jobs:
           names={p.get('person_name') for p in open_delta}
           assert {'Konstantin Wünscher','Nick Schteringard'} & names
           assert 'Maarten Botman' not in names
-          print('Personen-Research OK:', summary)
+          assert all(p.get('project_connection_status') == 'not_independently_linked' for p in open_delta)
+          print(
+              'Personen-Research OK:',
+              summary.get('person_profile_count',0), 'Profile |',
+              summary.get('project_linked_person_count',0), 'projektverknüpft |',
+              summary.get('entity_domain_finding_count',0), 'Entity-Domain-Funde |',
+              summary.get('verified_ubo_count',0), 'UBO verifiziert'
+          )
           for p in profiles:
-              print(f"PERSON: {p.get('person_name')} | entity={p.get('entity')} | entity_link={p.get('entity_connection_status')} | project_link={p.get('project_connection_status')} | ownership={p.get('ownership_status')} | roles={','.join(p.get('roles') or [])}")
-          PY
-
-      - name: Akademie Vergleich
-        id: academy
-        run: |
-          python research-engine/academy_analysis.py \
-            --input research-engine/output/kryptosavings-people.json \
-            --output research-engine/output/kryptosavings-academy.json
-
-      - name: 16-Punkte-Prüfung
-        id: sixteen
-        run: |
-          python research-engine/sixteen_point_people_adapter.py \
-            --input research-engine/output/kryptosavings-academy.json \
-            --output research-engine/output/kryptosavings-16-points.json
-
-      - name: Monitor-Datei erzeugen
-        id: monitor
-        run: |
-          python research-engine/build_16_monitor.py \
-            --input research-engine/output/kryptosavings-16-points.json \
-            --output research-engine/output/kryptosavings-16-monitor.json
-
-      - name: 16-Punkte-Ergebnis prüfen
-        id: checks
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          data=json.loads(Path('research-engine/output/kryptosavings-16-points.json').read_text(encoding='utf-8'))
-          monitor=json.loads(Path('research-engine/output/kryptosavings-16-monitor.json').read_text(encoding='utf-8'))
-          block=data.get('sixteen_point_analysis') or {}
-          questions=block.get('questions') or []
-          assert data.get('status') == 'ok'
-          assert block.get('status') == 'ok'
-          assert len(questions) == 16
-          assert [q.get('id') for q in questions] == list(range(1,17))
-          by_id={q['id']:q for q in questions}
-          assert by_id[1]['state'] in {'partially_answered','supported'}
-          assert by_id[4]['state'] in {'clarification_needed','conflict_found'}
-          assert by_id[5]['state'] == 'clarification_needed'
-          assert 'Konstantin Wünscher' in by_id[5]['finding'] or 'Nick Schteringard' in by_id[5]['finding']
-          assert 'nicht automatisch bei KryptoSavings' in by_id[5]['finding']
-          assert by_id[5]['traffic_light'] is None
-          assert by_id[6]['state'] == 'conflict_found'
-          assert by_id[9]['state'] == 'clarification_needed'
-          assert '23%' in by_id[9]['finding']
-          assert by_id[11]['state'] == 'partially_answered'
-          assert '30%' in by_id[11]['finding']
-          assert by_id[12]['state'] == 'research_gap'
-          assert by_id[16]['state'] == 'overall_not_ready'
-          assert by_id[16]['traffic_light'] is None
-          assert block['summary']['overall_assessment_ready'] is False
-          assert block['guardrails']['structured_people_q5_used'] is True
-          assert block['guardrails']['overall_traffic_light_created'] is False
-          assert block['guardrails']['fraud_verdict_created'] is False
-          assert monitor.get('status') == 'ok'
-          assert len(monitor.get('questions') or []) == 16
-          assert monitor.get('summary',{}).get('overall_assessment_ready') is False
-          print('16-Punkte OK:', block['summary']['counts_by_state'])
-          for q in questions:
-              print(f"Q{q['id']:02d} [{q['state']}] {q['title']} -> {q['finding']}")
+              print(
+                  f"PERSON: {p.get('person_name')} | entity={p.get('entity')} | "
+                  f"entity_link={p.get('entity_connection_status')} | "
+                  f"project_link={p.get('project_connection_status')} | "
+                  f"ownership={p.get('ownership_status')} | roles={','.join(p.get('roles') or [])}"
+              )
           PY
 
       - name: Diagnose schreiben
@@ -196,10 +139,6 @@ jobs:
           EXTERNAL: ${{ steps.external.outcome }}
           OPERATOR: ${{ steps.operator.outcome }}
           PEOPLE: ${{ steps.people.outcome }}
-          PEOPLE_CHECKS: ${{ steps.people_checks.outcome }}
-          ACADEMY: ${{ steps.academy.outcome }}
-          SIXTEEN: ${{ steps.sixteen.outcome }}
-          MONITOR: ${{ steps.monitor.outcome }}
           CHECKS: ${{ steps.checks.outcome }}
         run: |
           mkdir -p research-engine/output
@@ -215,13 +154,9 @@ jobs:
             'external_research':os.environ.get('EXTERNAL'),
             'operator_registry_research':os.environ.get('OPERATOR'),
             'people_history_research':os.environ.get('PEOPLE'),
-            'people_checks':os.environ.get('PEOPLE_CHECKS'),
-            'academy_analysis':os.environ.get('ACADEMY'),
-            'sixteen_point_analysis':os.environ.get('SIXTEEN'),
-            'monitor_export':os.environ.get('MONITOR'),
-            'sixteen_point_checks':os.environ.get('CHECKS'),
+            'people_checks':os.environ.get('CHECKS'),
           }
-          Path('research-engine/output/16-point-status.json').write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          Path('research-engine/output/people-history-status.json').write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
           print(status)
           PY
 
@@ -229,12 +164,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: research-engine-16-point-${{ github.run_id }}
+          name: research-engine-people-history-${{ github.run_id }}
           path: |
-            research-engine/output/16-point-status.json
+            research-engine/output/people-history-status.json
             research-engine/output/kryptosavings-people.json
-            research-engine/output/kryptosavings-16-points.json
-            research-engine/output/kryptosavings-16-monitor.json
           if-no-files-found: warn
           retention-days: 14
 
@@ -243,20 +176,14 @@ jobs:
         run: |
           git config user.name "Akademie Research Engine"
           git config user.email "actions@github.com"
-          git add research-engine/output/16-point-status.json
+          git add research-engine/output/people-history-status.json
           if [ -f research-engine/output/kryptosavings-people.json ]; then
             git add research-engine/output/kryptosavings-people.json
           fi
-          if [ -f research-engine/output/kryptosavings-16-points.json ]; then
-            git add research-engine/output/kryptosavings-16-points.json
-          fi
-          if [ -f research-engine/output/kryptosavings-16-monitor.json ]; then
-            git add research-engine/output/kryptosavings-16-monitor.json
-          fi
           if git diff --cached --quiet; then
-            echo "Keine Änderung am 16-Punkte-Ergebnis."
+            echo "Keine Änderung am Personen-Ergebnis."
             exit 0
           fi
-          git commit -m "Research Engine: 16-Punkte-Testdiagnose aktualisieren"
+          git commit -m "Research Engine: Personen-Historien-Testdiagnose aktualisieren"
           git pull --rebase
           git push
