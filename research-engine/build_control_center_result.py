@@ -30,6 +30,12 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
             "evidence", "published_at", "attribution_confidence", "project_match"
         )})
 
+    highlights = []
+    for item in list(analysis.get("evidence_highlights") or [])[:14]:
+        highlights.append({k: item.get(k) for k in (
+            "type", "value", "source_url", "evidence", "confidence"
+        )})
+
     profiles = []
     for p in list(operator.get("profiles") or [])[:12]:
         profiles.append({
@@ -39,6 +45,7 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
             "official_record_count": len(p.get("official_or_registry_records") or []),
             "independent_record_count": len(p.get("independent_records") or []),
             "authority_context_count": len(p.get("authority_context_records") or []),
+            "claimed_roles": p.get("claimed_roles") or [],
         })
 
     person_profiles = []
@@ -123,6 +130,7 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
             "detected": analysis.get("detected") or {},
             "risk_signals": list(analysis.get("risk_signals") or [])[:20],
             "questions": list(analysis.get("questions") or [])[:20],
+            "evidence_highlights": highlights,
             "page_count": len(analysis.get("pages") or []),
             "finding_count": len(analysis.get("findings") or []),
         },
