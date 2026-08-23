@@ -1,27 +1,28 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-23T15:08:52.238783+00:00",
-  "engine_exit_code": 1,
-  "status": "engine_output_missing",
-  "product": null,
+  "generated_at": "2026-08-23T15:21:15.258261+00:00",
+  "engine_exit_code": 0,
+  "status": "ok",
+  "product": "projektanalyse",
   "mode": "deep",
   "query": "https://app.wefi.co/register?ref=d14o0mtv7g",
+  "technical_error": null,
   "input_basis": {
-    "anchor_type": null,
-    "anchor_strength": null,
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high",
     "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "identity_confirmation_required": false
   },
   "context": {
     "input": "https://app.wefi.co/register?ref=d14o0mtv7g",
-    "input_kind": null,
-    "project_name": "https://app.wefi.co/register?ref=d14o0mtv7g",
-    "domain": null,
-    "resolved_url": null,
+    "input_kind": "url",
+    "project_name": "Just a moment...",
+    "domain": "app.wefi.co",
+    "resolved_url": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
-    "anchor_type": null,
-    "anchor_strength": null
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high"
   },
   "identity": {
     "status": null,
@@ -30,24 +31,94 @@
     "candidates": []
   },
   "orchestration": {
-    "capabilities": [],
-    "module_plan": [],
-    "core_max_pages": null,
-    "external_depth": null
+    "capabilities": [
+      "distribution",
+      "web"
+    ],
+    "module_plan": [
+      {
+        "module": "website_research",
+        "run": true,
+        "reason": "Konkreter Referral-/Registrierungslink: Originalfund als starken Beweisanker sichern und Zielseite untersuchen.",
+        "depth": "quick"
+      },
+      {
+        "module": "external_research",
+        "run": true,
+        "reason": "Bestätigte Projektidentität vorhanden.",
+        "depth": "quick"
+      },
+      {
+        "module": "operator_registry",
+        "run": false,
+        "reason": "Kein Rechtsträger erkannt oder SchnellCheck-Modus.",
+        "depth": "deep"
+      },
+      {
+        "module": "people_history",
+        "run": false,
+        "reason": "Keine belastbare Rechtsträgerbasis oder SchnellCheck-Modus.",
+        "depth": "deep"
+      },
+      {
+        "module": "academy_analysis",
+        "run": true,
+        "reason": "Deep Research vergleicht Projektbehauptungen mit unabhängigen Spuren.",
+        "depth": "deep"
+      },
+      {
+        "module": "project_analysis_16",
+        "run": true,
+        "reason": "16-Punkte-Standard nur im Produkt Projektanalyse.",
+        "depth": "deep"
+      }
+    ],
+    "core_max_pages": 14,
+    "external_depth": "deep"
   },
   "quick_check": {},
   "website_analysis": {
     "max_yield_percentage": null,
     "max_commission_percentage": null,
     "legal_entities": [],
-    "detected": {},
-    "risk_signals": [],
-    "questions": [],
-    "page_count": 0,
-    "finding_count": 0
+    "detected": {
+      "staking": false,
+      "yield_or_interest": false,
+      "defi": false,
+      "trading": false,
+      "leverage": false,
+      "lending": false,
+      "lockup": false,
+      "withdrawal": false,
+      "kyc": false,
+      "custody": false,
+      "referral": true,
+      "bonus": false,
+      "guarantee": false
+    },
+    "risk_signals": [
+      {
+        "id": "distribution_incentive",
+        "severity": "medium",
+        "title": "Vertriebs-/Empfehlungsanreize erkannt",
+        "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
+      },
+      {
+        "id": "operator_identity",
+        "severity": "medium",
+        "title": "Rechtsträger nicht eindeutig erkannt",
+        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
+      }
+    ],
+    "questions": [
+      "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
+      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+    ],
+    "page_count": 1,
+    "finding_count": 1
   },
   "external_research": {
-    "status": null,
+    "status": "no_confirmed_external_traces",
     "research_depth": null,
     "trace_count": 0,
     "review_candidate_count": 0,
@@ -67,18 +138,307 @@
     "universal_routing": {}
   },
   "academy_analysis": {
-    "status": null,
-    "summary": {},
-    "open_questions": [],
+    "status": "no_comparable_claims",
+    "summary": {
+      "comparison_count": 0,
+      "counts_by_assessment": {
+        "not_independently_verified": 0,
+        "contradicted": 0,
+        "partially_supported": 0,
+        "context_challenged": 0,
+        "independently_supported": 0,
+        "open": 0
+      },
+      "open_question_count": 2,
+      "tension_count": 0
+    },
+    "open_questions": [
+      "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
+      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+    ],
     "tensions": []
   },
   "sixteen_point": {
-    "status": null,
-    "summary": {},
-    "questions": [],
-    "guardrails": {}
+    "status": "ok",
+    "summary": {
+      "question_count": 16,
+      "counts_by_state": {
+        "research_gap": 12,
+        "partially_answered": 2,
+        "clarification_needed": 1,
+        "overall_not_ready": 1
+      },
+      "questions_1_to_15": 15,
+      "traffic_light_ready_count": 0,
+      "overall_assessment_ready": false
+    },
+    "questions": [
+      {
+        "id": 1,
+        "title": "Was ist das konkrete Produkt?",
+        "state": "research_gap",
+        "finding": "Das konkrete Produkt lässt sich aus dem aktuellen Datenstand noch nicht belastbar beschreiben.",
+        "gaps": [
+          "Produktdefinition fehlt."
+        ],
+        "next_research": [
+          "Produkt-, FAQ- und Vertragsseiten vertieft auswerten."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 2,
+        "title": "Welches reale Problem soll gelöst werden?",
+        "state": "research_gap",
+        "finding": "Der aktuelle Research-Datensatz enthält noch keinen belastbaren Nachweis zum realen Problem, Zielmarkt und eigenständigen Nutzen.",
+        "gaps": [
+          "Use-Case-/Marktprüfung fehlt."
+        ],
+        "next_research": [
+          "Projekt-Nutzenversprechen und unabhängigen Marktbedarf recherchieren."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 3,
+        "title": "Ist die öffentliche Beschreibung sachlich und konsistent?",
+        "state": "research_gap",
+        "finding": "Noch keine ausreichende Gegenprüfung der öffentlichen Aussagen vorhanden.",
+        "gaps": [
+          "Vergleichsdaten fehlen."
+        ],
+        "next_research": [],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 4,
+        "title": "Wer ist der Betreiber?",
+        "state": "research_gap",
+        "finding": "Kein belastbares Betreiberprofil erzeugt.",
+        "gaps": [
+          "Betreiber-/Rechtsträgerprüfung fehlt."
+        ],
+        "next_research": [],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 5,
+        "title": "Wer kontrolliert das Unternehmen und welche Historie besteht?",
+        "state": "research_gap",
+        "finding": "Der aktuelle Datenstand belegt noch nicht, wer das Unternehmen tatsächlich kontrolliert und welche belastbare Historie Management/Eigentümer besitzen.",
+        "gaps": [
+          "Management-/UBO-/Historienmodul fehlt."
+        ],
+        "next_research": [
+          "Personen und verbundene Gesellschaften recherchieren."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 6,
+        "title": "Welche regulatorische Erlaubnis liegt vor?",
+        "state": "research_gap",
+        "finding": "Keine belastbare regulatorische Erlaubnis für die konkrete angebotene Dienstleistung ist im aktuellen Datenstand nachgewiesen.",
+        "gaps": [
+          "Regulatorischer Primärnachweis fehlt."
+        ],
+        "next_research": [
+          "BaFin/ESMA/EBA und zuständige internationale Aufsichten prüfen."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 7,
+        "title": "Wo befinden sich Kundengelder und wer kontrolliert sie?",
+        "state": "research_gap",
+        "finding": "Der aktuelle Datenstand beantwortet die Kontrolle über Kundengelder und Assets nicht ausreichend.",
+        "gaps": [
+          "Custody-/Walletnachweis fehlt."
+        ],
+        "next_research": [],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 8,
+        "title": "Wie transparent und vollständig sind Gebühren?",
+        "state": "research_gap",
+        "finding": "Die Engine hat noch keine vollständige, belastbare Gebührenstruktur extrahiert.",
+        "gaps": [
+          "Gebühren-/Kostenmodul fehlt."
+        ],
+        "next_research": [
+          "Terms, FAQ und Gebührenseiten gezielt auf Kosten durchsuchen."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 9,
+        "title": "Ist Preis oder Rendite marktüblich und plausibel?",
+        "state": "research_gap",
+        "finding": "Keine belastbare Rendite-/Preis-Plausibilitätsprüfung möglich.",
+        "gaps": [
+          "Preis-/Renditedaten oder Marktvergleich fehlen."
+        ],
+        "next_research": [],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 10,
+        "title": "Woher entstehen Einnahmen und Erträge tatsächlich?",
+        "state": "research_gap",
+        "finding": "Die tatsächliche Quelle der Kundenrenditen ist im aktuellen Datensatz nicht belastbar erklärt.",
+        "gaps": [
+          "Ertragsquellen-/Geldflussnachweis fehlt."
+        ],
+        "next_research": [],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 11,
+        "title": "Gibt es Empfehlungs-, Partner- oder Mehrstufenvergütung?",
+        "state": "partially_answered",
+        "finding": "Ein Empfehlungs-/Affiliate-Modell ist belegt.",
+        "gaps": [
+          "Ebenen, Ränge, Voraussetzungen, indirekte Vergütungen und Einzahlungs-/Umsatzbezug sind noch nicht vollständig zerlegt."
+        ],
+        "next_research": [
+          "Vergütungsplan vollständig modellieren und Geldfluss pro Einzahlung berechnen."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 12,
+        "title": "Ist das Modell ohne neue Teilnehmer nachhaltig?",
+        "state": "research_gap",
+        "finding": "Die wirtschaftliche Nachhaltigkeit ohne neue Teilnehmer kann aus dem aktuellen Datenstand noch nicht belastbar berechnet werden.",
+        "gaps": [
+          "Operative Umsätze/Erträge, Kosten, Kundenverbindlichkeiten, Provisionen, Boni und Rückstellungen sind nicht als vollständiger Geldfluss verfügbar."
+        ],
+        "next_research": [
+          "Szenario- und Break-even-Modell auf Basis der Ertragsquellen, Renditen, Provisionen und Betriebskosten erstellen."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 13,
+        "title": "Was beweisen Auszahlungen, Boni und Garantien wirklich?",
+        "state": "clarification_needed",
+        "finding": "keine positive Garantieaussage wurde im aktuellen Crawl bestätigt. Einzelne Auszahlungen oder Boni würden weder Solvenz noch Nachhaltigkeit beweisen.",
+        "gaps": [
+          "Unabhängige Auszahlungshistorie fehlt.",
+          "Finanzierungsquelle der Boni fehlt.",
+          "Vertragliche Verpflichtete und Durchsetzbarkeit von Laufzeitversprechen sind offen."
+        ],
+        "next_research": [
+          "Nutzerberichte/Belege zu Ein- und Auszahlungen sammeln und gegen Terms sowie Geldfluss spiegeln."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 14,
+        "title": "Ist das Produkt konkurrenzfähig und praktisch nutzbar?",
+        "state": "research_gap",
+        "finding": "Ein belastbarer Marktvergleich zu Funktion, Kosten, Liquidität, Limits, Support, Nutzerrechten und Alternativen wurde noch nicht durchgeführt.",
+        "gaps": [
+          "Vergleichsprodukte und reale Nutzbarkeit fehlen."
+        ],
+        "next_research": [
+          "Geeignete Vergleichsprodukte bestimmen und Kosten/Funktion/Liquidität gegenüberstellen."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 15,
+        "title": "Welche Hauptrisiken und Red Flags bestehen?",
+        "state": "partially_answered",
+        "finding": "Der bisherige Research-Lauf enthält 2 strukturierte Risikoindikator(en) und 0 Quellen-/Behördenspannung(en). Das ist noch keine vollständige Red-Flag-Gesamtprüfung.",
+        "gaps": [
+          "Cyber-, Smart-Contract-, Insolvenz-, Steuer-, Token-, Governance- und Schlüsselrisiken sind noch nicht vollständig projektbezogen geprüft."
+        ],
+        "next_research": [
+          "Risikomatrix aus allen Spezialmodulen zusammenführen."
+        ],
+        "evidence_count": 2,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      },
+      {
+        "id": 16,
+        "title": "Akademie-Gesamtbewertung",
+        "state": "overall_not_ready",
+        "finding": "Eine belastbare Akademie-Gesamtampel wird noch nicht erzeugt. 13 der ersten 15 Prüfpunkte enthalten wesentliche Forschungslücken, Klärungsbedarf oder Quellenkonflikte.",
+        "gaps": [
+          "Punkt 1: Was ist das konkrete Produkt? — research_gap",
+          "Punkt 2: Welches reale Problem soll gelöst werden? — research_gap",
+          "Punkt 3: Ist die öffentliche Beschreibung sachlich und konsistent? — research_gap",
+          "Punkt 4: Wer ist der Betreiber? — research_gap",
+          "Punkt 5: Wer kontrolliert das Unternehmen und welche Historie besteht? — research_gap",
+          "Punkt 6: Welche regulatorische Erlaubnis liegt vor? — research_gap",
+          "Punkt 7: Wo befinden sich Kundengelder und wer kontrolliert sie? — research_gap",
+          "Punkt 8: Wie transparent und vollständig sind Gebühren? — research_gap"
+        ],
+        "next_research": [
+          "Offene Kernmodule schließen; erst danach Ampellogik anwenden."
+        ],
+        "evidence_count": 0,
+        "counter_evidence_count": 0,
+        "traffic_light_ready": false,
+        "traffic_light": null
+      }
+    ],
+    "guardrails": {
+      "invented_answers_allowed": false,
+      "missing_information_equals_fraud": false,
+      "overall_traffic_light_created": false,
+      "fraud_verdict_created": false,
+      "dynamic_project_label_used": true,
+      "project_name_hardcoded_in_universal_output": false
+    }
   },
   "specialized_route": null,
   "note": null,
-  "principle": "Der Research-Lauf ist vor dem Schreiben des Ergebnisses abgebrochen. Die technische Ursache wurde für die interne Diagnose gespeichert."
+  "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
 }
