@@ -25,6 +25,7 @@ def load_module(name: str, filename: str):
 pipeline = load_module("universal_pipeline_runtime_base", "universal_pipeline.py")
 academy = load_module("universal_runtime_academy", "universal_academy_analysis.py")
 sixteen = load_module("universal_runtime_sixteen", "universal_sixteen_analysis.py")
+quality = load_module("universal_runtime_quality", "research_quality.py")
 
 # Nur die Deep-Ausgabeschichten werden ersetzt. Routing, Identifikation und
 # Register-/Personenmodule bleiben dieselben.
@@ -46,7 +47,7 @@ pipeline.resolve_and_run_core = _resolve_with_budget
 
 
 def run(query: str, mode: str = "quick") -> dict:
-    """Produktiver Lauf mit getrennten Quick-/Deep-Budgets."""
+    """Produktiver Lauf mit getrennten Quick-/Deep-Budgets und Qualitätsfilter."""
     mode = (mode or "quick").lower()
     if mode == "quick":
         # Der SchnellCheck soll nicht minutenlang an blockierten Einzelquellen hängen.
@@ -63,6 +64,8 @@ def run(query: str, mode: str = "quick") -> dict:
         pipeline.quick_external.ext.MAX_RESULTS_PER_QUERY = 6
 
     result = _base_run(query, mode)
+    result = quality.postprocess(result)
+
     if mode == "quick":
         orchestration = result.get("research_orchestration") or {}
         if orchestration:
