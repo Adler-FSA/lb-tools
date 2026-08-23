@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Research Engine · Control Center</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root{--navy:#132238;--navy2:#1d3857;--mint:#00a7ad;--magenta:#c6006f;--bg:#f4f7fa;--card:#fff;--text:#172033;--muted:#6b7688;--line:#dfe6ee;--ok:#14845b;--warn:#b06a00;--bad:#b33a3a;--shadow:0 14px 38px rgba(19,34,56,.09);--radius:20px}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#edf8f8 0,#f7f9fc 300px,var(--bg) 100%);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}a{color:inherit}.wrap{max-width:1180px;margin:auto;padding:24px 18px 70px}
+    .hero{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;border-radius:28px;padding:30px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-110px;top:-150px;width:390px;height:390px;border-radius:50%;background:radial-gradient(circle,rgba(0,167,173,.55),rgba(0,167,173,0) 68%)}.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:#a7edf0}.hero h1{margin:7px 0 10px;font-size:clamp(31px,5vw,54px);line-height:1}.hero p{margin:0;max-width:830px;line-height:1.55;color:#dce7f1}.hero-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px;position:relative;z-index:2}.pill{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.11);font-size:12px;font-weight:800}.pill.mint{background:rgba(0,167,173,.26)}.pill.magenta{background:rgba(198,0,111,.25)}
+    .note{margin-top:16px;background:#fff8e8;border:1px solid #f0dca4;border-radius:14px;padding:13px 15px;color:#74510c;font-size:13px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 7px 24px rgba(19,34,56,.05);padding:20px}.wide{grid-column:span 12}.half{grid-column:span 6}.third{grid-column:span 4}.metric{grid-column:span 3;min-height:118px}.label{font-size:11px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.08em}.value{font-size:28px;font-weight:950;color:var(--navy);margin-top:8px;word-break:break-word}.sub{font-size:12px;color:var(--muted);margin-top:5px}.section-head{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:14px}h2{margin:0;color:var(--navy);font-size:20px}h3{margin:0;color:var(--navy);font-size:15px}.small{font-size:12px;color:var(--muted)}
+    .input-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}.query{width:100%;border:1px solid #ccd7e1;border-radius:14px;padding:15px 16px;font:inherit;font-size:17px;outline:none;background:#fff}.query:focus,.token:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}button{border:0;cursor:pointer;font:inherit}.start{border-radius:14px;padding:0 22px;background:var(--navy);color:#fff;font-weight:900;min-height:54px}.start:hover{background:#1d3857}.start:disabled{opacity:.55;cursor:not-allowed}
+    .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.mode{border:2px solid var(--line);border-radius:16px;padding:15px;background:#fbfcfd;cursor:pointer;transition:.18s}.mode.active.quick{border-color:var(--mint);background:#edf9f8}.mode.active.deep{border-color:var(--magenta);background:#fff3f9}.mode-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.mode-title{font-weight:950;color:var(--navy)}.mode-badge{padding:5px 8px;border-radius:999px;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.04em;background:#eef2f5;color:#687386}.mode.active.quick .mode-badge{background:#d9f2f0;color:#08777b}.mode.active.deep .mode-badge{background:#f6dbea;color:#9a075b}.mode p{margin:7px 0 0;font-size:13px;color:#596679;line-height:1.45}
+    details.settings{margin-top:14px;border:1px solid var(--line);border-radius:14px;background:#fbfcfd}details.settings summary{cursor:pointer;padding:13px 14px;font-weight:850;color:var(--navy)}.settings-body{padding:0 14px 14px}.token-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:8px}.token{border:1px solid #ccd7e1;border-radius:11px;padding:11px 12px;font:inherit;min-width:0}.mini{padding:10px 12px;border-radius:10px;background:#eaf1f6;color:var(--navy);font-weight:850}.mini.primary{background:var(--mint);color:#fff}.mini.danger{background:#fdeaea;color:#9b3737}.token-note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:9px}.token-state{font-weight:850}.token-state.ok{color:var(--ok)}.token-state.bad{color:var(--bad)}
+    .status-box{border:1px solid var(--line);border-radius:16px;background:#f8fbfd;padding:16px}.status-main{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.status-title{font-weight:950;color:var(--navy);font-size:17px}.status-chip{padding:7px 10px;border-radius:999px;background:#eaf1f6;color:#617084;font-size:12px;font-weight:900}.status-chip.running{background:#e7f7f6;color:#08777b}.status-chip.ok{background:#e8f7f0;color:var(--ok)}.status-chip.bad{background:#fdeaea;color:var(--bad)}.progress{height:9px;background:#e6edf3;border-radius:999px;overflow:hidden;margin-top:12px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--mint),#54c8cc);transition:width .35s}.steps{display:grid;gap:8px;margin-top:13px}.step{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:13px}.step .dot{width:9px;height:9px;border-radius:50%;background:#aab4c0;flex:0 0 9px}.step.running .dot{background:var(--mint);box-shadow:0 0 0 4px rgba(0,167,173,.12)}.step.ok .dot{background:var(--ok)}.step.bad .dot{background:var(--bad)}.step .step-name{flex:1}.step .step-state{font-size:11px;font-weight:850;color:var(--muted)}
+    .empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed #cbd6df;border-radius:14px;background:#fbfcfd;line-height:1.55}.error{padding:14px;border-radius:13px;background:#fdeaea;border:1px solid #f1c3c3;color:#8e2f2f;line-height:1.5}.success{padding:14px;border-radius:13px;background:#e9f7f1;border:1px solid #c5e7d9;color:#176d50;line-height:1.5}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{padding:7px 9px;border-radius:999px;background:#eef6f8;color:#08777b;font-size:11px;font-weight:900}.chip.magenta{background:#f8e7f1;color:#9a075b}.list{display:grid;gap:9px}.item{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}.item p{margin:6px 0 0;color:#4e5b6e;line-height:1.5;font-size:13px}.item a{display:block;color:#08777b;font-weight:800;font-size:12px;margin-top:8px;word-break:break-all;text-decoration:none}.item a:hover{text-decoration:underline}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.kv{display:grid;gap:5px}.kv b{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.kv span{font-weight:850;color:var(--navy);word-break:break-word}
+    .q-list{display:grid;gap:9px}.q{border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden}.q summary{cursor:pointer;padding:13px;display:flex;gap:10px;align-items:flex-start;list-style:none}.q summary::-webkit-details-marker{display:none}.qno{width:28px;height:28px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:950;flex:0 0 28px}.qtitle{flex:1}.qtitle b{display:block;color:var(--navy);font-size:13px}.qstate{font-size:10px;font-weight:900;padding:4px 7px;border-radius:999px;background:#edf1f5;color:#687386;display:inline-block;margin-top:4px}.qstate.conflict_found{background:#fdeaea;color:var(--bad)}.qstate.clarification_needed{background:#fff2dc;color:var(--warn)}.qstate.partially_answered,.qstate.supported{background:#e8f7f0;color:var(--ok)}.qbody{padding:0 13px 13px 51px;font-size:13px;line-height:1.5;color:#455267}.qbody ul{margin:8px 0 0;padding-left:18px}.raw{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:#fbfcfd}.raw summary{cursor:pointer;padding:12px;font-weight:850;color:var(--navy)}pre{margin:0;max-height:520px;overflow:auto;white-space:pre-wrap;word-break:break-word;background:#101927;color:#dbe7f0;padding:14px;border-radius:0 0 12px 12px;font-size:11px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.linkbtn{display:inline-flex;align-items:center;padding:9px 11px;border-radius:10px;background:#eef3f7;color:var(--navy);font-size:12px;font-weight:850;text-decoration:none}.linkbtn.dark{background:var(--navy);color:#fff}.footer{text-align:center;color:var(--muted);font-size:11px;margin-top:24px}
+    [hidden]{display:none!important}@media(max-width:860px){.half,.third{grid-column:span 12}.metric{grid-column:span 6}.input-row{grid-template-columns:1fr}.start{min-height:50px}.token-row{grid-template-columns:1fr 1fr}.token{grid-column:1/-1}.split{grid-template-columns:1fr}}@media(max-width:560px){.wrap{padding:13px 11px 45px}.hero{padding:22px;border-radius:22px}.metric{grid-column:span 12}.card{padding:15px}.mode-grid{grid-template-columns:1fr}.token-row{grid-template-columns:1fr}.token{grid-column:auto}.value{font-size:24px}.qbody{padding:0 12px 12px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Interne Akademie-Werkstatt</div>
+    <h1>Research Engine · Control Center</h1>
+    <p>Ein Motor, zwei Produkte. Starte einen schnellen ersten Projektcheck oder die vollständige Deep-Research-Stufe und beobachte, welche Recherchebausteine tatsächlich angesprungen sind.</p>
+    <div class="hero-row"><span class="pill mint">SchnellCheck</span><span class="pill magenta">FBI / Deep Research</span><span class="pill">Belege statt Bauchgefühl</span></div>
+  </section>
+
+  <div class="note"><strong>Interner Prüfstand:</strong> Diese Seite ist nicht die spätere Kundenansicht. Sie zeigt Forschungsstand und Quellenlage. Fehlende Informationen sind kein Betrugsbeweis; es wird kein automatisches „seriös/unseriös“-Urteil erzeugt.</div>
+
+  <section class="grid">
+    <article class="card wide">
+      <div class="section-head"><h2>Neue Recherche</h2><span class="small">Name, Domain, URL oder Referral-Link</span></div>
+      <div class="input-row">
+        <input class="query" id="query" placeholder="z. B. Orange CAT, example.com oder Referral-Link" autocomplete="off">
+        <button class="start" id="startBtn">Recherche starten</button>
+      </div>
+      <div class="mode-grid">
+        <div class="mode quick active" data-mode="quick" tabindex="0">
+          <div class="mode-top"><span class="mode-title">SchnellCheck</span><span class="mode-badge">Quick</span></div>
+          <p>Projekt identifizieren, Website und Kernaussagen lesen, wenige priorisierte Fremdspuren prüfen. Die Ausgabe bleibt kurz und verständlich.</p>
+        </div>
+        <div class="mode deep" data-mode="deep" tabindex="0">
+          <div class="mode-top"><span class="mode-title">FBI / Deep Research</span><span class="mode-badge">Deep</span></div>
+          <p>Volle Recherche: externe Spuren, Rechtsträger, Register, Personen/Management, Akademie-Vergleich und vollständige 16-Punkte-Prüfung.</p>
+        </div>
+      </div>
+
+      <details class="settings" id="settings">
+        <summary>GitHub-Verbindung · interner Zugang</summary>
+        <div class="settings-body">
+          <div class="token-row">
+            <input class="token" id="token" type="password" placeholder="GitHub Token" autocomplete="off">
+            <button class="mini primary" id="saveToken">Speichern</button>
+            <button class="mini" id="testToken">Testen</button>
+            <button class="mini danger" id="clearToken">Löschen</button>
+          </div>
+          <div class="token-note">Der Token wird ausschließlich in diesem Browser gespeichert und nur für Aufrufe an <strong>api.github.com</strong> verwendet. Für diesen internen Startweg braucht er im Repository <strong>Actions: Read/Write</strong> und <strong>Contents: Read/Write</strong>. <span id="tokenState" class="token-state"></span></div>
+        </div>
+      </details>
+    </article>
+
+    <article class="card wide">
+      <div class="section-head"><h2>Live-Lauf</h2><span class="small" id="requestLabel">Noch keine Recherche gestartet</span></div>
+      <div id="idleState" class="empty">Gib oben ein Projekt ein und wähle die gewünschte Recherche-Tiefe. Sobald der Lauf startet, erscheinen hier GitHub-Workflow und Arbeitsschritte.</div>
+      <div id="runState" class="status-box" hidden>
+        <div class="status-main"><div><div class="status-title" id="runTitle">Recherche wird vorbereitet …</div><div class="small" id="runMeta"></div></div><span class="status-chip running" id="runChip">gestartet</span></div>
+        <div class="progress"><div class="bar" id="bar"></div></div>
+        <div class="steps" id="steps"></div>
+        <div class="actions"><a class="linkbtn" id="workflowLink" href="https://github.com/Adler-FSA/lb-tools/actions/workflows/research-engine-universal-run.yml" target="_blank" rel="noopener">Workflow in GitHub</a><button class="mini" id="resumeBtn">Letzten Lauf prüfen</button></div>
+      </div>
+      <div id="runError" style="margin-top:12px"></div>
+    </article>
+  </section>
+
+  <section id="resultArea" class="grid" hidden>
+    <article class="card metric"><div class="label">Projekt</div><div class="value" id="rProject">–</div><div class="sub" id="rUrl">–</div></article>
+    <article class="card metric"><div class="label">Modus</div><div class="value" id="rMode">–</div><div class="sub" id="rProduct">–</div></article>
+    <article class="card metric"><div class="label">Status</div><div class="value" id="rStatus">–</div><div class="sub" id="rIdentity">–</div></article>
+    <article class="card metric"><div class="label">Domain</div><div class="value" id="rDomain">–</div><div class="sub" id="rGenerated">–</div></article>
+
+    <article class="card wide"><div class="section-head"><h2>Was die Engine aktiviert hat</h2><span class="small">dynamische Modulwahl</span></div><div class="chips" id="capabilities"></div><div class="list" id="modulePlan" style="margin-top:12px"></div></article>
+
+    <article class="card half"><div class="section-head"><h2>Website & Kernaussagen</h2><span class="small">erste Faktenbasis</span></div><div id="websiteView"></div></article>
+    <article class="card half"><div class="section-head"><h2>Fremdspuren</h2><span class="small" id="traceCount">–</span></div><div class="list" id="traces"></div></article>
+
+    <article class="card wide" id="quickCard"><div class="section-head"><h2>SchnellCheck-Ergebnis</h2><span class="small">erste Klarheit</span></div><div id="quickView"></div></article>
+
+    <article class="card half" id="operatorCard" hidden><div class="section-head"><h2>Rechtsträger & Register</h2><span class="small">Deep Research</span></div><div class="list" id="operators"></div></article>
+    <article class="card half" id="peopleCard" hidden><div class="section-head"><h2>Personen & Kontrolle</h2><span class="small">Deep Research</span></div><div class="list" id="people"></div></article>
+    <article class="card wide" id="sixteenCard" hidden><div class="section-head"><h2>16-Punkte-Akademieprüfung</h2><span class="small" id="sixteenSummary">–</span></div><div class="q-list" id="questions16"></div></article>
+
+    <article class="card wide"><div class="section-head"><h2>Technische Rohansicht</h2><span class="small">kompakter Control-Center-Datensatz</span></div><details class="raw"><summary>JSON anzeigen</summary><pre id="rawJson"></pre></details><div class="actions"><a class="linkbtn dark" href="../research-monitor/" target="_blank" rel="noopener">Bisherigen Research Monitor öffnen</a></div></article>
+  </section>
+
+  <div class="footer">Akademie für finanzielle Souveränität · internes Research-Werkzeug · Klarheit, bevor Geld fließt.</div>
+</main>
+<script>
+(() => {
+  const OWNER='Adler-FSA', REPO='lb-tools', WORKFLOW='research-engine-universal-run.yml', TOKEN_KEY='lbResearchControlGithubToken', LAST_KEY='lbResearchControlLastRun';
+  const $=id=>document.getElementById(id); let selectedMode='quick', pollTimer=null, currentRun=null;
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const statusText=s=>({queued:'wartet',in_progress:'läuft',completed:'abgeschlossen',success:'erfolgreich',failure:'fehlgeschlagen',cancelled:'abgebrochen'}[s]||s||'–');
+
+  function token(){return localStorage.getItem(TOKEN_KEY)||''}
+  async function gh(path,options={}){
+    const t=token(); if(!t) throw new Error('GitHub Token fehlt. Öffne „GitHub-Verbindung“ und speichere den internen Token.');
+    const headers={'Accept':'application/vnd.github+json','Authorization':'Bearer '+t,'X-GitHub-Api-Version':'2022-11-28',...(options.headers||{})};
+    const res=await fetch('https://api.github.com'+path,{...options,headers});
+    if(res.status===204)return null; const text=await res.text(); let data={}; try{data=text?JSON.parse(text):{}}catch{data={message:text}}
+    if(!res.ok){const e=new Error(data.message||('GitHub API '+res.status)); e.status=res.status; throw e} return data;
+  }
+  function decodeContent(content){const bin=atob(String(content||'').replace(/\n/g,''));const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));return new TextDecoder().decode(bytes)}
+  function requestId(){const rnd=(crypto.randomUUID?crypto.randomUUID().slice(0,8):Math.random().toString(36).slice(2,10));return 'cc-'+Date.now().toString(36)+'-'+rnd}
+  function saveLast(o){localStorage.setItem(LAST_KEY,JSON.stringify(o))} function last(){try{return JSON.parse(localStorage.getItem(LAST_KEY)||'null')}catch{return null}}
+  function setError(msg,type='error'){$('runError').innerHTML=msg?`<div class="${type}">${esc(msg)}</div>`:''}
+
+  document.querySelectorAll('.mode').forEach(el=>{const choose=()=>{selectedMode=el.dataset.mode;document.querySelectorAll('.mode').forEach(x=>x.classList.remove('active'));el.classList.add('active')};el.addEventListener('click',choose);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}})});
+  $('token').value=token(); if(token())$('tokenState').textContent='Token ist lokal gespeichert.';
+  $('saveToken').onclick=()=>{const v=$('token').value.trim();if(!v)return;localStorage.setItem(TOKEN_KEY,v);$('tokenState').className='token-state ok';$('tokenState').textContent=' Gespeichert.'};
+  $('clearToken').onclick=()=>{localStorage.removeItem(TOKEN_KEY);$('token').value='';$('tokenState').className='token-state';$('tokenState').textContent=' Gelöscht.'};
+  $('testToken').onclick=async()=>{try{if($('token').value.trim()&&$('token').value.trim()!==token())localStorage.setItem(TOKEN_KEY,$('token').value.trim());const r=await gh(`/repos/${OWNER}/${REPO}`);$('tokenState').className='token-state ok';$('tokenState').textContent=' Verbindung OK: '+r.full_name}catch(e){$('tokenState').className='token-state bad';$('tokenState').textContent=' '+e.message}};
+
+  async function start(){
+    const query=$('query').value.trim(); if(!query){setError('Bitte zuerst Projektname, Domain oder Link eingeben.');return} if(!token()){$('settings').open=true;setError('Für den Start fehlt noch der GitHub Token.');return}
+    const id=requestId(); const info={id,query,mode:selectedMode,startedAt:new Date().toISOString()}; saveLast(info); setError(''); showRun(info,'Anfrage wird an GitHub übergeben …','queued');
+    try{
+      await gh(`/repos/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}/dispatches`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref:'main',inputs:{query,mode:selectedMode,request_id:id}})});
+      showRun(info,'Workflow wurde gestartet. Die Engine übernimmt jetzt.','queued'); poll(info);
+    }catch(e){setError('Start fehlgeschlagen: '+e.message);$('runChip').className='status-chip bad';$('runChip').textContent='Fehler'}
+  }
+  $('startBtn').onclick=start; $('query').addEventListener('keydown',e=>{if(e.key==='Enter')start()}); $('resumeBtn').onclick=()=>{const l=last();if(l){setError('');poll(l,true)}else setError('Es ist noch kein letzter Lauf gespeichert.')};
+
+  function showRun(info,title,state){$('idleState').hidden=true;$('runState').hidden=false;$('requestLabel').textContent=info.id;$('runTitle').textContent=title;$('runMeta').textContent=`${info.query} · ${info.mode==='deep'?'FBI / Deep Research':'SchnellCheck'}`;$('runChip').textContent=statusText(state);$('runChip').className='status-chip '+(state==='completed'?'ok':state==='failure'?'bad':'running');$('bar').style.width=state==='queued'?'12%':state==='in_progress'?'55%':state==='completed'?'100%':'20%'}
+
+  async function findRun(info){const d=await gh(`/repos/${OWNER}/${REPO}/actions/workflows/${WORKFLOW}/runs?branch=main&event=workflow_dispatch&per_page=30`);return (d.workflow_runs||[]).find(r=>String(r.display_title||r.name||'').includes(info.id))||null}
+  async function renderJobs(run){try{const d=await gh(`/repos/${OWNER}/${REPO}/actions/runs/${run.id}/jobs?per_page=20`);const jobs=d.jobs||[];let steps=[];jobs.forEach(j=>(j.steps||[]).forEach(s=>steps.push(s)));$('steps').innerHTML=steps.length?steps.map(s=>`<div class="step ${s.conclusion==='success'?'ok':s.conclusion?'bad':s.status==='in_progress'?'running':''}"><span class="dot"></span><span class="step-name">${esc(s.name)}</span><span class="step-state">${esc(statusText(s.conclusion||s.status))}</span></div>`).join(''):'<div class="small">Arbeitsschritte werden geladen …</div>';const done=steps.filter(s=>s.status==='completed').length;$('bar').style.width=(steps.length?Math.max(15,Math.round(done/steps.length*100)):35)+'%'}catch(e){/* Status bleibt trotzdem sichtbar */}}
+  async function fetchResult(id){const f=await gh(`/repos/${OWNER}/${REPO}/contents/research-engine/output/control-center/${encodeURIComponent(id)}.json?ref=main`);return JSON.parse(decodeContent(f.content))}
+
+  async function poll(info,resume=false){
+    clearTimeout(pollTimer); $('idleState').hidden=true;$('runState').hidden=false; showRun(info,resume?'Letzten Lauf wird geprüft …':'Workflow wird gesucht …','queued');
+    try{
+      let run=await findRun(info); if(!run){try{const result=await fetchResult(info.id);renderResult(result);showRun(info,'Ergebnis ist bereits vorhanden.','completed');return}catch(e){if(e.status!==404)throw e} pollTimer=setTimeout(()=>poll(info),4500);return}
+      currentRun=run;$('workflowLink').href=run.html_url||$('workflowLink').href; const state=run.status==='completed'?(run.conclusion||'completed'):run.status; showRun(info,run.status==='completed'?'Workflow abgeschlossen. Ergebnis wird geladen …':'Research Engine arbeitet …',state); await renderJobs(run);
+      if(run.status==='completed'){
+        if(run.conclusion!=='success'){setError('Der GitHub-Workflow wurde mit Status „'+statusText(run.conclusion)+'“ beendet. Öffne den Workflow für Details.');return}
+        try{const result=await fetchResult(info.id);renderResult(result);showRun(info,'Recherche abgeschlossen.','completed');return}catch(e){if(e.status!==404)throw e}
+      }
+      pollTimer=setTimeout(()=>poll(info),4500);
+    }catch(e){setError('Status konnte nicht geladen werden: '+e.message);pollTimer=setTimeout(()=>poll(info),7000)}
+  }
+
+  function renderResult(d){
+    $('resultArea').hidden=false; const c=d.context||{}, w=d.website_analysis||{}, ext=d.external_research||{}, quick=d.quick_check||{}, op=d.operator_research||{}, ppl=d.people_research||{}, s=d.sixteen_point||{}, orch=d.orchestration||{};
+    $('rProject').textContent=c.project_name||c.input||'–';$('rUrl').textContent=c.resolved_url||'keine URL';$('rMode').textContent=d.mode==='deep'?'Deep':'Quick';$('rProduct').textContent=d.product||'–';$('rStatus').textContent=d.status||'–';$('rIdentity').textContent='Identität: '+((d.identity||{}).status||'–');$('rDomain').textContent=c.domain||'–';$('rGenerated').textContent=d.generated_at?new Date(d.generated_at).toLocaleString('de-DE'):'–';
+    $('capabilities').innerHTML=(orch.capabilities||[]).length?(orch.capabilities||[]).map(x=>`<span class="chip">${esc(x)}</span>`).join(''):'<span class="small">Noch keine Spezialfähigkeit aktiviert.</span>';
+    $('modulePlan').innerHTML=(orch.module_plan||[]).map(m=>`<div class="item"><div class="mode-top"><h3>${esc(m.module)}</h3><span class="mode-badge">${m.run?'aktiv':'aus'}</span></div><p>${esc(m.reason||'')}</p></div>`).join('')||'<div class="empty">Kein Modulplan vorhanden.</div>';
+    const topics=Object.entries(w.detected||{}).filter(([,v])=>v).map(([k])=>k); $('websiteView').innerHTML=`<div class="split"><div class="kv"><b>Max. Rendite</b><span>${w.max_yield_percentage==null?'–':esc(w.max_yield_percentage)+' %'}</span></div><div class="kv"><b>Max. Provision</b><span>${w.max_commission_percentage==null?'–':esc(w.max_commission_percentage)+' %'}</span></div><div class="kv"><b>Rechtsträger</b><span>${esc((w.legal_entities||[]).join(', ')||'–')}</span></div><div class="kv"><b>Fundstellen</b><span>${esc(w.finding_count||0)}</span></div></div><div class="chips" style="margin-top:12px">${topics.map(x=>`<span class="chip">${esc(x)}</span>`).join('')||'<span class="small">Keine Themen-Tags erkannt.</span>'}</div>`;
+    $('traceCount').textContent=`${ext.trace_count||0} bestätigte Spuren`;$('traces').innerHTML=(ext.traces||[]).length?(ext.traces||[]).map(t=>`<div class="item"><div class="mode-top"><h3>${esc(t.title||t.platform||t.category||'Externe Spur')}</h3><span class="mode-badge">${esc(t.source_relation||'extern')}</span></div><p>${esc(t.evidence||'')}</p>${t.source_url?`<a href="${esc(t.source_url)}" target="_blank" rel="noopener">${esc(t.source_url)}</a>`:''}</div>`).join(''):'<div class="empty">Im gespeicherten Control-Center-Ergebnis sind noch keine eindeutig zugeordneten Fremdspuren enthalten.</div>';
+    if(d.mode==='quick'){$('quickCard').hidden=false;const gaps=quick.research_gaps||[];$('quickView').innerHTML=`<div class="chips">${(quick.detected_topics||[]).map(x=>`<span class="chip">${esc(x)}</span>`).join('')}</div><div class="list" style="margin-top:12px">${gaps.map(g=>`<div class="item"><h3>Noch genauer prüfen</h3><p>${esc(g)}</p></div>`).join('')||'<div class="success">Für den SchnellCheck wurden aktuell keine zusätzlichen Forschungslücken formuliert.</div>'}</div><div class="note" style="margin-top:12px"><strong>Deep Research empfohlen:</strong> ${quick.deep_research_recommended?'Ja – der Motor sieht Punkte, die eine Vertiefung rechtfertigen.':'Aktuell nicht automatisch ausgelöst.'}</div>`}else{$('quickCard').hidden=true}
+    const isDeep=d.mode==='deep';$('operatorCard').hidden=!isDeep;$('peopleCard').hidden=!isDeep;$('sixteenCard').hidden=!isDeep;
+    if(isDeep){$('operators').innerHTML=(op.profiles||[]).map(p=>`<div class="item"><h3>${esc(p.entity||'Rechtsträger')}</h3><p>Existenz: <b>${esc(p.existence_status||'–')}</b><br>Projektverbindung: <b>${esc(p.project_connection_status||'–')}</b><br>Register/Behörde: ${esc(p.official_record_count||0)} · unabhängig: ${esc(p.independent_record_count||0)} · Kontext: ${esc(p.authority_context_count||0)}</p></div>`).join('')||'<div class="empty">Keine Rechtsträgerprofile vorhanden.</div>';$('people').innerHTML=(ppl.profiles||[]).map(p=>`<div class="item"><h3>${esc(p.person_name||'Person')}</h3><p>${esc((p.roles||[]).join(', ')||'Rolle offen')} · ${esc(p.entity||'')}<br>Projektverbindung: <b>${esc(p.project_connection_status||'–')}</b> · Eigentum: <b>${esc(p.ownership_status||'–')}</b> · UBO bestätigt: <b>${p.ubo_verified?'ja':'nein'}</b></p></div>`).join('')||'<div class="empty">Keine strukturierten Personenprofile bestätigt.</div>';const counts=(s.summary||{}).counts_by_state||{};$('sixteenSummary').textContent=Object.entries(counts).map(([k,v])=>`${v} ${k}`).join(' · ')||'Forschungsstand';$('questions16').innerHTML=(s.questions||[]).map(q=>`<details class="q"><summary><span class="qno">${esc(q.id)}</span><span class="qtitle"><b>${esc(q.title||'')}</b><span class="qstate ${esc(q.state||'')}">${esc(q.state||'–')}</span></span></summary><div class="qbody">${esc(q.finding||'')} ${(q.gaps||[]).length?`<ul>${q.gaps.map(g=>`<li>${esc(g)}</li>`).join('')}</ul>`:''}<div class="small" style="margin-top:8px">Belege: ${esc(q.evidence_count||0)} · Gegenbelege: ${esc(q.counter_evidence_count||0)}</div></div></details>`).join('')||'<div class="empty">Keine 16-Punkte-Ausgabe vorhanden.</div>'}
+    if(d.status==='identity_ambiguous'&&(d.identity||{}).candidates?.length){$('quickCard').hidden=false;$('quickView').innerHTML='<div class="error">Die Engine hat mehrere plausible Projektidentitäten gefunden und bewusst keine geraten.</div><div class="list" style="margin-top:10px">'+d.identity.candidates.map(c=>`<div class="item"><h3>${esc(c.title||c.domain||'Kandidat')}</h3><p>Score: ${esc(c.score||0)} · ${c.readable?'lesbar':'nicht lesbar'}</p><a href="${esc(c.url||'#')}" target="_blank" rel="noopener">${esc(c.url||'')}</a></div>`).join('')+'</div>'}
+    if(d.specialized_route){$('quickCard').hidden=false;$('quickView').innerHTML=`<div class="note"><strong>Spezialroute:</strong> ${esc(d.specialized_route.module||'')} · ${esc(d.specialized_route.next_step||'')}</div>`}
+    $('rawJson').textContent=JSON.stringify(d,null,2);setError('Ergebnis erfolgreich geladen.','success'); $('resultArea').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  const l=last(); if(l){$('query').value=l.query||''; selectedMode=l.mode||'quick';document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('active',x.dataset.mode===selectedMode));$('requestLabel').textContent='Letzter Lauf: '+l.id;if(token()){fetchResult(l.id).then(renderResult).catch(()=>{})}}
+})();
+</script>
+</body>
+</html>
