@@ -12,6 +12,7 @@ on:
       - 'research-engine/registry_adapters.py'
       - 'research-engine/operator_registry_research.py'
       - 'research-engine/universal_operator_research.py'
+      - 'research-engine/project_people_discovery.py'
       - 'research-engine/universal_people_research.py'
       - 'research-engine/universal_academy_analysis.py'
       - 'research-engine/universal_sixteen_analysis.py'
@@ -22,6 +23,7 @@ on:
       - 'research-engine/tests/test_research_quality.py'
       - 'research-engine/tests/test_operator_registry_safety.py'
       - 'research-engine/tests/test_registry_adapters.py'
+      - 'research-engine/tests/test_project_people_discovery.py'
       - 'research-engine/tests/test_universal_people_research.py'
       - 'research-engine/tests/test_universal_analysis_outputs.py'
       - 'research-engine/tests/test_universal_fixture_separation.py'
@@ -39,6 +41,7 @@ on:
       - 'research-engine/registry_adapters.py'
       - 'research-engine/operator_registry_research.py'
       - 'research-engine/universal_operator_research.py'
+      - 'research-engine/project_people_discovery.py'
       - 'research-engine/universal_people_research.py'
       - 'research-engine/universal_academy_analysis.py'
       - 'research-engine/universal_sixteen_analysis.py'
@@ -49,6 +52,7 @@ on:
       - 'research-engine/tests/test_research_quality.py'
       - 'research-engine/tests/test_operator_registry_safety.py'
       - 'research-engine/tests/test_registry_adapters.py'
+      - 'research-engine/tests/test_project_people_discovery.py'
       - 'research-engine/tests/test_universal_people_research.py'
       - 'research-engine/tests/test_universal_analysis_outputs.py'
       - 'research-engine/tests/test_universal_fixture_separation.py'
@@ -66,8 +70,8 @@ jobs:
           python-version: '3.12'
       - name: Dependencies
         run: pip install -r research-engine/requirements.txt pytest
-      - name: Universal router, identity, quick depth, quality, operator safety, fixtures, people, academy, 16-point and registry tests
-        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_identity_resolver.py research-engine/tests/test_quick_external_research.py research-engine/tests/test_research_quality.py research-engine/tests/test_operator_registry_safety.py research-engine/tests/test_registry_adapters.py research-engine/tests/test_universal_people_research.py research-engine/tests/test_universal_analysis_outputs.py research-engine/tests/test_universal_fixture_separation.py
+      - name: Universal router, identity, quick depth, quality, operator safety, project people, fixtures, academy, 16-point and registry tests
+        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_identity_resolver.py research-engine/tests/test_quick_external_research.py research-engine/tests/test_research_quality.py research-engine/tests/test_operator_registry_safety.py research-engine/tests/test_registry_adapters.py research-engine/tests/test_project_people_discovery.py research-engine/tests/test_universal_people_research.py research-engine/tests/test_universal_analysis_outputs.py research-engine/tests/test_universal_fixture_separation.py
 
   control-request:
     if: github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Research Auftrag')
