@@ -1,0 +1,29 @@
+name: Research Engine Universal Router Test
+
+on:
+  push:
+    paths:
+      - 'research-engine/research_router.py'
+      - 'research-engine/universal_pipeline.py'
+      - 'research-engine/tests/test_universal_research_router.py'
+      - '.github/workflows/research-engine-universal-test.yml'
+  pull_request:
+    paths:
+      - 'research-engine/research_router.py'
+      - 'research-engine/universal_pipeline.py'
+      - 'research-engine/tests/test_universal_research_router.py'
+      - '.github/workflows/research-engine-universal-test.yml'
+
+jobs:
+  universal-router:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Dependencies
+        run: pip install -r research-engine/requirements.txt pytest
+      - name: Universal router and product split tests
+        run: pytest -q research-engine/tests/test_universal_research_router.py
