@@ -1,0 +1,174 @@
+name: Akademie Research Engine – Personen Management Historie
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Projektname"
+        required: false
+        default: "KryptoSavings"
+  push:
+    branches: [main]
+    paths:
+      - "research-engine/people_history_research.py"
+      - "research-engine/operator_registry_research.py"
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-people-history-test.yml"
+  pull_request:
+    paths:
+      - "research-engine/people_history_research.py"
+      - "research-engine/operator_registry_research.py"
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-people-history-test.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  people-history-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeiten installieren
+        id: deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt pytest
+
+      - name: Regressionstests
+        id: tests
+        run: python -m pytest -q research-engine/tests
+
+      - name: Website-Rohresearch
+        id: website
+        shell: bash
+        env:
+          INPUT_QUERY: ${{ github.event.inputs.query }}
+        run: |
+          QUERY="${INPUT_QUERY:-KryptoSavings}"
+          python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json
+
+      - name: Externe Rohrecherche
+        id: external
+        run: |
+          python research-engine/external_research.py \
+            --input research-engine/output/kryptosavings-live.json \
+            --output research-engine/output/kryptosavings-external.json
+
+      - name: Betreiber Register Behörden
+        id: operator
+        run: |
+          python research-engine/operator_registry_research.py \
+            --input research-engine/output/kryptosavings-external.json \
+            --output research-engine/output/kryptosavings-operators.json
+
+      - name: Personen Management Historie
+        id: people
+        run: |
+          python research-engine/people_history_research.py \
+            --input research-engine/output/kryptosavings-operators.json \
+            --output research-engine/output/kryptosavings-people.json
+
+      - name: Personen-Ergebnis prüfen
+        id: checks
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data=json.loads(Path('research-engine/output/kryptosavings-people.json').read_text(encoding='utf-8'))
+          block=data.get('people_history_research') or {}
+          summary=block.get('summary') or {}
+          assert data.get('status') == 'ok'
+          assert block.get('status') in {'ok','no_people_confirmed'}
+          assert block.get('guardrails') == {
+              'entity_person_implies_project_person': False,
+              'founder_or_ceo_implies_ubo': False,
+              'ubo_without_ownership_source': False,
+          }
+          assert summary.get('verified_ubo_count') == 0
+          assert all(p.get('ubo_verified') is False for p in block.get('profiles') or [])
+          print(
+              'Personen-Research OK:',
+              summary.get('person_profile_count',0), 'Profile |',
+              summary.get('project_linked_person_count',0), 'projektverknüpft |',
+              summary.get('ownership_claim_profile_count',0), 'Eigentumsclaims |',
+              summary.get('verified_ubo_count',0), 'UBO verifiziert'
+          )
+          for p in block.get('profiles') or []:
+              print(
+                  f"PERSON: {p.get('person_name')} | entity={p.get('entity')} | "
+                  f"entity_link={p.get('entity_connection_status')} | "
+                  f"project_link={p.get('project_connection_status')} | "
+                  f"ownership={p.get('ownership_status')} | roles={','.join(p.get('roles') or [])}"
+              )
+          PY
+
+      - name: Diagnose schreiben
+        if: always()
+        env:
+          DEPS: ${{ steps.deps.outcome }}
+          TESTS: ${{ steps.tests.outcome }}
+          WEBSITE: ${{ steps.website.outcome }}
+          EXTERNAL: ${{ steps.external.outcome }}
+          OPERATOR: ${{ steps.operator.outcome }}
+          PEOPLE: ${{ steps.people.outcome }}
+          CHECKS: ${{ steps.checks.outcome }}
+        run: |
+          mkdir -p research-engine/output
+          python - <<'PY'
+          import json,os
+          from datetime import datetime,timezone
+          from pathlib import Path
+          status={
+            'generated_at':datetime.now(timezone.utc).isoformat(),
+            'dependencies':os.environ.get('DEPS'),
+            'tests':os.environ.get('TESTS'),
+            'website_research':os.environ.get('WEBSITE'),
+            'external_research':os.environ.get('EXTERNAL'),
+            'operator_registry_research':os.environ.get('OPERATOR'),
+            'people_history_research':os.environ.get('PEOPLE'),
+            'people_checks':os.environ.get('CHECKS'),
+          }
+          Path('research-engine/output/people-history-status.json').write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(status)
+          PY
+
+      - name: Liveoutputs als Debug-Artefakt sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-engine-people-history-${{ github.run_id }}
+          path: |
+            research-engine/output/people-history-status.json
+            research-engine/output/kryptosavings-people.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Ergebnisse auf main sichern
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/output/people-history-status.json
+          if [ -f research-engine/output/kryptosavings-people.json ]; then
+            git add research-engine/output/kryptosavings-people.json
+          fi
+          if git diff --cached --quiet; then
+            echo "Keine Änderung am Personen-Ergebnis."
+            exit 0
+          fi
+          git commit -m "Research Engine: Personen-Historien-Testdiagnose aktualisieren"
+          git pull --rebase
+          git push
