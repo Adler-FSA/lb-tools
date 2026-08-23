@@ -20,9 +20,9 @@
     "pages": [
       {
         "url": "https://www.kryptosavings.com/",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 19142
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto | DeFi Staking & Yield Platform",
+        "fetch_mode": "browser",
+        "text_chars": 23904
       },
       {
         "url": "https://www.kryptosavings.com/affiliate",
@@ -43,32 +43,68 @@
         "text_chars": 2178
       },
       {
-        "url": "https://www.kryptosavings.com/terms-of-service",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 10926
-      },
-      {
-        "url": "https://www.kryptosavings.com/risk-disclaimer",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 11439
-      },
-      {
         "url": "https://www.kryptosavings.com/privacy-policy",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 8485
       },
       {
+        "url": "https://www.kryptosavings.com/nutzungs-token",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 4740
+      },
+      {
         "url": "https://www.kryptosavings.com/gold",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 2187
+      },
+      {
+        "url": "https://www.kryptosavings.com/gutscheine",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 2278
+      },
+      {
+        "url": "https://www.kryptosavings.com/ertragsstrategien",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 987
+      },
+      {
+        "url": "https://www.kryptosavings.com/blog",
+        "title": "KryptoSavings Blog — Crypto Staking News, Guides & Comparisons",
+        "fetch_mode": "direct",
+        "text_chars": 9005
+      },
+      {
+        "url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "title": "Staking-Erträge für Institutionelle — Ethereum, Solana, Cosmos im Vergleich",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 11491
+      },
+      {
+        "url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "title": "Crypto-Earn vs. Tagesgeld — Zinsvergleich 2026",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 7157
+      },
+      {
+        "url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "title": "Ethereum Staking für Privatanleger — Solo vs Pool vs CeFi",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 8584
+      },
+      {
+        "url": "https://www.kryptosavings.com/blog/krypto-risk-management",
+        "title": "Risk-Management von Crypto-Positionen — VaR, Drawdown, Szenario-Analysen",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 11301
       }
     ],
-    "max_percentage": 23.0,
-    "max_yield_percentage": 23.0,
+    "max_percentage": 100.0,
+    "max_yield_percentage": 100.0,
     "max_commission_percentage": 30.0,
     "detected": {
       "staking": true,
@@ -85,276 +121,301 @@
       "bonus": true,
       "guarantee": false
     },
-    "legal_entities": [
-      "Delta West Credit Bank Ltd",
-      "Open Delta DAO LLC"
-    ],
+    "legal_entities": [],
     "social_and_video_links": [],
     "findings": [
+      {
+        "type": "percentage_other",
+        "value": "15%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "🎁 Sichern Sie sich 15% Willkommensbonus auf Ihre erste Einzahlung — bis zu 5.000 $ Sichern → ₿ BTC 76.457 $ Ξ ETH",
+        "confidence": "medium"
+      },
+      {
+        "type": "commission_percentage",
+        "value": "30%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "n Jetzt starten Zinssätze Gold kaufen KRSX Gutscheine Funktionen Strategie Blog Affiliate 30% Mehr VERWAHRUNG AUSSERHALB DES EU-RECHTSRAUMS 💰 Verdienen Sie als Affiliate bis zu 30%",
+        "confidence": "high"
+      },
+      {
+        "type": "commission_percentage",
+        "value": "30%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "te 30% Mehr VERWAHRUNG AUSSERHALB DES EU-RECHTSRAUMS 💰 Verdienen Sie als Affiliate bis zu 30% Provision → Verdienen Sie bis zu 23% APY mit Ihrer Krypto Zahlen Sie BTC, ETH, USDT od",
+        "confidence": "high"
+      },
       {
         "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto 🎁Get **15% Welcome Bonus** on your first deposit — up to $5,000 15% Welcome Bon",
+        "evidence": "EU-RECHTSRAUMS 💰 Verdienen Sie als Affiliate bis zu 30% Provision → Verdienen Sie bis zu 23% APY mit Ihrer Krypto Zahlen Sie BTC, ETH, USDT oder USDC ein und erzielen Sie DeFi-gest",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "20%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "2 Krypto einzahlen BTC, ETH, USDT, USDC 3 Täglich Zinsen verdienen Automatisch ausgezahlt 20% MAX. APY 4 DIGITALE ASSETS 100% INSTITUTIONELLE VERWAHRUNG 24/7 AUTO-AUSZAHLUNGEN 🎁 LI",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "100%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "DT, USDC 3 Täglich Zinsen verdienen Automatisch ausgezahlt 20% MAX. APY 4 DIGITALE ASSETS 100% INSTITUTIONELLE VERWAHRUNG 24/7 AUTO-AUSZAHLUNGEN 🎁 LIMITIERTES WILLKOMMENSANGEBOT Si",
         "confidence": "high"
       },
       {
         "type": "percentage_other",
         "value": "15%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto 🎁Get **15% Welcome Bonus** on your first deposit — up to $5,000 15% Welcome Bonus[Claim →](https://ww",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "15%",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "n up to 23% APY on Crypto 🎁Get **15% Welcome Bonus** on your first deposit — up to $5,000 15% Welcome Bonus[Claim →](https://www.kryptosavings.com/welcome-bonus) Custody outside th",
+        "evidence": "NELLE VERWAHRUNG 24/7 AUTO-AUSZAHLUNGEN 🎁 LIMITIERTES WILLKOMMENSANGEBOT Sichern Sie sich 15% Willkommensbonus auf Ihre erste Einzahlung Zahlen Sie ab 100 $ ein und erhalten Sie bi",
         "confidence": "medium"
       },
       {
         "type": "yield_percentage",
         "value": "12%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "t Asset Deposit Amount (USD) $ Lock Period USDT Price $1 Live ### Your Estimated Earnings 12% p.a. First day $3.29 3.29 USDT First 30 days $98.63 98.63 USDT First 365 days $1,200.0",
+        "evidence": "$50K LAUFZEIT Flexibel 90 Tage 365 Tage USDT-Kurs 1 $ Live Ihre voraussichtlichen Erträge 12% p.a. Erster Tag 3,29 $ 3,29 USDT Erste 30 Tage 98,63 $ 98,63 USDT Erste 365 Tage 1.200",
         "confidence": "high"
       },
       {
         "type": "percentage_other",
         "value": "10%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ur earnings to vetted institutions in Africa and the Middle East — and KryptoSavings adds 10% on top of every donation, out of our own pocket. Be part of it — every donation is amp",
+        "evidence": "rüfte Institutionen in Afrika und im Nahen Osten — und KryptoSavings legt auf jede Spende 10% obendrauf, aus eigener Tasche. Seien Sie dabei — jede Spende wird um 10% verstärkt, we",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "10%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "of every donation, out of our own pocket. Be part of it — every donation is amplified by 10% when KryptoSavings adds its share. Vetted institutions, quarterly transparent transfers",
+        "evidence": "auf jede Spende 10% obendrauf, aus eigener Tasche. Seien Sie dabei — jede Spende wird um 10% verstärkt, wenn KryptoSavings seinen Anteil dazulegt. Geprüfte Institutionen, quartalsw",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "12%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ee is what you earn. 💵USDT / USDC | Flexible | 90 days | 365 days | | --- | --- | --- | | 12% | 16% | 20% | 365-day term below $50,000 · from $50,000 it runs as Premium Income ₿Bit",
+        "evidence": "ten Kosten. Was Sie sehen, ist was Sie verdienen. 💵 USDT / USDC FLEXIBEL 90 TAGE 365 TAGE 12% 16% 20% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income USDT v",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "16%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "what you earn. 💵USDT / USDC | Flexible | 90 days | 365 days | | --- | --- | --- | | 12% | 16% | 20% | 365-day term below $50,000 · from $50,000 it runs as Premium Income ₿Bitcoin |",
+        "evidence": "Kosten. Was Sie sehen, ist was Sie verdienen. 💵 USDT / USDC FLEXIBEL 90 TAGE 365 TAGE 12% 16% 20% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income USDT verdi",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ou earn. 💵USDT / USDC | Flexible | 90 days | 365 days | | --- | --- | --- | | 12% | 16% | 20% | 365-day term below $50,000 · from $50,000 it runs as Premium Income ₿Bitcoin | Flexi",
+        "evidence": "en. Was Sie sehen, ist was Sie verdienen. 💵 USDT / USDC FLEXIBEL 90 TAGE 365 TAGE 12% 16% 20% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income USDT verdienen",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "8%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "t runs as Premium Income ₿Bitcoin | Flexible | 90 days | 365 days | | --- | --- | --- | | 8% | 12% | 15% | 365-day term below $50,000 · from $50,000 it runs as Premium Income ⟠Ethe",
+        "evidence": "00 läuft die Anlage als Premium Income USDT verdienen ₿ Bitcoin FLEXIBEL 90 TAGE 365 TAGE 8% 12% 15% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income Bitcoin",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "12%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "s as Premium Income ₿Bitcoin | Flexible | 90 days | 365 days | | --- | --- | --- | | 8% | 12% | 15% | 365-day term below $50,000 · from $50,000 it runs as Premium Income ⟠Ethereum ",
+        "evidence": "läuft die Anlage als Premium Income USDT verdienen ₿ Bitcoin FLEXIBEL 90 TAGE 365 TAGE 8% 12% 15% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income Bitcoin ve",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "15%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "remium Income ₿Bitcoin | Flexible | 90 days | 365 days | | --- | --- | --- | | 8% | 12% | 15% | 365-day term below $50,000 · from $50,000 it runs as Premium Income ⟠Ethereum | Flex",
+        "evidence": "t die Anlage als Premium Income USDT verdienen ₿ Bitcoin FLEXIBEL 90 TAGE 365 TAGE 8% 12% 15% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income Bitcoin verdie",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "10%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "runs as Premium Income ⟠Ethereum | Flexible | 90 days | 365 days | | --- | --- | --- | | 10% | 14% | 17% | 365-day term below $50,000 · from $50,000 it runs as Premium Income Early",
+        "evidence": "äuft die Anlage als Premium Income Bitcoin verdienen ⟠ Ethereum FLEXIBEL 90 TAGE 365 TAGE 10% 14% 17% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income Ethere",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "14%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "as Premium Income ⟠Ethereum | Flexible | 90 days | 365 days | | --- | --- | --- | | 10% | 14% | 17% | 365-day term below $50,000 · from $50,000 it runs as Premium Income Early phas",
+        "evidence": "die Anlage als Premium Income Bitcoin verdienen ⟠ Ethereum FLEXIBEL 90 TAGE 365 TAGE 10% 14% 17% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income Ethereum ve",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "17%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "mium Income ⟠Ethereum | Flexible | 90 days | 365 days | | --- | --- | --- | | 10% | 14% | 17% | 365-day term below $50,000 · from $50,000 it runs as Premium Income Early phase The ",
+        "evidence": "Anlage als Premium Income Bitcoin verdienen ⟠ Ethereum FLEXIBEL 90 TAGE 365 TAGE 10% 14% 17% 365 Tage unter $50.000 · ab $50.000 läuft die Anlage als Premium Income Ethereum verdie",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ates are below — you can see what changes and when. Today Issuance price From 09/30/2026 +20 % From 11/15/2026 +32 % From 12/31/2026 +44 % From 02/28/2027 +87 % Percentages relativ",
+        "evidence": "arunter — Sie sehen, was sich wann ändert. HEUTE 1,00 $ Ausgabekurs AB 30.09.2026 1,20 $ +20 % AB 15.11.2026 1,32 $ +32 % AB 31.12.2026 1,44 $ +44 % AB 28.02.2027 1,87 $ +87 % Proz",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "32%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "an see what changes and when. Today Issuance price From 09/30/2026 +20 % From 11/15/2026 +32 % From 12/31/2026 +44 % From 02/28/2027 +87 % Percentages relative to today's issuance ",
+        "evidence": "ch wann ändert. HEUTE 1,00 $ Ausgabekurs AB 30.09.2026 1,20 $ +20 % AB 15.11.2026 1,32 $ +32 % AB 31.12.2026 1,44 $ +44 % AB 28.02.2027 1,87 $ +87 % Prozente gegenüber dem heutigen",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "44%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "d when. Today Issuance price From 09/30/2026 +20 % From 11/15/2026 +32 % From 12/31/2026 +44 % From 02/28/2027 +87 % Percentages relative to today's issuance price. The dates are p",
+        "evidence": "$ Ausgabekurs AB 30.09.2026 1,20 $ +20 % AB 15.11.2026 1,32 $ +32 % AB 31.12.2026 1,44 $ +44 % AB 28.02.2027 1,87 $ +87 % Prozente gegenüber dem heutigen Ausgabekurs. Die Termine s",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "87%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "price From 09/30/2026 +20 % From 11/15/2026 +32 % From 12/31/2026 +44 % From 02/28/2027 +87 % Percentages relative to today's issuance price. The dates are planned: each step takes",
+        "evidence": "1,20 $ +20 % AB 15.11.2026 1,32 $ +32 % AB 31.12.2026 1,44 $ +44 % AB 28.02.2027 1,87 $ +87 % Prozente gegenüber dem heutigen Ausgabekurs. Die Termine sind geplant: Jede Stufe grei",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ge. Only 38 days left at the issuance price of $1.00. From 09/30/2026 it rises to $1.20 (+20 %). 12-month lock from crediting — no trading and no right of return during the lock-up",
+        "evidence": "en sich ändern. Noch 38 Tage zum Ausgabekurs 1,00 $. Ab 30.09.2026 steigt er auf 1,20 $ (+20 %). Bindung 12 Monate ab Gutschrift — kein Handel und kein Rückgaberecht während der Bi",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "dmap 2027 The following is a plan, not a commitment. 1. Today $1.00 2. 09/30/2026 $1.20 (+20 %) 3. 11/15/2026 $1.32 (+32 %) 4. 12/31/2026 $1.44 (+44 %) 5. 02/28/2027 $1.87 (+87 %) ",
+        "evidence": "oadmap 2027 Das Folgende ist ein Vorhaben, keine Zusage. HEUTE 1,00 $ 30.09.2026 1,20 $ (+20 %) 15.11.2026 1,32 $ (+32 %) 31.12.2026 1,44 $ (+44 %) 28.02.2027 1,87 $ (+87 %) Q2 202",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "32%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "plan, not a commitment. 1. Today $1.00 2. 09/30/2026 $1.20 (+20 %) 3. 11/15/2026 $1.32 (+32 %) 4. 12/31/2026 $1.44 (+44 %) 5. 02/28/2027 $1.87 (+87 %) 6. Q2 2027 Migration to Ether",
+        "evidence": "st ein Vorhaben, keine Zusage. HEUTE 1,00 $ 30.09.2026 1,20 $ (+20 %) 15.11.2026 1,32 $ (+32 %) 31.12.2026 1,44 $ (+44 %) 28.02.2027 1,87 $ (+87 %) Q2 2027 Migration auf Ethereum (",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "44%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "Today $1.00 2. 09/30/2026 $1.20 (+20 %) 3. 11/15/2026 $1.32 (+32 %) 4. 12/31/2026 $1.44 (+44 %) 5. 02/28/2027 $1.87 (+87 %) 6. Q2 2027 Migration to Ethereum (ERC-20) 7. Q3 2027 Lis",
+        "evidence": "age. HEUTE 1,00 $ 30.09.2026 1,20 $ (+20 %) 15.11.2026 1,32 $ (+32 %) 31.12.2026 1,44 $ (+44 %) 28.02.2027 1,87 $ (+87 %) Q2 2027 Migration auf Ethereum (ERC-20) Q3 2027 Einführung",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "87%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": ".20 (+20 %) 3. 11/15/2026 $1.32 (+32 %) 4. 12/31/2026 $1.44 (+44 %) 5. 02/28/2027 $1.87 (+87 %) 6. Q2 2027 Migration to Ethereum (ERC-20) 7. Q3 2027 Listing on a regulated crypto e",
+        "evidence": "26 1,20 $ (+20 %) 15.11.2026 1,32 $ (+32 %) 31.12.2026 1,44 $ (+44 %) 28.02.2027 1,87 $ (+87 %) Q2 2027 Migration auf Ethereum (ERC-20) Q3 2027 Einführung an einer regulierten Kryp",
         "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ry. Only 38 days left at the issuance price of $1.00. From 09/30/2026 it rises to $1.20 (+20 %). KRSX is a platform-native utility token issued by KryptoSavings. It does not repres",
+        "evidence": "gabekurs kaufen Noch 38 Tage zum Ausgabekurs 1,00 $. Ab 30.09.2026 steigt er auf 1,20 $ (+20 %). Jetzt kaufen Mehr erfahren KRSX ist ein plattformeigener Utility-Token, ausgegeben ",
         "confidence": "medium"
       },
       {
         "type": "yield_percentage",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "and keeps working until maturity. From $100, across BTC, ETH and stablecoins — earn up to 20% p.a. [See standard rates →](https://www.kryptosavings.com/#rates) Monthly income ### P",
+        "evidence": "f und arbeiten bis zur Fälligkeit weiter. Ab $100, über BTC, ETH und Stablecoins — bis zu 20% p.a. Standard-Sätze ansehen → Monatliches Einkommen Premium Income Earn Planbarer mona",
         "confidence": "high"
       },
       {
-        "type": "yield_percentage",
+        "type": "percentage_other",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6581 BTC / ≈ 20.94 ETH at the current rate",
-        "confidence": "high"
+        "evidence": "en, nicht nur ein wachsendes Guthaben. FESTER JAHRESZINS, BEI EINZAHLUNG EINGEFROREN USDT 23% USDC 23% BTC 18% ETH 20% $50.000 Mindestanlage · ≈ 0.6540 BTC / ≈ 20.74 ETH zum aktuel",
+        "confidence": "medium"
       },
       {
-        "type": "yield_percentage",
+        "type": "percentage_other",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6581 BTC / ≈ 20.94 ETH at the current rate 🔒 365-d",
-        "confidence": "high"
+        "evidence": "nur ein wachsendes Guthaben. FESTER JAHRESZINS, BEI EINZAHLUNG EINGEFROREN USDT 23% USDC 23% BTC 18% ETH 20% $50.000 Mindestanlage · ≈ 0.6540 BTC / ≈ 20.74 ETH zum aktuellen Satz 🔒",
+        "confidence": "medium"
       },
       {
-        "type": "yield_percentage",
+        "type": "percentage_other",
         "value": "18%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6581 BTC / ≈ 20.94 ETH at the current rate 🔒 365-day lock",
-        "confidence": "high"
+        "evidence": "wachsendes Guthaben. FESTER JAHRESZINS, BEI EINZAHLUNG EINGEFROREN USDT 23% USDC 23% BTC 18% ETH 20% $50.000 Mindestanlage · ≈ 0.6540 BTC / ≈ 20.74 ETH zum aktuellen Satz 🔒 365 Tag",
+        "confidence": "medium"
       },
       {
-        "type": "yield_percentage",
+        "type": "percentage_other",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6581 BTC / ≈ 20.94 ETH at the current rate 🔒 365-day lock ⛔ No e",
-        "confidence": "high"
+        "evidence": "des Guthaben. FESTER JAHRESZINS, BEI EINZAHLUNG EINGEFROREN USDT 23% USDC 23% BTC 18% ETH 20% $50.000 Mindestanlage · ≈ 0.6540 BTC / ≈ 20.74 ETH zum aktuellen Satz 🔒 365 Tage Laufz",
+        "confidence": "medium"
       },
       {
         "type": "percentage_other",
         "value": "10%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ps://www.kryptosavings.com/register) Referral Program Share your referral link and earn **10% of your friends' interest earnings** — paid automatically, every day. 01 ### Share you",
+        "evidence": "Freunde einladen, gemeinsam verdienen Teilen Sie Ihren Empfehlungslink und verdienen Sie 10% der Zinserträge Ihrer Freunde — automatisch ausgezahlt, jeden Tag. 01 Link teilen Holen",
         "confidence": "medium"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "10%",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "g They sign up, complete KYC, deposit crypto and earn competitive yields. 03 ### You earn 10% Receive 10% of their interest earnings automatically — directly into your wallet. [Get",
-        "confidence": "high"
-      },
-      {
-        "type": "commission_percentage",
-        "value": "10%",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "up, complete KYC, deposit crypto and earn competitive yields. 03 ### You earn 10% Receive 10% of their interest earnings automatically — directly into your wallet. [Get your referr",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "20%",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "he full strategy and its risks are set out on our strategy page. KryptoSavings pays up to 20% APY — one rate per asset and term, highest on stablecoins (USDT, USDC) on a 365-day lo",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "20%",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "and your principal is at risk. KryptoSavings supports BTC, ETH, USDT and USDC with up to 20% APY, no deposit fee, and no commission on what you earn. Liquid-staking and exchange-st",
-        "confidence": "high"
       },
       {
         "type": "percentage_other",
         "value": "10%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ing and exchange-staking products typically take a cut of rewards instead: Lido charges a 10% protocol fee on ETH staking rewards, and Coinbase takes a commission on staking reward",
+        "evidence": "ich, durchlaufen KYC, zahlen Krypto ein und erzielen attraktive Erträge. 03 Sie verdienen 10% Erhalten Sie automatisch 10% ihrer Zinserträge — direkt in Ihr Wallet. Empfehlungslink",
         "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "Krypto ein und erzielen attraktive Erträge. 03 Sie verdienen 10% Erhalten Sie automatisch 10% ihrer Zinserträge — direkt in Ihr Wallet. Empfehlungslink holen Provisionen täglich in",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "20%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "neidet KryptoSavings im Vergleich zu Binance Earn und Nexo ab? KryptoSavings zahlt bis zu 20 % APY – einen Satz je Asset und Laufzeit, am höchsten auf Stablecoins (USDT, USDC) bei ",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "20%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "Lido oder Coinbase-Staking? KryptoSavings unterstützt BTC, ETH, USDT und USDC mit bis zu 20 % APY, ohne Einzahlungsgebühr und ohne Provision auf Ihre Erträge. Liquid-Staking- und B",
+        "confidence": "high"
+      },
+      {
+        "type": "commission_percentage",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "king-Produkte behalten dagegen typischerweise einen Teil der Belohnungen ein: Lido erhebt 10 % Protokollgebühr auf ETH-Staking-Belohnungen, Coinbase eine Provision auf Staking-Belo",
+        "confidence": "high"
       },
       {
         "type": "commission_percentage",
         "value": "35%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "staking rewards, and Coinbase takes a commission on staking rewards — commonly around 25–35%, depending on the asset. After those deductions, headline staking yields are lower than",
+        "evidence": "en, Coinbase eine Provision auf Staking-Belohnungen – je nach Asset üblicherweise rund 25–35 %. Nach diesen Abzügen fallen die Schlagzeilen-Renditen niedriger aus, als sie zunächst",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "so check current terms before deciding. KryptoSavings combines competitive rates of up to 20% APY and institutional-grade custody — with no deposit fee and no commission on your ea",
+        "evidence": "deren Krypto-Earn-Plattformen? KryptoSavings verbindet wettbewerbsfähige Sätze von bis zu 20 % APY und institutionelle Verwahrung – ohne Einzahlungsgebühr und ohne Provision auf Ih",
         "confidence": "high"
       },
       {
@@ -458,64 +519,15 @@
       {
         "type": "yield_percentage",
         "value": "23%",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## 1. Introduction Welcome to KryptoSavings (\"we,\" \"our,\" \"us,\" or the \"Platfor",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ### High-Risk Investment Warning Crypto assets are highly volatile and speculat",
-        "confidence": "high"
-      },
-      {
-        "type": "percentage_other",
-        "value": "10%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "value within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets oper",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "20%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "e within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate ",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "50%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "hin short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate 24/7 ",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "100%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "res or blockchain vulnerabilities **Risk Impact:** In a worst-case scenario, you may lose 100% of your deposited assets. ## 4. Yield Generation & Performance Risk Advertised APY ra",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "51%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "n Networks:** Bitcoin, Ethereum, and Tron networks may experience congestion, hard forks, 51% attacks, or protocol failures * **Technology Vendors:** Hosting, cloud services, and e",
-        "confidence": "medium"
-      },
-      {
-        "type": "percentage_other",
-        "value": "51%",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "contentious hard forks may result in asset duplication, loss, or value fragmentation * **51% Attacks:** Malicious actors with majority hash power may double-spend or reverse transa",
-        "confidence": "medium"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
         "source_url": "https://www.kryptosavings.com/privacy-policy",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## 1. Introduction KryptoSavings (\"we,\" \"our,\" \"us\") is committed to protecting",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/nutzungs-token",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## What is KRSX? KRSX is the platform token of KryptoSavings. It is backed by r",
         "confidence": "high"
       },
       {
@@ -526,234 +538,640 @@
         "confidence": "high"
       },
       {
-        "type": "staking",
-        "value": "staking",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "Deposit BTC, ETH, USDT or USDC and earn DeFi-powered yields backed by institutional-grade staking and trading strategies. With institutional-grade custody. How it works — 3 simple ",
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/gutscheine",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto [Krypto Savings](https://www.kryptosavings.com/)[← Back](https://www.kryptosavi",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/ertragsstrategien",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto [![Image 1: KryptoSavings](https://www.kryptosavings.com/brand/logo-mark.svg)Kr",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2%",
+        "source_url": "https://www.kryptosavings.com/blog",
+        "evidence": "ohne zu zocken. Crypto-Earn vs. Tagesgeld — Zinsvergleich 2026 Tagesgeld bringt 2026 rund 2% Zinsen - Crypto-Earn lockt mit 5% und mehr. Doch was bedeutet das wirklich für dein Gel",
         "confidence": "medium"
       },
       {
-        "type": "yield_or_interest",
-        "value": "Earn",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto 🎁Get **15% Welcome Bonus** on your first deposit — up to $5,000 1",
+        "type": "yield_percentage",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog",
+        "evidence": "gesgeld — Zinsvergleich 2026 Tagesgeld bringt 2026 rund 2% Zinsen - Crypto-Earn lockt mit 5% und mehr. Doch was bedeutet das wirklich für dein Geld, wenn man Währungsrisiken einrec",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog",
+        "evidence": "Assets Family Offices allokieren zunehmend in Digital Assets. Aktuelle Studien zeigen: 1-5% Crypto-Beimischung kann risikoadjustierte Portfoliorenditen verbessern. Was ist Stableco",
         "confidence": "medium"
       },
       {
-        "type": "yield_or_interest",
-        "value": "Earn",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Affiliate Program · Now live ## Earn up to 30% commission with no",
+        "type": "yield_percentage",
+        "value": "6%",
+        "source_url": "https://www.kryptosavings.com/blog",
+        "evidence": "einem Sparplan funktioniert und worauf du achten solltest. Stablecoin-Cashmanagement — 4-6% Yield auf USDC vs. 2% EUR-Tagesgeld Institutionelle Treasuries evaluieren Stablecoin-Yie",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2%",
+        "source_url": "https://www.kryptosavings.com/blog",
+        "evidence": "oniert und worauf du achten solltest. Stablecoin-Cashmanagement — 4-6% Yield auf USDC vs. 2% EUR-Tagesgeld Institutionelle Treasuries evaluieren Stablecoin-Yields von 4-6% p.a. geg",
         "confidence": "medium"
       },
       {
-        "type": "yield_or_interest",
-        "value": "Earn",
-        "source_url": "https://www.kryptosavings.com/strategy",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of d",
+        "type": "yield_percentage",
+        "value": "6%",
+        "source_url": "https://www.kryptosavings.com/blog",
+        "evidence": "f USDC vs. 2% EUR-Tagesgeld Institutionelle Treasuries evaluieren Stablecoin-Yields von 4-6% p.a. gegen klassisches EUR-Tagesgeld. Risiko-Rendite-Analyse für CFOs und Asset Manager",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "68%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "Daten von Fidelity Digital Assets und Coinbase Institutional eine deutliche Verschiebung: 68% der befragten institutionellen Investoren mit Krypto-Allokation nutzen mittlerweile St",
         "confidence": "medium"
       },
       {
-        "type": "defi",
-        "value": "DeFi",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "elcome-bonus) Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC and earn DeFi-powered yields backed by institutional-grade staking and trading strategies. With ins",
+        "type": "yield_percentage",
+        "value": "3.8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "king-Rendite setzt sich aus drei Komponenten zusammen: * Konsensus-Layer-Rewards (ca. 3,2–3,8% p.a., abhängig vom Gesamtstake) * Execution-Layer-Rewards (MEV und Priority Fees, dur",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "1.2%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "g vom Gesamtstake) * Execution-Layer-Rewards (MEV und Priority Fees, durchschnittlich 0,8–1,2% p.a.) * Optionale Restaking-Prämien über Protokolle wie EigenLayer (zusätzlich 1,5–3,",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "3.5%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "8–1,2% p.a.) * Optionale Restaking-Prämien über Protokolle wie EigenLayer (zusätzlich 1,5–3,5% p.a.) Die Gesamtrendite für direkte Validator-Betreiber lag im Zeitraum Q1–Q4 2024 be",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "4.1%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "mtrendite für direkte Validator-Betreiber lag im Zeitraum Q1–Q4 2024 bei durchschnittlich 4,1% p.a. (Basis: Rated Network Validator Performance Data). Institutionelle Staking-as-a-",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "25%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "-a-Service-Provider wie Coinbase Custody oder Anchorage Digital rechnen typischerweise 15–25% der Staking-Rewards als Servicegebühr ab, was zu Netto-APYs von 3,1–3,5% führt. **Slas",
         "confidence": "medium"
       },
       {
-        "type": "defi",
-        "value": "DeFi",
-        "source_url": "https://www.kryptosavings.com/strategy",
-        "evidence": "with hedged leverage Schematic illustration of the leverage effect — not real values. ## DeFi protocols used ### Ethena Delta-neutral base yield ### Morpho Isolated lending markets",
+        "type": "yield_percentage",
+        "value": "3.5%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "typischerweise 15–25% der Staking-Rewards als Servicegebühr ab, was zu Netto-APYs von 3,1–3,5% führt. **Slashing-Risiken und Validator-Performance** Ethereum implementiert ein zwei",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "100%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "sbarem Fehlverhalten (Double-Signing, Surround-Votes) Verlust von mindestens 1 ETH bis zu 100% des Validator-Stakes Laut Beaconcha.in-Statistiken wurden seit Merge-Start 367 Valida",
         "confidence": "medium"
       },
       {
-        "type": "trading",
-        "value": "trading",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ETH, USDT or USDC and earn DeFi-powered yields backed by institutional-grade staking and trading strategies. With institutional-grade custody. How it works — 3 simple steps 1 Sign ",
+        "type": "percentage_other",
+        "value": "3.7e-05%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "urden seit Merge-Start 367 Validatoren geslasht (Stand: Januar 2025), was einer Quote von 0,000037% entspricht. Für institutionelle Investoren ist die Validator-Selektion dennoch k",
         "confidence": "medium"
       },
       {
-        "type": "trading",
-        "value": "trading",
-        "source_url": "https://www.kryptosavings.com/strategy",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of directional bets Conventional crypto",
+        "type": "percentage_other",
+        "value": "99.8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "die Validator-Selektion dennoch kritisch: Top-Quartil-Validatoren weisen eine Uptime von >99,8% auf, während Bottom-Quartil-Operatoren teilweise nur 96,5% erreichen – eine Differen",
         "confidence": "medium"
       },
       {
-        "type": "trading",
-        "value": "trading",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "## 9. Yield Generation Returns on your deposits are generated through institutional-grade trading strategies executed on our behalf, including but not limited to: * Algorithmic gri",
+        "type": "percentage_other",
+        "value": "96.5%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "atoren weisen eine Uptime von >99,8% auf, während Bottom-Quartil-Operatoren teilweise nur 96,5% erreichen – eine Differenz, die sich bei einem 10-Mio.-EUR-Stake mit ca. 12.000 EUR ",
         "confidence": "medium"
       },
       {
-        "type": "leverage",
-        "value": "leverage",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "r funds are actively deployed in our Aegis Alpha Corridor strategy, which trades and uses leverage — this is an investment product, not a deposit account, and returns are targeted,",
+        "type": "percentage_other",
+        "value": "3.3%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "| | --- | --- | --- | --- | | Third-Party Custody Staking | 500k–5 Mio. EUR | Keine | 3,0–3,3% | | White-Label Validator | 5–50 Mio. EUR | Teilweise | 3,5–3,8% | | Eigene Infrastru",
         "confidence": "medium"
       },
       {
-        "type": "leverage",
-        "value": "leverage",
-        "source_url": "https://www.kryptosavings.com/strategy",
-        "evidence": "strategies, we collect ongoing premiums with clearly limited risk. ## Intelligent, hedged leverage Market-neutral spreads only produce institutionally relevant returns when the cap",
+        "type": "percentage_other",
+        "value": "3.8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "5 Mio. EUR | Keine | 3,0–3,3% | | White-Label Validator | 5–50 Mio. EUR | Teilweise | 3,5–3,8% | | Eigene Infrastruktur | >50 Mio. EUR | Vollständig | 3,8–4,1% | Die Implementierun",
         "confidence": "medium"
       },
       {
-        "type": "leverage",
-        "value": "leverage",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "strategy, as described on our strategy page. This strategy involves active deployment and leverage; it is not a custodial deposit held in reserve. ## 10. Platform Risks By using ou",
+        "type": "percentage_other",
+        "value": "4.1%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "o. EUR | Teilweise | 3,5–3,8% | | Eigene Infrastruktur | >50 Mio. EUR | Vollständig | 3,8–4,1% | Die Implementierung eigener Validator-Infrastruktur erfordert DevOps-Kapazitäten, 2",
         "confidence": "medium"
       },
       {
-        "type": "lending",
-        "value": "lending",
-        "source_url": "https://www.kryptosavings.com/strategy",
-        "evidence": "ere most trading volume occurs — for an outsized share of the trading fees. ### Recursive lending yield Across isolated, institutional lending markets, capital is deployed repeated",
+        "type": "yield_percentage",
+        "value": "4.9%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "te wird primär durch Inflationsemissionen generiert. Bei aktueller Inflationsrate von ca. 4,9% p.a. (abnehmend um 15% pro Jahr bis zu einem Floor von 1,5%) und einem Staking-Ratio ",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "15%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "lationsemissionen generiert. Bei aktueller Inflationsrate von ca. 4,9% p.a. (abnehmend um 15% pro Jahr bis zu einem Floor von 1,5%) und einem Staking-Ratio von etwa 65% ergibt sich",
         "confidence": "medium"
       },
       {
-        "type": "lockup",
-        "value": "30 days",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "d USDT Price $1 Live ### Your Estimated Earnings 12% p.a. First day $3.29 3.29 USDT First 30 days $98.63 98.63 USDT First 365 days $1,200.00 1200.00 USDT Total after 1 year (flexib",
+        "type": "percentage_other",
+        "value": "1.5%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ueller Inflationsrate von ca. 4,9% p.a. (abnehmend um 15% pro Jahr bis zu einem Floor von 1,5%) und einem Staking-Ratio von etwa 65% ergibt sich eine nominale APY von 7,1–7,8%. Ent",
         "confidence": "medium"
       },
       {
-        "type": "lockup",
-        "value": "fixed term",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "t. Refer users to KryptoSavings and earn lifetime commissions from their crypto yield. No fixed term. [Become an affiliate](https://www.kryptosavings.com/register)[Calculate earnin",
+        "type": "percentage_other",
+        "value": "65%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "(abnehmend um 15% pro Jahr bis zu einem Floor von 1,5%) und einem Staking-Ratio von etwa 65% ergibt sich eine nominale APY von 7,1–7,8%. Entscheidend für institutionelle Investoren",
         "confidence": "medium"
       },
       {
-        "type": "lockup",
-        "value": "365 days",
-        "source_url": "https://www.kryptosavings.com/welcome-bonus",
-        "evidence": "to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your ",
+        "type": "yield_percentage",
+        "value": "7.8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "loor von 1,5%) und einem Staking-Ratio von etwa 65% ergibt sich eine nominale APY von 7,1–7,8%. Entscheidend für institutionelle Investoren: Solanas Inflation ist Token-basiert, ni",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "4.9%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ert. Bei konstantem SOL-Preis erodiert die reale Kaufkraft von unstaked Positionen um ca. 4,9% jährlich – ein struktureller Anreiz für Delegierung, der sich von Ethereums geringere",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "0.8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "in struktureller Anreiz für Delegierung, der sich von Ethereums geringerer Inflation (ca. 0,8% p.a.) deutlich unterscheidet. **Validator-Ökonomie und Kommissionsstrukturen** Solana",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ie und Kommissionsstrukturen** Solana-Validatoren operieren mit variablen Kommissionen (0–10%, typischerweise 5–8%). Die Validator-Performance-Varianz ist deutlich höher als bei Et",
         "confidence": "medium"
       },
       {
-        "type": "withdrawal",
-        "value": "Withdraw",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "12 for ETH, 20 for USDT on Tron), your balance is credited automatically. ### Withdrawing Withdraw to any external wallet address you control. 1. 1 Verify once, at withdrawal Ident",
+        "type": "percentage_other",
+        "value": "8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "kturen** Solana-Validatoren operieren mit variablen Kommissionen (0–10%, typischerweise 5–8%). Die Validator-Performance-Varianz ist deutlich höher als bei Ethereum: * Top-Validato",
         "confidence": "medium"
       },
       {
-        "type": "withdrawal",
-        "value": "withdraw",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "ng lock-up periods and annual percentage yields (APY): * **Flexible:** No lock-up period, withdraw anytime without penalty * **90 Days:** Fixed 90-day lock-up period with higher AP",
+        "type": "percentage_other",
+        "value": "99.9%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "lich höher als bei Ethereum: * Top-Validatoren (z.B. Coinbase, Figment, Chorus One): 99,5–99,9% Uptime, 5–7% Kommission * Mid-Tier-Validatoren: 97–99% Uptime, 3–6% Kommission * Tai",
         "confidence": "medium"
       },
       {
-        "type": "withdrawal",
-        "value": "withdrawal",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "s **Risk Impact:** The value of your deposited assets may decline significantly, and your withdrawal may be worth substantially less than your deposit, even after accounting for an",
+        "type": "percentage_other",
+        "value": "7%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ei Ethereum: * Top-Validatoren (z.B. Coinbase, Figment, Chorus One): 99,5–99,9% Uptime, 5–7% Kommission * Mid-Tier-Validatoren: 97–99% Uptime, 3–6% Kommission * Tail-Validatoren: t",
         "confidence": "medium"
       },
       {
-        "type": "kyc",
-        "value": "KYC",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "h institutional-grade custody. How it works — 3 simple steps 1 Sign up & verify 5 minutes KYC 2 Deposit crypto BTC, ETH, USDT, USDC 3 Earn daily interest Paid out automatically Max",
+        "type": "percentage_other",
+        "value": "99%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "base, Figment, Chorus One): 99,5–99,9% Uptime, 5–7% Kommission * Mid-Tier-Validatoren: 97–99% Uptime, 3–6% Kommission * Tail-Validatoren: teilweise <95% Uptime, 0–3% Kommission Ein",
         "confidence": "medium"
       },
       {
-        "type": "kyc",
-        "value": "KYC",
-        "source_url": "https://www.kryptosavings.com/welcome-bonus",
-        "evidence": "Register & verify Sign up with your email, set up two-factor authentication and complete KYC verification — usually 5 minutes. STEP 2 2 ### Place your funds in Earn Place at least ",
+        "type": "percentage_other",
+        "value": "6%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "Chorus One): 99,5–99,9% Uptime, 5–7% Kommission * Mid-Tier-Validatoren: 97–99% Uptime, 3–6% Kommission * Tail-Validatoren: teilweise <95% Uptime, 0–3% Kommission Eine Analyse der S",
         "confidence": "medium"
       },
       {
-        "type": "kyc",
-        "value": "KYC",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "he right to refuse service to anyone at our sole discretion. ## 3. Account Registration & KYC To access our Services, you must complete our registration and Know Your Customer (KYC",
+        "type": "percentage_other",
+        "value": "95%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ion * Mid-Tier-Validatoren: 97–99% Uptime, 3–6% Kommission * Tail-Validatoren: teilweise <95% Uptime, 0–3% Kommission Eine Analyse der Stakewiz-Daten zeigt: Die Wahl eines Bottom-Q",
         "confidence": "medium"
       },
       {
-        "type": "custody",
-        "value": "Custody",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "it — up to $5,000 15% Welcome Bonus[Claim →](https://www.kryptosavings.com/welcome-bonus) Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC and earn DeFi-powered y",
+        "type": "percentage_other",
+        "value": "3%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "-Validatoren: 97–99% Uptime, 3–6% Kommission * Tail-Validatoren: teilweise <95% Uptime, 0–3% Kommission Eine Analyse der Stakewiz-Daten zeigt: Die Wahl eines Bottom-Quartil-Validat",
         "confidence": "medium"
       },
       {
-        "type": "custody",
-        "value": "Institutional Custody",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "r)[Calculate earnings](https://www.kryptosavings.com/affiliate#calculator) Up to 23% p.a. Institutional Custody EU-Hosted Infrastructure Earn commissions on yields from: Bitcoin Et",
+        "type": "yield_percentage",
+        "value": "20.2%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "Der Cosmos Hub (ATOM) repräsentiert die etablierteste Chain im Ökosystem: * **APY**: 18,5–20,2% nominal (Stand: Januar 2025) * **Unbonding-Periode**: 21 Tage * **Slashing-Parameter",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "% nominal (Stand: Januar 2025) * **Unbonding-Periode**: 21 Tage * **Slashing-Parameter**: 5% des gestakten Betrags bei Double-Signing, 0,01% bei Downtime >10.000 Blöcke Die hohe no",
         "confidence": "medium"
       },
       {
-        "type": "custody",
-        "value": "custody",
-        "source_url": "https://www.kryptosavings.com/strategy",
-        "evidence": "r ## Institutional partners & infrastructure Qualified institutional custodians Qualified custody & prime brokerage Cumberland (DRW) · Wintermute Institutional OTC liquidity & mark",
+        "type": "percentage_other",
+        "value": "0.01%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "Periode**: 21 Tage * **Slashing-Parameter**: 5% des gestakten Betrags bei Double-Signing, 0,01% bei Downtime >10.000 Blöcke Die hohe nominale Rendite reflektiert eine Inflationsrat",
         "confidence": "medium"
       },
       {
-        "type": "referral",
-        "value": "Referral",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "rly exit 📅 Paid out monthly [Open Premium Income](https://www.kryptosavings.com/register) Referral Program Share your referral link and earn **10% of your friends' interest earning",
+        "type": "yield_percentage",
+        "value": "15%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ntime >10.000 Blöcke Die hohe nominale Rendite reflektiert eine Inflationsrate von ca. 13–15% p.a., die dynamisch an das Staking-Ratio gekoppelt ist. Bei einem Ziel-Staking-Ratio v",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "67%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "p.a., die dynamisch an das Staking-Ratio gekoppelt ist. Bei einem Ziel-Staking-Ratio von 67% und aktuellem Ratio von ca. 63% bewegt sich die Inflation am oberen Band. **Validatoren",
         "confidence": "medium"
       },
       {
-        "type": "referral",
-        "value": "Affiliate",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Affiliate Program · Now live ## Earn up to 30% commission with no fixed time limit. Refer users to",
+        "type": "percentage_other",
+        "value": "63%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ing-Ratio gekoppelt ist. Bei einem Ziel-Staking-Ratio von 67% und aktuellem Ratio von ca. 63% bewegt sich die Inflation am oberen Band. **Validatoren-Konzentration und Governance-R",
         "confidence": "medium"
       },
       {
-        "type": "referral",
-        "value": "referral",
-        "source_url": "https://www.kryptosavings.com/welcome-bonus",
-        "evidence": "user The welcome bonus is a one-time benefit per verified account. Multi-account or self-referral attempts are detected and rejected. ### Your capital stays yours Flexible balances",
+        "type": "percentage_other",
+        "value": "42%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "elevanter Unterschied zu Ethereum: Die Top-10-Validatoren im Cosmos Hub kontrollieren ca. 42% des Gesamtstakes (verglichen mit 28% bei Ethereum). Diese Konzentration erhöht das Gov",
         "confidence": "medium"
       },
       {
-        "type": "bonus",
-        "value": "Welcome Bonus",
-        "source_url": "https://www.kryptosavings.com/",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto 🎁Get **15% Welcome Bonus** on your first deposit — up to $5,000 15% Welcome Bonus[Claim →](https://www.kryptosavin",
+        "type": "percentage_other",
+        "value": "28%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "e Top-10-Validatoren im Cosmos Hub kontrollieren ca. 42% des Gesamtstakes (verglichen mit 28% bei Ethereum). Diese Konzentration erhöht das Governance-Risiko, da On-Chain-Proposals",
         "confidence": "medium"
       },
       {
-        "type": "bonus",
-        "value": "bonus",
-        "source_url": "https://www.kryptosavings.com/affiliate",
-        "evidence": "years, assuming your referrals stay active. Milestone bonuses unlocked + $1,500 One-time bonus on top of commissions. [Start earning $250/month →](https://www.kryptosavings.com/reg",
+        "type": "percentage_other",
+        "value": "40%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ereum). Diese Konzentration erhöht das Governance-Risiko, da On-Chain-Proposals mit einer 40%-Schwelle angenommen werden können. Asset Manager sollten daher Validator-Diversifikati",
         "confidence": "medium"
       },
       {
-        "type": "bonus",
-        "value": "bonus",
-        "source_url": "https://www.kryptosavings.com/welcome-bonus",
-        "evidence": "ive Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your principal, the interest and the bonus.",
+        "type": "yield_percentage",
+        "value": "4%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "als Collateral in DeFi-Protokollen * Zusätzliche Renditen durch Lending (typischerweise 2–4% APY auf stATOM) Inter-Chain Security (ICS), seit Q1 2024 produktiv, erlaubt Cosmos-Stak",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "4.1%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "90d-Volatilität | Sharpe-Ratio (12M) | | --- | --- | --- | --- | --- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hu",
         "confidence": "medium"
       },
       {
-        "type": "legal_entity",
-        "value": "Delta West Credit Bank Ltd",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "ns. ### 1.1 Responsible Entities The Services are provided by the following entities: * **Delta West Credit Bank Ltd.** 1 Canada Square, Canary Wharf, London E14 5AA, United Kingdo",
+        "type": "percentage_other",
+        "value": "0.8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "atilität | Sharpe-Ratio (12M) | | --- | --- | --- | --- | --- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,",
         "confidence": "medium"
       },
       {
-        "type": "legal_entity",
-        "value": "Open Delta DAO LLC",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "**GBH Coriolis Bancorp** Room 2, 3rd floor, Junction Mall, Ngong Road, Nairobi, Kenya * **Open Delta DAO LLC** PO Box 852, Long Island Dr, Majuro, Marshall Islands MH 96960 ## 2. E",
+        "type": "percentage_other",
+        "value": "3.3%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "t | Sharpe-Ratio (12M) | | --- | --- | --- | --- | --- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "58%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "rpe-Ratio (12M) | | --- | --- | --- | --- | --- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "7.4%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "| --- | --- | --- | --- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basi",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "4.9%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "--- | --- | --- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basis: Daten",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2.5%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "--- | --- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basis: Daten Q1 20",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "87%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "-- | --- | | Ethereum | 4,1% | 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basis: Daten Q1 2024–Q4 2",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "19.1%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "| 0,8% | 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basis: Daten Q1 2024–Q4 2024, Sharpe-Ratio berechnet m",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "14.2%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "| 3,3% | 58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basis: Daten Q1 2024–Q4 2024, Sharpe-Ratio berechnet mit risi",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "4.9%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "58% | 0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basis: Daten Q1 2024–Q4 2024, Sharpe-Ratio berechnet mit risikofreiem ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "76%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "0,31 | | Solana | 7,4% | 4,9% | 2,5% | 87% | 0,19 | | Cosmos Hub | 19,1% | 14,2% | 4,9% | 76% | 0,34 | _Basis: Daten Q1 2024–Q4 2024, Sharpe-Ratio berechnet mit risikofreiem Zins 3",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "3.8%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "76% | 0,34 | _Basis: Daten Q1 2024–Q4 2024, Sharpe-Ratio berechnet mit risikofreiem Zins 3,8% (EUR-OIS)_ Diese Analyse zeigt: Cosmos Hub bietet die höchste reale Rendite, während E",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "15%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "end durch APY-Premium – ein Befund, der die präferierte Rolle als taktische Beimischung (<15% der Crypto-Allokation) stützt. ## Validator-Due-Diligence: Operatives Framework Instit",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "99.5%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "nagement-Prozess strukturieren: **Quantitative Kriterien:** * Uptime-Historie (mindestens 99,5% über 12 Monate) * Slashing-Historie (null Events) * Kommissionsstruktur (Vergleich z",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "3%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "l Events) * Kommissionsstruktur (Vergleich zu Median) * Stake-Konzentration (präferiert: <3% des Netzwerks) **Qualitative Kriterien:** * Technische Dokumentation der Infrastruktur ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "15%",
+        "source_url": "https://www.kryptosavings.com/blog/staking-yield-institutional",
+        "evidence": "ation (Investment Committee) **Phase 2 (Monate 3–4): Pilotallokation** * Initial Stake 10–15% der Zielallokation * Performance-Monitoring und Validator-Validierung * Anpassung von ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "Crypto-Earn vs. Tagesgeld — Zinsvergleich 2026 Tagesgeld bringt 2026 rund 2% Zinsen - Crypto-Earn lockt mit 5% und mehr. Doch was bedeutet das wirklich für dein Geld,",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "gesgeld — Zinsvergleich 2026 Tagesgeld bringt 2026 rund 2% Zinsen - Crypto-Earn lockt mit 5% und mehr. Doch was bedeutet das wirklich für dein Geld, wenn man Währungsrisiken einrec",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2.5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "swende ist vorbei, die Realität eingekehrt: Klassische Tagesgeldkonten bieten 2026 etwa 2–2,5% Zinsen pro Jahr. Für viele Sparer ist das ernüchternd – vor allem, weil die Inflation",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "weiterhin am Vermögen nagt. Gleichzeitig werben Crypto-Earn-Plattformen mit Renditen von 5%, 8% oder sogar mehr auf Stablecoins wie USDC oder USDT. Klingt verlockend. Aber ist das ",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "8%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "terhin am Vermögen nagt. Gleichzeitig werben Crypto-Earn-Plattformen mit Renditen von 5%, 8% oder sogar mehr auf Stablecoins wie USDC oder USDT. Klingt verlockend. Aber ist das ein",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "n. Die Plattform gibt einen Teil dieser Erträge an dich weiter. ## Der direkte Vergleich: 2% EUR vs. 5% USDC Schauen wir uns ein konkretes Beispiel an: | Anlageform | Betrag | Jähr",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "tform gibt einen Teil dieser Erträge an dich weiter. ## Der direkte Vergleich: 2% EUR vs. 5% USDC Schauen wir uns ein konkretes Beispiel an: | Anlageform | Betrag | Jährlicher Zins",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "cher Zins | Ertrag nach 1 Jahr | | --- | --- | --- | --- | | Tagesgeld (EUR) | 10.000 € | 2,0% | 10.200 € | | Crypto-Earn (USDC) | 10.000 € → ~10.600 $ | 5,0% | ~11.130 $ | Auf den",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "esgeld (EUR) | 10.000 € | 2,0% | 10.200 € | | Crypto-Earn (USDC) | 10.000 € → ~10.600 $ | 5,0% | ~11.130 $ | Auf den ersten Blick ist der Unterschied klar: Mit 5% Zinsen auf USDC v",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "000 € → ~10.600 $ | 5,0% | ~11.130 $ | Auf den ersten Blick ist der Unterschied klar: Mit 5% Zinsen auf USDC verdienst du deutlich mehr als mit 2% auf dem Tagesgeldkonto. Rein rech",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "Blick ist der Unterschied klar: Mit 5% Zinsen auf USDC verdienst du deutlich mehr als mit 2% auf dem Tagesgeldkonto. Rein rechnerisch wären das nach einem Jahr etwa 930 Dollar Ertr",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "gegenüber dem Dollar an Wert gewinnt, verlierst du beim Rücktausch Geld – selbst wenn du 5% Zinsen bekommen hast. **Ein Rechenbeispiel:** Du investierst 10.000 € in USDC. Zum Zeitp",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "t der Wechselkurs bei 1 EUR = 1,06 USD. Du erhältst also 10.600 USDC. Nach einem Jahr mit 5% Zinsen hast du 11.130 USDC. **Szenario 1 – Wechselkurs bleibt stabil (1 EUR = 1,06 USD)",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "lkurs bleibt stabil (1 EUR = 1,06 USD):** * 11.130 USD ÷ 1,06 = 10.500 € * Gewinn: 500 € (5%) **Szenario 2 – Euro wertet auf (1 EUR = 1,15 USD):** * 11.130 USD ÷ 1,15 = 9.678 € * V",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "o wertet auf (1 EUR = 1,15 USD):** * 11.130 USD ÷ 1,15 = 9.678 € * Verlust: -322 € (trotz 5% Zinsen!) **Szenario 3 – Euro wertet ab (1 EUR = 1,00 USD):** * 11.130 USD ÷ 1,00 = 11.1",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "11.3%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "– Euro wertet ab (1 EUR = 1,00 USD):** * 11.130 USD ÷ 1,00 = 11.130 € * Gewinn: 1.130 € (11,3%) Das Währungsrisiko kann deine Rendite also komplett auffressen – oder sie deutlich s",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "2%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "erschiedene Anlageformen. ## Fazit: Kenne deine Risikobereitschaft Der Vergleich zwischen 2% Tagesgeld und 5% Crypto-Earn ist kein einfaches \"mehr ist besser\". Es sind zwei untersc",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "5%",
+        "source_url": "https://www.kryptosavings.com/blog/crypto-earn-vs-tagesgeld",
+        "evidence": "eformen. ## Fazit: Kenne deine Risikobereitschaft Der Vergleich zwischen 2% Tagesgeld und 5% Crypto-Earn ist kein einfaches \"mehr ist besser\". Es sind zwei unterschiedliche Produkt",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "4%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "e Plattformen** (CeFi). Dabei beleuchten wir die 32-ETH-Hürde, erwartbare Renditen um die 4 % APY und praktische Überlegungen für deutsche Anleger. ## Die 32-ETH-Hürde: Was steckt ",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "4%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "r Stromkosten und Hardware) Die Belohnungen beim Solo-Staking liegen derzeit bei etwa **3–4 % APY** (laut Daten von beaconcha.in und Rated Network), abhängig von der Netzwerkaktivi",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "28%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "**. ### Lido Finance Lido ist mit Abstand der größte Staking-Pool (Stand Anfang 2025 über 28 % aller gestakten ETH). So funktioniert es: * Man hinterlegt **beliebig viel ETH** (auc",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "eiter genutzt werden (DeFi, als Sicherheit etc.) – Liquidität bleibt erhalten * Gebühren: 10 % der Staking-Rewards gehen an Lido und Node-Betreiber **Vorteil:** Sehr einfach, hohe ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "15%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": ") plus RPL-Token hinterlegen – das fördert dezentrale Betreiber-Vielfalt * Gebühren: etwa 15 % der Rewards gehen an Node-Betreiber **Vorteil:** Deutlich dezentraler als Lido, klein",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "Marktanteil) | Hoch (viele kleine Nodes) | | Liquidität | Sehr hoch | Hoch | | Gebühren | 10 % | ~15 % | | APY (netto, ca.) | 3,2–3,6 % | 3,0–3,4 % | Beide Pools bieten eine **sinn",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "15%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "eil) | Hoch (viele kleine Nodes) | | Liquidität | Sehr hoch | Hoch | | Gebühren | 10 % | ~15 % | | APY (netto, ca.) | 3,2–3,6 % | 3,0–3,4 % | Beide Pools bieten eine **sinnvolle Al",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "3.6%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "| | Liquidität | Sehr hoch | Hoch | | Gebühren | 10 % | ~15 % | | APY (netto, ca.) | 3,2–3,6 % | 3,0–3,4 % | Beide Pools bieten eine **sinnvolle Alternative** für Anleger, die nich",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "3.4%",
+        "source_url": "https://www.kryptosavings.com/blog/ethereum-staking-privat",
+        "evidence": "tät | Sehr hoch | Hoch | | Gebühren | 10 % | ~15 % | | APY (netto, ca.) | 3,2–3,6 % | 3,0–3,4 % | Beide Pools bieten eine **sinnvolle Alternative** für Anleger, die nicht 32 ETH au",
         "confidence": "medium"
       }
     ],
@@ -762,7 +1180,7 @@
         "id": "yield_level",
         "severity": "high",
         "title": "Rendite-/Zinsangabe erkannt",
-        "explanation": "Öffentlich wurde eine Rendite-/Zinsangabe bis 23% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."
+        "explanation": "Öffentlich wurde eine Rendite-/Zinsangabe bis 100% erkannt. Entscheidend ist, wodurch diese Rendite entsteht und welches Verlustrisiko dafür übernommen wird."
       },
       {
         "id": "affiliate_commission",
@@ -793,6 +1211,12 @@
         "severity": "medium",
         "title": "Vertriebs-/Empfehlungsanreize erkannt",
         "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
+      },
+      {
+        "id": "operator_identity",
+        "severity": "medium",
+        "title": "Rechtsträger nicht eindeutig erkannt",
+        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
       }
     ],
     "questions": [
@@ -801,7 +1225,8 @@
       "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
       "Zu welchem Zeitpunkt wird KYC/Identitätsprüfung verlangt und kann sie eine Auszahlung verzögern oder verhindern?",
       "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
-      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?"
+      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?",
+      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
     ]
   },
   "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
