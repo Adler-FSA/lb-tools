@@ -137,15 +137,40 @@ def claimed_authority_key(host: str) -> str:
     return ""
 
 
+def _normalize_bancorp_candidate(value: str) -> str:
+    """Schneidet Fließtext vor einem Bancorp-Eigennamen konservativ ab."""
+    words = clean(value).strip(" .,:;-").split()
+    if not words:
+        return ""
+
+    # Akronyme wie GBH sind ein sehr starker Namensanker. Dadurch wird aus
+    # "Responsible entities include GBH Coriolis Bancorp" exakt der Firmenname.
+    for i, word in enumerate(words):
+        letters = re.sub(r"[^A-Za-z]", "", word)
+        if len(letters) >= 2 and letters.isupper():
+            words = words[i:]
+            break
+    else:
+        # Ohne Akronym beginnen wir beim letzten zusammenhängenden Title-Case-Block.
+        # Das verhindert, dass vorangestellter Fließtext Teil des Namens wird.
+        start = 0
+        for i, word in enumerate(words[:-1]):
+            first = re.sub(r"^[^A-Za-z]+", "", word)[:1]
+            if first and first.isupper():
+                start = i
+        words = words[start:]
+
+    if len(words) > 4:
+        words = words[-4:]
+    return " ".join(words)
+
+
 def derived_entities_from_evidence(analysis: dict) -> list[str]:
     out: list[str] = []
     for finding in analysis.get("findings") or []:
         text = clean(finding.get("evidence") or "")
         for m in BANCORP_ENTITY_RE.finditer(text):
-            value = clean(m.group(1)).strip(" .,:;-")
-            words = value.split()
-            if len(words) > 4:
-                value = " ".join(words[-4:])
+            value = _normalize_bancorp_candidate(m.group(1))
             if len(value) >= 8 and value.lower() not in {x.lower() for x in out}:
                 out.append(value)
     return out
