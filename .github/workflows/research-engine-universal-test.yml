@@ -19,6 +19,8 @@ on:
       - 'research-engine/tests/test_registry_adapters.py'
       - 'research-engine/tests/test_universal_people_research.py'
       - 'research-engine/tests/test_universal_analysis_outputs.py'
+      - 'research-engine/tests/test_universal_fixture_separation.py'
+      - 'research-engine/tests/fixtures/**'
       - '.github/workflows/research-engine-universal-test.yml'
   pull_request:
     paths:
@@ -38,6 +40,8 @@ on:
       - 'research-engine/tests/test_registry_adapters.py'
       - 'research-engine/tests/test_universal_people_research.py'
       - 'research-engine/tests/test_universal_analysis_outputs.py'
+      - 'research-engine/tests/test_universal_fixture_separation.py'
+      - 'research-engine/tests/fixtures/**'
       - '.github/workflows/research-engine-universal-test.yml'
 
 jobs:
@@ -51,5 +55,5 @@ jobs:
           python-version: '3.12'
       - name: Dependencies
         run: pip install -r research-engine/requirements.txt pytest
-      - name: Universal router, identity, quick depth, people, academy, 16-point and registry tests
-        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_identity_resolver.py research-engine/tests/test_quick_external_research.py research-engine/tests/test_registry_adapters.py research-engine/tests/test_universal_people_research.py research-engine/tests/test_universal_analysis_outputs.py
+      - name: Universal router, identity, quick depth, fixtures, people, academy, 16-point and registry tests
+        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_identity_resolver.py research-engine/tests/test_quick_external_research.py research-engine/tests/test_registry_adapters.py research-engine/tests/test_universal_people_research.py research-engine/tests/test_universal_analysis_outputs.py research-engine/tests/test_universal_fixture_separation.py
