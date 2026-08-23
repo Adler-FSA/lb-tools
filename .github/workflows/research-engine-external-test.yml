@@ -1,0 +1,154 @@
+name: Akademie Research Engine – Externe Rohrecherche
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Projektname für externe Rohrecherche"
+        required: false
+        default: "KryptoSavings"
+  push:
+    branches:
+      - main
+    paths:
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/requirements.txt"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-external-test.yml"
+  pull_request:
+    paths:
+      - "research-engine/external_research.py"
+      - "research-engine/engine.py"
+      - "research-engine/requirements.txt"
+      - "research-engine/tests/**"
+      - ".github/workflows/research-engine-external-test.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  external-research-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python-Abhängigkeiten installieren
+        id: deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt pytest
+
+      - name: Regressionstests
+        id: tests
+        run: python -m pytest -q research-engine/tests
+
+      - name: Website-Rohresearch als Ausgangspunkt
+        id: website
+        shell: bash
+        env:
+          INPUT_QUERY: ${{ github.event.inputs.query }}
+        run: |
+          QUERY="${INPUT_QUERY:-KryptoSavings}"
+          python research-engine/engine.py "$QUERY" --output research-engine/output/kryptosavings-live.json
+
+      - name: Externe Rohrecherche ausführen
+        id: external
+        run: |
+          python research-engine/external_research.py \
+            --input research-engine/output/kryptosavings-live.json \
+            --output research-engine/output/kryptosavings-external.json
+
+      - name: Externe Funde prüfen
+        id: checks
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          data=json.loads(Path('research-engine/output/kryptosavings-external.json').read_text(encoding='utf-8'))
+          ext=data.get('external_research') or {}
+          traces=ext.get('traces') or []
+          candidates=ext.get('review_candidates') or []
+          echoes=ext.get('project_owned_echoes') or []
+          attempts=ext.get('search_attempts') or []
+
+          assert data.get('status') == 'ok'
+          assert ext.get('status') in {'ok','no_confirmed_external_traces'}
+          assert ext.get('project_name') == 'KryptoSavings'
+          assert ext.get('domain') == 'kryptosavings.com'
+          assert attempts
+          assert any(int(a.get('results') or 0) > 0 for a in attempts)
+
+          for trace in traces:
+              assert trace.get('category') in {'article','video','social','community','operator'}
+              assert trace.get('source_relation') in {'independent','platform','community'}
+              assert trace.get('attribution_confidence') == 'high'
+              assert trace.get('project_match') in {'domain_exact','name_exact'}
+              assert trace.get('evidence')
+              host=(urlparse(trace.get('source_url','')).hostname or '').lower().removeprefix('www.')
+              assert host != 'kryptosavings.com' and not host.endswith('.kryptosavings.com')
+
+          for candidate in candidates:
+              assert candidate.get('attribution_confidence') == 'medium'
+              assert candidate.get('project_match') in {'name_normalized','legal_entity_only'}
+
+          for echo in echoes:
+              assert echo.get('source_relation') == 'project_owned'
+
+          positive=sum(1 for a in attempts if int(a.get('results') or 0) > 0)
+          print(f'External Research OK: {positive} Suchläufe mit Treffern | {len(traces)} extern | {len(candidates)} Prüfkorb | {len(echoes)} Projekt-Echos')
+          for label,items in [('EXTERN',traces[:8]),('PRUEFKORB',candidates[:8]),('ECHO',echoes[:5])]:
+              for item in items:
+                  print(f"{label}: {item.get('title')} -> {item.get('source_url')}")
+          PY
+
+      - name: Diagnose schreiben
+        if: always()
+        env:
+          DEPS: ${{ steps.deps.outcome }}
+          TESTS: ${{ steps.tests.outcome }}
+          WEBSITE: ${{ steps.website.outcome }}
+          EXTERNAL: ${{ steps.external.outcome }}
+          CHECKS: ${{ steps.checks.outcome }}
+        run: |
+          mkdir -p research-engine/output
+          python - <<'PY'
+          import json,os
+          from datetime import datetime,timezone
+          from pathlib import Path
+          status={
+            'generated_at':datetime.now(timezone.utc).isoformat(),
+            'dependencies':os.environ.get('DEPS'),
+            'tests':os.environ.get('TESTS'),
+            'website_research':os.environ.get('WEBSITE'),
+            'external_research':os.environ.get('EXTERNAL'),
+            'external_checks':os.environ.get('CHECKS'),
+          }
+          Path('research-engine/output/external-status.json').write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(status)
+          PY
+
+      - name: Ergebnisse auf main sichern
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "Akademie Research Engine"
+          git config user.email "actions@github.com"
+          git add research-engine/output/external-status.json
+          if [ -f research-engine/output/kryptosavings-external.json ]; then
+            git add research-engine/output/kryptosavings-external.json
+          fi
+          if git diff --cached --quiet; then
+            echo "Keine Änderung am externen Testergebnis."
+            exit 0
+          fi
+          git commit -m "Research Engine: externe Testdiagnose aktualisieren"
+          git pull --rebase
+          git push
