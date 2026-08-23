@@ -111,3 +111,5 @@ def test_without_structured_people_base_research_gap_remains():
     item = q5(out)
     assert item["state"] == "research_gap"
     assert out["sixteen_point_analysis"]["guardrails"].get("structured_people_q5_used") is None
+
+# Produktionsintegration: triggert die Main-Workflows ohne Änderung der Fachlogik.
