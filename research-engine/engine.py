@@ -331,8 +331,22 @@ def sitemap_urls(domain: str) -> list[str]:
 
 def link_priority(url: str) -> int:
     low = url.lower()
+    path = (urlparse(url).path or "/").lower()
     score = sum(4 for word in PRIORITY_WORDS if word in low)
-    depth = max(0, urlparse(url).path.count("/") - 1)
+
+    # Für den Research-Crawl zählt Informationswert stärker als bloße Link-Echtheit.
+    # Diese Seiten beantworten typischerweise Rendite-, Vertriebs-, Rechts- und Risikofragen.
+    if re.search(r"(?:^|/)(?:strategy|affiliate|referral|terms|legal|risk|imprint|impressum)(?:/|$)", path):
+        score += 36
+
+    # Login-/Registrierungsbereiche verbrauchen Browser-Budget, liefern aber kaum Roh-Research.
+    if re.search(
+        r"(?:^|/)(?:login|log-in|signin|sign-in|register|signup|sign-up|account|dashboard|portal|auth|password|forgot-password|reset-password)(?:/|$)",
+        path,
+    ):
+        score -= 80
+
+    depth = max(0, path.count("/") - 1)
     return score - depth
 
 
