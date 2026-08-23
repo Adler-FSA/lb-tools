@@ -23,7 +23,8 @@ spec.loader.exec_module(ext)
 ROLE_PATTERN = (
     r"co[- ]?founder|founder|group ceo|chief executive officer|chief product officer|"
     r"chief technology officer|chief operating officer|chief financial officer|"
-    r"ceo|cpo|cto|coo|cfo|chairman|board member|director|managing director|president"
+    r"ceo|cpo|cto|coo|cfo|chairman|board member|design director|creative director|"
+    r"head of payments|vp of customer success|director|managing director|president"
 )
 ROLE_RE = re.compile(rf"\b(?:{ROLE_PATTERN})\b", re.I)
 NAME_TOKEN = r"[A-ZÄÖÜÀ-Ý][A-Za-zÀ-ÖØ-öø-ÿ'’\-]{1,35}"
@@ -39,7 +40,9 @@ TEAM_HINT_RE = re.compile(r"\b(?:about|team|leadership|management|board|people|c
 BAD_NAME_WORDS = {
     "about", "team", "leadership", "management", "board", "member", "chief", "executive",
     "officer", "company", "project", "platform", "financial", "services", "infrastructure",
-    "privacy", "terms", "contact", "read", "documentation", "founder", "chairman",
+    "privacy", "terms", "contact", "read", "documentation", "founder", "chairman", "group",
+    "ceo", "cpo", "cto", "coo", "cfo", "director", "design", "creative", "head", "payments",
+    "customer", "success", "production",
 }
 INDEPENDENT_HOSTS = {
     "crunchbase.com", "reuters.com", "bloomberg.com", "forbes.com", "theblock.co",
@@ -51,10 +54,15 @@ def clean(value: str) -> str:
     return ext.clean_text(value)
 
 
-def _name_ok(value: str) -> bool:
+def _name_ok(value: str, *, flat_fallback: bool = False) -> bool:
     name = clean(value).strip(" .,:;()[]\"'")
     parts = name.split()
     if len(parts) < 2 or len(parts) > 4 or len(name) < 5 or len(name) > 90:
+        return False
+    # Im strukturlosen Fallback akzeptieren wir nur zwei Tokens. Mehrteilige Namen
+    # sollen aus HTML-/Markdown-Struktur oder unabhängigen Quellen kommen, statt
+    # versehentlich vorherige Arbeitgeber einzusammeln.
+    if flat_fallback and len(parts) != 2:
         return False
     normalized = [re.sub(r"[^a-z]", "", p.lower()) for p in parts]
     if any(p in BAD_NAME_WORDS for p in normalized):
@@ -69,7 +77,87 @@ def _evidence(text: str, start: int, end: int, width: int = 430) -> str:
     return clean(body[left:right])[:620]
 
 
+def _dedupe_people(items: list[dict]) -> list[dict]:
+    out: list[dict] = []
+    seen: set[str] = set()
+    for item in items:
+        name = clean(item.get("person_name") or "")
+        if not name or name.lower() in seen:
+            continue
+        seen.add(name.lower())
+        out.append(item)
+    return out[:20]
+
+
+def extract_people_from_html(html: str) -> list[dict]:
+    """Bevorzugt semantische Überschriften/Karten statt flach zusammengezogenen Text."""
+    if not html:
+        return []
+    try:
+        soup = ext.BeautifulSoup(html, "html.parser")
+    except Exception:
+        return []
+    out: list[dict] = []
+    for heading in soup.select("h2,h3,h4,h5,h6"):
+        name = clean(heading.get_text(" ", strip=True))
+        if not _name_ok(name):
+            continue
+
+        chunks: list[str] = []
+        # Erst nachfolgende Elemente bis zur nächsten Überschrift; das bildet
+        # typische Teamkarten auf Framer/Webflow/WordPress recht zuverlässig ab.
+        for node in heading.find_all_next(limit=10):
+            if node is heading:
+                continue
+            if getattr(node, "name", "") in {"h2", "h3", "h4", "h5", "h6"}:
+                break
+            text = clean(node.get_text(" ", strip=True) if hasattr(node, "get_text") else "")
+            if text and text not in chunks:
+                chunks.append(text)
+            joined = clean(" ".join(chunks))
+            role_match = ROLE_RE.search(joined)
+            if role_match:
+                role = clean(role_match.group(0))
+                out.append({
+                    "person_name": name,
+                    "role": role,
+                    "evidence": clean(f"{name} {joined}")[:620],
+                    "extraction_mode": "html_heading_card",
+                })
+                break
+    return _dedupe_people(out)
+
+
+def extract_people_from_markdown(text: str) -> list[dict]:
+    """Jina/Reader-Markdown: Name in Überschrift, Rolle in den Folgezeilen."""
+    raw = str(text or "")
+    if "#" not in raw:
+        return []
+    out: list[dict] = []
+    headings = list(re.finditer(r"(?m)^\s*#{2,6}\s+(?P<name>[^\n#]{3,90})\s*$", raw))
+    for index, match in enumerate(headings):
+        name = clean(match.group("name"))
+        if not _name_ok(name):
+            continue
+        end = headings[index + 1].start() if index + 1 < len(headings) else min(len(raw), match.end() + 500)
+        segment = clean(raw[match.end():end])[:500]
+        role_match = ROLE_RE.search(segment)
+        if not role_match:
+            continue
+        out.append({
+            "person_name": name,
+            "role": clean(role_match.group(0)),
+            "evidence": clean(f"{name} {segment}")[:620],
+            "extraction_mode": "markdown_heading",
+        })
+    return _dedupe_people(out)
+
+
 def extract_people(text: str) -> list[dict]:
+    """Konservativer Fallback für bereits vollständig flachgezogenen Text."""
+    markdown = extract_people_from_markdown(text)
+    if markdown:
+        return markdown
     body = clean(text)
     if not body or not ROLE_RE.search(body):
         return []
@@ -79,14 +167,19 @@ def extract_people(text: str) -> list[dict]:
         for m in rx.finditer(body):
             name = clean(m.group("name")).strip(" .,:;()[]\"'")
             role = clean(m.group("role"))
-            if not _name_ok(name):
+            if not _name_ok(name, flat_fallback=True):
                 continue
             key = (name.lower(), role.lower())
             if key in seen:
                 continue
             seen.add(key)
-            out.append({"person_name": name, "role": role, "evidence": _evidence(body, m.start(), m.end())})
-    return out[:20]
+            out.append({
+                "person_name": name,
+                "role": role,
+                "evidence": _evidence(body, m.start(), m.end()),
+                "extraction_mode": "flat_text_conservative",
+            })
+    return _dedupe_people(out)
 
 
 def _same_project_domain(url: str, domain: str) -> bool:
@@ -116,6 +209,21 @@ def candidate_team_urls(data: dict) -> list[str]:
     return urls[:8]
 
 
+def _structured_html_people(url: str) -> list[dict]:
+    try:
+        response = ext.requests.get(
+            url,
+            headers={"User-Agent": ext.UA, "Accept": "text/html,application/xhtml+xml"},
+            timeout=ext.TIMEOUT,
+            allow_redirects=True,
+        )
+        if response.ok and "html" in (response.headers.get("content-type", "") or "").lower():
+            return extract_people_from_html(response.text)
+    except Exception:
+        pass
+    return []
+
+
 def discover_claims(data: dict) -> dict:
     ctx = data.get("context") or {}
     project_name = clean(ctx.get("project_name") or ctx.get("input") or "")
@@ -125,11 +233,18 @@ def discover_claims(data: dict) -> dict:
     seen: set[str] = set()
 
     for url in candidate_team_urls(data):
+        structured = _structured_html_people(url)
         page = ext.read_public_page(url)
-        pages_checked.append({"url": url, "ok": bool(page.get("ok")), "mode": page.get("mode")})
-        if not page.get("ok"):
-            continue
-        for item in extract_people(page.get("text") or ""):
+        pages_checked.append({
+            "url": url,
+            "ok": bool(page.get("ok")),
+            "mode": page.get("mode"),
+            "structured_people": len(structured),
+        })
+        items = structured
+        if not items and page.get("ok"):
+            items = extract_people(page.get("text") or "")
+        for item in items:
             key = item["person_name"].lower()
             if key in seen:
                 continue
@@ -148,7 +263,7 @@ def discover_claims(data: dict) -> dict:
     project_tokens = [t for t in re.findall(r"[A-Za-z0-9]+", project_name.lower()) if len(t) >= 4]
     domain_stem = project_domain.split(".")[0].lower() if project_domain else ""
 
-    for claim in claims[:10]:
+    for claim in claims[:12]:
         person = claim["person_name"]
         queries = [f'"{person}" "{project_name}"', f'"{person}" "{project_domain}"']
         confirmations: list[dict] = []
@@ -166,21 +281,21 @@ def discover_claims(data: dict) -> dict:
                 project_match = bool(domain_stem and domain_stem in low) or any(t in low for t in project_tokens[:3])
                 if person.lower() not in low or not project_match:
                     continue
-                page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet}
-                if fetched < 12:
-                    page = ext.read_public_page(url)
+                page2 = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet}
+                if fetched < 16:
+                    page2 = ext.read_public_page(url)
                     fetched += 1
-                text = clean(f"{page.get('title') or hit.title} {page.get('text') or hit.snippet}")
+                text = clean(f"{page2.get('title') or hit.title} {page2.get('text') or hit.snippet}")
                 tlow = text.lower()
                 if person.lower() not in tlow:
                     continue
                 if not (bool(domain_stem and domain_stem in tlow) or any(t in tlow for t in project_tokens[:3])):
                     continue
-                host = ext.host_of(page.get("url") or url)
+                host = ext.host_of(page2.get("url") or url)
                 relation = "independent" if any(host == h or host.endswith("." + h) for h in INDEPENDENT_HOSTS) else "external"
                 confirmations.append({
-                    "source_url": ext.canonical_url(page.get("url") or url),
-                    "source_title": clean(page.get("title") or hit.title),
+                    "source_url": ext.canonical_url(page2.get("url") or url),
+                    "source_title": clean(page2.get("title") or hit.title),
                     "source_relation": relation,
                     "evidence": text[:620],
                     "found_via": query,
