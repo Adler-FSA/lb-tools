@@ -1,0 +1,16 @@
+{
+  "fixture_type": "regression_reference",
+  "runtime_dependency": false,
+  "project_name": "KryptoSavings",
+  "domain": "kryptosavings.com",
+  "purpose": "Historischer Referenzfall fuer Regressionstests. Dieser Datensatz darf keine produktive Universal-Entscheidung steuern.",
+  "known_reference_expectations": {
+    "yield_percentage_seen": 23,
+    "commission_percentage_seen": 30,
+    "people_guardrail": {
+      "entity_person_implies_project_person": false,
+      "founder_or_ceo_implies_ubo": false
+    },
+    "overall_traffic_light_must_not_be_forced": true
+  }
+}
