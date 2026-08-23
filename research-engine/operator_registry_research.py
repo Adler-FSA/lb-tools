@@ -22,7 +22,6 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
-from urllib.parse import urlparse
 
 MODULE = Path(__file__).resolve().parent / "external_research.py"
 spec = importlib.util.spec_from_file_location("external_research", MODULE)
@@ -31,10 +30,8 @@ sys.modules[spec.name] = ext
 spec.loader.exec_module(ext)
 
 MAX_ENTITY_RESULTS = 8
-MAX_FETCHED_PAGES = 36
+MAX_FETCHED_PAGES = 42
 
-# Domains, die als Behörden-/Registerquellen oder etablierte offizielle Register
-# behandelt werden können. Die Liste ist absichtlich konservativ und erweiterbar.
 AUTHORITY_HOSTS = {
     "bafin.de": "regulator",
     "fca.org.uk": "regulator",
@@ -44,13 +41,8 @@ AUTHORITY_HOSTS = {
     "eba.europa.eu": "regulator",
     "europa.eu": "government",
     "gov.uk": "government",
-    "gov": "government",
 }
 
-# Quellen, die selbst den Charakter eines Registers/Aufsichtssystems beanspruchen,
-# deren institutioneller Status aber getrennt von der Einzelfundstelle bewertet
-# werden muss. So wird z.B. eine Mwali-Liste nicht automatisch als EU/UK-äquivalente
-# Bankenaufsicht dargestellt.
 CLAIMED_AUTHORITY_HOSTS = {
     "mwaliregistrar.info",
     "mwaliregistrar.net",
@@ -70,6 +62,11 @@ LICENSE_WORDS = re.compile(
 ACTIVE_WORDS = re.compile(r"\b(?:active|valid|authori[sz]ed|licensed|registered|aktiv|gültig)\b", re.I)
 INACTIVE_WORDS = re.compile(r"\b(?:suspended|revoked|inactive|expired|cancelled|dissolved|suspendiert|widerrufen|inaktiv|abgelaufen)\b", re.I)
 LICENSE_NO_RE = re.compile(r"\b(?:licen[cs]e\s*(?:no\.?|number)?|registration\s*(?:no\.?|number)?|reg\.?\s*no\.?)\s*[:#-]?\s*([A-Z0-9][A-Z0-9./-]{4,30})", re.I)
+
+# Die Website-Engine erkennt klassische Rechtsformen. Banknamen wie "... Bancorp"
+# können aber echte Betreiberhinweise sein. Solche Kandidaten werden hier aus den
+# bereits gespeicherten Beleg-Snippets nachgezogen und anschließend extern geprüft.
+BANCORP_ENTITY_RE = re.compile(r"\b([A-Z][A-Za-z0-9&.'’\- ]{1,70}\s+Bancorp)\b", re.I)
 
 
 @dataclass
@@ -100,6 +97,22 @@ def host_of(url: str) -> str:
 
 def same_domain(url: str, domain: str) -> bool:
     return ext.same_domain(url, domain)
+
+
+def derived_entities_from_evidence(analysis: dict) -> list[str]:
+    out: list[str] = []
+    for finding in analysis.get("findings") or []:
+        text = clean(finding.get("evidence") or "")
+        for m in BANCORP_ENTITY_RE.finditer(text):
+            value = clean(m.group(1)).strip(" .,:;-")
+            # Reader-Snippets können einige Wörter vor dem eigentlichen Namen einfangen.
+            # Bei Bancorp behalten wir höchstens die letzten vier Wörter.
+            words = value.split()
+            if len(words) > 4:
+                value = " ".join(words[-4:])
+            if len(value) >= 8 and value.lower() not in {x.lower() for x in out}:
+                out.append(value)
+    return out
 
 
 def source_role(url: str, entity: str, title: str, text: str) -> tuple[str, str]:
@@ -202,7 +215,11 @@ def enrich(data: dict) -> dict:
     analysis = result.get("analysis") or {}
     project_name = clean(ctx.get("project_name") or ctx.get("input") or "")
     project_domain = clean(ctx.get("domain") or "")
+
     entities = [clean(x) for x in (analysis.get("legal_entities") or []) if clean(x)]
+    for candidate in derived_entities_from_evidence(analysis):
+        if candidate.lower() not in {x.lower() for x in entities}:
+            entities.append(candidate)
 
     records: list[EntityRecord] = []
     attempts: list[dict] = []
@@ -252,7 +269,6 @@ def enrich(data: dict) -> dict:
                     found_via=f"{hit.provider}: {query}",
                 ))
 
-    # Deduplizieren: pro Entity/URL die stärkere Rolle und gelesene Seite behalten.
     dedup: dict[tuple[str, str], EntityRecord] = {}
     for rec in records:
         key = (rec.entity.lower(), ext.canonical_url(rec.source_url))
@@ -297,6 +313,7 @@ def enrich(data: dict) -> dict:
         "project_name": project_name,
         "project_domain": project_domain,
         "entities_from_project_website": entities,
+        "derived_entity_count": len([e for e in entities if e not in (analysis.get("legal_entities") or [])]),
         "search_attempts": attempts,
         "profiles": profiles,
         "records": [asdict(r) for r in sorted(records, key=lambda r: (r.entity.lower(), -_rank_role(r.source_role), r.title.lower()))],
