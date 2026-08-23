@@ -22,7 +22,7 @@
         "url": "https://www.kryptosavings.com/",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
-        "text_chars": 19142
+        "text_chars": 21051
       },
       {
         "url": "https://www.kryptosavings.com/affiliate",
@@ -64,7 +64,7 @@
         "url": "https://www.kryptosavings.com/gold",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
-        "text_chars": 2187
+        "text_chars": 2523
       }
     ],
     "max_percentage": 23.0,
@@ -277,28 +277,28 @@
         "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6540 BTC / ≈ 20.74 ETH at the current rate",
+        "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6531 BTC / ≈ 20.73 ETH at the current rate",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6540 BTC / ≈ 20.74 ETH at the current rate 🔒 365-d",
+        "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6531 BTC / ≈ 20.73 ETH at the current rate 🔒 365-d",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "18%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6540 BTC / ≈ 20.74 ETH at the current rate 🔒 365-day lock",
+        "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6531 BTC / ≈ 20.73 ETH at the current rate 🔒 365-day lock",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6540 BTC / ≈ 20.74 ETH at the current rate 🔒 365-day lock ⛔ No e",
+        "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6531 BTC / ≈ 20.73 ETH at the current rate 🔒 365-day lock ⛔ No e",
         "confidence": "high"
       },
       {
@@ -356,6 +356,13 @@
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "so check current terms before deciding. KryptoSavings combines competitive rates of up to 20% APY and institutional-grade custody — with no deposit fee and no commission on your ea",
         "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/",
+        "evidence": "erm. Premium Income starts at 50,000 USD, runs a fixed 365 days, pays higher rates (up to 23 %) and is settled monthly. Premium has its own entry point and no welcome bonus. Settle",
+        "confidence": "medium"
       },
       {
         "type": "yield_percentage",
