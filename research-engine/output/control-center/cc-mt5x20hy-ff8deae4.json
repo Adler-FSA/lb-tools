@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-23T15:25:56.171688+00:00",
+  "generated_at": "2026-08-23T16:52:56.573838+00:00",
   "engine_exit_code": 0,
   "status": "ok",
   "product": "projektanalyse",
@@ -17,7 +17,7 @@
   "context": {
     "input": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "input_kind": "url",
-    "project_name": "WeFi â Onchain Financial Services Infrastructure",
+    "project_name": "WeFi",
     "domain": "wefi.co",
     "resolved_url": "https://www.wefi.co/",
     "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
@@ -183,21 +183,194 @@
     ]
   },
   "people_research": {
-    "status": "no_people_confirmed",
+    "status": "ok",
     "summary": {
-      "person_profile_count": 0,
+      "person_profile_count": 13,
       "project_linked_person_count": 0,
       "ownership_claim_profile_count": 0,
       "verified_ubo_count": 0,
       "adverse_record_count": 0,
       "entity_domain_crawl_count": 0,
-      "entity_domain_finding_count": 0
+      "entity_domain_finding_count": 0,
+      "project_claimed_person_count": 13
     },
-    "profiles": [],
+    "profiles": [
+      {
+        "person_name": "Maksym Sakharov",
+        "entity": "",
+        "roles": [
+          "Board member"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Exflow Roman Rossov",
+        "entity": "",
+        "roles": [
+          "Board member"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Wise Reeve Collins",
+        "entity": "",
+        "roles": [
+          "Board member"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Tether Maksym Sakharov Group",
+        "entity": "",
+        "roles": [
+          "CEO"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Tether Roman Rossov",
+        "entity": "",
+        "roles": [
+          "Chief Product Officer"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Wise Yusuf Mirakhmedov",
+        "entity": "",
+        "roles": [
+          "Board member"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Tradeleaf Khaled Suleiman",
+        "entity": "",
+        "roles": [
+          "Board member"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Abu Dhabi Henry Kukk",
+        "entity": "",
+        "roles": [
+          "Chief Technology Officer"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Bitget Yusuf Mirakhmedov",
+        "entity": "",
+        "roles": [
+          "Board member"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Bitget Sathya Partha Design",
+        "entity": "",
+        "roles": [
+          "Director"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "VISA Artem Dushkin Creative",
+        "entity": "",
+        "roles": [
+          "Director"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Production Sathya Partha Design",
+        "entity": "",
+        "roles": [
+          "Director"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      },
+      {
+        "person_name": "Group CEO",
+        "entity": "",
+        "roles": [
+          "Board member"
+        ],
+        "entity_connection_status": "not_assessed",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": false,
+        "history_record_count": 0,
+        "adverse_record_count": 0
+      }
+    ],
     "universal_routing": {
-      "mode": "generic_people_filters",
+      "mode": "generic_people_filters_plus_project_claims",
       "project_specific_filters_used": false,
-      "principle": "Personenfilter enthalten keine Namen, Marken oder Jurisdiktionen aus früheren Testprojekten."
+      "project_claims_are_independent_evidence": false,
+      "founder_or_ceo_implies_ubo": false,
+      "principle": "Projekt-Team-Angaben sind Eigenangaben; externe Bestätigung und Eigentum/UBO bleiben getrennte Beweiskategorien."
     }
   },
   "academy_analysis": {
@@ -206,11 +379,11 @@
       "comparison_count": 3,
       "counts_by_assessment": {
         "partially_supported": 3,
+        "independently_supported": 0,
         "open": 0,
         "contradicted": 0,
-        "independently_supported": 0,
-        "context_challenged": 0,
-        "not_independently_verified": 0
+        "not_independently_verified": 0,
+        "context_challenged": 0
       },
       "open_question_count": 8,
       "tension_count": 0
@@ -233,8 +406,8 @@
       "question_count": 16,
       "counts_by_state": {
         "partially_answered": 4,
-        "clarification_needed": 6,
-        "research_gap": 5,
+        "clarification_needed": 7,
+        "research_gap": 4,
         "overall_not_ready": 1
       },
       "questions_1_to_15": 15,
@@ -311,15 +484,20 @@
       {
         "id": 5,
         "title": "Wer kontrolliert das Unternehmen und welche Historie besteht?",
-        "state": "research_gap",
-        "finding": "Der aktuelle Datenstand belegt noch nicht, wer das Unternehmen tatsächlich kontrolliert und welche belastbare Historie Management/Eigentümer besitzen.",
+        "state": "clarification_needed",
+        "finding": "Die Projektwebsite von https://app.wefi.co/register?ref=d14o0mtv7g nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum noch UBO- oder Kontrollstatus. Gefundene Rollen: Maksym Sakharov (Board member), Exflow Roman Rossov (Board member), Wise Reeve Collins (Board member), Tether Maksym Sakharov Group (CEO), Tether Roman Rossov (Chief Product Officer), Wise Yusuf Mirakhmedov (Board member), Tradeleaf Khaled Suleiman (Board member), Abu Dhabi Henry Kukk (Chief Technology Officer).",
         "gaps": [
-          "Management-/UBO-/Historienmodul fehlt."
+          "Direkte, unabhaengige Personen-/Kontrollverbindung zu https://app.wefi.co/register?ref=d14o0mtv7g fehlt.",
+          "Eigentümer-/UBO-Struktur von https://app.wefi.co/register?ref=d14o0mtv7g ist nicht verifiziert.",
+          "Historie, Qualifikation und fruehere Projekte der relevanten Personen sind noch nicht vollstaendig geprueft.",
+          "Verbundene Gesellschaften, fruehere Firmen, Insolvenz- und Behoerden-/Warnspuren sind noch zu vertiefen."
         ],
         "next_research": [
-          "Personen und verbundene Gesellschaften recherchieren."
+          "Projektverbindung jeder Person separat recherchieren.",
+          "Offizielle Eigentümer-/UBO-Quellen und verbundene Gesellschaften pruefen.",
+          "Berufshistorie, fruehere Projekte, Insolvenzen, Sanktionen und Behoerdenwarnungen personengenau recherchieren."
         ],
-        "evidence_count": 0,
+        "evidence_count": 13,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -516,6 +694,7 @@
       "missing_information_equals_fraud": false,
       "overall_traffic_light_created": false,
       "fraud_verdict_created": false,
+      "structured_people_q5_used": true,
       "dynamic_project_label_used": true,
       "project_name_hardcoded_in_universal_output": false
     }
