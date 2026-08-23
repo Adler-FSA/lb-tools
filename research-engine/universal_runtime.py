@@ -57,6 +57,7 @@ pipeline.sixteen = sixteen
 _base_run = pipeline.run
 _base_resolve = pipeline.resolve_and_run_core
 _base_fetch_page = pipeline.engine.fetch_page
+_base_operator_enrich = pipeline.operator.enrich
 
 
 def _looks_like_challenge(page) -> bool:
@@ -87,6 +88,21 @@ def _fetch_without_challenge(url: str):
 
 
 pipeline.engine.fetch_page = _fetch_without_challenge
+
+
+def _operator_with_clean_entities(data: dict) -> dict:
+    """Deep-Registermodule bekommen nur bereinigte, deduplizierte Rechtsträger."""
+    analysis = data.get("analysis") or {}
+    if not analysis:
+        return _base_operator_enrich(data)
+    prepared = dict(data)
+    prepared_analysis = dict(analysis)
+    prepared_analysis["legal_entities"] = quality.clean_legal_entities(list(analysis.get("legal_entities") or []))
+    prepared["analysis"] = prepared_analysis
+    return _base_operator_enrich(prepared)
+
+
+pipeline.operator.enrich = _operator_with_clean_entities
 
 
 def _resolve_with_budget(request, max_pages: int):
