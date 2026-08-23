@@ -1,0 +1,88 @@
+name: Research Engine – Universal Live Countertest
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/research-engine-universal-countertest.yml'
+
+jobs:
+  countertest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Engine installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt
+          python -m playwright install chromium
+      - name: Nicht-Krypto Projekt per URL im SchnellCheck
+        run: |
+          python research-engine/universal_pipeline.py 'https://www.mozilla.org/' --mode quick --output /tmp/mozilla-quick.json
+      - name: Projekt nur per Name identifizieren
+        run: |
+          python research-engine/universal_pipeline.py 'OpenAI' --mode quick --output /tmp/openai-name-quick.json
+      - name: Blockchain-Adresse korrekt separat routen
+        run: |
+          python research-engine/universal_pipeline.py '0x1234567890abcdef1234567890abcdef12345678' --mode quick --output /tmp/blockchain-route.json
+      - name: Universalität und Quick-Grenzen prüfen
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          mozilla=json.loads(Path('/tmp/mozilla-quick.json').read_text(encoding='utf-8'))
+          named=json.loads(Path('/tmp/openai-name-quick.json').read_text(encoding='utf-8'))
+          chain=json.loads(Path('/tmp/blockchain-route.json').read_text(encoding='utf-8'))
+
+          assert mozilla.get('status') == 'ok', mozilla.get('status')
+          assert mozilla.get('product') == 'schnellcheck'
+          assert (mozilla.get('context') or {}).get('domain','').endswith('mozilla.org')
+          assert (mozilla.get('external_research') or {}).get('research_depth') == 'quick'
+          assert int((mozilla.get('external_research') or {}).get('query_budget') or 99) <= 4
+          assert (mozilla.get('research_orchestration') or {}).get('external_depth') == 'quick'
+
+          assert named.get('status') == 'ok', named.get('status')
+          assert named.get('product') == 'schnellcheck'
+          assert (named.get('context') or {}).get('project_name') == 'OpenAI'
+          assert (named.get('identity_resolution') or {}).get('status') == 'resolved'
+          assert (named.get('identity_resolution') or {}).get('fallback_used') is False
+          assert 'openai' in (named.get('context') or {}).get('domain','').lower()
+
+          for result in (mozilla,named):
+              assert 'operator_registry_research' not in result
+              assert 'people_history_research' not in result
+              assert 'academy_analysis' not in result
+              assert 'sixteen_point_analysis' not in result
+
+          assert chain.get('status') == 'specialized_route_required'
+          assert (chain.get('specialized_route') or {}).get('module') == 'blockchain_identity'
+          assert 'external_research' not in chain
+
+          print(json.dumps({
+              'mozilla': {
+                  'status': mozilla.get('status'),
+                  'domain': (mozilla.get('context') or {}).get('domain'),
+                  'quick_queries': (mozilla.get('external_research') or {}).get('query_budget'),
+              },
+              'name_resolution': {
+                  'status': named.get('status'),
+                  'domain': (named.get('context') or {}).get('domain'),
+                  'identity': (named.get('identity_resolution') or {}).get('status'),
+              },
+              'blockchain_route': chain.get('status'),
+          }, ensure_ascii=False, indent=2))
+          PY
+      - name: Gegencheck Artefakte sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: universal-live-countertest
+          path: |
+            /tmp/mozilla-quick.json
+            /tmp/openai-name-quick.json
+            /tmp/blockchain-route.json
+          if-no-files-found: warn
