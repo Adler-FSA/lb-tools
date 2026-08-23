@@ -43,22 +43,28 @@
         "text_chars": 2178
       },
       {
+        "url": "https://www.kryptosavings.com/terms-of-service",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 10926
+      },
+      {
+        "url": "https://www.kryptosavings.com/risk-disclaimer",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 11439
+      },
+      {
+        "url": "https://www.kryptosavings.com/privacy-policy",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 8485
+      },
+      {
         "url": "https://www.kryptosavings.com/gold",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 2523
-      },
-      {
-        "url": "https://www.kryptosavings.com/register",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 208
-      },
-      {
-        "url": "https://www.kryptosavings.com/login",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 188
       }
     ],
     "max_percentage": 23.0,
@@ -79,7 +85,10 @@
       "bonus": true,
       "guarantee": false
     },
-    "legal_entities": [],
+    "legal_entities": [
+      "Delta West Credit Bank Ltd",
+      "Open Delta DAO LLC"
+    ],
     "social_and_video_links": [],
     "findings": [
       {
@@ -456,29 +465,71 @@
       {
         "type": "yield_percentage",
         "value": "23%",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## 1. Introduction Welcome to KryptoSavings (\"we,\" \"our,\" \"us,\" or the \"Platfor",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ### High-Risk Investment Warning Crypto assets are highly volatile and speculat",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "value within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets oper",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "20%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "e within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "50%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "hin short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate 24/7 ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "100%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "res or blockchain vulnerabilities **Risk Impact:** In a worst-case scenario, you may lose 100% of your deposited assets. ## 4. Yield Generation & Performance Risk Advertised APY ra",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "51%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "n Networks:** Bitcoin, Ethereum, and Tron networks may experience congestion, hard forks, 51% attacks, or protocol failures * **Technology Vendors:** Hosting, cloud services, and e",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "51%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "contentious hard forks may result in asset duplication, loss, or value fragmentation * **51% Attacks:** Malicious actors with majority hash power may double-spend or reverse transa",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/privacy-policy",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## 1. Introduction KryptoSavings (\"we,\" \"our,\" \"us\") is committed to protecting",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
         "source_url": "https://www.kryptosavings.com/gold",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto [Krypto Savings](https://www.kryptosavings.com/)[← Home](https://www.kryptosavi",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Con",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Confirm password Already have an account? [Log in](https://",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/login",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Welcome back Log in to your KryptoSavings account Email Password Don't have",
         "confidence": "high"
       },
       {
@@ -538,6 +589,13 @@
         "confidence": "medium"
       },
       {
+        "type": "trading",
+        "value": "trading",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "## 9. Yield Generation Returns on your deposits are generated through institutional-grade trading strategies executed on our behalf, including but not limited to: * Algorithmic gri",
+        "confidence": "medium"
+      },
+      {
         "type": "leverage",
         "value": "leverage",
         "source_url": "https://www.kryptosavings.com/",
@@ -549,6 +607,13 @@
         "value": "leverage",
         "source_url": "https://www.kryptosavings.com/strategy",
         "evidence": "strategies, we collect ongoing premiums with clearly limited risk. ## Intelligent, hedged leverage Market-neutral spreads only produce institutionally relevant returns when the cap",
+        "confidence": "medium"
+      },
+      {
+        "type": "leverage",
+        "value": "leverage",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "strategy, as described on our strategy page. This strategy involves active deployment and leverage; it is not a custodial deposit held in reserve. ## 10. Platform Risks By using ou",
         "confidence": "medium"
       },
       {
@@ -587,6 +652,20 @@
         "confidence": "medium"
       },
       {
+        "type": "withdrawal",
+        "value": "withdraw",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "ng lock-up periods and annual percentage yields (APY): * **Flexible:** No lock-up period, withdraw anytime without penalty * **90 Days:** Fixed 90-day lock-up period with higher AP",
+        "confidence": "medium"
+      },
+      {
+        "type": "withdrawal",
+        "value": "withdrawal",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "s **Risk Impact:** The value of your deposited assets may decline significantly, and your withdrawal may be worth substantially less than your deposit, even after accounting for an",
+        "confidence": "medium"
+      },
+      {
         "type": "kyc",
         "value": "KYC",
         "source_url": "https://www.kryptosavings.com/",
@@ -598,6 +677,13 @@
         "value": "KYC",
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "Register & verify Sign up with your email, set up two-factor authentication and complete KYC verification — usually 5 minutes. STEP 2 2 ### Place your funds in Earn Place at least ",
+        "confidence": "medium"
+      },
+      {
+        "type": "kyc",
+        "value": "KYC",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "he right to refuse service to anyone at our sole discretion. ## 3. Account Registration & KYC To access our Services, you must complete our registration and Know Your Customer (KYC",
         "confidence": "medium"
       },
       {
@@ -662,6 +748,20 @@
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "ive Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your principal, the interest and the bonus.",
         "confidence": "medium"
+      },
+      {
+        "type": "legal_entity",
+        "value": "Delta West Credit Bank Ltd",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "ns. ### 1.1 Responsible Entities The Services are provided by the following entities: * **Delta West Credit Bank Ltd.** 1 Canada Square, Canary Wharf, London E14 5AA, United Kingdo",
+        "confidence": "medium"
+      },
+      {
+        "type": "legal_entity",
+        "value": "Open Delta DAO LLC",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "**GBH Coriolis Bancorp** Room 2, 3rd floor, Junction Mall, Ngong Road, Nairobi, Kenya * **Open Delta DAO LLC** PO Box 852, Long Island Dr, Majuro, Marshall Islands MH 96960 ## 2. E",
+        "confidence": "medium"
       }
     ],
     "risk_signals": [
@@ -700,12 +800,6 @@
         "severity": "medium",
         "title": "Vertriebs-/Empfehlungsanreize erkannt",
         "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
-      },
-      {
-        "id": "operator_identity",
-        "severity": "medium",
-        "title": "Rechtsträger nicht eindeutig erkannt",
-        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
       }
     ],
     "questions": [
@@ -714,8 +808,7 @@
       "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
       "Zu welchem Zeitpunkt wird KYC/Identitätsprüfung verlangt und kann sie eine Auszahlung verzögern oder verhindern?",
       "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
-      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?",
-      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?"
     ]
   },
   "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
