@@ -65,12 +65,6 @@
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 2187
-      },
-      {
-        "url": "https://www.kryptosavings.com/img/gold/gold-hero.jpg",
-        "title": "gold-hero.jpg",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 239
       }
     ],
     "max_percentage": 23.0,
@@ -89,7 +83,7 @@
       "custody": true,
       "referral": true,
       "bonus": true,
-      "guarantee": true
+      "guarantee": false
     },
     "legal_entities": [
       "Delta West Credit Bank Ltd",
@@ -280,32 +274,32 @@
         "confidence": "high"
       },
       {
-        "type": "percentage_other",
+        "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6575 BTC / ≈ 20.95 ETH at the current rate",
-        "confidence": "medium"
+        "confidence": "high"
       },
       {
-        "type": "percentage_other",
+        "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6575 BTC / ≈ 20.95 ETH at the current rate 🔒 365-d",
-        "confidence": "medium"
+        "confidence": "high"
       },
       {
-        "type": "percentage_other",
+        "type": "yield_percentage",
         "value": "18%",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6575 BTC / ≈ 20.95 ETH at the current rate 🔒 365-day lock",
-        "confidence": "medium"
+        "confidence": "high"
       },
       {
-        "type": "percentage_other",
+        "type": "yield_percentage",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6575 BTC / ≈ 20.95 ETH at the current rate 🔒 365-day lock ⛔ No e",
-        "confidence": "medium"
+        "confidence": "high"
       },
       {
         "type": "percentage_other",
@@ -315,7 +309,7 @@
         "confidence": "medium"
       },
       {
-        "type": "yield_percentage",
+        "type": "commission_percentage",
         "value": "10%",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "g They sign up, complete KYC, deposit crypto and earn competitive yields. 03 ### You earn 10% Receive 10% of their interest earnings automatically — directly into your wallet. [Get",
@@ -746,13 +740,6 @@
         "value": "bonus",
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "ive Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your principal, the interest and the bonus.",
-        "confidence": "medium"
-      },
-      {
-        "type": "guarantee",
-        "value": "Guaranteed",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "d by any government deposit insurance scheme * Protected by investor compensation funds * Guaranteed to be returned in full You may lose funds due to: * Market price declines * Tra",
         "confidence": "medium"
       },
       {
