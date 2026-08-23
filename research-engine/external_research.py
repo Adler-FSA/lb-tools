@@ -138,7 +138,7 @@ def _result_from_anchor(anchor, snippet: str, query: str, provider: str) -> Sear
 
 
 def search_bing_rss(query: str, limit: int = MAX_RESULTS_PER_QUERY) -> list[SearchHit]:
-    """Bing-Websuche als RSS; wesentlich stabiler als die interaktive SERP."""
+    """Bing-Websuche als RSS; stabiler als die interaktive SERP."""
     try:
         r = requests.get(
             "https://www.bing.com/search",
@@ -319,6 +319,16 @@ def match_confidence(project_name: str, domain: str, title: str, snippet: str, p
     return "low", "search_context_only"
 
 
+def legal_entity_anchor(legal_entities: Iterable[str], title: str, snippet: str, page_text: str = "") -> str:
+    """Findet einen exakt genannten Rechtsträger, bestätigt aber noch nicht die Projektverbindung."""
+    hay = clean_text(" ".join([title, snippet, page_text[:9000]])).lower()
+    for entity in legal_entities:
+        entity = clean_text(entity)
+        if len(entity) >= 6 and entity.lower() in hay:
+            return entity
+    return ""
+
+
 def relation_for(url: str, project_domain: str) -> tuple[str, str, str]:
     host = host_of(url)
     if same_domain(url, project_domain):
@@ -404,6 +414,7 @@ def enrich(core_result: dict) -> dict:
             "reason": "Projektname oder bestätigte Projektdomain fehlt.",
             "traces": [],
             "review_candidates": [],
+            "project_owned_echoes": [],
             "search_attempts": [],
         }
         return result
@@ -427,6 +438,12 @@ def enrich(core_result: dict) -> dict:
             if detected_category in {"video", "social", "community"}:
                 category = detected_category
 
+            # Erst Suchresultat prüfen; unpassende SERP-Treffer werden nicht teuer nachgeladen.
+            pre_confidence, pre_match = match_confidence(project_name, domain, hit.title, hit.snippet)
+            pre_entity = legal_entity_anchor(legal_entities, hit.title, hit.snippet) if requested_category == "operator" else ""
+            if pre_confidence == "low" and not pre_entity:
+                continue
+
             page = {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
             if fetched_count < MAX_FETCHED_PAGES:
                 page = read_public_page(url)
@@ -435,10 +452,16 @@ def enrich(core_result: dict) -> dict:
             title = clean_text(page.get("title") or hit.title)
             page_text = page.get("text") or ""
             confidence, project_match = match_confidence(project_name, domain, title, hit.snippet, page_text)
+            entity = legal_entity_anchor(legal_entities, title, hit.snippet, page_text) if requested_category == "operator" else ""
+            if confidence == "low" and entity:
+                confidence, project_match = "medium", "legal_entity_only"
             if confidence == "low":
                 continue
 
             evidence = evidence_snippet(page_text, project_name, domain, hit.snippet)
+            if project_match == "legal_entity_only" and entity:
+                evidence = evidence_snippet(page_text, entity, "", hit.snippet)
+
             collected.append(ExternalTrace(
                 category=category,
                 source_relation=relation,
@@ -454,9 +477,15 @@ def enrich(core_result: dict) -> dict:
             ))
 
     deduped = _dedupe_traces(collected)
-    # Nur eindeutige Namens-/Domainbelege gelten als bestätigte Projektspur.
-    # Normalisierte Ähnlichkeiten wie "Krypto-Savings" landen separat zur manuellen Prüfung.
-    final_traces = [t for t in deduped if t.attribution_confidence == "high"]
+    # Projekt-eigene Suchtreffer sind keine externe Bestätigung.
+    project_owned_echoes = [
+        t for t in deduped if t.attribution_confidence == "high" and t.source_relation == "project_owned"
+    ]
+    final_traces = [
+        t for t in deduped if t.attribution_confidence == "high" and t.source_relation != "project_owned"
+    ]
+    # Namensähnlichkeiten oder extern gefundene Rechtsträger ohne belegte Projektverbindung
+    # landen im Prüfkorb und werden nicht als Projektfund behauptet.
     review_candidates = [t for t in deduped if t.attribution_confidence == "medium"]
 
     counts = {}
@@ -474,9 +503,11 @@ def enrich(core_result: dict) -> dict:
         "counts_by_category": counts,
         "counts_by_relation": relations,
         "review_candidate_count": len(review_candidates),
+        "project_owned_echo_count": len(project_owned_echoes),
         "search_attempts": attempts,
         "traces": [asdict(t) for t in final_traces[:80]],
         "review_candidates": [asdict(t) for t in review_candidates[:40]],
+        "project_owned_echoes": [asdict(t) for t in project_owned_echoes[:20]],
     }
     return result
 
