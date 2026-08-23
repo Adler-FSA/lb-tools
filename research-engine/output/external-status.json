@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-23T07:59:09.692165+00:00",
+  "generated_at": "2026-08-23T08:02:35.890158+00:00",
   "dependencies": "success",
-  "tests": "success",
-  "website_research": "success",
-  "external_research": "success",
-  "external_checks": "success"
+  "tests": "failure",
+  "website_research": "skipped",
+  "external_research": "skipped",
+  "external_checks": "skipped"
 }
