@@ -29,8 +29,8 @@ ext = importlib.util.module_from_spec(spec)
 sys.modules[spec.name] = ext
 spec.loader.exec_module(ext)
 
-MAX_RESULTS = 7
-MAX_FETCHED_PAGES = 52
+MAX_RESULTS = 6
+MAX_FETCHED_PAGES = 30
 
 ROLE_PATTERN = (
     r"co[- ]?founder|founder|chief executive officer|chief operating officer|chief financial officer|"
@@ -66,9 +66,7 @@ BAD_WORDS = {
     "people", "role", "profile", "details", "status", "legal", "name", "image", "photo", "employees",
 }
 
-DIRECT_DIRECTORY_TEMPLATES = (
-    "https://www.crunchbase.com/organization/{slug}",
-)
+DIRECT_DIRECTORY_TEMPLATES = ("https://www.crunchbase.com/organization/{slug}",)
 
 
 @dataclass
@@ -111,12 +109,13 @@ def _source_role(url: str, entity: str = "") -> str:
         return "platform"
     if host.endswith("crunchbase.com"):
         return "independent"
-    if host.endswith("bloomberg.com") or host.endswith("reuters.com") or host.endswith("forbes.com") or host.endswith("theblock.co"):
+    if host.endswith(("bloomberg.com", "reuters.com", "forbes.com", "theblock.co", "cbinsights.com")):
         return "independent"
-    if host.endswith("sec.gov") or host.endswith("fca.org.uk") or host.endswith("bafin.de") or host.endswith("gov.uk"):
+    if host.endswith(("sec.gov", "fca.org.uk", "bafin.de", "gov.uk")):
         return "regulator"
     compact_entity = ext.compact(LEGAL_SUFFIX_RE.sub(" ", entity))
-    host_label = host.split(".")[-2] if host.count(".") else host.split(".")[0]
+    parts = host.split(".")
+    host_label = parts[-2] if len(parts) >= 2 else (parts[0] if parts else "")
     compact_host = ext.compact(host_label)
     if compact_entity and compact_host and (compact_host in compact_entity or compact_entity.startswith(compact_host)):
         return "entity_owned"
@@ -125,18 +124,14 @@ def _source_role(url: str, entity: str = "") -> str:
 
 def _person_ok(name: str) -> bool:
     n = clean(name).strip(" .,:;()[]")
-    if len(n) < 5 or len(n) > 90:
-        return False
-    if n in ORG_STOP:
+    if len(n) < 5 or len(n) > 90 or n in ORG_STOP:
         return False
     parts = n.split()
     if len(parts) < 2 or len(parts) > 4:
         return False
     if any(ext.compact(p) in BAD_WORDS for p in parts):
         return False
-    if all(len(re.sub(r"[^A-Za-zÀ-ÖØ-öø-ÿ]", "", p)) <= 2 for p in parts):
-        return False
-    return True
+    return not all(len(re.sub(r"[^A-Za-zÀ-ÖØ-öø-ÿ]", "", p)) <= 2 for p in parts)
 
 
 def extract_person_candidates(text: str) -> list[str]:
@@ -147,9 +142,7 @@ def extract_person_candidates(text: str) -> list[str]:
     for rx in (NAME_BEFORE_ROLE_RE, ROLE_BEFORE_NAME_RE):
         for m in rx.finditer(body):
             name = clean(m.group("name")).strip(" .,:;()[]")
-            if not _person_ok(name):
-                continue
-            if name.lower() not in {x.lower() for x in out}:
+            if _person_ok(name) and name.lower() not in {x.lower() for x in out}:
                 out.append(name)
     return out[:16]
 
@@ -161,9 +154,7 @@ def _role_near_person(text: str, person: str) -> str:
         return ""
     window = body[max(0, idx - 150): idx + len(person) + 180]
     matches = list(ROLE_WORDS.finditer(window))
-    if not matches:
-        return ""
-    return clean(matches[0].group(0))
+    return clean(matches[0].group(0)) if matches else ""
 
 
 def _evidence(text: str, person: str, entity: str, width: int = 620) -> str:
@@ -178,13 +169,34 @@ def _evidence(text: str, person: str, entity: str, width: int = 620) -> str:
     return body[:width]
 
 
+def people_search(query: str, limit: int = MAX_RESULTS) -> tuple[list, list[dict]]:
+    """Personensuche: Provider werden kombiniert statt beim ersten Treffer beendet."""
+    attempts: list[dict] = []
+    out = []
+    seen: set[str] = set()
+    providers = (
+        ("bing", ext.search_bing),
+        ("duckduckgo", ext.search_duckduckgo),
+        ("bing-rss", ext.search_bing_rss),
+    )
+    for provider, fn in providers:
+        hits = fn(query, limit)
+        attempts.append({"query": query, "provider": provider, "results": len(hits)})
+        for hit in hits:
+            url = ext.canonical_url(hit.url)
+            if not url or url in seen:
+                continue
+            seen.add(url)
+            out.append(hit)
+    return out[: max(limit * 2, limit)], attempts
+
+
 def person_query_plan(entity: str, trusted_hosts: list[str]) -> list[str]:
     q = f'"{entity}"'
     queries = [
         f'{q} founder CEO director owner management',
         f'{q} "beneficial owner" OR shareholder OR UBO',
         f'{q} president OR "managing director" OR executive',
-        f'{q} LinkedIn founder CEO director',
     ]
     for alias in entity_brand_aliases(entity):
         aq = f'"{alias}"'
@@ -192,10 +204,8 @@ def person_query_plan(entity: str, trusted_hosts: list[str]) -> list[str]:
             f'{aq} founder CEO director',
             f'{aq} co-founder CEO',
             f'site:crunchbase.com/organization {aq} founder CEO',
-            f'site:linkedin.com/company {aq} employees founder CEO',
         ])
         for host in trusted_hosts:
-            queries.append(f'site:{host} {aq} founder CEO director')
             queries.append(f'site:blog.{host} {aq} founder CEO')
     return list(dict.fromkeys(queries))
 
@@ -241,33 +251,24 @@ def _host_is_trusted(url: str, trusted_hosts: list[str]) -> bool:
     return any(host == root or host.endswith("." + root) for root in trusted_hosts)
 
 
+def _brand_bridge_ok(text: str, entity: str, trusted_hosts: list[str]) -> bool:
+    """Markenfund wird nur verwendet, wenn Entity↔Brand bereits über eigene Domain gestützt ist."""
+    return bool(trusted_hosts) and _has_brand(text, entity)
+
+
 def _project_connection(project_name: str, project_domain: str, title: str, snippet: str, text: str) -> tuple[str, str]:
     conf, match = ext.match_confidence(project_name, project_domain, title, snippet, text)
     return ("externally_linked", match) if conf == "high" else (("possible_link", match) if conf == "medium" else ("not_shown", ""))
 
 
-def _record(
-    person: str,
-    entity: str,
-    page: dict,
-    snippet: str,
-    found_via: str,
-    project_name: str,
-    project_domain: str,
-    entity_connection_hint: str = "",
-) -> PersonRecord:
+def _record(person: str, entity: str, page: dict, snippet: str, found_via: str, project_name: str, project_domain: str, entity_connection_hint: str = "") -> PersonRecord:
     title = clean(page.get("title") or "")
     text = clean(page.get("text") or snippet)
     combined = clean(" ".join([title, snippet, text]))
     project_conn, project_match = _project_connection(project_name, project_domain, title, snippet, text)
     role = _role_near_person(combined, person)
     evidence = _evidence(combined, person, entity)
-    if _has_exact(combined, entity):
-        entity_connection = "shown"
-    elif entity_connection_hint:
-        entity_connection = entity_connection_hint
-    else:
-        entity_connection = "not_shown"
+    entity_connection = "shown" if _has_exact(combined, entity) else (entity_connection_hint or "not_shown")
     return PersonRecord(
         person_name=person,
         entity=entity,
@@ -300,34 +301,18 @@ def _dedupe(records: list[PersonRecord]) -> list[PersonRecord]:
 
 
 def _directory_probe_urls(entity: str) -> list[str]:
-    urls: list[str] = []
-    for alias in entity_brand_aliases(entity):
-        slug = re.sub(r"[^a-z0-9]+", "-", alias.lower()).strip("-")
-        compact_slug = re.sub(r"[^a-z0-9]+", "", alias.lower())
-        for candidate in (slug, compact_slug):
-            if len(candidate) < 5:
-                continue
-            for template in DIRECT_DIRECTORY_TEMPLATES:
-                url = template.format(slug=candidate)
-                if url not in urls:
-                    urls.append(url)
-    return urls[:4]
+    aliases = entity_brand_aliases(entity)
+    if not aliases:
+        return []
+    compact_slug = re.sub(r"[^a-z0-9]+", "", aliases[-1].lower())
+    return [template.format(slug=compact_slug) for template in DIRECT_DIRECTORY_TEMPLATES if len(compact_slug) >= 5]
 
 
 def _trusted_page_probe_urls(trusted_hosts: list[str]) -> list[str]:
     urls: list[str] = []
     for root in trusted_hosts:
-        for url in (
-            f"https://{root}/",
-            f"https://{root}/about",
-            f"https://{root}/team",
-            f"https://{root}/company",
-            f"https://blog.{root}/",
-            f"https://blog.{root}/archive/",
-        ):
-            if url not in urls:
-                urls.append(url)
-    return urls
+        urls.extend([f"https://{root}/", f"https://blog.{root}/", f"https://blog.{root}/archive/"])
+    return list(dict.fromkeys(urls))
 
 
 def enrich(data: dict) -> dict:
@@ -341,12 +326,13 @@ def enrich(data: dict) -> dict:
         entities = [clean(x) for x in (result.get("analysis") or {}).get("legal_entities") or [] if clean(x)]
 
     attempts: list[dict] = []
+    direct_probes: list[dict] = []
     records: list[PersonRecord] = []
     candidates: dict[str, set[str]] = {entity: set() for entity in entities}
     fetched = 0
     seen_hits: set[tuple[str, str]] = set()
 
-    # Stufe 0: Bereits bestätigte Entity-Domains und aus dem Brand abgeleitete öffentliche Verzeichnisse.
+    # Stufe 0: wenige deterministische Probes auf bereits gestützten Entity-Domains/Verzeichnissen.
     for entity in entities:
         trusted_hosts = _trusted_hosts_for_entity(op, entity)
         for url in _trusted_page_probe_urls(trusted_hosts) + _directory_probe_urls(entity):
@@ -359,42 +345,47 @@ def enrich(data: dict) -> dict:
             seen_hits.add(key)
             page = ext.read_public_page(canonical)
             fetched += 1
-            if not page.get("ok"):
-                continue
-            combined = clean(" ".join([page.get("title") or "", page.get("text") or ""]))
+            combined = clean(" ".join([page.get("title") or "", page.get("text") or ""])) if page.get("ok") else ""
             exact_entity = _has_exact(combined, entity)
-            trusted_brand = _host_is_trusted(page.get("url") or canonical, trusted_hosts) and _has_brand(combined, entity)
-            if not exact_entity and not trusted_brand:
+            brand_bridge = _brand_bridge_ok(combined, entity, trusted_hosts)
+            people = extract_person_candidates(combined) if (exact_entity or brand_bridge) else []
+            direct_probes.append({"entity": entity, "url": canonical, "ok": bool(page.get("ok")), "mode": page.get("mode"), "exact_entity": exact_entity, "brand_bridge": brand_bridge, "people": people})
+            if not exact_entity and not brand_bridge:
                 continue
-            hint = "brand_shown" if trusted_brand and not exact_entity else ""
-            for person in extract_person_candidates(combined):
+            hint = "brand_shown" if brand_bridge and not exact_entity else ""
+            for person in people:
                 candidates.setdefault(entity, set()).add(person)
                 records.append(_record(person, entity, page, "", f"direct-people-probe: {canonical}", project_name, project_domain, hint))
 
-    # Stufe 1: Exakter Rechtsträger plus verifizierte Markenalias-/Domain-Suche.
+    # Stufe 1: Multi-Provider-Suche, aber Seiten erst nach Snippet-Vorfilter laden.
     for entity in entities:
         trusted_hosts = _trusted_hosts_for_entity(op, entity)
         for query in person_query_plan(entity, trusted_hosts):
-            hits, att = ext.web_search(query, MAX_RESULTS)
+            hits, att = people_search(query, MAX_RESULTS)
             attempts.extend([{**a, "stage": "entity_people", "entity": entity} for a in att])
             for hit in hits:
                 url = ext.canonical_url(hit.url)
                 key = (entity.lower(), url)
                 if not url or key in seen_hits or ext.same_domain(url, project_domain):
                     continue
+                pre = clean(" ".join([hit.title, hit.snippet]))
+                pre_exact = _has_exact(pre, entity)
+                pre_brand = _brand_bridge_ok(pre, entity, trusted_hosts)
+                if not pre_exact and not pre_brand:
+                    continue
                 seen_hits.add(key)
-                page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
+                page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": "", "mode": "search-snippet"}
                 if fetched < MAX_FETCHED_PAGES:
-                    page = ext.read_public_page(url)
+                    fetched_page = ext.read_public_page(url)
                     fetched += 1
-                    if not page.get("ok"):
-                        page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
+                    if fetched_page.get("ok"):
+                        page = fetched_page
                 combined = clean(" ".join([page.get("title") or hit.title, hit.snippet, page.get("text") or ""]))
                 exact_entity = _has_exact(combined, entity)
-                trusted_brand = _host_is_trusted(url, trusted_hosts) and _has_brand(combined, entity)
-                if not exact_entity and not trusted_brand:
+                brand_bridge = _brand_bridge_ok(combined, entity, trusted_hosts)
+                if not exact_entity and not brand_bridge:
                     continue
-                hint = "brand_shown" if trusted_brand and not exact_entity else ""
+                hint = "brand_shown" if brand_bridge and not exact_entity else ""
                 for person in extract_person_candidates(combined):
                     candidates.setdefault(entity, set()).add(person)
                     records.append(_record(person, entity, page, hit.snippet, f"{hit.provider}: {query}", project_name, project_domain, hint))
@@ -403,31 +394,32 @@ def enrich(data: dict) -> dict:
     for entity, names in candidates.items():
         for person in sorted(names):
             for query in person_history_queries(person, entity, project_name, project_domain):
-                hits, att = ext.web_search(query, MAX_RESULTS)
+                hits, att = people_search(query, MAX_RESULTS)
                 attempts.extend([{**a, "stage": "person_history", "entity": entity, "person": person} for a in att])
                 for hit in hits:
                     url = ext.canonical_url(hit.url)
                     key = (person.lower(), url)
                     if not url or key in seen_hits or ext.same_domain(url, project_domain):
                         continue
-                    seen_hits.add(key)
-                    page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
-                    if fetched < MAX_FETCHED_PAGES:
-                        page = ext.read_public_page(url)
-                        fetched += 1
-                        if not page.get("ok"):
-                            page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
-                    combined = clean(" ".join([page.get("title") or hit.title, hit.snippet, page.get("text") or ""]))
-                    if not _has_exact(combined, person):
+                    pre = clean(" ".join([hit.title, hit.snippet]))
+                    if not _has_exact(pre, person):
                         continue
-                    records.append(_record(person, entity, page, hit.snippet, f"{hit.provider}: {query}", project_name, project_domain))
+                    seen_hits.add(key)
+                    page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": "", "mode": "search-snippet"}
+                    if fetched < MAX_FETCHED_PAGES:
+                        fetched_page = ext.read_public_page(url)
+                        fetched += 1
+                        if fetched_page.get("ok"):
+                            page = fetched_page
+                    combined = clean(" ".join([page.get("title") or hit.title, hit.snippet, page.get("text") or ""]))
+                    if _has_exact(combined, person):
+                        records.append(_record(person, entity, page, hit.snippet, f"{hit.provider}: {query}", project_name, project_domain))
 
     records = _dedupe(records)
     profiles = []
     for entity in entities:
         entity_records = [r for r in records if r.entity == entity]
-        names = sorted({r.person_name for r in entity_records})
-        for person in names:
+        for person in sorted({r.person_name for r in entity_records}):
             prs = [r for r in entity_records if r.person_name == person]
             project_linked = [r for r in prs if r.project_connection == "externally_linked"]
             entity_linked = [r for r in prs if r.entity_connection in {"shown", "brand_shown"}]
@@ -449,7 +441,6 @@ def enrich(data: dict) -> dict:
 
     project_people = [p for p in profiles if p["project_connection_status"] == "externally_linked"]
     ubo_claims = [p for p in profiles if p["ownership_status"] == "ownership_claim_found"]
-
     result["people_history_research"] = {
         "status": "ok" if profiles else "no_people_confirmed",
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -459,6 +450,7 @@ def enrich(data: dict) -> dict:
         "entities_checked": entities,
         "entity_brand_aliases": {entity: entity_brand_aliases(entity) for entity in entities},
         "trusted_entity_hosts": {entity: _trusted_hosts_for_entity(op, entity) for entity in entities},
+        "direct_probes": direct_probes,
         "search_attempts": attempts,
         "profiles": profiles,
         "records": [asdict(r) for r in records],
