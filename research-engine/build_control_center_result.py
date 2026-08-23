@@ -13,6 +13,7 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
     analysis = data.get("analysis") or {}
     orchestration = data.get("research_orchestration") or {}
     request = orchestration.get("request") or {}
+    input_basis = orchestration.get("input_basis") or {}
     quick = data.get("quick_check") or {}
     external = data.get("external_research") or {}
     operator = data.get("operator_registry_research") or {}
@@ -68,6 +69,10 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
             "traffic_light": q.get("traffic_light"),
         })
 
+    anchor_type = quick.get("anchor_type") or ctx.get("anchor_type") or input_basis.get("anchor_type") or request.get("anchor_type")
+    anchor_strength = quick.get("anchor_strength") or ctx.get("anchor_strength") or input_basis.get("anchor_strength") or request.get("anchor_strength")
+    original_anchor = quick.get("original_evidence_anchor") or ctx.get("original_evidence_anchor") or input_basis.get("original_evidence_anchor") or query
+
     return {
         "schema": "academy-research-control-center-v1",
         "request_id": request_id,
@@ -77,12 +82,21 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
         "product": data.get("product") or request.get("product"),
         "mode": request.get("mode") or mode,
         "query": query,
+        "input_basis": {
+            "anchor_type": anchor_type,
+            "anchor_strength": anchor_strength,
+            "original_evidence_anchor": original_anchor,
+            "identity_confirmation_required": input_basis.get("identity_confirmation_required", (ctx.get("input_kind") or request.get("input_kind")) == "name"),
+        },
         "context": {
             "input": ctx.get("input"),
             "input_kind": ctx.get("input_kind") or request.get("input_kind"),
             "project_name": quick.get("project_name") or ctx.get("project_name") or ctx.get("input"),
             "domain": quick.get("domain") or ctx.get("domain"),
             "resolved_url": quick.get("resolved_url") or ctx.get("resolved_url"),
+            "original_evidence_anchor": original_anchor,
+            "anchor_type": anchor_type,
+            "anchor_strength": anchor_strength,
         },
         "identity": {
             "status": identity.get("status"),
