@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """Personen-, Management- und Historien-Rohrecherche.
 
-Dieser Baustein recherchiert natürliche Personen rund um bereits erkannte
+Der Baustein recherchiert natürliche Personen rund um bereits erkannte
 Rechtsträger. Er trennt bewusst:
 - Person ist mit einem Rechtsträger verbunden,
 - Person ist extern mit dem Projekt verbunden,
 - Person ist als Eigentümer/UBO belegt,
 - Person hat lediglich eine Rolle wie Founder/CEO/Director.
 
-Keine dieser Kategorien wird aus einer anderen abgeleitet. Insbesondere ist
-Founder/CEO kein UBO-Nachweis und eine Rechtsträger-Personenspur bestätigt nicht
-automatisch eine Verbindung zu KryptoSavings.
+Keine Kategorie wird aus einer anderen abgeleitet. Insbesondere ist Founder/CEO
+kein UBO-Nachweis und eine Rechtsträger-Personenspur bestätigt nicht automatisch
+eine Verbindung zu KryptoSavings.
 """
 from __future__ import annotations
 
@@ -30,32 +30,45 @@ sys.modules[spec.name] = ext
 spec.loader.exec_module(ext)
 
 MAX_RESULTS = 7
-MAX_FETCHED_PAGES = 36
+MAX_FETCHED_PAGES = 52
 
-ROLE_WORDS = re.compile(
-    r"\b(?:co[- ]?founder|founder|chief executive officer|chief operating officer|chief financial officer|"
+ROLE_PATTERN = (
+    r"co[- ]?founder|founder|chief executive officer|chief operating officer|chief financial officer|"
     r"ceo|coo|cfo|president|director|managing director|owner|shareholder|beneficial owner|ubo|"
-    r"geschäftsführer|geschaeftsfuehrer|gründer|gruender|inhaber|eigentümer|eigentuemer|vorstand)\b",
-    re.I,
+    r"geschäftsführer|geschaeftsfuehrer|gründer|gruender|inhaber|eigentümer|eigentuemer|vorstand"
 )
+ROLE_WORDS = re.compile(rf"\b(?:{ROLE_PATTERN})\b", re.I)
 OWNER_WORDS = re.compile(r"\b(?:beneficial owner|ubo|ultimate beneficial owner|owner|shareholder|wirtschaftlich berechtigt|eigentümer|eigentuemer)\b", re.I)
 HISTORY_WORDS = re.compile(r"\b(?:former|previous|past|formerly|prior|founded|co-founded|worked at|experience|career|history|früher|ehemalig|zuvor|vita|laufbahn)\b", re.I)
 ADVERSE_WORDS = re.compile(r"\b(?:warning|warned|sanction|sanctioned|fraud|scam|convicted|indicted|bankrupt|insolven|disqualified|revoked|suspended|warnung|sanktion|verurteilt|insolvenz)\b", re.I)
+LEGAL_SUFFIX_RE = re.compile(r"\b(?:DAO\s+LLC|LLC|Ltd\.?|Limited|Inc\.?|PLC|GmbH|AG|S\.?A\.?)\b", re.I)
 
-# Bewusst konservativ: nur 2-4 Wörter, Großbuchstaben/Diakritika, keine Firmenendungen.
-PERSON_RE = re.compile(
-    r"\b([A-ZÄÖÜÀ-Ý][A-Za-zÀ-ÖØ-öø-ÿ'’\-]{1,35}(?:\s+[A-ZÄÖÜÀ-Ý][A-Za-zÀ-ÖØ-öø-ÿ'’\-]{1,35}){1,3})\b"
+NAME_TOKEN = r"[A-ZÄÖÜÀ-Ý][A-Za-zÀ-ÖØ-öø-ÿ'’\-]{1,35}"
+NAME_PATTERN = rf"{NAME_TOKEN}(?:\s+{NAME_TOKEN}){{1,3}}"
+NAME_BEFORE_ROLE_RE = re.compile(
+    rf"\b(?P<name>{NAME_PATTERN})\s*(?:[:,–—-]|\bis\b|\bserves\s+as\b)\s*(?:the\s+|an?\s+)?(?P<role>(?i:{ROLE_PATTERN}))\b"
 )
+ROLE_BEFORE_NAME_RE = re.compile(
+    rf"\b(?P<role>(?i:{ROLE_PATTERN}))\b\s*[:,–—-]?\s+(?P<name>{NAME_PATTERN})\b"
+)
+
 ORG_STOP = {
     "Open Delta", "Delta West", "Credit Bank", "Coriolis Bancorp", "Republic Marshall Islands",
     "Marshall Islands", "United Kingdom", "Union Comoros", "Mwali International", "Services Authority",
     "Banque Centrale", "Central Bank", "Privacy Notice", "Terms Use", "Chief Executive Officer",
     "Managing Director", "Board Directors", "Corporate Governance", "Krypto Savings", "KryptoSavings Works",
+    "Key People", "Past Role", "Company Details", "Company Profile", "Operating Status", "Legal Name",
+    "About Company", "About Us", "See All", "All Employees", "Latest News", "News Media",
 }
 BAD_WORDS = {
     "bank", "bancorp", "llc", "ltd", "limited", "inc", "dao", "company", "corporation", "authority",
     "services", "group", "capital", "protocol", "foundation", "finance", "financial", "credit", "delta",
+    "people", "role", "profile", "details", "status", "legal", "name", "image", "photo", "employees",
 }
+
+DIRECT_DIRECTORY_TEMPLATES = (
+    "https://www.crunchbase.com/organization/{slug}",
+)
 
 
 @dataclass
@@ -82,18 +95,29 @@ def clean(value: str) -> str:
     return ext.clean_text(value)
 
 
+def entity_brand_aliases(entity: str) -> list[str]:
+    base = clean(LEGAL_SUFFIX_RE.sub(" ", entity)).strip(" .,-")
+    values: list[str] = []
+    for candidate in (base, re.sub(r"\s+", "", base)):
+        candidate = clean(candidate)
+        if len(candidate) >= 5 and candidate.lower() not in {x.lower() for x in values}:
+            values.append(candidate)
+    return values
+
+
 def _source_role(url: str, entity: str = "") -> str:
     host = ext.host_of(url)
     if host.endswith("linkedin.com"):
         return "platform"
     if host.endswith("crunchbase.com"):
         return "independent"
-    if host.endswith("bloomberg.com") or host.endswith("reuters.com") or host.endswith("forbes.com"):
+    if host.endswith("bloomberg.com") or host.endswith("reuters.com") or host.endswith("forbes.com") or host.endswith("theblock.co"):
         return "independent"
     if host.endswith("sec.gov") or host.endswith("fca.org.uk") or host.endswith("bafin.de") or host.endswith("gov.uk"):
         return "regulator"
-    compact_entity = ext.compact(re.sub(r"\b(?:DAO\s+LLC|LLC|Ltd\.?|Limited|Inc\.?|PLC|GmbH|AG|S\.?A\.?)\b", " ", entity, flags=re.I))
-    compact_host = ext.compact(host.split(".")[0])
+    compact_entity = ext.compact(LEGAL_SUFFIX_RE.sub(" ", entity))
+    host_label = host.split(".")[-2] if host.count(".") else host.split(".")[0]
+    compact_host = ext.compact(host_label)
     if compact_entity and compact_host and (compact_host in compact_entity or compact_entity.startswith(compact_host)):
         return "entity_owned"
     return "independent"
@@ -120,18 +144,14 @@ def extract_person_candidates(text: str) -> list[str]:
     if not body or not ROLE_WORDS.search(body):
         return []
     out: list[str] = []
-    for m in PERSON_RE.finditer(body):
-        name = clean(m.group(1))
-        if not _person_ok(name):
-            continue
-        # Nur Kandidaten in engem Rollenkontext akzeptieren.
-        start = max(0, m.start() - 120)
-        end = min(len(body), m.end() + 120)
-        if not ROLE_WORDS.search(body[start:end]):
-            continue
-        if name.lower() not in {x.lower() for x in out}:
-            out.append(name)
-    return out[:12]
+    for rx in (NAME_BEFORE_ROLE_RE, ROLE_BEFORE_NAME_RE):
+        for m in rx.finditer(body):
+            name = clean(m.group("name")).strip(" .,:;()[]")
+            if not _person_ok(name):
+                continue
+            if name.lower() not in {x.lower() for x in out}:
+                out.append(name)
+    return out[:16]
 
 
 def _role_near_person(text: str, person: str) -> str:
@@ -146,7 +166,7 @@ def _role_near_person(text: str, person: str) -> str:
     return clean(matches[0].group(0))
 
 
-def _evidence(text: str, person: str, entity: str, width: int = 560) -> str:
+def _evidence(text: str, person: str, entity: str, width: int = 620) -> str:
     body = clean(text)
     if not body:
         return ""
@@ -154,18 +174,30 @@ def _evidence(text: str, person: str, entity: str, width: int = 560) -> str:
     for needle in (person, entity):
         idx = low.find(clean(needle).lower()) if clean(needle) else -1
         if idx >= 0:
-            return clean(body[max(0, idx - 130): idx + width])[:width]
+            return clean(body[max(0, idx - 140): idx + width])[:width]
     return body[:width]
 
 
-def person_query_plan(entity: str) -> list[str]:
+def person_query_plan(entity: str, trusted_hosts: list[str]) -> list[str]:
     q = f'"{entity}"'
-    return [
+    queries = [
         f'{q} founder CEO director owner management',
         f'{q} "beneficial owner" OR shareholder OR UBO',
         f'{q} president OR "managing director" OR executive',
         f'{q} LinkedIn founder CEO director',
     ]
+    for alias in entity_brand_aliases(entity):
+        aq = f'"{alias}"'
+        queries.extend([
+            f'{aq} founder CEO director',
+            f'{aq} co-founder CEO',
+            f'site:crunchbase.com/organization {aq} founder CEO',
+            f'site:linkedin.com/company {aq} employees founder CEO',
+        ])
+        for host in trusted_hosts:
+            queries.append(f'site:{host} {aq} founder CEO director')
+            queries.append(f'site:blog.{host} {aq} founder CEO')
+    return list(dict.fromkeys(queries))
 
 
 def person_history_queries(person: str, entity: str, project_name: str, project_domain: str) -> list[str]:
@@ -183,18 +215,59 @@ def _has_exact(text: str, value: str) -> bool:
     return bool(clean(value) and clean(value).lower() in clean(text).lower())
 
 
+def _has_brand(text: str, entity: str) -> bool:
+    hay = clean(text).lower()
+    return any(alias.lower() in hay for alias in entity_brand_aliases(entity))
+
+
+def _trusted_hosts_for_entity(operator_block: dict, entity: str) -> list[str]:
+    hosts: list[str] = []
+    for profile in operator_block.get("profiles") or []:
+        if clean(profile.get("entity") or "").lower() != clean(entity).lower():
+            continue
+        for record in profile.get("entity_owned_records") or []:
+            host = ext.host_of(record.get("source_url") or "")
+            if not host:
+                continue
+            parts = host.split(".")
+            root = ".".join(parts[-2:]) if len(parts) >= 2 else host
+            if root and root not in hosts:
+                hosts.append(root)
+    return hosts
+
+
+def _host_is_trusted(url: str, trusted_hosts: list[str]) -> bool:
+    host = ext.host_of(url)
+    return any(host == root or host.endswith("." + root) for root in trusted_hosts)
+
+
 def _project_connection(project_name: str, project_domain: str, title: str, snippet: str, text: str) -> tuple[str, str]:
     conf, match = ext.match_confidence(project_name, project_domain, title, snippet, text)
     return ("externally_linked", match) if conf == "high" else (("possible_link", match) if conf == "medium" else ("not_shown", ""))
 
 
-def _record(person: str, entity: str, page: dict, snippet: str, found_via: str, project_name: str, project_domain: str) -> PersonRecord:
+def _record(
+    person: str,
+    entity: str,
+    page: dict,
+    snippet: str,
+    found_via: str,
+    project_name: str,
+    project_domain: str,
+    entity_connection_hint: str = "",
+) -> PersonRecord:
     title = clean(page.get("title") or "")
     text = clean(page.get("text") or snippet)
     combined = clean(" ".join([title, snippet, text]))
     project_conn, project_match = _project_connection(project_name, project_domain, title, snippet, text)
     role = _role_near_person(combined, person)
     evidence = _evidence(combined, person, entity)
+    if _has_exact(combined, entity):
+        entity_connection = "shown"
+    elif entity_connection_hint:
+        entity_connection = entity_connection_hint
+    else:
+        entity_connection = "not_shown"
     return PersonRecord(
         person_name=person,
         entity=entity,
@@ -204,7 +277,7 @@ def _record(person: str, entity: str, page: dict, snippet: str, found_via: str, 
         source_role=_source_role(page.get("url") or "", entity),
         evidence=evidence,
         published_at=clean(page.get("published_at") or ""),
-        entity_connection="shown" if _has_exact(combined, entity) else "not_shown",
+        entity_connection=entity_connection,
         project_connection=project_conn,
         project_match=project_match,
         ownership_claim=bool(OWNER_WORDS.search(evidence)),
@@ -226,6 +299,37 @@ def _dedupe(records: list[PersonRecord]) -> list[PersonRecord]:
     return sorted(by.values(), key=lambda r: (r.person_name.lower(), -rank.get(r.source_role, 0), r.source_url))
 
 
+def _directory_probe_urls(entity: str) -> list[str]:
+    urls: list[str] = []
+    for alias in entity_brand_aliases(entity):
+        slug = re.sub(r"[^a-z0-9]+", "-", alias.lower()).strip("-")
+        compact_slug = re.sub(r"[^a-z0-9]+", "", alias.lower())
+        for candidate in (slug, compact_slug):
+            if len(candidate) < 5:
+                continue
+            for template in DIRECT_DIRECTORY_TEMPLATES:
+                url = template.format(slug=candidate)
+                if url not in urls:
+                    urls.append(url)
+    return urls[:4]
+
+
+def _trusted_page_probe_urls(trusted_hosts: list[str]) -> list[str]:
+    urls: list[str] = []
+    for root in trusted_hosts:
+        for url in (
+            f"https://{root}/",
+            f"https://{root}/about",
+            f"https://{root}/team",
+            f"https://{root}/company",
+            f"https://blog.{root}/",
+            f"https://blog.{root}/archive/",
+        ):
+            if url not in urls:
+                urls.append(url)
+    return urls
+
+
 def enrich(data: dict) -> dict:
     result = json.loads(json.dumps(data))
     ctx = result.get("context") or {}
@@ -242,9 +346,35 @@ def enrich(data: dict) -> dict:
     fetched = 0
     seen_hits: set[tuple[str, str]] = set()
 
-    # Stufe 1: Personen nur in Treffern akzeptieren, die den Rechtsträger exakt nennen.
+    # Stufe 0: Bereits bestätigte Entity-Domains und aus dem Brand abgeleitete öffentliche Verzeichnisse.
     for entity in entities:
-        for query in person_query_plan(entity):
+        trusted_hosts = _trusted_hosts_for_entity(op, entity)
+        for url in _trusted_page_probe_urls(trusted_hosts) + _directory_probe_urls(entity):
+            if fetched >= MAX_FETCHED_PAGES:
+                break
+            canonical = ext.canonical_url(url)
+            key = (entity.lower(), canonical)
+            if not canonical or key in seen_hits or ext.same_domain(canonical, project_domain):
+                continue
+            seen_hits.add(key)
+            page = ext.read_public_page(canonical)
+            fetched += 1
+            if not page.get("ok"):
+                continue
+            combined = clean(" ".join([page.get("title") or "", page.get("text") or ""]))
+            exact_entity = _has_exact(combined, entity)
+            trusted_brand = _host_is_trusted(page.get("url") or canonical, trusted_hosts) and _has_brand(combined, entity)
+            if not exact_entity and not trusted_brand:
+                continue
+            hint = "brand_shown" if trusted_brand and not exact_entity else ""
+            for person in extract_person_candidates(combined):
+                candidates.setdefault(entity, set()).add(person)
+                records.append(_record(person, entity, page, "", f"direct-people-probe: {canonical}", project_name, project_domain, hint))
+
+    # Stufe 1: Exakter Rechtsträger plus verifizierte Markenalias-/Domain-Suche.
+    for entity in entities:
+        trusted_hosts = _trusted_hosts_for_entity(op, entity)
+        for query in person_query_plan(entity, trusted_hosts):
             hits, att = ext.web_search(query, MAX_RESULTS)
             attempts.extend([{**a, "stage": "entity_people", "entity": entity} for a in att])
             for hit in hits:
@@ -260,13 +390,16 @@ def enrich(data: dict) -> dict:
                     if not page.get("ok"):
                         page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
                 combined = clean(" ".join([page.get("title") or hit.title, hit.snippet, page.get("text") or ""]))
-                if not _has_exact(combined, entity):
+                exact_entity = _has_exact(combined, entity)
+                trusted_brand = _host_is_trusted(url, trusted_hosts) and _has_brand(combined, entity)
+                if not exact_entity and not trusted_brand:
                     continue
+                hint = "brand_shown" if trusted_brand and not exact_entity else ""
                 for person in extract_person_candidates(combined):
                     candidates.setdefault(entity, set()).add(person)
-                    records.append(_record(person, entity, page, hit.snippet, f"{hit.provider}: {query}", project_name, project_domain))
+                    records.append(_record(person, entity, page, hit.snippet, f"{hit.provider}: {query}", project_name, project_domain, hint))
 
-    # Stufe 2: Für bereits gefundene Personen Historie und vor allem eine echte Projektverbindung prüfen.
+    # Stufe 2: Gefundene Personen – Historie und echte Projektverbindung separat prüfen.
     for entity, names in candidates.items():
         for person in sorted(names):
             for query in person_history_queries(person, entity, project_name, project_domain):
@@ -287,7 +420,6 @@ def enrich(data: dict) -> dict:
                     combined = clean(" ".join([page.get("title") or hit.title, hit.snippet, page.get("text") or ""]))
                     if not _has_exact(combined, person):
                         continue
-                    # Historienrecord darf entity-only ODER project-linked sein; Verbindungen werden im Record getrennt.
                     records.append(_record(person, entity, page, hit.snippet, f"{hit.provider}: {query}", project_name, project_domain))
 
     records = _dedupe(records)
@@ -298,7 +430,7 @@ def enrich(data: dict) -> dict:
         for person in names:
             prs = [r for r in entity_records if r.person_name == person]
             project_linked = [r for r in prs if r.project_connection == "externally_linked"]
-            entity_linked = [r for r in prs if r.entity_connection == "shown"]
+            entity_linked = [r for r in prs if r.entity_connection in {"shown", "brand_shown"}]
             owner_records = [r for r in prs if r.ownership_claim]
             adverse = [r for r in prs if r.adverse_signal]
             history = [r for r in prs if r.history_signal]
@@ -325,6 +457,8 @@ def enrich(data: dict) -> dict:
         "project_name": project_name,
         "project_domain": project_domain,
         "entities_checked": entities,
+        "entity_brand_aliases": {entity: entity_brand_aliases(entity) for entity in entities},
+        "trusted_entity_hosts": {entity: _trusted_hosts_for_entity(op, entity) for entity in entities},
         "search_attempts": attempts,
         "profiles": profiles,
         "records": [asdict(r) for r in records],
