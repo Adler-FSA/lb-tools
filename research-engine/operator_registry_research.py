@@ -21,7 +21,6 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterable
 
 MODULE = Path(__file__).resolve().parent / "external_research.py"
 spec = importlib.util.spec_from_file_location("external_research", MODULE)
@@ -66,7 +65,9 @@ LICENSE_NO_RE = re.compile(r"\b(?:licen[cs]e\s*(?:no\.?|number)?|registration\s*
 # Die Website-Engine erkennt klassische Rechtsformen. Banknamen wie "... Bancorp"
 # können aber echte Betreiberhinweise sein. Solche Kandidaten werden hier aus den
 # bereits gespeicherten Beleg-Snippets nachgezogen und anschließend extern geprüft.
-BANCORP_ENTITY_RE = re.compile(r"\b([A-Z][A-Za-z0-9&.'’\- ]{1,70}\s+Bancorp)\b", re.I)
+# Bewusst case-sensitiv am Namensanfang, damit normale Wörter vor dem Eigennamen
+# nicht in den Rechtsträger hineingezogen werden.
+BANCORP_ENTITY_RE = re.compile(r"\b([A-Z][A-Za-z0-9&.'’\- ]{1,70}\s+Bancorp)\b")
 
 
 @dataclass
@@ -105,8 +106,6 @@ def derived_entities_from_evidence(analysis: dict) -> list[str]:
         text = clean(finding.get("evidence") or "")
         for m in BANCORP_ENTITY_RE.finditer(text):
             value = clean(m.group(1)).strip(" .,:;-")
-            # Reader-Snippets können einige Wörter vor dem eigentlichen Namen einfangen.
-            # Bei Bancorp behalten wir höchstens die letzten vier Wörter.
             words = value.split()
             if len(words) > 4:
                 value = " ".join(words[-4:])
@@ -216,7 +215,8 @@ def enrich(data: dict) -> dict:
     project_name = clean(ctx.get("project_name") or ctx.get("input") or "")
     project_domain = clean(ctx.get("domain") or "")
 
-    entities = [clean(x) for x in (analysis.get("legal_entities") or []) if clean(x)]
+    original_entities = [clean(x) for x in (analysis.get("legal_entities") or []) if clean(x)]
+    entities = list(original_entities)
     for candidate in derived_entities_from_evidence(analysis):
         if candidate.lower() not in {x.lower() for x in entities}:
             entities.append(candidate)
@@ -313,7 +313,7 @@ def enrich(data: dict) -> dict:
         "project_name": project_name,
         "project_domain": project_domain,
         "entities_from_project_website": entities,
-        "derived_entity_count": len([e for e in entities if e not in (analysis.get("legal_entities") or [])]),
+        "derived_entity_count": max(0, len(entities) - len(original_entities)),
         "search_attempts": attempts,
         "profiles": profiles,
         "records": [asdict(r) for r in sorted(records, key=lambda r: (r.entity.lower(), -_rank_role(r.source_role), r.title.lower()))],
