@@ -66,7 +66,6 @@ LICENSE_NO_RE = re.compile(
     r"\b(?:licen[cs]e\s*(?:no\.?|number)?|registration\s*(?:no\.?|number)?|reg\.?\s*no\.?)\s*[:#-]?\s*([A-Z0-9][A-Z0-9./-]{4,30})",
     re.I,
 )
-# Tabellen wie Mwali enthalten Nummern ohne vorangestelltes Wort "License".
 BARE_BANK_LICENSE_RE = re.compile(r"\b(B\d{7,12})\b", re.I)
 BANCORP_ENTITY_RE = re.compile(r"\b([A-Z][A-Za-z0-9&.'’\- ]{1,70}\s+Bancorp)\b")
 LEGAL_SUFFIX_RE = re.compile(r"\b(?:DAO\s+LLC|LLC|Ltd\.?|Limited|Inc\.?|PLC|GmbH|AG|S\.?A\.?)\b", re.I)
@@ -205,7 +204,6 @@ def extract_status(text: str) -> str:
     m = re.search(r"\bStatus\s*[:\-]?\s*(Active|Inactive|Suspended|Revoked|Valid|Expired|Cancelled)\b", hay, re.I)
     if m:
         return clean(m.group(1))
-    # Tabellen werden beim Reader oft zu: "... 02/09/2011 Active ..."
     if re.search(r"\bActive\b", hay, re.I):
         return "Active"
     if INACTIVE_WORDS.search(hay[:5000]):
@@ -238,6 +236,18 @@ def evidence(text: str, needle_primary: str, needle_secondary: str, fallback: st
     return clean(fallback or body[:width])[:width]
 
 
+def entity_value_context(text: str, entity: str, width: int = 260) -> str:
+    """Wertefenster beginnt exakt am Rechtsträger, damit Tabellenzeilen nicht verrutschen."""
+    body = clean(text)
+    needle = clean(entity)
+    if not body or not needle:
+        return ""
+    idx = body.lower().find(needle.lower())
+    if idx < 0:
+        return ""
+    return clean(body[idx:idx + width])
+
+
 def entity_query_plan(entity: str, project_name: str, project_domain: str) -> list[str]:
     q = f'"{entity}"'
     return [
@@ -257,7 +267,8 @@ def _record_from_page(entity: str, page: dict, project_name: str, project_domain
     url = page.get("url") or ""
     title = clean(page.get("title") or "")
     text = page.get("text") or snippet
-    local = evidence(text, entity, project_name, snippet, width=620)
+    readable = evidence(text, entity, project_name, snippet, width=620)
+    values = entity_value_context(text, entity) or readable
     role, authority = source_role(url, entity, title, text)
     conn, match = project_connection(project_name, project_domain, title, snippet, text)
     return EntityRecord(
@@ -265,11 +276,11 @@ def _record_from_page(entity: str, page: dict, project_name: str, project_domain
         source_role=role,
         source_url=url,
         title=title,
-        evidence=local,
+        evidence=readable,
         published_at=clean(page.get("published_at") or ""),
-        record_type=classify_record(title, local),
-        status_text=extract_status(local),
-        license_number=extract_license_number(local),
+        record_type=classify_record(title, readable),
+        status_text=extract_status(values),
+        license_number=extract_license_number(values),
         project_connection=conn,
         project_match=match,
         authority_confidence=authority,
@@ -306,7 +317,6 @@ def candidate_entity_domains(entity: str) -> list[str]:
 
 def collect_entity_owned_records(entities: list[str], project_name: str, project_domain: str) -> list[EntityRecord]:
     out: list[EntityRecord] = []
-    # Besonders nützlich für klar benannte Organisationen wie Open Delta DAO LLC.
     for entity in entities:
         for domain in candidate_entity_domains(entity):
             root = ext.read_public_page(f"https://{domain}/")
@@ -391,14 +401,11 @@ def enrich(data: dict) -> dict:
     attempts: list[dict] = []
     seen: set[tuple[str, str]] = set()
 
-    # 1. Direkte öffentliche Register-/Katalogprüfung.
     records.extend(collect_direct_registry_records(entities, project_name, project_domain))
-    # 2. Mögliche eigene Rechtsträger-Websites aus dem Namen ableiten und verifizieren.
     records.extend(collect_entity_owned_records(entities, project_name, project_domain))
     for rec in records:
         seen.add((rec.entity.lower(), ext.canonical_url(rec.source_url)))
 
-    # 3. Breite Websuche für weitere Register-, Warn-, Presse- und Projektverbindungen.
     fetched = 0
     for entity in entities:
         for query in entity_query_plan(entity, project_name, project_domain):
