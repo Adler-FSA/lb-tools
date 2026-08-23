@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5uoq1o-50083645",
-  "generated_at": "2026-08-23T14:06:16.350303+00:00",
+  "generated_at": "2026-08-23T14:17:02.107510+00:00",
   "engine_exit_code": 0,
   "status": "ok",
   "product": "schnellcheck",
@@ -16,7 +16,7 @@
   "context": {
     "input": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "input_kind": "url",
-    "project_name": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "project_name": "WeFi â Onchain Financial Services Infrastructure",
     "domain": "wefi.co",
     "resolved_url": "https://www.wefi.co/",
     "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
@@ -81,7 +81,7 @@
   },
   "quick_check": {
     "product": "schnellcheck",
-    "project_name": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "project_name": "WeFi â Onchain Financial Services Infrastructure",
     "domain": "wefi.co",
     "resolved_url": "https://www.wefi.co/",
     "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
@@ -92,9 +92,7 @@
     "legal_entities_claimed": [
       "Wefi Payments Limited",
       "AppAtlas Technologies LLC",
-      "St. Vincent and the Grenadines with corporate number 3644 LLC",
-      "Fireblocks Ltd",
-      "These operations are facilitated by Wefi Payments Limited"
+      "Fireblocks Ltd"
     ],
     "detected_topics": [
       "trading",
@@ -114,7 +112,107 @@
     ],
     "deep_research_recommended": true,
     "research_depth": "quick",
-    "principle": "Erste Klarheit auf Basis des konkreten Fundstücks; kein Seriositäts- oder Betrugsurteil."
+    "principle": "Erste Klarheit auf Basis des konkreten Fundstücks; kein Seriositäts- oder Betrugsurteil.",
+    "evidence_highlights": [
+      {
+        "type": "trading",
+        "value": "trading",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "or contractual rights, utilizing distributed ledger technology for electronic transfer or trading. Custodial Services means services relating to the safeguarding, holding, and admi",
+        "confidence": "medium"
+      },
+      {
+        "type": "lending",
+        "value": "lending",
+        "source_url": "https://www.wefi.co/",
+        "evidence": "ank, does not accept deposits on a banking balance sheet, and does not use User funds for lending, credit creation, or fractional reserve banking activities. WeFi facilitates acces",
+        "confidence": "medium"
+      },
+      {
+        "type": "lending",
+        "value": "lending",
+        "source_url": "https://www.wefi.co/about",
+        "evidence": "ank, does not accept deposits on a banking balance sheet, and does not use User funds for lending, credit creation, or fractional reserve banking activities. WeFi facilitates acces",
+        "confidence": "medium"
+      },
+      {
+        "type": "lending",
+        "value": "lending",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "ank, does not accept deposits on a banking balance sheet, and does not use User funds for lending, credit creation, or fractional reserve banking activities. Wefi facilitates acces",
+        "confidence": "medium"
+      },
+      {
+        "type": "withdrawal",
+        "value": "withdraw",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "efi also offers crypto-to-fiat functionality for Users seeking to sell Digital Assets and withdraw fiat funds to approved external accounts. All conversion transactions are subject",
+        "confidence": "medium"
+      },
+      {
+        "type": "withdrawal",
+        "value": "withdraw",
+        "source_url": "https://documents.wefi.co/privacy_policy_wefi.pdf",
+        "evidence": "d request the implementation of similar actions on their part. IX. Your rights and how to withdraw consents and unsubscribe Identity Accuracy : We urge you to furnish us with accur",
+        "confidence": "medium"
+      },
+      {
+        "type": "kyc",
+        "value": "identity verification",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "idity providers, to support limited parts of the transaction process (such as settlement, identity verification, and payment routing). Such third-party service providers do not pro",
+        "confidence": "medium"
+      },
+      {
+        "type": "kyc",
+        "value": "KYC",
+        "source_url": "https://documents.wefi.co/privacy_policy_wefi.pdf",
+        "evidence": "s or related records. Identity Data refers to information that identifies you personally. KYC Data (Know-Your-Customer) refers to information collected to confirm your identity. Lo",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "custody",
+        "source_url": "https://www.wefi.co/",
+        "evidence": "ING-AS-A-SERVICE Deobank Model Onchain infrastructure for compliant banking with built-in custody and payment rails. Learn more BANKING-AS-A-SERVICE Deobank Model Onchain infrastru",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "Custody",
+        "source_url": "https://www.wefi.co/about",
+        "evidence": "ant Global Settlement Onchain Banking Account Unified Fiat and Crypto Balance Distributed Custody System AI Behavioral Credit Cloud Based Mining Mission Our mission is to transform",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "custody",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "arding, holding, and administration of Digital Assets, including, without limitation, the custody and control of cryptographic private keys, the operation of custodial wallets, and",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral",
+        "value": "provision",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "for the Website and is duly registered in Costa Rica. This entity is responsible for the provision and regulation of the Services described herein. You signify the individual or en",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral",
+        "value": "affiliate",
+        "source_url": "https://documents.wefi.co/privacy_policy_wefi.pdf",
+        "evidence": "es or from third parties such as business partners (including affiliates participating in affiliate marketing programs), subcontractors providing technical, payment, and delivery s",
+        "confidence": "medium"
+      },
+      {
+        "type": "bonus",
+        "value": "reward",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "iliate, or partner features are designed as a single-tier marketing mechanism intended to reward eligible participants for bona fide, value-based activities related to the use and/",
+        "confidence": "medium"
+      }
+    ]
   },
   "website_analysis": {
     "max_yield_percentage": null,
@@ -122,9 +220,7 @@
     "legal_entities": [
       "Wefi Payments Limited",
       "AppAtlas Technologies LLC",
-      "St. Vincent and the Grenadines with corporate number 3644 LLC",
-      "Fireblocks Ltd",
-      "These operations are facilitated by Wefi Payments Limited"
+      "Fireblocks Ltd"
     ],
     "detected": {
       "staking": false,
