@@ -814,7 +814,7 @@
   "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil.",
   "external_research": {
     "status": "no_confirmed_external_traces",
-    "generated_at": "2026-08-23T11:20:13.060417+00:00",
+    "generated_at": "2026-08-23T12:03:29.818552+00:00",
     "principle": "Nur öffentliche Rohspuren. Quellenglaubwürdigkeit und Projektqualität werden hier nicht bewertet.",
     "project_name": "KryptoSavings",
     "domain": "kryptosavings.com",
@@ -841,7 +841,7 @@
       {
         "query": "\"KryptoSavings\" site:facebook.com",
         "provider": "bing-rss",
-        "results": 3
+        "results": 6
       },
       {
         "query": "\"KryptoSavings\" site:instagram.com",
@@ -866,7 +866,7 @@
       {
         "query": "\"KryptoSavings\" site:t.me",
         "provider": "bing-rss",
-        "results": 1
+        "results": 6
       },
       {
         "query": "\"KryptoSavings\" review OR experience OR erfahrung",
