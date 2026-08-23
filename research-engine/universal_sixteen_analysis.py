@@ -40,7 +40,41 @@ def _profile_text(profile: dict) -> str:
     return f"{person} ({role}, {entity})" if entity else f"{person} ({role})"
 
 
-def _rewrite_q4(q: dict, project: str) -> None:
+def _identifier_conflicts(data: dict) -> list[tuple[str, list[str]]]:
+    operator = data.get("operator_registry_research") or {}
+    out: list[tuple[str, list[str]]] = []
+    for profile in operator.get("profiles") or []:
+        entity = base.base.clean(profile.get("entity") or "")
+        names = [base.base.clean(x) for x in profile.get("identifier_name_conflicts") or [] if base.base.clean(x)]
+        if entity and names:
+            out.append((entity, names))
+    return out
+
+
+def _rewrite_q4(q: dict, data: dict, project: str) -> None:
+    conflicts = _identifier_conflicts(data)
+    if conflicts:
+        q["state"] = "conflict_found"
+        details = "; ".join(f"{entity} ↔ {', '.join(names[:3])}" for entity, names in conflicts[:4])
+        q["finding"] = (
+            f"Zu mindestens einer von {project} genannten Firmen-/Registernummer wurde ausserhalb der Projektwebsite "
+            "ein abweichender Rechtstraegername gefunden. Das ist ein Identitaets-/Aktualitaetskonflikt und kein "
+            f"Betrugsnachweis. Gefundene Zuordnungen: {details}."
+        )
+        gaps = list(q.get("gaps") or [])
+        gap = "Aktuellen offiziellen Registerstand der betroffenen Firmennummer und die heutige Projektrolle verifizieren."
+        if gap not in gaps:
+            gaps.insert(0, gap)
+        q["gaps"] = gaps
+        next_research = list(q.get("next_research") or [])
+        step = "Firmennummer direkt im zuständigen offiziellen Register prüfen und Namenshistorie dokumentieren."
+        if step not in next_research:
+            next_research.insert(0, step)
+        q["next_research"] = next_research
+        q["traffic_light_ready"] = False
+        q["traffic_light"] = None
+        return
+
     state = q.get("state")
     if state == "partially_answered":
         q["finding"] = (
@@ -140,7 +174,7 @@ def enrich(data: dict) -> dict:
 
     for q in questions:
         if q.get("id") == 4:
-            _rewrite_q4(q, project)
+            _rewrite_q4(q, result, project)
         elif q.get("id") == 5:
             _rewrite_q5(q, result, project)
         elif q.get("id") == 6:
@@ -153,5 +187,6 @@ def enrich(data: dict) -> dict:
     block.setdefault("summary", {})["counts_by_state"] = counts
     block.setdefault("guardrails", {})["dynamic_project_label_used"] = True
     block["guardrails"]["project_name_hardcoded_in_universal_output"] = False
+    block["guardrails"]["identifier_name_conflict_is_not_fraud_verdict"] = True
     result["sixteen_point_analysis"] = block
     return result
