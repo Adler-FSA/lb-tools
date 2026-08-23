@@ -1,0 +1,14 @@
+{
+  "schema": "academy-research-request-v1",
+  "request_id": "fbi-wefi-quality-20260823-2101",
+  "query": "https://app.wefi.co/register?ref=d14o0mtv7g",
+  "mode": "deep",
+  "created_at": "2026-08-23T19:01:00Z",
+  "source": "research-control-center-quality-retest",
+  "input_basis_hint": {
+    "type": "referral_or_registration_link",
+    "strength": "very_high",
+    "label": "Sehr starker Beweisanker",
+    "text": "Referral-/Registrierungslink erkannt. Originalfund erhalten; Deep-Research nach Personen-/Rechtsträger-Qualitätsfix erneut ausführen."
+  }
+}
