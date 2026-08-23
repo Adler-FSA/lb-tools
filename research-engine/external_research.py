@@ -154,7 +154,7 @@ def search_bing_rss(query: str, limit: int = MAX_RESULTS_PER_QUERY) -> list[Sear
             href = clean_text(item.findtext("link") or "")
             title = clean_text(item.findtext("title") or "")
             description = item.findtext("description") or ""
-            snippet = clean_text(BeautifulSoup(description, "html.parser").get_text(" "))
+            snippet = clean_text(BeautifulSoup(f"<div>{description}</div>", "html.parser").get_text(" "))
             if not href.startswith(("http://", "https://")):
                 continue
             host = host_of(href)
@@ -303,6 +303,20 @@ def read_public_page(url: str) -> dict:
     return {"ok": False, "url": canonical_url(url), "title": "", "text": "", "published_at": "", "mode": "unreadable"}
 
 
+def _negated_identity_reference(hay: str, needle: str) -> bool:
+    """Erkennt Aussagen, die einen Namen nur erwähnen, um eine Verbindung zu verneinen."""
+    if not needle:
+        return False
+    escaped = re.escape(needle)
+    patterns = (
+        rf"\b(?:no|not|without)\s+{escaped}\s+(?:reference|relation|connection|link|mention|association)\b",
+        rf"\b(?:kein(?:e|en|er|es)?|ohne)\s+{escaped}\s+(?:bezug|verbindung|verknüpfung|nennung|zuordnung)\b",
+        rf"\b{escaped}\s+(?:is|was|has|does)\s+not\s+(?:related|connected|linked|associated|mentioned)\b",
+        rf"\b{escaped}\s+(?:steht|ist|wird)\s+nicht\s+(?:in\s+verbindung|verbunden|verknüpft|zugeordnet)\b",
+    )
+    return any(re.search(pattern, hay, re.I) for pattern in patterns)
+
+
 def match_confidence(project_name: str, domain: str, title: str, snippet: str, page_text: str = "") -> tuple[str, str]:
     """Bewertet nur die Zuordnung zum Projekt, nicht die Glaubwürdigkeit der Quelle."""
     hay = clean_text(" ".join([title, snippet, page_text[:9000]])).lower()
@@ -310,9 +324,9 @@ def match_confidence(project_name: str, domain: str, title: str, snippet: str, p
     name_compact = compact(project_name)
     domain = (domain or "").lower().removeprefix("www.")
 
-    if domain and domain in hay:
+    if domain and domain in hay and not _negated_identity_reference(hay, domain):
         return "high", "domain_exact"
-    if name and name in hay:
+    if name and name in hay and not _negated_identity_reference(hay, name):
         return "high", "name_exact"
     if len(name_compact) >= 6 and name_compact in compact(hay):
         return "medium", "name_normalized"
@@ -438,8 +452,7 @@ def enrich(core_result: dict) -> dict:
             if detected_category in {"video", "social", "community"}:
                 category = detected_category
 
-            # Erst Suchresultat prüfen; unpassende SERP-Treffer werden nicht teuer nachgeladen.
-            pre_confidence, pre_match = match_confidence(project_name, domain, hit.title, hit.snippet)
+            pre_confidence, _ = match_confidence(project_name, domain, hit.title, hit.snippet)
             pre_entity = legal_entity_anchor(legal_entities, hit.title, hit.snippet) if requested_category == "operator" else ""
             if pre_confidence == "low" and not pre_entity:
                 continue
@@ -477,15 +490,12 @@ def enrich(core_result: dict) -> dict:
             ))
 
     deduped = _dedupe_traces(collected)
-    # Projekt-eigene Suchtreffer sind keine externe Bestätigung.
     project_owned_echoes = [
         t for t in deduped if t.attribution_confidence == "high" and t.source_relation == "project_owned"
     ]
     final_traces = [
         t for t in deduped if t.attribution_confidence == "high" and t.source_relation != "project_owned"
     ]
-    # Namensähnlichkeiten oder extern gefundene Rechtsträger ohne belegte Projektverbindung
-    # landen im Prüfkorb und werden nicht als Projektfund behauptet.
     review_candidates = [t for t in deduped if t.attribution_confidence == "medium"]
 
     counts = {}
