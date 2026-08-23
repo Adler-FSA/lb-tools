@@ -77,6 +77,24 @@ def test_two_similarly_strong_domains_remain_ambiguous(monkeypatch):
     assert len(out["candidates"]) == 2
 
 
+def test_root_and_subdomain_same_family_are_not_competing_projects(monkeypatch):
+    hits = [
+        hit("https://auroracapital.com/", "Aurora Capital"),
+        hit("https://platform.auroracapital.com/", "Aurora Capital Platform"),
+    ]
+    disable_real_search(monkeypatch, {"bing-rss": hits})
+    monkeypatch.setattr(
+        resolver.ext,
+        "read_public_page",
+        lambda url: page(url, "Aurora Capital", "Aurora Capital official company platform and services."),
+    )
+    out = resolver.resolve("Aurora Capital")
+    assert out["status"] == "resolved"
+    assert out["domain"] == "auroracapital.com"
+    assert out["domain_family"] == "auroracapital.com"
+    assert len(out["candidates"]) == 1
+
+
 def test_weak_search_context_alone_does_not_confirm_identity(monkeypatch):
     hits = [hit("https://unrelated.example/story", "Market roundup", "Aurora Capital was mentioned once.")]
     disable_real_search(monkeypatch, {"bing-rss": hits})
