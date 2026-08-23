@@ -38,6 +38,14 @@ def test_generic_person_filter_accepts_unrelated_realistic_names():
     assert people.generic_crawler_name_ok("Leadership Team") is False
 
 
+def test_project_people_filter_rejects_slogans_but_keeps_names():
+    assert people.generic_project_name_ok("Maksym Sakharov") is True
+    assert people.generic_project_name_ok("Reeve Collins") is True
+    assert people.generic_project_name_ok("Core Values") is False
+    assert people.generic_project_name_ok("Stay Relentless") is False
+    assert people.generic_project_name_ok("Own It End-to-End") is False
+
+
 def test_entity_aliases_are_derived_from_current_entity_only():
     aliases = people.pipeline.base.entity_brand_aliases("Nordlicht Energie GmbH")
     assert aliases == ["Nordlicht Energie", "NordlichtEnergie"]
@@ -47,6 +55,7 @@ def test_wrapper_uses_generic_filters_and_restores_base(monkeypatch):
     original_org_stop = people.pipeline.base.ORG_STOP
     original_bad_words = people.pipeline.base.BAD_WORDS
     original_name_ok = people.pipeline.crawler._name_ok
+    original_project_name_ok = people.project_people._name_ok
     seen = {}
 
     def fake_enrich(data):
@@ -56,6 +65,7 @@ def test_wrapper_uses_generic_filters_and_restores_base(monkeypatch):
         return {"people_history_research": {"status": "no_people_confirmed"}}
 
     monkeypatch.setattr(people.pipeline, "enrich", fake_enrich)
+    monkeypatch.setattr(people.project_people, "discover_claims", lambda data: {"claims": []})
     out = people.enrich({"context": {"project_name": "Nordlicht Energie"}})
 
     assert seen["org_stop"] == people.GENERIC_ORG_STOP
@@ -65,3 +75,4 @@ def test_wrapper_uses_generic_filters_and_restores_base(monkeypatch):
     assert people.pipeline.base.ORG_STOP is original_org_stop
     assert people.pipeline.base.BAD_WORDS is original_bad_words
     assert people.pipeline.crawler._name_ok is original_name_ok
+    assert people.project_people._name_ok is original_project_name_ok
