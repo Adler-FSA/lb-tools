@@ -1,4 +1,5 @@
 name: Research Engine – Universal Runner
+run-name: "Research ${{ inputs.mode }} · ${{ inputs.query }} · ${{ inputs.request_id }}"
 
 on:
   workflow_dispatch:
@@ -15,16 +16,33 @@ on:
         options:
           - quick
           - deep
+      request_id:
+        description: 'Eindeutige Lauf-ID für das interne Control Center'
+        required: false
+        default: manual
+        type: string
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: universal-research-${{ inputs.request_id }}
+  cancel-in-progress: false
 
 jobs:
   research:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     env:
       RESEARCH_QUERY: ${{ inputs.query }}
       RESEARCH_MODE: ${{ inputs.mode }}
+      RESEARCH_REQUEST_ID: ${{ inputs.request_id }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -33,35 +51,214 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r research-engine/requirements.txt
           python -m playwright install chromium
+
       - name: Universellen Research-Lauf starten
+        shell: bash
         run: |
+          mkdir -p research-engine/output/control-center
+          set +e
           python research-engine/universal_runtime.py "$RESEARCH_QUERY" \
             --mode "$RESEARCH_MODE" \
             --output research-engine/output/universal-result.json
-      - name: Ergebnis zusammenfassen
+          rc=$?
+          echo "ENGINE_RC=$rc" >> "$GITHUB_ENV"
+          if [ ! -f research-engine/output/universal-result.json ]; then
+            python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          Path('research-engine/output/universal-result.json').write_text(json.dumps({
+              'version': 2,
+              'status': 'engine_output_missing',
+              'generated_at': datetime.now(timezone.utc).isoformat(),
+              'context': {'input': os.environ.get('RESEARCH_QUERY', '')},
+              'principle': 'Der Lauf wurde beendet, bevor ein Research-Ergebnis geschrieben werden konnte.'
+          }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+          fi
+          exit 0
+
+      - name: Control-Center-Ergebnis bauen
         run: |
           python - <<'PY'
-          import json
+          import json, os, re
+          from datetime import datetime, timezone
           from pathlib import Path
-          p = Path('research-engine/output/universal-result.json')
-          d = json.loads(p.read_text(encoding='utf-8'))
-          orchestration = d.get('research_orchestration') or {}
+
+          src = Path('research-engine/output/universal-result.json')
+          data = json.loads(src.read_text(encoding='utf-8'))
+          ctx = data.get('context') or {}
+          analysis = data.get('analysis') or {}
+          orchestration = data.get('research_orchestration') or {}
           request = orchestration.get('request') or {}
-          quick = d.get('quick_check') or {}
+          quick = data.get('quick_check') or {}
+          external = data.get('external_research') or {}
+          operator = data.get('operator_registry_research') or {}
+          people = data.get('people_history_research') or {}
+          academy = data.get('academy_analysis') or {}
+          sixteen = data.get('sixteen_point_analysis') or {}
+
+          raw_id = os.environ.get('RESEARCH_REQUEST_ID') or 'manual'
+          request_id = re.sub(r'[^a-zA-Z0-9_-]+', '-', raw_id).strip('-')[:80] or 'manual'
+
+          traces = []
+          for item in list(external.get('traces') or [])[:16]:
+              traces.append({k: item.get(k) for k in (
+                  'category', 'source_relation', 'platform', 'source_url', 'title',
+                  'evidence', 'published_at', 'attribution_confidence', 'project_match'
+              )})
+
+          profiles = []
+          for p in list(operator.get('profiles') or [])[:12]:
+              profiles.append({
+                  'entity': p.get('entity'),
+                  'existence_status': p.get('existence_status'),
+                  'project_connection_status': p.get('project_connection_status'),
+                  'official_record_count': len(p.get('official_or_registry_records') or []),
+                  'independent_record_count': len(p.get('independent_records') or []),
+                  'authority_context_count': len(p.get('authority_context_records') or []),
+              })
+
+          person_profiles = []
+          for p in list(people.get('profiles') or [])[:16]:
+              person_profiles.append({
+                  'person_name': p.get('person_name'),
+                  'entity': p.get('entity'),
+                  'roles': p.get('roles') or [],
+                  'entity_connection_status': p.get('entity_connection_status'),
+                  'project_connection_status': p.get('project_connection_status'),
+                  'ownership_status': p.get('ownership_status'),
+                  'ubo_verified': bool(p.get('ubo_verified')),
+                  'history_record_count': p.get('history_record_count') or 0,
+                  'adverse_record_count': p.get('adverse_record_count') or 0,
+              })
+
+          questions = []
+          for q in list(sixteen.get('questions') or []):
+              questions.append({
+                  'id': q.get('id'),
+                  'title': q.get('title'),
+                  'state': q.get('state'),
+                  'finding': q.get('finding'),
+                  'gaps': list(q.get('gaps') or [])[:8],
+                  'next_research': list(q.get('next_research') or [])[:6],
+                  'evidence_count': len(q.get('evidence') or []),
+                  'counter_evidence_count': len(q.get('counter_evidence') or []),
+                  'traffic_light_ready': bool(q.get('traffic_light_ready')),
+                  'traffic_light': q.get('traffic_light'),
+              })
+
+          identity = data.get('identity_resolution') or {}
+          view = {
+              'schema': 'academy-research-control-center-v1',
+              'request_id': request_id,
+              'generated_at': datetime.now(timezone.utc).isoformat(),
+              'engine_exit_code': int(os.environ.get('ENGINE_RC') or 0),
+              'status': data.get('status'),
+              'product': data.get('product') or request.get('product'),
+              'mode': request.get('mode') or os.environ.get('RESEARCH_MODE'),
+              'query': os.environ.get('RESEARCH_QUERY'),
+              'context': {
+                  'input': ctx.get('input'),
+                  'input_kind': ctx.get('input_kind') or request.get('input_kind'),
+                  'project_name': quick.get('project_name') or ctx.get('project_name') or ctx.get('input'),
+                  'domain': quick.get('domain') or ctx.get('domain'),
+                  'resolved_url': quick.get('resolved_url') or ctx.get('resolved_url'),
+              },
+              'identity': {
+                  'status': identity.get('status'),
+                  'fallback_used': identity.get('fallback_used'),
+                  'candidate_count': len(identity.get('candidates') or []),
+                  'candidates': [
+                      {k: c.get(k) for k in ('url', 'domain', 'title', 'score', 'readable')}
+                      for c in list(identity.get('candidates') or [])[:6]
+                  ],
+              },
+              'orchestration': {
+                  'capabilities': orchestration.get('capabilities') or [],
+                  'module_plan': orchestration.get('module_plan') or [],
+                  'core_max_pages': orchestration.get('core_max_pages'),
+                  'external_depth': orchestration.get('external_depth'),
+              },
+              'quick_check': quick,
+              'website_analysis': {
+                  'max_yield_percentage': analysis.get('max_yield_percentage'),
+                  'max_commission_percentage': analysis.get('max_commission_percentage'),
+                  'legal_entities': analysis.get('legal_entities') or [],
+                  'detected': analysis.get('detected') or {},
+                  'risk_signals': list(analysis.get('risk_signals') or [])[:20],
+                  'questions': list(analysis.get('questions') or [])[:20],
+                  'page_count': len(analysis.get('pages') or []),
+                  'finding_count': len(analysis.get('findings') or []),
+              },
+              'external_research': {
+                  'status': external.get('status'),
+                  'research_depth': external.get('research_depth'),
+                  'trace_count': len(external.get('traces') or []),
+                  'review_candidate_count': len(external.get('review_candidates') or []),
+                  'project_owned_echo_count': len(external.get('project_owned_echoes') or []),
+                  'traces': traces,
+              },
+              'operator_research': {
+                  'status': operator.get('status'),
+                  'summary': operator.get('summary') or {},
+                  'registry_routing': operator.get('registry_routing') or {},
+                  'profiles': profiles,
+              },
+              'people_research': {
+                  'status': people.get('status'),
+                  'summary': people.get('summary') or {},
+                  'profiles': person_profiles,
+                  'universal_routing': people.get('universal_routing') or {},
+              },
+              'academy_analysis': {
+                  'status': academy.get('status'),
+                  'summary': academy.get('summary') or {},
+                  'open_questions': list(academy.get('open_questions') or [])[:24],
+                  'tensions': list(academy.get('tensions') or [])[:12],
+              },
+              'sixteen_point': {
+                  'status': sixteen.get('status'),
+                  'summary': sixteen.get('summary') or {},
+                  'questions': questions,
+                  'guardrails': sixteen.get('guardrails') or {},
+              },
+              'specialized_route': data.get('specialized_route'),
+              'note': data.get('note'),
+              'principle': data.get('principle'),
+          }
+
+          out = Path('research-engine/output/control-center') / f'{request_id}.json'
+          out.write_text(json.dumps(view, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           print(json.dumps({
-              'status': d.get('status'),
-              'product': d.get('product') or request.get('product'),
-              'mode': request.get('mode'),
-              'input_kind': request.get('input_kind'),
-              'route': request.get('route'),
-              'project': quick.get('project_name') or (d.get('context') or {}).get('project_name'),
-              'domain': quick.get('domain') or (d.get('context') or {}).get('domain'),
-              'capabilities': orchestration.get('capabilities') or [],
+              'request_id': request_id,
+              'status': view['status'],
+              'product': view['product'],
+              'mode': view['mode'],
+              'project': view['context']['project_name'],
+              'domain': view['context']['domain'],
+              'capabilities': view['orchestration']['capabilities'],
           }, ensure_ascii=False, indent=2))
           PY
+
       - name: Research-Ergebnis als Artefakt sichern
         uses: actions/upload-artifact@v4
         with:
-          name: universal-research-${{ inputs.mode }}
-          path: research-engine/output/universal-result.json
+          name: universal-research-${{ inputs.request_id }}
+          path: |
+            research-engine/output/universal-result.json
+            research-engine/output/control-center/${{ inputs.request_id }}.json
           if-no-files-found: error
+
+      - name: Kompaktes Control-Center-Ergebnis speichern
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research-engine/output/control-center/
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Research Engine: Control Center Ergebnis $RESEARCH_REQUEST_ID"
+          git pull --rebase origin main
+          git push origin HEAD:main
