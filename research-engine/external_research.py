@@ -10,6 +10,7 @@ import argparse
 import json
 import re
 import sys
+import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -93,7 +94,6 @@ def canonical_url(url: str) -> str:
             return ""
         path = p.path or "/"
         query = p.query
-        # reine Trackingparameter entfernen, inhaltliche IDs aber erhalten
         if query:
             pairs = []
             for part in query.split("&"):
@@ -135,6 +135,39 @@ def _result_from_anchor(anchor, snippet: str, query: str, provider: str) -> Sear
         query=query,
         provider=provider,
     )
+
+
+def search_bing_rss(query: str, limit: int = MAX_RESULTS_PER_QUERY) -> list[SearchHit]:
+    """Bing-Websuche als RSS; wesentlich stabiler als die interaktive SERP."""
+    try:
+        r = requests.get(
+            "https://www.bing.com/search",
+            params={"q": query, "format": "rss", "count": limit, "mkt": "en-US"},
+            headers={"User-Agent": UA, "Accept": "application/rss+xml,application/xml,text/xml"},
+            timeout=TIMEOUT,
+        )
+        if not r.ok or "<rss" not in r.text[:1000].lower():
+            return []
+        root = ET.fromstring(r.text)
+        out: list[SearchHit] = []
+        for item in root.findall(".//item"):
+            href = clean_text(item.findtext("link") or "")
+            title = clean_text(item.findtext("title") or "")
+            description = item.findtext("description") or ""
+            snippet = clean_text(BeautifulSoup(description, "html.parser").get_text(" "))
+            if not href.startswith(("http://", "https://")):
+                continue
+            host = host_of(href)
+            if not host or host in SEARCH_BLOCKLIST:
+                continue
+            hit = SearchHit(canonical_url(href), title, snippet, query, "bing-rss")
+            if hit.url and hit.url not in {x.url for x in out}:
+                out.append(hit)
+            if len(out) >= limit:
+                break
+        return out
+    except (requests.RequestException, ET.ParseError):
+        return []
 
 
 def search_duckduckgo(query: str, limit: int = MAX_RESULTS_PER_QUERY) -> list[SearchHit]:
@@ -189,13 +222,17 @@ def search_bing(query: str, limit: int = MAX_RESULTS_PER_QUERY) -> list[SearchHi
 
 def web_search(query: str, limit: int = MAX_RESULTS_PER_QUERY) -> tuple[list[SearchHit], list[dict]]:
     attempts = []
-    hits = search_duckduckgo(query, limit)
-    attempts.append({"query": query, "provider": "duckduckgo", "results": len(hits)})
-    if hits:
-        return hits, attempts
-    hits = search_bing(query, limit)
-    attempts.append({"query": query, "provider": "bing", "results": len(hits)})
-    return hits, attempts
+    providers = (
+        ("bing-rss", search_bing_rss),
+        ("duckduckgo", search_duckduckgo),
+        ("bing", search_bing),
+    )
+    for provider, fn in providers:
+        hits = fn(query, limit)
+        attempts.append({"query": query, "provider": provider, "results": len(hits)})
+        if hits:
+            return hits, attempts
+    return [], attempts
 
 
 def extract_published_at(soup: BeautifulSoup, raw_text: str = "") -> str:
@@ -211,7 +248,6 @@ def extract_published_at(soup: BeautifulSoup, raw_text: str = "") -> str:
         if node and node.get(attr):
             return clean_text(node.get(attr, ""))[:40]
 
-    # JSON-LD wird häufig zuverlässiger gepflegt als sichtbare Datumstexte.
     for script in soup.select('script[type="application/ld+json"]'):
         text = script.get_text(" ")
         m = re.search(r'"datePublished"\s*:\s*"([^"]+)"', text, re.I)
@@ -336,6 +372,23 @@ def query_plan(project_name: str, domain: str, legal_entities: Iterable[str]) ->
     return plan
 
 
+def _dedupe_traces(traces: list[ExternalTrace]) -> list[ExternalTrace]:
+    dedup: dict[str, ExternalTrace] = {}
+    rank = {"high": 2, "medium": 1, "low": 0}
+    for trace in traces:
+        key = canonical_url(trace.source_url)
+        current = dedup.get(key)
+        if current is None or (rank[trace.attribution_confidence], trace.fetched) > (rank[current.attribution_confidence], current.fetched):
+            dedup[key] = trace
+    out = list(dedup.values())
+    out.sort(key=lambda t: (
+        0 if t.source_relation == "independent" else 1,
+        {"article": 0, "video": 1, "community": 2, "social": 3, "operator": 4}.get(t.category, 9),
+        t.title.lower(),
+    ))
+    return out
+
+
 def enrich(core_result: dict) -> dict:
     result = json.loads(json.dumps(core_result))
     ctx = result.get("context", {})
@@ -350,11 +403,12 @@ def enrich(core_result: dict) -> dict:
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "reason": "Projektname oder bestätigte Projektdomain fehlt.",
             "traces": [],
+            "review_candidates": [],
             "search_attempts": [],
         }
         return result
 
-    traces: list[ExternalTrace] = []
+    collected: list[ExternalTrace] = []
     attempts: list[dict] = []
     seen_urls: set[str] = set()
     fetched_count = 0
@@ -373,7 +427,6 @@ def enrich(core_result: dict) -> dict:
             if detected_category in {"video", "social", "community"}:
                 category = detected_category
 
-            # Projekt-eigene Treffer bleiben als Kontextspur erhalten, aber werden klar markiert.
             page = {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
             if fetched_count < MAX_FETCHED_PAGES:
                 page = read_public_page(url)
@@ -383,11 +436,10 @@ def enrich(core_result: dict) -> dict:
             page_text = page.get("text") or ""
             confidence, project_match = match_confidence(project_name, domain, title, hit.snippet, page_text)
             if confidence == "low":
-                # Ein Suchtreffer allein reicht nicht als Projektzuordnung.
                 continue
 
             evidence = evidence_snippet(page_text, project_name, domain, hit.snippet)
-            traces.append(ExternalTrace(
+            collected.append(ExternalTrace(
                 category=category,
                 source_relation=relation,
                 platform=platform,
@@ -401,21 +453,11 @@ def enrich(core_result: dict) -> dict:
                 fetched=bool(page.get("ok")),
             ))
 
-    # Deduplizieren, bevorzugt nach stärkster Zuordnung und gelesener Seite.
-    dedup: dict[str, ExternalTrace] = {}
-    rank = {"high": 2, "medium": 1, "low": 0}
-    for trace in traces:
-        key = canonical_url(trace.source_url)
-        current = dedup.get(key)
-        if current is None or (rank[trace.attribution_confidence], trace.fetched) > (rank[current.attribution_confidence], current.fetched):
-            dedup[key] = trace
-
-    final_traces = list(dedup.values())
-    final_traces.sort(key=lambda t: (
-        0 if t.source_relation == "independent" else 1,
-        {"article": 0, "video": 1, "community": 2, "social": 3, "operator": 4}.get(t.category, 9),
-        t.title.lower(),
-    ))
+    deduped = _dedupe_traces(collected)
+    # Nur eindeutige Namens-/Domainbelege gelten als bestätigte Projektspur.
+    # Normalisierte Ähnlichkeiten wie "Krypto-Savings" landen separat zur manuellen Prüfung.
+    final_traces = [t for t in deduped if t.attribution_confidence == "high"]
+    review_candidates = [t for t in deduped if t.attribution_confidence == "medium"]
 
     counts = {}
     relations = {}
@@ -431,8 +473,10 @@ def enrich(core_result: dict) -> dict:
         "domain": domain,
         "counts_by_category": counts,
         "counts_by_relation": relations,
+        "review_candidate_count": len(review_candidates),
         "search_attempts": attempts,
         "traces": [asdict(t) for t in final_traces[:80]],
+        "review_candidates": [asdict(t) for t in review_candidates[:40]],
     }
     return result
 
