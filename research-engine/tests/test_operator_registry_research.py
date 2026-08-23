@@ -17,9 +17,7 @@ def base_result():
             "project_name": "KryptoSavings",
             "domain": "kryptosavings.com",
         },
-        "analysis": {
-            "legal_entities": ["Delta West Credit Bank Ltd", "Open Delta DAO LLC"]
-        },
+        "analysis": {"legal_entities": ["Delta West Credit Bank Ltd", "Open Delta DAO LLC"]},
     }
 
 
@@ -36,10 +34,7 @@ def test_mwali_is_claimed_registry_not_high_authority():
 
 def test_known_regulator_is_high_authority():
     role, confidence = mod.source_role(
-        "https://www.fca.org.uk/news/warnings/example",
-        "Example Ltd",
-        "FCA warning",
-        "Example Ltd is not authorised.",
+        "https://www.fca.org.uk/news/warnings/example", "Example Ltd", "FCA warning", "Example Ltd is not authorised."
     )
     assert role == "regulator"
     assert confidence == "high"
@@ -69,12 +64,7 @@ def test_entity_owned_source_is_not_regulator():
 
 def test_bancorp_is_derived_from_saved_website_evidence():
     analysis = {
-        "findings": [
-            {
-                "type": "legal_entity",
-                "evidence": "Responsible entities include GBH Coriolis Bancorp and Open Delta DAO LLC."
-            }
-        ]
+        "findings": [{"type": "legal_entity", "evidence": "Responsible entities include GBH Coriolis Bancorp and Open Delta DAO LLC."}]
     }
     assert mod.derived_entities_from_evidence(analysis) == ["GBH Coriolis Bancorp"]
 
@@ -118,6 +108,42 @@ def test_extract_license_and_status():
     text = "Delta West Credit Bank Ltd. License No. B20110086 Date of Issue 02/09/2011 Status Active"
     assert mod.extract_license_number(text) == "B20110086"
     assert mod.extract_status(text).lower() == "active"
+
+
+def test_flattened_registry_row_extracts_bare_license_and_active():
+    text = "38 GBH CORIOLIS BANCORP B20070016 08/12/2022 Active CLORKMK1 Website Verify"
+    assert mod.extract_license_number(text) == "B20070016"
+    assert mod.extract_status(text) == "Active"
+    assert mod.classify_record("Mwali list", text) == "registry_or_license_record"
+
+
+def test_direct_registry_probe_is_independent_of_search_ranking(monkeypatch):
+    registry_text = (
+        "Delta West Credit Bank Ltd. B20110086 02/09/2011 Active "
+        "GBH CORIOLIS BANCORP B20070016 08/12/2022 Active CLORKMK1"
+    )
+
+    def fake_read(url):
+        if "mwaliregistrar.info" in url:
+            return {
+                "ok": True,
+                "url": url,
+                "title": "Mwali International Services Authority",
+                "text": registry_text,
+                "published_at": "",
+            }
+        return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
+
+    monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
+    records = mod.collect_direct_registry_records(
+        ["Delta West Credit Bank Ltd", "GBH Coriolis Bancorp"], "KryptoSavings", "kryptosavings.com"
+    )
+    assert {r.entity for r in records} == {"Delta West Credit Bank Ltd", "GBH Coriolis Bancorp"}
+    by_entity = {r.entity: r for r in records}
+    assert by_entity["Delta West Credit Bank Ltd"].license_number == "B20110086"
+    assert by_entity["GBH Coriolis Bancorp"].license_number == "B20070016"
+    assert all(r.source_role == "claimed_regulator_or_registry" for r in records)
+    assert all(r.project_connection == "not_shown" for r in records)
 
 
 def test_authority_context_can_challenge_claimed_registry_without_naming_entity(monkeypatch):
@@ -182,13 +208,15 @@ def test_entity_existence_does_not_imply_project_link(monkeypatch):
                 "text": "Mwali International Services Authority is identified in an offshore banking warning.",
                 "published_at": "2023-05-22",
             }
-        return {
-            "ok": True,
-            "url": url,
-            "title": "Mwali International Services Authority",
-            "text": "Delta West Credit Bank Ltd. License No. B20110086 Status Active",
-            "published_at": "",
-        }
+        if "mwaliregistrar.info" in url:
+            return {
+                "ok": True,
+                "url": url,
+                "title": "Mwali International Services Authority",
+                "text": "Delta West Credit Bank Ltd. License No. B20110086 Status Active",
+                "published_at": "",
+            }
+        return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
 
     monkeypatch.setattr(mod.ext, "web_search", fake_search)
     monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
@@ -218,6 +246,8 @@ def test_external_entity_page_can_confirm_project_connection(monkeypatch):
         return [], [{"query": query, "provider": "test", "results": 0}]
 
     def fake_read(url):
+        if "mwaliregistrar.info" in url:
+            return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
         return {
             "ok": True,
             "url": url,
