@@ -1,0 +1,10 @@
+{
+  "schema": "academy-research-run-status-v1",
+  "request_id": "cc-mt5uoq1o-50083645",
+  "state": "completed",
+  "mode": "quick",
+  "engine_exit_code": 2,
+  "started_at": "2026-08-23T14:00:15.398336+00:00",
+  "completed_at": "2026-08-23T14:00:41.649229+00:00",
+  "result_path": "research-engine/output/control-center/cc-mt5uoq1o-50083645.json"
+}

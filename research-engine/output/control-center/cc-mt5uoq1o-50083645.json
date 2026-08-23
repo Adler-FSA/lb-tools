@@ -1,0 +1,124 @@
+{
+  "schema": "academy-research-control-center-v1",
+  "request_id": "cc-mt5uoq1o-50083645",
+  "generated_at": "2026-08-23T14:00:41.643110+00:00",
+  "engine_exit_code": 2,
+  "status": "no_readable_website",
+  "product": "schnellcheck",
+  "mode": "quick",
+  "query": "https://app.wefi.co/register?ref=d14o0mtv7g",
+  "input_basis": {
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high",
+    "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "identity_confirmation_required": false
+  },
+  "context": {
+    "input": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "input_kind": "url",
+    "project_name": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "domain": "app.wefi.co",
+    "resolved_url": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high"
+  },
+  "identity": {
+    "status": null,
+    "fallback_used": null,
+    "candidate_count": 0,
+    "candidates": []
+  },
+  "orchestration": {
+    "capabilities": [
+      "distribution",
+      "web"
+    ],
+    "module_plan": [
+      {
+        "module": "website_research",
+        "run": true,
+        "reason": "Konkreter Referral-/Registrierungslink: Originalfund als starken Beweisanker sichern und Zielseite untersuchen.",
+        "depth": "quick"
+      },
+      {
+        "module": "external_research",
+        "run": false,
+        "reason": "Keine bestätigte Projektwebsite.",
+        "depth": "quick"
+      },
+      {
+        "module": "operator_registry",
+        "run": false,
+        "reason": "Kein Rechtsträger erkannt oder SchnellCheck-Modus.",
+        "depth": "deep"
+      },
+      {
+        "module": "people_history",
+        "run": false,
+        "reason": "Keine belastbare Rechtsträgerbasis oder SchnellCheck-Modus.",
+        "depth": "deep"
+      },
+      {
+        "module": "academy_analysis",
+        "run": false,
+        "reason": "Nur für vollständige Projektanalyse.",
+        "depth": "deep"
+      },
+      {
+        "module": "project_analysis_16",
+        "run": false,
+        "reason": "SchnellCheck zeigt keine vollständige 16-Punkte-Analyse.",
+        "depth": "deep"
+      }
+    ],
+    "core_max_pages": 5,
+    "external_depth": null
+  },
+  "quick_check": {},
+  "website_analysis": {
+    "max_yield_percentage": null,
+    "max_commission_percentage": null,
+    "legal_entities": [],
+    "detected": {},
+    "risk_signals": [],
+    "questions": [],
+    "page_count": 0,
+    "finding_count": 0
+  },
+  "external_research": {
+    "status": null,
+    "research_depth": null,
+    "trace_count": 0,
+    "review_candidate_count": 0,
+    "project_owned_echo_count": 0,
+    "traces": []
+  },
+  "operator_research": {
+    "status": null,
+    "summary": {},
+    "registry_routing": {},
+    "profiles": []
+  },
+  "people_research": {
+    "status": null,
+    "summary": {},
+    "profiles": [],
+    "universal_routing": {}
+  },
+  "academy_analysis": {
+    "status": null,
+    "summary": {},
+    "open_questions": [],
+    "tensions": []
+  },
+  "sixteen_point": {
+    "status": null,
+    "summary": {},
+    "questions": [],
+    "guardrails": {}
+  },
+  "specialized_route": null,
+  "note": null,
+  "principle": null
+}
