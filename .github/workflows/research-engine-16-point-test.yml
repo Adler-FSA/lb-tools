@@ -14,6 +14,7 @@ on:
       - "research-engine/sixteen_point_analysis.py"
       - "research-engine/build_16_monitor.py"
       - "research-engine/academy_analysis.py"
+      - "research-engine/people_history_research.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
@@ -25,6 +26,7 @@ on:
       - "research-engine/sixteen_point_analysis.py"
       - "research-engine/build_16_monitor.py"
       - "research-engine/academy_analysis.py"
+      - "research-engine/people_history_research.py"
       - "research-engine/operator_registry_research.py"
       - "research-engine/external_research.py"
       - "research-engine/engine.py"
@@ -79,11 +81,40 @@ jobs:
             --input research-engine/output/kryptosavings-external.json \
             --output research-engine/output/kryptosavings-operators.json
 
+      - name: Personen Management Historie
+        id: people
+        run: |
+          python research-engine/people_history_research.py \
+            --input research-engine/output/kryptosavings-operators.json \
+            --output research-engine/output/kryptosavings-people.json
+
+      - name: Personen-Trennlogik prüfen
+        id: people_checks
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('research-engine/output/kryptosavings-people.json').read_text(encoding='utf-8'))
+          block=data.get('people_history_research') or {}
+          summary=block.get('summary') or {}
+          assert block.get('status') in {'ok','no_people_confirmed'}
+          assert block.get('guardrails') == {
+              'entity_person_implies_project_person': False,
+              'founder_or_ceo_implies_ubo': False,
+              'ubo_without_ownership_source': False,
+          }
+          assert summary.get('verified_ubo_count') == 0
+          assert all(p.get('ubo_verified') is False for p in block.get('profiles') or [])
+          print('Personen-Research OK:', summary)
+          for p in block.get('profiles') or []:
+              print(f"PERSON: {p.get('person_name')} | entity={p.get('entity')} | entity_link={p.get('entity_connection_status')} | project_link={p.get('project_connection_status')} | ownership={p.get('ownership_status')} | roles={','.join(p.get('roles') or [])}")
+          PY
+
       - name: Akademie Vergleich
         id: academy
         run: |
           python research-engine/academy_analysis.py \
-            --input research-engine/output/kryptosavings-operators.json \
+            --input research-engine/output/kryptosavings-people.json \
             --output research-engine/output/kryptosavings-academy.json
 
       - name: 16-Punkte-Prüfung
@@ -145,6 +176,8 @@ jobs:
           WEBSITE: ${{ steps.website.outcome }}
           EXTERNAL: ${{ steps.external.outcome }}
           OPERATOR: ${{ steps.operator.outcome }}
+          PEOPLE: ${{ steps.people.outcome }}
+          PEOPLE_CHECKS: ${{ steps.people_checks.outcome }}
           ACADEMY: ${{ steps.academy.outcome }}
           SIXTEEN: ${{ steps.sixteen.outcome }}
           MONITOR: ${{ steps.monitor.outcome }}
@@ -162,6 +195,8 @@ jobs:
             'website_research':os.environ.get('WEBSITE'),
             'external_research':os.environ.get('EXTERNAL'),
             'operator_registry_research':os.environ.get('OPERATOR'),
+            'people_history_research':os.environ.get('PEOPLE'),
+            'people_checks':os.environ.get('PEOPLE_CHECKS'),
             'academy_analysis':os.environ.get('ACADEMY'),
             'sixteen_point_analysis':os.environ.get('SIXTEEN'),
             'monitor_export':os.environ.get('MONITOR'),
@@ -178,6 +213,7 @@ jobs:
           name: research-engine-16-point-${{ github.run_id }}
           path: |
             research-engine/output/16-point-status.json
+            research-engine/output/kryptosavings-people.json
             research-engine/output/kryptosavings-16-points.json
             research-engine/output/kryptosavings-16-monitor.json
           if-no-files-found: warn
@@ -189,6 +225,9 @@ jobs:
           git config user.name "Akademie Research Engine"
           git config user.email "actions@github.com"
           git add research-engine/output/16-point-status.json
+          if [ -f research-engine/output/kryptosavings-people.json ]; then
+            git add research-engine/output/kryptosavings-people.json
+          fi
           if [ -f research-engine/output/kryptosavings-16-points.json ]; then
             git add research-engine/output/kryptosavings-16-points.json
           fi
