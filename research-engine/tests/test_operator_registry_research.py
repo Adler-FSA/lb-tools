@@ -45,6 +45,17 @@ def test_known_regulator_is_high_authority():
     assert confidence == "high"
 
 
+def test_comoros_central_bank_is_high_authority():
+    role, confidence = mod.source_role(
+        "https://banque-comores.km/page/show/textes-reglementaires",
+        "",
+        "Banque Centrale des Comores",
+        "Les établissements bancaires ne peuvent exercer sans agrément préalable de la Banque Centrale des Comores.",
+    )
+    assert role == "regulator"
+    assert confidence == "high"
+
+
 def test_entity_owned_source_is_not_regulator():
     role, confidence = mod.source_role(
         "https://www.opendelta.com/terms-of-use",
@@ -109,6 +120,45 @@ def test_extract_license_and_status():
     assert mod.extract_status(text).lower() == "active"
 
 
+def test_authority_context_can_challenge_claimed_registry_without_naming_entity(monkeypatch):
+    claimed = mod.EntityRecord(
+        entity="Delta West Credit Bank Ltd",
+        source_role="claimed_regulator_or_registry",
+        source_url="https://mwaliregistrar.info/list_of_entities.html",
+        title="Mwali International Services Authority",
+        evidence="Delta West Credit Bank Ltd Status Active",
+        published_at="",
+        record_type="registry_or_license_record",
+        status_text="Active",
+        license_number="B20110086",
+        project_connection="not_shown",
+        project_match="",
+        authority_confidence="medium",
+        fetched=True,
+        found_via="test",
+    )
+
+    def fake_read(url):
+        return {
+            "ok": True,
+            "url": url,
+            "title": "Banque Centrale des Comores – activités bancaires offshores",
+            "text": (
+                "La Banque Centrale des Comores signale Mwali International Services Authority comme une prétendue autorité. "
+                "Les activités bancaires offshores exercées sous ces agréments sont illégales."
+            ),
+            "published_at": "2023-05-22",
+        }
+
+    monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
+    contexts = mod.collect_authority_context([claimed])
+    assert contexts
+    assert all(c.source_role == "regulator" for c in contexts)
+    assert all(c.authority_confidence == "high" for c in contexts)
+    assert any(c.context_type == "authority_warning" for c in contexts)
+    assert all(c.claimed_authority == "Mwali International Services Authority" for c in contexts)
+
+
 def test_entity_existence_does_not_imply_project_link(monkeypatch):
     hit = mod.ext.SearchHit(
         url="https://mwaliregistrar.info/list_of_entities.html",
@@ -124,6 +174,14 @@ def test_entity_existence_does_not_imply_project_link(monkeypatch):
         return [], [{"query": query, "provider": "test", "results": 0}]
 
     def fake_read(url):
+        if "banque-comores.km" in url:
+            return {
+                "ok": True,
+                "url": url,
+                "title": "Banque Centrale des Comores",
+                "text": "Mwali International Services Authority is identified in an offshore banking warning.",
+                "published_at": "2023-05-22",
+            }
         return {
             "ok": True,
             "url": url,
@@ -141,6 +199,8 @@ def test_entity_existence_does_not_imply_project_link(monkeypatch):
     assert profile["project_connection_status"] == "not_independently_linked"
     assert len(profile["official_or_registry_records"]) == 1
     assert profile["official_or_registry_records"][0]["license_number"] == "B20110086"
+    assert profile["authority_context_records"]
+    assert all(x["source_role"] == "regulator" for x in profile["authority_context_records"])
 
 
 def test_external_entity_page_can_confirm_project_connection(monkeypatch):
