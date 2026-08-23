@@ -46,13 +46,13 @@
         "url": "https://www.kryptosavings.com/terms-of-service",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
-        "text_chars": 10926
+        "text_chars": 11216
       },
       {
         "url": "https://www.kryptosavings.com/risk-disclaimer",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
-        "text_chars": 11439
+        "text_chars": 11729
       },
       {
         "url": "https://www.kryptosavings.com/privacy-policy",
@@ -65,12 +65,6 @@
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 2523
-      },
-      {
-        "url": "https://www.kryptosavings.com/register",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 208
       }
     ],
     "max_percentage": 23.0,
@@ -115,7 +109,7 @@
         "type": "percentage_other",
         "value": "15%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "n up to 23% APY on Crypto 🎁Get **15% Welcome Bonus** on your first deposit — up to $5,000 15% Welcome Bonus[Claim →](https://www.kryptosavings.com/welcome-bonus) Custody outside th",
+        "evidence": "n up to 23% APY on Crypto 🎁Get **15% Welcome Bonus** on your first deposit — up to $5,000 15% Welcome Bonus[Claim →](https://www.kryptosavings.com/welcome-bonus) Trusted by thousan",
         "confidence": "medium"
       },
       {
@@ -283,28 +277,28 @@
         "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6512 BTC / ≈ 20.70 ETH at the current rate",
+        "evidence": "es who want income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6483 BTC / ≈ 20.62 ETH at the current rate",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "23%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6512 BTC / ≈ 20.70 ETH at the current rate 🔒 365-d",
+        "evidence": "ant income, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6483 BTC / ≈ 20.62 ETH at the current rate 🔒 365-d",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "18%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6512 BTC / ≈ 20.70 ETH at the current rate 🔒 365-day lock",
+        "evidence": "ome, not just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6483 BTC / ≈ 20.62 ETH at the current rate 🔒 365-day lock",
         "confidence": "high"
       },
       {
         "type": "yield_percentage",
         "value": "20%",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6512 BTC / ≈ 20.70 ETH at the current rate 🔒 365-day lock ⛔ No e",
+        "evidence": "t just a growing balance. Fixed annual rate, frozen at deposit USDT 23%USDC 23%BTC 18%ETH 20% $50,000 minimum · ≈ 0.6483 BTC / ≈ 20.62 ETH at the current rate 🔒 365-day lock ⛔ No e",
         "confidence": "high"
       },
       {
@@ -539,20 +533,6 @@
         "confidence": "high"
       },
       {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Con",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Confirm password Already have an account? [Log in](https://",
-        "confidence": "high"
-      },
-      {
         "type": "staking",
         "value": "staking",
         "source_url": "https://www.kryptosavings.com/",
@@ -584,7 +564,7 @@
         "type": "defi",
         "value": "DeFi",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "elcome-bonus) Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC and earn DeFi-powered yields backed by institutional-grade staking and trading strategies. With ins",
+        "evidence": "onal custody. Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC and earn DeFi-powered yields backed by institutional-grade staking and trading strategies. With ins",
         "confidence": "medium"
       },
       {
@@ -708,9 +688,9 @@
       },
       {
         "type": "custody",
-        "value": "Custody",
+        "value": "institutional custody",
         "source_url": "https://www.kryptosavings.com/",
-        "evidence": "it — up to $5,000 15% Welcome Bonus[Claim →](https://www.kryptosavings.com/welcome-bonus) Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC and earn DeFi-powered y",
+        "evidence": ".kryptosavings.com/welcome-bonus) Trusted by thousands • Secured by industry leaders With institutional custody. Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC ",
         "confidence": "medium"
       },
       {
@@ -773,7 +753,7 @@
         "type": "legal_entity",
         "value": "Delta West Credit Bank Ltd",
         "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "ns. ### 1.1 Responsible Entities The Services are provided by the following entities: * **Delta West Credit Bank Ltd.** 1 Canada Square, Canary Wharf, London E14 5AA, United Kingdo",
+        "evidence": "h services through this website. The Services are provided by the following entities: * **Delta West Credit Bank Ltd.** 1 Canada Square, Canary Wharf, London E14 5AA, United Kingdo",
         "confidence": "medium"
       },
       {
