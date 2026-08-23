@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-23T15:21:15.258261+00:00",
+  "generated_at": "2026-08-23T15:25:56.171688+00:00",
   "engine_exit_code": 0,
   "status": "ok",
   "product": "projektanalyse",
@@ -17,9 +17,9 @@
   "context": {
     "input": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "input_kind": "url",
-    "project_name": "Just a moment...",
-    "domain": "app.wefi.co",
-    "resolved_url": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "project_name": "WeFi â Onchain Financial Services Infrastructure",
+    "domain": "wefi.co",
+    "resolved_url": "https://www.wefi.co/",
     "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "anchor_type": "referral_or_registration_link",
     "anchor_strength": "very_high"
@@ -32,7 +32,11 @@
   },
   "orchestration": {
     "capabilities": [
+      "crypto_finance",
+      "customer_assets",
       "distribution",
+      "legal_entity",
+      "social",
       "web"
     ],
     "module_plan": [
@@ -50,14 +54,14 @@
       },
       {
         "module": "operator_registry",
-        "run": false,
-        "reason": "Kein Rechtsträger erkannt oder SchnellCheck-Modus.",
+        "run": true,
+        "reason": "Rechtsträger erkannt; Register-/Behördenprüfung gehört in Deep Research.",
         "depth": "deep"
       },
       {
         "module": "people_history",
-        "run": false,
-        "reason": "Keine belastbare Rechtsträgerbasis oder SchnellCheck-Modus.",
+        "run": true,
+        "reason": "Management/Personen erst nach Rechtsträger-Erkennung vertiefen.",
         "depth": "deep"
       },
       {
@@ -80,42 +84,49 @@
   "website_analysis": {
     "max_yield_percentage": null,
     "max_commission_percentage": null,
-    "legal_entities": [],
+    "legal_entities": [
+      "Wefi Payments Limited",
+      "AppAtlas Technologies LLC",
+      "Fireblocks Ltd"
+    ],
     "detected": {
-      "staking": false,
-      "yield_or_interest": false,
-      "defi": false,
-      "trading": false,
+      "staking": true,
+      "yield_or_interest": true,
+      "defi": true,
+      "trading": true,
       "leverage": false,
-      "lending": false,
+      "lending": true,
       "lockup": false,
-      "withdrawal": false,
-      "kyc": false,
-      "custody": false,
+      "withdrawal": true,
+      "kyc": true,
+      "custody": true,
       "referral": true,
-      "bonus": false,
-      "guarantee": false
+      "bonus": true,
+      "guarantee": true
     },
     "risk_signals": [
+      {
+        "id": "active_strategy",
+        "severity": "medium",
+        "title": "Aktive Trading-/Strategieelemente",
+        "explanation": "Die Rendite hängt damit von Markt-, Ausführungs- und Strategierisiken ab."
+      },
       {
         "id": "distribution_incentive",
         "severity": "medium",
         "title": "Vertriebs-/Empfehlungsanreize erkannt",
         "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
-      },
-      {
-        "id": "operator_identity",
-        "severity": "medium",
-        "title": "Rechtsträger nicht eindeutig erkannt",
-        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
       }
     ],
     "questions": [
       "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
-      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+      "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
+      "Zu welchem Zeitpunkt wird KYC/Identitätsprüfung verlangt und kann sie eine Auszahlung verzögern oder verhindern?",
+      "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
+      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?"
     ],
-    "page_count": 1,
-    "finding_count": 1
+    "page_count": 14,
+    "finding_count": 35
   },
   "external_research": {
     "status": "no_confirmed_external_traces",
@@ -126,35 +137,93 @@
     "traces": []
   },
   "operator_research": {
-    "status": null,
-    "summary": {},
-    "registry_routing": {},
-    "profiles": []
+    "status": "ok",
+    "summary": {
+      "entity_count": 3,
+      "record_count": 0,
+      "official_or_registry_record_count": 0,
+      "independent_record_count": 0,
+      "entity_owned_record_count": 0,
+      "externally_linked_record_count": 0,
+      "possible_link_record_count": 0,
+      "warning_or_adverse_record_count": 0,
+      "authority_context_record_count": 0
+    },
+    "registry_routing": {
+      "mode": "generic_only",
+      "selected_adapters": [],
+      "special_registry_probe_count": 0,
+      "principle": "Spezialregister werden nur bei passendem Jurisdiktionshinweis aktiviert."
+    },
+    "profiles": [
+      {
+        "entity": "Wefi Payments Limited",
+        "existence_status": "not_independently_confirmed",
+        "project_connection_status": "project_claim_only_or_not_shown",
+        "official_record_count": 0,
+        "independent_record_count": 0,
+        "authority_context_count": 0
+      },
+      {
+        "entity": "AppAtlas Technologies LLC",
+        "existence_status": "not_independently_confirmed",
+        "project_connection_status": "project_claim_only_or_not_shown",
+        "official_record_count": 0,
+        "independent_record_count": 0,
+        "authority_context_count": 0
+      },
+      {
+        "entity": "Fireblocks Ltd",
+        "existence_status": "not_independently_confirmed",
+        "project_connection_status": "project_claim_only_or_not_shown",
+        "official_record_count": 0,
+        "independent_record_count": 0,
+        "authority_context_count": 0
+      }
+    ]
   },
   "people_research": {
-    "status": null,
-    "summary": {},
+    "status": "no_people_confirmed",
+    "summary": {
+      "person_profile_count": 0,
+      "project_linked_person_count": 0,
+      "ownership_claim_profile_count": 0,
+      "verified_ubo_count": 0,
+      "adverse_record_count": 0,
+      "entity_domain_crawl_count": 0,
+      "entity_domain_finding_count": 0
+    },
     "profiles": [],
-    "universal_routing": {}
+    "universal_routing": {
+      "mode": "generic_people_filters",
+      "project_specific_filters_used": false,
+      "principle": "Personenfilter enthalten keine Namen, Marken oder Jurisdiktionen aus früheren Testprojekten."
+    }
   },
   "academy_analysis": {
-    "status": "no_comparable_claims",
+    "status": "ok",
     "summary": {
-      "comparison_count": 0,
+      "comparison_count": 3,
       "counts_by_assessment": {
-        "not_independently_verified": 0,
+        "partially_supported": 3,
+        "open": 0,
         "contradicted": 0,
-        "partially_supported": 0,
-        "context_challenged": 0,
         "independently_supported": 0,
-        "open": 0
+        "context_challenged": 0,
+        "not_independently_verified": 0
       },
-      "open_question_count": 2,
+      "open_question_count": 8,
       "tension_count": 0
     },
     "open_questions": [
       "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
-      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+      "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
+      "Zu welchem Zeitpunkt wird KYC/Identitätsprüfung verlangt und kann sie eine Auszahlung verzögern oder verhindern?",
+      "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
+      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?",
+      "Welche konkrete vertragliche oder operative Rolle hat Wefi Payments Limited bei https://app.wefi.co/register?ref=d14o0mtv7g, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?",
+      "Welche konkrete vertragliche oder operative Rolle hat AppAtlas Technologies LLC bei https://app.wefi.co/register?ref=d14o0mtv7g, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?",
+      "Welche konkrete vertragliche oder operative Rolle hat Fireblocks Ltd bei https://app.wefi.co/register?ref=d14o0mtv7g, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?"
     ],
     "tensions": []
   },
@@ -163,9 +232,9 @@
     "summary": {
       "question_count": 16,
       "counts_by_state": {
-        "research_gap": 12,
-        "partially_answered": 2,
-        "clarification_needed": 1,
+        "partially_answered": 4,
+        "clarification_needed": 6,
+        "research_gap": 5,
         "overall_not_ready": 1
       },
       "questions_1_to_15": 15,
@@ -176,15 +245,15 @@
       {
         "id": 1,
         "title": "Was ist das konkrete Produkt?",
-        "state": "research_gap",
-        "finding": "Das konkrete Produkt lässt sich aus dem aktuellen Datenstand noch nicht belastbar beschreiben.",
+        "state": "partially_answered",
+        "finding": "erkannte Bausteine: staking, defi, trading, lending, custody.",
         "gaps": [
-          "Produktdefinition fehlt."
+          "Vertragliche Produktstruktur und konkrete Kundenrechte sind noch nicht vollständig extrahiert."
         ],
         "next_research": [
-          "Produkt-, FAQ- und Vertragsseiten vertieft auswerten."
+          "Terms/Produktbedingungen je Produktart strukturiert extrahieren."
         ],
-        "evidence_count": 0,
+        "evidence_count": 12,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -192,15 +261,16 @@
       {
         "id": 2,
         "title": "Welches reale Problem soll gelöst werden?",
-        "state": "research_gap",
-        "finding": "Der aktuelle Research-Datensatz enthält noch keinen belastbaren Nachweis zum realen Problem, Zielmarkt und eigenständigen Nutzen.",
+        "state": "clarification_needed",
+        "finding": "Die Projektwebsite enthält Nutzen-/Zielgruppenhinweise, aber der reale Bedarf und ein vom Rendite-/Referral-Anreiz unabhängiger Nutzen sind noch nicht belegt.",
         "gaps": [
-          "Use-Case-/Marktprüfung fehlt."
+          "Kein belastbarer Markt-/Bedarfsnachweis.",
+          "Eigenständiger Nutzen gegenüber Rendite/Bonus/Referral noch nicht getrennt."
         ],
         "next_research": [
-          "Projekt-Nutzenversprechen und unabhängigen Marktbedarf recherchieren."
+          "Use-Case, Zielgruppe und Marktbedarf unabhängig recherchieren."
         ],
-        "evidence_count": 0,
+        "evidence_count": 7,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -208,13 +278,15 @@
       {
         "id": 3,
         "title": "Ist die öffentliche Beschreibung sachlich und konsistent?",
-        "state": "research_gap",
-        "finding": "Noch keine ausreichende Gegenprüfung der öffentlichen Aussagen vorhanden.",
+        "state": "partially_answered",
+        "finding": "Mehrere Kernaussagen wurden bereits gegen externe Quellen gespiegelt; für eine vollständige Konsistenzprüfung fehlen weitere Projekt- und Vertriebsmaterialien.",
         "gaps": [
-          "Vergleichsdaten fehlen."
+          "Noch kein vollständiger Vergleich aller öffentlichen Aussagen."
         ],
-        "next_research": [],
-        "evidence_count": 0,
+        "next_research": [
+          "Weitere FAQ, Präsentationen, Videos und Vertriebsaussagen einbeziehen."
+        ],
+        "evidence_count": 3,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -222,12 +294,15 @@
       {
         "id": 4,
         "title": "Wer ist der Betreiber?",
-        "state": "research_gap",
-        "finding": "Kein belastbares Betreiberprofil erzeugt.",
+        "state": "clarification_needed",
+        "finding": "Rechtstraegerspuren wurden gefunden, aber die konkrete Betreiber-/Vertragspartnerrolle bei https://app.wefi.co/register?ref=d14o0mtv7g ist noch nicht unabhaengig belegt.",
         "gaps": [
-          "Betreiber-/Rechtsträgerprüfung fehlt."
+          "Konkreter Vertragspartner je Dienstleistung.",
+          "Firmennummer, Sitz, Anschrift, Direktoren und wirtschaftlich Berechtigte noch nicht vollständig für alle Rollen belegt."
         ],
-        "next_research": [],
+        "next_research": [
+          "Offizielle Register je Rechtsträger und Projektverbindung separat vertiefen."
+        ],
         "evidence_count": 0,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
@@ -268,13 +343,17 @@
       {
         "id": 7,
         "title": "Wo befinden sich Kundengelder und wer kontrolliert sie?",
-        "state": "research_gap",
-        "finding": "Der aktuelle Datenstand beantwortet die Kontrolle über Kundengelder und Assets nicht ausreichend.",
+        "state": "clarification_needed",
+        "finding": "Custody/Verwahrung wird auf der Projektwebsite thematisiert; Private-Key-Kontrolle, Segregation, Insolvenzschutz, Sperrrechte und konkrete Gegenparteien sind noch nicht vollständig belegt.",
         "gaps": [
-          "Custody-/Walletnachweis fehlt."
+          "Wallet-Architektur/Private-Key-Kontrolle offen.",
+          "Segregation und Insolvenzschutz offen.",
+          "Auszahlungsfreigabe und Banking-/Custody-Partner offen."
         ],
-        "next_research": [],
-        "evidence_count": 0,
+        "next_research": [
+          "Custody-, Wallet- und Gegenparteienmodul vertiefen."
+        ],
+        "evidence_count": 8,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -282,15 +361,15 @@
       {
         "id": 8,
         "title": "Wie transparent und vollständig sind Gebühren?",
-        "state": "research_gap",
-        "finding": "Die Engine hat noch keine vollständige, belastbare Gebührenstruktur extrahiert.",
+        "state": "clarification_needed",
+        "finding": "Gebühren-/Kostenhinweise sind vorhanden, aber eine vollständige effektive Kostenrechnung liegt noch nicht vor.",
         "gaps": [
-          "Gebühren-/Kostenmodul fehlt."
+          "Vollständiges Gebührenblatt und Beispielrechnung fehlen."
         ],
         "next_research": [
-          "Terms, FAQ und Gebührenseiten gezielt auf Kosten durchsuchen."
+          "Entry-, laufende-, Spread-, FX-, Gas-, Performance-, Exit- und Withdrawal-Kosten extrahieren und rechnen."
         ],
-        "evidence_count": 0,
+        "evidence_count": 1,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -312,13 +391,16 @@
       {
         "id": 10,
         "title": "Woher entstehen Einnahmen und Erträge tatsächlich?",
-        "state": "research_gap",
-        "finding": "Die tatsächliche Quelle der Kundenrenditen ist im aktuellen Datensatz nicht belastbar erklärt.",
+        "state": "clarification_needed",
+        "finding": "Die Projektwebsite nennt bzw. signalisiert Ertragsmechanismen wie Trading/Lending/Staking/DeFi. Eine unabhängige, quantitative Bestätigung der tatsächlichen Ertragsquelle fehlt bislang.",
         "gaps": [
-          "Ertragsquellen-/Geldflussnachweis fehlt."
+          "Quantitativer Geldfluss und reale operative Erträge fehlen.",
+          "Unabhängiger Nachweis der Ertragsquelle fehlt."
         ],
-        "next_research": [],
-        "evidence_count": 0,
+        "next_research": [
+          "Strategie, Gegenparteien, Performancehistorie und Geldfluss vertiefen."
+        ],
+        "evidence_count": 11,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -334,7 +416,7 @@
         "next_research": [
           "Vergütungsplan vollständig modellieren und Geldfluss pro Einzahlung berechnen."
         ],
-        "evidence_count": 0,
+        "evidence_count": 4,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -359,7 +441,7 @@
         "id": 13,
         "title": "Was beweisen Auszahlungen, Boni und Garantien wirklich?",
         "state": "clarification_needed",
-        "finding": "keine positive Garantieaussage wurde im aktuellen Crawl bestätigt. Einzelne Auszahlungen oder Boni würden weder Solvenz noch Nachhaltigkeit beweisen.",
+        "finding": "Auszahlungsbedingungen werden erwähnt; Bonus-/Incentive-Aussagen sind vorhanden; Garantieaussage wurde erkannt. Einzelne Auszahlungen oder Boni würden weder Solvenz noch Nachhaltigkeit beweisen.",
         "gaps": [
           "Unabhängige Auszahlungshistorie fehlt.",
           "Finanzierungsquelle der Boni fehlt.",
@@ -368,7 +450,7 @@
         "next_research": [
           "Nutzerberichte/Belege zu Ein- und Auszahlungen sammeln und gegen Terms sowie Geldfluss spiegeln."
         ],
-        "evidence_count": 0,
+        "evidence_count": 7,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -409,16 +491,16 @@
         "id": 16,
         "title": "Akademie-Gesamtbewertung",
         "state": "overall_not_ready",
-        "finding": "Eine belastbare Akademie-Gesamtampel wird noch nicht erzeugt. 13 der ersten 15 Prüfpunkte enthalten wesentliche Forschungslücken, Klärungsbedarf oder Quellenkonflikte.",
+        "finding": "Eine belastbare Akademie-Gesamtampel wird noch nicht erzeugt. 11 der ersten 15 Prüfpunkte enthalten wesentliche Forschungslücken, Klärungsbedarf oder Quellenkonflikte.",
         "gaps": [
-          "Punkt 1: Was ist das konkrete Produkt? — research_gap",
-          "Punkt 2: Welches reale Problem soll gelöst werden? — research_gap",
-          "Punkt 3: Ist die öffentliche Beschreibung sachlich und konsistent? — research_gap",
-          "Punkt 4: Wer ist der Betreiber? — research_gap",
+          "Punkt 2: Welches reale Problem soll gelöst werden? — clarification_needed",
+          "Punkt 4: Wer ist der Betreiber? — clarification_needed",
           "Punkt 5: Wer kontrolliert das Unternehmen und welche Historie besteht? — research_gap",
           "Punkt 6: Welche regulatorische Erlaubnis liegt vor? — research_gap",
-          "Punkt 7: Wo befinden sich Kundengelder und wer kontrolliert sie? — research_gap",
-          "Punkt 8: Wie transparent und vollständig sind Gebühren? — research_gap"
+          "Punkt 7: Wo befinden sich Kundengelder und wer kontrolliert sie? — clarification_needed",
+          "Punkt 8: Wie transparent und vollständig sind Gebühren? — clarification_needed",
+          "Punkt 9: Ist Preis oder Rendite marktüblich und plausibel? — research_gap",
+          "Punkt 10: Woher entstehen Einnahmen und Erträge tatsächlich? — clarification_needed"
         ],
         "next_research": [
           "Offene Kernmodule schließen; erst danach Ampellogik anwenden."
