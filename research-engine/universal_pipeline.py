@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Universelle Research-Pipeline für zwei Produkte aus einem Motor.
 
-quick = SchnellCheck: Identität, Website, Kernaussagen, externe Spuren.
-deep  = Projektanalyse: zusätzlich Rechtsträger, Personen, Akademie-Vergleich
-        und 16-Punkte-Prüfung.
+quick = SchnellCheck: Identität, Website, Kernaussagen, wenige priorisierte Fremdspuren.
+deep  = Projektanalyse: vollständige Fremdrecherche plus Rechtsträger, Personen,
+        Akademie-Vergleich und 16-Punkte-Prüfung.
 
 Die Pipeline enthält keine projektspezifischen Namen oder Register.
 """
@@ -32,6 +32,7 @@ router = load_module("universal_research_router", "research_router.py")
 identity = load_module("universal_identity_resolver", "identity_resolver.py")
 engine = load_module("universal_core_engine", "engine.py")
 external = load_module("universal_external_research", "external_research.py")
+quick_external = load_module("universal_quick_external_research", "quick_external_research.py")
 operator = load_module("universal_operator_research", "universal_operator_research.py")
 people = load_module("universal_people_pipeline", "people_history_pipeline.py")
 academy = load_module("universal_academy_analysis", "academy_analysis.py")
@@ -172,6 +173,7 @@ def build_quick_view(data: dict) -> dict:
         "review_candidate_count": len(ext.get("review_candidates") or []),
         "research_gaps": gaps,
         "deep_research_recommended": bool(gaps or detected.get("leverage") or detected.get("guarantee")),
+        "research_depth": "quick",
         "principle": "Erste Klarheit, kein Seriositäts- oder Betrugsurteil.",
     }
 
@@ -207,13 +209,14 @@ def run(query: str, mode: str = "quick") -> dict:
         return data
 
     if "external_research" in runs:
-        data = external.enrich(data)
+        data = quick_external.enrich(data) if request.mode == "quick" else external.enrich(data)
 
     plan = router.module_plan(request, data)
     runs = _module_runs(plan)
     data["research_orchestration"] = router.request_payload(request, data)
     data["research_orchestration"]["started_at"] = started
     data["research_orchestration"]["core_max_pages"] = max_pages
+    data["research_orchestration"]["external_depth"] = "quick" if request.mode == "quick" else "deep"
 
     if request.mode == "quick":
         data["quick_check"] = build_quick_view(data)
