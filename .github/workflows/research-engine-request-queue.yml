@@ -1,0 +1,121 @@
+name: Research Engine – Request Queue
+run-name: "Research Queue · ${{ github.sha }}"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/research-requests/*.json'
+
+permissions:
+  contents: write
+
+jobs:
+  research-request:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Research-Auftrag lesen
+        shell: bash
+        run: |
+          REQUEST_PATH="$(git diff-tree --no-commit-id --name-only -r HEAD | grep -E '^data/research-requests/[^/]+\.json$' | tail -n 1)"
+          if [ -z "$REQUEST_PATH" ] || [ ! -f "$REQUEST_PATH" ]; then
+            echo "Keine Research-Auftragsdatei im auslösenden Commit gefunden."
+            exit 1
+          fi
+          echo "RESEARCH_REQUEST_PATH=$REQUEST_PATH" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import json, os, re
+          from pathlib import Path
+
+          path = Path(os.environ['RESEARCH_REQUEST_PATH'])
+          req = json.loads(path.read_text(encoding='utf-8'))
+          request_id = re.sub(r'[^a-zA-Z0-9_-]+', '-', str(req.get('request_id') or path.stem)).strip('-')[:80]
+          query = str(req.get('query') or '').strip()
+          mode = str(req.get('mode') or 'quick').strip().lower()
+          if not request_id or not query or mode not in {'quick', 'deep'}:
+              raise SystemExit('Ungültiger Research-Auftrag')
+
+          with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as fh:
+              fh.write(f"RESEARCH_REQUEST_ID={request_id}\n")
+              fh.write(f"RESEARCH_MODE={mode}\n")
+              fh.write('RESEARCH_QUERY<<__RESEARCH_QUERY__\n')
+              fh.write(query + '\n')
+              fh.write('__RESEARCH_QUERY__\n')
+          print(json.dumps({'request_id': request_id, 'query': query, 'mode': mode}, ensure_ascii=False))
+          PY
+
+      - name: Engine installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt
+          python -m playwright install chromium
+
+      - name: Universelle Research Engine ausführen
+        shell: bash
+        run: |
+          mkdir -p research-engine/output/control-center
+          set +e
+          python research-engine/universal_runtime.py "$RESEARCH_QUERY" \
+            --mode "$RESEARCH_MODE" \
+            --output research-engine/output/universal-result.json
+          rc=$?
+          echo "ENGINE_RC=$rc" >> "$GITHUB_ENV"
+          if [ ! -f research-engine/output/universal-result.json ]; then
+            python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          Path('research-engine/output/universal-result.json').write_text(json.dumps({
+              'version': 2,
+              'status': 'engine_output_missing',
+              'generated_at': datetime.now(timezone.utc).isoformat(),
+              'context': {'input': os.environ.get('RESEARCH_QUERY', '')},
+              'principle': 'Der Lauf wurde beendet, bevor ein Research-Ergebnis geschrieben werden konnte.'
+          }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+          fi
+          exit 0
+
+      - name: Control-Center-Ergebnis bauen
+        shell: bash
+        run: |
+          python research-engine/build_control_center_result.py \
+            --input research-engine/output/universal-result.json \
+            --output "research-engine/output/control-center/${RESEARCH_REQUEST_ID}.json" \
+            --request-id "$RESEARCH_REQUEST_ID" \
+            --query "$RESEARCH_QUERY" \
+            --mode "$RESEARCH_MODE" \
+            --engine-exit-code "${ENGINE_RC:-0}"
+
+      - name: Ergebnis als Artefakt sichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-request-${{ env.RESEARCH_REQUEST_ID }}
+          path: |
+            research-engine/output/universal-result.json
+            research-engine/output/control-center/${{ env.RESEARCH_REQUEST_ID }}.json
+          if-no-files-found: error
+
+      - name: Ergebnis für das Control Center speichern
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "research-engine/output/control-center/${RESEARCH_REQUEST_ID}.json"
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Research Engine: Ergebnis ${RESEARCH_REQUEST_ID}"
+          git pull --rebase origin main
+          git push origin HEAD:main
