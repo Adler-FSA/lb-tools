@@ -138,6 +138,22 @@ def test_negated_guarantee_is_not_positive_claim():
     assert out["detected"]["guarantee"] is False
 
 
+def test_list_level_negation_is_not_positive_guarantee():
+    ctx = {"input_url": ""}
+    page = mod.Page(
+        url="https://example.com/risk",
+        status=200,
+        title="Risk",
+        text=(
+            "Your funds are not: * Insured by any government deposit insurance scheme "
+            "* Protected by investor compensation funds * Guaranteed to be returned in full."
+        ),
+        links=[],
+    )
+    out = mod.analyze_pages([page], ctx)
+    assert out["detected"]["guarantee"] is False
+
+
 def test_smeared_address_is_not_accepted_as_legal_entity():
     ctx = {"input_url": ""}
     page = mod.Page(
@@ -161,6 +177,35 @@ def test_research_pages_outrank_discovered_login_and_register():
     register = mod.link_priority("https://example.com/register") + discovered_bonus
     assert affiliate > login
     assert strategy > register
+
+
+def test_static_assets_are_not_crawlable_but_documents_are():
+    assert mod.is_crawlable_url("https://example.com/img/gold-hero.jpg") is False
+    assert mod.is_crawlable_url("https://example.com/assets/app.js?v=1") is False
+    assert mod.is_crawlable_url("https://example.com/styles/site.css") is False
+    assert mod.is_crawlable_url("https://example.com/terms") is True
+    assert mod.is_crawlable_url("https://example.com/whitepaper.pdf") is True
+
+
+def test_referral_section_you_earn_is_commission_not_yield():
+    text = (
+        "Referral Program Share your referral link. They sign up, complete KYC, deposit crypto "
+        "and earn competitive yields. 03 You earn 10% Receive 10% of their interest earnings "
+        "automatically — directly into your wallet."
+    )
+    matches = list(mod.PERCENT_RE.finditer(text))
+    assert len(matches) == 2
+    assert all(mod.percentage_kind(text, match) == "commission" for match in matches)
+
+
+def test_flattened_annual_rate_table_is_yield():
+    text = (
+        "Premium Income Fixed annual rate, frozen at deposit USDT 23% USDC 23% BTC 18% ETH 20% "
+        "$50,000 minimum."
+    )
+    matches = list(mod.PERCENT_RE.finditer(text))
+    assert len(matches) == 4
+    assert all(mod.percentage_kind(text, match) == "yield" for match in matches)
 
 
 # Bewusster Trigger für den Klaus-Live-Lauf mit ausschließlich dem Projektnamen.
