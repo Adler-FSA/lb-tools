@@ -49,6 +49,18 @@
         "text_chars": 10926
       },
       {
+        "url": "https://www.kryptosavings.com/risk-disclaimer",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 11439
+      },
+      {
+        "url": "https://www.kryptosavings.com/privacy-policy",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 8485
+      },
+      {
         "url": "https://www.kryptosavings.com/gold",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
@@ -59,18 +71,6 @@
         "title": "gold-hero.jpg",
         "fetch_mode": "reader-fallback",
         "text_chars": 239
-      },
-      {
-        "url": "https://www.kryptosavings.com/register",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 208
-      },
-      {
-        "url": "https://www.kryptosavings.com/login",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 188
       }
     ],
     "max_percentage": 23.0,
@@ -89,7 +89,7 @@
       "custody": true,
       "referral": true,
       "bonus": true,
-      "guarantee": false
+      "guarantee": true
     },
     "legal_entities": [
       "Delta West Credit Bank Ltd",
@@ -471,29 +471,64 @@
       {
         "type": "yield_percentage",
         "value": "23%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ### High-Risk Investment Warning Crypto assets are highly volatile and speculat",
+        "confidence": "high"
+      },
+      {
+        "type": "percentage_other",
+        "value": "10%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "value within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets oper",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "20%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "e within short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "50%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "hin short periods. * **Price Swings:** Asset prices may increase or decrease by 10%, 20%, 50% or more within hours or days * **Unpredictable Markets:** Crypto markets operate 24/7 ",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "100%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "res or blockchain vulnerabilities **Risk Impact:** In a worst-case scenario, you may lose 100% of your deposited assets. ## 4. Yield Generation & Performance Risk Advertised APY ra",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "51%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "n Networks:** Bitcoin, Ethereum, and Tron networks may experience congestion, hard forks, 51% attacks, or protocol failures * **Technology Vendors:** Hosting, cloud services, and e",
+        "confidence": "medium"
+      },
+      {
+        "type": "percentage_other",
+        "value": "51%",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "contentious hard forks may result in asset duplication, loss, or value fragmentation * **51% Attacks:** Malicious actors with majority hash power may double-spend or reverse transa",
+        "confidence": "medium"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
+        "source_url": "https://www.kryptosavings.com/privacy-policy",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## 1. Introduction KryptoSavings (\"we,\" \"our,\" \"us\") is committed to protecting",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
         "source_url": "https://www.kryptosavings.com/gold",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto [Krypto Savings](https://www.kryptosavings.com/)[← Home](https://www.kryptosavi",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Con",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Confirm password Already have an account? [Log in](https://",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/login",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Welcome back Log in to your KryptoSavings account Email Password Don't have",
         "confidence": "high"
       },
       {
@@ -623,6 +658,13 @@
         "confidence": "medium"
       },
       {
+        "type": "withdrawal",
+        "value": "withdrawal",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "s **Risk Impact:** The value of your deposited assets may decline significantly, and your withdrawal may be worth substantially less than your deposit, even after accounting for an",
+        "confidence": "medium"
+      },
+      {
         "type": "kyc",
         "value": "KYC",
         "source_url": "https://www.kryptosavings.com/",
@@ -704,6 +746,13 @@
         "value": "bonus",
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "ive Place from $100 in Earn with a term of at least 365 days and get up to $5,000 in USDT bonus. At maturity you receive it all at once: your principal, the interest and the bonus.",
+        "confidence": "medium"
+      },
+      {
+        "type": "guarantee",
+        "value": "Guaranteed",
+        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
+        "evidence": "d by any government deposit insurance scheme * Protected by investor compensation funds * Guaranteed to be returned in full You may lose funds due to: * Market price declines * Tra",
         "confidence": "medium"
       },
       {
