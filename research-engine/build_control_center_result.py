@@ -21,6 +21,7 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
     academy = data.get("academy_analysis") or {}
     sixteen = data.get("sixteen_point_analysis") or {}
     identity = data.get("identity_resolution") or {}
+    technical_error = data.get("technical_error") or None
 
     traces = []
     for item in list(external.get("traces") or [])[:16]:
@@ -82,6 +83,7 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
         "product": data.get("product") or request.get("product"),
         "mode": request.get("mode") or mode,
         "query": query,
+        "technical_error": technical_error,
         "input_basis": {
             "anchor_type": anchor_type,
             "anchor_strength": anchor_strength,
