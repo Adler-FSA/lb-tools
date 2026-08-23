@@ -35,7 +35,7 @@ jobs:
           python -m playwright install chromium
       - name: Universellen Research-Lauf starten
         run: |
-          python research-engine/universal_pipeline.py "$RESEARCH_QUERY" \
+          python research-engine/universal_runtime.py "$RESEARCH_QUERY" \
             --mode "$RESEARCH_MODE" \
             --output research-engine/output/universal-result.json
       - name: Ergebnis zusammenfassen
