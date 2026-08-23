@@ -1,11 +1,14 @@
 {
-  "generated_at": "2026-08-23T08:59:10.206019+00:00",
+  "generated_at": "2026-08-23T12:12:45.230141+00:00",
   "dependencies": "success",
   "tests": "failure",
   "website_research": "skipped",
   "external_research": "skipped",
   "operator_registry_research": "skipped",
+  "people_history_research": "skipped",
+  "people_checks": "skipped",
   "academy_analysis": "skipped",
   "sixteen_point_analysis": "skipped",
+  "monitor_export": "skipped",
   "sixteen_point_checks": "skipped"
 }
