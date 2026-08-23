@@ -1,9 +1,9 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5uoq1o-50083645",
-  "generated_at": "2026-08-23T14:00:41.643110+00:00",
-  "engine_exit_code": 2,
-  "status": "no_readable_website",
+  "generated_at": "2026-08-23T14:06:16.350303+00:00",
+  "engine_exit_code": 0,
+  "status": "ok",
   "product": "schnellcheck",
   "mode": "quick",
   "query": "https://app.wefi.co/register?ref=d14o0mtv7g",
@@ -17,8 +17,8 @@
     "input": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "input_kind": "url",
     "project_name": "https://app.wefi.co/register?ref=d14o0mtv7g",
-    "domain": "app.wefi.co",
-    "resolved_url": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "domain": "wefi.co",
+    "resolved_url": "https://www.wefi.co/",
     "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
     "anchor_type": "referral_or_registration_link",
     "anchor_strength": "very_high"
@@ -31,7 +31,11 @@
   },
   "orchestration": {
     "capabilities": [
+      "crypto_finance",
+      "customer_assets",
       "distribution",
+      "legal_entity",
+      "social",
       "web"
     ],
     "module_plan": [
@@ -43,20 +47,20 @@
       },
       {
         "module": "external_research",
-        "run": false,
-        "reason": "Keine bestätigte Projektwebsite.",
+        "run": true,
+        "reason": "Bestätigte Projektidentität vorhanden.",
         "depth": "quick"
       },
       {
         "module": "operator_registry",
         "run": false,
-        "reason": "Kein Rechtsträger erkannt oder SchnellCheck-Modus.",
+        "reason": "Rechtsträger erkannt; Register-/Behördenprüfung gehört in Deep Research.",
         "depth": "deep"
       },
       {
         "module": "people_history",
         "run": false,
-        "reason": "Keine belastbare Rechtsträgerbasis oder SchnellCheck-Modus.",
+        "reason": "Management/Personen erst nach Rechtsträger-Erkennung vertiefen.",
         "depth": "deep"
       },
       {
@@ -73,22 +77,97 @@
       }
     ],
     "core_max_pages": 5,
-    "external_depth": null
+    "external_depth": "quick"
   },
-  "quick_check": {},
+  "quick_check": {
+    "product": "schnellcheck",
+    "project_name": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "domain": "wefi.co",
+    "resolved_url": "https://www.wefi.co/",
+    "original_evidence_anchor": "https://app.wefi.co/register?ref=d14o0mtv7g",
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high",
+    "max_yield_percentage": null,
+    "max_commission_percentage": null,
+    "legal_entities_claimed": [
+      "Wefi Payments Limited",
+      "AppAtlas Technologies LLC",
+      "St. Vincent and the Grenadines with corporate number 3644 LLC",
+      "Fireblocks Ltd",
+      "These operations are facilitated by Wefi Payments Limited"
+    ],
+    "detected_topics": [
+      "trading",
+      "lending",
+      "withdrawal",
+      "kyc",
+      "custody",
+      "referral",
+      "bonus",
+      "guarantee"
+    ],
+    "external_trace_count": 0,
+    "review_candidate_count": 0,
+    "research_gaps": [
+      "Im SchnellCheck noch keine eindeutig zugeordneten unabhängigen Fremdspuren bestätigt.",
+      "Vertriebsvergütung erkannt; Struktur und Nachhaltigkeit sind noch nicht tiefengeprüft."
+    ],
+    "deep_research_recommended": true,
+    "research_depth": "quick",
+    "principle": "Erste Klarheit auf Basis des konkreten Fundstücks; kein Seriositäts- oder Betrugsurteil."
+  },
   "website_analysis": {
     "max_yield_percentage": null,
     "max_commission_percentage": null,
-    "legal_entities": [],
-    "detected": {},
-    "risk_signals": [],
-    "questions": [],
-    "page_count": 0,
-    "finding_count": 0
+    "legal_entities": [
+      "Wefi Payments Limited",
+      "AppAtlas Technologies LLC",
+      "St. Vincent and the Grenadines with corporate number 3644 LLC",
+      "Fireblocks Ltd",
+      "These operations are facilitated by Wefi Payments Limited"
+    ],
+    "detected": {
+      "staking": false,
+      "yield_or_interest": true,
+      "defi": false,
+      "trading": true,
+      "leverage": false,
+      "lending": true,
+      "lockup": false,
+      "withdrawal": true,
+      "kyc": true,
+      "custody": true,
+      "referral": true,
+      "bonus": true,
+      "guarantee": true
+    },
+    "risk_signals": [
+      {
+        "id": "active_strategy",
+        "severity": "medium",
+        "title": "Aktive Trading-/Strategieelemente",
+        "explanation": "Die Rendite hängt damit von Markt-, Ausführungs- und Strategierisiken ab."
+      },
+      {
+        "id": "distribution_incentive",
+        "severity": "medium",
+        "title": "Vertriebs-/Empfehlungsanreize erkannt",
+        "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
+      }
+    ],
+    "questions": [
+      "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
+      "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
+      "Zu welchem Zeitpunkt wird KYC/Identitätsprüfung verlangt und kann sie eine Auszahlung verzögern oder verhindern?",
+      "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
+      "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?"
+    ],
+    "page_count": 5,
+    "finding_count": 24
   },
   "external_research": {
-    "status": null,
-    "research_depth": null,
+    "status": "no_confirmed_external_traces",
+    "research_depth": "quick",
     "trace_count": 0,
     "review_candidate_count": 0,
     "project_owned_echo_count": 0,
@@ -120,5 +199,5 @@
   },
   "specialized_route": null,
   "note": null,
-  "principle": null
+  "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
 }
