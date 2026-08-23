@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-23T08:15:38.548853+00:00",
+  "generated_at": "2026-08-23T08:28:08.524116+00:00",
   "dependencies": "success",
   "chromium": "success",
-  "tests": "failure",
+  "tests": "success",
   "live_research": "success",
   "klaus_checks": "success"
 }
