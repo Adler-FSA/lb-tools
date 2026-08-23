@@ -25,6 +25,7 @@ def load_module(name: str, filename: str):
 
 pipeline = load_module("people_history_pipeline_for_universal", "people_history_pipeline.py")
 project_people = load_module("project_people_discovery_for_universal", "project_people_discovery.py")
+PROJECT_BASE_NAME_OK = project_people._name_ok
 
 GENERIC_ORG_STOP = {
     "Privacy Notice", "Terms Use", "Chief Executive Officer", "Chief Operating Officer",
@@ -69,11 +70,10 @@ def generic_crawler_name_ok(name: str) -> bool:
 def generic_project_name_ok(value: str, *, flat_fallback: bool = False) -> bool:
     """Projektseiten dürfen Teamnamen liefern, aber keine Werte-/Slogan-Überschriften."""
     name = pipeline.base.clean(value).strip(" .,:;()[]\"'")
-    if not project_people._base_name_ok(name, flat_fallback=flat_fallback):
+    if not PROJECT_BASE_NAME_OK(name, flat_fallback=flat_fallback):
         return False
     if PROJECT_SLOGAN_RE.search(name):
         return False
-    # Menschliche Namen bestehen im Regelfall nicht komplett aus Imperativen/Claims.
     lowered = name.lower()
     if any(phrase in lowered for phrase in ("stay ", "own it", "our ", "we ")):
         return False
@@ -154,8 +154,6 @@ def enrich(data: dict) -> dict:
         pipeline.base.ORG_STOP = set(GENERIC_ORG_STOP)
         pipeline.base.BAD_WORDS = set(GENERIC_BAD_WORDS)
         pipeline.crawler._name_ok = generic_crawler_name_ok
-        # Referenz auf die unveränderte Basisprüfung, damit unser Wrapper sie aufrufen kann.
-        project_people._base_name_ok = original_project_name_ok
         project_people._name_ok = generic_project_name_ok
         out = pipeline.enrich(data)
         discovery = project_people.discover_claims(out)
@@ -174,5 +172,3 @@ def enrich(data: dict) -> dict:
         pipeline.base.BAD_WORDS = original_bad_words
         pipeline.crawler._name_ok = original_crawler_name_ok
         project_people._name_ok = original_project_name_ok
-        if hasattr(project_people, "_base_name_ok"):
-            delattr(project_people, "_base_name_ok")
