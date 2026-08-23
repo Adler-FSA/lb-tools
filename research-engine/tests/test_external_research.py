@@ -191,9 +191,40 @@ def test_normalized_name_similarity_goes_to_review_candidates(monkeypatch):
     assert ext["traces"] == []
     assert len(ext["review_candidates"]) == 1
     assert ext["review_candidates"][0]["attribution_confidence"] == "medium"
+    assert ext["review_candidates"][0]["project_match"] == "name_normalized"
 
 
-def test_project_owned_external_hit_is_not_misrepresented_as_independent(monkeypatch):
+def test_legal_entity_without_project_link_goes_to_review_candidates(monkeypatch):
+    entity_hit = mod.SearchHit(
+        url="https://example.com/open-delta-report",
+        title="Open Delta DAO LLC asset report",
+        snippet="Issuer: Open Delta DAO LLC",
+        query='"Open Delta DAO LLC"',
+        provider="test",
+    )
+    monkeypatch.setattr(
+        mod,
+        "web_search",
+        lambda query, limit=6: ([entity_hit], [{"query": query, "provider": "test", "results": 1}]) if query == '"Open Delta DAO LLC"' else ([], []),
+    )
+    monkeypatch.setattr(
+        mod,
+        "read_public_page",
+        lambda url: {
+            "ok": True,
+            "url": url,
+            "title": "Open Delta DAO LLC asset report",
+            "text": "This report identifies Open Delta DAO LLC as an issuer. It contains no KryptoSavings reference.",
+            "published_at": "2025-09-19",
+        },
+    )
+    ext = mod.enrich(core_result())["external_research"]
+    assert ext["traces"] == []
+    assert len(ext["review_candidates"]) == 1
+    assert ext["review_candidates"][0]["project_match"] == "legal_entity_only"
+
+
+def test_project_owned_hit_is_kept_as_echo_not_external_confirmation(monkeypatch):
     hit = mod.SearchHit(
         url="https://www.kryptosavings.com/blog/update",
         title="KryptoSavings update",
@@ -219,6 +250,7 @@ def test_project_owned_external_hit_is_not_misrepresented_as_independent(monkeyp
         },
     )
 
-    out = mod.enrich(core_result())
-    trace = out["external_research"]["traces"][0]
-    assert trace["source_relation"] == "project_owned"
+    ext = mod.enrich(core_result())["external_research"]
+    assert ext["traces"] == []
+    assert len(ext["project_owned_echoes"]) == 1
+    assert ext["project_owned_echoes"][0]["source_relation"] == "project_owned"
