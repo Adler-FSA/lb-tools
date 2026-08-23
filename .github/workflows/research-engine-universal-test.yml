@@ -9,10 +9,12 @@ on:
       - 'research-engine/universal_pipeline.py'
       - 'research-engine/registry_adapters.py'
       - 'research-engine/universal_operator_research.py'
+      - 'research-engine/universal_people_research.py'
       - 'research-engine/tests/test_universal_research_router.py'
       - 'research-engine/tests/test_identity_resolver.py'
       - 'research-engine/tests/test_quick_external_research.py'
       - 'research-engine/tests/test_registry_adapters.py'
+      - 'research-engine/tests/test_universal_people_research.py'
       - '.github/workflows/research-engine-universal-test.yml'
   pull_request:
     paths:
@@ -22,10 +24,12 @@ on:
       - 'research-engine/universal_pipeline.py'
       - 'research-engine/registry_adapters.py'
       - 'research-engine/universal_operator_research.py'
+      - 'research-engine/universal_people_research.py'
       - 'research-engine/tests/test_universal_research_router.py'
       - 'research-engine/tests/test_identity_resolver.py'
       - 'research-engine/tests/test_quick_external_research.py'
       - 'research-engine/tests/test_registry_adapters.py'
+      - 'research-engine/tests/test_universal_people_research.py'
       - '.github/workflows/research-engine-universal-test.yml'
 
 jobs:
@@ -39,5 +43,5 @@ jobs:
           python-version: '3.12'
       - name: Dependencies
         run: pip install -r research-engine/requirements.txt pytest
-      - name: Universal router, identity, quick depth and registry adapter tests
-        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_identity_resolver.py research-engine/tests/test_quick_external_research.py research-engine/tests/test_registry_adapters.py
+      - name: Universal router, identity, quick depth, people and registry adapter tests
+        run: pytest -q research-engine/tests/test_universal_research_router.py research-engine/tests/test_identity_resolver.py research-engine/tests/test_quick_external_research.py research-engine/tests/test_registry_adapters.py research-engine/tests/test_universal_people_research.py
