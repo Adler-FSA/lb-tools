@@ -1,0 +1,87 @@
+name: Research Engine – Universal Quick Smoke
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/research-engine-universal-smoke.yml'
+
+jobs:
+  quick-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Engine installieren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r research-engine/requirements.txt
+          python -m playwright install chromium
+
+      - name: Vier unterschiedliche Projekte durch denselben SchnellCheck schicken
+        shell: bash
+        run: |
+          mkdir -p research-engine/output/universal-smoke
+          set +e
+          python research-engine/universal_runtime.py "Orange CAT" --mode quick --output research-engine/output/universal-smoke/orange-cat.json
+          echo "orange_rc=$?" >> "$GITHUB_ENV"
+          python research-engine/universal_runtime.py "Rainbow Shared Energy" --mode quick --output research-engine/output/universal-smoke/rainbow-shared-energy.json
+          echo "rainbow_rc=$?" >> "$GITHUB_ENV"
+          python research-engine/universal_runtime.py "VOW TLN" --mode quick --output research-engine/output/universal-smoke/vow-tln.json
+          echo "vow_rc=$?" >> "$GITHUB_ENV"
+          python research-engine/universal_runtime.py "KryptoSavings" --mode quick --output research-engine/output/universal-smoke/kryptosavings.json
+          echo "kryptosavings_rc=$?" >> "$GITHUB_ENV"
+          exit 0
+
+      - name: Struktur und Produkttrennung pruefen
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('research-engine/output/universal-smoke')
+          allowed = {
+              'ok',
+              'identity_ambiguous',
+              'website_not_resolved',
+              'no_readable_website',
+              'specialized_route_required',
+          }
+          summary = []
+          for path in sorted(root.glob('*.json')):
+              data = json.loads(path.read_text(encoding='utf-8'))
+              status = data.get('status')
+              assert status in allowed, (path.name, status)
+              ctx = data.get('context') or {}
+              row = {
+                  'file': path.name,
+                  'input': ctx.get('input'),
+                  'project_name': ctx.get('project_name'),
+                  'domain': ctx.get('domain'),
+                  'status': status,
+                  'product': data.get('product'),
+                  'identity_status': (data.get('identity_resolution') or {}).get('status'),
+              }
+              if status == 'ok':
+                  assert data.get('product') == 'schnellcheck', row
+                  assert 'people_history_research' not in data, row
+                  assert 'sixteen_point_analysis' not in data, row
+                  quick = data.get('quick_check') or {}
+                  assert quick.get('research_depth') == 'quick', row
+              summary.append(row)
+
+          assert len(summary) == 4, summary
+          target = root / 'summary.json'
+          target.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          print(json.dumps(summary, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Smoke-Ergebnisse sichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: universal-quick-smoke
+          path: research-engine/output/universal-smoke/
+          if-no-files-found: error
