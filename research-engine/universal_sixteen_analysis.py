@@ -67,6 +67,7 @@ def _rewrite_q5(q: dict, data: dict, project: str) -> None:
         return
 
     project_linked = [p for p in profiles if p.get("project_connection_status") == "externally_linked"]
+    project_claimed = [p for p in profiles if p.get("project_connection_status") == "project_claim_only"]
     verified_ubos = [p for p in profiles if p.get("ubo_verified") is True]
     names = ", ".join(_profile_text(p) for p in profiles[:8])
 
@@ -82,6 +83,13 @@ def _rewrite_q5(q: dict, data: dict, project: str) -> None:
         finding = (
             f"Strukturierte Personen-/Managementspuren liegen vor und mindestens eine Person ist extern mit {project} "
             "verknuepft. Eigentümer/UBO und die tatsaechliche Kontrollstruktur sind jedoch nicht belastbar bestaetigt."
+        )
+    elif project_claimed:
+        q["state"] = "clarification_needed"
+        finding = (
+            f"Die Projektwebsite von {project} nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als "
+            "Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum "
+            "noch UBO- oder Kontrollstatus."
         )
     else:
         q["state"] = "clarification_needed"
