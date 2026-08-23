@@ -3,7 +3,7 @@
 
 Die bewährte Universal-Pipeline wird verwendet, aber Deep-Research-Ausgaben
 laufen durch die universellen Akademie- und 16-Punkte-Schichten. Quick bleibt
-bewusst schlank.
+bewusst schlank und bekommt ein eigenes Zeit-/Fetch-Budget.
 """
 from __future__ import annotations
 
@@ -26,12 +26,58 @@ pipeline = load_module("universal_pipeline_runtime_base", "universal_pipeline.py
 academy = load_module("universal_runtime_academy", "universal_academy_analysis.py")
 sixteen = load_module("universal_runtime_sixteen", "universal_sixteen_analysis.py")
 
-# Nur die Deep-Ausgabeschichten werden ersetzt. Routing, Identifikation,
-# Quick-Budget und Register-/Personenmodule bleiben dieselben.
+# Nur die Deep-Ausgabeschichten werden ersetzt. Routing, Identifikation und
+# Register-/Personenmodule bleiben dieselben.
 pipeline.academy = academy
 pipeline.sixteen = sixteen
 
-run = pipeline.run
+_base_run = pipeline.run
+_base_resolve = pipeline.resolve_and_run_core
+
+
+def _resolve_with_budget(request, max_pages: int):
+    """Im SchnellCheck weniger Projektseiten lesen; Deep bleibt unverändert."""
+    if getattr(request, "mode", "quick") == "quick":
+        max_pages = min(max_pages, 5)
+    return _base_resolve(request, max_pages)
+
+
+pipeline.resolve_and_run_core = _resolve_with_budget
+
+
+def run(query: str, mode: str = "quick") -> dict:
+    """Produktiver Lauf mit getrennten Quick-/Deep-Budgets."""
+    mode = (mode or "quick").lower()
+    if mode == "quick":
+        # Der SchnellCheck soll nicht minutenlang an blockierten Einzelquellen hängen.
+        pipeline.engine.TIMEOUT = 7
+        pipeline.engine._BROWSER_MAX = 2
+        pipeline.quick_external.QUICK_MAX_FETCHED_PAGES = 4
+        pipeline.quick_external.ext.TIMEOUT = 7
+        pipeline.quick_external.ext.MAX_RESULTS_PER_QUERY = 4
+    else:
+        pipeline.engine.TIMEOUT = 12
+        pipeline.engine._BROWSER_MAX = 5
+        pipeline.quick_external.QUICK_MAX_FETCHED_PAGES = 8
+        pipeline.quick_external.ext.TIMEOUT = 12
+        pipeline.quick_external.ext.MAX_RESULTS_PER_QUERY = 6
+
+    result = _base_run(query, mode)
+    if mode == "quick":
+        orchestration = result.get("research_orchestration") or {}
+        if orchestration:
+            orchestration["core_max_pages"] = 5
+            orchestration["quick_time_budget"] = {
+                "http_timeout_seconds": 7,
+                "browser_fallbacks": 2,
+                "external_page_budget": 4,
+            }
+    return result
+
+
+# pipeline.main() löst den Namen `run` zur Laufzeit im Pipeline-Modul auf.
+# Deshalb erhält auch der CLI-/Workflow-Aufruf automatisch dasselbe Zeitbudget.
+pipeline.run = run
 slugify = pipeline.slugify
 
 
