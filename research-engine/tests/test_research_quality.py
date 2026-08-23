@@ -43,6 +43,15 @@ def test_entity_filter_keeps_names_and_drops_sentence_fragments():
     assert all("corporate number" not in x.lower() for x in cleaned)
 
 
+def test_entity_filter_strips_year_and_deduplicates_same_company():
+    cleaned = quality.clean_legal_entities([
+        "AppAtlas Technologies LLC",
+        "2026 AppAtlas Technologies LLC",
+        "© 2026 AppAtlas Technologies LLC",
+    ])
+    assert cleaned == ["AppAtlas Technologies LLC"]
+
+
 def test_evidence_highlights_keep_source_and_quote():
     analysis = {"findings": [
         {"type": "guarantee", "value": "guaranteed", "source_url": "https://example.test/terms", "evidence": "Returns are guaranteed in this example.", "confidence": "medium"},
@@ -59,7 +68,7 @@ def test_postprocess_updates_quick_project_and_entities():
         "context": {"project_name": "https://app.example.test/register", "domain": "example.test"},
         "analysis": {
             "pages": [{"title": "Example | Home"}],
-            "legal_entities": ["Example Payments Limited", "These operations are facilitated by Example Payments Limited"],
+            "legal_entities": ["Example Payments Limited", "2026 Example Payments Limited", "These operations are facilitated by Example Payments Limited"],
             "findings": [],
         },
         "quick_check": {"project_name": "https://app.example.test/register", "legal_entities_claimed": []},
