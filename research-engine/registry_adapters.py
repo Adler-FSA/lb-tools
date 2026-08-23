@@ -7,6 +7,7 @@ oder in der generischen Fremdrecherche ein entsprechender Hinweis auftaucht.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 
 
@@ -47,11 +48,29 @@ def _haystack(data: dict) -> str:
     return json.dumps(data or {}, ensure_ascii=False, sort_keys=True).lower()
 
 
+def _term_present(hay: str, term: str) -> bool:
+    """Kurze Trigger nur als eigenes Wort/Phrase, nie als Teil eines Fremdworts."""
+    term = (term or "").strip().lower()
+    if not term:
+        return False
+    pattern = rf"(?<![\w]){re.escape(term)}(?![\w])"
+    return bool(re.search(pattern, hay, re.I))
+
+
+def _host_present(hay: str, host: str) -> bool:
+    host = (host or "").strip().lower()
+    if not host:
+        return False
+    return host in hay
+
+
 def select_adapter_ids(data: dict) -> list[str]:
     hay = _haystack(data)
     selected = []
     for adapter in ADAPTERS:
-        if any(term.lower() in hay for term in adapter.trigger_terms) or any(host.lower() in hay for host in adapter.trigger_hosts):
+        term_hit = any(_term_present(hay, term) for term in adapter.trigger_terms)
+        host_hit = any(_host_present(hay, host) for host in adapter.trigger_hosts)
+        if term_hit or host_hit:
             selected.append(adapter.adapter_id)
     return selected
 
