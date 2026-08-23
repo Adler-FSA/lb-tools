@@ -32,8 +32,6 @@ AUTHORITY_HOSTS = {
 }
 CLAIMED_AUTHORITY_HOSTS = {"mwaliregistrar.info", "mwaliregistrar.net", "mwaliregistrar.com"}
 
-# Direkte Kataloge werden selbst gelesen. Suchmaschinen-Ranking darf nicht darüber
-# entscheiden, ob ein exakter öffentlicher Registereintrag überhaupt gesehen wird.
 DIRECT_REGISTRY_PROBES = (
     "https://mwaliregistrar.info/list_of_entities.html",
 )
@@ -69,6 +67,23 @@ LICENSE_NO_RE = re.compile(
 BARE_BANK_LICENSE_RE = re.compile(r"\b(B\d{7,12})\b", re.I)
 BANCORP_ENTITY_RE = re.compile(r"\b([A-Z][A-Za-z0-9&.'’\- ]{1,70}\s+Bancorp)\b")
 LEGAL_SUFFIX_RE = re.compile(r"\b(?:DAO\s+LLC|LLC|Ltd\.?|Limited|Inc\.?|PLC|GmbH|AG|S\.?A\.?)\b", re.I)
+LEGAL_SUFFIX_END_RE = re.compile(r"\b(?:DAO\s+LLC|LLC|Ltd\.?|Limited|Inc\.?|PLC|GmbH|AG|S\.?A\.?)$", re.I)
+ENTITY_CLAUSE_RE = re.compile(
+    r"^.*?\b(?:facilitated|provided|operated|managed|issued|offered|powered|held|custodied|processed)\s+by\s+",
+    re.I,
+)
+TRADING_NAME_RE = re.compile(r"^.*?\b(?:trading\s+name|trade\s+name)\s+of\s+", re.I)
+ENTITY_BAD_CONTEXT_RE = re.compile(
+    r"\b(?:with\s+(?:corporate|company|registration)\s+(?:number|no\.?|id)|"
+    r"having\s+(?:its\s+)?registered\s+office|incorporated\s+under\s+the\s+laws|"
+    r"registered\s+office\s+at)\b",
+    re.I,
+)
+ENTITY_BAD_START_RE = re.compile(
+    r"^(?:these|those|this|the|our|all|such|services?|operations?|platform|website|"
+    r"terms|privacy|users?|customers?|trademarks?)\b",
+    re.I,
+)
 
 
 @dataclass
@@ -121,6 +136,37 @@ def claimed_authority_key(host: str) -> str:
         if host == candidate or host.endswith("." + candidate):
             return "mwaliregistrar.info" if candidate.startswith("mwaliregistrar") else candidate
     return ""
+
+
+def normalize_entity_candidate(value: str) -> str:
+    """Konservativ: Beschreibungstext darf nie als Rechtsträger weiterlaufen."""
+    value = clean(value).strip(" -–—:;,.()[]")
+    value = ENTITY_CLAUSE_RE.sub("", value).strip(" -–—:;,.()[]")
+    value = TRADING_NAME_RE.sub("", value).strip(" -–—:;,.()[]")
+    if not value or len(value) > 90:
+        return ""
+    if ENTITY_BAD_CONTEXT_RE.search(value):
+        return ""
+    if ENTITY_BAD_START_RE.search(value):
+        return ""
+    if not LEGAL_SUFFIX_END_RE.search(value):
+        return ""
+    words = re.findall(r"[A-Za-zÄÖÜäöüß0-9&'’.-]+", value)
+    if len(words) < 2 or len(words) > 10:
+        return ""
+    return value
+
+
+def normalize_entities(values: list[str]) -> list[str]:
+    out: list[str] = []
+    seen: set[str] = set()
+    for raw in values or []:
+        value = normalize_entity_candidate(raw)
+        key = ext.compact(value)
+        if value and key and key not in seen:
+            seen.add(key)
+            out.append(value)
+    return out[:16]
 
 
 def _normalize_bancorp_candidate(value: str) -> str:
@@ -237,7 +283,6 @@ def evidence(text: str, needle_primary: str, needle_secondary: str, fallback: st
 
 
 def entity_value_context(text: str, entity: str, width: int = 260) -> str:
-    """Wertefenster beginnt exakt am Rechtsträger, damit Tabellenzeilen nicht verrutschen."""
     body = clean(text)
     needle = clean(entity)
     if not body or not needle:
@@ -292,7 +337,10 @@ def _record_from_page(entity: str, page: dict, project_name: str, project_domain
 def collect_direct_registry_records(entities: list[str], project_name: str, project_domain: str) -> list[EntityRecord]:
     out: list[EntityRecord] = []
     for url in DIRECT_REGISTRY_PROBES:
-        page = ext.read_public_page(url)
+        try:
+            page = ext.read_public_page(url)
+        except Exception:
+            continue
         if not page.get("ok"):
             continue
         title = clean(page.get("title") or "")
@@ -304,14 +352,21 @@ def collect_direct_registry_records(entities: list[str], project_name: str, proj
 
 
 def candidate_entity_domains(entity: str) -> list[str]:
+    entity = normalize_entity_candidate(entity)
+    if not entity:
+        return []
     base = clean(LEGAL_SUFFIX_RE.sub(" ", entity))
     stem = re.sub(r"[^a-z0-9]+", "", base.lower())
     hyphen = re.sub(r"[^a-z0-9]+", "-", base.lower()).strip("-")
     values = []
     for name in (stem, hyphen):
-        if len(name) >= 5:
+        # DNS-Label darf höchstens 63 Zeichen haben. Lange Beschreibungstexte
+        # sind ohnehin kein brauchbarer Domainkandidat.
+        if 5 <= len(name) <= 63:
             for tld in ("com", "io", "org"):
-                values.append(f"{name}.{tld}")
+                host = f"{name}.{tld}"
+                if len(host) <= 253 and all(0 < len(label) <= 63 for label in host.split(".")):
+                    values.append(host)
     return list(dict.fromkeys(values))[:6]
 
 
@@ -319,13 +374,21 @@ def collect_entity_owned_records(entities: list[str], project_name: str, project
     out: list[EntityRecord] = []
     for entity in entities:
         for domain in candidate_entity_domains(entity):
-            root = ext.read_public_page(f"https://{domain}/")
+            try:
+                root = ext.read_public_page(f"https://{domain}/")
+            except Exception:
+                # Ein ungültiger/unerreichbarer Domainkandidat ist eine Forschungslücke,
+                # kein Grund den gesamten Deep-Lauf abzubrechen.
+                continue
             root_hay = clean((root.get("title") or "") + " " + (root.get("text") or "")[:5000])
             brand = ext.compact(LEGAL_SUFFIX_RE.sub(" ", entity))
             if not root.get("ok") or not brand or brand not in ext.compact(root_hay):
                 continue
             for path in ("/terms-of-use", "/terms", "/privacy-notice", "/privacy", "/legal"):
-                page = ext.read_public_page(f"https://{domain}{path}")
+                try:
+                    page = ext.read_public_page(f"https://{domain}{path}")
+                except Exception:
+                    continue
                 if not page.get("ok"):
                     continue
                 if exact_entity_present(entity, page.get("title") or "", "", page.get("text") or ""):
@@ -359,7 +422,10 @@ def collect_authority_context(records: list[EntityRecord]) -> list[AuthorityCont
             if not canonical or canonical in seen_urls:
                 continue
             seen_urls.add(canonical)
-            page = ext.read_public_page(canonical)
+            try:
+                page = ext.read_public_page(canonical)
+            except Exception:
+                continue
             if not page.get("ok"):
                 continue
             title = clean(page.get("title") or "")
@@ -391,11 +457,15 @@ def enrich(data: dict) -> dict:
     project_name = clean(ctx.get("project_name") or ctx.get("input") or "")
     project_domain = clean(ctx.get("domain") or "")
 
-    original_entities = [clean(x) for x in analysis.get("legal_entities") or [] if clean(x)]
+    original_entities = normalize_entities([clean(x) for x in analysis.get("legal_entities") or [] if clean(x)])
     entities = list(original_entities)
-    for candidate in derived_entities_from_evidence(analysis):
+    for candidate in normalize_entities(derived_entities_from_evidence(analysis)):
         if candidate.lower() not in {x.lower() for x in entities}:
             entities.append(candidate)
+
+    # Auch die sichtbare Analyse soll ab hier nur noch dieselben konservativ
+    # normalisierten Rechtsträger führen.
+    analysis["legal_entities"] = list(entities)
 
     records: list[EntityRecord] = []
     attempts: list[dict] = []
@@ -419,7 +489,10 @@ def enrich(data: dict) -> dict:
                 seen.add(key)
                 page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
                 if fetched < MAX_FETCHED_PAGES:
-                    page = ext.read_public_page(url)
+                    try:
+                        page = ext.read_public_page(url)
+                    except Exception:
+                        page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
                     fetched += 1
                     if not page.get("ok"):
                         page = {"ok": False, "url": url, "title": hit.title, "text": hit.snippet, "published_at": ""}
@@ -430,71 +503,68 @@ def enrich(data: dict) -> dict:
     dedup: dict[tuple[str, str], EntityRecord] = {}
     for rec in records:
         key = (rec.entity.lower(), ext.canonical_url(rec.source_url))
-        cur = dedup.get(key)
-        if cur is None or (_rank_role(rec.source_role), rec.fetched) > (_rank_role(cur.source_role), cur.fetched):
+        prev = dedup.get(key)
+        if prev is None or _rank_role(rec.source_role) > _rank_role(prev.source_role):
             dedup[key] = rec
     records = list(dedup.values())
+
     authority_context = collect_authority_context(records)
 
     profiles = []
     for entity in entities:
-        ers = [r for r in records if r.entity == entity]
-        official = [r for r in ers if r.source_role in {"regulator", "government", "claimed_regulator_or_registry"}]
-        self_sources = [r for r in ers if r.source_role == "entity_owned"]
-        independent = [r for r in ers if r.source_role == "independent"]
-        linked = [r for r in ers if r.project_connection == "externally_linked"]
-        warnings = [r for r in ers if r.record_type == "warning_or_adverse_notice"]
-        claimed_keys = {claimed_authority_key(host_of(r.source_url)) for r in official if r.source_role == "claimed_regulator_or_registry"}
-        contexts = [c for c in authority_context if c.claimed_authority_host in claimed_keys]
-
-        if any(r.source_role in {"regulator", "government", "claimed_regulator_or_registry"} and r.record_type == "registry_or_license_record" for r in official):
-            existence = "registry_or_authority_trace"
-        elif self_sources:
-            existence = "entity_self_trace"
-        elif independent:
-            existence = "independent_trace"
-        else:
-            existence = "not_verified"
-
+        own = [r for r in records if r.entity.lower() == entity.lower()]
+        official = [r for r in own if r.source_role in {"regulator", "government", "claimed_regulator_or_registry"}]
+        independent = [r for r in own if r.source_role == "independent"]
+        owned = [r for r in own if r.source_role == "entity_owned"]
+        warnings = [r for r in own if r.record_type == "warning_or_adverse_notice"]
+        externally_linked = [r for r in own if r.project_connection == "externally_linked"]
+        possible_link = [r for r in own if r.project_connection == "possible_link"]
         profiles.append({
             "entity": entity,
-            "existence_status": existence,
-            "project_connection_status": "externally_linked" if linked else "not_independently_linked",
+            "existence_status": "official_or_registry_trace_found" if official else "entity_owned_trace_only" if owned else "independent_trace_found" if independent else "not_independently_confirmed",
+            "project_connection_status": "externally_linked" if externally_linked else "possible_external_link" if possible_link else "project_claim_only_or_not_shown",
             "official_or_registry_records": [asdict(r) for r in official],
-            "entity_owned_records": [asdict(r) for r in self_sources],
             "independent_records": [asdict(r) for r in independent],
-            "warning_records": [asdict(r) for r in warnings],
-            "authority_context_records": [asdict(c) for c in contexts],
-            "record_count": len(ers),
+            "entity_owned_records": [asdict(r) for r in owned],
+            "warning_or_adverse_records": [asdict(r) for r in warnings],
+            "all_records": [asdict(r) for r in own],
         })
 
     result["operator_registry_research"] = {
-        "status": "ok" if entities else "no_legal_entities",
+        "status": "ok" if entities else "no_legal_entities_detected",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "principle": "Existenz/Registerspur, institutioneller Behördenkontext und Projektverbindung werden getrennt geprüft. Eine gefundene Firma oder Lizenzliste bestätigt nicht automatisch ihre behauptete Rolle beim Projekt.",
         "project_name": project_name,
         "project_domain": project_domain,
-        "entities_from_project_website": entities,
-        "derived_entity_count": max(0, len(entities) - len(original_entities)),
-        "direct_registry_probes": list(DIRECT_REGISTRY_PROBES),
-        "search_attempts": attempts,
+        "entities": entities,
         "profiles": profiles,
-        "records": [asdict(r) for r in sorted(records, key=lambda r: (r.entity.lower(), -_rank_role(r.source_role), r.title.lower()))],
-        "authority_context_records": [asdict(c) for c in authority_context],
+        "authority_context_records": [asdict(x) for x in authority_context],
+        "search_attempts": attempts,
+        "summary": {
+            "entity_count": len(entities),
+            "record_count": len(records),
+            "official_or_registry_record_count": sum(1 for r in records if r.source_role in {"regulator", "government", "claimed_regulator_or_registry"}),
+            "independent_record_count": sum(1 for r in records if r.source_role == "independent"),
+            "entity_owned_record_count": sum(1 for r in records if r.source_role == "entity_owned"),
+            "externally_linked_record_count": sum(1 for r in records if r.project_connection == "externally_linked"),
+            "possible_link_record_count": sum(1 for r in records if r.project_connection == "possible_link"),
+            "warning_or_adverse_record_count": sum(1 for r in records if r.record_type == "warning_or_adverse_notice"),
+            "authority_context_record_count": len(authority_context),
+        },
+        "principle": "Ein Registertreffer belegt die Existenz oder den dort beschriebenen Status eines Rechtsträgers, nicht automatisch seine Verbindung zum untersuchten Projekt. Beschreibende Satzfragmente werden nicht als Rechtsträger weitergereicht.",
     }
     return result
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Akademie Research Engine · Betreiber/Register/Behörden")
-    ap.add_argument("--input", required=True)
-    ap.add_argument("--output", required=True)
+    ap = argparse.ArgumentParser(description="Betreiber-/Register-Rohrecherche")
+    ap.add_argument("input", help="Research-JSON")
+    ap.add_argument("--output", default="", help="Ziel-JSON")
     args = ap.parse_args()
-    source = json.loads(Path(args.input).read_text(encoding="utf-8"))
-    out = enrich(source)
-    target = Path(args.output)
+    data = json.loads(Path(args.input).read_text(encoding="utf-8"))
+    result = enrich(data)
+    target = Path(args.output) if args.output else Path(args.input)
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(target)
     return 0
 
