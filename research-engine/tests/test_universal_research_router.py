@@ -121,31 +121,37 @@ def test_deep_mode_unlocks_deep_modules_only_when_relevant():
     assert run["project_analysis_16"] is True
 
 
-def test_quick_pipeline_builds_small_product_view_and_skips_deep_modules(monkeypatch):
+def test_quick_pipeline_uses_only_quick_external_and_skips_deep_modules(monkeypatch):
     monkeypatch.setattr(pipeline.identity, "resolve", lambda name: identity_sample())
     monkeypatch.setattr(pipeline, "run_core", lambda query, max_pages: core_sample())
 
-    def enrich_external(data):
+    def enrich_quick(data):
         out = dict(data)
         out["external_research"] = {
             "status": "no_confirmed_external_traces",
+            "research_depth": "quick",
+            "query_budget": 4,
             "traces": [],
             "review_candidates": [],
         }
         return out
 
-    monkeypatch.setattr(pipeline.external, "enrich", enrich_external)
+    monkeypatch.setattr(pipeline.quick_external, "enrich", enrich_quick)
+    monkeypatch.setattr(pipeline.external, "enrich", lambda data: (_ for _ in ()).throw(AssertionError("deep external must not run")))
     monkeypatch.setattr(pipeline.operator, "enrich", lambda data: (_ for _ in ()).throw(AssertionError("operator must not run")))
     monkeypatch.setattr(pipeline.people, "enrich", lambda data: (_ for _ in ()).throw(AssertionError("people must not run")))
     out = pipeline.run("Example Yield", "quick")
     assert out["product"] == "schnellcheck"
     assert out["quick_check"]["max_yield_percentage"] == 12.0
     assert out["quick_check"]["deep_research_recommended"] is True
+    assert out["quick_check"]["research_depth"] == "quick"
+    assert out["external_research"]["research_depth"] == "quick"
+    assert out["research_orchestration"]["external_depth"] == "quick"
     assert out["identity_resolution"]["fallback_used"] is False
     assert "sixteen_point_analysis" not in out
 
 
-def test_deep_pipeline_runs_existing_deep_engine_in_order(monkeypatch):
+def test_deep_pipeline_runs_full_external_then_existing_deep_engine_in_order(monkeypatch):
     monkeypatch.setattr(pipeline.identity, "resolve", lambda name: identity_sample())
     monkeypatch.setattr(pipeline, "run_core", lambda query, max_pages: core_sample())
     calls = []
@@ -162,6 +168,7 @@ def test_deep_pipeline_runs_existing_deep_engine_in_order(monkeypatch):
             return data
         return inner
 
+    monkeypatch.setattr(pipeline.quick_external, "enrich", lambda data: (_ for _ in ()).throw(AssertionError("quick external must not run")))
     monkeypatch.setattr(pipeline.external, "enrich", external_enrich)
     monkeypatch.setattr(pipeline.operator, "enrich", stage("operator", "operator_registry_research"))
     monkeypatch.setattr(pipeline.people, "enrich", stage("people", "people_history_research"))
@@ -170,12 +177,13 @@ def test_deep_pipeline_runs_existing_deep_engine_in_order(monkeypatch):
 
     out = pipeline.run("Example Yield", "deep")
     assert out["product"] == "projektanalyse"
+    assert out["research_orchestration"]["external_depth"] == "deep"
     assert calls == ["external", "operator", "people", "academy", "sixteen"]
 
 
-def test_universal_router_pipeline_and_identity_contain_no_fixture_project_names():
+def test_universal_router_pipeline_identity_and_quick_external_contain_no_fixture_project_names():
     source = "".join((ROOT / name).read_text(encoding="utf-8") for name in (
-        "research_router.py", "universal_pipeline.py", "identity_resolver.py"
+        "research_router.py", "universal_pipeline.py", "identity_resolver.py", "quick_external_research.py"
     ))
     for forbidden in ("KryptoSavings", "OpenDelta", "Open Delta DAO", "Mwali", "Delta West", "GBH Coriolis"):
         assert forbidden not in source
