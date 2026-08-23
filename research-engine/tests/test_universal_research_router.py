@@ -66,37 +66,89 @@ def identity_sample():
     }
 
 
-def test_plain_company_name_routes_to_web_identity():
+def test_plain_company_name_routes_to_web_identity_but_is_weak_anchor():
     req = router.build_request("Nordlicht Energie GmbH", "quick")
     assert req.input_kind == "name"
     assert req.route == "web_identity"
     assert req.product == "schnellcheck"
     assert req.blockchain_hint is False
+    assert req.anchor_type == "company_or_project_name"
+    assert req.anchor_strength == "low"
 
 
-def test_arbitrary_referral_url_is_detected_without_project_specific_code():
-    req = router.build_request("https://alpha-example.net/join?ref=HELLO123", "quick")
+def test_arbitrary_referral_url_is_detected_as_very_strong_anchor():
+    url = "https://alpha-example.net/join?ref=HELLO123"
+    req = router.build_request(url, "quick")
     assert req.input_kind == "url"
     assert req.domain_hint == "alpha-example.net"
     assert req.referral_hint is True
     assert req.route == "web_identity"
+    assert req.anchor_type == "referral_or_registration_link"
+    assert req.anchor_strength == "very_high"
 
 
-def test_social_url_is_recognized_as_social_hint():
+def test_registration_link_counts_as_entry_anchor_even_without_ref_parameter():
+    req = router.build_request("https://alpha-example.net/register", "quick")
+    assert req.referral_hint is True
+    assert req.anchor_type == "referral_or_registration_link"
+    assert req.anchor_strength == "very_high"
+
+
+def test_direct_domain_is_strong_anchor():
+    req = router.build_request("alpha-example.net", "quick")
+    assert req.input_kind == "url"
+    assert req.anchor_type == "direct_url_or_domain"
+    assert req.anchor_strength == "high"
+
+
+def test_social_url_is_recognized_as_trace_not_direct_project_anchor():
     req = router.build_request("https://www.youtube.com/@exampleproject", "quick")
     assert req.social_hint is True
     assert req.route == "web_identity"
+    assert req.anchor_type == "social_trace_url"
+    assert req.anchor_strength == "medium"
 
 
 def test_evm_address_never_gets_sent_to_domain_guessing():
     address = "0x1234567890abcdef1234567890abcdef12345678"
     req = router.build_request(address, "quick")
     assert req.route == "blockchain_identity"
+    assert req.anchor_type == "technical_identifier"
     plan = router.module_plan(req)
     run = {x.module: x.run for x in plan}
     assert run["blockchain_identity"] is True
     assert run["website_research"] is False
     assert run["external_research"] is False
+
+
+def test_unresolved_name_never_falls_back_to_guessed_domain(monkeypatch):
+    monkeypatch.setattr(pipeline.identity, "resolve", lambda name: {
+        "status": "not_resolved",
+        "resolved_url": "",
+        "domain": "",
+        "candidates": [],
+        "search_attempts": [],
+    })
+    monkeypatch.setattr(
+        pipeline,
+        "run_core",
+        lambda query, max_pages: (_ for _ in ()).throw(AssertionError("name fallback must not run")),
+    )
+    out = pipeline.run("Unknown Project Name", "quick")
+    assert out["status"] == "website_not_resolved"
+    assert out["identity_resolution"]["fallback_used"] is False
+    assert out["context"]["anchor_strength"] == "low"
+    assert "Original-Link" in out["note"]
+
+
+def test_url_keeps_original_evidence_anchor_after_core_resolution(monkeypatch):
+    url = "https://alpha-example.net/register?ref=KLAUS123"
+    req = router.build_request(url, "quick")
+    monkeypatch.setattr(pipeline, "run_core", lambda query, max_pages: core_sample())
+    out = pipeline.resolve_and_run_core(req, 8)
+    assert out["context"]["original_evidence_anchor"] == url
+    assert out["context"]["anchor_type"] == "referral_or_registration_link"
+    assert out["context"]["anchor_strength"] == "very_high"
 
 
 def test_quick_mode_stops_before_deep_operator_people_and_16():
@@ -145,9 +197,11 @@ def test_quick_pipeline_uses_only_quick_external_and_skips_deep_modules(monkeypa
     assert out["quick_check"]["max_yield_percentage"] == 12.0
     assert out["quick_check"]["deep_research_recommended"] is True
     assert out["quick_check"]["research_depth"] == "quick"
+    assert out["quick_check"]["anchor_strength"] == "low"
     assert out["external_research"]["research_depth"] == "quick"
     assert out["research_orchestration"]["external_depth"] == "quick"
     assert out["identity_resolution"]["fallback_used"] is False
+    assert out["research_orchestration"]["input_basis"]["identity_confirmation_required"] is True
     assert "sixteen_point_analysis" not in out
 
 
