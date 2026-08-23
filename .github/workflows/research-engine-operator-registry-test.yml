@@ -78,11 +78,13 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+          from urllib.parse import urlparse
 
           data=json.loads(Path('research-engine/output/kryptosavings-operators.json').read_text(encoding='utf-8'))
           op=data.get('operator_registry_research') or {}
           profiles=op.get('profiles') or []
           records=op.get('records') or []
+          contexts=op.get('authority_context_records') or []
           attempts=op.get('search_attempts') or []
 
           assert data.get('status') == 'ok'
@@ -108,17 +110,26 @@ jobs:
               assert r.get('project_connection') in {'externally_linked','possible_link','not_shown'}
               assert r.get('evidence')
 
-          # Für den KryptoSavings-Referenzfall sollen wir mindestens für die beiden Banknamen
-          # eine externe Spur finden. Ein Registerfund bestätigt dabei NICHT automatisch die Projektrolle.
           entity_names={r.get('entity') for r in records}
           assert 'Delta West Credit Bank Ltd' in entity_names, entity_names
           assert 'GBH Coriolis Bancorp' in entity_names, entity_names
 
-          print(f"Betreiber-Research OK: {len(profiles)} Rechtsträger | {len(records)} externe Spuren")
+          # Der Mwali-Registerfund muss institutionell eingeordnet werden. Dafür erwartet der
+          # Referenzlauf mindestens eine direkte Gegenquelle der Banque Centrale des Comores.
+          claimed=[r for r in records if r.get('source_role') == 'claimed_regulator_or_registry']
+          assert claimed, 'Keine Mwali-Registerspur gefunden'
+          assert contexts, 'Kein übergeordneter Behördenkontext zum Mwali-Register gefunden'
+          assert any((urlparse(c.get('source_url','')).hostname or '').endswith('banque-comores.km') for c in contexts), contexts
+          assert all(c.get('source_role') in {'regulator','government'} for c in contexts)
+          assert all(c.get('authority_confidence') == 'high' for c in contexts)
+
+          print(f"Betreiber-Research OK: {len(profiles)} Rechtsträger | {len(records)} externe Spuren | {len(contexts)} Behörden-Kontextquellen")
           for p in profiles:
-              print(f"ENTITY: {p['entity']} | Existenz={p['existence_status']} | KryptoSavings-Verbindung={p['project_connection_status']} | Records={p['record_count']}")
+              print(f"ENTITY: {p['entity']} | Existenz={p['existence_status']} | KryptoSavings-Verbindung={p['project_connection_status']} | Records={p['record_count']} | Behördenkontext={len(p.get('authority_context_records') or [])}")
           for r in records[:16]:
               print(f"RECORD: [{r['source_role']}/{r['record_type']}] {r['entity']} | {r.get('status_text') or '-'} | {r.get('license_number') or '-'} | Link={r['project_connection']} -> {r['source_url']}")
+          for c in contexts[:8]:
+              print(f"AUTHORITY: [{c['source_role']}/{c['context_type']}] {c['claimed_authority']} -> {c['source_url']}")
           PY
 
       - name: Diagnose schreiben
