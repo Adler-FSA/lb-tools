@@ -3,13 +3,8 @@
   "request_id": "cc-mt5x20hy-ff8deae4",
   "state": "completed",
   "mode": "deep",
-  "engine_exit_code": 1,
-  "started_at": "2026-08-24T10:10:08.697562+00:00",
-  "completed_at": "2026-08-24T10:10:58.053693+00:00",
-  "result_path": "research-engine/output/control-center/cc-mt5x20hy-ff8deae4.json",
-  "technical_error": {
-    "engine_exit_code": 1,
-    "stderr_tail": "Traceback (most recent call last):\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_runtime.py\", line 175, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_runtime.py\", line 171, in main\n    return pipeline.main()\n           ^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_pipeline.py\", line 344, in main\n    result = run(args.query, args.mode)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_runtime.py\", line 150, in run\n    result = _base_run(query, mode)\n             ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_pipeline.py\", line 307, in run\n    data = quick_external.enrich(data) if request.mode == \"quick\" else external.enrich(data)\n                                                                       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_external_research.py\", line 125, in enrich\n    out = base.enrich(data)\n          ^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/external_research.py\", line 381, in enrich\n    pre_confidence, _ = match_confidence(project_name, domain, hit.title, hit.snippet)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_external_research.py\", line 55, in match_confidence\n    confidence, match = base.match_confidence(project_name, domain, title, snippet, page_text)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_external_research.py\", line 55, in match_confidence\n    confidence, match = base.match_confidence(project_name, domain, title, snippet, page_text)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lb-tools/lb-tools/research-engine/universal_external_research.py\", line 55, in match_confidence\n    confidence, match = base.match_confidence(project_name, domain, title, snippet, page_text)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  [Previous line repeated 990 more times]\nRecursionError: maximum recursion depth exceeded",
-    "stdout_tail": ""
-  }
+  "engine_exit_code": 0,
+  "started_at": "2026-08-24T10:12:40.284793+00:00",
+  "completed_at": "2026-08-24T10:16:59.200852+00:00",
+  "result_path": "research-engine/output/control-center/cc-mt5x20hy-ff8deae4.json"
 }
