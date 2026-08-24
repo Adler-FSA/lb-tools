@@ -23,6 +23,7 @@ def load_module(name: str, filename: str):
 
 
 base = load_module("external_research_base_for_universal_guard", "external_research.py")
+_BASE_MATCH_CONFIDENCE = base.match_confidence
 
 # Konfigurationswerte werden vom Universal-Runtime je Modus angepasst.
 TIMEOUT = base.TIMEOUT
@@ -52,7 +53,7 @@ def match_confidence(project_name: str, domain: str, title: str, snippet: str, p
     Beispiel: "WeFi" kann mehrere völlig verschiedene Firmen bezeichnen.
     Ein bestätigter Domainbezug bleibt dagegen ein starker Identitätsanker.
     """
-    confidence, match = base.match_confidence(project_name, domain, title, snippet, page_text)
+    confidence, match = _BASE_MATCH_CONFIDENCE(project_name, domain, title, snippet, page_text)
     name_compact = compact(project_name)
     if match == "name_exact" and len(name_compact) <= 5:
         return "medium", "short_name_exact"
