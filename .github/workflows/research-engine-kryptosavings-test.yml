@@ -50,7 +50,11 @@ jobs:
       - name: Regressionstests
         id: tests
         continue-on-error: true
-        run: python -m pytest -q research-engine/tests
+        shell: bash
+        run: |
+          mkdir -p research-engine/output
+          set -o pipefail
+          python -m pytest -q research-engine/tests 2>&1 | tee research-engine/output/pytest-last.log
 
       - name: Live-Recherche ausführen
         id: live
@@ -124,6 +128,12 @@ jobs:
           import json, os
           from datetime import datetime, timezone
           from pathlib import Path
+
+          pytest_log = Path('research-engine/output/pytest-last.log')
+          pytest_tail = ''
+          if pytest_log.is_file():
+              pytest_tail = pytest_log.read_text(encoding='utf-8', errors='replace')[-12000:]
+
           status={
             'generated_at': datetime.now(timezone.utc).isoformat(),
             'dependencies': os.environ.get('DEPS'),
@@ -131,6 +141,7 @@ jobs:
             'tests': os.environ.get('TESTS'),
             'live_research': os.environ.get('LIVE'),
             'klaus_checks': os.environ.get('KLAUS'),
+            'pytest_log_tail': pytest_tail,
           }
           p=Path('research-engine/output/test-status.json')
           p.write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
@@ -143,6 +154,9 @@ jobs:
           git config user.name "Akademie Research Engine"
           git config user.email "actions@github.com"
           git add research-engine/output/test-status.json
+          if [ -f research-engine/output/pytest-last.log ]; then
+            git add research-engine/output/pytest-last.log
+          fi
           if [ -f research-engine/output/kryptosavings-live.json ]; then
             git add research-engine/output/kryptosavings-live.json
           fi
