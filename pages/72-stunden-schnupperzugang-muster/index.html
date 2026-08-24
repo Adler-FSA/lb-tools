@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>72 Stunden Akademie entdecken – Musterseite</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --text:#243142;
+  --muted:#667085;
+  --line:#dfe5ea;
+  --soft:#f6f8fa;
+  --mint-soft:#eefafa;
+  --magenta-soft:#fff2f8;
+  --warning:#fff8e6;
+  --warning-line:#ead59b;
+  --success:#08766f;
+  --shadow:0 12px 34px rgba(19,34,56,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{padding:18px}
+button,input{font:inherit}
+button{touch-action:manipulation}
+.wrap{max-width:1040px;margin:0 auto}
+.topbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:10px}
+.langBtn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}
+.langBtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hero,.card{border:1px solid var(--line);background:#fff;border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+.hero{background:linear-gradient(145deg,#fff 0%,#fbfcfd 68%,#f0fbfb 100%)}
+.heroBody{padding:34px 34px 28px}
+.eyebrow{color:var(--mint);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+h1{margin:8px 0 12px;color:var(--navy);font-size:clamp(34px,6vw,54px);line-height:1.03;letter-spacing:-.035em}
+.lead{margin:0;max-width:850px;color:#3e4b5a;font-size:18px;line-height:1.62}
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.promiseItem{border:1px solid #cfe8e9;background:rgba(255,255,255,.82);border-radius:17px;padding:15px 16px}
+.promiseItem strong{display:block;color:var(--navy);font-size:15px;margin-bottom:4px}
+.promiseItem span{color:var(--muted);font-size:14px;line-height:1.45}
+.section{margin-top:18px}
+.cardHead{padding:24px 26px 12px}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--magenta)}
+h2{margin:6px 0 7px;color:var(--navy);font-size:28px;line-height:1.15}
+.sub{margin:0;color:var(--muted);line-height:1.58}
+.note{margin:8px 26px 18px;border:1px solid var(--warning-line);background:var(--warning);border-radius:15px;padding:14px 16px;line-height:1.55;color:#69551e}
+.contactList{padding:0 26px 10px;display:grid;gap:12px}
+.contact{border:1px solid var(--line);border-radius:18px;padding:17px;background:linear-gradient(180deg,#fff,#fcfdfe)}
+.contactTitle{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+.contactTitle strong{color:var(--navy);font-size:17px}
+.contactTitle span{font-size:12px;font-weight:900;color:var(--mint);letter-spacing:.06em;text-transform:uppercase}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1.1fr 1.35fr;gap:10px}
+.field label{display:block;margin:0 0 6px;color:var(--navy);font-size:12px;font-weight:850}
+.field input{width:100%;border:1.5px solid #cfd8df;border-radius:12px;padding:12px 13px;color:var(--navy);background:#fff;outline:none;transition:.15s border-color,.15s box-shadow}
+.field input:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,167,173,.10)}
+.consent{margin:8px 26px 0;border-top:1px solid var(--line);padding:18px 0 0;display:flex;gap:11px;align-items:flex-start}
+.consent input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--mint);flex:0 0 auto}
+.consent label{line-height:1.5;color:#44505e;font-size:14px}
+.actions{padding:16px 26px 26px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.primary{appearance:none;border:0;border-radius:13px;padding:13px 18px;background:var(--mint);color:#fff;font-weight:900;cursor:pointer}
+.primary:hover{filter:brightness(.98)}
+.demoLabel{font-size:13px;color:var(--muted)}
+.status{display:none;margin:0 26px 26px;border-radius:14px;padding:13px 15px;line-height:1.5}
+.status.show{display:block}
+.status.ok{border:1px solid #b9e2df;background:#effaf9;color:var(--success)}
+.status.err{border:1px solid #f1c4c4;background:#fff5f5;color:#8d2020}
+.copyCard{border-top:1px solid var(--line);padding:20px 26px 26px}
+.copyCard:first-of-type{border-top:0}
+.copyTop{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:10px}
+.copyTop h3{margin:0;color:var(--navy);font-size:19px}
+.copyTop p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.copyBtn{appearance:none;border:1px solid #bcdfe1;background:var(--mint-soft);color:var(--navy);font-weight:850;border-radius:11px;padding:9px 12px;cursor:pointer;white-space:nowrap}
+.template{white-space:pre-wrap;border:1px solid var(--line);background:var(--soft);border-radius:15px;padding:16px;color:#334155;line-height:1.62;font-size:14px}
+.subject{display:flex;gap:8px;align-items:center;margin-bottom:10px;color:var(--navy);font-size:14px}
+.subject strong{white-space:nowrap}
+.tech{margin-top:18px;border:1px solid #cfdae3;background:#f8fafc;border-radius:22px;padding:23px 25px}
+.tech h2{font-size:24px;margin-top:0}
+.tech ul{margin:12px 0 0;padding-left:20px;color:#465567;line-height:1.65}
+.footerNote{text-align:center;padding:20px 8px 4px;color:var(--muted);font-size:12px}
+@media(max-width:850px){.promise{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}.heroBody{padding:28px 22px 24px}.cardHead,.contactList,.actions{padding-left:18px;padding-right:18px}.note{margin-left:18px;margin-right:18px}.consent{margin-left:18px;margin-right:18px}.copyCard{padding-left:18px;padding-right:18px}}
+@media(max-width:560px){body{padding:10px}.grid4{grid-template-columns:1fr}.copyTop{flex-direction:column}.copyBtn{width:100%}.contact{padding:15px}h2{font-size:24px}.lead{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar" aria-label="Language">
+    <button class="langBtn active" type="button" data-lang="de">DE</button>
+    <button class="langBtn" type="button" data-lang="en">EN</button>
+  </div>
+
+  <section class="hero">
+    <div class="heroBody">
+      <div class="eyebrow" data-i18n="eyebrow">Musterseite für OnlyInside</div>
+      <h1 data-i18n="title">5 Kontakte. Ein neutraler Impuls. 72 Stunden Akademie.</h1>
+      <p class="lead" data-i18n="lead">Club Partner können bis zu fünf Menschen aus ihrem persönlichen Umfeld nennen, für die ein unverbindlicher Einblick interessant sein könnte. Der Club Partner muss nichts präsentieren und niemanden überzeugen. LiquidityBooster übernimmt die neutrale Einladung zum 72-Stunden-Schnupperzugang.</p>
+      <div class="promise">
+        <div class="promiseItem"><strong data-i18n="p1t">1. Kontakt nennen</strong><span data-i18n="p1s">Bis zu fünf persönliche Kontakte eintragen.</span></div>
+        <div class="promiseItem"><strong data-i18n="p2t">2. LiquidityBooster lädt ein</strong><span data-i18n="p2s">Die Ansprache erfolgt zentral über das Impulsmarketing.</span></div>
+        <div class="promiseItem"><strong data-i18n="p3t">3. 72 Stunden entdecken</strong><span data-i18n="p3s">Der eingeladene Kontakt entscheidet anschließend selbst.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card section" id="formSection">
+    <div class="cardHead">
+      <div class="kicker" data-i18n="formKicker">Clubhaus – Formularmuster</div>
+      <h2 data-i18n="formTitle">Wen möchtest du zur Akademie einladen?</h2>
+      <p class="sub" data-i18n="formText">Trage bis zu fünf Personen ein. Nicht jeder Platz muss ausgefüllt werden.</p>
+    </div>
+    <div class="note" data-i18n="privacyNote"><strong>Wichtig:</strong> Bitte trage nur Personen ein, die mit einer einmaligen Kontaktaufnahme durch LiquidityBooster einverstanden sind. Die endgültige Umsetzung in OnlyInside muss die geltenden Datenschutz- und Einwilligungsanforderungen abbilden.</div>
+
+    <form id="demoForm" novalidate>
+      <div class="contactList" id="contactList"></div>
+      <div class="consent">
+        <input type="checkbox" id="consent">
+        <label for="consent" data-i18n="consent">Ich bestätige, dass die von mir eingetragenen Personen mit einer einmaligen Einladung durch LiquidityBooster einverstanden sind.</label>
+      </div>
+      <div class="actions">
+        <button class="primary" type="submit" data-i18n="submit">Kontakte übergeben</button>
+        <span class="demoLabel" data-i18n="demoOnly">Musterfunktion: Auf dieser Seite werden keine Daten gespeichert oder versendet.</span>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <section class="card section">
+    <div class="cardHead">
+      <div class="kicker" data-i18n="copyKicker">Texte für das Impulsmarketing</div>
+      <h2 data-i18n="copyTitle">Einladung und Begleittexte</h2>
+      <p class="sub" data-i18n="copyIntro">Diese Texte können von Alexander in den OnlyInside-Ablauf übernommen und mit dem späteren Zugangslink verbunden werden.</p>
+    </div>
+
+    <div class="copyCard">
+      <div class="copyTop">
+        <div><h3 data-i18n="clubTextTitle">Erklärung im Clubhaus</h3><p data-i18n="clubTextMeta">Direkt oberhalb des Kontaktformulars.</p></div>
+        <button class="copyBtn" type="button" data-copy="clubText" data-i18n="copy">Text kopieren</button>
+      </div>
+      <div class="template" id="clubText" data-template="clubText">Kennst du Menschen, für die finanzielle Bildung, neue Perspektiven und mehr finanzielle Souveränität interessant sein könnten?
+
+Dann kannst du hier bis zu 5 persönliche Kontakte eintragen.
+
+Du musst nichts erklären, nichts präsentieren und niemanden überzeugen. Der LiquidityBooster übernimmt die weitere Kommunikation und lädt deine Kontakte neutral zu einem 72-Stunden-Schnupperzugang zur Akademie für finanzielle Souveränität ein.
+
+Während dieser 72 Stunden können sie sich selbst ein Bild machen, ausgewählte Inhalte kennenlernen und in Ruhe entscheiden, ob sie sich weiter mit dem Angebot beschäftigen möchten.
+
+Dein Impuls. Unsere Einladung. Ihre eigene Entscheidung.</div>
+    </div>
+
+    <div class="copyCard">
+      <div class="copyTop">
+        <div><h3 data-i18n="mailTitle">Einladungs-E-Mail</h3><p data-i18n="mailMeta">Automatische Einladung durch LiquidityBooster.</p></div>
+        <button class="copyBtn" type="button" data-copy="mailText" data-i18n="copy">Text kopieren</button>
+      </div>
+      <div class="subject"><strong data-i18n="subjectLabel">Betreff:</strong><span id="mailSubject" data-template="mailSubject">Deine Einladung: 72 Stunden Akademie entdecken</span></div>
+      <div class="template" id="mailText" data-template="mailText">Hallo {{Vorname}},
+
+du wurdest eingeladen, etwas Neues kennenzulernen.
+
+Jemand aus deinem persönlichen Umfeld war der Meinung, dass die Akademie für finanzielle Souveränität für dich interessant sein könnte.
+
+Deshalb möchten wir dich ganz unverbindlich einladen: Du erhältst für 72 Stunden einen kostenlosen Schnupperzugang zur Akademie für finanzielle Souveränität.
+
+Entdecke ausgewählte Inhalte, Werkzeuge und Impulse rund um finanzielle Bildung, finanzielle Souveränität und den bewussteren Umgang mit den eigenen finanziellen Möglichkeiten.
+
+Dabei geht es nicht darum, dir etwas aufzudrängen.
+
+Schau dich um. Mach dir selbst ein Bild. Und entscheide anschließend selbst, ob etwas davon für dich interessant ist.
+
+Dein 72-Stunden-Schnupperzugang:
+{{Zugangslink}}
+
+Dein Zugang endet automatisch nach 72 Stunden. Es entstehen dadurch keine Verpflichtungen und keine automatische Mitgliedschaft.
+
+LiquidityBooster
+Mehr Freiheit • Mehr Geld • Mehr vom Leben</div>
+    </div>
+
+    <div class="copyCard">
+      <div class="copyTop">
+        <div><h3 data-i18n="shortTitle">Kurzer Begleittext</h3><p data-i18n="shortMeta">Für eine kurze, neutrale Vorab- oder Begleitnachricht.</p></div>
+        <button class="copyBtn" type="button" data-copy="shortText" data-i18n="copy">Text kopieren</button>
+      </div>
+      <div class="template" id="shortText" data-template="shortText">Hallo {{Vorname}},
+
+du erhältst von LiquidityBooster eine persönliche Einladung zu einem kostenlosen 72-Stunden-Schnupperzugang der Akademie für finanzielle Souveränität.
+
+Schau dich ganz in Ruhe um und entscheide selbst, ob die Inhalte für dich interessant sind.
+
+{{Zugangslink}}</div>
+    </div>
+
+    <div class="copyCard">
+      <div class="copyTop">
+        <div><h3 data-i18n="endTitle">Hinweis zum Ablauf</h3><p data-i18n="endMeta">Text für das Ende des Schnupperzeitraums.</p></div>
+        <button class="copyBtn" type="button" data-copy="endText" data-i18n="copy">Text kopieren</button>
+      </div>
+      <div class="template" id="endText" data-template="endText">Dein 72-Stunden-Schnupperzugang endet automatisch. Du musst nichts kündigen und es entsteht keine automatische Mitgliedschaft.
+
+Wenn du die Akademie weiter kennenlernen möchtest, findest du innerhalb deines Zugangs die nächsten Möglichkeiten. Die Entscheidung liegt vollständig bei dir.</div>
+    </div>
+  </section>
+
+  <section class="tech">
+    <div class="kicker" data-i18n="techKicker">Hinweis für Alexander / OnlyInside</div>
+    <h2 data-i18n="techTitle">Was technisch nachgebaut werden soll</h2>
+    <ul>
+      <li data-i18n="tech1">Formular mit maximal fünf Kontakten: Vorname, Nachname, Handynummer und E-Mail-Adresse.</li>
+      <li data-i18n="tech2">Leere Kontaktblöcke dürfen übersprungen werden; mindestens ein Kontakt ist für die Übergabe erforderlich.</li>
+      <li data-i18n="tech3">Nach Übergabe startet der definierte Impulsmarketing-Ablauf des LiquidityBoosters.</li>
+      <li data-i18n="tech4">Der persönliche 72-Stunden-Zugang bzw. Zugangslink wird durch OnlyInside erzeugt und in die Einladung eingesetzt.</li>
+      <li data-i18n="tech5">Der Schnupperzugang endet automatisch nach 72 Stunden; keine automatische Mitgliedschaft.</li>
+      <li data-i18n="tech6">Die Einwilligungs- und Datenschutzlogik muss in der produktiven OnlyInside-Version technisch dokumentiert und nachvollziehbar umgesetzt werden.</li>
+    </ul>
+  </section>
+
+  <div class="footerNote" data-i18n="footer">Musterseite zur Abstimmung – keine produktive Datenerfassung.</div>
+</div>
+
+<script>
+const I18N={
+  de:{
+    eyebrow:'Musterseite für OnlyInside',title:'5 Kontakte. Ein neutraler Impuls. 72 Stunden Akademie.',lead:'Club Partner können bis zu fünf Menschen aus ihrem persönlichen Umfeld nennen, für die ein unverbindlicher Einblick interessant sein könnte. Der Club Partner muss nichts präsentieren und niemanden überzeugen. LiquidityBooster übernimmt die neutrale Einladung zum 72-Stunden-Schnupperzugang.',
+    p1t:'1. Kontakt nennen',p1s:'Bis zu fünf persönliche Kontakte eintragen.',p2t:'2. LiquidityBooster lädt ein',p2s:'Die Ansprache erfolgt zentral über das Impulsmarketing.',p3t:'3. 72 Stunden entdecken',p3s:'Der eingeladene Kontakt entscheidet anschließend selbst.',
+    formKicker:'Clubhaus – Formularmuster',formTitle:'Wen möchtest du zur Akademie einladen?',formText:'Trage bis zu fünf Personen ein. Nicht jeder Platz muss ausgefüllt werden.',privacyNote:'Wichtig: Bitte trage nur Personen ein, die mit einer einmaligen Kontaktaufnahme durch LiquidityBooster einverstanden sind. Die endgültige Umsetzung in OnlyInside muss die geltenden Datenschutz- und Einwilligungsanforderungen abbilden.',consent:'Ich bestätige, dass die von mir eingetragenen Personen mit einer einmaligen Einladung durch LiquidityBooster einverstanden sind.',submit:'Kontakte übergeben',demoOnly:'Musterfunktion: Auf dieser Seite werden keine Daten gespeichert oder versendet.',
+    contact:'Kontakt',optional:'optional',first:'Vorname',last:'Nachname',phone:'Handynummer',email:'E-Mail-Adresse',firstPh:'Vorname',lastPh:'Nachname',phonePh:'+49 …',emailPh:'name@beispiel.de',
+    copyKicker:'Texte für das Impulsmarketing',copyTitle:'Einladung und Begleittexte',copyIntro:'Diese Texte können von Alexander in den OnlyInside-Ablauf übernommen und mit dem späteren Zugangslink verbunden werden.',clubTextTitle:'Erklärung im Clubhaus',clubTextMeta:'Direkt oberhalb des Kontaktformulars.',mailTitle:'Einladungs-E-Mail',mailMeta:'Automatische Einladung durch LiquidityBooster.',shortTitle:'Kurzer Begleittext',shortMeta:'Für eine kurze, neutrale Vorab- oder Begleitnachricht.',endTitle:'Hinweis zum Ablauf',endMeta:'Text für das Ende des Schnupperzeitraums.',subjectLabel:'Betreff:',copy:'Text kopieren',copied:'Kopiert',
+    techKicker:'Hinweis für Alexander / OnlyInside',techTitle:'Was technisch nachgebaut werden soll',tech1:'Formular mit maximal fünf Kontakten: Vorname, Nachname, Handynummer und E-Mail-Adresse.',tech2:'Leere Kontaktblöcke dürfen übersprungen werden; mindestens ein Kontakt ist für die Übergabe erforderlich.',tech3:'Nach Übergabe startet der definierte Impulsmarketing-Ablauf des LiquidityBoosters.',tech4:'Der persönliche 72-Stunden-Zugang bzw. Zugangslink wird durch OnlyInside erzeugt und in die Einladung eingesetzt.',tech5:'Der Schnupperzugang endet automatisch nach 72 Stunden; keine automatische Mitgliedschaft.',tech6:'Die Einwilligungs- und Datenschutzlogik muss in der produktiven OnlyInside-Version technisch dokumentiert und nachvollziehbar umgesetzt werden.',footer:'Musterseite zur Abstimmung – keine produktive Datenerfassung.',needContact:'Bitte fülle mindestens einen Kontakt vollständig aus.',incomplete:'Bitte fülle bei jedem verwendeten Kontakt alle vier Felder aus.',needConsent:'Bitte bestätige vor der Demo-Übergabe die Einwilligung.',demoSuccess:'Demo erfolgreich: Die Kontaktdaten würden jetzt an OnlyInside übergeben. Auf dieser Musterseite wurden keine Daten gespeichert oder versendet.'
+  },
+  en:{
+    eyebrow:'Prototype for OnlyInside',title:'5 contacts. One neutral impulse. 72 hours of Academy access.',lead:'Club Partners can name up to five people from their personal network who may be interested in a no-obligation look. The Club Partner does not need to present or persuade anyone. LiquidityBooster sends the neutral invitation to the 72-hour Academy trial.',
+    p1t:'1. Add contacts',p1s:'Enter up to five personal contacts.',p2t:'2. LiquidityBooster invites',p2s:'The central impulse-marketing flow handles the contact.',p3t:'3. Explore for 72 hours',p3s:'The invited person then decides for themselves.',
+    formKicker:'Clubhouse – form prototype',formTitle:'Who would you like to invite to the Academy?',formText:'Enter up to five people. You do not need to use every slot.',privacyNote:'Important: Only enter people who have agreed to one invitation from LiquidityBooster. The final OnlyInside implementation must reflect the applicable privacy and consent requirements.',consent:'I confirm that the people entered have agreed to receive one invitation from LiquidityBooster.',submit:'Submit contacts',demoOnly:'Prototype only: No data is stored or sent from this page.',
+    contact:'Contact',optional:'optional',first:'First name',last:'Last name',phone:'Mobile number',email:'Email address',firstPh:'First name',lastPh:'Last name',phonePh:'+49 …',emailPh:'name@example.com',
+    copyKicker:'Impulse-marketing texts',copyTitle:'Invitation and accompanying texts',copyIntro:'Alexander can transfer these texts into the OnlyInside flow and connect them to the future access link.',clubTextTitle:'Clubhouse explanation',clubTextMeta:'Placed directly above the contact form.',mailTitle:'Invitation email',mailMeta:'Automatic invitation from LiquidityBooster.',shortTitle:'Short accompanying message',shortMeta:'For a short, neutral advance or accompanying message.',endTitle:'End-of-trial notice',endMeta:'Text for the end of the trial period.',subjectLabel:'Subject:',copy:'Copy text',copied:'Copied',
+    techKicker:'Note for Alexander / OnlyInside',techTitle:'What should be rebuilt technically',tech1:'Form with a maximum of five contacts: first name, last name, mobile number and email address.',tech2:'Empty contact slots may be skipped; at least one contact is required for submission.',tech3:'After submission, the defined LiquidityBooster impulse-marketing flow starts.',tech4:'OnlyInside creates the personal 72-hour access or link and inserts it into the invitation.',tech5:'The trial access ends automatically after 72 hours; there is no automatic membership.',tech6:'Consent and privacy logic must be technically documented and traceable in the production OnlyInside version.',footer:'Prototype for coordination – no production data collection.',needContact:'Please complete at least one contact.',incomplete:'Please complete all four fields for every contact you use.',needConsent:'Please confirm consent before the demo submission.',demoSuccess:'Demo successful: The contact data would now be transferred to OnlyInside. No data was stored or sent from this prototype page.'
+  }
+};
+
+const TEMPLATES={
+  de:{
+    clubText:`Kennst du Menschen, für die finanzielle Bildung, neue Perspektiven und mehr finanzielle Souveränität interessant sein könnten?\n\nDann kannst du hier bis zu 5 persönliche Kontakte eintragen.\n\nDu musst nichts erklären, nichts präsentieren und niemanden überzeugen. Der LiquidityBooster übernimmt die weitere Kommunikation und lädt deine Kontakte neutral zu einem 72-Stunden-Schnupperzugang zur Akademie für finanzielle Souveränität ein.\n\nWährend dieser 72 Stunden können sie sich selbst ein Bild machen, ausgewählte Inhalte kennenlernen und in Ruhe entscheiden, ob sie sich weiter mit dem Angebot beschäftigen möchten.\n\nDein Impuls. Unsere Einladung. Ihre eigene Entscheidung.`,
+    mailSubject:'Deine Einladung: 72 Stunden Akademie entdecken',
+    mailText:`Hallo {{Vorname}},\n\ndu wurdest eingeladen, etwas Neues kennenzulernen.\n\nJemand aus deinem persönlichen Umfeld war der Meinung, dass die Akademie für finanzielle Souveränität für dich interessant sein könnte.\n\nDeshalb möchten wir dich ganz unverbindlich einladen: Du erhältst für 72 Stunden einen kostenlosen Schnupperzugang zur Akademie für finanzielle Souveränität.\n\nEntdecke ausgewählte Inhalte, Werkzeuge und Impulse rund um finanzielle Bildung, finanzielle Souveränität und den bewussteren Umgang mit den eigenen finanziellen Möglichkeiten.\n\nDabei geht es nicht darum, dir etwas aufzudrängen.\n\nSchau dich um. Mach dir selbst ein Bild. Und entscheide anschließend selbst, ob etwas davon für dich interessant ist.\n\nDein 72-Stunden-Schnupperzugang:\n{{Zugangslink}}\n\nDein Zugang endet automatisch nach 72 Stunden. Es entstehen dadurch keine Verpflichtungen und keine automatische Mitgliedschaft.\n\nLiquidityBooster\nMehr Freiheit • Mehr Geld • Mehr vom Leben`,
+    shortText:`Hallo {{Vorname}},\n\ndu erhältst von LiquidityBooster eine persönliche Einladung zu einem kostenlosen 72-Stunden-Schnupperzugang der Akademie für finanzielle Souveränität.\n\nSchau dich ganz in Ruhe um und entscheide selbst, ob die Inhalte für dich interessant sind.\n\n{{Zugangslink}}`,
+    endText:`Dein 72-Stunden-Schnupperzugang endet automatisch. Du musst nichts kündigen und es entsteht keine automatische Mitgliedschaft.\n\nWenn du die Akademie weiter kennenlernen möchtest, findest du innerhalb deines Zugangs die nächsten Möglichkeiten. Die Entscheidung liegt vollständig bei dir.`
+  },
+  en:{
+    clubText:`Do you know people who may be interested in financial education, new perspectives and greater financial sovereignty?\n\nYou can enter up to 5 personal contacts here.\n\nYou do not need to explain, present or persuade anyone. LiquidityBooster handles the further communication and invites your contacts neutrally to a 72-hour trial of the Academy for Financial Sovereignty.\n\nDuring these 72 hours, they can form their own opinion, explore selected content and decide at their own pace whether they want to learn more.\n\nYour impulse. Our invitation. Their own decision.`,
+    mailSubject:'Your invitation: Explore the Academy for 72 hours',
+    mailText:`Hello {{First name}},\n\nyou have been invited to discover something new.\n\nSomeone from your personal network thought the Academy for Financial Sovereignty might be interesting for you.\n\nWe would therefore like to invite you with no obligation: You will receive free trial access to the Academy for 72 hours.\n\nExplore selected content, tools and impulses around financial education, financial sovereignty and a more conscious approach to your own financial possibilities.\n\nThis is not about pushing anything on you.\n\nHave a look around. Form your own opinion. Then decide for yourself whether any of it is relevant to you.\n\nYour 72-hour trial access:\n{{Access link}}\n\nYour access ends automatically after 72 hours. There are no obligations and no automatic membership.\n\nLiquidityBooster\nMore freedom • More money • More from life`,
+    shortText:`Hello {{First name}},\n\nyou are receiving a personal invitation from LiquidityBooster to a free 72-hour trial of the Academy for Financial Sovereignty.\n\nTake your time, have a look around and decide for yourself whether the content is interesting for you.\n\n{{Access link}}`,
+    endText:`Your 72-hour trial access ends automatically. You do not need to cancel anything and no automatic membership is created.\n\nIf you would like to continue exploring the Academy, you will find the next options inside your access. The decision is entirely yours.`
+  }
+};
+
+let lang='de';
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const t=k=>I18N[lang][k]||k;
+
+function buildContacts(){
+  const list=$('#contactList');
+  list.innerHTML='';
+  for(let i=1;i<=5;i++){
+    const el=document.createElement('div');
+    el.className='contact';
+    el.innerHTML=`<div class="contactTitle"><strong>${t('contact')} ${i}</strong><span>${t('optional')}</span></div>
+      <div class="grid4">
+        <div class="field"><label for="c${i}first">${t('first')}</label><input id="c${i}first" name="c${i}first" autocomplete="off" placeholder="${t('firstPh')}"></div>
+        <div class="field"><label for="c${i}last">${t('last')}</label><input id="c${i}last" name="c${i}last" autocomplete="off" placeholder="${t('lastPh')}"></div>
+        <div class="field"><label for="c${i}phone">${t('phone')}</label><input id="c${i}phone" name="c${i}phone" type="tel" autocomplete="off" placeholder="${t('phonePh')}"></div>
+        <div class="field"><label for="c${i}email">${t('email')}</label><input id="c${i}email" name="c${i}email" type="email" autocomplete="off" placeholder="${t('emailPh')}"></div>
+      </div>`;
+    list.appendChild(el);
+  }
+}
+
+function applyLanguage(next){
+  lang=next;
+  document.documentElement.lang=lang;
+  $$('.langBtn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  $$('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(t(k))el.textContent=t(k)});
+  $$('[data-template]').forEach(el=>{const key=el.dataset.template;el.textContent=TEMPLATES[lang][key]||''});
+  buildContacts();
+  $('#consent').checked=false;
+  $('#status').className='status';
+  $('#status').textContent='';
+}
+
+$$('.langBtn').forEach(btn=>btn.addEventListener('click',()=>applyLanguage(btn.dataset.lang)));
+
+$$('.copyBtn').forEach(btn=>btn.addEventListener('click',async()=>{
+  const id=btn.dataset.copy;
+  const el=document.getElementById(id);
+  if(!el)return;
+  const original=t('copy');
+  try{
+    await navigator.clipboard.writeText(el.textContent.trim());
+    btn.textContent=t('copied');
+    setTimeout(()=>btn.textContent=original,1400);
+  }catch(e){
+    const range=document.createRange();range.selectNodeContents(el);const sel=getSelection();sel.removeAllRanges();sel.addRange(range);
+  }
+}));
+
+$('#demoForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  let used=0;
+  let incomplete=false;
+  for(let i=1;i<=5;i++){
+    const values=['first','last','phone','email'].map(k=>document.getElementById(`c${i}${k}`).value.trim());
+    if(values.some(Boolean)){
+      used++;
+      if(values.some(v=>!v))incomplete=true;
+    }
+  }
+  const status=$('#status');
+  status.className='status show err';
+  if(!used){status.textContent=t('needContact');return}
+  if(incomplete){status.textContent=t('incomplete');return}
+  if(!$('#consent').checked){status.textContent=t('needConsent');return}
+  status.className='status show ok';
+  status.textContent=t('demoSuccess');
+});
+
+applyLanguage('de');
+</script>
+</body>
+</html>
