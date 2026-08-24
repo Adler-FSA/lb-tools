@@ -69,7 +69,7 @@ jobs:
         id: operator
         run: |
           python research-engine/operator_registry_research.py \
-            --input research-engine/output/kryptosavings-external.json \
+            research-engine/output/kryptosavings-external.json \
             --output research-engine/output/kryptosavings-operators.json
 
       - name: Betreiber-Ergebnis prüfen
@@ -83,24 +83,32 @@ jobs:
           data=json.loads(Path('research-engine/output/kryptosavings-operators.json').read_text(encoding='utf-8'))
           op=data.get('operator_registry_research') or {}
           profiles=op.get('profiles') or []
-          records=op.get('records') or []
           contexts=op.get('authority_context_records') or []
           attempts=op.get('search_attempts') or []
+          records=[r for p in profiles for r in (p.get('all_records') or [])]
+          entities=set(op.get('entities') or [])
 
           assert data.get('status') == 'ok'
           assert op.get('status') == 'ok'
           assert op.get('project_name') == 'KryptoSavings'
           assert op.get('project_domain') == 'kryptosavings.com'
-          assert set(op.get('entities_from_project_website') or []) >= {
-              'Delta West Credit Bank Ltd', 'Open Delta DAO LLC', 'GBH Coriolis Bancorp'
-          }
-          assert op.get('derived_entity_count',0) >= 1, 'GBH Coriolis Bancorp wurde nicht aus der Website-Fundstelle nachgezogen'
+          assert {'Delta West Credit Bank Ltd', 'Open Delta DAO LLC'} <= entities, entities
+          assert 'GBH Coriolis Bancorp' in entities, 'GBH Coriolis Bancorp wurde nicht aus der Website-Fundstelle nachgezogen'
           assert attempts, 'Keine Betreiber-/Register-Suchen protokolliert'
           assert profiles, 'Keine Entity-Profile erzeugt'
 
           for p in profiles:
-              assert p.get('existence_status') in {'registry_or_authority_trace','entity_self_trace','independent_trace','not_verified'}
-              assert p.get('project_connection_status') in {'externally_linked','not_independently_linked'}
+              assert p.get('existence_status') in {
+                  'official_or_registry_trace_found',
+                  'entity_owned_trace_only',
+                  'independent_trace_found',
+                  'not_independently_confirmed',
+              }
+              assert p.get('project_connection_status') in {
+                  'externally_linked',
+                  'possible_external_link',
+                  'project_claim_only_or_not_shown',
+              }
 
           assert records, 'Keine externe Rechtsträgerspur gefunden'
           for r in records:
@@ -129,8 +137,14 @@ jobs:
           assert gbh.get('status_text') == 'Active', gbh
           assert gbh.get('project_connection') == 'not_shown', gbh
 
-          # Der Mwali-Registerfund muss institutionell eingeordnet werden. Dafür erwartet der
-          # Referenzlauf mindestens eine direkte Gegenquelle der Banque Centrale des Comores.
+          # Ein Registerfund bestätigt nicht automatisch die Projektverbindung.
+          for entity in ('Delta West Credit Bank Ltd', 'GBH Coriolis Bancorp'):
+              p=next(x for x in profiles if x.get('entity') == entity)
+              assert p.get('existence_status') == 'official_or_registry_trace_found', p
+              assert p.get('project_connection_status') == 'project_claim_only_or_not_shown', p
+
+          # Der Mwali-Registerfund wird getrennt durch eine direkte Gegenquelle
+          # der Banque Centrale des Comores institutionell eingeordnet.
           assert contexts, 'Kein übergeordneter Behördenkontext zum Mwali-Register gefunden'
           assert any((urlparse(c.get('source_url','')).hostname or '').endswith('banque-comores.km') for c in contexts), contexts
           assert all(c.get('source_role') in {'regulator','government'} for c in contexts)
@@ -139,7 +153,7 @@ jobs:
           print(f"Betreiber-Research OK: {len(profiles)} Rechtsträger | {len(records)} externe Spuren | {len(contexts)} Behörden-Kontextquellen")
           print('Lizenzcheck OK: Delta West B20110086 / Active | GBH Coriolis B20070016 / Active | beide ohne extern belegte KryptoSavings-Verbindung')
           for p in profiles:
-              print(f"ENTITY: {p['entity']} | Existenz={p['existence_status']} | KryptoSavings-Verbindung={p['project_connection_status']} | Records={p['record_count']} | Behördenkontext={len(p.get('authority_context_records') or [])}")
+              print(f"ENTITY: {p['entity']} | Existenz={p['existence_status']} | KryptoSavings-Verbindung={p['project_connection_status']} | Records={len(p.get('all_records') or [])}")
           for r in records[:16]:
               print(f"RECORD: [{r['source_role']}/{r['record_type']}] {r['entity']} | {r.get('status_text') or '-'} | {r.get('license_number') or '-'} | Link={r['project_connection']} -> {r['source_url']}")
           for c in contexts[:8]:
