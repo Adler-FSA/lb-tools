@@ -10,6 +10,7 @@ Wichtig:
 - Projekt-Team-Angabe != unabhängige Bestätigung.
 - Founder/CEO/Director != Eigentümer/UBO.
 - Fehlender UBO-Nachweis != Betrugsnachweis.
+- Teamrolle != Kontrollrolle: Q5 priorisiert Governance/Eigentum statt Vollteam.
 """
 from __future__ import annotations
 
@@ -27,10 +28,35 @@ sys.modules[spec.name] = base
 spec.loader.exec_module(base)
 
 
-def _people_evidence(data: dict) -> list[dict]:
+CONTROL_ROLE_PHRASES = (
+    "board member", "board director", "chairman", "chairwoman", "chairperson", "chair",
+    "founder", "co-founder", "cofounder", "chief executive officer", "ceo",
+    "managing director", "president", "owner", "co-owner", "shareholder",
+    "beneficial owner", "ubo", "general partner", "managing partner",
+)
+
+
+def _control_relevant(profile: dict) -> bool:
+    """Nur Rollen, die plausibel Governance/Eigentum/Kontrolle betreffen."""
+    if profile.get("ubo_verified") is True:
+        return True
+    ownership = base.clean(profile.get("ownership_status") or "").lower()
+    if ownership and ownership not in {"", "unknown", "not_shown", "not_verified", "not_assessed"}:
+        return True
+    roles = [base.clean(x).lower() for x in profile.get("roles") or [] if base.clean(x)]
+    for role in roles:
+        if role == "director":
+            return True
+        if any(phrase in role for phrase in CONTROL_ROLE_PHRASES):
+            return True
+    return False
+
+
+def _people_evidence(data: dict, profiles: list[dict] | None = None) -> list[dict]:
     block = data.get("people_history_research") or {}
+    selected = profiles if profiles is not None else list(block.get("profiles") or [])
     out: list[dict] = []
-    for profile in block.get("profiles") or []:
+    for profile in selected:
         person = base.clean(profile.get("person_name") or "")
         entity = base.clean(profile.get("entity") or "")
         roles = [base.clean(x) for x in profile.get("roles") or [] if base.clean(x)]
@@ -83,32 +109,36 @@ def apply_q5(data: dict, result: dict) -> dict:
     if not q5:
         return result
 
-    project_linked = [p for p in profiles if p.get("project_connection_status") == "externally_linked"]
-    verified_ubos = [p for p in profiles if p.get("ubo_verified") is True]
-    names = ", ".join(_profile_text(p) for p in profiles[:8])
+    relevant = [p for p in profiles if _control_relevant(p)]
+    project_linked = [p for p in relevant if p.get("project_connection_status") == "externally_linked"]
+    verified_ubos = [p for p in relevant if p.get("ubo_verified") is True]
+    names = ", ".join(_profile_text(p) for p in relevant[:8])
 
     if project_linked and verified_ubos:
         state = "partially_answered"
         finding = (
-            "Strukturierte Personen- und Eigentümerspuren liegen vor. Mindestens eine Person ist extern mit dem Projekt "
+            "Kontrollrelevante Personen- und Eigentümerspuren liegen vor. Mindestens eine kontrollrelevante Person ist extern mit dem Projekt "
             "verknüpft und mindestens ein UBO-Nachweis ist vorhanden. Historie, Qualifikation, frühere Projekte und die "
             "vollständige Kontrollstruktur bleiben dennoch weiter zu prüfen."
         )
     elif project_linked:
         state = "clarification_needed"
         finding = (
-            "Strukturierte Personen-/Managementspuren liegen vor und mindestens eine Person ist extern mit dem Projekt "
+            "Kontrollrelevante Managementspuren liegen vor und mindestens eine entsprechende Person ist extern mit dem Projekt "
             "verknüpft. Eigentümer/UBO und die tatsächliche Kontrollstruktur sind jedoch nicht belastbar bestätigt."
         )
     else:
         state = "clarification_needed"
         finding = (
-            "Strukturierte Managementspuren wurden gefunden, aber keine Person ist bislang unabhängig als Eigentümer "
-            "oder Kontrollinstanz des Projekts bestätigt. Rollenangaben belegen nicht automatisch Eigentum oder UBO."
+            "Projektseitig wurden Personen genannt. Für die Kontrollfrage werden jedoch nur Governance-/Eigentumsrollen berücksichtigt; "
+            "keine dieser kontrollrelevanten Personen ist bislang unabhängig als Eigentümer oder Kontrollinstanz des Projekts bestätigt. "
+            "Eine Teamrolle belegt nicht automatisch Eigentum oder UBO."
         )
 
     if names:
-        finding += " Gefundene Rollen: " + names + "."
+        finding += " Kontrollrelevante Rollen: " + names + "."
+    else:
+        finding += " Aus der bisherigen Teamdarstellung wurde noch keine belastbar kontrollrelevante Rolle abgeleitet."
 
     gaps = []
     if not project_linked:
@@ -116,17 +146,17 @@ def apply_q5(data: dict, result: dict) -> dict:
     if not verified_ubos:
         gaps.append("Eigentümer-/UBO-Struktur des Projekts ist nicht verifiziert.")
     gaps.extend([
-        "Historie, Qualifikation und frühere Projekte der relevanten Personen sind noch nicht vollständig geprüft.",
+        "Historie, Qualifikation und frühere Projekte der kontrollrelevanten Personen sind noch nicht vollständig geprüft.",
         "Verbundene Gesellschaften, frühere Firmen, Insolvenz- und Behörden-/Warnspuren sind noch zu vertiefen.",
     ])
 
     q5["state"] = state
     q5["finding"] = finding
-    q5["evidence"] = _people_evidence(data)
+    q5["evidence"] = _people_evidence(data, relevant)
     q5["counter_evidence"] = []
     q5["gaps"] = gaps
     q5["next_research"] = [
-        "Projektverbindung jeder Person separat recherchieren.",
+        "Projektverbindung jeder kontrollrelevanten Person separat recherchieren.",
         "Offizielle Eigentümer-/UBO-Quellen und verbundene Gesellschaften prüfen.",
         "Berufshistorie, frühere Projekte, Insolvenzen, Sanktionen und Behördenwarnungen personengenau recherchieren.",
     ]
@@ -139,6 +169,8 @@ def apply_q5(data: dict, result: dict) -> dict:
         counts[state_name] = counts.get(state_name, 0) + 1
     block.setdefault("summary", {})["counts_by_state"] = counts
     block.setdefault("guardrails", {})["structured_people_q5_used"] = True
+    block.setdefault("guardrails", {})["control_relevant_people_only"] = True
+    block.setdefault("guardrails", {})["omitted_non_control_team_profiles"] = max(0, len(profiles) - len(relevant))
     result["sixteen_point_analysis"] = block
     return result
 
