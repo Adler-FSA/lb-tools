@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-24T10:16:59.194102+00:00",
+  "generated_at": "2026-08-24T10:24:30.598616+00:00",
   "engine_exit_code": 0,
   "status": "ok",
   "product": "projektanalyse",
@@ -226,7 +226,7 @@
       }
     ],
     "page_count": 14,
-    "finding_count": 38
+    "finding_count": 39
   },
   "external_research": {
     "status": "no_confirmed_external_traces",
@@ -252,7 +252,7 @@
       "possible_link_record_count": 0,
       "warning_or_adverse_record_count": 0,
       "authority_context_record_count": 1,
-      "identifier_claim_count": 5,
+      "identifier_claim_count": 6,
       "identifier_record_count": 0,
       "official_identifier_record_count": 0,
       "independent_identifier_record_count": 0,
@@ -308,7 +308,7 @@
         "authority_context_count": 0,
         "claimed_roles": [
           {
-            "role": "operator_claim",
+            "role": "custody_or_wallet_provider",
             "source_relation": "project_owned_claim",
             "source_url": "https://www.wefi.co/",
             "evidence": "and are supported by institutional-grade digital asset custody infrastructure operated by Fireblocks Ltd., a leading provider of secure multi-party computation (MPC) technology for",
@@ -427,12 +427,12 @@
     "summary": {
       "comparison_count": 3,
       "counts_by_assessment": {
-        "not_independently_verified": 0,
+        "open": 0,
         "partially_supported": 2,
-        "independently_supported": 0,
+        "not_independently_verified": 0,
         "context_challenged": 1,
         "contradicted": 0,
-        "open": 0
+        "independently_supported": 0
       },
       "open_question_count": 8,
       "tension_count": 1
@@ -553,19 +553,19 @@
         "id": 5,
         "title": "Wer kontrolliert das Unternehmen und welche Historie besteht?",
         "state": "clarification_needed",
-        "finding": "Die Projektwebsite von WeFi nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum noch UBO- oder Kontrollstatus. Gefundene Rollen: Maksym Sakharov (Board member), Roman Rossov (Board member), Reeve Collins (Board member), Yusuf Mirakhmedov (Board member), Khaled Suleiman (Board member), Henry Kukk (Chief Technology Officer), Kerel Verwaerde (Board member), Sathya Partha (Design Director).",
+        "finding": "Die Projektwebsite von WeFi nennt Personen in Governance-/Kontrollrollen. Diese Rollen sind damit als Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Andere Teamrollen werden fuer diese Kontrollfrage bewusst ausgeblendet. Auch eine Board-/Founder-/CEO-Rolle belegt weder Eigentum noch UBO- oder Kontrollstatus. Kontrollrelevante Rollen: Maksym Sakharov (Board member), Roman Rossov (Board member), Reeve Collins (Board member), Yusuf Mirakhmedov (Board member), Khaled Suleiman (Board member), Kerel Verwaerde (Board member).",
         "gaps": [
           "Direkte, unabhaengige Personen-/Kontrollverbindung zu WeFi fehlt.",
           "Eigentümer-/UBO-Struktur von WeFi ist nicht verifiziert.",
-          "Historie, Qualifikation und fruehere Projekte der relevanten Personen sind noch nicht vollstaendig geprueft.",
+          "Historie, Qualifikation und fruehere Projekte der kontrollrelevanten Personen sind noch nicht vollstaendig geprueft.",
           "Verbundene Gesellschaften, fruehere Firmen, Insolvenz- und Behoerden-/Warnspuren sind noch zu vertiefen."
         ],
         "next_research": [
-          "Projektverbindung jeder Person separat recherchieren.",
+          "Projektverbindung jeder kontrollrelevanten Person separat recherchieren.",
           "Offizielle Eigentümer-/UBO-Quellen und verbundene Gesellschaften pruefen.",
           "Berufshistorie, fruehere Projekte, Insolvenzen, Sanktionen und Behoerdenwarnungen personengenau recherchieren."
         ],
-        "evidence_count": 11,
+        "evidence_count": 6,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
