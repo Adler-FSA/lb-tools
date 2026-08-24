@@ -101,6 +101,21 @@ def test_project_connection_requires_high_or_medium_match():
     assert low[0] == "not_shown"
 
 
+def test_exact_entity_present_rejects_explicit_negation():
+    assert mod.exact_entity_present(
+        "Open Delta DAO LLC",
+        "Other company",
+        "",
+        "No Open Delta DAO LLC reference is present in this record.",
+    ) is False
+    assert mod.exact_entity_present(
+        "Open Delta DAO LLC",
+        "Company record",
+        "",
+        "Open Delta DAO LLC is listed in this record.",
+    ) is True
+
+
 def test_authority_context_is_separate_from_entity_connection(monkeypatch):
     claimed = mod.EntityRecord(
         entity="Delta West Credit Bank Ltd",
@@ -240,6 +255,7 @@ def test_unrelated_name_hit_is_not_accepted(monkeypatch):
         lambda url: {"ok": True, "url": url, "title": "Other company", "text": "No Open Delta DAO LLC reference.", "published_at": ""},
     )
     monkeypatch.setattr(mod, "DIRECT_REGISTRY_PROBES", ())
+    monkeypatch.setattr(mod, "collect_entity_owned_records", lambda entities, project_name, project_domain: [])
     out = mod.enrich(base_result())["operator_registry_research"]
     profile = next(p for p in out["profiles"] if p["entity"] == "Open Delta DAO LLC")
     assert not profile["all_records"]
