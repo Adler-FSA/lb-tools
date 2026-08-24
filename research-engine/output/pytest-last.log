@@ -2,58 +2,36 @@
 ........F............................................................... [ 87%]
 .....................                                                    [100%]
 =================================== FAILURES ===================================
-______________ test_entity_existence_does_not_imply_project_link _______________
+___________________ test_unrelated_name_hit_is_not_accepted ____________________
 
-monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f6b34fcae10>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc8e1cb3650>
 
-    def test_entity_existence_does_not_imply_project_link(monkeypatch):
+    def test_unrelated_name_hit_is_not_accepted(monkeypatch):
         hit = mod.ext.SearchHit(
-            url="https://mwaliregistrar.info/list_of_entities.html",
-            title="Mwali International Services Authority",
-            snippet="Delta West Credit Bank Ltd. License No. B20110086 Status Active",
-            query='"Delta West Credit Bank Ltd"',
+            url="https://example.com/unrelated",
+            title="Other company",
+            snippet="A different business is registered here.",
+            query='"Open Delta DAO LLC"',
             provider="test",
         )
     
-        def fake_search(query, limit=8):
-            if query == '"Delta West Credit Bank Ltd"':
-                return [hit], [{"query": query, "provider": "test", "results": 1}]
-            return [], [{"query": query, "provider": "test", "results": 0}]
-    
-        def fake_read(url):
-            if "banque-comores.km" in url:
-                return {
-                    "ok": True,
-                    "url": url,
-                    "title": "Banque Centrale des Comores",
-                    "text": "Mwali International Services Authority is identified in an offshore banking warning.",
-                    "published_at": "2023-05-22",
-                }
-            if "mwaliregistrar.info" in url:
-                return {
-                    "ok": True,
-                    "url": url,
-                    "title": "Mwali International Services Authority",
-                    "text": "Delta West Credit Bank Ltd. License No. B20110086 Status Active",
-                    "published_at": "",
-                }
-            return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
-    
-        monkeypatch.setattr(mod.ext, "web_search", fake_search)
-        monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
+        monkeypatch.setattr(
+            mod.ext,
+            "web_search",
+            lambda query, limit=8: ([hit], [{"query": query, "provider": "test", "results": 1}]),
+        )
+        monkeypatch.setattr(
+            mod.ext,
+            "read_public_page",
+            lambda url: {"ok": True, "url": url, "title": "Other company", "text": "No Open Delta DAO LLC reference.", "published_at": ""},
+        )
+        monkeypatch.setattr(mod, "DIRECT_REGISTRY_PROBES", ())
         out = mod.enrich(base_result())["operator_registry_research"]
-        profile = next(p for p in out["profiles"] if p["entity"] == "Delta West Credit Bank Ltd")
-    
->       assert profile["existence_status"] == "registry_or_authority_trace"
-E       AssertionError: assert 'official_or_...y_trace_found' == 'registry_or_authority_trace'
-E         
-E         - registry_or_authority_trace
-E         + official_or_registry_trace_found
+        profile = next(p for p in out["profiles"] if p["entity"] == "Open Delta DAO LLC")
+>       assert not profile["all_records"]
+E       AssertionError: assert not [{'entity': 'Open Delta DAO LLC', 'source_role': 'entity_owned', 'source_url': 'https://opendelta.com/terms-of-use', '... DAO LLC', 'source_role': 'independent', 'source_url': 'https://example.com/unrelated', 'title': 'Other company', ...}]
 
-research-engine/tests/test_operator_registry_research.py:226: AssertionError
+research-engine/tests/test_operator_registry_research.py:245: AssertionError
 =========================== short test summary info ============================
-FAILED research-engine/tests/test_operator_registry_research.py::test_entity_existence_does_not_imply_project_link - AssertionError: assert 'official_or_...y_trace_found' == 'registry_or_authority_trace'
-  
-  - registry_or_authority_trace
-  + official_or_registry_trace_found
-1 failed, 164 passed in 0.89s
+FAILED research-engine/tests/test_operator_registry_research.py::test_unrelated_name_hit_is_not_accepted - AssertionError: assert not [{'entity': 'Open Delta DAO LLC', 'source_role': 'entity_owned', 'source_url': 'https://opendelta.com/terms-of-use', '... DAO LLC', 'source_role': 'independent', 'source_url': 'https://example.com/unrelated', 'title': 'Other company', ...}]
+1 failed, 164 passed in 0.85s
