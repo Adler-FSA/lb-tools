@@ -8,6 +8,27 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
+CONTROL_ROLE_PHRASES = (
+    "board member", "board director", "chairman", "chairwoman", "chairperson", "chair",
+    "founder", "co-founder", "cofounder", "chief executive officer", "ceo",
+    "managing director", "president", "owner", "co-owner", "shareholder",
+    "beneficial owner", "ubo", "general partner", "managing partner",
+)
+
+
+def _control_relevant(profile: dict) -> bool:
+    if profile.get("ubo_verified") is True:
+        return True
+    ownership = str(profile.get("ownership_status") or "").strip().lower()
+    if ownership and ownership not in {"unknown", "not_shown", "not_verified", "not_assessed"}:
+        return True
+    for raw in profile.get("roles") or []:
+        role = str(raw or "").strip().lower()
+        if role == "director" or any(phrase in role for phrase in CONTROL_ROLE_PHRASES):
+            return True
+    return False
+
+
 def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: int = 0) -> dict:
     ctx = data.get("context") or {}
     analysis = data.get("analysis") or {}
@@ -48,8 +69,10 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
             "claimed_roles": p.get("claimed_roles") or [],
         })
 
+    all_people = list(people.get("profiles") or [])
+    control_people = [p for p in all_people if _control_relevant(p)]
     person_profiles = []
-    for p in list(people.get("profiles") or [])[:16]:
+    for p in control_people[:16]:
         person_profiles.append({
             "person_name": p.get("person_name"),
             "entity": p.get("entity"),
@@ -80,6 +103,11 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
     anchor_type = quick.get("anchor_type") or ctx.get("anchor_type") or input_basis.get("anchor_type") or request.get("anchor_type")
     anchor_strength = quick.get("anchor_strength") or ctx.get("anchor_strength") or input_basis.get("anchor_strength") or request.get("anchor_strength")
     original_anchor = quick.get("original_evidence_anchor") or ctx.get("original_evidence_anchor") or input_basis.get("original_evidence_anchor") or query
+
+    people_summary = dict(people.get("summary") or {})
+    people_summary["all_profile_count"] = len(all_people)
+    people_summary["control_relevant_profile_count"] = len(control_people)
+    people_summary["omitted_non_control_team_profile_count"] = max(0, len(all_people) - len(control_people))
 
     return {
         "schema": "academy-research-control-center-v1",
@@ -140,6 +168,7 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
             "trace_count": len(external.get("traces") or []),
             "review_candidate_count": len(external.get("review_candidates") or []),
             "project_owned_echo_count": len(external.get("project_owned_echoes") or []),
+            "identity_guardrail": external.get("identity_guardrail") or {},
             "traces": traces,
         },
         "operator_research": {
@@ -150,8 +179,9 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
         },
         "people_research": {
             "status": people.get("status"),
-            "summary": people.get("summary") or {},
+            "summary": people_summary,
             "profiles": person_profiles,
+            "visible_scope": "control_and_ownership_relevant_only",
             "universal_routing": people.get("universal_routing") or {},
         },
         "academy_analysis": {
