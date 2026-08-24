@@ -224,7 +224,13 @@ def source_role(url: str, entity: str, title: str, text: str) -> tuple[str, str]
 
 def exact_entity_present(entity: str, title: str, snippet: str, text: str) -> bool:
     hay = clean(" ".join([title, snippet, text[:20000]])).lower()
-    return bool(entity and clean(entity).lower() in hay)
+    needle = clean(entity).lower()
+    if not needle or needle not in hay:
+        return False
+    # Ein ausdrückliches Dementi wie "No Example Ltd reference" ist kein
+    # positiver Rechtsträgerfund. Dieselbe Negationslogik wird bereits bei der
+    # externen Projektidentität verwendet.
+    return not ext._negated_identity_reference(hay, needle)
 
 
 def project_connection(project_name: str, project_domain: str, title: str, snippet: str, text: str) -> tuple[str, str]:
