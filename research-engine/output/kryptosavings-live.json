@@ -31,6 +31,12 @@
         "text_chars": 4570
       },
       {
+        "url": "https://www.kryptosavings.com/strategy",
+        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
+        "fetch_mode": "reader-fallback",
+        "text_chars": 2744
+      },
+      {
         "url": "https://www.kryptosavings.com/welcome-bonus",
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
@@ -59,18 +65,6 @@
         "title": "KryptoSavings — Earn up to 23% APY on Crypto",
         "fetch_mode": "reader-fallback",
         "text_chars": 2523
-      },
-      {
-        "url": "https://www.kryptosavings.com/register",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 208
-      },
-      {
-        "url": "https://www.kryptosavings.com/login",
-        "title": "KryptoSavings — Earn up to 23% APY on Crypto",
-        "fetch_mode": "reader-fallback",
-        "text_chars": 188
       }
     ],
     "max_percentage": 23.0,
@@ -82,7 +76,7 @@
       "defi": true,
       "trading": true,
       "leverage": true,
-      "lending": false,
+      "lending": true,
       "lockup": true,
       "withdrawal": true,
       "kyc": true,
@@ -429,6 +423,13 @@
       {
         "type": "yield_percentage",
         "value": "23%",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of directional bet",
+        "confidence": "high"
+      },
+      {
+        "type": "yield_percentage",
+        "value": "23%",
         "source_url": "https://www.kryptosavings.com/welcome-bonus",
         "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at least 365 days a",
         "confidence": "high"
@@ -532,27 +533,6 @@
         "confidence": "high"
       },
       {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Con",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/register",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Create account Start earning up to 23% APY on your crypto Email Password Confirm password Already have an account? [Log in](https://",
-        "confidence": "high"
-      },
-      {
-        "type": "yield_percentage",
-        "value": "23%",
-        "source_url": "https://www.kryptosavings.com/login",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto ## Welcome back Log in to your KryptoSavings account Email Password Don't have",
-        "confidence": "high"
-      },
-      {
         "type": "staking",
         "value": "staking",
         "source_url": "https://www.kryptosavings.com/",
@@ -576,8 +556,8 @@
       {
         "type": "yield_or_interest",
         "value": "Earn",
-        "source_url": "https://www.kryptosavings.com/welcome-bonus",
-        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Welcome offer active Place from $100 in Earn with a term of at le",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of d",
         "confidence": "medium"
       },
       {
@@ -585,6 +565,13 @@
         "value": "DeFi",
         "source_url": "https://www.kryptosavings.com/",
         "evidence": "onal custody. Custody outside the EU legal system Deposit BTC, ETH, USDT or USDC and earn DeFi-powered yields backed by institutional-grade staking and trading strategies. With ins",
+        "confidence": "medium"
+      },
+      {
+        "type": "defi",
+        "value": "DeFi",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "with hedged leverage Schematic illustration of the leverage effect — not real values. ## DeFi protocols used ### Ethena Delta-neutral base yield ### Morpho Isolated lending markets",
         "confidence": "medium"
       },
       {
@@ -597,15 +584,15 @@
       {
         "type": "trading",
         "value": "trading",
-        "source_url": "https://www.kryptosavings.com/terms-of-service",
-        "evidence": "## 9. Yield Generation Returns on your deposits are generated through institutional-grade trading strategies executed on our behalf, including but not limited to: * Algorithmic gri",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "KryptoSavings — Earn up to 23% APY on Crypto Our trading strategy Market-neutral yield generation instead of directional bets Conventional crypto",
         "confidence": "medium"
       },
       {
         "type": "trading",
-        "value": "Trading",
-        "source_url": "https://www.kryptosavings.com/risk-disclaimer",
-        "evidence": "* Guaranteed to be returned in full You may lose funds due to: * Market price declines * Trading losses (yields are generated through trading strategies that carry inherent risk) *",
+        "value": "trading",
+        "source_url": "https://www.kryptosavings.com/terms-of-service",
+        "evidence": "## 9. Yield Generation Returns on your deposits are generated through institutional-grade trading strategies executed on our behalf, including but not limited to: * Algorithmic gri",
         "confidence": "medium"
       },
       {
@@ -618,8 +605,22 @@
       {
         "type": "leverage",
         "value": "leverage",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "strategies, we collect ongoing premiums with clearly limited risk. ## Intelligent, hedged leverage Market-neutral spreads only produce institutionally relevant returns when the cap",
+        "confidence": "medium"
+      },
+      {
+        "type": "leverage",
+        "value": "leverage",
         "source_url": "https://www.kryptosavings.com/terms-of-service",
         "evidence": "strategy, as described on our strategy page. This strategy involves active deployment and leverage; it is not a custodial deposit held in reserve. ## 10. Platform Risks By using ou",
+        "confidence": "medium"
+      },
+      {
+        "type": "lending",
+        "value": "lending",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "ere most trading volume occurs — for an outsized share of the trading fees. ### Recursive lending yield Across isolated, institutional lending markets, capital is deployed repeated",
         "confidence": "medium"
       },
       {
@@ -701,9 +702,9 @@
       },
       {
         "type": "custody",
-        "value": "Institutional custody",
-        "source_url": "https://www.kryptosavings.com/welcome-bonus",
-        "evidence": "capital plus the full interest is paid out at maturity — never less than you put in. ### Institutional custody Earn funds held under institutional-grade custody with qualified cust",
+        "value": "custody",
+        "source_url": "https://www.kryptosavings.com/strategy",
+        "evidence": "r ## Institutional partners & infrastructure Qualified institutional custodians Qualified custody & prime brokerage Cumberland (DRW) · Wintermute Institutional OTC liquidity & mark",
         "confidence": "medium"
       },
       {
