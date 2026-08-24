@@ -1,0 +1,14 @@
+{
+  "schema": "academy-research-request-v1",
+  "request_id": "fbi-deep-contract-v2-20260824-1050",
+  "query": "https://app.wefi.co/register?ref=d14o0mtv7g",
+  "mode": "deep",
+  "created_at": "2026-08-24T10:50:00Z",
+  "source": "research-engine-deep-contract-verification-v2",
+  "input_basis_hint": {
+    "type": "referral_or_registration_link",
+    "strength": "very_high",
+    "label": "Sehr starker Beweisanker",
+    "text": "Produktiver Gegencheck für konsistente FBI/Deep-Modultiefe und Deep-Budgets im Control Center."
+  }
+}
