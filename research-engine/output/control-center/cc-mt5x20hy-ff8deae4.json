@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-24T10:09:26.273764+00:00",
+  "generated_at": "2026-08-24T10:10:58.049687+00:00",
   "engine_exit_code": 1,
   "status": "engine_output_missing",
   "product": null,
@@ -58,6 +58,7 @@
     "trace_count": 0,
     "review_candidate_count": 0,
     "project_owned_echo_count": 0,
+    "identity_guardrail": {},
     "traces": []
   },
   "operator_research": {
@@ -68,8 +69,13 @@
   },
   "people_research": {
     "status": null,
-    "summary": {},
+    "summary": {
+      "all_profile_count": 0,
+      "control_relevant_profile_count": 0,
+      "omitted_non_control_team_profile_count": 0
+    },
     "profiles": [],
+    "visible_scope": "control_and_ownership_relevant_only",
     "universal_routing": {}
   },
   "academy_analysis": {

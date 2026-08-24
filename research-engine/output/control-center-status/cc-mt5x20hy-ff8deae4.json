@@ -4,8 +4,8 @@
   "state": "completed",
   "mode": "deep",
   "engine_exit_code": 1,
-  "started_at": "2026-08-24T10:08:20.774716+00:00",
-  "completed_at": "2026-08-24T10:09:26.278253+00:00",
+  "started_at": "2026-08-24T10:10:08.697562+00:00",
+  "completed_at": "2026-08-24T10:10:58.053693+00:00",
   "result_path": "research-engine/output/control-center/cc-mt5x20hy-ff8deae4.json",
   "technical_error": {
     "engine_exit_code": 1,
