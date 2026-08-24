@@ -57,18 +57,21 @@ def classify_excerpt(entity: str, text: str) -> str:
     if not t:
         return "role_unclear"
 
+    # Spezifische Rollen müssen VOR dem generischen "operated by" geprüft werden.
+    # Sonst würde z. B. "custody infrastructure operated by Fireblocks" fälschlich
+    # den Infrastrukturanbieter zum Betreiber des gesamten Projekts machen.
     if re.search(rf"(?:trading|trade)\s+name\s+of\s+{e}\b", t, re.I) or re.search(rf"\b{e}\b.{0,80}(?:legal\s+entity|trading\s+name)", t, re.I):
         return "brand_legal_entity"
-    if re.search(rf"(?:operated|owned|managed)\s+by\s+{e}\b", t, re.I) or re.search(rf"\boperator\b.{0,80}\b{e}\b", t, re.I):
-        return "operator_claim"
     if re.search(rf"(?:payment|payments|transaction|transactions).{{0,140}}(?:facilitated|processed|provided|handled)\s+by\s+{e}\b", t, re.I):
         return "payment_facilitator"
     if re.search(rf"\b{e}\b.{{0,140}}(?:payment|payments|payment\s+services|payment\s+processor)", t, re.I):
         return "payment_facilitator"
-    if re.search(rf"(?:custody|custodian|custodial|private\s+keys?|wallet\s+infrastructure).{{0,160}}\b{e}\b", t, re.I) or re.search(rf"\b{e}\b.{{0,160}}(?:custody|custodian|custodial|private\s+keys?)", t, re.I):
+    if re.search(rf"(?:custody|custodian|custodial|private\s+keys?|wallet\s+infrastructure).{{0,180}}(?:operated|provided|supported|powered)?\s*(?:by\s+)?\b{e}\b", t, re.I) or re.search(rf"\b{e}\b.{{0,180}}(?:custody|custodian|custodial|private\s+keys?|wallet\s+infrastructure)", t, re.I):
         return "custody_or_wallet_provider"
-    if re.search(rf"(?:powered|technology|infrastructure|security).{{0,140}}(?:by\s+)?\b{e}\b", t, re.I) or re.search(rf"\b{e}\b.{{0,140}}(?:technology|infrastructure|security\s+provider)", t, re.I):
+    if re.search(rf"(?:technology|infrastructure|security|mpc).{{0,180}}(?:operated|provided|supported|powered)?\s*(?:by\s+)?\b{e}\b", t, re.I) or re.search(rf"\b{e}\b.{{0,180}}(?:technology|infrastructure|security\s+provider|mpc)", t, re.I):
         return "technology_or_infrastructure_provider"
+    if re.search(rf"(?:operated|owned|managed)\s+by\s+{e}\b", t, re.I) or re.search(rf"\boperator\b.{0,80}\b{e}\b", t, re.I):
+        return "operator_claim"
     return "role_unclear"
 
 
@@ -109,4 +112,5 @@ def attach(data: dict) -> dict:
         profile["role_status"] = rel.get("role_status") or "role_unclear"
     block.setdefault("guardrails", {})["project_role_claims_are_independent_evidence"] = False
     block["guardrails"]["entity_role_does_not_imply_ownership_or_ubo"] = True
+    block["guardrails"]["specific_service_role_precedes_generic_operator_wording"] = True
     return data
