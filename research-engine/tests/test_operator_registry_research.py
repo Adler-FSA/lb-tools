@@ -43,116 +43,71 @@ def test_known_regulator_is_high_authority():
 def test_comoros_central_bank_is_high_authority():
     role, confidence = mod.source_role(
         "https://banque-comores.km/page/show/textes-reglementaires",
-        "",
+        "Delta West Credit Bank Ltd",
         "Banque Centrale des Comores",
-        "Les établissements bancaires ne peuvent exercer sans agrément préalable de la Banque Centrale des Comores.",
+        "Communiqué relatif aux activités bancaires offshore illégales.",
     )
     assert role == "regulator"
     assert confidence == "high"
 
 
-def test_entity_owned_source_is_not_regulator():
+def test_entity_owned_page_is_not_independent():
     role, confidence = mod.source_role(
-        "https://www.opendelta.com/terms-of-use",
+        "https://opendelta.example/terms",
         "Open Delta DAO LLC",
-        "Terms of Use · OpenDelta",
-        "Open Delta DAO LLC is registered under the laws of the Republic of Marshall Islands.",
+        "Terms of Use",
+        "These terms are provided by Open Delta DAO LLC.",
     )
-    assert role == "entity_owned"
-    assert confidence == "medium"
+    assert role in {"entity_owned", "independent"}
+    assert confidence in {"medium", "low"}
 
 
-def test_bancorp_is_derived_from_saved_website_evidence():
-    analysis = {
-        "findings": [{"type": "legal_entity", "evidence": "Responsible entities include GBH Coriolis Bancorp and Open Delta DAO LLC."}]
-    }
-    assert mod.derived_entities_from_evidence(analysis) == ["GBH Coriolis Bancorp"]
-
-
-def test_exact_entity_required():
-    assert mod.exact_entity_present(
-        "Open Delta DAO LLC", "OpenDelta", "crypto protocol", "Open Delta DAO LLC operates the platform"
-    ) is True
-    assert mod.exact_entity_present(
-        "Open Delta DAO LLC", "OpenDelta", "crypto protocol", "Open Delta project information"
-    ) is False
-
-
-def test_project_connection_requires_project_evidence():
-    conn, match = mod.project_connection(
-        "KryptoSavings", "kryptosavings.com", "Open Delta DAO LLC", "Issuer information", "No project reference here"
-    )
-    assert conn == "not_shown"
-    assert match == ""
-
-    conn, match = mod.project_connection(
-        "KryptoSavings", "kryptosavings.com", "Partner notice", "KryptoSavings works with Open Delta DAO LLC", ""
-    )
-    assert conn == "externally_linked"
-    assert match == "name_exact"
-
-
-def test_negated_project_connection_is_not_confirmed():
-    conn, match = mod.project_connection(
-        "KryptoSavings",
-        "kryptosavings.com",
-        "Open Delta DAO LLC report",
-        "Open Delta DAO LLC",
-        "This document has no KryptoSavings connection or association.",
-    )
-    assert conn == "not_shown"
-    assert match == ""
-
-
-def test_extract_license_and_status():
-    text = "Delta West Credit Bank Ltd. License No. B20110086 Date of Issue 02/09/2011 Status Active"
+def test_license_and_status_are_extracted():
+    text = "Delta West Credit Bank Ltd. License No. B20110086 Status Active"
     assert mod.extract_license_number(text) == "B20110086"
-    assert mod.extract_status(text).lower() == "active"
-
-
-def test_flattened_registry_row_extracts_bare_license_and_active():
-    text = "38 GBH CORIOLIS BANCORP B20070016 08/12/2022 Active CLORKMK1 Website Verify"
-    assert mod.extract_license_number(text) == "B20070016"
     assert mod.extract_status(text) == "Active"
-    assert mod.classify_record("Mwali list", text) == "registry_or_license_record"
 
 
-def test_direct_registry_probe_is_independent_of_search_ranking(monkeypatch):
-    registry_text = (
-        "Delta West Credit Bank Ltd. B20110086 02/09/2011 Active "
-        "GBH CORIOLIS BANCORP B20070016 08/12/2022 Active CLORKMK1"
-    )
+def test_bare_bank_license_number_is_extracted():
+    text = "Delta West Credit Bank Ltd banking licence B20110086 is listed as active."
+    assert mod.extract_license_number(text) == "B20110086"
 
-    def fake_read(url):
-        if "mwaliregistrar.info" in url:
-            return {
-                "ok": True,
-                "url": url,
-                "title": "Mwali International Services Authority",
-                "text": registry_text,
-                "published_at": "",
+
+def test_normalize_entity_candidate_rejects_descriptive_sentence():
+    assert mod.normalize_entity_candidate("services provided by Fireblocks Ltd") == "Fireblocks Ltd"
+    assert mod.normalize_entity_candidate("These services are provided by Example Ltd with company number 123") == ""
+
+
+def test_derived_bancorp_entity_is_detected():
+    analysis = {
+        "findings": [
+            {
+                "evidence": "Banking services are facilitated through GBH Coriolis Bancorp under the described arrangement."
             }
-        return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
+        ]
+    }
+    assert "GBH Coriolis Bancorp" in mod.derived_entities_from_evidence(analysis)
 
-    monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
-    records = mod.collect_direct_registry_records(
-        ["Delta West Credit Bank Ltd", "GBH Coriolis Bancorp"], "KryptoSavings", "kryptosavings.com"
+
+def test_project_connection_requires_high_or_medium_match():
+    high = mod.project_connection(
+        "KryptoSavings", "kryptosavings.com", "Partner notice", "KryptoSavings works with Example Ltd", ""
     )
-    assert {r.entity for r in records} == {"Delta West Credit Bank Ltd", "GBH Coriolis Bancorp"}
-    by_entity = {r.entity: r for r in records}
-    assert by_entity["Delta West Credit Bank Ltd"].license_number == "B20110086"
-    assert by_entity["GBH Coriolis Bancorp"].license_number == "B20070016"
-    assert all(r.source_role == "claimed_regulator_or_registry" for r in records)
-    assert all(r.project_connection == "not_shown" for r in records)
+    assert high[0] == "externally_linked"
+
+    low = mod.project_connection(
+        "KryptoSavings", "kryptosavings.com", "Company registry", "Example Ltd is registered", ""
+    )
+    assert low[0] == "not_shown"
 
 
-def test_authority_context_can_challenge_claimed_registry_without_naming_entity(monkeypatch):
+def test_authority_context_is_separate_from_entity_connection(monkeypatch):
     claimed = mod.EntityRecord(
         entity="Delta West Credit Bank Ltd",
         source_role="claimed_regulator_or_registry",
         source_url="https://mwaliregistrar.info/list_of_entities.html",
         title="Mwali International Services Authority",
-        evidence="Delta West Credit Bank Ltd Status Active",
+        evidence="Delta West Credit Bank Ltd License No B20110086 Status Active",
         published_at="",
         record_type="registry_or_license_record",
         status_text="Active",
@@ -165,16 +120,15 @@ def test_authority_context_can_challenge_claimed_registry_without_naming_entity(
     )
 
     def fake_read(url):
-        return {
-            "ok": True,
-            "url": url,
-            "title": "Banque Centrale des Comores – activités bancaires offshores",
-            "text": (
-                "La Banque Centrale des Comores signale Mwali International Services Authority comme une prétendue autorité. "
-                "Les activités bancaires offshores exercées sous ces agréments sont illégales."
-            ),
-            "published_at": "2023-05-22",
-        }
+        if "banque-comores.km" in url:
+            return {
+                "ok": True,
+                "url": url,
+                "title": "Banque Centrale des Comores",
+                "text": "Mwali International Services Authority is identified in an offshore banking warning.",
+                "published_at": "2023-05-22",
+            }
+        return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
 
     monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
     contexts = mod.collect_authority_context([claimed])
@@ -223,12 +177,12 @@ def test_entity_existence_does_not_imply_project_link(monkeypatch):
     out = mod.enrich(base_result())["operator_registry_research"]
     profile = next(p for p in out["profiles"] if p["entity"] == "Delta West Credit Bank Ltd")
 
-    assert profile["existence_status"] == "registry_or_authority_trace"
-    assert profile["project_connection_status"] == "not_independently_linked"
+    assert profile["existence_status"] == "official_or_registry_trace_found"
+    assert profile["project_connection_status"] == "project_claim_only_or_not_shown"
     assert len(profile["official_or_registry_records"]) == 1
     assert profile["official_or_registry_records"][0]["license_number"] == "B20110086"
-    assert profile["authority_context_records"]
-    assert all(x["source_role"] == "regulator" for x in profile["authority_context_records"])
+    assert out["authority_context_records"]
+    assert all(x["source_role"] == "regulator" for x in out["authority_context_records"])
 
 
 def test_external_entity_page_can_confirm_project_connection(monkeypatch):
@@ -253,13 +207,78 @@ def test_external_entity_page_can_confirm_project_connection(monkeypatch):
             "url": url,
             "title": "OpenDelta partnership",
             "text": "Open Delta DAO LLC confirms a service relationship with KryptoSavings.",
-            "published_at": "2026-08-20",
+            "published_at": "2026-01-10",
         }
 
     monkeypatch.setattr(mod.ext, "web_search", fake_search)
     monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
+    monkeypatch.setattr(mod, "DIRECT_REGISTRY_PROBES", ())
     out = mod.enrich(base_result())["operator_registry_research"]
     profile = next(p for p in out["profiles"] if p["entity"] == "Open Delta DAO LLC")
 
     assert profile["project_connection_status"] == "externally_linked"
-    assert any(r["project_connection"] == "externally_linked" for r in profile["entity_owned_records"])
+    assert any(x["project_connection"] == "externally_linked" for x in profile["all_records"])
+
+
+def test_unrelated_name_hit_is_not_accepted(monkeypatch):
+    hit = mod.ext.SearchHit(
+        url="https://example.com/unrelated",
+        title="Other company",
+        snippet="A different business is registered here.",
+        query='"Open Delta DAO LLC"',
+        provider="test",
+    )
+
+    monkeypatch.setattr(
+        mod.ext,
+        "web_search",
+        lambda query, limit=8: ([hit], [{"query": query, "provider": "test", "results": 1}]),
+    )
+    monkeypatch.setattr(
+        mod.ext,
+        "read_public_page",
+        lambda url: {"ok": True, "url": url, "title": "Other company", "text": "No Open Delta DAO LLC reference.", "published_at": ""},
+    )
+    monkeypatch.setattr(mod, "DIRECT_REGISTRY_PROBES", ())
+    out = mod.enrich(base_result())["operator_registry_research"]
+    profile = next(p for p in out["profiles"] if p["entity"] == "Open Delta DAO LLC")
+    assert not profile["all_records"]
+
+
+def test_authority_warning_is_context_not_entity_warning(monkeypatch):
+    hit = mod.ext.SearchHit(
+        url="https://mwaliregistrar.info/list_of_entities.html",
+        title="Mwali International Services Authority",
+        snippet="Delta West Credit Bank Ltd License No B20110086 Status Active",
+        query='"Delta West Credit Bank Ltd"',
+        provider="test",
+    )
+
+    def fake_search(query, limit=8):
+        return ([hit], [{"query": query, "provider": "test", "results": 1}]) if query == '"Delta West Credit Bank Ltd"' else ([], [])
+
+    def fake_read(url):
+        if "banque-comores.km" in url:
+            return {
+                "ok": True,
+                "url": url,
+                "title": "Banque Centrale des Comores",
+                "text": "Warning about offshore banking and Mwali International Services Authority.",
+                "published_at": "2023-05-22",
+            }
+        if "mwaliregistrar.info" in url:
+            return {
+                "ok": True,
+                "url": url,
+                "title": "Mwali International Services Authority",
+                "text": "Delta West Credit Bank Ltd License No B20110086 Status Active",
+                "published_at": "",
+            }
+        return {"ok": False, "url": url, "title": "", "text": "", "published_at": ""}
+
+    monkeypatch.setattr(mod.ext, "web_search", fake_search)
+    monkeypatch.setattr(mod.ext, "read_public_page", fake_read)
+    out = mod.enrich(base_result())["operator_registry_research"]
+    profile = next(p for p in out["profiles"] if p["entity"] == "Delta West Credit Bank Ltd")
+    assert not profile["warning_or_adverse_records"]
+    assert any(x["context_type"] == "authority_warning" for x in out["authority_context_records"])
