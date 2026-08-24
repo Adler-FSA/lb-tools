@@ -193,12 +193,13 @@ def capabilities(core_result: dict | None, request: ResearchRequest) -> list[str
 def module_plan(request: ResearchRequest, core_result: dict | None = None) -> list[ModuleDecision]:
     caps = set(capabilities(core_result, request))
     core_ok = (core_result or {}).get("status") == "ok"
+    active_depth = request.mode
 
     if request.route == "blockchain_identity":
         return [
-            ModuleDecision("blockchain_identity", True, "Chain-Adresse erkannt; zuerst Asset/Projekt identifizieren.", "quick"),
-            ModuleDecision("website_research", False, "Ohne aufgelöste Projektidentität keine Domain raten.", "quick"),
-            ModuleDecision("external_research", False, "Startet erst nach Identitätsauflösung.", "quick"),
+            ModuleDecision("blockchain_identity", True, "Chain-Adresse erkannt; zuerst Asset/Projekt identifizieren.", active_depth),
+            ModuleDecision("website_research", False, "Ohne aufgelöste Projektidentität keine Domain raten.", active_depth),
+            ModuleDecision("external_research", False, "Startet erst nach Identitätsauflösung.", active_depth),
             ModuleDecision("project_analysis_16", False, "Erst nach Identitätsauflösung und Belegsammlung.", "deep"),
         ]
 
@@ -212,17 +213,17 @@ def module_plan(request: ResearchRequest, core_result: dict | None = None) -> li
         website_reason = "Konkrete Domain/URL: direkte technische Ausgangsspur für die Projektprüfung."
 
     decisions = [
-        ModuleDecision("website_research", True, website_reason, "quick"),
+        ModuleDecision("website_research", True, website_reason, active_depth),
     ]
     if not core_result:
-        decisions.append(ModuleDecision("external_research", False, "Wird nach bestätigter Projektidentität geplant.", "quick"))
+        decisions.append(ModuleDecision("external_research", False, "Wird nach bestätigter Projektidentität geplant.", active_depth))
         return decisions
 
     decisions.append(ModuleDecision(
         "external_research",
         core_ok,
         "Bestätigte Projektidentität vorhanden." if core_ok else "Keine bestätigte Projektwebsite.",
-        "quick",
+        active_depth,
     ))
 
     operator_needed = core_ok and "legal_entity" in caps
