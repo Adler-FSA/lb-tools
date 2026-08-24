@@ -28,6 +28,7 @@ academy = load_module("universal_runtime_academy", "universal_academy_analysis.p
 sixteen = load_module("universal_runtime_sixteen", "universal_sixteen_analysis.py")
 quality = load_module("universal_runtime_quality", "research_quality.py")
 entity_roles = load_module("universal_runtime_entity_roles", "entity_role_analysis.py")
+external_guard = load_module("universal_runtime_external_guard", "universal_external_research.py")
 
 # Universal erweiterte Rechtsformen. Keine projektbezogenen Namen.
 CORE_LEGAL_FORMS = re.compile(
@@ -49,6 +50,14 @@ if hasattr(pipeline.operator, "base"):
     pipeline.operator.base.LEGAL_SUFFIX_RE = LEGAL_SUFFIX
 if hasattr(pipeline.people, "pipeline") and hasattr(pipeline.people.pipeline, "base"):
     pipeline.people.pipeline.base.LEGAL_SUFFIX_RE = LEGAL_SUFFIX
+
+# Externe Spuren laufen in Quick und Deep durch denselben Identitäts-Guard.
+# Kurze Namen wie "WeFi" dürfen nicht allein durch Namensgleichheit als
+# unabhängige Bestätigung gelten.
+pipeline.external = external_guard
+pipeline.quick_external.ext = external_guard
+if hasattr(pipeline.operator, "base") and hasattr(pipeline.operator.base, "ext"):
+    pipeline.operator.base.ext.match_confidence = external_guard.match_confidence
 
 # Nur die Deep-Ausgabeschichten werden ersetzt. Routing, Identifikation und
 # Register-/Personenmodule bleiben dieselben.
@@ -135,6 +144,8 @@ def run(query: str, mode: str = "quick") -> dict:
         pipeline.quick_external.QUICK_MAX_FETCHED_PAGES = 8
         pipeline.quick_external.ext.TIMEOUT = 12
         pipeline.quick_external.ext.MAX_RESULTS_PER_QUERY = 6
+        pipeline.external.TIMEOUT = 12
+        pipeline.external.MAX_RESULTS_PER_QUERY = 6
 
     result = _base_run(query, mode)
     # Nachgelagerte Module können weitere Funde ergänzen; deshalb final erneut bereinigen.
