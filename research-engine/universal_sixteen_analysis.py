@@ -166,6 +166,30 @@ def _rewrite_q6(q: dict, project: str) -> None:
         )
 
 
+def _refresh_q16(questions: list[dict]) -> None:
+    q16 = next((q for q in questions if q.get("id") == 16), None)
+    if not q16:
+        return
+    first15 = [q for q in questions if isinstance(q.get("id"), int) and 1 <= q.get("id") <= 15]
+    blocker_states = {"clarification_needed", "conflict_found", "research_gap"}
+    blockers = [q for q in first15 if q.get("state") in blocker_states]
+
+    q16["state"] = "overall_not_ready"
+    q16["finding"] = (
+        "Eine belastbare Akademie-Gesamtampel wird noch nicht erzeugt. "
+        f"{len(blockers)} der ersten 15 Prüfpunkte enthalten wesentliche Forschungslücken, Klärungsbedarf oder Quellenkonflikte."
+    )
+    q16["gaps"] = [
+        f"Punkt {q.get('id')}: {q.get('title')} — {q.get('state')}"
+        for q in blockers[:12]
+    ]
+    q16["next_research"] = ["Offene Kernmodule schließen; erst danach Ampellogik anwenden."]
+    q16["evidence"] = []
+    q16["counter_evidence"] = []
+    q16["traffic_light_ready"] = False
+    q16["traffic_light"] = None
+
+
 def enrich(data: dict) -> dict:
     result = base.enrich(data)
     project = project_label(result)
@@ -180,13 +204,22 @@ def enrich(data: dict) -> dict:
         elif q.get("id") == 6:
             _rewrite_q6(q, project)
 
+    _refresh_q16(questions)
+
     counts: dict[str, int] = {}
     for q in questions:
         state = q.get("state") or "unknown"
         counts[state] = counts.get(state, 0) + 1
-    block.setdefault("summary", {})["counts_by_state"] = counts
+    summary = block.setdefault("summary", {})
+    summary["counts_by_state"] = counts
+    summary["question_count"] = len(questions)
+    summary["questions_1_to_15"] = len([q for q in questions if isinstance(q.get("id"), int) and 1 <= q.get("id") <= 15])
+    summary["traffic_light_ready_count"] = sum(1 for q in questions if q.get("traffic_light_ready"))
+    summary["overall_assessment_ready"] = bool(next((q.get("traffic_light_ready") for q in questions if q.get("id") == 16), False))
+
     block.setdefault("guardrails", {})["dynamic_project_label_used"] = True
     block["guardrails"]["project_name_hardcoded_in_universal_output"] = False
     block["guardrails"]["identifier_name_conflict_is_not_fraud_verdict"] = True
+    block["guardrails"]["q16_refreshed_after_universal_rewrites"] = True
     result["sixteen_point_analysis"] = block
     return result
