@@ -100,43 +100,45 @@ def _rewrite_q5(q: dict, data: dict, project: str) -> None:
     if not profiles:
         return
 
-    project_linked = [p for p in profiles if p.get("project_connection_status") == "externally_linked"]
-    project_claimed = [p for p in profiles if p.get("project_connection_status") == "project_claim_only"]
-    verified_ubos = [p for p in profiles if p.get("ubo_verified") is True]
-    names = ", ".join(_profile_text(p) for p in profiles[:8])
+    relevant = [p for p in profiles if base._control_relevant(p)]
+    project_linked = [p for p in relevant if p.get("project_connection_status") == "externally_linked"]
+    project_claimed = [p for p in relevant if p.get("project_connection_status") == "project_claim_only"]
+    verified_ubos = [p for p in relevant if p.get("ubo_verified") is True]
+    names = ", ".join(_profile_text(p) for p in relevant[:8])
 
     if project_linked and verified_ubos:
         q["state"] = "partially_answered"
         finding = (
-            f"Strukturierte Personen- und Eigentümerspuren zu {project} liegen vor. Mindestens eine Person ist extern "
-            "mit dem Projekt verknuepft und mindestens ein UBO-Nachweis ist vorhanden. Historie, Qualifikation, "
-            "fruehere Projekte und die vollstaendige Kontrollstruktur bleiben dennoch weiter zu pruefen."
+            f"Kontrollrelevante Personen- und Eigentümerspuren zu {project} liegen vor. Mindestens eine kontrollrelevante "
+            "Person ist extern mit dem Projekt verknuepft und mindestens ein UBO-Nachweis ist vorhanden. Historie, "
+            "Qualifikation, fruehere Projekte und die vollstaendige Kontrollstruktur bleiben dennoch weiter zu pruefen."
         )
     elif project_linked:
         q["state"] = "clarification_needed"
         finding = (
-            f"Strukturierte Personen-/Managementspuren liegen vor und mindestens eine Person ist extern mit {project} "
+            f"Kontrollrelevante Managementspuren liegen vor und mindestens eine entsprechende Person ist extern mit {project} "
             "verknuepft. Eigentümer/UBO und die tatsaechliche Kontrollstruktur sind jedoch nicht belastbar bestaetigt."
         )
     elif project_claimed:
         q["state"] = "clarification_needed"
         finding = (
-            f"Die Projektwebsite von {project} nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als "
-            "Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum "
-            "noch UBO- oder Kontrollstatus."
+            f"Die Projektwebsite von {project} nennt Personen in Governance-/Kontrollrollen. Diese Rollen sind damit als "
+            "Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Andere Teamrollen werden fuer diese Kontrollfrage "
+            "bewusst ausgeblendet. Auch eine Board-/Founder-/CEO-Rolle belegt weder Eigentum noch UBO- oder Kontrollstatus."
         )
     else:
         q["state"] = "clarification_needed"
         finding = (
-            "Zu bereits erkannten Rechtstraegern wurden strukturierte Managementspuren gefunden, aber keine dieser "
-            f"Personen ist bislang unabhaengig als Person, Eigentümer oder Kontrollinstanz von {project} bestaetigt. "
-            f"Die Funde belegen Rollen beim jeweiligen Rechtstraeger, nicht automatisch bei {project}."
+            f"Aus den gefundenen Personenprofilen zu {project} ist bislang keine unabhaengig bestaetigte Eigentums- oder "
+            "Kontrollinstanz ableitbar. Team- und Managementrollen werden nicht mit Eigentum oder UBO gleichgesetzt."
         )
 
     if names:
-        finding += " Gefundene Rollen: " + names + "."
+        finding += " Kontrollrelevante Rollen: " + names + "."
+    else:
+        finding += " Aus der bisherigen Teamdarstellung wurde noch keine belastbar kontrollrelevante Rolle abgeleitet."
     q["finding"] = finding
-    q["evidence"] = base._people_evidence(data)
+    q["evidence"] = base._people_evidence(data, relevant)
     q["counter_evidence"] = []
 
     gaps = []
@@ -145,17 +147,21 @@ def _rewrite_q5(q: dict, data: dict, project: str) -> None:
     if not verified_ubos:
         gaps.append(f"Eigentümer-/UBO-Struktur von {project} ist nicht verifiziert.")
     gaps.extend([
-        "Historie, Qualifikation und fruehere Projekte der relevanten Personen sind noch nicht vollstaendig geprueft.",
+        "Historie, Qualifikation und fruehere Projekte der kontrollrelevanten Personen sind noch nicht vollstaendig geprueft.",
         "Verbundene Gesellschaften, fruehere Firmen, Insolvenz- und Behoerden-/Warnspuren sind noch zu vertiefen.",
     ])
     q["gaps"] = gaps
     q["next_research"] = [
-        "Projektverbindung jeder Person separat recherchieren.",
+        "Projektverbindung jeder kontrollrelevanten Person separat recherchieren.",
         "Offizielle Eigentümer-/UBO-Quellen und verbundene Gesellschaften pruefen.",
         "Berufshistorie, fruehere Projekte, Insolvenzen, Sanktionen und Behoerdenwarnungen personengenau recherchieren.",
     ]
     q["traffic_light_ready"] = False
     q["traffic_light"] = None
+
+    guardrails = (data.get("sixteen_point_analysis") or {}).setdefault("guardrails", {})
+    guardrails["control_relevant_people_only"] = True
+    guardrails["omitted_non_control_team_profiles"] = max(0, len(profiles) - len(relevant))
 
 
 def _rewrite_q6(q: dict, project: str) -> None:
@@ -221,5 +227,7 @@ def enrich(data: dict) -> dict:
     block["guardrails"]["project_name_hardcoded_in_universal_output"] = False
     block["guardrails"]["identifier_name_conflict_is_not_fraud_verdict"] = True
     block["guardrails"]["q16_refreshed_after_universal_rewrites"] = True
+    block["guardrails"]["control_relevant_people_only"] = True
+    block["guardrails"]["omitted_non_control_team_profiles"] = max(0, len((result.get("people_history_research") or {}).get("profiles") or []) - len([p for p in (result.get("people_history_research") or {}).get("profiles") or [] if base._control_relevant(p)]))
     result["sixteen_point_analysis"] = block
     return result
