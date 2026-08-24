@@ -24,7 +24,9 @@ Der Quick-Modus arbeitet bewusst begrenzt:
 
 Der SchnellCheck startet **keine vollstaendige Personen-, Register-, Social-, Community- oder 16-Punkte-Recherche**.
 
-### 2. Projektanalyse / Deep Research (`deep`)
+### 2. Projektanalyse / FBI / Deep Research (`deep`)
+
+Die sichtbare Bezeichnung **FBI / Deep Research** ist kein eigener dritter Backend-Modus. Sie wird technisch immer mit `mode=deep` ausgefuehrt. Dadurch gibt es nur einen kanonischen Vollmodus und keine auseinanderlaufenden FBI-/Deep-Implementierungen.
 
 Der Deep-Modus nutzt denselben Motor, erweitert ihn aber um die volle Akademie-Recherche:
 
@@ -34,6 +36,8 @@ Der Deep-Modus nutzt denselben Motor, erweitert ihn aber um die volle Akademie-R
 - Management, Personen, Historie und UBO-Trennung;
 - Akademie-Vergleich Projektbehauptung ↔ externe Quelle ↔ Gegenquelle;
 - vollstaendige 16-Punkte-Akademiepruefung.
+
+Website- und Fremdrecherche werden im Modulplan ebenfalls mit `depth: deep` gekennzeichnet. Die externe Deep-Recherche schreibt ihre tatsaechliche Tiefe sowie `query_budget` und `page_fetch_budget` in den Ergebnisdatensatz; das Control Center reicht diese Angaben unveraendert durch.
 
 Die Gesamtampel bleibt gesperrt, solange wesentliche Forschungsluecken oder Quellenkonflikte bestehen.
 
