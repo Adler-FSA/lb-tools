@@ -108,10 +108,13 @@ pipeline.operator.enrich = _operator_with_clean_entities
 
 
 def _resolve_with_budget(request, max_pages: int):
-    """Im SchnellCheck weniger Projektseiten lesen; Deep bleibt unverändert."""
+    """Core früh bereinigen, damit alle Deep-Module dieselbe bestätigte Projektidentität verwenden."""
     if getattr(request, "mode", "quick") == "quick":
         max_pages = min(max_pages, 5)
-    return _base_resolve(request, max_pages)
+    data = _base_resolve(request, max_pages)
+    if isinstance(data, dict) and data.get("status") == "ok":
+        data = quality.postprocess(data)
+    return data
 
 
 pipeline.resolve_and_run_core = _resolve_with_budget
@@ -134,6 +137,7 @@ def run(query: str, mode: str = "quick") -> dict:
         pipeline.quick_external.ext.MAX_RESULTS_PER_QUERY = 6
 
     result = _base_run(query, mode)
+    # Nachgelagerte Module können weitere Funde ergänzen; deshalb final erneut bereinigen.
     result = quality.postprocess(result)
 
     if mode == "quick":
