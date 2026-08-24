@@ -88,12 +88,13 @@ def test_entity_people_move_q5_to_clarification_without_project_or_ubo_claim():
     assert item["state"] == "clarification_needed"
     assert "Konstantin Wünscher" in item["finding"]
     assert "Nick Schteringard" in item["finding"]
-    assert "nicht automatisch bei KryptoSavings" in item["finding"]
-    assert any("KryptoSavings" in gap for gap in item["gaps"])
+    assert "Teamrolle" in item["finding"]
+    assert any("Kontrollverbindung" in gap for gap in item["gaps"])
     assert any("UBO" in gap for gap in item["gaps"])
     assert item["traffic_light"] is None
     assert item["traffic_light_ready"] is False
     assert out["sixteen_point_analysis"]["guardrails"]["structured_people_q5_used"] is True
+    assert out["sixteen_point_analysis"]["guardrails"]["control_relevant_people_only"] is True
 
 
 def test_entity_people_evidence_is_preserved_with_source():
@@ -104,6 +105,28 @@ def test_entity_people_evidence_is_preserved_with_source():
     labels = " ".join(e["label"] for e in item["evidence"])
     assert "Konstantin Wünscher" in labels
     assert "Nick Schteringard" in labels
+
+
+def test_non_control_team_roles_are_omitted_from_q5():
+    data = sample(True)
+    data["people_history_research"]["profiles"].append({
+        "person_name": "Example Designer",
+        "entity": "",
+        "project_connection_status": "project_claim_only",
+        "ownership_status": "not_verified",
+        "ubo_verified": False,
+        "roles": ["Design Director"],
+        "records": [],
+        "project_claim_source": {
+            "source_url": "https://example.com/team",
+            "evidence": "Example Designer - Design Director"
+        },
+    })
+    out = mod.enrich(data)
+    item = q5(out)
+    assert "Example Designer" not in item["finding"]
+    assert all("Example Designer" not in e["label"] for e in item["evidence"])
+    assert out["sixteen_point_analysis"]["guardrails"]["omitted_non_control_team_profiles"] == 1
 
 
 def test_without_structured_people_base_research_gap_remains():
