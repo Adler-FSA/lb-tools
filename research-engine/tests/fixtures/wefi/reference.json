@@ -1,0 +1,32 @@
+{
+  "fixture": "wefi",
+  "purpose": "Regressionstest fuer Projektidentitaet und Quellenrelevanz; keine Runtime-Abhaengigkeit.",
+  "runtime_dependency": false,
+  "reference_source": "Adler-FSA/lp-anfang/pages/wefi/",
+  "identity": {
+    "project_name": "WeFi",
+    "official_domain": "wefi.co",
+    "official_youtube": "youtube.com/@wefi.official",
+    "token_symbol": "WFI",
+    "project_terms": ["Deobank", "onchain banking"]
+  },
+  "direct_project_references": [
+    "https://wefi.co/",
+    "https://coinmarketcap.com/currencies/wfi/",
+    "https://app.solidproof.io/projects/wefico",
+    "https://financefeeds.com/de/wefi-wurde-dank-seines-Deobank-Modells-zur-besten-digitalen-Bank-des-Jahres-gek%C3%BCrt/",
+    "https://www.bitget.com/news/detail/12560605115126",
+    "https://reevecollins.com/"
+  ],
+  "context_only_references": [
+    "https://www.forbes.com/sites/digital-assets/2025/02/12/defi-meets-everyday-banking-the-missing-link-to-mainstream-adoption/",
+    "https://coinmarketcap.com/academy/glossary/deobank"
+  ],
+  "known_relevant_person_reference": ["Reeve Collins"],
+  "must_not_confirm_by_name_only": [
+    "wefi.com",
+    "wefitec.com",
+    "dashboard.wechain.ai"
+  ],
+  "principle": "Bei einem kurzen Namen wie WeFi ist Namensgleichheit allein kein ausreichender Projektbeleg."
+}
