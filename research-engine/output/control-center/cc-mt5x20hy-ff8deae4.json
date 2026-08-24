@@ -1,7 +1,7 @@
 {
   "schema": "academy-research-control-center-v1",
   "request_id": "cc-mt5x20hy-ff8deae4",
-  "generated_at": "2026-08-23T17:02:30.096419+00:00",
+  "generated_at": "2026-08-24T06:50:20.337283+00:00",
   "engine_exit_code": 0,
   "status": "ok",
   "product": "projektanalyse",
@@ -87,11 +87,10 @@
     "legal_entities": [
       "Wefi Payments Limited",
       "AppAtlas Technologies LLC",
-      "Fireblocks Ltd",
-      "2026 AppAtlas Technologies LLC"
+      "Fireblocks Ltd"
     ],
     "detected": {
-      "staking": true,
+      "staking": false,
       "yield_or_interest": true,
       "defi": true,
       "trading": true,
@@ -126,44 +125,203 @@
       "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
       "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?"
     ],
+    "evidence_highlights": [
+      {
+        "type": "trading",
+        "value": "trading",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "or contractual rights, utilizing distributed ledger technology for electronic transfer or trading. Custodial Services means services relating to the safeguarding, holding, and admi",
+        "confidence": "medium"
+      },
+      {
+        "type": "trading",
+        "value": "Trading",
+        "source_url": "https://gitbook.wefi.co/appendums/4.2-legal-notice",
+        "evidence": "t as expressly permitted by the distribution terms above. Trademarks WeFi operates as the Trading Name of AppAtlas Technologies LLC . It is the owner of all websites, domains, emai",
+        "confidence": "medium"
+      },
+      {
+        "type": "trading",
+        "value": "Trading",
+        "source_url": "https://gitbook.wefi.co/appendums/4.2-legal-notice.md",
+        "evidence": "ssly permitted by the distribution terms above. ### Trademarks **WeFi** operates as the **Trading Name** of **AppAtlas Technologies LLC**. It is the owner of all websites, domains,",
+        "confidence": "medium"
+      },
+      {
+        "type": "lending",
+        "value": "lending",
+        "source_url": "https://www.wefi.co/",
+        "evidence": "ank, does not accept deposits on a banking balance sheet, and does not use User funds for lending, credit creation, or fractional reserve banking activities. WeFi facilitates acces",
+        "confidence": "medium"
+      },
+      {
+        "type": "lending",
+        "value": "lending",
+        "source_url": "https://www.wefi.co/about",
+        "evidence": "ank, does not accept deposits on a banking balance sheet, and does not use User funds for lending, credit creation, or fractional reserve banking activities. WeFi facilitates acces",
+        "confidence": "medium"
+      },
+      {
+        "type": "lending",
+        "value": "lending",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "ank, does not accept deposits on a banking balance sheet, and does not use User funds for lending, credit creation, or fractional reserve banking activities. Wefi facilitates acces",
+        "confidence": "medium"
+      },
+      {
+        "type": "withdrawal",
+        "value": "withdraw",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "efi also offers crypto-to-fiat functionality for Users seeking to sell Digital Assets and withdraw fiat funds to approved external accounts. All conversion transactions are subject",
+        "confidence": "medium"
+      },
+      {
+        "type": "withdrawal",
+        "value": "withdraw",
+        "source_url": "https://documents.wefi.co/privacy_policy_wefi.pdf",
+        "evidence": "d request the implementation of similar actions on their part. IX. Your rights and how to withdraw consents and unsubscribe Identity Accuracy : We urge you to furnish us with accur",
+        "confidence": "medium"
+      },
+      {
+        "type": "kyc",
+        "value": "identity verification",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "idity providers, to support limited parts of the transaction process (such as settlement, identity verification, and payment routing). Such third-party service providers do not pro",
+        "confidence": "medium"
+      },
+      {
+        "type": "kyc",
+        "value": "KYC",
+        "source_url": "https://documents.wefi.co/privacy_policy_wefi.pdf",
+        "evidence": "s or related records. Identity Data refers to information that identifies you personally. KYC Data (Know-Your-Customer) refers to information collected to confirm your identity. Lo",
+        "confidence": "medium"
+      },
+      {
+        "type": "kyc",
+        "value": "KYC",
+        "source_url": "https://www.wefi.co/technology",
+        "evidence": "iver transparent, efficient, and user-sovereign banking. Compliance Built-In Programmable KYC/AML at the protocol level. Regulatory requirements encoded in smart contracts. Complia",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "custody",
+        "source_url": "https://www.wefi.co/",
+        "evidence": "ING-AS-A-SERVICE Deobank Model Onchain infrastructure for compliant banking with built-in custody and payment rails. Learn more BANKING-AS-A-SERVICE Deobank Model Onchain infrastru",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "Custody",
+        "source_url": "https://www.wefi.co/about",
+        "evidence": "ant Global Settlement Onchain Banking Account Unified Fiat and Crypto Balance Distributed Custody System AI Behavioral Credit Cloud Based Mining Mission Our mission is to transform",
+        "confidence": "medium"
+      },
+      {
+        "type": "custody",
+        "value": "custody",
+        "source_url": "https://documents.wefi.co/terms_and_conditions_wefi.pdf",
+        "evidence": "arding, holding, and administration of Digital Assets, including, without limitation, the custody and control of cryptographic private keys, the operation of custodial wallets, and",
+        "confidence": "medium"
+      }
+    ],
     "page_count": 14,
-    "finding_count": 38
+    "finding_count": 37
   },
   "external_research": {
-    "status": "no_confirmed_external_traces",
+    "status": "ok",
     "research_depth": null,
-    "trace_count": 0,
+    "trace_count": 4,
     "review_candidate_count": 0,
-    "project_owned_echo_count": 0,
-    "traces": []
+    "project_owned_echo_count": 2,
+    "traces": [
+      {
+        "category": "article",
+        "source_relation": "independent",
+        "platform": "",
+        "source_url": "https://dashboard.wechain.ai/login",
+        "title": "Attention Required! | Cloudflare",
+        "evidence": "WeFi | Login ... WeFi website",
+        "published_at": "",
+        "attribution_confidence": "high",
+        "project_match": "name_exact"
+      },
+      {
+        "category": "article",
+        "source_relation": "independent",
+        "platform": "",
+        "source_url": "https://wefitec.com/",
+        "title": "WeFi Technology Group - AI Powered Working Capital Solutions",
+        "evidence": "WeFi Technology Group - AI Powered Working Capital Solutions Skip to main content Hit enter to search or ESC to close Search Close Search Menu Home About About WeFi Our Leadership Client Services Group Our Innovation Team Solutions Global C",
+        "published_at": "2024-12-05T11:15:30+00:00",
+        "attribution_confidence": "high",
+        "project_match": "name_exact"
+      },
+      {
+        "category": "article",
+        "source_relation": "independent",
+        "platform": "",
+        "source_url": "https://www.wefi.com/",
+        "title": "Wefi | Smarter Wi-Fi Connectivity, Seamless Offload & Network Intelligence",
+        "evidence": "Wefi | Smarter Wi-Fi Connectivity, Seamless Offload & Network Intelligence Solutions Wi-Fi Offload Fleet Management Offload Loyalty Plans Connected Cars Networks Premium Networks Amenity Networks Technology Connectivity & Offload AAA Hub Fi",
+        "published_at": "",
+        "attribution_confidence": "high",
+        "project_match": "name_exact"
+      },
+      {
+        "category": "article",
+        "source_relation": "independent",
+        "platform": "",
+        "source_url": "https://wefitec.com/about/",
+        "title": "WeFi: AI-Powered Finance Solutions for Global Growth",
+        "evidence": "WeFi: AI-Powered Finance Solutions for Global Growth Skip to main content Hit enter to search or ESC to close Search Close Search Menu Home About About WeFi Our Leadership Client Services Group Our Innovation Team Solutions Global Channel F",
+        "published_at": "2019-09-09T19:32:18+00:00",
+        "attribution_confidence": "high",
+        "project_match": "name_exact"
+      }
+    ]
   },
   "operator_research": {
     "status": "ok",
     "summary": {
-      "entity_count": 4,
-      "record_count": 0,
-      "official_or_registry_record_count": 0,
+      "entity_count": 3,
+      "record_count": 1,
+      "official_or_registry_record_count": 1,
       "independent_record_count": 0,
       "entity_owned_record_count": 0,
       "externally_linked_record_count": 0,
       "possible_link_record_count": 0,
       "warning_or_adverse_record_count": 0,
-      "authority_context_record_count": 0
+      "authority_context_record_count": 1,
+      "identifier_claim_count": 5,
+      "identifier_record_count": 0,
+      "official_identifier_record_count": 0,
+      "independent_identifier_record_count": 0,
+      "identifier_name_conflict_count": 0,
+      "fintrac_match_count": 1,
+      "fintrac_registry_status": "ok"
     },
     "registry_routing": {
-      "mode": "generic_only",
-      "selected_adapters": [],
+      "mode": "selected_from_existing_evidence",
+      "selected_adapters": [
+        {
+          "id": "fintrac_canada",
+          "label": "Canada / FINTRAC MSB Registry",
+          "direct_probe_urls": []
+        }
+      ],
       "special_registry_probe_count": 0,
       "principle": "Spezialregister werden nur bei passendem Jurisdiktionshinweis aktiviert."
     },
     "profiles": [
       {
         "entity": "Wefi Payments Limited",
-        "existence_status": "not_independently_confirmed",
-        "project_connection_status": "project_claim_only_or_not_shown",
-        "official_record_count": 0,
+        "existence_status": "official_or_registry_trace_found",
+        "project_connection_status": "identifier_matched_officially_project_role_open",
+        "official_record_count": 1,
         "independent_record_count": 0,
-        "authority_context_count": 0
+        "authority_context_count": 1,
+        "claimed_roles": []
       },
       {
         "entity": "AppAtlas Technologies LLC",
@@ -171,7 +329,16 @@
         "project_connection_status": "project_claim_only_or_not_shown",
         "official_record_count": 0,
         "independent_record_count": 0,
-        "authority_context_count": 0
+        "authority_context_count": 0,
+        "claimed_roles": [
+          {
+            "role": "brand_legal_entity",
+            "source_relation": "project_owned_claim",
+            "source_url": "https://gitbook.wefi.co/appendums/4.2-legal-notice",
+            "evidence": "t as expressly permitted by the distribution terms above. Trademarks WeFi operates as the Trading Name of AppAtlas Technologies LLC . It is the owner of all websites, domains, emai",
+            "independently_confirmed": false
+          }
+        ]
       },
       {
         "entity": "Fireblocks Ltd",
@@ -179,29 +346,30 @@
         "project_connection_status": "project_claim_only_or_not_shown",
         "official_record_count": 0,
         "independent_record_count": 0,
-        "authority_context_count": 0
-      },
-      {
-        "entity": "2026 AppAtlas Technologies LLC",
-        "existence_status": "not_independently_confirmed",
-        "project_connection_status": "project_claim_only_or_not_shown",
-        "official_record_count": 0,
-        "independent_record_count": 0,
-        "authority_context_count": 0
+        "authority_context_count": 0,
+        "claimed_roles": [
+          {
+            "role": "operator_claim",
+            "source_relation": "project_owned_claim",
+            "source_url": "https://www.wefi.co/",
+            "evidence": "and are supported by institutional-grade digital asset custody infrastructure operated by Fireblocks Ltd., a leading provider of secure multi-party computation (MPC) technology for",
+            "independently_confirmed": false
+          }
+        ]
       }
     ]
   },
   "people_research": {
     "status": "ok",
     "summary": {
-      "person_profile_count": 14,
+      "person_profile_count": 11,
       "project_linked_person_count": 0,
       "ownership_claim_profile_count": 0,
       "verified_ubo_count": 0,
       "adverse_record_count": 0,
       "entity_domain_crawl_count": 0,
       "entity_domain_finding_count": 0,
-      "project_claimed_person_count": 14
+      "project_claimed_person_count": 11
     },
     "profiles": [
       {
@@ -346,45 +514,6 @@
         "ubo_verified": false,
         "history_record_count": 0,
         "adverse_record_count": 0
-      },
-      {
-        "person_name": "Core Values",
-        "entity": "",
-        "roles": [
-          "founder"
-        ],
-        "entity_connection_status": "not_assessed",
-        "project_connection_status": "project_claim_only",
-        "ownership_status": "not_verified",
-        "ubo_verified": false,
-        "history_record_count": 0,
-        "adverse_record_count": 0
-      },
-      {
-        "person_name": "Stay Relentless",
-        "entity": "",
-        "roles": [
-          "founder"
-        ],
-        "entity_connection_status": "not_assessed",
-        "project_connection_status": "project_claim_only",
-        "ownership_status": "not_verified",
-        "ubo_verified": false,
-        "history_record_count": 0,
-        "adverse_record_count": 0
-      },
-      {
-        "person_name": "Own It End-to-End",
-        "entity": "",
-        "roles": [
-          "founder"
-        ],
-        "entity_connection_status": "not_assessed",
-        "project_connection_status": "project_claim_only",
-        "ownership_status": "not_verified",
-        "ubo_verified": false,
-        "history_record_count": 0,
-        "adverse_record_count": 0
       }
     ],
     "universal_routing": {
@@ -398,17 +527,17 @@
   "academy_analysis": {
     "status": "ok",
     "summary": {
-      "comparison_count": 4,
+      "comparison_count": 3,
       "counts_by_assessment": {
-        "independently_supported": 0,
-        "context_challenged": 0,
-        "open": 0,
         "contradicted": 0,
-        "not_independently_verified": 0,
-        "partially_supported": 4
+        "partially_supported": 2,
+        "independently_supported": 0,
+        "context_challenged": 1,
+        "open": 0,
+        "not_independently_verified": 0
       },
-      "open_question_count": 9,
-      "tension_count": 0
+      "open_question_count": 8,
+      "tension_count": 1
     },
     "open_questions": [
       "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
@@ -416,20 +545,38 @@
       "Zu welchem Zeitpunkt wird KYC/Identitätsprüfung verlangt und kann sie eine Auszahlung verzögern oder verhindern?",
       "Wer hält die Assets bzw. Private Keys nach der Einzahlung und was passiert bei Insolvenz dieses Verwahrers?",
       "Wer führt die Strategie aus, welche realen Drawdowns gab es und wie wird das Risiko begrenzt?",
-      "Welche konkrete vertragliche oder operative Rolle hat Wefi Payments Limited bei https://app.wefi.co/register?ref=d14o0mtv7g, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?",
-      "Welche konkrete vertragliche oder operative Rolle hat AppAtlas Technologies LLC bei https://app.wefi.co/register?ref=d14o0mtv7g, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?",
-      "Welche konkrete vertragliche oder operative Rolle hat Fireblocks Ltd bei https://app.wefi.co/register?ref=d14o0mtv7g, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?",
-      "Welche konkrete vertragliche oder operative Rolle hat 2026 AppAtlas Technologies LLC bei https://app.wefi.co/register?ref=d14o0mtv7g, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?"
+      "Welche konkrete vertragliche oder operative Rolle hat Wefi Payments Limited bei WeFi, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?",
+      "Welche konkrete vertragliche oder operative Rolle hat AppAtlas Technologies LLC bei WeFi, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?",
+      "Welche konkrete vertragliche oder operative Rolle hat Fireblocks Ltd bei WeFi, und welche vom Projekt unabhaengige Quelle bestaetigt diese Verbindung?"
     ],
-    "tensions": []
+    "tensions": [
+      {
+        "comparison_id": "operator_1",
+        "topic": "operator_relation",
+        "project_statement": "Auf der Projektwebsite erscheint Wefi Payments Limited als Rechtstraeger-/Betreiberhinweis.",
+        "assessment": "context_challenged",
+        "explanation": "Zu Wefi Payments Limited existiert eine externe Rechtstraeger-/Registerspur. Die Verbindung zu WeFi ist jedoch nicht unabhaengig belegt; zusaetzlich liegt ein hoeherwertiger Behoerdenkontext vor, der die institutionelle Einordnung der verwendeten Register-/Lizenzquelle in Frage stellt.",
+        "challenge_sources": [
+          {
+            "source_url": "https://fintrac-canafe.canada.ca/msb-esm/reg-eng",
+            "title": "FINTRAC Money Services Business Registry – registration scope",
+            "evidence": "FINTRAC states that registration does not indicate endorsement or licensing; it confirms only that legal registration requirements were satisfied.",
+            "published_at": "",
+            "source_role": "regulator",
+            "source_rank": 6
+          }
+        ]
+      }
+    ]
   },
   "sixteen_point": {
     "status": "ok",
     "summary": {
       "question_count": 16,
       "counts_by_state": {
-        "partially_answered": 4,
-        "clarification_needed": 7,
+        "partially_answered": 3,
+        "clarification_needed": 5,
+        "conflict_found": 3,
         "research_gap": 4,
         "overall_not_ready": 1
       },
@@ -442,14 +589,14 @@
         "id": 1,
         "title": "Was ist das konkrete Produkt?",
         "state": "partially_answered",
-        "finding": "erkannte Bausteine: staking, defi, trading, lending, custody.",
+        "finding": "erkannte Bausteine: defi, trading, lending, custody.",
         "gaps": [
           "Vertragliche Produktstruktur und konkrete Kundenrechte sind noch nicht vollständig extrahiert."
         ],
         "next_research": [
           "Terms/Produktbedingungen je Produktart strukturiert extrahieren."
         ],
-        "evidence_count": 12,
+        "evidence_count": 11,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -466,7 +613,7 @@
         "next_research": [
           "Use-Case, Zielgruppe und Marktbedarf unabhängig recherchieren."
         ],
-        "evidence_count": 7,
+        "evidence_count": 6,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -474,24 +621,24 @@
       {
         "id": 3,
         "title": "Ist die öffentliche Beschreibung sachlich und konsistent?",
-        "state": "partially_answered",
-        "finding": "Mehrere Kernaussagen wurden bereits gegen externe Quellen gespiegelt; für eine vollständige Konsistenzprüfung fehlen weitere Projekt- und Vertriebsmaterialien.",
+        "state": "conflict_found",
+        "finding": "Die öffentliche Darstellung ist nicht vollständig widerspruchsfrei einordenbar: 1 Quellen-/Behördenspannung(en) wurden erkannt.",
         "gaps": [
-          "Noch kein vollständiger Vergleich aller öffentlichen Aussagen."
+          "Weitere Projektunterlagen und externe Gegenprüfung einzelner Aussagen fehlen."
         ],
         "next_research": [
-          "Weitere FAQ, Präsentationen, Videos und Vertriebsaussagen einbeziehen."
+          "Marketing-, Terms- und Betreiberbehauptungen Aussage für Aussage spiegeln."
         ],
         "evidence_count": 4,
-        "counter_evidence_count": 0,
+        "counter_evidence_count": 1,
         "traffic_light_ready": false,
         "traffic_light": null
       },
       {
         "id": 4,
         "title": "Wer ist der Betreiber?",
-        "state": "clarification_needed",
-        "finding": "Rechtstraegerspuren wurden gefunden, aber die konkrete Betreiber-/Vertragspartnerrolle bei https://app.wefi.co/register?ref=d14o0mtv7g ist noch nicht unabhaengig belegt.",
+        "state": "conflict_found",
+        "finding": "Mehrere Rechtstraeger sind ausserhalb der Projektwebsite auffindbar, ihre konkrete Rolle bei WeFi ist jedoch nicht unabhaengig belegt; zusaetzlich besteht Behoerdenkontext zur institutionellen Einordnung einzelner Registerspuren.",
         "gaps": [
           "Konkreter Vertragspartner je Dienstleistung.",
           "Firmennummer, Sitz, Anschrift, Direktoren und wirtschaftlich Berechtigte noch nicht vollständig für alle Rollen belegt."
@@ -499,8 +646,8 @@
         "next_research": [
           "Offizielle Register je Rechtsträger und Projektverbindung separat vertiefen."
         ],
-        "evidence_count": 0,
-        "counter_evidence_count": 0,
+        "evidence_count": 1,
+        "counter_evidence_count": 1,
         "traffic_light_ready": false,
         "traffic_light": null
       },
@@ -508,10 +655,10 @@
         "id": 5,
         "title": "Wer kontrolliert das Unternehmen und welche Historie besteht?",
         "state": "clarification_needed",
-        "finding": "Die Projektwebsite von https://app.wefi.co/register?ref=d14o0mtv7g nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum noch UBO- oder Kontrollstatus. Gefundene Rollen: Maksym Sakharov (Board member), Roman Rossov (Board member), Reeve Collins (Board member), Yusuf Mirakhmedov (Board member), Khaled Suleiman (Board member), Henry Kukk (Chief Technology Officer), Kerel Verwaerde (Board member), Sathya Partha (Design Director).",
+        "finding": "Die Projektwebsite von WeFi nennt konkrete Team-/Managementpersonen. Diese Rollen sind damit als Projektangabe belegt, aber bislang nicht unabhaengig bestaetigt. Eine Projektrolle belegt weder Eigentum noch UBO- oder Kontrollstatus. Gefundene Rollen: Maksym Sakharov (Board member), Roman Rossov (Board member), Reeve Collins (Board member), Yusuf Mirakhmedov (Board member), Khaled Suleiman (Board member), Henry Kukk (Chief Technology Officer), Kerel Verwaerde (Board member), Sathya Partha (Design Director).",
         "gaps": [
-          "Direkte, unabhaengige Personen-/Kontrollverbindung zu https://app.wefi.co/register?ref=d14o0mtv7g fehlt.",
-          "Eigentümer-/UBO-Struktur von https://app.wefi.co/register?ref=d14o0mtv7g ist nicht verifiziert.",
+          "Direkte, unabhaengige Personen-/Kontrollverbindung zu WeFi fehlt.",
+          "Eigentümer-/UBO-Struktur von WeFi ist nicht verifiziert.",
           "Historie, Qualifikation und fruehere Projekte der relevanten Personen sind noch nicht vollstaendig geprueft.",
           "Verbundene Gesellschaften, fruehere Firmen, Insolvenz- und Behoerden-/Warnspuren sind noch zu vertiefen."
         ],
@@ -520,7 +667,7 @@
           "Offizielle Eigentümer-/UBO-Quellen und verbundene Gesellschaften pruefen.",
           "Berufshistorie, fruehere Projekte, Insolvenzen, Sanktionen und Behoerdenwarnungen personengenau recherchieren."
         ],
-        "evidence_count": 14,
+        "evidence_count": 11,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -528,16 +675,17 @@
       {
         "id": 6,
         "title": "Welche regulatorische Erlaubnis liegt vor?",
-        "state": "research_gap",
-        "finding": "Keine belastbare regulatorische Erlaubnis für die konkrete angebotene Dienstleistung ist im aktuellen Datenstand nachgewiesen.",
+        "state": "conflict_found",
+        "finding": "Register-/Lizenzspuren wurden gefunden, ihre regulatorische Bedeutung ist aber nicht ausreichend geklärt und wird durch höherrangigen Behördenkontext herausgefordert.",
         "gaps": [
-          "Regulatorischer Primärnachweis fehlt."
+          "Erlaubte Dienstleistungen, Zielmarkt und Passporting sind nicht belegt.",
+          "Die konkrete lizenzierte juristische Person muss zur angebotenen Dienstleistung passen."
         ],
         "next_research": [
-          "BaFin/ESMA/EBA und zuständige internationale Aufsichten prüfen."
+          "Zuständige Aufsicht und konkreten Erlaubnisumfang je Rechtsträger prüfen."
         ],
-        "evidence_count": 0,
-        "counter_evidence_count": 0,
+        "evidence_count": 1,
+        "counter_evidence_count": 1,
         "traffic_light_ready": false,
         "traffic_light": null
       },
@@ -562,15 +710,15 @@
       {
         "id": 8,
         "title": "Wie transparent und vollständig sind Gebühren?",
-        "state": "clarification_needed",
-        "finding": "Gebühren-/Kostenhinweise sind vorhanden, aber eine vollständige effektive Kostenrechnung liegt noch nicht vor.",
+        "state": "research_gap",
+        "finding": "Die Engine hat noch keine vollständige, belastbare Gebührenstruktur extrahiert.",
         "gaps": [
-          "Vollständiges Gebührenblatt und Beispielrechnung fehlen."
+          "Gebühren-/Kostenmodul fehlt."
         ],
         "next_research": [
-          "Entry-, laufende-, Spread-, FX-, Gas-, Performance-, Exit- und Withdrawal-Kosten extrahieren und rechnen."
+          "Terms, FAQ und Gebührenseiten gezielt auf Kosten durchsuchen."
         ],
-        "evidence_count": 1,
+        "evidence_count": 0,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -601,7 +749,7 @@
         "next_research": [
           "Strategie, Gegenparteien, Performancehistorie und Geldfluss vertiefen."
         ],
-        "evidence_count": 10,
+        "evidence_count": 9,
         "counter_evidence_count": 0,
         "traffic_light_ready": false,
         "traffic_light": null
@@ -676,7 +824,7 @@
         "id": 15,
         "title": "Welche Hauptrisiken und Red Flags bestehen?",
         "state": "partially_answered",
-        "finding": "Der bisherige Research-Lauf enthält 2 strukturierte Risikoindikator(en) und 0 Quellen-/Behördenspannung(en). Das ist noch keine vollständige Red-Flag-Gesamtprüfung.",
+        "finding": "Der bisherige Research-Lauf enthält 2 strukturierte Risikoindikator(en) und 1 Quellen-/Behördenspannung(en). Das ist noch keine vollständige Red-Flag-Gesamtprüfung.",
         "gaps": [
           "Cyber-, Smart-Contract-, Insolvenz-, Steuer-, Token-, Governance- und Schlüsselrisiken sind noch nicht vollständig projektbezogen geprüft."
         ],
@@ -684,7 +832,7 @@
           "Risikomatrix aus allen Spezialmodulen zusammenführen."
         ],
         "evidence_count": 2,
-        "counter_evidence_count": 0,
+        "counter_evidence_count": 1,
         "traffic_light_ready": false,
         "traffic_light": null
       },
@@ -692,16 +840,16 @@
         "id": 16,
         "title": "Akademie-Gesamtbewertung",
         "state": "overall_not_ready",
-        "finding": "Eine belastbare Akademie-Gesamtampel wird noch nicht erzeugt. 11 der ersten 15 Prüfpunkte enthalten wesentliche Forschungslücken, Klärungsbedarf oder Quellenkonflikte.",
+        "finding": "Eine belastbare Akademie-Gesamtampel wird noch nicht erzeugt. 12 der ersten 15 Prüfpunkte enthalten wesentliche Forschungslücken, Klärungsbedarf oder Quellenkonflikte.",
         "gaps": [
           "Punkt 2: Welches reale Problem soll gelöst werden? — clarification_needed",
-          "Punkt 4: Wer ist der Betreiber? — clarification_needed",
-          "Punkt 5: Wer kontrolliert das Unternehmen und welche Historie besteht? — research_gap",
-          "Punkt 6: Welche regulatorische Erlaubnis liegt vor? — research_gap",
+          "Punkt 3: Ist die öffentliche Beschreibung sachlich und konsistent? — conflict_found",
+          "Punkt 4: Wer ist der Betreiber? — conflict_found",
+          "Punkt 5: Wer kontrolliert das Unternehmen und welche Historie besteht? — clarification_needed",
+          "Punkt 6: Welche regulatorische Erlaubnis liegt vor? — conflict_found",
           "Punkt 7: Wo befinden sich Kundengelder und wer kontrolliert sie? — clarification_needed",
-          "Punkt 8: Wie transparent und vollständig sind Gebühren? — clarification_needed",
-          "Punkt 9: Ist Preis oder Rendite marktüblich und plausibel? — research_gap",
-          "Punkt 10: Woher entstehen Einnahmen und Erträge tatsächlich? — clarification_needed"
+          "Punkt 8: Wie transparent und vollständig sind Gebühren? — research_gap",
+          "Punkt 9: Ist Preis oder Rendite marktüblich und plausibel? — research_gap"
         ],
         "next_research": [
           "Offene Kernmodule schließen; erst danach Ampellogik anwenden."
@@ -719,7 +867,9 @@
       "fraud_verdict_created": false,
       "structured_people_q5_used": true,
       "dynamic_project_label_used": true,
-      "project_name_hardcoded_in_universal_output": false
+      "project_name_hardcoded_in_universal_output": false,
+      "identifier_name_conflict_is_not_fraud_verdict": true,
+      "q16_refreshed_after_universal_rewrites": true
     }
   },
   "specialized_route": null,
