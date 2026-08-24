@@ -1,0 +1,256 @@
+{
+  "schema": "academy-research-control-center-v1",
+  "request_id": "cc-mt77s2rv-e5a372c9",
+  "generated_at": "2026-08-24T12:32:24.094293+00:00",
+  "engine_exit_code": 0,
+  "status": "ok",
+  "product": "schnellcheck",
+  "mode": "quick",
+  "query": "https://land.timecells.app/?ref=5000000725",
+  "technical_error": null,
+  "input_basis": {
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high",
+    "original_evidence_anchor": "https://land.timecells.app/?ref=5000000725",
+    "identity_confirmation_required": false
+  },
+  "context": {
+    "input": "https://land.timecells.app/?ref=5000000725",
+    "input_kind": "url",
+    "project_name": "Timecells",
+    "domain": "land.timecells.app",
+    "resolved_url": "https://land.timecells.app/?ref=5000000725",
+    "original_evidence_anchor": "https://land.timecells.app/?ref=5000000725",
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high"
+  },
+  "identity": {
+    "status": null,
+    "fallback_used": null,
+    "candidate_count": 0,
+    "candidates": []
+  },
+  "orchestration": {
+    "capabilities": [
+      "crypto_finance",
+      "distribution",
+      "social",
+      "web"
+    ],
+    "module_plan": [
+      {
+        "module": "website_research",
+        "run": true,
+        "reason": "Konkreter Referral-/Registrierungslink: Originalfund als starken Beweisanker sichern und Zielseite untersuchen.",
+        "depth": "quick"
+      },
+      {
+        "module": "external_research",
+        "run": true,
+        "reason": "Bestätigte Projektidentität vorhanden.",
+        "depth": "quick"
+      },
+      {
+        "module": "operator_registry",
+        "run": false,
+        "reason": "Kein Rechtsträger erkannt oder SchnellCheck-Modus.",
+        "depth": "deep"
+      },
+      {
+        "module": "people_history",
+        "run": false,
+        "reason": "Keine belastbare Rechtsträgerbasis oder SchnellCheck-Modus.",
+        "depth": "deep"
+      },
+      {
+        "module": "academy_analysis",
+        "run": false,
+        "reason": "Nur für vollständige Projektanalyse.",
+        "depth": "deep"
+      },
+      {
+        "module": "project_analysis_16",
+        "run": false,
+        "reason": "SchnellCheck zeigt keine vollständige 16-Punkte-Analyse.",
+        "depth": "deep"
+      }
+    ],
+    "core_max_pages": 5,
+    "external_depth": "quick"
+  },
+  "quick_check": {
+    "product": "schnellcheck",
+    "project_name": "Timecells",
+    "domain": "land.timecells.app",
+    "resolved_url": "https://land.timecells.app/?ref=5000000725",
+    "original_evidence_anchor": "https://land.timecells.app/?ref=5000000725",
+    "anchor_type": "referral_or_registration_link",
+    "anchor_strength": "very_high",
+    "max_yield_percentage": null,
+    "max_commission_percentage": null,
+    "legal_entities_claimed": [],
+    "detected_topics": [
+      "staking",
+      "withdrawal",
+      "referral",
+      "bonus"
+    ],
+    "external_trace_count": 0,
+    "review_candidate_count": 0,
+    "research_gaps": [
+      "Vertragspartner/Rechtsträger auf der Projektwebsite noch nicht eindeutig erkannt.",
+      "Im SchnellCheck noch keine eindeutig zugeordneten unabhängigen Fremdspuren bestätigt.",
+      "Vertriebsvergütung erkannt; Struktur und Nachhaltigkeit sind noch nicht tiefengeprüft."
+    ],
+    "deep_research_recommended": true,
+    "research_depth": "quick",
+    "principle": "Erste Klarheit auf Basis des konkreten Fundstücks; kein Seriositäts- oder Betrugsurteil.",
+    "evidence_highlights": [
+      {
+        "type": "withdrawal",
+        "value": "Withdraw",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "lculations, ensuring fair, real-time payouts. Leadership Bonus up to 22% Direct Bonus +8% Withdraw All Bonuses Anytime Accrual of Bonuses USDT",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral",
+        "value": "referral",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "Earn More by Growing Your Community Passive & Active Income Combine staking returns with referral bonuses Community-Driven The more the network grows, the higher the potential rewa",
+        "confidence": "medium"
+      },
+      {
+        "type": "bonus",
+        "value": "reward",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "k grows, the higher the potential rewards. Transparent & Automated Smart contracts handle reward calculations, ensuring fair, real-time payouts. Leadership Bonus up to 22% Direct B",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral_input",
+        "value": "personal_referral_parameter",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "Der eingegebene Link enthält eine Referral-/Affiliate-/Partnerkennung.",
+        "confidence": "high"
+      }
+    ]
+  },
+  "website_analysis": {
+    "max_yield_percentage": null,
+    "max_commission_percentage": null,
+    "legal_entities": [],
+    "detected": {
+      "staking": true,
+      "yield_or_interest": true,
+      "defi": false,
+      "trading": false,
+      "leverage": false,
+      "lending": false,
+      "lockup": false,
+      "withdrawal": true,
+      "kyc": false,
+      "custody": false,
+      "referral": true,
+      "bonus": true,
+      "guarantee": false
+    },
+    "risk_signals": [
+      {
+        "id": "distribution_incentive",
+        "severity": "medium",
+        "title": "Vertriebs-/Empfehlungsanreize erkannt",
+        "explanation": "Empfehlungen können wirtschaftlich beeinflusst sein. Provisionen, Boni und Volumenanreize sollten transparent verstanden werden."
+      },
+      {
+        "id": "operator_identity",
+        "severity": "medium",
+        "title": "Rechtsträger nicht eindeutig erkannt",
+        "explanation": "Ein Projekt- oder Markenname ist noch kein Vertragspartner. Betreiber, Sitz und juristische Person müssen eindeutig geklärt werden."
+      }
+    ],
+    "questions": [
+      "Welche Provision, Bonus- oder sonstige Vergütung erhält die empfehlende Person oder deren Upline?",
+      "Wann und unter welchen Bedingungen kann vollständig ausgezahlt werden?",
+      "Welche juristische Person ist der Vertragspartner – mit Registernummer, Sitz und Verantwortlichen?"
+    ],
+    "evidence_highlights": [
+      {
+        "type": "withdrawal",
+        "value": "Withdraw",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "lculations, ensuring fair, real-time payouts. Leadership Bonus up to 22% Direct Bonus +8% Withdraw All Bonuses Anytime Accrual of Bonuses USDT",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral",
+        "value": "referral",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "Earn More by Growing Your Community Passive & Active Income Combine staking returns with referral bonuses Community-Driven The more the network grows, the higher the potential rewa",
+        "confidence": "medium"
+      },
+      {
+        "type": "bonus",
+        "value": "reward",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "k grows, the higher the potential rewards. Transparent & Automated Smart contracts handle reward calculations, ensuring fair, real-time payouts. Leadership Bonus up to 22% Direct B",
+        "confidence": "medium"
+      },
+      {
+        "type": "referral_input",
+        "value": "personal_referral_parameter",
+        "source_url": "https://land.timecells.app/?ref=5000000725",
+        "evidence": "Der eingegebene Link enthält eine Referral-/Affiliate-/Partnerkennung.",
+        "confidence": "high"
+      }
+    ],
+    "page_count": 4,
+    "finding_count": 8
+  },
+  "external_research": {
+    "status": "no_confirmed_external_traces",
+    "research_depth": "quick",
+    "query_budget": 4,
+    "page_fetch_budget": 4,
+    "trace_count": 0,
+    "review_candidate_count": 0,
+    "project_owned_echo_count": 0,
+    "identity_guardrail": {
+      "short_name_threshold": 5,
+      "principle": "Kurze/mehrdeutige Projektnamen werden nicht allein durch Namensgleichheit als externe Bestätigung akzeptiert."
+    },
+    "traces": []
+  },
+  "operator_research": {
+    "status": null,
+    "summary": {},
+    "registry_routing": {},
+    "profiles": []
+  },
+  "people_research": {
+    "status": null,
+    "summary": {
+      "all_profile_count": 0,
+      "control_relevant_profile_count": 0,
+      "omitted_non_control_team_profile_count": 0
+    },
+    "profiles": [],
+    "visible_scope": "control_and_ownership_relevant_only",
+    "universal_routing": {}
+  },
+  "academy_analysis": {
+    "status": null,
+    "summary": {},
+    "open_questions": [],
+    "tensions": []
+  },
+  "sixteen_point": {
+    "status": null,
+    "summary": {},
+    "questions": [],
+    "guardrails": {}
+  },
+  "specialized_route": null,
+  "note": null,
+  "principle": "Öffentliche Hinweise und Risikoindikatoren; kein Betrugs- oder Seriositätsurteil."
+}
