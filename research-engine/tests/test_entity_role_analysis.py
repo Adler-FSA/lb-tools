@@ -22,6 +22,11 @@ def test_role_classifier_separates_legal_entity_payment_and_custody():
     assert roles.classify_excerpt("Safe Vault Ltd", "Customer assets are held using custody infrastructure provided by Safe Vault Ltd.") == "custody_or_wallet_provider"
 
 
+def test_service_infrastructure_operated_by_entity_is_not_project_operator():
+    text = "Digital asset custody infrastructure operated by Fireblocks Ltd, a provider of secure MPC technology."
+    assert roles.classify_excerpt("Fireblocks Ltd", text) == "custody_or_wallet_provider"
+
+
 def test_role_classifier_does_not_infer_ownership_from_plain_mention():
     assert roles.classify_excerpt("Example GmbH", "For more information contact Example GmbH.") == "role_unclear"
 
@@ -49,3 +54,4 @@ def test_attach_keeps_project_claim_roles_separate_from_independent_confirmation
     assert profiles["Nordlicht Pay Limited"]["claimed_roles"][0]["role"] == "payment_facilitator"
     assert profiles["Nordlicht Pay Limited"]["claimed_roles"][0]["independently_confirmed"] is False
     assert out["operator_registry_research"]["guardrails"]["entity_role_does_not_imply_ownership_or_ubo"] is True
+    assert out["operator_registry_research"]["guardrails"]["specific_service_role_precedes_generic_operator_wording"] is True
