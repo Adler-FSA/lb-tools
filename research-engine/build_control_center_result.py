@@ -165,6 +165,8 @@ def build(data: dict, request_id: str, query: str, mode: str, engine_exit_code: 
         "external_research": {
             "status": external.get("status"),
             "research_depth": external.get("research_depth"),
+            "query_budget": external.get("query_budget"),
+            "page_fetch_budget": external.get("page_fetch_budget"),
             "trace_count": len(external.get("traces") or []),
             "review_candidate_count": len(external.get("review_candidates") or []),
             "project_owned_echo_count": len(external.get("project_owned_echoes") or []),
