@@ -111,6 +111,17 @@ def _promote_short_name_with_entity(data: dict, block: dict) -> None:
         block["status"] = "ok"
 
 
+def _deep_query_budget(data: dict) -> int:
+    """Gibt die tatsächlich konfigurierte Zahl der Deep-Suchabfragen zurück."""
+    ctx = data.get("context") or {}
+    analysis = data.get("analysis") or {}
+    project_name = clean_text(ctx.get("project_name") or ctx.get("input") or ctx.get("domain") or "")
+    domain = clean_text(ctx.get("domain") or "")
+    if not project_name or not domain:
+        return 0
+    return len(query_plan(project_name, domain, analysis.get("legal_entities") or []))
+
+
 def enrich(data: dict) -> dict:
     original_match = base.match_confidence
     original_plan = base.query_plan
@@ -126,6 +137,9 @@ def enrich(data: dict) -> dict:
         out = base.enrich(data)
         block = out.setdefault("external_research", {})
         _promote_short_name_with_entity(out, block)
+        block["research_depth"] = "deep"
+        block["query_budget"] = _deep_query_budget(out)
+        block["page_fetch_budget"] = MAX_FETCHED_PAGES
         block["identity_guardrail"] = {
             "short_name_threshold": 5,
             "principle": "Kurze/mehrdeutige Projektnamen werden nicht allein durch Namensgleichheit als externe Bestätigung akzeptiert.",
