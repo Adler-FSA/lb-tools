@@ -1,0 +1,931 @@
+{
+  "contract_version": "1.1",
+  "case_id": "PCA-20260825-K3LR9I5C",
+  "state": "angenommen",
+  "created_at": "2026-08-25T15:23:46Z",
+  "updated_at": "2026-08-25T15:23:46Z",
+  "delivery_document": "customer_check",
+  "identity": {
+    "status": "unresolved",
+    "label": "",
+    "confidence": "none"
+  },
+  "overall_rating": null,
+  "checks": [
+    {
+      "id": 1,
+      "key": "title_review_overall",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 2,
+      "key": "executive_summary",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 3,
+      "key": "big_picture",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 4,
+      "key": "positive_confirmed_facts",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 5,
+      "key": "critical_contradictory_open_facts",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 6,
+      "key": "methodology_evidence_standard",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 7,
+      "key": "product_function",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 8,
+      "key": "real_problem_utility",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 9,
+      "key": "operator_legal_entity",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 10,
+      "key": "persons_control_history",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 11,
+      "key": "regulation_licences_markets",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 12,
+      "key": "money_flow_custody_claim",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 13,
+      "key": "costs_fees_pricing",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 14,
+      "key": "returns_performance_promise",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 15,
+      "key": "actual_revenue_source",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 16,
+      "key": "referral_distribution_compensation",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 17,
+      "key": "viability_without_new_capital",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 18,
+      "key": "payouts_guarantees_bonuses",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 19,
+      "key": "competition_market_utility",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 20,
+      "key": "web_social_community_user_traces",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 21,
+      "key": "main_risks_red_flags",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 22,
+      "key": "consistency_contradictions",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 23,
+      "key": "scenario_stress_test",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 24,
+      "key": "missing_primary_evidence",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 25,
+      "key": "neutral_question_catalogue",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 26,
+      "key": "final_assessment",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 27,
+      "key": "action_recommendation",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 28,
+      "key": "source_register",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 29,
+      "key": "research_limits_legal_notice",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 30,
+      "key": "blockchain_crypto_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 31,
+      "key": "trading_returns_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 32,
+      "key": "card_banking_payment_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 33,
+      "key": "defi_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 34,
+      "key": "referral_mlm_distribution_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 35,
+      "key": "social_marketing_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 36,
+      "key": "company_investment_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "id": 37,
+      "key": "user_experience_traces_deep_check",
+      "workflow_status": "wartet",
+      "result_status": null,
+      "evidence_count": 0,
+      "summary": "",
+      "perspectives": {
+        "customer": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "company": {
+          "status": "wartet",
+          "updated_at": null
+        },
+        "academy": {
+          "status": "wartet",
+          "updated_at": null
+        }
+      },
+      "started_at": null,
+      "finished_at": null
+    }
+  ],
+  "documents": {
+    "customer_check": {
+      "status": "wartet",
+      "url": "",
+      "filename": "",
+      "pages": 0,
+      "bytes": 0,
+      "generated_at": null
+    },
+    "company_check": {
+      "status": "wartet",
+      "url": "",
+      "filename": "",
+      "pages": 0,
+      "bytes": 0,
+      "generated_at": null
+    },
+    "academy_full_analysis": {
+      "status": "wartet",
+      "url": "",
+      "filename": "",
+      "pages": 0,
+      "bytes": 0,
+      "generated_at": null
+    }
+  },
+  "error": null
+}
