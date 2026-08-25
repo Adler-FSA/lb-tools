@@ -6,11 +6,12 @@
   "additionalProperties": false,
   "required": ["contract_version", "case_id", "state", "created_at", "updated_at", "checks", "documents"],
   "properties": {
-    "contract_version": {"const": "1.0"},
-    "case_id": {"type": "string", "pattern": "^PCA-[0-9]{8}-[A-Z0-9]{6,12}$"},
-    "state": {"type": "string", "enum": ["angenommen", "identifizierung", "recherche", "auswertung", "pdf_erstellung", "abgeschlossen", "fehler"]},
+    "contract_version": {"const": "1.1"},
+    "case_id": {"type": "string", "pattern": "^PCA-[0-9]{8}-[A-Z0-9]{8}$"},
+    "state": {"type": "string", "enum": ["angenommen", "wartet_auf_start", "identifizierung", "recherche", "auswertung", "pdf_erstellung", "abgeschlossen", "fehler"]},
     "created_at": {"type": "string", "format": "date-time"},
     "updated_at": {"type": "string", "format": "date-time"},
+    "delivery_document": {"type": ["string", "null"], "enum": ["customer_check", "company_check", null]},
     "identity": {
       "type": "object",
       "additionalProperties": false,
@@ -28,13 +29,24 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "key", "status", "evidence_count", "summary"],
+        "required": ["id", "key", "workflow_status", "result_status", "evidence_count", "summary", "perspectives"],
         "properties": {
           "id": {"type": "integer", "minimum": 1, "maximum": 37},
           "key": {"type": "string"},
-          "status": {"type": "string", "enum": ["wartet", "laeuft", "bestaetigt", "offen", "widerspruch", "kein_befund", "nicht_relevant", "fehler", "abgeschlossen"]},
+          "workflow_status": {"type": "string", "enum": ["wartet", "laeuft", "abgeschlossen", "fehler"]},
+          "result_status": {"type": ["string", "null"], "enum": ["bestaetigt", "eigenaussage", "offen", "widerspruch", "kein_befund", "nicht_relevant", null]},
           "evidence_count": {"type": "integer", "minimum": 0},
           "summary": {"type": "string"},
+          "perspectives": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["customer", "company", "academy"],
+            "properties": {
+              "customer": {"$ref": "#/$defs/perspectiveStatus"},
+              "company": {"$ref": "#/$defs/perspectiveStatus"},
+              "academy": {"$ref": "#/$defs/perspectiveStatus"}
+            }
+          },
           "started_at": {"type": ["string", "null"]},
           "finished_at": {"type": ["string", "null"]}
         }
@@ -42,25 +54,37 @@
     },
     "documents": {
       "type": "object",
-      "required": ["user_check", "full_analysis"],
+      "additionalProperties": false,
+      "required": ["customer_check", "company_check", "academy_full_analysis"],
       "properties": {
-        "user_check": {"$ref": "#/$defs/document"},
-        "full_analysis": {"$ref": "#/$defs/document"}
+        "customer_check": {"$ref": "#/$defs/document"},
+        "company_check": {"$ref": "#/$defs/document"},
+        "academy_full_analysis": {"$ref": "#/$defs/document"}
       }
     },
     "error": {"type": ["string", "null"]}
   },
   "$defs": {
+    "perspectiveStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {"type": "string", "enum": ["wartet", "laeuft", "abgeschlossen", "fehler"]},
+        "updated_at": {"type": ["string", "null"]}
+      }
+    },
     "document": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["status", "url", "filename", "pages", "bytes"],
+      "required": ["status", "url", "filename", "pages", "bytes", "generated_at"],
       "properties": {
         "status": {"type": "string", "enum": ["wartet", "wird_erstellt", "fertig", "fehler"]},
         "url": {"type": "string"},
         "filename": {"type": "string"},
         "pages": {"type": "integer", "minimum": 0},
-        "bytes": {"type": "integer", "minimum": 0}
+        "bytes": {"type": "integer", "minimum": 0},
+        "generated_at": {"type": ["string", "null"]}
       }
     }
   }
