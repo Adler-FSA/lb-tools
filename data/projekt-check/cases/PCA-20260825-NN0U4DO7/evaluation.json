@@ -612,8 +612,7 @@
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Betreiber / Rechtsträger“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst.",
-          "Zusätzlich wurden 4 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet.",
-          "Die unabhängige Web-Recherche hat 5 externe öffentlich erreichbare Quelle(n) als Beleg zu diesem Prüfbereich erfasst."
+          "Zusätzlich wurden 4 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: address, Rechtsträger, Jurisdiktion, registration, Unternehmen, entity."
@@ -634,12 +633,7 @@
           "E017",
           "E014",
           "E015",
-          "E019",
-          "W001",
-          "W002",
-          "W003",
-          "W004",
-          "W005"
+          "E019"
         ]
       },
       "customer": {
@@ -701,8 +695,7 @@
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Verantwortliche Personen / Kontrolle / Historie“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst.",
-          "Zusätzlich wurden 3 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet.",
-          "Die unabhängige Web-Recherche hat 5 externe öffentlich erreichbare Quelle(n) als Beleg zu diesem Prüfbereich erfasst."
+          "Zusätzlich wurden 3 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: owner, Governance, responsible, director, team, management."
@@ -723,12 +716,7 @@
           "E002",
           "E006",
           "E016",
-          "E017",
-          "W001",
-          "W002",
-          "W003",
-          "W004",
-          "W005"
+          "E017"
         ]
       },
       "customer": {
@@ -790,8 +778,7 @@
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Regulierung / Lizenzen / Zielmärkte“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst.",
-          "Zusätzlich wurden 4 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet.",
-          "Die unabhängige Web-Recherche hat 2 externe öffentlich erreichbare Quelle(n) als Beleg zu diesem Prüfbereich erfasst."
+          "Zusätzlich wurden 4 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: market, compliance, Lizenz, regulation, regulated, authority."
@@ -812,9 +799,7 @@
           "E016",
           "E014",
           "E015",
-          "E017",
-          "W007",
-          "W008"
+          "E017"
         ]
       },
       "customer": {
@@ -1524,12 +1509,12 @@
     {
       "id": 20,
       "key": "web_social_community_user_traces",
-      "result_status": "bestaetigt",
+      "result_status": "kein_befund",
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Web-, Social-, Community- und Nutzer-Spuren“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst.",
           "Zusätzlich wurden 1 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet.",
-          "Es wurden 7 thematische unabhängige Websuchen durchgeführt; 10 Trefferhinweise wurden dokumentiert und 7 externe Zielseiten separat geöffnet."
+          "Es wurden 7 thematische unabhängige Websuchen mit Identitätsfilter durchgeführt; 0 gleichnamige oder unzureichend zuordenbare Treffer wurden verworfen."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Affiliate-Vertrieb, Ambassador-Programm, Community, x.com, social, youtube."
@@ -1550,14 +1535,7 @@
           "E006",
           "E008",
           "E001",
-          "E010",
-          "W001",
-          "W002",
-          "W003",
-          "W004",
-          "W005",
-          "W007",
-          "W008"
+          "E010"
         ]
       },
       "customer": {
@@ -1619,8 +1597,7 @@
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Hauptrisiken / Red Flags“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst.",
-          "Zusätzlich wurden 3 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet.",
-          "Die unabhängige Web-Recherche hat 2 externe öffentlich erreichbare Quelle(n) als Beleg zu diesem Prüfbereich erfasst."
+          "Zusätzlich wurden 3 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Dividenden, Referral, risk, Beta-Status, Pre-Launch, Änderungsvorbehalt."
@@ -1641,9 +1618,7 @@
           "E002",
           "E014",
           "E016",
-          "E017",
-          "W007",
-          "W008"
+          "E017"
         ]
       },
       "customer": {
@@ -2730,8 +2705,7 @@
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Unternehmens-/Investment-Tiefenprüfung“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst.",
-          "Zusätzlich wurden 3 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet.",
-          "Die unabhängige Web-Recherche hat 7 externe öffentlich erreichbare Quelle(n) als Beleg zu diesem Prüfbereich erfasst."
+          "Zusätzlich wurden 3 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: capital, shareholder, Unternehmen, Rechtsträger, Register, investment."
@@ -2752,14 +2726,7 @@
           "E002",
           "E014",
           "E015",
-          "E017",
-          "W001",
-          "W002",
-          "W003",
-          "W004",
-          "W005",
-          "W007",
-          "W008"
+          "E017"
         ]
       },
       "customer": {

@@ -1,150 +1,49 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "case_id": "PCA-20260825-NN0U4DO7",
   "identity_label": "U-Center",
   "project_hosts": [
-    "dataprivacyframework.gov",
-    "docsend.com",
-    "help.dropbox.com",
-    "intercom.com",
-    "kissmetrics.io",
-    "policies.google.com",
-    "stripe.com",
     "u.center"
+  ],
+  "distinctive_terms": [
+    "U CENTER",
+    "U-TOPIA",
+    "PACKAGE PRICE"
   ],
   "queries": [
     {
       "theme": "identity",
-      "query": "\"U-Center\" u.center company legal entity register"
+      "query": "\"u.center\" \"U CENTER\" company legal entity register"
     },
     {
       "theme": "regulation",
-      "query": "\"U-Center\" u.center regulator licence license warning"
+      "query": "\"u.center\" \"U CENTER\" regulator licence license warning"
     },
     {
       "theme": "people",
-      "query": "\"U-Center\" u.center founder director team management"
+      "query": "\"u.center\" \"U CENTER\" founder director team management"
     },
     {
       "theme": "social",
-      "query": "\"U-Center\" u.center Telegram YouTube Instagram Facebook TikTok"
+      "query": "\"u.center\" \"U CENTER\" Telegram YouTube Instagram Facebook TikTok"
     },
     {
       "theme": "user",
-      "query": "\"U-Center\" u.center review experience complaint payout support"
+      "query": "\"u.center\" \"U CENTER\" review experience complaint payout support"
     },
     {
       "theme": "crypto",
-      "query": "\"U-Center\" u.center token blockchain contract wallet audit"
+      "query": "\"u.center\" \"U CENTER\" token blockchain contract wallet audit"
     },
     {
       "theme": "press",
-      "query": "\"U-Center\" u.center news article interview"
+      "query": "\"u.center\" \"U CENTER\" news article interview"
     }
   ],
-  "results": [
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center company legal entity register",
-      "url": "https://www.u-center.nl/en/disclaimer/",
-      "title": "Reintegration and counseling | Employers and U-center",
-      "snippet": "Looking for sustainable reintegration with psychological complaints? U-center offers counseling and customized programs aimed at recovery to work.",
-      "category": "web",
-      "theme": "identity"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center company legal entity register",
-      "url": "https://pitchbook.com/profiles/company/64816-93",
-      "title": "U-center 2026 Company Profile: Valuation, Funding & Investors | PitchBook",
-      "snippet": "The company's mental healthcare services are provided via intensive and short-term programs for addictions and co-occurring disorders, alcoholism, chemical dependency, eating disorders, chronic stress, mood & anxiety disorders, trauma, obsessive compulsive disorders, complex assessment, and diagnosis enabling the patients to return to social ...",
-      "category": "web",
-      "theme": "identity"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center company legal entity register",
-      "url": "https://www.datanyze.com/companies/u--center/372743898",
-      "title": "U-center Company Profile | Management and Employees List",
-      "snippet": "Find contact information for U-center . Learn about their Healthcare Services market share, competitors, and U-center's email format.",
-      "category": "web",
-      "theme": "identity"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center company legal entity register",
-      "url": "https://www.crunchbase.com/organization/u-center",
-      "title": "U-center - Crunchbase Company Profile & Funding",
-      "snippet": "U-center provides a range of services for the clinical treatment of depression, burn-out, trauma, and dependency.",
-      "category": "web",
-      "theme": "identity"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center company legal entity register",
-      "url": "https://www.cbinsights.com/company/u-center",
-      "title": "U-center - Products, Competitors, Financials, Employees, Headquarters ...",
-      "snippet": "U-center is a mental health center that treats psychological disorders and addictions. The center provides inpatient and outpatient care aimed at supporting conditions such as depression, anxiety, and trauma.",
-      "category": "web",
-      "theme": "identity"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center regulator licence license warning",
-      "url": "https://www.h3c.com/en/Support/Resource_Center/EN/Network_Management/Catalog/U-Center/U-Center/Default.htm",
-      "title": "Support - H3C U-Center 2.0- H3C",
-      "snippet": "H3C U-Center 2.0 Home Support Network Operations & Management H3C U-Center 2.0 Technical Documents Software Download Select Version All Documents Documentation Maps",
-      "category": "web",
-      "theme": "regulation"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center regulator licence license warning",
-      "url": "https://www.h3c.com/en/Support/Resource_Center/EN/Network_Management/Catalog/U-Center/U-Center/Technical_Documents/Diagnose___Maintain/Troubleshooting/H3C_TG-25175/",
-      "title": "Support - H3C U-Center 2.0 Troubleshooting Guide-5W100- H3C",
-      "snippet": "2. Log in to U-Center 2.0, access the System > License Management > License Information page, and identify whether the license list contains the following three licenses : Figure 3 License information 3. Identify whether the IOM package is installed and whether the service is running correctly. Figure 4 Identify whether IOM is installed 4.",
-      "category": "web",
-      "theme": "regulation"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center regulator licence license warning",
-      "url": "https://content.u-blox.com/sites/default/files/u-center_Userguide_UBX-13005250.pdf",
-      "title": "PDF u-center User guide",
-      "snippet": "The following symbols are used to highlight important information: An index finger points out key information pertaining to integration and performance. A warning symbol indicates actions that could negatively impact u-center behavior.",
-      "category": "web",
-      "theme": "regulation"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center regulator licence license warning",
-      "url": "https://www.scribd.com/document/339200721/u-Center-UserGuide-UBX-13005250",
-      "title": "U Center UserGuide (UBX 13005250)",
-      "snippet": "u-center GNSS evaluation software for Windows User Guide Abstract This document leads you through the efficient use of the u-center evaluation software, the powerful and easy to use tool from u-blox for evaluating, performance analysis and configuration of u-blox GNSS positioning chips and modules. [Link] UBX-13005250 - R08 f u-center - User Guide Document Information Title u-center Subtitle ...",
-      "category": "web",
-      "theme": "regulation"
-    },
-    {
-      "provider": "duckduckgo",
-      "query": "\"U-Center\" u.center regulator licence license warning",
-      "url": "https://www.u-blox.com/en/product/u-center?field_file_release_date_2=1645620390",
-      "title": "u-center - u-blox",
-      "snippet": "u-center 2's optimized user experience includes personalized workspaces and adaptive window elements. Its log player provides easy message-based and time-based navigation with adjustable playback speed and u-center log file import.",
-      "category": "web",
-      "theme": "regulation"
-    }
-  ],
-  "selected_urls": [
-    "https://pitchbook.com/profiles/company/64816-93",
-    "https://www.cbinsights.com/company/u-center",
-    "https://www.crunchbase.com/organization/u-center",
-    "https://www.datanyze.com/companies/u--center/372743898",
-    "https://www.u-center.nl/en/disclaimer/",
-    "https://content.u-blox.com/sites/default/files/u-center_Userguide_UBX-13005250.pdf",
-    "https://www.h3c.com/en/Support/Resource_Center/EN/Network_Management/Catalog/U-Center/U-Center/Default.htm",
-    "https://www.h3c.com/en/Support/Resource_Center/EN/Network_Management/Catalog/U-Center/U-Center/Technical_Documents/Diagnose___Maintain/Troubleshooting/H3C_TG-25175/"
-  ],
+  "results": [],
+  "rejected_results": [],
+  "selected_urls": [],
   "errors": [],
-  "finished_at": "2026-08-25T16:42:39Z",
-  "note": "Suchtreffer sind nur Recherchehinweise. Als Belege gelten ausschließlich separat geöffnete Zielseiten in independent-evidence.json."
+  "finished_at": "2026-08-25T16:46:28Z",
+  "note": "Suchtreffer werden nur übernommen, wenn Domain oder ein markantes Projektmerkmal die Zuordnung stützt. Suchtreffer sind Recherchehinweise; Belege sind separat geöffnete Zielseiten."
 }
