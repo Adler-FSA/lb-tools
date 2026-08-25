@@ -1,0 +1,20 @@
+name: Projekt-Check – Contract Test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'projekt-check-engine/**'
+      - '.github/workflows/projekt-check-contract-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python Contract Tests
+        run: python -m unittest projekt-check-engine/tests/test_contract.py
