@@ -45,7 +45,6 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
 .counterStatus{font-size:.72rem;font-weight:800;color:#3f665a;white-space:nowrap}
 .counterActions{display:flex;gap:5px;flex:0 0 auto}
 .counterBtn{appearance:none;height:28px;border:1px solid #a9d6cc;border-radius:8px;background:#fff;color:var(--green);padding:0 9px;font-size:.7rem;font-weight:900;white-space:nowrap}
-.counterBtn.primary{border-color:var(--green);background:var(--green);color:#fff}
 .counterBtn:disabled{opacity:.4;cursor:not-allowed}
 .dailyCounter.complete{background:var(--green-soft);border-color:#8fcfbc}
 .dailyCounter.complete .counterStatus{color:#155b43}
@@ -189,7 +188,6 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
       <div class="counterBottom">
         <span class="counterStatus" id="counterStatus" aria-live="polite">Noch 25 bis zum Tagesziel</span>
         <div class="counterActions">
-          <button class="counterBtn primary" id="counterPlus" type="button">+ Telefonat</button>
           <button class="counterBtn" id="counterMinus" type="button">− Korrektur</button>
         </div>
       </div>
@@ -279,7 +277,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
           <div class="bookingKicker">Termin direkt vereinbaren</div>
           <h3 class="bookingTitle">Hotelier ist bereit?</h3>
           <p class="bookingText">Jetzt gemeinsam einen passenden 20-Minuten-Termin auswählen. Der Telefonleitfaden bleibt geöffnet.</p>
-          <a class="bookingBtn" href="https://www.liquiditybooster.de/hotels.html" target="_blank" rel="noopener noreferrer">Termin jetzt auswählen</a>
+          <a class="bookingBtn" id="bookingBtn" href="https://www.liquiditybooster.de/hotels.html" target="_blank" rel="noopener noreferrer">Termin jetzt auswählen</a>
         </div>
       </section>
 
@@ -411,6 +409,11 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   var dailyTarget = 25;
   var dailyCounterStorageKey = 'lbHotelTelefonateTageszaehler_v1';
   var dailyCount = 0;
+  var dailyBookings = 0;
+  var activeContactName = '';
+  var activeContactCounted = false;
+  var activeContactBooking = false;
+  var contactClearedSinceLast = true;
 
   var app = document.getElementById('app');
   var salutation = document.getElementById('salutation');
@@ -429,6 +432,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   var objectionGrid = document.getElementById('objectionGrid');
   var answerBox = document.getElementById('answerBox');
   var curiosityBtn = document.getElementById('curiosityBtn');
+  var bookingBtn = document.getElementById('bookingBtn');
   var ruleText = document.getElementById('ruleText');
   var aidaExplain = document.getElementById('aidaExplain');
   var aidaExplainTitle = document.getElementById('aidaExplainTitle');
@@ -438,7 +442,6 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   var counterCount = document.getElementById('counterCount');
   var counterProgress = document.getElementById('counterProgress');
   var counterStatus = document.getElementById('counterStatus');
-  var counterPlus = document.getElementById('counterPlus');
   var counterMinus = document.getElementById('counterMinus');
 
   function todayKey(){
@@ -451,7 +454,11 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
 
   function saveDailyCounter(){
     try{
-      localStorage.setItem(dailyCounterStorageKey, JSON.stringify({date:todayKey(),count:dailyCount}));
+      localStorage.setItem(dailyCounterStorageKey, JSON.stringify({
+        date:todayKey(),
+        count:dailyCount,
+        bookings:dailyBookings
+      }));
     }catch(e){}
   }
 
@@ -459,10 +466,12 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
     var today = todayKey();
     var stored = null;
     try{stored = JSON.parse(localStorage.getItem(dailyCounterStorageKey) || 'null');}catch(e){stored=null;}
-    if(stored && stored.date === today && Number.isFinite(Number(stored.count))){
-      dailyCount = Math.max(0, Math.floor(Number(stored.count)));
+    if(stored && stored.date === today){
+      dailyCount = Number.isFinite(Number(stored.count)) ? Math.max(0, Math.floor(Number(stored.count))) : 0;
+      dailyBookings = Number.isFinite(Number(stored.bookings)) ? Math.max(0, Math.floor(Number(stored.bookings))) : 0;
     }else{
       dailyCount = 0;
+      dailyBookings = 0;
       saveDailyCounter();
     }
     renderDailyCounter();
@@ -471,14 +480,15 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   function renderDailyCounter(){
     var remaining = Math.max(0, dailyTarget-dailyCount);
     var percent = Math.min(100, Math.round((dailyCount/dailyTarget)*100));
+    var bookingLabel = dailyBookings === 1 ? '1 Terminübergabe' : dailyBookings+' Terminübergaben';
     counterCount.textContent = dailyCount+' / '+dailyTarget;
     counterProgress.style.width = percent+'%';
     counterMinus.disabled = dailyCount <= 0;
     dailyCounter.classList.toggle('complete', dailyCount >= dailyTarget);
     if(dailyCount >= dailyTarget){
-      counterStatus.textContent = dailyCount === dailyTarget ? '✓ Tagesziel erreicht' : '✓ Tagesziel erreicht · '+dailyCount+' Telefonate';
+      counterStatus.textContent = '✓ Tagesziel erreicht · '+bookingLabel;
     }else{
-      counterStatus.textContent = 'Noch '+remaining+' bis zum Tagesziel';
+      counterStatus.textContent = 'Noch '+remaining+' bis zum Tagesziel · '+bookingLabel;
     }
   }
 
@@ -488,6 +498,9 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
     try{stored = JSON.parse(localStorage.getItem(dailyCounterStorageKey) || 'null');}catch(e){stored=null;}
     if(!stored || stored.date !== today){
       dailyCount = 0;
+      dailyBookings = 0;
+      activeContactCounted = false;
+      activeContactBooking = false;
       saveDailyCounter();
       renderDailyCounter();
     }
@@ -498,6 +511,73 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
     dailyCount = Math.max(0, dailyCount + delta);
     saveDailyCounter();
     renderDailyCounter();
+  }
+
+  function normalizeContactName(value){
+    return String(value || '').trim().replace(/\s+/g,' ').toLowerCase();
+  }
+
+  function clearObjectionState(){
+    document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
+    answerBox.classList.remove('show');
+    answerBox.innerHTML = '';
+  }
+
+  function setFullMode(){
+    mode='full';
+    fullModeBtn.classList.add('active');
+    shortModeBtn.classList.remove('active');
+  }
+
+  function prepareNewContact(name){
+    activeContactName = String(name || '').trim();
+    activeContactCounted = false;
+    activeContactBooking = false;
+    contactClearedSinceLast = false;
+    current = 0;
+    setFullMode();
+    closeAidaExplanation();
+    clearObjectionState();
+    render();
+  }
+
+  function syncContactFromField(resetWhenChanged){
+    var name = salutation.value.trim();
+    if(!name){return false;}
+    var changed = contactClearedSinceLast || normalizeContactName(name) !== normalizeContactName(activeContactName);
+    if(changed){
+      if(resetWhenChanged){
+        prepareNewContact(name);
+      }else{
+        activeContactName = name;
+        activeContactCounted = false;
+        activeContactBooking = false;
+        contactClearedSinceLast = false;
+      }
+    }
+    return true;
+  }
+
+  function startCurrentTelephoneCall(){
+    ensureCurrentCounterDay();
+    if(!syncContactFromField(false)){return false;}
+    if(!activeContactCounted){
+      dailyCount += 1;
+      activeContactCounted = true;
+      saveDailyCounter();
+      renderDailyCounter();
+    }
+    return true;
+  }
+
+  function registerBookingHandoff(){
+    if(!startCurrentTelephoneCall()){return;}
+    if(!activeContactBooking){
+      dailyBookings += 1;
+      activeContactBooking = true;
+      saveDailyCounter();
+      renderDailyCounter();
+    }
   }
 
   function values(){
@@ -618,6 +698,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
       b.className = 'objection';
       b.textContent = item.label;
       b.addEventListener('click', function(){
+        startCurrentTelephoneCall();
         document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
         b.classList.add('active');
         showAnswer(item);
@@ -634,7 +715,6 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
 
   aidaExplainClose.addEventListener('click', closeAidaExplanation);
 
-  counterPlus.addEventListener('click', function(){changeDailyCounter(1);});
   counterMinus.addEventListener('click', function(){changeDailyCounter(-1);});
 
   prevBtn.addEventListener('click', function(){
@@ -642,7 +722,11 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   });
 
   nextBtn.addEventListener('click', function(){
-    if(mode === 'full' && current < steps.length - 1){current++; render();}
+    if(mode === 'full' && current < steps.length - 1){
+      if(current === 0){startCurrentTelephoneCall();}
+      current++;
+      render();
+    }
   });
 
   copyBtn.addEventListener('click', function(){
@@ -657,9 +741,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   });
 
   fullModeBtn.addEventListener('click', function(){
-    mode='full';
-    fullModeBtn.classList.add('active');
-    shortModeBtn.classList.remove('active');
+    setFullMode();
     render();
   });
 
@@ -671,19 +753,39 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   });
 
   curiosityBtn.addEventListener('click', function(){
+    startCurrentTelephoneCall();
     document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
     showAnswer(curiosityAnswer);
   });
 
-  [salutation,caller].forEach(function(el){
-    el.addEventListener('input', render);
+  bookingBtn.addEventListener('click', registerBookingHandoff);
+
+  salutation.addEventListener('input', function(){
+    if(!salutation.value.trim()){contactClearedSinceLast = true;}
+    render();
   });
+
+  salutation.addEventListener('change', function(){
+    var name = salutation.value.trim();
+    if(!name){
+      contactClearedSinceLast = true;
+      render();
+      return;
+    }
+    if(contactClearedSinceLast || normalizeContactName(name) !== normalizeContactName(activeContactName)){
+      prepareNewContact(name);
+    }else{
+      activeContactName = name;
+      render();
+    }
+  });
+
+  caller.addEventListener('input', render);
 
   loadDailyCounter();
   setInterval(ensureCurrentCounterDay,60000);
   renderObjections();
-  answerBox.classList.remove('show');
-  answerBox.innerHTML = '';
+  clearObjectionState();
   render();
 })();
 </script>
