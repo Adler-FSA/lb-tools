@@ -42,15 +42,12 @@ jobs:
 
           request_path = pathlib.Path(os.environ['PROJECT_CHECK_REQUEST_PATH'])
           request = json.loads(request_path.read_text(encoding='utf-8'))
-
           case_id = str(request.get('case_id') or request_path.stem).strip().upper()
           if not re.fullmatch(r'PCA-[0-9]{8}-[A-Z0-9]{8}', case_id):
               raise SystemExit('Ungültige CASE_ID')
-
           traces = request.get('traces')
           if not isinstance(traces, list) or not 1 <= len(traces) <= 20:
               raise SystemExit('Es werden 1 bis 20 öffentliche Spuren benötigt')
-
           clean = []
           for raw in traces:
               value = str(raw or '').strip()
@@ -59,19 +56,13 @@ jobs:
                   raise SystemExit('Nur konkrete HTTP/HTTPS-Spuren sind zulässig')
               if value not in clean:
                   clean.append(value)
-
           claim = str(request.get('claim') or '').strip()
           if len(claim) > 3000:
               raise SystemExit('Aussage ist zu lang')
-
           requested_output = str(request.get('requested_output') or 'customer_check')
           if requested_output not in ('customer_check', 'company_check'):
               raise SystemExit('Ungültiger Auftragstyp')
-
-          submitted_at = str(request.get('submitted_at') or '').strip()
-          if not submitted_at:
-              submitted_at = datetime.now(timezone.utc).isoformat()
-
+          submitted_at = str(request.get('submitted_at') or '').strip() or datetime.now(timezone.utc).isoformat()
           normalized = {
               'contract_version': '1.0',
               'submitted_at': submitted_at,
@@ -81,12 +72,8 @@ jobs:
               'requested_output': requested_output,
               'source': 'projekt-check-control-panel-contents-queue'
           }
-
           pathlib.Path('/tmp/case_id.txt').write_text(case_id, encoding='utf-8')
-          pathlib.Path('/tmp/intake.json').write_text(
-              json.dumps(normalized, ensure_ascii=False, indent=2) + '\n',
-              encoding='utf-8'
-          )
+          pathlib.Path('/tmp/intake.json').write_text(json.dumps(normalized, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           PY
 
       - name: Analysefall mit 37 Prüfbereichen initialisieren
@@ -134,12 +121,29 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
-      - name: Start und Discovery bestätigt
+      - name: 37 Prüfbereiche aus Primärbelegen neutral vor-auswerten
+        id: evaluation
+        if: steps.discovery.outcome == 'success'
+        continue-on-error: true
         shell: bash
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          if [ "${{ steps.discovery.outcome }}" = "success" ]; then
-            echo "Projekt-Check $CASE_ID wurde angenommen. Die neue Discovery-Engine hat Identität und öffentliche Primärbelege verarbeitet."
-          else
-            echo "Projekt-Check $CASE_ID wurde angenommen, Discovery endete jedoch mit Fehlerstatus. Der Fall bleibt im Control Panel sichtbar."
-          fi
+          python projekt-check-engine/core/run_evaluation.py --case-id "$CASE_ID"
+
+      - name: 37-Punkte-Auswertungsstand veröffentlichen
+        if: steps.discovery.outcome == 'success' && steps.evaluation.outcome == 'success'
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git commit -m "Projekt-Check: Primärquellen-Auswertung $CASE_ID gespeichert"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Start, Discovery und Auswertung bestätigt
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          echo "Discovery: ${{ steps.discovery.outcome }}"
+          echo "Primärquellen-Auswertung: ${{ steps.evaluation.outcome }}"
+          echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; noch offene Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
