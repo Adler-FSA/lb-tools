@@ -37,13 +37,14 @@
 <script>
 (()=>{
   const dict={
-    de:{title:'Projekt-Check starten',lead:'Füge nur die öffentlichen Spuren ein, die du tatsächlich erhalten hast. Du musst weder den Projektnamen noch einen Token kennen.',traceLabel:'Öffentliche Spur(en)',traceHelp:'Telegram, Social Media, YouTube, Referral-/Affiliate-Link, Domain, Landingpage oder andere konkrete URL. Eine Spur reicht zum Start.',claimLabel:'Was wurde dir dazu gesagt? – optional',claimHelp:'Diese Angabe wird nur als unbestätigte Aussage übernommen und später gegen gefundene Quellen geprüft.',start:'Analyse starten',starting:'Analyse wird gestartet …',note:'Die Eingaben werden direkt an den neuen Projekt-Check-Motor übergeben. Projektname, Tokenname oder Vorwissen sind nicht erforderlich.',bad:'Bitte mindestens eine gültige http- oder https-URL eintragen.',tooMany:'Bitte höchstens 20 öffentliche Spuren eintragen.',gateway:'Der sichere Engine-Eingang ist noch nicht freigeschaltet.',failed:'Die Analyse konnte nicht gestartet werden. Bitte erneut versuchen.',accepted:'Analyse angenommen. Fall wird angelegt …'},
-    en:{title:'Start project check',lead:'Paste only the public traces you actually received. You do not need to know the project name or a token.',traceLabel:'Public trace(s)',traceHelp:'Telegram, social media, YouTube, referral / affiliate link, domain, landing page or another concrete URL. One trace is enough to start.',claimLabel:'What were you told about it? – optional',claimHelp:'This is stored only as an unverified claim and later checked against discovered sources.',start:'Start analysis',starting:'Starting analysis …',note:'The entries are sent directly to the new Project Check engine. A project name, token name or prior knowledge is not required.',bad:'Please enter at least one valid http or https URL.',tooMany:'Please enter no more than 20 public traces.',gateway:'The secure engine intake is not enabled yet.',failed:'The analysis could not be started. Please try again.',accepted:'Analysis accepted. Creating case …'}
+    de:{title:'Projekt-Check starten',lead:'Füge nur die öffentlichen Spuren ein, die du tatsächlich erhalten hast. Du musst weder den Projektnamen noch einen Token kennen.',traceLabel:'Öffentliche Spur(en)',traceHelp:'Telegram, Social Media, YouTube, Referral-/Affiliate-Link, Domain, Landingpage oder andere konkrete URL. Eine Spur reicht zum Start.',claimLabel:'Was wurde dir dazu gesagt? – optional',claimHelp:'Diese Angabe wird nur als unbestätigte Aussage übernommen und später gegen gefundene Quellen geprüft.',start:'Analyse starten',starting:'Analyse wird gestartet …',note:'Die Eingaben werden direkt an den neuen Projekt-Check-Motor übergeben. Projektname, Tokenname oder Vorwissen sind nicht erforderlich.',bad:'Bitte mindestens eine gültige http- oder https-URL eintragen.',tooMany:'Bitte höchstens 20 öffentliche Spuren eintragen.',trigger:'Der sichere Projekt-Check-Trigger ist noch nicht freigeschaltet.',failed:'Die Analyse konnte nicht gestartet werden. Bitte erneut versuchen.',accepted:'Analyse angenommen. Fall wird angelegt …'},
+    en:{title:'Start project check',lead:'Paste only the public traces you actually received. You do not need to know the project name or a token.',traceLabel:'Public trace(s)',traceHelp:'Telegram, social media, YouTube, referral / affiliate link, domain, landing page or another concrete URL. One trace is enough to start.',claimLabel:'What were you told about it? – optional',claimHelp:'This is stored only as an unverified claim and later checked against discovered sources.',start:'Start analysis',starting:'Starting analysis …',note:'The entries are sent directly to the new Project Check engine. A project name, token name or prior knowledge is not required.',bad:'Please enter at least one valid http or https URL.',tooMany:'Please enter no more than 20 public traces.',trigger:'The secure Project Check trigger is not enabled yet.',failed:'The analysis could not be started. Please try again.',accepted:'Analysis accepted. Creating case …'}
   };
   let lang='de';
   const form=document.getElementById('form'),traces=document.getElementById('traces'),claim=document.getElementById('claim'),message=document.getElementById('message'),startBtn=document.getElementById('startBtn'),deBtn=document.getElementById('deBtn'),enBtn=document.getElementById('enBtn');
   function setLang(l){lang=l;document.documentElement.lang=l;deBtn.setAttribute('aria-pressed',String(l==='de'));enBtn.setAttribute('aria-pressed',String(l==='en'));document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(dict[l][k])el.textContent=dict[l][k]});}
   function parseUrls(){const lines=traces.value.split(/\n+/).map(v=>v.trim()).filter(Boolean),out=[];for(const value of lines){try{const u=new URL(value);if(u.protocol==='http:'||u.protocol==='https:')out.push(u.href);}catch{}}return [...new Set(out)];}
+  function makeCaseId(){const stamp=new Date().toISOString().slice(0,10).replaceAll('-','');const bytes=new Uint8Array(4);crypto.getRandomValues(bytes);const suffix=[...bytes].map(v=>v.toString(16).padStart(2,'0')).join('').toUpperCase();return `PCA-${stamp}-${suffix}`;}
   async function loadConfig(){const r=await fetch('../../data/projekt-check/config.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('config');return r.json();}
   deBtn.addEventListener('click',()=>setLang('de'));enBtn.addEventListener('click',()=>setLang('en'));
   form.addEventListener('submit',async e=>{
@@ -52,16 +53,17 @@
     if(!urls.length){message.className='message error';message.textContent=dict[lang].bad;return;}
     if(urls.length>20){message.className='message error';message.textContent=dict[lang].tooMany;return;}
     startBtn.disabled=true;startBtn.textContent=dict[lang].starting;
+    const caseId=makeCaseId();
     try{
-      const cfg=await loadConfig();const endpoint=String(cfg.intake_endpoint||'').trim();
-      if(!endpoint)throw new Error('gateway_not_configured');
-      const payload={contract_version:'1.0',submitted_at:new Date().toISOString(),language:lang,traces:urls,claim:claim.value.trim(),source:'projekt-check-web'};
+      const cfg=await loadConfig();const endpoint=String(cfg.trigger_endpoint||'').trim();
+      if(!endpoint)throw new Error('trigger_not_configured');
+      const payload={contract_version:'1.0',case_id:caseId,submitted_at:new Date().toISOString(),language:lang,traces:urls,claim:claim.value.trim(),source:'projekt-check-web'};
       const r=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
       const data=await r.json().catch(()=>({}));
-      if(!r.ok||!data.accepted||!data.case_id)throw new Error(data.error||'intake_failed');
+      if(!r.ok||!data.accepted||data.case_id!==caseId)throw new Error(data.error||'trigger_failed');
       message.className='message ok';message.textContent=dict[lang].accepted;
-      location.href='analyse-laeuft.html?case='+encodeURIComponent(data.case_id);
-    }catch(err){message.className='message error';message.textContent=String(err?.message||'').includes('gateway_not_configured')?dict[lang].gateway:dict[lang].failed;}
+      location.href='analyse-laeuft.html?case='+encodeURIComponent(caseId);
+    }catch(err){message.className='message error';message.textContent=String(err?.message||'').includes('trigger_not_configured')?dict[lang].trigger:dict[lang].failed;}
     finally{startBtn.disabled=false;startBtn.textContent=dict[lang].start;}
   });
 })();
