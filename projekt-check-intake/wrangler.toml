@@ -1,0 +1,12 @@
+name = "projekt-check-poststelle"
+main = "handler.mjs"
+compatibility_date = "2026-08-25"
+
+[vars]
+ALLOWED_ORIGIN = "https://tools.liquiditybooster.de"
+ADMIN_GITHUB_USERS = "Adler-FSA"
+
+# Nach dem Anlegen des KV-Namespace in Cloudflare die ID unten eintragen.
+[[kv_namespaces]]
+binding = "ORDERS"
+id = "HIER_KV_NAMESPACE_ID_EINTRAGEN"
