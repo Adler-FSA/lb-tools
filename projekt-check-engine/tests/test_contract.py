@@ -30,7 +30,7 @@ class ProjectCheckContractTests(unittest.TestCase):
             self.assertTrue(item["company"].strip())
             self.assertTrue(item["academy"].strip())
 
-    def test_new_case_initializes_all_checks_and_perspectives(self):
+    def test_new_case_initializes_all_checks_perspectives_and_neutral_findings(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
             intake = tmp / "intake.json"
@@ -52,6 +52,7 @@ class ProjectCheckContractTests(unittest.TestCase):
                 "--cases-root", str(cases),
                 "--case-id", case_id
             ], check=True, cwd=ROOT, capture_output=True, text=True)
+
             status = json.loads((cases / case_id / "status.json").read_text(encoding="utf-8"))
             self.assertEqual("1.1", status["contract_version"])
             self.assertEqual(case_id, status["case_id"])
@@ -63,11 +64,24 @@ class ProjectCheckContractTests(unittest.TestCase):
             for check in status["checks"]:
                 self.assertEqual({"customer", "company", "academy"}, set(check["perspectives"]))
                 self.assertTrue(all(v["status"] == "wartet" for v in check["perspectives"].values()))
-            self.assertEqual(
-                {"customer_check", "company_check", "academy_full_analysis"},
-                set(status["documents"])
-            )
+            self.assertEqual({"customer_check", "company_check", "academy_full_analysis"}, set(status["documents"]))
             self.assertTrue(all(v["status"] == "wartet" for v in status["documents"].values()))
+
+            evaluation = json.loads((cases / case_id / "evaluation.json").read_text(encoding="utf-8"))
+            self.assertEqual(case_id, evaluation["case_id"])
+            self.assertEqual(37, len(evaluation["checks"]))
+            for check in evaluation["checks"]:
+                self.assertIsNone(check["result_status"])
+                self.assertEqual([], check["neutral_finding"]["pros"])
+                self.assertEqual([], check["neutral_finding"]["cons"])
+                self.assertEqual([], check["neutral_finding"]["open_points"])
+                self.assertEqual([], check["neutral_finding"]["contradictions"])
+                for perspective in ("customer", "company", "academy"):
+                    self.assertEqual("", check[perspective]["summary"])
+                    self.assertEqual([], check[perspective]["advantages"])
+                    self.assertEqual([], check[perspective]["disadvantages"])
+                    self.assertEqual([], check[perspective]["questions"])
+                    self.assertEqual([], check[perspective]["recommendations"])
 
 
 if __name__ == "__main__":
