@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.0",
+  "case_id": "PCA-20260825-HIDAFGXJ",
+  "submitted_at": "2026-08-25T15:39:08.341Z",
+  "language": "de",
+  "traces": [
+    "https://u.center/auth?invt=Q_KqPbwkQH"
+  ],
+  "claim": "",
+  "requested_output": "customer_check",
+  "source": "projekt-check-control-panel"
+}
