@@ -1,59 +1,52 @@
 name: Projekt-Check – Analyse starten
 
 on:
-  workflow_dispatch:
-    inputs:
-      case_id:
-        description: "Automatisch erzeugte CASE_ID aus dem Control Panel"
-        required: true
-        type: string
-      traces_json:
-        description: "JSON-Liste der öffentlichen Analyse-Spuren"
-        required: true
-        type: string
-      claim:
-        description: "Optionale Aussage zum Angebot"
-        required: false
-        default: ""
-        type: string
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/projekt-check/start-requests/*.json'
 
 permissions:
   contents: write
 
 concurrency:
-  group: projekt-check-start-${{ inputs.case_id }}
+  group: projekt-check-start-${{ github.sha }}
   cancel-in-progress: false
 
 jobs:
   start-analysis:
     runs-on: ubuntu-latest
     steps:
-      - name: Repository laden
+      - name: Auslösenden Commit laden
         uses: actions/checkout@v4
         with:
-          ref: main
-          fetch-depth: 0
+          ref: ${{ github.sha }}
+          fetch-depth: 2
 
-      - name: Analyse-Eingaben prüfen
-        env:
-          CASE_ID: ${{ inputs.case_id }}
-          TRACES_JSON: ${{ inputs.traces_json }}
-          CLAIM: ${{ inputs.claim }}
+      - name: Projekt-Check-Auftrag aus dem Commit lesen
+        shell: bash
         run: |
+          REQUEST_PATH="$(git diff-tree --no-commit-id --name-only -r "$GITHUB_SHA" | grep -E '^data/projekt-check/start-requests/[^/]+\.json$' | tail -n 1)"
+          if [ -z "$REQUEST_PATH" ] || [ ! -f "$REQUEST_PATH" ]; then
+            echo "Keine Projekt-Check-Startdatei im auslösenden Commit gefunden."
+            exit 1
+          fi
+          echo "PROJECT_CHECK_REQUEST_PATH=$REQUEST_PATH" >> "$GITHUB_ENV"
+
           python - <<'PY'
           import json, os, pathlib, re
           from datetime import datetime, timezone
           from urllib.parse import urlparse
 
-          case_id = os.environ.get('CASE_ID', '').strip().upper()
+          request_path = pathlib.Path(os.environ['PROJECT_CHECK_REQUEST_PATH'])
+          request = json.loads(request_path.read_text(encoding='utf-8'))
+
+          case_id = str(request.get('case_id') or request_path.stem).strip().upper()
           if not re.fullmatch(r'PCA-[0-9]{8}-[A-Z0-9]{8}', case_id):
               raise SystemExit('Ungültige CASE_ID')
 
-          try:
-              traces = json.loads(os.environ.get('TRACES_JSON', '[]'))
-          except json.JSONDecodeError:
-              raise SystemExit('traces_json ist kein gültiges JSON')
-
+          traces = request.get('traces')
           if not isinstance(traces, list) or not 1 <= len(traces) <= 20:
               raise SystemExit('Es werden 1 bis 20 öffentliche Spuren benötigt')
 
@@ -66,18 +59,26 @@ jobs:
               if value not in clean:
                   clean.append(value)
 
-          claim = str(os.environ.get('CLAIM') or '').strip()
+          claim = str(request.get('claim') or '').strip()
           if len(claim) > 3000:
               raise SystemExit('Aussage ist zu lang')
 
+          requested_output = str(request.get('requested_output') or 'customer_check')
+          if requested_output not in ('customer_check', 'company_check'):
+              raise SystemExit('Ungültiger Auftragstyp')
+
+          submitted_at = str(request.get('submitted_at') or '').strip()
+          if not submitted_at:
+              submitted_at = datetime.now(timezone.utc).isoformat()
+
           normalized = {
               'contract_version': '1.0',
-              'submitted_at': datetime.now(timezone.utc).isoformat(),
-              'language': 'de',
+              'submitted_at': submitted_at,
+              'language': 'en' if request.get('language') == 'en' else 'de',
               'traces': clean,
               'claim': claim,
-              'requested_output': 'customer_check',
-              'source': 'projekt-check-control-panel'
+              'requested_output': requested_output,
+              'source': 'projekt-check-control-panel-contents-queue'
           }
 
           pathlib.Path('/tmp/case_id.txt').write_text(case_id, encoding='utf-8')
@@ -96,17 +97,19 @@ jobs:
             --initial-state angenommen \
             --persist-intake sanitized
 
-      - name: Analysefall im Control-Panel-Datenbestand speichern
+      - name: Fall speichern und Startdatei aus dem Arbeitsstand entfernen
+        shell: bash
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
           git config user.name "FSA Projekt-Check"
           git config user.email "actions@github.com"
           git add "data/projekt-check/cases/$CASE_ID"
-          git commit -m "Projekt-Check: Analyse $CASE_ID starten"
+          git rm "$PROJECT_CHECK_REQUEST_PATH"
+          git commit -m "Projekt-Check: Analyse $CASE_ID angenommen"
           git pull --rebase origin main
           git push origin HEAD:main
 
       - name: Start bestätigt
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          echo "Projekt-Check-Analyse $CASE_ID wurde intern gestartet."
+          echo "Projekt-Check $CASE_ID wurde durch den Contents-Commit angenommen und mit 37 Prüfbereichen initialisiert."
