@@ -407,6 +407,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   var openAidaStage = null;
   var dailyTarget = 25;
   var dailyCounterStorageKey = 'lbHotelTelefonateTageszaehler_v1';
+  var callerNameStorageKey = 'lbHotelTelefonleitfadenClubLeaderName_v1';
   var dailyCount = 0;
   var dailyBookings = 0;
   var activeContactName = '';
@@ -576,6 +577,24 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
       saveDailyCounter();
       renderDailyCounter();
     }
+  }
+
+  function loadCallerName(){
+    try{
+      var savedName = localStorage.getItem(callerNameStorageKey);
+      if(savedName){caller.value = savedName;}
+    }catch(e){}
+  }
+
+  function saveCallerName(){
+    try{
+      var name = caller.value.trim();
+      if(name){
+        localStorage.setItem(callerNameStorageKey, name);
+      }else{
+        localStorage.removeItem(callerNameStorageKey);
+      }
+    }catch(e){}
   }
 
   function values(){
@@ -767,8 +786,12 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
     }
   });
 
-  caller.addEventListener('input', render);
+  caller.addEventListener('input', function(){
+    saveCallerName();
+    render();
+  });
 
+  loadCallerName();
   loadDailyCounter();
   setInterval(ensureCurrentCounterDay,60000);
   renderObjections();
