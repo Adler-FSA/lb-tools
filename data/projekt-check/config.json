@@ -1,6 +1,6 @@
 {
   "contract_version": "1.0",
-  "intake_endpoint": "",
+  "trigger_endpoint": "",
   "status_base": "/data/projekt-check/cases/",
   "control_panel": "/pages/projekt-check/control-panel.html",
   "archive_index": "/data/projekt-check/archive/index.json"
