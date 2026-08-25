@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.1",
+  "case_id": "PCA-20260825-IETRS0W3",
+  "started_at": "2026-08-25T16:04:33Z",
+  "initial_trace_count": 1,
+  "expanded_trace_count": 18,
+  "browser_probe": "playwright-chromium",
+  "crawl_depth_limit": 3,
+  "crawl_rounds": [
+    {
+      "depth": 1,
+      "urls": [
+        "https://u.center/",
+        "https://docsend.com/view/3wjptrvw2c35gj8p",
+        "https://docsend.com/view/pehz2xqa23xw3pyc"
+      ],
+      "probe_count": 3,
+      "navigation_target_count": 0
+    },
+    {
+      "depth": 2,
+      "urls": [
+        "https://docsend.com/",
+        "https://u.center/terms",
+        "https://www.docsend.com/legal",
+        "https://u.center/privacy",
+        "https://www.docsend.com/what-is-docsend/",
+        "https://u.center/explore",
+        "https://u.center/settings"
+      ],
+      "probe_count": 7,
+      "navigation_target_count": 0
+    },
+    {
+      "depth": 3,
+      "urls": [
+        "https://www.docsend.com/",
+        "https://www.dataprivacyframework.gov/",
+        "https://stripe.com/privacy",
+        "https://www.kissmetrics.io/privacy",
+        "https://stripe.com/legal/ssa",
+        "https://www.intercom.com/legal/privacy",
+        "http://www.google.com/policies/privacy",
+        "https://help.dropbox.com/security/cookies"
+      ],
+      "probe_count": 8,
+      "navigation_target_count": 0
+    }
+  ],
+  "errors": [],
+  "priority_links": [
+    "https://u.center/",
+    "https://docsend.com/view/3wjptrvw2c35gj8p",
+    "https://docsend.com/view/pehz2xqa23xw3pyc",
+    "https://docsend.com/",
+    "https://u.center/terms",
+    "https://www.docsend.com/legal",
+    "https://u.center/privacy",
+    "https://www.docsend.com/what-is-docsend/",
+    "https://u.center/explore",
+    "https://u.center/settings",
+    "https://www.docsend.com/",
+    "https://www.dataprivacyframework.gov/",
+    "https://stripe.com/privacy",
+    "https://www.kissmetrics.io/privacy",
+    "https://stripe.com/legal/ssa",
+    "https://www.intercom.com/legal/privacy",
+    "http://www.google.com/policies/privacy",
+    "https://help.dropbox.com/security/cookies"
+  ],
+  "navigation_target_count": 0,
+  "finished_at": "2026-08-25T16:06:13Z",
+  "identity_status": "resolved",
+  "identity_label": "U-Center",
+  "evidence_count": 19,
+  "probe_errors": []
+}
