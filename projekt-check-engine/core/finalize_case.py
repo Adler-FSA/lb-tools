@@ -6,7 +6,8 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-FINAL = {"bestaetigt", "offen", "widerspruch", "kein_befund", "nicht_relevant", "fehler", "abgeschlossen"}
+DOCUMENTS = ("customer_check", "company_check", "academy_full_analysis")
+PERSPECTIVES = ("customer", "company", "academy")
 
 
 def now() -> str:
@@ -14,7 +15,7 @@ def now() -> str:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Schließt einen Projekt-Check erst nach 37 finalen Prüfungen und zwei PDFs ab.")
+    ap = argparse.ArgumentParser(description="Schließt einen Projekt-Check erst nach 37 Prüfungen, drei Perspektiven und drei PDFs ab.")
     ap.add_argument("--case-dir", required=True, type=Path)
     ap.add_argument("--archive-index", default=Path("data/projekt-check/archive/index.json"), type=Path)
     args = ap.parse_args()
@@ -24,12 +25,21 @@ def main() -> int:
     checks = data.get("checks", [])
     if len(checks) != 37:
         raise SystemExit("Abbruch: Status enthält nicht exakt 37 Prüfbereiche.")
-    not_final = [c["id"] for c in checks if c.get("status") not in FINAL]
-    if not_final:
-        raise SystemExit("Abbruch: Noch nicht final: " + ", ".join(map(str, not_final)))
+
+    incomplete_checks = [c.get("id") for c in checks if c.get("workflow_status") != "abgeschlossen" or not c.get("result_status")]
+    if incomplete_checks:
+        raise SystemExit("Abbruch: Prüfbereiche noch nicht final: " + ", ".join(map(str, incomplete_checks)))
+
+    incomplete_perspectives = []
+    for check in checks:
+        for perspective in PERSPECTIVES:
+            if ((check.get("perspectives") or {}).get(perspective) or {}).get("status") != "abgeschlossen":
+                incomplete_perspectives.append(f"{check.get('id')}:{perspective}")
+    if incomplete_perspectives:
+        raise SystemExit("Abbruch: Perspektiven noch nicht final: " + ", ".join(incomplete_perspectives))
 
     docs = data.get("documents", {})
-    for key in ("user_check", "full_analysis"):
+    for key in DOCUMENTS:
         doc = docs.get(key, {})
         if doc.get("status") != "fertig" or not doc.get("url") or not doc.get("filename"):
             raise SystemExit(f"Abbruch: Dokument {key} ist noch nicht fertig.")
@@ -47,14 +57,13 @@ def main() -> int:
 
     entry = {
         "case_id": data["case_id"],
+        "project_label": (data.get("identity") or {}).get("label", ""),
         "completed_at": ts,
-        "identity_label": (data.get("identity") or {}).get("label", ""),
-        "overall_rating": data.get("overall_rating"),
+        "traffic_light": data.get("overall_rating"),
         "checks_completed": 37,
-        "documents": {
-            "user_check": docs["user_check"]["url"],
-            "full_analysis": docs["full_analysis"]["url"],
-        },
+        "perspectives_completed": {"customer": 37, "company": 37, "academy": 37},
+        "delivery_document": data.get("delivery_document"),
+        "documents": {key: docs[key] for key in DOCUMENTS},
     }
     archive["cases"] = [x for x in archive["cases"] if x.get("case_id") != data["case_id"]]
     archive["cases"].append(entry)
