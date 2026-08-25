@@ -1,0 +1,11 @@
+{
+  "case_id": "PCA-20260825-IETRS0W3",
+  "contract_version": "1.0",
+  "submitted_at": "2026-08-25T16:01:57.822Z",
+  "language": "de",
+  "requested_output": "customer_check",
+  "source": "projekt-check-control-panel-contents-queue",
+  "trace_count": 1,
+  "has_claim": false,
+  "raw_intake_persisted": false
+}
