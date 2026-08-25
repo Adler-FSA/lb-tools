@@ -16,7 +16,8 @@ def _clean(value: str) -> str:
 
 
 def _hostname(url: str) -> str:
-    return (urlparse(url).hostname or "").lower().lstrip("www.")
+    host = (urlparse(url).hostname or "").lower().strip(".")
+    return host[4:] if host.startswith("www.") else host
 
 
 def _title_head(title: str) -> str:
