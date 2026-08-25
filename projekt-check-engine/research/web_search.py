@@ -144,16 +144,16 @@ def search_one(query: str, per_provider: int = 6) -> tuple[list[dict], list[str]
 
 def build_queries(label: str, domains: list[str], distinctive_terms: list[str] | None = None) -> list[dict]:
     label = " ".join(str(label or "").split()).strip()
-    domain = next((d for d in domains if d), "")
+    domain = next((str(d).strip() for d in domains if str(d).strip()), "")
     terms = [" ".join(str(x or "").split()).strip() for x in (distinctive_terms or []) if str(x or "").strip()]
-    anchors=[]
-    if domain:
-        anchors.append(f'"{domain}"')
     if terms:
-        anchors.append(f'"{terms[0]}"')
-    elif label:
-        anchors.append(f'"{label}"')
-    base = " ".join(anchors) or (f'"{label}"' if label else domain)
+        # Der markanteste Projektbegriff ist der Hauptanker. Der allgemeine Projektname
+        # bleibt unquoted als Zusatz, damit externe Seiten nicht zwingend die Domain nennen müssen.
+        base = f'"{terms[0]}"' + (f" {label}" if label else "")
+    elif domain:
+        base = f'"{domain}"' + (f" {label}" if label else "")
+    else:
+        base = f'"{label}"' if label else ""
     themes = [
         ("identity", f"{base} company legal entity register"),
         ("regulation", f"{base} regulator licence license warning"),
