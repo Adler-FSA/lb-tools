@@ -2,6 +2,17 @@
 
 Alle 37 Bereiche werden bei jedem Analysefall gestartet und erhalten einen dokumentierten Status. Kein Bereich darf still übersprungen werden.
 
+Für jeden Prüfbereich gelten zusätzlich der verbindliche `NEUTRALITAETSSTANDARD.md`, die drei Auswertungsprofile aus `AUSWERTUNGSPROFILE.md` und die bereichsspezifischen Arbeitsanweisungen aus `guidance/checks-37-guidance.json`.
+
+## Grundstruktur jedes Prüfbereichs
+
+Jeder Bereich besitzt zwei Ebenen:
+
+1. **Neutraler Befundbestand** – bestätigte Tatsachen, Eigenaussagen, Pro, Contra, offene Punkte, Widersprüche und Belege.
+2. **Drei getrennte Auswertungen** – Kunden-Perspektive, Firmen-Perspektive und Akademie-Perspektive.
+
+Keine Perspektive darf aus einer anderen Perspektive abgeleitet oder nur umformuliert werden. Alle drei greifen unabhängig auf denselben neutralen Befundbestand zu.
+
 ## 29 universelle Prüfbereiche
 
 1. Titel / Prüfstand / Gesamtampel
@@ -45,16 +56,50 @@ Alle 37 Bereiche werden bei jedem Analysefall gestartet und erhalten einen dokum
 36. Unternehmens-/Investment-Tiefenprüfung
 37. Nutzer-/Erfahrungsspuren-Tiefenprüfung
 
-## Zulässige Befundzustände
+## Befundzustände
 
-- `wartet`
-- `laeuft`
+Die fachliche Auswertung unterscheidet:
+
 - `bestaetigt`
+- `eigenaussage`
 - `offen`
 - `widerspruch`
 - `kein_befund`
 - `nicht_relevant`
-- `fehler`
-- `abgeschlossen`
 
 Ein `kein_befund` oder `nicht_relevant` ist ein dokumentiertes Prüfergebnis und kein ausgelassener Prüfschritt.
+
+## Verarbeitungsstatus
+
+Der technische Lauf wird davon getrennt geführt:
+
+- `wartet`
+- `laeuft`
+- `abgeschlossen`
+- `fehler`
+
+Zusätzlich besitzt jeder Prüfbereich drei Perspektivstatus:
+
+- `customer`
+- `company`
+- `academy`
+
+Jede Perspektive führt ihren eigenen Verarbeitungsstatus. Damit kann das Control Panel später nicht nur `37/37 geprüft`, sondern auch die Vollständigkeit aller drei Auswertungen kontrollieren.
+
+## Drei Dokumente
+
+Aus einem abgeschlossenen Fall können drei eigenständige PDF-Dokumente erzeugt werden:
+
+- `customer_check` – Kunden-Projekt-Check
+- `company_check` – Firmen-Projekt-Check
+- `academy_full_analysis` – interne Akademie-Vollanalyse
+
+Alle drei entstehen unabhängig voneinander aus demselben neutralen Beleg- und Befundbestand.
+
+## Neutralitätsregel
+
+Die Bewertung richtet sich nie gegen eine Person, einen Vertrieb oder ein Unternehmen. Sie zeigt nachvollziehbar:
+
+**Was ist bestätigt? Was ist Eigenaussage? Was spricht dafür? Was spricht dagegen? Was ist offen? Wo bestehen belegte Widersprüche? Welche sachlichen Fragen und Empfehlungen entstehen daraus?**
+
+Ein rotes Ergebnis ist kein automatischer Betrugsvorwurf. Ein grünes Ergebnis ist keine Sicherheitsgarantie.
