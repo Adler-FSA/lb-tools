@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CHECKS = ROOT / "projekt-check-engine/checks/checks-37.json"
+GUIDANCE = ROOT / "projekt-check-auswertung/guidance/checks-37-guidance.json"
 NEW_CASE = ROOT / "projekt-check-engine/core/new_case.py"
 
 
@@ -18,7 +19,18 @@ class ProjectCheckContractTests(unittest.TestCase):
         self.assertEqual(list(range(1, 38)), [x["id"] for x in checks])
         self.assertEqual(37, len({x["key"] for x in checks}))
 
-    def test_new_case_initializes_all_checks(self):
+    def test_guidance_exists_for_all_37_checks(self):
+        data = json.loads(GUIDANCE.read_text(encoding="utf-8"))
+        checks = data["checks"]
+        self.assertEqual(37, len(checks))
+        self.assertEqual(list(range(1, 38)), [x["id"] for x in checks])
+        for item in checks:
+            self.assertTrue(item["neutral_focus"].strip())
+            self.assertTrue(item["customer"].strip())
+            self.assertTrue(item["company"].strip())
+            self.assertTrue(item["academy"].strip())
+
+    def test_new_case_initializes_all_checks_and_perspectives(self):
         with tempfile.TemporaryDirectory() as tmp:
             tmp = Path(tmp)
             intake = tmp / "intake.json"
@@ -29,7 +41,8 @@ class ProjectCheckContractTests(unittest.TestCase):
                 "language": "de",
                 "traces": ["https://example.org/ref/abc"],
                 "claim": "",
-                "source": "projekt-check-web"
+                "source": "projekt-check-web",
+                "requested_output": "customer_check"
             }), encoding="utf-8")
             case_id = "PCA-20260825-ABC12345"
             subprocess.run([
@@ -40,12 +53,21 @@ class ProjectCheckContractTests(unittest.TestCase):
                 "--case-id", case_id
             ], check=True, cwd=ROOT, capture_output=True, text=True)
             status = json.loads((cases / case_id / "status.json").read_text(encoding="utf-8"))
+            self.assertEqual("1.1", status["contract_version"])
             self.assertEqual(case_id, status["case_id"])
-            self.assertEqual("angenommen", status["state"])
+            self.assertEqual("wartet_auf_start", status["state"])
+            self.assertEqual("customer_check", status["delivery_document"])
             self.assertEqual(37, len(status["checks"]))
-            self.assertTrue(all(x["status"] == "wartet" for x in status["checks"]))
-            self.assertEqual("wartet", status["documents"]["user_check"]["status"])
-            self.assertEqual("wartet", status["documents"]["full_analysis"]["status"])
+            self.assertTrue(all(x["workflow_status"] == "wartet" for x in status["checks"]))
+            self.assertTrue(all(x["result_status"] is None for x in status["checks"]))
+            for check in status["checks"]:
+                self.assertEqual({"customer", "company", "academy"}, set(check["perspectives"]))
+                self.assertTrue(all(v["status"] == "wartet" for v in check["perspectives"].values()))
+            self.assertEqual(
+                {"customer_check", "company_check", "academy_full_analysis"},
+                set(status["documents"])
+            )
+            self.assertTrue(all(v["status"] == "wartet" for v in status["documents"].values()))
 
 
 if __name__ == "__main__":
