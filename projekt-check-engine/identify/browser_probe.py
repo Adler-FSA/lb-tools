@@ -24,6 +24,8 @@ SOCIAL_HOSTS = {
     "www.linkedin.com": "linkedin",
 }
 
+# Diese Begriffe bestimmen nur noch die Reihenfolge der Recherche.
+# Sie entscheiden NICHT mehr darüber, ob eine sichere interne Seite untersucht wird.
 PRIORITY_PATH_WORDS = {
     "about", "company", "team", "contact", "legal", "imprint", "impressum",
     "terms", "privacy", "policy", "faq", "docs", "documentation", "whitepaper",
@@ -31,6 +33,7 @@ PRIORITY_PATH_WORDS = {
     "fees", "rewards", "compensation", "referral", "affiliate", "ambassador",
     "license", "licence", "regulation", "compliance", "security", "audit",
     "product", "products", "service", "services", "platform", "ecosystem",
+    "governance", "dao", "treasury", "academy", "career", "membership", "packages",
 }
 
 SAFE_NAV_WORDS = PRIORITY_PATH_WORDS | {
@@ -42,6 +45,13 @@ BLOCKED_ACTION_WORDS = {
     "buy", "purchase", "checkout", "deposit", "withdraw", "send", "transfer",
     "confirm", "create account", "sign up", "signup", "register", "connect wallet",
     "pay", "order", "subscribe", "submit", "login", "log in", "sign in",
+}
+
+# Öffentliche Informationsseiten werden verfolgt. Interaktive Konto-/Transaktionswege nicht.
+BLOCKED_PATH_SEGMENTS = {
+    "auth", "login", "signin", "sign-in", "signup", "sign-up", "register",
+    "registration", "account", "dashboard", "checkout", "cart", "deposit",
+    "withdraw", "logout", "create-account", "connect-wallet", "wallet-connect",
 }
 
 CLICKABLE_SELECTOR = "button,[role='button'],[onclick],input[type='button'],a:not([href])"
@@ -88,53 +98,102 @@ def _hosts_related(host: str, primary_hosts: set[str]) -> bool:
     return False
 
 
-def _is_priority_link(url: str, primary_hosts: set[str], *, trusted_navigation: bool = False) -> bool:
+def _blocked_path(url: str) -> bool:
+    parsed = urlparse(url)
+    segments = {
+        segment.strip().lower()
+        for segment in parsed.path.split("/")
+        if segment.strip()
+    }
+    return bool(segments & BLOCKED_PATH_SEGMENTS)
+
+
+def _is_safe_project_link(url: str, primary_hosts: set[str], *, trusted_navigation: bool = False) -> bool:
     parsed = urlparse(url)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         return False
-    host = _normalize_host(parsed.hostname or "")
-    if classify_url(url) != "website":
+
+    source_type = classify_url(url)
+    if source_type != "website":
         return True
-    if trusted_navigation:
-        return True
-    if not _hosts_related(host, primary_hosts):
+
+    if _blocked_path(url):
         return False
-    if parsed.path in {"", "/"} and not parsed.query:
+
+    host = _normalize_host(parsed.hostname or "")
+    if _hosts_related(host, primary_hosts):
         return True
+
+    # Ein sicherer sichtbarer Navigationsweg darf einmal auf die offizielle Projekt-Domain
+    # überleiten (z. B. Referral-/Landingpage -> offizielle Startseite).
+    return trusted_navigation
+
+
+def _priority_rank(url: str, primary_hosts: set[str], *, trusted_navigation: bool = False) -> tuple[int, int, str]:
+    parsed = urlparse(url)
+    source_type = classify_url(url)
+    host = _normalize_host(parsed.hostname or "")
+
+    if source_type != "website":
+        return (4, len(parsed.path), url)
+    if trusted_navigation and not _hosts_related(host, primary_hosts):
+        return (0, len(parsed.path), url)
+    if parsed.path in {"", "/"} and not parsed.query:
+        return (0, 0, url)
+
     haystack = (parsed.path + "?" + parsed.query).lower()
-    return any(word in haystack for word in PRIORITY_PATH_WORDS)
+    if any(word in haystack for word in PRIORITY_PATH_WORDS):
+        return (1, len(parsed.path), url)
+    return (2, len(parsed.path), url)
 
 
 def choose_priority_links(probes: list[dict], limit: int = 14) -> list[str]:
+    """Choose the next safe public pages to probe.
+
+    The crawler follows the public internal structure of the identified project.
+    Priority keywords only influence order; safe same-domain pages are not discarded.
+    """
     primary_hosts = {host_of(p.get("final_url") or p.get("requested_url") or "") for p in probes}
     primary_hosts.discard("")
-    seen: set[str] = set()
-    out: list[str] = []
 
-    def add(url: str, trusted_navigation: bool = False) -> bool:
+    candidates: dict[str, tuple[int, int, str]] = {}
+
+    def add(url: str, trusted_navigation: bool = False) -> None:
         canonical = _canonical_url(url)
-        if not canonical or canonical in seen:
-            return False
-        if not _is_priority_link(canonical, primary_hosts, trusted_navigation=trusted_navigation):
-            return False
-        seen.add(canonical)
-        out.append(canonical)
-        return len(out) >= limit
+        if not canonical:
+            return
+        if not _is_safe_project_link(canonical, primary_hosts, trusted_navigation=trusted_navigation):
+            return
+        rank = _priority_rank(canonical, primary_hosts, trusted_navigation=trusted_navigation)
+        old = candidates.get(canonical)
+        if old is None or rank < old:
+            candidates[canonical] = rank
 
+    # Sichere Buttons/Router-Wege zuerst.
     for probe in probes:
         if probe.get("source_type") != "website":
             continue
         for link in probe.get("navigation_links") or []:
-            if add(link, trusted_navigation=True):
-                return out
+            add(link, trusted_navigation=True)
 
+    # Sichtbare Anchor-Navigation mit Label kann ebenfalls eine offizielle Startseite überbrücken.
+    for probe in probes:
+        if probe.get("source_type") != "website":
+            continue
+        for action in probe.get("link_actions") or []:
+            label = str(action.get("label") or "")
+            if _safe_navigation_label(label):
+                add(str(action.get("url") or ""), trusted_navigation=True)
+
+    # Danach ALLE sicheren internen Links; Keywords beeinflussen nur die Sortierung.
     for probe in probes:
         if probe.get("source_type") != "website":
             continue
         for link in probe.get("links") or []:
-            if add(link):
-                return out
-    return out
+            add(link)
+
+    ordered = sorted(candidates, key=lambda url: candidates[url])
+    return ordered[: max(0, limit)]
 
 
 def _safe_navigation_label(label: str) -> bool:
@@ -164,6 +223,8 @@ def _extract_static_navigation_targets(base_url: str, candidates: list[dict]) ->
         parsed = urlparse(target)
         if parsed.scheme not in {"http", "https"} or not parsed.netloc or target in seen:
             continue
+        if _blocked_path(target):
+            continue
         seen.add(target)
         results.append({"label": label[:120], "url": target, "basis": "attribute_or_onclick"})
     return results
@@ -191,7 +252,7 @@ def _discover_click_navigation(context, page_url: str, candidates: list[dict], *
                 continue
             page.wait_for_timeout(1400)
             after = _canonical_url(page.url)
-            if after and after != before:
+            if after and after != before and not _blocked_path(after):
                 parsed = urlparse(after)
                 if parsed.scheme in {"http", "https"} and parsed.netloc and after not in seen:
                     seen.add(after)
@@ -257,6 +318,7 @@ def probe_urls(urls: list[str], timeout_ms: int = 35000) -> list[dict]:
                 "og_site_name": "",
                 "text_excerpt": "",
                 "links": [],
+                "link_actions": [],
                 "navigation_links": [],
                 "navigation_actions": [],
                 "content_sha256": "",
@@ -276,8 +338,11 @@ def probe_urls(urls: list[str], timeout_ms: int = 35000) -> list[dict]:
                     f"""() => {{
                       const meta = (sel) => document.querySelector(sel)?.content?.trim() || '';
                       const h1 = document.querySelector('h1')?.innerText?.trim() || '';
-                      const links = [...document.querySelectorAll('a[href]')]
-                        .map(a => a.href).filter(Boolean);
+                      const anchors = [...document.querySelectorAll('a[href]')]
+                        .map(a => ({{
+                          url: a.href,
+                          label: (a.innerText || a.getAttribute('aria-label') || a.getAttribute('title') || '').trim()
+                        }})).filter(item => item.url);
                       const clickables = [...document.querySelectorAll({CLICKABLE_SELECTOR!r})]
                         .map((el, index) => {{
                           const style = window.getComputedStyle(el);
@@ -293,18 +358,27 @@ def probe_urls(urls: list[str], timeout_ms: int = 35000) -> list[dict]:
                         description: meta('meta[name="description"]'),
                         siteName: meta('meta[property="og:site_name"]'),
                         text: document.body?.innerText || '',
-                        links,
+                        anchors,
                         clickables
                       }};
                     }}"""
                 )
                 text = " ".join(str(data.get("text") or "").split())
                 links: list[str] = []
-                for link in data.get("links") or []:
-                    canonical = _canonical_url(link)
+                link_actions: list[dict] = []
+                for anchor in data.get("anchors") or []:
+                    canonical = _canonical_url(anchor.get("url") or "")
                     parsed = urlparse(canonical)
-                    if parsed.scheme in {"http", "https"} and parsed.netloc and canonical not in links:
+                    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+                        continue
+                    if canonical not in links:
                         links.append(canonical)
+                    link_actions.append(
+                        {
+                            "label": " ".join(str(anchor.get("label") or "").split())[:160],
+                            "url": canonical,
+                        }
+                    )
                     if len(links) >= 300:
                         break
 
@@ -331,6 +405,7 @@ def probe_urls(urls: list[str], timeout_ms: int = 35000) -> list[dict]:
                 record["og_site_name"] = " ".join(str(data.get("siteName") or "").split())[:200]
                 record["text_excerpt"] = text[:16000]
                 record["links"] = links
+                record["link_actions"] = link_actions[:300]
                 record["navigation_links"] = navigation_links[:40]
                 record["navigation_actions"] = navigation_actions[:40]
                 digest_source = "\n".join(
