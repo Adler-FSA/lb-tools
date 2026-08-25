@@ -36,8 +36,9 @@ class ProjectCheckDiscoveryContractTests(unittest.TestCase):
         self.assertIn("content_sha256", text)
         self.assertIn("choose_priority_links", text)
         self.assertIn("navigation_links", text)
+        self.assertIn("link_actions", text)
         self.assertIn("safe_button_click", text)
-        self.assertIn("CLICKABLE_SELECTOR", text)
+        self.assertIn("BLOCKED_PATH_SEGMENTS", text)
         self.assertNotIn("scam", text.lower())
         self.assertNotIn("betrug", text.lower())
 
@@ -49,6 +50,7 @@ class ProjectCheckDiscoveryContractTests(unittest.TestCase):
                 "final_url": "https://ref.example/auth?id=1",
                 "source_type": "website",
                 "navigation_links": ["https://official.example/"],
+                "link_actions": [],
                 "links": [],
             },
             {
@@ -56,6 +58,7 @@ class ProjectCheckDiscoveryContractTests(unittest.TestCase):
                 "final_url": "https://official.example/",
                 "source_type": "website",
                 "navigation_links": [],
+                "link_actions": [],
                 "links": [
                     "https://official.example/about",
                     "https://official.example/terms",
@@ -68,6 +71,48 @@ class ProjectCheckDiscoveryContractTests(unittest.TestCase):
         self.assertIn("https://official.example/about", links)
         self.assertIn("https://official.example/terms", links)
         self.assertIn("https://official.example/privacy", links)
+
+    def test_safe_internal_structure_is_followed_without_keyword_gate(self):
+        module = load_module(BROWSER_PROBE, "pc_browser_probe_internal")
+        probes = [
+            {
+                "requested_url": "https://u.example/",
+                "final_url": "https://u.example/",
+                "source_type": "website",
+                "navigation_links": [],
+                "link_actions": [],
+                "links": [
+                    "https://u.example/governance",
+                    "https://u.example/treasury",
+                    "https://u.example/something-new",
+                    "https://u.example/auth",
+                    "https://u.example/signup",
+                ],
+            }
+        ]
+        links = module.choose_priority_links(probes, limit=20)
+        self.assertIn("https://u.example/governance", links)
+        self.assertIn("https://u.example/treasury", links)
+        self.assertIn("https://u.example/something-new", links)
+        self.assertNotIn("https://u.example/auth", links)
+        self.assertNotIn("https://u.example/signup", links)
+
+    def test_visible_back_home_anchor_can_bridge_domains(self):
+        module = load_module(BROWSER_PROBE, "pc_browser_probe_anchor")
+        probes = [
+            {
+                "requested_url": "https://invite.example/ref/1",
+                "final_url": "https://invite.example/ref/1",
+                "source_type": "website",
+                "navigation_links": [],
+                "link_actions": [
+                    {"label": "Back to Home", "url": "https://official.example/"}
+                ],
+                "links": ["https://official.example/"],
+            }
+        ]
+        links = module.choose_priority_links(probes, limit=10)
+        self.assertIn("https://official.example/", links)
 
     def test_discovery_is_multistage_and_bounded(self):
         text = DISCOVERY.read_text(encoding="utf-8")
