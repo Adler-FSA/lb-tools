@@ -256,7 +256,6 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
       <div class="readerFoot">
         <div class="navGroup">
           <button class="btn secondary" id="prevBtn" type="button">Zurück</button>
-          <button class="btn muted" id="copyBtn" type="button">Satz kopieren</button>
           <button class="btn" id="nextBtn" type="button">Weiter</button>
         </div>
         <div class="rule" id="ruleText">Immer nur den nächsten Schritt sprechen. Nicht vorzeitig erklären.</div>
@@ -426,7 +425,6 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   var coachBox = document.getElementById('coachBox');
   var prevBtn = document.getElementById('prevBtn');
   var nextBtn = document.getElementById('nextBtn');
-  var copyBtn = document.getElementById('copyBtn');
   var fullModeBtn = document.getElementById('fullModeBtn');
   var shortModeBtn = document.getElementById('shortModeBtn');
   var objectionGrid = document.getElementById('objectionGrid');
@@ -726,17 +724,6 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
       if(current === 0){startCurrentTelephoneCall();}
       current++;
       render();
-    }
-  });
-
-  copyBtn.addEventListener('click', function(){
-    var text = scriptText.innerText;
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){
-        var old = copyBtn.textContent;
-        copyBtn.textContent = 'Kopiert';
-        setTimeout(function(){copyBtn.textContent = old;},900);
-      });
     }
   });
 
