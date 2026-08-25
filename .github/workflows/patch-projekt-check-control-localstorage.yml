@@ -1,0 +1,33 @@
+name: Projekt-Check – Control LocalStorage Patch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/patch_projekt_check_control_localstorage.py'
+      - '.github/workflows/patch-projekt-check-control-localstorage.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: LocalStorage-Patch anwenden
+        run: python scripts/patch_projekt_check_control_localstorage.py
+      - name: Änderung speichern
+        run: |
+          if git diff --quiet -- pages/projekt-check/control-panel.html; then
+            echo "Keine Änderung erforderlich."
+            exit 0
+          fi
+          git config user.name "FSA Projekt-Check"
+          git config user.email "actions@github.com"
+          git add pages/projekt-check/control-panel.html
+          git commit -m "Projekt-Check Control Panel: Eingaben lokal behalten"
+          git pull --rebase origin main
+          git push origin HEAD:main
