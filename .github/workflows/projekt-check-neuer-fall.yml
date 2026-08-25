@@ -1,0 +1,73 @@
+name: Projekt-Check – Neuer Fall
+
+on:
+  repository_dispatch:
+    types: [projekt_check_intake_v1]
+  workflow_dispatch:
+    inputs:
+      case_id:
+        description: "Vorab erzeugte CASE_ID"
+        required: true
+        type: string
+      intake_json:
+        description: "Intake JSON gemäß Vertrag 1.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: projekt-check-intake-${{ github.event.client_payload.case_id || inputs.case_id }}
+  cancel-in-progress: false
+
+jobs:
+  create-case:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Intake vorbereiten
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_CASE_ID: ${{ github.event.client_payload.case_id }}
+          DISPATCH_INTAKE: ${{ toJSON(github.event.client_payload.intake) }}
+          MANUAL_CASE_ID: ${{ inputs.case_id }}
+          MANUAL_INTAKE: ${{ inputs.intake_json }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib, re
+          if os.environ['EVENT_NAME'] == 'repository_dispatch':
+              case_id = os.environ.get('DISPATCH_CASE_ID','').strip()
+              raw = os.environ.get('DISPATCH_INTAKE','null')
+              intake = json.loads(raw)
+          else:
+              case_id = os.environ.get('MANUAL_CASE_ID','').strip()
+              intake = json.loads(os.environ.get('MANUAL_INTAKE','{}'))
+          if not re.fullmatch(r'PCA-[0-9]{8}-[A-Z0-9]{6,12}', case_id):
+              raise SystemExit('Ungültige CASE_ID')
+          if not isinstance(intake, dict):
+              raise SystemExit('Intake muss ein JSON-Objekt sein')
+          pathlib.Path('/tmp/case_id.txt').write_text(case_id, encoding='utf-8')
+          pathlib.Path('/tmp/intake.json').write_text(json.dumps(intake, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          PY
+
+      - name: Fall initialisieren
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          python projekt-check-engine/core/new_case.py \
+            --intake /tmp/intake.json \
+            --case-id "$CASE_ID"
+
+      - name: Neuen Fall speichern
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git config user.name "FSA Projekt-Check"
+          git config user.email "actions@github.com"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git commit -m "Projekt-Check: neuen Fall $CASE_ID anlegen"
+          git push origin main
