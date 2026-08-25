@@ -35,8 +35,48 @@ class ProjectCheckDiscoveryContractTests(unittest.TestCase):
         self.assertIn("final_url", text)
         self.assertIn("content_sha256", text)
         self.assertIn("choose_priority_links", text)
+        self.assertIn("navigation_links", text)
+        self.assertIn("safe_button_click", text)
+        self.assertIn("CLICKABLE_SELECTOR", text)
         self.assertNotIn("scam", text.lower())
         self.assertNotIn("betrug", text.lower())
+
+    def test_button_navigation_can_bridge_to_official_homepage_and_subpages(self):
+        module = load_module(BROWSER_PROBE, "pc_browser_probe")
+        probes = [
+            {
+                "requested_url": "https://ref.example/auth?id=1",
+                "final_url": "https://ref.example/auth?id=1",
+                "source_type": "website",
+                "navigation_links": ["https://official.example/"],
+                "links": [],
+            },
+            {
+                "requested_url": "https://official.example/",
+                "final_url": "https://official.example/",
+                "source_type": "website",
+                "navigation_links": [],
+                "links": [
+                    "https://official.example/about",
+                    "https://official.example/terms",
+                    "https://official.example/privacy",
+                ],
+            },
+        ]
+        links = module.choose_priority_links(probes, limit=10)
+        self.assertIn("https://official.example/", links)
+        self.assertIn("https://official.example/about", links)
+        self.assertIn("https://official.example/terms", links)
+        self.assertIn("https://official.example/privacy", links)
+
+    def test_discovery_is_multistage_and_bounded(self):
+        text = DISCOVERY.read_text(encoding="utf-8")
+        self.assertIn("--max-depth", text)
+        self.assertIn("crawl_rounds", text)
+        self.assertIn("for depth in range", text)
+        self.assertIn("expanded_urls", text)
+        self.assertIn("navigation_target_count", text)
+        self.assertIn("min(args.max_depth, 4)", text)
 
     def test_identity_resolver_keeps_project_label_separate_from_legal_identity(self):
         module = load_module(IDENTITY_RESOLVER, "pc_identity_resolver")
