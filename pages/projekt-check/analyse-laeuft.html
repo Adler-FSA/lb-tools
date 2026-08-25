@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Projekt-Check – Analyse läuft</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root{--bg:#f5f7fb;--paper:#fff;--ink:#132238;--muted:#64748b;--line:#dbe3ec;--mint:#00a7ad;--radius:20px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}.wrap{max-width:900px;margin:0 auto;padding:28px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:16px}h1{margin:0 0 8px}.muted{color:var(--muted)}.bar{height:14px;background:#e8eef4;border-radius:999px;overflow:hidden;margin:18px 0}.fill{height:100%;width:0;background:var(--mint);transition:width .35s ease}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.box{border:1px solid var(--line);border-radius:14px;padding:14px}.box strong{display:block;font-size:26px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);border-radius:12px;padding:0 14px;background:#fff;color:var(--ink);font-weight:700;text-decoration:none}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}@media(max-width:650px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="card">
+    <h1>Analyse läuft</h1>
+    <p class="muted">Die Seite wartet auf den Statusdatensatz der neuen Engine. Sobald die Engine verdrahtet ist, wird der Fortschritt hier automatisch übernommen.</p>
+    <p><strong>Case ID:</strong> <span id="caseId">—</span></p>
+    <div class="bar" aria-label="Fortschritt"><div id="fill" class="fill"></div></div>
+    <div class="grid"><div class="box"><strong id="done">0</strong><span>von 37 abgeschlossen</span></div><div class="box"><strong id="running">0</strong><span>laufen</span></div><div class="box"><strong id="problems">0</strong><span>Fehler / Widerspruch</span></div></div>
+    <p id="status" class="muted" role="status" aria-live="polite">Noch kein Engine-Status gefunden.</p>
+    <div class="actions"><a id="control" class="btn" href="control-panel.html">Control Panel öffnen</a><a class="btn" href="index.html">Zurück zum Eingang</a></div>
+  </section>
+</main>
+<script>
+(()=>{
+  const id=new URLSearchParams(location.search).get('case')||'';document.getElementById('caseId').textContent=id||'—';document.getElementById('control').href='control-panel.html'+(id?'?case='+encodeURIComponent(id):'');
+  const finished=new Set(['bestaetigt','kein_befund','nicht_relevant','abgeschlossen']);
+  async function poll(){if(!id)return;try{const r=await fetch(`../../data/projekt-check/cases/${encodeURIComponent(id)}/status.json?ts=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw new Error();const d=await r.json();const checks=Array.isArray(d.checks)?d.checks:[];const done=checks.filter(c=>finished.has(c.status)).length;const running=checks.filter(c=>c.status==='laeuft').length;const problems=checks.filter(c=>c.status==='fehler'||c.status==='widerspruch').length;document.getElementById('done').textContent=done;document.getElementById('running').textContent=running;document.getElementById('problems').textContent=problems;document.getElementById('fill').style.width=Math.min(100,Math.round(done/37*100))+'%';document.getElementById('status').textContent=d.state==='abgeschlossen'?'Analyse abgeschlossen.':'Status aktualisiert: '+(d.updated_at||'');if(d.state==='abgeschlossen')setTimeout(()=>location.href='ergebnis.html?case='+encodeURIComponent(id),900);}catch{document.getElementById('status').textContent='Noch kein Engine-Status gefunden. Die technische Verbindung wird im nächsten Baustein verdrahtet.';}}
+  poll();setInterval(poll,5000);
+})();
+</script>
+</body>
+</html>
