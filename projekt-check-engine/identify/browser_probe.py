@@ -36,8 +36,13 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
 
+def _normalize_host(host: str) -> str:
+    host = str(host or "").lower().strip(".")
+    return host[4:] if host.startswith("www.") else host
+
+
 def host_of(url: str) -> str:
-    return (urlparse(url).hostname or "").lower().lstrip("www.")
+    return _normalize_host(urlparse(url).hostname or "")
 
 
 def classify_url(url: str) -> str:
@@ -59,7 +64,7 @@ def _is_priority_link(url: str, primary_hosts: set[str]) -> bool:
     parsed = urlparse(url)
     if parsed.scheme not in {"http", "https"} or not parsed.netloc:
         return False
-    host = (parsed.hostname or "").lower().lstrip("www.")
+    host = _normalize_host(parsed.hostname or "")
     if classify_url(url) != "website":
         return True
     if host not in primary_hosts:
