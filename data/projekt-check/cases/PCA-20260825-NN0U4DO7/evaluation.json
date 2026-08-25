@@ -1,0 +1,1301 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-NN0U4DO7",
+  "checks": [
+    {
+      "id": 1,
+      "key": "title_review_overall",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 2,
+      "key": "executive_summary",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 3,
+      "key": "big_picture",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 4,
+      "key": "positive_confirmed_facts",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 5,
+      "key": "critical_contradictory_open_facts",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 6,
+      "key": "methodology_evidence_standard",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 7,
+      "key": "product_function",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 8,
+      "key": "real_problem_utility",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 9,
+      "key": "operator_legal_entity",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 10,
+      "key": "persons_control_history",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 11,
+      "key": "regulation_licences_markets",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 12,
+      "key": "money_flow_custody_claim",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 13,
+      "key": "costs_fees_pricing",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 14,
+      "key": "returns_performance_promise",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 15,
+      "key": "actual_revenue_source",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 16,
+      "key": "referral_distribution_compensation",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 17,
+      "key": "viability_without_new_capital",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 18,
+      "key": "payouts_guarantees_bonuses",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 19,
+      "key": "competition_market_utility",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 20,
+      "key": "web_social_community_user_traces",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 21,
+      "key": "main_risks_red_flags",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 22,
+      "key": "consistency_contradictions",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 23,
+      "key": "scenario_stress_test",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 24,
+      "key": "missing_primary_evidence",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 25,
+      "key": "neutral_question_catalogue",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 26,
+      "key": "final_assessment",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 27,
+      "key": "action_recommendation",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 28,
+      "key": "source_register",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 29,
+      "key": "research_limits_legal_notice",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 30,
+      "key": "blockchain_crypto_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 31,
+      "key": "trading_returns_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 32,
+      "key": "card_banking_payment_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 33,
+      "key": "defi_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 34,
+      "key": "referral_mlm_distribution_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 35,
+      "key": "social_marketing_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 36,
+      "key": "company_investment_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    },
+    {
+      "id": 37,
+      "key": "user_experience_traces_deep_check",
+      "result_status": null,
+      "neutral_finding": {
+        "confirmed_facts": [],
+        "first_party_claims": [],
+        "pros": [],
+        "cons": [],
+        "open_points": [],
+        "contradictions": [],
+        "evidence_refs": []
+      },
+      "customer": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "company": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      },
+      "academy": {
+        "summary": "",
+        "advantages": [],
+        "disadvantages": [],
+        "questions": [],
+        "recommendations": []
+      }
+    }
+  ]
+}
