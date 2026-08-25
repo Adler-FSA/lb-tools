@@ -114,6 +114,33 @@ class ProjectCheckDiscoveryContractTests(unittest.TestCase):
         links = module.choose_priority_links(probes, limit=10)
         self.assertIn("https://official.example/", links)
 
+
+    def test_external_one_hop_sources_do_not_become_new_project_trees(self):
+        module = load_module(BROWSER_PROBE, "pc_browser_probe_scope")
+        probes = [
+            {
+                "requested_url": "https://project.example/",
+                "final_url": "https://project.example/",
+                "source_type": "website",
+                "navigation_links": [],
+                "link_actions": [{"label": "Whitepaper", "url": "https://docs.example/view/abc"}],
+                "links": ["https://project.example/terms"],
+            },
+            {
+                "requested_url": "https://docs.example/view/abc",
+                "final_url": "https://docs.example/view/abc",
+                "source_type": "website",
+                "navigation_links": [],
+                "link_actions": [],
+                "links": ["https://stripe.com/privacy", "https://docs.example/legal"],
+            },
+        ]
+        links = module.choose_priority_links(probes, limit=20, project_hosts={"project.example"})
+        self.assertIn("https://project.example/terms", links)
+        self.assertIn("https://docs.example/view/abc", links)
+        self.assertNotIn("https://stripe.com/privacy", links)
+        self.assertNotIn("https://docs.example/legal", links)
+
     def test_discovery_is_multistage_and_bounded(self):
         text = DISCOVERY.read_text(encoding="utf-8")
         self.assertIn("--max-depth", text)

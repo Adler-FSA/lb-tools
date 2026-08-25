@@ -147,16 +147,22 @@ def _priority_rank(url: str, primary_hosts: set[str], *, trusted_navigation: boo
     return (2, len(parsed.path), url)
 
 
-def choose_priority_links(probes: list[dict], limit: int = 14) -> list[str]:
+def choose_priority_links(probes: list[dict], limit: int = 14, project_hosts: set[str] | None = None) -> list[str]:
     """Choose the next safe public pages to probe.
 
     The crawler follows the public internal structure of the identified project.
     Priority keywords only influence order; safe same-domain pages are not discarded.
     """
-    primary_hosts = {host_of(p.get("final_url") or p.get("requested_url") or "") for p in probes}
+    primary_hosts = set(project_hosts or {host_of(p.get("final_url") or p.get("requested_url") or "") for p in probes})
     primary_hosts.discard("")
 
     candidates: dict[str, tuple[int, int, str]] = {}
+
+    def probe_is_project_source(probe: dict) -> bool:
+        if probe.get("source_type") != "website":
+            return False
+        host = host_of(probe.get("final_url") or probe.get("requested_url") or "")
+        return _hosts_related(host, primary_hosts)
 
     def add(url: str, trusted_navigation: bool = False) -> None:
         canonical = _canonical_url(url)
@@ -171,14 +177,14 @@ def choose_priority_links(probes: list[dict], limit: int = 14) -> list[str]:
 
     # Sichere Buttons/Router-Wege zuerst.
     for probe in probes:
-        if probe.get("source_type") != "website":
+        if not probe_is_project_source(probe):
             continue
         for link in probe.get("navigation_links") or []:
             add(link, trusted_navigation=True)
 
     # Sichtbare Anchor-Navigation mit Label kann ebenfalls eine offizielle Startseite überbrücken.
     for probe in probes:
-        if probe.get("source_type") != "website":
+        if not probe_is_project_source(probe):
             continue
         for action in probe.get("link_actions") or []:
             label = str(action.get("label") or "")
@@ -187,7 +193,7 @@ def choose_priority_links(probes: list[dict], limit: int = 14) -> list[str]:
 
     # Danach ALLE sicheren internen Links; Keywords beeinflussen nur die Sortierung.
     for probe in probes:
-        if probe.get("source_type") != "website":
+        if not probe_is_project_source(probe):
             continue
         for link in probe.get("links") or []:
             add(link)

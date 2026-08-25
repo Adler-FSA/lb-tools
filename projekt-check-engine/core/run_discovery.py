@@ -13,7 +13,7 @@ if str(ENGINE_ROOT) not in sys.path:
     sys.path.insert(0, str(ENGINE_ROOT))
 
 from evidence.evidence_store import build_evidence
-from identify.browser_probe import choose_priority_links, probe_urls
+from identify.browser_probe import choose_priority_links, host_of, probe_urls
 from identify.resolve_identity import resolve_identity
 
 
@@ -105,6 +105,17 @@ def main() -> int:
     try:
         initial_probes = probe_urls(traces)
         probes = list(initial_probes)
+        project_hosts = {host_of(p.get('final_url') or p.get('requested_url') or '') for p in initial_probes if p.get('source_type') == 'website'}
+        project_hosts.discard('')
+        # Sichere sichtbare Home-Navigation darf eine offizielle Projekt-Domain ergänzen.
+        for p in initial_probes:
+            for action in p.get('link_actions') or []:
+                label = ' '.join(str(action.get('label') or '').lower().split())
+                url = canonical_url(action.get('url') or '')
+                if url and any(x in label for x in ('back to home','homepage','startseite')):
+                    h = host_of(url)
+                    if h:
+                        project_hosts.add(h)
         seen_urls: set[str] = set()
         for probe in probes:
             for key in ("requested_url", "final_url"):
@@ -117,7 +128,7 @@ def main() -> int:
             remaining = max_expanded - len(expanded_urls)
             if remaining <= 0:
                 break
-            candidates = choose_priority_links(probes, limit=min(max(remaining * 2, remaining), 40))
+            candidates = choose_priority_links(probes, limit=min(max(remaining * 2, remaining), 40), project_hosts=project_hosts)
             layer_urls: list[str] = []
             for candidate in candidates:
                 url = canonical_url(candidate)
@@ -151,6 +162,7 @@ def main() -> int:
         identity = resolve_identity(probes)
         evidence = build_evidence(probes)
         discovery["expanded_trace_count"] = len(expanded_urls)
+        discovery["project_hosts"] = sorted(project_hosts)
         discovery["priority_links"] = expanded_urls
         discovery["navigation_target_count"] = sum(len(p.get("navigation_links") or []) for p in probes)
         discovery["finished_at"] = utc_now()
