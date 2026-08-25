@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "projekt-check/archive-entry.schema.json",
+  "title": "Projekt-Check Archive Entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "completed_at", "identity_label", "overall_rating", "checks_completed", "documents"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "identity_label": {"type": "string"},
+    "overall_rating": {"type": ["string", "null"], "enum": ["GRUEN", "GELB", "GELB-ROT", "ROT", null]},
+    "checks_completed": {"const": 37},
+    "documents": {
+      "type": "object",
+      "required": ["user_check", "full_analysis"],
+      "properties": {
+        "user_check": {"type": "string", "minLength": 1},
+        "full_analysis": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
