@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-NN0U4DO7",
+  "status": "resolved",
+  "label": "U-Center",
+  "confidence": "high",
+  "primary_domain": "u.center",
+  "domains": [
+    "u.center",
+    "docsend.com",
+    "dataprivacyframework.gov",
+    "stripe.com",
+    "kissmetrics.io",
+    "intercom.com",
+    "policies.google.com",
+    "help.dropbox.com"
+  ],
+  "candidates": [
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/auth?invt=Q_KqPbwkQH",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/terms",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/privacy",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/auth",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/auth",
+      "score_total": 6
+    },
+    {
+      "label": "DocSend",
+      "score": 4,
+      "basis": "og_site_name",
+      "url": "https://docsend.com/view/3wjptrvw2c35gj8p",
+      "score_total": 5
+    },
+    {
+      "label": "DocSend",
+      "score": 4,
+      "basis": "og_site_name",
+      "url": "https://docsend.com/view/pehz2xqa23xw3pyc",
+      "score_total": 5
+    },
+    {
+      "label": "Privacy Policy",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.docsend.com/de/privacy-policy/",
+      "score_total": 5
+    },
+    {
+      "label": "Privacy Policy",
+      "score": 3,
+      "basis": "title",
+      "url": "https://stripe.com/privacy",
+      "score_total": 5
+    },
+    {
+      "label": "Privacy Policy",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.intercom.com/legal/privacy",
+      "score_total": 5
+    },
+    {
+      "label": "KISSmetrics",
+      "score": 4,
+      "basis": "og_site_name",
+      "url": "https://kissmetrics.io/privacy",
+      "score_total": 4
+    }
+  ],
+  "note": "Die Bezeichnung dient nur der technischen Zuordnung des gefundenen Angebots. Sie ist kein Nachweis für Rechtsträger, Betreiberidentität oder regulatorische Zuordnung."
+}
