@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.1",
+  "case_id": "PCA-20260825-HNOV16OW",
+  "started_at": "2026-08-25T15:51:38Z",
+  "initial_trace_count": 1,
+  "expanded_trace_count": 3,
+  "browser_probe": "playwright-chromium",
+  "crawl_depth_limit": 3,
+  "crawl_rounds": [
+    {
+      "depth": 1,
+      "urls": [
+        "https://u.center/"
+      ],
+      "probe_count": 1,
+      "navigation_target_count": 0
+    },
+    {
+      "depth": 2,
+      "urls": [
+        "https://u.center/privacy",
+        "https://u.center/terms"
+      ],
+      "probe_count": 2,
+      "navigation_target_count": 0
+    }
+  ],
+  "errors": [],
+  "priority_links": [
+    "https://u.center/",
+    "https://u.center/privacy",
+    "https://u.center/terms"
+  ],
+  "navigation_target_count": 0,
+  "finished_at": "2026-08-25T15:51:45Z",
+  "identity_status": "resolved",
+  "identity_label": "U-Center",
+  "evidence_count": 4,
+  "probe_errors": []
+}

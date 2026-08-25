@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-HNOV16OW",
+  "status": "resolved",
+  "label": "U-Center",
+  "confidence": "high",
+  "primary_domain": "u.center",
+  "domains": [
+    "u.center"
+  ],
+  "candidates": [
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/auth?invt=Q_KqPbwkQH",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/privacy",
+      "score_total": 6
+    },
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/terms",
+      "score_total": 6
+    }
+  ],
+  "note": "Die Bezeichnung dient nur der technischen Zuordnung des gefundenen Angebots. Sie ist kein Nachweis für Rechtsträger, Betreiberidentität oder regulatorische Zuordnung."
+}
