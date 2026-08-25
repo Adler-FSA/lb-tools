@@ -140,10 +140,30 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
+      - name: Unabhängige Web-Recherche nach weiteren öffentlichen Spuren
+        id: independent_web
+        if: steps.discovery.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          python projekt-check-engine/core/run_independent_research.py --case-id "$CASE_ID" --max-captures 8
+
+      - name: Unabhängigen Recherche-Zwischenstand veröffentlichen
+        if: steps.independent_web.outcome == 'success'
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git commit -m "Projekt-Check: unabhängige Web-Recherche $CASE_ID gespeichert"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
       - name: Start, Discovery und Auswertung bestätigt
         shell: bash
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
           echo "Discovery: ${{ steps.discovery.outcome }}"
           echo "Primärquellen-Auswertung: ${{ steps.evaluation.outcome }}"
-          echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; noch offene Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
+          echo "Unabhängige Web-Recherche: ${{ steps.independent_web.outcome }}"
+          echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; offene Register-, Behörden- und technische Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
