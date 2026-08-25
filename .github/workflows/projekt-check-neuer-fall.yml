@@ -1,4 +1,4 @@
-name: Projekt-Check – Neuer Fall
+name: Projekt-Check – Neuer Auftrag
 
 on:
   repository_dispatch:
@@ -31,7 +31,7 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Intake prüfen und vorbereiten
+      - name: Auftrag prüfen und vorbereiten
         env:
           EVENT_NAME: ${{ github.event_name }}
           DISPATCH_CASE_ID: ${{ github.event.client_payload.case_id }}
@@ -68,12 +68,14 @@ jobs:
                   raise SystemExit('Nur konkrete HTTP/HTTPS-Spuren sind zulässig')
               if value not in clean:
                   clean.append(value)
-          if not clean:
-              raise SystemExit('Keine gültige öffentliche Spur vorhanden')
 
           claim = str(intake.get('claim') or '').strip()
           if len(claim) > 3000:
               raise SystemExit('Aussage ist zu lang')
+
+          requested_output = str(intake.get('requested_output') or 'customer_check')
+          if requested_output not in ('customer_check', 'company_check'):
+              raise SystemExit('Ungültiger Auftragstyp')
 
           normalized = {
               'contract_version': '1.0',
@@ -81,34 +83,30 @@ jobs:
               'language': 'en' if intake.get('language') == 'en' else 'de',
               'traces': clean,
               'claim': claim,
+              'requested_output': requested_output,
               'source': 'projekt-check-web'
           }
 
           pathlib.Path('/tmp/case_id.txt').write_text(case_id, encoding='utf-8')
-          pathlib.Path('/tmp/intake.json').write_text(
-              json.dumps(normalized, ensure_ascii=False, indent=2) + '\n',
-              encoding='utf-8'
-          )
+          pathlib.Path('/tmp/intake.json').write_text(json.dumps(normalized, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           PY
 
-      - name: Fall mit 37 Prüfbereichen initialisieren
+      - name: Auftrag mit 37 Prüfbereichen initialisieren
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          python projekt-check-engine/core/new_case.py \
-            --intake /tmp/intake.json \
-            --case-id "$CASE_ID"
+          python projekt-check-engine/core/new_case.py --intake /tmp/intake.json --case-id "$CASE_ID"
 
-      - name: Neuen Fall speichern
+      - name: Auftrag im Control-Panel-Datenbestand speichern
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
           git config user.name "FSA Projekt-Check"
           git config user.email "actions@github.com"
           git add "data/projekt-check/cases/$CASE_ID"
-          git commit -m "Projekt-Check: neuen Fall $CASE_ID anlegen"
+          git commit -m "Projekt-Check: Auftrag $CASE_ID anlegen"
           git pull --rebase origin main
           git push origin HEAD:main
 
-      - name: Start bestätigt
+      - name: Auftrag angelegt
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          echo "Projekt-Check-Fall $CASE_ID wurde mit 37 Prüfbereichen angelegt."
+          echo "Projekt-Check-Auftrag $CASE_ID wartet jetzt auf den manuellen Analyse-Start im Control Panel."
