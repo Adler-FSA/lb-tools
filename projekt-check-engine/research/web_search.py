@@ -95,6 +95,24 @@ def classify_result(url: str) -> str:
     return "web"
 
 
+def _norm(value: str) -> str:
+    return " ".join(str(value or "").lower().split())
+
+
+def relevance_score(item: dict, domains: list[str], distinctive_terms: list[str]) -> int:
+    blob = _norm(" ".join([item.get("url", ""), item.get("title", ""), item.get("snippet", "")]))
+    score = 0
+    for domain in domains:
+        d = _norm(domain).removeprefix("www.")
+        if d and d in blob:
+            score = max(score, 5)
+    for term in distinctive_terms:
+        t = _norm(term)
+        if len(t) >= 4 and t in blob:
+            score = max(score, 4)
+    return score
+
+
 def search_one(query: str, per_provider: int = 6) -> tuple[list[dict], list[str]]:
     errors = []
     results = []
@@ -124,12 +142,18 @@ def search_one(query: str, per_provider: int = 6) -> tuple[list[dict], list[str]
     return dedup, errors
 
 
-def build_queries(label: str, domains: list[str]) -> list[dict]:
+def build_queries(label: str, domains: list[str], distinctive_terms: list[str] | None = None) -> list[dict]:
     label = " ".join(str(label or "").split()).strip()
     domain = next((d for d in domains if d), "")
-    base = f'"{label}"' if label else domain
-    if domain and domain not in base:
-        base += f" {domain}"
+    terms = [" ".join(str(x or "").split()).strip() for x in (distinctive_terms or []) if str(x or "").strip()]
+    anchors=[]
+    if domain:
+        anchors.append(f'"{domain}"')
+    if terms:
+        anchors.append(f'"{terms[0]}"')
+    elif label:
+        anchors.append(f'"{label}"')
+    base = " ".join(anchors) or (f'"{label}"' if label else domain)
     themes = [
         ("identity", f"{base} company legal entity register"),
         ("regulation", f"{base} regulator licence license warning"),
@@ -142,23 +166,29 @@ def build_queries(label: str, domains: list[str]) -> list[dict]:
     return [{"theme":theme,"query":query.strip()} for theme, query in themes if query.strip()]
 
 
-def search_project(label: str, domains: list[str], max_per_query: int = 5, max_total: int = 28) -> dict:
-    queries = build_queries(label, domains)
+def search_project(label: str, domains: list[str], distinctive_terms: list[str] | None = None, max_per_query: int = 5, max_total: int = 28) -> dict:
+    terms = distinctive_terms or []
+    queries = build_queries(label, domains, terms)
     all_results = []
+    rejected = []
     errors = []
     seen = set()
     for q in queries:
         results, errs = search_one(q["query"], per_provider=max_per_query)
         errors.extend(errs)
         for item in results:
+            item["theme"] = q["theme"]
+            item["relevance_score"] = relevance_score(item, domains, terms)
+            if item["relevance_score"] < 4:
+                rejected.append(item)
+                continue
             key = item["url"].lower().rstrip("/")
             if key in seen:
                 continue
             seen.add(key)
-            item["theme"] = q["theme"]
             all_results.append(item)
             if len(all_results) >= max_total:
                 break
         if len(all_results) >= max_total:
             break
-    return {"queries":queries,"results":all_results,"errors":errors}
+    return {"queries":queries,"results":all_results,"rejected_results":rejected,"errors":errors}
