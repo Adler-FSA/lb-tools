@@ -18,4 +18,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Python Contract Tests
-        run: python -m unittest projekt-check-engine/tests/test_contract.py
+        run: python -m unittest discover -s projekt-check-engine/tests -p 'test_*.py'
