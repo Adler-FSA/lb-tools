@@ -32,6 +32,7 @@ def main() -> int:
     ap.add_argument("--checks", default=Path("projekt-check-engine/checks/checks-37.json"), type=Path)
     ap.add_argument("--cases-root", default=Path("data/projekt-check/cases"), type=Path)
     ap.add_argument("--case-id", default="")
+    ap.add_argument("--initial-state", choices=["wartet_auf_start", "angenommen"], default="wartet_auf_start")
     args = ap.parse_args()
 
     intake = load_json(args.intake)
@@ -99,7 +100,7 @@ def main() -> int:
     status = {
         "contract_version": "1.1",
         "case_id": case_id,
-        "state": "wartet_auf_start",
+        "state": args.initial_state,
         "created_at": now,
         "updated_at": now,
         "delivery_document": requested_output,
