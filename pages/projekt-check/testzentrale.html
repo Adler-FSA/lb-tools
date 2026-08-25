@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Projekt-Check – Testzentrale</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root{--bg:#f5f7fb;--paper:#fff;--ink:#132238;--muted:#64748b;--line:#dbe3ec;--mint:#00a7ad;--magenta:#c6006f;--radius:18px}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+    .wrap{max-width:980px;margin:0 auto;padding:28px}
+    .hero{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px;margin-bottom:18px}
+    h1{margin:0 0 8px;font-size:32px}.lead{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:10px}
+    .tag{display:inline-flex;align-self:flex-start;border:1px solid var(--line);border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;color:var(--muted)}
+    .card h2{margin:0;font-size:18px}.card p{margin:0;color:var(--muted);font-size:14px;flex:1}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;padding:0 14px;text-decoration:none;font-weight:800;border:1px solid var(--line);background:#fff;color:var(--ink)}
+    .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .btn.mint{background:var(--mint);color:#fff;border-color:var(--mint)}
+    .btn.magenta{background:var(--magenta);color:#fff;border-color:var(--magenta)}
+    .section-title{margin:26px 0 12px;font-size:20px}
+    .note{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;color:var(--muted);font-size:13px}
+    @media(max-width:720px){.wrap{padding:16px}.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hero">
+    <h1>Projekt-Check Testzentrale</h1>
+    <p class="lead">Alle wichtigen Seiten des neuen Projekt-Check-Systems an einem Ort.</p>
+  </section>
+
+  <h2 class="section-title">Auftrag einreichen</h2>
+  <section class="grid">
+    <article class="card">
+      <span class="tag">Kunde</span>
+      <h2>Kunden-Projekt-Check</h2>
+      <p>Testseite für einen normalen Kundenauftrag mit öffentlichen Spuren und optionaler Aussage.</p>
+      <a class="btn mint" href="index.html">Kunden-Version öffnen</a>
+    </article>
+    <article class="card">
+      <span class="tag">Firma</span>
+      <h2>Firmen-Projekt-Check</h2>
+      <p>Testseite für Unternehmen, die ihre öffentliche Darstellung und Nachweise prüfen lassen möchten.</p>
+      <a class="btn magenta" href="index.html?type=company">Firmen-Version öffnen</a>
+    </article>
+  </section>
+
+  <h2 class="section-title">Interne Steuerung</h2>
+  <section class="grid">
+    <article class="card">
+      <span class="tag">Intern</span>
+      <h2>Control Panel</h2>
+      <p>Posteingang, Auftragsprüfung, Analyse-Start, 37 Prüfbereiche, drei Perspektiven, Dokumente und Archiv.</p>
+      <a class="btn primary" href="control-panel.html">Control Panel öffnen</a>
+    </article>
+    <article class="card">
+      <span class="tag">Status</span>
+      <h2>Auftragsstatus</h2>
+      <p>Statusseite für einen eingereichten Fall. Für echte Tests wird eine Case-ID als URL-Parameter benötigt.</p>
+      <a class="btn" href="analyse-laeuft.html">Statusseite öffnen</a>
+    </article>
+  </section>
+
+  <h2 class="section-title">Ergebnisse</h2>
+  <section class="grid">
+    <article class="card">
+      <span class="tag">Kunde</span>
+      <h2>Kunden-Ergebnis</h2>
+      <p>Verständliche Kundensicht mit Pro, Contra, offenen Punkten, Fragen und Sicherheitsvorgehen.</p>
+      <a class="btn" href="ergebnis.html">Kunden-Ergebnis öffnen</a>
+    </article>
+    <article class="card">
+      <span class="tag">Firma</span>
+      <h2>Firmen-Ergebnis</h2>
+      <p>Auswertung für CEO bzw. Betreiber mit Außenwirkung, Stärken, Schwächen und Verbesserungsempfehlungen.</p>
+      <a class="btn" href="firmen-ergebnis.html">Firmen-Ergebnis öffnen</a>
+    </article>
+    <article class="card">
+      <span class="tag">Akademie</span>
+      <h2>Akademie-Vollanalyse</h2>
+      <p>Interne vollständige Auswertung mit allen 37 Prüfbereichen und der fachlichen Gesamteinordnung.</p>
+      <a class="btn" href="vollanalyse.html">Vollanalyse öffnen</a>
+    </article>
+  </section>
+
+  <div class="note">Hinweis: Einige Seiten zeigen ohne echte Case-ID nur den Grundzustand. Für einen vollständigen Funktionstest wird später ein echter Auftrag aus dem Posteingang verwendet.</div>
+</main>
+</body>
+</html>
