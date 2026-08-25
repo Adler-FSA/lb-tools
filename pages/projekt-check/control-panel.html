@@ -7,28 +7,38 @@
   <meta name="robots" content="noindex,nofollow">
   <style>
     :root{--bg:#f5f7fb;--paper:#fff;--ink:#132238;--muted:#64748b;--line:#dbe3ec;--mint:#00a7ad;--magenta:#c6006f;--ok:#16803c;--warn:#a16207;--bad:#b42318;--run:#2563eb;--radius:18px}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.45}
-    .wrap{max-width:1280px;margin:0 auto;padding:24px}.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px}
-    h1{margin:0;font-size:30px}.sub{margin:6px 0 0;color:var(--muted)}.lang{display:flex;gap:8px}.lang button,.btn{min-height:42px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:0 14px;font-weight:700;cursor:pointer}.lang button[aria-pressed="true"],.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
-    .casebar,.summary,.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}.casebar{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:10px;padding:14px;margin-bottom:14px}.casebar label{position:absolute;left:-9999px}.casebar input{width:100%;min-height:44px;border:1px solid var(--line);border-radius:12px;padding:0 13px;font:inherit;color:var(--ink)}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.45}
+    .wrap{max-width:1280px;margin:0 auto;padding:24px}
+    .top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px}
+    h1{margin:0;font-size:30px}.sub{margin:6px 0 0;color:var(--muted)}
+    .lang{display:flex;gap:8px}.lang button,.btn{min-height:42px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:0 14px;font-weight:700;cursor:pointer}
+    .lang button[aria-pressed="true"],.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .btn[disabled]{opacity:.48;cursor:not-allowed}.btn.small{min-height:36px;padding:0 11px;font-size:12px}
+    .casebar,.summary,.panel,.documents,.archive{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)}
+    .casebar{display:grid;grid-template-columns:minmax(220px,1fr) auto auto;gap:10px;padding:14px;margin-bottom:14px}.casebar label.visually-hidden{position:absolute;left:-9999px}
+    .casebar input,.archive-search input{width:100%;min-height:44px;border:1px solid var(--line);border-radius:12px;padding:0 13px;font:inherit;color:var(--ink);background:#fff}
     .message{min-height:24px;margin:8px 2px 14px;color:var(--muted)}.message.error{color:var(--bad)}
     .summary{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;overflow:hidden;margin-bottom:16px;background:var(--line)}.stat{background:#fff;padding:16px}.stat strong{display:block;font-size:28px}.stat span{font-size:13px;color:var(--muted)}
-    .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}.meta .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.box b{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}.box span{font-weight:700;word-break:break-word}
-    .panel{overflow:hidden}.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.panel-head h2{font-size:20px;margin:0}.legend{display:flex;gap:7px;flex-wrap:wrap}.legend span{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#fff}
+    .meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.meta .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.box b{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}.box span{font-weight:700;word-break:break-word}
+    .documents{margin-bottom:16px;overflow:hidden}.section-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.section-head h2{font-size:20px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:13px}
+    .doc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:16px}.doc-card{border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;min-width:0}.doc-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.doc-title{font-weight:800}.doc-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px}.doc-actions{display:flex;gap:8px;flex-wrap:wrap}.doc-status{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;border-radius:999px;padding:6px 9px;background:#f1f5f9;white-space:nowrap}.doc-status .dot{width:8px;height:8px;border-radius:50%;background:#94a3b8}.doc-status.ready .dot{background:var(--ok)}.doc-status.building .dot{background:var(--run)}.doc-status.error .dot{background:var(--bad)}
+    .panel{overflow:hidden;margin-bottom:16px}.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.panel-head h2{font-size:20px;margin:0}.legend{display:flex;gap:7px;flex-wrap:wrap}.legend span{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#fff}
     .rows{display:grid}.row{display:grid;grid-template-columns:56px minmax(260px,1fr) 150px 90px minmax(180px,.8fr);align-items:center;border-bottom:1px solid var(--line);min-height:64px}.row:last-child{border-bottom:0}.cell{padding:10px 14px;min-width:0}.num{font-weight:800;color:var(--muted);text-align:center}.title{font-weight:700}.deep .title:after{content:"Tiefenprüfung";display:inline-block;margin-left:8px;font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--magenta);border:1px solid rgba(198,0,111,.25);border-radius:999px;padding:2px 6px;vertical-align:middle}.status{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;border-radius:999px;padding:6px 9px;background:#f1f5f9}.dot{width:8px;height:8px;border-radius:50%;background:#94a3b8}.s-laeuft .dot{background:var(--run)}.s-bestaetigt .dot,.s-abgeschlossen .dot{background:var(--ok)}.s-offen .dot,.s-kein_befund .dot,.s-nicht_relevant .dot{background:var(--warn)}.s-widerspruch .dot,.s-fehler .dot{background:var(--bad)}.ev{text-align:center;font-weight:700}.summarytext{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
-    @media(max-width:850px){.summary{grid-template-columns:repeat(2,1fr)}.summary .stat:last-child{grid-column:span 2}.meta{grid-template-columns:1fr}.row{grid-template-columns:44px minmax(180px,1fr) 125px 70px}.row .summarytext{grid-column:2/5;padding-top:0}.casebar{grid-template-columns:1fr 1fr}.casebar input{grid-column:1/3}}
-    @media(max-width:560px){.wrap{padding:14px}.casebar{grid-template-columns:1fr}.casebar input{grid-column:auto}.row{grid-template-columns:38px 1fr}.row .statuscell,.row .ev,.row .summarytext{grid-column:2}.row .statuscell{padding-top:0}.row .ev{text-align:left;padding-top:0}.summary{grid-template-columns:1fr}.summary .stat:last-child{grid-column:auto}}
+    .archive{overflow:hidden}.archive-search{padding:14px 16px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:minmax(220px,420px) auto;gap:10px;align-items:center}.archive-count{font-size:13px;color:var(--muted);text-align:right}.archive-table-wrap{overflow-x:auto}.archive-table{width:100%;border-collapse:collapse;min-width:900px}.archive-table th,.archive-table td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}.archive-table th{font-size:12px;color:var(--muted);background:#f8fafc}.archive-table td{font-size:13px}.archive-table tr:last-child td{border-bottom:0}.archive-empty{padding:22px 18px;color:var(--muted)}.archive-actions{display:flex;gap:7px;flex-wrap:wrap}.traffic{display:inline-flex;align-items:center;justify-content:center;min-width:62px;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;background:#f1f5f9}.traffic.gruen{color:#166534;background:#ecfdf3}.traffic.gelb{color:#854d0e;background:#fffbeb}.traffic.gelb-rot{color:#9a3412;background:#fff7ed}.traffic.rot{color:#991b1b;background:#fef2f2}
+    @media(max-width:900px){.summary{grid-template-columns:repeat(2,1fr)}.summary .stat:last-child{grid-column:span 2}.meta{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:44px minmax(180px,1fr) 125px 70px}.row .summarytext{grid-column:2/5;padding-top:0}.casebar{grid-template-columns:1fr 1fr}.casebar input{grid-column:1/3}.doc-grid{grid-template-columns:1fr}}
+    @media(max-width:560px){.wrap{padding:14px}.casebar{grid-template-columns:1fr}.casebar input{grid-column:auto}.row{grid-template-columns:38px 1fr}.row .statuscell,.row .ev,.row .summarytext{grid-column:2}.row .statuscell{padding-top:0}.row .ev{text-align:left;padding-top:0}.summary{grid-template-columns:1fr}.summary .stat:last-child{grid-column:auto}.meta{grid-template-columns:1fr}.archive-search{grid-template-columns:1fr}.archive-count{text-align:left}.doc-top{display:grid}}
   </style>
 </head>
 <body>
 <main class="wrap">
   <div class="top">
-    <div><h1 data-i18n="title">Projekt-Check Control Panel</h1><p class="sub" data-i18n="subtitle">Live-Kontrolle aller 37 festen Prüfbereiche eines Analysefalls.</p></div>
+    <div><h1 data-i18n="title">Projekt-Check Control Panel</h1><p class="sub" data-i18n="subtitle">Live-Kontrolle aller 37 festen Prüfbereiche, Dokumente und abgeschlossenen Analysefälle.</p></div>
     <div class="lang" aria-label="Language"><button type="button" id="deBtn" aria-pressed="true">DE</button><button type="button" id="enBtn" aria-pressed="false">EN</button></div>
   </div>
 
   <section class="casebar" aria-label="Fall laden">
-    <label for="caseId">Case ID</label>
+    <label class="visually-hidden" for="caseId">Case ID</label>
     <input id="caseId" type="text" placeholder="CASE_ID, z. B. PCA-2026-0001" autocomplete="off">
     <button class="btn primary" id="loadBtn" type="button" data-i18n="load">Fall laden</button>
     <button class="btn" id="refreshBtn" type="button" data-i18n="refresh">Aktualisieren</button>
@@ -46,63 +56,58 @@
   <section class="meta">
     <div class="box"><b data-i18n="case">Fall</b><span id="metaCase">—</span></div>
     <div class="box"><b data-i18n="identity">Identität</b><span id="metaIdentity">noch nicht aufgelöst</span></div>
+    <div class="box"><b data-i18n="trafficLight">Gesamtampel</b><span id="metaTraffic">—</span></div>
     <div class="box"><b data-i18n="updated">Letzte Aktualisierung</b><span id="metaUpdated">—</span></div>
+  </section>
+
+  <section class="documents">
+    <div class="section-head"><div><h2 data-i18n="documents">Dokumente</h2><p data-i18n="documentsHint">Beide PDFs werden aus demselben geprüften Analysebestand erzeugt.</p></div></div>
+    <div class="doc-grid">
+      <article class="doc-card">
+        <div class="doc-top"><div class="doc-title" data-i18n="userPdf">Projekt-Check für Nutzer</div><span id="userPdfStatus" class="doc-status"><span class="dot"></span><span>Wartet</span></span></div>
+        <div class="doc-meta"><span id="userPdfPages">Seiten: —</span><span id="userPdfSize">Größe: —</span></div>
+        <div class="doc-actions"><a id="userPdfDownload" class="btn small" href="#" download hidden data-i18n="downloadPdf">PDF herunterladen</a></div>
+      </article>
+      <article class="doc-card">
+        <div class="doc-top"><div class="doc-title" data-i18n="fullPdf">Vollständige Akademie-Projektanalyse</div><span id="fullPdfStatus" class="doc-status"><span class="dot"></span><span>Wartet</span></span></div>
+        <div class="doc-meta"><span id="fullPdfPages">Seiten: —</span><span id="fullPdfSize">Größe: —</span></div>
+        <div class="doc-actions"><a id="fullPdfDownload" class="btn small" href="#" download hidden data-i18n="downloadPdf">PDF herunterladen</a></div>
+      </article>
+    </div>
   </section>
 
   <section class="panel">
     <div class="panel-head"><h2 data-i18n="checks">37 feste Prüfbereiche</h2><div class="legend"><span data-i18n="legend1">Kein Bereich wird übersprungen</span><span data-i18n="legend2">30–37 = feste Tiefenprüfungen</span></div></div>
     <div id="rows" class="rows"></div>
   </section>
+
+  <section class="archive">
+    <div class="section-head"><div><h2 data-i18n="archive">Archiv</h2><p data-i18n="archiveHint">Abgeschlossene Analysefälle mit beiden PDF-Dokumenten.</p></div><button class="btn small" id="archiveRefreshBtn" type="button" data-i18n="refreshArchive">Archiv aktualisieren</button></div>
+    <div class="archive-search"><label class="visually-hidden" for="archiveSearch">Archiv durchsuchen</label><input id="archiveSearch" type="search" placeholder="Fall-ID oder identifiziertes Projekt suchen"><div id="archiveCount" class="archive-count">0 Fälle</div></div>
+    <div class="archive-table-wrap">
+      <table class="archive-table">
+        <thead><tr><th data-i18n="archiveCase">Fall-ID</th><th data-i18n="archiveProject">Identifiziertes Projekt</th><th data-i18n="archiveDate">Abschluss</th><th data-i18n="archiveTraffic">Ampel</th><th data-i18n="archiveChecks">Prüfungen</th><th data-i18n="archiveDocs">Dokumente</th></tr></thead>
+        <tbody id="archiveBody"></tbody>
+      </table>
+      <div id="archiveEmpty" class="archive-empty" data-i18n="archiveEmpty">Noch keine abgeschlossenen Analysefälle im Archiv.</div>
+    </div>
+  </section>
 </main>
 <script>
 (()=>{
   const root=document.documentElement;
   const defs=[
-    [1,'Titel / Prüfstand / Gesamtampel','Title / review status / overall traffic light'],
-    [2,'Management- bzw. Executive Summary','Management / executive summary'],
-    [3,'Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?','Big picture – what is actually behind the discovered offer?'],
-    [4,'Positive bestätigte Tatsachen','Positive confirmed facts'],
-    [5,'Kritische, widersprüchliche und offene Tatsachen','Critical, contradictory and open facts'],
-    [6,'Methodik und Beweisstandard','Methodology and evidence standard'],
-    [7,'Produkt / Funktionsweise','Product / how it works'],
-    [8,'Reales Problem / tatsächlicher Nutzen','Real problem / actual utility'],
-    [9,'Betreiber / Rechtsträger','Operator / legal entity'],
-    [10,'Verantwortliche Personen / Kontrolle / Historie','Responsible persons / control / history'],
-    [11,'Regulierung / Lizenzen / Zielmärkte','Regulation / licences / target markets'],
-    [12,'Geldfluss / Verwahrung / Kundenanspruch','Money flow / custody / customer claim'],
-    [13,'Kosten / Gebühren / Preisstruktur','Costs / fees / pricing structure'],
-    [14,'Rendite / wirtschaftliches Leistungsversprechen','Returns / economic performance promise'],
-    [15,'Tatsächliche Ertrags- bzw. Einnahmequelle','Actual yield / revenue source'],
-    [16,'Referral / Vertrieb / Vergütungsstruktur','Referral / distribution / compensation structure'],
-    [17,'Tragfähigkeit ohne ständig neue Teilnehmer oder neues Kapital','Viability without constant new participants or capital'],
-    [18,'Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen','Payouts / guarantees / bonuses / repayment mechanisms'],
-    [19,'Konkurrenz / Marktvergleich / praktische Nutzbarkeit','Competition / market comparison / practical usability'],
-    [20,'Web-, Social-, Community- und Nutzer-Spuren','Web / social / community / user traces'],
-    [21,'Hauptrisiken / Red Flags','Main risks / red flags'],
-    [22,'Konsistenz- und Widerspruchsprüfung','Consistency and contradiction check'],
-    [23,'Szenario- und Stresstest','Scenario and stress test'],
-    [24,'Fehlende Primärnachweise','Missing primary evidence'],
-    [25,'Neutraler Fragenkatalog an Anbieter bzw. Verantwortliche','Neutral question catalogue for provider / responsible parties'],
-    [26,'Endbewertung','Final assessment'],
-    [27,'Konkrete Handlungsempfehlung','Concrete recommendation'],
-    [28,'Quellenverzeichnis / Belegstruktur','Source register / evidence structure'],
-    [29,'Recherchegrenzen / Neutralitäts- und Rechtshinweis','Research limits / neutrality and legal notice'],
-    [30,'Blockchain-/Krypto-Prüfung','Blockchain / crypto check'],
-    [31,'Trading-/Rendite-Tiefenprüfung','Trading / returns deep check'],
-    [32,'Karte-/Banking-/Payment-Prüfung','Card / banking / payment check'],
-    [33,'DeFi-Prüfung','DeFi check'],
-    [34,'Referral-/MLM-/Vertriebs-Tiefenprüfung','Referral / MLM / distribution deep check'],
-    [35,'Social-/Marketing-Tiefenprüfung','Social / marketing deep check'],
-    [36,'Unternehmens-/Investment-Tiefenprüfung','Company / investment deep check'],
-    [37,'Nutzer-/Erfahrungsspuren-Tiefenprüfung','User / experience traces deep check']
+    [1,'Titel / Prüfstand / Gesamtampel','Title / review status / overall traffic light'],[2,'Management- bzw. Executive Summary','Management / executive summary'],[3,'Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?','Big picture – what is actually behind the discovered offer?'],[4,'Positive bestätigte Tatsachen','Positive confirmed facts'],[5,'Kritische, widersprüchliche und offene Tatsachen','Critical, contradictory and open facts'],[6,'Methodik und Beweisstandard','Methodology and evidence standard'],[7,'Produkt / Funktionsweise','Product / how it works'],[8,'Reales Problem / tatsächlicher Nutzen','Real problem / actual utility'],[9,'Betreiber / Rechtsträger','Operator / legal entity'],[10,'Verantwortliche Personen / Kontrolle / Historie','Responsible persons / control / history'],[11,'Regulierung / Lizenzen / Zielmärkte','Regulation / licences / target markets'],[12,'Geldfluss / Verwahrung / Kundenanspruch','Money flow / custody / customer claim'],[13,'Kosten / Gebühren / Preisstruktur','Costs / fees / pricing structure'],[14,'Rendite / wirtschaftliches Leistungsversprechen','Returns / economic performance promise'],[15,'Tatsächliche Ertrags- bzw. Einnahmequelle','Actual yield / revenue source'],[16,'Referral / Vertrieb / Vergütungsstruktur','Referral / distribution / compensation structure'],[17,'Tragfähigkeit ohne ständig neue Teilnehmer oder neues Kapital','Viability without constant new participants or capital'],[18,'Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen','Payouts / guarantees / bonuses / repayment mechanisms'],[19,'Konkurrenz / Marktvergleich / praktische Nutzbarkeit','Competition / market comparison / practical usability'],[20,'Web-, Social-, Community- und Nutzer-Spuren','Web / social / community / user traces'],[21,'Hauptrisiken / Red Flags','Main risks / red flags'],[22,'Konsistenz- und Widerspruchsprüfung','Consistency and contradiction check'],[23,'Szenario- und Stresstest','Scenario and stress test'],[24,'Fehlende Primärnachweise','Missing primary evidence'],[25,'Neutraler Fragenkatalog an Anbieter bzw. Verantwortliche','Neutral question catalogue for provider / responsible parties'],[26,'Endbewertung','Final assessment'],[27,'Konkrete Handlungsempfehlung','Concrete recommendation'],[28,'Quellenverzeichnis / Belegstruktur','Source register / evidence structure'],[29,'Recherchegrenzen / Neutralitäts- und Rechtshinweis','Research limits / neutrality and legal notice'],[30,'Blockchain-/Krypto-Prüfung','Blockchain / crypto check'],[31,'Trading-/Rendite-Tiefenprüfung','Trading / returns deep check'],[32,'Karte-/Banking-/Payment-Prüfung','Card / banking / payment check'],[33,'DeFi-Prüfung','DeFi check'],[34,'Referral-/MLM-/Vertriebs-Tiefenprüfung','Referral / MLM / distribution deep check'],[35,'Social-/Marketing-Tiefenprüfung','Social / marketing deep check'],[36,'Unternehmens-/Investment-Tiefenprüfung','Company / investment deep check'],[37,'Nutzer-/Erfahrungsspuren-Tiefenprüfung','User / experience traces deep check']
   ];
   const ui={
-    de:{title:'Projekt-Check Control Panel',subtitle:'Live-Kontrolle aller 37 festen Prüfbereiche eines Analysefalls.',load:'Fall laden',refresh:'Aktualisieren',idle:'Noch kein Fall geladen. Alle 37 Prüfbereiche sind sichtbar und warten auf einen Lauf.',total:'Prüfbereiche gesamt',done:'fertig / Ergebnis vorhanden',running:'läuft gerade',open:'wartet / offen',errors:'Fehler / Widerspruch',case:'Fall',identity:'Identität',updated:'Letzte Aktualisierung',checks:'37 feste Prüfbereiche',legend1:'Kein Bereich wird übersprungen',legend2:'30–37 = feste Tiefenprüfungen'},
-    en:{title:'Project Check Control Panel',subtitle:'Live control of all 37 mandatory review areas for one analysis case.',load:'Load case',refresh:'Refresh',idle:'No case loaded yet. All 37 review areas are visible and waiting for a run.',total:'Review areas total',done:'finished / result available',running:'currently running',open:'waiting / open',errors:'Errors / contradictions',case:'Case',identity:'Identity',updated:'Last update',checks:'37 mandatory review areas',legend1:'No area is skipped',legend2:'30–37 = mandatory deep checks'}
+    de:{title:'Projekt-Check Control Panel',subtitle:'Live-Kontrolle aller 37 festen Prüfbereiche, Dokumente und abgeschlossenen Analysefälle.',load:'Fall laden',refresh:'Aktualisieren',idle:'Noch kein Fall geladen. Alle 37 Prüfbereiche sind sichtbar und warten auf einen Lauf.',total:'Prüfbereiche gesamt',done:'fertig / Ergebnis vorhanden',running:'läuft gerade',open:'wartet / offen',errors:'Fehler / Widerspruch',case:'Fall',identity:'Identität',trafficLight:'Gesamtampel',updated:'Letzte Aktualisierung',documents:'Dokumente',documentsHint:'Beide PDFs werden aus demselben geprüften Analysebestand erzeugt.',userPdf:'Projekt-Check für Nutzer',fullPdf:'Vollständige Akademie-Projektanalyse',downloadPdf:'PDF herunterladen',checks:'37 feste Prüfbereiche',legend1:'Kein Bereich wird übersprungen',legend2:'30–37 = feste Tiefenprüfungen',archive:'Archiv',archiveHint:'Abgeschlossene Analysefälle mit beiden PDF-Dokumenten.',refreshArchive:'Archiv aktualisieren',archiveCase:'Fall-ID',archiveProject:'Identifiziertes Projekt',archiveDate:'Abschluss',archiveTraffic:'Ampel',archiveChecks:'Prüfungen',archiveDocs:'Dokumente',archiveEmpty:'Noch keine abgeschlossenen Analysefälle im Archiv.'},
+    en:{title:'Project Check Control Panel',subtitle:'Live control of all 37 mandatory review areas, documents and completed analysis cases.',load:'Load case',refresh:'Refresh',idle:'No case loaded yet. All 37 review areas are visible and waiting for a run.',total:'Review areas total',done:'finished / result available',running:'currently running',open:'waiting / open',errors:'Errors / contradictions',case:'Case',identity:'Identity',trafficLight:'Overall traffic light',updated:'Last update',documents:'Documents',documentsHint:'Both PDFs are generated from the same verified analysis dataset.',userPdf:'User project check',fullPdf:'Full Academy project analysis',downloadPdf:'Download PDF',checks:'37 mandatory review areas',legend1:'No area is skipped',legend2:'30–37 = mandatory deep checks',archive:'Archive',archiveHint:'Completed analysis cases with both PDF documents.',refreshArchive:'Refresh archive',archiveCase:'Case ID',archiveProject:'Identified project',archiveDate:'Completed',archiveTraffic:'Traffic light',archiveChecks:'Checks',archiveDocs:'Documents',archiveEmpty:'No completed analysis cases in the archive yet.'}
   };
   const statusText={de:{wartet:'Wartet',laeuft:'Läuft',bestaetigt:'Bestätigt',offen:'Offen',widerspruch:'Widerspruch',kein_befund:'Kein Befund',nicht_relevant:'Nicht relevant',fehler:'Fehler',abgeschlossen:'Abgeschlossen'},en:{wartet:'Waiting',laeuft:'Running',bestaetigt:'Confirmed',offen:'Open',widerspruch:'Contradiction',kein_befund:'No finding',nicht_relevant:'Not relevant',fehler:'Error',abgeschlossen:'Completed'}};
+  const docText={de:{waiting:'Wartet',building:'Wird erstellt',ready:'Fertig',error:'Fehler',pages:'Seiten',size:'Größe',cases:'Fälle',open:'Fall öffnen',user:'Nutzer-PDF',full:'Vollanalyse'},en:{waiting:'Waiting',building:'Generating',ready:'Ready',error:'Error',pages:'Pages',size:'Size',cases:'cases',open:'Open case',user:'User PDF',full:'Full analysis'}};
   let lang='de';
   let checks=defs.map(d=>({id:d[0],status:'wartet',summary:'',evidence_count:0}));
+  let archiveItems=[];
   const rows=document.getElementById('rows');
   const msg=document.getElementById('message');
   function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
@@ -114,7 +119,44 @@
     document.getElementById('open').textContent=checks.filter(c=>c.status==='wartet'||c.status==='offen').length;
     document.getElementById('errors').textContent=checks.filter(c=>c.status==='fehler'||c.status==='widerspruch').length;
   }
-  function setLang(next){lang=next;root.lang=next;document.getElementById('deBtn').setAttribute('aria-pressed',String(next==='de'));document.getElementById('enBtn').setAttribute('aria-pressed',String(next==='en'));document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(ui[next][k])el.textContent=ui[next][k]});render();}
+  function setDoc(prefix,doc){
+    const status=(doc&&doc.status)||'waiting';
+    const badge=document.getElementById(prefix+'PdfStatus');
+    badge.className='doc-status '+(status==='ready'?'ready':status==='building'?'building':status==='error'?'error':'');
+    badge.querySelector('span:last-child').textContent=docText[lang][status]||status;
+    document.getElementById(prefix+'PdfPages').textContent=`${docText[lang].pages}: ${doc&&doc.pages!=null?doc.pages:'—'}`;
+    document.getElementById(prefix+'PdfSize').textContent=`${docText[lang].size}: ${doc&&doc.size_label?doc.size_label:'—'}`;
+    const a=document.getElementById(prefix+'PdfDownload');
+    if(status==='ready'&&doc&&doc.url){a.href=doc.url;a.hidden=false}else{a.href='#';a.hidden=true}
+  }
+  function renderDocuments(documents){setDoc('user',documents&&documents.user_check);setDoc('full',documents&&documents.full_analysis)}
+  function trafficClass(v){return String(v||'').toLowerCase().replace(/\s+/g,'-').replace(/[^a-zäöüß-]/gi,'')}
+  function renderArchive(){
+    const q=document.getElementById('archiveSearch').value.trim().toLowerCase();
+    const list=archiveItems.filter(x=>!q||String(x.case_id||'').toLowerCase().includes(q)||String(x.project_label||'').toLowerCase().includes(q));
+    const body=document.getElementById('archiveBody');
+    const empty=document.getElementById('archiveEmpty');
+    document.getElementById('archiveCount').textContent=`${list.length} ${docText[lang].cases}`;
+    empty.hidden=list.length>0;
+    body.innerHTML=list.map(x=>{
+      const u=x.documents&&x.documents.user_check&&x.documents.user_check.url;
+      const f=x.documents&&x.documents.full_analysis&&x.documents.full_analysis.url;
+      return `<tr><td><b>${esc(x.case_id||'—')}</b></td><td>${esc(x.project_label||'—')}</td><td>${esc(x.completed_at||'—')}</td><td><span class="traffic ${esc(trafficClass(x.traffic_light))}">${esc(x.traffic_light||'—')}</span></td><td>${esc(x.checks_completed!=null?x.checks_completed:'—')}/37</td><td><div class="archive-actions"><button type="button" class="btn small open-case" data-case="${esc(x.case_id||'')}">${esc(docText[lang].open)}</button>${u?`<a class="btn small" href="${esc(u)}" download>${esc(docText[lang].user)}</a>`:''}${f?`<a class="btn small" href="${esc(f)}" download>${esc(docText[lang].full)}</a>`:''}</div></td></tr>`
+    }).join('');
+    body.querySelectorAll('.open-case').forEach(b=>b.addEventListener('click',()=>{document.getElementById('caseId').value=b.dataset.case||'';loadCase();window.scrollTo({top:0,behavior:'smooth'})}));
+  }
+  function setLang(next){
+    lang=next;root.lang=next;document.getElementById('deBtn').setAttribute('aria-pressed',String(next==='de'));document.getElementById('enBtn').setAttribute('aria-pressed',String(next==='en'));
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(ui[next][k])el.textContent=ui[next][k]});
+    document.getElementById('archiveSearch').placeholder=next==='de'?'Fall-ID oder identifiziertes Projekt suchen':'Search case ID or identified project';render();renderArchive();
+  }
+  async function loadArchive(){
+    try{
+      const res=await fetch(`../../data/projekt-check/archive/index.json?ts=${Date.now()}`,{cache:'no-store'});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      const data=await res.json();archiveItems=Array.isArray(data)?data:(Array.isArray(data.cases)?data.cases:[]);renderArchive();
+    }catch(err){archiveItems=[];renderArchive();}
+  }
   async function loadCase(){
     const id=document.getElementById('caseId').value.trim();
     if(!id){msg.className='message error';msg.textContent=lang==='de'?'Bitte zuerst eine Case ID eingeben.':'Enter a case ID first.';return;}
@@ -127,12 +169,21 @@
       checks=defs.map(d=>Object.assign({id:d[0],status:'wartet',summary:'',evidence_count:0},byId.get(d[0])||{}));
       document.getElementById('metaCase').textContent=data.case_id||id;
       document.getElementById('metaIdentity').textContent=(data.identity&&data.identity.label)||((data.identity&&data.identity.status)||'—');
+      document.getElementById('metaTraffic').textContent=data.traffic_light||'—';
       document.getElementById('metaUpdated').textContent=data.updated_at||'—';
+      renderDocuments(data.documents||{});
       msg.textContent=lang==='de'?'Laufstatus geladen.':'Run status loaded.';render();
-    }catch(err){checks=defs.map(d=>({id:d[0],status:'wartet',summary:'',evidence_count:0}));document.getElementById('metaCase').textContent=id;document.getElementById('metaIdentity').textContent='—';document.getElementById('metaUpdated').textContent='—';msg.className='message error';msg.textContent=lang==='de'?'Für diese Case ID liegt noch kein Statusdatensatz vor.':'No status dataset exists for this case ID yet.';render();}
+    }catch(err){
+      checks=defs.map(d=>({id:d[0],status:'wartet',summary:'',evidence_count:0}));document.getElementById('metaCase').textContent=id;document.getElementById('metaIdentity').textContent='—';document.getElementById('metaTraffic').textContent='—';document.getElementById('metaUpdated').textContent='—';renderDocuments({});msg.className='message error';msg.textContent=lang==='de'?'Für diese Case ID liegt noch kein Statusdatensatz vor.':'No status dataset exists for this case ID yet.';render();
+    }
   }
-  document.getElementById('loadBtn').addEventListener('click',loadCase);document.getElementById('refreshBtn').addEventListener('click',loadCase);document.getElementById('deBtn').addEventListener('click',()=>setLang('de'));document.getElementById('enBtn').addEventListener('click',()=>setLang('en'));
-  const qp=new URLSearchParams(location.search).get('case');if(qp){document.getElementById('caseId').value=qp;loadCase();}else render();
+  document.getElementById('loadBtn').addEventListener('click',loadCase);
+  document.getElementById('refreshBtn').addEventListener('click',loadCase);
+  document.getElementById('archiveRefreshBtn').addEventListener('click',loadArchive);
+  document.getElementById('archiveSearch').addEventListener('input',renderArchive);
+  document.getElementById('deBtn').addEventListener('click',()=>setLang('de'));
+  document.getElementById('enBtn').addEventListener('click',()=>setLang('en'));
+  const qp=new URLSearchParams(location.search).get('case');if(qp){document.getElementById('caseId').value=qp;loadCase()}else{render();renderDocuments({})}loadArchive();
 })();
 </script>
 </body>
