@@ -55,15 +55,15 @@ def _valid_result(url: str) -> bool:
 
 def _parse_ddg(doc: str, query: str) -> list[dict]:
     out = []
-    blocks = re.split(r'class="result(?:\s|_)', doc, flags=re.I)
-    for block in blocks[1:]:
-        m = re.search(r'class="result__a"[^>]*href="([^"]+)"[^>]*>(.*?)</a>', block, flags=re.I|re.S)
-        if not m:
-            continue
+    pattern = re.compile(r'<a[^>]*class="result__a"[^>]*href="([^"]+)"[^>]*>(.*?)</a>', flags=re.I|re.S)
+    matches = list(pattern.finditer(doc))
+    for i, m in enumerate(matches):
         url = _unwrap_ddg(html.unescape(m.group(1)))
         if not _valid_result(url):
             continue
-        sm = re.search(r'class="result__snippet"[^>]*>(.*?)</(?:a|div)>', block, flags=re.I|re.S)
+        tail_end = matches[i+1].start() if i+1 < len(matches) else min(len(doc), m.end()+1800)
+        tail = doc[m.end():tail_end]
+        sm = re.search(r'class="result__snippet"[^>]*>(.*?)</(?:a|div)>', tail, flags=re.I|re.S)
         out.append({"provider":"duckduckgo","query":query,"url":url,"title":_clean_text(m.group(2)),"snippet":_clean_text(sm.group(1) if sm else "")})
     return out
 
