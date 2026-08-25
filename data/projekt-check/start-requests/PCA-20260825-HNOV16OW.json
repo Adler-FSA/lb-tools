@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.0",
+  "case_id": "PCA-20260825-HNOV16OW",
+  "submitted_at": "2026-08-25T15:50:21.417Z",
+  "language": "de",
+  "traces": [
+    "https://u.center/auth?invt=Q_KqPbwkQH"
+  ],
+  "claim": "",
+  "requested_output": "customer_check",
+  "source": "projekt-check-control-panel"
+}
