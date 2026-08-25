@@ -4,11 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       case_id:
-        description: "Vorab erzeugte CASE_ID aus dem Auftragsposteingang"
+        description: "CASE_ID aus dem geschützten Auftragsposteingang"
         required: true
         type: string
-      intake_json:
-        description: "Geschützter Intake-Datensatz gemäß Vertrag 1.0"
+      poststelle_base:
+        description: "HTTPS-Basisadresse der Projekt-Check-Poststelle"
+        required: true
+        type: string
+      start_ticket:
+        description: "Kurzlebiges Einmal-Ticket der Poststelle"
         required: true
         type: string
 
@@ -29,22 +33,37 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Auftrag prüfen und vorbereiten
+      - name: Geschützten Auftrag einmalig aus der Poststelle holen
         env:
           CASE_ID: ${{ inputs.case_id }}
-          INTAKE_JSON: ${{ inputs.intake_json }}
+          POSTSTELLE_BASE: ${{ inputs.poststelle_base }}
+          START_TICKET: ${{ inputs.start_ticket }}
         run: |
           python - <<'PY'
           import json, os, pathlib, re
-          from urllib.parse import urlparse
+          from urllib.parse import quote, urlparse
+          from urllib.request import Request, urlopen
 
           case_id = os.environ.get('CASE_ID', '').strip().upper()
-          intake = json.loads(os.environ.get('INTAKE_JSON', '{}'))
+          base = os.environ.get('POSTSTELLE_BASE', '').strip().rstrip('/')
+          ticket = os.environ.get('START_TICKET', '').strip().upper()
 
           if not re.fullmatch(r'PCA-[0-9]{8}-[A-Z0-9]{8}', case_id):
               raise SystemExit('Ungültige CASE_ID')
-          if not isinstance(intake, dict):
-              raise SystemExit('Intake muss ein JSON-Objekt sein')
+          parsed_base = urlparse(base)
+          if parsed_base.scheme != 'https' or not parsed_base.netloc:
+              raise SystemExit('Ungültige Poststellen-Adresse')
+          if not re.fullmatch(r'[A-F0-9]{48}', ticket):
+              raise SystemExit('Ungültiges Start-Ticket')
+
+          url = f"{base}/start/{case_id}?ticket={quote(ticket)}"
+          req = Request(url, headers={'user-agent': 'FSA-Projekt-Check-Action/1.0'})
+          with urlopen(req, timeout=30) as response:
+              payload = json.loads(response.read().decode('utf-8'))
+
+          if payload.get('case_id') != case_id or not isinstance(payload.get('intake'), dict):
+              raise SystemExit('Poststelle lieferte keinen passenden Intake')
+          intake = payload['intake']
           if str(intake.get('contract_version') or '') != '1.0':
               raise SystemExit('Falsche contract_version')
 
@@ -75,7 +94,7 @@ jobs:
               'traces': clean,
               'claim': claim,
               'requested_output': requested_output,
-              'source': 'projekt-check-control-panel'
+              'source': 'projekt-check-poststelle'
           }
 
           pathlib.Path('/tmp/case_id.txt').write_text(case_id, encoding='utf-8')
@@ -88,7 +107,8 @@ jobs:
           python projekt-check-engine/core/new_case.py \
             --intake /tmp/intake.json \
             --case-id "$CASE_ID" \
-            --initial-state angenommen
+            --initial-state angenommen \
+            --persist-intake sanitized
 
       - name: Analysefall im Control-Panel-Datenbestand speichern
         run: |
@@ -103,4 +123,4 @@ jobs:
       - name: Start bestätigt
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          echo "Projekt-Check-Analyse $CASE_ID wurde intern gestartet und mit 37 Prüfbereichen initialisiert."
+          echo "Projekt-Check-Analyse $CASE_ID wurde intern gestartet. Der vollständige Intake bleibt außerhalb des öffentlichen Repositorys."
