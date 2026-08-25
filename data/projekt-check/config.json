@@ -1,7 +1,7 @@
 {
-  "contract_version": "1.3",
+  "contract_version": "1.4",
+  "start_request_dir": "data/projekt-check/start-requests",
   "status_base": "/data/projekt-check/cases/",
   "control_panel": "/pages/projekt-check/control-panel.html",
-  "archive_index": "/data/projekt-check/archive/index.json",
-  "manual_start_workflow": "projekt-check-neuer-fall.yml"
+  "archive_index": "/data/projekt-check/archive/index.json"
 }
