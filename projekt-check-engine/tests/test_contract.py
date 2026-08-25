@@ -9,6 +9,9 @@ ROOT = Path(__file__).resolve().parents[2]
 CHECKS = ROOT / "projekt-check-engine/checks/checks-37.json"
 GUIDANCE = ROOT / "projekt-check-auswertung/guidance/checks-37-guidance.json"
 NEW_CASE = ROOT / "projekt-check-engine/core/new_case.py"
+INBOX = ROOT / "data/projekt-check/inbox/index.json"
+INBOX_SCHEMA = ROOT / "projekt-check-engine/schemas/inbox.schema.json"
+START_WORKFLOW = ROOT / ".github/workflows/projekt-check-neuer-fall.yml"
 
 
 class ProjectCheckContractTests(unittest.TestCase):
@@ -29,6 +32,22 @@ class ProjectCheckContractTests(unittest.TestCase):
             self.assertTrue(item["customer"].strip())
             self.assertTrue(item["company"].strip())
             self.assertTrue(item["academy"].strip())
+
+    def test_public_inbox_contract_is_pseudonymous(self):
+        data = json.loads(INBOX.read_text(encoding="utf-8"))
+        schema = json.loads(INBOX_SCHEMA.read_text(encoding="utf-8"))
+        self.assertEqual("1.0", data["schema_version"])
+        self.assertEqual([], data["requests"])
+        item_properties = schema["properties"]["requests"]["items"]["properties"]
+        forbidden = {"name", "email", "phone", "claim", "traces", "access_key", "customer_name"}
+        self.assertTrue(forbidden.isdisjoint(item_properties))
+
+    def test_analysis_start_is_internal_workflow_dispatch_only(self):
+        text = START_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("workflow_dispatch:", text)
+        self.assertNotIn("repository_dispatch:", text)
+        self.assertNotIn("research-engine/", text)
+        self.assertIn("--initial-state angenommen", text)
 
     def test_new_case_initializes_all_checks_perspectives_and_neutral_findings(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -82,6 +101,29 @@ class ProjectCheckContractTests(unittest.TestCase):
                     self.assertEqual([], check[perspective]["disadvantages"])
                     self.assertEqual([], check[perspective]["questions"])
                     self.assertEqual([], check[perspective]["recommendations"])
+
+    def test_new_case_internal_start_sets_accepted_state(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            intake = tmp / "intake.json"
+            cases = tmp / "cases"
+            intake.write_text(json.dumps({
+                "contract_version": "1.0",
+                "traces": ["https://example.org/start"],
+                "requested_output": "company_check"
+            }), encoding="utf-8")
+            case_id = "PCA-20260825-DEF67890"
+            subprocess.run([
+                "python", str(NEW_CASE),
+                "--intake", str(intake),
+                "--checks", str(CHECKS),
+                "--cases-root", str(cases),
+                "--case-id", case_id,
+                "--initial-state", "angenommen"
+            ], check=True, cwd=ROOT, capture_output=True, text=True)
+            status = json.loads((cases / case_id / "status.json").read_text(encoding="utf-8"))
+            self.assertEqual("angenommen", status["state"])
+            self.assertEqual("company_check", status["delivery_document"])
 
 
 if __name__ == "__main__":
