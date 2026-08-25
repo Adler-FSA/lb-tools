@@ -8,12 +8,7 @@
   "properties": {
     "schema_version": {"const": "1.0"},
     "case_id": {"type": "string", "pattern": "^PCA-[0-9]{8}-[A-Z0-9]{8}$"},
-    "checks": {
-      "type": "array",
-      "minItems": 37,
-      "maxItems": 37,
-      "items": {"$ref": "#/$defs/check"}
-    }
+    "checks": {"type": "array", "minItems": 37, "maxItems": 37, "items": {"$ref": "#/$defs/check"}}
   },
   "$defs": {
     "stringList": {"type": "array", "items": {"type": "string"}},
@@ -50,7 +45,7 @@
       "properties": {
         "id": {"type": "integer", "minimum": 1, "maximum": 37},
         "key": {"type": "string"},
-        "result_status": {"type": "string", "enum": ["bestaetigt", "eigenaussage", "offen", "widerspruch", "kein_befund", "nicht_relevant"]},
+        "result_status": {"type": ["string", "null"], "enum": ["bestaetigt", "eigenaussage", "offen", "widerspruch", "kein_befund", "nicht_relevant", null]},
         "neutral_finding": {"$ref": "#/$defs/neutralFinding"},
         "customer": {"$ref": "#/$defs/perspective"},
         "company": {"$ref": "#/$defs/perspective"},
