@@ -32,23 +32,25 @@ class ProjectCheckContractTests(unittest.TestCase):
             self.assertTrue(item["company"].strip())
             self.assertTrue(item["academy"].strip())
 
-    def test_analysis_start_is_internal_workflow_dispatch_only(self):
+    def test_analysis_start_uses_contents_commit_queue(self):
         text = START_WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("workflow_dispatch:", text)
+        self.assertIn("push:", text)
+        self.assertIn("data/projekt-check/start-requests/*.json", text)
+        self.assertNotIn("workflow_dispatch:", text)
         self.assertNotIn("repository_dispatch:", text)
         self.assertNotIn("research-engine/", text)
-        self.assertNotIn("poststelle_base", text)
-        self.assertNotIn("start_ticket", text)
-        self.assertIn("traces_json:", text)
-        self.assertIn("claim:", text)
+        self.assertIn("git diff-tree", text)
         self.assertIn("--initial-state angenommen", text)
+        self.assertIn("--persist-intake sanitized", text)
 
-    def test_control_panel_collects_only_analysis_inputs_for_start(self):
+    def test_control_panel_collects_only_analysis_inputs_and_writes_start_commit(self):
         text = CONTROL_PANEL.read_text(encoding="utf-8")
         self.assertIn('id="traceInput"', text)
         self.assertIn('id="claimInput"', text)
         self.assertIn('id="startDirectBtn"', text)
-        self.assertIn("traces_json", text)
+        self.assertIn("data/projekt-check/start-requests", text)
+        self.assertIn("'/contents/'", text)
+        self.assertNotIn("/actions/workflows/", text)
         self.assertNotIn('id="reqOrder"', text)
         self.assertNotIn('id="inboxBody"', text)
         self.assertNotIn("poststelle", text.lower())
