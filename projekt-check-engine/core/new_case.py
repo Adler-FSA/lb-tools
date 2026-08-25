@@ -22,6 +22,10 @@ def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def empty_perspective() -> dict:
+    return {"summary": "", "advantages": [], "disadvantages": [], "questions": [], "recommendations": []}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Initialisiert einen neuen Projekt-Check-Fall.")
     ap.add_argument("--intake", required=True, type=Path)
@@ -56,6 +60,7 @@ def main() -> int:
     intake["requested_output"] = requested_output
 
     checks = []
+    evaluation_checks = []
     for item in defs["checks"]:
         checks.append({
             "id": item["id"],
@@ -72,16 +77,25 @@ def main() -> int:
             "started_at": None,
             "finished_at": None,
         })
+        evaluation_checks.append({
+            "id": item["id"],
+            "key": item["key"],
+            "result_status": None,
+            "neutral_finding": {
+                "confirmed_facts": [],
+                "first_party_claims": [],
+                "pros": [],
+                "cons": [],
+                "open_points": [],
+                "contradictions": [],
+                "evidence_refs": [],
+            },
+            "customer": empty_perspective(),
+            "company": empty_perspective(),
+            "academy": empty_perspective(),
+        })
 
-    empty_doc = {
-        "status": "wartet",
-        "url": "",
-        "filename": "",
-        "pages": 0,
-        "bytes": 0,
-        "generated_at": None,
-    }
-
+    empty_doc = {"status": "wartet", "url": "", "filename": "", "pages": 0, "bytes": 0, "generated_at": None}
     status = {
         "contract_version": "1.1",
         "case_id": case_id,
@@ -99,9 +113,11 @@ def main() -> int:
         },
         "error": None,
     }
+    evaluation = {"schema_version": "1.0", "case_id": case_id, "checks": evaluation_checks}
 
     (case_dir / "intake.json").write_text(json.dumps(intake, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (case_dir / "status.json").write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (case_dir / "evaluation.json").write_text(json.dumps(evaluation, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(case_id)
     return 0
 
