@@ -1,16 +1,14 @@
-name: Projekt-Check – Neuer Auftrag
+name: Projekt-Check – Analyse starten
 
 on:
-  repository_dispatch:
-    types: [projekt_check_intake_v1]
   workflow_dispatch:
     inputs:
       case_id:
-        description: "Vorab erzeugte CASE_ID"
+        description: "Vorab erzeugte CASE_ID aus dem Auftragsposteingang"
         required: true
         type: string
       intake_json:
-        description: "Intake JSON gemäß Vertrag 1.0"
+        description: "Geschützter Intake-Datensatz gemäß Vertrag 1.0"
         required: true
         type: string
 
@@ -18,11 +16,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: projekt-check-intake-${{ github.event.client_payload.case_id || inputs.case_id }}
+  group: projekt-check-start-${{ inputs.case_id }}
   cancel-in-progress: false
 
 jobs:
-  create-case:
+  start-analysis:
     runs-on: ubuntu-latest
     steps:
       - name: Repository laden
@@ -33,22 +31,15 @@ jobs:
 
       - name: Auftrag prüfen und vorbereiten
         env:
-          EVENT_NAME: ${{ github.event_name }}
-          DISPATCH_CASE_ID: ${{ github.event.client_payload.case_id }}
-          DISPATCH_INTAKE: ${{ toJSON(github.event.client_payload.intake) }}
-          MANUAL_CASE_ID: ${{ inputs.case_id }}
-          MANUAL_INTAKE: ${{ inputs.intake_json }}
+          CASE_ID: ${{ inputs.case_id }}
+          INTAKE_JSON: ${{ inputs.intake_json }}
         run: |
           python - <<'PY'
           import json, os, pathlib, re
           from urllib.parse import urlparse
 
-          if os.environ['EVENT_NAME'] == 'repository_dispatch':
-              case_id = os.environ.get('DISPATCH_CASE_ID', '').strip().upper()
-              intake = json.loads(os.environ.get('DISPATCH_INTAKE', 'null'))
-          else:
-              case_id = os.environ.get('MANUAL_CASE_ID', '').strip().upper()
-              intake = json.loads(os.environ.get('MANUAL_INTAKE', '{}'))
+          case_id = os.environ.get('CASE_ID', '').strip().upper()
+          intake = json.loads(os.environ.get('INTAKE_JSON', '{}'))
 
           if not re.fullmatch(r'PCA-[0-9]{8}-[A-Z0-9]{8}', case_id):
               raise SystemExit('Ungültige CASE_ID')
@@ -84,29 +75,32 @@ jobs:
               'traces': clean,
               'claim': claim,
               'requested_output': requested_output,
-              'source': 'projekt-check-web'
+              'source': 'projekt-check-control-panel'
           }
 
           pathlib.Path('/tmp/case_id.txt').write_text(case_id, encoding='utf-8')
           pathlib.Path('/tmp/intake.json').write_text(json.dumps(normalized, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           PY
 
-      - name: Auftrag mit 37 Prüfbereichen initialisieren
+      - name: Analysefall mit 37 Prüfbereichen initialisieren
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          python projekt-check-engine/core/new_case.py --intake /tmp/intake.json --case-id "$CASE_ID"
+          python projekt-check-engine/core/new_case.py \
+            --intake /tmp/intake.json \
+            --case-id "$CASE_ID" \
+            --initial-state angenommen
 
-      - name: Auftrag im Control-Panel-Datenbestand speichern
+      - name: Analysefall im Control-Panel-Datenbestand speichern
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
           git config user.name "FSA Projekt-Check"
           git config user.email "actions@github.com"
           git add "data/projekt-check/cases/$CASE_ID"
-          git commit -m "Projekt-Check: Auftrag $CASE_ID anlegen"
+          git commit -m "Projekt-Check: Analyse $CASE_ID starten"
           git pull --rebase origin main
           git push origin HEAD:main
 
-      - name: Auftrag angelegt
+      - name: Start bestätigt
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          echo "Projekt-Check-Auftrag $CASE_ID wartet jetzt auf den manuellen Analyse-Start im Control Panel."
+          echo "Projekt-Check-Analyse $CASE_ID wurde intern gestartet und mit 37 Prüfbereichen initialisiert."
