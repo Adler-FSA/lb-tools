@@ -58,7 +58,7 @@ def main() -> int:
     intake["case_id"] = case_id
     intake.setdefault("contract_version", "1.0")
     intake.setdefault("submitted_at", now)
-    intake.setdefault("source", "projekt-check-web")
+    intake.setdefault("source", "projekt-check-control-panel")
     intake["requested_output"] = requested_output
 
     checks = []
@@ -126,10 +126,10 @@ def main() -> int:
             "submitted_at": intake.get("submitted_at", now),
             "language": intake.get("language", "de"),
             "requested_output": requested_output,
-            "source": "projekt-check-poststelle",
+            "source": intake.get("source", "projekt-check-control-panel"),
             "trace_count": len(traces),
             "has_claim": bool(str(intake.get("claim") or "").strip()),
-            "protected_intake": True,
+            "raw_intake_persisted": False,
         }
     else:
         public_intake = None
