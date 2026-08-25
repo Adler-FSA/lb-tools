@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-HIDAFGXJ",
+  "started_at": "2026-08-25T15:39:59Z",
+  "initial_trace_count": 1,
+  "expanded_trace_count": 0,
+  "browser_probe": "playwright-chromium",
+  "errors": [],
+  "priority_links": [],
+  "finished_at": "2026-08-25T15:40:03Z",
+  "identity_status": "resolved",
+  "identity_label": "U-Center",
+  "evidence_count": 1,
+  "probe_errors": []
+}

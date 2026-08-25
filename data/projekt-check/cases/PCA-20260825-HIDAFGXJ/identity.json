@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-HIDAFGXJ",
+  "status": "resolved",
+  "label": "U-Center",
+  "confidence": "medium",
+  "primary_domain": "u.center",
+  "domains": [
+    "u.center"
+  ],
+  "candidates": [
+    {
+      "label": "U-Center",
+      "score": 3,
+      "basis": "title",
+      "url": "https://u.center/auth?invt=Q_KqPbwkQH",
+      "score_total": 3
+    }
+  ],
+  "note": "Die Bezeichnung dient nur der technischen Zuordnung des gefundenen Angebots. Sie ist kein Nachweis für Rechtsträger, Betreiberidentität oder regulatorische Zuordnung."
+}

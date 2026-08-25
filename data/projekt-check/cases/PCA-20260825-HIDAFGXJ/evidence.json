@@ -1,0 +1,27 @@
+{
+  "case_id": "PCA-20260825-HIDAFGXJ",
+  "schema_version": "1.0",
+  "evidence_count": 1,
+  "reachable_count": 1,
+  "source_type_counts": {
+    "website": 1
+  },
+  "items": [
+    {
+      "evidence_id": "E001",
+      "kind": "public_web_capture",
+      "source_type": "website",
+      "requested_url": "https://u.center/auth?invt=Q_KqPbwkQH",
+      "final_url": "https://u.center/auth?invt=Q_KqPbwkQH",
+      "captured_at": "2026-08-25T15:40:01Z",
+      "http_status": 200,
+      "title": "U-Center",
+      "h1": "Create Your Account",
+      "meta_description": "Join U-Center Affiliate Hub and unlock exclusive rewards through our Ambassador Rewards Program. Earn commissions across your network.",
+      "og_site_name": "",
+      "text_excerpt": "Back to Home 🎉 You were invited by @powerconcept Sign Up Sign In Create Your Account Join the U-Center Affiliate Program Full Name Username Email Address Password Language Select your language Afrikaans Albanian Amharic Arabic Armenian Azerbaijani Belarusian Bengali Bislama Bosnian Bulgarian Burmese Catalan Chinese Croatian Czech Danish Dhivehi Dutch Dzongkha English Estonian Faroese Filipino Finnish French Georgian German Greek Greenlandic Hebrew Hindi Hungarian Icelandic Indonesian Italian Japanese Kazakh Khmer Kinyarwanda Kirundi Korean Kyrgyz Lao Latvian Lithuanian Luxembourgish Macedonian Malagasy Malay Maltese Mandarin Chinese Marshallese Mongolian Montenegrin N/A Nauruan Nepali Norwegian Palauan Pashto Persian Polish Portuguese Romanian Russian Samoan Serbian Sinhala Slovak Slovenian Somali Spanish Swahili Swedish Tajik Thai Tigrinya Tongan Turkish Turkmen Tuvaluan Ukrainian Urdu Uzbek Vietnamese Create Account By creating an account, you agree to our Terms of Service and Privacy Policy Back to Home",
+      "content_sha256": "42e29f07690871fea96df7a8fac73dd9c3fc8531ccb4080906b7847ee852d051",
+      "error": ""
+    }
+  ]
+}
