@@ -14,7 +14,7 @@ def utc_now() -> str:
 
 def make_case_id() -> str:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d")
-    suffix = secrets.token_hex(4).upper()[:8]
+    suffix = secrets.token_hex(4).upper()
     return f"PCA-{stamp}-{suffix}"
 
 
@@ -38,6 +38,10 @@ def main() -> int:
     if len(defs.get("checks", [])) != 37:
         raise SystemExit("Prüfstandard enthält nicht exakt 37 Bereiche.")
 
+    requested_output = intake.get("requested_output") or "customer_check"
+    if requested_output not in {"customer_check", "company_check"}:
+        raise SystemExit("requested_output muss customer_check oder company_check sein.")
+
     case_id = args.case_id.strip() or make_case_id()
     case_dir = args.cases_root / case_id
     if case_dir.exists():
@@ -49,31 +53,49 @@ def main() -> int:
     intake.setdefault("contract_version", "1.0")
     intake.setdefault("submitted_at", now)
     intake.setdefault("source", "projekt-check-web")
+    intake["requested_output"] = requested_output
 
     checks = []
     for item in defs["checks"]:
         checks.append({
             "id": item["id"],
             "key": item["key"],
-            "status": "wartet",
+            "workflow_status": "wartet",
+            "result_status": None,
             "evidence_count": 0,
             "summary": "",
+            "perspectives": {
+                "customer": {"status": "wartet", "updated_at": None},
+                "company": {"status": "wartet", "updated_at": None},
+                "academy": {"status": "wartet", "updated_at": None},
+            },
             "started_at": None,
             "finished_at": None,
         })
 
+    empty_doc = {
+        "status": "wartet",
+        "url": "",
+        "filename": "",
+        "pages": 0,
+        "bytes": 0,
+        "generated_at": None,
+    }
+
     status = {
-        "contract_version": "1.0",
+        "contract_version": "1.1",
         "case_id": case_id,
-        "state": "angenommen",
+        "state": "wartet_auf_start",
         "created_at": now,
         "updated_at": now,
+        "delivery_document": requested_output,
         "identity": {"status": "unresolved", "label": "", "confidence": "none"},
         "overall_rating": None,
         "checks": checks,
         "documents": {
-            "user_check": {"status": "wartet", "url": "", "filename": "", "pages": 0, "bytes": 0},
-            "full_analysis": {"status": "wartet", "url": "", "filename": "", "pages": 0, "bytes": 0},
+            "customer_check": dict(empty_doc),
+            "company_check": dict(empty_doc),
+            "academy_full_analysis": dict(empty_doc),
         },
         "error": None,
     }
