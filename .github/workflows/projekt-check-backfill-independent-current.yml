@@ -16,17 +16,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - name: Primärquellen-Zwischenstand sauber zurücksetzen
+        run: python projekt-check-engine/core/run_evaluation.py --case-id PCA-20260825-NN0U4DO7
       - name: Chromium bereitstellen
         run: |
           python -m pip install --disable-pip-version-check playwright
           python -m playwright install --with-deps chromium
-      - name: Bestehenden U-Center-Fall unabhängig recherchieren
+      - name: Bestehenden U-Center-Fall identitätsgebunden unabhängig recherchieren
         run: python projekt-check-engine/core/run_independent_research.py --case-id PCA-20260825-NN0U4DO7 --max-captures 8
-      - name: Recherche-Ergebnis speichern
+      - name: Bereinigtes Recherche-Ergebnis speichern
         run: |
           git config user.name "FSA Projekt-Check"
           git config user.email "actions@github.com"
           git add data/projekt-check/cases/PCA-20260825-NN0U4DO7
-          git commit -m "Projekt-Check: U-Center unabhängige Web-Recherche nachziehen"
+          git commit -m "Projekt-Check: U-Center unabhängige Web-Recherche bereinigt"
           git pull --rebase origin main
           git push origin HEAD:main
