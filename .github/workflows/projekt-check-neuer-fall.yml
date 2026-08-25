@@ -32,6 +32,7 @@ jobs:
             echo "Keine Projekt-Check-Startdatei im auslösenden Commit gefunden."
             exit 1
           fi
+          export PROJECT_CHECK_REQUEST_PATH="$REQUEST_PATH"
           echo "PROJECT_CHECK_REQUEST_PATH=$REQUEST_PATH" >> "$GITHUB_ENV"
 
           python - <<'PY'
