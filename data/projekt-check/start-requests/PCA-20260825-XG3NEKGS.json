@@ -8,5 +8,6 @@
   ],
   "claim": "",
   "requested_output": "customer_check",
-  "source": "projekt-check-control-panel"
+  "source": "projekt-check-control-panel",
+  "retry_at": "2026-08-25T15:20:00Z"
 }
