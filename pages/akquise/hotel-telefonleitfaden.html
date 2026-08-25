@@ -48,11 +48,20 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
 .reader{border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);display:grid;grid-template-rows:auto 1fr auto;background:#fff;overflow:hidden}
 .readerHead{padding:12px 16px 10px;border-bottom:1px solid var(--line)}
 .aida{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:9px}
-.aidaStep{border:1px solid var(--line);border-radius:9px;padding:7px 8px;background:#fff;min-width:0}
+.aidaStep{appearance:none;border:1px solid var(--line);border-radius:9px;padding:7px 8px;background:#fff;min-width:0;text-align:left;color:inherit}
 .aidaStep span{display:block;font-size:.7rem;font-weight:900;color:var(--muted);letter-spacing:.05em}
 .aidaStep strong{display:block;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--navy)}
+.aidaStep em{display:block;margin-top:3px;font-size:.64rem;font-style:normal;font-weight:800;color:var(--mint)}
 .aidaStep.active{border-color:var(--mint);background:var(--mint-soft)}
 .aidaStep.done{border-color:#b8ded2;background:var(--green-soft)}
+.aidaStep.learnOpen{box-shadow:0 0 0 2px rgba(0,167,173,.12)}
+.aidaExplain{display:none;margin:0 0 10px;border:1px solid #c9e7e8;border-radius:10px;background:#fbfefe;padding:11px 12px;max-height:155px;overflow:auto}
+.aidaExplain.show{display:block}
+.aidaExplainTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+.aidaExplainLabel{font-size:.67rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--magenta)}
+.aidaExplainTitle{margin:2px 0 0;font-size:.96rem;color:var(--navy)}
+.aidaExplainClose{appearance:none;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--muted);padding:5px 8px;font-size:.7rem;font-weight:800;white-space:nowrap}
+.aidaExplainText{font-size:.82rem;line-height:1.45;color:#3d4b5b;white-space:pre-wrap}
 .headRow{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
 .stageBadge{display:inline-block;border-radius:999px;background:var(--mint-soft);color:var(--mint);font-size:.72rem;font-weight:900;padding:5px 9px;margin-bottom:5px}
 #stepTitle{margin:0;color:var(--navy);font-size:1.18rem;line-height:1.2}
@@ -99,7 +108,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
 .memory h3{margin:0 0 6px;color:#6b4c00;font-size:.9rem}
 .memory ol{margin:0;padding-left:18px;color:#664b09;font-size:.78rem;line-height:1.4}
 .memory li+li{margin-top:2px}
-.shortMode .aida{display:none}
+.shortMode .aida,.shortMode .aidaExplain{display:none!important}
 .shortMode .stageBadge{background:var(--magenta-soft);color:var(--magenta)}
 .shortMode .scriptText{font-size:1.18rem;line-height:1.5}
 @media(max-width:980px){
@@ -111,6 +120,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   .reader{min-height:620px}
   .sidebar{overflow:visible}
   .answer{max-height:none}
+  .aidaExplain{max-height:none}
 }
 @media(max-width:620px){
   .topbar{align-items:flex-start;flex-direction:column;padding:13px 12px}
@@ -160,10 +170,20 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
     <section class="reader">
       <div class="readerHead">
         <div class="aida" id="aidaBar">
-          <div class="aidaStep active" data-stage="A1"><span>A</span><strong>Attention</strong></div>
-          <div class="aidaStep" data-stage="I"><span>I</span><strong>Interest</strong></div>
-          <div class="aidaStep" data-stage="D"><span>D</span><strong>Desire</strong></div>
-          <div class="aidaStep" data-stage="A2"><span>A</span><strong>Action</strong></div>
+          <button class="aidaStep active" type="button" data-stage="A1" aria-expanded="false"><span>A</span><strong>Attention</strong><em>Erklärung</em></button>
+          <button class="aidaStep" type="button" data-stage="I" aria-expanded="false"><span>I</span><strong>Interest</strong><em>Erklärung</em></button>
+          <button class="aidaStep" type="button" data-stage="D" aria-expanded="false"><span>D</span><strong>Desire</strong><em>Erklärung</em></button>
+          <button class="aidaStep" type="button" data-stage="A2" aria-expanded="false"><span>A</span><strong>Action</strong><em>Erklärung</em></button>
+        </div>
+        <div class="aidaExplain" id="aidaExplain">
+          <div class="aidaExplainTop">
+            <div>
+              <div class="aidaExplainLabel">AIDA-Erklärung · nicht vorlesen</div>
+              <h3 class="aidaExplainTitle" id="aidaExplainTitle"></h3>
+            </div>
+            <button class="aidaExplainClose" id="aidaExplainClose" type="button">Schließen</button>
+          </div>
+          <div class="aidaExplainText" id="aidaExplainText"></div>
         </div>
         <div class="headRow">
           <div>
@@ -275,6 +295,25 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
     }
   ];
 
+  var aidaExplanations = {
+    A1:{
+      title:'A · Attention',
+      text:'Wir laden aktuell ganz gezielt ausgewählte inhabergeführte Hotels in den Segmenten MICE und Leisure zu einer persönlichen Online-Präsentation ein.\n\nDabei geht es um einen etwas anderen Ansatz: Weg von Rabatten und Preisschlachten – hin zu einem außergewöhnlichen Belohnungssystem für Ihre Gäste.\n\nPAUSE!'
+    },
+    I:{
+      title:'I · Interest',
+      text:'Das Besondere daran ist ein neuer weltweit handelbarer und digitaler Wertgutschein, der als zusätzlicher Buchungsanreiz eingesetzt werden kann.\n\nDer Gast soll einen attraktiven Mehrwert und mehr Kaufkraft für seinen Aufenthalt bei Ihnen erhalten, ohne dass Ihr Hotel Angebote und Arrangement-Preise reduzieren muss.\n\nNicht erklären, wie es funktioniert!'
+    },
+    D:{
+      title:'D · Desire',
+      text:'Der Wertgutschein ist nur ein Teil des Konzeptes. Verbunden wird das Ganze mit einem wachsenden digitalen Ökosystem für mehr Direktbuchungen und Sichtbarkeit bei Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und über relevante Online-Magazine.\n\nAlexander Finke und Oliver Beyer schauen sich Ihr Hotel vor dem Termin an. In der Präsentation zeigen sie Ihnen ganz konkret, wie sich die besonderen Vorzüge und Angebote Ihres Hauses mit diesem Konzept verbinden lassen.'
+    },
+    A2:{
+      title:'A · Action',
+      text:'Die Präsentation dauert nur etwa 20 Minuten. Meine Aufgabe ist lediglich, den persönlichen Kontakt zwischen Ihnen und unseren beiden Experten herzustellen.\n\nDanach entscheiden Sie selbst, ob Sie sagen: „Das ist spannend – darüber sollten wir weiterreden.“ Oder: „Das passt nicht zu unserem Haus.“ Beides ist völlig in Ordnung.\n\nWas passt Ihnen für die 20 Minuten grundsätzlich besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender?'
+    }
+  };
+
   var shortText = '„{{salutation}}, ich mache es wirklich kurz:\n\nWir laden aktuell ausgewählte inhabergeführte Hotels zu einer 20-minütigen persönlichen Online-Präsentation ein.\n\nDabei geht es um einen ungewöhnlichen Ansatz:\nWeg vom klassischen Rabatt – hin zu einem Belohnungssystem mit einem neuen digital handelbaren Wertgutschein, das einen zusätzlichen Anreiz für Direktbuchungen schaffen soll.\n\nKombiniert wird das mit digitaler Sichtbarkeit über Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und relevante Online-Magazine.\n\nUnsere beiden Hotelexperten schauen sich Ihr Haus vorher an und zeigen Ihnen anschließend, wie das konkret für Ihr Hotel aussehen könnte.\n\nMehr möchte ich Ihnen am Telefon gar nicht verkaufen.\n\nHaben Sie gerade Zugriff auf Ihren Terminkalender und was wäre für Sie besser – vormittags oder nachmittags?“';
 
   var objections = [
@@ -309,6 +348,7 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
 
   var current = 0;
   var mode = 'full';
+  var openAidaStage = null;
 
   var app = document.getElementById('app');
   var salutation = document.getElementById('salutation');
@@ -328,6 +368,10 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
   var answerBox = document.getElementById('answerBox');
   var curiosityBtn = document.getElementById('curiosityBtn');
   var ruleText = document.getElementById('ruleText');
+  var aidaExplain = document.getElementById('aidaExplain');
+  var aidaExplainTitle = document.getElementById('aidaExplainTitle');
+  var aidaExplainText = document.getElementById('aidaExplainText');
+  var aidaExplainClose = document.getElementById('aidaExplainClose');
 
   function values(){
     return {
@@ -365,9 +409,37 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
     });
   }
 
+  function closeAidaExplanation(){
+    openAidaStage = null;
+    aidaExplain.classList.remove('show');
+    document.querySelectorAll('.aidaStep').forEach(function(el){
+      el.classList.remove('learnOpen');
+      el.setAttribute('aria-expanded','false');
+    });
+  }
+
+  function toggleAidaExplanation(stage, button){
+    if(openAidaStage === stage){
+      closeAidaExplanation();
+      return;
+    }
+    var info = aidaExplanations[stage];
+    if(!info){return;}
+    openAidaStage = stage;
+    aidaExplainTitle.textContent = info.title;
+    aidaExplainText.textContent = info.text;
+    aidaExplain.classList.add('show');
+    document.querySelectorAll('.aidaStep').forEach(function(el){
+      var isOpen = el === button;
+      el.classList.toggle('learnOpen', isOpen);
+      el.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+
   function render(){
     if(mode === 'short'){
       app.classList.add('shortMode');
+      closeAidaExplanation();
       stageBadge.textContent = 'KURZVERSION';
       stepTitle.textContent = 'Kompakter Gesprächsweg';
       progressText.textContent = 'Direkt ablesen';
@@ -422,6 +494,14 @@ h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(-
       objectionGrid.appendChild(b);
     });
   }
+
+  document.querySelectorAll('.aidaStep').forEach(function(button){
+    button.addEventListener('click', function(){
+      toggleAidaExplanation(button.getAttribute('data-stage'), button);
+    });
+  });
+
+  aidaExplainClose.addEventListener('click', closeAidaExplanation);
 
   prevBtn.addEventListener('click', function(){
     if(mode === 'full' && current > 0){current--; render();}
