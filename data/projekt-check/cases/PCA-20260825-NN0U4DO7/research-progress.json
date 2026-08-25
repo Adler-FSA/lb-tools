@@ -1,13 +1,13 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "updated_at": "2026-08-25T16:46:28Z",
+  "updated_at": "2026-08-25T16:51:46Z",
   "modules": {
     "primary_discovery": "completed",
     "primary_evaluation": "completed",
     "independent_web": "completed"
   },
-  "independent_search_results": 0,
+  "independent_search_results": 7,
   "independent_rejected_results": 0,
-  "independent_captures": 0
+  "independent_captures": 7
 }

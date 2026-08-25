@@ -1,49 +1,128 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "case_id": "PCA-20260825-NN0U4DO7",
   "identity_label": "U-Center",
   "project_hosts": [
     "u.center"
   ],
   "distinctive_terms": [
-    "U CENTER",
     "U-TOPIA",
-    "PACKAGE PRICE"
+    "U-AI",
+    "BETA NOTICE"
   ],
   "queries": [
     {
       "theme": "identity",
-      "query": "\"u.center\" \"U CENTER\" company legal entity register"
+      "query": "\"U-TOPIA\" U-Center company legal entity register"
     },
     {
       "theme": "regulation",
-      "query": "\"u.center\" \"U CENTER\" regulator licence license warning"
+      "query": "\"U-TOPIA\" U-Center regulator licence license warning"
     },
     {
       "theme": "people",
-      "query": "\"u.center\" \"U CENTER\" founder director team management"
+      "query": "\"U-TOPIA\" U-Center founder director team management"
     },
     {
       "theme": "social",
-      "query": "\"u.center\" \"U CENTER\" Telegram YouTube Instagram Facebook TikTok"
+      "query": "\"U-TOPIA\" U-Center Telegram YouTube Instagram Facebook TikTok"
     },
     {
       "theme": "user",
-      "query": "\"u.center\" \"U CENTER\" review experience complaint payout support"
+      "query": "\"U-TOPIA\" U-Center review experience complaint payout support"
     },
     {
       "theme": "crypto",
-      "query": "\"u.center\" \"U CENTER\" token blockchain contract wallet audit"
+      "query": "\"U-TOPIA\" U-Center token blockchain contract wallet audit"
     },
     {
       "theme": "press",
-      "query": "\"u.center\" \"U CENTER\" news article interview"
+      "query": "\"U-TOPIA\" U-Center news article interview"
     }
   ],
-  "results": [],
+  "results": [
+    {
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center company legal entity register",
+      "url": "https://behindmlm.com/mlm-reviews/u-center-review-dubai-banking-securities-fraud/",
+      "title": "U.Center Review: Dubai banking & securities fraud",
+      "snippet": "With respect to securities fraud, Through its U.Center opportunity U-topia is soliciting investment in virtual shares. Having failed to register its share offering in any jurisdiction, U-topia pitching consumers on virtual U.Center shares is outright illegal in and of itself.",
+      "category": "web",
+      "theme": "identity",
+      "relevance_score": 5
+    },
+    {
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center company legal entity register",
+      "url": "https://andrewtwelftree.com/u-center/",
+      "title": "U Center Information - andrewtwelftree.com",
+      "snippet": "Private 16-Minute Overview U-CENTER Watch the presentation below to see how U-Center and the planned U-Topia financial app are being presented, what caught my attention, and what to understand before deciding whether to get involved. U-Center 15-Minute Presentation + Practical Q&A Start here. The video introduces the broader vision, the U-Center membership model, and the...",
+      "category": "web",
+      "theme": "identity",
+      "relevance_score": 4
+    },
+    {
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center company legal entity register",
+      "url": "https://jessesingh.org/u-center-review/",
+      "title": "U.Center Review - Virtual Shares, Lifetime Dividends, and Serious ...",
+      "snippet": "The U-TOPIA History U-TOPIA first gained attention through: metaverse marketing NFT projects U-Coin promotions play-to-earn concepts Over time, the company shifted toward: AI education financial products virtual share offerings The current U.Center model launched around March 2026, coinciding with the registration of the U.Center domain.",
+      "category": "web",
+      "theme": "identity",
+      "relevance_score": 5
+    },
+    {
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center company legal entity register",
+      "url": "https://mskalsi.com/",
+      "title": "U-Topia Presents U-Center - The Future of Finance Now!!",
+      "snippet": "An innovative company in the investment and crypto-asset market, with real and automated operations, recorded transparently and 100% verifiable on the blockchain.",
+      "category": "web",
+      "theme": "identity",
+      "relevance_score": 4
+    },
+    {
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center company legal entity register",
+      "url": "https://www.youtube.com/watch?v=46kv9-943Vo",
+      "title": "U-topia U-center DAO prelaunch , welcome to the future of banking",
+      "snippet": "Welcome to U Center DAO.In this video, we break down the vision, the mission, and how a global community is coming together to redefine ownership, participat...",
+      "category": "youtube",
+      "theme": "identity",
+      "relevance_score": 4
+    },
+    {
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center regulator licence license warning",
+      "url": "https://www.youtube.com/@U.Center",
+      "title": "U.Center - YouTube",
+      "snippet": "U-Topia CEO Emmanuel Quezada Reveals the Future of Banking & Global Financial Freedom - U.Center 972 views • 3 months ago 2:29",
+      "category": "youtube",
+      "theme": "regulation",
+      "relevance_score": 5
+    },
+    {
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center regulator licence license warning",
+      "url": "https://www.youtube.com/watch?v=qpTzfR1c3Oo",
+      "title": "U-Topia Live: Product Preview, Live Q&A, Early Tester ... - YouTube",
+      "snippet": "We dive deep into the vision for Utopia , the AI-powered fintech super app, and U.Center , the DAO powering education, community, and shared ownership in the ecosystem.",
+      "category": "youtube",
+      "theme": "regulation",
+      "relevance_score": 5
+    }
+  ],
   "rejected_results": [],
-  "selected_urls": [],
+  "selected_urls": [
+    "https://www.youtube.com/watch?v=46kv9-943Vo",
+    "https://www.youtube.com/@U.Center",
+    "https://www.youtube.com/watch?v=qpTzfR1c3Oo",
+    "https://andrewtwelftree.com/u-center/",
+    "https://behindmlm.com/mlm-reviews/u-center-review-dubai-banking-securities-fraud/",
+    "https://jessesingh.org/u-center-review/",
+    "https://mskalsi.com/"
+  ],
   "errors": [],
-  "finished_at": "2026-08-25T16:46:28Z",
+  "finished_at": "2026-08-25T16:51:46Z",
   "note": "Suchtreffer werden nur übernommen, wenn Domain oder ein markantes Projektmerkmal die Zuordnung stützt. Suchtreffer sind Recherchehinweise; Belege sind separat geöffnete Zielseiten."
 }
