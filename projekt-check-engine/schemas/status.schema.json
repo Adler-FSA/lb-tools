@@ -1,36 +1,66 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Projekt-Check Laufstatus",
+  "$id": "projekt-check/status.schema.json",
+  "title": "Projekt-Check Case Status",
   "type": "object",
-  "required": ["case_id", "state", "updated_at", "checks"],
+  "additionalProperties": false,
+  "required": ["contract_version", "case_id", "state", "created_at", "updated_at", "checks", "documents"],
   "properties": {
-    "case_id": {"type": "string"},
-    "state": {"enum": ["wartet", "laeuft", "abgeschlossen", "fehler"]},
-    "updated_at": {"type": "string"},
+    "contract_version": {"const": "1.0"},
+    "case_id": {"type": "string", "pattern": "^PCA-[0-9]{8}-[A-Z0-9]{6,12}$"},
+    "state": {"type": "string", "enum": ["angenommen", "identifizierung", "recherche", "auswertung", "pdf_erstellung", "abgeschlossen", "fehler"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
     "identity": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "status": {"enum": ["unresolved", "resolving", "resolved", "failed"]},
+        "status": {"type": "string", "enum": ["unresolved", "resolving", "resolved", "insufficient"]},
         "label": {"type": "string"},
-        "confidence": {"type": "string"}
+        "confidence": {"type": "string", "enum": ["none", "low", "medium", "high"]}
       }
     },
+    "overall_rating": {"type": ["string", "null"], "enum": ["GRUEN", "GELB", "GELB-ROT", "ROT", null]},
     "checks": {
       "type": "array",
       "minItems": 37,
       "maxItems": 37,
       "items": {
         "type": "object",
-        "required": ["id", "title", "status"],
+        "additionalProperties": false,
+        "required": ["id", "key", "status", "evidence_count", "summary"],
         "properties": {
           "id": {"type": "integer", "minimum": 1, "maximum": 37},
-          "title": {"type": "string"},
-          "status": {"enum": ["wartet", "laeuft", "bestaetigt", "offen", "widerspruch", "kein_befund", "nicht_relevant", "fehler", "abgeschlossen"]},
-          "summary": {"type": "string"},
+          "key": {"type": "string"},
+          "status": {"type": "string", "enum": ["wartet", "laeuft", "bestaetigt", "offen", "widerspruch", "kein_befund", "nicht_relevant", "fehler", "abgeschlossen"]},
           "evidence_count": {"type": "integer", "minimum": 0},
+          "summary": {"type": "string"},
           "started_at": {"type": ["string", "null"]},
           "finished_at": {"type": ["string", "null"]}
         }
+      }
+    },
+    "documents": {
+      "type": "object",
+      "required": ["user_check", "full_analysis"],
+      "properties": {
+        "user_check": {"$ref": "#/$defs/document"},
+        "full_analysis": {"$ref": "#/$defs/document"}
+      }
+    },
+    "error": {"type": ["string", "null"]}
+  },
+  "$defs": {
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "url", "filename", "pages", "bytes"],
+      "properties": {
+        "status": {"type": "string", "enum": ["wartet", "wird_erstellt", "fertig", "fehler"]},
+        "url": {"type": "string"},
+        "filename": {"type": "string"},
+        "pages": {"type": "integer", "minimum": 0},
+        "bytes": {"type": "integer", "minimum": 0}
       }
     }
   }
