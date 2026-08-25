@@ -98,19 +98,48 @@ jobs:
             --initial-state angenommen \
             --persist-intake sanitized
 
-      - name: Fall speichern und Startdatei aus dem Arbeitsstand entfernen
+      - name: Analysefall sofort für das Control Panel veröffentlichen
         shell: bash
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
           git config user.name "FSA Projekt-Check"
           git config user.email "actions@github.com"
           git add "data/projekt-check/cases/$CASE_ID"
-          git rm "$PROJECT_CHECK_REQUEST_PATH"
           git commit -m "Projekt-Check: Analyse $CASE_ID angenommen"
           git pull --rebase origin main
           git push origin HEAD:main
 
-      - name: Start bestätigt
+      - name: Chromium für die neue Discovery-Engine bereitstellen
+        run: |
+          python -m pip install --disable-pip-version-check playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Eingereichte Spuren öffnen, Identität ableiten und Primärbelege sichern
+        id: discovery
+        continue-on-error: true
+        shell: bash
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          echo "Projekt-Check $CASE_ID wurde durch den Contents-Commit angenommen und mit 37 Prüfbereichen initialisiert."
+          python projekt-check-engine/core/run_discovery.py \
+            --intake /tmp/intake.json \
+            --case-id "$CASE_ID"
+
+      - name: Discovery-Zwischenstand speichern und Startdatei entfernen
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git rm "$PROJECT_CHECK_REQUEST_PATH"
+          git commit -m "Projekt-Check: Discovery $CASE_ID gespeichert"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Start und Discovery bestätigt
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          if [ "${{ steps.discovery.outcome }}" = "success" ]; then
+            echo "Projekt-Check $CASE_ID wurde angenommen. Die neue Discovery-Engine hat Identität und öffentliche Primärbelege verarbeitet."
+          else
+            echo "Projekt-Check $CASE_ID wurde angenommen, Discovery endete jedoch mit Fehlerstatus. Der Fall bleibt im Control Panel sichtbar."
+          fi
