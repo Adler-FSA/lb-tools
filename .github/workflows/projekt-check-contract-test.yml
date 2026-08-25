@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'projekt-check-engine/**'
+      - 'projekt-check-auswertung/**'
       - '.github/workflows/projekt-check-contract-test.yml'
   workflow_dispatch:
 
