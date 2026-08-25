@@ -6,6 +6,7 @@ import json
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urldefrag
 
 ENGINE_ROOT = Path(__file__).resolve().parents[1]
 if str(ENGINE_ROOT) not in sys.path:
@@ -18,6 +19,10 @@ from identify.resolve_identity import resolve_identity
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def canonical_url(value: str) -> str:
+    return urldefrag(str(value or "").strip())[0]
 
 
 def read_json(path: Path) -> dict:
@@ -62,7 +67,8 @@ def main() -> int:
     ap.add_argument("--intake", required=True, type=Path)
     ap.add_argument("--case-id", required=True)
     ap.add_argument("--cases-root", default=Path("data/projekt-check/cases"), type=Path)
-    ap.add_argument("--max-expanded", default=12, type=int)
+    ap.add_argument("--max-expanded", default=18, type=int)
+    ap.add_argument("--max-depth", default=3, type=int)
     args = ap.parse_args()
 
     case_id = args.case_id.strip().upper()
@@ -82,28 +88,71 @@ def main() -> int:
         error="",
     )
 
+    max_expanded = max(0, min(args.max_expanded, 30))
+    max_depth = max(1, min(args.max_depth, 4))
     discovery = {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "case_id": case_id,
         "started_at": utc_now(),
         "initial_trace_count": len(traces),
         "expanded_trace_count": 0,
         "browser_probe": "playwright-chromium",
+        "crawl_depth_limit": max_depth,
+        "crawl_rounds": [],
         "errors": [],
     }
 
     try:
         initial_probes = probe_urls(traces)
-        priority_links = choose_priority_links(initial_probes, limit=max(0, min(args.max_expanded, 20)))
-        already = {p.get("requested_url") for p in initial_probes}
-        expanded_urls = [url for url in priority_links if url not in already]
-        expanded_probes = probe_urls(expanded_urls) if expanded_urls else []
-        probes = initial_probes + expanded_probes
+        probes = list(initial_probes)
+        seen_urls: set[str] = set()
+        for probe in probes:
+            for key in ("requested_url", "final_url"):
+                value = canonical_url(probe.get(key) or "")
+                if value:
+                    seen_urls.add(value)
+
+        expanded_urls: list[str] = []
+        for depth in range(1, max_depth + 1):
+            remaining = max_expanded - len(expanded_urls)
+            if remaining <= 0:
+                break
+            candidates = choose_priority_links(probes, limit=min(max(remaining * 2, remaining), 40))
+            layer_urls: list[str] = []
+            for candidate in candidates:
+                url = canonical_url(candidate)
+                if not url or url in seen_urls or url in layer_urls:
+                    continue
+                layer_urls.append(url)
+                if len(layer_urls) >= remaining:
+                    break
+            if not layer_urls:
+                break
+
+            layer_probes = probe_urls(layer_urls)
+            probes.extend(layer_probes)
+            expanded_urls.extend(layer_urls)
+            for url in layer_urls:
+                seen_urls.add(url)
+            for probe in layer_probes:
+                final_url = canonical_url(probe.get("final_url") or "")
+                if final_url:
+                    seen_urls.add(final_url)
+
+            discovery["crawl_rounds"].append(
+                {
+                    "depth": depth,
+                    "urls": layer_urls,
+                    "probe_count": len(layer_probes),
+                    "navigation_target_count": sum(len(p.get("navigation_links") or []) for p in layer_probes),
+                }
+            )
 
         identity = resolve_identity(probes)
         evidence = build_evidence(probes)
         discovery["expanded_trace_count"] = len(expanded_urls)
         discovery["priority_links"] = expanded_urls
+        discovery["navigation_target_count"] = sum(len(p.get("navigation_links") or []) for p in probes)
         discovery["finished_at"] = utc_now()
         discovery["identity_status"] = identity.get("status")
         discovery["identity_label"] = identity.get("label")
@@ -128,7 +177,7 @@ def main() -> int:
         write_json(case_dir / "evidence.json", evidence_payload)
         write_json(case_dir / "discovery.json", discovery)
         update_status(case_dir, state="recherche", identity=identity, error="", evidence=evidence)
-        print(json.dumps({"case_id": case_id, "identity": identity.get("label"), "evidence": evidence.get("evidence_count")}, ensure_ascii=False))
+        print(json.dumps({"case_id": case_id, "identity": identity.get("label"), "evidence": evidence.get("evidence_count"), "expanded": len(expanded_urls)}, ensure_ascii=False))
         return 0
     except Exception as exc:
         discovery["finished_at"] = utc_now()
