@@ -4,16 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       case_id:
-        description: "CASE_ID aus dem geschützten Auftragsposteingang"
+        description: "Automatisch erzeugte CASE_ID aus dem Control Panel"
         required: true
         type: string
-      poststelle_base:
-        description: "HTTPS-Basisadresse der Projekt-Check-Poststelle"
+      traces_json:
+        description: "JSON-Liste der öffentlichen Analyse-Spuren"
         required: true
         type: string
-      start_ticket:
-        description: "Kurzlebiges Einmal-Ticket der Poststelle"
-        required: true
+      claim:
+        description: "Optionale Aussage zum Angebot"
+        required: false
+        default: ""
         type: string
 
 permissions:
@@ -33,43 +34,29 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Geschützten Auftrag einmalig aus der Poststelle holen
+      - name: Analyse-Eingaben prüfen
         env:
           CASE_ID: ${{ inputs.case_id }}
-          POSTSTELLE_BASE: ${{ inputs.poststelle_base }}
-          START_TICKET: ${{ inputs.start_ticket }}
+          TRACES_JSON: ${{ inputs.traces_json }}
+          CLAIM: ${{ inputs.claim }}
         run: |
           python - <<'PY'
           import json, os, pathlib, re
-          from urllib.parse import quote, urlparse
-          from urllib.request import Request, urlopen
+          from datetime import datetime, timezone
+          from urllib.parse import urlparse
 
           case_id = os.environ.get('CASE_ID', '').strip().upper()
-          base = os.environ.get('POSTSTELLE_BASE', '').strip().rstrip('/')
-          ticket = os.environ.get('START_TICKET', '').strip().upper()
-
           if not re.fullmatch(r'PCA-[0-9]{8}-[A-Z0-9]{8}', case_id):
               raise SystemExit('Ungültige CASE_ID')
-          parsed_base = urlparse(base)
-          if parsed_base.scheme != 'https' or not parsed_base.netloc:
-              raise SystemExit('Ungültige Poststellen-Adresse')
-          if not re.fullmatch(r'[A-F0-9]{48}', ticket):
-              raise SystemExit('Ungültiges Start-Ticket')
 
-          url = f"{base}/start/{case_id}?ticket={quote(ticket)}"
-          req = Request(url, headers={'user-agent': 'FSA-Projekt-Check-Action/1.0'})
-          with urlopen(req, timeout=30) as response:
-              payload = json.loads(response.read().decode('utf-8'))
+          try:
+              traces = json.loads(os.environ.get('TRACES_JSON', '[]'))
+          except json.JSONDecodeError:
+              raise SystemExit('traces_json ist kein gültiges JSON')
 
-          if payload.get('case_id') != case_id or not isinstance(payload.get('intake'), dict):
-              raise SystemExit('Poststelle lieferte keinen passenden Intake')
-          intake = payload['intake']
-          if str(intake.get('contract_version') or '') != '1.0':
-              raise SystemExit('Falsche contract_version')
-
-          traces = intake.get('traces')
           if not isinstance(traces, list) or not 1 <= len(traces) <= 20:
               raise SystemExit('Es werden 1 bis 20 öffentliche Spuren benötigt')
+
           clean = []
           for raw in traces:
               value = str(raw or '').strip()
@@ -79,26 +66,25 @@ jobs:
               if value not in clean:
                   clean.append(value)
 
-          claim = str(intake.get('claim') or '').strip()
+          claim = str(os.environ.get('CLAIM') or '').strip()
           if len(claim) > 3000:
               raise SystemExit('Aussage ist zu lang')
 
-          requested_output = str(intake.get('requested_output') or 'customer_check')
-          if requested_output not in ('customer_check', 'company_check'):
-              raise SystemExit('Ungültiger Auftragstyp')
-
           normalized = {
               'contract_version': '1.0',
-              'submitted_at': str(intake.get('submitted_at') or ''),
-              'language': 'en' if intake.get('language') == 'en' else 'de',
+              'submitted_at': datetime.now(timezone.utc).isoformat(),
+              'language': 'de',
               'traces': clean,
               'claim': claim,
-              'requested_output': requested_output,
-              'source': 'projekt-check-poststelle'
+              'requested_output': 'customer_check',
+              'source': 'projekt-check-control-panel'
           }
 
           pathlib.Path('/tmp/case_id.txt').write_text(case_id, encoding='utf-8')
-          pathlib.Path('/tmp/intake.json').write_text(json.dumps(normalized, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          pathlib.Path('/tmp/intake.json').write_text(
+              json.dumps(normalized, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
           PY
 
       - name: Analysefall mit 37 Prüfbereichen initialisieren
@@ -123,4 +109,4 @@ jobs:
       - name: Start bestätigt
         run: |
           CASE_ID="$(cat /tmp/case_id.txt)"
-          echo "Projekt-Check-Analyse $CASE_ID wurde intern gestartet. Der vollständige Intake bleibt außerhalb des öffentlichen Repositorys."
+          echo "Projekt-Check-Analyse $CASE_ID wurde intern gestartet."
