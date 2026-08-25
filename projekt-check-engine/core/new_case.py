@@ -33,6 +33,7 @@ def main() -> int:
     ap.add_argument("--cases-root", default=Path("data/projekt-check/cases"), type=Path)
     ap.add_argument("--case-id", default="")
     ap.add_argument("--initial-state", choices=["wartet_auf_start", "angenommen"], default="wartet_auf_start")
+    ap.add_argument("--persist-intake", choices=["full", "sanitized", "none"], default="full")
     args = ap.parse_args()
 
     intake = load_json(args.intake)
@@ -116,7 +117,25 @@ def main() -> int:
     }
     evaluation = {"schema_version": "1.0", "case_id": case_id, "checks": evaluation_checks}
 
-    (case_dir / "intake.json").write_text(json.dumps(intake, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    if args.persist_intake == "full":
+        public_intake = intake
+    elif args.persist_intake == "sanitized":
+        public_intake = {
+            "case_id": case_id,
+            "contract_version": intake.get("contract_version", "1.0"),
+            "submitted_at": intake.get("submitted_at", now),
+            "language": intake.get("language", "de"),
+            "requested_output": requested_output,
+            "source": "projekt-check-poststelle",
+            "trace_count": len(traces),
+            "has_claim": bool(str(intake.get("claim") or "").strip()),
+            "protected_intake": True,
+        }
+    else:
+        public_intake = None
+
+    if public_intake is not None:
+        (case_dir / "intake.json").write_text(json.dumps(public_intake, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (case_dir / "status.json").write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (case_dir / "evaluation.json").write_text(json.dumps(evaluation, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(case_id)
