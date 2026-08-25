@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Telefonleitfaden · Ausgewählte Privathotels</title>
+<style>
+:root{
+  --mint:#00a7ad;
+  --mint-soft:#eaf9fa;
+  --magenta:#c6006f;
+  --magenta-soft:#fff0f8;
+  --navy:#132238;
+  --text:#182230;
+  --muted:#667085;
+  --line:#dfe4ea;
+  --soft:#f7f9fb;
+  --white:#ffffff;
+  --green:#197a57;
+  --green-soft:#eaf7f1;
+  --gold:#956600;
+  --gold-soft:#fff7df;
+  --red:#b42318;
+  --red-soft:#fff1ef;
+  --shadow:0 10px 28px rgba(19,34,56,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#fff;color:var(--text);font-family:Arial,Helvetica,sans-serif}
+body{overflow:hidden}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;min-height:640px;display:grid;grid-template-rows:auto auto 1fr;background:#fff}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 20px 14px;border-bottom:1px solid var(--line);background:#fff}
+.titleWrap{min-width:0}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mint)}
+h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(--navy)}
+.goal{flex:0 0 auto;border-left:4px solid var(--magenta);padding:8px 12px;background:var(--magenta-soft);font-size:.9rem;line-height:1.35;max-width:390px}
+.goal strong{display:block;color:var(--magenta);margin-bottom:2px}
+.controls{display:grid;grid-template-columns:minmax(160px,.65fr) minmax(190px,.8fr) minmax(190px,.8fr) auto;gap:10px;padding:10px 20px;border-bottom:1px solid var(--line);background:var(--soft);align-items:end}
+.field{display:grid;gap:4px;min-width:0}
+.field label{font-size:.75rem;font-weight:800;color:var(--muted)}
+.field input,.field select{width:100%;height:39px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:0 11px;color:var(--text);outline:none}
+.field input:focus,.field select:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.10)}
+.modeSwitch{display:flex;gap:6px;align-items:center;height:39px}
+.modeBtn{height:39px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--text);font-weight:800;padding:0 13px}
+.modeBtn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1.72fr) minmax(320px,.78fr);gap:12px;padding:12px 20px 16px;background:#fff}
+.reader,.sidebar{min-height:0}
+.reader{border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);display:grid;grid-template-rows:auto 1fr auto;background:#fff;overflow:hidden}
+.readerHead{padding:14px 16px 12px;border-bottom:1px solid var(--line)}
+.aida{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}
+.aidaStep{border:1px solid var(--line);border-radius:9px;padding:7px 8px;background:#fff;min-width:0}
+.aidaStep span{display:block;font-size:.7rem;font-weight:900;color:var(--muted);letter-spacing:.05em}
+.aidaStep strong{display:block;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--navy)}
+.aidaStep.active{border-color:var(--mint);background:var(--mint-soft)}
+.aidaStep.done{border-color:#b8ded2;background:var(--green-soft)}
+.headRow{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.stageBadge{display:inline-block;border-radius:999px;background:var(--mint-soft);color:var(--mint);font-size:.72rem;font-weight:900;padding:5px 9px;margin-bottom:6px}
+#stepTitle{margin:0;color:var(--navy);font-size:1.22rem;line-height:1.2}
+.progress{font-size:.82rem;color:var(--muted);font-weight:800;white-space:nowrap;padding-top:5px}
+.scriptArea{min-height:0;overflow:auto;padding:16px;background:#fff}
+.scriptCard{min-height:100%;border:1px solid var(--line);border-radius:13px;background:var(--soft);padding:22px 24px;display:flex;flex-direction:column;justify-content:center}
+.scriptText{font-size:clamp(1.12rem,1.65vw,1.42rem);line-height:1.58;color:#111827;white-space:pre-wrap}
+.scriptText p{margin:0 0 14px}
+.scriptText p:last-child{margin-bottom:0}
+.scriptText strong{color:var(--navy)}
+.coach{margin-top:18px;border-left:4px solid var(--magenta);background:#fff;padding:11px 13px;font-weight:800;color:var(--navy);line-height:1.4}
+.coach.green{border-left-color:var(--green);background:var(--green-soft);color:#155b43}
+.readerFoot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 14px;border-top:1px solid var(--line);background:#fff}
+.navGroup{display:flex;gap:8px}
+.btn{height:40px;border-radius:9px;border:1px solid var(--navy);background:var(--navy);color:#fff;padding:0 15px;font-weight:800}
+.btn.secondary{background:#fff;color:var(--navy)}
+.btn.muted{border-color:var(--line);background:var(--soft);color:var(--text)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.rule{font-size:.78rem;color:var(--muted);font-weight:800;text-align:right}
+.sidebar{display:grid;grid-template-rows:minmax(0,1.45fr) auto auto;gap:10px;overflow:hidden}
+.sideCard{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;min-height:0}
+.sideHead{padding:12px 13px 10px;border-bottom:1px solid var(--line)}
+.sideHead h2{margin:0;color:var(--navy);font-size:1rem}
+.sideHead p{margin:4px 0 0;color:var(--muted);font-size:.75rem;line-height:1.35}
+.objectionBody{padding:10px 11px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:9px;height:calc(100% - 57px)}
+.objectionGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.objection{border:1px solid var(--line);border-radius:8px;background:#fff;text-align:left;padding:8px 9px;color:var(--text);font-size:.76rem;font-weight:800;line-height:1.25}
+.objection:hover,.objection.active{border-color:var(--magenta);background:var(--magenta-soft);color:var(--magenta)}
+.answer{min-height:0;overflow:auto;border-left:4px solid var(--green);background:var(--green-soft);padding:11px 12px;font-size:.85rem;line-height:1.42;white-space:pre-wrap}
+.answer strong{color:#155b43}
+.curiosity{border-color:#b9dfd4;background:var(--green-soft)}
+.curiosity button{width:100%;border:0;background:transparent;text-align:left;padding:12px 13px;color:#155b43}
+.curiosity .kicker{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;font-weight:900}
+.curiosity strong{display:block;margin-top:3px;font-size:.91rem}
+.curiosity small{display:block;margin-top:4px;line-height:1.3;color:#2c6b56}
+.memory{padding:11px 13px;background:var(--gold-soft);border-color:#ead9a6}
+.memory h3{margin:0 0 7px;color:#6b4c00;font-size:.9rem}
+.memory ol{margin:0;padding-left:18px;color:#664b09;font-size:.78rem;line-height:1.45}
+.memory li+li{margin-top:3px}
+.shortMode .aida{display:none}
+.shortMode .stageBadge{background:var(--magenta-soft);color:var(--magenta)}
+.shortMode .scriptCard{justify-content:flex-start}
+.shortMode .scriptText{font-size:1.04rem;line-height:1.48}
+@media(max-width:980px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100dvh;display:block}
+  .controls{grid-template-columns:1fr 1fr}
+  .workspace{grid-template-columns:1fr;overflow:visible}
+  .reader{min-height:650px}
+  .sidebar{overflow:visible;grid-template-rows:auto auto auto}
+  .sideCard{min-height:0}
+  .objectionBody{height:auto}
+}
+@media(max-width:620px){
+  .topbar{align-items:flex-start;flex-direction:column;padding:13px 12px}
+  .goal{max-width:none;width:100%}
+  .controls{grid-template-columns:1fr;padding:10px 12px}
+  .workspace{padding:10px 12px}
+  .aida{grid-template-columns:1fr 1fr}
+  .headRow{flex-direction:column;gap:4px}
+  .scriptCard{padding:18px}
+  .readerFoot{align-items:stretch;flex-direction:column}
+  .navGroup{display:grid;grid-template-columns:1fr 1fr 1fr}
+  .btn{padding:0 8px}
+  .rule{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="titleWrap">
+      <div class="eyebrow">LiquidityBooster · Gesprächswerkzeug</div>
+      <h1>Telefonleitfaden · Ausgewählte Privathotels</h1>
+    </div>
+    <div class="goal">
+      <strong>Ziel des Anrufs</strong>
+      Nicht verkaufen. Nicht erklären. Persönlichen 20-Minuten-Termin mit den beiden Hotelexperten vereinbaren.
+    </div>
+  </header>
+
+  <section class="controls" aria-label="Gesprächsdaten">
+    <div class="field">
+      <label for="salutation">Anrede / Name</label>
+      <input id="salutation" type="text" placeholder="Herr/Frau [Name]">
+    </div>
+    <div class="field">
+      <label for="hotel">Hotel</label>
+      <input id="hotel" type="text" placeholder="optional">
+    </div>
+    <div class="field">
+      <label for="caller">Mein Name</label>
+      <input id="caller" type="text" placeholder="[Name]">
+    </div>
+    <div class="modeSwitch" aria-label="Leitfadenmodus">
+      <button class="modeBtn active" id="fullModeBtn" type="button">AIDA</button>
+      <button class="modeBtn" id="shortModeBtn" type="button">Kurzversion</button>
+    </div>
+  </section>
+
+  <main class="workspace">
+    <section class="reader">
+      <div class="readerHead">
+        <div class="aida" id="aidaBar">
+          <div class="aidaStep active" data-stage="A1"><span>A</span><strong>Attention</strong></div>
+          <div class="aidaStep" data-stage="I"><span>I</span><strong>Interest</strong></div>
+          <div class="aidaStep" data-stage="D"><span>D</span><strong>Desire</strong></div>
+          <div class="aidaStep" data-stage="A2"><span>A</span><strong>Action</strong></div>
+        </div>
+        <div class="headRow">
+          <div>
+            <span class="stageBadge" id="stageBadge">A · ATTENTION</span>
+            <h2 id="stepTitle">Richtig verbunden?</h2>
+          </div>
+          <div class="progress" id="progressText">Schritt 1 von 9</div>
+        </div>
+      </div>
+
+      <div class="scriptArea">
+        <div class="scriptCard">
+          <div class="scriptText" id="scriptText"></div>
+          <div class="coach" id="coachNote">Zuerst Zustimmung abwarten.</div>
+        </div>
+      </div>
+
+      <div class="readerFoot">
+        <div class="navGroup">
+          <button class="btn secondary" id="prevBtn" type="button">Zurück</button>
+          <button class="btn muted" id="copyBtn" type="button">Satz kopieren</button>
+          <button class="btn" id="nextBtn" type="button">Weiter</button>
+        </div>
+        <div class="rule" id="ruleText">Immer nur den nächsten Schritt sprechen. Nicht vorzeitig erklären.</div>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <section class="sideCard">
+        <div class="sideHead">
+          <h2>Einwand sofort wählen</h2>
+          <p>Antippen. Die passende Antwort bleibt direkt neben dem Gespräch sichtbar.</p>
+        </div>
+        <div class="objectionBody">
+          <div class="objectionGrid" id="objectionGrid"></div>
+          <div class="answer" id="answerBox"><strong>Einwandbehandlung</strong>\nWähle oben den Einwand des Hoteliers aus.</div>
+        </div>
+      </section>
+
+      <section class="sideCard curiosity">
+        <button id="curiosityBtn" type="button">
+          <span class="kicker">Kein Einwand · Zielmoment</span>
+          <strong>„Wie funktioniert dieser Wertgutschein eigentlich?“</strong>
+          <small>Jetzt nicht erklären. Antippen für die direkte Überleitung zum Termin.</small>
+        </button>
+      </section>
+
+      <section class="sideCard memory">
+        <h3>Merksatz</h3>
+        <ol>
+          <li>„Belohnung statt Rabatt?“</li>
+          <li>„Ein handelbarer Wertgutschein – wie soll das funktionieren?“</li>
+          <li>„Was könnte das konkret für mein Hotel bringen?“</li>
+        </ol>
+      </section>
+    </aside>
+  </main>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var steps = [
+    {
+      stage:'A1', badge:'A · ATTENTION', title:'Richtig verbunden?',
+      text:'„Guten Tag {{salutation}}, mein Name ist {{caller}} von LiquidityBooster.\nBin ich bei Ihnen richtig, wenn es um Direktbuchungen und die Vermarktung Ihres Hotels außerhalb der kostenpflichtigen Reiseportale wie Booking.com & Co. geht?“',
+      note:'Wenn JA: direkt weiter. Wenn nicht, nach dem richtigen Ansprechpartner fragen.'
+    },
+    {
+      stage:'A1', badge:'A · ATTENTION', title:'Gezielte Einladung',
+      text:'„Perfekt. Ich mache es auch ganz kurz.\n\nWir laden aktuell ganz gezielt ausgewählte inhabergeführte Hotels in den Segmenten MICE und Leisure zu einer persönlichen Online-Präsentation ein.\n\nDabei geht es um einen etwas anderen Ansatz:\nWeg von Rabatten und Preisschlachten – hin zu einem außergewöhnlichen Belohnungssystem für Ihre Gäste.“',
+      note:'PAUSE! Nichts weiter erklären, bis der Hotelier reagiert.'
+    },
+    {
+      stage:'I', badge:'I · INTEREST', title:'Neugier auf den Wertgutschein',
+      text:'„Das Besondere daran ist ein neuer weltweit handelbarer und digitaler Wertgutschein, der als zusätzlicher Buchungsanreiz eingesetzt werden kann.\n\nUnd genau hier wird es interessant:\nDer Gast soll einen attraktiven Mehrwert und mehr Kaufkraft für seinen Aufenthalt bei Ihnen erhalten, ohne dass Ihr Hotel Angebote und Arrangement-Preise reduzieren muss.“',
+      note:'Nicht erklären, wie es funktioniert.'
+    },
+    {
+      stage:'I', badge:'I · INTEREST', title:'Wenn die Funktionsfrage kommt',
+      text:'„Genau das ist der spannende Punkt.\n\nWenn ich es Ihnen jetzt am Telefon erkläre, fehlt Ihnen der Zusammenhang.\nUnsere beiden Hotelexperten zeigen Ihnen das direkt anhand Ihres Hotels – und dann verstehen Sie innerhalb weniger Minuten, warum wir von Belohnung statt Rabatt sprechen.“',
+      note:'Die Frage „Wie soll das funktionieren?“ ist ein gutes Signal. Nicht in die Erklärung einsteigen.'
+    },
+    {
+      stage:'D', badge:'D · DESIRE', title:'Das größere Konzept',
+      text:'„Und der Wertgutschein ist nur ein Teil des Konzeptes.\n\nVerbunden wird das Ganze mit einem wachsenden digitalen Ökosystem für mehr Direktbuchungen und Sichtbarkeit bei Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und über relevante Online-Magazine.“',
+      note:'Nur den Rahmen nennen. Keine Detailpräsentation am Telefon.'
+    },
+    {
+      stage:'D', badge:'D · DESIRE', title:'Bezug auf das konkrete Hotel',
+      text:'„Unsere beiden Hotelexperten Alexander Finke und Oliver Beyer schauen sich Ihr Hotel vor dem Termin an.\n\nIn der Präsentation zeigen sie Ihnen dann ganz konkret, wie sich die besonderen Vorzüge und Angebote Ihres Hauses mit diesem Konzept verbinden lassen.“',
+      note:'Der Nutzen wird auf das konkrete Haus bezogen – nicht allgemein argumentieren.'
+    },
+    {
+      stage:'A2', badge:'A · ACTION', title:'20 Minuten – klare Entscheidung',
+      text:'„Die Präsentation dauert nur etwa 20 Minuten.\n\nMeine Aufgabe ist lediglich, den persönlichen Kontakt zwischen Ihnen und unseren beiden Experten herzustellen.\n\nDanach entscheiden Sie selbst, ob Sie sagen:\n‚Das ist spannend – darüber sollten wir weiterreden.‘\nOder:\n‚Das passt nicht zu unserem Haus.‘\n\nBeides ist völlig in Ordnung.“',
+      note:'Druck herausnehmen. Die Entscheidung bleibt beim Hotelier.'
+    },
+    {
+      stage:'A2', badge:'A · ACTION', title:'Terminfrage stellen',
+      text:'„Was passt Ihnen für die 20 Minuten grundsätzlich besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender?“',
+      note:'Jetzt nicht weiterreden. Antwort abwarten und Termin festmachen.'
+    },
+    {
+      stage:'A2', badge:'A · ACTION', title:'Ziel erreicht',
+      text:'Termin vereinbaren.\n\nNicht das Konzept verkaufen. Nicht nacherklären. Den persönlichen Kontakt zu Alexander Finke und Oliver Beyer herstellen.',
+      note:'Gesprächsziel erreicht.',
+      green:true
+    }
+  ];
+
+  var shortText = '„{{salutation}}, ich mache es wirklich kurz:\n\nWir laden aktuell ausgewählte inhabergeführte Hotels zu einer 20-minütigen persönlichen Online-Präsentation ein.\n\nDabei geht es um einen ungewöhnlichen Ansatz:\nWeg vom klassischen Rabatt – hin zu einem Belohnungssystem mit einem neuen digital handelbaren Wertgutschein, das einen zusätzlichen Anreiz für Direktbuchungen schaffen soll.\n\nKombiniert wird das mit digitaler Sichtbarkeit über Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und relevante Online-Magazine.\n\nUnsere beiden Hotelexperten schauen sich Ihr Haus vorher an und zeigen Ihnen anschließend, wie das konkret für Ihr Hotel aussehen könnte.\n\nMehr möchte ich Ihnen am Telefon gar nicht verkaufen.\n\nHaben Sie gerade Zugriff auf Ihren Terminkalender und was wäre für Sie besser – vormittags oder nachmittags?“';
+
+  var objections = [
+    {
+      label:'Informationen schicken',
+      answer:'„Sehr gerne.\n\nNur würden Sie dann genau das bekommen, was Sie wahrscheinlich jeden Tag bekommen: eine weitere Präsentation oder Broschüre.\n\nDas Interessante ist aber, wie unsere Experten das Konzept auf Ihr Hotel übertragen.\nGeben Sie uns dafür einmal 20 Minuten. Danach schicken wir Ihnen gezielt die Informationen, die für Ihr Haus tatsächlich relevant sind.\n\nPasst Ihnen nächste Woche eher vormittags oder nachmittags?“'
+    },
+    {
+      label:'Keine Gutscheine',
+      answer:'„Das kann ich gut verstehen.\n\nNur sprechen wir gerade nicht über einen klassischen Hotelgutschein.\n\nGenau der Unterschied zwischen einem normalen Rabatt- oder Hotelgutschein und unserem handelbaren Wertgutschein ist einer der Punkte, die unsere Experten Ihnen zeigen möchten.\n\nDanach können Sie beurteilen, ob das für Ihr Haus interessant ist.“'
+    },
+    {
+      label:'Keine Rabatte',
+      answer:'„Dann könnte das für Sie sogar besonders interessant sein.\n\nDenn die Grundidee lautet gerade:\nNicht den Preis reduzieren, sondern den Gast belohnen.\n\nWie das wirtschaftlich funktionieren kann, zeigen Ihnen unsere Experten in der Präsentation.“'
+    },
+    {
+      label:'Gut ausgelastet',
+      answer:'„Umso besser.\n\nEs geht nicht einfach darum, noch mehr Zimmer zu verkaufen.\n\nDie interessantere Frage lautet:\n\nWie viele Ihrer Buchungen könnten direkt erfolgen und wie können Sie gleichzeitig die Wertschöpfung pro Gast erhöhen?\n\nGenau darüber würde ich unsere beiden Experten einmal mit Ihnen sprechen lassen.“'
+    },
+    {
+      label:'Was kostet das?',
+      answer:'„Natürlich ist das wichtig.\n\nNur wäre eine Zahl ohne das Konzept und ohne den möglichen wirtschaftlichen Nutzen für Ihr Hotel wenig aussagekräftig.\n\nUnsere Experten zeigen Ihnen zuerst, wie das Modell für Ihr Haus aussehen könnte – und natürlich erfahren Sie in der Präsentation auch, welche Konditionen damit verbunden sind.“\n\nWenn der Hotelier ausdrücklich nach einem konkreten Preis fragt, transparent antworten.\n\n„Das richtet sich nach dem möglichen Erfolgspotenzial für uns und Ihr Hotel und wird in Ihnen bei Interesse nach einem detaillierten Business als konkretes Angebot vorgelegt.“'
+    }
+  ];
+
+  var curiosityAnswer = '„Genau deshalb rufe ich Sie an. Das lassen Sie sich am besten einmal 20 Minuten von unseren beiden Hotelexperten anhand Ihres eigenen Hotels zeigen.“\n\nDann unmittelbar:\n\n„Wann passt Ihnen das besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender, um Ihren Wunschtermin zu reservieren?“';
+
+  var current = 0;
+  var mode = 'full';
+
+  var app = document.getElementById('app');
+  var salutation = document.getElementById('salutation');
+  var hotel = document.getElementById('hotel');
+  var caller = document.getElementById('caller');
+  var scriptText = document.getElementById('scriptText');
+  var stepTitle = document.getElementById('stepTitle');
+  var stageBadge = document.getElementById('stageBadge');
+  var progressText = document.getElementById('progressText');
+  var coachNote = document.getElementById('coachNote');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var copyBtn = document.getElementById('copyBtn');
+  var fullModeBtn = document.getElementById('fullModeBtn');
+  var shortModeBtn = document.getElementById('shortModeBtn');
+  var objectionGrid = document.getElementById('objectionGrid');
+  var answerBox = document.getElementById('answerBox');
+  var curiosityBtn = document.getElementById('curiosityBtn');
+  var ruleText = document.getElementById('ruleText');
+
+  function values(){
+    return {
+      salutation: salutation.value.trim() || 'Herr/Frau [Name]',
+      hotel: hotel.value.trim() || 'Ihr Hotel',
+      caller: caller.value.trim() || '[Name]'
+    };
+  }
+
+  function fill(text){
+    var v = values();
+    return String(text)
+      .replace(/{{salutation}}/g, v.salutation)
+      .replace(/{{hotel}}/g, v.hotel)
+      .replace(/{{caller}}/g, v.caller);
+  }
+
+  function escapeHtml(text){
+    return String(text).replace(/[&<>"']/g,function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch];
+    });
+  }
+
+  function paragraphs(text){
+    return fill(text).split(/\n\n/).map(function(p){
+      return '<p>'+escapeHtml(p).replace(/\n/g,'<br>')+'</p>';
+    }).join('');
+  }
+
+  function updateAida(stage){
+    var order = ['A1','I','D','A2'];
+    var activeIndex = order.indexOf(stage);
+    document.querySelectorAll('.aidaStep').forEach(function(el){
+      var idx = order.indexOf(el.getAttribute('data-stage'));
+      el.classList.toggle('active', idx === activeIndex);
+      el.classList.toggle('done', idx < activeIndex);
+    });
+  }
+
+  function render(){
+    if(mode === 'short'){
+      app.classList.add('shortMode');
+      stageBadge.textContent = 'KURZVERSION';
+      stepTitle.textContent = 'Kompakter Gesprächsweg';
+      progressText.textContent = 'Direkt ablesen';
+      scriptText.innerHTML = paragraphs(shortText);
+      coachNote.textContent = 'Auch hier gilt: nicht weiter erklären. Ziel bleibt der 20-Minuten-Termin.';
+      coachNote.classList.remove('green');
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      ruleText.textContent = 'Kurzversion für sichere Telefonierer.';
+      return;
+    }
+
+    app.classList.remove('shortMode');
+    var s = steps[current];
+    stageBadge.textContent = s.badge;
+    stepTitle.textContent = s.title;
+    progressText.textContent = 'Schritt ' + (current + 1) + ' von ' + steps.length;
+    scriptText.innerHTML = paragraphs(s.text);
+    coachNote.textContent = s.note;
+    coachNote.classList.toggle('green', !!s.green);
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === steps.length - 1;
+    updateAida(s.stage);
+    ruleText.textContent = current === steps.length - 1 ? 'Termin sichern und Gespräch beenden.' : 'Immer nur den nächsten Schritt sprechen. Nicht vorzeitig erklären.';
+  }
+
+  function renderObjections(){
+    objectionGrid.innerHTML = '';
+    objections.forEach(function(item, index){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'objection';
+      b.textContent = item.label;
+      b.addEventListener('click', function(){
+        document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
+        b.classList.add('active');
+        answerBox.textContent = item.answer;
+      });
+      objectionGrid.appendChild(b);
+    });
+  }
+
+  prevBtn.addEventListener('click', function(){
+    if(mode === 'full' && current > 0){current--; render();}
+  });
+
+  nextBtn.addEventListener('click', function(){
+    if(mode === 'full' && current < steps.length - 1){current++; render();}
+  });
+
+  copyBtn.addEventListener('click', function(){
+    var text = scriptText.innerText;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        var old = copyBtn.textContent;
+        copyBtn.textContent = 'Kopiert';
+        setTimeout(function(){copyBtn.textContent = old;},900);
+      });
+    }
+  });
+
+  fullModeBtn.addEventListener('click', function(){
+    mode='full';
+    fullModeBtn.classList.add('active');
+    shortModeBtn.classList.remove('active');
+    render();
+  });
+
+  shortModeBtn.addEventListener('click', function(){
+    mode='short';
+    shortModeBtn.classList.add('active');
+    fullModeBtn.classList.remove('active');
+    render();
+  });
+
+  curiosityBtn.addEventListener('click', function(){
+    document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
+    answerBox.textContent = curiosityAnswer;
+  });
+
+  [salutation,hotel,caller].forEach(function(el){
+    el.addEventListener('input', render);
+  });
+
+  renderObjections();
+  render();
+})();
+</script>
+</body>
+</html>
