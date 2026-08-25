@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Projekt-Check</title>
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root{--bg:#f5f7fb;--paper:#fff;--ink:#132238;--muted:#64748b;--line:#dbe3ec;--mint:#00a7ad;--radius:20px}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}.wrap{max-width:900px;margin:0 auto;padding:28px}.top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.lang{display:flex;gap:8px}.lang button,.btn{border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);min-height:44px;padding:0 14px;font-weight:700;cursor:pointer}.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}.card{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px}h1{margin:0;font-size:34px}.lead{color:var(--muted);font-size:18px;line-height:1.55}.field{margin-top:20px}.field label{display:block;font-weight:800;margin-bottom:8px}.field small{display:block;color:var(--muted);margin-top:7px;line-height:1.4}.field textarea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:14px;padding:14px;font:inherit;color:var(--ink);resize:vertical}.field textarea:focus{outline:3px solid rgba(0,167,173,.15);border-color:var(--mint)}.btn.primary{margin-top:22px;background:var(--mint);border-color:var(--mint);color:#fff;width:100%;font-size:17px}.note{margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:14px;line-height:1.5}.error{color:#b42318;margin-top:10px;min-height:20px}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <div><h1 data-i18n="title">Projekt-Check starten</h1><p class="lead" data-i18n="lead">Füge nur die öffentlichen Spuren ein, die du tatsächlich erhalten hast. Du musst weder den Projektnamen noch einen Token kennen.</p></div>
+    <div class="lang"><button type="button" id="deBtn" aria-pressed="true">DE</button><button type="button" id="enBtn" aria-pressed="false">EN</button></div>
+  </div>
+  <section class="card">
+    <form id="form">
+      <div class="field">
+        <label for="traces" data-i18n="traceLabel">Öffentliche Spur(en)</label>
+        <textarea id="traces" required placeholder="https://t.me/...&#10;https://youtube.com/...&#10;https://example.com/ref/..."></textarea>
+        <small data-i18n="traceHelp">Telegram, Social Media, YouTube, Referral-/Affiliate-Link, Domain, Landingpage oder andere konkrete URL. Eine Spur reicht zum Start.</small>
+      </div>
+      <div class="field">
+        <label for="claim" data-i18n="claimLabel">Was wurde dir dazu gesagt? – optional</label>
+        <textarea id="claim" placeholder="z. B. 400 Euro sollen täglich 8 Euro bringen."></textarea>
+        <small data-i18n="claimHelp">Diese Angabe wird nur als unbestätigte Aussage übernommen und später gegen gefundene Quellen geprüft.</small>
+      </div>
+      <button class="btn primary" type="submit" data-i18n="start">Analyse vorbereiten</button>
+      <div id="error" class="error" role="alert"></div>
+    </form>
+    <div class="note" data-i18n="note">Diese Seite erfasst bereits exakt den neuen Eingang. Die direkte Server-Verbindung zur neuen Engine wird im nächsten technischen Baustein verdrahtet; bis dahin werden keine Daten extern versendet.</div>
+  </section>
+</main>
+<script>
+(()=>{
+ const dict={de:{title:'Projekt-Check starten',lead:'Füge nur die öffentlichen Spuren ein, die du tatsächlich erhalten hast. Du musst weder den Projektnamen noch einen Token kennen.',traceLabel:'Öffentliche Spur(en)',traceHelp:'Telegram, Social Media, YouTube, Referral-/Affiliate-Link, Domain, Landingpage oder andere konkrete URL. Eine Spur reicht zum Start.',claimLabel:'Was wurde dir dazu gesagt? – optional',claimHelp:'Diese Angabe wird nur als unbestätigte Aussage übernommen und später gegen gefundene Quellen geprüft.',start:'Analyse vorbereiten',note:'Diese Seite erfasst bereits exakt den neuen Eingang. Die direkte Server-Verbindung zur neuen Engine wird im nächsten technischen Baustein verdrahtet; bis dahin werden keine Daten extern versendet.',bad:'Bitte mindestens eine gültige http- oder https-URL eintragen.'},en:{title:'Start project check',lead:'Paste only the public traces you actually received. You do not need to know the project name or a token.',traceLabel:'Public trace(s)',traceHelp:'Telegram, social media, YouTube, referral / affiliate link, domain, landing page or another concrete URL. One trace is enough to start.',claimLabel:'What were you told about it? – optional',claimHelp:'This is stored only as an unverified claim and later checked against discovered sources.',start:'Prepare analysis',note:'This page already captures the new intake exactly. The direct server connection to the new engine will be wired in the next technical block; until then no data is sent externally.',bad:'Please enter at least one valid http or https URL.'}};
+ let lang='de';
+ function setLang(l){lang=l;document.documentElement.lang=l;deBtn.setAttribute('aria-pressed',String(l==='de'));enBtn.setAttribute('aria-pressed',String(l==='en'));document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=dict[l][el.dataset.i18n]||el.textContent});}
+ deBtn.addEventListener('click',()=>setLang('de'));enBtn.addEventListener('click',()=>setLang('en'));
+ form.addEventListener('submit',e=>{e.preventDefault();const lines=traces.value.split(/\n+/).map(v=>v.trim()).filter(Boolean);const urls=lines.filter(v=>{try{const u=new URL(v);return u.protocol==='http:'||u.protocol==='https:'}catch{return false}});if(!urls.length){error.textContent=dict[lang].bad;return}error.textContent='';const id='PCA-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.random().toString(36).slice(2,8).toUpperCase();sessionStorage.setItem('projektCheckDraft',JSON.stringify({case_id:id,traces:urls,claim:claim.value.trim(),created_at:new Date().toISOString()}));location.href='analyse-laeuft.html?case='+encodeURIComponent(id);});
+})();
+</script>
+</body>
+</html>
