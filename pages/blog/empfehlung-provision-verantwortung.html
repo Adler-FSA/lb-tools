@@ -1,0 +1,639 @@
+<!doctype html>
+<!--
+  GitHub-Pfad: pages/blog/empfehlung-provision-verantwortung.html
+  Stand: 26.08.2026
+  Leser-Version: neutraler Leitartikel, standalone, ohne interne Meta-Hinweise im sichtbaren Bereich
+-->
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Empfehlung, Provision und Verantwortung | Leitartikel</title>
+  <meta name="description" content="Warum nicht jede Provision ein Einkommensversprechen ist – und warum reale Leistung, Geldfluss, Transparenz und Verhältnismäßigkeit den Unterschied machen." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    :root{
+      --bg:#f3f4f5;
+      --panel:#ffffff;
+      --panel-soft:#f8fafb;
+      --text:#34383d;
+      --text-strong:#172231;
+      --muted:#68727b;
+      --line:#e2e7ea;
+      --mint:#00a7ad;
+      --mint-dark:#087f84;
+      --mint-soft:#e5f7f7;
+      --magenta:#c6006f;
+      --magenta-soft:#fae8f2;
+      --navy:#132238;
+      --amber:#b87800;
+      --amber-soft:#fff6df;
+      --green:#287c52;
+      --green-soft:#eaf7f0;
+      --red:#a43c3c;
+      --red-soft:#fbebeb;
+      --shadow:0 12px 34px rgba(19,34,56,.08);
+      --radius:22px;
+      --max:1120px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.7;
+    }
+    a{color:var(--mint-dark);text-decoration-thickness:1px;text-underline-offset:3px}
+    a:hover{color:var(--magenta)}
+    button{font:inherit}
+    svg{display:block;max-width:100%}
+
+    .page{
+      width:min(calc(100% - 28px),var(--max));
+      margin:0 auto;
+      padding:26px 0 58px;
+    }
+
+    .langbar{
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+      margin-bottom:14px;
+    }
+    .lang-btn{
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--navy);
+      border-radius:999px;
+      padding:8px 13px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .lang-btn.active{
+      background:var(--navy);
+      color:#fff;
+      border-color:var(--navy);
+    }
+
+    .hero{
+      overflow:hidden;
+      background:#fff;
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      border:1px solid #edf0f2;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      min-height:500px;
+    }
+    .hero-copy{
+      padding:58px 52px 52px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      max-width:100%;
+      gap:9px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:var(--mint-soft);
+      color:var(--mint-dark);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
+    .eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--magenta)}
+    h1{
+      margin:24px 0 18px;
+      color:var(--navy);
+      font-size:clamp(40px,6vw,72px);
+      line-height:1.02;
+      letter-spacing:-.04em;
+      font-weight:300;
+    }
+    h1 strong{color:var(--mint);font-weight:500}
+    .hero-lead{
+      margin:0;
+      max-width:760px;
+      font-size:21px;
+      line-height:1.58;
+      color:#4b545c;
+    }
+    .hero-meta{
+      margin-top:26px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:700;
+    }
+    .hero-art{
+      position:relative;
+      background:linear-gradient(155deg,var(--navy),#203d5b 62%,#245f6a);
+      min-height:500px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:38px;
+    }
+    .hero-art::after{
+      content:"";
+      position:absolute;
+      inset:auto -90px -120px auto;
+      width:310px;
+      height:310px;
+      border-radius:50%;
+      background:rgba(198,0,111,.2);
+      filter:blur(2px);
+    }
+    .hero-art svg{position:relative;z-index:2;width:min(100%,360px)}
+
+    .article{
+      margin-top:24px;
+      background:#fff;
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      border:1px solid #edf0f2;
+      padding:54px 54px 60px;
+    }
+    .article p{
+      margin:0 0 19px;
+      font-size:18px;
+    }
+    .article h2{
+      margin:52px 0 18px;
+      color:var(--navy);
+      font-size:clamp(29px,4vw,43px);
+      line-height:1.12;
+      letter-spacing:-.025em;
+      font-weight:400;
+    }
+    .article h2:first-of-type{margin-top:10px}
+    .article h3{
+      margin:30px 0 12px;
+      color:var(--navy);
+      font-size:24px;
+      line-height:1.25;
+    }
+    .lead{
+      font-size:22px !important;
+      color:#3e484f;
+    }
+    .accent-line{
+      height:4px;
+      width:112px;
+      border-radius:99px;
+      background:linear-gradient(90deg,var(--mint),var(--magenta));
+      margin:18px 0 28px;
+    }
+
+    .statement{
+      margin:30px 0;
+      border-left:5px solid var(--mint);
+      background:var(--mint-soft);
+      padding:24px 26px;
+      color:var(--navy);
+      font-size:24px;
+      line-height:1.42;
+      font-weight:700;
+    }
+    .statement.magenta{
+      border-left-color:var(--magenta);
+      background:var(--magenta-soft);
+    }
+    .statement.navy{
+      border-left-color:var(--navy);
+      background:#eef2f6;
+    }
+
+    .flow{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin:28px 0 34px;
+    }
+    .flow-card{
+      border:1px solid var(--line);
+      border-radius:17px;
+      padding:20px 16px;
+      text-align:center;
+      background:var(--panel-soft);
+      min-height:150px;
+    }
+    .flow-num{
+      width:34px;height:34px;border-radius:50%;
+      margin:0 auto 12px;
+      display:grid;place-items:center;
+      background:var(--mint);
+      color:#fff;
+      font-weight:800;
+    }
+    .flow-card strong{display:block;color:var(--navy);font-size:17px;line-height:1.3;margin-bottom:7px}
+    .flow-card span{font-size:15px;color:var(--muted);line-height:1.45}
+
+    .models{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin:28px 0 36px;
+    }
+    .model{
+      border-radius:19px;
+      padding:25px 22px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .model.green{background:var(--green-soft);border-color:#cfe9da}
+    .model.amber{background:var(--amber-soft);border-color:#f0dfb5}
+    .model.red{background:var(--red-soft);border-color:#efcfcf}
+    .model-tag{
+      display:inline-block;
+      margin-bottom:12px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .model.green .model-tag{color:var(--green)}
+    .model.amber .model-tag{color:var(--amber)}
+    .model.red .model-tag{color:var(--red)}
+    .model h3{margin:0 0 10px;font-size:22px}
+    .model p{font-size:16px;margin:0}
+
+    .compare{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin:26px 0 34px;
+    }
+    .compare-card{
+      border:1px solid var(--line);
+      border-radius:19px;
+      padding:24px;
+      background:var(--panel-soft);
+    }
+    .compare-card h3{margin:0 0 14px}
+    .compare-card ul{margin:0;padding-left:20px}
+    .compare-card li{margin:8px 0;font-size:17px}
+
+    .checks{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin:28px 0;
+    }
+    .check{
+      padding:20px 20px 20px 58px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:#fff;
+      position:relative;
+    }
+    .check::before{
+      content:"";
+      position:absolute;
+      left:19px;top:21px;
+      width:24px;height:24px;border-radius:50%;
+      background:var(--mint-soft);
+      border:2px solid var(--mint);
+    }
+    .check::after{
+      content:"";
+      position:absolute;
+      left:27px;top:27px;
+      width:7px;height:11px;
+      border-right:2px solid var(--mint-dark);
+      border-bottom:2px solid var(--mint-dark);
+      transform:rotate(45deg);
+    }
+    .check strong{display:block;color:var(--navy);margin-bottom:5px}
+    .check span{font-size:16px;color:var(--muted)}
+
+    .source-box{
+      margin-top:54px;
+      background:#f5f7f9;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:26px;
+    }
+    .source-box h2{margin:0 0 13px;font-size:28px}
+    .source-box p{font-size:15px;color:var(--muted)}
+    .source-box ul{margin:15px 0 0;padding-left:20px}
+    .source-box li{margin:10px 0;font-size:15px}
+
+    .note{
+      margin-top:34px;
+      padding-top:22px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:14px !important;
+    }
+
+    @media(max-width:900px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-art{min-height:330px}
+      .flow{grid-template-columns:1fr 1fr}
+      .models{grid-template-columns:1fr}
+    }
+    @media(max-width:680px){
+      .page{width:min(calc(100% - 16px),var(--max));padding-top:12px}
+      .hero-copy{padding:38px 24px 34px}
+      .hero-art{padding:28px;min-height:280px}
+      .article{padding:35px 22px 42px}
+      .article p{font-size:17px}
+      .lead{font-size:20px !important}
+      .flow,.compare,.checks{grid-template-columns:1fr}
+      .statement{font-size:21px;padding:21px}
+      .langbar{padding-right:4px}
+    }
+    @media print{
+      body{background:#fff}
+      .langbar{display:none}
+      .page{width:100%;padding:0}
+      .hero,.article{box-shadow:none;border:0;border-radius:0}
+      .hero-art{display:none}
+      .hero-grid{display:block;min-height:0}
+      .hero-copy{padding:0 0 25px}
+      .article{padding:0}
+      a{color:inherit;text-decoration:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="langbar" aria-label="Sprache / Language">
+      <button class="lang-btn active" type="button" data-lang="de">DE</button>
+      <button class="lang-btn" type="button" data-lang="en">EN</button>
+    </div>
+
+    <header class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="eyebrow">Leitartikel · Wirtschaft & Verantwortung</span></div>
+          <h1 data-i18n="title">Empfehlung, Provision und <strong>Verantwortung</strong></h1>
+          <p class="hero-lead" data-i18n="subtitle">Warum nicht jede Provision ein Einkommensversprechen ist – und warum reale Leistung, Geldfluss, Transparenz und Verhältnismäßigkeit den Unterschied machen.</p>
+          <div class="hero-meta">
+            <span data-i18n="date">Stand: 26. August 2026</span>
+            <span>•</span>
+            <span data-i18n="reading">Einordnung ohne Anlage-, Rechts- oder Steuerberatung</span>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#37d1d4"/>
+                <stop offset="1" stop-color="#c6006f"/>
+              </linearGradient>
+            </defs>
+            <circle cx="190" cy="190" r="148" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+            <circle cx="190" cy="190" r="102" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+            <path d="M83 207 C120 155 154 146 190 178 C224 208 260 199 298 141" fill="none" stroke="url(#g)" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="83" cy="207" r="20" fill="#fff"/>
+            <circle cx="190" cy="178" r="22" fill="#00a7ad" stroke="#fff" stroke-width="6"/>
+            <circle cx="298" cy="141" r="20" fill="#c6006f" stroke="#fff" stroke-width="6"/>
+            <path d="M70 275 H310" stroke="rgba(255,255,255,.24)" stroke-width="2"/>
+            <path d="M110 258 V292 M190 248 V292 M270 238 V292" stroke="rgba(255,255,255,.28)" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </header>
+
+    <article class="article">
+      <p class="lead" data-i18n="intro1">Empfehlungen gehören zu den ältesten Formen des Handels. Ein zufriedener Mensch erzählt einem anderen von einem Produkt, einer Dienstleistung oder einer Ausbildung. Unternehmen wiederum investieren seit Jahrzehnten erhebliche Summen, um genau diesen Effekt zu erzeugen: durch Werbung, Agenturen, Plattformen, Influencer oder Affiliate-Programme.</p>
+      <p data-i18n="intro2">Deshalb ist zunächst nichts Ungewöhnliches daran, einen Menschen für eine erfolgreiche Empfehlung zu vergüten. Trotzdem geraten Affiliate-Systeme, Network Marketing, mehrstufige Empfehlungsmodelle und sogenannte Business Opportunities zunehmend in den Fokus von Verbraucherschützern und Aufsichtsbehörden.</p>
+      <p data-i18n="intro3">Die entscheidende Frage ist jedoch nicht, ob eine Provision fließt. Entscheidend ist, was tatsächlich verkauft wird, warum Menschen dafür bezahlen, woher die Vergütung stammt und welche Erwartungen die Werbung erzeugt.</p>
+
+      <div class="statement" data-i18n="coreStatement">Nicht der Name eines Vertriebsmodells entscheidet über seine Qualität. Entscheidend sind reale Leistung, tatsächlicher Geldfluss und die Art der Kommunikation.</div>
+
+      <h2 data-i18n="h_normal">Empfehlung gegen Provision ist zunächst ein normales Geschäftsmodell</h2>
+      <div class="accent-line"></div>
+      <p data-i18n="normal1">Beim klassischen Affiliate-Marketing ist das Prinzip einfach: Ein Unternehmen bietet eine Ware oder Dienstleistung an. Ein anderer Mensch empfiehlt sie. Kommt über diese Empfehlung ein Verkauf zustande, erhält der Empfehlungsgeber eine vereinbarte Provision.</p>
+      <p data-i18n="normal2">Der Käufer erhält die Leistung. Das Unternehmen erzielt Umsatz. Der Vermittler wird für erfolgreiche Kundengewinnung vergütet. Wirtschaftlich kann das schlicht bedeuten, dass ein Unternehmen einen Teil seines Marketingbudgets nicht an große Werbeplattformen oder Agenturen gibt, sondern an diejenigen Menschen, deren Empfehlung tatsächlich einen Kunden erreicht hat.</p>
+
+      <div class="flow" aria-label="Geldfluss">
+        <div class="flow-card"><div class="flow-num">1</div><strong data-i18n="flow1a">Reale Leistung</strong><span data-i18n="flow1b">Produkt, Kurs, Mitgliedschaft oder Dienstleistung</span></div>
+        <div class="flow-card"><div class="flow-num">2</div><strong data-i18n="flow2a">Kaufentscheidung</strong><span data-i18n="flow2b">Der Kunde entscheidet sich freiwillig für diese Leistung</span></div>
+        <div class="flow-card"><div class="flow-num">3</div><strong data-i18n="flow3a">Umsatz</strong><span data-i18n="flow3b">Beim Unternehmen entsteht ein echter Leistungsumsatz</span></div>
+        <div class="flow-card"><div class="flow-num">4</div><strong data-i18n="flow4a">Vergütung</strong><span data-i18n="flow4b">Ein Teil der Vertriebsmarge kann an Empfehlungsgeber fließen</span></div>
+      </div>
+
+      <h2 data-i18n="h_follow">Der einfachste Test: Folge dem Geld</h2>
+      <p data-i18n="follow1">Wer ein Empfehlungs- oder Network-Modell verstehen möchte, sollte zunächst alle Etiketten beiseitelassen. Ob ein Unternehmen sein System Affiliate, Partnerprogramm, Network, Community oder Belohnungssystem nennt, sagt noch wenig über die wirtschaftliche Substanz aus.</p>
+      <p data-i18n="follow2">Hilfreicher sind vier nüchterne Fragen: Was erhält der Käufer für sein Geld? Besitzt diese Leistung einen eigenständigen Nutzen? Wodurch entsteht die Vergütung? Und würde das Angebot auch dann noch einen Sinn haben, wenn der Käufer niemals jemanden weiterempfiehlt?</p>
+
+      <div class="models">
+        <section class="model green">
+          <span class="model-tag" data-i18n="model1tag">Leistungsorientiert</span>
+          <h3 data-i18n="model1title">Produkt → Umsatz → Provision</h3>
+          <p data-i18n="model1text">Ein Kunde kauft eine eigenständige Ware oder Leistung. Aus diesem realen Umsatz wird eine Vertriebsvergütung bezahlt.</p>
+        </section>
+        <section class="model amber">
+          <span class="model-tag" data-i18n="model2tag">Genauer prüfen</span>
+          <h3 data-i18n="model2title">Mehrere Ebenen</h3>
+          <p data-i18n="model2text">Eine Vergütung wird über mehrere Empfehlungsstufen verteilt. Das ist nicht automatisch unzulässig; entscheidend bleibt, wodurch der Umsatz tatsächlich entsteht.</p>
+        </section>
+        <section class="model red">
+          <span class="model-tag" data-i18n="model3tag">Rote Zone</span>
+          <h3 data-i18n="model3title">Teilnehmer → Teilnehmer → Teilnehmer</h3>
+          <p data-i18n="model3text">Problematisch wird es, wenn Zahlungen hauptsächlich dazu dienen, die Möglichkeit zu erwerben, weitere zahlende Teilnehmer zu gewinnen und daraus Vergütung zu beziehen.</p>
+        </section>
+      </div>
+
+      <h2 data-i18n="h_product">Ein echtes Produkt ist wichtig – aber kein Freifahrtschein</h2>
+      <p data-i18n="product1">Die bloße Existenz eines Produkts beantwortet noch nicht jede Frage. Ein seriöser Blick muss zusätzlich prüfen, welche wirtschaftliche Funktion dieses Produkt tatsächlich besitzt.</p>
+      <p data-i18n="product2">Hat es einen eigenständigen Wert? Wird es wegen seines Nutzens gekauft? Kann ein Kunde die Leistung vollständig verwenden, ohne jemals Vertrieb zu betreiben? Oder ist das Produkt in der Praxis hauptsächlich die Eintrittskarte in eine Verdienstmöglichkeit?</p>
+      <div class="statement navy" data-i18n="productStatement">Die faire Frage lautet deshalb nicht nur: „Gibt es ein Produkt?“ – sondern: „Wofür bezahlt der Mensch wirklich?“</div>
+
+      <h2 data-i18n="h_multilevel">Mehrere Vergütungsebenen verändern die Struktur – nicht automatisch den wirtschaftlichen Kern</h2>
+      <p data-i18n="multi1">Ein Unternehmen kann eine Vertriebsvergütung nur an den direkten Vermittler zahlen. Es kann aber auch einen Teil dieser Vertriebsmarge über mehrere Empfehlungsstufen verteilen. Aus einem einfachen Affiliate-Modell wird dann ein Multi-Tier- oder Multi-Level-System.</p>
+      <p data-i18n="multi2">Die Zahl der Ebenen allein beantwortet noch nicht, ob ein Modell tragfähig oder problematisch ist. Wichtiger ist, ob die Vergütung an tatsächliche Produkt- oder Leistungsumsätze gekoppelt bleibt oder ob der wirtschaftliche Schwerpunkt zunehmend auf der bloßen Gewinnung weiterer zahlender Teilnehmer liegt.</p>
+
+      <h2 data-i18n="h_motivation">Motivation ist nicht dasselbe wie ein Einkommensversprechen</h2>
+      <p data-i18n="motivation1">Unternehmen leben von Begeisterung, Zukunftsbildern und dem Aufzeigen eines Nutzens. Werbung wäre kaum denkbar, wenn jede positive Aussage wie eine mathematische Garantie behandelt würde.</p>
+      <p data-i18n="motivation2">Ein Bäcker, der mit dem „perfekten Start in den Tag“ wirbt, gibt damit normalerweise keine wissenschaftlich messbare Erfolgsgarantie ab. Ein Reiseveranstalter verkauft nicht nur Nächte und Quadratmeter Hotelzimmer, sondern auch Erholung. Ein Automobilhersteller spricht von Freiheit, Komfort oder Abenteuer.</p>
+      <p data-i18n="motivation3">Auch unternehmerische Kommunikation darf motivieren: eine Vision zeigen, Möglichkeiten erklären und Menschen dazu ermuntern, aktiv zu werden. Die Grenze wird dort relevanter, wo aus einer Vision eine konkrete, überprüfbare Behauptung über den wirtschaftlichen Erfolg eines einzelnen Teilnehmers wird.</p>
+
+      <div class="compare">
+        <section class="compare-card">
+          <h3 data-i18n="visionTitle">Vision & Motivation</h3>
+          <ul>
+            <li data-i18n="vision1">„Nutze deine Möglichkeiten.“</li>
+            <li data-i18n="vision2">„Empfehlungen können neue wirtschaftliche Chancen eröffnen.“</li>
+            <li data-i18n="vision3">„Wer aktiv wird, erhöht die Möglichkeit, Ergebnisse zu erzielen.“</li>
+            <li data-i18n="vision4">„Wir wollen gemeinsam wachsen.“</li>
+          </ul>
+        </section>
+        <section class="compare-card">
+          <h3 data-i18n="claimTitle">Konkrete Ergebnisbehauptung</h3>
+          <ul>
+            <li data-i18n="claim1">„Jeder verdient damit 5.000 Euro im Monat.“</li>
+            <li data-i18n="claim2">„Nach zwölf Monaten bist du finanziell frei.“</li>
+            <li data-i18n="claim3">„Wer 20 Stunden arbeitet, erreicht garantiert Einkommen X.“</li>
+            <li data-i18n="claim4">„Dieses Ergebnis ist für jeden typisch erreichbar.“</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="statement magenta" data-i18n="visionStatement">Eine Vision darf groß sein. Entscheidend ist, dass aus Motivation keine falsche Garantie über das wirtschaftliche Ergebnis des Einzelnen wird.</div>
+
+      <h2 data-i18n="h_work">„Wer nichts tut, bekommt nichts“ – und warum Aktivität trotzdem keine Garantie ist</h2>
+      <p data-i18n="work1">Unternehmerischer Erfolg ist nicht unabhängig vom eigenen Handeln. Ein Bauer, der keine Saat ausbringt, kann nichts ernten. Ein Vermittler, der keine Gespräche führt und keine Empfehlungen ausspricht, kann aus diesen Empfehlungen auch keine Provision erwarten.</p>
+      <p data-i18n="work2">Genauso wichtig ist jedoch die andere Seite: Wer viel tut, erhält nicht automatisch ein garantiertes Ergebnis. Märkte, Produktnachfrage, persönliche Fähigkeiten, Zeit, Kundenbindung und viele weitere Faktoren spielen eine Rolle. Eine faire Kommunikation kann beides gleichzeitig sagen: Aktivität ist eine Voraussetzung für Ergebnisse – aber kein garantierter Geldautomat.</p>
+
+      <h2 data-i18n="h_dynamic">Warum aus Empfehlungen mit den Jahren ein tragfähiger Bestand entstehen kann</h2>
+      <p data-i18n="dynamic1">Wiederkehrende Vergütungen sind in der Wirtschaft nichts Exotisches. Versicherungs- und Finanzvermittler kennen beispielsweise Bestands- oder Betreuungsvergütungen aus fortbestehenden Kundenverträgen. Auch Software-, Plattform- und Affiliate-Modelle arbeiten häufig mit wiederkehrenden Provisionen.</p>
+      <p data-i18n="dynamic2">Das wirtschaftliche Prinzip ist einfach: Wer über längere Zeit echte Kunden gewinnt, deren Verträge oder Käufe fortbestehen, kann einen Bestand aufbauen. Dieser Bestand kann später wiederkehrende Umsätze und damit wiederkehrende Vergütungen erzeugen.</p>
+      <p data-i18n="dynamic3">Hohe spätere Einkommen sind deshalb nicht allein deshalb unrealistisch, weil sie am Anfang selten sind. Entscheidend ist, transparent zu machen, welche Voraussetzungen dahinterstehen: Zeit, Aktivität, Kundenbestand, Wiederholungskäufe, Vertragsdauer, Marktbedingungen und mögliche Kosten.</p>
+      <div class="statement" data-i18n="dynamicStatement">Möglich ist nicht dasselbe wie typisch. Typisch ist nicht dasselbe wie garantiert. Und selten ist nicht dasselbe wie unmöglich.</div>
+
+      <h2 data-i18n="h_ftc">Warum die FTC-Debatte trotzdem relevant ist</h2>
+      <p data-i18n="ftc1">In den USA hat die Federal Trade Commission 2026 mehrere Verfahren gegen Unternehmen und hochrangige Teilnehmer von Multi-Level-Marketing-Systemen geführt. Im Mittelpunkt standen nach Angaben der Behörde vor allem irreführende oder nicht ausreichend belegte Aussagen darüber, was Teilnehmer verdienen könnten.</p>
+      <p data-i18n="ftc2">Die FTC betrachtet dabei nicht nur ausdrücklich genannte Einkommenszahlen. Auch Lifestyle-Darstellungen können nach ihrer Guidance als implizite Einkommensaussagen verstanden werden, wenn beim angesprochenen Publikum der Eindruck entsteht, ein bestimmter Lebensstandard sei durch die Teilnahme typischerweise erreichbar.</p>
+      <p data-i18n="ftc3">Gleichzeitig ist eine wichtige Einordnung nötig: Die amerikanische FTC-Guidance ist keine allgemeine europäische Rechtsnorm. Einzelne Vergleichsvereinbarungen oder US-Verfahren schaffen nicht automatisch neues Recht für Deutschland. Sie zeigen jedoch, wie intensiv Regulierer wirtschaftliche Erfolgsversprechen inzwischen betrachten.</p>
+
+      <h2 data-i18n="h_eu">Deutschland und Europa: Nicht jede mehrstufige Vergütung ist ein Pyramidensystem</h2>
+      <p data-i18n="eu1">Das europäische Verbraucherrecht verbietet Pyramidensysteme, bei denen ein Verbraucher einen finanziellen Beitrag leistet und die Vergütung hauptsächlich aus der Einführung weiterer Verbraucher stammt, statt aus Verkauf oder Verbrauch von Produkten. Auch das deutsche UWG enthält entsprechende Grenzen.</p>
+      <p data-i18n="eu2">Daraus folgt aber nicht, dass jede Provision, jede Empfehlung oder jede mehrstufige Vergütung automatisch unzulässig wäre. Entscheidend ist die konkrete Ausgestaltung und praktische Funktionsweise.</p>
+      <p data-i18n="eu3">Gerade deshalb sollte die Diskussion nicht mit Etiketten geführt werden. Ein mehrstufiges Modell mit realem Leistungsumsatz kann wirtschaftlich etwas völlig anderes sein als ein System, dessen Motor hauptsächlich aus immer neuen Teilnehmerzahlungen besteht.</p>
+
+      <h2 data-i18n="h_questions">Sieben Fragen für eine neutrale Einordnung</h2>
+      <div class="checks">
+        <div class="check"><strong data-i18n="q1a">Was bekomme ich für mein Geld?</strong><span data-i18n="q1b">Gibt es eine nachvollziehbare Ware oder Dienstleistung mit eigenständigem Nutzen?</span></div>
+        <div class="check"><strong data-i18n="q2a">Funktioniert das Angebot ohne Vertrieb?</strong><span data-i18n="q2b">Kann der Käufer die Leistung vollständig nutzen, auch wenn er niemanden empfiehlt?</span></div>
+        <div class="check"><strong data-i18n="q3a">Wann entsteht eine Vergütung?</strong><span data-i18n="q3b">Bei einem realen Produkt- oder Leistungsumsatz – oder hauptsächlich beim Eintritt weiterer Teilnehmer?</span></div>
+        <div class="check"><strong data-i18n="q4a">Woher kommt das Geld?</strong><span data-i18n="q4b">Aus realer wirtschaftlicher Tätigkeit oder hauptsächlich aus neuen Teilnehmerzahlungen?</span></div>
+        <div class="check"><strong data-i18n="q5a">Was steht im Marketing im Vordergrund?</strong><span data-i18n="q5b">Produktnutzen, Leistung und Kundenwert – oder vor allem die Aussicht auf Verdienst?</span></div>
+        <div class="check"><strong data-i18n="q6a">Wie transparent ist die Empfehlung?</strong><span data-i18n="q6b">Ist erkennbar, wenn ein Empfehlungsgeber bei einem Verkauf wirtschaftlich beteiligt wird?</span></div>
+        <div class="check"><strong data-i18n="q7a">Wie werden Erfolge dargestellt?</strong><span data-i18n="q7b">Als individuelle Möglichkeit mit Voraussetzungen – oder als vermeintlich typisches Ergebnis für nahezu jeden?</span></div>
+      </div>
+
+      <h2 data-i18n="h_stillstand">Der Stillstandstest</h2>
+      <p data-i18n="still1">Ein einfacher Gedankenversuch kann helfen: Was passiert, wenn ab morgen niemand mehr neue Teilnehmer gewinnt?</p>
+      <p data-i18n="still2">Bei einem echten produkt- oder leistungsorientierten Unternehmen bestehen weiterhin Kunden, Produkte, Dienstleistungen, Kurse, Software, Veranstaltungen oder andere Nutzwerte. Die Neukundengewinnung würde leiden – wie bei jedem Unternehmen ohne Werbung –, aber der wirtschaftliche Zweck der vorhandenen Leistung bliebe bestehen.</p>
+      <p data-i18n="still3">Bei einem Modell, dessen eigentlicher Motor ausschließlich aus ständig neuen Teilnehmerzahlungen besteht, würde dagegen nicht nur das Wachstum, sondern der Kernmechanismus selbst wegbrechen.</p>
+
+      <h2 data-i18n="h_regulation">Verbraucherschutz braucht Schutz – aber auch Maß</h2>
+      <p data-i18n="reg1">Verbraucherschutz hat einen nachvollziehbaren Zweck: Menschen sollen nicht durch erfundene Tatsachen, versteckte finanzielle Interessen oder falsche Garantien zu wirtschaftlichen Entscheidungen bewegt werden.</p>
+      <p data-i18n="reg2">Ebenso legitim ist jedoch die Frage nach der Verhältnismäßigkeit. Eine freie Wirtschaft lebt davon, dass Unternehmen begeistern, Menschen Chancen erkennen, unterschiedliche Risiken eingehen und erwachsene Verbraucher eigene Entscheidungen treffen dürfen.</p>
+      <p data-i18n="reg3">Regulierung wird dann überzeugend, wenn sie tatsächliche Täuschung begrenzt, ohne Motivation, Vision und normale unternehmerische Kommunikation unter Generalverdacht zu stellen. Die Herausforderung liegt nicht in maximaler Regulierung, sondern in einer sinnvollen Grenze zwischen Schutz und Eigenverantwortung.</p>
+
+      <h2 data-i18n="h_picture">Das große Bild</h2>
+      <p data-i18n="picture1">Affiliate-Marketing, Empfehlungsmarketing und Network Marketing sind zunächst Vertriebsformen. Ein Unternehmen kann sein Werbebudget an Plattformen, Agenturen oder Influencer zahlen. Oder es kann Menschen an real entstandenen Umsätzen beteiligen, wenn deren persönliche Empfehlung einen Kunden erreicht.</p>
+      <p data-i18n="picture2">Nicht die Existenz einer Provision entscheidet deshalb über die Qualität eines Modells. Auch nicht allein die Zahl seiner Vergütungsebenen. Entscheidend sind Leistung, Geldfluss, Anreizstruktur und Kommunikation.</p>
+      <div class="statement magenta" data-i18n="finalStatement">Folge dem Geld. Prüfe die Leistung. Trenne Vision von Garantie. Und beurteile ein Geschäftsmodell nach dem, was wirtschaftlich tatsächlich geschieht – nicht nach dem Etikett, das darauf steht.</div>
+
+      <div class="source-box">
+        <h2 data-i18n="sourcesTitle">Offizielle Quellen zur Einordnung</h2>
+        <p data-i18n="sourcesIntro">Auswahl der für diesen Leitartikel maßgeblichen Primärquellen. Die Verlinkungen dienen der eigenen Vertiefung.</p>
+        <ul>
+          <li><a href="https://www.ftc.gov/business-guidance/resources/business-guidance-concerning-multi-level-marketing" target="_blank" rel="noopener">Federal Trade Commission – Business Guidance Concerning Multi-Level Marketing</a></li>
+          <li><a href="https://www.ftc.gov/business-guidance/blog/2026/06/back-those-earnings-claims-other-lessons-ftcs-labor-task-force-work" target="_blank" rel="noopener">Federal Trade Commission – Labor Task Force: Earnings Claims, Juni 2026</a></li>
+          <li><a href="https://www.ftc.gov/legal-library/browse/federal-register-notices/earnings-claim-rule-regarding-multi-level-marketing" target="_blank" rel="noopener">Federal Trade Commission – Earnings Claim Rule Regarding Multi-Level Marketing</a></li>
+          <li><a href="https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32005L0029" target="_blank" rel="noopener">EUR-Lex – Richtlinie 2005/29/EG über unlautere Geschäftspraktiken</a></li>
+          <li><a href="https://www.gesetze-im-internet.de/uwg_2004/" target="_blank" rel="noopener">Bundesministerium der Justiz – Gesetz gegen den unlauteren Wettbewerb (UWG)</a></li>
+        </ul>
+      </div>
+
+      <p class="note" data-i18n="note">Hinweis: Dieser Beitrag dient der allgemeinen Information und Einordnung von Vertriebs- und Empfehlungsmodellen. Er stellt keine individuelle Rechts-, Steuer-, Anlage- oder Finanzberatung dar. Die rechtliche Bewertung eines konkreten Geschäftsmodells hängt von seiner tatsächlichen Ausgestaltung, den Vertragsbedingungen und der praktischen Kommunikation ab.</p>
+    </article>
+  </main>
+
+  <script>
+    const translations = {
+      de: {
+        eyebrow:'Leitartikel · Wirtschaft & Verantwortung',
+        title:'Empfehlung, Provision und <strong>Verantwortung</strong>',
+        subtitle:'Warum nicht jede Provision ein Einkommensversprechen ist – und warum reale Leistung, Geldfluss, Transparenz und Verhältnismäßigkeit den Unterschied machen.',
+        date:'Stand: 26. August 2026',
+        reading:'Einordnung ohne Anlage-, Rechts- oder Steuerberatung',
+        intro1:'Empfehlungen gehören zu den ältesten Formen des Handels. Ein zufriedener Mensch erzählt einem anderen von einem Produkt, einer Dienstleistung oder einer Ausbildung. Unternehmen wiederum investieren seit Jahrzehnten erhebliche Summen, um genau diesen Effekt zu erzeugen: durch Werbung, Agenturen, Plattformen, Influencer oder Affiliate-Programme.',
+        intro2:'Deshalb ist zunächst nichts Ungewöhnliches daran, einen Menschen für eine erfolgreiche Empfehlung zu vergüten. Trotzdem geraten Affiliate-Systeme, Network Marketing, mehrstufige Empfehlungsmodelle und sogenannte Business Opportunities zunehmend in den Fokus von Verbraucherschützern und Aufsichtsbehörden.',
+        intro3:'Die entscheidende Frage ist jedoch nicht, ob eine Provision fließt. Entscheidend ist, was tatsächlich verkauft wird, warum Menschen dafür bezahlen, woher die Vergütung stammt und welche Erwartungen die Werbung erzeugt.',
+        coreStatement:'Nicht der Name eines Vertriebsmodells entscheidet über seine Qualität. Entscheidend sind reale Leistung, tatsächlicher Geldfluss und die Art der Kommunikation.',
+        h_normal:'Empfehlung gegen Provision ist zunächst ein normales Geschäftsmodell',
+        normal1:'Beim klassischen Affiliate-Marketing ist das Prinzip einfach: Ein Unternehmen bietet eine Ware oder Dienstleistung an. Ein anderer Mensch empfiehlt sie. Kommt über diese Empfehlung ein Verkauf zustande, erhält der Empfehlungsgeber eine vereinbarte Provision.',
+        normal2:'Der Käufer erhält die Leistung. Das Unternehmen erzielt Umsatz. Der Vermittler wird für erfolgreiche Kundengewinnung vergütet. Wirtschaftlich kann das schlicht bedeuten, dass ein Unternehmen einen Teil seines Marketingbudgets nicht an große Werbeplattformen oder Agenturen gibt, sondern an diejenigen Menschen, deren Empfehlung tatsächlich einen Kunden erreicht hat.',
+        flow1a:'Reale Leistung',flow1b:'Produkt, Kurs, Mitgliedschaft oder Dienstleistung',flow2a:'Kaufentscheidung',flow2b:'Der Kunde entscheidet sich freiwillig für diese Leistung',flow3a:'Umsatz',flow3b:'Beim Unternehmen entsteht ein echter Leistungsumsatz',flow4a:'Vergütung',flow4b:'Ein Teil der Vertriebsmarge kann an Empfehlungsgeber fließen',
+        h_follow:'Der einfachste Test: Folge dem Geld',
+        follow1:'Wer ein Empfehlungs- oder Network-Modell verstehen möchte, sollte zunächst alle Etiketten beiseitelassen. Ob ein Unternehmen sein System Affiliate, Partnerprogramm, Network, Community oder Belohnungssystem nennt, sagt noch wenig über die wirtschaftliche Substanz aus.',
+        follow2:'Hilfreicher sind vier nüchterne Fragen: Was erhält der Käufer für sein Geld? Besitzt diese Leistung einen eigenständigen Nutzen? Wodurch entsteht die Vergütung? Und würde das Angebot auch dann noch einen Sinn haben, wenn der Käufer niemals jemanden weiterempfiehlt?',
+        model1tag:'Leistungsorientiert',model1title:'Produkt → Umsatz → Provision',model1text:'Ein Kunde kauft eine eigenständige Ware oder Leistung. Aus diesem realen Umsatz wird eine Vertriebsvergütung bezahlt.',model2tag:'Genauer prüfen',model2title:'Mehrere Ebenen',model2text:'Eine Vergütung wird über mehrere Empfehlungsstufen verteilt. Das ist nicht automatisch unzulässig; entscheidend bleibt, wodurch der Umsatz tatsächlich entsteht.',model3tag:'Rote Zone',model3title:'Teilnehmer → Teilnehmer → Teilnehmer',model3text:'Problematisch wird es, wenn Zahlungen hauptsächlich dazu dienen, die Möglichkeit zu erwerben, weitere zahlende Teilnehmer zu gewinnen und daraus Vergütung zu beziehen.',
+        h_product:'Ein echtes Produkt ist wichtig – aber kein Freifahrtschein',product1:'Die bloße Existenz eines Produkts beantwortet noch nicht jede Frage. Ein seriöser Blick muss zusätzlich prüfen, welche wirtschaftliche Funktion dieses Produkt tatsächlich besitzt.',product2:'Hat es einen eigenständigen Wert? Wird es wegen seines Nutzens gekauft? Kann ein Kunde die Leistung vollständig verwenden, ohne jemals Vertrieb zu betreiben? Oder ist das Produkt in der Praxis hauptsächlich die Eintrittskarte in eine Verdienstmöglichkeit?',productStatement:'Die faire Frage lautet deshalb nicht nur: „Gibt es ein Produkt?“ – sondern: „Wofür bezahlt der Mensch wirklich?“',
+        h_multilevel:'Mehrere Vergütungsebenen verändern die Struktur – nicht automatisch den wirtschaftlichen Kern',multi1:'Ein Unternehmen kann eine Vertriebsvergütung nur an den direkten Vermittler zahlen. Es kann aber auch einen Teil dieser Vertriebsmarge über mehrere Empfehlungsstufen verteilen. Aus einem einfachen Affiliate-Modell wird dann ein Multi-Tier- oder Multi-Level-System.',multi2:'Die Zahl der Ebenen allein beantwortet noch nicht, ob ein Modell tragfähig oder problematisch ist. Wichtiger ist, ob die Vergütung an tatsächliche Produkt- oder Leistungsumsätze gekoppelt bleibt oder ob der wirtschaftliche Schwerpunkt zunehmend auf der bloßen Gewinnung weiterer zahlender Teilnehmer liegt.',
+        h_motivation:'Motivation ist nicht dasselbe wie ein Einkommensversprechen',motivation1:'Unternehmen leben von Begeisterung, Zukunftsbildern und dem Aufzeigen eines Nutzens. Werbung wäre kaum denkbar, wenn jede positive Aussage wie eine mathematische Garantie behandelt würde.',motivation2:'Ein Bäcker, der mit dem „perfekten Start in den Tag“ wirbt, gibt damit normalerweise keine wissenschaftlich messbare Erfolgsgarantie ab. Ein Reiseveranstalter verkauft nicht nur Nächte und Quadratmeter Hotelzimmer, sondern auch Erholung. Ein Automobilhersteller spricht von Freiheit, Komfort oder Abenteuer.',motivation3:'Auch unternehmerische Kommunikation darf motivieren: eine Vision zeigen, Möglichkeiten erklären und Menschen dazu ermuntern, aktiv zu werden. Die Grenze wird dort relevanter, wo aus einer Vision eine konkrete, überprüfbare Behauptung über den wirtschaftlichen Erfolg eines einzelnen Teilnehmers wird.',
+        visionTitle:'Vision & Motivation',vision1:'„Nutze deine Möglichkeiten.“',vision2:'„Empfehlungen können neue wirtschaftliche Chancen eröffnen.“',vision3:'„Wer aktiv wird, erhöht die Möglichkeit, Ergebnisse zu erzielen.“',vision4:'„Wir wollen gemeinsam wachsen.“',claimTitle:'Konkrete Ergebnisbehauptung',claim1:'„Jeder verdient damit 5.000 Euro im Monat.“',claim2:'„Nach zwölf Monaten bist du finanziell frei.“',claim3:'„Wer 20 Stunden arbeitet, erreicht garantiert Einkommen X.“',claim4:'„Dieses Ergebnis ist für jeden typisch erreichbar.“',visionStatement:'Eine Vision darf groß sein. Entscheidend ist, dass aus Motivation keine falsche Garantie über das wirtschaftliche Ergebnis des Einzelnen wird.',
+        h_work:'„Wer nichts tut, bekommt nichts“ – und warum Aktivität trotzdem keine Garantie ist',work1:'Unternehmerischer Erfolg ist nicht unabhängig vom eigenen Handeln. Ein Bauer, der keine Saat ausbringt, kann nichts ernten. Ein Vermittler, der keine Gespräche führt und keine Empfehlungen ausspricht, kann aus diesen Empfehlungen auch keine Provision erwarten.',work2:'Genauso wichtig ist jedoch die andere Seite: Wer viel tut, erhält nicht automatisch ein garantiertes Ergebnis. Märkte, Produktnachfrage, persönliche Fähigkeiten, Zeit, Kundenbindung und viele weitere Faktoren spielen eine Rolle. Eine faire Kommunikation kann beides gleichzeitig sagen: Aktivität ist eine Voraussetzung für Ergebnisse – aber kein garantierter Geldautomat.',
+        h_dynamic:'Warum aus Empfehlungen mit den Jahren ein tragfähiger Bestand entstehen kann',dynamic1:'Wiederkehrende Vergütungen sind in der Wirtschaft nichts Exotisches. Versicherungs- und Finanzvermittler kennen beispielsweise Bestands- oder Betreuungsvergütungen aus fortbestehenden Kundenverträgen. Auch Software-, Plattform- und Affiliate-Modelle arbeiten häufig mit wiederkehrenden Provisionen.',dynamic2:'Das wirtschaftliche Prinzip ist einfach: Wer über längere Zeit echte Kunden gewinnt, deren Verträge oder Käufe fortbestehen, kann einen Bestand aufbauen. Dieser Bestand kann später wiederkehrende Umsätze und damit wiederkehrende Vergütungen erzeugen.',dynamic3:'Hohe spätere Einkommen sind deshalb nicht allein deshalb unrealistisch, weil sie am Anfang selten sind. Entscheidend ist, transparent zu machen, welche Voraussetzungen dahinterstehen: Zeit, Aktivität, Kundenbestand, Wiederholungskäufe, Vertragsdauer, Marktbedingungen und mögliche Kosten.',dynamicStatement:'Möglich ist nicht dasselbe wie typisch. Typisch ist nicht dasselbe wie garantiert. Und selten ist nicht dasselbe wie unmöglich.',
+        h_ftc:'Warum die FTC-Debatte trotzdem relevant ist',ftc1:'In den USA hat die Federal Trade Commission 2026 mehrere Verfahren gegen Unternehmen und hochrangige Teilnehmer von Multi-Level-Marketing-Systemen geführt. Im Mittelpunkt standen nach Angaben der Behörde vor allem irreführende oder nicht ausreichend belegte Aussagen darüber, was Teilnehmer verdienen könnten.',ftc2:'Die FTC betrachtet dabei nicht nur ausdrücklich genannte Einkommenszahlen. Auch Lifestyle-Darstellungen können nach ihrer Guidance als implizite Einkommensaussagen verstanden werden, wenn beim angesprochenen Publikum der Eindruck entsteht, ein bestimmter Lebensstandard sei durch die Teilnahme typischerweise erreichbar.',ftc3:'Gleichzeitig ist eine wichtige Einordnung nötig: Die amerikanische FTC-Guidance ist keine allgemeine europäische Rechtsnorm. Einzelne Vergleichsvereinbarungen oder US-Verfahren schaffen nicht automatisch neues Recht für Deutschland. Sie zeigen jedoch, wie intensiv Regulierer wirtschaftliche Erfolgsversprechen inzwischen betrachten.',
+        h_eu:'Deutschland und Europa: Nicht jede mehrstufige Vergütung ist ein Pyramidensystem',eu1:'Das europäische Verbraucherrecht verbietet Pyramidensysteme, bei denen ein Verbraucher einen finanziellen Beitrag leistet und die Vergütung hauptsächlich aus der Einführung weiterer Verbraucher stammt, statt aus Verkauf oder Verbrauch von Produkten. Auch das deutsche UWG enthält entsprechende Grenzen.',eu2:'Daraus folgt aber nicht, dass jede Provision, jede Empfehlung oder jede mehrstufige Vergütung automatisch unzulässig wäre. Entscheidend ist die konkrete Ausgestaltung und praktische Funktionsweise.',eu3:'Gerade deshalb sollte die Diskussion nicht mit Etiketten geführt werden. Ein mehrstufiges Modell mit realem Leistungsumsatz kann wirtschaftlich etwas völlig anderes sein als ein System, dessen Motor hauptsächlich aus immer neuen Teilnehmerzahlungen besteht.',
+        h_questions:'Sieben Fragen für eine neutrale Einordnung',q1a:'Was bekomme ich für mein Geld?',q1b:'Gibt es eine nachvollziehbare Ware oder Dienstleistung mit eigenständigem Nutzen?',q2a:'Funktioniert das Angebot ohne Vertrieb?',q2b:'Kann der Käufer die Leistung vollständig nutzen, auch wenn er niemanden empfiehlt?',q3a:'Wann entsteht eine Vergütung?',q3b:'Bei einem realen Produkt- oder Leistungsumsatz – oder hauptsächlich beim Eintritt weiterer Teilnehmer?',q4a:'Woher kommt das Geld?',q4b:'Aus realer wirtschaftlicher Tätigkeit oder hauptsächlich aus neuen Teilnehmerzahlungen?',q5a:'Was steht im Marketing im Vordergrund?',q5b:'Produktnutzen, Leistung und Kundenwert – oder vor allem die Aussicht auf Verdienst?',q6a:'Wie transparent ist die Empfehlung?',q6b:'Ist erkennbar, wenn ein Empfehlungsgeber bei einem Verkauf wirtschaftlich beteiligt wird?',q7a:'Wie werden Erfolge dargestellt?',q7b:'Als individuelle Möglichkeit mit Voraussetzungen – oder als vermeintlich typisches Ergebnis für nahezu jeden?',
+        h_stillstand:'Der Stillstandstest',still1:'Ein einfacher Gedankenversuch kann helfen: Was passiert, wenn ab morgen niemand mehr neue Teilnehmer gewinnt?',still2:'Bei einem echten produkt- oder leistungsorientierten Unternehmen bestehen weiterhin Kunden, Produkte, Dienstleistungen, Kurse, Software, Veranstaltungen oder andere Nutzwerte. Die Neukundengewinnung würde leiden – wie bei jedem Unternehmen ohne Werbung –, aber der wirtschaftliche Zweck der vorhandenen Leistung bliebe bestehen.',still3:'Bei einem Modell, dessen eigentlicher Motor ausschließlich aus ständig neuen Teilnehmerzahlungen besteht, würde dagegen nicht nur das Wachstum, sondern der Kernmechanismus selbst wegbrechen.',
+        h_regulation:'Verbraucherschutz braucht Schutz – aber auch Maß',reg1:'Verbraucherschutz hat einen nachvollziehbaren Zweck: Menschen sollen nicht durch erfundene Tatsachen, versteckte finanzielle Interessen oder falsche Garantien zu wirtschaftlichen Entscheidungen bewegt werden.',reg2:'Ebenso legitim ist jedoch die Frage nach der Verhältnismäßigkeit. Eine freie Wirtschaft lebt davon, dass Unternehmen begeistern, Menschen Chancen erkennen, unterschiedliche Risiken eingehen und erwachsene Verbraucher eigene Entscheidungen treffen dürfen.',reg3:'Regulierung wird dann überzeugend, wenn sie tatsächliche Täuschung begrenzt, ohne Motivation, Vision und normale unternehmerische Kommunikation unter Generalverdacht zu stellen. Die Herausforderung liegt nicht in maximaler Regulierung, sondern in einer sinnvollen Grenze zwischen Schutz und Eigenverantwortung.',
+        h_picture:'Das große Bild',picture1:'Affiliate-Marketing, Empfehlungsmarketing und Network Marketing sind zunächst Vertriebsformen. Ein Unternehmen kann sein Werbebudget an Plattformen, Agenturen oder Influencer zahlen. Oder es kann Menschen an real entstandenen Umsätzen beteiligen, wenn deren persönliche Empfehlung einen Kunden erreicht.',picture2:'Nicht die Existenz einer Provision entscheidet deshalb über die Qualität eines Modells. Auch nicht allein die Zahl seiner Vergütungsebenen. Entscheidend sind Leistung, Geldfluss, Anreizstruktur und Kommunikation.',finalStatement:'Folge dem Geld. Prüfe die Leistung. Trenne Vision von Garantie. Und beurteile ein Geschäftsmodell nach dem, was wirtschaftlich tatsächlich geschieht – nicht nach dem Etikett, das darauf steht.',
+        sourcesTitle:'Offizielle Quellen zur Einordnung',sourcesIntro:'Auswahl der für diesen Leitartikel maßgeblichen Primärquellen. Die Verlinkungen dienen der eigenen Vertiefung.',
+        note:'Hinweis: Dieser Beitrag dient der allgemeinen Information und Einordnung von Vertriebs- und Empfehlungsmodellen. Er stellt keine individuelle Rechts-, Steuer-, Anlage- oder Finanzberatung dar. Die rechtliche Bewertung eines konkreten Geschäftsmodells hängt von seiner tatsächlichen Ausgestaltung, den Vertragsbedingungen und der praktischen Kommunikation ab.'
+      },
+      en: {
+        eyebrow:'Editorial · Business & Responsibility',
+        title:'Recommendations, Commissions and <strong>Responsibility</strong>',
+        subtitle:'Why not every commission is an income promise – and why real value, money flow, transparency and proportionality make the difference.',
+        date:'Updated: 26 August 2026',
+        reading:'General analysis – not investment, legal or tax advice',
+        intro1:'Recommendations are among the oldest forms of commerce. A satisfied person tells someone else about a product, service or educational offering. Companies, in turn, have spent significant amounts for decades to create exactly this effect through advertising, agencies, platforms, influencers and affiliate programmes.',
+        intro2:'There is therefore nothing unusual in principle about rewarding a person for a successful recommendation. Nevertheless, affiliate systems, network marketing, multi-tier referral models and so-called business opportunities are receiving increasing attention from consumer-protection authorities and regulators.',
+        intro3:'The decisive question is not whether a commission is paid. What matters is what is actually sold, why people pay for it, where the compensation comes from and what expectations the advertising creates.',
+        coreStatement:'The label of a distribution model does not determine its quality. Real value, actual money flow and the way it is communicated do.',
+        h_normal:'A recommendation for a commission is, in principle, a normal business model',
+        normal1:'Classic affiliate marketing is simple: a company offers a product or service. Another person recommends it. If that recommendation leads to a sale, the recommender receives an agreed commission.',
+        normal2:'The buyer receives the service. The company earns revenue. The intermediary is rewarded for successful customer acquisition. Economically, this may simply mean that part of a marketing budget is paid not to large advertising platforms or agencies, but to people whose recommendation actually reached a customer.',
+        flow1a:'Real value',flow1b:'Product, course, membership or service',flow2a:'Purchase decision',flow2b:'The customer voluntarily chooses that service',flow3a:'Revenue',flow3b:'A genuine sale of value is created for the company',flow4a:'Compensation',flow4b:'Part of the distribution margin may be paid to recommenders',
+        h_follow:'The simplest test: follow the money',
+        follow1:'Anyone trying to understand a referral or network model should first put the labels aside. Whether a company calls its system affiliate, partner programme, network, community or reward system says little about its economic substance.',
+        follow2:'Four sober questions are more useful: What does the buyer receive for the money? Does the offering have independent value? What creates the compensation? And would the offering still make sense if the buyer never recommended it to anyone?',
+        model1tag:'Value-driven',model1title:'Product → Revenue → Commission',model1text:'A customer buys an independent product or service. Distribution compensation is paid from that real revenue.',model2tag:'Look closer',model2title:'Multiple tiers',model2text:'Compensation is distributed across several referral levels. That is not automatically unlawful; the key question remains what actually creates the revenue.',model3tag:'Red zone',model3title:'Participant → Participant → Participant',model3text:'It becomes problematic when payments mainly buy the opportunity to recruit further paying participants and receive compensation from doing so.',
+        h_product:'A real product matters – but it is not a free pass',product1:'The mere existence of a product does not answer every question. A serious assessment must also examine the economic function that product actually has.',product2:'Does it have independent value? Is it bought because of that value? Can a customer fully use it without ever engaging in sales? Or is it, in practice, mainly the entry ticket into an earning opportunity?',productStatement:'The fair question is therefore not only: “Is there a product?” but also: “What is the person really paying for?”',
+        h_multilevel:'Multiple compensation levels change the structure – not automatically the economic core',multi1:'A company can pay distribution compensation only to the direct intermediary. It can also distribute part of that margin across several referral tiers. A simple affiliate model then becomes a multi-tier or multi-level system.',multi2:'The number of levels alone does not determine whether a model is viable or problematic. More important is whether compensation remains linked to genuine product or service revenue, or whether the economic focus shifts toward merely bringing in more paying participants.',
+        h_motivation:'Motivation is not the same as an income promise',motivation1:'Businesses live from enthusiasm, visions of the future and communicating value. Advertising would hardly be possible if every positive statement were treated like a mathematical guarantee.',motivation2:'A baker advertising the “perfect start to the day” is normally not making a scientifically measurable guarantee of success. A travel company sells not only hotel nights and room size, but also relaxation. A carmaker speaks about freedom, comfort or adventure.',motivation3:'Business communication may also motivate: show a vision, explain possibilities and encourage people to take action. The line becomes more relevant where a vision turns into a specific, verifiable claim about an individual participant’s financial outcome.',
+        visionTitle:'Vision & Motivation',vision1:'“Use your opportunities.”',vision2:'“Recommendations can open new economic opportunities.”',vision3:'“Taking action increases the possibility of achieving results.”',vision4:'“We want to grow together.”',claimTitle:'Specific outcome claim',claim1:'“Everyone earns €5,000 a month with this.”',claim2:'“After twelve months you will be financially free.”',claim3:'“Anyone who works 20 hours is guaranteed income X.”',claim4:'“This result is typically achievable for everyone.”',visionStatement:'A vision may be ambitious. What matters is that motivation does not become a false guarantee about an individual’s financial outcome.',
+        h_work:'“If you do nothing, you get nothing” – and why activity is still no guarantee',work1:'Entrepreneurial success is not independent of personal action. A farmer who never sows cannot harvest. An intermediary who never speaks to people or makes recommendations cannot expect commissions from those recommendations.',work2:'The other side matters just as much: doing a lot does not automatically guarantee a result. Markets, demand, personal skills, time, customer retention and many other factors matter. Fair communication can say both things at once: activity is a prerequisite for results – but it is not a guaranteed cash machine.',
+        h_dynamic:'How recommendations can create a sustainable customer base over time',dynamic1:'Recurring compensation is not unusual in business. Insurance and financial intermediaries, for example, know portfolio or servicing commissions from continuing customer contracts. Software, platform and affiliate models also frequently use recurring commissions.',dynamic2:'The economic principle is simple: someone who wins genuine customers over a long period and whose contracts or purchases continue can build a customer base. That base can later generate recurring revenue and therefore recurring compensation.',dynamic3:'Higher later income is therefore not unrealistic merely because it is rare at the beginning. What matters is transparency about the conditions behind it: time, activity, customer base, repeat purchases, contract duration, market conditions and possible costs.',dynamicStatement:'Possible is not the same as typical. Typical is not the same as guaranteed. And rare is not the same as impossible.',
+        h_ftc:'Why the FTC debate is still relevant',ftc1:'In the United States, the Federal Trade Commission brought several cases in 2026 against companies and senior participants in multi-level marketing systems. According to the agency, the cases focused particularly on misleading or insufficiently substantiated claims about what participants might earn.',ftc2:'The FTC does not look only at explicitly stated income figures. Under its guidance, lifestyle presentations can also be treated as implied earnings claims when the audience may understand them to mean that a certain standard of living is typically achievable through participation.',ftc3:'An important qualification is necessary: US FTC guidance is not a general European legal rule. Individual US settlements or cases do not automatically create new law in Germany. They do, however, show how closely regulators are examining claims about economic success.',
+        h_eu:'Germany and Europe: not every multi-tier commission is a pyramid scheme',eu1:'European consumer law prohibits pyramid promotional schemes in which a consumer pays a financial contribution and compensation derives primarily from introducing further consumers rather than from the sale or consumption of products. German unfair-competition law contains corresponding limits.',eu2:'That does not mean every commission, recommendation or multi-tier compensation model is automatically unlawful. The concrete design and the way the model operates in practice are decisive.',eu3:'The debate should therefore not be conducted through labels. A multi-tier model based on genuine service revenue can be economically very different from a system whose engine consists mainly of ever more participant payments.',
+        h_questions:'Seven questions for a neutral assessment',q1a:'What do I receive for my money?',q1b:'Is there an understandable product or service with independent value?',q2a:'Does the offering work without selling?',q2b:'Can the buyer fully use the service even without recommending anyone?',q3a:'When is compensation created?',q3b:'From a genuine product or service sale – or mainly when another participant joins?',q4a:'Where does the money come from?',q4b:'From real economic activity or mainly from new participant payments?',q5a:'What does the marketing emphasise?',q5b:'Product value, service and customer benefit – or mainly the prospect of earnings?',q6a:'How transparent is the recommendation?',q6b:'Is it clear when a recommender has a financial interest in a sale?',q7a:'How are success stories presented?',q7b:'As individual possibilities with prerequisites – or as supposedly typical outcomes for almost everyone?',
+        h_stillstand:'The standstill test',still1:'A simple thought experiment can help: what happens if nobody recruits another participant from tomorrow onwards?',still2:'In a genuinely product- or service-oriented business, customers, products, services, courses, software, events and other forms of value continue to exist. Customer acquisition would suffer – as in any company without advertising – but the economic purpose of the existing service would remain.',still3:'In a model whose actual engine consists exclusively of constantly adding new participant payments, not only growth but the core mechanism itself would collapse.',
+        h_regulation:'Consumer protection needs protection – and proportion',reg1:'Consumer protection has a legitimate purpose: people should not be led into economic decisions by invented facts, hidden financial interests or false guarantees.',reg2:'It is equally legitimate to ask about proportionality. A free economy depends on companies being able to inspire, people being able to recognise opportunities, different risks being taken and adult consumers being allowed to make their own decisions.',reg3:'Regulation is most convincing when it limits actual deception without placing motivation, vision and ordinary business communication under general suspicion. The challenge is not maximum regulation, but a sensible boundary between protection and personal responsibility.',
+        h_picture:'The bigger picture',picture1:'Affiliate marketing, referral marketing and network marketing are, first of all, distribution methods. A company can pay its advertising budget to platforms, agencies or influencers. Or it can share real revenue with people whose personal recommendation actually reaches a customer.',picture2:'The existence of a commission therefore does not determine the quality of a model. Nor does the number of compensation tiers alone. What matters is value, money flow, incentive structure and communication.',finalStatement:'Follow the money. Examine the value. Separate vision from guarantee. And judge a business model by what is economically happening in reality – not by the label attached to it.',
+        sourcesTitle:'Official sources for further reading',sourcesIntro:'A selection of primary sources used for this editorial. The links are provided for independent further reading.',
+        note:'Note: This article provides general information and context on distribution and referral models. It is not individual legal, tax, investment or financial advice. The legal assessment of a specific business model depends on its actual structure, contractual terms and practical communication.'
+      }
+    };
+
+    function setLanguage(lang){
+      const dict=translations[lang]||translations.de;
+      document.documentElement.lang=lang;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key=el.dataset.i18n;
+        if(dict[key]!==undefined) el.innerHTML=dict[key];
+      });
+      document.querySelectorAll('.lang-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));
+      try{localStorage.setItem('articleLang',lang)}catch(e){}
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
+    let initial='de';
+    try{initial=localStorage.getItem('articleLang')||'de'}catch(e){}
+    setLanguage(initial==='en'?'en':'de');
+  </script>
+</body>
+</html>
