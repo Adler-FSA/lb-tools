@@ -807,7 +807,8 @@
           "Regulatorischer Status, konkrete Erlaubnisse und deren Geltungsbereich sind noch über Behörden-/Registerquellen zu prüfen.",
           "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
           "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe.",
-          "Über die aktuell ausgewählten amtlichen Quellen wurde noch kein eindeutig zuordenbarer Zielseitenbeleg gefunden. Das ist kein Beweis für fehlende Registrierung, Erlaubnis oder Aufsicht."
+          "Über die aktuell ausgewählten amtlichen Quellen wurde noch kein eindeutig zuordenbarer Zielseitenbeleg gefunden. Das ist kein Beweis für fehlende Registrierung, Erlaubnis oder Aufsicht.",
+          "Für eine belastbare Banking-/Payment-Zuordnung ist der konkrete regulierte Leistungserbringer einschließlich Rechtsträger, Lizenztyp, Zielmarkt und Leistungsumfang noch offen."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -1927,7 +1928,8 @@
           "Die Liste fehlender Primärnachweise wird nach Abschluss aller Recherchemodule finalisiert.",
           "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
           "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe.",
-          "Als fehlender technischer Primärnachweis sind insbesondere konkrete Chain-/Contract-/Wallet-/Explorerangaben sowie – soweit relevant – Adminrechte, Tokenomics, Liquidität und Auditunterlagen zu klären."
+          "Als fehlender technischer Primärnachweis sind insbesondere konkrete Chain-/Contract-/Wallet-/Explorerangaben sowie – soweit relevant – Adminrechte, Tokenomics, Liquidität und Auditunterlagen zu klären.",
+          "Als fehlender Payment-Primärnachweis sind – soweit entsprechende Funktionen angeboten werden – Issuer-/Bank-/EMI-/PI-Nachweis, Karten-Netzwerk/BIN-Sponsor, PSP sowie IBAN-/SEPA-/Kontoinhaber-Dokumentation prioritär."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -2453,7 +2455,7 @@
     {
       "id": 32,
       "key": "card_banking_payment_deep_check",
-      "result_status": "eigenaussage",
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Karte-/Banking-/Payment-Prüfung“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst.",
@@ -2469,7 +2471,9 @@
         "open_points": [
           "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen.",
           "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
-          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe."
+          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe.",
+          "Externe projektbezogene Spuren enthalten Banking-/Karten-/Payment-Aussagen, während in den geprüften projektseitigen Primärseiten bislang keine entsprechend konkrete Infrastrukturzuordnung erkannt wurde.",
+          "Für eine belastbare Banking-/Payment-Zuordnung fehlen bislang öffentlich eindeutig verknüpfte Angaben zu Issuer/Bank/EMI/PI, BIN-Sponsor, Karten-Netzwerk, PSP, IBAN-/SEPA-Infrastruktur und jeweiligem regulatorischem Leistungsumfang."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -2482,54 +2486,60 @@
         ]
       },
       "customer": {
-        "summary": "Zu „Karte-/Banking-/Payment-Prüfung“ liegen aktuell 6 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "summary": "Banking-, Karten- und Zahlungsversprechen werden von der tatsächlich belegten Infrastruktur getrennt.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen.",
           "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
-          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe."
+          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe.",
+          "Externe projektbezogene Spuren enthalten Banking-/Karten-/Payment-Aussagen, während in den geprüften projektseitigen Primärseiten bislang keine entsprechend konkrete Infrastrukturzuordnung erkannt wurde.",
+          "Für eine belastbare Banking-/Payment-Zuordnung fehlen bislang öffentlich eindeutig verknüpfte Angaben zu Issuer/Bank/EMI/PI, BIN-Sponsor, Karten-Netzwerk, PSP, IBAN-/SEPA-Infrastruktur und jeweiligem regulatorischem Leistungsumfang."
         ],
         "questions": [
           "Welche Primär- oder unabhängigen Nachweise gibt es zu „Karte-/Banking-/Payment-Prüfung“?"
         ],
         "recommendations": [
-          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+          "Vor einer Nutzung Issuer/Bank/EMI, Karten-Netzwerk, Kontoinhaber, IBAN-/SEPA-Weg, Gebühren und regulatorischen Umfang konkret prüfen."
         ]
       },
       "company": {
-        "summary": "Die Außenprüfung zu „Karte-/Banking-/Payment-Prüfung“ stützt sich aktuell auf 6 Belege; Einordnung: eigenaussage.",
+        "summary": "Eine belastbare Außendarstellung braucht klare Angaben zu Issuer, Bank/EMI/PI, BIN-Sponsor, Karten-Netzwerk, PSP, IBAN-/SEPA-Infrastruktur und jeweiligem Lizenzumfang.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen.",
           "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
-          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe."
+          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe.",
+          "Externe projektbezogene Spuren enthalten Banking-/Karten-/Payment-Aussagen, während in den geprüften projektseitigen Primärseiten bislang keine entsprechend konkrete Infrastrukturzuordnung erkannt wurde.",
+          "Für eine belastbare Banking-/Payment-Zuordnung fehlen bislang öffentlich eindeutig verknüpfte Angaben zu Issuer/Bank/EMI/PI, BIN-Sponsor, Karten-Netzwerk, PSP, IBAN-/SEPA-Infrastruktur und jeweiligem regulatorischem Leistungsumfang."
         ],
         "questions": [
           "Welche belastbaren Primärnachweise kann das Unternehmen zu „Karte-/Banking-/Payment-Prüfung“ öffentlich und eindeutig verknüpfen?"
         ],
         "recommendations": [
-          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+          "Alle Banking-/Payment-Partner mit Rechtsträger, Rolle, Zielmarkt und Primärquelle zentral dokumentieren."
         ]
       },
       "academy": {
-        "summary": "Beleggewicht für „Karte-/Banking-/Payment-Prüfung“: 6 Quellenreferenzen; aktueller Status eigenaussage.",
+        "summary": "Banking-/Payment-Sprache, konkrete Infrastrukturidentifikatoren und amtlich/partnerseitig bestätigte Beziehungen werden getrennt gewichtet.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen.",
           "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
-          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe."
+          "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe.",
+          "Externe projektbezogene Spuren enthalten Banking-/Karten-/Payment-Aussagen, während in den geprüften projektseitigen Primärseiten bislang keine entsprechend konkrete Infrastrukturzuordnung erkannt wurde.",
+          "Für eine belastbare Banking-/Payment-Zuordnung fehlen bislang öffentlich eindeutig verknüpfte Angaben zu Issuer/Bank/EMI/PI, BIN-Sponsor, Karten-Netzwerk, PSP, IBAN-/SEPA-Infrastruktur und jeweiligem regulatorischem Leistungsumfang."
         ],
         "questions": [
           "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Karte-/Banking-/Payment-Prüfung“ belastbar abzuschließen?"
         ],
         "recommendations": [
-          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+          "Issuer, BIN-Sponsor, Scheme, PSP, Bank/EMI/PI, IBAN-/Kontoinhaber, Passporting und Kundenanspruch separat verifizieren."
         ]
       }
     },
@@ -2978,5 +2988,5 @@
       }
     }
   ],
-  "updated_at": "2026-08-27T09:52:47Z"
+  "updated_at": "2026-08-27T10:03:03Z"
 }
