@@ -23,6 +23,12 @@ class PaymentResearchTests(unittest.TestCase):
         self.assertIn("debit card",terms)
         self.assertIn("iban",terms)
 
+    def test_dividend_payments_are_not_payment_infrastructure(self):
+        self.assertEqual([],feature_claims("Dividend payments are expected to begin in October 2026."))
+
+    def test_isolated_swift_word_is_not_swift_payment_infrastructure(self):
+        self.assertEqual([],feature_claims("Our category list includes Swift Reviews and other topics."))
+
     def test_bin_requires_bin_context(self):
         self.assertEqual([],extract_payment_identifiers("Reference 12345678 was created.","E001","first_party"))
         rows=extract_payment_identifiers("Card BIN: 12345678","E001","first_party")
