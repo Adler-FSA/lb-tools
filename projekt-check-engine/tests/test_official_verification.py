@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import json
 import sys
 import unittest
 from pathlib import Path
@@ -41,12 +40,24 @@ class OfficialVerificationTests(unittest.TestCase):
         self.assertIn("kyle kemper", persons)
         self.assertIn("AE", jurisdictions)
 
+    def test_normal_limited_sentence_is_not_company(self):
+        evidence = {"items":[{"text_excerpt":"Services include, but are not limited to, education and community features."}]}
+        candidates = extract_legal_candidates([evidence])
+        self.assertEqual([], candidates["entities"])
+
+    def test_legal_uae_context_becomes_strong_jurisdiction(self):
+        evidence = {"items":[{"text_excerpt":"These Terms are governed by applicable UAE laws. The company is incorporated under the laws of the United Arab Emirates."}]}
+        candidates = extract_legal_candidates([evidence])
+        ae = next(x for x in candidates["jurisdiction_hints"] if x["jurisdiction"] == "AE")
+        self.assertEqual("strong", ae["strength"])
+        self.assertGreaterEqual(ae["score"], 4)
+
     def test_dubai_context_activates_uae_regulators_and_bafin(self):
         catalog = load_catalog()
         selected = select_sources(
             catalog,
             "U-TOPIA fintech crypto virtual asset Dubai UAE",
-            [{"jurisdiction":"AE","score":2,"terms":["dubai","uae"]}],
+            [{"jurisdiction":"AE","score":6,"strength":"strong","terms":["dubai","uae"],"strong_terms":["uae"]}],
             german_customer=True,
             max_sources=12,
         )
@@ -56,6 +67,20 @@ class OfficialVerificationTests(unittest.TestCase):
         self.assertIn("ae_dfsa", ids)
         self.assertIn("ae_sca", ids)
         self.assertIn("ae_adgm_fsra", ids)
+
+    def test_weak_foreign_country_mention_does_not_activate_foreign_regulator(self):
+        catalog = load_catalog()
+        selected = select_sources(
+            catalog,
+            "U-TOPIA privacy service may transfer data to the United States",
+            [{"jurisdiction":"US","score":2,"strength":"weak","terms":["united states"],"strong_terms":[]}],
+            german_customer=True,
+            max_sources=12,
+        )
+        ids = {x["id"] for x in selected}
+        self.assertIn("de_bafin", ids)
+        self.assertNotIn("us_sec", ids)
+        self.assertNotIn("us_finra", ids)
 
     def test_official_host_matching_rejects_lookalikes(self):
         source = {"domains":["vara.ae"]}
