@@ -9,7 +9,7 @@
 <body>
 <script>
 (async()=>{
-  const r=await fetch('./basis.html?v=202608271715',{cache:'no-store'});
+  const r=await fetch('./basis.html?v=202608272028',{cache:'no-store'});
   let html=await r.text();
   const term='Gesch\u00e4fts'+'modell';
   const lower='gesch\u00e4fts'+'modell';
@@ -19,6 +19,7 @@
   html=html.replaceAll('Diese Seite beschreibt das '+term+' und die Funktionslogik des LiquidityBoosters allgemein.','Diese Seite beschreibt die Funktionsweise des LiquidityBoosters allgemein.');
   html=html.replaceAll(term,'Funktionsweise');
   html=html.replaceAll(lower,'funktionsweise');
+  html=html.replace('99 € <small data-i18n="year">pro Jahr</small>','99 € <small data-i18n="year">pro Jahr zzgl. MwSt.</small>');
   document.open();document.write(html);document.close();
 })().catch(()=>{document.body.innerHTML='<p style="font-family:Arial;padding:24px">Die Seite konnte nicht geladen werden. Bitte aktualisieren.</p>';});
 </script>
