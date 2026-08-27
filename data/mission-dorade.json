@@ -88,6 +88,14 @@
       "sponsorFirstName": "Zentrale",
       "sponsorLastName": "Liquiditybooster",
       "createdAt": "2026-08-19T10:00:00.000Z"
+    },
+    {
+      "id": "acbaa756-4d55-445c-af7d-c3a38aeea75d",
+      "firstName": "Frank",
+      "lastName": "Stein",
+      "sponsorFirstName": "Roland",
+      "sponsorLastName": "von Ledebur",
+      "createdAt": "2026-08-27T10:00:00.000Z"
     }
   ],
   "winners": {}
