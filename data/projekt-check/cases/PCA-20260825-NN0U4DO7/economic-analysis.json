@@ -1,0 +1,435 @@
+{
+  "first_party_item_count": 3,
+  "external_item_count": 7,
+  "return_language": [
+    "dividend",
+    "dividends",
+    "earn",
+    "earn dividends",
+    "earning",
+    "reward",
+    "rewards"
+  ],
+  "revenue_source_language": [],
+  "money_flow_language": [
+    "account",
+    "treasury"
+  ],
+  "payout_language": [
+    "bonus",
+    "dividend",
+    "dividends",
+    "lock"
+  ],
+  "growth_language": [
+    "affiliate",
+    "ambassador",
+    "growth",
+    "invite",
+    "invites",
+    "membership packages",
+    "network",
+    "referral",
+    "referrals"
+  ],
+  "trading_language": [],
+  "external_economic_language": [
+    "apr",
+    "business model",
+    "dividend",
+    "dividends",
+    "earn",
+    "earning",
+    "exchange",
+    "fees",
+    "payout",
+    "profit",
+    "profits",
+    "rendite",
+    "return",
+    "returns",
+    "revenue",
+    "reward",
+    "rewards",
+    "roi",
+    "trade",
+    "trading",
+    "yield"
+  ],
+  "first_party_percent_claims": [],
+  "external_percent_claims": [
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 10.0,
+      "period": null,
+      "context": ".Center caps payable unilevel team levels at five. Referral commissions are paid as a percentage of funds invested across these five levels based on rank: F1 ranked promoters earn 10% on level 1 (personally recruited promoters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 10.0,
+      "period": null,
+      "context": "re paid as a percentage of funds invested across these five levels based on rank: F1 ranked promoters earn 10% on level 1 (personally recruited promoters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 5.0,
+      "period": null,
+      "context": "tage of funds invested across these five levels based on rank: F1 ranked promoters earn 10% on level 1 (personally recruited promoters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 10.0,
+      "period": null,
+      "context": "e levels based on rank: F1 ranked promoters earn 10% on level 1 (personally recruited promoters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10%",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 5.0,
+      "period": null,
+      "context": "n rank: F1 ranked promoters earn 10% on level 1 (personally recruited promoters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5%",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 2.5,
+      "period": null,
+      "context": "promoters earn 10% on level 1 (personally recruited promoters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 10.0,
+      "period": null,
+      "context": "recruited promoters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 5.0,
+      "period": null,
+      "context": "ters) F2 ranked promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ri",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 2.5,
+      "period": null,
+      "context": "promoters earn 10% on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The De",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 1.25,
+      "period": null,
+      "context": "on level 1 and 5% on level 2 F3 ranked promoters earn 10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The Deep Ripple Bonus pays",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 10.0,
+      "period": null,
+      "context": "10% on level 1, 5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The Deep Ripple Bonus pays an additional 1% on invested funds across ranks F6",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 5.0,
+      "period": null,
+      "context": "5% on level 2 and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The Deep Ripple Bonus pays an additional 1% on invested funds across ranks F6 to F11. Once a",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 2.5,
+      "period": null,
+      "context": "and 2.5% on level 3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The Deep Ripple Bonus pays an additional 1% on invested funds across ranks F6 to F11. Once a referral commissi",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 1.25,
+      "period": null,
+      "context": "3 F4 ranked promoters earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The Deep Ripple Bonus pays an additional 1% on invested funds across ranks F6 to F11. Once a referral commission has been paid o",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 0.625,
+      "period": null,
+      "context": "s earn 10% on level 1, 5% on level 2, 2.5% on level 3 and 1.25% on level 4 F5 ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The Deep Ripple Bonus pays an additional 1% on invested funds across ranks F6 to F11. Once a referral commission has been paid out, U.Center looks fur",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 1.0,
+      "period": null,
+      "context": "ranked promoters and higher earn 10% on level 1, 5% on level 2, 2.5% on level 3, 1.25% on level 4 and 0.625% on level 5 Deep Ripple Bonus The Deep Ripple Bonus pays an additional 1% on invested funds across ranks F6 to F11. Once a referral commission has been paid out, U.Center looks further up the unilevel team for the first F6 ranked promoter. That promoter",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 1.0,
+      "period": null,
+      "context": "d promoter. That promoter receives a 1% Deep Ripple Bonus on the invested amount. U.Center then starts a new search for the first F7 ranked promoter. That promoter also receives a 1% Deep Ripple Bonus. In this manner five 1% Deep Ripple Bonuses are paid to F6 to F11 ranked promoters on each referral commission paid out. Share Match Bonus U.Center rewards recru",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 1.0,
+      "period": null,
+      "context": "ep Ripple Bonus on the invested amount. U.Center then starts a new search for the first F7 ranked promoter. That promoter also receives a 1% Deep Ripple Bonus. In this manner five 1% Deep Ripple Bonuses are paid to F6 to F11 ranked promoters on each referral commission paid out. Share Match Bonus U.Center rewards recruiting promoters with a match on shares inv",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 1.0,
+      "period": null,
+      "context": "promoters on each referral commission paid out. Share Match Bonus U.Center rewards recruiting promoters with a match on shares invested down three levels of recruitment: level 1 – 1% match level 2 – 3% match level 3 – 6% match Note these levels are the same unilevel team levels used to pay referral commissions. Leadership Bonus U.Center’s Leadership Bonus isn’",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "rate_percent": 3.0,
+      "period": null,
+      "context": "eferral commission paid out. Share Match Bonus U.Center rewards recruiting promoters with a match on shares invested down three levels of recruitment: level 1 – 1% match level 2 – 3% match level 3 – 6% match Note these levels are the same unilevel team levels used to pay referral commissions. Leadership Bonus U.Center’s Leadership Bonus isn’t entirely clear, o",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 1.0,
+      "period": null,
+      "context": "Level 2 = 5% Level 3 = 2.5% Level 4 = 1.25% Level 5 = 0.625% Advancing through the ranks unlocks additional levels of commission eligibility. Deep Ripple Bonus U.Center also pays: 1% bonuses to qualified leaders. The company searches upward through the genealogy and rewards qualifying F6 through F11 ranked promoters with additional commissions on investments.",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 1.0,
+      "period": null,
+      "context": "omoters with additional commissions on investments. Share Match Bonus Participants can receive additional share allocations based on investments made by recruits. Matches include: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3%",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 3.0,
+      "period": null,
+      "context": "dditional commissions on investments. Share Match Bonus Participants can receive additional share allocations based on investments made by recruits. Matches include: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% Howe",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 6.0,
+      "period": null,
+      "context": "issions on investments. Share Match Bonus Participants can receive additional share allocations based on investments made by recruits. Matches include: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 0.3,
+      "period": null,
+      "context": "e: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the source material notes that the structure is difficult to fully interpret because compensation details are largely hidden from consumers. Transparency m",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 0.6,
+      "period": null,
+      "context": "on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the source material notes that the structure is difficult to fully interpret because compensation details are largely hidden from consumers. Transparency matter",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 0.9,
+      "period": null,
+      "context": "evel 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the source material notes that the structure is difficult to fully interpret because compensation details are largely hidden from consumers. Transparency matters. Wh",
+      "simple_annual_percent": null,
+      "compound_annual_multiple": null,
+      "calculation_note": ""
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 3.0,
+      "period": "monthly",
+      "context": "actually know how to make money online right? Specially with crypto. First time ever we are offering a training where we are helping our students who are getting any where between 3% to 10% per MONTH ROI on their crypto with 100% complete control. YOU control everything and not giving your funds away to some scamming company. Once you learn this skill set, the",
+      "simple_annual_percent": 36.0,
+      "compound_annual_multiple": 1.425761,
+      "calculation_note": "Mathematische Hochrechnung der genannten Rate; keine Prognose und kein Nachweis, dass diese Rate tatsächlich erzielt oder ausgezahlt wird."
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 10.0,
+      "period": "monthly",
+      "context": "ly know how to make money online right? Specially with crypto. First time ever we are offering a training where we are helping our students who are getting any where between 3% to 10% per MONTH ROI on their crypto with 100% complete control. YOU control everything and not giving your funds away to some scamming company. Once you learn this skill set, the sky is",
+      "simple_annual_percent": 120.0,
+      "compound_annual_multiple": 3.138428,
+      "calculation_note": "Mathematische Hochrechnung der genannten Rate; keine Prognose und kein Nachweis, dass diese Rate tatsächlich erzielt oder ausgezahlt wird."
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 100.0,
+      "period": "monthly",
+      "context": "Specially with crypto. First time ever we are offering a training where we are helping our students who are getting any where between 3% to 10% per MONTH ROI on their crypto with 100% complete control. YOU control everything and not giving your funds away to some scamming company. Once you learn this skill set, the sky is the limit when it comes to building wea",
+      "simple_annual_percent": 1200.0,
+      "compound_annual_multiple": 4096.0,
+      "calculation_note": "Mathematische Hochrechnung der genannten Rate; keine Prognose und kein Nachweis, dass diese Rate tatsächlich erzielt oder ausgezahlt wird."
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 100.0,
+      "period": "daily",
+      "context": "erything and not giving your funds away to some scamming company. Once you learn this skill set, the sky is the limit when it comes to building wealth with crypto where you are in 100% control. Here are some more results: This student literally got started a few days ago and already started to make $5 per day! We are getting over 2000% rewards with this one per",
+      "simple_annual_percent": 36500.0,
+      "compound_annual_multiple": ">1e12",
+      "calculation_note": "Mathematische Hochrechnung der genannten Rate; keine Prognose und kein Nachweis, dass diese Rate tatsächlich erzielt oder ausgezahlt wird."
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "rate_percent": 2000.0,
+      "period": "daily",
+      "context": "ith crypto where you are in 100% control. Here are some more results: This student literally got started a few days ago and already started to make $5 per day! We are getting over 2000% rewards with this one per year which is LIFE changing. Take a look at one of our 62 year old students who profited $2,000: Now we want to help YOU. We have complete newbies who ar",
+      "simple_annual_percent": 730000.0,
+      "compound_annual_multiple": "overflow",
+      "calculation_note": "Mathematische Hochrechnung der genannten Rate; keine Prognose und kein Nachweis, dass diese Rate tatsächlich erzielt oder ausgezahlt wird."
+    }
+  ],
+  "customer_claim_math": null,
+  "facts": {
+    "package_purchase_from_own_wallet_claimed": false,
+    "bank_account_credentials_not_collected_claimed": false,
+    "onchain_distribution_events_claimed": false
+  },
+  "refs": {
+    "money_flow": [
+      "E002"
+    ],
+    "returns": [
+      "E002"
+    ],
+    "revenue_source": [],
+    "growth": [
+      "E002"
+    ],
+    "payout": [
+      "E002"
+    ],
+    "trading": [],
+    "external": [
+      "W001",
+      "W003",
+      "W004",
+      "W005",
+      "W006"
+    ]
+  },
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-NN0U4DO7",
+  "generated_at": "2026-08-27T09:26:54Z",
+  "stress_scenarios": [
+    {
+      "scenario": "Nullwachstum / keine neuen Referrals",
+      "question": "Welche wirtschaftlichen Leistungen bleiben finanzierbar, wenn keine neuen Mitglieder oder Referral-Umsätze hinzukommen?",
+      "finding": "Aus den bislang erfassten Quellen lässt sich eine belastbare Antwort nur ableiten, wenn externe Einnahmequellen und Verteilungsverpflichtungen quantitativ belegt sind.",
+      "status": "offen"
+    },
+    {
+      "scenario": "Geringere operative Einnahmen",
+      "question": "Wie verändert sich die Fähigkeit zu Dividenden/Rewards, wenn operative Einnahmen deutlich unter Plan liegen?",
+      "finding": "Ohne quantifizierte und überprüfbare Einnahmequelle kann die Belastbarkeit dieses Szenarios nicht berechnet werden.",
+      "status": "offen"
+    },
+    {
+      "scenario": "Erhöhte Auszahlungs-/Verteilungsanforderungen",
+      "question": "Welche Liquidität oder Reserve steht zur Verfügung, wenn viele Berechtigte gleichzeitig eine Auszahlung bzw. Distribution erwarten?",
+      "finding": "Reserve-, Liquiditäts- und Fälligkeitsdaten sind in den bislang ausgewerteten Quellen nicht allein aus Leistungsbegriffen ableitbar.",
+      "status": "offen"
+    }
+  ],
+  "principle": "Mathematische Hochrechnungen ordnen Aussagen ein; sie sind weder Prognose noch Nachweis der Erzielbarkeit. Eigenaussagen, externe Spuren und unabhängig bestätigte Tatsachen bleiben getrennt."
+}

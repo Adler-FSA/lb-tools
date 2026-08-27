@@ -1,13 +1,14 @@
 {
-  "schema_version": "1.3",
+  "schema_version": "1.4",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "updated_at": "2026-08-27T08:58:43Z",
+  "updated_at": "2026-08-27T09:26:54Z",
   "modules": {
     "primary_discovery": "completed",
     "primary_evaluation": "completed",
     "independent_web": "completed",
     "official_verification": "completed",
-    "direct_dubai_registry": "partial"
+    "direct_dubai_registry": "partial",
+    "economic_analysis": "completed"
   },
   "independent_search_results": 7,
   "independent_rejected_results": 0,
@@ -18,5 +19,8 @@
   "direct_registry_attempts": 1,
   "direct_registry_completed_attempts": 0,
   "direct_registry_captures": 0,
-  "direct_registry_blocked_attempts": 1
+  "direct_registry_blocked_attempts": 1,
+  "economic_first_party_rate_claims": 0,
+  "economic_stress_scenarios": 3,
+  "economic_customer_claim_math": false
 }
