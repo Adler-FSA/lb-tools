@@ -187,7 +187,7 @@ def main():
         nf["open_points"]=add(nf.get("open_points"),"Für eine belastbare Banking-/Payment-Zuordnung fehlen bislang öffentlich eindeutig verknüpfte Angaben zu Issuer/Bank/EMI/PI, BIN-Sponsor, Karten-Netzwerk, PSP, IBAN-/SEPA-Infrastruktur und jeweiligem regulatorischem Leistungsumfang.")
     nf["evidence_refs"]=unique((nf.get("evidence_refs") or [])+p_refs,24); ev["neutral_finding"]=nf
     st["evidence_count"]=int(st.get("evidence_count") or 0)+len(set(p_refs))
-    set_completed(st,ev,result,f"Karten-/Banking-/Payment-Tiefenprüfung abgeschlossen · {analysis.get('first_party_claim_count',0)} projektseitige Funktionsaussagen · {analysis.get('external_claim_count',0)} externe Payment-Spuren · {analysis.get('verified_infrastructure_target_count',0)} amtlich verifizierte Infrastrukturbeziehungen.",lang)
+    set_completed(st,ev,result,f"Karten-/Banking-/Payment-Tiefenprüfung abgeschlossen · {analysis.get('first_party_claim_source_count',0)} projektseitige Quellen mit Funktionsaussagen · {analysis.get('external_claim_source_count',0)} externe projektbezogene Quellen mit Payment-Bezug · {analysis.get('verified_infrastructure_target_count',0)} amtlich verifizierte Infrastrukturbeziehungen.",lang)
 
     if analysis.get("has_first_party_payment_claim") or analysis.get("has_external_payment_claim"):
         for cid in (11,12,24):
@@ -206,7 +206,7 @@ def main():
 
     status["state"]="auswertung"; status["updated_at"]=now(); evaluation["updated_at"]=now()
     write(case_dir/"evaluation.json",evaluation); write(case_dir/"status.json",status)
-    print(json.dumps({"case_id":case_id,"first_party_claims":analysis.get("first_party_claim_count",0),"external_claims":analysis.get("external_claim_count",0),"verified_infrastructure":len(verified),"status32":st_by[32]["result_status"]},ensure_ascii=False))
+    print(json.dumps({"case_id":case_id,"first_party_sources":analysis.get("first_party_claim_source_count",0),"external_sources":analysis.get("external_claim_source_count",0),"verified_infrastructure":len(verified),"status32":st_by[32]["result_status"]},ensure_ascii=False))
     return 0
 
 if __name__=="__main__":
