@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "principle": "Amtliche Quellen werden als eigene Belegklasse behandelt. Ein fehlender Treffer ist kein Beweis für fehlende Registrierung, Erlaubnis oder Aufsicht.",
   "sources": [
     {
@@ -82,6 +82,31 @@
       "kind": "regulator",
       "domains": ["finra.org"],
       "activation_terms": ["usa", "united states", "u.s.", "us", "broker", "broker-dealer", "securities", "investment"]
+    },
+    {
+      "id": "ae_dubai_det_license",
+      "name": "Invest in Dubai – Search License Information",
+      "jurisdiction": "AE-DU",
+      "kind": "registry",
+      "domains": ["app.invest.dubai.ae", "invest.dubai.ae"],
+      "activation_terms": ["dubai", "uae", "united arab emirates", "company", "business", "license", "licence", "trade name"],
+      "direct_adapter": "invest_dubai_license"
+    },
+    {
+      "id": "ae_difc_public_register",
+      "name": "Dubai International Financial Centre (DIFC) Public Register",
+      "jurisdiction": "AE-DIFC",
+      "kind": "registry",
+      "domains": ["difc.com"],
+      "activation_terms": ["dubai", "difc", "uae", "united arab emirates", "company", "business", "financial services"]
+    },
+    {
+      "id": "ae_adgm_ra",
+      "name": "ADGM Registration Authority Public Register",
+      "jurisdiction": "AE-AD",
+      "kind": "registry",
+      "domains": ["adgm.com", "registration.adgm.com"],
+      "activation_terms": ["abu dhabi", "adgm", "uae", "united arab emirates", "company", "business", "registered", "incorporated"]
     },
     {
       "id": "ae_vara",
