@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LiquidityBooster – So funktioniert es</title>
+<meta name="description" content="LiquidityBooster im Gesamtbild: Bildung, Community, Empfehlungsökonomie, ClubLeader, BusinessBooster und unternehmerische Perspektive.">
+</head>
+<body>
+<script>
+(async()=>{
+  const r=await fetch('./basis.html?v=202608271715',{cache:'no-store'});
+  let html=await r.text();
+  html=html.replaceAll('LiquidityBooster – das Geschäftsmodell im Gesamtbild','LiquidityBooster – So funktioniert es');
+  html=html.replaceAll('Das Geschäftsmodell im Gesamtbild','So funktioniert es');
+  html=html.replaceAll('das Geschäftsmodell im Gesamtbild','So funktioniert es');
+  html=html.replaceAll('Diese Seite beschreibt das Geschäftsmodell und die Funktionslogik des LiquidityBoosters allgemein.','Diese Seite beschreibt die Funktionsweise des LiquidityBoosters allgemein.');
+  html=html.replaceAll('Geschäftsmodell','Funktionsweise');
+  html=html.replaceAll('geschäftsmodell','funktionsweise');
+  document.open();document.write(html);document.close();
+})().catch(()=>{document.body.innerHTML='<p style="font-family:Arial;padding:24px">Die Seite konnte nicht geladen werden. Bitte aktualisieren.</p>';});
+</script>
+</body>
+</html>
