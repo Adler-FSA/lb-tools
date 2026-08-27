@@ -21,6 +21,7 @@ INFRASTRUCTURE_TERMS = (
 NEGATION_PATTERNS = (
     "do not collect", "does not collect", "do not store", "does not store", "not collect", "not store",
     "never ask", "will never ask", "we do not", "we don't", "without collecting",
+    "does not constitute", "do not constitute", "not constitute",
 )
 
 IBAN_RE = re.compile(r"(?<![A-Z0-9])[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}(?![A-Z0-9])")
@@ -76,6 +77,25 @@ def _payment_context(sentence: str) -> bool:
     return re.search(r"\b(?:bank|banking|card|wallet|fiat|merchant|sepa|iban|swift|bic|issuer|issuing|processor|provider|psp|emi|acquirer|settlement|checkout|transfer|pay|paid|make|send|receive|accept|process|everyday)\b",low) is not None
 
 
+def _swift_is_payment_context(sentence: str) -> bool:
+    """Require an explicit SWIFT payment/banking phrase, not a name/category such as 'Swift Reviews'."""
+    patterns=(
+        r"\bswift\s+(?:code|network|transfer|payment|message|messaging)\b",
+        r"\b(?:iban|bic|sepa|wire|bank\s+transfer|payment\s+transfer)\b.{0,60}\bswift\b",
+        r"\bswift\b.{0,60}\b(?:iban|bic|sepa|wire|bank\s+transfer|payment\s+transfer)\b",
+    )
+    return any(re.search(p,sentence,flags=re.I) for p in patterns)
+
+
+def _bic_is_payment_context(sentence: str) -> bool:
+    patterns=(
+        r"\bbic\s+(?:code|number)\b",
+        r"\b(?:iban|swift|sepa|bank\s+transfer|payment\s+transfer)\b.{0,60}\bbic\b",
+        r"\bbic\b.{0,60}\b(?:iban|swift|sepa|bank\s+transfer|payment\s+transfer)\b",
+    )
+    return any(re.search(p,sentence,flags=re.I) for p in patterns)
+
+
 def feature_claims(text: str) -> list[dict]:
     out=[]
     for sentence in _sentences(text):
@@ -83,17 +103,15 @@ def feature_claims(text: str) -> list[dict]:
         if not terms and not networks: continue
         if _negated(sentence): continue
 
-        # SWIFT/BIC are only meaningful here with explicit banking/payment context; names or category labels must not trigger them.
-        if "swift" in terms and not re.search(r"\b(?:swift\s+code|iban|sepa|bank|payment|wire|bic)\b",sentence,flags=re.I):
+        if "swift" in terms and not _swift_is_payment_context(sentence):
             terms=[x for x in terms if x!="swift"]
-        if "bic" in terms and not re.search(r"\b(?:bic\s+code|iban|sepa|bank|payment|swift)\b",sentence,flags=re.I):
+        if "bic" in terms and not _bic_is_payment_context(sentence):
             terms=[x for x in terms if x!="bic"]
 
         generic={"payment","payments"}
         strong=[x for x in terms if x not in generic]
         if terms and not strong and not networks and not _payment_context(sentence):
             continue
-        # Dividend/bonus distributions are economic payouts, not payment infrastructure by themselves.
         if terms and not strong and not networks and re.search(r"\b(?:dividend|bonus|reward|commission)\s+payments?\b",sentence,flags=re.I):
             continue
         if not terms and not networks: continue
@@ -161,14 +179,19 @@ def search_payment_traces(label: str, primary_domain: str, distinctive_terms: li
     return {"queries":queries,"results":results,"rejected_results":rejected,"errors":errors}
 
 
+def _source_key(item: dict, ref: str) -> str:
+    url=norm(item.get("final_url") or item.get("requested_url") or "").split("#",1)[0].rstrip("/").casefold()
+    return url or str(ref or "").casefold()
+
+
 def analyze_payment_sources(primary_items: list[dict], external_items: list[dict]) -> dict:
     claims=[]; identifiers=[]; networks=[]; infra_terms=[]; payment_terms=[]
     first_party_networks=[]; external_networks=[]; first_party_identifiers=[]; external_identifiers=[]
-    source_refs={"first_party":set(),"external_trace":set()}
+    source_keys={"first_party":set(),"external_trace":set()}
     for scope,items in (("first_party",primary_items),("external_trace",external_items)):
         for item in items:
             ref=str(item.get("evidence_id") or ""); text=evidence_text(item); rows=feature_claims(text)
-            if rows: source_refs[scope].add(ref)
+            if rows: source_keys[scope].add(_source_key(item,ref))
             for row in rows:
                 claims.append({"evidence_ref":ref,"scope":scope,**row}); payment_terms.extend(row.get("terms") or []); networks.extend(row.get("networks") or [])
                 if scope=="first_party": first_party_networks.extend(row.get("networks") or [])
@@ -181,7 +204,7 @@ def analyze_payment_sources(primary_items: list[dict], external_items: list[dict
     return {
         "claims":claims,
         "first_party_claim_count":len(fp_claims),"external_claim_count":len(ext_claims),
-        "first_party_claim_source_count":len(source_refs["first_party"]),"external_claim_source_count":len(source_refs["external_trace"]),
+        "first_party_claim_source_count":len(source_keys["first_party"]),"external_claim_source_count":len(source_keys["external_trace"]),
         "payment_terms":_unique(payment_terms),"network_terms":_unique(networks),
         "first_party_networks":_unique(first_party_networks),"external_networks":_unique(external_networks),
         "infrastructure_terms":_unique(infra_terms),"identifiers":identifiers,
