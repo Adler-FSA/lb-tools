@@ -80,9 +80,8 @@ def search_invest_dubai(candidates: list[str], timeout_ms: int = 30000) -> dict:
 
     A no-match result is recorded only as search coverage. A positive record candidate
     requires the searched name to appear in the rendered result text together with
-    licence/register language. The caller may then store the rendered page as an
-    official O-evidence item, but must still avoid interpreting no result as proof that
-    no UAE entity or licence exists under another legal/trade name.
+    licence/register language. A 403/429 is explicitly treated as source-side blocking,
+    never as a negative register result.
     """
     from playwright.sync_api import sync_playwright
 
@@ -109,6 +108,7 @@ def search_invest_dubai(candidates: list[str], timeout_ms: int = 30000) -> dict:
             else route.continue_(),
         )
 
+        source_blocked=False
         for name in names:
             page=context.new_page()
             attempt={
@@ -121,47 +121,54 @@ def search_invest_dubai(candidates: list[str], timeout_ms: int = 30000) -> dict:
                 try:
                     page.wait_for_load_state("networkidle",timeout=7000)
                 except Exception:
-                    page.wait_for_timeout(1500)
+                    page.wait_for_timeout(1200)
                 attempt["final_url"]=page.url
                 attempt["http_status"]=response.status if response else None
-                field=_locate_search_input(page)
-                if field is None:
-                    attempt["status"]="form_not_found"
-                    attempt["result_excerpt"]=_body_text(page)[:1200]
-                    attempts.append(attempt)
-                    continue
-                field.fill(name,timeout=5000)
-                attempt["submit_method"]=_submit_search(page,field)
-                try:
-                    page.wait_for_load_state("networkidle",timeout=6000)
-                except Exception:
-                    page.wait_for_timeout(1200)
-                text=_body_text(page)
-                blob=text.casefold()
-                exact=name.casefold() in blob
-                register_language=any(term in blob for term in (
-                    "license number","licence number","dubai unified license","dul number",
-                    "business name","license status","licence status","expiry date","issue date",
-                ))
-                no_result=any(term in blob for term in (
-                    "no result","no results","no record","no records","nothing found","no data found",
-                ))
-                attempt["match_visible"]=bool(exact and register_language and not no_result)
-                attempt["status"]="positive_candidate" if attempt["match_visible"] else "no_visible_match"
-                if attempt["match_visible"] or no_result:
-                    attempt["result_excerpt"]=text[:5000]
+                status=int(attempt["http_status"] or 0)
+                if status in {403,429}:
+                    attempt["status"]="blocked_by_source"
+                    attempt["result_excerpt"]=_body_text(page)[:1800]
+                    source_blocked=True
+                elif status >= 400:
+                    attempt["status"]="http_error"
+                    attempt["result_excerpt"]=_body_text(page)[:1800]
                 else:
-                    attempt["result_excerpt"]=text[:1800]
+                    field=_locate_search_input(page)
+                    if field is None:
+                        attempt["status"]="form_not_found"
+                        attempt["result_excerpt"]=_body_text(page)[:1200]
+                    else:
+                        field.fill(name,timeout=5000)
+                        attempt["submit_method"]=_submit_search(page,field)
+                        try:
+                            page.wait_for_load_state("networkidle",timeout=6000)
+                        except Exception:
+                            page.wait_for_timeout(1200)
+                        text=_body_text(page)
+                        blob=text.casefold()
+                        exact=name.casefold() in blob
+                        register_language=any(term in blob for term in (
+                            "license number","licence number","dubai unified license","dul number",
+                            "business name","license status","licence status","expiry date","issue date",
+                        ))
+                        no_result=any(term in blob for term in (
+                            "no result","no results","no record","no records","nothing found","no data found",
+                        ))
+                        attempt["match_visible"]=bool(exact and register_language and not no_result)
+                        attempt["status"]="positive_candidate" if attempt["match_visible"] else "no_visible_match"
+                        attempt["result_excerpt"]=text[:5000] if (attempt["match_visible"] or no_result) else text[:1800]
             except Exception as exc:
                 attempt["error"]=f"{type(exc).__name__}: {exc}"[:500]
             finally:
                 attempts.append(attempt)
                 page.close()
+            if source_blocked:
+                break
         browser.close()
 
     return {
         "source_id":"ae_dubai_det_license",
         "search_url":INVEST_DUBAI_SEARCH_URL,
         "attempts":attempts,
-        "error":"",
+        "error":"source_blocked" if source_blocked else "",
     }
