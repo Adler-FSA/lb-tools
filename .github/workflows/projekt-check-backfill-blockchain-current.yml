@@ -30,3 +30,5 @@ jobs:
           git commit -m "Projekt-Check: U-Center Blockchain-DeFi-Tiefenprüfung"
           git pull --rebase origin main
           git push origin HEAD:main
+
+# Retest: U-TOPIA + U-Center Suchanker und strikt getrennte Projekt-/Drittspuren
