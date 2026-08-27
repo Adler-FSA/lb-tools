@@ -26,3 +26,5 @@ jobs:
           git commit -m "Projekt-Check: U-Center wirtschaftliche Tiefenprüfung"
           git pull --rebase origin main
           git push origin HEAD:main
+
+# Retest: Projekthost-Fallback für frühe Discovery-Fälle
