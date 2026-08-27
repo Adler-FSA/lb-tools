@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import math
 import re
-from dataclasses import dataclass
 from urllib.parse import urlparse
 
 PERIODS = {
@@ -16,7 +15,8 @@ PERIODS = {
 
 RETURN_TERMS = [
     "return", "returns", "rendite", "yield", "apy", "apr", "dividend", "dividends", "dividende", "dividenden",
-    "profit", "profits", "ertrag", "erträge", "earn dividends", "cashback", "reward", "rewards",
+    "profit", "profits", "ertrag", "erträge", "earn dividends", "cashback", "reward", "rewards", "interest", "roi",
+    "earn", "earning", "payout",
 ]
 REVENUE_TERMS = [
     "revenue", "revenues", "umsatz", "income source", "ertragsquelle", "einnahmequelle", "business model",
@@ -106,7 +106,10 @@ def percent_claims(text: str, evidence_id: str, scope: str) -> list[dict]:
         lo=max(0,match.start()-180); hi=min(len(text),match.end()+180)
         context=norm(text[lo:hi])
         blob=context.casefold()
-        if not any(term in blob for term in RETURN_TERMS + ["hour", "day", "week", "month", "year", "stunde", "tag", "woche", "monat", "jahr"]):
+        # Ein Prozentwert wird nur dann als Rendite-/Ertragsangabe behandelt,
+        # wenn in demselben lokalen Kontext ein wirtschaftlicher Ertragsbegriff steht.
+        # Zeitbezug allein (z. B. "99% uptime last year") reicht ausdrücklich nicht.
+        if not any(term in blob for term in RETURN_TERMS):
             continue
         period, periods=period_from_context(context)
         item={
@@ -138,12 +141,11 @@ def implied_claim_rate(claim: str) -> dict | None:
     text=norm(claim)
     if not text:
         return None
-    blob=text.casefold()
     period, periods=period_from_context(text)
     if not period or not periods:
         return None
     money_pattern=r"(\d{1,9}(?:[.,]\d{1,4})?)\s*(?:€|eur|euro|\$|usd|usdt)"
-    amounts=[decimal_number(x) for x in re.findall(money_pattern, blob, flags=re.I)]
+    amounts=[decimal_number(x) for x in re.findall(money_pattern, text, flags=re.I)]
     amounts=[x for x in amounts if x is not None and x > 0]
     if len(amounts) < 2:
         return None
