@@ -7,6 +7,7 @@ import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urldefrag, urlparse
 
 ROOT = Path(__file__).resolve().parents[2]
 ENGINE_ROOT = ROOT / "projekt-check-engine"
@@ -42,6 +43,62 @@ def unique(values, limit: int = 30):
             seen.add(value); out.append(value)
         if len(out)>=limit: break
     return out
+
+
+def canonical_url(value: str) -> str:
+    return urldefrag(str(value or "").strip())[0].rstrip("/")
+
+
+def url_host(value: str) -> str:
+    host=(urlparse(str(value or "")).hostname or "").lower().strip(".")
+    return host[4:] if host.startswith("www.") else host
+
+
+def related_host(host: str, roots: list[str]) -> bool:
+    host=str(host or "").lower().removeprefix("www.")
+    return any(host==root.lower().removeprefix("www.") or host.endswith("."+root.lower().removeprefix("www.")) for root in roots if root)
+
+
+def candidate_evidence(primary: dict, independent: dict, discovery: dict, project_domains: list[str]) -> tuple[list[dict], dict]:
+    # Direkt in der ersten Crawl-Runde gefundene Dokumente (z. B. ein verlinktes
+    # DocSend-Whitepaper) gelten als projektnahe Primärunterlagen. Später über
+    # Datenschutz-/Service-Links erreichte Fremdseiten nicht.
+    trusted_urls=set()
+    for crawl_round in discovery.get("crawl_rounds") or []:
+        if int(crawl_round.get("depth") or 0)==1:
+            trusted_urls.update(canonical_url(x) for x in (crawl_round.get("urls") or []) if x)
+
+    primary_items=[]
+    for item in primary.get("items") or []:
+        url=item.get("final_url") or item.get("requested_url") or ""
+        if related_host(url_host(url),project_domains) or canonical_url(url) in trusted_urls:
+            primary_items.append(dict(item))
+
+    # Externe Treffer dürfen Kandidaten liefern, aber nicht ihre komplette Seiten-
+    # navigation, Werbung, Empfehlungen oder Datenschutz-Boilerplate. Dafür reichen
+    # Suchkontext und Kopfmetadaten.
+    independent_items=[]
+    for item in independent.get("items") or []:
+        independent_items.append({
+            "title":item.get("title") or "",
+            "h1":item.get("h1") or "",
+            "meta_description":item.get("meta_description") or "",
+            "search_title":item.get("search_title") or "",
+            "search_snippet":item.get("search_snippet") or "",
+            "text_excerpt":"",
+            "final_url":item.get("final_url") or "",
+            "requested_url":item.get("requested_url") or "",
+        })
+
+    sets=[{"items":primary_items},{"items":independent_items}]
+    stats={
+        "primary_total":len(primary.get("items") or []),
+        "primary_project_context":len(primary_items),
+        "independent_total":len(independent.get("items") or []),
+        "independent_metadata_only":len(independent_items),
+        "trusted_first_round_urls":sorted(trusted_urls),
+    }
+    return sets,stats
 
 
 def evidence_text(evidence_sets: list[dict]) -> str:
@@ -115,14 +172,14 @@ def main() -> int:
     previous=read(case_dir/"official-evidence.json", {"items":[]}) or {"items":[]}
     strip_previous_official(status,evaluation,previous)
 
-    evidence_sets=[primary,independent]
-    candidates=extract_legal_candidates(evidence_sets)
-    context=evidence_text(evidence_sets)
     label=str(identity.get("label") or "").strip()
     project_domains=unique(list(discovery.get("project_hosts") or []),20)
     if not project_domains and identity.get("primary_domain"):
         project_domains=[str(identity.get("primary_domain"))]
     distinctive_terms=unique(list(independent_research.get("distinctive_terms") or []),5)
+    evidence_sets,candidate_input=candidate_evidence(primary,independent,discovery,project_domains)
+    candidates=extract_legal_candidates(evidence_sets)
+    context=evidence_text(evidence_sets)
 
     started=now(); status["state"]="recherche"; status["updated_at"]=started; write(status_path,status)
     search=search_official_sources(
@@ -152,7 +209,6 @@ def main() -> int:
             "snippet":" ".join([str(probe.get("h1") or ""),str(probe.get("meta_description") or ""),str(probe.get("text_excerpt") or "")]),
         }
         score,matches=relation_score(capture_shape,label=label,project_domains=project_domains,distinctive_terms=distinctive_terms,entities=candidates["entities"],persons=candidates["persons"])
-        # Suchtreffer und geöffnete amtliche Zielseite müssen beide identitätsgebunden sein.
         if score<4:
             rejected_after_capture.append({"url":requested,"reason":"capture_lacks_identity_relation","capture_relation_score":score}); continue
         text=" ".join([capture_shape["title"],capture_shape["snippet"]])
@@ -168,13 +224,13 @@ def main() -> int:
         })
 
     official_research={
-        "schema_version":"1.0","case_id":case_id,"started_at":started,"finished_at":now(),"identity_label":label,"project_domains":project_domains,
-        "distinctive_terms":distinctive_terms,"candidates":candidates,
+        "schema_version":"1.1","case_id":case_id,"started_at":started,"finished_at":now(),"identity_label":label,"project_domains":project_domains,
+        "distinctive_terms":distinctive_terms,"candidate_input":candidate_input,"candidates":candidates,
         "selected_sources":[{"id":x["id"],"name":x["name"],"jurisdiction":x["jurisdiction"],"kind":x["kind"],"domains":x["domains"],"selection_score":x.get("selection_score",0),"activation_hits":x.get("activation_hits",[])} for x in search.get("selected_sources") or []],
         "queries":search.get("queries") or [],"results":leads,"rejected_results":search.get("rejected_results") or [],"rejected_after_capture":rejected_after_capture,
         "errors":search.get("errors") or [],"note":"Kein Suchtreffer ist für sich ein amtlicher Nachweis. Als O-Beleg gilt nur eine geöffnete Zielseite auf einer katalogisierten amtlichen Domain mit ausreichender Identitätsbindung. Ein fehlender O-Beleg beweist keine fehlende Registrierung oder Erlaubnis."
     }
-    official_evidence={"schema_version":"1.0","case_id":case_id,"started_at":started,"finished_at":now(),"capture_count":len(items),"items":items}
+    official_evidence={"schema_version":"1.1","case_id":case_id,"started_at":started,"finished_at":now(),"capture_count":len(items),"items":items}
     write(case_dir/"official-research.json",official_research); write(case_dir/"official-evidence.json",official_evidence)
 
     st_by={int(x["id"]):x for x in status.get("checks") or []}; ev_by={int(x["id"]):x for x in evaluation.get("checks") or []}
