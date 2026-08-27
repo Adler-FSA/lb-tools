@@ -70,8 +70,6 @@ def candidate_names(official_research: dict, identity: dict) -> list[str]:
         if name:
             candidates.append(name)
 
-    # Der stärkste markante Projektbegriff ist für eine Handelsnamen-Suche nützlich,
-    # auch wenn der eigentliche Rechtsträger noch unbekannt ist.
     for term in official_research.get("distinctive_terms") or []:
         value=" ".join(str(term or "").split()).strip()
         if not value or value.upper() in GENERIC_DIRECT_TERMS:
@@ -97,7 +95,7 @@ def strip_previous_direct(status: dict, evaluation: dict, previous: dict) -> Non
             st_by[cid]["evidence_count"]=max(0,int(st_by[cid].get("evidence_count") or 0)-len(set(present)))
         nf["evidence_refs"]=[r for r in refs if r not in old_ids and not str(r).startswith("R")]
         nf["confirmed_facts"]=[x for x in (nf.get("confirmed_facts") or []) if "direkte Dubai-Lizenzregistersuche" not in str(x)]
-        nf["open_points"]=[x for x in (nf.get("open_points") or []) if "direkten Dubai-Lizenzregistersuche" not in str(x) and "Dubai-Lizenzregistersuche" not in str(x)]
+        nf["open_points"]=[x for x in (nf.get("open_points") or []) if "direkten Dubai-Lizenzregistersuche" not in str(x) and "Dubai-Lizenzregistersuche" not in str(x) and "Invest-in-Dubai" not in str(x)]
         check["neutral_finding"]=nf
 
 
@@ -174,14 +172,16 @@ def main() -> int:
         })
 
     completed_attempts=[x for x in attempts if x.get("status") in {"positive_candidate","no_visible_match"}]
-    errors=[x for x in attempts if x.get("status") in {"error","form_not_found"}]
+    blocked_attempts=[x for x in attempts if x.get("status")=="blocked_by_source"]
+    technical_errors=[x for x in attempts if x.get("status") in {"error","form_not_found","http_error"}]
     module_status="completed" if completed_attempts else "partial"
     research={
-        "schema_version":"1.0","case_id":case_id,"started_at":started,"finished_at":now(),"status":module_status,
+        "schema_version":"1.1","case_id":case_id,"started_at":started,"finished_at":now(),"status":module_status,
         "source_id":"ae_dubai_det_license","source_name":"Invest in Dubai – Search License Information",
-        "candidates":names,"attempt_count":len(attempts),"completed_attempt_count":len(completed_attempts),
+        "source_error":search.get("error") or "","candidates":names,"attempt_count":len(attempts),
+        "completed_attempt_count":len(completed_attempts),"blocked_attempt_count":len(blocked_attempts),
         "positive_candidate_count":len(positive),"attempts":attempts,
-        "note":"Die direkte Namenssuche ergänzt die amtliche Recherche. Ein nicht sichtbarer Treffer ist kein Beweis dafür, dass kein Rechtsträger oder keine Lizenz existiert; eine Registrierung kann unter einer abweichenden juristischen oder geschäftlichen Bezeichnung geführt werden."
+        "note":"Die direkte Namenssuche ergänzt die amtliche Recherche. Ein nicht sichtbarer Treffer ist kein Beweis dafür, dass kein Rechtsträger oder keine Lizenz existiert; eine Registrierung kann unter einer abweichenden juristischen oder geschäftlichen Bezeichnung geführt werden. Eine 403/429-Antwort wird ausschließlich als Quellblockade dokumentiert."
     }
     evidence={"schema_version":"1.0","case_id":case_id,"started_at":started,"finished_at":now(),"capture_count":len(items),"items":items}
     write(case_dir/"direct-registry-research.json",research); write(case_dir/"registry-evidence.json",evidence)
@@ -199,7 +199,10 @@ def main() -> int:
         elif completed_attempts:
             st["summary"]=append_summary(st.get("summary") or "",f"Direktes Dubai-Lizenzregister mit {len(completed_attempts)} Bezeichnung(en) geprüft; kein sichtbarer exakter Datensatz erfasst.")
             nf["open_points"]=unique(list(nf.get("open_points") or [])+[f"In der direkten Dubai-Lizenzregistersuche wurde unter den öffentlich ableitbaren Bezeichnungen ({searched_names}) kein sichtbarer exakter Datensatz erfasst. Das schließt eine Registrierung unter einem abweichenden Rechtsträger- oder Handelsnamen nicht aus."],8)
-        elif errors:
+        elif blocked_attempts:
+            st["summary"]=append_summary(st.get("summary") or "","Direkter Invest-in-Dubai-Registerzugriff wurde von der Quelle mit HTTP 403/429 blockiert; daraus wird kein Registerbefund abgeleitet.")
+            nf["open_points"]=unique(list(nf.get("open_points") or [])+["Der direkte Zugriff auf die öffentliche Invest-in-Dubai-Lizenzsuche wurde aus der automatisierten Rechercheumgebung durch die Quelle blockiert (HTTP 403/429). Daher liegt aus diesem direkten Registerweg weder ein positiver noch ein negativer Registerbefund vor."],8)
+        elif technical_errors:
             nf["open_points"]=unique(list(nf.get("open_points") or [])+["Die direkte Dubai-Lizenzregistersuche konnte technisch noch nicht belastbar abgeschlossen werden."],8)
         if st.get("workflow_status")!="abgeschlossen":
             st["workflow_status"]="laeuft"; st["started_at"]=st.get("started_at") or ts
@@ -212,9 +215,13 @@ def main() -> int:
     write(status_path,status); write(evaluation_path,evaluation)
     progress=read(case_dir/"research-progress.json",{}) or {}
     modules=dict(progress.get("modules") or {}); modules["direct_dubai_registry"]=module_status; progress["modules"]=modules
-    progress.update({"schema_version":"1.3","case_id":case_id,"updated_at":ts,"direct_registry_attempts":len(attempts),"direct_registry_completed_attempts":len(completed_attempts),"direct_registry_captures":len(items)})
+    progress.update({
+        "schema_version":"1.3","case_id":case_id,"updated_at":ts,"direct_registry_attempts":len(attempts),
+        "direct_registry_completed_attempts":len(completed_attempts),"direct_registry_blocked_attempts":len(blocked_attempts),
+        "direct_registry_captures":len(items)
+    })
     write(case_dir/"research-progress.json",progress)
-    print(json.dumps({"case_id":case_id,"status":module_status,"attempts":len(attempts),"positive":len(items)},ensure_ascii=False))
+    print(json.dumps({"case_id":case_id,"status":module_status,"attempts":len(attempts),"blocked":len(blocked_attempts),"positive":len(items)},ensure_ascii=False))
     return 0
 
 
