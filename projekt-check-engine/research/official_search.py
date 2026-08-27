@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -13,6 +14,13 @@ DEFAULT_CATALOG = ROOT / "projekt-check-engine/sources/official_sources.json"
 
 def _norm(value: str) -> str:
     return " ".join(str(value or "").casefold().split())
+
+
+def _contains_term(blob: str, term: str) -> bool:
+    needle=_norm(term)
+    if not needle:
+        return False
+    return bool(re.search(rf"(?<!\w){re.escape(needle)}(?!\w)", blob))
 
 
 def _host(url: str) -> str:
@@ -31,25 +39,45 @@ def load_catalog(path: Path = DEFAULT_CATALOG) -> dict:
 
 def select_sources(catalog: dict, context_text: str, jurisdictions: list[dict], *, german_customer: bool = True, max_sources: int = 12) -> list[dict]:
     blob = _norm(context_text)
-    jurisdiction_codes = {str(x.get("jurisdiction") or "") for x in jurisdictions}
-    scored = []
+    strong_codes={
+        str(x.get("jurisdiction") or "")
+        for x in jurisdictions
+        if x.get("strength")=="strong" or int(x.get("score") or 0)>=4
+    }
+    scored=[]
     for source in catalog.get("sources") or []:
-        score = 0
+        sj=str(source.get("jurisdiction") or "")
+        kind=str(source.get("kind") or "")
+        score=0
+        strong_match = sj in strong_codes or (sj.startswith("AE") and "AE" in strong_codes)
+
         if german_customer and source.get("always_for_german_customer"):
-            score += 8
-        sj = str(source.get("jurisdiction") or "")
-        if sj in jurisdiction_codes or (sj.startswith("AE") and "AE" in jurisdiction_codes):
-            score += 7
-        hits = [term for term in (source.get("activation_terms") or []) if _norm(term) and _norm(term) in blob]
-        score += min(6, len(hits) * 2)
-        if sj == "EU" and any(code in jurisdiction_codes for code in {"DE", "EU"}):
+            score += 10
+        elif strong_match:
+            score += 9
+        elif sj=="EU" and german_customer and "regulator" in kind:
+            # ESMA/EBA sind für eine deutsche Kundensicht relevant, wenn das Angebot
+            # in ihren fachlichen Bereich fällt. Registerverzeichnisse werden dagegen
+            # nicht ohne Betreiberbezug pauschal durchsucht.
             score += 4
-        if score:
-            item = dict(source)
-            item["selection_score"] = score
-            item["activation_hits"] = hits[:8]
-            scored.append(item)
-    scored.sort(key=lambda x: (-x["selection_score"], x["id"]))
+        else:
+            continue
+
+        hits=[term for term in (source.get("activation_terms") or []) if _contains_term(blob,term)]
+        if hits:
+            score += min(6,len(hits)*2)
+
+        # Ein EU-Regulator ohne jeden fachlichen Aktivierungstreffer bleibt draußen.
+        if sj=="EU" and not strong_match and not hits:
+            continue
+
+        item=dict(source)
+        item["selection_score"]=score
+        item["activation_hits"]=hits[:8]
+        item["strong_jurisdiction_match"]=strong_match
+        scored.append(item)
+
+    scored.sort(key=lambda x:(-x["selection_score"],x["id"]))
     return scored[:max_sources]
 
 
@@ -70,18 +98,15 @@ def build_queries(source: dict, *, label: str, project_domains: list[str], disti
     queries = []
     kind = str(source.get("kind") or "")
 
-    # Projektanker: gut für Warnungen, Lizenzlisten, Enforcement und offizielle Erwähnungen.
     if anchor:
         queries.append({"purpose":"project", "query":f"{anchor} {site}"})
 
-    # Register werden primär mit konkreten Rechtsträgerkandidaten durchsucht.
     if "registry" in kind:
         for entity in entities[:3]:
             name = str(entity.get("name") or "").strip()
             if name:
                 queries.append({"purpose":"entity", "candidate":name, "query":f'"{name}" {site}'})
 
-    # Regulatoren zusätzlich mit dem stärksten Rechtsträger und Personenbezug.
     if "regulator" in kind and entities:
         name = str(entities[0].get("name") or "").strip()
         if name:
