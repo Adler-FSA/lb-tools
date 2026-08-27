@@ -36,12 +36,16 @@ class PaymentResearchTests(unittest.TestCase):
 
     def test_runner_is_syntactically_valid(self):
         path=ROOT/"projekt-check-engine/core/run_payment_depth.py"
-        compile(path.read_text(encoding="utf-8"),str(path),"exec")
+        text=path.read_text(encoding="utf-8")
+        compile(text,str(path),"exec")
+        self.assertIn('payment-research.json',text)
+        self.assertIn('payment-evidence.json',text)
 
     def test_main_workflow_runs_payment_depth(self):
         text=(ROOT/".github/workflows/projekt-check-neuer-fall.yml").read_text(encoding="utf-8")
         self.assertIn("run_payment_depth.py",text)
         self.assertIn("payment_depth",text)
+        self.assertIn("Karten-/Banking-/Payment-Tiefenprüfung",text)
 
 
 if __name__=="__main__":
