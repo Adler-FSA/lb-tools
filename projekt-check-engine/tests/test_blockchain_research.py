@@ -42,9 +42,12 @@ class BlockchainResearchTests(unittest.TestCase):
         self.assertEqual(0,result["first_party_identifier_count"])
         self.assertFalse(result["has_specific_technical_identifier"])
 
-    def test_runner_is_syntactically_valid(self):
+    def test_runner_is_syntactically_valid_and_writes_technical_files(self):
         path=ROOT/"projekt-check-engine/core/run_blockchain_depth.py"
-        compile(path.read_text(encoding="utf-8"),str(path),"exec")
+        text=path.read_text(encoding="utf-8")
+        compile(text,str(path),"exec")
+        self.assertIn("blockchain-research.json",text)
+        self.assertIn("blockchain-evidence.json",text)
 
     def test_main_workflow_runs_blockchain_depth(self):
         text=(ROOT/".github/workflows/projekt-check-neuer-fall.yml").read_text(encoding="utf-8")
