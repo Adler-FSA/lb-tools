@@ -197,6 +197,25 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
+      - name: Geldfluss, Rendite, Einnahmequelle, Tragfähigkeit und Stresstest auswerten
+        id: economic_analysis
+        if: steps.discovery.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          python projekt-check-engine/core/run_economic_analysis.py --case-id "$CASE_ID"
+
+      - name: Wirtschaftlichen Auswertungsstand veröffentlichen
+        if: steps.economic_analysis.outcome == 'success'
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git commit -m "Projekt-Check: wirtschaftliche Tiefenprüfung $CASE_ID gespeichert"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
       - name: Start, Discovery und Auswertung bestätigt
         shell: bash
         run: |
@@ -206,4 +225,5 @@ jobs:
           echo "Unabhängige Web-Recherche: ${{ steps.independent_web.outcome }}"
           echo "Amtliche Verifikation: ${{ steps.official_verification.outcome }}"
           echo "Direkter Firmenregister-Check: ${{ steps.direct_registry.outcome }}"
-          echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; noch offene technische und wirtschaftliche Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
+          echo "Wirtschafts-/Rendite-Tiefenprüfung: ${{ steps.economic_analysis.outcome }}"
+          echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; noch offene technische, rechtliche und weitere fachliche Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
