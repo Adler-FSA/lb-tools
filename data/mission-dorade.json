@@ -96,6 +96,14 @@
       "sponsorFirstName": "Stefan",
       "sponsorLastName": "Thoms",
       "createdAt": "2026-08-27T10:00:00.000Z"
+    },
+    {
+      "id": "58cfe935-f463-4718-afe6-35eae5de7f52",
+      "firstName": "Günter",
+      "lastName": "Slezak",
+      "sponsorFirstName": "Michael",
+      "sponsorLastName": "Rau",
+      "createdAt": "2026-08-19T10:00:00.000Z"
     }
   ],
   "winners": {}
