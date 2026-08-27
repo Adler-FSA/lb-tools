@@ -35,12 +35,21 @@ GROWTH_TERMS = [
     "referral", "referrals", "affiliate", "ambassador", "invite", "invites", "network", "new members", "new users", "growth", "membership packages",
 ]
 TRADING_TERMS = [
-    "trading", "trade", "broker", "exchange", "arbitrage", "leverage", "drawdown", "track record", "performance history", "trading strategy",
+    "trading", "broker", "arbitrage", "leverage", "drawdown", "track record", "performance history", "trading strategy",
+    "trading account", "crypto exchange", "securities exchange",
 ]
 
 
 def norm(value: str) -> str:
     return " ".join(str(value or "").replace("\u00a0", " ").split()).strip()
+
+
+def contains_term(text: str, term: str) -> bool:
+    blob=norm(text).casefold()
+    needle=norm(term).casefold()
+    if not needle:
+        return False
+    return bool(re.search(rf"(?<!\w){re.escape(needle)}(?!\w)", blob))
 
 
 def host(url: str) -> str:
@@ -73,9 +82,8 @@ def evidence_text(item: dict) -> str:
 
 
 def period_from_context(context: str) -> tuple[str | None, int | None]:
-    blob=context.casefold()
     for name, meta in PERIODS.items():
-        if any(token in blob for token in meta["tokens"]):
+        if any(contains_term(context, token) for token in meta["tokens"]):
             return name, int(meta["periods_per_year"])
     return None, None
 
@@ -105,8 +113,7 @@ def percent_claims(text: str, evidence_id: str, scope: str) -> list[dict]:
             continue
         lo=max(0,match.start()-180); hi=min(len(text),match.end()+180)
         context=norm(text[lo:hi])
-        blob=context.casefold()
-        if not any(term in blob for term in RETURN_TERMS):
+        if not any(contains_term(context, term) for term in RETURN_TERMS):
             continue
         period, periods=period_from_context(context)
         item={
@@ -172,8 +179,8 @@ def implied_claim_rate(claim: str) -> dict | None:
 def _matching_refs(items: list[dict], terms: list[str]) -> list[str]:
     refs=[]
     for item in items:
-        blob=evidence_text(item).casefold()
-        if any(term.casefold() in blob for term in terms):
+        text=evidence_text(item)
+        if any(contains_term(text, term) for term in terms):
             ref=str(item.get("evidence_id") or "")
             if ref:
                 refs.append(ref)
@@ -227,20 +234,21 @@ def analyze_economics(*, primary: dict, independent: dict, discovery: dict, inta
     for item in external_items:
         external_rates.extend(percent_claims(evidence_text(item),str(item.get("evidence_id") or ""),"external_trace"))
 
-    first_party_blob="\n".join(evidence_text(x) for x in project_items).casefold()
-    return_language=sorted({term for term in RETURN_TERMS if term in first_party_blob})
-    revenue_language=sorted({term for term in REVENUE_TERMS if term in first_party_blob})
-    money_flow_language=sorted({term for term in MONEY_FLOW_TERMS if term in first_party_blob})
-    payout_language=sorted({term for term in PAYOUT_TERMS if term in first_party_blob})
-    growth_language=sorted({term for term in GROWTH_TERMS if term in first_party_blob})
-    trading_language=sorted({term for term in TRADING_TERMS if term in first_party_blob})
+    first_party_blob="\n".join(evidence_text(x) for x in project_items)
+    return_language=sorted({term for term in RETURN_TERMS if contains_term(first_party_blob,term)})
+    revenue_language=sorted({term for term in REVENUE_TERMS if contains_term(first_party_blob,term)})
+    money_flow_language=sorted({term for term in MONEY_FLOW_TERMS if contains_term(first_party_blob,term)})
+    payout_language=sorted({term for term in PAYOUT_TERMS if contains_term(first_party_blob,term)})
+    growth_language=sorted({term for term in GROWTH_TERMS if contains_term(first_party_blob,term)})
+    trading_language=sorted({term for term in TRADING_TERMS if contains_term(first_party_blob,term)})
 
-    external_blob="\n".join(evidence_text(x) for x in external_items).casefold()
-    external_return_language=sorted({term for term in RETURN_TERMS + TRADING_TERMS + REVENUE_TERMS if term in external_blob})
+    external_blob="\n".join(evidence_text(x) for x in external_items)
+    external_return_language=sorted({term for term in RETURN_TERMS + TRADING_TERMS + REVENUE_TERMS if contains_term(external_blob,term)})
 
-    package_purchase_self_wallet=("package purchases are completed via blockchain transactions from your own wallet" in first_party_blob)
-    bank_credentials_not_collected=("we do not collect or store" in first_party_blob and "bank account credentials" in first_party_blob)
-    onchain_distribution=("distribution events" in first_party_blob and "public blockchain" in first_party_blob)
+    low_blob=first_party_blob.casefold()
+    package_purchase_self_wallet=("package purchases are completed via blockchain transactions from your own wallet" in low_blob)
+    bank_credentials_not_collected=("we do not collect or store" in low_blob and "bank account credentials" in low_blob)
+    onchain_distribution=("distribution events" in low_blob and "public blockchain" in low_blob)
 
     rate_refs=unique([x["evidence_ref"] for x in first_party_rates],20)
     result={
