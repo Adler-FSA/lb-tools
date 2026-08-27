@@ -1,0 +1,192 @@
+{
+  "technical_claims": [
+    {
+      "evidence_ref": "E002",
+      "scope": "first_party",
+      "technical_terms": [
+        "blockchain",
+        "public ledger",
+        "dao",
+        "governance",
+        "treasury"
+      ],
+      "defi_terms": [
+        "governance",
+        "dao"
+      ],
+      "chains": []
+    },
+    {
+      "evidence_ref": "E006",
+      "scope": "first_party",
+      "technical_terms": [
+        "blockchain",
+        "on-chain",
+        "smart contract",
+        "smart contracts",
+        "dao",
+        "governance",
+        "treasury"
+      ],
+      "defi_terms": [
+        "governance",
+        "dao"
+      ],
+      "chains": []
+    },
+    {
+      "evidence_ref": "E008",
+      "scope": "first_party",
+      "technical_terms": [
+        "blockchain",
+        "on-chain",
+        "smart contracts",
+        "wallet address",
+        "dao",
+        "governance",
+        "audit"
+      ],
+      "defi_terms": [
+        "governance",
+        "dao"
+      ],
+      "chains": []
+    },
+    {
+      "evidence_ref": "W001",
+      "scope": "external_trace",
+      "technical_terms": [
+        "dao"
+      ],
+      "defi_terms": [
+        "dao"
+      ],
+      "chains": [
+        "ethereum"
+      ]
+    },
+    {
+      "evidence_ref": "W002",
+      "scope": "external_trace",
+      "technical_terms": [
+        "treasury"
+      ],
+      "defi_terms": [],
+      "chains": []
+    },
+    {
+      "evidence_ref": "W003",
+      "scope": "external_trace",
+      "technical_terms": [
+        "dao"
+      ],
+      "defi_terms": [
+        "dao"
+      ],
+      "chains": []
+    },
+    {
+      "evidence_ref": "W004",
+      "scope": "external_trace",
+      "technical_terms": [
+        "dao"
+      ],
+      "defi_terms": [
+        "bridge",
+        "dao"
+      ],
+      "chains": []
+    },
+    {
+      "evidence_ref": "W005",
+      "scope": "external_trace",
+      "technical_terms": [
+        "blockchain",
+        "audited"
+      ],
+      "defi_terms": [
+        "staking"
+      ],
+      "chains": []
+    },
+    {
+      "evidence_ref": "W006",
+      "scope": "external_trace",
+      "technical_terms": [
+        "blockchain",
+        "dao"
+      ],
+      "defi_terms": [
+        "dao"
+      ],
+      "chains": [
+        "tron",
+        "bitcoin"
+      ]
+    },
+    {
+      "evidence_ref": "W007",
+      "scope": "external_trace",
+      "technical_terms": [
+        "blockchain"
+      ],
+      "defi_terms": [],
+      "chains": []
+    }
+  ],
+  "technical_terms": [
+    "blockchain",
+    "public ledger",
+    "dao",
+    "governance",
+    "treasury",
+    "on-chain",
+    "smart contract",
+    "smart contracts",
+    "wallet address",
+    "audit",
+    "audited"
+  ],
+  "defi_terms": [
+    "governance",
+    "dao",
+    "bridge",
+    "staking"
+  ],
+  "control_terms": [
+    "owner"
+  ],
+  "chains": [
+    "ethereum",
+    "tron",
+    "bitcoin"
+  ],
+  "identifiers": [],
+  "explorer_urls": [],
+  "first_party_identifier_count": 0,
+  "first_party_explorer_count": 0,
+  "has_specific_technical_identifier": false,
+  "has_blockchain_claim": true,
+  "has_defi_claim": true,
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-NN0U4DO7",
+  "generated_at": "2026-08-27T09:49:56Z",
+  "project_hosts_used": [
+    "u.center"
+  ],
+  "identity_label": "U-Center",
+  "primary_domain": "u.center",
+  "search_queries": [
+    "\"U-TOPIA\" U-AI smart contract address explorer",
+    "\"U-TOPIA\" U-AI blockchain wallet contract",
+    "\"U-TOPIA\" U-AI token address audit",
+    "\"U-TOPIA\" U-AI staking lending liquidity governance DAO",
+    "\"U-TOPIA\" U-AI etherscan bscscan polygonscan basescan arbiscan tronscan solscan"
+  ],
+  "search_result_count": 0,
+  "search_errors": [],
+  "capture_count": 0,
+  "verified_technical_targets": [],
+  "verified_technical_target_count": 0,
+  "principle": "Blockchain-/DeFi-Begriffe sind Eigenaussagen, bis konkrete technische Identifikatoren und unabhängige On-Chain-/Explorerbelege eine überprüfbare Zuordnung ermöglichen. Ein fehlender Identifikator ist eine Verifikationslücke, kein Beweis gegen die technische Existenz."
+}
