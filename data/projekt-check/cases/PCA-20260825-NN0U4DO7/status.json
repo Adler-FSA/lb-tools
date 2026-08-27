@@ -3,7 +3,7 @@
   "case_id": "PCA-20260825-NN0U4DO7",
   "state": "auswertung",
   "created_at": "2026-08-25T16:13:52Z",
-  "updated_at": "2026-08-27T10:13:35Z",
+  "updated_at": "2026-08-27T10:17:19Z",
   "delivery_document": "customer_check",
   "identity": {
     "status": "resolved",
@@ -262,20 +262,20 @@
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
       "finished_at": null,
-      "updated_at": "2026-08-27T10:13:35Z"
+      "updated_at": "2026-08-27T10:17:19Z"
     },
     {
       "id": 12,
@@ -287,20 +287,20 @@
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
       "finished_at": null,
-      "updated_at": "2026-08-27T10:13:35Z"
+      "updated_at": "2026-08-27T10:17:19Z"
     },
     {
       "id": 13,
@@ -576,20 +576,20 @@
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
       "finished_at": null,
-      "updated_at": "2026-08-27T10:13:35Z"
+      "updated_at": "2026-08-27T10:17:19Z"
     },
     {
       "id": 25,
@@ -765,25 +765,25 @@
       "key": "card_banking_payment_deep_check",
       "workflow_status": "abgeschlossen",
       "result_status": "offen",
-      "evidence_count": 11,
-      "summary": "Karten-/Banking-/Payment-Tiefenprüfung abgeschlossen · 0 projektseitige Funktionsaussagen · 52 externe Payment-Spuren · 0 amtlich verifizierte Infrastrukturbeziehungen.",
+      "evidence_count": 12,
+      "summary": "Karten-/Banking-/Payment-Tiefenprüfung abgeschlossen · 0 projektseitige Quellen mit Funktionsaussagen · 7 externe projektbezogene Quellen mit Payment-Bezug · 0 amtlich verifizierte Infrastrukturbeziehungen.",
       "perspectives": {
         "customer": {
           "status": "abgeschlossen",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "company": {
           "status": "abgeschlossen",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         },
         "academy": {
           "status": "abgeschlossen",
-          "updated_at": "2026-08-27T10:13:35Z"
+          "updated_at": "2026-08-27T10:17:19Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
-      "finished_at": "2026-08-27T10:13:35Z",
-      "updated_at": "2026-08-27T10:13:35Z"
+      "finished_at": "2026-08-27T10:17:19Z",
+      "updated_at": "2026-08-27T10:17:19Z"
     },
     {
       "id": 33,
