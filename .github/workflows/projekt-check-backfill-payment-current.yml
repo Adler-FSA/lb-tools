@@ -31,4 +31,4 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
-# Retest: U-TOPIA + U-Center Suchanker, Privacy-/Dividend-/Swift-Fehltreffer gefiltert
+# Finaler Retest: lokale SWIFT/BIC-Kontextprüfung, Disclaimerfilter und Quellen-Deduplizierung
