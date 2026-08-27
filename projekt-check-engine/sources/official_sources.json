@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0",
+  "principle": "Amtliche Quellen werden als eigene Belegklasse behandelt. Ein fehlender Treffer ist kein Beweis für fehlende Registrierung, Erlaubnis oder Aufsicht.",
+  "sources": [
+    {
+      "id": "de_bafin",
+      "name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "jurisdiction": "DE",
+      "kind": "regulator",
+      "domains": ["bafin.de"],
+      "activation_terms": ["germany", "deutschland", "german", "deutsch", "eu", "europe", "european"],
+      "always_for_german_customer": true
+    },
+    {
+      "id": "de_unternehmensregister",
+      "name": "Unternehmensregister",
+      "jurisdiction": "DE",
+      "kind": "registry",
+      "domains": ["unternehmensregister.de"],
+      "activation_terms": ["germany", "deutschland", "gmbh", "ag", "ug", "deutsche"]
+    },
+    {
+      "id": "de_handelsregister",
+      "name": "Gemeinsames Registerportal der Länder",
+      "jurisdiction": "DE",
+      "kind": "registry",
+      "domains": ["handelsregister.de"],
+      "activation_terms": ["germany", "deutschland", "gmbh", "ag", "ug", "deutsche"]
+    },
+    {
+      "id": "eu_esma",
+      "name": "European Securities and Markets Authority (ESMA)",
+      "jurisdiction": "EU",
+      "kind": "regulator",
+      "domains": ["esma.europa.eu"],
+      "activation_terms": ["eu", "europe", "european", "mica", "crypto", "token", "investment"]
+    },
+    {
+      "id": "eu_eba",
+      "name": "European Banking Authority (EBA)",
+      "jurisdiction": "EU",
+      "kind": "regulator",
+      "domains": ["eba.europa.eu"],
+      "activation_terms": ["eu", "europe", "european", "bank", "banking", "payment", "iban", "card", "crypto"]
+    },
+    {
+      "id": "eu_ejustice_registers",
+      "name": "European e-Justice Business Registers",
+      "jurisdiction": "EU",
+      "kind": "registry_directory",
+      "domains": ["e-justice.europa.eu"],
+      "activation_terms": ["eu", "europe", "european", "company", "legal entity"]
+    },
+    {
+      "id": "uk_fca",
+      "name": "Financial Conduct Authority (FCA)",
+      "jurisdiction": "UK",
+      "kind": "regulator",
+      "domains": ["fca.org.uk"],
+      "activation_terms": ["uk", "united kingdom", "britain", "british", "england", "london", "ltd", "limited"]
+    },
+    {
+      "id": "uk_companies_house",
+      "name": "Companies House",
+      "jurisdiction": "UK",
+      "kind": "registry",
+      "domains": ["find-and-update.company-information.service.gov.uk", "companieshouse.gov.uk"],
+      "activation_terms": ["uk", "united kingdom", "britain", "british", "england", "london", "ltd", "limited"]
+    },
+    {
+      "id": "us_sec",
+      "name": "U.S. Securities and Exchange Commission (SEC)",
+      "jurisdiction": "US",
+      "kind": "regulator",
+      "domains": ["sec.gov"],
+      "activation_terms": ["usa", "united states", "u.s.", "us", "inc", "corp", "corporation", "securities", "investment"]
+    },
+    {
+      "id": "us_finra",
+      "name": "FINRA",
+      "jurisdiction": "US",
+      "kind": "regulator",
+      "domains": ["finra.org"],
+      "activation_terms": ["usa", "united states", "u.s.", "us", "broker", "broker-dealer", "securities", "investment"]
+    },
+    {
+      "id": "ae_vara",
+      "name": "Dubai Virtual Assets Regulatory Authority (VARA)",
+      "jurisdiction": "AE-DU",
+      "kind": "regulator_registry",
+      "domains": ["vara.ae", "rulebooks.vara.ae"],
+      "activation_terms": ["dubai", "uae", "united arab emirates", "virtual asset", "vasp", "crypto", "token"]
+    },
+    {
+      "id": "ae_dfsa",
+      "name": "Dubai Financial Services Authority (DFSA)",
+      "jurisdiction": "AE-DIFC",
+      "kind": "regulator",
+      "domains": ["dfsa.ae"],
+      "activation_terms": ["dubai", "difc", "uae", "united arab emirates", "financial services", "investment"]
+    },
+    {
+      "id": "ae_sca",
+      "name": "UAE Securities and Commodities Authority (SCA)",
+      "jurisdiction": "AE",
+      "kind": "regulator",
+      "domains": ["sca.gov.ae"],
+      "activation_terms": ["uae", "united arab emirates", "dubai", "abu dhabi", "securities", "investment", "virtual asset"]
+    },
+    {
+      "id": "ae_adgm_fsra",
+      "name": "ADGM Financial Services Regulatory Authority (FSRA)",
+      "jurisdiction": "AE-AD",
+      "kind": "regulator_registry",
+      "domains": ["adgm.com"],
+      "activation_terms": ["abu dhabi", "adgm", "uae", "united arab emirates", "financial services", "virtual asset"]
+    },
+    {
+      "id": "ch_finma",
+      "name": "Swiss Financial Market Supervisory Authority (FINMA)",
+      "jurisdiction": "CH",
+      "kind": "regulator",
+      "domains": ["finma.ch"],
+      "activation_terms": ["switzerland", "schweiz", "swiss", "zug", "zurich", "zürich"]
+    },
+    {
+      "id": "sg_mas",
+      "name": "Monetary Authority of Singapore (MAS)",
+      "jurisdiction": "SG",
+      "kind": "regulator",
+      "domains": ["mas.gov.sg"],
+      "activation_terms": ["singapore", "mas", "payment services", "digital payment token"]
+    },
+    {
+      "id": "au_asic",
+      "name": "Australian Securities and Investments Commission (ASIC)",
+      "jurisdiction": "AU",
+      "kind": "regulator_registry",
+      "domains": ["asic.gov.au", "connectonline.asic.gov.au"],
+      "activation_terms": ["australia", "australian", "pty", "asic"]
+    },
+    {
+      "id": "cy_cysec",
+      "name": "Cyprus Securities and Exchange Commission (CySEC)",
+      "jurisdiction": "CY",
+      "kind": "regulator",
+      "domains": ["cysec.gov.cy"],
+      "activation_terms": ["cyprus", "cypriot", "cysec"]
+    },
+    {
+      "id": "mt_mfsa",
+      "name": "Malta Financial Services Authority (MFSA)",
+      "jurisdiction": "MT",
+      "kind": "regulator",
+      "domains": ["mfsa.mt"],
+      "activation_terms": ["malta", "maltese", "mfsa"]
+    }
+  ]
+}
