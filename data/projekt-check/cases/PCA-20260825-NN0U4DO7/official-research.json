@@ -1,8 +1,8 @@
 {
   "schema_version": "1.1",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "started_at": "2026-08-27T08:45:31Z",
-  "finished_at": "2026-08-27T08:45:37Z",
+  "started_at": "2026-08-27T08:54:01Z",
+  "finished_at": "2026-08-27T08:54:09Z",
   "identity_label": "U-Center",
   "project_domains": [
     "u.center"
@@ -87,6 +87,25 @@
       ]
     },
     {
+      "id": "ae_adgm_ra",
+      "name": "ADGM Registration Authority Public Register",
+      "jurisdiction": "AE-AD",
+      "kind": "registry",
+      "domains": [
+        "adgm.com",
+        "registration.adgm.com"
+      ],
+      "selection_score": 15,
+      "activation_hits": [
+        "uae",
+        "united arab emirates",
+        "company",
+        "business",
+        "registered",
+        "incorporated"
+      ]
+    },
+    {
       "id": "ae_dfsa",
       "name": "Dubai Financial Services Authority (DFSA)",
       "jurisdiction": "AE-DIFC",
@@ -101,6 +120,43 @@
         "united arab emirates",
         "financial services",
         "investment"
+      ]
+    },
+    {
+      "id": "ae_difc_public_register",
+      "name": "Dubai International Financial Centre (DIFC) Public Register",
+      "jurisdiction": "AE-DIFC",
+      "kind": "registry",
+      "domains": [
+        "difc.com"
+      ],
+      "selection_score": 15,
+      "activation_hits": [
+        "dubai",
+        "uae",
+        "united arab emirates",
+        "company",
+        "business",
+        "financial services"
+      ]
+    },
+    {
+      "id": "ae_dubai_det_license",
+      "name": "Invest in Dubai – Search License Information",
+      "jurisdiction": "AE-DU",
+      "kind": "registry",
+      "domains": [
+        "app.invest.dubai.ae",
+        "invest.dubai.ae"
+      ],
+      "selection_score": 15,
+      "activation_hits": [
+        "dubai",
+        "uae",
+        "united arab emirates",
+        "company",
+        "business",
+        "licence"
       ]
     },
     {
@@ -206,6 +262,23 @@
     },
     {
       "purpose": "project",
+      "query": "\"U-TOPIA\" site:adgm.com",
+      "source_id": "ae_adgm_ra",
+      "source_name": "ADGM Registration Authority Public Register",
+      "source_kind": "registry",
+      "jurisdiction": "AE-AD"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:adgm.com",
+      "source_id": "ae_adgm_ra",
+      "source_name": "ADGM Registration Authority Public Register",
+      "source_kind": "registry",
+      "jurisdiction": "AE-AD"
+    },
+    {
+      "purpose": "project",
       "query": "\"U-TOPIA\" site:dfsa.ae",
       "source_id": "ae_dfsa",
       "source_name": "Dubai Financial Services Authority (DFSA)",
@@ -220,6 +293,40 @@
       "source_name": "Dubai Financial Services Authority (DFSA)",
       "source_kind": "regulator",
       "jurisdiction": "AE-DIFC"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:difc.com",
+      "source_id": "ae_difc_public_register",
+      "source_name": "Dubai International Financial Centre (DIFC) Public Register",
+      "source_kind": "registry",
+      "jurisdiction": "AE-DIFC"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:difc.com",
+      "source_id": "ae_difc_public_register",
+      "source_name": "Dubai International Financial Centre (DIFC) Public Register",
+      "source_kind": "registry",
+      "jurisdiction": "AE-DIFC"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:app.invest.dubai.ae",
+      "source_id": "ae_dubai_det_license",
+      "source_name": "Invest in Dubai – Search License Information",
+      "source_kind": "registry",
+      "jurisdiction": "AE-DU"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:app.invest.dubai.ae",
+      "source_id": "ae_dubai_det_license",
+      "source_name": "Invest in Dubai – Search License Information",
+      "source_kind": "registry",
+      "jurisdiction": "AE-DU"
     },
     {
       "purpose": "project",

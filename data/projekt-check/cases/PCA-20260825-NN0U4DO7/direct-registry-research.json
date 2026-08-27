@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-NN0U4DO7",
+  "started_at": "2026-08-27T08:54:09Z",
+  "finished_at": "2026-08-27T08:54:11Z",
+  "status": "partial",
+  "source_id": "ae_dubai_det_license",
+  "source_name": "Invest in Dubai – Search License Information",
+  "candidates": [
+    "U-TOPIA",
+    "U-Center"
+  ],
+  "attempt_count": 4,
+  "completed_attempt_count": 0,
+  "positive_candidate_count": 0,
+  "attempts": [
+    {
+      "candidate": "U-TOPIA",
+      "searched_at": "2026-08-27T08:54:10Z",
+      "requested_url": "https://app.invest.dubai.ae/search-license",
+      "final_url": "https://app.invest.dubai.ae/search-license",
+      "http_status": 403,
+      "submit_method": "",
+      "status": "form_not_found",
+      "match_visible": false,
+      "result_excerpt": "Access Denied You don't have permission to access \"http://app.invest.dubai.ae/search-license\" on this server. Reference #18.65cfdb17.1787820850.116fa54f https://errors.edgesuite.net/18.65cfdb17.1787820850.116fa54f",
+      "error": ""
+    },
+    {
+      "candidate": "U-TOPIA",
+      "searched_at": "2026-08-27T08:54:10Z",
+      "requested_url": "https://app.invest.dubai.ae/search-license",
+      "final_url": "https://app.invest.dubai.ae/search-license",
+      "http_status": 403,
+      "submit_method": "",
+      "status": "form_not_found",
+      "match_visible": false,
+      "result_excerpt": "Access Denied You don't have permission to access \"http://app.invest.dubai.ae/search-license\" on this server. Reference #18.65cfdb17.1787820850.116fa54f https://errors.edgesuite.net/18.65cfdb17.1787820850.116fa54f",
+      "error": ""
+    },
+    {
+      "candidate": "U-Center",
+      "searched_at": "2026-08-27T08:54:11Z",
+      "requested_url": "https://app.invest.dubai.ae/search-license",
+      "final_url": "https://app.invest.dubai.ae/search-license",
+      "http_status": 403,
+      "submit_method": "",
+      "status": "form_not_found",
+      "match_visible": false,
+      "result_excerpt": "Access Denied You don't have permission to access \"http://app.invest.dubai.ae/search-license\" on this server. Reference #18.65cfdb17.1787820851.116fa735 https://errors.edgesuite.net/18.65cfdb17.1787820851.116fa735",
+      "error": ""
+    },
+    {
+      "candidate": "U-Center",
+      "searched_at": "2026-08-27T08:54:11Z",
+      "requested_url": "https://app.invest.dubai.ae/search-license",
+      "final_url": "https://app.invest.dubai.ae/search-license",
+      "http_status": 403,
+      "submit_method": "",
+      "status": "form_not_found",
+      "match_visible": false,
+      "result_excerpt": "Access Denied You don't have permission to access \"http://app.invest.dubai.ae/search-license\" on this server. Reference #18.65cfdb17.1787820851.116fa735 https://errors.edgesuite.net/18.65cfdb17.1787820851.116fa735",
+      "error": ""
+    }
+  ],
+  "note": "Die direkte Namenssuche ergänzt die amtliche Recherche. Ein nicht sichtbarer Treffer ist kein Beweis dafür, dass kein Rechtsträger oder keine Lizenz existiert; eine Registrierung kann unter einer abweichenden juristischen oder geschäftlichen Bezeichnung geführt werden."
+}

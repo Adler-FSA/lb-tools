@@ -3,7 +3,7 @@
   "case_id": "PCA-20260825-NN0U4DO7",
   "state": "auswertung",
   "created_at": "2026-08-25T16:13:52Z",
-  "updated_at": "2026-08-27T08:45:37Z",
+  "updated_at": "2026-08-27T08:54:11Z",
   "delivery_document": "customer_check",
   "identity": {
     "status": "resolved",
@@ -210,19 +210,19 @@
       "workflow_status": "laeuft",
       "result_status": "eigenaussage",
       "evidence_count": 11,
-      "summary": "Amtliche Verifikation über 7 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
+      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:11Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:11Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:11Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
@@ -234,19 +234,19 @@
       "workflow_status": "laeuft",
       "result_status": "eigenaussage",
       "evidence_count": 11,
-      "summary": "Amtliche Verifikation über 7 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
+      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:09Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:09Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:09Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
@@ -258,19 +258,19 @@
       "workflow_status": "laeuft",
       "result_status": "eigenaussage",
       "evidence_count": 8,
-      "summary": "Amtliche Verifikation über 7 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
+      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:09Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:09Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:09Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
@@ -858,19 +858,19 @@
       "workflow_status": "laeuft",
       "result_status": "eigenaussage",
       "evidence_count": 13,
-      "summary": "Amtliche Verifikation über 7 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
+      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:11Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:11Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:45:37Z"
+          "updated_at": "2026-08-27T08:54:11Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
