@@ -53,6 +53,29 @@ class EconomicAnalysisTests(unittest.TestCase):
         self.assertEqual(1,result["first_party_item_count"])
         self.assertEqual([],result["first_party_percent_claims"])
 
+    def test_april_learning_and_privacy_trade_are_not_economic_signals(self):
+        primary={"items":[{
+            "evidence_id":"E001","final_url":"https://u.center/privacy","title":"U-Center",
+            "text_excerpt":"Last updated April 2026. Learning comes first. We do not sell, rent, or trade your personal data."
+        }]}
+        discovery={"project_hosts":["u.center"],"crawl_rounds":[]}
+        result=analyze_economics(primary=primary,independent={"items":[]},discovery=discovery,intake={})
+        self.assertNotIn("apr",result["return_language"])
+        self.assertNotIn("earn",result["return_language"])
+        self.assertEqual([],result["trading_language"])
+
+    def test_old_case_can_infer_project_host_from_identity_label(self):
+        primary={"items":[
+            {"evidence_id":"E001","final_url":"https://u.center/","title":"U-Center","text_excerpt":"Earn dividends."},
+            {"evidence_id":"E002","final_url":"https://u.center/privacy","title":"U-Center","text_excerpt":"Package purchases are completed via blockchain transactions from your own wallet."},
+            {"evidence_id":"E999","final_url":"https://stripe.com/privacy","title":"Privacy Policy","text_excerpt":"Stripe privacy."},
+        ]}
+        discovery={"identity_label":"U-Center","crawl_rounds":[]}
+        result=analyze_economics(primary=primary,independent={"items":[]},discovery=discovery,intake={})
+        self.assertEqual(["u.center"],result["project_hosts_used"])
+        self.assertEqual(2,result["first_party_item_count"])
+        self.assertTrue(result["facts"]["package_purchase_from_own_wallet_claimed"])
+
     def test_main_workflow_runs_economic_analysis(self):
         text=(ROOT/".github/workflows/projekt-check-neuer-fall.yml").read_text(encoding="utf-8")
         self.assertIn("run_economic_analysis.py",text)
