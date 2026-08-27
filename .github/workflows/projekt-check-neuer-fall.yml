@@ -235,6 +235,25 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
+      - name: Karte, Banking, Payment, Issuer, PSP und IBAN-Infrastruktur tiefenprüfen
+        id: payment_depth
+        if: steps.discovery.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          python projekt-check-engine/core/run_payment_depth.py --case-id "$CASE_ID" --max-captures 8
+
+      - name: Karten-/Banking-/Payment-Auswertungsstand veröffentlichen
+        if: steps.payment_depth.outcome == 'success'
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git commit -m "Projekt-Check: Karten-Banking-Payment-Tiefenprüfung $CASE_ID gespeichert"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
       - name: Start, Discovery und Auswertung bestätigt
         shell: bash
         run: |
@@ -246,4 +265,5 @@ jobs:
           echo "Direkter Firmenregister-Check: ${{ steps.direct_registry.outcome }}"
           echo "Wirtschafts-/Rendite-Tiefenprüfung: ${{ steps.economic_analysis.outcome }}"
           echo "Blockchain-/DeFi-Tiefenprüfung: ${{ steps.blockchain_depth.outcome }}"
+          echo "Karten-/Banking-/Payment-Tiefenprüfung: ${{ steps.payment_depth.outcome }}"
           echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; noch offene rechtliche und weitere fachliche Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
