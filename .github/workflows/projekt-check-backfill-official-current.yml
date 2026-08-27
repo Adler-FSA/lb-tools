@@ -1,0 +1,36 @@
+name: Projekt-Check – Aktuellen Testfall amtlich verifizieren
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/projekt-check-backfill-official-current.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify-current:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Chromium bereitstellen
+        run: |
+          python -m pip install --disable-pip-version-check playwright
+          python -m playwright install --with-deps chromium
+      - name: U-Center Rechtsträger, Personen und Aufsichtsquellen amtlich verifizieren
+        run: python projekt-check-engine/core/run_official_verification.py --case-id PCA-20260825-NN0U4DO7 --max-captures 10
+      - name: U-Center direkt im Dubai-Firmenlizenzregister prüfen
+        run: python projekt-check-engine/core/run_direct_registry_verification.py --case-id PCA-20260825-NN0U4DO7
+      - name: Bereinigtes amtliches Recherche-Ergebnis speichern
+        run: |
+          git config user.name "FSA Projekt-Check"
+          git config user.email "actions@github.com"
+          git add data/projekt-check/cases/PCA-20260825-NN0U4DO7
+          git commit -m "Projekt-Check: U-Center amtliche und direkte Registerverifikation"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+# Qualitätstest 2026-08-27: direkter Invest-in-Dubai-Lizenzsuchlauf
