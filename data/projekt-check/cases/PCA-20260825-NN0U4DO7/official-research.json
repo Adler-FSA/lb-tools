@@ -1,0 +1,831 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260825-NN0U4DO7",
+  "started_at": "2026-08-27T08:36:20Z",
+  "finished_at": "2026-08-27T08:36:32Z",
+  "identity_label": "U-Center",
+  "project_domains": [
+    "u.center"
+  ],
+  "distinctive_terms": [
+    "U-TOPIA",
+    "U-AI",
+    "BETA NOTICE"
+  ],
+  "candidates": {
+    "entities": [
+      {
+        "name": "Kissmetrics Holdings Inc",
+        "mentions": 4,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Intercom Software UK Limited",
+        "mentions": 3,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Intercom Software Australia Pty Ltd",
+        "mentions": 3,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Interesse zeigen. Schließen Sie den Deal ab",
+        "mentions": 2,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "including but not limited",
+        "mentions": 2,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "the U-TOPIA ecosystem. The Company is incorporated",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "applicable UAE laws including but not limited",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Reader is available from Adobe Systems Incorporated",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "owned and operated by Kissmetrics Holdings Inc",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "and any other terms incorporated",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "aggregate liability for Preview Services is limited",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "which is incorporated",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      }
+    ],
+    "persons": [
+      {
+        "name": "Emmanuel Quezada",
+        "mentions": 4,
+        "roles": [
+          "CEO",
+          "CEO and Founder of Utopia"
+        ],
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Emmanuel Quezada Reveals",
+        "mentions": 1,
+        "roles": [
+          "CEO"
+        ],
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Kyle Kemper",
+        "mentions": 1,
+        "roles": [
+          "Company President"
+        ],
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "YouTube Auf YouTube",
+        "mentions": 1,
+        "roles": [
+          "CEO"
+        ],
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Emanuel Zaharda",
+        "mentions": 1,
+        "roles": [
+          "CEO"
+        ],
+        "basis": "public_project_or_external_trace"
+      }
+    ],
+    "jurisdiction_hints": [
+      {
+        "jurisdiction": "US",
+        "terms": [
+          "california",
+          "delaware",
+          "u.s.",
+          "united states",
+          "usa"
+        ],
+        "score": 5
+      },
+      {
+        "jurisdiction": "AE",
+        "terms": [
+          "dubai",
+          "uae",
+          "united arab emirates"
+        ],
+        "score": 3
+      },
+      {
+        "jurisdiction": "DE",
+        "terms": [
+          "berlin",
+          "german",
+          "germany"
+        ],
+        "score": 3
+      },
+      {
+        "jurisdiction": "UK",
+        "terms": [
+          "london",
+          "uk",
+          "united kingdom"
+        ],
+        "score": 3
+      },
+      {
+        "jurisdiction": "CH",
+        "terms": [
+          "swiss",
+          "switzerland"
+        ],
+        "score": 2
+      },
+      {
+        "jurisdiction": "EU",
+        "terms": [
+          "eu",
+          "european union"
+        ],
+        "score": 2
+      },
+      {
+        "jurisdiction": "AU",
+        "terms": [
+          "australia"
+        ],
+        "score": 1
+      },
+      {
+        "jurisdiction": "CY",
+        "terms": [
+          "cyprus"
+        ],
+        "score": 1
+      },
+      {
+        "jurisdiction": "SG",
+        "terms": [
+          "singapore"
+        ],
+        "score": 1
+      }
+    ]
+  },
+  "selected_sources": [
+    {
+      "id": "de_bafin",
+      "name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "jurisdiction": "DE",
+      "kind": "regulator",
+      "domains": [
+        "bafin.de"
+      ],
+      "selection_score": 21,
+      "activation_hits": [
+        "germany",
+        "german",
+        "deutsch",
+        "eu",
+        "europe",
+        "european"
+      ]
+    },
+    {
+      "id": "eu_eba",
+      "name": "European Banking Authority (EBA)",
+      "jurisdiction": "EU",
+      "kind": "regulator",
+      "domains": [
+        "eba.europa.eu"
+      ],
+      "selection_score": 17,
+      "activation_hits": [
+        "eu",
+        "europe",
+        "european",
+        "bank",
+        "banking",
+        "payment",
+        "iban",
+        "card"
+      ]
+    },
+    {
+      "id": "eu_ejustice_registers",
+      "name": "European e-Justice Business Registers",
+      "jurisdiction": "EU",
+      "kind": "registry_directory",
+      "domains": [
+        "e-justice.europa.eu"
+      ],
+      "selection_score": 17,
+      "activation_hits": [
+        "eu",
+        "europe",
+        "european",
+        "company",
+        "legal entity"
+      ]
+    },
+    {
+      "id": "eu_esma",
+      "name": "European Securities and Markets Authority (ESMA)",
+      "jurisdiction": "EU",
+      "kind": "regulator",
+      "domains": [
+        "esma.europa.eu"
+      ],
+      "selection_score": 17,
+      "activation_hits": [
+        "eu",
+        "europe",
+        "european",
+        "crypto",
+        "token",
+        "investment"
+      ]
+    },
+    {
+      "id": "ae_adgm_fsra",
+      "name": "ADGM Financial Services Regulatory Authority (FSRA)",
+      "jurisdiction": "AE-AD",
+      "kind": "regulator_registry",
+      "domains": [
+        "adgm.com"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "uae",
+        "united arab emirates",
+        "financial services"
+      ]
+    },
+    {
+      "id": "ae_dfsa",
+      "name": "Dubai Financial Services Authority (DFSA)",
+      "jurisdiction": "AE-DIFC",
+      "kind": "regulator",
+      "domains": [
+        "dfsa.ae"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "dubai",
+        "uae",
+        "united arab emirates",
+        "financial services",
+        "investment"
+      ]
+    },
+    {
+      "id": "ae_sca",
+      "name": "UAE Securities and Commodities Authority (SCA)",
+      "jurisdiction": "AE",
+      "kind": "regulator",
+      "domains": [
+        "sca.gov.ae"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "uae",
+        "united arab emirates",
+        "dubai",
+        "securities",
+        "investment"
+      ]
+    },
+    {
+      "id": "ae_vara",
+      "name": "Dubai Virtual Assets Regulatory Authority (VARA)",
+      "jurisdiction": "AE-DU",
+      "kind": "regulator_registry",
+      "domains": [
+        "vara.ae",
+        "rulebooks.vara.ae"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "dubai",
+        "uae",
+        "united arab emirates",
+        "crypto",
+        "token"
+      ]
+    },
+    {
+      "id": "au_asic",
+      "name": "Australian Securities and Investments Commission (ASIC)",
+      "jurisdiction": "AU",
+      "kind": "regulator_registry",
+      "domains": [
+        "asic.gov.au",
+        "connectonline.asic.gov.au"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "australia",
+        "pty",
+        "asic"
+      ]
+    },
+    {
+      "id": "ch_finma",
+      "name": "Swiss Financial Market Supervisory Authority (FINMA)",
+      "jurisdiction": "CH",
+      "kind": "regulator",
+      "domains": [
+        "finma.ch"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "switzerland",
+        "swiss",
+        "zug"
+      ]
+    },
+    {
+      "id": "de_handelsregister",
+      "name": "Gemeinsames Registerportal der Länder",
+      "jurisdiction": "DE",
+      "kind": "registry",
+      "domains": [
+        "handelsregister.de"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "germany",
+        "gmbh",
+        "ag",
+        "ug"
+      ]
+    },
+    {
+      "id": "de_unternehmensregister",
+      "name": "Unternehmensregister",
+      "jurisdiction": "DE",
+      "kind": "registry",
+      "domains": [
+        "unternehmensregister.de"
+      ],
+      "selection_score": 13,
+      "activation_hits": [
+        "germany",
+        "gmbh",
+        "ag",
+        "ug"
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:bafin.de",
+      "source_id": "de_bafin",
+      "source_name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "source_kind": "regulator",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:bafin.de",
+      "source_id": "de_bafin",
+      "source_name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "source_kind": "regulator",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:bafin.de",
+      "source_id": "de_bafin",
+      "source_name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "source_kind": "regulator",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:eba.europa.eu",
+      "source_id": "eu_eba",
+      "source_name": "European Banking Authority (EBA)",
+      "source_kind": "regulator",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:eba.europa.eu",
+      "source_id": "eu_eba",
+      "source_name": "European Banking Authority (EBA)",
+      "source_kind": "regulator",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:eba.europa.eu",
+      "source_id": "eu_eba",
+      "source_name": "European Banking Authority (EBA)",
+      "source_kind": "regulator",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:e-justice.europa.eu",
+      "source_id": "eu_ejustice_registers",
+      "source_name": "European e-Justice Business Registers",
+      "source_kind": "registry_directory",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:e-justice.europa.eu",
+      "source_id": "eu_ejustice_registers",
+      "source_name": "European e-Justice Business Registers",
+      "source_kind": "registry_directory",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software UK Limited",
+      "query": "\"Intercom Software UK Limited\" site:e-justice.europa.eu",
+      "source_id": "eu_ejustice_registers",
+      "source_name": "European e-Justice Business Registers",
+      "source_kind": "registry_directory",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software Australia Pty Ltd",
+      "query": "\"Intercom Software Australia Pty Ltd\" site:e-justice.europa.eu",
+      "source_id": "eu_ejustice_registers",
+      "source_name": "European e-Justice Business Registers",
+      "source_kind": "registry_directory",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:e-justice.europa.eu",
+      "source_id": "eu_ejustice_registers",
+      "source_name": "European e-Justice Business Registers",
+      "source_kind": "registry_directory",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:esma.europa.eu",
+      "source_id": "eu_esma",
+      "source_name": "European Securities and Markets Authority (ESMA)",
+      "source_kind": "regulator",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:esma.europa.eu",
+      "source_id": "eu_esma",
+      "source_name": "European Securities and Markets Authority (ESMA)",
+      "source_kind": "regulator",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:esma.europa.eu",
+      "source_id": "eu_esma",
+      "source_name": "European Securities and Markets Authority (ESMA)",
+      "source_kind": "regulator",
+      "jurisdiction": "EU"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:adgm.com",
+      "source_id": "ae_adgm_fsra",
+      "source_name": "ADGM Financial Services Regulatory Authority (FSRA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-AD"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:adgm.com",
+      "source_id": "ae_adgm_fsra",
+      "source_name": "ADGM Financial Services Regulatory Authority (FSRA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-AD"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software UK Limited",
+      "query": "\"Intercom Software UK Limited\" site:adgm.com",
+      "source_id": "ae_adgm_fsra",
+      "source_name": "ADGM Financial Services Regulatory Authority (FSRA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-AD"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software Australia Pty Ltd",
+      "query": "\"Intercom Software Australia Pty Ltd\" site:adgm.com",
+      "source_id": "ae_adgm_fsra",
+      "source_name": "ADGM Financial Services Regulatory Authority (FSRA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-AD"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:adgm.com",
+      "source_id": "ae_adgm_fsra",
+      "source_name": "ADGM Financial Services Regulatory Authority (FSRA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-AD"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:dfsa.ae",
+      "source_id": "ae_dfsa",
+      "source_name": "Dubai Financial Services Authority (DFSA)",
+      "source_kind": "regulator",
+      "jurisdiction": "AE-DIFC"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:dfsa.ae",
+      "source_id": "ae_dfsa",
+      "source_name": "Dubai Financial Services Authority (DFSA)",
+      "source_kind": "regulator",
+      "jurisdiction": "AE-DIFC"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:dfsa.ae",
+      "source_id": "ae_dfsa",
+      "source_name": "Dubai Financial Services Authority (DFSA)",
+      "source_kind": "regulator",
+      "jurisdiction": "AE-DIFC"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:sca.gov.ae",
+      "source_id": "ae_sca",
+      "source_name": "UAE Securities and Commodities Authority (SCA)",
+      "source_kind": "regulator",
+      "jurisdiction": "AE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:sca.gov.ae",
+      "source_id": "ae_sca",
+      "source_name": "UAE Securities and Commodities Authority (SCA)",
+      "source_kind": "regulator",
+      "jurisdiction": "AE"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:sca.gov.ae",
+      "source_id": "ae_sca",
+      "source_name": "UAE Securities and Commodities Authority (SCA)",
+      "source_kind": "regulator",
+      "jurisdiction": "AE"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:vara.ae",
+      "source_id": "ae_vara",
+      "source_name": "Dubai Virtual Assets Regulatory Authority (VARA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-DU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:vara.ae",
+      "source_id": "ae_vara",
+      "source_name": "Dubai Virtual Assets Regulatory Authority (VARA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-DU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software UK Limited",
+      "query": "\"Intercom Software UK Limited\" site:vara.ae",
+      "source_id": "ae_vara",
+      "source_name": "Dubai Virtual Assets Regulatory Authority (VARA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-DU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software Australia Pty Ltd",
+      "query": "\"Intercom Software Australia Pty Ltd\" site:vara.ae",
+      "source_id": "ae_vara",
+      "source_name": "Dubai Virtual Assets Regulatory Authority (VARA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-DU"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:vara.ae",
+      "source_id": "ae_vara",
+      "source_name": "Dubai Virtual Assets Regulatory Authority (VARA)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AE-DU"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:asic.gov.au",
+      "source_id": "au_asic",
+      "source_name": "Australian Securities and Investments Commission (ASIC)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:asic.gov.au",
+      "source_id": "au_asic",
+      "source_name": "Australian Securities and Investments Commission (ASIC)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software UK Limited",
+      "query": "\"Intercom Software UK Limited\" site:asic.gov.au",
+      "source_id": "au_asic",
+      "source_name": "Australian Securities and Investments Commission (ASIC)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AU"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software Australia Pty Ltd",
+      "query": "\"Intercom Software Australia Pty Ltd\" site:asic.gov.au",
+      "source_id": "au_asic",
+      "source_name": "Australian Securities and Investments Commission (ASIC)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AU"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:asic.gov.au",
+      "source_id": "au_asic",
+      "source_name": "Australian Securities and Investments Commission (ASIC)",
+      "source_kind": "regulator_registry",
+      "jurisdiction": "AU"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:finma.ch",
+      "source_id": "ch_finma",
+      "source_name": "Swiss Financial Market Supervisory Authority (FINMA)",
+      "source_kind": "regulator",
+      "jurisdiction": "CH"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:finma.ch",
+      "source_id": "ch_finma",
+      "source_name": "Swiss Financial Market Supervisory Authority (FINMA)",
+      "source_kind": "regulator",
+      "jurisdiction": "CH"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:finma.ch",
+      "source_id": "ch_finma",
+      "source_name": "Swiss Financial Market Supervisory Authority (FINMA)",
+      "source_kind": "regulator",
+      "jurisdiction": "CH"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:handelsregister.de",
+      "source_id": "de_handelsregister",
+      "source_name": "Gemeinsames Registerportal der Länder",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:handelsregister.de",
+      "source_id": "de_handelsregister",
+      "source_name": "Gemeinsames Registerportal der Länder",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software UK Limited",
+      "query": "\"Intercom Software UK Limited\" site:handelsregister.de",
+      "source_id": "de_handelsregister",
+      "source_name": "Gemeinsames Registerportal der Länder",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software Australia Pty Ltd",
+      "query": "\"Intercom Software Australia Pty Ltd\" site:handelsregister.de",
+      "source_id": "de_handelsregister",
+      "source_name": "Gemeinsames Registerportal der Länder",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:handelsregister.de",
+      "source_id": "de_handelsregister",
+      "source_name": "Gemeinsames Registerportal der Länder",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "project",
+      "query": "\"U-TOPIA\" site:unternehmensregister.de",
+      "source_id": "de_unternehmensregister",
+      "source_name": "Unternehmensregister",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Kissmetrics Holdings Inc",
+      "query": "\"Kissmetrics Holdings Inc\" site:unternehmensregister.de",
+      "source_id": "de_unternehmensregister",
+      "source_name": "Unternehmensregister",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software UK Limited",
+      "query": "\"Intercom Software UK Limited\" site:unternehmensregister.de",
+      "source_id": "de_unternehmensregister",
+      "source_name": "Unternehmensregister",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "Intercom Software Australia Pty Ltd",
+      "query": "\"Intercom Software Australia Pty Ltd\" site:unternehmensregister.de",
+      "source_id": "de_unternehmensregister",
+      "source_name": "Unternehmensregister",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "person",
+      "candidate": "Emmanuel Quezada",
+      "query": "\"Emmanuel Quezada\" \"U-TOPIA\" site:unternehmensregister.de",
+      "source_id": "de_unternehmensregister",
+      "source_name": "Unternehmensregister",
+      "source_kind": "registry",
+      "jurisdiction": "DE"
+    }
+  ],
+  "results": [],
+  "rejected_results": [],
+  "rejected_after_capture": [],
+  "errors": [],
+  "note": "Kein Suchtreffer ist für sich ein amtlicher Nachweis. Als O-Beleg gilt nur eine geöffnete Zielseite auf einer katalogisierten amtlichen Domain mit ausreichender Identitätsbindung. Ein fehlender O-Beleg beweist keine fehlende Registrierung oder Erlaubnis."
+}
