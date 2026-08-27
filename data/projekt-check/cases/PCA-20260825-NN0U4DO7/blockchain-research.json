@@ -132,7 +132,64 @@
       ],
       "defi_terms": [],
       "chains": []
+    },
+    {
+      "evidence_ref": "B001",
+      "scope": "external_trace",
+      "technical_terms": [
+        "blockchain"
+      ],
+      "defi_terms": [],
+      "chains": []
+    },
+    {
+      "evidence_ref": "B002",
+      "scope": "external_trace",
+      "technical_terms": [
+        "dao"
+      ],
+      "defi_terms": [
+        "dao"
+      ],
+      "chains": []
     }
+  ],
+  "first_party_technical_terms": [
+    "blockchain",
+    "public ledger",
+    "dao",
+    "governance",
+    "treasury",
+    "on-chain",
+    "smart contract",
+    "smart contracts",
+    "wallet address",
+    "audit"
+  ],
+  "first_party_defi_terms": [
+    "governance",
+    "dao"
+  ],
+  "first_party_control_terms": [
+    "owner"
+  ],
+  "first_party_chains": [],
+  "external_technical_terms": [
+    "dao",
+    "treasury",
+    "blockchain",
+    "audited"
+  ],
+  "external_defi_terms": [
+    "dao",
+    "bridge",
+    "staking"
+  ],
+  "external_control_terms": [],
+  "external_chains": [
+    "ethereum",
+    "tron",
+    "bitcoin"
   ],
   "technical_terms": [
     "blockchain",
@@ -144,23 +201,16 @@
     "smart contract",
     "smart contracts",
     "wallet address",
-    "audit",
-    "audited"
+    "audit"
   ],
   "defi_terms": [
     "governance",
-    "dao",
-    "bridge",
-    "staking"
+    "dao"
   ],
   "control_terms": [
     "owner"
   ],
-  "chains": [
-    "ethereum",
-    "tron",
-    "bitcoin"
-  ],
+  "chains": [],
   "identifiers": [],
   "explorer_urls": [],
   "first_party_identifier_count": 0,
@@ -170,22 +220,22 @@
   "has_defi_claim": true,
   "schema_version": "1.0",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "generated_at": "2026-08-27T09:49:56Z",
+  "generated_at": "2026-08-27T09:52:47Z",
   "project_hosts_used": [
     "u.center"
   ],
   "identity_label": "U-Center",
   "primary_domain": "u.center",
   "search_queries": [
-    "\"U-TOPIA\" U-AI smart contract address explorer",
-    "\"U-TOPIA\" U-AI blockchain wallet contract",
-    "\"U-TOPIA\" U-AI token address audit",
-    "\"U-TOPIA\" U-AI staking lending liquidity governance DAO",
-    "\"U-TOPIA\" U-AI etherscan bscscan polygonscan basescan arbiscan tronscan solscan"
+    "\"U-TOPIA\" U-Center smart contract address explorer",
+    "\"U-TOPIA\" U-Center blockchain wallet contract",
+    "\"U-TOPIA\" U-Center token address audit",
+    "\"U-TOPIA\" U-Center staking lending liquidity governance DAO",
+    "\"U-TOPIA\" U-Center etherscan bscscan polygonscan basescan arbiscan tronscan solscan"
   ],
-  "search_result_count": 0,
+  "search_result_count": 2,
   "search_errors": [],
-  "capture_count": 0,
+  "capture_count": 2,
   "verified_technical_targets": [],
   "verified_technical_target_count": 0,
   "principle": "Blockchain-/DeFi-Begriffe sind Eigenaussagen, bis konkrete technische Identifikatoren und unabhängige On-Chain-/Explorerbelege eine überprüfbare Zuordnung ermöglichen. Ein fehlender Identifikator ist eine Verifikationslücke, kein Beweis gegen die technische Existenz."

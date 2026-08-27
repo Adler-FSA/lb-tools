@@ -1,5 +1,46 @@
 {
   "schema_version": "1.0",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "items": []
+  "items": [
+    {
+      "evidence_id": "B001",
+      "kind": "blockchain_web_capture",
+      "scope": "technical_external",
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center smart contract address explorer",
+      "search_title": "U-Topia Presents U-Center - The Future of Finance Now!!",
+      "search_snippet": "An innovative company in the investment and crypto-asset market, with real and automated operations, recorded transparently and 100% verifiable on the blockchain. Transform your future financial with us . Invest safely and intelligently in the biggest revolution in the financial market.",
+      "requested_url": "https://mskalsi.com/",
+      "final_url": "https://mskalsi.com/",
+      "captured_at": "2026-08-27T09:52:43Z",
+      "http_status": 200,
+      "title": "U-Topia Presents U-Center - The Future of Finance Now!!",
+      "h1": "",
+      "meta_description": "An innovative company in the investment and crypto-asset market, with real and automated operations, recorded transparently and 100% verifiable on the blockchain. Transform your future financial with us. Invest safely and intelligently in the biggest revolution in the financial market.",
+      "text_excerpt": "\"> U.TOPIA - U.CENTER APP 2026-07-24 - U-CENTER Presentation UTopia Bank is developing an all-in-one decentralised app coming in late September early October so you can have a digital wallet which, will enable you to buy crypto and will have its own bank attached so you won't get stopped for sending your funds to crypto. It will help everyone across the world as its an app on the phone. I've just bought the $100 package. When you buy you get points and once it goes live in late September early October these will convert into shares in the company. Once the app is live, any shareholders will receive small commissions on every transaction worldwide. 2026-07-24 - Recent Call With U-CENTER CEO Emanuel Zaharda 2026-07-24 - U-CENTER Compensation Plan Click on the Banner Below! Create Your No Obligation Free Account",
+      "content_sha256": "996a36592009c81f87cfed020f77a2deebcc09ed25e517bc2aa578fa65c6bb0a",
+      "explorer_chain": null,
+      "error": ""
+    },
+    {
+      "evidence_id": "B002",
+      "kind": "blockchain_web_capture",
+      "scope": "technical_external",
+      "provider": "duckduckgo",
+      "query": "\"U-TOPIA\" U-Center smart contract address explorer",
+      "search_title": "U-topia U-center DAO prelaunch , welcome to the future of banking",
+      "search_snippet": "Welcome to U Center DAO.In this video, we break down the vision, the mission, and how a global community is coming together to redefine ownership, participat...",
+      "requested_url": "https://www.youtube.com/watch?v=46kv9-943Vo",
+      "final_url": "https://www.google.com/sorry/index?continue=https://www.youtube.com/watch%3Fv%3D46kv9-943Vo&q=EgSssncjGO2RwNQGIjAs-UG2WKTSQuOyPYmHXFYtmy-Od3bItpmdA2dJWXpGOQp0l1HFY4xNaqxtQRdjF_oyAnJSWgFD",
+      "captured_at": "2026-08-27T09:52:45Z",
+      "http_status": 429,
+      "title": "https://www.youtube.com/watch?v=46kv9-943Vo",
+      "h1": "",
+      "meta_description": "",
+      "text_excerpt": "Über diese Seite Unsere Systeme haben ungewöhnlichen Datenverkehr aus Ihrem Computernetzwerk festgestellt. Diese Seite überprüft, ob die Anfragen wirklich von Ihnen und nicht von einem Robot gesendet werden. Warum? IP-Adresse: 172.178.119.35 Uhrzeit: 2026-08-27T09:52:45Z URL: https://www.youtube.com/watch?v=46kv9-943Vo",
+      "content_sha256": "91aa89f048a227e93a1a0bd26844a62eedf66237ca6e05d7ace22b5c2768b56e",
+      "explorer_chain": null,
+      "error": ""
+    }
+  ]
 }
