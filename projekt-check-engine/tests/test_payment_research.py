@@ -70,12 +70,15 @@ class PaymentResearchTests(unittest.TestCase):
         self.assertTrue(all('U-Center' in row for row in rows))
         self.assertTrue(all('U-AI' not in row for row in rows))
 
-    def test_runner_is_syntactically_valid(self):
+    def test_runner_is_syntactically_valid_and_uses_source_counts(self):
         path=ROOT/"projekt-check-engine/core/run_payment_depth.py"
         text=path.read_text(encoding="utf-8")
         compile(text,str(path),"exec")
         self.assertIn('payment-research.json',text)
         self.assertIn('payment-evidence.json',text)
+        self.assertIn("first_party_claim_source_count",text)
+        self.assertIn("external_claim_source_count",text)
+        self.assertIn("Quellen mit Payment-Bezug",text)
 
     def test_main_workflow_runs_payment_depth(self):
         text=(ROOT/".github/workflows/projekt-check-neuer-fall.yml").read_text(encoding="utf-8")
