@@ -33,4 +33,4 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
-# Qualitätstest 2026-08-27: direkter Invest-in-Dubai-Lizenzsuchlauf
+# Finaler Qualitätstest 2026-08-27: 403 ist Quellblockade, kein Registerbefund
