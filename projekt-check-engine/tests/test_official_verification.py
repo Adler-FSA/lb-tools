@@ -8,6 +8,7 @@ ENGINE = ROOT / "projekt-check-engine"
 if str(ENGINE) not in sys.path:
     sys.path.insert(0, str(ENGINE))
 
+from core.run_direct_registry_verification import candidate_names, strong_uae_hint
 from research.legal_candidates import extract_legal_candidates
 from research.official_search import build_queries, host_matches_source, load_catalog, relation_score, select_sources
 
@@ -16,13 +17,24 @@ class OfficialVerificationTests(unittest.TestCase):
     def test_catalog_contains_core_official_sources(self):
         catalog = load_catalog()
         ids = {x["id"] for x in catalog["sources"]}
-        self.assertGreaterEqual(len(ids), 15)
-        for required in {"de_bafin", "eu_esma", "uk_fca", "uk_companies_house", "ae_vara", "ae_dfsa", "ae_sca", "ae_adgm_fsra", "us_sec"}:
+        self.assertGreaterEqual(len(ids), 18)
+        for required in {
+            "de_bafin", "eu_esma", "uk_fca", "uk_companies_house", "ae_vara", "ae_dfsa", "ae_sca",
+            "ae_adgm_fsra", "ae_adgm_ra", "ae_difc_public_register", "ae_dubai_det_license", "us_sec"
+        }:
             self.assertIn(required, ids)
         for source in catalog["sources"]:
             self.assertTrue(source["domains"])
             self.assertTrue(source["kind"])
             self.assertTrue(source["jurisdiction"])
+
+    def test_dubai_license_source_uses_direct_adapter(self):
+        catalog = load_catalog()
+        source = next(x for x in catalog["sources"] if x["id"] == "ae_dubai_det_license")
+        self.assertEqual("registry", source["kind"])
+        self.assertEqual("AE-DU", source["jurisdiction"])
+        self.assertEqual("invest_dubai_license", source["direct_adapter"])
+        self.assertIn("app.invest.dubai.ae", source["domains"])
 
     def test_extracts_entity_person_and_dubai_hint(self):
         evidence = {
@@ -52,14 +64,14 @@ class OfficialVerificationTests(unittest.TestCase):
         self.assertEqual("strong", ae["strength"])
         self.assertGreaterEqual(ae["score"], 4)
 
-    def test_dubai_context_activates_uae_regulators_and_bafin(self):
+    def test_dubai_context_activates_uae_regulators_and_registries_and_bafin(self):
         catalog = load_catalog()
         selected = select_sources(
             catalog,
             "U-TOPIA fintech crypto virtual asset Dubai UAE",
             [{"jurisdiction":"AE","score":6,"strength":"strong","terms":["dubai","uae"],"strong_terms":["uae"]}],
             german_customer=True,
-            max_sources=12,
+            max_sources=14,
         )
         ids = {x["id"] for x in selected}
         self.assertIn("de_bafin", ids)
@@ -67,6 +79,9 @@ class OfficialVerificationTests(unittest.TestCase):
         self.assertIn("ae_dfsa", ids)
         self.assertIn("ae_sca", ids)
         self.assertIn("ae_adgm_fsra", ids)
+        self.assertIn("ae_adgm_ra", ids)
+        self.assertIn("ae_difc_public_register", ids)
+        self.assertIn("ae_dubai_det_license", ids)
 
     def test_weak_foreign_country_mention_does_not_activate_foreign_regulator(self):
         catalog = load_catalog()
@@ -127,11 +142,31 @@ class OfficialVerificationTests(unittest.TestCase):
         self.assertGreaterEqual(score, 5)
         self.assertIn("anchor:U-TOPIA", matches)
 
-    def test_main_workflow_runs_official_verification(self):
+    def test_direct_registry_requires_strong_uae_hint(self):
+        strong = {"candidates":{"jurisdiction_hints":[{"jurisdiction":"AE","strength":"strong","score":10}]}}
+        weak = {"candidates":{"jurisdiction_hints":[{"jurisdiction":"AE","strength":"weak","score":1}]}}
+        self.assertTrue(strong_uae_hint(strong))
+        self.assertFalse(strong_uae_hint(weak))
+
+    def test_direct_registry_candidates_prefer_entity_then_project_anchor_and_label(self):
+        official = {
+            "candidates":{"entities":[{"name":"U-Topia Technologies FZCO"}]},
+            "distinctive_terms":["U-TOPIA","BETA NOTICE"],
+        }
+        names = candidate_names(official,{"label":"U-Center"})
+        self.assertEqual("U-Topia Technologies FZCO", names[0])
+        self.assertIn("U-TOPIA", names)
+        self.assertIn("U-Center", names)
+        self.assertNotIn("BETA NOTICE", names)
+
+    def test_main_workflow_runs_official_and_direct_registry_verification(self):
         text = (ROOT / ".github/workflows/projekt-check-neuer-fall.yml").read_text(encoding="utf-8")
         self.assertIn("run_official_verification.py", text)
         self.assertIn("official_verification", text)
         self.assertIn("Amtliche Verifikation", text)
+        self.assertIn("run_direct_registry_verification.py", text)
+        self.assertIn("direct_registry", text)
+        self.assertIn("Direkter Firmenregister-Check", text)
 
 
 if __name__ == "__main__":
