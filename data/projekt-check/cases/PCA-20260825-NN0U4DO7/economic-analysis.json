@@ -5,16 +5,12 @@
   "first_party_item_count": 8,
   "external_item_count": 7,
   "return_language": [
-    "apr",
-    "dividend",
     "dividends",
     "earn",
     "earn dividends",
     "earning",
-    "interest",
     "profit",
     "return",
-    "reward",
     "rewards"
   ],
   "revenue_source_language": [
@@ -23,12 +19,9 @@
   ],
   "money_flow_language": [
     "account",
-    "blockchain transaction",
     "blockchain transactions",
-    "distribution event",
     "distribution events",
     "funds",
-    "package purchase",
     "package purchases",
     "payment",
     "treasury",
@@ -39,12 +32,9 @@
   "payout_language": [
     "bonus",
     "distribution",
-    "distribution event",
     "distribution events",
-    "dividend",
     "dividends",
     "guarantee",
-    "lock",
     "withdraw",
     "withdrawal"
   ],
@@ -60,29 +50,19 @@
     "referral",
     "referrals"
   ],
-  "trading_language": [
-    "trade"
-  ],
+  "trading_language": [],
   "external_economic_language": [
-    "apr",
     "business model",
     "dividend",
     "dividends",
     "earn",
-    "earning",
-    "exchange",
     "fees",
-    "payout",
-    "profit",
     "profits",
-    "rendite",
     "return",
     "returns",
     "revenue",
-    "reward",
     "rewards",
     "roi",
-    "trade",
     "trading",
     "yield"
   ],
@@ -301,66 +281,6 @@
     {
       "evidence_ref": "W006",
       "scope": "external_trace",
-      "rate_percent": 1.0,
-      "period": null,
-      "context": "omoters with additional commissions on investments. Share Match Bonus Participants can receive additional share allocations based on investments made by recruits. Matches include: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3%",
-      "simple_annual_percent": null,
-      "compound_annual_multiple": null,
-      "calculation_note": ""
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
-      "rate_percent": 3.0,
-      "period": null,
-      "context": "dditional commissions on investments. Share Match Bonus Participants can receive additional share allocations based on investments made by recruits. Matches include: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% Howe",
-      "simple_annual_percent": null,
-      "compound_annual_multiple": null,
-      "calculation_note": ""
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
-      "rate_percent": 6.0,
-      "period": null,
-      "context": "issions on investments. Share Match Bonus Participants can receive additional share allocations based on investments made by recruits. Matches include: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the",
-      "simple_annual_percent": null,
-      "compound_annual_multiple": null,
-      "calculation_note": ""
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
-      "rate_percent": 0.3,
-      "period": null,
-      "context": "e: 1% on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the source material notes that the structure is difficult to fully interpret because compensation details are largely hidden from consumers. Transparency m",
-      "simple_annual_percent": null,
-      "compound_annual_multiple": null,
-      "calculation_note": ""
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
-      "rate_percent": 0.6,
-      "period": null,
-      "context": "on level 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the source material notes that the structure is difficult to fully interpret because compensation details are largely hidden from consumers. Transparency matter",
-      "simple_annual_percent": null,
-      "compound_annual_multiple": null,
-      "calculation_note": ""
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
-      "rate_percent": 0.9,
-      "period": null,
-      "context": "evel 1 3% on level 2 6% on level 3 Leadership Bonus The Leadership Bonus applies to: F12 through F20 ranks Official compensation documents describe payouts ranging from: 0.3% 0.6% 0.9% However, even the source material notes that the structure is difficult to fully interpret because compensation details are largely hidden from consumers. Transparency matters. Wh",
-      "simple_annual_percent": null,
-      "compound_annual_multiple": null,
-      "calculation_note": ""
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
       "rate_percent": 3.0,
       "period": "monthly",
       "context": "actually know how to make money online right? Specially with crypto. First time ever we are offering a training where we are helping our students who are getting any where between 3% to 10% per MONTH ROI on their crypto with 100% complete control. YOU control everything and not giving your funds away to some scamming company. Once you learn this skill set, the",
@@ -442,19 +362,12 @@
       "E011"
     ],
     "payout": [
-      "E001",
       "E002",
       "E006",
-      "E008",
-      "E010",
-      "E011"
-    ],
-    "trading": [
       "E008"
     ],
+    "trading": [],
     "external": [
-      "W001",
-      "W003",
       "W004",
       "W005",
       "W006"
@@ -462,7 +375,7 @@
   },
   "schema_version": "1.0",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "generated_at": "2026-08-27T09:30:13Z",
+  "generated_at": "2026-08-27T09:33:24Z",
   "stress_scenarios": [
     {
       "scenario": "Nullwachstum / keine neuen Referrals",
