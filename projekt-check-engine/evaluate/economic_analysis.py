@@ -106,9 +106,6 @@ def percent_claims(text: str, evidence_id: str, scope: str) -> list[dict]:
         lo=max(0,match.start()-180); hi=min(len(text),match.end()+180)
         context=norm(text[lo:hi])
         blob=context.casefold()
-        # Ein Prozentwert wird nur dann als Rendite-/Ertragsangabe behandelt,
-        # wenn in demselben lokalen Kontext ein wirtschaftlicher Ertragsbegriff steht.
-        # Zeitbezug allein (z. B. "99% uptime last year") reicht ausdrücklich nicht.
         if not any(term in blob for term in RETURN_TERMS):
             continue
         period, periods=period_from_context(context)
@@ -183,8 +180,33 @@ def _matching_refs(items: list[dict], terms: list[str]) -> list[str]:
     return unique(refs,20)
 
 
+def _fallback_project_hosts(primary: dict, discovery: dict) -> set[str]:
+    label=norm(discovery.get("identity_label") or "").casefold()
+    hosts=set()
+    if label:
+        for item in primary.get("items") or []:
+            header=norm(" ".join([str(item.get("title") or ""),str(item.get("h1") or ""),str(item.get("og_site_name") or "")])).casefold()
+            if label in header:
+                h=host(item.get("final_url") or item.get("requested_url") or "")
+                if h:
+                    hosts.add(h)
+    if hosts:
+        return hosts
+    for round_ in discovery.get("crawl_rounds") or []:
+        if int(round_.get("depth") or 0)==1:
+            urls=round_.get("urls") or []
+            if urls:
+                h=host(urls[0])
+                if h:
+                    hosts.add(h)
+            break
+    return hosts
+
+
 def analyze_economics(*, primary: dict, independent: dict, discovery: dict, intake: dict) -> dict:
     project_hosts={str(x).lower().removeprefix("www.") for x in discovery.get("project_hosts") or [] if x}
+    if not project_hosts:
+        project_hosts=_fallback_project_hosts(primary,discovery)
     trusted_first_round=set()
     for round_ in discovery.get("crawl_rounds") or []:
         if int(round_.get("depth") or 0)==1:
@@ -222,6 +244,7 @@ def analyze_economics(*, primary: dict, independent: dict, discovery: dict, inta
 
     rate_refs=unique([x["evidence_ref"] for x in first_party_rates],20)
     result={
+        "project_hosts_used":sorted(project_hosts),
         "first_party_item_count":len(project_items),
         "external_item_count":len(external_items),
         "return_language":return_language,
