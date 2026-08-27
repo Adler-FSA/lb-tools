@@ -235,15 +235,6 @@
     {
       "evidence_ref": "W006",
       "scope": "external_trace",
-      "text": "Participants can invest: Investment Virtual Shares $100 76.9 shares $250 201.9 shares $500 415.3 shares $1000 869.2 shares $2500 1925 shares These virtual shares are promoted on the promise of: “Lifetime Dividends” According to company marketing, dividend payments are expected to begin in October 2026.",
-      "terms": [
-        "payments"
-      ],
-      "networks": []
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
       "text": "The Banking Claims One of the most notable aspects of U.Center’s marketing is its presentation as a financial ecosystem.",
       "terms": [
         "banking"
@@ -264,15 +255,6 @@
     {
       "evidence_ref": "W006",
       "scope": "external_trace",
-      "text": "Participants invest money with the expectation of future dividend payments.",
-      "terms": [
-        "payments"
-      ],
-      "networks": []
-    },
-    {
-      "evidence_ref": "W006",
-      "scope": "external_trace",
       "text": "U.Center Conclusion U.Center presents itself as: a shareholder program a financial ecosystem a banking platform and an MLM opportunity However several concerns stand out: no retail products hidden ownership at the U.Center level virtual share investments promised future dividends recruitment-driven compensation regulatory questions regarding banking and securities activities These issues deserve careful consideration.",
       "terms": [
         "banking"
@@ -287,10 +269,281 @@
         "swift"
       ],
       "networks": []
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "What the video covers the relationship between U-Center and U-Topia the planned wallet, payment, card and crypto features U-Center membership packages, points and DAO access community participation and invitation rewards the vision leading into the October 2026 launch Why it caught my eye The concept is to bring digital assets, everyday payments and user-controlled wallet access together in one app, rather than forcing people to jump between banks, exchanges and separate wallets.",
+      "terms": [
+        "payment",
+        "payments",
+        "card"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "THE APP & FINANCIAL ECOSYSTEM U-Topia U-Topia is developing the user-facing app: a non-custodial Web3 wallet designed to connect eligible users with fiat, crypto, payments and Visa-linked financial access through regulated banking and issuing partners.",
+      "terms": [
+        "banking",
+        "payments",
+        "issuing"
+      ],
+      "networks": [
+        "visa"
+      ]
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "03 Visa-Linked Payments Physical and virtual card access is intended to be delivered through regulated banking and issuing partners where available.",
+      "terms": [
+        "banking",
+        "payments",
+        "card",
+        "virtual card",
+        "issuing"
+      ],
+      "networks": [
+        "visa"
+      ]
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "04 Global Financial Access A strong focus on making modern financial tools more accessible to eligible users, including people underserved by traditional banking.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "U-Topia is not itself a bank; regulated partners are intended to provide banking, issuing, settlement and compliance services.",
+      "terms": [
+        "banking",
+        "issuing"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "Card access, supported countries and account approval will depend on eligibility, identity checks, local rules and partner approval.",
+      "terms": [
+        "card"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "Disclaimer: This page is provided for general informational and educational purposes only and does not constitute financial, investment, banking, legal or tax advice.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P001",
+      "scope": "external_trace",
+      "text": "Privacy Policy © 2026 AndrewTwelftree.com All Rights Reserved U Center Information U-Topia U-Topia is developing the user-facing app: a non-custodial Web3 wallet designed to connect eligible users with fiat, crypto, payments and Visa -linked financial access through regulated banking and issuing partners.",
+      "terms": [
+        "banking",
+        "payments",
+        "issuing"
+      ],
+      "networks": [
+        "visa"
+      ]
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "U.Center Review: Dubai banking & securities fraud U.Center Review: Dubai banking & securities fraud Home About Contact RSS Subscribe Discover more Scam reporting service Crypto market analysis Reading White-Collar Crime Books Discovering Exclusive Retail Deals investment fraud U.Center Review: Dubai banking & securities fraud Jun.12, 2026 in MLM Reviews U.Center fails to provide ownership or executive information on its website.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "The long and the short of it is U.Center’s fourth reboot sees it committing banking and securities fraud.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "U.Center’s finance reboot sees U-topia pitch itself as a bank: The problem with this is neither U.Center or U-topia are registered to offer banking services in any jurisdiction.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "Any provided banking services is done so illegally.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "U.Center and U-topia marketing makes a big deal about its Visa network cards: This is nothing new for MLM finance scams.",
+      "terms": [],
+      "networks": [
+        "visa"
+      ]
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "These shell companies are then signed up with a dodgy merchant, who gives the scam access to, in this instance, VISA’s network.",
+      "terms": [],
+      "networks": [
+        "visa"
+      ]
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "VISA’s internal systems detect suspicious activity.",
+      "terms": [],
+      "networks": [
+        "visa"
+      ]
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "Legally speaking we’re looking at banking/finance fraud and potential money laundering charges.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "All said and done; U.Center and U-topia finance, banking and securities law violations are verifiable (just ask for registration evidence and audited filings), and that’s reason enough to stay well away.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "U.Center Review: Dubai banking & securities fraud The long and the short of it is U.Center's fourth reboot sees it committing banking and securities fraud.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "U.Center's finance reboot sees U-topia pitch itself as a bank: The problem with this is neither U.Center or U-topia are registered to offer banking services in any jurisdiction.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "Any provided banking services is done so illegally.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P002",
+      "scope": "external_trace",
+      "text": "https://behindmlm.com/mlm-reviews/u-center-review-dubai-banking-securities-fraud/ https://behindmlm.com/mlm-reviews/u-center-review-dubai-banking-securities-fraud/",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P003",
+      "scope": "external_trace",
+      "text": "U-topia U-center DAO prelaunch , welcome to the future of banking - YouTube Auf YouTube findest du die angesagtesten Videos und Tracks.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P003",
+      "scope": "external_trace",
+      "text": "Navigation überspringen Anmelden Melde dich an, damit wir sehen, dass du kein Bot bist Dadurch möchten wir unsere Community schützen Anmelden Weitere Informationen U-topia U-center DAO prelaunch , welcome to the future of banking Income Insider 1680 Abonnenten Abonnieren 6 Teilen Speichern 72 Aufrufe vor 3 Monaten #Utopia #fintech #DAO Welcome to U Center DAO.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P003",
+      "scope": "external_trace",
+      "text": "vor 1 Jahr U-topia U-center DAO prelaunch , welcome to the future of banking Welcome to U Center DAO.In this video, we break down the vision, the mission, and how a global community is coming together to redefine ownership, participat...",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P004",
+      "scope": "external_trace",
+      "text": "vor 1 Monat 40:18 ⚡ U-Topia - The Money App 🚀 - Saturday June 27th 558 Aufrufe",
+      "terms": [
+        "money app"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P004",
+      "scope": "external_trace",
+      "text": "vor 3 Monaten U.Center - YouTube U-Topia CEO Emmanuel Quezada Reveals the Future of Banking & Global Financial Freedom - U.Center 972 views",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P005",
+      "scope": "external_trace",
+      "text": "Inside Power Station Power Station at Berklee NYC 42 vor 2 Wochen U-Topia CEO Emmanuel Quezada Reveals the Future of Banking & Global ...",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
+    },
+    {
+      "evidence_ref": "P005",
+      "scope": "external_trace",
+      "text": "CEO of U-Topia , Emmanuel Quezada, speaks on the future of banking , the growth of the business, and his vision for building a global community through innovation and financial empowerment.",
+      "terms": [
+        "banking"
+      ],
+      "networks": []
     }
   ],
   "first_party_claim_count": 0,
-  "external_claim_count": 30,
+  "external_claim_count": 56,
+  "first_party_claim_source_count": 0,
+  "external_claim_source_count": 10,
   "payment_terms": [
     "banking",
     "money app",
@@ -317,23 +570,23 @@
   "has_first_party_payment_identifier": false,
   "schema_version": "1.0",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "generated_at": "2026-08-27T10:03:03Z",
+  "generated_at": "2026-08-27T10:07:27Z",
   "identity_label": "U-Center",
   "primary_domain": "u.center",
   "project_hosts_used": [
     "u.center"
   ],
   "search_queries": [
-    "\"U-TOPIA\" U-AI card issuer Visa Mastercard",
-    "\"U-TOPIA\" U-AI banking partner bank issuer",
-    "\"U-TOPIA\" U-AI payment provider processor PSP",
-    "\"U-TOPIA\" U-AI IBAN SEPA SWIFT",
-    "\"U-TOPIA\" U-AI EMI payment institution electronic money",
-    "\"U-TOPIA\" U-AI BIN issuer card"
+    "\"U-TOPIA\" U-Center card issuer Visa Mastercard",
+    "\"U-TOPIA\" U-Center banking partner bank issuer",
+    "\"U-TOPIA\" U-Center payment provider processor PSP",
+    "\"U-TOPIA\" U-Center IBAN SEPA SWIFT",
+    "\"U-TOPIA\" U-Center EMI payment institution electronic money",
+    "\"U-TOPIA\" U-Center BIN issuer card"
   ],
-  "search_result_count": 0,
+  "search_result_count": 5,
   "search_errors": [],
-  "capture_count": 0,
+  "capture_count": 5,
   "verified_infrastructure_targets": [],
   "verified_infrastructure_target_count": 0,
   "principle": "Banking-, Karten- und Payment-Begriffe sind Eigenaussagen oder externe Spuren, bis Issuer/Bank/EMI/PI, Karten-Netzwerk, Konten-/IBAN-Infrastruktur und regulatorische Rolle eindeutig zugeordnet und über Primärquellen verifiziert sind. Datenschutzhinweise über nicht erhobene Karten-/Bankdaten gelten nicht als Produktfunktion."
