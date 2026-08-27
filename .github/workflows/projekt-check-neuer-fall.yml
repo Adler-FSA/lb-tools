@@ -159,6 +159,25 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
+      - name: Rechtsträger, Personen, Register und Aufsichtsquellen amtlich verifizieren
+        id: official_verification
+        if: steps.discovery.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          python projekt-check-engine/core/run_official_verification.py --case-id "$CASE_ID" --max-captures 10
+
+      - name: Amtlichen Verifikationsstand veröffentlichen
+        if: steps.official_verification.outcome == 'success'
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git commit -m "Projekt-Check: amtliche Verifikation $CASE_ID gespeichert"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
       - name: Start, Discovery und Auswertung bestätigt
         shell: bash
         run: |
@@ -166,4 +185,5 @@ jobs:
           echo "Discovery: ${{ steps.discovery.outcome }}"
           echo "Primärquellen-Auswertung: ${{ steps.evaluation.outcome }}"
           echo "Unabhängige Web-Recherche: ${{ steps.independent_web.outcome }}"
-          echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; offene Register-, Behörden- und technische Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
+          echo "Amtliche Verifikation: ${{ steps.official_verification.outcome }}"
+          echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; noch offene technische und wirtschaftliche Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
