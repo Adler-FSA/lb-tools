@@ -8,6 +8,7 @@ ENTITY_SUFFIX = r"(?:L\.?L\.?C\.?|LTD\.?|LIMITED|INC\.?|INCORPORATED|CORP\.?|COR
 NAME_TOKEN = r"[A-ZÀ-ÖØ-Þ][A-Za-zÀ-ÖØ-öø-ÿ'’.-]+"
 PERSON_NAME = rf"{NAME_TOKEN}(?:\s+{NAME_TOKEN}){{1,3}}"
 ROLE = r"(?:CEO|Chief Executive Officer|Founder|Co-Founder|President|Company President|Director|Managing Director|Chairman|Owner|Co-Owner|General Manager|Managing Partner)"
+ROLE_CI = rf"(?i:{ROLE})"
 
 JURISDICTION_TERMS = {
     "DE": ["germany", "deutschland", "german", "berlin", "frankfurt", "munich", "münchen", "hamburg"],
@@ -72,10 +73,13 @@ def extract_person_candidates(evidence_sets: list[dict], limit: int = 16) -> lis
     counts: Counter[str] = Counter()
     roles: dict[str, set[str]] = {}
     examples: dict[str, str] = {}
+    # Rollen werden ohne Beachtung der Groß-/Kleinschreibung erkannt. Für den Namen
+    # selbst bleibt die Großschreibung bindend, damit Satzfortsetzungen nicht Teil
+    # eines vermeintlichen Personennamens werden.
     patterns = [
-        re.compile(rf"\b({ROLE})\s*[:\-]?\s*({PERSON_NAME})\b", re.I),
-        re.compile(rf"\b({PERSON_NAME})\s*\(([^)]*?\b{ROLE}\b[^)]*)\)", re.I),
-        re.compile(rf"\b({PERSON_NAME})\s*[-–—,:]\s*({ROLE})\b", re.I),
+        re.compile(rf"\b({ROLE_CI})\s*[:\-]?\s*({PERSON_NAME})\b"),
+        re.compile(rf"\b({PERSON_NAME})\s*\(([^)]*?\b{ROLE_CI}\b[^)]*)\)"),
+        re.compile(rf"\b({PERSON_NAME})\s*[-–—,:]\s*({ROLE_CI})\b"),
     ]
     for text in _texts(evidence_sets):
         for index, regex in enumerate(patterns):
