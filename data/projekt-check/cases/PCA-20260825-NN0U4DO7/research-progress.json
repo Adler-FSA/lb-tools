@@ -1,7 +1,7 @@
 {
   "schema_version": "1.3",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "updated_at": "2026-08-27T08:54:11Z",
+  "updated_at": "2026-08-27T08:58:43Z",
   "modules": {
     "primary_discovery": "completed",
     "primary_evaluation": "completed",
@@ -15,7 +15,8 @@
   "official_sources_selected": 10,
   "official_search_results": 0,
   "official_captures": 0,
-  "direct_registry_attempts": 4,
+  "direct_registry_attempts": 1,
   "direct_registry_completed_attempts": 0,
-  "direct_registry_captures": 0
+  "direct_registry_captures": 0,
+  "direct_registry_blocked_attempts": 1
 }

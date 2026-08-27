@@ -3,7 +3,7 @@
   "case_id": "PCA-20260825-NN0U4DO7",
   "state": "auswertung",
   "created_at": "2026-08-25T16:13:52Z",
-  "updated_at": "2026-08-27T08:54:11Z",
+  "updated_at": "2026-08-27T08:58:43Z",
   "delivery_document": "customer_check",
   "identity": {
     "status": "resolved",
@@ -210,19 +210,19 @@
       "workflow_status": "laeuft",
       "result_status": "eigenaussage",
       "evidence_count": 11,
-      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
+      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich. Direkter Invest-in-Dubai-Registerzugriff wurde von der Quelle mit HTTP 403/429 blockiert; daraus wird kein Registerbefund abgeleitet.",
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:11Z"
+          "updated_at": "2026-08-27T08:58:43Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:11Z"
+          "updated_at": "2026-08-27T08:58:43Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:11Z"
+          "updated_at": "2026-08-27T08:58:43Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
@@ -238,15 +238,15 @@
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:09Z"
+          "updated_at": "2026-08-27T08:58:41Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:09Z"
+          "updated_at": "2026-08-27T08:58:41Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:09Z"
+          "updated_at": "2026-08-27T08:58:41Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
@@ -262,15 +262,15 @@
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:09Z"
+          "updated_at": "2026-08-27T08:58:41Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:09Z"
+          "updated_at": "2026-08-27T08:58:41Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:09Z"
+          "updated_at": "2026-08-27T08:58:41Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
@@ -858,19 +858,19 @@
       "workflow_status": "laeuft",
       "result_status": "eigenaussage",
       "evidence_count": 13,
-      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich.",
+      "summary": "Amtliche Verifikation über 10 ausgewählte Register-/Aufsichtsquellen durchgeführt; noch kein eindeutig zuordenbarer amtlicher Zielseitenbeleg für diesen Prüfbereich. Direkter Invest-in-Dubai-Registerzugriff wurde von der Quelle mit HTTP 403/429 blockiert; daraus wird kein Registerbefund abgeleitet.",
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:11Z"
+          "updated_at": "2026-08-27T08:58:43Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:11Z"
+          "updated_at": "2026-08-27T08:58:43Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-08-27T08:54:11Z"
+          "updated_at": "2026-08-27T08:58:43Z"
         }
       },
       "started_at": "2026-08-25T16:30:50Z",
