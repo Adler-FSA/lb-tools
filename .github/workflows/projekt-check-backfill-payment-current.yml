@@ -31,4 +31,4 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
-# Finaler Retest: lokale SWIFT/BIC-Kontextprüfung, Disclaimerfilter und Quellen-Deduplizierung
+# Letzter Retest: saubere Quellenzählung in Status/Control Panel übernehmen
