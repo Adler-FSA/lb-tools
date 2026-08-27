@@ -884,7 +884,8 @@
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: account, Treasury, Blockchain, funds, Wallet, Zahlungsweg.",
-          "Die öffentlich beschriebenen Geldflussangaben nennen Wallet-/Blockchain-/Zahlungs- oder Treasury-Bezüge; daraus allein folgt noch kein Nachweis der tatsächlichen Verwahrung oder Kontrolle."
+          "Die öffentlich beschriebenen Geldflussangaben nennen Wallet-/Blockchain-/Zahlungs- oder Treasury-Bezüge; daraus allein folgt noch kein Nachweis der tatsächlichen Verwahrung oder Kontrolle.",
+          "Die öffentlich beschriebenen Geldflussangaben behaupten, dass Paketkäufe per Blockchain-Transaktion aus dem eigenen Wallet erfolgen."
         ],
         "pros": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
@@ -903,7 +904,8 @@
           "E006",
           "E002",
           "E015",
-          "E016"
+          "E016",
+          "E001"
         ]
       },
       "customer": {
@@ -1138,7 +1140,8 @@
           "Zusätzlich wurden 4 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet."
         ],
         "first_party_claims": [
-          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Treasury, sales, revenue, income, earnings, Gebühren."
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Treasury, sales, revenue, income, earnings, Gebühren.",
+          "Für die Finanzierung der dargestellten Leistungen finden sich Begriffe zu Einnahmen/Geschäftsmodell/Treasury; diese Begriffe sind noch kein unabhängiger quantitativer Nachweis der tatsächlichen Ertragsquelle."
         ],
         "pros": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
@@ -1146,8 +1149,7 @@
         "cons": [],
         "open_points": [
           "Die tatsächliche wirtschaftliche Einnahme- bzw. Ertragsquelle ist noch unabhängig und quantitativ nachzuweisen.",
-          "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
-          "Für die Finanzierung der dargestellten wirtschaftlichen Leistungen wurde in den ausgewerteten Projektquellen keine eindeutig quantifizierte und unabhängig nachvollziehbare Einnahmequelle identifiziert."
+          "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -1323,7 +1325,8 @@
           "E008",
           "E017",
           "E001",
-          "E010"
+          "E010",
+          "E011"
         ]
       },
       "customer": {
@@ -1411,7 +1414,8 @@
           "E008",
           "E014",
           "E001",
-          "E010"
+          "E010",
+          "E011"
         ]
       },
       "customer": {
@@ -1839,7 +1843,10 @@
           "E016",
           "E008",
           "E015",
-          "E002"
+          "E002",
+          "E001",
+          "E010",
+          "E011"
         ]
       },
       "customer": {
@@ -2348,7 +2355,8 @@
           "Zusätzlich wurden 3 externe öffentlich erreichbare Quellen erfasst; ihre inhaltliche Unabhängigkeit wird separat gewichtet."
         ],
         "first_party_claims": [
-          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Dividenden, Rendite, apr, performance."
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Dividenden, Rendite, apr, performance.",
+          "Trading-/Performance-Nachweise sind für die öffentlich beschriebenen Handels-/Performanceelemente erforderlich; ein belastbarer Track Record wurde nicht aus bloßen Leistungsbegriffen abgeleitet."
         ],
         "pros": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
@@ -2358,7 +2366,6 @@
           "Track Record, Performance, Drawdown, Hebel, Handelsplätze und notwendige Bruttorenditen sind noch tief zu prüfen.",
           "Die erfassten Angaben stammen teilweise aus einer Beta-/Pre-Launch-Phase; Änderungen sind deshalb ausdrücklich möglich.",
           "Mindestens eine erfasste Unterlage enthält eine Platzhalter- bzw. noch zu bestätigende Angabe.",
-          "Trading-/Performance-Nachweise wurden nicht als Grundlage des wirtschaftlichen Leistungsversprechens erkannt. Für die vorhandenen Rendite-/Dividendenbegriffe fehlt dennoch eine quantifizierte, unabhängig verifizierte Performancebasis.",
           "Eine quantifizierte Rendite-/Dividendenrate mit Zeitraum wurde nicht erkannt; deshalb wäre eine Jahresrenditeberechnung spekulativ und wird nicht vorgenommen."
         ],
         "contradictions": [],
@@ -2368,7 +2375,10 @@
           "E002",
           "E013",
           "E014",
-          "E019"
+          "E019",
+          "E001",
+          "E010",
+          "E011"
         ]
       },
       "customer": {

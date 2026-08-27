@@ -1,25 +1,52 @@
 {
-  "first_party_item_count": 3,
+  "project_hosts_used": [
+    "u.center"
+  ],
+  "first_party_item_count": 8,
   "external_item_count": 7,
   "return_language": [
+    "apr",
     "dividend",
     "dividends",
     "earn",
     "earn dividends",
     "earning",
+    "interest",
+    "profit",
+    "return",
     "reward",
     "rewards"
   ],
-  "revenue_source_language": [],
+  "revenue_source_language": [
+    "fees",
+    "revenue"
+  ],
   "money_flow_language": [
     "account",
-    "treasury"
+    "blockchain transaction",
+    "blockchain transactions",
+    "distribution event",
+    "distribution events",
+    "funds",
+    "package purchase",
+    "package purchases",
+    "payment",
+    "treasury",
+    "wallet",
+    "withdraw",
+    "withdrawal"
   ],
   "payout_language": [
     "bonus",
+    "distribution",
+    "distribution event",
+    "distribution events",
     "dividend",
     "dividends",
-    "lock"
+    "guarantee",
+    "lock",
+    "withdraw",
+    "withdrawal"
   ],
   "growth_language": [
     "affiliate",
@@ -29,10 +56,13 @@
     "invites",
     "membership packages",
     "network",
+    "new users",
     "referral",
     "referrals"
   ],
-  "trading_language": [],
+  "trading_language": [
+    "trade"
+  ],
   "external_economic_language": [
     "apr",
     "business model",
@@ -381,25 +411,47 @@
   ],
   "customer_claim_math": null,
   "facts": {
-    "package_purchase_from_own_wallet_claimed": false,
-    "bank_account_credentials_not_collected_claimed": false,
-    "onchain_distribution_events_claimed": false
+    "package_purchase_from_own_wallet_claimed": true,
+    "bank_account_credentials_not_collected_claimed": true,
+    "onchain_distribution_events_claimed": true
   },
   "refs": {
     "money_flow": [
-      "E002"
+      "E001",
+      "E002",
+      "E006",
+      "E008"
     ],
     "returns": [
-      "E002"
+      "E001",
+      "E002",
+      "E006",
+      "E008",
+      "E010",
+      "E011"
     ],
-    "revenue_source": [],
+    "revenue_source": [
+      "E006"
+    ],
     "growth": [
-      "E002"
+      "E001",
+      "E002",
+      "E006",
+      "E008",
+      "E010",
+      "E011"
     ],
     "payout": [
-      "E002"
+      "E001",
+      "E002",
+      "E006",
+      "E008",
+      "E010",
+      "E011"
     ],
-    "trading": [],
+    "trading": [
+      "E008"
+    ],
     "external": [
       "W001",
       "W003",
@@ -410,7 +462,7 @@
   },
   "schema_version": "1.0",
   "case_id": "PCA-20260825-NN0U4DO7",
-  "generated_at": "2026-08-27T09:26:54Z",
+  "generated_at": "2026-08-27T09:30:13Z",
   "stress_scenarios": [
     {
       "scenario": "Nullwachstum / keine neuen Referrals",
