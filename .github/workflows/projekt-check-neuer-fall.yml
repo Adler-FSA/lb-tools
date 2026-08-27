@@ -178,6 +178,25 @@ jobs:
           git pull --rebase origin main
           git push origin HEAD:main
 
+      - name: Bei starkem VAE-Hinweis direktes Dubai-Firmenlizenzregister prüfen
+        id: direct_registry
+        if: steps.official_verification.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          python projekt-check-engine/core/run_direct_registry_verification.py --case-id "$CASE_ID"
+
+      - name: Direkten Registerstand veröffentlichen
+        if: steps.direct_registry.outcome == 'success'
+        shell: bash
+        run: |
+          CASE_ID="$(cat /tmp/case_id.txt)"
+          git add "data/projekt-check/cases/$CASE_ID"
+          git commit -m "Projekt-Check: direkter Registercheck $CASE_ID gespeichert"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
       - name: Start, Discovery und Auswertung bestätigt
         shell: bash
         run: |
@@ -186,4 +205,5 @@ jobs:
           echo "Primärquellen-Auswertung: ${{ steps.evaluation.outcome }}"
           echo "Unabhängige Web-Recherche: ${{ steps.independent_web.outcome }}"
           echo "Amtliche Verifikation: ${{ steps.official_verification.outcome }}"
+          echo "Direkter Firmenregister-Check: ${{ steps.direct_registry.outcome }}"
           echo "Projekt-Check $CASE_ID bleibt im Control Panel nachvollziehbar; noch offene technische und wirtschaftliche Tiefenprüfungen werden nicht als abgeschlossen ausgegeben."
