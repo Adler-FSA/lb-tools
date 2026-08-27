@@ -30,3 +30,5 @@ jobs:
           git commit -m "Projekt-Check: U-Center amtliche Verifikation bereinigt"
           git pull --rebase origin main
           git push origin HEAD:main
+
+# Qualitätstest 2026-08-27: aktueller Kandidaten- und Jurisdiktionsfilter
