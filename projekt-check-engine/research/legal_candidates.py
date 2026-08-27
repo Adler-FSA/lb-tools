@@ -14,6 +14,12 @@ ROLE_CI = rf"(?i:{ROLE})"
 EXPLICIT_ENTITY_PREFIX = r"(?i:legal entity|operator|operated by|company name|registered company|rechtsträger|betreiber)"
 PERSON_TRAILING_STOP = {"reveals", "presents", "explains", "announces", "discusses", "joins", "speaks", "talks", "live", "presentation", "overview", "interview"}
 PERSON_REJECT_TOKENS = {"youtube", "auf", "video", "watch", "presentation", "overview"}
+LEGAL_JURISDICTION_CUES = [
+    "governed by", "governing law", "laws of", "applicable law", "applicable laws",
+    "jurisdiction", "incorporated in", "incorporated under", "registered in",
+    "registered office", "domiciled in", "headquartered in", "seat in",
+    "unterliegt dem recht", "anwendbares recht", "eingetragen in", "sitz in",
+]
 
 JURISDICTION_TERMS = {
     "DE": ["germany", "deutschland", "german", "berlin", "frankfurt", "munich", "münchen", "hamburg"],
@@ -120,13 +126,31 @@ def extract_person_candidates(evidence_sets: list[dict], limit: int = 16) -> lis
 
 
 def extract_jurisdiction_hints(evidence_sets: list[dict]) -> list[dict]:
-    blob = "\n".join(_texts(evidence_sets)).casefold()
+    texts = [text.casefold() for text in _texts(evidence_sets)]
     out = []
     for jurisdiction, terms in JURISDICTION_TERMS.items():
-        hits = sorted({term for term in terms if re.search(rf"(?<!\w){re.escape(term.casefold())}(?!\w)", blob)})
+        hits=set(); strong_hits=set()
+        for text in texts:
+            for term in terms:
+                needle=term.casefold()
+                for match in re.finditer(rf"(?<!\w){re.escape(needle)}(?!\w)", text):
+                    hits.add(term)
+                    lo=max(0,match.start()-140); hi=min(len(text),match.end()+140)
+                    window=text[lo:hi]
+                    if any(cue in window for cue in LEGAL_JURISDICTION_CUES):
+                        strong_hits.add(term)
         if hits:
-            out.append({"jurisdiction": jurisdiction, "terms": hits, "score": len(hits)})
-    out.sort(key=lambda x: (-x["score"], x["jurisdiction"]))
+            # Viele beiläufige Länderbegriffe (z. B. aus Datenschutztexten) dürfen
+            # keinen Betreiberstandort vortäuschen. Rechtliche Kontexttreffer wiegen stark.
+            score=min(2,len(hits)) + 4*len(strong_hits)
+            out.append({
+                "jurisdiction":jurisdiction,
+                "terms":sorted(hits),
+                "strong_terms":sorted(strong_hits),
+                "strength":"strong" if strong_hits else "weak",
+                "score":score,
+            })
+    out.sort(key=lambda x:(-x["score"],0 if x["strength"]=="strong" else 1,x["jurisdiction"]))
     return out
 
 
