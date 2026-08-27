@@ -30,3 +30,5 @@ jobs:
           git commit -m "Projekt-Check: U-Center Karten-Banking-Payment-Tiefenprüfung"
           git pull --rebase origin main
           git push origin HEAD:main
+
+# Retest: U-TOPIA + U-Center Suchanker, Privacy-/Dividend-/Swift-Fehltreffer gefiltert
