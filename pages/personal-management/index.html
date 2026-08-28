@@ -6,10 +6,291 @@
 <title>Personal Management – Empfangshalle</title>
 <meta name="description" content="72-Stunden-Empfangshalle des LiquidityBoosters mit den drei Wegen Wissen, Perspektiven sowie Talent & Business.">
 <style>
-:root{--navy:#132238;--mint:#00a7ad;--magenta:#c6006f;--text:#2f3944;--muted:#66727d;--line:#dfe8eb;--soft:#f6f9fa;--mintsoft:#e9f9f9;--magsoft:#fbeaf3;--shadow:0 16px 38px rgba(19,34,56,.09);--max:1120px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#fbfdfd,#eef4f5);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.6}.wrap{width:min(calc(100% - 24px),var(--max));margin:auto;padding:16px 0 48px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.nav{display:flex;flex-wrap:wrap;gap:7px}.nav a,.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);padding:9px 12px;border-radius:999px;text-decoration:none;font-weight:850;font-size:13px}.nav a.active{background:var(--navy);color:#fff}.lang{display:flex;gap:6px}.lang button{cursor:pointer}.lang button.active{background:var(--navy);color:#fff}.hero{overflow:hidden;border:1px solid #e7eef0;border-radius:30px;background:linear-gradient(140deg,#fff 0 66%,#e9f9f9 66%);box-shadow:var(--shadow)}.heroInner{padding:46px 46px 34px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--magenta)}h1{margin:10px 0 16px;color:var(--navy);font-size:clamp(38px,7vw,66px);line-height:1;letter-spacing:-.045em;font-weight:350}.lead{max-width:850px;margin:0;color:#4d5a65;font-size:20px}.promise{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.promise span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 13px;font-weight:850;color:var(--navy);font-size:14px}.intro{margin-top:18px;padding:26px 30px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 26px rgba(19,34,56,.06)}.intro strong{color:var(--navy)}.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}.door{position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:390px;padding:26px;border:1px solid var(--line);border-radius:26px;background:#fff;box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:transform .16s ease,box-shadow .16s ease}.door:hover{transform:translateY(-3px);box-shadow:0 18px 42px rgba(19,34,56,.13)}.door:before{content:"";position:absolute;right:-55px;top:-55px;width:150px;height:150px;border-radius:50%;background:var(--mintsoft)}.door:nth-child(2):before{background:var(--magsoft)}.door:nth-child(3):before{background:#edf2f7}.num{position:relative;width:45px;height:45px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:#fff;font-weight:900}.door:nth-child(2) .num{background:var(--magenta)}.door:nth-child(3) .num{background:var(--navy)}.door h2{position:relative;margin:22px 0 8px;color:var(--navy);font-size:28px;line-height:1.1}.door .question{position:relative;color:var(--magenta);font-weight:900;margin-bottom:12px}.door:nth-child(1) .question{color:#087e83}.door:nth-child(3) .question{color:var(--navy)}.door p{position:relative;margin:0;color:#596671}.door .go{position:relative;margin-top:auto;padding-top:24px;color:var(--navy);font-weight:900;display:flex;align-items:center;gap:8px}.arrow{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff}.info{margin-top:18px;border:1px solid #cee8e9;background:linear-gradient(135deg,#fff,#edfafa);border-radius:22px;padding:24px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}.info h2{margin:0 0 5px;color:var(--navy);font-size:23px}.info p{margin:0;color:var(--muted)}.info a{flex:0 0 auto;text-decoration:none;background:var(--navy);color:#fff;border-radius:13px;padding:12px 16px;font-weight:900}.note{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}.icon{width:22px;height:22px;display:inline-block;vertical-align:middle}.icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}@media(max-width:850px){.top{align-items:flex-start;flex-direction:column}.doors{grid-template-columns:1fr}.door{min-height:0}.heroInner{padding:34px 25px}.info{align-items:flex-start;flex-direction:column}.info a{width:100%;text-align:center}}@media(max-width:540px){.wrap{width:min(calc(100% - 14px),var(--max));padding-top:8px}.nav a{font-size:12px;padding:8px 10px}.lead{font-size:17px}.hero{border-radius:22px}.intro,.info{padding:20px}.door{padding:22px}}
+:root{
+  --navy:#132238;--navy2:#1c3855;--mint:#00a7ad;--magenta:#c6006f;
+  --text:#2f3944;--muted:#66727d;--line:#dfe8eb;--soft:#f6f9fa;
+  --mintsoft:#e9f9f9;--magsoft:#fbeaf3;--shadow:0 18px 46px rgba(19,34,56,.10);
+  --max:1120px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:
+    radial-gradient(circle at 8% 4%,rgba(0,167,173,.08),transparent 26%),
+    radial-gradient(circle at 92% 8%,rgba(198,0,111,.06),transparent 24%),
+    linear-gradient(180deg,#fbfdfd,#eef4f5);
+  color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  line-height:1.6;min-height:100vh
+}
+body.locked{overflow:hidden}
+a,button{font:inherit}
+.wrap{width:min(calc(100% - 24px),var(--max));margin:auto;padding:16px 0 48px}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}
+.nav{display:flex;flex-wrap:wrap;gap:7px}
+.nav a,.lang button{
+  border:1px solid var(--line);background:rgba(255,255,255,.92);color:var(--navy);
+  padding:9px 12px;border-radius:999px;text-decoration:none;font-weight:850;font-size:13px;
+  box-shadow:0 4px 14px rgba(19,34,56,.035)
+}
+.nav a.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lang{display:flex;gap:6px}
+.lang button{cursor:pointer}
+.lang button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.enterOverlay{
+  position:fixed;inset:0;z-index:1000;display:grid;place-items:center;
+  padding:24px;background:
+    radial-gradient(circle at 18% 20%,rgba(0,167,173,.22),transparent 30%),
+    radial-gradient(circle at 82% 18%,rgba(198,0,111,.18),transparent 27%),
+    linear-gradient(145deg,#0d1828 0%,#132238 48%,#182f49 100%);
+  color:#fff;overflow:hidden;transition:opacity .85s ease,visibility .85s ease
+}
+.enterOverlay:before,.enterOverlay:after{
+  content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.55;pointer-events:none
+}
+.enterOverlay:before{
+  width:420px;height:420px;left:-190px;bottom:-180px;border:1px solid rgba(92,225,228,.28);
+  box-shadow:0 0 110px rgba(0,167,173,.11)
+}
+.enterOverlay:after{
+  width:360px;height:360px;right:-170px;top:-150px;border:1px solid rgba(255,105,185,.20);
+  box-shadow:0 0 110px rgba(198,0,111,.10)
+}
+.enterOverlay.closing{opacity:0;visibility:hidden;pointer-events:none}
+.enterCard{
+  position:relative;z-index:2;width:min(100%,980px);text-align:center;padding:18px 10px
+}
+.enterKicker{
+  font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#76e7e9
+}
+.enterTitle{
+  margin:12px 0 16px;font-size:clamp(42px,8vw,82px);line-height:.96;letter-spacing:-.055em;font-weight:300
+}
+.enterTitle strong{font-weight:700;color:#fff}
+.enterText{
+  max-width:720px;margin:0 auto;color:#d8e4ed;font-size:clamp(17px,2.5vw,21px);line-height:1.6
+}
+.overlayGates{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:760px;margin:34px auto 30px
+}
+.overlayGate{
+  position:relative;min-height:178px;border:1px solid rgba(255,255,255,.16);border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:18px;
+  overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.07)
+}
+.overlayGate:before{
+  content:"";position:absolute;left:50%;top:20px;transform:translateX(-50%);
+  width:86px;height:116px;border:2px solid currentColor;border-bottom:0;
+  border-radius:48px 48px 4px 4px;opacity:.82;box-shadow:0 0 30px currentColor
+}
+.overlayGate:after{
+  content:"";position:absolute;left:50%;top:40px;transform:translateX(-50%);
+  width:58px;height:96px;border:1px solid currentColor;border-bottom:0;border-radius:36px 36px 2px 2px;opacity:.38
+}
+.overlayGate:nth-child(1){color:#65dfe2}
+.overlayGate:nth-child(2){color:#ff78be}
+.overlayGate:nth-child(3){color:#dbe8f4}
+.overlayGate span{
+  position:relative;z-index:2;font-size:12px;letter-spacing:.10em;text-transform:uppercase;font-weight:900;color:#fff
+}
+.enterBtn{
+  appearance:none;border:0;cursor:pointer;background:linear-gradient(135deg,var(--mint),#0ab8be);
+  color:#fff;padding:15px 24px;border-radius:999px;font-weight:900;font-size:16px;
+  box-shadow:0 14px 36px rgba(0,167,173,.28);transition:transform .18s ease,box-shadow .18s ease
+}
+.enterBtn:hover{transform:translateY(-2px);box-shadow:0 18px 42px rgba(0,167,173,.35)}
+.enterHint{margin-top:12px;color:#99aaba;font-size:12px}
+.hero{
+  position:relative;overflow:hidden;border:1px solid #e7eef0;border-radius:32px;
+  background:
+    radial-gradient(circle at 78% 28%,rgba(198,0,111,.11),transparent 24%),
+    radial-gradient(circle at 72% 70%,rgba(0,167,173,.16),transparent 30%),
+    linear-gradient(140deg,#fff 0 62%,#edfafa 62% 100%);
+  box-shadow:var(--shadow)
+}
+.hero:after{
+  content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-90px;bottom:-90px;
+  border:1px solid rgba(0,167,173,.20);box-shadow:0 0 85px rgba(0,167,173,.08)
+}
+.heroInner{position:relative;z-index:2;display:grid;grid-template-columns:1.12fr .88fr;min-height:430px}
+.heroCopy{padding:48px 22px 42px 46px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--magenta)}
+h1{margin:10px 0 16px;color:var(--navy);font-size:clamp(38px,7vw,66px);line-height:1;letter-spacing:-.045em;font-weight:350}
+.lead{max-width:850px;margin:0;color:#4d5a65;font-size:20px}
+.promise{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}
+.promise span{
+  background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:999px;
+  padding:9px 13px;font-weight:850;color:var(--navy);font-size:14px
+}
+.heroVisual{position:relative;display:grid;place-items:center;padding:34px 42px 34px 10px}
+.heroPortal{
+  width:min(100%,330px);aspect-ratio:1/1.05;border-radius:38px;
+  background:linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,255,255,.50));
+  border:1px solid rgba(255,255,255,.78);box-shadow:0 24px 60px rgba(19,34,56,.12);
+  display:grid;place-items:center;backdrop-filter:blur(4px)
+}
+.heroPortal svg{width:84%;height:auto;overflow:visible}
+.portalGlow{filter:drop-shadow(0 0 10px rgba(0,167,173,.20))}
+.portalPulse{animation:portalPulse 4.2s ease-in-out infinite}
+@keyframes portalPulse{0%,100%{opacity:.55}50%{opacity:1}}
+.musicCard{
+  margin-top:18px;border:1px solid #dce7ea;border-radius:22px;background:rgba(255,255,255,.94);
+  box-shadow:0 10px 28px rgba(19,34,56,.06);overflow:hidden
+}
+.musicTop{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 22px
+}
+.track{display:flex;align-items:center;gap:14px;min-width:0}
+.musicBadge{
+  width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:linear-gradient(145deg,var(--navy),var(--navy2));
+  display:grid;place-items:center;color:#fff;box-shadow:0 8px 18px rgba(19,34,56,.16)
+}
+.musicBadge svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.trackText strong{display:block;color:var(--navy);font-size:17px;line-height:1.2}
+.trackText span{color:var(--muted);font-size:13px}
+.wave{height:26px;display:flex;align-items:center;gap:3px;margin-left:8px}
+.wave i{display:block;width:3px;height:7px;border-radius:99px;background:var(--mint);opacity:.45}
+.wave.playing i{animation:wave 1s ease-in-out infinite}
+.wave.playing i:nth-child(2){animation-delay:.15s}.wave.playing i:nth-child(3){animation-delay:.3s}
+.wave.playing i:nth-child(4){animation-delay:.45s}.wave.playing i:nth-child(5){animation-delay:.6s}
+@keyframes wave{0%,100%{height:7px;opacity:.4}50%{height:23px;opacity:1}}
+.musicActions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.musicBtn{
+  border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:12px;padding:9px 12px;
+  font-weight:900;cursor:pointer;display:inline-flex;align-items:center;gap:7px
+}
+.musicBtn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.musicBtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lyricsDetails{border-top:1px solid var(--line);background:#fbfdfd}
+.lyricsDetails summary{
+  list-style:none;cursor:pointer;padding:14px 22px;font-weight:900;color:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;gap:12px
+}
+.lyricsDetails summary::-webkit-details-marker{display:none}
+.chev{width:18px;height:18px;transition:transform .2s ease}
+.chev svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lyricsDetails[open] .chev{transform:rotate(180deg)}
+.lyrics{
+  padding:0 22px 24px;color:#4b5965;white-space:pre-line;line-height:1.75;
+  max-width:800px;font-size:14px
+}
+.intro{
+  margin-top:18px;padding:26px 30px;background:#fff;border:1px solid var(--line);
+  border-radius:22px;box-shadow:0 10px 26px rgba(19,34,56,.06)
+}
+.intro strong{color:var(--navy)}
+.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.door{
+  position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:430px;padding:26px;
+  border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,#fff,#fbfdfd);
+  box-shadow:var(--shadow);text-decoration:none;color:inherit;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease
+}
+.door:hover{transform:translateY(-5px);box-shadow:0 24px 52px rgba(19,34,56,.14);border-color:#cddbdd}
+.door:before{
+  content:"";position:absolute;right:-55px;top:-55px;width:170px;height:170px;border-radius:50%;
+  background:var(--mintsoft);filter:blur(.2px)
+}
+.door:nth-child(2):before{background:var(--magsoft)}
+.door:nth-child(3):before{background:#edf2f7}
+.doorTop{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.num{
+  position:relative;width:45px;height:45px;border-radius:50%;display:grid;place-items:center;
+  background:var(--mint);color:#fff;font-weight:900;box-shadow:0 7px 18px rgba(0,167,173,.18)
+}
+.door:nth-child(2) .num{background:var(--magenta);box-shadow:0 7px 18px rgba(198,0,111,.16)}
+.door:nth-child(3) .num{background:var(--navy);box-shadow:0 7px 18px rgba(19,34,56,.16)}
+.gateIcon{width:84px;height:92px;color:var(--mint);opacity:.9}
+.door:nth-child(2) .gateIcon{color:var(--magenta)}
+.door:nth-child(3) .gateIcon{color:var(--navy)}
+.gateIcon svg{display:block;width:100%;height:100%;overflow:visible}
+.gateFrame{fill:none;stroke:currentColor;stroke-width:2}
+.gateGlow{fill:currentColor;opacity:.07}
+.gatePanel{
+  fill:rgba(255,255,255,.9);stroke:currentColor;stroke-width:1.5;
+  transform-box:fill-box;transform-origin:left center;transition:transform .35s ease
+}
+.door:hover .gatePanel{transform:perspective(90px) rotateY(-34deg)}
+.gateLine{stroke:currentColor;stroke-width:1.3;opacity:.38}
+.door h2{position:relative;margin:18px 0 8px;color:var(--navy);font-size:28px;line-height:1.1}
+.door .question{position:relative;color:var(--magenta);font-weight:900;margin-bottom:12px}
+.door:nth-child(1) .question{color:#087e83}
+.door:nth-child(3) .question{color:var(--navy)}
+.door p{position:relative;margin:0;color:#596671}
+.door .go{
+  position:relative;margin-top:auto;padding-top:24px;color:var(--navy);font-weight:900;
+  display:flex;align-items:center;gap:8px
+}
+.arrow{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff}
+.info{
+  margin-top:18px;border:1px solid #cee8e9;background:linear-gradient(135deg,#fff,#edfafa);
+  border-radius:22px;padding:24px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center
+}
+.info h2{margin:0 0 5px;color:var(--navy);font-size:23px}
+.info p{margin:0;color:var(--muted)}
+.info a{
+  flex:0 0 auto;text-decoration:none;background:var(--navy);color:#fff;border-radius:13px;
+  padding:12px 16px;font-weight:900
+}
+.note{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:900px){
+  .heroInner{grid-template-columns:1fr}
+  .heroCopy{padding:40px 28px 16px}
+  .heroVisual{padding:8px 28px 34px}
+  .heroPortal{max-width:300px}
+}
+@media(max-width:850px){
+  .top{align-items:flex-start;flex-direction:column}
+  .doors{grid-template-columns:1fr}
+  .door{min-height:0}
+  .info{align-items:flex-start;flex-direction:column}
+  .info a{width:100%;text-align:center}
+  .musicTop{align-items:flex-start;flex-direction:column}
+  .musicActions{justify-content:flex-start}
+}
+@media(max-width:660px){
+  .overlayGates{gap:8px}
+  .overlayGate{min-height:138px;padding:12px 7px}
+  .overlayGate:before{width:64px;height:86px;top:18px}
+  .overlayGate:after{width:42px;height:68px;top:34px}
+  .overlayGate span{font-size:10px}
+}
+@media(max-width:540px){
+  .wrap{width:min(calc(100% - 14px),var(--max));padding-top:8px}
+  .nav a{font-size:12px;padding:8px 10px}
+  .lead{font-size:17px}
+  .hero{border-radius:24px}
+  .heroCopy{padding:30px 20px 12px}
+  .heroVisual{padding:6px 20px 28px}
+  .heroPortal{max-width:245px;border-radius:28px}
+  .intro,.info{padding:20px}
+  .door{padding:22px}
+  .musicTop,.lyricsDetails summary,.lyrics{padding-left:18px;padding-right:18px}
+  .wave{display:none}
+  .enterOverlay{padding:18px}
+  .enterText{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
 </style>
 </head>
-<body>
+<body class="locked">
+<div class="enterOverlay" id="enterOverlay" role="dialog" aria-modal="true" aria-labelledby="enterTitle">
+  <div class="enterCard">
+    <div class="enterKicker" data-i18n="overlayKicker">72 Stunden Empfangshalle</div>
+    <div class="enterTitle" id="enterTitle"><span data-i18n="overlayWelcome">Willkommen.</span><br><strong data-i18n="overlayQuestion">Was erwartest du von uns?</strong></div>
+    <p class="enterText" data-i18n="overlayText">Drei Tore stehen offen. Kein Weg ist vorgeschrieben. Nimm dir Zeit, schau dich um und finde heraus, welcher Weg zu dir passt.</p>
+    <div class="overlayGates" aria-hidden="true">
+      <div class="overlayGate"><span data-i18n="d1title">Wissen</span></div>
+      <div class="overlayGate"><span data-i18n="d2title">Perspektiven</span></div>
+      <div class="overlayGate"><span data-i18n="d3title">Talent &amp; Business</span></div>
+    </div>
+    <button class="enterBtn" id="enterBtn" type="button" data-i18n="enterBtn">Empfangshalle betreten</button>
+    <div class="enterHint" data-i18n="enterHint">Mit dem Betreten startet der Song „Drei Tore“.</div>
+  </div>
+</div>
+<audio id="hallAudio" preload="metadata" src="./Drei%20Tore.mp3"></audio>
 <div class="wrap">
   <div class="top">
     <nav class="nav" aria-label="Empfangshalle">
@@ -21,47 +302,174 @@
     </nav>
     <div class="lang" aria-label="Language"><button type="button" class="active" data-lang="de">DE</button><button type="button" data-lang="en">EN</button></div>
   </div>
-
   <section class="hero">
     <div class="heroInner">
-      <div class="eyebrow" data-i18n="eyebrow">72 Stunden Empfangshalle</div>
-      <h1 data-i18n="title">Was erwartest du von uns?</h1>
-      <p class="lead" data-i18n="lead">Nutze deine 72 Stunden, um herauszufinden, was du suchst und welcher Weg zu dir passt. Bevor wir über Möglichkeiten sprechen, möchten wir verstehen, was du von LiquidityBooster und der Akademie erwartest.</p>
-      <div class="promise">
-        <span data-i18n="p1">In Ruhe orientieren</span><span data-i18n="p2">Erwartungen formulieren</span><span data-i18n="p3">Den eigenen Weg wählen</span>
+      <div class="heroCopy">
+        <div class="eyebrow" data-i18n="eyebrow">72 Stunden Empfangshalle</div>
+        <h1 data-i18n="title">Was erwartest du von uns?</h1>
+        <p class="lead" data-i18n="lead">Nutze deine 72 Stunden, um herauszufinden, was du suchst und welcher Weg zu dir passt. Bevor wir über Möglichkeiten sprechen, möchten wir verstehen, was du von LiquidityBooster und der Akademie erwartest.</p>
+        <div class="promise"><span data-i18n="p1">In Ruhe orientieren</span><span data-i18n="p2">Erwartungen formulieren</span><span data-i18n="p3">Den eigenen Weg wählen</span></div>
+      </div>
+      <div class="heroVisual" aria-hidden="true">
+        <div class="heroPortal">
+          <svg viewBox="0 0 320 330" role="img">
+            <defs>
+              <linearGradient id="mintGate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#65dfe2" stop-opacity=".95"/><stop offset="1" stop-color="#00a7ad" stop-opacity=".28"/></linearGradient>
+              <linearGradient id="magGate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f08abd" stop-opacity=".9"/><stop offset="1" stop-color="#c6006f" stop-opacity=".22"/></linearGradient>
+              <linearGradient id="navGate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e8aa5" stop-opacity=".8"/><stop offset="1" stop-color="#132238" stop-opacity=".18"/></linearGradient>
+            </defs>
+            <circle class="portalPulse" cx="160" cy="163" r="138" fill="none" stroke="#00a7ad" stroke-opacity=".16"/>
+            <circle cx="160" cy="163" r="112" fill="none" stroke="#c6006f" stroke-opacity=".10"/>
+            <g class="portalGlow">
+              <path d="M37 250V126C37 80 63 50 98 50s61 30 61 76v124" fill="url(#mintGate)" fill-opacity=".12" stroke="#00a7ad" stroke-width="3"/>
+              <path d="M81 250V146c0-36 20-60 46-60s46 24 46 60v104" fill="url(#magGate)" fill-opacity=".12" stroke="#c6006f" stroke-width="3"/>
+              <path d="M161 250V116c0-43 25-71 59-71s59 28 59 71v134" fill="url(#navGate)" fill-opacity=".10" stroke="#132238" stroke-width="3"/>
+              <line x1="24" y1="250" x2="294" y2="250" stroke="#132238" stroke-opacity=".26" stroke-width="2"/>
+            </g>
+            <circle cx="98" cy="154" r="4" fill="#00a7ad"/><circle cx="127" cy="167" r="4" fill="#c6006f"/><circle cx="220" cy="151" r="4" fill="#132238"/>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
+  <section class="musicCard" aria-label="Musikplayer">
+    <div class="musicTop">
+      <div class="track">
+        <div class="musicBadge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></div>
+        <div class="trackText"><strong>Drei Tore</strong><span data-i18n="songSub">Song zur Empfangshalle</span></div>
+        <div class="wave" id="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="musicActions">
+        <button class="musicBtn primary" id="playBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg><span data-i18n="start">Start</span></button>
+        <button class="musicBtn" id="stopBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1"/></svg><span data-i18n="stop">Stop</span></button>
+      </div>
+    </div>
+    <details class="lyricsDetails">
+      <summary><span data-i18n="lyricsToggle">Songtext mitlesen</span><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+      <div class="lyrics" lang="de">Du bist angekommen,
+doch niemand sagt dir, wohin.
+Kein Weg ist vorgeschrieben,
+die Antwort liegt in dir.
 
-  <section class="intro">
-    <strong data-i18n="introStrong">Drei Tore. Drei unterschiedliche Absichten.</strong>
-    <span data-i18n="introText"> Wähle den Bereich, der am besten beschreibt, warum du hier bist. Du musst dich nicht sofort für eine Mitgliedschaft entscheiden.</span>
+Eine Frage steht im Raum,
+bevor hier irgendwas beginnt:
+
+Was erwartest du von uns?
+
+Vielleicht willst du verstehen,
+was gestern noch verborgen war.
+Vielleicht suchst du Antworten,
+Orientierung, ruhig und klar.
+
+Vielleicht willst du mehr bewegen,
+deinen eigenen Weg gestalten.
+Oder du hast längst etwas aufgebaut
+und willst es nicht für dich behalten.
+
+Drei Tore stehen offen,
+kein richtig und kein falsch.
+Du entscheidest, was du suchst,
+und wie weit du heute gehst.
+
+Drei Tore – ein neuer Blick,
+Wissen, Perspektive, Talent in dir.
+Was willst du lernen?
+Was willst du bewegen?
+Was kannst du geben auf deinem Weg?
+
+Drei Tore – deine Entscheidung,
+kein Druck, kein Muss, nur deine Richtung.
+Sag uns, was du von uns erwartest,
+und wir zeigen dir, was möglich wird.
+
+Vielleicht reicht dir heute Wissen,
+ein Gedanke, der dich weiterbringt.
+Vielleicht willst du etwas aufbauen
+und sehen, was daraus entsteht.
+
+Vielleicht bist du Coach, Unternehmer,
+hast Erfahrung, Ideen und Mut.
+Dann geht es nicht darum, was dir fehlt,
+sondern darum, was du schon kannst und tust.
+
+Wir suchen keine gleichen Menschen,
+wir suchen Menschen mit einem Ziel.
+Manche wollen lernen,
+manche wachsen,
+manche bringen unglaublich viel.
+
+Drei Tore – ein neuer Blick,
+Wissen, Perspektive, Talent in dir.
+Was willst du lernen?
+Was willst du bewegen?
+Was kannst du geben auf deinem Weg?
+
+Drei Tore – deine Entscheidung,
+kein Druck, kein Muss, nur deine Richtung.
+Sag uns, was du von uns erwartest,
+und wir zeigen dir, was möglich wird.
+
+Vielleicht beginnt alles
+mit einer einzigen Frage.
+
+Nicht:
+
+Was können wir dir verkaufen?
+
+Sondern:
+
+Was brauchst du?
+Was willst du erreichen?
+Was bringst du mit?
+
+Und irgendwann kommt die andere Frage zurück:
+
+Was können wir gemeinsam daraus machen?
+
+Drei Tore – und dein Weg beginnt,
+Wissen im Kopf und Zukunft im Blick.
+Eine Perspektive, die weiterführt,
+ein Talent, das vielleicht noch niemand sieht.
+
+Drei Tore – geh deinen Weg,
+du bestimmst selbst, wie weit er geht.
+Mehr verstehen.
+Mehr bewegen.
+Mehr miteinander möglich machen.
+
+Drei Tore –
+und du entscheidest.
+
+Was erwartest du von uns?
+
+Und was dürfen wir
+von dir erwarten?
+
+LiquidityBooster.
+Mehr Freiheit. Mehr Geld. Mehr vom Leben.</div>
+    </details>
   </section>
-
+  <section class="intro"><strong data-i18n="introStrong">Drei Tore. Drei unterschiedliche Absichten.</strong><span data-i18n="introText"> Wähle den Bereich, der am besten beschreibt, warum du hier bist. Du musst dich nicht sofort für eine Mitgliedschaft entscheiden.</span></section>
   <section class="doors" aria-label="Drei Tore">
     <a class="door" href="wissen.html">
-      <div class="num">1</div>
-      <h2 data-i18n="d1title">Wissen</h2>
-      <div class="question" data-i18n="d1q">Was möchtest du wissen?</div>
+      <div class="doorTop"><div class="num">1</div><div class="gateIcon" aria-hidden="true"><svg viewBox="0 0 84 92"><path class="gateGlow" d="M9 87V38C9 18 22 6 42 6s33 12 33 32v49z"/><path class="gateFrame" d="M9 87V38C9 18 22 6 42 6s33 12 33 32v49"/><rect class="gatePanel" x="22" y="30" width="40" height="57" rx="16"/><line class="gateLine" x1="42" y1="31" x2="42" y2="87"/></svg></div></div>
+      <h2 data-i18n="d1title">Wissen</h2><div class="question" data-i18n="d1q">Was möchtest du wissen?</div>
       <p data-i18n="d1text">Du suchst Informationen, möchtest ein Thema besser verstehen oder vorhandenes Wissen vertiefen. Teile uns deinen persönlichen Wissensbedarf mit. Dieser Weg bleibt kostenlos und in der Empfangshalle.</p>
       <div class="go"><span data-i18n="open">Tor öffnen</span><span class="arrow">→</span></div>
     </a>
     <a class="door" href="perspektiven.html">
-      <div class="num">2</div>
-      <h2 data-i18n="d2title">Perspektiven</h2>
-      <div class="question" data-i18n="d2q">Was möchtest du entwickeln?</div>
+      <div class="doorTop"><div class="num">2</div><div class="gateIcon" aria-hidden="true"><svg viewBox="0 0 84 92"><path class="gateGlow" d="M9 87V38C9 18 22 6 42 6s33 12 33 32v49z"/><path class="gateFrame" d="M9 87V38C9 18 22 6 42 6s33 12 33 32v49"/><rect class="gatePanel" x="22" y="30" width="40" height="57" rx="16"/><line class="gateLine" x1="42" y1="31" x2="42" y2="87"/></svg></div></div>
+      <h2 data-i18n="d2title">Perspektiven</h2><div class="question" data-i18n="d2q">Was möchtest du entwickeln?</div>
       <p data-i18n="d2text">Du möchtest verstehen, welche persönlichen und wirtschaftlichen Möglichkeiten sich im Clubhaus entwickeln können. Lerne die Qualifikationsstufen kennen und sag uns, was du von uns erwartest.</p>
       <div class="go"><span data-i18n="open">Tor öffnen</span><span class="arrow">→</span></div>
     </a>
     <a class="door" href="talent-business.html">
-      <div class="num">3</div>
-      <h2 data-i18n="d3title">Talent &amp; Business</h2>
-      <div class="question" data-i18n="d3q">Was bringst du mit?</div>
+      <div class="doorTop"><div class="num">3</div><div class="gateIcon" aria-hidden="true"><svg viewBox="0 0 84 92"><path class="gateGlow" d="M9 87V38C9 18 22 6 42 6s33 12 33 32v49z"/><path class="gateFrame" d="M9 87V38C9 18 22 6 42 6s33 12 33 32v49"/><rect class="gatePanel" x="22" y="30" width="40" height="57" rx="16"/><line class="gateLine" x1="42" y1="31" x2="42" y2="87"/></svg></div></div>
+      <h2 data-i18n="d3title">Talent &amp; Business</h2><div class="question" data-i18n="d3q">Was bringst du mit?</div>
       <p data-i18n="d3text">Du bist Coach, Experte, Unternehmer, Branchenkenner, Recruiter, Headhunter oder bringst eine besondere Expertise mit? Dann möchten wir wissen, was du kannst, anbietest und gemeinsam entwickeln möchtest.</p>
       <div class="go"><span data-i18n="open">Tor öffnen</span><span class="arrow">→</span></div>
     </a>
   </section>
-
   <section class="info">
     <div><h2 data-i18n="howTitle">Du möchtest zuerst das Gesamtbild verstehen?</h2><p data-i18n="howText">Dann sieh dir in Ruhe an, wie LiquidityBooster, Akademie, Clubhaus und die unterschiedlichen Perspektiven zusammenspielen.</p></div>
     <a href="../liquiditybooster-so-funktioniert-es/" data-i18n="howBtn">So funktioniert der LiquidityBooster</a>
@@ -70,9 +478,24 @@
 </div>
 <script>
 const I18N={
- de:{navHall:'Empfangshalle',navKnowledge:'Wissen',navPerspective:'Perspektiven',navTalent:'Talent & Business',navHow:'So funktioniert es',eyebrow:'72 Stunden Empfangshalle',title:'Was erwartest du von uns?',lead:'Nutze deine 72 Stunden, um herauszufinden, was du suchst und welcher Weg zu dir passt. Bevor wir über Möglichkeiten sprechen, möchten wir verstehen, was du von LiquidityBooster und der Akademie erwartest.',p1:'In Ruhe orientieren',p2:'Erwartungen formulieren',p3:'Den eigenen Weg wählen',introStrong:'Drei Tore. Drei unterschiedliche Absichten.',introText:' Wähle den Bereich, der am besten beschreibt, warum du hier bist. Du musst dich nicht sofort für eine Mitgliedschaft entscheiden.',d1title:'Wissen',d1q:'Was möchtest du wissen?',d1text:'Du suchst Informationen, möchtest ein Thema besser verstehen oder vorhandenes Wissen vertiefen. Teile uns deinen persönlichen Wissensbedarf mit. Dieser Weg bleibt kostenlos und in der Empfangshalle.',d2title:'Perspektiven',d2q:'Was möchtest du entwickeln?',d2text:'Du möchtest verstehen, welche persönlichen und wirtschaftlichen Möglichkeiten sich im Clubhaus entwickeln können. Lerne die Qualifikationsstufen kennen und sag uns, was du von uns erwartest.',d3title:'Talent & Business',d3q:'Was bringst du mit?',d3text:'Du bist Coach, Experte, Unternehmer, Branchenkenner, Recruiter, Headhunter oder bringst eine besondere Expertise mit? Dann möchten wir wissen, was du kannst, anbietest und gemeinsam entwickeln möchtest.',open:'Tor öffnen',howTitle:'Du möchtest zuerst das Gesamtbild verstehen?',howText:'Dann sieh dir in Ruhe an, wie LiquidityBooster, Akademie, Clubhaus und die unterschiedlichen Perspektiven zusammenspielen.',howBtn:'So funktioniert der LiquidityBooster',note:'Die Empfangshalle dient der Orientierung. Die drei Tore sind unterschiedliche Wege – „So funktioniert es“ ist eine zusätzliche Informationsseite und kein viertes Tor.'},
- en:{navHall:'Reception',navKnowledge:'Knowledge',navPerspective:'Perspectives',navTalent:'Talent & Business',navHow:'How it works',eyebrow:'72-hour reception area',title:'What do you expect from us?',lead:'Use your 72 hours to find out what you are looking for and which path suits you. Before we talk about opportunities, we want to understand what you expect from LiquidityBooster and the Academy.',p1:'Explore at your own pace',p2:'Describe your expectations',p3:'Choose your own path',introStrong:'Three doors. Three different intentions.',introText:' Choose the area that best describes why you are here. You do not have to decide on a membership right away.',d1title:'Knowledge',d1q:'What would you like to know?',d1text:'You are looking for information, want to understand a topic better or deepen existing knowledge. Tell us what knowledge you personally need. This path remains free and stays within the reception area.',d2title:'Perspectives',d2q:'What would you like to develop?',d2text:'You want to understand which personal and economic opportunities can develop inside the Clubhouse. Explore the qualification stages and tell us what you expect from us.',d3title:'Talent & Business',d3q:'What do you bring to the table?',d3text:'Are you a coach, expert, entrepreneur, industry specialist, recruiter, headhunter or do you bring special expertise? Then we want to know what you can do, what you offer and what we might develop together.',open:'Open door',howTitle:'Would you like to understand the big picture first?',howText:'Take a look at how LiquidityBooster, the Academy, the Clubhouse and the different perspectives work together.',howBtn:'How LiquidityBooster works',note:'The reception area is for orientation. The three doors are different paths – “How it works” is an additional information page, not a fourth door.'}
+  de:{navHall:'Empfangshalle',navKnowledge:'Wissen',navPerspective:'Perspektiven',navTalent:'Talent & Business',navHow:'So funktioniert es',overlayKicker:'72 Stunden Empfangshalle',overlayWelcome:'Willkommen.',overlayQuestion:'Was erwartest du von uns?',overlayText:'Drei Tore stehen offen. Kein Weg ist vorgeschrieben. Nimm dir Zeit, schau dich um und finde heraus, welcher Weg zu dir passt.',enterBtn:'Empfangshalle betreten',enterHint:'Mit dem Betreten startet der Song „Drei Tore“.',eyebrow:'72 Stunden Empfangshalle',title:'Was erwartest du von uns?',lead:'Nutze deine 72 Stunden, um herauszufinden, was du suchst und welcher Weg zu dir passt. Bevor wir über Möglichkeiten sprechen, möchten wir verstehen, was du von LiquidityBooster und der Akademie erwartest.',p1:'In Ruhe orientieren',p2:'Erwartungen formulieren',p3:'Den eigenen Weg wählen',songSub:'Song zur Empfangshalle',start:'Start',stop:'Stop',lyricsToggle:'Songtext mitlesen',introStrong:'Drei Tore. Drei unterschiedliche Absichten.',introText:' Wähle den Bereich, der am besten beschreibt, warum du hier bist. Du musst dich nicht sofort für eine Mitgliedschaft entscheiden.',d1title:'Wissen',d1q:'Was möchtest du wissen?',d1text:'Du suchst Informationen, möchtest ein Thema besser verstehen oder vorhandenes Wissen vertiefen. Teile uns deinen persönlichen Wissensbedarf mit. Dieser Weg bleibt kostenlos und in der Empfangshalle.',d2title:'Perspektiven',d2q:'Was möchtest du entwickeln?',d2text:'Du möchtest verstehen, welche persönlichen und wirtschaftlichen Möglichkeiten sich im Clubhaus entwickeln können. Lerne die Qualifikationsstufen kennen und sag uns, was du von uns erwartest.',d3title:'Talent & Business',d3q:'Was bringst du mit?',d3text:'Du bist Coach, Experte, Unternehmer, Branchenkenner, Recruiter, Headhunter oder bringst eine besondere Expertise mit? Dann möchten wir wissen, was du kannst, anbietest und gemeinsam entwickeln möchtest.',open:'Tor öffnen',howTitle:'Du möchtest zuerst das Gesamtbild verstehen?',howText:'Dann sieh dir in Ruhe an, wie LiquidityBooster, Akademie, Clubhaus und die unterschiedlichen Perspektiven zusammenspielen.',howBtn:'So funktioniert der LiquidityBooster',note:'Die Empfangshalle dient der Orientierung. Die drei Tore sind unterschiedliche Wege – „So funktioniert es“ ist eine zusätzliche Informationsseite und kein viertes Tor.'},
+  en:{navHall:'Reception',navKnowledge:'Knowledge',navPerspective:'Perspectives',navTalent:'Talent & Business',navHow:'How it works',overlayKicker:'72-hour reception area',overlayWelcome:'Welcome.',overlayQuestion:'What do you expect from us?',overlayText:'Three doors are open. No path is prescribed. Take your time, look around and find out which path suits you.',enterBtn:'Enter the reception area',enterHint:'Entering starts the song “Drei Tore”.',eyebrow:'72-hour reception area',title:'What do you expect from us?',lead:'Use your 72 hours to find out what you are looking for and which path suits you. Before we talk about opportunities, we want to understand what you expect from LiquidityBooster and the Academy.',p1:'Explore at your own pace',p2:'Describe your expectations',p3:'Choose your own path',songSub:'Song for the reception area',start:'Start',stop:'Stop',lyricsToggle:'Read the lyrics',introStrong:'Three doors. Three different intentions.',introText:' Choose the area that best describes why you are here. You do not have to decide on a membership right away.',d1title:'Knowledge',d1q:'What would you like to know?',d1text:'You are looking for information, want to understand a topic better or deepen existing knowledge. Tell us what knowledge you personally need. This path remains free and stays within the reception area.',d2title:'Perspectives',d2q:'What would you like to develop?',d2text:'You want to understand which personal and economic opportunities can develop inside the Clubhouse. Explore the qualification stages and tell us what you expect from us.',d3title:'Talent & Business',d3q:'What do you bring to the table?',d3text:'Are you a coach, expert, entrepreneur, industry specialist, recruiter, headhunter or do you bring special expertise? Then we want to know what you can do, what you offer and what we might develop together.',open:'Open door',howTitle:'Would you like to understand the big picture first?',howText:'Take a look at how LiquidityBooster, the Academy, the Clubhouse and the different perspectives work together.',howBtn:'How LiquidityBooster works',note:'The reception area is for orientation. The three doors are different paths – “How it works” is an additional information page, not a fourth door.'}
 };
+const audio=document.getElementById('hallAudio');
+const wave=document.getElementById('wave');
+const overlay=document.getElementById('enterOverlay');
+const enterBtn=document.getElementById('enterBtn');
+const playBtn=document.getElementById('playBtn');
+const stopBtn=document.getElementById('stopBtn');
+function setPlaying(on){wave.classList.toggle('playing',on)}
+function playSong(){const result=audio.play();if(result&&typeof result.catch==='function'){result.catch(()=>setPlaying(false))}}
+function stopSong(){audio.pause();audio.currentTime=0;setPlaying(false)}
+audio.addEventListener('play',()=>setPlaying(true));
+audio.addEventListener('pause',()=>setPlaying(false));
+audio.addEventListener('ended',()=>setPlaying(false));
+enterBtn.addEventListener('click',()=>{playSong();overlay.classList.add('closing');document.body.classList.remove('locked');window.setTimeout(()=>overlay.setAttribute('aria-hidden','true'),900)});
+playBtn.addEventListener('click',playSong);
+stopBtn.addEventListener('click',stopSong);
 function setLang(lang){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[lang][k]!=null)el.textContent=I18N[lang][k]});document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));localStorage.setItem('pm-lang',lang)}
 document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));setLang(localStorage.getItem('pm-lang')||'de');
 </script>
