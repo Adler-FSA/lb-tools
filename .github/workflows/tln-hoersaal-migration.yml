@@ -67,10 +67,21 @@ jobs:
               'community-kompass.html',
           ):
               text = text.replace(old_base + filename, '')
-          # Catch any remaining old TLN URL in this communication tool.
           text = re.sub(r'https://adler-fsa\.github\.io/lp-anfang/pages/tln/[^\s\'\"<]+', '', text, flags=re.I)
-          text = text.replace('  ', ' ')
-          text = text.replace(' :', ':')
+
+          # Clean the three copy templates that previously ended with a visible URL.
+          text = text.replace(
+              'Hallo [Name], hier ist zuerst die Übersicht über das gesamte VOW-Ökosystem. Sie erklärt, wie VOW, TLN, Single.ID, Vtravel und die VOW App zusammenspielen: ',
+              'Hallo [Name], starte bitte mit der Übersicht über das gesamte VOW-Ökosystem. Sie erklärt, wie VOW, TLN, Single.ID, Vtravel und die VOW App zusammenspielen.'
+          )
+          text = text.replace(
+              'Falls du lieber Menschen statt Webseiten kennenlernst, kannst du zuerst einen offenen Community-Termin besuchen. Hier stehen die aktuellen Räume und Inhalte: ',
+              'Falls du lieber Menschen statt Webseiten kennenlernst, kannst du zuerst einen offenen Community-Termin besuchen. Die aktuellen Räume und Inhalte findest du direkt im Hörsaal.'
+          )
+          text = text.replace(
+              'Wenn dich vor allem Wallets, BNB und der Zugang zur TLN-DApp interessieren, ist diese Einstiegsseite passend: ',
+              'Wenn dich vor allem Wallets, BNB und der Zugang zur TLN-DApp interessieren, ist die Seite Projekt-Einstieg im Hörsaal passend.'
+          )
           kompass.write_text(text, encoding='utf-8')
 
       - name: Audit migration and old-path traces
