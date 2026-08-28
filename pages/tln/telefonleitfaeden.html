@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>TLN · VOW · VTravel Gesprächsleitfäden</title>
+<style>
+:root{--text:#111827;--muted:#667085;--line:#dfe3e8;--soft:#f7f8fa;--accent:#6b4eff;--accentSoft:#f1eeff;--green:#167c5a;--greenSoft:#eaf7f2;--gold:#9a6700;--goldSoft:#fff8df;--red:#b42318;--max:1180px}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.55}button,input,select{font:inherit}.page{width:min(100% - 24px,var(--max));margin:auto;padding:24px 0 60px}.box{border:1px solid var(--line);background:#fff;margin-bottom:18px;padding:22px}.hero{border-left:7px solid var(--accent)}h1,h2,h3{margin-top:0;line-height:1.2}h1{font-size:clamp(2rem,5vw,3.1rem);margin:10px 0}.lead,.muted{color:var(--muted)}.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:var(--accentSoft);color:var(--accent);font-weight:700;font-size:.82rem}.controls{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:12px}.field{display:grid;gap:6px}.field label{font-weight:700;font-size:.9rem}.field select,.field input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr);gap:18px}.reader{min-height:510px}.readerHead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}.progress{color:var(--muted);font-weight:700}.script{min-height:220px;margin-top:14px;padding:26px;border:1px solid var(--line);border-radius:14px;background:var(--soft);display:flex;flex-direction:column;justify-content:center}.scriptText{font-size:1.45rem;line-height:1.7;white-space:pre-wrap}.coachNote{margin-top:16px;padding:13px;background:#fff;border-left:4px solid var(--accent);font-weight:700}.nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}.btn{cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:#fff;padding:11px 15px;border-radius:9px;font-weight:700}.btn.secondary{background:#fff;color:var(--accent)}.btn.muted{background:var(--soft);border-color:var(--line);color:var(--text)}.btn:disabled{opacity:.45;cursor:not-allowed}.objections{margin-top:18px}.objectionGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.objection{cursor:pointer;text-align:left;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.objection strong{display:block;color:var(--accent);margin-bottom:3px}.answerBox{margin-top:10px;padding:14px;border-left:4px solid var(--green);background:var(--greenSoft);min-height:58px}.eventCard{border-left:5px solid var(--green)}.eventDate{font-size:1.3rem;font-weight:800;margin:8px 0}.eventMeta{display:grid;gap:8px}.eventMeta div{padding:10px;background:var(--soft);border:1px solid var(--line)}.eventActions{display:grid;gap:9px;margin-top:14px}.eventActions a{text-decoration:none;text-align:center}.tip{border-left:5px solid var(--gold);background:var(--goldSoft)}.small{font-size:.9rem}.status{margin-top:12px;padding:12px;background:var(--greenSoft);border-left:4px solid var(--green);font-weight:700}.error{background:#fff0ef;border-left-color:var(--red)}@media(max-width:900px){.layout{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.objectionGrid{grid-template-columns:1fr}}@media(max-width:620px){.page{width:min(100% - 16px,var(--max));padding-top:12px}.box{padding:17px}.controls{grid-template-columns:1fr}.readerHead,.nav{flex-direction:column}.btn{width:100%}.scriptText{font-size:1.2rem}.layout{gap:0}}@media print{.controls,.nav,.objections,.eventActions,.tip{display:none!important}.page{width:100%}.box{border:0}.layout{display:block}.scriptText{font-size:18pt}}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="box hero">
+<span class="badge">Seite 6 · Ablesemodus</span>
+<h1>TLN · VOW · VTravel Gespräche</h1>
+<p class="lead">Immer nur der nächste Satz – direkt zum Ablesen. Darunter stehen passende Einwandbehandlungen. Das Gesprächsziel ist ein geeigneter Zoom-Termin oder ein persönlicher Einzeltermin.</p>
+</header>
+
+<section class="box">
+<div class="controls">
+<div class="field"><label for="projectSelect">Thema</label><select id="projectSelect"><option value="TLN">TLN</option><option value="VOW">VOW</option><option value="VTravel">VTravel</option></select></div>
+<div class="field"><label for="guideSelect">Gesprächsanlass</label><select id="guideSelect">
+<option value="first">Erster Kontakt zum Thema</option>
+<option value="warm">Alten Kontakt wieder aufwärmen</option>
+<option value="staking">Abgelaufenes Staking</option>
+<option value="rebound">Rebound ansprechen</option>
+<option value="tech">Zum Technik-Call einladen</option>
+<option value="event">Passendes Event anbieten</option>
+<option value="follow">Nach einem Zoom nachfassen</option>
+<option value="personal">Einzeltermin vereinbaren</option>
+</select></div>
+<div class="field"><label for="personName">Name</label><input id="personName" placeholder="optional"></div>
+</div>
+<div id="loadStatus" class="status">Leitfaden ist geladen.</div>
+</section>
+
+<div class="layout">
+<section class="box reader">
+<div class="readerHead"><div><span class="badge" id="guideBadge">TLN · Erster Kontakt</span><h2 id="stepTitle">Natürlich eröffnen</h2></div><div class="progress" id="progressText">Schritt 1 von 5</div></div>
+<div class="script"><div class="scriptText" id="scriptText">Hallo, ich wollte mich einfach einmal melden. Passt es gerade für zwei Minuten?</div><div class="coachNote" id="coachNote">Zuerst Zustimmung abwarten. Noch nichts erklären.</div></div>
+<div class="nav"><button class="btn secondary" id="prevBtn" type="button">Zurück</button><button class="btn muted" id="copyBtn" type="button">Satz kopieren</button><button class="btn" id="nextBtn" type="button">Weiter</button></div>
+<div class="objections">
+<h3>Einwandbehandlungen – immer im Blick</h3>
+<div class="objectionGrid" id="objectionGrid"></div>
+<div class="answerBox" id="answerBox">Wähle einen Einwand aus. Die passende Antwort erscheint hier.</div>
+</div>
+</section>
+
+<aside>
+<section class="box eventCard">
+<span class="badge">Passender nächster Termin</span>
+<h2 id="eventTitle">TLN Technik Call</h2>
+<div class="eventDate" id="eventDate">wird berechnet …</div>
+<p id="eventDescription">Technik, TLN-DApp, Rebound, Staking, Lending und Wallets.</p>
+<div class="eventMeta"><div><strong>Format:</strong> <span id="eventFormat">Zoom</span></div><div><strong>Zugang:</strong> <span id="eventAccess">über Kalender oder Ansprechpartner</span></div></div>
+<div class="eventActions"><a class="btn" id="eventLink" href="https://kalender.digital/tln-allgemein" target="_blank" rel="noopener">Termin im Kalender öffnen</a><button class="btn secondary" id="useEventBtn" type="button">Termin in Satz übernehmen</button></div>
+</section>
+<section class="box tip"><strong>Gesprächsregel:</strong><p class="small">Nicht mehrere Termine anbieten. Einen passenden Termin nennen, Zustimmung abwarten und erst dann Zugang oder Einzeltermin vereinbaren.</p></section>
+</aside>
+</div>
+</main>
+
+<script>
+(function(){
+"use strict";
+var calendarUrl="https://kalender.digital/tln-allgemein";
+var events={
+clubtreffen:{title:"LiquidityBooster – Club Treffen",weekday:1,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Offenes Clubtreffen für Gäste und Mitglieder mit Informationen aus der Akademie für finanzielle Souveränität, Austausch und Einblicken in aktuelle Entwicklungen.",format:"Zoom",access:"Direkter Zoom-Raum · mit Peter Bösing und Mike Rau",url:"https://zoom.us/j/98135658773"},
+tech:{title:"TLN Technik Call",weekday:1,hour:20,minute:0,duration:"20:00–21:30 Uhr",description:"TLN-DApp, Rebound, Staking, Lending, TLN-Gold-Optionen und Wallets.",format:"Zoom",access:"Zugang über den offiziellen Kalender oder Ansprechpartner",url:calendarUrl},
+communitytalk:{title:"TLN Community Talk",weekday:2,hour:19,minute:0,duration:"19:00–20:30 Uhr",description:"Offener Austausch aus der Community für die Community, mit wechselnden Moderatoren.",format:"Zoom",access:"Meeting-ID 627 745 0678 · Kenncode 124578",url:"https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1"},
+breakfast:{title:"Unternehmer – Brainstorming – Frühstück – Stammtisch",weekday:3,hour:10,minute:0,duration:"10:00–12:30 Uhr",description:"Unternehmerischer Austausch, Brainstorming und Kennenlernen. Teilnahme nach Einladung durch den Ansprechpartner.",format:"Einladung",access:"Beitritt über den persönlichen Ansprechpartner",url:"https://t.me/c/3236099787/1/43"},
+stammtisch:{title:"LiquidityBooster Club-Stammtisch",weekday:3,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Gesellige Runde mit Gesprächsstoff, Austausch und Kennenlernen.",format:"Zoom",access:"Direkter Zoom-Raum",url:"https://zoom.us/j/94363254814"},
+ambassador:{title:"TLN Ambassador Call",weekday:3,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Regelmäßiger Austausch für TLN Ambassadors und aktive Partner im VOW Ecosystem.",format:"Zoom",access:"Meeting-ID 627 745 0678 · Kenncode 124578",url:"https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1"},
+roundtable:{title:"Special TLN Roundtable / TLN Interactive",weekday:4,hour:19,minute:0,duration:"19:00–20:30 Uhr",description:"Roundtable, Talkrunde und TLN Interactive für Austausch, Fragen, Tipps und Tools.",format:"Zoom",access:"Meeting-ID 627 745 0678 · Kenncode 124578",url:"https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1"},
+mastermind:{title:"TLN Mastermind",weekday:5,hour:11,minute:0,duration:"11:00–12:00 Uhr",description:"Für Mitglieder, die hinter der gemeinsamen Vision stehen und aktiv am Erfolg arbeiten.",format:"Zoom / Einladung",access:"Teilnahme nach Einladung durch den Ansprechpartner",url:"https://t.me/c/2289313102/1/6"},
+webinar:{title:"LIVE-Webinar: Das größte Cashback-Ökosystem der Welt",weekday:5,hour:18,minute:0,duration:"18:00–19:00 Uhr",description:"Geschäftspräsentation zum Cashback-Ökosystem. Referent laut Kalender: Alexander Finke.",format:"Zoom",access:"Direkter Zoom-Raum",url:"https://us02web.zoom.us/j/7899786501"},
+leader:{title:"Club Leader KMS-Schulung / Einarbeitung",weekday:6,hour:10,minute:0,duration:"10:00–12:00 Uhr",description:"Schulung und Einarbeitung mit Fokus auf Sicherheit, Struktur und sauberen Einstieg.",format:"Einladung",access:"Link über den Ansprechpartner",url:calendarUrl}
+};
+var commonObjections=[
+["Keine Zeit","Verstehe ich. Dann machen wir es einfach: Soll ich dir einen konkreten Termin nennen, und du entscheidest in Ruhe, ob er passt?"],
+["Ich kenne das nicht","Genau deshalb geht es zunächst nur um einen Termin, bei dem du zuhören und Fragen stellen kannst. Du musst vorher nichts wissen."],
+["Ich habe Negatives gelesen","Das ist nachvollziehbar. Ältere und aktuelle Informationen sollte man sauber trennen. Im Termin kannst du konkrete Fragen stellen und dir selbst ein Bild machen."],
+["Kein Interesse","Alles gut. Danke für die klare Rückmeldung. Dann lassen wir das Thema stehen und bleiben einfach normal in Kontakt."],
+["Ist das eine Anlageberatung?","Nein. Ich gebe keine Anlage-, Steuer- oder Rechtsberatung. Ich biete dir nur einen Informations- oder Gesprächstermin an."],
+["Schick mir erst Informationen","Ich kann dir den offiziellen Termin und das Thema senden. Die eigentliche Einordnung erfolgt im Zoom oder in einem persönlichen Gespräch."]
+];
+var guides={
+first:{title:"Erster Kontakt zum Thema",event:"webinar",steps:[
+["Natürlich eröffnen","Hallo {{name}}, ich wollte mich einfach einmal melden. Passt es gerade für zwei Minuten?","Zuerst Zustimmung abwarten. Noch nichts erklären."],
+["Interesse erkennen","Beschäftigst du dich grundsätzlich mit digitalen Geschäftsmodellen, Cashback oder dezentralen Anwendungen?","Offen fragen und zuhören."],
+["Thema kurz einordnen","Ich beschäftige mich aktuell mit {{project}}. Dabei geht es nicht um eine schnelle Entscheidung, sondern darum, das Modell und die Anwendung erst einmal zu verstehen.","Keine Versprechen und keine Fachbegriffe stapeln."],
+["Termin anbieten","Dazu gibt es einen passenden Zoom-Termin: {{eventSentence}}","Nur diesen einen Termin nennen."],
+["Ziel sichern","Soll ich dir den Zugang senden, oder wäre ein kurzer persönlicher Einzeltermin angenehmer?","Zoom oder Einzeltermin – nicht beides gleichzeitig erklären."]
+]},
+warm:{title:"Alten Kontakt wieder aufwärmen",event:"webinar",steps:[
+["Beziehung zuerst","Hallo {{name}}, wir haben länger nichts voneinander gehört. Wie geht es dir inzwischen?","Ehrlich zuhören."],
+["Früheren Bezug aufnehmen","Ich musste an unser früheres Gespräch über digitale Projekte und neue Geschäftsmodelle denken.","Noch keine Bewertung abgeben."],
+["Aktuellen Anlass nennen","Bei {{project}} gibt es inzwischen aktuelle Termine, in denen die heutige Entwicklung erklärt und Fragen beantwortet werden.","Nicht behaupten, dass jede alte Kritik erledigt sei."],
+["Termin konkret machen","Der nächste passende Termin ist {{eventSentence}}","Datum und Uhrzeit klar nennen."],
+["Einladung","Möchtest du dabei sein, oder sollen wir vorher zehn Minuten persönlich sprechen?","Eine klare Wahl ermöglichen."]
+]},
+staking:{title:"Abgelaufenes Staking",event:"tech",steps:[
+["Anlass nennen","Hallo {{name}}, ich melde mich, weil dein Staking-Zeitraum abgelaufen ist oder demnächst endet.","Nur anrufen, wenn der Anlass tatsächlich bekannt ist."],
+["Situation klären","Hast du den Ablauf bereits gesehen, oder soll das im Technik-Call gemeinsam eingeordnet werden?","Keine Handlung für die Person ausführen."],
+["Sicherheit betonen","Bevor du etwas neu bestätigst, solltest du Laufzeit, Wallet, Smart Contract und aktuelle Bedingungen selbst prüfen.","Keine Empfehlung für ein neues Staking geben."],
+["Technik-Termin anbieten","Der nächste passende Termin ist {{eventSentence}} Dort werden unter anderem Staking, Rebound, Wallets und die TLN-DApp behandelt.","Technik-Call statt Ferndiagnose."],
+["Alternative","Soll ich dir den Termin senden, oder möchtest du vorher einen Einzeltermin mit deinem Ansprechpartner?","Ziel ist sichere Klärung."]
+]},
+rebound:{title:"Rebound ansprechen",event:"tech",steps:[
+["Begriff aufnehmen","Hallo {{name}}, du hattest nach dem Rebound gefragt. Ich möchte dir dazu nichts verkürzt oder aus dem Zusammenhang erklären.","Keine spontane Detailberatung."],
+["Kenntnisstand prüfen","Geht es dir um die technische Funktion, den aktuellen Status oder darum, was du in deiner Wallet siehst?","Frage präzisieren."],
+["Passenden Rahmen nennen","Das lässt sich am saubersten im TLN Technik Call oder in einem Einzeltermin klären.","Nicht spekulieren."],
+["Termin nennen","Der nächste Technik-Call ist {{eventSentence}}","Konkreten Termin nennen."],
+["Vereinbaren","Soll ich dir den Zugang senden oder einen persönlichen Termin mit deinem Ansprechpartner abstimmen?","Nur einen nächsten Schritt festhalten."]
+]},
+tech:{title:"Zum Technik-Call einladen",event:"tech",steps:[
+["Anlass verbinden","Du hattest eine Frage zu Wallets, Staking, Lending, Rebound oder der TLN-DApp.","Nur das tatsächlich genannte Thema einsetzen."],
+["Call erklären","Im Technik-Call werden genau solche Fragen gemeinsam und nachvollziehbar behandelt.","Keine Lösung vorwegnehmen."],
+["Termin nennen","Der nächste TLN Technik Call ist {{eventSentence}}","Datum und Uhrzeit nennen."],
+["Erwartung setzen","Du kannst deine Frage mitbringen und einfach zuhören. Es gibt keine Aufzeichnung.","Auf Live-Charakter hinweisen."],
+["Zugang klären","Soll ich dir den Kalenderzugang senden oder dich vorher mit deinem Ansprechpartner verbinden?","Einverständnis abwarten."]
+]},
+event:{title:"Passendes Event anbieten",event:"webinar",steps:[
+["Interesse zuordnen","Was interessiert dich stärker: Technik, das VOW-Cashback-Modell, Community-Austausch oder VTravel?","Antwort bestimmt den Termin."],
+["Passenden Termin auswählen","Dafür passt aktuell am besten: {{eventSentence}}","Rechts kann ein anderer Termin gewählt werden."],
+["Nutzen erklären","Dort bekommst du das Thema live erklärt und kannst konkrete Fragen stellen.","Keine Ergebnisversprechen."],
+["Einladung","Soll ich dir den Zugang senden?","Klare Ja-Nein-Frage."],
+["Alternative anbieten","Falls der Termin nicht passt, können wir einen persönlichen Einzeltermin vereinbaren.","Nicht mehrere Events aufzählen."]
+]},
+follow:{title:"Nach einem Zoom nachfassen",event:"tech",steps:[
+["Offen beginnen","Hallo {{name}}, was ist dir aus dem letzten Zoom besonders im Gedächtnis geblieben?","Keine lenkende Ja-Nein-Frage."],
+["Frage herausarbeiten","Was möchtest du noch genauer verstehen oder anhand der Anwendung sehen?","Notieren, nicht improvisieren."],
+["Nächsten Rahmen wählen","Dafür passt entweder ein Technik-Call, ein thematisches Event oder ein Einzeltermin.","Nur passend zur Frage wählen."],
+["Konkreten Termin nennen","Mein Vorschlag ist {{eventSentence}}","Nur einen Vorschlag machen."],
+["Vereinbaren","Passt dieser Termin, oder soll ich einen Einzeltermin abstimmen?","Nächsten Schritt festhalten."]
+]},
+personal:{title:"Einzeltermin vereinbaren",event:"tech",steps:[
+["Bedarf bestätigen","Deine Frage ist persönlich oder zu konkret für einen allgemeinen Zoom.","Keine sensiblen Daten am Telefon abfragen."],
+["Ziel definieren","Im Einzeltermin soll geklärt werden, welche Information dir fehlt und welcher offizielle Weg dafür zuständig ist.","Keine Beratung versprechen."],
+["Format anbieten","Möchtest du den Termin telefonisch oder per Zoom führen?","Person wählen lassen."],
+["Zeit abstimmen","Welche zwei Zeitfenster passen dir in den nächsten Tagen?","Zwei Optionen notieren."],
+["Abschluss","Ich stimme den Termin mit dem Ansprechpartner ab und bestätige dir Datum, Uhrzeit und Zugang.","Keine Zusage ohne Bestätigung."]
+]}
+};
+var currentGuide="first",stepIndex=0,currentEventKey="webinar";
+function el(id){return document.getElementById(id)}
+function pad(n){return n<10?"0"+n:String(n)}
+function formatDate(d){var days=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];return days[d.getDay()]+", "+pad(d.getDate())+"."+pad(d.getMonth()+1)+"."+d.getFullYear()}
+function nextWeekly(event){
+ var now=new Date(), d=new Date(now.getFullYear(),now.getMonth(),now.getDate(),event.hour,event.minute,0,0);
+ var diff=(event.weekday-d.getDay()+7)%7;d.setDate(d.getDate()+diff);
+ if(d<=now)d.setDate(d.getDate()+7);
+ if(event.biweekly){
+   var anchor=new Date(event.anchor);
+   while(d<now || Math.round((d-anchor)/86400000)%14!==0){d.setDate(d.getDate()+7)}
+ }
+ return d;
+}
+function eventSentence(key){var e=events[key],d=nextWeekly(e);return "am "+formatDate(d)+" von "+e.duration}
+function personalize(text){
+ var name=el("personName").value.trim();
+ var project=el("projectSelect").value;
+ return text.replace(/\{\{name\}\}/g,name?name:"").replace("Hallo ,","Hallo,").replace(/\{\{project\}\}/g,project).replace(/\{\{eventSentence\}\}/g,eventSentence(currentEventKey));
+}
+function chooseDefaultEvent(){
+ var p=el("projectSelect").value,g=currentGuide;
+ if(g==="staking"||g==="rebound"||g==="tech"||g==="follow")return "tech";
+ if(p==="VOW")return "webinar";
+ if(p==="VTravel")return "webinar";
+ return guides[g].event||"tech";
+}
+function renderEvent(){
+ var e=events[currentEventKey],d=nextWeekly(e);
+ el("eventTitle").textContent=e.title;
+ el("eventDate").textContent=formatDate(d)+" · "+e.duration;
+ el("eventDescription").textContent=e.description;
+ el("eventFormat").textContent=e.format;
+ el("eventAccess").textContent=e.access;
+ el("eventLink").href=e.url;
+}
+function renderObjections(){
+ var box=el("objectionGrid");box.innerHTML="";
+ commonObjections.forEach(function(item){
+   var b=document.createElement("button");b.type="button";b.className="objection";
+   var s=document.createElement("strong");s.textContent=item[0];b.appendChild(s);
+   b.appendChild(document.createTextNode("Antwort anzeigen"));
+   b.onclick=function(){el("answerBox").textContent=item[1]};
+   box.appendChild(b);
+ });
+}
+function render(){
+ var g=guides[currentGuide],s=g.steps[stepIndex];
+ el("guideBadge").textContent=el("projectSelect").value+" · "+g.title;
+ el("stepTitle").textContent=s[0];
+ el("progressText").textContent="Schritt "+(stepIndex+1)+" von "+g.steps.length;
+ el("scriptText").textContent=personalize(s[1]);
+ el("coachNote").textContent=s[2];
+ el("prevBtn").disabled=stepIndex===0;
+ el("nextBtn").textContent=stepIndex===g.steps.length-1?"Gespräch abschließen":"Weiter";
+ el("answerBox").textContent="Wähle einen Einwand aus. Die passende Antwort erscheint hier.";
+}
+function startGuide(){
+ currentGuide=el("guideSelect").value;stepIndex=0;currentEventKey=chooseDefaultEvent();renderEvent();render();
+}
+function init(){
+ renderObjections();startGuide();
+ el("guideSelect").onchange=startGuide;
+ el("projectSelect").onchange=startGuide;
+ el("personName").oninput=render;
+ el("prevBtn").onclick=function(){if(stepIndex>0){stepIndex--;render()}};
+ el("nextBtn").onclick=function(){var g=guides[currentGuide];if(stepIndex<g.steps.length-1){stepIndex++;render()}else{el("answerBox").textContent="Gesprächsziel erreicht: Zoom-Zugang senden oder Einzeltermin verbindlich abstimmen."}};
+ el("copyBtn").onclick=function(){var t=el("scriptText").textContent;if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t)}else{window.prompt("Text kopieren:",t)}};
+ el("useEventBtn").onclick=function(){render()};
+ el("eventTitle").onclick=function(){
+   var keys=Object.keys(events),i=keys.indexOf(currentEventKey);currentEventKey=keys[(i+1)%keys.length];renderEvent();render();
+ };
+ el("loadStatus").textContent="Leitfaden, Einwandbehandlungen und Terminberechnung sind aktiv.";
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init)}else{init()}
+})();
+</script>
+</body>
+</html>

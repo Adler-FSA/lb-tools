@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Das VOW-Ökosystem verstehen</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111318;
+      --muted:#626975;
+      --line:#e2e6eb;
+      --soft:#f7f8fa;
+      --violet:#6547f5;
+      --violet-soft:#f0edff;
+      --blue:#2459e8;
+      --gold:#d79b12;
+      --green:#16835d;
+      --max:1160px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+    a{color:inherit}
+    button,a,summary{-webkit-tap-highlight-color:transparent}
+    .page{width:min(100% - 28px,var(--max));margin:0 auto;padding:28px 0 64px}
+    .hero,.section,.closing{border:1px solid var(--line);background:#fff;margin-bottom:24px}
+    .hero{padding:38px;border-top:6px solid var(--violet)}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:16px;padding:7px 11px;border-radius:999px;background:var(--violet-soft);color:var(--violet);font-size:.8rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .eyebrow svg{width:18px;height:18px}
+    h1,h2,h3{margin-top:0;line-height:1.22}
+    h1{font-size:clamp(2.25rem,6vw,4.5rem);margin-bottom:16px;max-width:900px}
+    h2{font-size:clamp(1.55rem,3vw,2.25rem);margin-bottom:12px}
+    h3{font-size:1.18rem;margin-bottom:8px}
+    p{margin:0 0 14px}
+    .lead{max-width:900px;color:var(--muted);font-size:1.1rem;margin-bottom:0}
+    .section{padding:28px}
+    .section-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px}
+    .section-icon{display:grid;place-items:center;width:46px;height:46px;flex:0 0 auto;border-radius:14px;background:var(--violet-soft);color:var(--violet)}
+    .section-icon svg{width:25px;height:25px}
+    .section-head p{color:var(--muted);margin-bottom:0}
+    .vision-grid,.project-grid,.facts-grid,.link-grid{display:grid;gap:16px}
+    .vision-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .facts-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .tile,.project,.fact,.link-card{border:1px solid var(--line);background:var(--soft);padding:20px}
+    .tile svg,.fact svg{width:30px;height:30px;color:var(--violet);margin-bottom:12px}
+    .tile p,.project p,.fact p,.link-card p{color:var(--muted)}
+    .project{display:flex;flex-direction:column;background:#fff}
+    .project-top{display:flex;gap:13px;align-items:center;margin-bottom:12px}
+    .project-mark{display:grid;place-items:center;width:46px;height:46px;flex:0 0 auto;border-radius:50%;background:var(--violet-soft);color:var(--violet)}
+    .project-mark svg{width:25px;height:25px}
+    .project ul{margin:0 0 18px;padding-left:1.15rem;color:var(--muted)}
+    .project li+li{margin-top:6px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;margin-top:auto;padding:10px 15px;border:1px solid var(--violet);border-radius:9px;background:var(--violet);color:#fff;font-weight:800;text-decoration:none}
+    .btn.secondary{background:#fff;color:var(--violet)}
+    .btn svg{width:18px;height:18px}
+    .map-wrap{overflow-x:auto;padding-bottom:4px}
+    .map{min-width:820px;padding:24px;border:1px solid var(--line);background:linear-gradient(180deg,#fbfaff 0%,#fff 100%)}
+    .map-root{width:min(420px,80%);margin:0 auto 24px;padding:18px;border:2px solid var(--violet);border-radius:16px;background:#fff;text-align:center}
+    .map-root strong{display:block;font-size:1.25rem}
+    .map-root span{color:var(--muted)}
+    .map-line{width:2px;height:28px;margin:0 auto;background:var(--line)}
+    .map-row{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:14px;position:relative}
+    .map-row::before{content:"";position:absolute;top:-15px;left:12.5%;right:12.5%;height:2px;background:var(--line)}
+    .map-node{position:relative;padding:17px;border:1px solid var(--line);border-radius:13px;background:#fff;text-align:center}
+    .map-node::before{content:"";position:absolute;top:-15px;left:50%;width:2px;height:15px;background:var(--line)}
+    .map-node strong{display:block;margin-bottom:5px}
+    .map-node span{color:var(--muted);font-size:.92rem}
+    .flow{display:grid;grid-template-columns:repeat(5,minmax(135px,1fr));gap:10px;overflow-x:auto;padding-bottom:5px}
+    .flow-step{min-width:135px;padding:17px 13px;border:1px solid var(--line);background:#fff;text-align:center;position:relative}
+    .flow-step svg{display:block;width:29px;height:29px;margin:0 auto 9px;color:var(--violet)}
+    .flow-step:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);z-index:2;width:20px;color:var(--violet);font-weight:900;background:#fff}
+    .notice{display:flex;gap:13px;align-items:flex-start;padding:18px 20px;border-left:5px solid var(--gold);background:#fff9ea;margin-top:18px}
+    .notice svg{width:22px;height:22px;flex:0 0 auto;color:var(--gold);margin-top:2px}
+    details{border-top:1px solid var(--line)}
+    details:last-child{border-bottom:1px solid var(--line)}
+    summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:800}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+";float:right;color:var(--violet);font-size:1.2rem}
+    details[open] summary::after{content:"–"}
+    .answer{padding:0 0 15px;color:var(--muted)}
+    .link-card{display:flex;flex-direction:column}
+    .link-card .btn{margin-top:auto}
+    .closing{padding:28px;border-left:6px solid var(--green)}
+    .closing strong{color:var(--green)}
+    footer{padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+    @media(max-width:900px){.vision-grid,.facts-grid{grid-template-columns:1fr}.project-grid,.link-grid{grid-template-columns:1fr}.flow{grid-template-columns:repeat(5,150px)}}
+    @media(max-width:650px){.page{width:min(100% - 18px,var(--max));padding-top:14px}.hero,.section,.closing{padding:20px}.section-head{align-items:flex-start}.map{min-width:740px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 5l9 5.5-9 5.5-9-5.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 13.2V17c0 1.2 2.7 2.7 6 2.7s6-1.5 6-2.7v-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Digitaler Hörsaal der Akademie
+      </div>
+      <h1>Das VOW-Ökosystem verstehen</h1>
+      <p class="lead">VOW, Single.id, die VOW App, Vtravel und das TLN Protocol wirken nicht als voneinander getrennte Einzelprojekte. Gemeinsam bilden sie ein wachsendes Ökosystem aus realem Handel, digitalen Rabattrechten, technischer Infrastruktur und dezentralen Anwendungen. Dieser Hörsaal zeigt das große Bild und erklärt, warum es das TLN Protocol innerhalb dieses Zusammenspiels gibt.</p>
+    </header>
+
+    <section class="section" id="auftrag">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div><h2>Worum es in diesem Hörsaal geht</h2><p>Orientierung statt Doppel-Ausbildung.</p></div>
+      </div>
+      <p>Die offiziellen Projekte erklären ihre Anwendungen, Funktionen und Bedienung selbst. Der Hörsaal ersetzt diese Ausbildung nicht. Er ordnet die einzelnen Bausteine ein, verbindet sie zu einer verständlichen Projektlandkarte und zeigt, welches Problem jeder Baustein im Gesamtmodell übernimmt.</p>
+      <div class="notice">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3.8 7.2v5.5c0 4.3 3.5 7.2 8.2 8.8 4.7-1.6 8.2-4.5 8.2-8.8V7.2L12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8.5 12 2.2 2.2 4.8-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><strong>Neutrale Projektvorstellung:</strong> Die Akademie stellt den digitalen Lernraum bereit. Sie ist nicht Betreiberin der dargestellten Projekte, gibt keine Anlageempfehlung und übernimmt nicht deren Schulungs-, Produkt- oder Vertragsleistungen.</div>
+      </div>
+    </section>
+
+    <section class="section" id="vision">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17 10 11l4 4 6-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 7h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h2>Die Grundidee des VOW-Ökosystems</h2><p>Realer Handel soll digitale Rabattrechte erzeugen und nutzbar machen.</p></div>
+      </div>
+      <div class="vision-grid">
+        <article class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v12H4zM7 4h10v3M8 11h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Realer Handel</h3><p>Händler, Dienstleister und Verbraucher bilden die wirtschaftliche Basis. Einkauf und Nutzung sollen nicht nur Punkte erzeugen, sondern übertragbare digitale Rabattrechte innerhalb des Systems.</p></article>
+        <article class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5zM9 9h6v6H9z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 8H5M2.5 12H5M2.5 16H5M19 8h2.5M19 12h2.5M19 16h2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><h3>Digitale Infrastruktur</h3><p>Single.id, die verbundenen Apps und die Voucher-Infrastruktur sorgen dafür, dass Transaktionen erkannt, Prämien zugeordnet und Rabattrechte in verbundenen Programmen angezeigt werden können.</p></article>
+        <article class="tile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h4l2-5 4 10 2-5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Dezentrale Liquidität</h3><p>Das TLN Protocol ergänzt das Handels- und Gutscheinmodell um eine dezentrale Smart-Contract-Ebene für Liquidität, Staking, Lending, Borrowing und weitere protokollbasierte Funktionen.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="projekte">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="6" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="18" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m8.2 7.3 2.7 8.2M15.8 7.3l-2.7 8.2M8.5 6h7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <div><h2>Die Projekte im Überblick</h2><p>Jeder Baustein übernimmt eine andere Aufgabe.</p></div>
+      </div>
+      <div class="project-grid">
+        <article class="project">
+          <div class="project-top"><div class="project-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5 9.5 18 12 13l2.5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>VOW</h3><span>Grundlage des Ökosystems</span></div></div>
+          <p>VOW beschreibt die übergeordnete Vision einer globalen Reward- und Voucher-Infrastruktur. Im Mittelpunkt stehen reale Nutzung, teilnehmende Händler und digitale Rabattrechte wie v$, v€ oder v£.</p>
+          <ul><li>Vision, Foundation, Roadmap und Whitepaper</li><li>Verbindung zwischen Handel, Rewards und Voucher Ledger</li><li>VOW als kryptografische Ebene innerhalb des Modells</li></ul>
+          <a class="btn" href="https://www.vow.money/" target="_blank" rel="noopener noreferrer">Offizielle VOW-Seite öffnen<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+
+        <article class="project">
+          <div class="project-top"><div class="project-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 7h6M9 11h6M9 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div><h3>VOW App</h3><span>Alltagszugang für Verbraucher</span></div></div>
+          <p>Die VOW App verbindet den Nutzer mit teilnehmenden Händlern und Reward-Angeboten. Eine verknüpfte Zahlungskarte ermöglicht die Zuordnung qualifizierter Einkäufe und die Anzeige digitaler Voucher-Guthaben.</p>
+          <ul><li>Bankkarte einmalig verknüpfen</li><li>Rewards bei teilnehmenden Händlern erfassen</li><li>Voucher-Guthaben in verbundenen Programmen nutzen</li></ul>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:auto">
+            <a class="btn secondary" style="flex:1 1 210px;margin-top:0" href="https://apps.apple.com/de/app/vow-app/id1476961681" target="_blank" rel="noopener noreferrer">VOW App im App Store<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn secondary" style="flex:1 1 210px;margin-top:0" href="https://play.google.com/store/apps/details?id=com.vowcurrency.vow.app" target="_blank" rel="noopener noreferrer">VOW App bei Google Play<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-top"><div class="project-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 0 1 14 0v6H5v-6Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12v-2a3 3 0 0 1 6 0v2M12 15v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div><h3>Single.id</h3><span>Identitäts- und Zuordnungsebene</span></div></div>
+          <p>Single.id stellt die technische Serviceebene für verbundene Reward-Programme bereit. Sie unterstützt die Zuordnung von Zahlungen, die Synchronisierung von Reward-Balances und die Verbindung zwischen Nutzern, Karten, Händlern und Programmen.</p>
+          <ul><li>verknüpfte Zahlungskarten und Transaktionszuordnung</li><li>gemeinsame Reward-Infrastruktur für mehrere Apps</li><li>Vermeidung doppelter Reward-Zuordnungen</li></ul>
+          <a class="btn" href="https://www.single.id/" target="_blank" rel="noopener noreferrer">Offizielle Single.id-Seite öffnen<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+
+        <article class="project">
+          <div class="project-top"><div class="project-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M5 8l-2 4 2 4M19 8l2 4-2 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 6h8M8 18h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div><h3>TLN Protocol</h3><span>Dezentrale Smart-Contract-Ebene</span></div></div>
+          <p>Das TLN Protocol erweitert das Ökosystem um dezentrale Liquiditätsfunktionen auf der Blockchain. Die TLN-DApp stellt den praktischen Zugang zu den Smart Contracts und der integrierten projektbezogenen Ausbildung bereit.</p>
+          <ul><li>non-custodial und on-chain ausgeführte Funktionen</li><li>Staking, Lending, Borrowing und Liquiditätsmodelle</li><li>Zusammenspiel unter anderem mit VOW, v$, TLN Gold und weiteren Assets</li></ul>
+          <a class="btn" href="https://tlndapp.com/" target="_blank" rel="noopener noreferrer">Offizielle TLN-DApp öffnen<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+
+        <article class="project">
+          <div class="project-top"><div class="project-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 7.5h14M5 16.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div><h3>Vtravel</h3><span>Reiseplattform mit Voucher-Nutzen</span></div></div>
+          <p>Vtravel bringt das Reward-Modell in den Reisebereich. Nach der Projektankündigung sollen Flüge und Hotels unter anderem mit USDT oder USDC gebucht werden können. Dafür wird ein Cashback von 20&nbsp;% in v$ beschrieben, das für spätere Buchungen als Rabatt genutzt werden kann.</p>
+          <ul><li>Flug- und Hotelbuchungen</li><li>20&nbsp;% Cashback in v$ nach Projektangabe</li><li>praktische Verwendung digitaler Rabattrechte im Reisebereich</li></ul>
+          <a class="btn" href="https://vtravel.info/" target="_blank" rel="noopener noreferrer">Offizielle Vtravel-Seite öffnen<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+
+        <article class="project">
+          <div class="project-top"><div class="project-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 11h8M8 14h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 4h10v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div><h3>Händler und Reward-Programme</h3><span>Die reale wirtschaftliche Basis</span></div></div>
+          <p>Ohne reale Einkäufe und teilnehmende Unternehmen bleibt ein Reward-System Theorie. Händler und Programme erzeugen die konkreten Anwendungsfälle, in denen Rewards verdient und Voucher als Rabatt eingesetzt werden können.</p>
+          <ul><li>reale Waren und Dienstleistungen</li><li>kartenbasierte Zuordnung qualifizierter Einkäufe</li><li>Einlösung als Rabatt nach den Bedingungen des jeweiligen Programms</li></ul>
+          <a class="btn secondary" href="https://www.single.id/offers" target="_blank" rel="noopener noreferrer">Angebotsbereich von Single.id öffnen<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M10 8h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="landkarte">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2V6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="1.8"/></svg></div>
+        <div><h2>Die Projektlandkarte</h2><p>Das große Bild auf einen Blick.</p></div>
+      </div>
+      <div class="map-wrap">
+        <div class="map">
+          <div class="map-root"><strong>VOW-Ökosystem</strong><span>Handel · Rewards · Voucher · Blockchain · reale Nutzung</span></div>
+          <div class="map-line"></div>
+          <div class="map-row">
+            <div class="map-node"><strong>VOW App</strong><span>Zugang für Verbraucher, Karte verbinden, Rewards sehen und nutzen</span></div>
+            <div class="map-node"><strong>Single.id</strong><span>Identität, Kartenverknüpfung, Transaktionszuordnung und Synchronisierung</span></div>
+            <div class="map-node"><strong>Vtravel</strong><span>Reisen buchen und v$ als konkreten Rabattnutzen einsetzen</span></div>
+            <div class="map-node"><strong>TLN Protocol</strong><span>dezentrale Liquidität und Smart-Contract-Anwendungen über die TLN-DApp</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="zusammenspiel">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M10 3l4 4-4 4M20 17H10M14 13l-4 4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h2>So greifen die Bausteine ineinander</h2><p>Vom realen Einkauf bis zur dezentralen Anwendung.</p></div>
+      </div>
+      <div class="flow">
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v11H4zM7 5h10v3M8 12h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><strong>1. Realer Einkauf</strong><div>Ein Nutzer kauft bei einem teilnehmenden Händler oder Dienstleister.</div></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 0 1 14 0v6H5v-6Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12v-2a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.8"/></svg><strong>2. Zuordnung</strong><div>Single.id ordnet eine qualifizierte Transaktion dem passenden Reward-Programm zu.</div></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><strong>3. Reward</strong><div>Ein digitales Rabattrecht wie v$, v€ oder v£ wird nach den Programmregeln angezeigt.</div></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><strong>4. Nutzung</strong><div>Das Rabattrecht kann bei teilnehmenden Angeboten, etwa im Reisebereich, eingesetzt werden.</div></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h4l2-5 4 10 2-5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><strong>5. TLN-Ebene</strong><div>Das TLN Protocol ergänzt das Ökosystem um dezentrale Liquiditäts- und Smart-Contract-Funktionen.</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="warum-tln">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0-9-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 12h5l2-5 4 10 2-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h2>Warum gibt es das TLN Protocol?</h2><p>Weil ein Reward-Ökosystem neben Handel und Nutzung auch eine dezentrale Liquiditätsebene benötigt.</p></div>
+      </div>
+      <div class="facts-grid">
+        <article class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M12 4v16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><h3>Verbindung von Assets</h3><p>Die DApp führt unterschiedliche Assets und Währungspaare innerhalb einer Smart-Contract-Umgebung zusammen. Dadurch entstehen protokollbasierte Möglichkeiten, aber auch Markt-, Kurs- und Smart-Contract-Risiken.</p></article>
+        <article class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 18V9l7-5 7 5v9H5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 18v-5h6v5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><h3>Non-custodial</h3><p>Nach eigener Darstellung nimmt TLN keine Kundeneinlagen entgegen. Nutzer verbinden ihre eigene Wallet und führen Interaktionen direkt über Smart Contracts auf der Blockchain aus.</p></article>
+        <article class="fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19h14M7 16l3-5 3 2 4-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Aktivitätsbasierte Funktionen</h3><p>Staking, Lending, Borrowing und weitere Bereiche sollen Liquidität, Nutzung und protokollbasierte Erträge miteinander verbinden. Die genaue Ausbildung und Bedienung erfolgt direkt in der offiziellen TLN-DApp.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="voucher">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 7v10M15 7v10" stroke="currentColor" stroke-width="1.8" stroke-dasharray="2 2"/></svg></div>
+        <div><h2>Was sind v$, v€ und v£?</h2><p>Digitale Rabattrechte – kein gesetzliches Zahlungsmittel.</p></div>
+      </div>
+      <p>In den offiziellen Bedingungen von Single.id werden diese Einheiten als „Voucher Currency“ beziehungsweise digitale Rabattwerte beschrieben. Sie dienen dazu, bei teilnehmenden Händlern und Programmen einen Rabatt auf einen späteren Einkauf zu erhalten. Ihre genaue Nutzung richtet sich nach den Bedingungen der jeweiligen App, des Händlers und des Landes.</p>
+      <div class="notice"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 10.5v6M12 7.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><div><strong>Wichtige Einordnung:</strong> Die steuerliche und rechtliche Behandlung digitaler Gutscheine, Rewards, Token und späterer Tausch- oder Verwertungsvorgänge kann von der konkreten Ausgestaltung und dem persönlichen Einzelfall abhängen. Dieser Hörsaal ersetzt keine Steuer- oder Rechtsberatung.</div></div>
+    </section>
+
+    <section class="section" id="start">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M10 5h9v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h2>Wo beginnt die praktische Reise?</h2><p>Der Hörsaal zeigt den Zusammenhang. Die Projekte übernehmen die Anwendung.</p></div>
+      </div>
+      <p>Wer das TLN Protocol praktisch nutzen möchte, öffnet die offizielle TLN-DApp. Dort befinden sich die projektbezogene Einführung, die Erklärungen zu den Funktionen und der Zugang zu den Smart Contracts. Ein persönlicher Sponsor oder die TLN Community kann den Einstieg telefonisch oder per Zoom begleiten.</p>
+      <div class="link-grid">
+        <article class="link-card"><h3>VOW verstehen</h3><p>Vision, Foundation, Voucher-Modell, Roadmap und offizielle Risikohinweise.</p><a class="btn" href="https://www.vow.money/" target="_blank" rel="noopener noreferrer">VOW.money öffnen</a></article>
+        <article class="link-card"><h3>TLN praktisch kennenlernen</h3><p>Offizielle DApp, Ausbildung und Zugang zu den Smart Contracts.</p><a class="btn" href="https://tlndapp.com/" target="_blank" rel="noopener noreferrer">TLN-DApp öffnen</a></article>
+        <article class="link-card"><h3>Single.id verstehen</h3><p>Reward-Infrastruktur, Händler, Kartenverknüpfung und Angebotsnetzwerk.</p><a class="btn" href="https://www.single.id/" target="_blank" rel="noopener noreferrer">Single.id öffnen</a></article>
+        <article class="link-card"><h3>Vtravel entdecken</h3><p>Reiseplattform und angekündigter Einsatz von v$ im Reisebereich.</p><a class="btn" href="https://vtravel.info/" target="_blank" rel="noopener noreferrer">Vtravel öffnen</a></article>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-head">
+        <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.8 9a2.4 2.4 0 1 1 3.6 2.1c-.9.5-1.4 1-1.4 2M12 17h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div><h2>Häufige Fragen</h2><p>Die wichtigsten Begriffe kurz eingeordnet.</p></div>
+      </div>
+      <details><summary>Ist VOW dasselbe wie die VOW App?</summary><div class="answer">Nein. VOW bezeichnet die übergeordnete kryptografische und wirtschaftliche Ebene des Ökosystems. Die VOW App ist eine konkrete Verbraucheranwendung innerhalb der verbundenen Reward-Infrastruktur.</div></details>
+      <details><summary>Ist Single.id nur eine Anmeldung?</summary><div class="answer">Nein. Single.id beschreibt sich als Infrastruktur- und Zuordnungsebene für Zahlungskarten, Transaktionen, Händler und mehrere verbundene Reward-Programme.</div></details>
+      <details><summary>Was ist der Unterschied zwischen VOW und v$?</summary><div class="answer">VOW ist ein Krypto-Asset innerhalb der Architektur. v$ wird in den offiziellen Bedingungen als digitaler Voucher- beziehungsweise Rabattwert beschrieben, der nach den Regeln teilnehmender Programme genutzt werden kann.</div></details>
+      <details><summary>Warum ist Vtravel wichtig?</summary><div class="answer">Vtravel zeigt einen konkreten Anwendungsfall: Reisen sind reale Dienstleistungen. Der angekündigte Cashback in v$ soll einen praktischen Kreislauf zwischen Einkauf, Reward und späterer Einlösung schaffen.</div></details>
+      <details><summary>Warum gibt es zusätzlich das TLN Protocol?</summary><div class="answer">TLN übernimmt die dezentrale Smart-Contract- und Liquiditätsebene. Damit ergänzt es das Händler-, Reward- und Voucher-Modell um blockchainbasierte Funktionen wie Staking, Lending und Borrowing.</div></details>
+      <details><summary>Erklärt dieser Hörsaal die Bedienung der TLN-DApp?</summary><div class="answer">Nein. Die TLN-DApp ist selbst als Ausbildungs- und Anwendungsumgebung aufgebaut. Der Hörsaal erklärt bewusst den Gesamtzusammenhang und führt anschließend zur offiziellen Anwendung.</div></details>
+    </section>
+
+    <section class="closing">
+      <h2>Das große Bild</h2>
+      <p><strong>VOW liefert die Vision und die kryptografische Grundlage. Single.id verbindet Nutzer, Karten, Händler und Reward-Programme. Die VOW App macht Rewards im Alltag sichtbar. Vtravel schafft einen konkreten Einsatzbereich. Das TLN Protocol ergänzt das Ganze um eine dezentrale Liquiditäts- und Smart-Contract-Ebene.</strong></p>
+      <p>Erst im Zusammenspiel wird verständlich, warum diese Projekte nicht nebeneinanderstehen, sondern unterschiedliche Aufgaben innerhalb eines gemeinsamen Ökosystems übernehmen.</p>
+    </section>
+
+    <footer>
+      <p><strong>Hinweis:</strong> Alle genannten Marken, Anwendungen und Inhalte gehören den jeweiligen Betreibern. Angaben zu Funktionen, Cashback, Rewards und Verfügbarkeit können sich ändern. Maßgeblich sind ausschließlich die aktuellen Informationen und Bedingungen auf den offiziellen Projektseiten.</p>
+    </footer>
+  </main>
+</body>
+</html>

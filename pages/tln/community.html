@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>TLN Community</title>
+  <style>
+    :root{
+      --bg:#fff;--text:#151515;--muted:#656a73;--line:#dde2e8;--soft:#f7f8fa;
+      --purple:#6b4eff;--purple-soft:#f0edff;--green:#17845c;--green-soft:#eaf7f2;
+      --amber:#b7791f;--amber-soft:#fff7e8;--blue:#2868c7;--blue-soft:#eef4ff;--max:1120px;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6}
+    a{color:inherit;text-underline-offset:3px}.page{width:min(100% - 28px,var(--max));margin:0 auto;padding:28px 0 64px}
+    .hero,.live,.section,.notice{border:1px solid var(--line);background:#fff;margin-bottom:24px}
+    .hero{padding:34px;border-left:7px solid var(--purple)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:var(--purple-soft);color:var(--purple);font-size:.8rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+    .eyebrow svg{width:16px;height:16px}h1,h2,h3{margin-top:0;line-height:1.25}h1{font-size:clamp(2rem,5vw,3.4rem);margin:14px 0 12px}h2{font-size:clamp(1.45rem,3vw,2rem)}h3{font-size:1.08rem;margin-bottom:8px}p{margin:0 0 14px}.lead{max-width:860px;color:var(--muted);font-size:1.08rem;margin:0}
+    .notice{display:flex;gap:14px;align-items:flex-start;padding:18px 20px;background:var(--soft)}.notice svg{width:22px;height:22px;flex:0 0 auto;color:var(--purple);margin-top:2px}
+    .live{padding:28px;border-left:7px solid var(--green)}.live-top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between}.status{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:var(--green-soft);color:var(--green);font-weight:800;font-size:.83rem}.dot{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 0 5px rgba(23,132,92,.12)}.live h2{margin:14px 0 8px}.meta{display:flex;flex-wrap:wrap;gap:10px;color:var(--muted);font-size:.95rem}.countdown{font-weight:800;color:var(--purple);font-size:1.05rem;margin-top:10px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border-radius:8px;background:var(--purple);border:1px solid var(--purple);color:#fff;text-decoration:none;font-weight:800}.button.secondary{background:#fff;color:var(--purple)}.button.disabled{background:#eef0f3;border-color:#d8dde3;color:#7a8089;pointer-events:none}.button svg{width:18px;height:18px}
+    .section{padding:28px}.section-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:18px}.section-head p{color:var(--muted);margin:0}.filters{display:flex;gap:8px;flex-wrap:wrap}.filter{border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:999px;font-weight:700;cursor:pointer}.filter.active{background:var(--purple);border-color:var(--purple);color:#fff}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{border:1px solid var(--line);background:var(--soft);padding:18px;display:flex;flex-direction:column}.card.live-now{border-color:var(--green);background:var(--green-soft)}.card.soon{border-color:var(--amber);background:var(--amber-soft)}.card-top{display:flex;justify-content:space-between;gap:12px}.day{color:var(--purple);font-weight:800}.time{font-weight:800}.desc{color:var(--muted)}.tag{display:inline-flex;align-items:center;width:max-content;padding:5px 9px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.8rem;font-weight:700;margin-bottom:10px}.card .actions{margin-top:auto}.details{margin-top:12px;border-top:1px solid var(--line);padding-top:12px;color:var(--muted);font-size:.94rem}.details strong{color:var(--text)}
+    .calendar-wrap{border:1px solid var(--line);overflow:hidden;background:#fff}.calendar-wrap iframe{display:block;width:100%;height:760px;border:0}
+    .small{font-size:.9rem;color:var(--muted)}footer{padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+    @media(max-width:850px){.cards{grid-template-columns:1fr}.section-head,.live-top{align-items:flex-start;flex-direction:column}.calendar-wrap iframe{height:680px}}
+    @media(max-width:650px){.page{width:min(100% - 18px,var(--max));padding-top:14px}.hero,.live,.section{padding:20px}.actions{flex-direction:column}.button{width:100%}.calendar-wrap iframe{height:620px}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <div class="eyebrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5zM8 2v6M16 2v6M5 9h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Seite 3 des Hörsaals</div>
+    <h1>TLN Community</h1>
+    <p class="lead">Hier findest du Community-Termine, Schulungen, Webinare und direkte Zugänge an einem Ort. Datum und Uhrzeit der wiederkehrenden Termine werden automatisch berechnet. Der offizielle TLN-Kalender bleibt zusätzlich als verbindliche Quelle eingebunden.</p>
+  </header>
+
+  <div class="notice"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 10.5v6M12 7.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><div><strong>Hinweis:</strong> Bei Terminen ohne öffentlichen Direktlink führt der Button zum offiziellen Kalender oder zur angegebenen Community-Seite. Änderungen im Originalkalender haben Vorrang.</div></div>
+
+  <section class="live" aria-live="polite">
+    <div class="live-top"><div><span class="status" id="liveStatus"><span class="dot"></span>Wird geladen</span><h2 id="nextTitle">Nächster Community-Termin</h2><div class="meta"><span id="nextDate">–</span><span id="nextTime">–</span></div><div class="countdown" id="countdown">Termine werden berechnet …</div></div></div>
+    <p id="nextDescription" class="desc"></p>
+    <div class="actions" id="nextActions"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Termine dieser Woche</h2><p>Wiederkehrende Community-Termine in deutscher Ortszeit.</p></div><div class="filters"><button class="filter active" data-filter="week">Diese Woche</button><button class="filter" data-filter="today">Heute</button></div></div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Offizieller TLN-Kalender</h2><p>Für Sondertermine, Verschiebungen, neue Links und vollständige Beschreibungen.</p></div></div>
+    <div class="calendar-wrap"><iframe src="https://kalender.digital/tln-allgemein" title="Offizieller TLN-Kalender" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <p class="small" style="margin-top:12px">Falls die Einbettung vom Kalenderanbieter blockiert wird, öffne den Kalender direkt.</p>
+    <div class="actions"><a class="button secondary" href="https://kalender.digital/tln-allgemein" target="_blank" rel="noopener noreferrer">Kalender direkt öffnen</a></div>
+  </section>
+
+  <footer>Die Seite bündelt Community-Zugänge. Veranstalter, Inhalte und Terminänderungen liegen bei den jeweiligen Projekt- und Community-Verantwortlichen.</footer>
+</main>
+<script>
+const calendarUrl='https://kalender.digital/tln-allgemein';
+const events=[
+  {id:'clubtreffen',title:'LiquidityBooster – Club Treffen',day:1,start:'19:00',end:'20:00',tag:'Club Treffen',desc:'Offenes Clubtreffen für Gäste und Mitglieder mit Informationen aus der Akademie für finanzielle Souveränität, Austausch und Einblicken in aktuelle Entwicklungen.',url:'https://zoom.us/j/98135658773',extra:'Direkter Zoom-Raum · mit Peter Bösing und Mike Rau.'},
+  {id:'technik',title:'TLN Technik Call',day:1,start:'20:00',end:'21:30',tag:'Technik',desc:'Technik-Call zu neuer TLN-DApp, Rebound, Staking, Lending, TLN Gold und Wallets.',url:calendarUrl,extra:'Zoom-Link bitte im aktuellen Kalendereintrag prüfen.'},
+  {id:'community-talk',title:'TLN Community Talk',day:2,start:'19:00',end:'20:30',tag:'Community',desc:'Offener Austausch aus der Community für die Community, mit wechselnden Moderatoren.',url:'https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1',extra:'Meeting-ID: 627 745 0678 · Kenncode: 124578'},
+  {id:'fruehstueck',title:'Unternehmer – Brainstorming – Frühstück – Stammtisch',day:3,start:'10:00',end:'12:30',tag:'Austausch',desc:'Unternehmerischer Austausch, Brainstorming und Kennenlernen. Teilnahme nach Einladung durch den Ansprechpartner.',url:'https://t.me/c/3236099787/1/43',extra:'Beitritt über den persönlichen Ansprechpartner.'},
+  {id:'stammtisch',title:'LiquidityBooster Club-Stammtisch',day:3,start:'19:00',end:'20:00',tag:'Community',desc:'Gesellige Runde mit Gesprächsstoff, Austausch und Kennenlernen.',url:'https://zoom.us/j/94363254814',extra:'Direkter Zoom-Raum.'},
+  {id:'ambassador',title:'TLN Ambassador Call',day:3,start:'19:00',end:'20:00',tag:'Partner',desc:'Regelmäßiger Austausch für TLN Ambassadors und aktive Partner im VOW Ecosystem.',url:'https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1',extra:'Meeting-ID: 627 745 0678 · Kenncode: 124578'},
+  {id:'roundtable',title:'Special TLN Roundtable / TLN Interactive',day:4,start:'19:00',end:'20:30',tag:'Community',desc:'Roundtable, Talkrunde und TLN Interactive für Austausch, Fragen, Tipps und Tools.',url:'https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1',extra:'Meeting-ID: 627 745 0678 · Kenncode: 124578'},
+  {id:'mastermind',title:'TLN Mastermind',day:5,start:'11:00',end:'12:00',tag:'Mastermind',desc:'Für Mitglieder, die hinter der gemeinsamen Vision stehen und aktiv am Erfolg arbeiten.',url:'https://t.me/c/2289313102/1/6',extra:'Teilnahme nach Einladung durch den Ansprechpartner.'},
+  {id:'webinar',title:'LIVE-Webinar: Das größte Cashback-Ökosystem der Welt',day:5,start:'18:00',end:'19:00',tag:'Webinar',desc:'Geschäftspräsentation zum Cashback-Ökosystem. Referent laut Kalender: Alexander Finke.',url:'https://us02web.zoom.us/j/7899786501',extra:'Direkter Zoom-Raum.'},
+  {id:'clubleader',title:'Club Leader KMS-Schulung / Einarbeitung',day:6,start:'10:00',end:'12:00',tag:'Schulung',desc:'Schulung und Einarbeitung mit Fokus auf Sicherheit, Struktur und sauberen Einstieg.',url:calendarUrl,extra:'Link wird über den persönlichen Ansprechpartner bereitgestellt.'}
+];
+const dayNames=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+const fmtDate=d=>new Intl.DateTimeFormat('de-DE',{weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'}).format(d);
+function atTime(date,time){const [h,m]=time.split(':').map(Number);const d=new Date(date);d.setHours(h,m,0,0);return d}
+function dateForWeekday(base,weekday,weekOffset=0){const d=new Date(base);d.setHours(0,0,0,0);const diff=(weekday-d.getDay()+7)%7;d.setDate(d.getDate()+diff+7*weekOffset);return d}
+function isBiweeklyActive(ev,date){if(!ev.biweekly)return true;const a=new Date(ev.anchor+'T00:00:00');const days=Math.round((date-a)/86400000);return days>=0&&Math.floor(days/7)%2===0}
+function nextOccurrence(ev,now){for(let w=0;w<4;w++){const date=dateForWeekday(now,ev.day,w);if(!isBiweeklyActive(ev,date))continue;const start=atTime(date,ev.start),end=atTime(date,ev.end);if(end>now)return {...ev,date,start,end}}return null}
+function currentAndNext(now){const occ=events.map(e=>nextOccurrence(e,now)).filter(Boolean).sort((a,b)=>a.start-b.start);const live=occ.find(o=>o.start<=now&&o.end>now);return {live,next:live||occ[0]}}
+function actionHtml(ev,label='Teilnehmen'){return `<a class="button" href="${ev.url}" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h11v11M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>${label}</a><a class="button secondary" href="${calendarUrl}" target="_blank" rel="noopener noreferrer">Kalender öffnen</a>`}
+function renderHero(){const now=new Date(),{live,next}=currentAndNext(now);if(!next)return;document.getElementById('nextTitle').textContent=next.title;document.getElementById('nextDate').textContent=fmtDate(next.start);document.getElementById('nextTime').textContent=`${next.start.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})}–${next.end.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})} Uhr`;document.getElementById('nextDescription').textContent=next.desc;document.getElementById('nextActions').innerHTML=actionHtml(next,live?'Jetzt teilnehmen':'Zugang öffnen');const status=document.getElementById('liveStatus');const cd=document.getElementById('countdown');if(live){status.innerHTML='<span class="dot"></span>JETZT LIVE';const mins=Math.max(0,Math.ceil((live.end-now)/60000));cd.textContent=`Läuft noch etwa ${mins} Minuten`;}else{status.innerHTML='<span class="dot"></span>ALS NÄCHSTES';const ms=next.start-now,h=Math.floor(ms/3600000),m=Math.floor((ms%3600000)/60000);cd.textContent=h>=24?`Beginnt in ${Math.floor(h/24)} Tagen und ${h%24} Stunden`:`Beginnt in ${h} Stunden und ${m} Minuten`;}}
+function weekStart(now){const d=new Date(now);const shift=(d.getDay()+6)%7;d.setDate(d.getDate()-shift);d.setHours(0,0,0,0);return d}
+function occurrencesForWeek(now){const start=weekStart(now),list=[];for(const ev of events){const d=new Date(start);d.setDate(start.getDate()+((ev.day+6)%7));if(isBiweeklyActive(ev,d))list.push({...ev,date:d,startDate:atTime(d,ev.start),endDate:atTime(d,ev.end)})}return list.sort((a,b)=>a.startDate-b.startDate)}
+function renderCards(filter='week'){const now=new Date();let list=occurrencesForWeek(now);if(filter==='today')list=list.filter(e=>e.date.toDateString()===now.toDateString());const root=document.getElementById('cards');if(!list.length){root.innerHTML='<article class="card"><h3>Heute sind keine festen Termine hinterlegt.</h3><p class="desc">Bitte prüfe den offiziellen Kalender auf Sondertermine.</p><div class="actions"><a class="button secondary" href="'+calendarUrl+'" target="_blank" rel="noopener noreferrer">Kalender öffnen</a></div></article>';return}root.innerHTML=list.map(ev=>{const live=ev.startDate<=now&&ev.endDate>now,soon=!live&&ev.startDate>now&&ev.startDate-now<=3600000;return `<article class="card ${live?'live-now':soon?'soon':''}"><span class="tag">${live?'JETZT LIVE':soon?'BEGINNT BALD':ev.tag}</span><div class="card-top"><div><div class="day">${dayNames[ev.day]}</div><h3>${ev.title}</h3></div><div class="time">${ev.start}–${ev.end}</div></div><p class="desc">${ev.desc}</p><div class="details"><strong>Zugang:</strong> ${ev.extra}</div><div class="actions">${actionHtml(ev,live?'Jetzt teilnehmen':'Zugang öffnen')}</div></article>`}).join('')}
+document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCards(btn.dataset.filter)}));
+renderHero();renderCards();setInterval(()=>{renderHero();renderCards(document.querySelector('.filter.active').dataset.filter)},60000);
+</script>
+</body>
+</html>

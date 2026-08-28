@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>TLN Hörsaal</title>
+  <style>
+    :root {
+      --bg:#fff; --text:#111; --muted:#5f6368; --line:#dfe3e8; --soft:#f6f8fa;
+      --accent:#4f46e5; --accent-soft:#eef2ff; --success:#16845b; --max:1120px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.65}
+    a{color:var(--accent);text-underline-offset:3px} summary,a{-webkit-tap-highlight-color:transparent}
+    .page{width:min(100% - 28px,var(--max));margin:0 auto;padding:28px 0 64px}
+    .hero,.step,.final{background:#fff;border:1px solid var(--line);padding:24px;margin-bottom:24px}
+    .hero{border-left:6px solid var(--accent);padding:32px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;padding:6px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:.8rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+    .eyebrow svg{width:16px;height:16px}
+    h1,h2,h3{margin-top:0;line-height:1.25} h1{margin-bottom:12px;font-size:clamp(2rem,5vw,3.5rem)} h2{margin-bottom:14px;font-size:clamp(1.45rem,3vw,2rem)} h3{margin-bottom:8px;font-size:1.1rem} p{margin:0 0 14px}
+    .lead{max-width:820px;margin-bottom:0;color:var(--muted);font-size:1.08rem}
+    .notice{display:flex;gap:14px;align-items:flex-start;margin-bottom:24px;padding:18px 20px;border:1px solid var(--line);background:var(--soft)}
+    .notice svg{width:22px;height:22px;flex:0 0 auto;color:var(--accent);margin-top:2px}
+    .step-head{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+    .step-number{display:grid;place-items:center;width:42px;height:42px;flex:0 0 auto;border-radius:50%;background:var(--accent);color:#fff;font-weight:700}
+    .step-head h2{margin:0}
+    .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+    .check{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid var(--line);background:var(--soft)}
+    .check--wide{grid-column:1/-1}
+    .check svg{width:20px;height:20px;flex:0 0 auto;color:var(--success);margin-top:2px}
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+    .card{border:1px solid var(--line);background:#fff;padding:20px;display:flex;flex-direction:column;height:100%}
+    .card-top{display:flex;gap:12px;align-items:center;margin-bottom:14px}.card-top svg{width:28px;height:28px;color:var(--accent);flex:0 0 auto}.card-top h3{margin:0}
+    .card>.button-link{margin-top:auto}
+    .button-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;width:100%;margin:6px 0 14px;padding:10px 14px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:700;text-decoration:none;border-radius:8px}.button-link svg{width:18px;height:18px}
+    details{border-top:1px solid var(--line)} details:last-child{border-bottom:1px solid var(--line)}
+    summary{cursor:pointer;list-style:none;padding:13px 0;font-weight:700} summary::-webkit-details-marker{display:none} summary::after{content:"+";float:right;color:var(--accent);font-size:1.2rem} details[open] summary::after{content:"–"}
+    .details-body{padding:0 0 14px;color:var(--muted)} .details-body ol,.details-body ul{margin:0;padding-left:1.25rem}.details-body li+li{margin-top:7px}
+    .academy{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}.academy article{padding:18px;border:1px solid var(--line);background:var(--soft)}
+    .flow{display:grid;grid-template-columns:repeat(7,minmax(100px,1fr));gap:10px;margin:20px 0;overflow-x:auto;padding-bottom:4px}.flow-step{min-width:110px;padding:14px 10px;text-align:center;border:1px solid var(--line);background:#fff}.flow-step svg{display:block;width:30px;height:30px;margin:0 auto 8px;color:var(--accent)}.flow-arrow{display:none}
+    .community-note{margin:18px 0;padding:14px 16px;border-left:4px solid var(--accent);background:var(--accent-soft)}
+    .sequence{counter-reset:item;margin:0;padding:0;list-style:none}.sequence li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;margin-bottom:12px;padding:14px;border:1px solid var(--line);background:var(--soft)}.sequence li::before{counter-increment:item;content:counter(item);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700}
+    .final{border-left:6px solid var(--success);padding:26px}.final strong{color:var(--success)}
+    .links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}.link-card{padding:16px;border:1px solid var(--line);background:var(--soft)}.link-card .button-link{margin-top:12px;margin-bottom:0}
+    footer{padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+    @media(max-width:900px){.cards,.academy{grid-template-columns:1fr}.flow{grid-template-columns:repeat(7,140px)}.card>.button-link{margin-top:6px}}
+    @media(max-width:680px){.page{width:min(100% - 18px,var(--max));padding-top:14px}.hero,.step,.final{padding:20px}.checklist,.links{grid-template-columns:1fr}.check--wide{grid-column:auto}.step-head{align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 5l9 5.5-9 5.5-9-5.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 13.2V17c0 1.2 2.7 2.7 6 2.7s6-1.5 6-2.7v-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Hörsaal der Akademie</div>
+      <h1>Willkommen im TLN-Hörsaal</h1>
+      <p class="lead">Dieser Hörsaal begleitet Sie Schritt für Schritt bis zur Verbindung mit dem Projekt. Danach übernimmt die TLN Community die weitere Betreuung, Begleitung und projektbezogene Ausbildung.</p>
+    </header>
+
+    <div class="notice"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 10.5v6M12 7.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><div><strong>Neutrale Begleitung:</strong> Die Akademie stellt den digitalen Lernraum und die verständliche Wegführung bereit. Sie bewertet und analysiert das Projekt nicht und ist nicht Betreiberin von TLN. Entscheidungen treffen Sie eigenverantwortlich.</div></div>
+
+    <section class="step" id="vorbereitung">
+      <div class="step-head"><div class="step-number">1</div><h2>Vorbereitung</h2></div>
+      <p>Bevor Sie starten, halten Sie bitte diese Dinge bereit und vereinbaren Sie den gemeinsamen Termin mit Ihrem Sponsor.</p>
+      <p>Der Sponsor begleitet diesen einmaligen Prozess telefonisch oder über Zoom. Gemeinsam werden die einzelnen Schritte durchgeführt und Wallet-Adresse, Sponsor-ID, Netzwerk sowie die Verbindung zur TLN DApp kontrolliert.</p>
+      <div class="checklist">
+        <div class="check check--wide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>einen vereinbarten Telefon- oder Zoom-Termin mit dem persönlichen Sponsor</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>einen persönlichen Sponsor</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>den persönlichen TLN-Affiliate-Link</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Computer oder Smartphone mit Internetzugang</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Bankkonto und eine kleine Menge Euro für BNB und Netzwerkgebühren</span></div>
+      </div>
+    </section>
+
+    <section class="step" id="wallets">
+      <div class="step-head"><div class="step-number">2</div><h2>Wallet auswählen</h2></div>
+      <p>Wählen Sie die Wallet, die Sie für den Zugang zum TLN Protocol nutzen möchten. Die Einrichtung und Verbindung wird jeweils in den Klappreitern erklärt.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14v10H5zM8 4h8v3M9 11h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>MetaMask</h3></div>
+          <p>Eine Software-Wallet für Desktop und Smartphone. Sie stellt eine eigene Wallet-Adresse bereit, die mit TLN verbunden werden kann.</p>
+          <a class="button-link" href="https://metamask.io/" target="_blank" rel="noopener noreferrer">Offizielle MetaMask-Seite öffnen</a>
+          <details><summary>Einrichtung</summary><div class="details-body"><ol><li>MetaMask ausschließlich über die offizielle Seite installieren.</li><li>Eine neue Wallet erstellen oder eine vorhandene Wallet importieren.</li><li>Wiederherstellungsdaten sicher und offline verwahren.</li><li>BNB Smart Chain auswählen oder hinzufügen.</li><li>Wallet-Adresse kontrollieren.</li></ol></div></details>
+          <details><summary>Verbindung mit TLN</summary><div class="details-body"><ol><li>Persönlichen TLN-Affiliate-Link öffnen.</li><li>„Wallet verbinden“ auswählen und MetaMask öffnen.</li><li>Wallet-Adresse und Sponsor-ID kontrollieren.</li><li>Die kleine BNB-Transaktion bestätigen.</li><li>Danach die aktivierte TLN-ID kontrollieren.</li></ol></div></details>
+          <details><summary>Häufige Fehler und Sicherheit</summary><div class="details-body"><ul><li>falsches Netzwerk oder falsche Wallet-Adresse</li><li>zu wenig BNB für die Netzwerkgebühr</li><li>Affiliate-Link des Sponsors nicht verwendet</li><li>Wiederherstellungsdaten niemals an Dritte weitergeben</li><li>nur offizielle Seiten und Apps verwenden</li></ul></div></details>
+        </article>
+        <article class="card">
+          <div class="card-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16v8H4zM7 5h10v3M8 12h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Rabby</h3></div>
+          <p>Eine Software-Wallet für EVM-kompatible Netzwerke. Sie stellt ebenfalls eine eigene Wallet-Adresse für die Verbindung mit TLN bereit.</p>
+          <a class="button-link" href="https://rabby.io/" target="_blank" rel="noopener noreferrer">Offizielle Rabby-Seite öffnen</a>
+          <details><summary>Einrichtung</summary><div class="details-body"><ol><li>Rabby ausschließlich über die offizielle Seite installieren.</li><li>Eine neue Wallet erstellen oder eine vorhandene Wallet verbinden.</li><li>Wiederherstellungsdaten sicher und offline verwahren.</li><li>BNB Smart Chain prüfen.</li><li>Wallet-Adresse kontrollieren.</li></ol></div></details>
+          <details><summary>Verbindung mit TLN</summary><div class="details-body"><ol><li>Persönlichen TLN-Affiliate-Link öffnen.</li><li>„Wallet verbinden“ auswählen und Rabby öffnen.</li><li>Wallet-Adresse und Sponsor-ID kontrollieren.</li><li>Die kleine BNB-Transaktion bestätigen.</li><li>Danach die aktivierte TLN-ID kontrollieren.</li></ol></div></details>
+          <details><summary>Häufige Fehler und Sicherheit</summary><div class="details-body"><ul><li>falsches Netzwerk oder falsches Konto ausgewählt</li><li>zu wenig BNB für die Netzwerkgebühr</li><li>Affiliate-Link des Sponsors nicht verwendet</li><li>Transaktionsvorschau vor der Bestätigung genau lesen</li><li>Wiederherstellungsdaten niemals weitergeben</li></ul></div></details>
+        </article>
+        <article class="card">
+          <div class="card-top"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 7h6M8 12h8M10 17h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><h3>Tangem</h3></div>
+          <p>Eine Hardware-Wallet mit eigener Wallet-Adresse. Diese Adresse lässt sich über WalletConnect besonders einfach mit dem TLN Protocol verbinden.</p>
+          <a class="button-link" href="https://tangem.com/" target="_blank" rel="noopener noreferrer">Offizielle Tangem-Seite öffnen</a>
+          <details><summary>Einrichtung</summary><div class="details-body"><ol><li>Tangem-App ausschließlich über die offizielle Quelle installieren.</li><li>Das Wallet-Set vollständig einrichten.</li><li>Wallet-Adresse in der App kontrollieren.</li><li>BNB Smart Chain anzeigen lassen.</li><li>Wallet für die spätere Verbindung bereithalten.</li></ol></div></details>
+          <details><summary>Verbindung mit TLN</summary><div class="details-body"><ol><li>Persönlichen TLN-Affiliate-Link öffnen.</li><li>„Wallet verbinden“ und anschließend WalletConnect auswählen.</li><li>Tangem-App öffnen oder den QR-Code mit der App scannen.</li><li>Domain, Wallet-Adresse, Netzwerk und Sponsor-ID kontrollieren.</li><li>Die kleine BNB-Transaktion bestätigen und danach die TLN-ID kontrollieren.</li></ol></div></details>
+          <details><summary>Häufige Fehler und Sicherheit</summary><div class="details-body"><ul><li>Wallet-Adresse oder Netzwerk nicht kontrolliert</li><li>zu wenig BNB für die Netzwerkgebühr</li><li>unbekannte Domain oder Verbindung bestätigt</li><li>Sicherheitsgeräte nicht sorgfältig verwahrt</li><li>Zugangsdaten oder Wiederherstellungsinformationen weitergegeben</li></ul></div></details>
+        </article>
+      </div>
+    </section>
+
+    <section class="step" id="bnb">
+      <div class="step-head"><div class="step-number">3</div><h2>BNB verstehen und bereitstellen</h2></div>
+      <p>Bevor Sie BNB erwerben oder übertragen, ist wichtig zu verstehen, welche Aufgabe BNB in diesem Ablauf erfüllt und wie der Weg vom Bankkonto bis zur eigenen Wallet funktioniert.</p>
+
+      <div class="academy">
+        <article><h3>Was ist BNB?</h3><p>BNB ist die native digitale Einheit der BNB Smart Chain. Sie wird benötigt, damit Vorgänge auf diesem Blockchain-Netzwerk technisch ausgeführt und bestätigt werden können.</p></article>
+        <article><h3>Was ist eine Netzwerkgebühr?</h3><p>Jede Blockchain-Transaktion benötigt Rechenleistung und Bestätigung durch das Netzwerk. Dafür fällt eine kleine Gebühr an, häufig auch „Gas Fee“ genannt.</p></article>
+        <article><h3>Warum braucht TLN BNB?</h3><p>Für die Aktivierung der TLN-ID wird eine kleine Blockchain-Transaktion ausgelöst. Diese wird auf der BNB Smart Chain verarbeitet und benötigt deshalb BNB als Netzwerkgebühr.</p></article>
+        <article><h3>Wer erhält diese Gebühr?</h3><p>Die Netzwerkgebühr geht nicht an den Sponsor, die Akademie, LiquidityBooster oder die TLN-Community. Sie entsteht durch die technische Nutzung der Blockchain.</p></article>
+        <article><h3>Was bedeutet BNB Smart Chain (BEP20)?</h3><p>Bei der Auszahlung muss das Netzwerk zur Ziel-Wallet und zur TLN-Anwendung passen. Für diesen Ablauf wird die BNB Smart Chain verwendet, häufig als BSC oder BEP20 bezeichnet.</p></article>
+        <article><h3>Warum zuerst eine Testübertragung?</h3><p>Blockchain-Transaktionen lassen sich normalerweise nicht einfach zurückholen. Eine kleine Testübertragung zeigt, ob Wallet-Adresse und Netzwerk richtig gewählt wurden.</p></article>
+      </div>
+
+      <h3>Der vollständige Weg</h3>
+      <div class="flow" aria-label="Geldfluss vom Bankkonto bis zum TLN Protocol">
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18M5 10V20M9 10V20M15 10V20M19 10V20M2 20h20M12 3l9 5H3l9-5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><strong>Bankkonto</strong></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15.5 8.5a4.5 4.5 0 1 0 0 7M8 11h6M8 14h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><strong>Euro</strong></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 9h16" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><strong>Plattform</strong></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 7 7-7 11L5 10l7-7Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m8 10 4-4 4 4-4 7-4-7Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><strong>BNB</strong></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 10h5v4h-5a2 2 0 0 1 0-4Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><strong>Wallet</strong></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><strong>TLN DApp</strong></div>
+        <div class="flow-step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12h8M5 7h4v4H5zM15 13h4v4h-4zM5 13h4v4H5zM15 7h4v4h-4z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><strong>TLN Protocol</strong></div>
+      </div>
+
+      <p class="community-note"><strong>Wichtiger Hinweis:</strong> Wenn Sie SafePal, Trustyfy oder Crypto.com neu einrichten möchten, fordern Sie bitte vorher den persönlichen Affiliate-Link Ihres Sponsors an. Die Registrierung sollte über diesen persönlichen Link erfolgen, damit die einmalige Empfehlungszuordnung berücksichtigt werden kann. Besteht bereits ein Zugang, kann dieser weiterverwendet werden.<br><br><strong>Community-Standard:</strong> Die Auswahl basiert auf den praktischen Erfahrungen und dem aktuellen Arbeitsstandard der TLN-Community. Sie ist keine allgemeine Bewertung anderer Anbieter durch die Akademie oder LiquidityBooster.</p>
+
+      <h3>Plattform auswählen</h3>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7v5c0 4.7 3.1 7.7 8 9 4.9-1.3 8-4.3 8-9V7l-8-4Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><h3>SafePal</h3></div>
+          <p>Eine von der TLN-Community häufig verwendete Plattform beziehungsweise Wallet-Lösung, über die BNB bereitgestellt und an die ausgewählte Ziel-Wallet übertragen werden kann.</p>
+          <a class="button-link" href="https://www.safepal.com/de" target="_blank" rel="noopener noreferrer">Offizielle SafePal-Seite öffnen</a>
+          <details><summary>Euro einzahlen und BNB bereitstellen</summary><div class="details-body"><ol><li>Persönlichen Affiliate-Link beim Sponsor anfordern.</li><li>SafePal über diesen Link öffnen und den Zugang einrichten.</li><li>Den angebotenen Zahlungsweg wählen und Euro vom Bankkonto einzahlen.</li><li>Warten, bis der Euro-Betrag verfügbar ist.</li><li>Den benötigten Euro-Betrag in BNB tauschen.</li></ol></div></details>
+          <details><summary>BNB an die eigene Wallet senden</summary><div class="details-body"><ol><li>Empfangsadresse der ausgewählten Wallet kopieren.</li><li>Adresse Zeichen für Zeichen kontrollieren.</li><li>BNB Smart Chain (BEP20) als Netzwerk auswählen.</li><li>Zuerst eine kleine Testübertragung senden.</li><li>Eingang in der Wallet prüfen und erst danach den weiteren Betrag senden.</li></ol></div></details>
+          <details><summary>Häufige Fehler und Sicherheit</summary><div class="details-body"><ul><li>falsche Wallet-Adresse</li><li>falsches Auszahlungsnetzwerk</li><li>keine Testübertragung</li><li>Affiliate-Link vor der Neueinrichtung nicht verwendet</li><li>Gebühren und Mindestbeträge vor Bestätigung nicht geprüft</li></ul></div></details>
+        </article>
+        <article class="card">
+          <div class="card-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4zM7 9h10M7 13h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><h3>Trustyfy</h3></div>
+          <p>Eine in der TLN-Community häufig genutzte Plattform, über die der Weg von Euro zu BNB und anschließend zur eigenen Wallet begleitet werden kann.</p>
+          <a class="button-link" href="https://www.trustyfy.com/" target="_blank" rel="noopener noreferrer">Offizielle Trustyfy-Seite öffnen</a>
+          <details><summary>Euro einzahlen und BNB bereitstellen</summary><div class="details-body"><ol><li>Persönlichen Affiliate-Link beim Sponsor anfordern.</li><li>Trustyfy über diesen Link öffnen und den Zugang einrichten.</li><li>Den verfügbaren Zahlungsweg wählen und Euro einzahlen.</li><li>Warten, bis der Betrag auf der Plattform verfügbar ist.</li><li>Den benötigten Betrag in BNB umwandeln.</li></ol></div></details>
+          <details><summary>BNB an die eigene Wallet senden</summary><div class="details-body"><ol><li>Empfangsadresse der ausgewählten Wallet kopieren.</li><li>Adresse sorgfältig kontrollieren.</li><li>BNB Smart Chain (BEP20) als Netzwerk wählen.</li><li>Eine kleine Testübertragung durchführen.</li><li>Eingang prüfen und danach den weiteren Betrag übertragen.</li></ol></div></details>
+          <details><summary>Häufige Fehler und Sicherheit</summary><div class="details-body"><ul><li>Banküberweisung ohne korrekten Verwendungszweck</li><li>falsche Wallet-Adresse</li><li>falsches Netzwerk</li><li>Affiliate-Link vor der Neueinrichtung nicht verwendet</li><li>Bestätigung des Eingangs nicht abgewartet</li></ul></div></details>
+        </article>
+        <article class="card">
+          <div class="card-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 7v10l7 4 7-4V7l-7-4Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m9 9 3-2 3 2v6l-3 2-3-2V9Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><h3>Crypto.com</h3></div>
+          <p>Eine von der TLN-Community häufig verwendete Plattform, auf der Euro eingezahlt, BNB erworben und anschließend an die eigene Wallet ausgezahlt werden kann.</p>
+          <a class="button-link" href="https://crypto.com/de/crypto/buy/bnb" target="_blank" rel="noopener noreferrer">Offizielle Crypto.com-Seite öffnen</a>
+          <details><summary>Euro einzahlen und BNB erwerben</summary><div class="details-body"><ol><li>Persönlichen Affiliate-Link beim Sponsor anfordern.</li><li>Crypto.com über diesen Link öffnen.</li><li>Konto einrichten und erforderliche Identitätsprüfung abschließen.</li><li>Euro vom Bankkonto über einen angebotenen Zahlungsweg einzahlen.</li><li>Mit dem verfügbaren Euro-Betrag BNB erwerben.</li></ol></div></details>
+          <details><summary>BNB an die eigene Wallet senden</summary><div class="details-body"><ol><li>Empfangsadresse der ausgewählten Wallet kopieren.</li><li>Wallet-Adresse sorgfältig kontrollieren.</li><li>BNB Smart Chain (BEP20) als Auszahlungsnetzwerk wählen.</li><li>Zuerst eine kleine Testübertragung durchführen.</li><li>Eingang prüfen und danach den weiteren Betrag übertragen.</li></ol></div></details>
+          <details><summary>Häufige Fehler und Sicherheit</summary><div class="details-body"><ul><li>falsches Auszahlungsnetzwerk</li><li>falsche oder unvollständige Wallet-Adresse</li><li>keine Testübertragung</li><li>Affiliate-Link vor der Neueinrichtung nicht verwendet</li><li>Auszahlungsgebühr und Mindestbetrag nicht geprüft</li></ul></div></details>
+        </article>
+      </div>
+
+      <h3 style="margin-top:22px">Woran erkennen Sie, dass alles bereit ist?</h3>
+      <div class="checklist">
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Die gewünschte Wallet ist vollständig eingerichtet.</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Die eigene Wallet-Adresse wurde kontrolliert.</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>BNB befindet sich auf der BNB Smart Chain (BEP20).</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Der BNB-Bestand wird in der Wallet angezeigt.</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Die Testübertragung war erfolgreich.</span></div>
+        <div class="check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Der persönliche TLN-Affiliate-Link des Sponsors liegt vor.</span></div>
+      </div>
+    </section>
+
+    <section class="step" id="verbindung">
+      <div class="step-head"><div class="step-number">4</div><h2>Verbindung zum TLN Protocol</h2></div>
+      <p>Wenn Wallet und BNB vorbereitet sind, folgt die eigentliche Verbindung über die TLN DApp:</p>
+      <ol class="sequence">
+        <li>Den persönlichen TLN-Affiliate-Link des Sponsors öffnen.</li>
+        <li>Über diesen Link die TLN DApp aufrufen.</li>
+        <li>Die gewünschte Wallet verbinden.</li>
+        <li>Wallet-Adresse und Sponsor-ID kontrollieren.</li>
+        <li>Prüfen, ob ausreichend BNB für die Netzwerkgebühr vorhanden ist.</li>
+        <li>Die kleine BNB-Transaktion zur Aktivierung der TLN-ID bestätigen.</li>
+        <li>Nach der Blockchain-Bestätigung die aktivierte TLN-ID kontrollieren.</li>
+      </ol>
+      <div class="links">
+        <div class="link-card"><strong>TLN DApp</strong><br>Die TLN DApp ist der offizielle Einstieg in die Web3-Anwendung und bildet den Zugang zum TLN Protocol. Den persönlichen Zugangslink erhalten Sie von Ihrem Sponsor.</div>
+        <div class="link-card"><strong>Offizieller Web3-Zugang</strong><br><a class="button-link" href="https://tlndapp.com/" target="_blank" rel="noopener noreferrer">TLN DApp öffnen</a></div>
+      </div>
+    </section>
+
+    <section class="final" id="projektstart">
+      <div class="step-head"><div class="step-number">5</div><h2>Willkommen im Projekt</h2></div>
+      <p><strong>Die Verbindung zum Projekt ist hergestellt.</strong></p>
+      <p>Sie verfügen jetzt über die notwendigen Grundlagen, die ausgewählte Wallet, BNB für die Netzwerkgebühr und eine aktivierte TLN-ID.</p>
+      <p>Ab diesem Punkt übernimmt die TLN Community die weitere Begleitung, Betreuung und projektbezogene Ausbildung. Der Auftrag dieses Hörsaals endet hier.</p>
+    </section>
+
+    <footer>Der TLN-Hörsaal ist ein neutraler digitaler Lernraum der Akademie für finanzielle Souveränität. Die Akademie und LiquidityBooster sind nicht Betreiber des Projekts TLN und übernehmen keine Verantwortung für projektbezogene Entscheidungen oder Ergebnisse.</footer>
+  </main>
+</body>
+</html>
