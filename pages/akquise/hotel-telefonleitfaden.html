@@ -2,801 +2,115 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <title>Telefonleitfaden · Ausgewählte Privathotels</title>
 <style>
-:root{
-  --mint:#00a7ad;
-  --mint-soft:#eaf9fa;
-  --magenta:#c6006f;
-  --magenta-soft:#fff0f8;
-  --navy:#132238;
-  --text:#182230;
-  --muted:#667085;
-  --line:#dfe4ea;
-  --soft:#f7f9fb;
-  --white:#ffffff;
-  --green:#197a57;
-  --green-soft:#eaf7f1;
-  --gold:#956600;
-  --gold-soft:#fff7df;
-  --shadow:0 10px 28px rgba(19,34,56,.08);
-}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;background:#fff;color:var(--text);font-family:Arial,Helvetica,sans-serif}
-body{overflow:hidden}
-body.learningOpen{overflow:auto}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.app{height:100dvh;min-height:640px;display:grid;grid-template-rows:auto auto 1fr;background:#fff}
-.app.learningOpen{height:auto;min-height:100dvh;grid-template-rows:auto auto auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px 14px;border-bottom:1px solid var(--line);background:#fff}
-.titleWrap{min-width:0;flex:1 1 520px}
-.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mint)}
-h1{margin:4px 0 0;font-size:clamp(1.45rem,2vw,2rem);line-height:1.08;color:var(--navy)}
-.dailyCounter{flex:0 1 470px;min-width:330px;max-width:470px;border:1px solid #b9e2df;background:#f4fbfa;border-radius:12px;padding:9px 11px;box-shadow:0 5px 16px rgba(25,122,87,.06)}
-.counterTop{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.counterKicker{font-size:.66rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--green)}
-.counterCount{font-size:1.14rem;font-weight:900;color:var(--navy);white-space:nowrap}
-.counterProgress{height:7px;margin:6px 0;border-radius:999px;background:#dcece8;overflow:hidden}
-.counterProgress span{display:block;width:0;height:100%;border-radius:999px;background:var(--green);transition:width .18s ease}
-.counterBottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.counterStatus{font-size:.72rem;font-weight:800;color:#3f665a;white-space:nowrap}
-.counterActions{display:flex;gap:5px;flex:0 0 auto}
-.counterBtn{appearance:none;height:28px;border:1px solid #a9d6cc;border-radius:8px;background:#fff;color:var(--green);padding:0 9px;font-size:.7rem;font-weight:900;white-space:nowrap}
-.counterBtn:disabled{opacity:.4;cursor:not-allowed}
-.dailyCounter.complete{background:var(--green-soft);border-color:#8fcfbc}
-.dailyCounter.complete .counterStatus{color:#155b43}
-.goal{flex:0 0 auto;border-left:4px solid var(--magenta);padding:8px 12px;background:var(--magenta-soft);font-size:.9rem;line-height:1.35;max-width:300px}
-.goal strong{display:block;color:var(--magenta);margin-bottom:2px}
-.controls{display:grid;grid-template-columns:minmax(220px,1fr) minmax(220px,1fr) auto;gap:10px;padding:10px 20px;border-bottom:1px solid var(--line);background:var(--soft);align-items:end}
-.field{display:grid;gap:4px;min-width:0}
-.field label{font-size:.75rem;font-weight:800;color:var(--muted)}
-.field input{width:100%;height:39px;border:1px solid var(--line);border-radius:9px;background:#fff;padding:0 11px;color:var(--text);outline:none}
-.field input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.10)}
-.modeSwitch{display:flex;gap:6px;align-items:center;height:39px}
-.modeBtn{height:39px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--text);font-weight:800;padding:0 13px}
-.modeBtn.active{background:var(--navy);border-color:var(--navy);color:#fff}
-.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1.72fr) minmax(320px,.78fr);gap:12px;padding:12px 20px 16px;background:#fff}
-.app.learningOpen .workspace{align-items:start}
-.reader,.sidebar{min-height:0}
-.reader{border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);display:grid;grid-template-rows:auto 1fr auto;background:#fff;overflow:hidden}
-.app.learningOpen .reader{overflow:visible;grid-template-rows:auto auto auto}
-.readerHead{padding:12px 16px 10px;border-bottom:1px solid var(--line)}
-.aida{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:9px}
-.aidaStep{appearance:none;border:1px solid var(--line);border-radius:9px;padding:7px 8px;background:#fff;min-width:0;text-align:left;color:inherit}
-.aidaStep span{display:block;font-size:.7rem;font-weight:900;color:var(--muted);letter-spacing:.05em}
-.aidaStep strong{display:block;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--navy)}
-.aidaStep em{display:block;margin-top:3px;font-size:.64rem;font-style:normal;font-weight:800;color:var(--mint)}
-.aidaStep.active{border-color:var(--mint);background:var(--mint-soft)}
-.aidaStep.done{border-color:#b8ded2;background:var(--green-soft)}
-.aidaStep.learnOpen{box-shadow:0 0 0 2px rgba(0,167,173,.12)}
-.aidaExplain{display:none;margin:0 0 10px;border:1px solid #c9e7e8;border-radius:10px;background:#fbfefe;padding:14px 15px;overflow:visible}
-.aidaExplain.show{display:block}
-.aidaExplainTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
-.aidaExplainLabel{font-size:.67rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--magenta)}
-.aidaExplainTitle{margin:2px 0 0;font-size:1rem;color:var(--navy)}
-.aidaExplainClose{appearance:none;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--muted);padding:5px 8px;font-size:.7rem;font-weight:800;white-space:nowrap}
-.aidaExplainText{font-size:.9rem;line-height:1.55;color:#3d4b5b;white-space:pre-wrap}
-.headRow{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.stageBadge{display:inline-block;border-radius:999px;background:var(--mint-soft);color:var(--mint);font-size:.72rem;font-weight:900;padding:5px 9px;margin-bottom:5px}
-#stepTitle{margin:0;color:var(--navy);font-size:1.18rem;line-height:1.2}
-.progress{font-size:.82rem;color:var(--muted);font-weight:800;white-space:nowrap;padding-top:5px}
-.scriptArea{min-height:0;overflow:auto;padding:12px 14px;background:#fff}
-.app.learningOpen .scriptArea{overflow:visible}
-.scriptCard{min-height:100%;border:1px solid var(--line);border-radius:13px;background:var(--soft);padding:22px 24px;display:flex;flex-direction:column;justify-content:flex-start}
-.scriptLabel{font-size:.7rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mint);margin-bottom:12px}
-.scriptText{font-size:clamp(1.3rem,1.85vw,1.62rem);line-height:1.5;color:#111827;white-space:pre-wrap}
-.scriptText p{margin:0 0 16px}
-.scriptText p:last-child{margin-bottom:0}
-.coach{margin-top:18px;border-left:4px solid var(--magenta);background:#fff;padding:10px 13px;color:var(--navy);line-height:1.4}
-.coach.green{border-left-color:var(--green);background:var(--green-soft);color:#155b43}
-.coachLabel{display:block;font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--magenta);margin-bottom:4px}
-.coach.green .coachLabel{color:var(--green)}
-#coachNote{font-weight:800}
-.readerFoot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-top:1px solid var(--line);background:#fff}
-.navGroup{display:flex;gap:8px}
-.btn{height:40px;border-radius:9px;border:1px solid var(--navy);background:var(--navy);color:#fff;padding:0 15px;font-weight:800}
-.btn.secondary{background:#fff;color:var(--navy)}
-.btn.muted{border-color:var(--line);background:var(--soft);color:var(--text)}
-.btn:disabled{opacity:.35;cursor:not-allowed}
-.rule{font-size:.78rem;color:var(--muted);font-weight:800;text-align:right}
-.sidebar{display:flex;flex-direction:column;gap:10px;overflow:hidden}
-.app.learningOpen .sidebar{overflow:visible}
-.sideCard{border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;flex:0 0 auto}
-.sideHead{padding:11px 13px 9px;border-bottom:1px solid var(--line)}
-.sideHead h2{margin:0;color:var(--navy);font-size:1rem}
-.sideHead p{margin:4px 0 0;color:var(--muted);font-size:.75rem;line-height:1.35}
-.objectionBody{padding:9px 10px}
-.objectionGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.objection{border:1px solid var(--line);border-radius:8px;background:#fff;text-align:left;padding:8px 9px;color:var(--text);font-size:.76rem;font-weight:800;line-height:1.25}
-.objection:hover,.objection.active{border-color:var(--magenta);background:var(--magenta-soft);color:var(--magenta)}
-.answer{display:none;margin-top:9px;border-left:4px solid var(--green);background:var(--green-soft);padding:11px 12px;font-size:.86rem;line-height:1.43;max-height:34vh;overflow:auto}
-.answer.show{display:block}
-.answerLabel{font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
-.answerText{white-space:pre-wrap;color:#183f34}
-.answerHint{margin-top:10px;padding-top:9px;border-top:1px solid #bddfd4;color:#155b43}
-.answerHint strong{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.curiosity{border:2px solid #8dd2c8;background:linear-gradient(135deg,#e8f8f3,#f7fffc);box-shadow:0 6px 18px rgba(25,122,87,.09)}
-.curiosity button{width:100%;border:0;background:transparent;text-align:left;padding:13px 14px;color:#155b43}
-.curiosity .kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;font-weight:900}
-.curiosity strong{display:block;margin-top:4px;font-size:1rem;line-height:1.3}
-.curiosity small{display:block;margin-top:5px;line-height:1.3;color:#2c6b56;font-weight:700}
-.booking{border:2px solid #e4a6c9;background:#fff8fc;box-shadow:0 6px 18px rgba(198,0,111,.07)}
-.bookingBody{padding:12px 13px}
-.bookingKicker{font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;font-weight:900;color:var(--magenta)}
-.bookingTitle{margin:3px 0 4px;color:var(--navy);font-size:.98rem}
-.bookingText{margin:0 0 9px;color:#5c4960;font-size:.76rem;line-height:1.35}
-.bookingBtn{display:block;width:100%;border-radius:9px;background:var(--magenta);color:#fff;text-align:center;text-decoration:none;padding:9px 11px;font-size:.8rem;font-weight:900}
-.bookingBtn:focus,.bookingBtn:hover{background:#a9005f}
-.memory{padding:10px 13px;background:var(--gold-soft);border-color:#ead9a6}
-.memory h3{margin:0 0 6px;color:#6b4c00;font-size:.9rem}
-.memory ol{margin:0;padding-left:18px;color:#664b09;font-size:.78rem;line-height:1.4}
-.memory li+li{margin-top:2px}
-.shortMode .aida,.shortMode .aidaExplain{display:none!important}
-.shortMode .stageBadge{background:var(--magenta-soft);color:var(--magenta)}
-.shortMode .scriptText{font-size:1.18rem;line-height:1.5}
-@media(max-width:1160px){
-  .topbar{flex-wrap:wrap}
-  .titleWrap{flex:1 1 55%}
-  .dailyCounter{order:3;flex:1 1 100%;max-width:none}
-  .goal{max-width:330px}
-}
-@media(max-width:980px){
-  body{overflow:auto}
-  .app{height:auto;min-height:100dvh;display:block}
-  .controls{grid-template-columns:1fr 1fr}
-  .modeSwitch{grid-column:1/-1}
-  .workspace{grid-template-columns:1fr;overflow:visible}
-  .reader{min-height:620px}
-  .sidebar{overflow:visible}
-  .answer{max-height:none}
-}
-@media(max-width:620px){
-  .topbar{align-items:flex-start;flex-direction:column;padding:13px 12px}
-  .titleWrap,.dailyCounter,.goal{width:100%;max-width:none;min-width:0}
-  .counterBottom{align-items:flex-start;flex-direction:column}
-  .goal{max-width:none;width:100%}
-  .controls{grid-template-columns:1fr;padding:10px 12px}
-  .modeSwitch{grid-column:auto}
-  .workspace{padding:10px 12px}
-  .aida{grid-template-columns:1fr 1fr}
-  .headRow{flex-direction:column;gap:4px}
-  .scriptCard{padding:18px}
-  .readerFoot{align-items:stretch;flex-direction:column}
-  .navGroup{display:grid;grid-template-columns:1fr 1fr 1fr}
-  .btn{padding:0 8px}
-  .rule{text-align:left}
-}
+:root{--mint:#00a7ad;--mintSoft:#eaf9fa;--mag:#c6006f;--magSoft:#fff0f8;--navy:#132238;--text:#182230;--muted:#667085;--line:#dfe4ea;--soft:#f7f9fb;--green:#197a57;--greenSoft:#eaf7f1;--gold:#956600;--goldSoft:#fff7df;--shadow:0 8px 22px rgba(19,34,56,.08)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:auto;min-height:0;background:#fff;color:var(--text);font-family:Arial,Helvetica,sans-serif}body{overflow:hidden}button,input{font:inherit}button{cursor:pointer}.app{width:100%;height:min(760px,100dvh);max-height:760px;min-height:0;display:grid;grid-template-rows:auto auto minmax(0,1fr);overflow:hidden;background:#fff}
+.top{display:grid;grid-template-columns:minmax(300px,1.2fr) minmax(310px,.95fr) minmax(240px,.72fr);align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line)}.title{min-width:0}.eyebrow{font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mint)}h1{margin:3px 0 0;font-size:clamp(1.3rem,1.8vw,1.62rem);line-height:1.08;color:var(--navy)}
+.counter{min-width:0;border:1px solid #b9e2df;background:#f4fbfa;border-radius:11px;padding:8px 10px}.counterTop,.counterBottom{display:flex;align-items:center;justify-content:space-between;gap:8px}.counterKicker{font-size:.64rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--green)}.counterCount{font-size:1rem;font-weight:900;color:var(--navy);white-space:nowrap}.bar{height:6px;margin:5px 0;border-radius:999px;background:#dcece8;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--green);border-radius:999px;transition:width .18s}.counterStatus{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.67rem;font-weight:800;color:#3f665a}.counterBtn{height:26px;border:1px solid #a9d6cc;border-radius:7px;background:#fff;color:var(--green);padding:0 8px;font-size:.65rem;font-weight:900;white-space:nowrap}.counterBtn:disabled{opacity:.38;cursor:not-allowed}.counter.complete{background:var(--greenSoft);border-color:#8fcfbc}
+.goal{min-width:0;border-left:4px solid var(--mag);padding:7px 10px;background:var(--magSoft);font-size:.77rem;line-height:1.28}.goal strong{display:block;color:var(--mag);margin-bottom:2px}
+.controls{display:grid;grid-template-columns:minmax(210px,1fr) minmax(210px,1fr) auto;gap:8px;align-items:end;padding:7px 14px;border-bottom:1px solid var(--line);background:var(--soft)}.field{display:grid;gap:3px;min-width:0}.field label{font-size:.67rem;font-weight:800;color:var(--muted)}.field input{width:100%;height:36px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 10px;color:var(--text);outline:none}.field input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.09)}.modes{display:flex;gap:6px;height:36px}.mode{height:36px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text);padding:0 12px;font-weight:800}.mode.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.workspace{min-height:0;height:100%;display:grid;grid-template-columns:minmax(0,1.72fr) minmax(290px,.78fr);gap:10px;padding:8px 14px 10px;overflow:hidden}.reader{position:relative;min-height:0;height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}.readerHead{padding:8px 10px 7px;border-bottom:1px solid var(--line)}.aida{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:7px}.aidaBtn{appearance:none;border:1px solid var(--line);border-radius:8px;background:#fff;padding:5px 7px;text-align:left;color:inherit;min-width:0}.aidaBtn span{display:block;font-size:.61rem;font-weight:900;color:var(--muted);letter-spacing:.05em}.aidaBtn strong{display:block;font-size:.76rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.aidaBtn em{display:block;margin-top:2px;font-size:.59rem;font-style:normal;font-weight:800;color:var(--mint)}.aidaBtn.active{border-color:var(--mint);background:var(--mintSoft)}.aidaBtn.done{border-color:#b8ded2;background:var(--greenSoft)}.aidaBtn.learn{box-shadow:0 0 0 2px rgba(0,167,173,.12)}.headRow{display:flex;align-items:center;justify-content:space-between;gap:12px}.badge{display:inline-block;border-radius:999px;background:var(--mintSoft);color:var(--mint);font-size:.63rem;font-weight:900;padding:4px 7px;margin-bottom:3px}.stepTitle{margin:0;color:var(--navy);font-size:1.03rem}.progress{font-size:.71rem;font-weight:800;color:var(--muted);white-space:nowrap}
+.scriptArea{min-height:0;overflow:auto;padding:8px 10px;overscroll-behavior:contain}.scriptCard{min-height:100%;border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:15px 17px}.scriptLabel{font-size:.63rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mint);margin-bottom:8px}.scriptText{font-size:clamp(1.08rem,1.5vw,1.34rem);line-height:1.43;color:#111827}.scriptText p{margin:0 0 11px}.scriptText p:last-child{margin-bottom:0}.coach{margin-top:11px;border-left:4px solid var(--mag);background:#fff;padding:8px 10px;color:var(--navy);line-height:1.32;font-size:.82rem;font-weight:800}.coach.green{border-left-color:var(--green);background:var(--greenSoft);color:#155b43}.coachLabel{display:block;font-size:.61rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mag);margin-bottom:3px}.coach.green .coachLabel{color:var(--green)}
+.readerFoot{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px;border-top:1px solid var(--line);background:#fff;z-index:15}.nav{display:flex;gap:7px}.navBtn{height:36px;border-radius:8px;border:1px solid var(--navy);background:var(--navy);color:#fff;padding:0 14px;font-size:.85rem;font-weight:900}.navBtn.secondary{background:#fff;color:var(--navy)}.navBtn:disabled{opacity:.35;cursor:not-allowed}.rule{max-width:58%;font-size:.69rem;color:var(--muted);font-weight:800;text-align:right}
+.learnPanel{display:none;position:absolute;z-index:12;left:10px;right:10px;top:58px;bottom:50px;margin:0;border:1px solid #c9e7e8;border-radius:10px;background:#fbfefe;padding:16px 17px;overflow:auto;box-shadow:0 10px 28px rgba(19,34,56,.14)}.learnPanel.show{display:block}.learnTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}.learnLabel{font-size:.65rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mag)}.learnTitle{margin:2px 0 0;font-size:1rem;color:var(--navy)}.learnClose{height:28px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:0 8px;font-size:.66rem;font-weight:800}.learnText{font-size:.93rem;line-height:1.5;color:#3d4b5b;white-space:pre-wrap}
+.sidebar{min-height:0;height:100%;display:flex;flex-direction:column;gap:7px;overflow:hidden}.card{flex:0 0 auto;border:1px solid var(--line);border-radius:11px;background:#fff;overflow:hidden}.curiosity{border:2px solid #8dd2c8;background:linear-gradient(135deg,#e8f8f3,#f7fffc)}.curiosity button{width:100%;border:0;background:transparent;text-align:left;padding:9px 10px;color:#155b43}.kicker{font-size:.61rem;text-transform:uppercase;letter-spacing:.07em;font-weight:900}.curiosity strong{display:block;margin-top:3px;font-size:.85rem;line-height:1.22}.curiosity small{display:block;margin-top:4px;font-size:.69rem;line-height:1.22;color:#2c6b56;font-weight:700}.booking{border:2px solid #e4a6c9;background:#fff8fc}.bookingBody{padding:9px 10px}.bookingKicker{font-size:.61rem;text-transform:uppercase;letter-spacing:.07em;font-weight:900;color:var(--mag)}.bookingTitle{margin:2px 0 3px;color:var(--navy);font-size:.88rem}.bookingText{margin:0 0 6px;color:#5c4960;font-size:.69rem;line-height:1.25}.bookingBtn{display:block;width:100%;border-radius:8px;background:var(--mag);color:#fff;text-align:center;text-decoration:none;padding:7px 9px;font-size:.73rem;font-weight:900}.sideHead{padding:8px 10px 7px;border-bottom:1px solid var(--line)}.sideHead h2{margin:0;color:var(--navy);font-size:.89rem}.sideHead p{margin:2px 0 0;color:var(--muted);font-size:.67rem;line-height:1.3}.obBody{padding:7px 8px}.obGrid{display:grid;grid-template-columns:1fr 1fr;gap:5px}.ob{border:1px solid var(--line);border-radius:7px;background:#fff;text-align:left;padding:6px 7px;color:var(--text);font-size:.68rem;font-weight:800;line-height:1.22}.ob.active{border-color:var(--mag);background:var(--magSoft);color:var(--mag)}.answer{display:none;margin-top:6px;border-left:4px solid var(--green);background:var(--greenSoft);padding:8px 9px;font-size:.75rem;line-height:1.35;max-height:155px;overflow:auto}.answer.show{display:block}.answerLabel{font-size:.59rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px}.answerText{white-space:pre-wrap;color:#183f34}.answerHint{margin-top:7px;padding-top:7px;border-top:1px solid #bddfd4;color:#155b43}.answerHint strong{display:block;font-size:.59rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}.memory{padding:8px 10px;background:var(--goldSoft);border-color:#ead9a6}.memory h3{margin:0 0 4px;color:#6b4c00;font-size:.81rem}.memory ol{margin:0;padding-left:16px;color:#664b09;font-size:.68rem;line-height:1.3}.memory li+li{margin-top:2px}.short .aida{display:none}.short .badge{background:var(--magSoft);color:var(--mag)}.short .scriptText{font-size:1.04rem;line-height:1.4}
+@media(max-width:940px){.app{height:min(760px,100dvh)}.top{grid-template-columns:1fr 1fr;padding:8px 10px}.title{grid-column:1}.goal{grid-column:2}.counter{grid-column:1/-1}.controls{padding:6px 10px}.workspace{grid-template-columns:minmax(0,1.55fr) minmax(260px,.85fr);padding:7px 10px 9px}.answer{max-height:130px}}
+@media(max-width:760px){body{overflow:auto}.app{height:auto;max-height:none;overflow:visible;display:block}.top{grid-template-columns:1fr}.title,.goal,.counter{grid-column:1}.controls{grid-template-columns:1fr 1fr}.modes{grid-column:1/-1}.workspace{grid-template-columns:1fr;overflow:visible}.reader{height:620px}.sidebar{height:auto;overflow:visible;margin-top:8px}}
 </style>
 </head>
 <body>
 <div class="app" id="app">
-  <header class="topbar">
-    <div class="titleWrap">
-      <div class="eyebrow">LiquidityBooster · Gesprächswerkzeug</div>
-      <h1>Telefonleitfaden · Ausgewählte Privathotels</h1>
-    </div>
-
-    <section class="dailyCounter" id="dailyCounter" aria-label="Heutiges Telefonziel">
-      <div class="counterTop">
-        <span class="counterKicker">Heutiges Telefonziel · 25 empfohlen</span>
-        <strong class="counterCount" id="counterCount">0 / 25</strong>
-      </div>
-      <div class="counterProgress" aria-hidden="true"><span id="counterProgress"></span></div>
-      <div class="counterBottom">
-        <span class="counterStatus" id="counterStatus" aria-live="polite">Noch 25 bis zum Tagesziel</span>
-        <div class="counterActions">
-          <button class="counterBtn" id="counterMinus" type="button">− Korrektur</button>
-        </div>
-      </div>
-    </section>
-
-    <div class="goal">
-      <strong>Ziel des Anrufs</strong>
-      Nicht verkaufen. Nicht erklären. Persönlichen 20-Minuten-Termin mit den beiden Hotelexperten vereinbaren.
-    </div>
-  </header>
-
-  <section class="controls" aria-label="Gesprächsdaten">
-    <div class="field">
-      <label for="salutation">Anrede / Name</label>
-      <input id="salutation" type="text" placeholder="Herr/Frau [Name]">
-    </div>
-    <div class="field">
-      <label for="caller">Mein Name</label>
-      <input id="caller" type="text" placeholder="[Name]">
-    </div>
-    <div class="modeSwitch" aria-label="Leitfadenmodus">
-      <button class="modeBtn active" id="fullModeBtn" type="button">AIDA</button>
-      <button class="modeBtn" id="shortModeBtn" type="button">Kurzversion</button>
-    </div>
+<header class="top">
+  <div class="title"><div class="eyebrow">LiquidityBooster · Gesprächswerkzeug</div><h1>Telefonleitfaden · Ausgewählte Privathotels</h1></div>
+  <section class="counter" id="dailyCounter" aria-label="Heutiges Telefonziel">
+    <div class="counterTop"><span class="counterKicker">Heutiges Telefonziel · 25 empfohlen</span><strong class="counterCount" id="counterCount">0 / 25</strong></div>
+    <div class="bar" aria-hidden="true"><span id="counterProgress"></span></div>
+    <div class="counterBottom"><span class="counterStatus" id="counterStatus" aria-live="polite">Noch 25 bis zum Tagesziel · 0 Terminübergaben</span><button class="counterBtn" id="counterMinus" type="button">− Korrektur</button></div>
   </section>
-
-  <main class="workspace">
-    <section class="reader">
-      <div class="readerHead">
-        <div class="aida" id="aidaBar">
-          <button class="aidaStep active" type="button" data-stage="A1" aria-expanded="false"><span>A</span><strong>Attention</strong><em>Erklärung</em></button>
-          <button class="aidaStep" type="button" data-stage="I" aria-expanded="false"><span>I</span><strong>Interest</strong><em>Erklärung</em></button>
-          <button class="aidaStep" type="button" data-stage="D" aria-expanded="false"><span>D</span><strong>Desire</strong><em>Erklärung</em></button>
-          <button class="aidaStep" type="button" data-stage="A2" aria-expanded="false"><span>A</span><strong>Action</strong><em>Erklärung</em></button>
-        </div>
-        <div class="aidaExplain" id="aidaExplain">
-          <div class="aidaExplainTop">
-            <div>
-              <div class="aidaExplainLabel">AIDA-Erklärung · nicht vorlesen</div>
-              <h3 class="aidaExplainTitle" id="aidaExplainTitle"></h3>
-            </div>
-            <button class="aidaExplainClose" id="aidaExplainClose" type="button">Schließen</button>
-          </div>
-          <div class="aidaExplainText" id="aidaExplainText"></div>
-        </div>
-        <div class="headRow">
-          <div>
-            <span class="stageBadge" id="stageBadge">A · ATTENTION</span>
-            <h2 id="stepTitle">Richtig verbunden?</h2>
-          </div>
-          <div class="progress" id="progressText">Schritt 1 von 8</div>
-        </div>
+  <div class="goal"><strong>Ziel des Anrufs</strong>Nicht verkaufen. Nicht erklären. Persönlichen 20-Minuten-Termin mit den beiden Hotelexperten vereinbaren.</div>
+</header>
+<section class="controls" aria-label="Gesprächsdaten">
+  <div class="field"><label for="salutation">Anrede / Name</label><input id="salutation" type="text" placeholder="Herr/Frau [Name]"></div>
+  <div class="field"><label for="caller">Mein Name</label><input id="caller" type="text" placeholder="[Name]"></div>
+  <div class="modes"><button class="mode active" id="fullModeBtn" type="button">AIDA</button><button class="mode" id="shortModeBtn" type="button">Kurzversion</button></div>
+</section>
+<main class="workspace">
+  <section class="reader" id="reader">
+    <div class="readerHead">
+      <div class="aida">
+        <button class="aidaBtn active" type="button" data-stage="A1" aria-expanded="false"><span>A</span><strong>Attention</strong><em>Erklärung</em></button>
+        <button class="aidaBtn" type="button" data-stage="I" aria-expanded="false"><span>I</span><strong>Interest</strong><em>Erklärung</em></button>
+        <button class="aidaBtn" type="button" data-stage="D" aria-expanded="false"><span>D</span><strong>Desire</strong><em>Erklärung</em></button>
+        <button class="aidaBtn" type="button" data-stage="A2" aria-expanded="false"><span>A</span><strong>Action</strong><em>Erklärung</em></button>
       </div>
-
-      <div class="scriptArea">
-        <div class="scriptCard">
-          <div class="scriptLabel">Sprechtext · direkt ablesen</div>
-          <div class="scriptText" id="scriptText"></div>
-          <div class="coach" id="coachBox">
-            <span class="coachLabel">Hinweis · nicht vorlesen</span>
-            <span id="coachNote">Zuerst Zustimmung abwarten.</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="readerFoot">
-        <div class="navGroup">
-          <button class="btn secondary" id="prevBtn" type="button">Zurück</button>
-          <button class="btn" id="nextBtn" type="button">Weiter</button>
-        </div>
-        <div class="rule" id="ruleText">Immer nur den nächsten Schritt sprechen. Nicht vorzeitig erklären.</div>
-      </div>
-    </section>
-
-    <aside class="sidebar">
-      <section class="sideCard curiosity">
-        <button id="curiosityBtn" type="button">
-          <span class="kicker">Kein Einwand · Zielmoment</span>
-          <strong>„Wie funktioniert dieser Wertgutschein eigentlich?“</strong>
-          <small>Jetzt nicht erklären. Antippen für die direkte Überleitung zum Termin.</small>
-        </button>
-      </section>
-
-      <section class="sideCard booking" aria-label="Termin direkt vereinbaren">
-        <div class="bookingBody">
-          <div class="bookingKicker">Termin direkt vereinbaren</div>
-          <h3 class="bookingTitle">Hotelier ist bereit?</h3>
-          <p class="bookingText">Jetzt gemeinsam einen passenden 20-Minuten-Termin auswählen. Der Telefonleitfaden bleibt geöffnet.</p>
-          <a class="bookingBtn" id="bookingBtn" href="https://www.liquiditybooster.de/hotels.html" target="_blank" rel="noopener noreferrer">Termin jetzt auswählen</a>
-        </div>
-      </section>
-
-      <section class="sideCard objectionCard">
-        <div class="sideHead">
-          <h2>Einwand sofort wählen</h2>
-          <p>Nur bei Bedarf antippen. Erst dann erscheint die passende Antwort.</p>
-        </div>
-        <div class="objectionBody">
-          <div class="objectionGrid" id="objectionGrid"></div>
-          <div class="answer" id="answerBox"></div>
-        </div>
-      </section>
-
-      <section class="sideCard memory">
-        <h3>Merksatz</h3>
-        <ol>
-          <li>„Belohnung statt Rabatt?“</li>
-          <li>„Ein handelbarer Wertgutschein – wie soll das funktionieren?“</li>
-          <li>„Was könnte das konkret für mein Hotel bringen?“</li>
-        </ol>
-      </section>
-    </aside>
-  </main>
+      <div class="headRow"><div><span class="badge" id="stageBadge">A · ATTENTION</span><h2 class="stepTitle" id="stepTitle">Richtig verbunden?</h2></div><div class="progress" id="progressText">Schritt 1 von 8</div></div>
+    </div>
+    <div class="learnPanel" id="aidaExplain"><div class="learnTop"><div><div class="learnLabel">AIDA-Erklärung · nicht vorlesen</div><h3 class="learnTitle" id="aidaExplainTitle"></h3></div><button class="learnClose" id="aidaExplainClose" type="button">Schließen</button></div><div class="learnText" id="aidaExplainText"></div></div>
+    <div class="scriptArea"><div class="scriptCard"><div class="scriptLabel">Sprechtext · direkt ablesen</div><div class="scriptText" id="scriptText"></div><div class="coach" id="coachBox"><span class="coachLabel">Hinweis · nicht vorlesen</span><span id="coachNote"></span></div></div></div>
+    <div class="readerFoot"><div class="nav"><button class="navBtn secondary" id="prevBtn" type="button">Zurück</button><button class="navBtn" id="nextBtn" type="button">Weiter</button></div><div class="rule" id="ruleText">Immer nur den nächsten Schritt sprechen. Nicht vorzeitig erklären.</div></div>
+  </section>
+  <aside class="sidebar">
+    <section class="card curiosity"><button id="curiosityBtn" type="button"><span class="kicker">Kein Einwand · Zielmoment</span><strong>„Wie funktioniert dieser Wertgutschein eigentlich?“</strong><small>Jetzt nicht erklären. Antippen für die direkte Überleitung zum Termin.</small></button></section>
+    <section class="card booking"><div class="bookingBody"><div class="bookingKicker">Termin direkt vereinbaren</div><h3 class="bookingTitle">Hotelier ist bereit?</h3><p class="bookingText">Jetzt gemeinsam einen passenden 20-Minuten-Termin auswählen. Der Telefonleitfaden bleibt geöffnet.</p><a class="bookingBtn" id="bookingBtn" href="https://www.liquiditybooster.de/hotels.html" target="_blank" rel="noopener noreferrer">Termin jetzt auswählen</a></div></section>
+    <section class="card"><div class="sideHead"><h2>Einwand sofort wählen</h2><p>Nur bei Bedarf antippen. Erst dann erscheint die passende Antwort.</p></div><div class="obBody"><div class="obGrid" id="objectionGrid"></div><div class="answer" id="answerBox"></div></div></section>
+    <section class="card memory"><h3>Merksatz</h3><ol><li>„Belohnung statt Rabatt?“</li><li>„Ein handelbarer Wertgutschein – wie soll das funktionieren?“</li><li>„Was könnte das konkret für mein Hotel bringen?“</li></ol></section>
+  </aside>
+</main>
 </div>
-
 <script>
-(function(){
-  'use strict';
-
-  var steps = [
-    {
-      stage:'A1', badge:'A · ATTENTION', title:'Richtig verbunden?',
-      text:'„Guten Tag {{salutation}}, mein Name ist {{caller}} von LiquidityBooster.\nBin ich bei Ihnen richtig, wenn es um Direktbuchungen und die Vermarktung Ihres Hotels außerhalb der kostenpflichtigen Reiseportale wie Booking.com & Co. geht?“',
-      note:'Wenn JA: direkt weiter. Wenn nicht, nach dem richtigen Ansprechpartner fragen.'
-    },
-    {
-      stage:'A1', badge:'A · ATTENTION', title:'Gezielte Einladung',
-      text:'„Perfekt. Ich mache es auch ganz kurz.\n\nWir laden aktuell ganz gezielt ausgewählte inhabergeführte Hotels in den Segmenten MICE und Leisure zu einer persönlichen Online-Präsentation ein.\n\nDabei geht es um einen etwas anderen Ansatz:\nWeg von Rabatten und Preisschlachten – hin zu einem außergewöhnlichen Belohnungssystem für Ihre Gäste.“',
-      note:'PAUSE! Nichts weiter erklären, bis der Hotelier reagiert.'
-    },
-    {
-      stage:'I', badge:'I · INTEREST', title:'Neugier auf den Wertgutschein',
-      text:'„Das Besondere daran ist ein neuer weltweit handelbarer und digitaler Wertgutschein, der als zusätzlicher Buchungsanreiz eingesetzt werden kann.\n\nUnd genau hier wird es interessant:\nDer Gast soll einen attraktiven Mehrwert und mehr Kaufkraft für seinen Aufenthalt bei Ihnen erhalten, ohne dass Ihr Hotel Angebote und Arrangement-Preise reduzieren muss.“',
-      note:'Nicht erklären, wie es funktioniert.'
-    },
-    {
-      stage:'I', badge:'I · INTEREST', title:'Wenn die Funktionsfrage kommt',
-      text:'„Genau das ist der spannende Punkt.\n\nWenn ich es Ihnen jetzt am Telefon erkläre, fehlt Ihnen der Zusammenhang.\nUnsere beiden Hotelexperten zeigen Ihnen das direkt anhand Ihres Hotels – und dann verstehen Sie innerhalb weniger Minuten, warum wir von Belohnung statt Rabatt sprechen.“',
-      note:'Die Frage „Wie soll das funktionieren?“ ist ein gutes Signal. Nicht in die Erklärung einsteigen.'
-    },
-    {
-      stage:'D', badge:'D · DESIRE', title:'Das größere Konzept',
-      text:'„Und der Wertgutschein ist nur ein Teil des Konzeptes.\n\nVerbunden wird das Ganze mit einem wachsenden digitalen Ökosystem für mehr Direktbuchungen und Sichtbarkeit bei Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und über relevante Online-Magazine.“',
-      note:'Nur den Rahmen nennen. Keine Detailpräsentation am Telefon.'
-    },
-    {
-      stage:'D', badge:'D · DESIRE', title:'Bezug auf das konkrete Hotel',
-      text:'„Unsere beiden Hotelexperten Alexander Finke und Oliver Beyer schauen sich Ihr Hotel vor dem Termin an.\n\nIn der Präsentation zeigen sie Ihnen dann ganz konkret, wie sich die besonderen Vorzüge und Angebote Ihres Hauses mit diesem Konzept verbinden lassen.“',
-      note:'Der Nutzen wird auf das konkrete Haus bezogen – nicht allgemein argumentieren.'
-    },
-    {
-      stage:'A2', badge:'A · ACTION', title:'20 Minuten – klare Entscheidung',
-      text:'„Die Präsentation dauert nur etwa 20 Minuten.\n\nMeine Aufgabe ist lediglich, den persönlichen Kontakt zwischen Ihnen und unseren beiden Experten herzustellen.\n\nDanach entscheiden Sie selbst, ob Sie sagen:\n‚Das ist spannend – darüber sollten wir weiterreden.‘\nOder:\n‚Das passt nicht zu unserem Haus.‘\n\nBeides ist völlig in Ordnung.“',
-      note:'Druck herausnehmen. Die Entscheidung bleibt beim Hotelier.'
-    },
-    {
-      stage:'A2', badge:'A · ACTION', title:'Terminfrage stellen',
-      text:'„Was passt Ihnen für die 20 Minuten grundsätzlich besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender?“',
-      note:'Jetzt nicht weiterreden. Antwort abwarten und Termin festmachen.',
-      green:true
-    }
-  ];
-
-  var aidaExplanations = {
-    A1:{
-      title:'A · Attention',
-      text:'Wir laden aktuell ganz gezielt ausgewählte inhabergeführte Hotels in den Segmenten MICE und Leisure zu einer persönlichen Online-Präsentation ein.\n\nDabei geht es um einen etwas anderen Ansatz: Weg von Rabatten und Preisschlachten – hin zu einem außergewöhnlichen Belohnungssystem für Ihre Gäste.\n\nPAUSE!'
-    },
-    I:{
-      title:'I · Interest',
-      text:'Das Besondere daran ist ein neuer weltweit handelbarer und digitaler Wertgutschein, der als zusätzlicher Buchungsanreiz eingesetzt werden kann.\n\nDer Gast soll einen attraktiven Mehrwert und mehr Kaufkraft für seinen Aufenthalt bei Ihnen erhalten, ohne dass Ihr Hotel Angebote und Arrangement-Preise reduzieren muss.\n\nNicht erklären, wie es funktioniert!'
-    },
-    D:{
-      title:'D · Desire',
-      text:'Der Wertgutschein ist nur ein Teil des Konzeptes. Verbunden wird das Ganze mit einem wachsenden digitalen Ökosystem für mehr Direktbuchungen und Sichtbarkeit bei Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und über relevante Online-Magazine.\n\nAlexander Finke und Oliver Beyer schauen sich Ihr Hotel vor dem Termin an. In der Präsentation zeigen sie Ihnen ganz konkret, wie sich die besonderen Vorzüge und Angebote Ihres Hauses mit diesem Konzept verbinden lassen.'
-    },
-    A2:{
-      title:'A · Action',
-      text:'Die Präsentation dauert nur etwa 20 Minuten. Meine Aufgabe ist lediglich, den persönlichen Kontakt zwischen Ihnen und unseren beiden Experten herzustellen.\n\nDanach entscheiden Sie selbst, ob Sie sagen: „Das ist spannend – darüber sollten wir weiterreden.“ Oder: „Das passt nicht zu unserem Haus.“ Beides ist völlig in Ordnung.\n\nWas passt Ihnen für die 20 Minuten grundsätzlich besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender?'
-    }
-  };
-
-  var shortText = '„{{salutation}}, ich mache es wirklich kurz:\n\nWir laden aktuell ausgewählte inhabergeführte Hotels zu einer 20-minütigen persönlichen Online-Präsentation ein.\n\nDabei geht es um einen ungewöhnlichen Ansatz:\nWeg vom klassischen Rabatt – hin zu einem Belohnungssystem mit einem neuen digital handelbaren Wertgutschein, das einen zusätzlichen Anreiz für Direktbuchungen schaffen soll.\n\nKombiniert wird das mit digitaler Sichtbarkeit über Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und relevante Online-Magazine.\n\nUnsere beiden Hotelexperten schauen sich Ihr Haus vorher an und zeigen Ihnen anschließend, wie das konkret für Ihr Hotel aussehen könnte.\n\nMehr möchte ich Ihnen am Telefon gar nicht verkaufen.\n\nHaben Sie gerade Zugriff auf Ihren Terminkalender und was wäre für Sie besser – vormittags oder nachmittags?“';
-
-  var objections = [
-    {
-      label:'Informationen schicken',
-      answer:'„Sehr gerne.\n\nNur würden Sie dann genau das bekommen, was Sie wahrscheinlich jeden Tag bekommen: eine weitere Präsentation oder Broschüre.\n\nDas Interessante ist aber, wie unsere Experten das Konzept auf Ihr Hotel übertragen.\nGeben Sie uns dafür einmal 20 Minuten. Danach schicken wir Ihnen gezielt die Informationen, die für Ihr Haus tatsächlich relevant sind.\n\nPasst Ihnen nächste Woche eher vormittags oder nachmittags?“'
-    },
-    {
-      label:'Keine Gutscheine',
-      answer:'„Das kann ich gut verstehen.\n\nNur sprechen wir gerade nicht über einen klassischen Hotelgutschein.\n\nGenau der Unterschied zwischen einem normalen Rabatt- oder Hotelgutschein und unserem handelbaren Wertgutschein ist einer der Punkte, die unsere Experten Ihnen zeigen möchten.\n\nDanach können Sie beurteilen, ob das für Ihr Haus interessant ist.“'
-    },
-    {
-      label:'Keine Rabatte',
-      answer:'„Dann könnte das für Sie sogar besonders interessant sein.\n\nDenn die Grundidee lautet gerade:\nNicht den Preis reduzieren, sondern den Gast belohnen.\n\nWie das wirtschaftlich funktionieren kann, zeigen Ihnen unsere Experten in der Präsentation.“'
-    },
-    {
-      label:'Gut ausgelastet',
-      answer:'„Umso besser.\n\nEs geht nicht einfach darum, noch mehr Zimmer zu verkaufen.\n\nDie interessantere Frage lautet:\nWie viele Ihrer Buchungen könnten direkt erfolgen und wie können Sie gleichzeitig die Wertschöpfung pro Gast erhöhen?\n\nGenau darüber würde ich unsere beiden Experten einmal mit Ihnen sprechen lassen.“'
-    },
-    {
-      label:'Was kostet das?',
-      answer:'„Natürlich ist das wichtig.\n\nNur wäre eine Zahl ohne das Konzept und ohne den möglichen wirtschaftlichen Nutzen für Ihr Hotel wenig aussagekräftig.\n\nUnsere Experten zeigen Ihnen zuerst, wie das Modell für Ihr Haus aussehen könnte – und natürlich erfahren Sie in der Präsentation auch, welche Konditionen damit verbunden sind.“',
-      note:'Wenn der Hotelier ausdrücklich nach einem konkreten Preis fragt, transparent antworten.',
-      followup:'„Das richtet sich nach dem möglichen Erfolgspotenzial für uns und Ihr Hotel und wird Ihnen bei Interesse nach einem detaillierten Business Case als konkretes Angebot vorgelegt.“'
-    }
-  ];
-
-  var curiosityAnswer = {
-    answer:'„Genau deshalb rufe ich Sie an. Das lassen Sie sich am besten einmal 20 Minuten von unseren beiden Hotelexperten anhand Ihres eigenen Hotels zeigen.“\n\n„Wann passt Ihnen das besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender, um Ihren Wunschtermin zu reservieren?“',
-    note:'Nicht anfangen, das System zu erklären. Direkt zum Termin überleiten.'
-  };
-
-  var current = 0;
-  var mode = 'full';
-  var openAidaStage = null;
-  var dailyTarget = 25;
-  var dailyCounterStorageKey = 'lbHotelTelefonateTageszaehler_v1';
-  var callerNameStorageKey = 'lbHotelTelefonleitfadenClubLeaderName_v1';
-  var dailyCount = 0;
-  var dailyBookings = 0;
-  var activeContactName = '';
-  var activeContactCounted = false;
-  var activeContactBooking = false;
-  var contactClearedSinceLast = true;
-
-  var app = document.getElementById('app');
-  var salutation = document.getElementById('salutation');
-  var caller = document.getElementById('caller');
-  var scriptText = document.getElementById('scriptText');
-  var stepTitle = document.getElementById('stepTitle');
-  var stageBadge = document.getElementById('stageBadge');
-  var progressText = document.getElementById('progressText');
-  var coachNote = document.getElementById('coachNote');
-  var coachBox = document.getElementById('coachBox');
-  var prevBtn = document.getElementById('prevBtn');
-  var nextBtn = document.getElementById('nextBtn');
-  var fullModeBtn = document.getElementById('fullModeBtn');
-  var shortModeBtn = document.getElementById('shortModeBtn');
-  var objectionGrid = document.getElementById('objectionGrid');
-  var answerBox = document.getElementById('answerBox');
-  var curiosityBtn = document.getElementById('curiosityBtn');
-  var bookingBtn = document.getElementById('bookingBtn');
-  var ruleText = document.getElementById('ruleText');
-  var aidaExplain = document.getElementById('aidaExplain');
-  var aidaExplainTitle = document.getElementById('aidaExplainTitle');
-  var aidaExplainText = document.getElementById('aidaExplainText');
-  var aidaExplainClose = document.getElementById('aidaExplainClose');
-  var dailyCounter = document.getElementById('dailyCounter');
-  var counterCount = document.getElementById('counterCount');
-  var counterProgress = document.getElementById('counterProgress');
-  var counterStatus = document.getElementById('counterStatus');
-  var counterMinus = document.getElementById('counterMinus');
-
-  function todayKey(){
-    var d = new Date();
-    var y = d.getFullYear();
-    var m = String(d.getMonth()+1).padStart(2,'0');
-    var day = String(d.getDate()).padStart(2,'0');
-    return y+'-'+m+'-'+day;
-  }
-
-  function saveDailyCounter(){
-    try{
-      localStorage.setItem(dailyCounterStorageKey, JSON.stringify({
-        date:todayKey(),
-        count:dailyCount,
-        bookings:dailyBookings
-      }));
-    }catch(e){}
-  }
-
-  function loadDailyCounter(){
-    var today = todayKey();
-    var stored = null;
-    try{stored = JSON.parse(localStorage.getItem(dailyCounterStorageKey) || 'null');}catch(e){stored=null;}
-    if(stored && stored.date === today){
-      dailyCount = Number.isFinite(Number(stored.count)) ? Math.max(0, Math.floor(Number(stored.count))) : 0;
-      dailyBookings = Number.isFinite(Number(stored.bookings)) ? Math.max(0, Math.floor(Number(stored.bookings))) : 0;
-    }else{
-      dailyCount = 0;
-      dailyBookings = 0;
-      saveDailyCounter();
-    }
-    renderDailyCounter();
-  }
-
-  function renderDailyCounter(){
-    var remaining = Math.max(0, dailyTarget-dailyCount);
-    var percent = Math.min(100, Math.round((dailyCount/dailyTarget)*100));
-    var bookingLabel = dailyBookings === 1 ? '1 Terminübergabe' : dailyBookings+' Terminübergaben';
-    counterCount.textContent = dailyCount+' / '+dailyTarget;
-    counterProgress.style.width = percent+'%';
-    counterMinus.disabled = dailyCount <= 0;
-    dailyCounter.classList.toggle('complete', dailyCount >= dailyTarget);
-    if(dailyCount >= dailyTarget){
-      counterStatus.textContent = '✓ Tagesziel erreicht · '+bookingLabel;
-    }else{
-      counterStatus.textContent = 'Noch '+remaining+' bis zum Tagesziel · '+bookingLabel;
-    }
-  }
-
-  function ensureCurrentCounterDay(){
-    var today = todayKey();
-    var stored = null;
-    try{stored = JSON.parse(localStorage.getItem(dailyCounterStorageKey) || 'null');}catch(e){stored=null;}
-    if(!stored || stored.date !== today){
-      dailyCount = 0;
-      dailyBookings = 0;
-      activeContactCounted = false;
-      activeContactBooking = false;
-      saveDailyCounter();
-      renderDailyCounter();
-    }
-  }
-
-  function changeDailyCounter(delta){
-    ensureCurrentCounterDay();
-    dailyCount = Math.max(0, dailyCount + delta);
-    saveDailyCounter();
-    renderDailyCounter();
-  }
-
-  function normalizeContactName(value){
-    return String(value || '').trim().replace(/\s+/g,' ').toLowerCase();
-  }
-
-  function clearObjectionState(){
-    document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
-    answerBox.classList.remove('show');
-    answerBox.innerHTML = '';
-  }
-
-  function setFullMode(){
-    mode='full';
-    fullModeBtn.classList.add('active');
-    shortModeBtn.classList.remove('active');
-  }
-
-  function prepareNewContact(name){
-    activeContactName = String(name || '').trim();
-    activeContactCounted = false;
-    activeContactBooking = false;
-    contactClearedSinceLast = false;
-    current = 0;
-    setFullMode();
-    closeAidaExplanation();
-    clearObjectionState();
-    render();
-  }
-
-  function syncContactFromField(resetWhenChanged){
-    var name = salutation.value.trim();
-    if(!name){return false;}
-    var changed = contactClearedSinceLast || normalizeContactName(name) !== normalizeContactName(activeContactName);
-    if(changed){
-      if(resetWhenChanged){
-        prepareNewContact(name);
-      }else{
-        activeContactName = name;
-        activeContactCounted = false;
-        activeContactBooking = false;
-        contactClearedSinceLast = false;
-      }
-    }
-    return true;
-  }
-
-  function startCurrentTelephoneCall(){
-    ensureCurrentCounterDay();
-    if(!syncContactFromField(false)){return false;}
-    if(!activeContactCounted){
-      dailyCount += 1;
-      activeContactCounted = true;
-      saveDailyCounter();
-      renderDailyCounter();
-    }
-    return true;
-  }
-
-  function registerBookingHandoff(){
-    if(!startCurrentTelephoneCall()){return;}
-    if(!activeContactBooking){
-      dailyBookings += 1;
-      activeContactBooking = true;
-      saveDailyCounter();
-      renderDailyCounter();
-    }
-  }
-
-  function loadCallerName(){
-    try{
-      var savedName = localStorage.getItem(callerNameStorageKey);
-      if(savedName){caller.value = savedName;}
-    }catch(e){}
-  }
-
-  function saveCallerName(){
-    try{
-      var name = caller.value.trim();
-      if(name){
-        localStorage.setItem(callerNameStorageKey, name);
-      }else{
-        localStorage.removeItem(callerNameStorageKey);
-      }
-    }catch(e){}
-  }
-
-  function values(){
-    return {
-      salutation: salutation.value.trim() || 'Herr/Frau [Name]',
-      caller: caller.value.trim() || '[Name]'
-    };
-  }
-
-  function fill(text){
-    var v = values();
-    return String(text)
-      .replace(/{{salutation}}/g, v.salutation)
-      .replace(/{{caller}}/g, v.caller);
-  }
-
-  function escapeHtml(text){
-    return String(text).replace(/[&<>"']/g,function(ch){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch];
-    });
-  }
-
-  function paragraphs(text){
-    return fill(text).split(/\n\n/).map(function(p){
-      return '<p>'+escapeHtml(p).replace(/\n/g,'<br>')+'</p>';
-    }).join('');
-  }
-
-  function updateAida(stage){
-    var order = ['A1','I','D','A2'];
-    var activeIndex = order.indexOf(stage);
-    document.querySelectorAll('.aidaStep').forEach(function(el){
-      var idx = order.indexOf(el.getAttribute('data-stage'));
-      el.classList.toggle('active', idx === activeIndex);
-      el.classList.toggle('done', idx < activeIndex);
-    });
-  }
-
-  function closeAidaExplanation(){
-    openAidaStage = null;
-    aidaExplain.classList.remove('show');
-    app.classList.remove('learningOpen');
-    document.body.classList.remove('learningOpen');
-    document.querySelectorAll('.aidaStep').forEach(function(el){
-      el.classList.remove('learnOpen');
-      el.setAttribute('aria-expanded','false');
-    });
-  }
-
-  function toggleAidaExplanation(stage, button){
-    if(openAidaStage === stage){
-      closeAidaExplanation();
-      return;
-    }
-    var info = aidaExplanations[stage];
-    if(!info){return;}
-    openAidaStage = stage;
-    aidaExplainTitle.textContent = info.title;
-    aidaExplainText.textContent = info.text;
-    aidaExplain.classList.add('show');
-    app.classList.add('learningOpen');
-    document.body.classList.add('learningOpen');
-    document.querySelectorAll('.aidaStep').forEach(function(el){
-      var isOpen = el === button;
-      el.classList.toggle('learnOpen', isOpen);
-      el.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-  }
-
-  function render(){
-    if(mode === 'short'){
-      app.classList.add('shortMode');
-      closeAidaExplanation();
-      stageBadge.textContent = 'KURZVERSION';
-      stepTitle.textContent = 'Kompakter Gesprächsweg';
-      progressText.textContent = 'Direkt ablesen';
-      scriptText.innerHTML = paragraphs(shortText);
-      coachNote.textContent = 'Auch hier gilt: nicht weiter erklären. Ziel bleibt der 20-Minuten-Termin.';
-      coachBox.classList.remove('green');
-      prevBtn.disabled = true;
-      nextBtn.disabled = true;
-      ruleText.textContent = 'Kurzversion für sichere Telefonierer.';
-      return;
-    }
-
-    app.classList.remove('shortMode');
-    var s = steps[current];
-    stageBadge.textContent = s.badge;
-    stepTitle.textContent = s.title;
-    progressText.textContent = 'Schritt ' + (current + 1) + ' von ' + steps.length;
-    scriptText.innerHTML = paragraphs(s.text);
-    coachNote.textContent = s.note;
-    coachBox.classList.toggle('green', !!s.green);
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current === steps.length - 1;
-    updateAida(s.stage);
-    ruleText.textContent = current === steps.length - 1 ? 'Termin sichern und Gespräch beenden.' : 'Immer nur den nächsten Schritt sprechen. Nicht vorzeitig erklären.';
-  }
-
-  function showAnswer(item){
-    var html = '<div class="answerLabel">Sprechtext · direkt ablesen</div>' +
-      '<div class="answerText">' + escapeHtml(item.answer).replace(/\n/g,'<br>') + '</div>';
-    if(item.note){
-      html += '<div class="answerHint"><strong>Hinweis · nicht vorlesen</strong>' + escapeHtml(item.note) + '</div>';
-    }
-    if(item.followup){
-      html += '<div class="answerHint"><strong>Sprechtext bei konkreter Preisfrage</strong>' + escapeHtml(item.followup).replace(/\n/g,'<br>') + '</div>';
-    }
-    answerBox.innerHTML = html;
-    answerBox.classList.add('show');
-  }
-
-  function renderObjections(){
-    objectionGrid.innerHTML = '';
-    objections.forEach(function(item){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'objection';
-      b.textContent = item.label;
-      b.addEventListener('click', function(){
-        startCurrentTelephoneCall();
-        document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
-        b.classList.add('active');
-        showAnswer(item);
-      });
-      objectionGrid.appendChild(b);
-    });
-  }
-
-  document.querySelectorAll('.aidaStep').forEach(function(button){
-    button.addEventListener('click', function(){
-      toggleAidaExplanation(button.getAttribute('data-stage'), button);
-    });
-  });
-
-  aidaExplainClose.addEventListener('click', closeAidaExplanation);
-
-  counterMinus.addEventListener('click', function(){changeDailyCounter(-1);});
-
-  prevBtn.addEventListener('click', function(){
-    if(mode === 'full' && current > 0){current--; render();}
-  });
-
-  nextBtn.addEventListener('click', function(){
-    if(mode === 'full' && current < steps.length - 1){
-      if(current === 0){startCurrentTelephoneCall();}
-      current++;
-      render();
-    }
-  });
-
-  fullModeBtn.addEventListener('click', function(){
-    setFullMode();
-    render();
-  });
-
-  shortModeBtn.addEventListener('click', function(){
-    mode='short';
-    shortModeBtn.classList.add('active');
-    fullModeBtn.classList.remove('active');
-    render();
-  });
-
-  curiosityBtn.addEventListener('click', function(){
-    startCurrentTelephoneCall();
-    document.querySelectorAll('.objection').forEach(function(x){x.classList.remove('active');});
-    showAnswer(curiosityAnswer);
-  });
-
-  bookingBtn.addEventListener('click', registerBookingHandoff);
-
-  salutation.addEventListener('input', function(){
-    if(!salutation.value.trim()){contactClearedSinceLast = true;}
-    render();
-  });
-
-  salutation.addEventListener('change', function(){
-    var name = salutation.value.trim();
-    if(!name){
-      contactClearedSinceLast = true;
-      render();
-      return;
-    }
-    if(contactClearedSinceLast || normalizeContactName(name) !== normalizeContactName(activeContactName)){
-      prepareNewContact(name);
-    }else{
-      activeContactName = name;
-      render();
-    }
-  });
-
-  caller.addEventListener('input', function(){
-    saveCallerName();
-    render();
-  });
-
-  loadCallerName();
-  loadDailyCounter();
-  setInterval(ensureCurrentCounterDay,60000);
-  renderObjections();
-  clearObjectionState();
-  render();
+(function(){'use strict';
+var steps=[
+{stage:'A1',badge:'A · ATTENTION',title:'Richtig verbunden?',text:'„Guten Tag {{salutation}}, mein Name ist {{caller}} von LiquidityBooster.\nBin ich bei Ihnen richtig, wenn es um Direktbuchungen und die Vermarktung Ihres Hotels außerhalb der kostenpflichtigen Reiseportale wie Booking.com & Co. geht?“',note:'Wenn JA: direkt weiter. Wenn nicht, nach dem richtigen Ansprechpartner fragen.'},
+{stage:'A1',badge:'A · ATTENTION',title:'Gezielte Einladung',text:'„Perfekt. Ich mache es auch ganz kurz.\n\nWir laden aktuell ganz gezielt ausgewählte inhabergeführte Hotels in den Segmenten MICE und Leisure zu einer persönlichen Online-Präsentation ein.\n\nDabei geht es um einen etwas anderen Ansatz:\nWeg von Rabatten und Preisschlachten – hin zu einem außergewöhnlichen Belohnungssystem für Ihre Gäste.“',note:'PAUSE! Nichts weiter erklären, bis der Hotelier reagiert.'},
+{stage:'I',badge:'I · INTEREST',title:'Neugier auf den Wertgutschein',text:'„Das Besondere daran ist ein neuer weltweit handelbarer und digitaler Wertgutschein, der als zusätzlicher Buchungsanreiz eingesetzt werden kann.\n\nUnd genau hier wird es interessant:\nDer Gast soll einen attraktiven Mehrwert und mehr Kaufkraft für seinen Aufenthalt bei Ihnen erhalten, ohne dass Ihr Hotel Angebote und Arrangement-Preise reduzieren muss.“',note:'Nicht erklären, wie es funktioniert.'},
+{stage:'I',badge:'I · INTEREST',title:'Wenn die Funktionsfrage kommt',text:'„Genau das ist der spannende Punkt.\n\nWenn ich es Ihnen jetzt am Telefon erkläre, fehlt Ihnen der Zusammenhang.\nUnsere beiden Hotelexperten zeigen Ihnen das direkt anhand Ihres Hotels – und dann verstehen Sie innerhalb weniger Minuten, warum wir von Belohnung statt Rabatt sprechen.“',note:'Die Frage „Wie soll das funktionieren?“ ist ein gutes Signal. Nicht in die Erklärung einsteigen.'},
+{stage:'D',badge:'D · DESIRE',title:'Das größere Konzept',text:'„Und der Wertgutschein ist nur ein Teil des Konzeptes.\n\nVerbunden wird das Ganze mit einem wachsenden digitalen Ökosystem für mehr Direktbuchungen und Sichtbarkeit bei Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und über relevante Online-Magazine.“',note:'Nur den Rahmen nennen. Keine Detailpräsentation am Telefon.'},
+{stage:'D',badge:'D · DESIRE',title:'Bezug auf das konkrete Hotel',text:'„Unsere beiden Hotelexperten Alexander Finke und Oliver Beyer schauen sich Ihr Hotel vor dem Termin an.\n\nIn der Präsentation zeigen sie Ihnen dann ganz konkret, wie sich die besonderen Vorzüge und Angebote Ihres Hauses mit diesem Konzept verbinden lassen.“',note:'Der Nutzen wird auf das konkrete Haus bezogen – nicht allgemein argumentieren.'},
+{stage:'A2',badge:'A · ACTION',title:'20 Minuten – klare Entscheidung',text:'„Die Präsentation dauert nur etwa 20 Minuten.\n\nMeine Aufgabe ist lediglich, den persönlichen Kontakt zwischen Ihnen und unseren beiden Experten herzustellen.\n\nDanach entscheiden Sie selbst, ob Sie sagen:\n‚Das ist spannend – darüber sollten wir weiterreden.‘\nOder:\n‚Das passt nicht zu unserem Haus.‘\n\nBeides ist völlig in Ordnung.“',note:'Druck herausnehmen. Die Entscheidung bleibt beim Hotelier.'},
+{stage:'A2',badge:'A · ACTION',title:'Terminfrage stellen',text:'„Was passt Ihnen für die 20 Minuten grundsätzlich besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender?“',note:'Jetzt nicht weiterreden. Antwort abwarten und Termin festmachen.',green:true}
+];
+var aidaInfo={A1:{title:'A · Attention',text:'Wir laden aktuell ganz gezielt ausgewählte inhabergeführte Hotels in den Segmenten MICE und Leisure zu einer persönlichen Online-Präsentation ein.\n\nDabei geht es um einen etwas anderen Ansatz: Weg von Rabatten und Preisschlachten – hin zu einem außergewöhnlichen Belohnungssystem für Ihre Gäste.\n\nPAUSE!'},I:{title:'I · Interest',text:'Das Besondere daran ist ein neuer weltweit handelbarer und digitaler Wertgutschein, der als zusätzlicher Buchungsanreiz eingesetzt werden kann.\n\nDer Gast soll einen attraktiven Mehrwert und mehr Kaufkraft für seinen Aufenthalt bei Ihnen erhalten, ohne dass Ihr Hotel Angebote und Arrangement-Preise reduzieren muss.\n\nNicht erklären, wie es funktioniert!'},D:{title:'D · Desire',text:'Der Wertgutschein ist nur ein Teil des Konzeptes. Verbunden wird das Ganze mit einem wachsenden digitalen Ökosystem für mehr Direktbuchungen und Sichtbarkeit bei Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und über relevante Online-Magazine.\n\nAlexander Finke und Oliver Beyer schauen sich Ihr Hotel vor dem Termin an. In der Präsentation zeigen sie Ihnen ganz konkret, wie sich die besonderen Vorzüge und Angebote Ihres Hauses mit diesem Konzept verbinden lassen.'},A2:{title:'A · Action',text:'Die Präsentation dauert nur etwa 20 Minuten. Meine Aufgabe ist lediglich, den persönlichen Kontakt zwischen Ihnen und unseren beiden Experten herzustellen.\n\nDanach entscheiden Sie selbst, ob Sie sagen: „Das ist spannend – darüber sollten wir weiterreden.“ Oder: „Das passt nicht zu unserem Haus.“ Beides ist völlig in Ordnung.\n\nWas passt Ihnen für die 20 Minuten grundsätzlich besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender?'}};
+var shortText='„{{salutation}}, ich mache es wirklich kurz:\n\nWir laden aktuell ausgewählte inhabergeführte Hotels zu einer 20-minütigen persönlichen Online-Präsentation ein.\n\nDabei geht es um einen ungewöhnlichen Ansatz:\nWeg vom klassischen Rabatt – hin zu einem Belohnungssystem mit einem neuen digital handelbaren Wertgutschein, das einen zusätzlichen Anreiz für Direktbuchungen schaffen soll.\n\nKombiniert wird das mit digitaler Sichtbarkeit über Google, den zunehmend stärker genutzten KI-Suchdiensten, Social Media und relevante Online-Magazine.\n\nUnsere beiden Hotelexperten schauen sich Ihr Haus vorher an und zeigen Ihnen anschließend, wie das konkret für Ihr Hotel aussehen könnte.\n\nMehr möchte ich Ihnen am Telefon gar nicht verkaufen.\n\nHaben Sie gerade Zugriff auf Ihren Terminkalender und was wäre für Sie besser – vormittags oder nachmittags?“';
+var objections=[
+{label:'Informationen schicken',answer:'„Sehr gerne.\n\nNur würden Sie dann genau das bekommen, was Sie wahrscheinlich jeden Tag bekommen: eine weitere Präsentation oder Broschüre.\n\nDas Interessante ist aber, wie unsere Experten das Konzept auf Ihr Hotel übertragen.\nGeben Sie uns dafür einmal 20 Minuten. Danach schicken wir Ihnen gezielt die Informationen, die für Ihr Haus tatsächlich relevant sind.\n\nPasst Ihnen nächste Woche eher vormittags oder nachmittags?“'},
+{label:'Keine Gutscheine',answer:'„Das kann ich gut verstehen.\n\nNur sprechen wir gerade nicht über einen klassischen Hotelgutschein.\n\nGenau der Unterschied zwischen einem normalen Rabatt- oder Hotelgutschein und unserem handelbaren Wertgutschein ist einer der Punkte, die unsere Experten Ihnen zeigen möchten.\n\nDanach können Sie beurteilen, ob das für Ihr Haus interessant ist.“'},
+{label:'Keine Rabatte',answer:'„Dann könnte das für Sie sogar besonders interessant sein.\n\nDenn die Grundidee lautet gerade:\nNicht den Preis reduzieren, sondern den Gast belohnen.\n\nWie das wirtschaftlich funktionieren kann, zeigen Ihnen unsere Experten in der Präsentation.“'},
+{label:'Gut ausgelastet',answer:'„Umso besser.\n\nEs geht nicht einfach darum, noch mehr Zimmer zu verkaufen.\n\nDie interessantere Frage lautet:\nWie viele Ihrer Buchungen könnten direkt erfolgen und wie können Sie gleichzeitig die Wertschöpfung pro Gast erhöhen?\n\nGenau darüber würde ich unsere beiden Experten einmal mit Ihnen sprechen lassen.“'},
+{label:'Was kostet das?',answer:'„Natürlich ist das wichtig.\n\nNur wäre eine Zahl ohne das Konzept und ohne den möglichen wirtschaftlichen Nutzen für Ihr Hotel wenig aussagekräftig.\n\nUnsere Experten zeigen Ihnen zuerst, wie das Modell für Ihr Haus aussehen könnte – und natürlich erfahren Sie in der Präsentation auch, welche Konditionen damit verbunden sind.“',note:'Wenn der Hotelier ausdrücklich nach einem konkreten Preis fragt, transparent antworten.',followup:'„Das richtet sich nach dem möglichen Erfolgspotenzial für uns und Ihr Hotel und wird Ihnen bei Interesse nach einem detaillierten Business Case als konkretes Angebot vorgelegt.“'}
+];
+var curiosity={answer:'„Genau deshalb rufe ich Sie an. Das lassen Sie sich am besten einmal 20 Minuten von unseren beiden Hotelexperten anhand Ihres eigenen Hotels zeigen.“\n\n„Wann passt Ihnen das besser – vormittags oder nachmittags und haben Sie gerade Zugriff auf Ihren Terminkalender, um Ihren Wunschtermin zu reservieren?“',note:'Nicht anfangen, das System zu erklären. Direkt zum Termin überleiten.'};
+var current=0,mode='full',openStage=null,target=25,count=0,bookings=0,activeName='',counted=false,booked=false,cleared=true;
+var counterKey='lbHotelTelefonateTageszaehler_v1',callerKey='lbHotelTelefonleitfadenClubLeaderName_v1';
+var $=function(id){return document.getElementById(id)},app=$('app'),salutation=$('salutation'),caller=$('caller'),scriptText=$('scriptText'),stepTitle=$('stepTitle'),stageBadge=$('stageBadge'),progressText=$('progressText'),coachNote=$('coachNote'),coachBox=$('coachBox'),prevBtn=$('prevBtn'),nextBtn=$('nextBtn'),fullBtn=$('fullModeBtn'),shortBtn=$('shortModeBtn'),obGrid=$('objectionGrid'),answerBox=$('answerBox'),curiosityBtn=$('curiosityBtn'),bookingBtn=$('bookingBtn'),ruleText=$('ruleText'),learn=$('aidaExplain'),learnTitle=$('aidaExplainTitle'),learnText=$('aidaExplainText'),learnClose=$('aidaExplainClose'),dailyCounter=$('dailyCounter'),counterCount=$('counterCount'),counterProgress=$('counterProgress'),counterStatus=$('counterStatus'),counterMinus=$('counterMinus');
+function today(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function saveCounter(){try{localStorage.setItem(counterKey,JSON.stringify({date:today(),count:count,bookings:bookings}))}catch(e){}}
+function loadCounter(){var s=null;try{s=JSON.parse(localStorage.getItem(counterKey)||'null')}catch(e){}if(s&&s.date===today()){count=Math.max(0,Math.floor(Number(s.count)||0));bookings=Math.max(0,Math.floor(Number(s.bookings)||0))}else{count=0;bookings=0;saveCounter()}renderCounter()}
+function ensureDay(){var s=null;try{s=JSON.parse(localStorage.getItem(counterKey)||'null')}catch(e){}if(!s||s.date!==today()){count=0;bookings=0;counted=false;booked=false;saveCounter();renderCounter()}}
+function renderCounter(){var rem=Math.max(0,target-count),pct=Math.min(100,Math.round(count/target*100)),b=bookings===1?'1 Terminübergabe':bookings+' Terminübergaben';counterCount.textContent=count+' / '+target;counterProgress.style.width=pct+'%';counterMinus.disabled=count<=0;dailyCounter.classList.toggle('complete',count>=target);counterStatus.textContent=count>=target?'✓ Tagesziel erreicht · '+b:'Noch '+rem+' bis zum Tagesziel · '+b}
+function norm(v){return String(v||'').trim().replace(/\s+/g,' ').toLowerCase()}
+function clearAnswers(){document.querySelectorAll('.ob').forEach(function(x){x.classList.remove('active')});answerBox.classList.remove('show');answerBox.innerHTML=''}
+function setFull(){mode='full';fullBtn.classList.add('active');shortBtn.classList.remove('active')}
+function closeLearn(){openStage=null;learn.classList.remove('show');document.querySelectorAll('.aidaBtn').forEach(function(x){x.classList.remove('learn');x.setAttribute('aria-expanded','false')})}
+function newContact(name){activeName=String(name||'').trim();counted=false;booked=false;cleared=false;current=0;setFull();closeLearn();clearAnswers();render()}
+function syncContact(reset){var n=salutation.value.trim();if(!n)return false;var changed=cleared||norm(n)!==norm(activeName);if(changed){if(reset)newContact(n);else{activeName=n;counted=false;booked=false;cleared=false}}return true}
+function startCall(){ensureDay();if(!syncContact(false))return false;if(!counted){count++;counted=true;saveCounter();renderCounter()}return true}
+function registerBooking(){if(!startCall())return;if(!booked){bookings++;booked=true;saveCounter();renderCounter()}}
+function values(){return{salutation:salutation.value.trim()||'Herr/Frau [Name]',caller:caller.value.trim()||'[Name]'}}
+function fill(t){var v=values();return String(t).replace(/{{salutation}}/g,v.salutation).replace(/{{caller}}/g,v.caller)}
+function esc(t){return String(t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]})}
+function paras(t){return fill(t).split(/\n\n/).map(function(p){return'<p>'+esc(p).replace(/\n/g,'<br>')+'</p>'}).join('')}
+function updateAida(stage){var order=['A1','I','D','A2'],a=order.indexOf(stage);document.querySelectorAll('.aidaBtn').forEach(function(x){var i=order.indexOf(x.getAttribute('data-stage'));x.classList.toggle('active',i===a);x.classList.toggle('done',i<a)})}
+function toggleLearn(stage,btn){if(openStage===stage){closeLearn();return}var info=aidaInfo[stage];if(!info)return;openStage=stage;learnTitle.textContent=info.title;learnText.textContent=info.text;learn.classList.add('show');document.querySelectorAll('.aidaBtn').forEach(function(x){var o=x===btn;x.classList.toggle('learn',o);x.setAttribute('aria-expanded',o?'true':'false')})}
+function render(){if(mode==='short'){app.classList.add('short');closeLearn();stageBadge.textContent='KURZVERSION';stepTitle.textContent='Kompakter Gesprächsweg';progressText.textContent='Direkt ablesen';scriptText.innerHTML=paras(shortText);coachNote.textContent='Auch hier gilt: nicht weiter erklären. Ziel bleibt der 20-Minuten-Termin.';coachBox.classList.remove('green');prevBtn.disabled=true;nextBtn.disabled=true;ruleText.textContent='Kurzversion für sichere Telefonierer.';return}app.classList.remove('short');var s=steps[current];stageBadge.textContent=s.badge;stepTitle.textContent=s.title;progressText.textContent='Schritt '+(current+1)+' von '+steps.length;scriptText.innerHTML=paras(s.text);coachNote.textContent=s.note;coachBox.classList.toggle('green',!!s.green);prevBtn.disabled=current===0;nextBtn.disabled=current===steps.length-1;updateAida(s.stage);ruleText.textContent=current===steps.length-1?'Termin sichern und Gespräch beenden.':'Immer nur den nächsten Schritt sprechen. Nicht vorzeitig erklären.'}
+function showAnswer(item){var h='<div class="answerLabel">Sprechtext · direkt ablesen</div><div class="answerText">'+esc(item.answer).replace(/\n/g,'<br>')+'</div>';if(item.note)h+='<div class="answerHint"><strong>Hinweis · nicht vorlesen</strong>'+esc(item.note)+'</div>';if(item.followup)h+='<div class="answerHint"><strong>Sprechtext bei konkreter Preisfrage</strong>'+esc(item.followup).replace(/\n/g,'<br>')+'</div>';answerBox.innerHTML=h;answerBox.classList.add('show')}
+function renderObs(){obGrid.innerHTML='';objections.forEach(function(item){var b=document.createElement('button');b.type='button';b.className='ob';b.textContent=item.label;b.addEventListener('click',function(){startCall();document.querySelectorAll('.ob').forEach(function(x){x.classList.remove('active')});b.classList.add('active');showAnswer(item)});obGrid.appendChild(b)})}
+function loadCaller(){try{var n=localStorage.getItem(callerKey);if(n)caller.value=n}catch(e){}}
+function saveCaller(){try{var n=caller.value.trim();if(n)localStorage.setItem(callerKey,n);else localStorage.removeItem(callerKey)}catch(e){}}
+document.querySelectorAll('.aidaBtn').forEach(function(b){b.addEventListener('click',function(){toggleLearn(b.getAttribute('data-stage'),b)})});learnClose.addEventListener('click',closeLearn);counterMinus.addEventListener('click',function(){ensureDay();count=Math.max(0,count-1);saveCounter();renderCounter()});prevBtn.addEventListener('click',function(){if(mode==='full'&&current>0){current--;render()}});nextBtn.addEventListener('click',function(){if(mode==='full'&&current<steps.length-1){if(current===0)startCall();current++;render()}});fullBtn.addEventListener('click',function(){setFull();render()});shortBtn.addEventListener('click',function(){mode='short';shortBtn.classList.add('active');fullBtn.classList.remove('active');render()});curiosityBtn.addEventListener('click',function(){startCall();document.querySelectorAll('.ob').forEach(function(x){x.classList.remove('active')});showAnswer(curiosity)});bookingBtn.addEventListener('click',registerBooking);salutation.addEventListener('input',function(){if(!salutation.value.trim())cleared=true;render()});salutation.addEventListener('change',function(){var n=salutation.value.trim();if(!n){cleared=true;render();return}if(cleared||norm(n)!==norm(activeName))newContact(n);else{activeName=n;render()}});caller.addEventListener('input',function(){saveCaller();render()});
+loadCaller();loadCounter();setInterval(ensureDay,60000);renderObs();clearAnswers();render();
 })();
 </script>
 </body>
