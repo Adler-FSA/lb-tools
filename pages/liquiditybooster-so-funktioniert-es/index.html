@@ -4,22 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LiquidityBooster – So funktioniert es</title>
-<meta name="description" content="LiquidityBooster im Gesamtbild: Bildung, Community, Empfehlungsökonomie, ClubLeader, BusinessBooster und unternehmerische Perspektive.">
+<meta name="description" content="So funktioniert der LiquidityBooster: Empfangshalle, Wissen, aktive Club-Partnerschaft, Club-Marktplatz, Empfehlungslogik, Qualifikationen und ClubLeader-Perspektive.">
 </head>
 <body>
 <script>
 (async()=>{
-  const r=await fetch('./basis.html?v=202608272028',{cache:'no-store'});
-  let html=await r.text();
-  const term='Gesch\u00e4fts'+'modell';
-  const lower='gesch\u00e4fts'+'modell';
-  html=html.replaceAll('LiquidityBooster – das '+term+' im Gesamtbild','LiquidityBooster – So funktioniert es');
-  html=html.replaceAll('Das '+term+' im Gesamtbild','So funktioniert es');
-  html=html.replaceAll('das '+term+' im Gesamtbild','So funktioniert es');
-  html=html.replaceAll('Diese Seite beschreibt das '+term+' und die Funktionslogik des LiquidityBoosters allgemein.','Diese Seite beschreibt die Funktionsweise des LiquidityBoosters allgemein.');
-  html=html.replaceAll(term,'Funktionsweise');
-  html=html.replaceAll(lower,'funktionsweise');
-  html=html.replace('99 € <small data-i18n="year">pro Jahr</small>','99 € <small data-i18n="year">pro Jahr zzgl. MwSt.</small>');
+  const r=await fetch('./basis.html?v=202608292030',{cache:'no-store'});
+  const html=await r.text();
   document.open();document.write(html);document.close();
 })().catch(()=>{document.body.innerHTML='<p style="font-family:Arial;padding:24px">Die Seite konnte nicht geladen werden. Bitte aktualisieren.</p>';});
 </script>
