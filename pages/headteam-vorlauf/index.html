@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Headteam – 14 Tage Vorlauf</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --text:#243142;
+  --muted:#667085;
+  --line:#dde4ea;
+  --soft:#f6f8fa;
+  --mint-soft:#eefafa;
+  --warn-soft:#fff7e8;
+  --done-soft:#f3f5f7;
+  --shadow:0 10px 26px rgba(19,34,56,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{padding:18px}
+.wrap{max-width:1080px;margin:auto}
+.headline{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:16px}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--mint)}
+h1{margin:4px 0 0;color:var(--navy);font-size:clamp(32px,5vw,46px);line-height:1.05}
+.count{font-size:13px;color:var(--muted);font-weight:800;white-space:nowrap}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filter{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--navy);padding:8px 12px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.filter.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.list{display:grid;gap:10px}
+.item{border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:12px;align-items:center;padding:14px 15px}
+.main{min-width:0}
+.title{font-weight:900;color:var(--navy);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:5px;color:var(--muted);font-size:12px}
+.type{font-weight:800;color:var(--mint)}
+.days{border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900;white-space:nowrap;background:var(--mint-soft);color:#08757a}
+.days.soon{background:var(--warn-soft);color:#8a5b00}
+.days.done{background:var(--done-soft);color:#596273}
+.open{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;background:var(--mint);color:#fff;text-decoration:none;padding:9px 12px;font-size:13px;font-weight:900;white-space:nowrap}
+details{border-top:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:11px 15px;font-size:13px;font-weight:900;color:var(--navy);background:var(--soft)}
+summary::-webkit-details-marker{display:none}
+.detail{padding:15px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{border:1px solid #e8edf1;border-radius:13px;padding:12px 13px;background:#fff;min-width:0}
+.box.full{grid-column:1/-1}
+.label{display:block;margin-bottom:4px;font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.value{white-space:pre-wrap;line-height:1.5;color:var(--text);overflow-wrap:anywhere}
+.empty{border:1px solid var(--line);border-radius:17px;padding:28px;text-align:center;color:var(--muted);background:var(--soft)}
+.error{display:none;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
+.error.show{display:block}
+@media(max-width:760px){
+  body{padding:10px}
+  .headline{align-items:flex-start;flex-direction:column;gap:8px}
+  .row{grid-template-columns:1fr auto}
+  .days{justify-self:start}
+  .open{grid-column:2;grid-row:1/3;align-self:center}
+  .detail{grid-template-columns:1fr}
+  .box.full{grid-column:auto}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="headline">
+    <div>
+      <div class="eyebrow" data-i18n="eyebrow">Headteam</div>
+      <h1 data-i18n="title">14 Tage Vorlauf</h1>
+    </div>
+    <div class="count" id="count">0 Projekte</div>
+  </div>
+
+  <div class="filters" id="filters"></div>
+  <div class="list" id="list"></div>
+  <div class="error" id="error" data-i18n="loadError">Die Vorlauf-Daten konnten nicht geladen werden.</div>
+</div>
+<script>
+const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/headteam-vorlauf.json';
+const $=s=>document.querySelector(s);
+let state={version:1,projects:[]};
+let activeType='all';
+
+const I18N={
+  de:{
+    eyebrow:'Headteam',title:'14 Tage Vorlauf',all:'Alle',course:'Kurs',website:'Webseite',clubhouse:'Clubhaus',function:'Funktion',other:'Sonstiges',
+    projects:n=>n===1?'1 Projekt':n+' Projekte',release:'Freigabe',days:n=>n===1?'noch 1 Tag':'noch '+n+' Tage',today:'Freigabe heute',reached:'Freigabe erreicht',open:'Öffnen',details:'Details',what:'Was entsteht',why:'Warum',test:'Was soll getestet / angesehen werden',meeting:'Beim Headteam-Meeting zu klären',empty:'Keine Einträge in dieser Ansicht.',loadError:'Die Vorlauf-Daten konnten nicht geladen werden.'
+  },
+  en:{
+    eyebrow:'Headteam',title:'14-day lead time',all:'All',course:'Course',website:'Website',clubhouse:'Clubhouse',function:'Function',other:'Other',
+    projects:n=>n===1?'1 project':n+' projects',release:'Release',days:n=>n===1?'1 day left':n+' days left',today:'Release today',reached:'Release reached',open:'Open',details:'Details',what:'What is being created',why:'Why',test:'What should be tested / reviewed',meeting:'To clarify in the Headteam meeting',empty:'No entries in this view.',loadError:'The lead-time data could not be loaded.'
+  }
+};
+const params=new URLSearchParams(location.search);
+const lang=(params.get('lang')||document.documentElement.lang||'de').toLowerCase().startsWith('en')?'en':'de';
+document.documentElement.lang=lang;
+const t=k=>I18N[lang][k];
+document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.dataset.i18n);if(typeof v==='string')el.textContent=v});
+
+const typeMap={course:'course',website:'website',clubhouse:'clubhouse',function:'function',other:'other'};
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function formatDate(v){if(!v)return '–';return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB').format(new Date(v+'T12:00:00'))}
+function daysLeft(v){
+  const now=new Date();now.setHours(0,0,0,0);
+  const target=new Date(v+'T00:00:00');
+  return Math.ceil((target-now)/86400000);
+}
+function dayText(n){if(n>0)return t('days')(n);if(n===0)return t('today');return t('reached')}
+function dayClass(n){return n<=0?'done':n<=7?'soon':''}
+function typeLabel(type){return t(typeMap[type]||'other')}
+function renderFilters(){
+  const types=['all','course','website','clubhouse','function','other'];
+  $('#filters').innerHTML=types.map(type=>`<button class="filter ${activeType===type?'active':''}" data-type="${type}">${esc(t(type))}</button>`).join('');
+  document.querySelectorAll('.filter').forEach(btn=>btn.onclick=()=>{activeType=btn.dataset.type;render()});
+}
+function render(){
+  const all=Array.isArray(state.projects)?state.projects.slice():[];
+  const list=all.filter(p=>activeType==='all'||p.type===activeType).sort((a,b)=>(a.releaseDate||'9999').localeCompare(b.releaseDate||'9999')||(a.title||'').localeCompare(b.title||'',lang));
+  $('#count').textContent=t('projects')(all.length);
+  renderFilters();
+  $('#list').innerHTML=list.length?list.map(p=>{
+    const d=daysLeft(p.releaseDate);
+    return `<article class="item">
+      <div class="row">
+        <div class="main">
+          <div class="title">${esc(p.title)}</div>
+          <div class="meta"><span class="type">${esc(typeLabel(p.type))}</span><span>·</span><span>${esc(t('release'))}: ${esc(formatDate(p.releaseDate))}</span></div>
+        </div>
+        <span class="days ${dayClass(d)}">${esc(dayText(d))}</span>
+        <a class="open" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(t('open'))}</a>
+      </div>
+      <details>
+        <summary>${esc(t('details'))}</summary>
+        <div class="detail">
+          <div class="box"><span class="label">${esc(t('what'))}</span><div class="value">${esc(p.what)}</div></div>
+          <div class="box"><span class="label">${esc(t('why'))}</span><div class="value">${esc(p.why)}</div></div>
+          <div class="box"><span class="label">${esc(t('test'))}</span><div class="value">${esc(p.test)}</div></div>
+          <div class="box"><span class="label">${esc(t('meeting'))}</span><div class="value">${esc(p.meeting)}</div></div>
+        </div>
+      </details>
+    </article>`;
+  }).join(''):`<div class="empty">${esc(t('empty'))}</div>`;
+}
+async function load(){
+  try{
+    const r=await fetch(DATA_URL+'?v='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw new Error('load');
+    state=await r.json();
+    $('#error').classList.remove('show');
+    render();
+  }catch(e){$('#error').classList.add('show')}
+}
+load();
+setInterval(load,60000);
+</script>
+</body>
+</html>
