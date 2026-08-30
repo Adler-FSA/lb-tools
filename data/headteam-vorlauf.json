@@ -13,6 +13,18 @@
       "meeting": "Heute 15 Uhr",
       "createdAt": "2026-08-30T16:52:55.069Z",
       "updatedAt": "2026-08-30T16:55:08.319Z"
+    },
+    {
+      "id": "2a1b2001-f224-48fe-9be0-c548f978aac1",
+      "title": "neue FAQ",
+      "type": "website",
+      "releaseDate": "2026-09-07",
+      "url": "https://tools.liquiditybooster.de/pages/faq/",
+      "what": "FAQ Aktualierst",
+      "why": "wir waren veraltet.",
+      "test": "Headteam-Besprechung: Befunde, Änderungen und Wünsche bitte in Schriftform.",
+      "meeting": "Fehlt etwas, ist etwas unklar formuliert, oder was soll geändert werden.",
+      "createdAt": "2026-08-30T16:59:27.538Z"
     }
   ]
 }
