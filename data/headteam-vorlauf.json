@@ -25,6 +25,18 @@
       "test": "Headteam-Besprechung: Befunde, Änderungen und Wünsche bitte in Schriftform.",
       "meeting": "Fehlt etwas, ist etwas unklar formuliert, oder was soll geändert werden.",
       "createdAt": "2026-08-30T16:59:27.538Z"
+    },
+    {
+      "id": "e345d482-3fd9-40fd-8590-ad1f71e52c8b",
+      "title": "Upadte der Compliance",
+      "type": "website",
+      "releaseDate": "2026-09-07",
+      "url": "https://tools.liquiditybooster.de/pages/compliance/",
+      "what": "Überarbeitete Version , weil veraltet.",
+      "why": "Zecks der neuen Ausrichtung des liquiditybooster,",
+      "test": "bitte einmal alles ansehen und wenn was fehlt bitte in Schriftform an mich weiterleiten.",
+      "meeting": "Fehlt etwas, soll etwas anders formuliert werden.",
+      "createdAt": "2026-08-30T17:03:33.850Z"
     }
   ]
 }
