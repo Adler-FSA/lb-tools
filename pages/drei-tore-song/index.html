@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Drei Tore – LiquidityBooster</title>
+<meta name="description" content="Drei Tore – Song mit Player und Songtext.">
+<style>
+:root{--navy:#132238;--navy2:#203a59;--mint:#00a7ad;--magenta:#c6006f;--line:rgba(255,255,255,.16)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}body{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 15% 15%,rgba(0,167,173,.28),transparent 30%),radial-gradient(circle at 85% 12%,rgba(198,0,111,.23),transparent 28%),linear-gradient(145deg,#0b1524,#132238 52%,#1d3c58);color:#fff}.banner{width:min(100%,1180px);overflow:hidden;border:1px solid var(--line);border-radius:34px;background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.035));box-shadow:0 30px 80px rgba(0,0,0,.25);backdrop-filter:blur(16px)}.hero{position:relative;padding:48px 48px 34px}.hero:after{content:"";position:absolute;right:-90px;top:-110px;width:330px;height:330px;border-radius:50%;background:radial-gradient(circle,rgba(198,0,111,.38),transparent 68%);pointer-events:none}.eyebrow{position:relative;z-index:1;color:#75e7e9;font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}.title{position:relative;z-index:1;margin:10px 0 8px;font-size:clamp(46px,8vw,88px);line-height:.95;letter-spacing:-.055em;font-weight:300}.title strong{font-weight:750}.sub{position:relative;z-index:1;margin:0;color:#cddae5;font-size:17px}.player{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 28px 28px;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.08)}.track{display:flex;align-items:center;gap:13px;min-width:0}.badge{width:48px;height:48px;flex:0 0 48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,var(--mint),#0bc0c7);box-shadow:0 10px 28px rgba(0,167,173,.28)}.badge svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.trackText strong{display:block;font-size:18px}.trackText span{display:block;color:#aebdca;font-size:13px}.wave{height:28px;display:flex;align-items:center;gap:4px;margin-left:8px}.wave i{width:3px;height:8px;border-radius:99px;background:#71e3e6;opacity:.45}.wave.playing i{animation:wave 1s ease-in-out infinite}.wave.playing i:nth-child(2){animation-delay:.12s}.wave.playing i:nth-child(3){animation-delay:.24s}.wave.playing i:nth-child(4){animation-delay:.36s}.wave.playing i:nth-child(5){animation-delay:.48s}@keyframes wave{0%,100%{height:8px;opacity:.4}50%{height:25px;opacity:1}}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:13px;padding:10px 14px;background:rgba(255,255,255,.08);color:#fff;font-weight:900;cursor:pointer}.btn.primary{background:#fff;color:var(--navy);border-color:#fff}.lyricsBox{border-top:1px solid var(--line);background:rgba(7,17,29,.34)}details summary{list-style:none;cursor:pointer;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;font-weight:900}details summary::-webkit-details-marker{display:none}.chev{transition:transform .2s ease}details[open] .chev{transform:rotate(180deg)}.lyrics{padding:0 28px 32px;max-width:850px;color:#dce7ef;white-space:pre-line;line-height:1.8;font-size:15px}@media(max-width:720px){body{padding:10px}.banner{border-radius:24px}.hero{padding:34px 22px 24px}.player{margin:0 14px 18px;align-items:flex-start;flex-direction:column}.actions{width:100%}.btn{flex:1}.wave{display:none}details summary,.lyrics{padding-left:20px;padding-right:20px}}
+</style>
+</head>
+<body>
+<main class="banner">
+  <section class="hero">
+    <div class="eyebrow">LiquidityBooster Song</div>
+    <h1 class="title"><strong>Drei Tore</strong></h1>
+    <p class="sub">Was erwartest du von uns?</p>
+  </section>
+
+  <section class="player" aria-label="Songplayer">
+    <div class="track">
+      <div class="badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></div>
+      <div class="trackText"><strong>Drei Tore</strong><span>LiquidityBooster</span></div>
+      <div class="wave" id="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="playBtn" type="button">▶ Start</button>
+      <button class="btn" id="stopBtn" type="button">■ Stop</button>
+    </div>
+  </section>
+
+  <section class="lyricsBox">
+    <details>
+      <summary><span>Songtext mitlesen</span><span class="chev">⌄</span></summary>
+      <div class="lyrics">Du bist angekommen,
+doch niemand sagt dir, wohin.
+Kein Weg ist vorgeschrieben,
+die Antwort liegt in dir.
+
+Eine Frage steht im Raum,
+bevor hier irgendwas beginnt:
+
+Was erwartest du von uns?
+
+Vielleicht willst du verstehen,
+was gestern noch verborgen war.
+Vielleicht suchst du Antworten,
+Orientierung, ruhig und klar.
+
+Vielleicht willst du mehr bewegen,
+deinen eigenen Weg gestalten.
+Oder du hast längst etwas aufgebaut
+und willst es nicht für dich behalten.
+
+Drei Tore stehen offen,
+kein richtig und kein falsch.
+Du entscheidest, was du suchst,
+und wie weit du heute gehst.
+
+Drei Tore – ein neuer Blick,
+Wissen, Perspektive, Talent in dir.
+Was willst du lernen?
+Was willst du bewegen?
+Was kannst du geben auf deinem Weg?
+
+Drei Tore – deine Entscheidung,
+kein Druck, kein Muss, nur deine Richtung.
+Sag uns, was du von uns erwartest,
+und wir zeigen dir, was möglich wird.
+
+Vielleicht reicht dir heute Wissen,
+ein Gedanke, der dich weiterbringt.
+Vielleicht willst du etwas aufbauen
+und sehen, was daraus entsteht.
+
+Vielleicht bist du Coach, Unternehmer,
+hast Erfahrung, Ideen und Mut.
+Dann geht es nicht darum, was dir fehlt,
+sondern darum, was du schon kannst und tust.
+
+Wir suchen keine gleichen Menschen,
+wir suchen Menschen mit einem Ziel.
+Manche wollen lernen,
+manche wachsen,
+manche bringen unglaublich viel.
+
+Drei Tore – ein neuer Blick,
+Wissen, Perspektive, Talent in dir.
+Was willst du lernen?
+Was willst du bewegen?
+Was kannst du geben auf deinem Weg?
+
+Drei Tore – deine Entscheidung,
+kein Druck, kein Muss, nur deine Richtung.
+Sag uns, was du von uns erwartest,
+und wir zeigen dir, was möglich wird.
+
+Vielleicht beginnt alles
+mit einer einzigen Frage.
+
+Nicht:
+
+Was können wir dir verkaufen?
+
+Sondern:
+
+Was brauchst du?
+Was willst du erreichen?
+Was bringst du mit?
+
+Und irgendwann kommt die andere Frage zurück:
+
+Was können wir gemeinsam daraus machen?
+
+Drei Tore – und dein Weg beginnt,
+Wissen im Kopf und Zukunft im Blick.
+Eine Perspektive, die weiterführt,
+ein Talent, das vielleicht noch niemand sieht.
+
+Drei Tore – geh deinen Weg,
+du bestimmst selbst, wie weit er geht.
+Mehr verstehen.
+Mehr bewegen.
+Mehr miteinander möglich machen.
+
+Drei Tore –
+und du entscheidest.
+
+Was erwartest du von uns?
+
+Und was dürfen wir
+von dir erwarten?
+
+LiquidityBooster.
+Mehr Freiheit. Mehr Geld. Mehr vom Leben.</div>
+    </details>
+  </section>
+  <audio id="song" preload="metadata" src="../personal-management/Drei%20Tore.mp3"></audio>
+</main>
+<script>
+const audio=document.getElementById('song'),wave=document.getElementById('wave');
+document.getElementById('playBtn').addEventListener('click',async()=>{try{await audio.play()}catch(e){}});
+document.getElementById('stopBtn').addEventListener('click',()=>{audio.pause();audio.currentTime=0;wave.classList.remove('playing')});
+audio.addEventListener('play',()=>wave.classList.add('playing'));
+audio.addEventListener('pause',()=>wave.classList.remove('playing'));
+audio.addEventListener('ended',()=>wave.classList.remove('playing'));
+</script>
+</body>
+</html>
