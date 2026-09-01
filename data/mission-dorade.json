@@ -106,5 +106,21 @@
       "createdAt": "2026-08-19T10:00:00.000Z"
     }
   ],
-  "winners": {}
+  "winners": {
+    "2026-08": {
+      "place1": [
+        "Michael Rau"
+      ],
+      "place2": [
+        "Peter Bösing",
+        "Roland von Ledebur"
+      ],
+      "firstCount": 3,
+      "secondCount": 2,
+      "jackpot": 130,
+      "savedAt": "2026-09-01T00:41:56.200Z",
+      "published": true,
+      "publishedAt": "2026-09-01T00:41:56.200Z"
+    }
+  }
 }
