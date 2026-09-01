@@ -5,13 +5,16 @@
     {
       "id": 1,
       "key": "title_review_overall",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Für „Titel / Prüfstand / Gesamtampel“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -40,13 +43,16 @@
     {
       "id": 2,
       "key": "executive_summary",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Für „Management- bzw. Executive Summary“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -75,83 +81,165 @@
     {
       "id": 3,
       "key": "big_picture",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ wurden 2 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: service."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Für „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E010",
+          "E019"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ liegen aktuell 2 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ stützt sich aktuell auf 2 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“: 2 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Das große Bild – was steckt tatsächlich hinter dem gefundenen Angebot?“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 4,
       "key": "positive_confirmed_facts",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Positive bestätigte Tatsachen“ wurden 1 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Register."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Für „Positive bestätigte Tatsachen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E004"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Positive bestätigte Tatsachen“ liegen aktuell 1 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Positive bestätigte Tatsachen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Positive bestätigte Tatsachen“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Positive bestätigte Tatsachen“ stützt sich aktuell auf 1 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Positive bestätigte Tatsachen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Positive bestätigte Tatsachen“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Positive bestätigte Tatsachen“: 1 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Positive bestätigte Tatsachen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Positive bestätigte Tatsachen“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 5,
       "key": "critical_contradictory_open_facts",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Für „Kritische, widersprüchliche und offene Tatsachen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -180,118 +268,222 @@
     {
       "id": 6,
       "key": "methodology_evidence_standard",
-      "result_status": null,
+      "result_status": "bestaetigt",
       "neutral_finding": {
-        "confirmed_facts": [],
+        "confirmed_facts": [
+          "Die Auswertung trennt öffentlich beobachtbare Tatsachen, Eigenaussagen, offene Punkte und belegte Widersprüche."
+        ],
         "first_party_claims": [],
-        "pros": [],
+        "pros": [
+          "Quellenreferenzen bleiben je Prüfbereich nachvollziehbar erhalten."
+        ],
         "cons": [],
         "open_points": [],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E007",
+          "E008"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
+        "summary": "Zu „Methodik und Beweisstandard“ liegen aktuell 8 zugeordnete Belege vor. Der Befund ist als bestaetigt eingeordnet.",
+        "advantages": [
+          "Quellenreferenzen bleiben je Prüfbereich nachvollziehbar erhalten."
+        ],
         "disadvantages": [],
         "questions": [],
-        "recommendations": []
+        "recommendations": [
+          "Den bestätigten Punkt im Zusammenhang mit der Gesamtanalyse betrachten; daraus allein keine Sicherheit ableiten."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
+        "summary": "Die Außenprüfung zu „Methodik und Beweisstandard“ stützt sich aktuell auf 8 Belege; Einordnung: bestaetigt.",
+        "advantages": [
+          "Quellenreferenzen bleiben je Prüfbereich nachvollziehbar erhalten."
+        ],
         "disadvantages": [],
         "questions": [],
-        "recommendations": []
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
+        "summary": "Beleggewicht für „Methodik und Beweisstandard“: 8 Quellenreferenzen; aktueller Status bestaetigt.",
+        "advantages": [
+          "Quellenreferenzen bleiben je Prüfbereich nachvollziehbar erhalten."
+        ],
         "disadvantages": [],
         "questions": [],
-        "recommendations": []
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 7,
       "key": "product_function",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
+        "confirmed_facts": [
+          "Zu „Produkt / Funktionsweise“ wurden 2 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: service, access."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
         "open_points": [],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E019",
+          "E010"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Produkt / Funktionsweise“ liegen aktuell 2 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Produkt / Funktionsweise“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Produkt / Funktionsweise“ stützt sich aktuell auf 2 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Produkt / Funktionsweise“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Produkt / Funktionsweise“: 2 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Produkt / Funktionsweise“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 8,
       "key": "real_problem_utility",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Reales Problem / tatsächlicher Nutzen“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Community."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Für „Reales Problem / tatsächlicher Nutzen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E005",
+          "E014"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Reales Problem / tatsächlicher Nutzen“ liegen aktuell 3 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Reales Problem / tatsächlicher Nutzen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Reales Problem / tatsächlicher Nutzen“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Reales Problem / tatsächlicher Nutzen“ stützt sich aktuell auf 3 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Reales Problem / tatsächlicher Nutzen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Reales Problem / tatsächlicher Nutzen“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Reales Problem / tatsächlicher Nutzen“: 3 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Für „Reales Problem / tatsächlicher Nutzen“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Reales Problem / tatsächlicher Nutzen“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 9,
       "key": "operator_legal_entity",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Rechtsträger, Registerdaten, Sitz und eindeutige Zuordnung zum Angebot müssen noch über unabhängige Primärquellen verifiziert werden."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -320,188 +512,387 @@
     {
       "id": 10,
       "key": "persons_control_history",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Verantwortliche Personen / Kontrolle / Historie“ wurden 4 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: ceo, team."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Verantwortliche Personen, Rollen, Eigentums- und Kontrollbeziehungen sind noch unabhängig zu verifizieren."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E007",
+          "E008",
+          "E019"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Verantwortliche Personen / Kontrolle / Historie“ liegen aktuell 4 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Verantwortliche Personen, Rollen, Eigentums- und Kontrollbeziehungen sind noch unabhängig zu verifizieren."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Verantwortliche Personen / Kontrolle / Historie“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Verantwortliche Personen / Kontrolle / Historie“ stützt sich aktuell auf 4 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Verantwortliche Personen, Rollen, Eigentums- und Kontrollbeziehungen sind noch unabhängig zu verifizieren."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Verantwortliche Personen / Kontrolle / Historie“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Verantwortliche Personen / Kontrolle / Historie“: 4 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Verantwortliche Personen, Rollen, Eigentums- und Kontrollbeziehungen sind noch unabhängig zu verifizieren."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Verantwortliche Personen / Kontrolle / Historie“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 11,
       "key": "regulation_licences_markets",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Regulierung / Lizenzen / Zielmärkte“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: market, compliance."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Regulatorischer Status, konkrete Erlaubnisse und deren Geltungsbereich sind noch über Behörden-/Registerquellen zu prüfen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E005",
+          "E015"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Regulierung / Lizenzen / Zielmärkte“ liegen aktuell 3 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Regulatorischer Status, konkrete Erlaubnisse und deren Geltungsbereich sind noch über Behörden-/Registerquellen zu prüfen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Regulierung / Lizenzen / Zielmärkte“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Regulierung / Lizenzen / Zielmärkte“ stützt sich aktuell auf 3 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Regulatorischer Status, konkrete Erlaubnisse und deren Geltungsbereich sind noch über Behörden-/Registerquellen zu prüfen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Regulierung / Lizenzen / Zielmärkte“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Regulierung / Lizenzen / Zielmärkte“: 3 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Regulatorischer Status, konkrete Erlaubnisse und deren Geltungsbereich sind noch über Behörden-/Registerquellen zu prüfen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Regulierung / Lizenzen / Zielmärkte“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 12,
       "key": "money_flow_custody_claim",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Geldfluss / Verwahrung / Kundenanspruch“ wurden 2 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: account."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Geldfluss, Verwahrung, Kontoinhaber bzw. Wallet-Kontrolle und rechtlicher Kundenanspruch sind noch vollständig nachzuweisen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E009",
+          "E016"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Geldfluss / Verwahrung / Kundenanspruch“ liegen aktuell 2 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Geldfluss, Verwahrung, Kontoinhaber bzw. Wallet-Kontrolle und rechtlicher Kundenanspruch sind noch vollständig nachzuweisen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Geldfluss / Verwahrung / Kundenanspruch“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Geldfluss / Verwahrung / Kundenanspruch“ stützt sich aktuell auf 2 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Geldfluss, Verwahrung, Kontoinhaber bzw. Wallet-Kontrolle und rechtlicher Kundenanspruch sind noch vollständig nachzuweisen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Geldfluss / Verwahrung / Kundenanspruch“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Geldfluss / Verwahrung / Kundenanspruch“: 2 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Geldfluss, Verwahrung, Kontoinhaber bzw. Wallet-Kontrolle und rechtlicher Kundenanspruch sind noch vollständig nachzuweisen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Geldfluss / Verwahrung / Kundenanspruch“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 13,
       "key": "costs_fees_pricing",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
+        "confirmed_facts": [
+          "Zu „Kosten / Gebühren / Preisstruktur“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: eur, usd, €, Gebühren."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
         "open_points": [],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E008",
+          "E015",
+          "E001",
+          "E005",
+          "E006",
+          "E007"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Kosten / Gebühren / Preisstruktur“ liegen aktuell 6 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Kosten / Gebühren / Preisstruktur“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Kosten / Gebühren / Preisstruktur“ stützt sich aktuell auf 6 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Kosten / Gebühren / Preisstruktur“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Kosten / Gebühren / Preisstruktur“: 6 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Kosten / Gebühren / Preisstruktur“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 14,
       "key": "returns_performance_promise",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
+        "confirmed_facts": [
+          "Zu „Rendite / wirtschaftliches Leistungsversprechen“ wurden 1 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: profit."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
         "open_points": [],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E005"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Rendite / wirtschaftliches Leistungsversprechen“ liegen aktuell 1 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Rendite / wirtschaftliches Leistungsversprechen“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Rendite / wirtschaftliches Leistungsversprechen“ stützt sich aktuell auf 1 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Rendite / wirtschaftliches Leistungsversprechen“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Rendite / wirtschaftliches Leistungsversprechen“: 1 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Rendite / wirtschaftliches Leistungsversprechen“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 15,
       "key": "actual_revenue_source",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Die tatsächliche wirtschaftliche Einnahme- bzw. Ertragsquelle ist noch unabhängig und quantitativ nachzuweisen."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -530,48 +921,85 @@
     {
       "id": 16,
       "key": "referral_distribution_compensation",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
+        "confirmed_facts": [
+          "Zu „Referral / Vertrieb / Vergütungsstruktur“ wurden 1 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: rank."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
         "open_points": [],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E006"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Referral / Vertrieb / Vergütungsstruktur“ liegen aktuell 1 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Referral / Vertrieb / Vergütungsstruktur“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Referral / Vertrieb / Vergütungsstruktur“ stützt sich aktuell auf 1 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Referral / Vertrieb / Vergütungsstruktur“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Referral / Vertrieb / Vergütungsstruktur“: 1 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Referral / Vertrieb / Vergütungsstruktur“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 17,
       "key": "viability_without_new_capital",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Die Tragfähigkeit ohne fortlaufend neue Teilnehmer oder neues Kapital ist noch in Szenarien zu prüfen."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -600,118 +1028,241 @@
     {
       "id": 18,
       "key": "payouts_guarantees_bonuses",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen“ wurden 1 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: lock."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Auszahlungs-, Bonus-, Garantie- und Rückzahlungsmechanismen sind noch vertraglich und technisch zu verifizieren."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E015"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen“ liegen aktuell 1 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Auszahlungs-, Bonus-, Garantie- und Rückzahlungsmechanismen sind noch vertraglich und technisch zu verifizieren."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen“ stützt sich aktuell auf 1 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Auszahlungs-, Bonus-, Garantie- und Rückzahlungsmechanismen sind noch vertraglich und technisch zu verifizieren."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen“: 1 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Auszahlungs-, Bonus-, Garantie- und Rückzahlungsmechanismen sind noch vertraglich und technisch zu verifizieren."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Auszahlungen / Garantien / Boni / Rückzahlungsmechanismen“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 19,
       "key": "competition_market_utility",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Konkurrenz / Marktvergleich / praktische Nutzbarkeit“ wurden 2 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: market."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Ein belastbarer Markt- und Alternativenvergleich steht noch aus."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E015"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Konkurrenz / Marktvergleich / praktische Nutzbarkeit“ liegen aktuell 2 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Ein belastbarer Markt- und Alternativenvergleich steht noch aus."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Konkurrenz / Marktvergleich / praktische Nutzbarkeit“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Konkurrenz / Marktvergleich / praktische Nutzbarkeit“ stützt sich aktuell auf 2 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Ein belastbarer Markt- und Alternativenvergleich steht noch aus."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Konkurrenz / Marktvergleich / praktische Nutzbarkeit“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Konkurrenz / Marktvergleich / praktische Nutzbarkeit“: 2 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Ein belastbarer Markt- und Alternativenvergleich steht noch aus."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Konkurrenz / Marktvergleich / praktische Nutzbarkeit“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 20,
       "key": "web_social_community_user_traces",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Web-, Social-, Community- und Nutzer-Spuren“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Community."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Unabhängige Social-, Community- und Nutzer-Spuren außerhalb der Projektwebsite sind noch zu recherchieren."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E005",
+          "E014"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Web-, Social-, Community- und Nutzer-Spuren“ liegen aktuell 3 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Unabhängige Social-, Community- und Nutzer-Spuren außerhalb der Projektwebsite sind noch zu recherchieren."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Web-, Social-, Community- und Nutzer-Spuren“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Web-, Social-, Community- und Nutzer-Spuren“ stützt sich aktuell auf 3 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Unabhängige Social-, Community- und Nutzer-Spuren außerhalb der Projektwebsite sind noch zu recherchieren."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Web-, Social-, Community- und Nutzer-Spuren“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Web-, Social-, Community- und Nutzer-Spuren“: 3 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Unabhängige Social-, Community- und Nutzer-Spuren außerhalb der Projektwebsite sind noch zu recherchieren."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Web-, Social-, Community- und Nutzer-Spuren“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 21,
       "key": "main_risks_red_flags",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Die Hauptrisiken können erst nach Abschluss der unabhängigen und technischen Tiefenprüfungen final gewichtet werden."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -740,13 +1291,16 @@
     {
       "id": 22,
       "key": "consistency_contradictions",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Aussagen aus Website, Rechtstexten, Registern, Technik und öffentlicher Kommunikation müssen noch vollständig gegeneinander geprüft werden."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -775,83 +1329,169 @@
     {
       "id": 23,
       "key": "scenario_stress_test",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Szenario- und Stresstest“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: liquidity, loss."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Stressszenarien zu Nachfrage, Liquidität, Auszahlungen, Technik und Ausfällen stehen noch aus."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E005",
+          "E015",
+          "E001",
+          "E002",
+          "E003",
+          "E004"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Szenario- und Stresstest“ liegen aktuell 6 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Stressszenarien zu Nachfrage, Liquidität, Auszahlungen, Technik und Ausfällen stehen noch aus."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Szenario- und Stresstest“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Szenario- und Stresstest“ stützt sich aktuell auf 6 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Stressszenarien zu Nachfrage, Liquidität, Auszahlungen, Technik und Ausfällen stehen noch aus."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Szenario- und Stresstest“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Szenario- und Stresstest“: 6 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Stressszenarien zu Nachfrage, Liquidität, Auszahlungen, Technik und Ausfällen stehen noch aus."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Szenario- und Stresstest“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 24,
       "key": "missing_primary_evidence",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Fehlende Primärnachweise“ wurden 1 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Register."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Die Liste fehlender Primärnachweise wird nach Abschluss aller Recherchemodule finalisiert."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E004"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Fehlende Primärnachweise“ liegen aktuell 1 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Die Liste fehlender Primärnachweise wird nach Abschluss aller Recherchemodule finalisiert."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Fehlende Primärnachweise“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Fehlende Primärnachweise“ stützt sich aktuell auf 1 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Die Liste fehlender Primärnachweise wird nach Abschluss aller Recherchemodule finalisiert."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Fehlende Primärnachweise“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Fehlende Primärnachweise“: 1 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Die Liste fehlender Primärnachweise wird nach Abschluss aller Recherchemodule finalisiert."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Fehlende Primärnachweise“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 25,
       "key": "neutral_question_catalogue",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Für „Neutraler Fragenkatalog an Anbieter bzw. Verantwortliche“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -880,13 +1520,16 @@
     {
       "id": 26,
       "key": "final_assessment",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Für „Endbewertung“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -915,13 +1558,16 @@
     {
       "id": 27,
       "key": "action_recommendation",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Für „Konkrete Handlungsempfehlung“ steht die unabhängige bzw. vertiefende Verifikation noch aus."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -950,118 +1596,236 @@
     {
       "id": 28,
       "key": "source_register",
-      "result_status": null,
+      "result_status": "bestaetigt",
       "neutral_finding": {
-        "confirmed_facts": [],
+        "confirmed_facts": [
+          "Für den aktuellen Fall wurden 19 öffentliche Belege mit URL, Erfassungszeitpunkt und Inhalts-Hash gespeichert."
+        ],
         "first_party_claims": [],
-        "pros": [],
+        "pros": [
+          "Die Belegstruktur ist reproduzierbar und quellenbezogen."
+        ],
         "cons": [],
         "open_points": [],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E010",
+          "E011",
+          "E012",
+          "E013",
+          "E014",
+          "E015",
+          "E016",
+          "E017",
+          "E018",
+          "E019"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
+        "summary": "Zu „Quellenverzeichnis / Belegstruktur“ liegen aktuell 19 zugeordnete Belege vor. Der Befund ist als bestaetigt eingeordnet.",
+        "advantages": [
+          "Die Belegstruktur ist reproduzierbar und quellenbezogen."
+        ],
         "disadvantages": [],
         "questions": [],
-        "recommendations": []
+        "recommendations": [
+          "Den bestätigten Punkt im Zusammenhang mit der Gesamtanalyse betrachten; daraus allein keine Sicherheit ableiten."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
+        "summary": "Die Außenprüfung zu „Quellenverzeichnis / Belegstruktur“ stützt sich aktuell auf 19 Belege; Einordnung: bestaetigt.",
+        "advantages": [
+          "Die Belegstruktur ist reproduzierbar und quellenbezogen."
+        ],
         "disadvantages": [],
         "questions": [],
-        "recommendations": []
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
+        "summary": "Beleggewicht für „Quellenverzeichnis / Belegstruktur“: 19 Quellenreferenzen; aktueller Status bestaetigt.",
+        "advantages": [
+          "Die Belegstruktur ist reproduzierbar und quellenbezogen."
+        ],
         "disadvantages": [],
         "questions": [],
-        "recommendations": []
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 29,
       "key": "research_limits_legal_notice",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
-        "confirmed_facts": [],
+        "confirmed_facts": [
+          "Der aktuelle Auswertungsstand beruht auf öffentlich erreichbaren Projektseiten und direkt daraus erschlossenen Quellen; unabhängige Tiefenrecherchen sind noch nicht vollständig abgeschlossen."
+        ],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "Register-, Behörden-, Markt-, Social-, technische und Nutzerrecherche folgen in separaten Prüfmodulen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005",
+          "E006",
+          "E007",
+          "E008",
+          "E009",
+          "E010",
+          "E011",
+          "E012"
+        ]
       },
       "customer": {
-        "summary": "",
+        "summary": "Zu „Recherchegrenzen / Neutralitäts- und Rechtshinweis“ liegen aktuell 12 zugeordnete Belege vor. Der Befund ist als offen eingeordnet.",
         "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "disadvantages": [
+          "Register-, Behörden-, Markt-, Social-, technische und Nutzerrecherche folgen in separaten Prüfmodulen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Recherchegrenzen / Neutralitäts- und Rechtshinweis“?"
+        ],
+        "recommendations": [
+          "Den offenen Punkt vor einer Entscheidung anhand belastbarer Unterlagen klären."
+        ]
       },
       "company": {
-        "summary": "",
+        "summary": "Die Außenprüfung zu „Recherchegrenzen / Neutralitäts- und Rechtshinweis“ stützt sich aktuell auf 12 Belege; Einordnung: offen.",
         "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "disadvantages": [
+          "Register-, Behörden-, Markt-, Social-, technische und Nutzerrecherche folgen in separaten Prüfmodulen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Recherchegrenzen / Neutralitäts- und Rechtshinweis“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
+        "summary": "Beleggewicht für „Recherchegrenzen / Neutralitäts- und Rechtshinweis“: 12 Quellenreferenzen; aktueller Status offen.",
         "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "disadvantages": [
+          "Register-, Behörden-, Markt-, Social-, technische und Nutzerrecherche folgen in separaten Prüfmodulen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Recherchegrenzen / Neutralitäts- und Rechtshinweis“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 30,
       "key": "blockchain_crypto_deep_check",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Blockchain-/Krypto-Prüfung“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: liquidity, explorer."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E015",
+          "E001",
+          "E002",
+          "E003",
+          "E004",
+          "E005"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Blockchain-/Krypto-Prüfung“ liegen aktuell 6 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Blockchain-/Krypto-Prüfung“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Blockchain-/Krypto-Prüfung“ stützt sich aktuell auf 6 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Blockchain-/Krypto-Prüfung“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Blockchain-/Krypto-Prüfung“: 6 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Blockchain-/Krypto-Prüfung“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 31,
       "key": "trading_returns_deep_check",
-      "result_status": null,
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [],
         "first_party_claims": [],
         "pros": [],
         "cons": [],
-        "open_points": [],
+        "open_points": [
+          "In den bisher erfassten Primärquellen liegt für diesen Prüfbereich noch kein ausreichender konkreter Befund vor.",
+          "Track Record, Performance, Drawdown, Hebel, Handelsplätze und notwendige Bruttorenditen sind noch tief zu prüfen."
+        ],
         "contradictions": [],
         "evidence_refs": []
       },
@@ -1090,211 +1854,454 @@
     {
       "id": 32,
       "key": "card_banking_payment_deep_check",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Karte-/Banking-/Payment-Prüfung“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: bank, account."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E009",
+          "E016"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Karte-/Banking-/Payment-Prüfung“ liegen aktuell 3 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Karte-/Banking-/Payment-Prüfung“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Karte-/Banking-/Payment-Prüfung“ stützt sich aktuell auf 3 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Karte-/Banking-/Payment-Prüfung“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Karte-/Banking-/Payment-Prüfung“: 3 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Issuer, BIN-Sponsor, Kartennetzwerk, PSP/Banking-Partner und regulatorische Berechtigungen sind noch zu prüfen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Karte-/Banking-/Payment-Prüfung“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 33,
       "key": "defi_deep_check",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „DeFi-Prüfung“ wurden 2 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: defi."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E005"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „DeFi-Prüfung“ liegen aktuell 2 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „DeFi-Prüfung“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „DeFi-Prüfung“ stützt sich aktuell auf 2 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „DeFi-Prüfung“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „DeFi-Prüfung“: 2 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „DeFi-Prüfung“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 34,
       "key": "referral_mlm_distribution_deep_check",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Referral-/MLM-/Vertriebs-Tiefenprüfung“ wurden 1 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: rank."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Ebenen, Provisionen, Ranglogik und wirtschaftliche Bemessungsgrundlage des Vertriebs sind noch vollständig zu rekonstruieren."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E006"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Referral-/MLM-/Vertriebs-Tiefenprüfung“ liegen aktuell 1 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Ebenen, Provisionen, Ranglogik und wirtschaftliche Bemessungsgrundlage des Vertriebs sind noch vollständig zu rekonstruieren."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Referral-/MLM-/Vertriebs-Tiefenprüfung“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Referral-/MLM-/Vertriebs-Tiefenprüfung“ stützt sich aktuell auf 1 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Ebenen, Provisionen, Ranglogik und wirtschaftliche Bemessungsgrundlage des Vertriebs sind noch vollständig zu rekonstruieren."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Referral-/MLM-/Vertriebs-Tiefenprüfung“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Referral-/MLM-/Vertriebs-Tiefenprüfung“: 1 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Ebenen, Provisionen, Ranglogik und wirtschaftliche Bemessungsgrundlage des Vertriebs sind noch vollständig zu rekonstruieren."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Referral-/MLM-/Vertriebs-Tiefenprüfung“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 35,
       "key": "social_marketing_deep_check",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Social-/Marketing-Tiefenprüfung“ wurden 4 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Community, marketing."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Öffentliche Werbung, Social-Media-Verlauf, FOMO-/Vertriebsaussagen und historische Kommunikation sind noch zu prüfen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E001",
+          "E005",
+          "E014",
+          "E015"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Social-/Marketing-Tiefenprüfung“ liegen aktuell 4 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Öffentliche Werbung, Social-Media-Verlauf, FOMO-/Vertriebsaussagen und historische Kommunikation sind noch zu prüfen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Social-/Marketing-Tiefenprüfung“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Social-/Marketing-Tiefenprüfung“ stützt sich aktuell auf 4 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Öffentliche Werbung, Social-Media-Verlauf, FOMO-/Vertriebsaussagen und historische Kommunikation sind noch zu prüfen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Social-/Marketing-Tiefenprüfung“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Social-/Marketing-Tiefenprüfung“: 4 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Öffentliche Werbung, Social-Media-Verlauf, FOMO-/Vertriebsaussagen und historische Kommunikation sind noch zu prüfen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Social-/Marketing-Tiefenprüfung“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 36,
       "key": "company_investment_deep_check",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Unternehmens-/Investment-Tiefenprüfung“ wurden 1 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Register."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Register, Jahresabschlüsse, Kapital, verbundene Unternehmen und verantwortliche Personen sind noch unabhängig zu prüfen."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E004"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Unternehmens-/Investment-Tiefenprüfung“ liegen aktuell 1 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Register, Jahresabschlüsse, Kapital, verbundene Unternehmen und verantwortliche Personen sind noch unabhängig zu prüfen."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Unternehmens-/Investment-Tiefenprüfung“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Unternehmens-/Investment-Tiefenprüfung“ stützt sich aktuell auf 1 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Register, Jahresabschlüsse, Kapital, verbundene Unternehmen und verantwortliche Personen sind noch unabhängig zu prüfen."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Unternehmens-/Investment-Tiefenprüfung“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Unternehmens-/Investment-Tiefenprüfung“: 1 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Register, Jahresabschlüsse, Kapital, verbundene Unternehmen und verantwortliche Personen sind noch unabhängig zu prüfen."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Unternehmens-/Investment-Tiefenprüfung“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     },
     {
       "id": 37,
       "key": "user_experience_traces_deep_check",
-      "result_status": null,
+      "result_status": "eigenaussage",
       "neutral_finding": {
-        "confirmed_facts": [],
-        "first_party_claims": [],
-        "pros": [],
-        "cons": [],
-        "open_points": [],
+        "confirmed_facts": [
+          "Zu „Nutzer-/Erfahrungsspuren-Tiefenprüfung“ wurden 4 öffentlich erreichbare Quellenbezüge erfasst."
+        ],
+        "first_party_claims": [
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Community, support."
+        ],
+        "pros": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "cons": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
+        ],
+        "open_points": [
+          "Unabhängige Nutzerberichte zu Auszahlungen, Support, Sperren und Programmänderungen sind noch zu recherchieren."
+        ],
         "contradictions": [],
-        "evidence_refs": []
+        "evidence_refs": [
+          "E005",
+          "E001",
+          "E014",
+          "E015"
+        ]
       },
       "customer": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Zu „Nutzer-/Erfahrungsspuren-Tiefenprüfung“ liegen aktuell 4 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Unabhängige Nutzerberichte zu Auszahlungen, Support, Sperren und Programmänderungen sind noch zu recherchieren."
+        ],
+        "questions": [
+          "Welche Primär- oder unabhängigen Nachweise gibt es zu „Nutzer-/Erfahrungsspuren-Tiefenprüfung“?"
+        ],
+        "recommendations": [
+          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+        ]
       },
       "company": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Die Außenprüfung zu „Nutzer-/Erfahrungsspuren-Tiefenprüfung“ stützt sich aktuell auf 4 Belege; Einordnung: eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Unabhängige Nutzerberichte zu Auszahlungen, Support, Sperren und Programmänderungen sind noch zu recherchieren."
+        ],
+        "questions": [
+          "Welche belastbaren Primärnachweise kann das Unternehmen zu „Nutzer-/Erfahrungsspuren-Tiefenprüfung“ öffentlich und eindeutig verknüpfen?"
+        ],
+        "recommendations": [
+          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+        ]
       },
       "academy": {
-        "summary": "",
-        "advantages": [],
-        "disadvantages": [],
-        "questions": [],
-        "recommendations": []
+        "summary": "Beleggewicht für „Nutzer-/Erfahrungsspuren-Tiefenprüfung“: 4 Quellenreferenzen; aktueller Status eigenaussage.",
+        "advantages": [
+          "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
+        ],
+        "disadvantages": [
+          "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
+          "Unabhängige Nutzerberichte zu Auszahlungen, Support, Sperren und Programmänderungen sind noch zu recherchieren."
+        ],
+        "questions": [
+          "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Nutzer-/Erfahrungsspuren-Tiefenprüfung“ belastbar abzuschließen?"
+        ],
+        "recommendations": [
+          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+        ]
       }
     }
   ]

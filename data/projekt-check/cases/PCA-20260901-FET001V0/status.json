@@ -1,9 +1,9 @@
 {
   "contract_version": "1.1",
   "case_id": "PCA-20260901-FET001V0",
-  "state": "recherche",
+  "state": "auswertung",
   "created_at": "2026-09-01T21:31:48Z",
-  "updated_at": "2026-09-01T21:32:35Z",
+  "updated_at": "2026-09-01T21:32:37Z",
   "delivery_document": "customer_check",
   "identity": {
     "status": "resolved",
@@ -18,7 +18,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -42,7 +42,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -63,49 +63,49 @@
     {
       "id": 3,
       "key": "big_picture",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 19,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 2,
+      "summary": "2 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 4,
       "key": "positive_confirmed_facts",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 1,
+      "summary": "1 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
@@ -114,7 +114,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -135,73 +135,73 @@
     {
       "id": 6,
       "key": "methodology_evidence_standard",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "abgeschlossen",
+      "result_status": "bestaetigt",
+      "evidence_count": 8,
+      "summary": "Primärquellen-Auswertung abgeschlossen · 8 Belege · bestaetigt.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:37Z",
+      "finished_at": "2026-09-01T21:32:37Z"
     },
     {
       "id": 7,
       "key": "product_function",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "abgeschlossen",
+      "result_status": "eigenaussage",
+      "evidence_count": 2,
+      "summary": "Primärquellen-Auswertung abgeschlossen · 2 Belege · eigenaussage.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:37Z",
+      "finished_at": "2026-09-01T21:32:37Z"
     },
     {
       "id": 8,
       "key": "real_problem_utility",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 3,
+      "summary": "3 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
@@ -210,7 +210,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -231,122 +231,122 @@
     {
       "id": 10,
       "key": "persons_control_history",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 4,
+      "summary": "4 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 11,
       "key": "regulation_licences_markets",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 3,
+      "summary": "3 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 12,
       "key": "money_flow_custody_claim",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 2,
+      "summary": "2 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 13,
       "key": "costs_fees_pricing",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "abgeschlossen",
+      "result_status": "eigenaussage",
+      "evidence_count": 6,
+      "summary": "Primärquellen-Auswertung abgeschlossen · 6 Belege · eigenaussage.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:37Z",
+      "finished_at": "2026-09-01T21:32:37Z"
     },
     {
       "id": 14,
       "key": "returns_performance_promise",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "abgeschlossen",
+      "result_status": "eigenaussage",
+      "evidence_count": 1,
+      "summary": "Primärquellen-Auswertung abgeschlossen · 1 Belege · eigenaussage.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:37Z",
+      "finished_at": "2026-09-01T21:32:37Z"
     },
     {
       "id": 15,
@@ -354,7 +354,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -375,26 +375,26 @@
     {
       "id": 16,
       "key": "referral_distribution_compensation",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "abgeschlossen",
+      "result_status": "eigenaussage",
+      "evidence_count": 1,
+      "summary": "Primärquellen-Auswertung abgeschlossen · 1 Belege · eigenaussage.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:37Z",
+      "finished_at": "2026-09-01T21:32:37Z"
     },
     {
       "id": 17,
@@ -402,7 +402,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -423,73 +423,73 @@
     {
       "id": 18,
       "key": "payouts_guarantees_bonuses",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 1,
+      "summary": "1 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 19,
       "key": "competition_market_utility",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 2,
+      "summary": "2 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 20,
       "key": "web_social_community_user_traces",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 19,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 3,
+      "summary": "3 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
@@ -498,7 +498,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -522,7 +522,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -543,49 +543,49 @@
     {
       "id": 23,
       "key": "scenario_stress_test",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 6,
+      "summary": "6 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 24,
       "key": "missing_primary_evidence",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 1,
+      "summary": "1 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
@@ -594,7 +594,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -618,7 +618,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -642,7 +642,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -663,73 +663,73 @@
     {
       "id": 28,
       "key": "source_register",
-      "workflow_status": "wartet",
-      "result_status": null,
+      "workflow_status": "abgeschlossen",
+      "result_status": "bestaetigt",
       "evidence_count": 19,
-      "summary": "",
+      "summary": "Primärquellen-Auswertung abgeschlossen · 19 Belege · bestaetigt.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:37Z",
+      "finished_at": "2026-09-01T21:32:37Z"
     },
     {
       "id": 29,
       "key": "research_limits_legal_notice",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "abgeschlossen",
+      "result_status": "offen",
+      "evidence_count": 12,
+      "summary": "Primärquellen-Auswertung abgeschlossen · 12 Belege · offen.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:37Z",
+      "finished_at": "2026-09-01T21:32:37Z"
     },
     {
       "id": 30,
       "key": "blockchain_crypto_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 6,
+      "summary": "6 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
@@ -738,7 +738,7 @@
       "workflow_status": "wartet",
       "result_status": null,
       "evidence_count": 0,
-      "summary": "",
+      "summary": "Weiterer Recherchebaustein erforderlich.",
       "perspectives": {
         "customer": {
           "status": "wartet",
@@ -759,145 +759,145 @@
     {
       "id": 32,
       "key": "card_banking_payment_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 3,
+      "summary": "3 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 33,
       "key": "defi_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 2,
+      "summary": "2 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 34,
       "key": "referral_mlm_distribution_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 1,
+      "summary": "1 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 35,
       "key": "social_marketing_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 4,
+      "summary": "4 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 36,
       "key": "company_investment_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 1,
+      "summary": "1 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     },
     {
       "id": 37,
       "key": "user_experience_traces_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
-      "evidence_count": 0,
-      "summary": "",
+      "workflow_status": "laeuft",
+      "result_status": "eigenaussage",
+      "evidence_count": 4,
+      "summary": "4 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "laeuft",
+          "updated_at": "2026-09-01T21:32:37Z"
         }
       },
-      "started_at": null,
+      "started_at": "2026-09-01T21:32:37Z",
       "finished_at": null
     }
   ],
