@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260901-FET001V0",
+  "started_at": "2026-09-01T21:32:47Z",
+  "finished_at": "2026-09-01T21:32:47Z",
+  "status": "skipped",
+  "reason": "no_strong_uae_jurisdiction_hint",
+  "candidates": [],
+  "source_id": "ae_dubai_det_license",
+  "attempts": []
+}
