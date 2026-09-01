@@ -1,13 +1,14 @@
 {
-  "schema_version": "1.2",
+  "schema_version": "1.4",
   "case_id": "PCA-20260901-FET001V0",
-  "updated_at": "2026-09-01T21:32:47Z",
+  "updated_at": "2026-09-01T21:32:49Z",
   "modules": {
     "primary_discovery": "completed",
     "primary_evaluation": "completed",
     "independent_web": "completed",
     "official_verification": "completed",
-    "direct_dubai_registry": "skipped"
+    "direct_dubai_registry": "skipped",
+    "economic_analysis": "completed"
   },
   "independent_search_results": 0,
   "independent_rejected_results": 0,
@@ -16,5 +17,8 @@
   "official_search_results": 0,
   "official_captures": 0,
   "direct_registry_attempts": 0,
-  "direct_registry_captures": 0
+  "direct_registry_captures": 0,
+  "economic_first_party_rate_claims": 0,
+  "economic_stress_scenarios": 3,
+  "economic_customer_claim_math": false
 }

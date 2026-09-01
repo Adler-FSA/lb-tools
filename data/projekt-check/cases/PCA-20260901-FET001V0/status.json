@@ -3,7 +3,7 @@
   "case_id": "PCA-20260901-FET001V0",
   "state": "auswertung",
   "created_at": "2026-09-01T21:31:48Z",
-  "updated_at": "2026-09-01T21:32:45Z",
+  "updated_at": "2026-09-01T21:32:49Z",
   "delivery_document": "customer_check",
   "identity": {
     "status": "resolved",
@@ -280,21 +280,21 @@
       "id": 12,
       "key": "money_flow_custody_claim",
       "workflow_status": "laeuft",
-      "result_status": "eigenaussage",
+      "result_status": "offen",
       "evidence_count": 2,
-      "summary": "2 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
+      "summary": "Wirtschaftlicher Geldfluss aus öffentlichen Angaben rekonstruiert; technische Kontrolle, Verwahrung und Rechtsanspruch bleiben in Vertiefung.",
       "perspectives": {
         "customer": {
           "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "company": {
           "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "academy": {
           "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "updated_at": "2026-09-01T21:32:49Z"
         }
       },
       "started_at": "2026-09-01T21:32:37Z",
@@ -328,49 +328,49 @@
       "id": 14,
       "key": "returns_performance_promise",
       "workflow_status": "abgeschlossen",
-      "result_status": "eigenaussage",
+      "result_status": "kein_befund",
       "evidence_count": 1,
-      "summary": "Primärquellen-Auswertung abgeschlossen · 1 Belege · eigenaussage.",
+      "summary": "Leistungsversprechen wirtschaftlich geprüft · keine belastbar quantifizierbare Rate aus dem Wortlaut abgeleitet.",
       "perspectives": {
         "customer": {
           "status": "abgeschlossen",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "company": {
           "status": "abgeschlossen",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "academy": {
           "status": "abgeschlossen",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "updated_at": "2026-09-01T21:32:49Z"
         }
       },
       "started_at": "2026-09-01T21:32:37Z",
-      "finished_at": "2026-09-01T21:32:37Z"
+      "finished_at": "2026-09-01T21:32:49Z"
     },
     {
       "id": 15,
       "key": "actual_revenue_source",
-      "workflow_status": "wartet",
-      "result_status": null,
+      "workflow_status": "abgeschlossen",
+      "result_status": "offen",
       "evidence_count": 0,
-      "summary": "Weiterer Recherchebaustein erforderlich.",
+      "summary": "Tatsächliche Einnahmequelle geprüft; vorhandene Beschreibungen reichen noch nicht für einen unabhängigen quantitativen Finanzierungsnachweis.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:49Z",
+      "finished_at": "2026-09-01T21:32:49Z"
     },
     {
       "id": 16,
@@ -399,50 +399,50 @@
     {
       "id": 17,
       "key": "viability_without_new_capital",
-      "workflow_status": "wartet",
-      "result_status": null,
+      "workflow_status": "abgeschlossen",
+      "result_status": "offen",
       "evidence_count": 0,
-      "summary": "Weiterer Recherchebaustein erforderlich.",
+      "summary": "Nullwachstums- und Finanzierungsabhängigkeit geprüft; quantitative Tragfähigkeit bleibt mangels vollständiger Einnahmen-/Verpflichtungsdaten offen.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:49Z",
+      "finished_at": "2026-09-01T21:32:49Z"
     },
     {
       "id": 18,
       "key": "payouts_guarantees_bonuses",
-      "workflow_status": "laeuft",
-      "result_status": "eigenaussage",
+      "workflow_status": "abgeschlossen",
+      "result_status": "kein_befund",
       "evidence_count": 1,
-      "summary": "1 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
+      "summary": "Auszahlungs-, Verteilungs- und Rückzahlungsmechanismen wirtschaftlich geprüft; nicht belegte technische Ausführung wird nicht unterstellt.",
       "perspectives": {
         "customer": {
-          "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "company": {
-          "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "academy": {
-          "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         }
       },
       "started_at": "2026-09-01T21:32:37Z",
-      "finished_at": null
+      "finished_at": "2026-09-01T21:32:49Z"
     },
     {
       "id": 19,
@@ -543,26 +543,26 @@
     {
       "id": 23,
       "key": "scenario_stress_test",
-      "workflow_status": "laeuft",
-      "result_status": "eigenaussage",
+      "workflow_status": "abgeschlossen",
+      "result_status": "offen",
       "evidence_count": 6,
-      "summary": "6 Belege zugeordnet; unabhängige/vertiefende Prüfung steht noch aus.",
+      "summary": "Wirtschaftlicher Stresstest abgeschlossen · 3 Szenarien · fehlende Variablen ausdrücklich als offen dokumentiert.",
       "perspectives": {
         "customer": {
-          "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "company": {
-          "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "academy": {
-          "status": "laeuft",
-          "updated_at": "2026-09-01T21:32:37Z"
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         }
       },
       "started_at": "2026-09-01T21:32:37Z",
-      "finished_at": null
+      "finished_at": "2026-09-01T21:32:49Z"
     },
     {
       "id": 24,
@@ -735,26 +735,26 @@
     {
       "id": 31,
       "key": "trading_returns_deep_check",
-      "workflow_status": "wartet",
-      "result_status": null,
+      "workflow_status": "abgeschlossen",
+      "result_status": "kein_befund",
       "evidence_count": 0,
-      "summary": "Weiterer Recherchebaustein erforderlich.",
+      "summary": "Trading-/Rendite-Tiefenprüfung abgeschlossen · keine unbelegte Renditehochrechnung erzeugt.",
       "perspectives": {
         "customer": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "company": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         },
         "academy": {
-          "status": "wartet",
-          "updated_at": null
+          "status": "abgeschlossen",
+          "updated_at": "2026-09-01T21:32:49Z"
         }
       },
-      "started_at": null,
-      "finished_at": null
+      "started_at": "2026-09-01T21:32:49Z",
+      "finished_at": "2026-09-01T21:32:49Z"
     },
     {
       "id": 32,

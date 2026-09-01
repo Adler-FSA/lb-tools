@@ -1,0 +1,55 @@
+{
+  "project_hosts_used": [
+    "liquiditybooster.de"
+  ],
+  "first_party_item_count": 19,
+  "external_item_count": 0,
+  "return_language": [],
+  "revenue_source_language": [],
+  "money_flow_language": [],
+  "payout_language": [],
+  "growth_language": [],
+  "trading_language": [],
+  "external_economic_language": [],
+  "first_party_percent_claims": [],
+  "external_percent_claims": [],
+  "customer_claim_math": null,
+  "facts": {
+    "package_purchase_from_own_wallet_claimed": false,
+    "bank_account_credentials_not_collected_claimed": false,
+    "onchain_distribution_events_claimed": false
+  },
+  "refs": {
+    "money_flow": [],
+    "returns": [],
+    "revenue_source": [],
+    "growth": [],
+    "payout": [],
+    "trading": [],
+    "external": []
+  },
+  "schema_version": "1.0",
+  "case_id": "PCA-20260901-FET001V0",
+  "generated_at": "2026-09-01T21:32:49Z",
+  "stress_scenarios": [
+    {
+      "scenario": "Nullwachstum / keine neuen Referrals",
+      "question": "Welche wirtschaftlichen Leistungen bleiben finanzierbar, wenn keine neuen Mitglieder oder Referral-Umsätze hinzukommen?",
+      "finding": "Aus den bislang erfassten Quellen lässt sich eine belastbare Antwort nur ableiten, wenn externe Einnahmequellen und Verteilungsverpflichtungen quantitativ belegt sind.",
+      "status": "kein_befund"
+    },
+    {
+      "scenario": "Geringere operative Einnahmen",
+      "question": "Wie verändert sich die Fähigkeit zu Dividenden/Rewards, wenn operative Einnahmen deutlich unter Plan liegen?",
+      "finding": "Ohne quantifizierte und überprüfbare Einnahmequelle kann die Belastbarkeit dieses Szenarios nicht berechnet werden.",
+      "status": "kein_befund"
+    },
+    {
+      "scenario": "Erhöhte Auszahlungs-/Verteilungsanforderungen",
+      "question": "Welche Liquidität oder Reserve steht zur Verfügung, wenn viele Berechtigte gleichzeitig eine Auszahlung bzw. Distribution erwarten?",
+      "finding": "Reserve-, Liquiditäts- und Fälligkeitsdaten sind in den bislang ausgewerteten Quellen nicht allein aus Leistungsbegriffen ableitbar.",
+      "status": "kein_befund"
+    }
+  ],
+  "principle": "Mathematische Hochrechnungen ordnen Aussagen ein; sie sind weder Prognose noch Nachweis der Erzielbarkeit. Eigenaussagen, externe Spuren und unabhängig bestätigte Tatsachen bleiben getrennt."
+}
