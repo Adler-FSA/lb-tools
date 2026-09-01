@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Headteam Telefon-Check</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --text:#263446;
+  --muted:#697588;
+  --line:#dce4ea;
+  --soft:#f6f8fa;
+  --mint-soft:#eefafa;
+  --green:#237a4b;
+  --green-soft:#edf8f1;
+  --amber:#9a6700;
+  --amber-soft:#fff8e6;
+  --red:#a43131;
+  --red-soft:#fff2f2;
+  --blue:#2e67a1;
+  --blue-soft:#eef5fc;
+  --shadow:0 12px 34px rgba(19,34,56,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{padding:16px;min-height:100vh}
+button,input,select{font:inherit}
+button{touch-action:manipulation}
+.wrap{max-width:1080px;margin:0 auto;padding-bottom:40px}
+.topbar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:900}
+.brand svg{color:var(--mint);flex:0 0 auto}
+.lang{display:flex;gap:6px}
+.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:7px 10px;font-weight:800;cursor:pointer}
+.lang button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hero{border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#fff,#fbfcfd);box-shadow:var(--shadow);overflow:hidden}
+.heroMain{padding:28px 28px 20px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--mint);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+h1{margin:8px 0 10px;color:var(--navy);font-size:clamp(32px,5vw,50px);line-height:1.04}
+.lead{margin:0;max-width:840px;color:#465466;font-size:17px;line-height:1.58}
+.goal{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;padding:0 28px 26px}
+.panel{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px}
+.panel h2,.panel h3{margin:0 0 9px;color:var(--navy)}
+.panel h2{font-size:21px}.panel h3{font-size:17px}
+.panel p{margin:0;color:var(--muted);line-height:1.55}
+.goal ul{margin:9px 0 0;padding-left:20px;color:#455365;line-height:1.55}
+.goal li+li{margin-top:5px}
+.privacy{background:var(--mint-soft);border-color:#bde4e6}
+.privacy strong{color:var(--navy)}
+.uploadCard{margin-top:16px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.uploadTop{padding:20px 22px 14px}
+.uploadTop h2{margin:0;color:var(--navy);font-size:22px}
+.uploadTop p{margin:6px 0 0;color:var(--muted);line-height:1.5}
+.drop{margin:0 22px 22px;border:2px dashed #b9c9d4;border-radius:18px;padding:24px 18px;text-align:center;background:#fbfcfd;transition:.18s border-color,.18s background}
+.drop.drag{border-color:var(--mint);background:var(--mint-soft)}
+.drop svg{color:var(--mint);margin-bottom:7px}
+.fileName{font-size:13px;color:var(--muted);margin-top:10px;overflow-wrap:anywhere}
+.fileBtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:13px;background:var(--navy);color:#fff;padding:12px 16px;font-weight:850;cursor:pointer}
+.fileBtn input{display:none}
+.msg{display:none;margin:0 22px 20px;border-radius:14px;padding:12px 14px;line-height:1.45}
+.msg.show{display:block}.msg.ok{background:var(--green-soft);color:#1f6b42;border:1px solid #b9dfc9}.msg.err{background:var(--red-soft);color:#8f2929;border:1px solid #efbcbc}
+.workspace{display:none}.workspace.show{display:block}
+.dashboard{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}
+.stat{border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow);padding:15px 14px;min-width:0}
+.stat .n{display:block;color:var(--navy);font-size:28px;font-weight:900;line-height:1}
+.stat .l{display:block;margin-top:6px;color:var(--muted);font-size:12px;font-weight:800;line-height:1.25}
+.stat.open .n{color:var(--magenta)}
+.stat.spoken .n{color:var(--green)}
+.stat.callback .n{color:var(--amber)}
+.controls{margin-top:16px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow);padding:14px;display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center}
+.searchWrap{position:relative}.searchWrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.searchWrap input{width:100%;border:1.5px solid #cbd6de;border-radius:13px;padding:12px 12px 12px 42px;color:var(--navy);outline:none;background:#fff}
+.searchWrap input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.11)}
+select{border:1.5px solid #cbd6de;border-radius:13px;padding:11px 12px;color:var(--navy);background:#fff;outline:none}
+.toolsBtn{border:1.5px solid #cbd6de;border-radius:13px;background:#fff;color:var(--navy);padding:11px 13px;font-weight:800;cursor:pointer}
+.tools{display:none;margin-top:10px;border-top:1px solid var(--line);padding-top:12px;grid-column:1/-1;gap:8px;grid-template-columns:repeat(3,max-content);align-items:center}
+.tools.show{display:grid}
+.tool{border:1px solid var(--line);border-radius:11px;background:var(--soft);color:var(--navy);padding:9px 11px;font-weight:750;cursor:pointer}
+.tool.danger{color:var(--red);background:#fff}
+.tool input{display:none}
+.list{margin-top:14px;display:grid;gap:10px}
+.contact{border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:0 7px 20px rgba(19,34,56,.05);overflow:hidden}
+.contactTop{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:15px 16px}
+.person{min-width:0}.person strong{display:block;color:var(--navy);font-size:17px;overflow-wrap:anywhere}.person a,.phoneText{display:inline-block;margin-top:4px;color:var(--blue);font-size:15px;text-decoration:none;font-weight:750}.person .noPhone{color:var(--muted)}
+.callBtn{border:0;border-radius:13px;background:var(--navy);color:#fff;min-height:46px;padding:11px 15px;font-weight:900;cursor:pointer;display:inline-flex;gap:8px;align-items:center;justify-content:center;text-decoration:none}
+.callBtn.again{background:var(--mint)}.callBtn:disabled{background:#c7ced6;color:#fff;cursor:not-allowed}
+.statusBar{border-top:1px solid var(--line);background:#fbfcfd;padding:10px 12px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.statusLabel{color:var(--muted);font-size:12px;font-weight:800;margin-right:2px}
+.statusBtn{border:1px solid var(--line);border-radius:999px;background:#fff;color:#4b596a;padding:7px 10px;font-size:12px;font-weight:800;cursor:pointer}
+.statusBtn.active.spoken{background:var(--green-soft);border-color:#aad9bd;color:var(--green)}
+.statusBtn.active.unreached{background:var(--red-soft);border-color:#efbcbc;color:var(--red)}
+.statusBtn.active.callback{background:var(--amber-soft);border-color:#efd58b;color:var(--amber)}
+.statusBtn.active.called{background:var(--blue-soft);border-color:#bbd2ea;color:var(--blue)}
+.empty{border:1px solid var(--line);border-radius:18px;background:#fff;padding:26px;text-align:center;color:var(--muted)}
+.footerNote{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.5;text-align:center}
+@media(max-width:900px){.dashboard{grid-template-columns:repeat(3,1fr)}.goal{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.searchWrap{grid-column:1/-1}.tools{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:620px){body{padding:9px}.heroMain{padding:22px 18px 16px}.goal{padding:0 18px 19px}.uploadTop{padding:18px 16px 12px}.drop{margin:0 16px 16px;padding:22px 12px}.msg{margin:0 16px 16px}.dashboard{grid-template-columns:repeat(2,1fr)}.stat .n{font-size:25px}.controls{grid-template-columns:1fr}.searchWrap{grid-column:auto}.toolsBtn,select{width:100%}.tools{grid-template-columns:1fr}.contactTop{grid-template-columns:1fr}.callBtn{width:100%}.statusBar{padding:10px}.topbar{margin-bottom:10px}.brand span{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM2 21v-2a5 5 0 0 1 5-5h2M16 8v6M13 11h6M14.5 21v-1.2a4.3 4.3 0 0 1 4.3-4.3H22" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="brand">Headteam Telefon-Check</span>
+    </div>
+    <div class="lang"><button type="button" data-lang="de" class="active">DE</button><button type="button" data-lang="en">EN</button></div>
+  </div>
+
+  <section class="hero">
+    <div class="heroMain">
+      <div class="eyebrow" data-i18n="eyebrow">INTERNE ARBEITSSEITE</div>
+      <h1 data-i18n="title">Einmal persönlich mit jedem sprechen.</h1>
+      <p class="lead" data-i18n="lead">Der Telefon-Check hilft dem Headteam, mit jedem Club Partner einmal direkt ins Gespräch zu kommen. Es geht nicht um Verkauf, sondern darum zu verstehen, was fehlt, wo etwas stockt und welcher nächste Schritt sinnvoll ist.</p>
+    </div>
+    <div class="goal">
+      <div class="panel">
+        <h2 data-i18n="goalTitle">Ziel des Gesprächs</h2>
+        <ul>
+          <li data-i18n="g1">Persönlichen Kontakt herstellen und zuhören.</li>
+          <li data-i18n="g2">Herausfinden, was aktuell fehlt oder unklar ist.</li>
+          <li data-i18n="g3">Verstehen, warum bisher keine Aktivität oder Zusammenarbeit sichtbar wurde.</li>
+          <li data-i18n="g4">Prüfen, ob das Mitgliederprofil genutzt wird und wo Hürden bestehen.</li>
+          <li data-i18n="g5">Einen konkreten nächsten Schritt oder eine passende Unterstützung vereinbaren.</li>
+        </ul>
+      </div>
+      <div class="panel privacy">
+        <h3 data-i18n="privacyTitle">Datenschutz: Die Liste bleibt auf deinem Gerät</h3>
+        <p data-i18n="privacyText">Die Excel-Datei wird ausschließlich lokal in deinem Browser gelesen. Namen und Telefonnummern werden nicht an GitHub oder einen Server übertragen. Gespeichert werden nur anonymisierte Status-Schlüssel auf diesem Gerät.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="uploadCard">
+    <div class="uploadTop">
+      <h2 data-i18n="uploadTitle">Telefonliste laden</h2>
+      <p data-i18n="uploadText">Wähle deine Excel-Liste aus. Unterstützt werden .xlsx und .csv mit den Spalten Name und Telefonnummer.</p>
+    </div>
+    <div class="drop" id="drop">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M5 20h14a2 2 0 0 0 2-2v-3M3 15v3a2 2 0 0 0 2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><br>
+      <label class="fileBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8M14 2v6h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span data-i18n="chooseFile">Excel-Liste auswählen</span>
+        <input id="file" type="file" accept=".xlsx,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+      </label>
+      <div class="fileName" id="fileName" data-i18n="noFile">Noch keine Liste geladen.</div>
+    </div>
+    <div class="msg" id="msg"></div>
+  </section>
+
+  <section class="workspace" id="workspace">
+    <div class="dashboard">
+      <div class="stat"><span class="n" id="stTotal">0</span><span class="l" data-i18n="total">Gesamt</span></div>
+      <div class="stat open"><span class="n" id="stOpen">0</span><span class="l" data-i18n="open">Noch offen</span></div>
+      <div class="stat"><span class="n" id="stCalled">0</span><span class="l" data-i18n="called">Gewählt</span></div>
+      <div class="stat spoken"><span class="n" id="stSpoken">0</span><span class="l" data-i18n="spoken">Gesprochen</span></div>
+      <div class="stat callback"><span class="n" id="stCallback">0</span><span class="l" data-i18n="callback">Rückruf</span></div>
+      <div class="stat"><span class="n" id="stNoPhone">0</span><span class="l" data-i18n="noPhoneStat">Ohne Nummer</span></div>
+    </div>
+
+    <div class="controls">
+      <div class="searchWrap">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.7-3.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="search" type="search" autocomplete="off" data-i18n-placeholder="searchPh" placeholder="Name oder Telefonnummer suchen …">
+      </div>
+      <select id="filter" aria-label="Filter">
+        <option value="all" data-i18n="fAll">Alle</option>
+        <option value="open" data-i18n="fOpen">Noch offen</option>
+        <option value="called" data-i18n="fCalled">Gewählt / Ergebnis offen</option>
+        <option value="spoken" data-i18n="fSpoken">Gesprochen</option>
+        <option value="unreached" data-i18n="fUnreached">Nicht erreicht</option>
+        <option value="callback" data-i18n="fCallback">Rückruf</option>
+        <option value="nophone" data-i18n="fNoPhone">Ohne Telefonnummer</option>
+      </select>
+      <button class="toolsBtn" id="toolsBtn" type="button" data-i18n="tools">Werkzeuge</button>
+      <div class="tools" id="tools">
+        <button class="tool" id="exportBtn" type="button" data-i18n="export">Fortschritt exportieren</button>
+        <label class="tool"><span data-i18n="import">Fortschritt importieren</span><input id="importFile" type="file" accept="application/json,.json"></label>
+        <button class="tool danger" id="resetBtn" type="button" data-i18n="reset">Fortschritt zurücksetzen</button>
+      </div>
+    </div>
+
+    <div class="list" id="list"></div>
+    <div class="footerNote" data-i18n="footer">Ein Klick auf „Jetzt anrufen“ zählt als gewählt. Ob das Gespräch zustande kam, markierst du danach mit „Gesprochen“, „Nicht erreicht“ oder „Rückruf“.</div>
+  </section>
+</div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+let contacts=[];
+let lang='de';
+const STORAGE='lb_headteam_phone_status_v1';
+let statusMap=loadStatus();
+
+const TXT={
+ de:{brand:'Headteam Telefon-Check',eyebrow:'INTERNE ARBEITSSEITE',title:'Einmal persönlich mit jedem sprechen.',lead:'Der Telefon-Check hilft dem Headteam, mit jedem Club Partner einmal direkt ins Gespräch zu kommen. Es geht nicht um Verkauf, sondern darum zu verstehen, was fehlt, wo etwas stockt und welcher nächste Schritt sinnvoll ist.',goalTitle:'Ziel des Gesprächs',g1:'Persönlichen Kontakt herstellen und zuhören.',g2:'Herausfinden, was aktuell fehlt oder unklar ist.',g3:'Verstehen, warum bisher keine Aktivität oder Zusammenarbeit sichtbar wurde.',g4:'Prüfen, ob das Mitgliederprofil genutzt wird und wo Hürden bestehen.',g5:'Einen konkreten nächsten Schritt oder eine passende Unterstützung vereinbaren.',privacyTitle:'Datenschutz: Die Liste bleibt auf deinem Gerät',privacyText:'Die Excel-Datei wird ausschließlich lokal in deinem Browser gelesen. Namen und Telefonnummern werden nicht an GitHub oder einen Server übertragen. Gespeichert werden nur anonymisierte Status-Schlüssel auf diesem Gerät.',uploadTitle:'Telefonliste laden',uploadText:'Wähle deine Excel-Liste aus. Unterstützt werden .xlsx und .csv mit den Spalten Name und Telefonnummer.',chooseFile:'Excel-Liste auswählen',noFile:'Noch keine Liste geladen.',total:'Gesamt',open:'Noch offen',called:'Gewählt',spoken:'Gesprochen',callback:'Rückruf',noPhoneStat:'Ohne Nummer',searchPh:'Name oder Telefonnummer suchen …',fAll:'Alle',fOpen:'Noch offen',fCalled:'Gewählt / Ergebnis offen',fSpoken:'Gesprochen',fUnreached:'Nicht erreicht',fCallback:'Rückruf',fNoPhone:'Ohne Telefonnummer',tools:'Werkzeuge',export:'Fortschritt exportieren',import:'Fortschritt importieren',reset:'Fortschritt zurücksetzen',footer:'Ein Klick auf „Jetzt anrufen“ zählt als gewählt. Ob das Gespräch zustande kam, markierst du danach mit „Gesprochen“, „Nicht erreicht“ oder „Rückruf“.',loaded:n=>n+' Kontakte wurden lokal geladen.',loadErr:'Die Liste konnte nicht gelesen werden. Bitte verwende eine .xlsx- oder .csv-Datei mit den Spalten „Name“ und „Telefonnummer“.',unsupported:'Dieses Gerät unterstützt das lokale Lesen dieser Excel-Datei nicht vollständig. Bitte speichere die Liste alternativ als CSV und lade sie erneut.',noRows:'In dieser Datei wurden keine verwertbaren Kontakte gefunden.',call:'Jetzt anrufen',callAgain:'Erneut anrufen',noPhone:'Keine Telefonnummer',status:'Ergebnis:',sCalled:'Gewählt',sSpoken:'Gesprochen',sUnreached:'Nicht erreicht',sCallback:'Rückruf',sOpen:'Offen',empty:'Für diesen Filter gibt es keine Kontakte.',confirmReset:'Den lokal gespeicherten Fortschritt wirklich zurücksetzen? Namen und Telefonnummern sind davon nicht betroffen.',exported:'Fortschritt wurde exportiert.',imported:'Fortschritt wurde importiert.',importErr:'Die Fortschrittsdatei konnte nicht gelesen werden.'},
+ en:{brand:'Headteam Phone Check',eyebrow:'INTERNAL WORK PAGE',title:'Speak personally with everyone once.',lead:'The phone check helps the head team speak directly with every Club Partner once. The purpose is not sales, but to understand what is missing, where things are stuck and what the next useful step is.',goalTitle:'Goal of the conversation',g1:'Establish personal contact and listen.',g2:'Find out what is currently missing or unclear.',g3:'Understand why no activity or collaboration has been visible so far.',g4:'Check whether the member profile is being used and where obstacles exist.',g5:'Agree on one concrete next step or suitable support.',privacyTitle:'Privacy: the list stays on your device',privacyText:'The Excel file is read only locally in your browser. Names and phone numbers are not sent to GitHub or any server. Only anonymized status keys are stored locally on this device.',uploadTitle:'Load phone list',uploadText:'Choose your Excel list. .xlsx and .csv files with Name and Phone Number columns are supported.',chooseFile:'Choose Excel list',noFile:'No list loaded yet.',total:'Total',open:'Still open',called:'Dialed',spoken:'Spoken',callback:'Callback',noPhoneStat:'No number',searchPh:'Search name or phone number …',fAll:'All',fOpen:'Still open',fCalled:'Dialed / result open',fSpoken:'Spoken',fUnreached:'Not reached',fCallback:'Callback',fNoPhone:'No phone number',tools:'Tools',export:'Export progress',import:'Import progress',reset:'Reset progress',footer:'A click on “Call now” counts as dialed. Afterwards mark the result as “Spoken”, “Not reached” or “Callback”.',loaded:n=>n+' contacts loaded locally.',loadErr:'The list could not be read. Please use an .xlsx or .csv file with “Name” and “Phone Number” columns.',unsupported:'This device cannot fully read this Excel file locally. Save the list as CSV and load it again.',noRows:'No usable contacts were found in this file.',call:'Call now',callAgain:'Call again',noPhone:'No phone number',status:'Result:',sCalled:'Dialed',sSpoken:'Spoken',sUnreached:'Not reached',sCallback:'Callback',sOpen:'Open',empty:'There are no contacts for this filter.',confirmReset:'Really reset the locally stored progress? Names and phone numbers are not affected.',exported:'Progress exported.',imported:'Progress imported.',importErr:'The progress file could not be read.'}
+};
+const t=k=>TXT[lang][k];
+
+function applyLang(l){
+ lang=l==='en'?'en':'de'; document.documentElement.lang=lang;
+ $$('[data-i18n]').forEach(el=>{const v=t(el.dataset.i18n);if(typeof v==='string')el.textContent=v});
+ $$('[data-i18n-placeholder]').forEach(el=>el.placeholder=t(el.dataset.i18nPlaceholder));
+ $$('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+ render();
+}
+$$('[data-lang]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+
+function loadStatus(){try{return JSON.parse(localStorage.getItem(STORAGE)||'{}')}catch{return {}}}
+function saveStatus(){localStorage.setItem(STORAGE,JSON.stringify(statusMap))}
+async function sha(text){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function normalizePhone(s){return String(s||'').replace(/\s+/g,' ').trim()}
+function telPhone(s){
+ let raw=normalizePhone(s); if(!raw)return '';
+ let ext=''; const m=raw.match(/\s-\s*(\d+)\s*$/); if(m){ext=m[1];raw=raw.slice(0,m.index)}
+ let p=raw.replace(/[^\d+]/g,''); p=p.replace(/(?!^)\+/g,'');
+ return p+(ext?','+ext:'');
+}
+function currentStatus(c){return statusMap[c.id]?.status||'open'}
+function setStatus(c,s){statusMap[c.id]={status:s,at:new Date().toISOString()};saveStatus();render()}
+
+function showMsg(text,type='ok'){const m=$('#msg');m.textContent=text;m.className='msg show '+type;setTimeout(()=>{if(m.textContent===text)m.classList.remove('show')},4500)}
+
+async function prepareContacts(rows){
+ const out=[];
+ for(const r of rows){
+   const name=String(r.name||'').trim(); const phone=normalizePhone(r.phone);
+   if(!name)continue;
+   const id=await sha(name.toLocaleLowerCase('de-DE')+'|'+phone.replace(/\s/g,''));
+   out.push({name,phone,id});
+ }
+ const seen=new Set(); contacts=out.filter(c=>{if(seen.has(c.id))return false;seen.add(c.id);return true});
+ $('#workspace').classList.toggle('show',contacts.length>0);
+ render();
+ if(contacts.length)showMsg(t('loaded')(contacts.length),'ok');else showMsg(t('noRows'),'err');
+}
+
+function render(){
+ if(!contacts.length)return;
+ const callable=contacts.filter(c=>telPhone(c.phone));
+ const noPhone=contacts.length-callable.length;
+ const counts={open:0,called:0,spoken:0,unreached:0,callback:0};
+ callable.forEach(c=>{const s=currentStatus(c);if(s==='open')counts.open++;else counts.called++;if(counts[s]!==undefined&&s!=='called')counts[s]++});
+ $('#stTotal').textContent=contacts.length;
+ $('#stOpen').textContent=counts.open;
+ $('#stCalled').textContent=counts.called;
+ $('#stSpoken').textContent=counts.spoken;
+ $('#stCallback').textContent=counts.callback;
+ $('#stNoPhone').textContent=noPhone;
+ const q=($('#search')?.value||'').toLocaleLowerCase(lang==='de'?'de-DE':'en-US').trim();
+ const f=$('#filter')?.value||'all';
+ const order={open:0,callback:1,called:2,unreached:3,spoken:4};
+ let list=contacts.filter(c=>{
+   const s=currentStatus(c); const has=!!telPhone(c.phone);
+   if(q && !(c.name+' '+c.phone).toLocaleLowerCase().includes(q))return false;
+   if(f==='all')return true;if(f==='nophone')return !has;if(!has)return false;return s===f;
+ }).sort((a,b)=>(order[currentStatus(a)]??9)-(order[currentStatus(b)]??9)||a.name.localeCompare(b.name,lang==='de'?'de-DE':'en-US',{sensitivity:'base'}));
+ const box=$('#list');box.innerHTML='';
+ if(!list.length){box.innerHTML='<div class="empty">'+esc(t('empty'))+'</div>';return}
+ list.forEach(c=>box.appendChild(contactCard(c)));
+}
+
+function contactCard(c){
+ const s=currentStatus(c), tel=telPhone(c.phone), card=document.createElement('article');card.className='contact';
+ const top=document.createElement('div');top.className='contactTop';
+ const person=document.createElement('div');person.className='person';
+ person.innerHTML='<strong>'+esc(c.name)+'</strong>'+(tel?'<a href="tel:'+esc(tel)+'">'+esc(c.phone)+'</a>':'<span class="phoneText noPhone">'+esc(t('noPhone'))+'</span>');
+ const call=document.createElement('button');call.type='button';call.className='callBtn'+(s!=='open'?' again':'');
+ call.innerHTML='<svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>'+esc(s==='open'?t('call'):t('callAgain'))+'</span>';
+ if(!tel){call.disabled=true;call.querySelector('span').textContent=t('noPhone')}
+ else call.addEventListener('click',()=>{if(s==='open')setStatus(c,'called');else{statusMap[c.id]={status:s,at:new Date().toISOString()};saveStatus()}location.href='tel:'+tel});
+ top.append(person,call);
+ const bar=document.createElement('div');bar.className='statusBar';
+ const label=document.createElement('span');label.className='statusLabel';label.textContent=t('status');bar.appendChild(label);
+ [['called','sCalled'],['spoken','sSpoken'],['unreached','sUnreached'],['callback','sCallback'],['open','sOpen']].forEach(([val,key])=>{
+   const b=document.createElement('button');b.type='button';b.className='statusBtn '+val+(s===val?' active':'');b.textContent=t(key);b.addEventListener('click',()=>setStatus(c,val));bar.appendChild(b)
+ });
+ card.append(top,bar);return card;
+}
+
+$('#search').addEventListener('input',render);$('#filter').addEventListener('change',render);
+$('#toolsBtn').addEventListener('click',()=>$('#tools').classList.toggle('show'));
+$('#resetBtn').addEventListener('click',()=>{if(confirm(t('confirmReset'))){statusMap={};saveStatus();render()}});
+$('#exportBtn').addEventListener('click',()=>{
+ const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),status:statusMap},null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='headteam-telefon-check-fortschritt.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);showMsg(t('exported'),'ok');
+});
+$('#importFile').addEventListener('change',async e=>{try{const data=JSON.parse(await e.target.files[0].text());if(!data||typeof data.status!=='object')throw 0;statusMap={...statusMap,...data.status};saveStatus();render();showMsg(t('imported'),'ok')}catch{showMsg(t('importErr'),'err')}e.target.value=''});
+
+const fileInput=$('#file'),drop=$('#drop');
+fileInput.addEventListener('change',()=>fileInput.files[0]&&handleFile(fileInput.files[0]));
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('drag')}));
+drop.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)handleFile(f)});
+
+async function handleFile(file){
+ $('#fileName').textContent=file.name;
+ try{
+   let rows;
+   if(file.name.toLowerCase().endsWith('.csv')) rows=parseTable(await file.text());
+   else if(file.name.toLowerCase().endsWith('.xlsx')) rows=await parseXlsx(await file.arrayBuffer());
+   else throw new Error('type');
+   await prepareContacts(rows);
+ }catch(e){console.error(e);showMsg(e&&e.message==='unsupported'?t('unsupported'):t('loadErr'),'err')}
+}
+
+function detectDelimiter(line){
+ const semi=(line.match(/;/g)||[]).length,comma=(line.match(/,/g)||[]).length,tab=(line.match(/\t/g)||[]).length;
+ return tab>semi&&tab>comma?'\t':semi>comma?';':',';
+}
+function parseCsvLine(line,delim){
+ const out=[];let cur='',q=false;
+ for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(q&&line[i+1]==='"'){cur+='"';i++}else q=!q}else if(ch===delim&&!q){out.push(cur);cur=''}else cur+=ch}out.push(cur);return out;
+}
+function parseTable(text){
+ text=String(text).replace(/^\uFEFF/,'');const lines=text.split(/\r?\n/).filter(x=>x.trim());if(!lines.length)return [];
+ const delim=detectDelimiter(lines[0]);const matrix=lines.map(l=>parseCsvLine(l,delim));return matrixToRows(matrix);
+}
+function matrixToRows(matrix){
+ let hi=-1,nameCol=-1,phoneCol=-1;
+ for(let r=0;r<Math.min(matrix.length,12);r++){
+   const row=matrix[r].map(v=>String(v??'').trim().toLocaleLowerCase('de-DE'));
+   row.forEach((v,i)=>{if(nameCol<0&&(v==='name'||v.includes('name')))nameCol=i;if(phoneCol<0&&(v.includes('telefon')||v.includes('phone')||v==='tel'))phoneCol=i});
+   if(nameCol>=0&&phoneCol>=0){hi=r;break}
+ }
+ if(hi<0){nameCol=0;phoneCol=1;hi=0}
+ return matrix.slice(hi+1).map(r=>({name:r[nameCol]??'',phone:r[phoneCol]??''})).filter(r=>String(r.name).trim());
+}
+
+async function parseXlsx(buffer){
+ if(typeof DecompressionStream==='undefined')throw new Error('unsupported');
+ const zip=new MiniZip(buffer);
+ const shared=zip.has('xl/sharedStrings.xml')?parseShared(await zip.text('xl/sharedStrings.xml')):[];
+ let sheetPath='xl/worksheets/sheet1.xml';
+ if(zip.has('xl/workbook.xml')&&zip.has('xl/_rels/workbook.xml.rels')){
+   try{
+     const wb=new DOMParser().parseFromString(await zip.text('xl/workbook.xml'),'application/xml');
+     const first=wb.querySelector('sheet');const rid=first?.getAttribute('r:id')||first?.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id');
+     const rel=new DOMParser().parseFromString(await zip.text('xl/_rels/workbook.xml.rels'),'application/xml');
+     const relEl=[...rel.querySelectorAll('Relationship')].find(x=>x.getAttribute('Id')===rid);let target=relEl?.getAttribute('Target');
+     if(target){target=target.replace(/^\//,'');sheetPath=target.startsWith('xl/')?target:'xl/'+target.replace(/^\.\.\//,'')}
+   }catch{}
+ }
+ if(!zip.has(sheetPath))sheetPath=[...zip.names()].find(n=>/^xl\/worksheets\/sheet\d+\.xml$/.test(n))||sheetPath;
+ const xml=new DOMParser().parseFromString(await zip.text(sheetPath),'application/xml');
+ const matrix=[];
+ [...xml.querySelectorAll('row')].forEach(row=>{
+   const arr=[];[...row.querySelectorAll('c')].forEach(c=>{
+     const ref=c.getAttribute('r')||'A1',col=colIndex(ref),type=c.getAttribute('t')||'';let val='';
+     if(type==='inlineStr')val=[...c.querySelectorAll('is t')].map(x=>x.textContent||'').join('');
+     else{const v=c.querySelector('v')?.textContent??'';if(type==='s')val=shared[Number(v)]??'';else val=v}
+     arr[col]=val;
+   });matrix.push(arr)
+ });
+ return matrixToRows(matrix);
+}
+function colIndex(ref){const m=String(ref).match(/^([A-Z]+)/i);let n=0;for(const ch of (m?.[1]||'A').toUpperCase())n=n*26+ch.charCodeAt(0)-64;return n-1}
+function parseShared(text){const xml=new DOMParser().parseFromString(text,'application/xml');return [...xml.querySelectorAll('si')].map(si=>[...si.querySelectorAll('t')].map(t=>t.textContent||'').join(''))}
+
+class MiniZip{
+ constructor(buffer){this.buf=buffer;this.dv=new DataView(buffer);this.u8=new Uint8Array(buffer);this.files=new Map();this.readCentral()}
+ names(){return this.files.keys()}has(n){return this.files.has(n)}
+ readCentral(){
+   let eocd=-1,start=Math.max(0,this.u8.length-65557);for(let i=this.u8.length-22;i>=start;i--){if(this.dv.getUint32(i,true)===0x06054b50){eocd=i;break}}
+   if(eocd<0)throw new Error('zip');let off=this.dv.getUint32(eocd+16,true),count=this.dv.getUint16(eocd+10,true),dec=new TextDecoder('utf-8');
+   for(let n=0;n<count;n++){
+     if(this.dv.getUint32(off,true)!==0x02014b50)throw new Error('zip');
+     const method=this.dv.getUint16(off+10,true),comp=this.dv.getUint32(off+20,true),nameLen=this.dv.getUint16(off+28,true),extraLen=this.dv.getUint16(off+30,true),commentLen=this.dv.getUint16(off+32,true),local=this.dv.getUint32(off+42,true);
+     const name=dec.decode(this.u8.slice(off+46,off+46+nameLen));this.files.set(name,{method,comp,local});off+=46+nameLen+extraLen+commentLen;
+   }
+ }
+ async bytes(name){
+   const f=this.files.get(name);if(!f)throw new Error('missing');const off=f.local;if(this.dv.getUint32(off,true)!==0x04034b50)throw new Error('zip');const nameLen=this.dv.getUint16(off+26,true),extraLen=this.dv.getUint16(off+28,true),start=off+30+nameLen+extraLen,part=this.u8.slice(start,start+f.comp);
+   if(f.method===0)return part;if(f.method!==8)throw new Error('unsupported');
+   const ds=new DecompressionStream('deflate-raw');const ab=await new Response(new Blob([part]).stream().pipeThrough(ds)).arrayBuffer();return new Uint8Array(ab);
+ }
+ async text(name){return new TextDecoder('utf-8').decode(await this.bytes(name))}
+}
+
+applyLang('de');
+</script>
+</body>
+</html>
