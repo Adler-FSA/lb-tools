@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "projects": [
     {
       "id": "2a1b2001-f224-48fe-9be0-c548f978aac1",
@@ -11,7 +11,14 @@
       "why": "wir waren veraltet.",
       "test": "Headteam-Besprechung: Befunde, Änderungen und Wünsche bitte in Schriftform.",
       "meeting": "Fehlt etwas, ist etwas unklar formuliert, oder was soll geändert werden.",
-      "createdAt": "2026-08-30T16:59:27.538Z"
+      "createdAt": "2026-08-30T16:59:27.538Z",
+      "updatedAt": "2026-08-30T16:59:27.538Z",
+      "history": [
+        {
+          "at": "2026-08-30T16:59:27.538Z",
+          "event": "created"
+        }
+      ]
     },
     {
       "id": "e345d482-3fd9-40fd-8590-ad1f71e52c8b",
@@ -23,7 +30,14 @@
       "why": "Zecks der neuen Ausrichtung des liquiditybooster,",
       "test": "bitte einmal alles ansehen und wenn was fehlt bitte in Schriftform an mich weiterleiten.",
       "meeting": "Fehlt etwas, soll etwas anders formuliert werden.",
-      "createdAt": "2026-08-30T17:03:33.850Z"
+      "createdAt": "2026-08-30T17:03:33.850Z",
+      "updatedAt": "2026-08-30T17:03:33.850Z",
+      "history": [
+        {
+          "at": "2026-08-30T17:03:33.850Z",
+          "event": "created"
+        }
+      ]
     },
     {
       "id": "441e9ccb-bb18-4cac-87cf-1acd7f1583fe",
@@ -35,7 +49,14 @@
       "why": "Durch den neuen Gastzugang musste die texte aktualisierst werden.  Dabei habe ich den Bereich ganz neu gestellten und aufgebaut ähnlich wie bei Mission Dorade.",
       "test": "Bitte seht mal drüber",
       "meeting": "ob euch noch ein Änderungswunsch in den sinn kommt.",
-      "createdAt": "2026-09-01T10:42:58.299Z"
+      "createdAt": "2026-09-01T10:42:58.299Z",
+      "updatedAt": "2026-09-01T10:42:58.299Z",
+      "history": [
+        {
+          "at": "2026-09-01T10:42:58.299Z",
+          "event": "created"
+        }
+      ]
     },
     {
       "id": "aae6b1fd-40fc-4c14-b65c-931de64b0a54",
@@ -47,7 +68,14 @@
       "why": "Veraltete Version",
       "test": "nur mal drüber schauen",
       "meeting": "wenn noch ein Änderungswunsch besteht, mir bitte im Headteam Termin mitteilen.",
-      "createdAt": "2026-09-01T10:46:35.535Z"
+      "createdAt": "2026-09-01T10:46:35.535Z",
+      "updatedAt": "2026-09-01T10:46:35.535Z",
+      "history": [
+        {
+          "at": "2026-09-01T10:46:35.535Z",
+          "event": "created"
+        }
+      ]
     },
     {
       "id": "4e0883a3-d4c4-402c-b747-7e02757279c5",
@@ -59,7 +87,14 @@
       "why": "Wir möchten einmal mit allen Club Mitgliedern persönlich sprechen und herausfinden, was aktuell fehlt, warum bisher keine oder nur geringe Aktivität sichtbar ist, warum möglicherweise noch keine Zusammenarbeit entstanden ist oder warum vorhandene Möglichkeiten wie das Mitgliederprofil nicht genutzt werden. Es geht nicht um Verkauf, sondern um Orientierung, Zuhören und darum, konkrete Hindernisse oder Unterstützungsbedarf sichtbar zu machen. Gleichzeitig soll dieser einmalige Telefon-Check uns helfen, den aktuellen Stand unserer Mitglieder besser zu verstehen.",
       "test": "Bitte die eigene Excel-Liste auf dem Handy öffnen bzw. auf die Telefonseite laden und den kompletten Ablauf testen: Wird die Liste korrekt eingelesen? Funktioniert „Jetzt anrufen“ direkt über die Telefonfunktion des Handys? Werden gewählte Kontakte korrekt gezählt? Funktionieren die Status „Gesprochen“, „Nicht erreicht“, „Rückruf“ und „Offen“? Bleibt der Fortschritt auf dem eigenen Gerät erhalten? Außerdem bitte darauf achten, ob die Seite auch bei längeren Listen übersichtlich und einfach bedienbar bleibt.",
       "meeting": "Wie gehen wir bei den Gesprächen einheitlich vor? Welche Kernfragen wollen wir allen Club Mitgliedern stellen? Welche Ergebnisse wollen wir nach jedem Gespräch festhalten? Wie behandeln wir Mitglieder, die nicht erreicht werden oder einen Rückruf wünschen? Müssen einzelne Listen zwischen Peter, Oliver, Daniela und Mike neu verteilt werden? Und welche Erkenntnisse aus den Telefonaten sollen anschließend in unsere weitere Mitgliederbetreuung, Aktivierung und Zusammenarbeit einfließen?",
-      "createdAt": "2026-09-01T12:38:20.835Z"
+      "createdAt": "2026-09-01T12:38:20.835Z",
+      "updatedAt": "2026-09-01T12:38:20.835Z",
+      "history": [
+        {
+          "at": "2026-09-01T12:38:20.835Z",
+          "event": "created"
+        }
+      ]
     },
     {
       "id": "4ff1d75e-13cb-4bec-add8-ed2d97e2fe02",
@@ -71,7 +106,16 @@
       "why": "Der Leitartikel dokumentiert die Entwicklung der vergangenen sechs Monate und macht die heutige Leistungsfähigkeit des LiquidityBoosters sichtbar.\n\nMenschen, die den LiquidityBooster nur aus seiner Anfangszeit kennen, erhalten einen aktuellen Gesamteindruck. Neue Interessierte bekommen einen verständlichen Einstieg und können anschließend über den Gastzugang selbst entdecken, welche Inhalte, Werkzeuge und Möglichkeiten heute vorhanden sind.\n\nDer Artikel verbindet Information, Transparenz und Aufklärung mit einem klaren Weg zum neuen Gastzugang.",
       "test": "Bitte den Leitartikel vollständig lesen und auf Verständlichkeit, Wirkung und sachliche Richtigkeit prüfen.\n\nBesonders zu testen sind:\n\n– Darstellung auf Computer, Tablet und Smartphone\n– Funktion der DE/EN-Sprachumschaltung\n– beide Buttons zum neuen Gastzugang\n– korrekte Weiterleitung zu https://www.liquiditybooster.de/gastzugang.html\n– Darstellung und Abgrenzung der Hörsäle\n– Beschreibung der Projekt-Check-Analyse für 99 Euro\n– Hinweise zu Abrechnungen und Einkommensperspektiven\n– klare Abgrenzung zu Finanzprodukten, Anlageberatung und Finanzdienstleistungen\n– Teilen des Artikels über Facebook, WhatsApp oder andere Plattformen\n– korrekte Anzeige von Titel, Beschreibung und quadratischem Vorschaubild beim Teilen",
       "meeting": "Ist der Leitartikel inhaltlich vollständig und zur Veröffentlichung freigegeben?\n\nSind die Aussagen zu Gastzugang, Hörsälen, Projekt-Check-Analyse, Abrechnungen und Compliance verständlich und eindeutig?\n\nPasst die emotionale Wirkung des Artikels zur Entwicklung der vergangenen sechs Monate?\n\nFunktionieren die Gastzugang-Weiterleitung und das Vorschaubild beim Teilen zuverlässig?",
-      "createdAt": "2026-09-01T15:01:09.341Z"
+      "createdAt": "2026-09-01T15:01:09.341Z",
+      "updatedAt": "2026-09-01T15:01:09.341Z",
+      "history": [
+        {
+          "at": "2026-09-01T15:01:09.341Z",
+          "event": "created"
+        }
+      ]
     }
-  ]
+  ],
+  "archive": []
 }
+
