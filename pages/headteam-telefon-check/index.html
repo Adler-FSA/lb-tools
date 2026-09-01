@@ -248,7 +248,7 @@ function render(){
  const callable=contacts.filter(c=>telPhone(c.phone));
  const noPhone=contacts.length-callable.length;
  const counts={open:0,called:0,spoken:0,unreached:0,callback:0};
- callable.forEach(c=>{const s=currentStatus(c);if(s==='open')counts.open++;else counts.called++;if(counts[s]!==undefined&&s!=='called')counts[s]++});
+ callable.forEach(c=>{const s=currentStatus(c);if(s==='open')counts.open++;else{counts.called++;if(counts[s]!==undefined&&s!=='called')counts[s]++}});
  $('#stTotal').textContent=contacts.length;
  $('#stOpen').textContent=counts.open;
  $('#stCalled').textContent=counts.called;
