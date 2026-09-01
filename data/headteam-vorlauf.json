@@ -48,6 +48,18 @@
       "test": "nur mal drüber schauen",
       "meeting": "wenn noch ein Änderungswunsch besteht, mir bitte im Headteam Termin mitteilen.",
       "createdAt": "2026-09-01T10:46:35.535Z"
+    },
+    {
+      "id": "4e0883a3-d4c4-402c-b747-7e02757279c5",
+      "title": "Headteam Werkzeug",
+      "type": "function",
+      "releaseDate": "2026-09-07",
+      "url": "https://tools.liquiditybooster.de/pages/headteam-telefon-check/index.html",
+      "what": "Ich habe für das Headteam ein mobiles Telefon-Werkzeug gebaut, mit dem wir alle aktuell vorhandenen Club Mitglieder einmal persönlich telefonisch erreichen können. Jeder im Headteam erhält dafür eine eigene Excel-Liste mit den ihm zugeteilten Club Mitgliedern. Diese Liste wird direkt auf der Seite eingelesen. Namen und Telefonnummern werden dabei nicht in GitHub gespeichert, sondern nur lokal im Browser verarbeitet. Über „Jetzt anrufen“ kann die jeweilige Telefonnummer direkt auf dem Handy gewählt werden.",
+      "why": "Wir möchten einmal mit allen Club Mitgliedern persönlich sprechen und herausfinden, was aktuell fehlt, warum bisher keine oder nur geringe Aktivität sichtbar ist, warum möglicherweise noch keine Zusammenarbeit entstanden ist oder warum vorhandene Möglichkeiten wie das Mitgliederprofil nicht genutzt werden. Es geht nicht um Verkauf, sondern um Orientierung, Zuhören und darum, konkrete Hindernisse oder Unterstützungsbedarf sichtbar zu machen. Gleichzeitig soll dieser einmalige Telefon-Check uns helfen, den aktuellen Stand unserer Mitglieder besser zu verstehen.",
+      "test": "Bitte die eigene Excel-Liste auf dem Handy öffnen bzw. auf die Telefonseite laden und den kompletten Ablauf testen: Wird die Liste korrekt eingelesen? Funktioniert „Jetzt anrufen“ direkt über die Telefonfunktion des Handys? Werden gewählte Kontakte korrekt gezählt? Funktionieren die Status „Gesprochen“, „Nicht erreicht“, „Rückruf“ und „Offen“? Bleibt der Fortschritt auf dem eigenen Gerät erhalten? Außerdem bitte darauf achten, ob die Seite auch bei längeren Listen übersichtlich und einfach bedienbar bleibt.",
+      "meeting": "Wie gehen wir bei den Gesprächen einheitlich vor? Welche Kernfragen wollen wir allen Club Mitgliedern stellen? Welche Ergebnisse wollen wir nach jedem Gespräch festhalten? Wie behandeln wir Mitglieder, die nicht erreicht werden oder einen Rückruf wünschen? Müssen einzelne Listen zwischen Peter, Oliver, Daniela und Mike neu verteilt werden? Und welche Erkenntnisse aus den Telefonaten sollen anschließend in unsere weitere Mitgliederbetreuung, Aktivierung und Zusammenarbeit einfließen?",
+      "createdAt": "2026-09-01T12:38:20.835Z"
     }
   ]
 }
