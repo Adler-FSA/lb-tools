@@ -60,6 +60,18 @@
       "test": "Bitte die eigene Excel-Liste auf dem Handy öffnen bzw. auf die Telefonseite laden und den kompletten Ablauf testen: Wird die Liste korrekt eingelesen? Funktioniert „Jetzt anrufen“ direkt über die Telefonfunktion des Handys? Werden gewählte Kontakte korrekt gezählt? Funktionieren die Status „Gesprochen“, „Nicht erreicht“, „Rückruf“ und „Offen“? Bleibt der Fortschritt auf dem eigenen Gerät erhalten? Außerdem bitte darauf achten, ob die Seite auch bei längeren Listen übersichtlich und einfach bedienbar bleibt.",
       "meeting": "Wie gehen wir bei den Gesprächen einheitlich vor? Welche Kernfragen wollen wir allen Club Mitgliedern stellen? Welche Ergebnisse wollen wir nach jedem Gespräch festhalten? Wie behandeln wir Mitglieder, die nicht erreicht werden oder einen Rückruf wünschen? Müssen einzelne Listen zwischen Peter, Oliver, Daniela und Mike neu verteilt werden? Und welche Erkenntnisse aus den Telefonaten sollen anschließend in unsere weitere Mitgliederbetreuung, Aktivierung und Zusammenarbeit einfließen?",
       "createdAt": "2026-09-01T12:38:20.835Z"
+    },
+    {
+      "id": "4ff1d75e-13cb-4bec-add8-ed2d97e2fe02",
+      "title": "Sechs Monate Liquiditybooster",
+      "type": "website",
+      "releaseDate": "2026-09-06",
+      "url": "https://tools.liquiditybooster.de/pages/leitartikel/sechs-monate-liquiditybooster/",
+      "what": "Ein neuer Standalone-Leitartikel über die Entwicklung des LiquidityBoosters und der Akademie seit dem Kick-off am 1. März 2026.\n\nDer Artikel zeigt, was innerhalb von sechs Monaten entstanden, überarbeitet und erweitert wurde. Dazu gehören der neue Gastzugang, die Hörsäle, die Projekt-Check-Analyse, die aktualisierten Informations- und Compliance-Seiten sowie die neuen Möglichkeiten zur aktiven Mitwirkung.\n\nÜber einen direkten Call-to-Action gelangen Leser zum zentralen Gastzugang auf LiquidityBooster.de.",
+      "why": "Der Leitartikel dokumentiert die Entwicklung der vergangenen sechs Monate und macht die heutige Leistungsfähigkeit des LiquidityBoosters sichtbar.\n\nMenschen, die den LiquidityBooster nur aus seiner Anfangszeit kennen, erhalten einen aktuellen Gesamteindruck. Neue Interessierte bekommen einen verständlichen Einstieg und können anschließend über den Gastzugang selbst entdecken, welche Inhalte, Werkzeuge und Möglichkeiten heute vorhanden sind.\n\nDer Artikel verbindet Information, Transparenz und Aufklärung mit einem klaren Weg zum neuen Gastzugang.",
+      "test": "Bitte den Leitartikel vollständig lesen und auf Verständlichkeit, Wirkung und sachliche Richtigkeit prüfen.\n\nBesonders zu testen sind:\n\n– Darstellung auf Computer, Tablet und Smartphone\n– Funktion der DE/EN-Sprachumschaltung\n– beide Buttons zum neuen Gastzugang\n– korrekte Weiterleitung zu https://www.liquiditybooster.de/gastzugang.html\n– Darstellung und Abgrenzung der Hörsäle\n– Beschreibung der Projekt-Check-Analyse für 99 Euro\n– Hinweise zu Abrechnungen und Einkommensperspektiven\n– klare Abgrenzung zu Finanzprodukten, Anlageberatung und Finanzdienstleistungen\n– Teilen des Artikels über Facebook, WhatsApp oder andere Plattformen\n– korrekte Anzeige von Titel, Beschreibung und quadratischem Vorschaubild beim Teilen",
+      "meeting": "Ist der Leitartikel inhaltlich vollständig und zur Veröffentlichung freigegeben?\n\nSind die Aussagen zu Gastzugang, Hörsälen, Projekt-Check-Analyse, Abrechnungen und Compliance verständlich und eindeutig?\n\nPasst die emotionale Wirkung des Artikels zur Entwicklung der vergangenen sechs Monate?\n\nFunktionieren die Gastzugang-Weiterleitung und das Vorschaubild beim Teilen zuverlässig?",
+      "createdAt": "2026-09-01T15:01:09.341Z"
     }
   ]
 }
