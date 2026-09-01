@@ -55,6 +55,9 @@ td strong{color:var(--navy)}
 .rowactions{display:flex;gap:7px;justify-content:flex-end}
 .empty{text-align:center;color:var(--muted);padding:26px}
 .editing{background:#f8fbfc}
+.archive-head{margin-top:22px}
+.archive-badge{display:inline-flex;border-radius:999px;padding:5px 9px;background:#eef1f4;color:var(--muted);font-size:12px;font-weight:800}
+.history{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.4}
 @media(max-width:820px){.formgrid{grid-template-columns:1fr 1fr}.field.full{grid-column:1/-1}}
 @media(max-width:620px){body{padding:10px}.connect,.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.head{align-items:flex-start;flex-direction:column}}
 </style>
@@ -140,18 +143,25 @@ td strong{color:var(--navy)}
       </table>
     </div>
   </section>
+  <section class="card archive-head">
+    <div class="head"><span data-i18n="archiveTitle">Projektchronik – Was wir geschaffen haben</span><span class="archive-badge" id="archiveCount">0 archiviert</span></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th data-i18n="projectName">Projektname</th><th data-i18n="type">Art</th><th data-i18n="archivedOn">Archiviert am</th><th data-i18n="lastUpdate">Letzte Aktualisierung</th><th style="text-align:right" data-i18n="action">Aktion</th></tr></thead>
+      <tbody id="archiveRows"></tbody>
+    </table></div>
+  </section>
 </div>
 <script>
 const REPO='Adler-FSA/lb-tools';
 const PATH='data/headteam-vorlauf.json';
 const API=`https://api.github.com/repos/${REPO}/contents/${PATH}`;
 const KEY='md_control_github_token';
-let token='',sha='',state={version:1,projects:[]},editIndex=null;
+let token='',sha='',state={version:2,projects:[],archive:[]},editIndex=null;
 const $=s=>document.querySelector(s);
 
 const I18N={
-  de:{title:'Head Control',sub:'Private Pflege der Headteam-14-Tage-Vorlaufseite.',github:'GitHub-Verbindung',notConnected:'Nicht verbunden',connected:'Verbunden',connect:'Verbinden & laden',remember:'Token auf diesem Gerät speichern',removeToken:'Gespeicherten Token entfernen',tokenHint:'Es wird derselbe lokal gespeicherte Token wie bei Mission-Control und Club Control verwendet.',projectEntry:'Projekt einstellen',projectName:'Projektname',type:'Art',course:'Kurs',website:'Webseite',clubhouse:'Clubhaus',function:'Funktion',other:'Sonstiges',releaseDate:'Geplante Freigabe',link:'Test-/Arbeitslink',what:'Was entsteht?',why:'Warum entsteht es?',test:'Was soll getestet / angesehen werden?',meeting:'Beim nächsten Headteam-Meeting zu klären',save:'Einstellen',saveEdit:'Änderung speichern',cancel:'Bearbeitung abbrechen',existing:'Eingestellte Projekte',reload:'Neu laden',action:'Aktion',edit:'Bearbeiten',remove:'Löschen',empty:'Noch keine Projekte eingestellt.',loadError:'Daten konnten nicht geladen werden. Bitte Token und Schreibrechte prüfen.',saveError:'Speichern fehlgeschlagen. Bitte Verbindung neu laden und erneut versuchen.',required:'Bitte Projektname, Art, Freigabedatum, Link und alle vier Textfelder vollständig ausfüllen.',invalidUrl:'Bitte einen gültigen http- oder https-Link eintragen.',saved:'Projekt wurde gespeichert.',updated:'Änderung wurde gespeichert.',deleted:'Projekt wurde gelöscht.',removedToken:'Gespeicherter Token wurde von diesem Gerät entfernt.',confirmDelete:n=>n+' wirklich löschen?'} ,
-  en:{title:'Head Control',sub:'Private management of the Headteam 14-day lead-time page.',github:'GitHub connection',notConnected:'Not connected',connected:'Connected',connect:'Connect & load',remember:'Store token on this device',removeToken:'Remove stored token',tokenHint:'The same locally stored token as Mission-Control and Club Control is used.',projectEntry:'Add project',projectName:'Project name',type:'Type',course:'Course',website:'Website',clubhouse:'Clubhouse',function:'Function',other:'Other',releaseDate:'Planned release',link:'Test/work link',what:'What is being created?',why:'Why is it being created?',test:'What should be tested / reviewed?',meeting:'To clarify at the next Headteam meeting',save:'Add',saveEdit:'Save changes',cancel:'Cancel editing',existing:'Added projects',reload:'Reload',action:'Action',edit:'Edit',remove:'Delete',empty:'No projects added yet.',loadError:'Data could not be loaded. Please check the token and write permissions.',saveError:'Saving failed. Reload the connection and try again.',required:'Please complete project name, type, release date, link and all four text fields.',invalidUrl:'Please enter a valid http or https link.',saved:'Project was saved.',updated:'Changes were saved.',deleted:'Project was deleted.',removedToken:'Stored token was removed from this device.',confirmDelete:n=>'Really delete '+n+'?'}
+  de:{title:'Head Control',sub:'Private Pflege der Headteam-14-Tage-Vorlaufseite.',github:'GitHub-Verbindung',notConnected:'Nicht verbunden',connected:'Verbunden',connect:'Verbinden & laden',remember:'Token auf diesem Gerät speichern',removeToken:'Gespeicherten Token entfernen',tokenHint:'Es wird derselbe lokal gespeicherte Token wie bei Mission-Control und Club Control verwendet.',projectEntry:'Projekt einstellen',projectName:'Projektname',type:'Art',course:'Kurs',website:'Webseite',clubhouse:'Clubhaus',function:'Funktion',other:'Sonstiges',releaseDate:'Geplante Freigabe',link:'Test-/Arbeitslink',what:'Was entsteht?',why:'Warum entsteht es?',test:'Was soll getestet / angesehen werden?',meeting:'Beim nächsten Headteam-Meeting zu klären',save:'Einstellen',saveEdit:'Änderung speichern',cancel:'Bearbeitung abbrechen',existing:'Eingestellte Projekte',reload:'Neu laden',action:'Aktion',edit:'Bearbeiten',archive:'Archivieren',restore:'Zurückholen',remove:'Endgültig löschen',empty:'Noch keine Projekte eingestellt.',archiveTitle:'Projektchronik – Was wir geschaffen haben',archivedOn:'Archiviert am',lastUpdate:'Letzte Aktualisierung',archiveEmpty:'Noch keine Projekte archiviert.',loadError:'Daten konnten nicht geladen werden. Bitte Token und Schreibrechte prüfen.',saveError:'Speichern fehlgeschlagen. Bitte Verbindung neu laden und erneut versuchen.',required:'Bitte Projektname, Art, Freigabedatum, Link und alle vier Textfelder vollständig ausfüllen.',invalidUrl:'Bitte einen gültigen http- oder https-Link eintragen.',saved:'Projekt wurde gespeichert.',updated:'Änderung wurde gespeichert.',archived:'Projekt wurde archiviert.',restored:'Projekt wurde in die Teststrecke zurückgeholt.',deleted:'Projekt wurde endgültig gelöscht.',removedToken:'Gespeicherter Token wurde von diesem Gerät entfernt.',confirmArchive:n=>n+' aus der Teststrecke nehmen und archivieren?',confirmDelete:n=>n+' endgültig löschen? Dieser Vorgang kann nicht rückgängig gemacht werden.'},
+  en:{title:'Head Control',sub:'Private management of the Headteam 14-day lead-time page.',github:'GitHub connection',notConnected:'Not connected',connected:'Connected',connect:'Connect & load',remember:'Store token on this device',removeToken:'Remove stored token',tokenHint:'The same locally stored token as Mission-Control and Club Control is used.',projectEntry:'Add project',projectName:'Project name',type:'Type',course:'Course',website:'Website',clubhouse:'Clubhouse',function:'Function',other:'Other',releaseDate:'Planned release',link:'Test/work link',what:'What is being created?',why:'Why is it being created?',test:'What should be tested / reviewed?',meeting:'To clarify at the next Headteam meeting',save:'Add',saveEdit:'Save changes',cancel:'Cancel editing',existing:'Added projects',reload:'Reload',action:'Action',edit:'Edit',archive:'Archive',restore:'Restore',remove:'Delete permanently',empty:'No projects added yet.',archiveTitle:'Project history – What we have created',archivedOn:'Archived on',lastUpdate:'Last update',archiveEmpty:'No archived projects yet.',loadError:'Data could not be loaded. Please check the token and write permissions.',saveError:'Saving failed. Reload the connection and try again.',required:'Please complete project name, type, release date, link and all four text fields.',invalidUrl:'Please enter a valid http or https link.',saved:'Project was saved.',updated:'Changes were saved.',archived:'Project was archived.',restored:'Project was restored to the test track.',deleted:'Project was permanently deleted.',removedToken:'Stored token was removed from this device.',confirmArchive:n=>'Remove '+n+' from the test track and archive it?',confirmDelete:n=>'Permanently delete '+n+'? This action cannot be undone.'}
 };
 const params=new URLSearchParams(location.search);
 const lang=(params.get('lang')||document.documentElement.lang||'de').toLowerCase().startsWith('en')?'en':'de';
@@ -165,6 +175,13 @@ function enc(s){return btoa(unescape(encodeURIComponent(s)))}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function typeLabel(v){return t({course:'course',website:'website',clubhouse:'clubhouse',function:'function',other:'other'}[v]||'other')}
 function formatDate(v){if(!v)return '–';return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB').format(new Date(v+'T12:00:00'))}
+function formatDateTime(v){if(!v)return '–';return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v))}
+function normalizeProject(p){
+  const history=Array.isArray(p.history)?p.history.slice():[];
+  if(!history.length&&p.createdAt)history.push({at:p.createdAt,event:'created'});
+  if(p.updatedAt&&!history.some(h=>h.at===p.updatedAt))history.push({at:p.updatedAt,event:'updated'});
+  return {...p,history};
+}
 function validUrl(v){try{const u=new URL(v);return /^https?:$/.test(u.protocol)}catch(e){return false}}
 function showError(msg=''){ $('#error').textContent=msg;$('#error').classList.toggle('show',!!msg);if(msg)showSuccess('') }
 function showSuccess(msg=''){ $('#success').textContent=msg;$('#success').classList.toggle('show',!!msg);if(msg)showError('') }
@@ -177,7 +194,7 @@ async function load(){
     if(!r.ok)throw new Error('load');
     const j=await r.json();sha=j.sha;
     const parsed=JSON.parse(dec(j.content));
-    state={version:parsed.version||1,projects:Array.isArray(parsed.projects)?parsed.projects:[]};
+    state={version:2,projects:(Array.isArray(parsed.projects)?parsed.projects:[]).map(normalizeProject),archive:(Array.isArray(parsed.archive)?parsed.archive:[]).map(normalizeProject)};
     if($('#remember').checked)localStorage.setItem(KEY,token);
     $('#status').textContent=t('connected');$('#status').className='status ok';
     showError('');render();
@@ -203,7 +220,10 @@ function readForm(){
 }
 function render(){
   const list=state.projects.map((p,index)=>({p,index})).sort((a,b)=>(a.p.releaseDate||'9999').localeCompare(b.p.releaseDate||'9999')||(a.p.title||'').localeCompare(b.p.title||'',lang));
-  $('#rows').innerHTML=list.length?list.map(({p,index})=>`<tr class="${editIndex===index?'editing':''}"><td><strong>${esc(p.title)}</strong></td><td>${esc(typeLabel(p.type))}</td><td>${esc(formatDate(p.releaseDate))}</td><td><div class="url" title="${esc(p.url)}">${esc(p.url)}</div></td><td><div class="rowactions"><button class="btn light" onclick="editProject(${index})">${esc(t('edit'))}</button><button class="btn danger" onclick="deleteProject(${index})">${esc(t('remove'))}</button></div></td></tr>`).join(''):`<tr><td colspan="5" class="empty">${esc(t('empty'))}</td></tr>`;
+  $('#rows').innerHTML=list.length?list.map(({p,index})=>`<tr class="${editIndex===index?'editing':''}"><td><strong>${esc(p.title)}</strong><div class="history">${esc(t('lastUpdate'))}: ${esc(formatDateTime(p.updatedAt||p.createdAt))}</div></td><td>${esc(typeLabel(p.type))}</td><td>${esc(formatDate(p.releaseDate))}</td><td><div class="url" title="${esc(p.url)}">${esc(p.url)}</div></td><td><div class="rowactions"><button class="btn light" onclick="editProject(${index})">${esc(t('edit'))}</button><button class="btn light" onclick="archiveProject(${index})">${esc(t('archive'))}</button><button class="btn danger" onclick="deleteProject(${index},false)">${esc(t('remove'))}</button></div></td></tr>`).join(''):`<tr><td colspan="5" class="empty">${esc(t('empty'))}</td></tr>`;
+  const archived=state.archive.map((p,index)=>({p,index})).sort((a,b)=>(b.p.archivedAt||'').localeCompare(a.p.archivedAt||''));
+  $('#archiveCount').textContent=lang==='de'?archived.length+' archiviert':archived.length+' archived';
+  $('#archiveRows').innerHTML=archived.length?archived.map(({p,index})=>`<tr><td><strong>${esc(p.title)}</strong></td><td>${esc(typeLabel(p.type))}</td><td>${esc(formatDateTime(p.archivedAt))}</td><td>${esc(formatDateTime(p.updatedAt||p.createdAt))}</td><td><div class="rowactions"><button class="btn light" onclick="restoreProject(${index})">${esc(t('restore'))}</button><button class="btn danger" onclick="deleteProject(${index},true)">${esc(t('remove'))}</button></div></td></tr>`).join(''):`<tr><td colspan="5" class="empty">${esc(t('archiveEmpty'))}</td></tr>`;
 }
 async function submit(){
   showError('');showSuccess('');
@@ -211,11 +231,13 @@ async function submit(){
   if(!p.title||!p.type||!p.releaseDate||!p.url||!p.what||!p.why||!p.test||!p.meeting)return showError(t('required'));
   if(!validUrl(p.url))return showError(t('invalidUrl'));
   if(editIndex===null){
-    state.projects.push({id:crypto.randomUUID(),...p,createdAt:new Date().toISOString()});
+    const now=new Date().toISOString();
+    state.projects.push({id:crypto.randomUUID(),...p,createdAt:now,updatedAt:now,history:[{at:now,event:'created'}]});
     if(await saveState('Add Headteam Vorlauf project '+p.title)){showSuccess(t('saved'));resetForm()}
   }else{
     const old=state.projects[editIndex]||{};
-    state.projects[editIndex]={...old,...p,updatedAt:new Date().toISOString()};
+    const now=new Date().toISOString();
+    state.projects[editIndex]={...old,...p,updatedAt:now,history:[...(old.history||[]),{at:now,event:'updated'}]};
     if(await saveState('Update Headteam Vorlauf project '+p.title)){showSuccess(t('updated'));resetForm()}
   }
 }
@@ -227,11 +249,26 @@ window.editProject=index=>{
   $('#saveProject').textContent=t('saveEdit');$('#cancelEdit').style.display='inline-block';render();
   window.scrollTo({top:document.querySelector('.formgrid').getBoundingClientRect().top+window.scrollY-30,behavior:'smooth'});
 };
-window.deleteProject=async index=>{
-  const p=state.projects[index];if(!p||!confirm(t('confirmDelete')(p.title)))return;
-  state.projects.splice(index,1);
+window.archiveProject=async index=>{
+  const p=state.projects[index];if(!p||!confirm(t('confirmArchive')(p.title)))return;
+  const now=new Date().toISOString();
+  state.projects.splice(index,1);state.archive.push({...p,archivedAt:now,history:[...(p.history||[]),{at:now,event:'archived'}]});
   if(editIndex===index)resetForm();else if(editIndex!==null&&editIndex>index)editIndex--;
-  if(await saveState('Remove Headteam Vorlauf project '+p.title))showSuccess(t('deleted'));
+  if(await saveState('Archive Headteam Vorlauf project '+p.title))showSuccess(t('archived'));
+};
+window.restoreProject=async index=>{
+  const p=state.archive[index];if(!p)return;
+  const now=new Date().toISOString();
+  state.archive.splice(index,1);const {archivedAt,...rest}=p;
+  state.projects.push({...rest,history:[...(p.history||[]),{at:now,event:'restored'}]});
+  if(await saveState('Restore Headteam Vorlauf project '+p.title))showSuccess(t('restored'));
+};
+window.deleteProject=async (index,fromArchive)=>{
+  const source=fromArchive?state.archive:state.projects;
+  const p=source[index];if(!p||!confirm(t('confirmDelete')(p.title)))return;
+  source.splice(index,1);
+  if(!fromArchive){if(editIndex===index)resetForm();else if(editIndex!==null&&editIndex>index)editIndex--;}
+  if(await saveState('Permanently remove Headteam Vorlauf project '+p.title))showSuccess(t('deleted'));
 };
 $('#connect').onclick=load;
 $('#reload').onclick=load;
