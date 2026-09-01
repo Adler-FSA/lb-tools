@@ -1,0 +1,70 @@
+{
+  "technical_claims": [
+    {
+      "evidence_ref": "E001",
+      "scope": "first_party",
+      "technical_terms": [],
+      "defi_terms": [
+        "defi"
+      ],
+      "chains": []
+    },
+    {
+      "evidence_ref": "E002",
+      "scope": "first_party",
+      "technical_terms": [
+        "liquidity"
+      ],
+      "defi_terms": [],
+      "chains": []
+    }
+  ],
+  "first_party_technical_terms": [
+    "liquidity"
+  ],
+  "first_party_defi_terms": [
+    "defi"
+  ],
+  "first_party_control_terms": [],
+  "first_party_chains": [],
+  "external_technical_terms": [],
+  "external_defi_terms": [],
+  "external_control_terms": [],
+  "external_chains": [],
+  "technical_terms": [
+    "liquidity"
+  ],
+  "defi_terms": [
+    "defi"
+  ],
+  "control_terms": [],
+  "chains": [],
+  "identifiers": [],
+  "explorer_urls": [],
+  "first_party_identifier_count": 0,
+  "first_party_explorer_count": 0,
+  "has_specific_technical_identifier": false,
+  "has_blockchain_claim": true,
+  "has_defi_claim": true,
+  "schema_version": "1.0",
+  "case_id": "PCA-20260901-FET001V0",
+  "generated_at": "2026-09-01T21:32:52Z",
+  "project_hosts_used": [
+    "liquiditybooster.de"
+  ],
+  "identity_label": "Safety",
+  "primary_domain": "liquiditybooster.de",
+  "search_queries": [
+    "\"ONLY INSIDE\" Safety smart contract address explorer",
+    "\"ONLY INSIDE\" Safety blockchain wallet contract",
+    "\"ONLY INSIDE\" Safety token address audit",
+    "\"ONLY INSIDE\" Safety staking lending liquidity governance DAO",
+    "\"ONLY INSIDE\" Safety etherscan bscscan polygonscan basescan arbiscan tronscan solscan"
+  ],
+  "search_result_count": 0,
+  "search_errors": [],
+  "capture_count": 0,
+  "verified_technical_targets": [],
+  "verified_technical_target_count": 0,
+  "principle": "Blockchain-/DeFi-Begriffe sind Eigenaussagen, bis konkrete technische Identifikatoren und unabhängige On-Chain-/Explorerbelege eine überprüfbare Zuordnung ermöglichen. Ein fehlender Identifikator ist eine Verifikationslücke, kein Beweis gegen die technische Existenz."
+}

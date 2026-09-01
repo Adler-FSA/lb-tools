@@ -684,7 +684,8 @@
         ],
         "open_points": [
           "Geldfluss, Verwahrung, Kontoinhaber bzw. Wallet-Kontrolle und rechtlicher Kundenanspruch sind noch vollständig nachzuweisen.",
-          "Die öffentlich beschriebenen Geldflussangaben belegen noch nicht vollständig Zielwallet/-konto, wirtschaftlich Berechtigten, Verfügungskontrolle, Verwahrung und rechtlichen Kundenanspruch."
+          "Die öffentlich beschriebenen Geldflussangaben belegen noch nicht vollständig Zielwallet/-konto, wirtschaftlich Berechtigten, Verfügungskontrolle, Verwahrung und rechtlichen Kundenanspruch.",
+          "Die technische Verwahrungsprüfung kann die behaupteten Blockchain-Transaktionen derzeit keiner konkret benannten Chain, Wallet oder Contract-Adresse eindeutig zuordnen."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -1472,7 +1473,8 @@
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
         ],
         "open_points": [
-          "Die Liste fehlender Primärnachweise wird nach Abschluss aller Recherchemodule finalisiert."
+          "Die Liste fehlender Primärnachweise wird nach Abschluss aller Recherchemodule finalisiert.",
+          "Als fehlender technischer Primärnachweis sind insbesondere konkrete Chain-/Contract-/Wallet-/Explorerangaben sowie – soweit relevant – Adminrechte, Tokenomics, Liquidität und Auditunterlagen zu klären."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -1786,13 +1788,14 @@
     {
       "id": 30,
       "key": "blockchain_crypto_deep_check",
-      "result_status": "eigenaussage",
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „Blockchain-/Krypto-Prüfung“ wurden 6 öffentlich erreichbare Quellenbezüge erfasst."
         ],
         "first_party_claims": [
-          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: liquidity, explorer."
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: liquidity, explorer.",
+          "Die technischen Projektunterlagen verwenden Blockchain-/On-Chain-/Ledger-Begriffe; diese werden nicht mit einer technisch bestätigten Implementierung gleichgesetzt."
         ],
         "pros": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
@@ -1801,7 +1804,8 @@
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
         ],
         "open_points": [
-          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen.",
+          "In den geprüften öffentlichen Quellen wurde kein konkreter technischer Identifikator gefunden, mit dem Chain, Contract, Wallet, Adminrechte, Tokenomics oder Auditstatus eindeutig on-chain verifiziert werden könnten."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -1814,51 +1818,54 @@
         ]
       },
       "customer": {
-        "summary": "Zu „Blockchain-/Krypto-Prüfung“ liegen aktuell 6 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "summary": "Blockchain-Begriffe werden von konkret nachprüfbaren Chains, Adressen und Explorer-Daten getrennt.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
-          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen.",
+          "In den geprüften öffentlichen Quellen wurde kein konkreter technischer Identifikator gefunden, mit dem Chain, Contract, Wallet, Adminrechte, Tokenomics oder Auditstatus eindeutig on-chain verifiziert werden könnten."
         ],
         "questions": [
           "Welche Primär- oder unabhängigen Nachweise gibt es zu „Blockchain-/Krypto-Prüfung“?"
         ],
         "recommendations": [
-          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+          "Vor einer Entscheidung konkrete Chain, Contract-/Wallet-Adressen, Explorerlinks, Adminrechte und Audits gegenprüfen."
         ]
       },
       "company": {
-        "summary": "Die Außenprüfung zu „Blockchain-/Krypto-Prüfung“ stützt sich aktuell auf 6 Belege; Einordnung: eigenaussage.",
+        "summary": "Technische Blockchain-Aussagen sind extern erst mit eindeutigen Chains, Adressen, Explorerlinks und Kontrollrechten belastbar prüfbar.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
-          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen.",
+          "In den geprüften öffentlichen Quellen wurde kein konkreter technischer Identifikator gefunden, mit dem Chain, Contract, Wallet, Adminrechte, Tokenomics oder Auditstatus eindeutig on-chain verifiziert werden könnten."
         ],
         "questions": [
           "Welche belastbaren Primärnachweise kann das Unternehmen zu „Blockchain-/Krypto-Prüfung“ öffentlich und eindeutig verknüpfen?"
         ],
         "recommendations": [
-          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+          "Chain, Contract-/Wallet-Adressen, Quellcode, Admin-/Proxyrechte, Mint/Pause/Vesting und Audits zentral dokumentieren."
         ]
       },
       "academy": {
-        "summary": "Beleggewicht für „Blockchain-/Krypto-Prüfung“: 6 Quellenreferenzen; aktueller Status eigenaussage.",
+        "summary": "Blockchain-Behauptung, Identifikator und Explorerbefund werden getrennt gewichtet; fehlende Identifikatoren sind eine Verifikationslücke, kein Negativbeweis.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
-          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen."
+          "Contracts, Wallets, Explorer-Daten, Tokenomics, Liquidität, Adminrechte und Audits sind noch technisch zu prüfen.",
+          "In den geprüften öffentlichen Quellen wurde kein konkreter technischer Identifikator gefunden, mit dem Chain, Contract, Wallet, Adminrechte, Tokenomics oder Auditstatus eindeutig on-chain verifiziert werden könnten."
         ],
         "questions": [
           "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Blockchain-/Krypto-Prüfung“ belastbar abzuschließen?"
         ],
         "recommendations": [
-          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+          "Technische Existenz, Projektzuordnung, Kontrollrechte, Tokenomics, Liquidität und Auditstatus getrennt dokumentieren."
         ]
       }
     },
@@ -1996,13 +2003,14 @@
     {
       "id": 33,
       "key": "defi_deep_check",
-      "result_status": "eigenaussage",
+      "result_status": "offen",
       "neutral_finding": {
         "confirmed_facts": [
           "Zu „DeFi-Prüfung“ wurden 2 öffentlich erreichbare Quellenbezüge erfasst."
         ],
         "first_party_claims": [
-          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: defi."
+          "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: defi.",
+          "Die technischen Projektunterlagen verwenden DAO-/Governance- bzw. weitere DeFi-Begriffe; daraus allein folgt kein Nachweis funktionsfähiger DApp-, Staking-, Lending-, Bridge-, Oracle- oder Multisig-Strukturen."
         ],
         "pros": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
@@ -2011,7 +2019,8 @@
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters."
         ],
         "open_points": [
-          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen.",
+          "Für die öffentlich behauptete Blockchain-/DAO-/Governance-Struktur müssen konkrete Contracts, DApp-/Explorerziele und – soweit anwendbar – LP-, Staking-, Lending-, Bridge-, Oracle- und Multisig-Nachweise technisch zuordenbar sein."
         ],
         "contradictions": [],
         "evidence_refs": [
@@ -2020,51 +2029,54 @@
         ]
       },
       "customer": {
-        "summary": "Zu „DeFi-Prüfung“ liegen aktuell 2 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "summary": "DAO/DeFi-Begriffe gelten nicht als funktionsfähige DeFi-Technik, solange konkrete DApp-/Contract-/Pool-/Oracle-Strukturen fehlen.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
-          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen.",
+          "Für die öffentlich behauptete Blockchain-/DAO-/Governance-Struktur müssen konkrete Contracts, DApp-/Explorerziele und – soweit anwendbar – LP-, Staking-, Lending-, Bridge-, Oracle- und Multisig-Nachweise technisch zuordenbar sein."
         ],
         "questions": [
           "Welche Primär- oder unabhängigen Nachweise gibt es zu „DeFi-Prüfung“?"
         ],
         "recommendations": [
-          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+          "Bei DeFi-Funktionen Contracts, DApp-URLs, Pools, Oracles, Multisig und Governance-Mechanik prüfen."
         ]
       },
       "company": {
-        "summary": "Die Außenprüfung zu „DeFi-Prüfung“ stützt sich aktuell auf 2 Belege; Einordnung: eigenaussage.",
+        "summary": "DeFi- und Governance-Funktionen sollten so dokumentiert sein, dass Contracts, Pools, Oracles, Multisig und Abstimmungslogik extern nachvollziehbar sind.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
-          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen.",
+          "Für die öffentlich behauptete Blockchain-/DAO-/Governance-Struktur müssen konkrete Contracts, DApp-/Explorerziele und – soweit anwendbar – LP-, Staking-, Lending-, Bridge-, Oracle- und Multisig-Nachweise technisch zuordenbar sein."
         ],
         "questions": [
           "Welche belastbaren Primärnachweise kann das Unternehmen zu „DeFi-Prüfung“ öffentlich und eindeutig verknüpfen?"
         ],
         "recommendations": [
-          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+          "Technische Architektur und öffentliche Adressen statt nur Funktionsbegriffe veröffentlichen."
         ]
       },
       "academy": {
-        "summary": "Beleggewicht für „DeFi-Prüfung“: 2 Quellenreferenzen; aktueller Status eigenaussage.",
+        "summary": "DAO/Governance allein beweist weder Staking/Lending noch einen funktionsfähigen Smart-Contract-Stack.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
         "disadvantages": [
           "Der inhaltliche Befund stützt sich in dieser Phase überwiegend auf Eigenaussagen des Projekts bzw. Anbieters.",
-          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen."
+          "DApp, Staking/Lending, Bridges, Oracles, Multisig und Governance sind noch technisch zu prüfen.",
+          "Für die öffentlich behauptete Blockchain-/DAO-/Governance-Struktur müssen konkrete Contracts, DApp-/Explorerziele und – soweit anwendbar – LP-, Staking-, Lending-, Bridge-, Oracle- und Multisig-Nachweise technisch zuordenbar sein."
         ],
         "questions": [
           "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „DeFi-Prüfung“ belastbar abzuschließen?"
         ],
         "recommendations": [
-          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+          "DApp, LP, Staking, Lending, Bridges, Oracles, Multisig und Governance getrennt erfassen und mit On-Chain-Daten verknüpfen."
         ]
       }
     },
@@ -2371,5 +2383,6 @@
         ]
       }
     }
-  ]
+  ],
+  "updated_at": "2026-09-01T21:32:52Z"
 }
