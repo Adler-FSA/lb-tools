@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.1",
+  "case_id": "PCA-20260901-FET001V0",
+  "started_at": "2026-09-01T21:32:44Z",
+  "finished_at": "2026-09-01T21:32:45Z",
+  "identity_label": "Safety",
+  "project_domains": [
+    "liquiditybooster.de"
+  ],
+  "distinctive_terms": [
+    "ONLY INSIDE",
+    "WEBINARE NEWS BLOG",
+    "PARTNERSUCHE PARTNER WERDEN"
+  ],
+  "candidate_input": {
+    "primary_total": 19,
+    "primary_project_context": 19,
+    "independent_total": 0,
+    "independent_metadata_only": 0,
+    "trusted_first_round_urls": [
+      "https://club.liquiditybooster.de",
+      "https://www.liquiditybooster.de/agb.html",
+      "https://www.liquiditybooster.de/barrierefreiheit.html",
+      "https://www.liquiditybooster.de/datenschutz.html",
+      "https://www.liquiditybooster.de/dorade.html",
+      "https://www.liquiditybooster.de/finanzquiz.html",
+      "https://www.liquiditybooster.de/gastzugang.html",
+      "https://www.liquiditybooster.de/gratis.html",
+      "https://www.liquiditybooster.de/impressum.html",
+      "https://www.liquiditybooster.de/kasse.html",
+      "https://www.liquiditybooster.de/kontakt.html",
+      "https://www.liquiditybooster.de/news/faq.html",
+      "https://www.liquiditybooster.de/news/safety.html",
+      "https://www.liquiditybooster.de/partnersuche.html",
+      "https://www.liquiditybooster.de/safety.html",
+      "https://www.liquiditybooster.de/termine.html",
+      "https://www.liquiditybooster.de/webinare.html",
+      "https://www.liquiditybooster.de/weiterempfehlen.html?parameter1=https%3A%2F%2Fwww.liquiditybooster.de%2F"
+    ]
+  },
+  "candidates": {
+    "entities": [
+      {
+        "name": "ONLY INSIDE Software-Solution GmbH",
+        "mentions": 21,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Anschrift ONLY INSIDE Software-Solution GmbH",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      },
+      {
+        "name": "Google Inc",
+        "mentions": 1,
+        "basis": "public_project_or_external_trace"
+      }
+    ],
+    "persons": [],
+    "jurisdiction_hints": [
+      {
+        "jurisdiction": "DE",
+        "terms": [
+          "berlin",
+          "deutschland"
+        ],
+        "strong_terms": [],
+        "strength": "weak",
+        "score": 2
+      },
+      {
+        "jurisdiction": "CH",
+        "terms": [
+          "schweiz"
+        ],
+        "strong_terms": [],
+        "strength": "weak",
+        "score": 1
+      },
+      {
+        "jurisdiction": "MT",
+        "terms": [
+          "malta"
+        ],
+        "strong_terms": [],
+        "strength": "weak",
+        "score": 1
+      },
+      {
+        "jurisdiction": "US",
+        "terms": [
+          "usa"
+        ],
+        "strong_terms": [],
+        "strength": "weak",
+        "score": 1
+      }
+    ]
+  },
+  "selected_sources": [
+    {
+      "id": "de_bafin",
+      "name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "jurisdiction": "DE",
+      "kind": "regulator",
+      "domains": [
+        "bafin.de"
+      ],
+      "selection_score": 12,
+      "activation_hits": [
+        "deutschland"
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "purpose": "project",
+      "query": "\"ONLY INSIDE\" site:bafin.de",
+      "source_id": "de_bafin",
+      "source_name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "source_kind": "regulator",
+      "jurisdiction": "DE"
+    },
+    {
+      "purpose": "entity",
+      "candidate": "ONLY INSIDE Software-Solution GmbH",
+      "query": "\"ONLY INSIDE Software-Solution GmbH\" site:bafin.de",
+      "source_id": "de_bafin",
+      "source_name": "Bundesanstalt für Finanzdienstleistungsaufsicht (BaFin)",
+      "source_kind": "regulator",
+      "jurisdiction": "DE"
+    }
+  ],
+  "results": [],
+  "rejected_results": [],
+  "rejected_after_capture": [],
+  "errors": [],
+  "note": "Kein Suchtreffer ist für sich ein amtlicher Nachweis. Als O-Beleg gilt nur eine geöffnete Zielseite auf einer katalogisierten amtlichen Domain mit ausreichender Identitätsbindung. Ein fehlender O-Beleg beweist keine fehlende Registrierung oder Erlaubnis."
+}
