@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.2",
+  "case_id": "PCA-20260901-FET001V0",
+  "identity_label": "Safety",
+  "project_hosts": [
+    "liquiditybooster.de"
+  ],
+  "distinctive_terms": [
+    "ONLY INSIDE",
+    "WEBINARE NEWS BLOG",
+    "PARTNERSUCHE PARTNER WERDEN"
+  ],
+  "queries": [
+    {
+      "theme": "identity",
+      "query": "\"ONLY INSIDE\" Safety company legal entity register"
+    },
+    {
+      "theme": "regulation",
+      "query": "\"ONLY INSIDE\" Safety regulator licence license warning"
+    },
+    {
+      "theme": "people",
+      "query": "\"ONLY INSIDE\" Safety founder director team management"
+    },
+    {
+      "theme": "social",
+      "query": "\"ONLY INSIDE\" Safety Telegram YouTube Instagram Facebook TikTok"
+    },
+    {
+      "theme": "user",
+      "query": "\"ONLY INSIDE\" Safety review experience complaint payout support"
+    },
+    {
+      "theme": "crypto",
+      "query": "\"ONLY INSIDE\" Safety token blockchain contract wallet audit"
+    },
+    {
+      "theme": "press",
+      "query": "\"ONLY INSIDE\" Safety news article interview"
+    }
+  ],
+  "results": [],
+  "rejected_results": [],
+  "selected_urls": [],
+  "errors": [],
+  "finished_at": "2026-09-01T21:32:42Z",
+  "note": "Suchtreffer werden nur übernommen, wenn Domain oder ein markantes Projektmerkmal die Zuordnung stützt. Suchtreffer sind Recherchehinweise; Belege sind separat geöffnete Zielseiten."
+}

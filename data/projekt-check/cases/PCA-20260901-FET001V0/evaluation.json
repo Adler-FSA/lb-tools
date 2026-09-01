@@ -1177,10 +1177,11 @@
     {
       "id": 20,
       "key": "web_social_community_user_traces",
-      "result_status": "eigenaussage",
+      "result_status": "kein_befund",
       "neutral_finding": {
         "confirmed_facts": [
-          "Zu „Web-, Social-, Community- und Nutzer-Spuren“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst."
+          "Zu „Web-, Social-, Community- und Nutzer-Spuren“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst.",
+          "Es wurden 7 thematische unabhängige Websuchen mit Identitätsfilter durchgeführt; 0 gleichnamige oder unzureichend zuordenbare Treffer wurden verworfen."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: Community."
