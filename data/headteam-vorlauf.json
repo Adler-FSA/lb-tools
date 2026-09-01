@@ -2,19 +2,6 @@
   "version": 1,
   "projects": [
     {
-      "id": "25cacb49-c872-4739-bc86-b0d34b8eba50",
-      "title": "Empfangshalle 3 Tore",
-      "type": "website",
-      "releaseDate": "2026-08-31",
-      "url": "https://tools.liquiditybooster.de/pages/personal-management/",
-      "what": "Unser 72 Stunden Zeitfenster",
-      "why": "Neue Strategie",
-      "test": "Bitte Ansehen und spielend testen.",
-      "meeting": "Heute 15 Uhr",
-      "createdAt": "2026-08-30T16:52:55.069Z",
-      "updatedAt": "2026-08-30T16:55:08.319Z"
-    },
-    {
       "id": "2a1b2001-f224-48fe-9be0-c548f978aac1",
       "title": "neue FAQ",
       "type": "website",
