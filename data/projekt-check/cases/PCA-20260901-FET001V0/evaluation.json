@@ -1927,10 +1927,11 @@
     {
       "id": 32,
       "key": "card_banking_payment_deep_check",
-      "result_status": "eigenaussage",
+      "result_status": "kein_befund",
       "neutral_finding": {
         "confirmed_facts": [
-          "Zu „Karte-/Banking-/Payment-Prüfung“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst."
+          "Zu „Karte-/Banking-/Payment-Prüfung“ wurden 3 öffentlich erreichbare Quellenbezüge erfasst.",
+          "Die Karten-/Banking-/Payment-Tiefenprüfung wurde durchgeführt; in den geprüften projektbezogenen Quellen wurde kein hinreichend konkreter Banking-/Karten-/Payment-Funktionsbefund erkannt."
         ],
         "first_party_claims": [
           "Die Projekt-/Anbieterseiten enthalten hierzu Angaben: bank, account."
@@ -1952,7 +1953,7 @@
         ]
       },
       "customer": {
-        "summary": "Zu „Karte-/Banking-/Payment-Prüfung“ liegen aktuell 3 zugeordnete Belege vor. Der Befund ist als eigenaussage eingeordnet.",
+        "summary": "Banking-, Karten- und Zahlungsversprechen werden von der tatsächlich belegten Infrastruktur getrennt.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
@@ -1964,11 +1965,11 @@
           "Welche Primär- oder unabhängigen Nachweise gibt es zu „Karte-/Banking-/Payment-Prüfung“?"
         ],
         "recommendations": [
-          "Die Eigenaussage vor einer Entscheidung nicht mit einem unabhängigen Nachweis gleichsetzen."
+          "Vor einer Nutzung Issuer/Bank/EMI, Karten-Netzwerk, Kontoinhaber, IBAN-/SEPA-Weg, Gebühren und regulatorischen Umfang konkret prüfen."
         ]
       },
       "company": {
-        "summary": "Die Außenprüfung zu „Karte-/Banking-/Payment-Prüfung“ stützt sich aktuell auf 3 Belege; Einordnung: eigenaussage.",
+        "summary": "Eine belastbare Außendarstellung braucht klare Angaben zu Issuer, Bank/EMI/PI, BIN-Sponsor, Karten-Netzwerk, PSP, IBAN-/SEPA-Infrastruktur und jeweiligem Lizenzumfang.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
@@ -1980,11 +1981,11 @@
           "Welche belastbaren Primärnachweise kann das Unternehmen zu „Karte-/Banking-/Payment-Prüfung“ öffentlich und eindeutig verknüpfen?"
         ],
         "recommendations": [
-          "Öffentliche Angaben mit eindeutig zuordenbaren Primärnachweisen ergänzen und Widersprüche bzw. offene Punkte transparent auflösen."
+          "Alle Banking-/Payment-Partner mit Rechtsträger, Rolle, Zielmarkt und Primärquelle zentral dokumentieren."
         ]
       },
       "academy": {
-        "summary": "Beleggewicht für „Karte-/Banking-/Payment-Prüfung“: 3 Quellenreferenzen; aktueller Status eigenaussage.",
+        "summary": "Banking-/Payment-Sprache, konkrete Infrastrukturidentifikatoren und amtlich/partnerseitig bestätigte Beziehungen werden getrennt gewichtet.",
         "advantages": [
           "Die Angaben sind auf öffentlich erreichbaren Projektseiten auffindbar und mit konkreten Belegreferenzen dokumentiert."
         ],
@@ -1996,7 +1997,7 @@
           "Welche zusätzliche Primär- oder unabhängige Quelle ist erforderlich, um „Karte-/Banking-/Payment-Prüfung“ belastbar abzuschließen?"
         ],
         "recommendations": [
-          "Befund entsprechend der Quellenqualität gewichten; Eigenaussagen, technische Fakten und unabhängige Nachweise getrennt halten."
+          "Issuer, BIN-Sponsor, Scheme, PSP, Bank/EMI/PI, IBAN-/Kontoinhaber, Passporting und Kundenanspruch separat verifizieren."
         ]
       }
     },
@@ -2384,5 +2385,5 @@
       }
     }
   ],
-  "updated_at": "2026-09-01T21:32:52Z"
+  "updated_at": "2026-09-01T21:32:57Z"
 }

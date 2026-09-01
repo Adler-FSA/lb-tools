@@ -1,0 +1,40 @@
+{
+  "claims": [],
+  "first_party_claim_count": 0,
+  "external_claim_count": 0,
+  "first_party_claim_source_count": 0,
+  "external_claim_source_count": 0,
+  "payment_terms": [],
+  "network_terms": [],
+  "first_party_networks": [],
+  "external_networks": [],
+  "infrastructure_terms": [],
+  "identifiers": [],
+  "first_party_identifiers": [],
+  "external_identifiers": [],
+  "has_first_party_payment_claim": false,
+  "has_external_payment_claim": false,
+  "has_first_party_payment_identifier": false,
+  "schema_version": "1.0",
+  "case_id": "PCA-20260901-FET001V0",
+  "generated_at": "2026-09-01T21:32:57Z",
+  "identity_label": "Safety",
+  "primary_domain": "liquiditybooster.de",
+  "project_hosts_used": [
+    "liquiditybooster.de"
+  ],
+  "search_queries": [
+    "\"ONLY INSIDE\" Safety card issuer Visa Mastercard",
+    "\"ONLY INSIDE\" Safety banking partner bank issuer",
+    "\"ONLY INSIDE\" Safety payment provider processor PSP",
+    "\"ONLY INSIDE\" Safety IBAN SEPA SWIFT",
+    "\"ONLY INSIDE\" Safety EMI payment institution electronic money",
+    "\"ONLY INSIDE\" Safety BIN issuer card"
+  ],
+  "search_result_count": 0,
+  "search_errors": [],
+  "capture_count": 0,
+  "verified_infrastructure_targets": [],
+  "verified_infrastructure_target_count": 0,
+  "principle": "Banking-, Karten- und Payment-Begriffe sind Eigenaussagen oder externe Spuren, bis Issuer/Bank/EMI/PI, Karten-Netzwerk, Konten-/IBAN-Infrastruktur und regulatorische Rolle eindeutig zugeordnet und über Primärquellen verifiziert sind. Datenschutzhinweise über nicht erhobene Karten-/Bankdaten gelten nicht als Produktfunktion."
+}
