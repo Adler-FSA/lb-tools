@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.1",
+  "case_id": "PCA-20260901-FET001V0",
+  "started_at": "2026-09-01T21:32:13Z",
+  "initial_trace_count": 1,
+  "expanded_trace_count": 18,
+  "browser_probe": "playwright-chromium",
+  "crawl_depth_limit": 3,
+  "crawl_rounds": [
+    {
+      "depth": 1,
+      "urls": [
+        "https://club.liquiditybooster.de/",
+        "https://www.liquiditybooster.de/news/faq.html",
+        "https://www.liquiditybooster.de/impressum.html",
+        "https://www.liquiditybooster.de/agb.html",
+        "https://www.liquiditybooster.de/kasse.html",
+        "https://www.liquiditybooster.de/dorade.html",
+        "https://www.liquiditybooster.de/gratis.html",
+        "https://www.liquiditybooster.de/safety.html",
+        "https://www.liquiditybooster.de/kontakt.html",
+        "https://www.liquiditybooster.de/termine.html",
+        "https://www.liquiditybooster.de/webinare.html",
+        "https://www.liquiditybooster.de/finanzquiz.html",
+        "https://www.liquiditybooster.de/gastzugang.html",
+        "https://www.liquiditybooster.de/datenschutz.html",
+        "https://www.liquiditybooster.de/news/safety.html",
+        "https://www.liquiditybooster.de/partnersuche.html",
+        "https://www.liquiditybooster.de/weiterempfehlen.html?parameter1=https%3A%2F%2Fwww.liquiditybooster.de%2F",
+        "https://www.liquiditybooster.de/barrierefreiheit.html"
+      ],
+      "probe_count": 18,
+      "navigation_target_count": 0
+    }
+  ],
+  "errors": [],
+  "project_hosts": [
+    "liquiditybooster.de"
+  ],
+  "priority_links": [
+    "https://club.liquiditybooster.de/",
+    "https://www.liquiditybooster.de/news/faq.html",
+    "https://www.liquiditybooster.de/impressum.html",
+    "https://www.liquiditybooster.de/agb.html",
+    "https://www.liquiditybooster.de/kasse.html",
+    "https://www.liquiditybooster.de/dorade.html",
+    "https://www.liquiditybooster.de/gratis.html",
+    "https://www.liquiditybooster.de/safety.html",
+    "https://www.liquiditybooster.de/kontakt.html",
+    "https://www.liquiditybooster.de/termine.html",
+    "https://www.liquiditybooster.de/webinare.html",
+    "https://www.liquiditybooster.de/finanzquiz.html",
+    "https://www.liquiditybooster.de/gastzugang.html",
+    "https://www.liquiditybooster.de/datenschutz.html",
+    "https://www.liquiditybooster.de/news/safety.html",
+    "https://www.liquiditybooster.de/partnersuche.html",
+    "https://www.liquiditybooster.de/weiterempfehlen.html?parameter1=https%3A%2F%2Fwww.liquiditybooster.de%2F",
+    "https://www.liquiditybooster.de/barrierefreiheit.html"
+  ],
+  "navigation_target_count": 0,
+  "finished_at": "2026-09-01T21:32:35Z",
+  "identity_status": "resolved",
+  "identity_label": "Safety",
+  "evidence_count": 19,
+  "probe_errors": []
+}

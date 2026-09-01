@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "case_id": "PCA-20260901-FET001V0",
+  "status": "resolved",
+  "label": "Safety",
+  "confidence": "medium",
+  "primary_domain": "liquiditybooster.de",
+  "domains": [
+    "liquiditybooster.de",
+    "club.liquiditybooster.de"
+  ],
+  "candidates": [
+    {
+      "label": "Safety",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/safety.html",
+      "score_total": 4
+    },
+    {
+      "label": "Termine",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/termine.html",
+      "score_total": 4
+    },
+    {
+      "label": "Termine",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/webinare.html",
+      "score_total": 4
+    },
+    {
+      "label": "Safety",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/news/safety.html",
+      "score_total": 4
+    },
+    {
+      "label": "Finanziell souverän und frei! Vermögensschutz & Vermögensaufbau",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/",
+      "score_total": 3
+    },
+    {
+      "label": "Der Liquidity Booster Club",
+      "score": 3,
+      "basis": "title",
+      "url": "https://club.liquiditybooster.de/",
+      "score_total": 3
+    },
+    {
+      "label": "FAQ",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/news/faq.html",
+      "score_total": 3
+    },
+    {
+      "label": "Impressum",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/impressum.html",
+      "score_total": 3
+    },
+    {
+      "label": "AGB",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/agb.html",
+      "score_total": 3
+    },
+    {
+      "label": "Kasse",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/kasse.html",
+      "score_total": 3
+    },
+    {
+      "label": "Dorade",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/dorade.html",
+      "score_total": 3
+    },
+    {
+      "label": "Gratis",
+      "score": 3,
+      "basis": "title",
+      "url": "https://www.liquiditybooster.de/gratis.html",
+      "score_total": 3
+    }
+  ],
+  "note": "Die Bezeichnung dient nur der technischen Zuordnung des gefundenen Angebots. Sie ist kein Nachweis für Rechtsträger, Betreiberidentität oder regulatorische Zuordnung."
+}
