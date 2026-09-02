@@ -1,0 +1,1199 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zoom & Termine im Überblick | LiquidityBooster</title>
+  <meta name="description" content="Zoom-Download, Club-Zoom-Hintergrund, Erinnerungsbilder und Club-Stammtisch im Überblick für LiquidityBooster." />
+  <meta name="robots" content="index,follow" />
+  <style>
+    :root{
+      --bg:#f2f2f2;
+      --panel:#ffffff;
+      --panel-soft:#f8f8f8;
+      --text:#2c2c2c;
+      --muted:#666666;
+      --line:#e6e6e6;
+      --mint:#2fb3c6;
+      --mint-dark:#249bad;
+      --magenta:#c82b83;
+      --magenta-dark:#ab1f6d;
+      --gold:#bb8d2c;
+      --shadow:0 18px 48px rgba(0,0,0,.08);
+      --max:1180px;
+      --radius-xl:36px;
+      --radius-lg:28px;
+      --radius-md:22px;
+      --radius-sm:16px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .page{
+      width:min(calc(100% - 34px), var(--max));
+      margin:24px auto 54px;
+    }
+
+    .hero,
+    .section,
+    .quick-links-top{
+      background:var(--panel);
+      border:1px solid #ececec;
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow);
+    }
+
+    .quick-links-top{
+      margin-bottom:26px;
+      padding:26px;
+      background:linear-gradient(180deg,#ffffff 0%,#fbfbfb 100%);
+    }
+
+    .quick-links-head{
+      margin-bottom:18px;
+    }
+
+    .quick-links-head h2{
+      margin:0 0 10px;
+      font-size:clamp(28px,3vw,40px);
+      line-height:1.14;
+      letter-spacing:-.024em;
+      color:var(--mint);
+      font-weight:600;
+    }
+
+    .quick-links-head p{
+      margin:0;
+      max-width:920px;
+      font-size:clamp(16px,1.75vw,18px);
+      color:#575757;
+    }
+
+    .quick-links-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:18px;
+    }
+
+    .quick-link-card{
+      background:
+        radial-gradient(circle at top right, rgba(47,179,198,.10), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(200,43,131,.08), transparent 24%),
+        linear-gradient(180deg,#ffffff 0%,#fcfcfc 100%);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:22px;
+      box-shadow:0 10px 24px rgba(0,0,0,.04);
+      display:flex;
+      flex-direction:column;
+      min-height:100%;
+    }
+
+    .quick-link-icon,
+    .icon-box{
+      width:62px;
+      height:62px;
+      border-radius:18px;
+      background:#eef4f5;
+      border:1px solid #d7e5e7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:14px;
+      flex:0 0 auto;
+    }
+
+    .quick-link-card h3{
+      margin:0 0 8px;
+      font-size:clamp(21px,2vw,28px);
+      line-height:1.16;
+      color:#1f1f1f;
+      font-weight:600;
+      letter-spacing:-.02em;
+    }
+
+    .quick-link-card p{
+      margin:0 0 18px;
+      font-size:clamp(16px,1.66vw,18px);
+      color:#5d5d5d;
+    }
+
+    .quick-link-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:auto;
+    }
+
+    .hero{
+      padding:30px 28px 30px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at top right, rgba(47,179,198,.11), transparent 24%),
+        radial-gradient(circle at top left, rgba(200,43,131,.08), transparent 20%),
+        linear-gradient(180deg,#ffffff 0%,#fbfbfb 100%);
+    }
+
+    .section{
+      margin-top:26px;
+      padding:26px;
+    }
+
+    .eyebrow,
+    .section-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:#eef9fb;
+      border:1px solid rgba(47,179,198,.16);
+      color:var(--mint);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+    }
+
+    .eyebrow{
+      margin-bottom:14px;
+    }
+
+    .section-tag{
+      margin-bottom:14px;
+    }
+
+    .eyebrow-dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--magenta),#ef72b7);
+      box-shadow:0 0 0 5px rgba(200,43,131,.12);
+      flex:0 0 auto;
+    }
+
+    h1,h2,h3,p{
+      margin:0;
+    }
+
+    .hero h1{
+      font-size:clamp(30px,4vw,46px);
+      line-height:1.12;
+      letter-spacing:-.025em;
+      color:var(--mint);
+      font-weight:500;
+      max-width:920px;
+      margin-bottom:10px;
+    }
+
+    .hero-subline{
+      font-size:clamp(20px,2.8vw,28px);
+      line-height:1.22;
+      color:#2f2f2f;
+      font-weight:400;
+      max-width:920px;
+      margin-bottom:16px;
+    }
+
+    .hero-text{
+      font-size:clamp(16px,1.85vw,19px);
+      color:#595959;
+      max-width:920px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:54px;
+      padding:14px 24px;
+      border-radius:16px;
+      font-size:17px;
+      font-weight:700;
+      text-align:center;
+      border:none;
+      cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn:focus-visible{
+      outline:3px solid rgba(47,179,198,.24);
+      outline-offset:2px;
+    }
+
+    .btn-mint{
+      background:var(--mint);
+      color:#fff;
+      box-shadow:0 14px 30px rgba(47,179,198,.22);
+    }
+
+    .btn-mint:hover{
+      background:var(--mint-dark);
+    }
+
+    .btn-magenta{
+      background:var(--magenta);
+      color:#fff;
+      box-shadow:0 14px 30px rgba(200,43,131,.22);
+    }
+
+    .btn-magenta:hover{
+      background:var(--magenta-dark);
+    }
+
+    .btn-soft{
+      background:#fff;
+      color:#202020;
+      border:1px solid var(--line);
+    }
+
+    .btn-soft:hover{
+      border-color:#d2d2d2;
+    }
+
+    .section-head{
+      margin-bottom:18px;
+    }
+
+    .section h2{
+      font-size:clamp(28px,3vw,40px);
+      line-height:1.15;
+      letter-spacing:-.024em;
+      color:var(--mint);
+      font-weight:500;
+      margin-bottom:10px;
+    }
+
+    .section-intro{
+      font-size:clamp(16px,1.8vw,19px);
+      color:#5b5b5b;
+      max-width:930px;
+    }
+
+    .download-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+      margin-top:22px;
+    }
+
+    .download-card,
+    .meeting-card,
+    .share-card{
+      background:linear-gradient(180deg,#fff 0%,#fcfcfc 100%);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:20px;
+      box-shadow:0 10px 24px rgba(0,0,0,.04);
+      min-width:0;
+    }
+
+    .download-card{
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+
+    .download-card h3,
+    .meeting-card h3,
+    .share-card h3{
+      font-size:clamp(21px,2vw,27px);
+      line-height:1.16;
+      color:#1f1f1f;
+      font-weight:600;
+      letter-spacing:-.02em;
+      margin-bottom:8px;
+    }
+
+    .download-card p,
+    .meeting-card p,
+    .share-card p{
+      font-size:clamp(16px,1.68vw,18px);
+      color:#5d5d5d;
+      margin-bottom:16px;
+    }
+
+    .download-card .btn{
+      margin-top:auto;
+    }
+
+    .background-box{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:20px;
+      align-items:stretch;
+    }
+
+    .background-preview,
+    .background-info{
+      border:1px solid var(--line);
+      border-radius:28px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#fff 0%,#fcfcfc 100%);
+      box-shadow:0 10px 24px rgba(0,0,0,.04);
+    }
+
+    .background-preview{
+      padding:14px;
+    }
+
+    .background-preview img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:20px;
+      border:1px solid #ededed;
+    }
+
+    .background-info{
+      padding:24px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      background:
+        radial-gradient(circle at top right, rgba(47,179,198,.10), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(200,43,131,.08), transparent 28%),
+        linear-gradient(180deg,#ffffff 0%,#fbfbfb 100%);
+    }
+
+    .background-info h3{
+      font-size:clamp(24px,2.3vw,32px);
+      line-height:1.14;
+      color:#1f1f1f;
+      font-weight:600;
+      margin-bottom:10px;
+      letter-spacing:-.02em;
+    }
+
+    .background-info p{
+      font-size:clamp(16px,1.7vw,18px);
+      color:#5d5d5d;
+      margin-bottom:18px;
+    }
+
+    .tip{
+      margin-top:20px;
+      background:#f7f1e8;
+      border:1px solid #eadfca;
+      border-left:6px solid var(--gold);
+      border-radius:22px;
+      padding:17px 18px;
+      color:#4d473c;
+      font-size:clamp(16px,1.65vw,18px);
+    }
+
+    .meetings-grid,
+    .share-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:20px;
+      margin-top:22px;
+    }
+
+    .meetings-grid.single{
+      grid-template-columns:minmax(0,1fr);
+      max-width:620px;
+    }
+
+    .share-grid.three{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .meeting-card{
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+
+    .meeting-card.featured{
+      background:linear-gradient(135deg, rgba(47,179,198,.07) 0%, rgba(200,43,131,.06) 100%);
+    }
+
+    .meeting-top{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .meeting-time{
+      display:inline-flex;
+      align-items:center;
+      align-self:flex-start;
+      padding:13px 22px;
+      border-radius:999px;
+      background:linear-gradient(180deg,#dff8fc 0%, #c6f0f7 100%);
+      border:2px solid rgba(47,179,198,.28);
+      color:#168ea0;
+      font-size:17px;
+      font-weight:900;
+      letter-spacing:.01em;
+      line-height:1.2;
+      box-shadow:0 10px 22px rgba(47,179,198,.14);
+    }
+
+    .meeting-card.featured .meeting-time{
+      background:linear-gradient(180deg,#ffe7f4 0%, #ffd6ec 100%);
+      border:2px solid rgba(200,43,131,.24);
+      color:var(--magenta-dark);
+      box-shadow:0 10px 22px rgba(200,43,131,.12);
+    }
+
+    .meeting-date{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      min-width:220px;
+      padding:12px 14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+
+    .meeting-date-label{
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      line-height:1.2;
+    }
+
+    .meeting-date-value{
+      font-size:17px;
+      font-weight:700;
+      color:#2e2e2e;
+      line-height:1.3;
+    }
+
+    .meeting-meta{
+      display:grid;
+      gap:8px;
+      margin:0 0 14px;
+    }
+
+    .meeting-meta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#fff;
+    }
+
+    .meeting-meta-label{
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      line-height:1.2;
+      min-width:92px;
+    }
+
+    .meeting-meta-value{
+      font-size:16px;
+      font-weight:700;
+      color:#2e2e2e;
+      line-height:1.35;
+      word-break:break-word;
+    }
+
+    .meeting-actions,
+    .share-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:auto;
+      padding-top:18px;
+    }
+
+    .share-card{
+      display:flex;
+      flex-direction:column;
+      height:100%;
+    }
+
+    .share-image{
+      display:block;
+      border-radius:22px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#fff;
+      box-shadow:0 8px 18px rgba(0,0,0,.04);
+      margin-bottom:16px;
+    }
+
+    .share-image img{
+      width:100%;
+      aspect-ratio:1 / 1;
+      object-fit:cover;
+      background:#fff;
+    }
+
+    .share-hint{
+      font-size:14px;
+      color:var(--muted);
+      margin-top:-4px;
+      margin-bottom:8px;
+    }
+
+    .copy-status{
+      margin-top:10px;
+      font-size:14px;
+      font-weight:700;
+      color:var(--mint-dark);
+      min-height:20px;
+    }
+
+    .notice-wrap{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .notice-main{
+      background:var(--panel-soft);
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:26px;
+    }
+
+    .notice-main h2{
+      font-size:clamp(28px,3vw,40px);
+      line-height:1.14;
+      color:var(--mint);
+      font-weight:600;
+      letter-spacing:-.024em;
+      margin-bottom:12px;
+    }
+
+    .notice-main p{
+      font-size:clamp(16px,1.7vw,18px);
+      color:#545454;
+    }
+
+    .notice-side{
+      background:linear-gradient(180deg,var(--mint) 0%, #2ca7bb 100%);
+      color:#fff;
+      border-radius:30px;
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .notice-side h3{
+      font-size:clamp(24px,2.5vw,34px);
+      line-height:1.12;
+      font-weight:600;
+      letter-spacing:-.02em;
+      margin-bottom:10px;
+    }
+
+    .notice-side p{
+      font-size:clamp(16px,1.65vw,18px);
+      color:rgba(255,255,255,.96);
+    }
+
+    .outro{
+      text-align:center;
+      background:
+        radial-gradient(circle at bottom left, rgba(200,43,131,.08), transparent 20%),
+        radial-gradient(circle at top right, rgba(47,179,198,.10), transparent 22%),
+        linear-gradient(180deg,#ffffff 0%,#fbfbfb 100%);
+    }
+
+    .outro h2{
+      font-size:clamp(30px,3.2vw,42px);
+      line-height:1.14;
+      letter-spacing:-.024em;
+      color:var(--mint);
+      font-weight:600;
+      margin-bottom:12px;
+    }
+
+    .outro p{
+      max-width:830px;
+      margin:0 auto 20px;
+      font-size:clamp(16px,1.7vw,18px);
+      color:#5c5c5c;
+    }
+
+    .svg-stroke{
+      stroke:var(--mint);
+      stroke-width:1.8;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .svg-fill-mint{fill:var(--mint)}
+    .svg-fill-magenta{fill:var(--magenta)}
+
+    @media (max-width:1100px){
+      .download-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+      }
+
+      .background-box,
+      .notice-wrap{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:980px){
+      .quick-links-grid,
+      .download-grid,
+      .meetings-grid,
+      .share-grid,
+      .share-grid.three{
+        grid-template-columns:1fr;
+      }
+
+      .hero,
+      .section,
+      .quick-links-top{
+        border-radius:28px;
+      }
+
+      .quick-link-card,
+      .download-card,
+      .meeting-card,
+      .share-card,
+      .notice-main,
+      .notice-side,
+      .background-preview,
+      .background-info{
+        border-radius:24px;
+      }
+
+      .meeting-top{
+        flex-direction:column;
+      }
+
+      .meeting-date{
+        min-width:0;
+        width:100%;
+      }
+    }
+
+    @media (max-width:640px){
+      .page{
+        width:min(calc(100% - 20px), var(--max));
+        margin:14px auto 34px;
+      }
+
+      .quick-links-top,
+      .hero{
+        padding:22px 16px;
+      }
+
+      .section{
+        padding:20px 16px;
+      }
+
+      .quick-link-card,
+      .download-card,
+      .meeting-card,
+      .share-card,
+      .background-info,
+      .background-preview{
+        padding:18px;
+      }
+
+      .background-preview{
+        padding:10px;
+      }
+
+      .hero-actions,
+      .quick-link-actions{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .meeting-time{
+        width:100%;
+        justify-content:center;
+        text-align:center;
+        font-size:16px;
+        padding:12px 16px;
+      }
+
+      .share-actions{
+        flex-direction:column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="quick-links-top" aria-labelledby="quickLinksTitle">
+      <div class="quick-links-head">
+        <div class="section-tag">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Direkt weiterarbeiten
+        </div>
+        <h2 id="quickLinksTitle">Einladungs-Kompass direkt öffnen</h2>
+        <p>
+          Hier finden Club-Mitglieder alle persönlichen Einladungstexte, Gesprächsvorlagen und freigegebenen Bilder an einem Ort.
+          Jeder Bereich enthält zehn Vorlagen, die direkt angepasst, kopiert und im persönlichen Archiv gespeichert werden können.
+        </p>
+      </div>
+
+      <div class="quick-links-grid">
+        <article class="quick-link-card">
+          <div class="quick-link-icon" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24">
+              <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" class="svg-stroke"></path>
+              <path d="m6 8 6 5 6-5" class="svg-stroke"></path>
+            </svg>
+          </div>
+          <h3>Einladungs-Kompass</h3>
+          <p>
+            Texte für Akademie und Gratis-Zugang, persönliche Empfehlungen, Kontakte, Gespräche,
+            Clubtreffen und Club-Stammtisch. Die Bilder befinden sich platzsparend in einem Klappbereich.
+          </p>
+          <div class="quick-link-actions">
+            <a class="btn btn-magenta" href="social-media/einladungs-kompass.html?v=202609011315">Einladungs-Kompass öffnen</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="hero" id="top">
+      <div class="eyebrow">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        Zoom & Termine
+      </div>
+
+      <h1>Direkt teilnehmen oder Zoom vorher installieren</h1>
+      <div class="hero-subline">Direkt teilnehmen. Zoom installieren. Keinen Termin mehr verpassen.</div>
+      <p class="hero-text">
+        Hier findest du alle wichtigen Zoom-Zugänge und Erinnerungsbilder an einem Ort.
+        Ob du neu dabei bist, Zoom erst installieren möchtest oder direkt in den offenen Stammtisch wechseln willst:
+        Diese Seite macht dir den Einstieg einfach und klar.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-mint" href="#downloads">Zoom installieren</a>
+        <a class="btn btn-magenta" href="#termine">Zum Stammtisch</a>
+      </div>
+    </section>
+
+    <section class="section" id="downloads">
+      <div class="section-head">
+        <div class="section-tag">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Zoom vorbereiten
+        </div>
+        <h2>Zoom installieren oder direkt im Browser öffnen</h2>
+        <p class="section-intro">
+          Wenn Zoom auf deinem Gerät noch nicht eingerichtet ist, kannst du hier die passende Version für dein Gerät herunterladen,
+          Zoom direkt im Browser öffnen oder dir den Club Zoom-Hintergrund in die Zwischenablage kopieren.
+          Für regelmäßige Teilnahme ist die installierte App meist am bequemsten.
+          Für den schnellen Einstieg reicht oft auch die Browser-Version.
+        </p>
+      </div>
+
+      <div class="download-grid">
+        <article class="download-card">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" role="img" aria-label="Apple">
+              <rect x="7" y="2.8" width="10" height="18.4" rx="2.4" class="svg-stroke"></rect>
+              <line x1="11" y1="5.2" x2="13" y2="5.2" class="svg-stroke"></line>
+              <circle cx="12" cy="17.8" r="0.9" class="svg-fill-mint"></circle>
+            </svg>
+          </div>
+          <h3>Apple App Store</h3>
+          <p>Für iPhone und iPad. Offizielle Zoom Workplace App.</p>
+          <a class="btn btn-soft" href="https://apps.apple.com/de/app/zoom-workplace/id546505307" target="_blank" rel="noopener noreferrer">Im App Store öffnen</a>
+        </article>
+
+        <article class="download-card">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" role="img" aria-label="Windows Mac">
+              <rect x="3" y="5" width="18" height="12" rx="1.8" class="svg-stroke"></rect>
+              <line x1="9" y1="20" x2="15" y2="20" class="svg-stroke"></line>
+              <line x1="12" y1="17" x2="12" y2="20" class="svg-stroke"></line>
+            </svg>
+          </div>
+          <h3>Windows / PC / Mac</h3>
+          <p>Offizielles Zoom Download Center für Windows, Mac und weitere Systeme.</p>
+          <a class="btn btn-soft" href="https://zoom.us/download" target="_blank" rel="noopener noreferrer">Download Center öffnen</a>
+        </article>
+
+        <article class="download-card">
+          <div class="icon-box" aria-hidden="true">
+            <svg width="30" height="30" viewBox="0 0 24 24" role="img" aria-label="Browser">
+              <circle cx="12" cy="12" r="8.5" class="svg-stroke"></circle>
+              <path d="M3.8 12h16.4M12 3.5c2.5 2.1 4 5.2 4 8.5s-1.5 6.4-4 8.5c-2.5-2.1-4-5.2-4-8.5s1.5-6.4 4-8.5z" class="svg-stroke"></path>
+            </svg>
+          </div>
+          <h3>Im Browser</h3>
+          <p>Zoom kann auch direkt im Browser gestartet werden, wenn kein Download gewünscht ist.</p>
+          <a class="btn btn-soft" href="https://zoom.us/wc/join" target="_blank" rel="noopener noreferrer">Zoom im Browser öffnen</a>
+        </article>
+      </div>
+
+      <div class="background-box">
+        <div class="background-preview">
+          <img src="assets/zoom-raum-hintergrund.JPG" alt="Club Zoom-Hintergrund von LiquidityBooster" />
+        </div>
+
+        <div class="background-info">
+          <div class="section-tag">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Club Zoom-Hintergrund
+          </div>
+          <h3>Passender Hintergrund für deine Zoom-Termine</h3>
+          <p>
+            Nutze den offiziellen LiquidityBooster Zoom-Hintergrund für deine eigenen Meetings und Auftritte im Club.
+            So wirkt dein Zoom-Raum direkt passend und einheitlich.
+          </p>
+          <button class="btn btn-mint js-copy-image" type="button" data-image="assets/zoom-raum-hintergrund.JPG">Hintergrund kopieren</button>
+          <div class="copy-status" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <strong>Tipp:</strong> Für regelmäßige Teilnahme ist die installierte App meist am bequemsten.
+        Für den schnellen Einstieg reicht oft auch der Browser.
+      </div>
+    </section>
+
+    <section class="section" id="termine">
+      <div class="section-head">
+        <div class="section-tag">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Offener Zoom-Termin
+        </div>
+        <h2>Club-Stammtisch</h2>
+        <p class="section-intro">
+          Der offen zugängliche Termin auf dieser Seite ist der Club-Stammtisch.
+          Das Clubtreffen am Montag läuft über die Anmeldung auf der Startseite von LiquidityBooster.
+        </p>
+      </div>
+
+      <div class="meetings-grid single">
+        <article class="meeting-card" data-schedule-type="weekly" data-day="3" data-hour="19" data-minute="0">
+          <div class="meeting-top">
+            <div class="meeting-time">Jeden Mittwoch · 19:00 Uhr bis 20:00 Uhr</div>
+            <div class="meeting-date">
+              <div class="meeting-date-label">Nächster Termin</div>
+              <div class="meeting-date-value">–</div>
+            </div>
+          </div>
+          <h3>Club-Stammtisch (Allerlei)</h3>
+          <p>
+            Eine gesellige lustige Runde mit viel Gesprächsstoff und Kennenlernen.
+            Jeder ist willkommen.
+          </p>
+          <div class="meeting-meta">
+            <div class="meeting-meta-row">
+              <div class="meeting-meta-label">Meeting-ID</div>
+              <div class="meeting-meta-value">943 6325 4814</div>
+            </div>
+          </div>
+          <div class="meeting-actions">
+            <a class="btn btn-mint" href="https://zoom.us/j/94363254814" target="_blank" rel="noopener noreferrer">Zum Zoom-Raum</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="erinnerungsbilder">
+      <div class="section-head">
+        <div class="section-tag">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Erinnerungsbilder
+        </div>
+        <h2>Diese Bilder kannst du direkt weiterleiten</h2>
+        <p class="section-intro">
+          Hier findest du die vier Erinnerungsbilder zu den aktuellen Terminen.
+          Kopiere das gewünschte Bild in die Zwischenablage, um es per WhatsApp, E-Mail oder Social Media zu teilen.
+        </p>
+      </div>
+
+      <div class="share-grid">
+        <article class="share-card">
+          <div class="share-image">
+            <img
+              src="assets/club-treffen-montag-1900.jpg"
+              alt="Erinnerungsbild Club Treffen Montag"
+            />
+          </div>
+          <h3>Club Treffen am Montag</h3>
+          <p>Erinnerungsbild für Montag von 19:00 Uhr bis 20:00 Uhr.</p>
+          <div class="share-hint">Mit „Bild kopieren“ wird das Bild in die Zwischenablage übernommen.</div>
+          <div class="share-actions">
+            <button class="btn btn-soft js-copy-image" type="button" data-image="assets/club-treffen-montag-1900.jpg">Bild kopieren</button>
+          </div>
+          <div class="copy-status" aria-live="polite"></div>
+        </article>
+
+        <article class="share-card">
+          <div class="share-image">
+            <img
+              src="assets/club-stammtisch-mittwoch-1900.jpg"
+              alt="Erinnerungsbild Club-Stammtisch Mittwoch"
+            />
+          </div>
+          <h3>Club-Stammtisch am Mittwoch</h3>
+          <p>Erinnerungsbild für Mittwoch von 19:00 Uhr bis 20:00 Uhr.</p>
+          <div class="share-hint">Mit „Bild kopieren“ wird das Bild in die Zwischenablage übernommen.</div>
+          <div class="share-actions">
+            <button class="btn btn-soft js-copy-image" type="button" data-image="assets/club-stammtisch-mittwoch-1900.jpg">Bild kopieren</button>
+          </div>
+          <div class="copy-status" aria-live="polite"></div>
+        </article>
+
+        <article class="share-card">
+          <div class="share-image">
+            <img
+              src="assets/club-leader-treffen-dienstag-1000.jpg"
+              alt="Erinnerungsbild Club Leader Treffen Dienstag"
+            />
+          </div>
+          <h3>Club Leader Treffen am Dienstag</h3>
+          <p>Erinnerungsbild für Dienstag von 10:00 Uhr bis 12:00 Uhr.</p>
+          <div class="share-hint">Mit „Bild kopieren“ wird das Bild in die Zwischenablage übernommen.</div>
+          <div class="share-actions">
+            <button class="btn btn-soft js-copy-image" type="button" data-image="assets/club-leader-treffen-dienstag-1000.jpg">Bild kopieren</button>
+          </div>
+          <div class="copy-status" aria-live="polite"></div>
+        </article>
+
+        <article class="share-card">
+          <div class="share-image">
+            <img
+              src="assets/club-leader-schulung-samstag-1000.jpg"
+              alt="Erinnerungsbild Club Leader Schulung Samstag"
+            />
+          </div>
+          <h3>Club Leader Schulung am Samstag</h3>
+          <p>Erinnerungsbild für Samstag von 10:00 Uhr bis 12:00 Uhr.</p>
+          <div class="share-hint">Mit „Bild kopieren“ wird das Bild in die Zwischenablage übernommen.</div>
+          <div class="share-actions">
+            <button class="btn btn-soft js-copy-image" type="button" data-image="assets/club-leader-schulung-samstag-1000.jpg">Bild kopieren</button>
+          </div>
+          <div class="copy-status" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="notice-wrap">
+        <div class="notice-main">
+          <div class="section-tag">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Wichtiger Hinweis
+          </div>
+          <h2>Bitte ein paar Minuten früher da sein</h2>
+          <p>
+            Bitte sei möglichst ein paar Minuten vor Beginn im Raum, damit die Treffen pünktlich und ruhig starten können.
+            Wenn ein Link auf deinem Gerät nicht sofort funktioniert, installiere bitte zuerst die Zoom-App oder öffne das Meeting direkt im Browser.
+            Bitte schalte nach dem Eintritt möglichst deine Kamera ein und lass dein Mikrofon zunächst auf stumm, damit der gemeinsame Ablauf angenehm und ruhig bleibt.
+          </p>
+        </div>
+
+        <div class="notice-side">
+          <h3>Alles an einem Ort</h3>
+          <p>
+            Hier findest du den offenen Stammtisch, die Erinnerungsbilder und den Club Zoom-Hintergrund übersichtlich an einer Stelle.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section outro">
+      <div class="section-tag">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        LiquidityBooster
+      </div>
+      <h2>Gemeinsame Räume brauchen einfache Zugänge</h2>
+      <p>
+        Ein Klick, der passende Termin, und du bist dabei.
+        So bleibt der Einstieg klar und ohne Umwege.
+      </p>
+      <a class="btn btn-mint" href="#top">Wieder nach oben</a>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      var tage = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+      var monate = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+
+      function formatDate(date){
+        return tage[date.getDay()] + ', ' + date.getDate() + '. ' + monate[date.getMonth()] + ' ' + date.getFullYear();
+      }
+
+      function nextWeeklyOccurrence(targetDay, hour, minute){
+        var now = new Date();
+        var candidate = new Date(now);
+        candidate.setHours(hour, minute, 0, 0);
+
+        var diff = targetDay - now.getDay();
+        if(diff < 0){ diff += 7; }
+        candidate.setDate(now.getDate() + diff);
+
+        if(diff === 0 && candidate.getTime() <= now.getTime()){
+          candidate.setDate(candidate.getDate() + 7);
+        }
+
+        return candidate;
+      }
+
+      function setStatus(button, text){
+        var card = button.closest('.share-card, .background-info');
+        if(!card) return;
+        var status = card.querySelector('.copy-status');
+        if(status) status.textContent = text;
+      }
+
+      function initMeetingDates(){
+        var cards = document.querySelectorAll('.meeting-card[data-schedule-type="weekly"]');
+
+        cards.forEach(function(card){
+          var targetDay = parseInt(card.getAttribute('data-day'), 10);
+          var hour = parseInt(card.getAttribute('data-hour'), 10);
+          var minute = parseInt(card.getAttribute('data-minute'), 10);
+          var valueEl = card.querySelector('.meeting-date-value');
+
+          if(!valueEl || isNaN(targetDay) || isNaN(hour) || isNaN(minute)) return;
+
+          var nextDate = nextWeeklyOccurrence(targetDay, hour, minute);
+          valueEl.textContent = formatDate(nextDate);
+        });
+      }
+
+      function initImageFallbacks(){
+        var images = document.querySelectorAll('img[data-fallbacks]');
+
+        images.forEach(function(img){
+          var fallbacks = (img.getAttribute('data-fallbacks') || '').split('|').filter(Boolean);
+          var index = 0;
+
+          img.addEventListener('error', function(){
+            if(index < fallbacks.length){
+              img.src = fallbacks[index];
+              index += 1;
+            }
+          });
+        });
+      }
+
+      async function copyImage(button){
+        var imageUrl = button.getAttribute('data-image');
+        if(!imageUrl) return;
+
+        try{
+          if(!navigator.clipboard || !navigator.clipboard.write || !window.ClipboardItem) throw new Error('unsupported');
+          var response = await fetch(imageUrl);
+          if(!response.ok) throw new Error('load');
+          var source = await response.blob();
+          var bitmap = await createImageBitmap(source);
+          var canvas = document.createElement('canvas');
+          canvas.width = bitmap.width;
+          canvas.height = bitmap.height;
+          canvas.getContext('2d').drawImage(bitmap, 0, 0);
+          bitmap.close();
+          var png = await new Promise(function(resolve, reject){
+            canvas.toBlob(function(blob){
+              if(blob) resolve(blob);
+              else reject(new Error('convert'));
+            }, 'image/png');
+          });
+          await navigator.clipboard.write([new ClipboardItem({'image/png': png})]);
+          setStatus(button, 'Bild wurde in die Zwischenablage kopiert.');
+        }catch(error){
+          setStatus(button, 'Bild konnte nicht kopiert werden.');
+        }
+      }
+
+      function initCopyButtons(){
+        var buttons = document.querySelectorAll('.js-copy-image');
+
+        buttons.forEach(function(button){
+          button.addEventListener('click', function(){
+            copyImage(button);
+          });
+        });
+      }
+
+      function forceTopStart(){
+        try{
+          if('scrollRestoration' in history){
+            history.scrollRestoration = 'manual';
+          }
+        }catch(error){
+        }
+
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        window.scrollTo(0, 0);
+
+        requestAnimationFrame(function(){
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          window.scrollTo(0, 0);
+        });
+
+        setTimeout(function(){
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          window.scrollTo(0, 0);
+        }, 60);
+      }
+
+      initMeetingDates();
+      initImageFallbacks();
+      initCopyButtons();
+      forceTopStart();
+
+      window.addEventListener('load', forceTopStart);
+      window.addEventListener('pageshow', forceTopStart);
+    })();
+  </script></body>
+</html>
