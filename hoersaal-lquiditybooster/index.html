@@ -91,7 +91,7 @@
     .close{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin:28px 0 0;padding:31px 34px;border:1px solid rgba(0,167,173,.28);border-radius:26px;background:linear-gradient(135deg,var(--mint-soft),#fff)}
     .close h2{font-size:clamp(25px,3vw,34px);margin-bottom:8px}
     .close p{margin:0;color:var(--muted)}
-    .status{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:800}
+    .status{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:800;text-decoration:none}
     .status:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--gold)}
     footer{padding:37px 0 48px;color:var(--muted);font-size:13px;text-align:center}
     footer strong{color:var(--navy)}
@@ -127,7 +127,7 @@
       <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="14" aria-valuenow="1"><span></span></div>
       <nav class="nav" aria-label="Seiten des Hörsaals">
         <a class="active" href="index.html" aria-current="page" data-i18n data-de="01 Willkommen" data-en="01 Welcome">01 Willkommen</a>
-        <span aria-disabled="true" data-i18n data-de="02 Entstehung" data-en="02 Origins">02 Entstehung</span>
+        <a href="02-entstehung.html" data-i18n data-de="02 Entstehung" data-en="02 Origins">02 Entstehung</a>
         <span aria-disabled="true" data-i18n data-de="03 Big Picture" data-en="03 Big Picture">03 Big Picture</span>
         <span aria-disabled="true" data-i18n data-de="04 Akademie" data-en="04 Academy">04 Akademie</span>
         <span aria-disabled="true" data-i18n data-de="05 Ökosystem" data-en="05 Ecosystem">05 Ökosystem</span>
@@ -227,7 +227,7 @@
 
     <section class="close">
       <div><h2 data-i18n data-de="Mehr Freiheit beginnt mit mehr Verständnis." data-en="More freedom begins with greater understanding.">Mehr Freiheit beginnt mit mehr Verständnis.</h2><p data-i18n data-de="Seite 1 schafft die gemeinsame Orientierung. Als Nächstes folgt die Entstehung des LiquidityBoosters." data-en="Page 1 creates a shared orientation. Next comes the story of how LiquidityBooster was created.">Seite 1 schafft die gemeinsame Orientierung. Als Nächstes folgt die Entstehung des LiquidityBoosters.</p></div>
-      <span class="status" data-i18n data-de="Seite 2 folgt" data-en="Page 2 coming next">Seite 2 folgt</span>
+      <a class="status" href="02-entstehung.html" data-i18n data-de="Weiter zu Seite 2" data-en="Continue to page 2">Weiter zu Seite 2</a>
     </section>
   </main>
 
