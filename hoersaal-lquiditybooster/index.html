@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ffffff">
+  <title>Willkommen im LiquidityBooster-Hörsaal</title>
+  <meta name="description" content="Der LiquidityBooster-Hörsaal der Akademie für finanzielle Souveränität: verstehen, einordnen, fragen und eigenverantwortlich entscheiden.">
+  <style>
+    :root{
+      --mint:#00a7ad;
+      --mint-dark:#007d83;
+      --mint-soft:#e9f9f9;
+      --magenta:#c6006f;
+      --magenta-soft:#fff0f7;
+      --navy:#132238;
+      --ink:#26374b;
+      --muted:#687789;
+      --line:#dce8ec;
+      --bg:#f5fbfc;
+      --white:#fff;
+      --gold:#d7a63b;
+      --shadow:0 22px 55px rgba(19,34,56,.09);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,#fff 0,var(--bg) 58%,#fff 100%)}
+    button,a{font:inherit}
+    button{cursor:pointer}
+    .wrap{width:min(1180px,calc(100% - 36px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(220,232,236,.88)}
+    .top{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;color:var(--navy);font-weight:850;letter-spacing:.01em}
+    .brand-mark{width:40px;height:40px;flex:0 0 auto}
+    .brand small{display:block;color:var(--mint-dark);font-size:11px;line-height:1.1;text-transform:uppercase;letter-spacing:.12em}
+    .lang{display:flex;gap:6px;padding:4px;background:var(--bg);border:1px solid var(--line);border-radius:999px}
+    .lang button{border:0;background:transparent;color:var(--muted);padding:7px 11px;border-radius:999px;font-size:13px;font-weight:800}
+    .lang button.active{background:var(--navy);color:#fff}
+    .course-head{padding:18px 0 0}
+    .progress-row{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13px;color:var(--muted)}
+    .progress-row strong{color:var(--navy)}
+    .progress{height:7px;margin:9px 0 15px;background:#e4eef1;border-radius:99px;overflow:hidden}
+    .progress span{display:block;width:7.142857%;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--mint),var(--magenta))}
+    .nav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;padding:0 0 13px}
+    .nav a,.nav span{white-space:nowrap;text-decoration:none;padding:8px 12px;border:1px solid var(--line);background:#fff;border-radius:999px;font-size:13px;color:var(--muted)}
+    .nav a.active{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:800}
+    .nav span[aria-disabled="true"]{opacity:.68}
+    .hero{padding:66px 0 44px;display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.13em;font-size:12px;color:var(--mint-dark);font-weight:900}
+    .eyebrow:before{content:"";width:26px;height:3px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--magenta))}
+    h1,h2,h3{color:var(--navy);margin-top:0}
+    h1{font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-.045em;margin:15px 0 22px}
+    h1 span{display:block;color:var(--mint-dark)}
+    h2{font-size:clamp(30px,4vw,45px);line-height:1.12;letter-spacing:-.025em;margin-bottom:15px}
+    h3{font-size:20px;line-height:1.25;margin-bottom:8px}
+    .lead{font-size:clamp(19px,2.1vw,24px);line-height:1.45;color:var(--muted);max-width:720px;margin:0 0 27px}
+    .promise{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
+    .promise span{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--navy);font-weight:750;font-size:14px}
+    .visual{position:relative;min-height:450px;display:grid;place-items:center;border:1px solid var(--line);border-radius:36px;background:radial-gradient(circle at 30% 25%,#fff 0 18%,transparent 45%),linear-gradient(145deg,var(--mint-soft),#fff 55%,var(--magenta-soft));box-shadow:var(--shadow);overflow:hidden}
+    .visual:after{content:"";position:absolute;inset:auto -60px -80px auto;width:230px;height:230px;border-radius:50%;background:rgba(198,0,111,.06)}
+    .visual svg{width:min(94%,500px);height:auto;position:relative;z-index:1}
+    .orbit{transform-origin:250px 220px;animation:orbit 26s linear infinite}
+    .pulse{animation:pulse 3.2s ease-in-out infinite}
+    @keyframes orbit{to{transform:rotate(360deg)}}
+    @keyframes pulse{50%{opacity:.66;transform:scale(.985)}}
+    .section{margin:28px 0;padding:42px;background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:0 14px 38px rgba(19,34,56,.055)}
+    .intro{font-size:18px;color:var(--muted);max-width:930px;margin-bottom:0}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:28px}
+    .card{padding:23px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(155deg,#fff,var(--bg))}
+    .card .num{display:grid;place-items:center;width:39px;height:39px;margin-bottom:17px;border-radius:13px;background:var(--mint-soft);color:var(--mint-dark);font-weight:900}
+    .card:nth-child(2) .num,.card:nth-child(4) .num{background:var(--magenta-soft);color:var(--magenta)}
+    .card p{color:var(--muted);margin:0}
+    .principle{margin:28px 0;padding:48px;border-radius:32px;color:#fff;background:linear-gradient(135deg,var(--navy),#173c55 62%,#155e64);box-shadow:var(--shadow)}
+    .principle .eyebrow{color:#90e2df}
+    .principle h2{color:#fff;max-width:800px;margin-top:12px}
+    .principle p{color:#dce9ee;font-size:18px;max-width:900px}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:27px}
+    .flow article{position:relative;min-height:132px;padding:21px;border:1px solid rgba(255,255,255,.18);border-radius:20px;background:rgba(255,255,255,.075)}
+    .flow strong{display:block;margin-bottom:10px;color:#90e2df;font-size:13px;letter-spacing:.1em}
+    .flow span{font-weight:800;font-size:19px}
+    .map-head{display:flex;justify-content:space-between;align-items:end;gap:20px}
+    .map-note{max-width:310px;color:var(--muted);font-size:14px;text-align:right}
+    .modules{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:27px}
+    .module{display:flex;gap:16px;align-items:flex-start;padding:17px;border:1px solid var(--line);border-radius:18px;background:#fff}
+    .module strong{display:grid;place-items:center;width:36px;height:36px;flex:0 0 auto;border-radius:12px;background:var(--navy);color:#fff;font-size:13px}
+    .module.current{border-color:rgba(0,167,173,.5);background:var(--mint-soft)}
+    .module.current strong{background:var(--mint-dark)}
+    .module h3{font-size:16px;margin:0 0 3px}
+    .module p{margin:0;color:var(--muted);font-size:14px}
+    .close{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin:28px 0 0;padding:31px 34px;border:1px solid rgba(0,167,173,.28);border-radius:26px;background:linear-gradient(135deg,var(--mint-soft),#fff)}
+    .close h2{font-size:clamp(25px,3vw,34px);margin-bottom:8px}
+    .close p{margin:0;color:var(--muted)}
+    .status{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--muted);font-size:13px;font-weight:800}
+    .status:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--gold)}
+    footer{padding:37px 0 48px;color:var(--muted);font-size:13px;text-align:center}
+    footer strong{color:var(--navy)}
+    @media(max-width:940px){.hero{grid-template-columns:1fr}.visual{min-height:350px}.grid{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:680px){.wrap{width:min(100% - 24px,1180px)}.brand span{font-size:14px}.top{min-height:64px}.hero{padding:42px 0 28px;gap:29px}.visual{min-height:280px;border-radius:25px}.section,.principle{padding:27px 20px;border-radius:24px}.grid,.flow,.modules{grid-template-columns:1fr}.map-head,.close{display:block}.map-note{text-align:left;margin-top:10px}.close .status{margin-top:20px}.progress-row{font-size:12px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.orbit,.pulse{animation:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap top">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" fill="#e9f9f9" stroke="#00a7ad" stroke-width="2"/>
+          <path d="M14 29c6-1 9-5 10-12 2 6 5 10 11 12" fill="none" stroke="#c6006f" stroke-width="3" stroke-linecap="round"/>
+          <path d="M15 33h18" fill="none" stroke="#00a7ad" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <span><small data-i18n data-de="Akademie-Hörsaal" data-en="Academy lecture hall">Akademie-Hörsaal</small>LiquidityBooster</span>
+      </div>
+      <div class="lang" aria-label="Sprache wählen">
+        <button class="active" type="button" data-lang="de" aria-pressed="true">DE</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="course-head" aria-label="Kursnavigation">
+      <div class="progress-row">
+        <span data-i18n data-de="Dein Lernweg" data-en="Your learning journey">Dein Lernweg</span>
+        <strong data-i18n data-de="Seite 1 von 14" data-en="Page 1 of 14">Seite 1 von 14</strong>
+      </div>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="14" aria-valuenow="1"><span></span></div>
+      <nav class="nav" aria-label="Seiten des Hörsaals">
+        <a class="active" href="index.html" aria-current="page" data-i18n data-de="01 Willkommen" data-en="01 Welcome">01 Willkommen</a>
+        <span aria-disabled="true" data-i18n data-de="02 Entstehung" data-en="02 Origins">02 Entstehung</span>
+        <span aria-disabled="true" data-i18n data-de="03 Big Picture" data-en="03 Big Picture">03 Big Picture</span>
+        <span aria-disabled="true" data-i18n data-de="04 Akademie" data-en="04 Academy">04 Akademie</span>
+        <span aria-disabled="true" data-i18n data-de="05 Ökosystem" data-en="05 Ecosystem">05 Ökosystem</span>
+        <span aria-disabled="true" data-i18n data-de="06 ClubPartner Plus" data-en="06 ClubPartner Plus">06 ClubPartner Plus</span>
+        <span aria-disabled="true" data-i18n data-de="07 ClubLeader" data-en="07 ClubLeader">07 ClubLeader</span>
+        <span aria-disabled="true" data-i18n data-de="08 Management" data-en="08 Management">08 Management</span>
+        <span aria-disabled="true" data-i18n data-de="09 Vergütung" data-en="09 Compensation">09 Vergütung</span>
+        <span aria-disabled="true" data-i18n data-de="10 Werkzeuge" data-en="10 Tools">10 Werkzeuge</span>
+        <span aria-disabled="true" data-i18n data-de="11 Hörsaal-Entstehung" data-en="11 How it is created">11 Hörsaal-Entstehung</span>
+        <span aria-disabled="true" data-i18n data-de="12 Fragen" data-en="12 Questions">12 Fragen</span>
+        <span aria-disabled="true" data-i18n data-de="13 Verantwortung" data-en="13 Responsibility">13 Verantwortung</span>
+        <span aria-disabled="true" data-i18n data-de="14 Compliance & FAQ" data-en="14 Compliance & FAQ">14 Compliance & FAQ</span>
+      </nav>
+    </section>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow" data-i18n data-de="Willkommen im Hörsaal" data-en="Welcome to the lecture hall">Willkommen im Hörsaal</div>
+        <h1>Liquidity<span>Booster</span></h1>
+        <p class="lead" data-i18n data-de="Entdecke, wie Bildung, Gemeinschaft, Unternehmertum und praktische Werkzeuge zu einem System für finanzielle Souveränität zusammenwachsen." data-en="Discover how education, community, entrepreneurship and practical tools come together in one system for financial sovereignty.">Entdecke, wie Bildung, Gemeinschaft, Unternehmertum und praktische Werkzeuge zu einem System für finanzielle Souveränität zusammenwachsen.</p>
+        <div class="promise" aria-label="Leitgedanken">
+          <span data-i18n data-de="Verstehen" data-en="Understand">Verstehen</span>
+          <span data-i18n data-de="Einordnen" data-en="Put into context">Einordnen</span>
+          <span data-i18n data-de="Fragen" data-en="Ask questions">Fragen</span>
+          <span data-i18n data-de="Entscheiden" data-en="Decide">Entscheiden</span>
+        </div>
+      </div>
+      <div class="visual">
+        <svg viewBox="0 0 500 440" role="img" aria-labelledby="visual-title visual-desc">
+          <title id="visual-title">Das LiquidityBooster-Ökosystem</title>
+          <desc id="visual-desc">Bildung verbindet Community, Werkzeuge, Marktplatz und Unternehmertum.</desc>
+          <g class="orbit" fill="none" stroke="#00a7ad" stroke-width="2" opacity=".32">
+            <circle cx="250" cy="220" r="160" stroke-dasharray="10 12"/>
+            <circle cx="250" cy="220" r="118" stroke="#c6006f" stroke-dasharray="5 10"/>
+          </g>
+          <path d="M250 92v74M365 170l-67 39M339 326l-59-68M161 326l59-68M135 170l67 39" fill="none" stroke="#b8dadd" stroke-width="3"/>
+          <circle class="pulse" cx="250" cy="220" r="75" fill="#132238"/>
+          <text x="250" y="211" text-anchor="middle" fill="#fff" font-size="18" font-weight="800">LIQUIDITY</text>
+          <text x="250" y="236" text-anchor="middle" fill="#72dde0" font-size="18" font-weight="800">BOOSTER</text>
+          <g font-size="13" font-weight="800" text-anchor="middle">
+            <circle cx="250" cy="68" r="51" fill="#fff" stroke="#00a7ad" stroke-width="3"/><text x="250" y="73" fill="#132238">BILDUNG</text>
+            <circle cx="393" cy="154" r="51" fill="#fff" stroke="#c6006f" stroke-width="3"/><text x="393" y="159" fill="#132238">COMMUNITY</text>
+            <circle cx="339" cy="370" r="51" fill="#fff" stroke="#00a7ad" stroke-width="3"/><text x="339" y="375" fill="#132238">WERKZEUGE</text>
+            <circle cx="161" cy="370" r="51" fill="#fff" stroke="#c6006f" stroke-width="3"/><text x="161" y="375" fill="#132238">MARKTPLATZ</text>
+            <circle cx="107" cy="154" r="51" fill="#fff" stroke="#00a7ad" stroke-width="3"/><text x="107" y="151" fill="#132238">UNTER-</text><text x="107" y="168" fill="#132238">NEHMERTUM</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="section" id="orientierung">
+      <div class="eyebrow" data-i18n data-de="Warum dieser Hörsaal?" data-en="Why this lecture hall?">Warum dieser Hörsaal?</div>
+      <h2 data-i18n data-de="Weil eine souveräne Entscheidung mit Verstehen beginnt." data-en="Because a sovereign decision begins with understanding.">Weil eine souveräne Entscheidung mit Verstehen beginnt.</h2>
+      <p class="intro" data-i18n data-de="Der LiquidityBooster ist mehr als eine einzelne Mitgliedschaft oder ein Vergütungsmodell. Er verbindet die Akademie, das Clubhaus, Hörsäle, Kurse, Werkzeuge, Mitgliederprofile, den Club-Marktplatz und klare Entwicklungswege. Dieser Hörsaal macht das gesamte Zusammenspiel nachvollziehbar." data-en="LiquidityBooster is more than a single membership or compensation model. It connects the Academy, the clubhouse, lecture halls, courses, tools, member profiles, the club marketplace and clear development paths. This lecture hall makes the entire interaction understandable.">Der LiquidityBooster ist mehr als eine einzelne Mitgliedschaft oder ein Vergütungsmodell. Er verbindet die Akademie, das Clubhaus, Hörsäle, Kurse, Werkzeuge, Mitgliederprofile, den Club-Marktplatz und klare Entwicklungswege. Dieser Hörsaal macht das gesamte Zusammenspiel nachvollziehbar.</p>
+      <div class="grid">
+        <article class="card"><div class="num">01</div><h3 data-i18n data-de="Verstehen" data-en="Understand">Verstehen</h3><p data-i18n data-de="Du lernst die Entstehung, die Idee und die einzelnen Bestandteile kennen." data-en="You learn about the origins, the idea and the individual components.">Du lernst die Entstehung, die Idee und die einzelnen Bestandteile kennen.</p></article>
+        <article class="card"><div class="num">02</div><h3 data-i18n data-de="Einordnen" data-en="Put into context">Einordnen</h3><p data-i18n data-de="Du erkennst, wie Bildung, Rollen, Leistungen und Vergütung zusammengehören." data-en="You see how education, roles, services and compensation belong together.">Du erkennst, wie Bildung, Rollen, Leistungen und Vergütung zusammengehören.</p></article>
+        <article class="card"><div class="num">03</div><h3 data-i18n data-de="Fragen" data-en="Ask questions">Fragen</h3><p data-i18n data-de="Du erhältst klare Antworten und die richtigen Fragen für deine eigene Prüfung." data-en="You receive clear answers and the right questions for your own review.">Du erhältst klare Antworten und die richtigen Fragen für deine eigene Prüfung.</p></article>
+        <article class="card"><div class="num">04</div><h3 data-i18n data-de="Entscheiden" data-en="Decide">Entscheiden</h3><p data-i18n data-de="Du entscheidest ohne Druck, welcher Weg zu deinen Zielen und Werten passt." data-en="You decide without pressure which path fits your goals and values.">Du entscheidest ohne Druck, welcher Weg zu deinen Zielen und Werten passt.</p></article>
+      </div>
+    </section>
+
+    <section class="principle">
+      <div class="eyebrow" data-i18n data-de="Der Bildungsauftrag" data-en="The educational mission">Der Bildungsauftrag</div>
+      <h2 data-i18n data-de="Kein Verkaufsraum. Ein Ort für Klarheit und eigenständiges Denken." data-en="Not a sales room. A place for clarity and independent thinking.">Kein Verkaufsraum. Ein Ort für Klarheit und eigenständiges Denken.</h2>
+      <p data-i18n data-de="Dieser Hörsaal erklärt den LiquidityBooster aus Sicht der Akademie. Er stellt nachvollziehbare Informationen, Strukturen und Verantwortlichkeiten dar. Er liefert keine fertige Entscheidung, sondern das Wissen und die Fragen, die eine eigene Entscheidung erst möglich machen." data-en="This lecture hall explains LiquidityBooster from the Academy's perspective. It presents traceable information, structures and responsibilities. It does not provide a ready-made decision, but the knowledge and questions that make your own decision possible.">Dieser Hörsaal erklärt den LiquidityBooster aus Sicht der Akademie. Er stellt nachvollziehbare Informationen, Strukturen und Verantwortlichkeiten dar. Er liefert keine fertige Entscheidung, sondern das Wissen und die Fragen, die eine eigene Entscheidung erst möglich machen.</p>
+      <div class="flow">
+        <article><strong>01</strong><span data-i18n data-de="Zusammenhänge verstehen" data-en="Understand connections">Zusammenhänge verstehen</span></article>
+        <article><strong>02</strong><span data-i18n data-de="Informationen einordnen" data-en="Put information into context">Informationen einordnen</span></article>
+        <article><strong>03</strong><span data-i18n data-de="Offene Fragen erkennen" data-en="Identify open questions">Offene Fragen erkennen</span></article>
+        <article><strong>04</strong><span data-i18n data-de="Eigenverantwortlich entscheiden" data-en="Decide independently">Eigenverantwortlich entscheiden</span></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="map-head">
+        <div><div class="eyebrow" data-i18n data-de="Dein Weg durch den Hörsaal" data-en="Your path through the lecture hall">Dein Weg durch den Hörsaal</div><h2 data-i18n data-de="14 Seiten – ein vollständiges Big Picture." data-en="14 pages – one complete big picture.">14 Seiten – ein vollständiges Big Picture.</h2></div>
+        <p class="map-note" data-i18n data-de="Die weiteren Seiten werden Baustein für Baustein freigeschaltet." data-en="The following pages will be unlocked step by step.">Die weiteren Seiten werden Baustein für Baustein freigeschaltet.</p>
+      </div>
+      <div class="modules">
+        <article class="module current"><strong>01</strong><div><h3 data-i18n data-de="Willkommen und Orientierung" data-en="Welcome and orientation">Willkommen und Orientierung</h3><p data-i18n data-de="Aufgabe, Lernweg und Bildungsauftrag" data-en="Purpose, learning path and educational mission">Aufgabe, Lernweg und Bildungsauftrag</p></div></article>
+        <article class="module"><strong>02</strong><div><h3 data-i18n data-de="Entstehung" data-en="Origins">Entstehung</h3><p data-i18n data-de="Ausgangslage, Entwicklung und Meilensteine" data-en="Starting point, development and milestones">Ausgangslage, Entwicklung und Meilensteine</p></div></article>
+        <article class="module"><strong>03</strong><div><h3>Big Picture</h3><p data-i18n data-de="Idee, Werte und das große Ganze" data-en="Idea, values and the bigger picture">Idee, Werte und das große Ganze</p></div></article>
+        <article class="module"><strong>04</strong><div><h3 data-i18n data-de="Akademie und LiquidityBooster" data-en="Academy and LiquidityBooster">Akademie und LiquidityBooster</h3><p data-i18n data-de="Aufgaben und Verantwortlichkeiten" data-en="Tasks and responsibilities">Aufgaben und Verantwortlichkeiten</p></div></article>
+        <article class="module"><strong>05</strong><div><h3 data-i18n data-de="Ökosystem" data-en="Ecosystem">Ökosystem</h3><p data-i18n data-de="Clubhaus, Hörsäle, Marktplatz und Community" data-en="Clubhouse, lecture halls, marketplace and community">Clubhaus, Hörsäle, Marktplatz und Community</p></div></article>
+        <article class="module"><strong>06</strong><div><h3>ClubPartner Plus</h3><p data-i18n data-de="Zugang, Leistungen und Qualifikation" data-en="Access, services and qualification">Zugang, Leistungen und Qualifikation</p></div></article>
+        <article class="module"><strong>07</strong><div><h3>ClubLeader</h3><p data-i18n data-de="Entwicklungsweg und Befähigung" data-en="Development path and empowerment">Entwicklungsweg und Befähigung</p></div></article>
+        <article class="module"><strong>08</strong><div><h3 data-i18n data-de="Club Management" data-en="Club Management">Club Management</h3><p data-i18n data-de="Regionale und internationale Verantwortung" data-en="Regional and international responsibility">Regionale und internationale Verantwortung</p></div></article>
+        <article class="module"><strong>09</strong><div><h3 data-i18n data-de="Vergütung" data-en="Compensation">Vergütung</h3><p data-i18n data-de="Eurovergütung und reale Wertschöpfung" data-en="Euro compensation and real value creation">Eurovergütung und reale Wertschöpfung</p></div></article>
+        <article class="module"><strong>10</strong><div><h3 data-i18n data-de="Werkzeuge und Simulatoren" data-en="Tools and simulators">Werkzeuge und Simulatoren</h3><p data-i18n data-de="Wissen praktisch anwenden" data-en="Apply knowledge in practice">Wissen praktisch anwenden</p></div></article>
+        <article class="module"><strong>11</strong><div><h3 data-i18n data-de="Wie ein Hörsaal entsteht" data-en="How a lecture hall is created">Wie ein Hörsaal entsteht</h3><p data-i18n data-de="Recherche, Quellen, Fragen und Didaktik" data-en="Research, sources, questions and learning design">Recherche, Quellen, Fragen und Didaktik</p></div></article>
+        <article class="module"><strong>12</strong><div><h3 data-i18n data-de="Fragen statt Urteile" data-en="Questions instead of judgments">Fragen statt Urteile</h3><p data-i18n data-de="Drei Perspektiven der Projektanalyse" data-en="Three perspectives of project analysis">Drei Perspektiven der Projektanalyse</p></div></article>
+        <article class="module"><strong>13</strong><div><h3 data-i18n data-de="Verantwortung und Aktualität" data-en="Responsibility and currency">Verantwortung und Aktualität</h3><p data-i18n data-de="Informationsstand, Rollen und Sicherheit" data-en="Information status, roles and safety">Informationsstand, Rollen und Sicherheit</p></div></article>
+        <article class="module"><strong>14</strong><div><h3 data-i18n data-de="Compliance und FAQ" data-en="Compliance and FAQ">Compliance und FAQ</h3><p data-i18n data-de="Klare Grenzen und häufige Fragen" data-en="Clear boundaries and frequently asked questions">Klare Grenzen und häufige Fragen</p></div></article>
+      </div>
+    </section>
+
+    <section class="close">
+      <div><h2 data-i18n data-de="Mehr Freiheit beginnt mit mehr Verständnis." data-en="More freedom begins with greater understanding.">Mehr Freiheit beginnt mit mehr Verständnis.</h2><p data-i18n data-de="Seite 1 schafft die gemeinsame Orientierung. Als Nächstes folgt die Entstehung des LiquidityBoosters." data-en="Page 1 creates a shared orientation. Next comes the story of how LiquidityBooster was created.">Seite 1 schafft die gemeinsame Orientierung. Als Nächstes folgt die Entstehung des LiquidityBoosters.</p></div>
+      <span class="status" data-i18n data-de="Seite 2 folgt" data-en="Page 2 coming next">Seite 2 folgt</span>
+    </section>
+  </main>
+
+  <footer class="wrap"><strong>LiquidityBooster</strong> · <span data-i18n data-de="Mehr Freiheit · Mehr Geld · Mehr vom Leben" data-en="More freedom · More money · More from life">Mehr Freiheit · Mehr Geld · Mehr vom Leben</span></footer>
+
+  <script>
+    (()=>{
+      const buttons=[...document.querySelectorAll('[data-lang]')];
+      const nodes=[...document.querySelectorAll('[data-i18n]')];
+      const setLanguage=lang=>{
+        document.documentElement.lang=lang;
+        nodes.forEach(node=>{const value=node.dataset[lang];if(value!==undefined)node.textContent=value});
+        buttons.forEach(button=>{const active=button.dataset.lang===lang;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active))});
+        try{localStorage.setItem('lb-hoersaal-language',lang)}catch(error){}
+      };
+      buttons.forEach(button=>button.addEventListener('click',()=>setLanguage(button.dataset.lang)));
+      let initial='de';
+      try{const saved=localStorage.getItem('lb-hoersaal-language');if(saved==='de'||saved==='en')initial=saved}catch(error){}
+      setLanguage(initial);
+    })();
+  </script>
+</body>
+</html>
