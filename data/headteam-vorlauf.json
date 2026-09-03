@@ -133,6 +133,25 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "4c763ef8-e5d2-46be-851e-2084d5aca5e7",
+      "title": "Voucher Handling Lernseite Entwurf",
+      "type": "website",
+      "releaseDate": "2026-09-21",
+      "url": "https://tools.liquiditybooster.de/pages/tln/voucher-handling.html",
+      "what": "Es entsteht eine eigenständige, interaktive Lernseite über Voucher Handling als Seite 7 des TLN-Hörsaals. Sie erklärt die Unterschiede zwischen VOW, v$, Voucher und Vowcher sowie den beschriebenen Kreislauf aus Rabattzusage, Sperrung von VOW, Erzeugung und Verteilung einer Voucher-Währung, Einlösung und Erfüllung der Verpflichtung. Ein Lernsimulator zeigt beispielhaft, wie ein v$-Rabatt eingesetzt und die verbleibende Zahlung berechnet wird.",
+      "why": "Voucher-Währungen und ihre Funktionsweise werden häufig mit Token, Bargeld, Cashback oder klassischen Gutscheinen verwechselt. Die Lernseite soll diese Begriffe sauber trennen und verständlich zeigen, welche Vorgänge durch Smart Contracts ausgeführt werden und welche Prüfungen oder Entscheidungen außerhalb der Blockchain stattfinden. Mitglieder erhalten damit eine neutrale Grundlage, um die Anwendung bei VTravel und weiteren Partnerangeboten richtig einordnen zu können.",
+      "test": "Bitte die Seite auf Smartphone, Tablet und Computer vollständig prüfen. Besonders anzusehen sind die Begriffserklärungen, der interaktive Voucher-Kreislauf, die Trennung zwischen Blockchain und externen Abläufen, der Faktenfilter sowie der Voucher-Simulator. Zusätzlich soll geprüft werden, ob Risiken, administrative Rechte, offene technische Punkte und das historische Ereignis von 2024 sachlich, verständlich und ohne unnötige Bewertung dargestellt werden.",
+      "meeting": "Zu klären ist, ob der Voucher-Kreislauf auch ohne technisches Vorwissen verständlich wird und ob die Abgrenzung zwischen digitalem Rabattrecht, Voucher-Währung und VOW eindeutig genug ist. Gemeinsam soll entschieden werden, ob weitere praktische Beispiele erforderlich sind und ob die Seite nach Abschluss der Prüfung als Menüseite 7 vor der VTravel-Lernseite in den TLN-Hörsaal aufgenommen werden kann.",
+      "createdAt": "2026-09-03T19:49:48.033Z",
+      "updatedAt": "2026-09-03T19:49:48.033Z",
+      "history": [
+        {
+          "at": "2026-09-03T19:49:48.033Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": []
