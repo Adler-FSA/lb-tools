@@ -145,11 +145,15 @@
       "test": "Bitte die Seite auf Smartphone, Tablet und Computer vollständig prüfen. Besonders anzusehen sind die Begriffserklärungen, der interaktive Voucher-Kreislauf, die Trennung zwischen Blockchain und externen Abläufen, der Faktenfilter sowie der Voucher-Simulator. Zusätzlich soll geprüft werden, ob Risiken, administrative Rechte, offene technische Punkte und das historische Ereignis von 2024 sachlich, verständlich und ohne unnötige Bewertung dargestellt werden.",
       "meeting": "Zu klären ist, ob der Voucher-Kreislauf auch ohne technisches Vorwissen verständlich wird und ob die Abgrenzung zwischen digitalem Rabattrecht, Voucher-Währung und VOW eindeutig genug ist. Gemeinsam soll entschieden werden, ob weitere praktische Beispiele erforderlich sind und ob die Seite nach Abschluss der Prüfung als Menüseite 7 vor der VTravel-Lernseite in den TLN-Hörsaal aufgenommen werden kann.",
       "createdAt": "2026-09-03T19:49:48.033Z",
-      "updatedAt": "2026-09-03T19:49:48.033Z",
+      "updatedAt": "2026-09-03T19:51:42.280Z",
       "history": [
         {
           "at": "2026-09-03T19:49:48.033Z",
           "event": "created"
+        },
+        {
+          "at": "2026-09-03T19:51:42.280Z",
+          "event": "updated"
         }
       ]
     }
