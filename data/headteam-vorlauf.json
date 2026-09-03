@@ -114,8 +114,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "293666ea-0632-4791-8460-a1fbcfd1702a",
+      "title": "VTravel Lernseite Entwurf",
+      "type": "website",
+      "releaseDate": "2026-09-21",
+      "url": "https://tools.liquiditybooster.de/pages/tln/vtravel.html",
+      "what": "Es entsteht eine eigenständige, interaktive Lernseite über VTravel als Seite 8 des TLN-Hörsaals. Sie erklärt die öffentlich erkennbaren Buchungsbereiche, den Ablauf von der Reisesuche bis zum v$-Reward sowie die Zusammenhänge zwischen VTravel, TLN, Wallet, Single.id, v$, VOW und Smart Contracts. Ein Preis-und-Reward-Rechner hilft dabei, den unmittelbar bezahlten Reisepreis von einem möglichen späteren Rabatt zu unterscheiden. Die Seite funktioniert als Standalone-Version und kann anschließend im Clubhaus eingebunden werden.",
+      "why": "VTravel ist inzwischen eine praktisch nutzbare Anwendung innerhalb des VOW-Ökosystems, wurde im bestehenden TLN-Hörsaal bisher aber noch nicht ausreichend erklärt. Mitglieder sollen nachvollziehen können, was VTravel anbietet, wie eine Buchung grundsätzlich abläuft, wie v$-Rewards dargestellt werden und welche Verbindungen technisch bestätigt oder öffentlich noch ungeklärt sind. Die Seite dient ausschließlich der neutralen Wissensvermittlung und enthält keine Empfehlung zur Nutzung oder Registrierung.",
+      "test": "Bitte die Seite auf Smartphone, Tablet und Computer vollständig prüfen. Dabei besonders auf Verständlichkeit, Lesbarkeit, DE/EN-Umschaltung, Buchungsablauf, Preis-und-Reward-Rechner, Quellenlinks und die Darstellung der offenen technischen Verbindungen achten. Zusätzlich prüfen, ob aktuelle Funktionen und angekündigte Entwicklungen klar voneinander getrennt sind und ob der Unterschied zwischen sofortigem Preisvorteil und später einlösbarem v$-Reward verständlich erklärt wird.",
+      "meeting": "Zu klären ist, ob die Reihenfolge und Tiefe der Inhalte für neue Nutzer verständlich sind. Gemeinsam soll geprüft werden, ob wichtige praktische Fragen fehlen und ob die neutrale Trennung zwischen nachgewiesenen Funktionen, Anbieterangaben und öffentlich ungeklärten Verbindungen ausreichend deutlich ist. Außerdem ist festzulegen, ob die Seite nach der Testphase unverändert als Menüseite 8 in den TLN-Hörsaal eingebunden werden kann.",
+      "createdAt": "2026-09-03T19:47:54.422Z",
+      "updatedAt": "2026-09-03T19:47:54.422Z",
+      "history": [
+        {
+          "at": "2026-09-03T19:47:54.422Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": []
 }
-
