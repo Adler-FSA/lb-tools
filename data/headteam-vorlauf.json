@@ -59,25 +59,6 @@
       ]
     },
     {
-      "id": "aae6b1fd-40fc-4c14-b65c-931de64b0a54",
-      "title": "Aktiv dabei Sein",
-      "type": "function",
-      "releaseDate": "2026-09-07",
-      "url": "https://adler-fsa.github.io/lp-anfang/pages/zoom-termine.html?nocache=21866103",
-      "what": "Die Seite wurde aktualisiert, und wieder um richtige Bilder mit den Richtigen Uhrzeiten ersetzt oder erneuert.",
-      "why": "Veraltete Version",
-      "test": "nur mal drüber schauen",
-      "meeting": "wenn noch ein Änderungswunsch besteht, mir bitte im Headteam Termin mitteilen.",
-      "createdAt": "2026-09-01T10:46:35.535Z",
-      "updatedAt": "2026-09-01T10:46:35.535Z",
-      "history": [
-        {
-          "at": "2026-09-01T10:46:35.535Z",
-          "event": "created"
-        }
-      ]
-    },
-    {
       "id": "4e0883a3-d4c4-402c-b747-7e02757279c5",
       "title": "Headteam Werkzeug",
       "type": "function",
@@ -158,5 +139,30 @@
       ]
     }
   ],
-  "archive": []
+  "archive": [
+    {
+      "id": "aae6b1fd-40fc-4c14-b65c-931de64b0a54",
+      "title": "Aktiv dabei Sein",
+      "type": "function",
+      "releaseDate": "2026-09-07",
+      "url": "https://adler-fsa.github.io/lp-anfang/pages/zoom-termine.html?nocache=21866103",
+      "what": "Die Seite wurde aktualisiert, und wieder um richtige Bilder mit den Richtigen Uhrzeiten ersetzt oder erneuert.",
+      "why": "Veraltete Version",
+      "test": "nur mal drüber schauen",
+      "meeting": "wenn noch ein Änderungswunsch besteht, mir bitte im Headteam Termin mitteilen.",
+      "createdAt": "2026-09-01T10:46:35.535Z",
+      "updatedAt": "2026-09-01T10:46:35.535Z",
+      "history": [
+        {
+          "at": "2026-09-01T10:46:35.535Z",
+          "event": "created"
+        },
+        {
+          "at": "2026-09-03T19:52:26.786Z",
+          "event": "archived"
+        }
+      ],
+      "archivedAt": "2026-09-03T19:52:26.786Z"
+    }
+  ]
 }
