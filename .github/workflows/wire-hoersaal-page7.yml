@@ -1,0 +1,45 @@
+name: Wire Hoersaal Page 7
+on:
+  push:
+    paths:
+      - '.github/workflows/wire-hoersaal-page7.yml'
+permissions:
+  contents: write
+jobs:
+  wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Wire navigation and pager
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          files=[
+            'hoersaal-liquiditybooster/01-willkommen.html',
+            'hoersaal-liquiditybooster/02-big-picture.html',
+            'hoersaal-liquiditybooster/03-gast-club.html',
+            'hoersaal-liquiditybooster/04-rollen.html',
+            'hoersaal-liquiditybooster/05-mein-nutzen.html',
+            'hoersaal-liquiditybooster/06-empfehlung.html',
+          ]
+          for f in files:
+            p=Path(f)
+            s=p.read_text(encoding='utf-8')
+            s=s.replace('<span aria-disabled="true">07 Werkstatt</span>','<a class="done" href="07-werkstatt.html">07 Werkstatt</a>')
+            p.write_text(s,encoding='utf-8')
+          p=Path('hoersaal-liquiditybooster/06-empfehlung.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('<span class="disabled" aria-disabled="true">Seite 7 · Werkstatt →</span>','<a href="07-werkstatt.html">Seite 7 · Werkstatt →</a>')
+          s=s.replace('Auf Seite 7 geht es später um die Werkzeuge und die praktische Arbeit im LiquidityBooster.','Auf Seite 7 geht es um die Werkzeuge, Rechner und die praktische Arbeit im LiquidityBooster.')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/wire-hoersaal-page7.yml
+          git add hoersaal-liquiditybooster/01-willkommen.html hoersaal-liquiditybooster/02-big-picture.html hoersaal-liquiditybooster/03-gast-club.html hoersaal-liquiditybooster/04-rollen.html hoersaal-liquiditybooster/05-mein-nutzen.html hoersaal-liquiditybooster/06-empfehlung.html
+          git diff --cached --quiet || git commit -m "Wire Hoersaal page 7 navigation"
+          git push
