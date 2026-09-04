@@ -1,0 +1,29 @@
+name: Apply lifetime calculator ecosystem expansion
+
+on:
+  push:
+    paths:
+      - 'tmp/patch-lebenszeit-oekosystem.py'
+      - '.github/workflows/apply-lebenszeit-oekosystem.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Apply patch
+        run: python tmp/patch-lebenszeit-oekosystem.py
+      - name: Commit result and remove temporary files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f tmp/patch-lebenszeit-oekosystem.py .github/workflows/apply-lebenszeit-oekosystem.yml
+          git add hoersaal-liquiditybooster/07-rechner-lebenszeit.html tmp/patch-lebenszeit-oekosystem.py .github/workflows/apply-lebenszeit-oekosystem.yml
+          git commit -m "Expand lifetime calculator with ecosystem value layers"
+          git push
