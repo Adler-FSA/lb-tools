@@ -1,0 +1,43 @@
+name: Fix Page 3 uploaded PNG gate images
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace gate image sources
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('hoersaal-liquiditybooster/03-gast-club.html')
+          s = p.read_text(encoding='utf-8')
+          repl = {
+            'assets/lqb-wissen-1536x1024-liquidity-booster_59c25139f95da4ee6956271289cc4308.webp':'assets/IMG_9473.png',
+            'assets/lqb-perspektiven-1536x1024-liquidity-booster_9fe63ffa1ebcd10e5403bb65276ebb52.webp':'assets/IMG_9474.png',
+            'assets/lqb-talents-1536x1024-liquidity-booster_34faf52e5467767b4737a8353e11f675.webp':'assets/IMG_9475.png',
+          }
+          for old,new in repl.items():
+              if old not in s:
+                  raise SystemExit(f'Missing expected source: {old}')
+              s = s.replace(old,new)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Verify PNG sources
+        run: |
+          grep -q 'assets/IMG_9473.png' hoersaal-liquiditybooster/03-gast-club.html
+          grep -q 'assets/IMG_9474.png' hoersaal-liquiditybooster/03-gast-club.html
+          grep -q 'assets/IMG_9475.png' hoersaal-liquiditybooster/03-gast-club.html
+      - name: Commit page change and remove workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          rm -f .github/workflows/fix-page3-use-png-gates.yml
+          git add hoersaal-liquiditybooster/03-gast-club.html .github/workflows/fix-page3-use-png-gates.yml
+          git commit -m 'Seite 3: PNG-Torbilder verwenden'
+          git push
