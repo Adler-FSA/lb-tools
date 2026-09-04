@@ -1,0 +1,82 @@
+name: Fix Hoersaal Page 3 readonly v3
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-hoersaal-page3-readonly-v3.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build page 3 from stable base with images and read-only gate content
+        shell: bash
+        run: |
+          git show origin/page3-implementation-20260904:hoersaal-liquiditybooster/03-gast-club.html > hoersaal-liquiditybooster/03-gast-club.html
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('hoersaal-liquiditybooster/03-gast-club.html')
+          s=p.read_text(encoding='utf-8')
+          def replace_between(s,start,end,repl):
+              a=s.index(start); b=s.index(end,a); return s[:a]+repl+s[b:]
+
+          # Correct only the explicit three-gate naming.
+          s=s.replace('Wissen, Gemeinschaft oder Talente & Business.','Wissen, Perspektiven oder Talent & Business.')
+          s=s.replace('data-de="Gemeinschaft" data-en="Community">Gemeinschaft</div><div class="route-gate"','data-de="Perspektiven" data-en="Perspectives">Perspektiven</div><div class="route-gate"')
+
+          gate_html='''<div class="gate-gallery reveal">
+          <button class="gate-card active" type="button" data-gate="wissen"><figure><img data-b64="assets/tor-wissen.b64" alt="Wissen"></figure><div class="gate-card-copy"><b>01</b><h3>Wissen</h3><p>Was möchtest du wissen?</p></div></button>
+          <button class="gate-card" type="button" data-gate="perspektiven"><figure><img data-b64="assets/tor-perspektiven.b64" alt="Perspektiven"></figure><div class="gate-card-copy"><b>02</b><h3>Perspektiven</h3><p>Was möchtest du entwickeln?</p></div></button>
+          <button class="gate-card" type="button" data-gate="talent"><figure><img data-b64="assets/tor-talent-business.b64" alt="Talent & Business"></figure><div class="gate-card-copy"><b>03</b><h3>Talent & Business</h3><p>Was bringst du mit?</p></div></button>
+          </div>
+
+          <div class="gate-content reveal">
+          <article class="gate-panel show" id="panel-wissen"><div class="panel-head"><div><span>TOR 1 · WISSEN</span><h3>Welche Wissensfragen stehen dahinter?</h3><p>Du bestimmst, welches Wissen du suchst, was du vertiefen möchtest und welche Art von Unterstützung du von der Akademie erwartest.</p></div></div><div class="gate-accordions">
+          <details open><summary>Basis & Anlass</summary><div class="qbody"><div class="q">Vor- und Nachname</div><div class="q">E-Mail-Adresse</div><div class="q">Was ist der wichtigste Grund für deine Wissensanfrage?</div></div></details>
+          <details><summary>Interessengebiete</summary><div class="qbody"><div class="q">Welche Themen interessieren dich aktuell besonders?</div><div class="chips"><span>Finanzielle Grundlagen</span><span>Vermögensaufbau</span><span>Krypto & Blockchain</span><span>Wallets & Self-Custody</span><span>Steuern</span><span>Unternehmertum</span><span>Absicherung & Notfallvorsorge</span><span>Einkommensmöglichkeiten</span><span>Betrugsprävention & Projektprüfung</span><span>Finanzielle Souveränität</span></div><div class="q">Eigenes Thema / weitere Interessen</div></div></details>
+          <details><summary>Orientierung & Lernziel</summary><div class="qbody"><div class="q">Wo fehlt dir heute Wissen oder Orientierung?</div><div class="q">Welches Wissen möchtest du in den nächsten zwölf Monaten aufbauen oder vertiefen?</div><div class="q">Was möchtest du danach besser verstehen oder selbstständig beurteilen können?</div></div></details>
+          <details><summary>Gewünschte Unterstützung</summary><div class="qbody"><div class="q">Welche Art von Unterstützung wünschst du dir?</div><div class="chips"><span>Verständliche Erklärungen</span><span>Vertiefende Informationen</span><span>Praktische Anleitungen</span><span>Orientierung</span><span>Neue Perspektiven</span><span>Werkzeuge</span><span>Neutrale Einordnung</span></div><div class="q">Gibt es ein Angebot oder ein Thema, das du heute noch vermisst?</div><div class="q">Wenn wir dir einmal im Monat genau einen Wissensimpuls schicken dürften: Worum sollte es gehen?</div></div></details>
+          </div></article>
+
+          <article class="gate-panel" id="panel-perspektiven"><div class="panel-head"><div><span>TOR 2 · PERSPEKTIVEN</span><h3>Welche persönlichen Erwartungen stehen dahinter?</h3><p>Hier geht es um persönliche Entwicklungs- und Qualifikationsstufen. Du sagst, was du erreichen möchtest und was du erwartest.</p></div></div><div class="gate-accordions">
+          <details open><summary>Motivation & Ziele</summary><div class="qbody"><div class="q">Vor- und Nachname</div><div class="q">E-Mail-Adresse</div><div class="q">Was hat dich an den Möglichkeiten des LiquidityBoosters angesprochen?</div><div class="q">Was möchtest du für dich persönlich erreichen?</div></div></details>
+          <details><summary>Zeit, Einkommen & Begleitung</summary><div class="qbody"><div class="q">Welche Rolle spielt zusätzliches Einkommen für dich?</div><div class="q">Wie viel Zeit möchtest du realistisch investieren?</div><div class="q">Kannst du dir vorstellen, später auch andere Menschen zu begleiten?</div></div></details>
+          <details><summary>Was ist dir in der Zusammenarbeit wichtig?</summary><div class="qbody"><div class="q">13 Bereiche werden jeweils auf einer Skala von 1 bis 5 bewertet:</div><div class="chips mag"><span>Betreuung</span><span>Erreichbarkeit</span><span>Verlässlichkeit</span><span>Pünktlichkeit</span><span>Qualität der Angebote</span><span>Nachvollziehbare Vergütungen und Belohnungen</span><span>Klare Informationen</span><span>Persönliche Unterstützung</span><span>Weiterbildung</span><span>Faire Behandlung</span><span>Transparenz</span><span>Gemeinschaft</span><span>Entwicklungsmöglichkeiten</span></div></div></details>
+          <details><summary>Betreuung & Erwartung</summary><div class="qbody"><div class="q">Was bedeutet gute Betreuung für dich persönlich?</div><div class="q">Was müsste passieren, damit du nach zwölf Monaten sagst: „Die Mitgliedschaft hat sich für mich gelohnt“?</div><div class="q">Was dürfen wir aus deiner Sicht auf keinen Fall falsch machen?</div><div class="q">Gibt es etwas, das du von uns erwartest und wonach wir noch nicht gefragt haben?</div></div></details>
+          </div></article>
+
+          <article class="gate-panel" id="panel-talent"><div class="panel-head"><div><span>TOR 3 · TALENT & BUSINESS</span><h3>Welche Expertise und Möglichkeiten bringst du mit?</h3><p>Wir wachsen durch Menschen mit Wissen, Erfahrung, Fähigkeiten, Angeboten und Netzwerken. Genau diese Punkte werden hier sichtbar gemacht.</p></div></div><div class="gate-accordions">
+          <details open><summary>Beruf & Expertise</summary><div class="qbody"><div class="q">Vor- und Nachname</div><div class="q">E-Mail-Adresse</div><div class="q">Was machst du beruflich?</div><div class="q">Welche Expertise bringst du mit?</div><div class="q">Seit wann beschäftigst du dich professionell damit?</div><div class="q">Was kannst du besonders gut?</div></div></details>
+          <details><summary>Angebot & Zielgruppe</summary><div class="qbody"><div class="q">Welches bestehende Angebot, Produkt oder welche Dienstleistung hast du?</div><div class="q">Für wen ist dein Angebot gedacht?</div><div class="q">Welche Rollen beschreiben dich?</div><div class="chips"><span>Coach</span><span>Trainer</span><span>Berater</span><span>Unternehmer</span><span>Recruiter / Headhunter</span><span>Experte / Spezialist</span><span>Referent</span><span>Branchenkenner</span></div></div></details>
+          <details><summary>Netzwerk & Beitrag</summary><div class="qbody"><div class="q">Hast du bereits Kunden, Teilnehmer, Mitglieder oder ein eigenes Netzwerk? Beschreibe es kurz.</div><div class="q">Was könntest du Clubmitgliedern konkret anbieten?</div><div class="q">Welche deiner Erfahrungen könnten für die Akademie interessant sein?</div><div class="q">Könntest du dir vorstellen, Wissen innerhalb eines Hörsaals, Coachings, Workshops oder eines eigenen Angebots weiterzugeben?</div><div class="q">Gibt es bereits eine konkrete Business-Idee, über die du mit uns sprechen möchtest?</div></div></details>
+          <details><summary>Zusammenarbeit</summary><div class="qbody"><div class="q">Warum interessiert dich der LiquidityBooster?</div><div class="q">Was könnte der LiquidityBooster für dein bestehendes Business interessant machen?</div><div class="q">Was erwartest du von einer Zusammenarbeit?</div><div class="q">Welche Unterstützung oder Möglichkeiten wären für dich besonders wertvoll?</div><div class="q">Was müsste eine Zusammenarbeit erfüllen, damit sie für beide Seiten sinnvoll ist?</div></div></details>
+          </div></article>
+          </div></div></section>\n\n'''
+
+          s=replace_between(s,'<div class="gate-stage reveal">','<section class="section mintwash">',gate_html)
+
+          css='''.gate-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.gate-card{border:1px solid var(--line);border-radius:28px;background:#fff;padding:0;overflow:hidden;text-align:left;box-shadow:0 12px 34px rgba(19,34,56,.07);transition:.2s}.gate-card:hover,.gate-card.active{transform:translateY(-4px);box-shadow:0 18px 42px rgba(19,34,56,.13)}.gate-card.active{border-color:var(--mint);outline:3px solid rgba(0,167,173,.12)}.gate-card:nth-child(2).active{border-color:var(--mag);outline-color:rgba(198,0,111,.1)}.gate-card figure{margin:0;aspect-ratio:3/2;background:#eef5f6;overflow:hidden}.gate-card img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .35s}.gate-card img.loaded{opacity:1}.gate-card-copy{padding:19px}.gate-card-copy b{font-size:11px;letter-spacing:.12em;color:var(--mint)}.gate-card:nth-child(2) b{color:var(--mag)}.gate-card:nth-child(3) b{color:#9c7412}.gate-card-copy h3{font-size:25px;margin:5px 0}.gate-card-copy p{margin:0;color:var(--muted)}.gate-content{margin-top:22px}.gate-panel{display:none;padding:30px;border:1px solid var(--line);border-radius:30px;background:linear-gradient(145deg,var(--mint-soft),#fff 55%,var(--mag-soft));box-shadow:var(--shadow)}.gate-panel.show{display:block}.panel-head span{font-size:11px;letter-spacing:.12em;font-weight:900;color:var(--mint)}.panel-head h3{font-size:30px;margin:8px 0 9px}.panel-head p{max-width:900px;color:var(--muted);font-size:17px}.gate-accordions{display:grid;gap:10px;margin-top:22px}.gate-accordions details{border:1px solid var(--line);border-radius:17px;background:#fff;overflow:hidden}.gate-accordions summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:850;color:var(--navy);display:flex;justify-content:space-between}.gate-accordions summary::-webkit-details-marker{display:none}.gate-accordions summary:after{content:'+';color:var(--mint);font-size:20px}.gate-accordions details[open] summary:after{content:'−';color:var(--mag)}.qbody{padding:0 18px 18px;display:grid;gap:9px}.q{padding:11px 13px;border-radius:13px;border:1px solid var(--line);background:var(--bg)}.chips{display:flex;flex-wrap:wrap;gap:7px}.chips span{padding:7px 10px;border-radius:999px;background:var(--mint-soft);border:1px solid #cbecec;color:#176f73;font-size:12px}.chips.mag span{background:var(--mag-soft);border-color:#f3cadf;color:#8f1458}@media(max-width:900px){.gate-gallery{grid-template-columns:1fr}}'''
+          s=s.replace('</style>',css+'</style>',1)
+
+          # Replace the old script with only the interactions this page needs.
+          a=s.index('<script>'); b=s.index('</script>',a)+9
+          js='''<script>(()=>{const langBtns=[...document.querySelectorAll('[data-lang]')];function setLang(l){document.documentElement.lang=l;langBtns.forEach(b=>b.classList.toggle('active',b.dataset.lang===l));document.querySelectorAll('[data-i18n]').forEach(el=>{const v=el.getAttribute('data-'+l);if(v!==null)el.innerHTML=v})}langBtns.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));document.querySelectorAll('img[data-b64]').forEach(img=>fetch(img.dataset.b64).then(r=>r.text()).then(t=>{img.src='data:image/jpeg;base64,'+t.trim();img.classList.add('loaded')}).catch(()=>{}));const cards=[...document.querySelectorAll('.gate-card')],panels=[...document.querySelectorAll('.gate-panel')];function show(k){cards.forEach(c=>c.classList.toggle('active',c.dataset.gate===k));panels.forEach(p=>p.classList.toggle('show',p.id==='panel-'+k))}cards.forEach(c=>c.addEventListener('click',()=>show(c.dataset.gate)));show('wissen');const io=('IntersectionObserver'in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08}):null;document.querySelectorAll('.reveal').forEach(el=>{if(io)io.observe(el);else el.classList.add('visible')});setLang('de')})();</script>'''
+          s=s[:a]+js+s[b:]
+          if '<form' in s or 'PDF herunterladen' in s or 'Bewerbung als PDF' in s or 'Business-Profil als PDF' in s:
+              raise SystemExit('Validation failed: form/PDF function found')
+          for must in ['tor-wissen.b64','tor-perspektiven.b64','tor-talent-business.b64','Was ist der wichtigste Grund für deine Wissensanfrage?','Was hat dich an den Möglichkeiten des LiquidityBoosters angesprochen?','Welche Expertise bringst du mit?']:
+              if must not in s: raise SystemExit('Validation failed: '+must)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit page and clean temporary workflows
+        shell: bash
+        run: |
+          rm -f .github/workflows/fix-hoersaal-page3-readonly.yml .github/workflows/fix-hoersaal-page3-readonly-v2.yml .github/workflows/fix-hoersaal-page3-readonly-v3.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hoersaal-liquiditybooster/03-gast-club.html .github/workflows
+          git commit -m 'Seite 3: drei Tore mit Bildern und reinen Inhaltsübersichten'
+          git push
