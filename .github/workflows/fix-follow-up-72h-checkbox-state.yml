@@ -1,0 +1,34 @@
+name: Fix Follow-up 72h checkbox state
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-follow-up-72h-checkbox-state.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkboxstatus korrigieren
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('pages/personal-management/follow-up-zentrale.html')
+          s=p.read_text(encoding='utf-8')
+          old="$$('[data-state]').forEach(el=>el.addEventListener('change',()=>{state[el.dataset.state]=el.checked;save();updateCounts()}));"
+          new="$$('[data-state]').forEach(el=>{el.checked=!!state[el.dataset.state];el.addEventListener('change',()=>{state[el.dataset.state]=el.checked;save();updateCounts()})});"
+          if old not in s:
+              raise SystemExit('bindDynamic-Marker nicht gefunden')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validieren und committen
+        run: |
+          grep -q 'el.checked=!!state' pages/personal-management/follow-up-zentrale.html
+          git config user.name 'Adler-FSA'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add pages/personal-management/follow-up-zentrale.html
+          git rm .github/workflows/fix-follow-up-72h-checkbox-state.yml
+          git commit -m 'Follow-up-Zentrale: gespeicherte Checkboxen sichtbar wiederherstellen'
+          git push
