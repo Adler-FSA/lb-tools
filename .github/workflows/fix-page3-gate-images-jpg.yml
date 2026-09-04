@@ -1,0 +1,48 @@
+name: Fix Page 3 gate images JPG
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-page3-gate-images-jpg.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode gate images and patch page
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$GITHUB_WORKSPACE"
+          for n in wissen perspektiven talent-business; do
+            base64 -d "hoersaal-liquiditybooster/assets/tor-${n}.b64" > "hoersaal-liquiditybooster/assets/tor-${n}.jpg"
+            file "hoersaal-liquiditybooster/assets/tor-${n}.jpg" | grep -qi 'JPEG image data'
+            test -s "hoersaal-liquiditybooster/assets/tor-${n}.jpg"
+          done
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('hoersaal-liquiditybooster/03-gast-club.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('data-b64="assets/tor-wissen.b64"','src="assets/tor-wissen.jpg"')
+          s=s.replace('data-b64="assets/tor-perspektiven.b64"','src="assets/tor-perspektiven.jpg"')
+          s=s.replace('data-b64="assets/tor-talent-business.b64"','src="assets/tor-talent-business.jpg"')
+          loader="document.querySelectorAll('img[data-b64]').forEach(img=>fetch(img.dataset.b64).then(r=>r.text()).then(t=>{img.src='data:image/jpeg;base64,'+t.trim();img.classList.add('loaded')}).catch(()=>{}));"
+          s=s.replace(loader,'')
+          if 'data-b64=' in s:
+              raise SystemExit('data-b64 still present')
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm hoersaal-liquiditybooster/assets/tor-wissen.b64 \
+             hoersaal-liquiditybooster/assets/tor-perspektiven.b64 \
+             hoersaal-liquiditybooster/assets/tor-talent-business.b64
+      - name: Commit fix and remove workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-page3-gate-images-jpg.yml
+          git add hoersaal-liquiditybooster/03-gast-club.html hoersaal-liquiditybooster/assets/
+          git commit -m 'Fix Seite 3 Tor-Bilder für Safari als JPG'
+          git push
