@@ -1,0 +1,21 @@
+name: Run modular Hoersaal page 7 split
+on:
+  push:
+    paths:
+      - '.github/workflows/run-split-page7-workshop.yml'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate workshop pages
+        run: python scripts/split_page7_workshop.py
+      - name: Commit generated pages
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hoersaal-liquiditybooster/07-werkstatt.html hoersaal-liquiditybooster/07-rechner-hoersaal.html hoersaal-liquiditybooster/07-rechner-businessbooster.html
+          git commit -m 'Build modular page 7 workshop architecture'
+          git push
