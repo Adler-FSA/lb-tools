@@ -57,6 +57,13 @@ summary::-webkit-details-marker{display:none}
 .stamp{font-size:12px;color:var(--muted);font-weight:800}
 .timeline{margin:0;padding:0;list-style:none;display:grid;gap:8px}
 .timeline li{display:grid;grid-template-columns:145px 1fr;gap:10px;border-bottom:1px solid #edf1f4;padding-bottom:8px;font-size:13px}
+.person-area{border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.person-group+.person-group{border-top:1px solid var(--line)}
+.person-head{padding:11px 15px;background:var(--soft);color:var(--navy);font-weight:900}
+.person-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 15px;border-top:1px solid #edf1f4}
+.person-link:first-child{border-top:0}
+.person-link .title{white-space:normal}
+.person-url{margin-top:4px;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
 @media(max-width:760px){
   body{padding:10px}
   .headline{align-items:flex-start;flex-direction:column;gap:8px}
@@ -65,6 +72,7 @@ summary::-webkit-details-marker{display:none}
   .open{grid-column:2;grid-row:1/3;align-self:center}
   .detail{grid-template-columns:1fr}
   .box.full{grid-column:auto}
+  .person-link{grid-template-columns:1fr auto}
 }
 </style>
 </head>
@@ -80,6 +88,10 @@ summary::-webkit-details-marker{display:none}
 
   <div class="filters" id="filters"></div>
   <div class="list" id="list"></div>
+
+  <h2 class="section-title" data-i18n="personalLinksTitle">Direkte Links für einzelne Personen</h2>
+  <div id="personalLinks"></div>
+
   <h2 class="section-title" data-i18n="chronicle">Projektchronik – Was wir geschaffen haben</h2>
   <p class="section-copy" data-i18n="chronicleCopy">Abgeschlossene und veröffentlichte Projekte bleiben hier dauerhaft sichtbar.</p>
   <div class="list archive-list" id="archiveList"></div>
@@ -88,17 +100,17 @@ summary::-webkit-details-marker{display:none}
 <script>
 const DATA_URL='../../data/headteam-vorlauf.json';
 const $=s=>document.querySelector(s);
-let state={version:2,projects:[],archive:[]};
+let state={version:3,projects:[],archive:[],personalLinks:[]};
 let activeType='all';
 
 const I18N={
   de:{
     eyebrow:'Headteam',title:'14 Tage Vorlauf',all:'Alle',course:'Kurs',website:'Webseite',clubhouse:'Clubhaus',function:'Funktion',other:'Sonstiges',
-    projects:n=>n===1?'1 Projekt':n+' Projekte',release:'Freigabe',days:n=>n===1?'noch 1 Tag':'noch '+n+' Tage',today:'Freigabe heute',reached:'Freigabe erreicht',open:'Öffnen',details:'Details',what:'Was entsteht',why:'Warum',test:'Was soll getestet / angesehen werden',meeting:'Beim Headteam-Meeting zu klären',empty:'Keine Einträge in dieser Ansicht.',chronicle:'Projektchronik – Was wir geschaffen haben',chronicleCopy:'Abgeschlossene und veröffentlichte Projekte bleiben hier dauerhaft sichtbar.',archiveEmpty:'Noch keine Projekte archiviert.',archivedOn:'Archiviert am',history:'Entwicklung',created:'Projekt eingestellt',updated:'Projekt aktualisiert',archived:'Projekt archiviert',restored:'In die Teststrecke zurückgeholt',loadError:'Die Vorlauf-Daten konnten nicht geladen werden.'
+    projects:n=>n===1?'1 Projekt':n+' Projekte',release:'Freigabe',days:n=>n===1?'noch 1 Tag':'noch '+n+' Tage',today:'Freigabe heute',reached:'Freigabe erreicht',open:'Öffnen',details:'Details',what:'Was entsteht',why:'Warum',test:'Was soll getestet / angesehen werden',meeting:'Beim Headteam-Meeting zu klären',empty:'Keine Einträge in dieser Ansicht.',personalLinksTitle:'Direkte Links für einzelne Personen',personalEmpty:'Noch keine direkten Links eingestellt.',chronicle:'Projektchronik – Was wir geschaffen haben',chronicleCopy:'Abgeschlossene und veröffentlichte Projekte bleiben hier dauerhaft sichtbar.',archiveEmpty:'Noch keine Projekte archiviert.',archivedOn:'Archiviert am',history:'Entwicklung',created:'Projekt eingestellt',updated:'Projekt aktualisiert',archived:'Projekt archiviert',restored:'In die Teststrecke zurückgeholt',loadError:'Die Vorlauf-Daten konnten nicht geladen werden.'
   },
   en:{
     eyebrow:'Headteam',title:'14-day lead time',all:'All',course:'Course',website:'Website',clubhouse:'Clubhouse',function:'Function',other:'Other',
-    projects:n=>n===1?'1 project':n+' projects',release:'Release',days:n=>n===1?'1 day left':n+' days left',today:'Release today',reached:'Release reached',open:'Open',details:'Details',what:'What is being created',why:'Why',test:'What should be tested / reviewed',meeting:'To clarify in the Headteam meeting',empty:'No entries in this view.',chronicle:'Project history – What we have created',chronicleCopy:'Completed and published projects remain permanently visible here.',archiveEmpty:'No archived projects yet.',archivedOn:'Archived on',history:'Development',created:'Project added',updated:'Project updated',archived:'Project archived',restored:'Restored to test track',loadError:'The lead-time data could not be loaded.'
+    projects:n=>n===1?'1 project':n+' projects',release:'Release',days:n=>n===1?'1 day left':n+' days left',today:'Release today',reached:'Release reached',open:'Open',details:'Details',what:'What is being created',why:'Why',test:'What should be tested / reviewed',meeting:'To clarify in the Headteam meeting',empty:'No entries in this view.',personalLinksTitle:'Direct links for individual people',personalEmpty:'No direct links added yet.',chronicle:'Project history – What we have created',chronicleCopy:'Completed and published projects remain permanently visible here.',archiveEmpty:'No archived projects yet.',archivedOn:'Archived on',history:'Development',created:'Project added',updated:'Project updated',archived:'Project archived',restored:'Restored to test track',loadError:'The lead-time data could not be loaded.'
   }
 };
 const params=new URLSearchParams(location.search);
@@ -108,22 +120,47 @@ const t=k=>I18N[lang][k];
 document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.dataset.i18n);if(typeof v==='string')el.textContent=v});
 
 const typeMap={course:'course',website:'website',clubhouse:'clubhouse',function:'function',other:'other'};
+const personOrder=['alexander','oliver','peter','daniel'];
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function formatDate(v){if(!v)return '–';return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB').format(new Date(v+'T12:00:00'))}
 function formatDateTime(v){if(!v)return '–';return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v))}
 function eventLabel(v){return t({created:'created',updated:'updated',archived:'archived',restored:'restored'}[v]||'updated')}
 function daysLeft(v){
+  if(!v)return null;
   const now=new Date();now.setHours(0,0,0,0);
   const target=new Date(v+'T00:00:00');
+  if(Number.isNaN(target.getTime()))return null;
   return Math.ceil((target-now)/86400000);
 }
-function dayText(n){if(n>0)return t('days')(n);if(n===0)return t('today');return t('reached')}
-function dayClass(n){return n<=0?'done':n<=7?'soon':''}
-function typeLabel(type){return t(typeMap[type]||'other')}
+function dayText(n){if(n===null)return '';if(n>0)return t('days')(n);if(n===0)return t('today');return t('reached')}
+function dayClass(n){if(n===null)return '';return n<=0?'done':n<=7?'soon':''}
+function typeLabel(type){return type?t(typeMap[type]||'other'):'–'}
+function recipientLabel(v){return ({alexander:'Alexander',oliver:'Oliver',peter:'Peter',daniel:'Daniel'})[v]||v||'–'}
+function openButton(url){return url?`<a class="open" href="${esc(url)}" target="_blank" rel="noopener">${esc(t('open'))}</a>`:''}
+function projectDetails(p,archiveMode=false){
+  const blocks=[];
+  if(p.what)blocks.push(`<div class="box"><span class="label">${esc(t('what'))}</span><div class="value">${esc(p.what)}</div></div>`);
+  if(p.why)blocks.push(`<div class="box"><span class="label">${esc(t('why'))}</span><div class="value">${esc(p.why)}</div></div>`);
+  if(!archiveMode&&p.test)blocks.push(`<div class="box"><span class="label">${esc(t('test'))}</span><div class="value">${esc(p.test)}</div></div>`);
+  if(!archiveMode&&p.meeting)blocks.push(`<div class="box"><span class="label">${esc(t('meeting'))}</span><div class="value">${esc(p.meeting)}</div></div>`);
+  if(archiveMode){
+    const history=(Array.isArray(p.history)?p.history:[]).slice().sort((a,b)=>(b.at||'').localeCompare(a.at||''));
+    if(history.length)blocks.push(`<div class="box full"><span class="label">${esc(t('history'))}</span><ul class="timeline">${history.map(h=>`<li><span>${esc(formatDateTime(h.at))}</span><strong>${esc(eventLabel(h.event))}</strong></li>`).join('')}</ul></div>`);
+  }
+  return blocks.length?`<details><summary>${esc(t('details'))}</summary><div class="detail">${blocks.join('')}</div></details>`:'';
+}
 function renderFilters(){
   const types=['all','course','website','clubhouse','function','other'];
   $('#filters').innerHTML=types.map(type=>`<button class="filter ${activeType===type?'active':''}" data-type="${type}">${esc(t(type))}</button>`).join('');
   document.querySelectorAll('.filter').forEach(btn=>btn.onclick=()=>{activeType=btn.dataset.type;render()});
+}
+function renderPersonalLinks(){
+  const links=Array.isArray(state.personalLinks)?state.personalLinks:[];
+  if(!links.length){$('#personalLinks').innerHTML=`<div class="empty">${esc(t('personalEmpty'))}</div>`;return}
+  const groups=personOrder.map(person=>({person,items:links.filter(l=>l.recipient===person).slice().sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))})).filter(g=>g.items.length);
+  const unknown=links.filter(l=>!personOrder.includes(l.recipient));
+  if(unknown.length)groups.push({person:'',items:unknown});
+  $('#personalLinks').innerHTML=`<div class="person-area">${groups.map(g=>`<section class="person-group"><div class="person-head">${esc(recipientLabel(g.person))}</div><div>${g.items.map(l=>`<div class="person-link"><div class="main"><div class="title">${esc(l.title||l.url||'–')}</div>${l.title&&l.url?`<div class="person-url">${esc(l.url)}</div>`:''}</div>${openButton(l.url)}</div>`).join('')}</div></section>`).join('')}</div>`;
 }
 function render(){
   const all=Array.isArray(state.projects)?state.projects.slice():[];
@@ -132,40 +169,36 @@ function render(){
   renderFilters();
   $('#list').innerHTML=list.length?list.map(p=>{
     const d=daysLeft(p.releaseDate);
+    const meta=[];
+    if(p.type)meta.push(`<span class="type">${esc(typeLabel(p.type))}</span>`);
+    if(p.releaseDate)meta.push(`<span>${esc(t('release'))}: ${esc(formatDate(p.releaseDate))}</span>`);
     return `<article class="item">
       <div class="row">
         <div class="main">
-          <div class="title">${esc(p.title)}</div>
-          <div class="meta"><span class="type">${esc(typeLabel(p.type))}</span><span>·</span><span>${esc(t('release'))}: ${esc(formatDate(p.releaseDate))}</span></div>
+          <div class="title">${esc(p.title||'–')}</div>
+          ${meta.length?`<div class="meta">${meta.join('<span>·</span>')}</div>`:''}
         </div>
-        <span class="days ${dayClass(d)}">${esc(dayText(d))}</span>
-        <a class="open" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(t('open'))}</a>
+        ${d===null?'':`<span class="days ${dayClass(d)}">${esc(dayText(d))}</span>`}
+        ${openButton(p.url)}
       </div>
-      <details>
-        <summary>${esc(t('details'))}</summary>
-        <div class="detail">
-          <div class="box"><span class="label">${esc(t('what'))}</span><div class="value">${esc(p.what)}</div></div>
-          <div class="box"><span class="label">${esc(t('why'))}</span><div class="value">${esc(p.why)}</div></div>
-          <div class="box"><span class="label">${esc(t('test'))}</span><div class="value">${esc(p.test)}</div></div>
-          <div class="box"><span class="label">${esc(t('meeting'))}</span><div class="value">${esc(p.meeting)}</div></div>
-        </div>
-      </details>
+      ${projectDetails(p,false)}
     </article>`;
   }).join(''):`<div class="empty">${esc(t('empty'))}</div>`;
+
+  renderPersonalLinks();
+
   const archived=(Array.isArray(state.archive)?state.archive:[]).slice().sort((a,b)=>(b.archivedAt||'').localeCompare(a.archivedAt||''));
   $('#archiveList').innerHTML=archived.length?archived.map(p=>{
-    const history=(Array.isArray(p.history)?p.history:[]).slice().sort((a,b)=>(b.at||'').localeCompare(a.at||''));
+    const meta=[];
+    if(p.type)meta.push(`<span class="type">${esc(typeLabel(p.type))}</span>`);
+    if(p.archivedAt)meta.push(`<span>${esc(t('archivedOn'))}: ${esc(formatDateTime(p.archivedAt))}</span>`);
     return `<article class="item">
       <div class="row">
-        <div class="main"><div class="title">${esc(p.title)}</div><div class="meta"><span class="type">${esc(typeLabel(p.type))}</span><span>·</span><span>${esc(t('archivedOn'))}: ${esc(formatDateTime(p.archivedAt))}</span></div></div>
-        <span class="stamp">${esc(formatDate(p.releaseDate))}</span>
-        <a class="open" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(t('open'))}</a>
+        <div class="main"><div class="title">${esc(p.title||'–')}</div>${meta.length?`<div class="meta">${meta.join('<span>·</span>')}</div>`:''}</div>
+        ${p.releaseDate?`<span class="stamp">${esc(formatDate(p.releaseDate))}</span>`:''}
+        ${openButton(p.url)}
       </div>
-      <details><summary>${esc(t('details'))}</summary><div class="detail">
-        <div class="box"><span class="label">${esc(t('what'))}</span><div class="value">${esc(p.what)}</div></div>
-        <div class="box"><span class="label">${esc(t('why'))}</span><div class="value">${esc(p.why)}</div></div>
-        <div class="box full"><span class="label">${esc(t('history'))}</span><ul class="timeline">${history.map(h=>`<li><span>${esc(formatDateTime(h.at))}</span><strong>${esc(eventLabel(h.event))}</strong></li>`).join('')}</ul></div>
-      </div></details>
+      ${projectDetails(p,true)}
     </article>`;
   }).join(''):`<div class="empty">${esc(t('archiveEmpty'))}</div>`;
 }
@@ -174,7 +207,7 @@ async function load(){
     const r=await fetch(DATA_URL+'?v='+Date.now(),{cache:'no-store'});
     if(!r.ok)throw new Error('load');
     const parsed=await r.json();
-    state={version:parsed.version||1,projects:Array.isArray(parsed.projects)?parsed.projects:[],archive:Array.isArray(parsed.archive)?parsed.archive:[]};
+    state={...parsed,version:parsed.version||1,projects:Array.isArray(parsed.projects)?parsed.projects:[],archive:Array.isArray(parsed.archive)?parsed.archive:[],personalLinks:Array.isArray(parsed.personalLinks)?parsed.personalLinks:[]};
     $('#error').classList.remove('show');
     render();
   }catch(e){$('#error').classList.add('show')}
