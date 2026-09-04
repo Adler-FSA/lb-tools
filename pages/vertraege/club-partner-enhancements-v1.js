@@ -7,7 +7,7 @@ const LOGO_URL='https://raw.githubusercontent.com/Adler-FSA/lp-anfang/main/libra
 const texts={
   de:{
     title:'Elektronische Vertragsbestätigung',
-    intro:'Bitte bestätige die nachstehenden Erklärungen aktiv. Die gesetzten Bestätigungen, deine Vertragsdaten sowie Ort, Datum und Name des Unterzeichners werden gemeinsam mit diesem Vertragsstand in der erzeugten A4-PDF dokumentiert.',
+    intro:'Bitte bestätige die nachstehenden Erklärungen aktiv. Die gesetzten Bestätigungen, deine Vertragsdaten sowie Ort und Datum werden gemeinsam mit diesem Vertragsstand in der erzeugten A4-PDF dokumentiert. Dein Vor- und Nachname wird aus den Vertragsdaten übernommen.',
     note:'Die vorstehenden Erklärungen wurden durch aktive Auswahl bestätigt und werden gemeinsam mit den Vertragsdaten, Ort und Datum in dieser Vertrags-PDF dokumentiert. Eine handschriftliche Unterschrift oder ein Ausdruck ist für diesen digitalen Ablauf nicht vorgesehen.',
     button:'Vertrag bestätigen & PDF erstellen',
     ready:'Deine PDF ist fertig',
@@ -21,7 +21,7 @@ const texts={
   },
   en:{
     title:'Electronic contract confirmation',
-    intro:'Please actively confirm the statements below. The selected confirmations, your contract data, place, date and signatory name are documented together with this contract version in the generated A4 PDF.',
+    intro:'Please actively confirm the statements below. The selected confirmations, your contract data, place and date are documented together with this contract version in the generated A4 PDF. Your first and last name are taken from the contract data.',
     note:'The statements above are confirmed by active selection and are documented together with the contract data, place and date in this contract PDF. A handwritten signature or printed copy is not intended for this digital workflow.',
     button:'Confirm contract & create PDF',
     ready:'Your PDF is ready',
