@@ -1,0 +1,107 @@
+name: Final QA Hoersaal
+on:
+  push:
+    paths:
+      - '.github/workflows/qa-hoersaal-final.yml'
+permissions:
+  contents: write
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate eight-page Hörsaal
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import base64, re, sys
+
+          root=Path('hoersaal-liquiditybooster')
+          pages=[
+            '01-willkommen.html','02-big-picture.html','03-gast-club.html','04-rollen-entwicklung.html',
+            '05-mein-nutzen.html','06-empfehlung.html','07-werkstatt.html','08-entscheidung.html']
+          errors=[]
+          expected=set(pages)
+
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.hrefs=[]; self.scripts=[]; self._script=False; self._buf=[]
+              def handle_starttag(self,tag,attrs):
+                  a=dict(attrs)
+                  if tag=='a' and 'href' in a:self.hrefs.append(a['href'])
+                  if tag=='iframe' and 'src' in a:self.hrefs.append(a['src'])
+                  if tag=='script' and not a.get('src'): self._script=True; self._buf=[]
+              def handle_endtag(self,tag):
+                  if tag=='script' and self._script:self.scripts.append(''.join(self._buf));self._script=False
+              def handle_data(self,data):
+                  if self._script:self._buf.append(data)
+
+          for i,name in enumerate(pages,1):
+              p=root/name
+              if not p.exists(): errors.append(f'MISSING {name}'); continue
+              s=p.read_text(encoding='utf-8')
+              if '<title>' not in s or '</html>' not in s: errors.append(f'HTML shell incomplete: {name}')
+              if 'liquiditybooster-logo.png' not in s: errors.append(f'Original logo missing: {name}')
+              if f'Seite {i} von 8' not in s: errors.append(f'Progress label wrong/missing: {name}')
+              if 'aria-disabled="true"' in s or 'Seite 4 folgt' in s or 'Seite 2 folgt' in s: errors.append(f'Dead nav/placeholder: {name}')
+              if 'LiqudityBooster' in s: errors.append(f'Typo LiqudityBooster: {name}')
+              parser=Parser(); parser.feed(s)
+              for target in expected:
+                  if target not in parser.hrefs and name != target:
+                      errors.append(f'Nav link {target} missing in {name}')
+              for href in parser.hrefs:
+                  if href.startswith(('http://','https://','#','mailto:','javascript:')): continue
+                  clean=href.split('?')[0].split('#')[0]
+                  if not clean: continue
+                  target=(p.parent/clean).resolve()
+                  # only validate local repo paths; dynamic iframe src values are handled separately
+                  try: target.relative_to(Path.cwd().resolve())
+                  except ValueError: continue
+                  if clean.endswith(('.html','/')) and not target.exists() and not (target/'index.html').exists():
+                      errors.append(f'Broken local href in {name}: {href}')
+              for j,js in enumerate(parser.scripts):
+                  if js.strip():
+                      out=Path('/tmp')/f'{name}-{j}.js';out.write_text(js,encoding='utf-8')
+                      import subprocess
+                      r=subprocess.run(['node','--check',str(out)],capture_output=True,text=True)
+                      if r.returncode: errors.append(f'JS syntax {name}: {r.stderr.strip()}')
+
+          p1=(root/'01-willkommen.html').read_text(encoding='utf-8')
+          p2=(root/'02-big-picture.html').read_text(encoding='utf-8')
+          p3=(root/'03-gast-club.html').read_text(encoding='utf-8')
+          if 'Tor 2 · Gemeinschaft' in p1: errors.append('Page1 old Gate 2 remains')
+          if 'Wissen · Gemeinschaft · Talente & Business' in p2: errors.append('Page2 old gate trio remains')
+          if 'Perspektiven' not in p1 or 'Perspektiven' not in p2 or 'Perspektiven' not in p3: errors.append('Perspektiven missing in gate logic')
+          for phrase in ['Gemeinschaft oder Talente & Business','TOR 2 · GEMEINSCHAFT']:
+              if phrase in p3: errors.append('Page3 old gate wording: '+phrase)
+          for form in ['wissen.html','perspektiven.html','talent-business.html']:
+              if not (Path('pages/personal-management')/form).exists(): errors.append('Missing source form '+form)
+          w=Path('pages/personal-management/wissen.html').read_text(encoding='utf-8')
+          pe=Path('pages/personal-management/perspektiven.html').read_text(encoding='utf-8')
+          for phrase in ['Mitverdienen ist ein eigener Schritt','Erst mit Aktivierung und Teilnahme beginnt der aktive Verdienst- und Aufbauweg','Mission Dorade aktiviert den aktiven Verdienst- und Aufbauweg']:
+              if phrase in w or phrase in pe: errors.append('Obsolete Mission Dorade gating remains: '+phrase)
+
+          assets={'tor-wissen.b64':(b'\xff\xd8\xff',b'RIFF'),'tor-perspektiven.b64':(b'\xff\xd8\xff',b'RIFF'),'tor-talent-business.b64':(b'RIFF',)}
+          for fn,sigs in assets.items():
+              p=root/'assets'/fn
+              if not p.exists(): errors.append('Missing gate image payload '+fn);continue
+              try: raw=base64.b64decode(p.read_text().strip(),validate=True)
+              except Exception as e: errors.append(f'Invalid base64 {fn}: {e}');continue
+              if not any(raw.startswith(sig) for sig in sigs): errors.append('Unexpected image signature '+fn)
+              if len(raw)<5000: errors.append('Suspiciously small gate image '+fn)
+
+          if Path('.tmp-hoersaal-page3').exists(): errors.append('Temporary Page3 staging directory still exists')
+
+          if errors:
+              print('\n'.join('ERROR: '+e for e in errors));sys.exit(1)
+          print('QA OK: 8 pages, navigation, scripts, forms, gate logic and image payloads validated.')
+          PY
+      - name: Remove one-time QA workflow
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/qa-hoersaal-final.yml
+          git commit -m "Remove completed Hörsaal QA workflow"
+          git push
