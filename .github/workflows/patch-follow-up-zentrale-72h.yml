@@ -1,0 +1,117 @@
+name: Patch Follow-up-Zentrale 72h
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-follow-up-zentrale-72h.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 72-Stunden-Follow-up ergänzen
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('pages/personal-management/follow-up-zentrale.html')
+          s=p.read_text(encoding='utf-8')
+          marker='<section class="section"><div class="wrap"><div class="eyebrow">Systemmails</div>'
+          if marker not in s:
+              raise SystemExit('Systemmail-Marker nicht gefunden')
+          if 'id="guest72Subject1"' in s:
+              raise SystemExit('72h-Bereich bereits vorhanden')
+          block=r'''
+<section class="section"><div class="wrap"><div class="eyebrow">72-Stunden-Gastzugang</div><h2>Drei universelle Follow-up-Mails während des Gastzugangs.</h2><p class="lead" style="font-size:17px">Diese drei Mails setzen keinerlei Aktivität voraus. Wir wissen nicht, welches Tor gewählt wurde, ob bereits eine Anfrage unterwegs ist oder ob der Gast noch gar nichts gemacht hat. Deshalb funktionieren sie in jedem Zustand.</p><div class="systemGrid" style="grid-template-columns:1fr">
+<div class="systemCard"><div class="systemHead"><h3 style="margin-bottom:5px">72H · Mail 1 · sofort nach Freischaltung</h3><div style="color:var(--muted)">Orientierung und ruhiges Ankommen.</div></div><div class="systemBody"><div class="fieldBox"><div class="fieldLabel">Betreff</div><div class="fieldText" id="guest72Subject1">Dein Gastzugang ist geöffnet – nimm dir Zeit zum Ankommen</div><div class="fieldActions"><button class="btn copy" data-copy="guest72Subject1">Betreff kopieren</button></div></div><div class="fieldBox"><div class="fieldLabel">Mailtext</div><div class="fieldText" id="guest72Body1">Hallo {{Vorname}},
+
+dein Gastzugang zum LiquidityBooster ist jetzt für 72 Stunden geöffnet.
+
+Du musst hier nicht möglichst schnell möglichst viel ansehen. Der Gastzugang ist gerade deshalb entstanden, weil inzwischen sehr viele Inhalte, Werkzeuge und Möglichkeiten zur Akademie gehören. Statt dir alles auf einmal zu zeigen, soll er dir helfen herauszufinden, was für dich überhaupt interessant ist.
+
+Im Clubhaus begegnen dir deshalb drei unterschiedliche Tore:
+
+Wissen – wenn du etwas verstehen, lernen oder vertiefen möchtest.
+Perspektiven – wenn du herausfinden möchtest, was du persönlich entwickeln oder erreichen willst.
+Talent & Business – wenn du bereits Erfahrung, Fähigkeiten, ein Angebot oder ein Netzwerk mitbringst.
+
+Welches davon zu dir passt, entscheidest allein du. Es gibt kein richtiges oder falsches Tor.
+
+Schau dich zunächst in Ruhe um. Wenn dich etwas anspricht, geh dort einfach etwas tiefer hinein.
+
+Gastzugang öffnen: {{GASTZUGANG_LINK}}
+
+Viele Grüße
+dein LiquidityBooster Team</div><div class="fieldActions"><button class="btn copy alt" data-copy="guest72Body1">Mailtext kopieren</button><label class="checkline"><input type="checkbox" data-state="h72-1"> im KMS angelegt</label></div></div></div></div>
+<div class="systemCard"><div class="systemHead"><h3 style="margin-bottom:5px">72H · Mail 2 · nach 24 Stunden</h3><div style="color:var(--muted)">Zum Erkunden anregen, ohne einen bisherigen Schritt zu unterstellen.</div></div><div class="systemBody"><div class="fieldBox"><div class="fieldLabel">Betreff</div><div class="fieldText" id="guest72Subject2">Was davon hat eigentlich etwas mit dir zu tun?</div><div class="fieldActions"><button class="btn copy" data-copy="guest72Subject2">Betreff kopieren</button></div></div><div class="fieldBox"><div class="fieldLabel">Mailtext</div><div class="fieldText" id="guest72Body2">Hallo {{Vorname}},
+
+seit gestern hast du Zugang zum LiquidityBooster Clubhaus.
+
+Vielleicht hast du schon einiges angesehen. Vielleicht warst du bisher nur kurz dort. Vielleicht hast du noch gar nicht angefangen. Alles davon ist völlig in Ordnung.
+
+Für die verbleibende Zeit gibt es eigentlich nur eine sinnvolle Frage:
+
+Was möchtest du für dich aus diesem Gastzugang herausfinden?
+
+Du kannst dich dabei an den drei Toren orientieren:
+
+Wenn du Antworten oder Orientierung suchst, schau bei Wissen genauer hin.
+
+Wenn dich interessiert, welche persönlichen Möglichkeiten oder Entwicklungswege sich ergeben könnten, ist Perspektiven der richtige Ausgangspunkt.
+
+Und wenn du selbst Wissen, Erfahrung, Fähigkeiten oder ein bestehendes Business mitbringst, lohnt sich ein Blick auf Talent & Business.
+
+Du musst dabei nichts vollständig durcharbeiten. Der Gastzugang soll dir kein Pensum geben. Er soll dir helfen, ein Gefühl dafür zu bekommen, ob und wo LiquidityBooster für dich überhaupt relevant ist.
+
+Die drei Tore ansehen: {{GASTZUGANG_LINK}}
+
+Viele Grüße
+dein LiquidityBooster Team</div><div class="fieldActions"><button class="btn copy alt" data-copy="guest72Body2">Mailtext kopieren</button><label class="checkline"><input type="checkbox" data-state="h72-2"> im KMS angelegt</label></div></div></div></div>
+<div class="systemCard"><div class="systemHead"><h3 style="margin-bottom:5px">72H · Mail 3 · nach ca. 60 Stunden</h3><div style="color:var(--muted)">Ruhiger Abschluss, bevor der Zugang nach 72 Stunden endet.</div></div><div class="systemBody"><div class="fieldBox"><div class="fieldLabel">Betreff</div><div class="fieldText" id="guest72Subject3">Dein Gastzugang endet bald – was bleibt für dich hängen?</div><div class="fieldActions"><button class="btn copy" data-copy="guest72Subject3">Betreff kopieren</button></div></div><div class="fieldBox"><div class="fieldLabel">Mailtext</div><div class="fieldText" id="guest72Body3">Hallo {{Vorname}},
+
+dein 72-Stunden-Gastzugang nähert sich dem Ende.
+
+Bevor er automatisch endet, lohnt sich ein kurzer eigener Rückblick.
+
+Was war für dich interessant?
+Wo sind vielleicht neue Fragen entstanden?
+Gab es einen Bereich, bei dem du gedacht hast: Damit möchte ich mich weiter beschäftigen?
+
+Vielleicht lautet deine Antwort auch einfach: Für mich ist das im Moment nicht das Richtige.
+
+Auch das ist eine vollkommen legitime Entscheidung.
+
+Der Gastzugang soll niemanden überreden. Er soll dir ermöglichen, selbst einen Eindruck zu gewinnen und anschließend zu entscheiden, ob du das Thema damit abschließt oder LiquidityBooster näher kennenlernen möchtest.
+
+Falls du noch etwas ansehen möchtest, kannst du deinen Zugang bis zum Ende der 72 Stunden weiter nutzen.
+
+Gastzugang noch einmal öffnen: {{GASTZUGANG_LINK}}
+
+Viele Grüße
+dein LiquidityBooster Team</div><div class="fieldActions"><button class="btn copy alt" data-copy="guest72Body3">Mailtext kopieren</button><label class="checkline"><input type="checkbox" data-state="h72-3"> im KMS angelegt</label></div></div></div></div>
+</div></div></section>
+'''
+          s=s.replace(marker,block+marker,1)
+          s=s.replace('0 von 70 erledigt','0 von 73 erledigt',1)
+          s=s.replace('10 Gruppen + 60 Follow-up-Mails. Der Fortschritt wird nur in diesem Browser gespeichert.','10 Gruppen + 60 Themen-Follow-up-Mails + 3 Gastzugang-Mails. Der Fortschritt wird nur in diesem Browser gespeichert.',1)
+          old="function updateProgress(){let done=0,total=groups.length*7;groups.forEach(g=>{if(state[groupKey(g.n)])done++;g.mails.forEach((m,i)=>{if(state[mailKey(g.n,i)])done++})});$('#progressText').textContent=`${done} von ${total} erledigt`;$('#progressBar').style.width=(done/total*100)+'%'}"
+          new="function updateProgress(){let done=0,total=groups.length*7+3;groups.forEach(g=>{if(state[groupKey(g.n)])done++;g.mails.forEach((m,i)=>{if(state[mailKey(g.n,i)])done++})});['h72-1','h72-2','h72-3'].forEach(k=>{if(state[k])done++});$('#progressText').textContent=`${done} von ${total} erledigt`;$('#progressBar').style.width=(done/total*100)+'%'}"
+          if old not in s:
+              raise SystemExit('updateProgress nicht gefunden')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validieren
+        run: |
+          grep -q 'guest72Subject1' pages/personal-management/follow-up-zentrale.html
+          grep -q 'guest72Subject2' pages/personal-management/follow-up-zentrale.html
+          grep -q 'guest72Subject3' pages/personal-management/follow-up-zentrale.html
+          grep -q 'total=groups.length\*7+3' pages/personal-management/follow-up-zentrale.html
+      - name: Commit und Workflow entfernen
+        run: |
+          git config user.name 'Adler-FSA'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add pages/personal-management/follow-up-zentrale.html
+          git rm .github/workflows/patch-follow-up-zentrale-72h.yml
+          git commit -m 'Follow-up-Zentrale: 3 Gastzugang-Mails für 72 Stunden ergänzen'
+          git push
