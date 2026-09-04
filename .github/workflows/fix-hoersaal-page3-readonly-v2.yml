@@ -1,0 +1,84 @@
+name: Fix Hoersaal Page 3 readonly v2
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-hoersaal-page3-readonly-v2.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore page 3 from implementation branch and make gates read-only
+        shell: bash
+        run: |
+          git show origin/page3-implementation-20260904:hoersaal-liquiditybooster/03-gast-club.html > hoersaal-liquiditybooster/03-gast-club.html
+          python - <<'PY'
+          from pathlib import Path
+          import re, html
+          p=Path('hoersaal-liquiditybooster/03-gast-club.html')
+          s=p.read_text(encoding='utf-8')
+
+          def clean(x):
+              x=re.sub(r'<[^>]+>',' ',x)
+              return ' '.join(html.unescape(x).split()).replace(' *','').strip()
+
+          def readonly_form(form_id, note):
+              global s
+              pat=rf'<form id="{re.escape(form_id)}".*?</form>'
+              m=re.search(pat,s,re.S)
+              if not m:
+                  raise SystemExit(f'Form not found: {form_id}')
+              block=m.group(0)
+              items=[]
+              for label in re.findall(r'<label([^>]*)>(.*?)</label>',block,re.S):
+                  attrs,body=label
+                  txt=clean(body)
+                  if not txt: continue
+                  if 'class="check"' in attrs:
+                      txt='Auswahl: '+txt
+                  items.append(txt)
+              for legend in re.findall(r'<div class="legend"[^>]*>(.*?)</div>',block,re.S):
+                  txt=clean(legend)
+                  if txt and txt not in items: items.append(txt)
+              if form_id=='form-perspektiven':
+                  aspects=['Betreuung','Erreichbarkeit','Verlässlichkeit','Pünktlichkeit','Qualität der Angebote','Nachvollziehbare Vergütungen und Belohnungen','Klare Informationen','Persönliche Unterstützung','Weiterbildung','Faire Behandlung','Transparenz','Gemeinschaft','Entwicklungsmöglichkeiten']
+                  items.append('Bewertung auf einer Skala von 1 bis 5: '+', '.join(aspects))
+              body=''.join(f'<div class="question-item">{html.escape(x)}</div>' for x in items)
+              repl=f'<div class="readonly-note">{note}</div><div class="question-overview"><div class="question-list">{body}</div></div>'
+              s=s[:m.start()]+repl+s[m.end():]
+
+          readonly_form('form-wissen','Hier wird nichts ausgefüllt. Der Hörsaal zeigt nur, welche Inhalte im echten Erwartungsbogen abgefragt werden.')
+          readonly_form('form-perspektiven','Hier wird nichts ausgefüllt. Gezeigt werden ausschließlich die Inhalte des echten Perspektiven-Erwartungsbogens.')
+          readonly_form('form-talent','Hier wird nichts ausgefüllt. Gezeigt werden ausschließlich die Inhalte des echten Talent-&-Business-Bogens.')
+
+          s=s.replace('Die drei realen Tore des LiquidityBooster-Gastzugangs: Wissen, Perspektiven und Talent & Business – mit den echten Erwartungsbögen und PDF-Ergebnis.','Die drei realen Tore des LiquidityBooster-Gastzugangs: Wissen, Perspektiven und Talent & Business – mit den Inhalten der echten Erwartungsbögen.')
+          s=s.replace('Dieser Weg bleibt kostenlos. Du beschreibst deinen Wissensbedarf und kannst daraus eine persönliche PDF erstellen. Die Formulardaten bleiben dabei im Browser.','Hier wird sichtbar, welche Fragen hinter dem Tor „Wissen“ stehen. Es geht um Wissensbedarf, Interessengebiete, Orientierung und die Art von Unterstützung, die jemand sucht.')
+          s=s.replace('This path remains free. You describe your knowledge needs and can create a personal PDF. Your form data stays in the browser.','This shows which questions sit behind the Knowledge gate: knowledge needs, areas of interest, orientation and the kind of support someone is looking for.')
+          s=s.replace('Hier geht es um deine Ziele, Erwartungen und die Frage, welche persönlichen oder wirtschaftlichen Perspektiven für dich überhaupt interessant sind. Der Bogen endet mit einer PDF für ein mögliches persönliches Kennenlernen.','Hier geht es um persönliche Ziele, Erwartungen, Zeit, Entwicklung und die Frage, was jemand von einer Zusammenarbeit oder Mitgliedschaft erwartet.')
+          s=s.replace('This path is about your goals, expectations and which personal or economic perspectives are actually relevant to you. The questionnaire ends with a PDF for a possible personal introduction.','This gate is about personal goals, expectations, time, development and what someone expects from collaboration or membership.')
+          s=s.replace('Erwartungsbogen öffnen ↓','Was wird abgefragt? ↓').replace('Open questionnaire ↓','What is asked? ↓').replace('Business-Profil öffnen ↓','Was wird abgefragt? ↓')
+          s=re.sub(r'<div class="fact"><b>PDF</b><span[^>]*>.*?</span></div>','<div class="fact"><b>Format</b><span>Erwartungsbogen</span></div>',s,flags=re.S)
+
+          css='''.question-overview{display:grid;gap:10px}.question-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.question-item{padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink)}.readonly-note{margin:0 0 16px;padding:14px 16px;border-left:4px solid var(--mint);background:var(--mint-soft);border-radius:0 14px 14px 0;color:var(--navy)}@media(max-width:760px){.question-list{grid-template-columns:1fr}}'''
+          s=s.replace('</style>',css+'</style>',1)
+
+          a=s.index('<script>'); b=s.index('</script>',a)+9
+          js='''<script>(()=>{const lbs=[...document.querySelectorAll('[data-lang]')];function setLang(l){document.documentElement.lang=l;lbs.forEach(b=>b.classList.toggle('active',b.dataset.lang===l));document.querySelectorAll('[data-i18n]').forEach(el=>{const v=el.getAttribute('data-'+l);if(v!==null)el.innerHTML=v})}lbs.forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));const cards=[...document.querySelectorAll('.gate-card')],panels=[...document.querySelectorAll('.gate-panel')];function show(k){cards.forEach(c=>c.classList.toggle('active',c.dataset.gate===k));panels.forEach(p=>p.classList.toggle('show',p.id==='panel-'+k))}cards.forEach(c=>c.addEventListener('click',()=>show(c.dataset.gate)));show('wissen');document.querySelectorAll('.form-toggle').forEach(btn=>btn.addEventListener('click',()=>{const el=document.getElementById(btn.dataset.form);const o=el.classList.toggle('open');btn.textContent=o?'Inhalte schließen ↑':'Was wird abgefragt? ↓'}));const io=('IntersectionObserver'in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.1}):null;document.querySelectorAll('.reveal').forEach(el=>{if(io)io.observe(el);else el.classList.add('visible')});setLang('de')})();</script>'''
+          s=s[:a]+js+s[b:]
+          if '<form' in s or 'PDF herunterladen' in s or 'Bewerbung als PDF' in s or 'Business-Profil als PDF' in s:
+              raise SystemExit('Validation failed')
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit repaired page and remove temporary workflows
+        shell: bash
+        run: |
+          rm -f .github/workflows/fix-hoersaal-page3-readonly.yml .github/workflows/fix-hoersaal-page3-readonly-v2.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hoersaal-liquiditybooster/03-gast-club.html .github/workflows
+          git commit -m 'Seite 3: Tore als reine Inhaltsübersicht'
+          git push
