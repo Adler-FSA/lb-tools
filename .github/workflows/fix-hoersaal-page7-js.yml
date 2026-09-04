@@ -1,0 +1,31 @@
+name: Fix Hoersaal Page 7 JS
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-hoersaal-page7-js.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix broken IIFE ending on page 7
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('hoersaal-liquiditybooster/07-werkstatt.html')
+          s=p.read_text()
+          old='\n)();\n</script>'
+          new='\n})();\n</script>'
+          if old not in s:
+              raise SystemExit('broken IIFE marker not found')
+          s=s.replace(old,new,1)
+          p.write_text(s)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hoersaal-liquiditybooster/07-werkstatt.html
+          git rm .github/workflows/fix-hoersaal-page7-js.yml
+          git commit -m "Fix Hoersaal page 7 JavaScript rendering"
+          git push
