@@ -1,0 +1,85 @@
+name: Finalize Hoersaal consistency
+on:
+  push:
+    paths:
+      - '.github/workflows/finalize-hoersaal-consistency.yml'
+permissions:
+  contents: write
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch pages and source forms
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def patch(path, reps):
+              p=Path(path); s=p.read_text(encoding='utf-8'); old=s
+              for a,b in reps: s=s.replace(a,b)
+              if s!=old: p.write_text(s,encoding='utf-8')
+              else: print('no changes:', path)
+
+          links=[
+            ('<span aria-disabled="true">04 Rollen & Entwicklung</span>','<a href="04-rollen-entwicklung.html">04 Rollen & Entwicklung</a>'),
+            ('<span aria-disabled="true">05 Mein Nutzen</span>','<a href="05-mein-nutzen.html">05 Mein Nutzen</a>'),
+            ('<span aria-disabled="true">06 Empfehlung</span>','<a href="06-empfehlung.html">06 Empfehlung</a>'),
+            ('<span aria-disabled="true">07 Werkstatt</span>','<a href="07-werkstatt.html">07 Werkstatt</a>'),
+            ('<span aria-disabled="true">08 Entscheidung</span>','<a href="08-entscheidung.html">08 Entscheidung</a>')]
+
+          p1=links+[
+            ('Der eine möchte erst einmal verstehen. Der nächste sucht Austausch. Ein anderer bringt selbst Erfahrung, Kontakte oder ein Unternehmen mit.','Der eine möchte erst einmal verstehen. Der nächste möchte persönliche Möglichkeiten und Entwicklung für sich einordnen. Ein anderer bringt selbst Erfahrung, Kontakte oder ein Unternehmen mit.'),
+            ('One person first wants to understand. The next is looking for exchange. Another brings experience, contacts or a business of their own.','One person first wants to understand. The next wants to explore personal possibilities and development. Another brings experience, contacts or a business of their own.'),
+            ('data-de="Gemeinschaft" data-en="Community">Gemeinschaft</h3><p data-i18n data-de="Du möchtest nicht nur Inhalte konsumieren, sondern Fragen stellen, Erfahrungen teilen, andere Menschen kennenlernen und gemeinsam Dinge ausprobieren." data-en="You do not only want to consume content. You want to ask questions, share experience, meet people and try things together.">Du möchtest nicht nur Inhalte konsumieren, sondern Fragen stellen, Erfahrungen teilen, andere Menschen kennenlernen und gemeinsam Dinge ausprobieren.','data-de="Perspektiven" data-en="Perspectives">Perspektiven</h3><p data-i18n data-de="Du möchtest persönliche Entwicklungs- und Qualifikationsmöglichkeiten verstehen und für dich prüfen, was du erreichen möchtest und was du erwartest." data-en="You want to understand personal development and qualification possibilities and explore what you want to achieve and expect.">Du möchtest persönliche Entwicklungs- und Qualifikationsmöglichkeiten verstehen und für dich prüfen, was du erreichen möchtest und was du erwartest.'),
+            ('Tor 2 · Gemeinschaft','Tor 2 · Perspektiven'),
+            ('Gate 2 · Community','Gate 2 · Perspectives'),
+            ('Austausch, Entwicklung, gemeinsames Lernen','Entwicklung, Qualifikation, eigene Erwartungen'),
+            ('Exchange, development, learning together','Development, qualification, own expectations')]
+          patch('hoersaal-liquiditybooster/01-willkommen.html',p1)
+
+          p2=links+[
+            ('jemand, der Gemeinschaft sucht oder eigene Talente und ein Unternehmen mitbringt','jemand, der persönliche Perspektiven sucht oder eigene Talente und ein Unternehmen mitbringt'),
+            ('someone looking for community or bringing their own talents and a business','someone looking for personal perspectives or bringing their own talents and a business'),
+            ('data-de="Gemeinschaft" data-en="Community">Gemeinschaft</h3></div><p data-i18n data-de="Du suchst Austausch, Erfahrungen und Menschen. Dann werden Clubhaus, Treffen, Profile und gemeinsame Lernräume wichtiger." data-en="You are looking for exchange, experience and people. Then the clubhouse, meetings, profiles and shared learning spaces become more important.">Du suchst Austausch, Erfahrungen und Menschen. Dann werden Clubhaus, Treffen, Profile und gemeinsame Lernräume wichtiger.','data-de="Perspektiven" data-en="Perspectives">Perspektiven</h3></div><p data-i18n data-de="Du möchtest persönliche Entwicklungsmöglichkeiten, Qualifikation und Erwartungen für dich einordnen. Dann führt der Weg über den Perspektivenbogen und ein mögliches persönliches Kennenlernen." data-en="You want to explore personal development possibilities, qualification and expectations. Then the path leads through the Perspectives form and a possible personal conversation.">Du möchtest persönliche Entwicklungsmöglichkeiten, Qualifikation und Erwartungen für dich einordnen. Dann führt der Weg über den Perspektivenbogen und ein mögliches persönliches Kennenlernen.'),
+            ('<span data-i18n data-de="Kontakt" data-en="Contact">Kontakt</span><b>→</b><span data-i18n data-de="Austausch" data-en="Exchange">Austausch</span><b>→</b><span data-i18n data-de="Erfahrung" data-en="Experience">Erfahrung</span><b>→</b><span data-i18n data-de="Mitwirken" data-en="Participate">Mitwirken</span>','<span data-i18n data-de="Ausgangspunkt" data-en="Starting point">Ausgangspunkt</span><b>→</b><span data-i18n data-de="Ziele" data-en="Goals">Ziele</span><b>→</b><span data-i18n data-de="Erwartungen" data-en="Expectations">Erwartungen</span><b>→</b><span data-i18n data-de="Kennenlernen" data-en="Conversation">Kennenlernen</span>'),
+            ('Wissen · Gemeinschaft · Talente & Business','Wissen · Perspektiven · Talent & Business'),
+            ('Knowledge · Community · Talents & Business','Knowledge · Perspectives · Talent & Business'),
+            ('LiqudityBooster','LiquidityBooster')]
+          patch('hoersaal-liquiditybooster/02-big-picture.html',p2)
+
+          wissen=[
+            ('Mitverdienen ist ein eigener Schritt:','Persönlich empfehlen ist als Club Partner möglich:'),
+            ('Wer den aktiven Verdienst- und Aufbauweg nutzen möchte, aktiviert zusätzlich Mission Dorade und nimmt daran teil.','Mission Dorade ist ein separater Qualifikations- und Aufbauweg und keine Voraussetzung für die reguläre persönliche 20/15/10-Vergütung.'),
+            ('Earning is a separate step:','Personal recommendations are already possible as a Club Partner:'),
+            ('Anyone who wants to use the active earning and development path additionally activates Mission Dorade and participates in it.','Mission Dorade is a separate qualification and development path and is not a prerequisite for regular personal 20/15/10 compensation.')]
+          patch('pages/personal-management/wissen.html',wissen)
+
+          persp=[
+            ('Vom Wissen zum aktiven Aufbau.','Perspektiven für deinen eigenen Weg.'),
+            ('From knowledge to active development.','Perspectives for your own path.'),
+            ('Club Partner schaltet den Zugang zum Clubhaus frei. Wer darüber hinaus aktiv mitverdienen und sich einen eigenen Aufbauweg erschließen möchte, aktiviert Mission Dorade und nimmt verbindlich daran teil.','Club Partner schaltet den Zugang zum Clubhaus frei und darf persönlich empfehlen. Mission Dorade ist ein separater Qualifikations- und Aufbauweg für Menschen, die sich gezielt weiterentwickeln möchten.'),
+            ('Club Partner unlocks access to the Clubhouse. Anyone who also wants to earn actively and build their own path activates Mission Dorade and participates in it.','Club Partner unlocks access to the Clubhouse and may make personal recommendations. Mission Dorade is a separate qualification and development path for people who want to develop further.'),
+            ('So entwickeln sich Zugang, Verdienstweg und Verantwortung','So unterscheiden sich Zugang, Qualifikation und Verantwortung'),
+            ('How access, earning and responsibility develop','How access, qualification and responsibility differ'),
+            ('Die Schritte bauen aufeinander auf. Club Partner ist der Wissens- und Clubhauszugang. Mission Dorade aktiviert den aktiven Verdienst- und Aufbauweg.','Club Partner ist der Clubhauszugang und darf persönlich empfehlen. Mission Dorade ist ein zusätzlicher Qualifikationsweg; Club Partner Plus baut auf weiteren nachgewiesenen Bausteinen auf.'),
+            ('The steps build on each other. Club Partner is the knowledge and Clubhouse access. Mission Dorade activates the active earning and development path.','Club Partner provides Clubhouse access and allows personal recommendations. Mission Dorade is an additional qualification path; Club Partner Plus builds on further proven components.'),
+            ('Mission Dorade aktivieren','Mission Dorade als Aufbauweg'),
+            ('Activate Mission Dorade','Mission Dorade as development path'),
+            ('59 € netto zusätzlich · vier Wochen · insgesamt 20 Stunden Begleitung. Erst mit Aktivierung und Teilnahme beginnt der aktive Verdienst- und Aufbauweg.','59 € netto · vier Wochen · insgesamt 20 Stunden Begleitung. Der Weg ist freiwillig und keine Voraussetzung für die reguläre persönliche 20/15/10-Vergütung.'),
+            ('€59 net additional · four weeks · 20 hours of support. The active earning and development path starts with activation and participation.','€59 net · four weeks · 20 hours of support. The path is optional and not a prerequisite for regular personal 20/15/10 compensation.'),
+            ('99 € netto pro Jahr. Zugang zum Clubhaus sowie zu den freigegebenen Akademieinhalten, Werkzeugen und Möglichkeiten.','99 € netto pro Jahr. Zugang zum Clubhaus sowie zu den freigegebenen Akademieinhalten, Werkzeugen und Möglichkeiten. Persönliche Empfehlungen sind möglich.'),
+            ('€99 net per year. Access to the Clubhouse and approved Academy content, tools and opportunities.','€99 net per year. Access to the Clubhouse and approved Academy content, tools and opportunities. Personal recommendations are possible.')]
+          patch('pages/personal-management/perspektiven.html',persp)
+          PY
+      - name: Remove temporary page 3 staging
+        run: rm -rf .tmp-hoersaal-page3
+      - name: Commit final consistency changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hoersaal-liquiditybooster pages/personal-management .tmp-hoersaal-page3 2>/dev/null || true
+          git rm .github/workflows/finalize-hoersaal-consistency.yml
+          git add -A
+          git commit -m "Finalize Hörsaal gate logic and navigation"
+          git push
