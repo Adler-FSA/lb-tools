@@ -209,7 +209,7 @@ function render(filter=''){
  bindDynamic();updateCounts();updateProgress();
 }
 function bindDynamic(){
- $$('[data-state]').forEach(el=>el.addEventListener('change',()=>{state[el.dataset.state]=el.checked;save();updateCounts()}));
+ $$('[data-state]').forEach(el=>{el.checked=!!state[el.dataset.state];el.addEventListener('change',()=>{state[el.dataset.state]=el.checked;save();updateCounts()})});
  $$('[data-copy]').forEach(btn=>btn.addEventListener('click',()=>copyId(btn.dataset.copy,btn)));
 }
 async function copyId(id,btn){const el=document.getElementById(id);if(!el)return;const text=el.innerText;try{await navigator.clipboard.writeText(text)}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}const old=btn.textContent;btn.textContent='✓ Kopiert';btn.classList.add('copied');showToast();setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied')},1200)}
