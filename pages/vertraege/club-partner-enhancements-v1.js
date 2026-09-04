@@ -14,9 +14,7 @@ const texts={
     download:'PDF herunterladen',
     confirmations:[
       'Ich habe die Club-Partner-Vereinbarung vollständig gelesen.',
-      'Ich akzeptiere die Club-Partner-Vereinbarung.',
-      'Ich habe die für die Club-Partnerschaft geltenden AGB gelesen und akzeptiert.',
-      'Ich habe die Datenschutzhinweise zur Kenntnis genommen.'
+      'Ich akzeptiere die Club-Partner-Vereinbarung.'
     ]
   },
   en:{
@@ -28,9 +26,7 @@ const texts={
     download:'Download PDF',
     confirmations:[
       'I have read the Club Partner Agreement in full.',
-      'I accept the Club Partner Agreement.',
-      'I have read and accept the terms and conditions applicable to the Club Partnership.',
-      'I have taken note of the privacy information.'
+      'I accept the Club Partner Agreement.'
     ]
   }
 };
