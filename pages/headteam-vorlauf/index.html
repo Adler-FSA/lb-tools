@@ -31,7 +31,7 @@ h1{margin:4px 0 0;color:var(--navy);font-size:clamp(32px,5vw,46px);line-height:1
 .filter.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .list{display:grid;gap:10px}
 .item{border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
-.row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:12px;align-items:center;padding:14px 15px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:14px 15px}
 .main{min-width:0}
 .title{font-weight:900;color:var(--navy);font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:5px;color:var(--muted);font-size:12px}
@@ -52,18 +52,19 @@ summary::-webkit-details-marker{display:none}
 .error{display:none;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
 .error.show{display:block}
 .section-title{margin:28px 0 12px;color:var(--navy);font-size:24px}
-.section-copy{margin:-5px 0 14px;color:var(--muted);font-size:13px}
+.section-copy{margin:-5px 0 14px;color:var(--muted);font-size:13px;line-height:1.5}
 .archive-list .item{box-shadow:none;background:var(--soft)}
 .stamp{font-size:12px;color:var(--muted);font-weight:800}
 .timeline{margin:0;padding:0;list-style:none;display:grid;gap:8px}
 .timeline li{display:grid;grid-template-columns:145px 1fr;gap:10px;border-bottom:1px solid #edf1f4;padding-bottom:8px;font-size:13px}
-.person-area{border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
-.person-group+.person-group{border-top:1px solid var(--line)}
-.person-head{padding:11px 15px;background:var(--soft);color:var(--navy);font-weight:900}
+.person-area{display:grid;gap:12px}
+.person-group{border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.person-head{padding:12px 15px;background:var(--soft);color:var(--navy);font-weight:900}
 .person-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 15px;border-top:1px solid #edf1f4}
 .person-link:first-child{border-top:0}
 .person-link .title{white-space:normal}
 .person-url{margin-top:4px;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.person-note{margin-top:7px;color:var(--text);font-size:13px;line-height:1.45;white-space:pre-wrap}
 @media(max-width:760px){
   body{padding:10px}
   .headline{align-items:flex-start;flex-direction:column;gap:8px}
@@ -90,6 +91,7 @@ summary::-webkit-details-marker{display:none}
   <div class="list" id="list"></div>
 
   <h2 class="section-title" data-i18n="personalLinksTitle">Direkte Links für einzelne Personen</h2>
+  <p class="section-copy" data-i18n="personalCopy">Persönlich zugeordnete Seiten und Links – getrennt von der gemeinsamen 14-Tage-Teststrecke.</p>
   <div id="personalLinks"></div>
 
   <h2 class="section-title" data-i18n="chronicle">Projektchronik – Was wir geschaffen haben</h2>
@@ -106,11 +108,15 @@ let activeType='all';
 const I18N={
   de:{
     eyebrow:'Headteam',title:'14 Tage Vorlauf',all:'Alle',course:'Kurs',website:'Webseite',clubhouse:'Clubhaus',function:'Funktion',other:'Sonstiges',
-    projects:n=>n===1?'1 Projekt':n+' Projekte',release:'Freigabe',days:n=>n===1?'noch 1 Tag':'noch '+n+' Tage',today:'Freigabe heute',reached:'Freigabe erreicht',open:'Öffnen',details:'Details',what:'Was entsteht',why:'Warum',test:'Was soll getestet / angesehen werden',meeting:'Beim Headteam-Meeting zu klären',empty:'Keine Einträge in dieser Ansicht.',personalLinksTitle:'Direkte Links für einzelne Personen',personalEmpty:'Noch keine direkten Links eingestellt.',chronicle:'Projektchronik – Was wir geschaffen haben',chronicleCopy:'Abgeschlossene und veröffentlichte Projekte bleiben hier dauerhaft sichtbar.',archiveEmpty:'Noch keine Projekte archiviert.',archivedOn:'Archiviert am',history:'Entwicklung',created:'Projekt eingestellt',updated:'Projekt aktualisiert',archived:'Projekt archiviert',restored:'In die Teststrecke zurückgeholt',loadError:'Die Vorlauf-Daten konnten nicht geladen werden.'
+    projects:n=>n===1?'1 Projekt':n+' Projekte',release:'Freigabe',days:n=>n===1?'noch 1 Tag':'noch '+n+' Tage',today:'Freigabe heute',reached:'Freigabe erreicht',open:'Öffnen',details:'Details',what:'Was entsteht',why:'Warum',test:'Was soll getestet / angesehen werden',meeting:'Beim Headteam-Meeting zu klären',empty:'Keine Einträge in dieser Ansicht.',
+    personalLinksTitle:'Direkte Links für einzelne Personen',personalCopy:'Persönlich zugeordnete Seiten und Links – getrennt von der gemeinsamen 14-Tage-Teststrecke.',personalEmpty:'Noch keine direkten Links eingestellt.',
+    chronicle:'Projektchronik – Was wir geschaffen haben',chronicleCopy:'Abgeschlossene und veröffentlichte Projekte bleiben hier dauerhaft sichtbar.',archiveEmpty:'Noch keine Projekte archiviert.',archivedOn:'Archiviert am',history:'Entwicklung',created:'Projekt eingestellt',updated:'Projekt aktualisiert',archived:'Projekt archiviert',restored:'In die Teststrecke zurückgeholt',loadError:'Die Vorlauf-Daten konnten nicht geladen werden.'
   },
   en:{
     eyebrow:'Headteam',title:'14-day lead time',all:'All',course:'Course',website:'Website',clubhouse:'Clubhouse',function:'Function',other:'Other',
-    projects:n=>n===1?'1 project':n+' projects',release:'Release',days:n=>n===1?'1 day left':n+' days left',today:'Release today',reached:'Release reached',open:'Open',details:'Details',what:'What is being created',why:'Why',test:'What should be tested / reviewed',meeting:'To clarify in the Headteam meeting',empty:'No entries in this view.',personalLinksTitle:'Direct links for individual people',personalEmpty:'No direct links added yet.',chronicle:'Project history – What we have created',chronicleCopy:'Completed and published projects remain permanently visible here.',archiveEmpty:'No archived projects yet.',archivedOn:'Archived on',history:'Development',created:'Project added',updated:'Project updated',archived:'Project archived',restored:'Restored to test track',loadError:'The lead-time data could not be loaded.'
+    projects:n=>n===1?'1 project':n+' projects',release:'Release',days:n=>n===1?'1 day left':n+' days left',today:'Release today',reached:'Release reached',open:'Open',details:'Details',what:'What is being created',why:'Why',test:'What should be tested / reviewed',meeting:'To clarify in the Headteam meeting',empty:'No entries in this view.',
+    personalLinksTitle:'Direct links for individual people',personalCopy:'Personally assigned pages and links – kept separate from the shared 14-day test track.',personalEmpty:'No direct links added yet.',
+    chronicle:'Project history – What we have created',chronicleCopy:'Completed and published projects remain permanently visible here.',archiveEmpty:'No archived projects yet.',archivedOn:'Archived on',history:'Development',created:'Project added',updated:'Project updated',archived:'Project archived',restored:'Restored to test track',loadError:'The lead-time data could not be loaded.'
   }
 };
 const params=new URLSearchParams(location.search);
@@ -137,6 +143,7 @@ function dayClass(n){if(n===null)return '';return n<=0?'done':n<=7?'soon':''}
 function typeLabel(type){return type?t(typeMap[type]||'other'):'–'}
 function recipientLabel(v){return ({alexander:'Alexander',oliver:'Oliver',peter:'Peter',daniel:'Daniel'})[v]||v||'–'}
 function openButton(url){return url?`<a class="open" href="${esc(url)}" target="_blank" rel="noopener">${esc(t('open'))}</a>`:''}
+
 function projectDetails(p,archiveMode=false){
   const blocks=[];
   if(p.what)blocks.push(`<div class="box"><span class="label">${esc(t('what'))}</span><div class="value">${esc(p.what)}</div></div>`);
@@ -156,17 +163,35 @@ function renderFilters(){
 }
 function renderPersonalLinks(){
   const links=Array.isArray(state.personalLinks)?state.personalLinks:[];
-  if(!links.length){$('#personalLinks').innerHTML=`<div class="empty">${esc(t('personalEmpty'))}</div>`;return}
-  const groups=personOrder.map(person=>({person,items:links.filter(l=>l.recipient===person).slice().sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))})).filter(g=>g.items.length);
+  if(!links.length){
+    $('#personalLinks').innerHTML=`<div class="empty">${esc(t('personalEmpty'))}</div>`;
+    return;
+  }
+  const groups=personOrder.map(person=>({
+    person,
+    items:links.filter(l=>l.recipient===person).slice().sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''))
+  })).filter(g=>g.items.length);
   const unknown=links.filter(l=>!personOrder.includes(l.recipient));
   if(unknown.length)groups.push({person:'',items:unknown});
-  $('#personalLinks').innerHTML=`<div class="person-area">${groups.map(g=>`<section class="person-group"><div class="person-head">${esc(recipientLabel(g.person))}</div><div>${g.items.map(l=>`<div class="person-link"><div class="main"><div class="title">${esc(l.title||l.url||'–')}</div>${l.title&&l.url?`<div class="person-url">${esc(l.url)}</div>`:''}</div>${openButton(l.url)}</div>`).join('')}</div></section>`).join('')}</div>`;
+
+  $('#personalLinks').innerHTML=`<div class="person-area">${groups.map(g=>`<section class="person-group">
+    <div class="person-head">${esc(recipientLabel(g.person))}</div>
+    <div>${g.items.map(l=>`<div class="person-link">
+      <div class="main">
+        <div class="title">${esc(l.title||l.url||'–')}</div>
+        ${l.title&&l.url?`<div class="person-url">${esc(l.url)}</div>`:''}
+        ${l.note?`<div class="person-note">${esc(l.note)}</div>`:''}
+      </div>
+      ${openButton(l.url)}
+    </div>`).join('')}</div>
+  </section>`).join('')}</div>`;
 }
 function render(){
   const all=Array.isArray(state.projects)?state.projects.slice():[];
   const list=all.filter(p=>activeType==='all'||p.type===activeType).sort((a,b)=>(a.releaseDate||'9999').localeCompare(b.releaseDate||'9999')||(a.title||'').localeCompare(b.title||'',lang));
   $('#count').textContent=t('projects')(all.length);
   renderFilters();
+
   $('#list').innerHTML=list.length?list.map(p=>{
     const d=daysLeft(p.releaseDate);
     const meta=[];
@@ -194,7 +219,10 @@ function render(){
     if(p.archivedAt)meta.push(`<span>${esc(t('archivedOn'))}: ${esc(formatDateTime(p.archivedAt))}</span>`);
     return `<article class="item">
       <div class="row">
-        <div class="main"><div class="title">${esc(p.title||'–')}</div>${meta.length?`<div class="meta">${meta.join('<span>·</span>')}</div>`:''}</div>
+        <div class="main">
+          <div class="title">${esc(p.title||'–')}</div>
+          ${meta.length?`<div class="meta">${meta.join('<span>·</span>')}</div>`:''}
+        </div>
         ${p.releaseDate?`<span class="stamp">${esc(formatDate(p.releaseDate))}</span>`:''}
         ${openButton(p.url)}
       </div>
@@ -210,7 +238,9 @@ async function load(){
     state={...parsed,version:parsed.version||1,projects:Array.isArray(parsed.projects)?parsed.projects:[],archive:Array.isArray(parsed.archive)?parsed.archive:[],personalLinks:Array.isArray(parsed.personalLinks)?parsed.personalLinks:[]};
     $('#error').classList.remove('show');
     render();
-  }catch(e){$('#error').classList.add('show')}
+  }catch(e){
+    $('#error').classList.add('show');
+  }
 }
 load();
 setInterval(load,60000);
