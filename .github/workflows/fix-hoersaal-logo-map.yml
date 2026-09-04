@@ -1,0 +1,57 @@
+name: Fix lecture hall logo and Big Picture circle
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-hoersaal-logo-map.yml'
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch header logo and hero map
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          files = [
+              Path('hoersaal-liquiditybooster/01-willkommen.html'),
+              Path('hoersaal-liquiditybooster/02-big-picture.html'),
+          ]
+          logo = '<a class="brand brand-logo" href="01-willkommen.html" aria-label="LiquidityBooster"><img src="https://adler-fsa.github.io/lp-anfang/library/logos/liquiditybooster-logo.png" alt="LiquidityBooster"></a>'
+
+          for p in files:
+              s = p.read_text(encoding='utf-8')
+              s, n = re.subn(r'<div class="brand">.*?</div><div class="lang"', logo + '<div class="lang"', s, count=1, flags=re.S)
+              if n != 1:
+                  raise SystemExit(f'Brand replacement failed in {p}: {n}')
+              marker = '.brand small{display:block;color:var(--mint);font-size:10px;letter-spacing:.14em;text-transform:uppercase;line-height:1.1}'
+              extra = marker + '.brand-logo{display:flex;align-items:center;text-decoration:none}.brand-logo img{display:block;width:190px;max-width:42vw;max-height:52px;height:auto;object-fit:contain}'
+              if marker in s and '.brand-logo img{' not in s:
+                  s = s.replace(marker, extra, 1)
+              p.write_text(s, encoding='utf-8')
+
+          p = Path('hoersaal-liquiditybooster/02-big-picture.html')
+          s = p.read_text(encoding='utf-8')
+          old = '<circle cx="380" cy="398" r="48" fill="#fff" stroke="#c6006f" stroke-width="3"/><text x="380" y="394">WERKZEUGE</text><text x="380" y="409">SIMULATOREN</text>'
+          new = '<circle cx="380" cy="382" r="48" fill="#fff" stroke="#c6006f" stroke-width="3"/><text x="380" y="378">WERKZEUGE</text><text x="380" y="393">SIMULATOREN</text>'
+          if old not in s:
+              raise SystemExit('Bottom circle source not found')
+          s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Verify
+        run: |
+          grep -q 'liquiditybooster-logo.png' hoersaal-liquiditybooster/01-willkommen.html
+          grep -q 'liquiditybooster-logo.png' hoersaal-liquiditybooster/02-big-picture.html
+          grep -q 'cy="382" r="48"' hoersaal-liquiditybooster/02-big-picture.html
+      - name: Commit changes and remove temporary workflow
+        run: |
+          git config user.name "Adler-FSA"
+          git config user.email "ceo@liquiditybooster.de"
+          rm .github/workflows/fix-hoersaal-logo-map.yml
+          git add hoersaal-liquiditybooster/01-willkommen.html hoersaal-liquiditybooster/02-big-picture.html .github/workflows/fix-hoersaal-logo-map.yml
+          git commit -m "Use original LiquidityBooster logo in lecture hall"
+          git push
