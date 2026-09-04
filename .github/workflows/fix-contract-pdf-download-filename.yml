@@ -1,0 +1,60 @@
+name: Fix contract PDF download filename
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-contract-pdf-download-filename.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Make generated contract PDF a named File and start direct download
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p=Path('pages/vertraege/contract-pdf-engine-v1.js')
+          s=p.read_text(encoding='utf-8')
+          old="""const out=pdf(streams);const filename=(opts.filename?String(opts.filename):safeFilePart(document.title)+'.pdf');return{blob:new Blob([out],{type:'application/pdf'}),filename,pages:pages.length,bytes:out.length,version:VERSION}"""
+          new="""const out=pdf(streams);const filename=(opts.filename?String(opts.filename):safeFilePart(document.title)+'.pdf');const file=(typeof File==='function')?new File([out],filename,{type:'application/pdf',lastModified:Date.now()}):new Blob([out],{type:'application/pdf'});if(opts.autoDownload!==false){const u=URL.createObjectURL(file),a=document.createElement('a');a.href=u;a.download=filename;a.rel='noopener';a.style.display='none';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),60000)}return{blob:file,file,filename,pages:pages.length,bytes:out.length,version:VERSION}"""
+          if old not in s:
+              if "new File([out],filename" in s:
+                  print('Named File download handling already present')
+              else:
+                  raise SystemExit('SCHUTZSTOPP: erwarteter generate-Rückgabeblock nicht gefunden')
+          else:
+              s=s.replace(old,new,1)
+              p.write_text(s,encoding='utf-8')
+          PY
+
+      - name: Verify generic engine and syntax
+        shell: bash
+        run: |
+          node --check pages/vertraege/contract-pdf-engine-v1.js
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('pages/vertraege/contract-pdf-engine-v1.js').read_text(encoding='utf-8')
+          required=["new File([out],filename","a.download=filename","a.click()","autoDownload!==false"]
+          for x in required:
+              if x not in s: raise SystemExit('SCHUTZSTOPP: fehlt: '+x)
+          if 'notfallakte' in s.lower(): raise SystemExit('SCHUTZSTOPP: Notfallakte-Referenz in Vertragsengine')
+          PY
+
+      - name: Commit and remove one-time workflow
+        shell: bash
+        run: |
+          git config user.name "Adler-FSA Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add pages/vertraege/contract-pdf-engine-v1.js
+          git rm .github/workflows/fix-contract-pdf-download-filename.yml
+          git commit -m "Preserve filenames for direct contract PDF downloads"
+          git push
