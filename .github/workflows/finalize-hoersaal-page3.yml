@@ -62,3 +62,5 @@ jobs:
           git add -A
           git commit -m 'Finalize Hoersaal page 3 with real gates, forms and PDFs'
           git push
+
+# trigger second push
