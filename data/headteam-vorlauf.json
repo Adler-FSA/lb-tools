@@ -99,6 +99,25 @@
           "event": "updated"
         }
       ]
+    },
+    {
+      "id": "3218c0ec-f658-497b-bffd-fb3fe47e43ee",
+      "title": "Unser Neuner Shop ist da!",
+      "type": "other",
+      "releaseDate": "",
+      "url": "https://merchandise-liquiditybooster.ourproshop.de/de-DE",
+      "what": "Seht es euch mal an, wir sind mitten im Aufbau von dem shop.",
+      "why": "",
+      "test": "",
+      "meeting": "Was soll ergänzt werden an Produkten? Welche Brauchen wir oder Löschen wir.",
+      "createdAt": "2026-09-04T11:28:34.489Z",
+      "updatedAt": "2026-09-04T11:28:34.489Z",
+      "history": [
+        {
+          "at": "2026-09-04T11:28:34.489Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
