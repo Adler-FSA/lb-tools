@@ -1,0 +1,41 @@
+name: Run contract DOM migration
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run-contract-dom-migration.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Migrate Club Partner contract PDF wiring
+        run: python scripts/contract_dom_migrate.py
+      - name: Verify JavaScript
+        run: |
+          node --check pages/vertraege/contract-pdf-engine-v1.js
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('pages/vertraege/club-partner.html').read_text(encoding='utf-8')
+          blocks=re.findall(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>',s,re.S|re.I)
+          Path('/tmp/club-partner-inline.js').write_text('\n'.join(blocks),encoding='utf-8')
+          PY
+          node --check /tmp/club-partner-inline.js
+      - name: Commit migration and remove temporary files
+        run: |
+          git config user.name "Adler-FSA Automation"
+          git config user.email "actions@users.noreply.github.com"
+          rm -f pages/vertraege/fsa-contract-pdf-engine.js
+          git rm scripts/contract_dom_migrate.py
+          git rm .github/workflows/run-contract-dom-migration.yml
+          git add pages/vertraege/club-partner.html
+          git add -u
+          git commit -m "Read contract PDF directly from rendered HTML"
+          git push
