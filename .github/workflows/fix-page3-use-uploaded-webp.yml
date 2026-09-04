@@ -1,0 +1,54 @@
+name: Fix Page 3 uploaded gate images
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-page3-use-uploaded-webp.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Replace gate image sources only
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('hoersaal-liquiditybooster/03-gast-club.html')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+            '<img data-b64="assets/tor-wissen.b64" alt="Wissen">': '<img src="assets/lqb-wissen-1536x1024-liquidity-booster_59c25139f95da4ee6956271289cc4308.webp" alt="Wissen">',
+            '<img data-b64="assets/tor-perspektiven.b64" alt="Perspektiven">': '<img src="assets/lqb-perspektiven-1536x1024-liquidity-booster_9fe63ffa1ebcd10e5403bb65276ebb52.webp" alt="Perspektiven">',
+            '<img data-b64="assets/tor-talent-business.b64" alt="Talent & Business">': '<img src="assets/lqb-talents-1536x1024-liquidity-booster_34faf52e5467767b4737a8353e11f675.webp" alt="Talent & Business">',
+          }
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit(f'Expected image tag not found: {old}')
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          for asset in [
+              'hoersaal-liquiditybooster/assets/lqb-wissen-1536x1024-liquidity-booster_59c25139f95da4ee6956271289cc4308.webp',
+              'hoersaal-liquiditybooster/assets/lqb-perspektiven-1536x1024-liquidity-booster_9fe63ffa1ebcd10e5403bb65276ebb52.webp',
+              'hoersaal-liquiditybooster/assets/lqb-talents-1536x1024-liquidity-booster_34faf52e5467767b4737a8353e11f675.webp',
+          ]:
+              if not Path(asset).exists():
+                  raise SystemExit(f'Missing uploaded asset: {asset}')
+          PY
+      - name: Verify only uploaded image paths are used
+        run: |
+          grep -q 'assets/lqb-wissen-1536x1024-liquidity-booster_59c25139f95da4ee6956271289cc4308.webp' hoersaal-liquiditybooster/03-gast-club.html
+          grep -q 'assets/lqb-perspektiven-1536x1024-liquidity-booster_9fe63ffa1ebcd10e5403bb65276ebb52.webp' hoersaal-liquiditybooster/03-gast-club.html
+          grep -q 'assets/lqb-talents-1536x1024-liquidity-booster_34faf52e5467767b4737a8353e11f675.webp' hoersaal-liquiditybooster/03-gast-club.html
+      - name: Commit page and remove temporary workflow
+        run: |
+          rm .github/workflows/fix-page3-use-uploaded-webp.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hoersaal-liquiditybooster/03-gast-club.html .github/workflows/fix-page3-use-uploaded-webp.yml
+          git commit -m 'Seite 3: hochgeladene Tor-Bilder direkt verwenden'
+          git push origin main
