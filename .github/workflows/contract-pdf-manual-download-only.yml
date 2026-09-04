@@ -1,0 +1,70 @@
+name: Contract PDF manual download only
+
+on:
+  push:
+    paths:
+      - '.github/workflows/contract-pdf-manual-download-only.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Switch contract PDF to page-provided manual download
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          engine=Path('pages/vertraege/contract-pdf-engine-v1.js')
+          s=engine.read_text(encoding='utf-8')
+          old="if(opts.autoDownload!==false){"
+          new="if(opts.autoDownload===true){"
+          if old in s:
+              s=s.replace(old,new,1)
+          elif new not in s:
+              raise SystemExit('SCHUTZSTOPP: autoDownload-Schalter nicht gefunden')
+          engine.write_text(s,encoding='utf-8')
+
+          page=Path('pages/vertraege/club-partner.html')
+          h=page.read_text(encoding='utf-8')
+          h=h.replace('./contract-pdf-engine-v1.js?v=2','./contract-pdf-engine-v1.js?v=3')
+          h=h.replace('./contract-pdf-engine-v1.js?v=1','./contract-pdf-engine-v1.js?v=3')
+          needle="footerText:lang==='de'?'Club-Partner-Vereinbarung · LiquidityBooster':'Club Partner Agreement · LiquidityBooster',\n      filename"
+          repl="footerText:lang==='de'?'Club-Partner-Vereinbarung · LiquidityBooster':'Club Partner Agreement · LiquidityBooster',\n      filename,\n      autoDownload:false"
+          if needle in h:
+              h=h.replace(needle,repl,1)
+          elif 'autoDownload:false' not in h:
+              raise SystemExit('SCHUTZSTOPP: generate-Aufruf nicht gefunden')
+          page.write_text(h,encoding='utf-8')
+          PY
+
+      - name: Verify manual download behavior
+        shell: bash
+        run: |
+          node --check pages/vertraege/contract-pdf-engine-v1.js
+          python3 - <<'PY'
+          from pathlib import Path
+          e=Path('pages/vertraege/contract-pdf-engine-v1.js').read_text(encoding='utf-8')
+          h=Path('pages/vertraege/club-partner.html').read_text(encoding='utf-8')
+          if 'if(opts.autoDownload===true){' not in e: raise SystemExit('SCHUTZSTOPP: Engine startet noch automatisch')
+          if 'autoDownload:false' not in h: raise SystemExit('SCHUTZSTOPP: Club-Partner-Seite fordert nicht manuelle Ausgabe an')
+          if './contract-pdf-engine-v1.js?v=3' not in h: raise SystemExit('SCHUTZSTOPP: Cache-Key fehlt')
+          if 'a.download=filename' not in h: raise SystemExit('SCHUTZSTOPP: Download-Link mit Dateiname fehlt')
+          PY
+
+      - name: Commit and remove one-time workflow
+        shell: bash
+        run: |
+          git config user.name "Adler-FSA Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add pages/vertraege/contract-pdf-engine-v1.js pages/vertraege/club-partner.html
+          git rm .github/workflows/contract-pdf-manual-download-only.yml
+          git commit -m "Offer generated contract PDFs for manual download"
+          git push
