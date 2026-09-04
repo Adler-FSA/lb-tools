@@ -1,0 +1,37 @@
+name: Fix Page 7 calculator field scoping
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-page7-calculator-scope.yml'
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scope calculator 1 inputs so calculator 2 can initialize
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('hoersaal-liquiditybooster/07-werkstatt.html')
+          s = p.read_text(encoding='utf-8')
+          old1 = "function read(){const d={basis:[0,0,0],plus:[0,0,0],pro:[0,0,0]};document.querySelectorAll('.qty').forEach(i=>{let v=Math.max(0,Math.floor(Number(i.value)||0));i.value=v;d[i.dataset.product][Number(i.dataset.level)]=v});return d}"
+          new1 = "function read(){const d={basis:[0,0,0],plus:[0,0,0],pro:[0,0,0]};document.querySelectorAll('.qty[data-product][data-level]').forEach(i=>{let v=Math.max(0,Math.floor(Number(i.value)||0));i.value=v;d[i.dataset.product][Number(i.dataset.level)]=v});return d}"
+          old2 = "document.querySelectorAll('.qty').forEach(i=>i.addEventListener('input',calculate));"
+          new2 = "document.querySelectorAll('.qty[data-product][data-level]').forEach(i=>i.addEventListener('input',calculate));"
+          old3 = "document.getElementById('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.qty').forEach(i=>i.value=0);calculate()});"
+          new3 = "document.getElementById('resetBtn').addEventListener('click',()=>{document.querySelectorAll('.qty[data-product][data-level]').forEach(i=>i.value=0);calculate()});"
+          for old, new, label in [(old1,new1,'read'),(old2,new2,'listener'),(old3,new3,'reset')]:
+              if old not in s:
+                  raise SystemExit(f'Expected {label} pattern not found')
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit fix
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add hoersaal-liquiditybooster/07-werkstatt.html
+          git commit -m 'Fix calculator 2 input handling on Hoersaal page 7'
+          git push
