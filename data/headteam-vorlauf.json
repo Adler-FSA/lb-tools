@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "projects": [
     {
       "id": "2a1b2001-f224-48fe-9be0-c548f978aac1",
@@ -173,6 +173,17 @@
         }
       ],
       "archivedAt": "2026-09-03T19:52:40.982Z"
+    }
+  ],
+  "personalLinks": [
+    {
+      "id": "6be72ccc-ddfa-414b-8114-a734003f3b8b",
+      "recipient": "alexander",
+      "title": "ClubLeader  Vereinbarung",
+      "url": "https://tools.liquiditybooster.de/pages/vertraege/club-leader.html",
+      "note": "Bitte einmal gegenlesen ob er so bleiben kann , wenn nicht kurze Rückmeldung ob ich ihn an die anderen drei anpassen darf. Der jetzige stand ist veraltet.",
+      "createdAt": "2026-09-04T11:17:13.543Z",
+      "updatedAt": "2026-09-04T11:17:13.543Z"
     }
   ]
 }
