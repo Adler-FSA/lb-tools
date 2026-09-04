@@ -1,0 +1,104 @@
+name: Fix Club Partner PDF V2 and confirmation
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-club-partner-v2-confirmation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify PDF V2 engine
+        run: node --check pages/vertraege/contract-pdf-engine-v2.js
+
+      - name: Fix page wiring and remove visible signature field
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p=Path('pages/vertraege/club-partner.html')
+          s=p.read_text(encoding='utf-8')
+
+          # V2 was loaded, but the page still rejected every engine except V1.
+          s=s.replace("window.FSAContractPdfEngine.version!=='FSA_CONTRACT_PDF_ENGINE_V1'",
+                      "window.FSAContractPdfEngine.version!=='FSA_CONTRACT_PDF_ENGINE_V2'")
+
+          # Cache bust the repaired files.
+          s=s.replace('./contract-pdf-engine-v2.js?v=1','./contract-pdf-engine-v2.js?v=2')
+          s=s.replace('./club-partner-enhancements-v1.js?v=1','./club-partner-enhancements-v1.js?v=3')
+          s=s.replace('./club-partner-enhancements-v1.js?v=2','./club-partner-enhancements-v1.js?v=3')
+
+          # The typed signatory field is retained only as an internal compatibility value for the existing
+          # PDF filename/validation code, but is no longer shown to the user and is excluded from the PDF.
+          old='<label class="field wide"><span data-i18n="accept.signer">Name des Unterzeichners</span><input id="signerName" autocomplete="name"></label>'
+          new='<label class="field wide signer-compat" data-pdf-exclude aria-hidden="true"><span data-i18n="accept.signer">Name des Unterzeichners</span><input id="signerName" autocomplete="name" tabindex="-1"></label>'
+          if old in s:
+              s=s.replace(old,new,1)
+          elif 'class="field wide signer-compat"' not in s:
+              raise SystemExit('SCHUTZSTOPP: Signaturfeld nicht gefunden')
+
+          # Clarify the visible note: no handwritten/signature field is required in this browser workflow.
+          s=s.replace(
+            "'accept.note':'Die Namenseingabe und Bestätigung werden in der PDF dokumentiert. Diese Funktion bezeichnet sich nicht als qualifizierte elektronische Signatur.'",
+            "'accept.note':'Die gesetzten Bestätigungen werden gemeinsam mit den Vertragsdaten, Ort und Datum in der PDF dokumentiert. Eine handschriftliche Unterschrift oder ein Ausdruck ist für diesen digitalen Ablauf nicht vorgesehen.'"
+          )
+          s=s.replace(
+            "'accept.note':'The typed name and confirmation are documented in the PDF. This function does not describe itself as a qualified electronic signature.'",
+            "'accept.note':'The selected confirmations are documented in the PDF together with the contract data, place and date. A handwritten signature or printed copy is not intended for this digital workflow.'"
+          )
+
+          p.write_text(s,encoding='utf-8')
+
+          e=Path('pages/vertraege/club-partner-enhancements-v1.js')
+          t=e.read_text(encoding='utf-8')
+          # Hide the compatibility field and keep the explanatory copy aligned with the intended paperless process.
+          t=t.replace(
+            ".confirmation-core .check:last-child{margin-bottom:0}",
+            ".confirmation-core .check:last-child{margin-bottom:0}.signer-compat{display:none!important}"
+          ) if '.signer-compat{display:none!important}' not in t else t
+          t=t.replace(
+            "note:'Die vorstehenden Erklärungen wurden durch aktive Auswahl bestätigt und werden gemeinsam mit Name, Ort und Datum in dieser Vertrags-PDF dokumentiert. Diese Funktion bezeichnet sich nicht als qualifizierte elektronische Signatur.'",
+            "note:'Die vorstehenden Erklärungen wurden durch aktive Auswahl bestätigt und werden gemeinsam mit den Vertragsdaten, Ort und Datum in dieser Vertrags-PDF dokumentiert. Eine handschriftliche Unterschrift oder ein Ausdruck ist für diesen digitalen Ablauf nicht vorgesehen.'"
+          )
+          t=t.replace(
+            "note:'The statements above are confirmed by active selection and are documented together with name, place and date in this contract PDF. This function does not describe itself as a qualified electronic signature.'",
+            "note:'The statements above are confirmed by active selection and are documented together with the contract data, place and date in this contract PDF. A handwritten signature or printed copy is not intended for this digital workflow.'"
+          )
+          e.write_text(t,encoding='utf-8')
+          PY
+
+      - name: Verify repaired page
+        run: |
+          grep -q "FSA_CONTRACT_PDF_ENGINE_V2" pages/vertraege/club-partner.html
+          grep -q "contract-pdf-engine-v2.js?v=2" pages/vertraege/club-partner.html
+          grep -q "signer-compat" pages/vertraege/club-partner.html
+          grep -q "signer-compat{display:none!important}" pages/vertraege/club-partner-enhancements-v1.js
+          node --check pages/vertraege/contract-pdf-engine-v2.js
+          node --check pages/vertraege/club-partner-enhancements-v1.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('pages/vertraege/club-partner.html').read_text(encoding='utf-8')
+          blocks=re.findall(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>',s,re.S|re.I)
+          Path('/tmp/club-partner-inline.js').write_text('\n'.join(blocks),encoding='utf-8')
+          PY
+          node --check /tmp/club-partner-inline.js
+
+      - name: Commit repair and remove one-time workflow
+        run: |
+          rm .github/workflows/fix-club-partner-v2-confirmation.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pages/vertraege/club-partner.html pages/vertraege/club-partner-enhancements-v1.js .github/workflows/fix-club-partner-v2-confirmation.yml
+          git commit -m "Fix Club Partner PDF V2 and paperless confirmation"
+          git push
