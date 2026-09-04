@@ -1,0 +1,72 @@
+name: Fix Hoersaal Page4 Wiring
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-hoersaal-page4-wiring.yml'
+permissions:
+  contents: write
+jobs:
+  wire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Seite 4 in Navigation und Pager verdrahten
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          base = Path('hoersaal-liquiditybooster')
+          pages = [base/'01-willkommen.html', base/'02-big-picture.html', base/'03-gast-club.html']
+
+          for p in pages[:2]:
+              s = p.read_text(encoding='utf-8')
+              s = s.replace('href="04-rollen-entwicklung.html"', 'href="04-rollen.html"')
+              # Noch nicht gebaute Seiten nicht auf 404 führen lassen.
+              s = s.replace('<a href="05-mein-nutzen.html">05 Mein Nutzen</a>', '<span aria-disabled="true">05 Mein Nutzen</span>')
+              s = s.replace('<a href="06-empfehlung.html">06 Empfehlung</a>', '<span aria-disabled="true">06 Empfehlung</span>')
+              s = s.replace('<a href="07-werkstatt.html">07 Werkstatt</a>', '<span aria-disabled="true">07 Werkstatt</span>')
+              s = s.replace('<a href="08-entscheidung.html">08 Entscheidung</a>', '<span aria-disabled="true">08 Entscheidung</span>')
+              p.write_text(s, encoding='utf-8')
+
+          p = pages[2]
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('<span aria-disabled="true">04 Rollen & Entwicklung</span>', '<a href="04-rollen.html">04 Rollen & Entwicklung</a>')
+          old = '<span class="disabled" aria-disabled="true" data-i18n data-de="04 Rollen & Entwicklung" data-en="04 Roles & development">04 Rollen & Entwicklung</span>'
+          new = '<a href="04-rollen.html" data-i18n data-de="04 Rollen & Entwicklung →" data-en="04 Roles & development →">04 Rollen & Entwicklung →</a>'
+          if old not in s:
+              raise SystemExit('Pager-Marker auf Seite 3 nicht gefunden')
+          s = s.replace(old, new)
+          p.write_text(s, encoding='utf-8')
+
+          # Sicherstellen, dass die aktuelle Seite 4 existiert.
+          target = base/'04-rollen.html'
+          if not target.exists():
+              raise SystemExit('Zielseite 04-rollen.html fehlt')
+
+          # Prüfungen
+          for p in pages:
+              text = p.read_text(encoding='utf-8')
+              if '04-rollen.html' not in text:
+                  raise SystemExit(f'04-Verlinkung fehlt in {p}')
+              if '04-rollen-entwicklung.html' in text:
+                  raise SystemExit(f'Alter 04-Dateiname noch vorhanden in {p}')
+          if 'class="disabled" aria-disabled="true" data-i18n data-de="04 Rollen & Entwicklung"' in pages[2].read_text(encoding='utf-8'):
+              raise SystemExit('Seite-3-Pager weiterhin gesperrt')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hoersaal-liquiditybooster/01-willkommen.html hoersaal-liquiditybooster/02-big-picture.html hoersaal-liquiditybooster/03-gast-club.html
+          git commit -m "Hörsaal: Seite 4 Navigation und Weiter-Button verdrahten"
+          git push
+
+      - name: Einmal-Workflow entfernen
+        if: always()
+        run: |
+          git pull --rebase || true
+          rm -f .github/workflows/fix-hoersaal-page4-wiring.yml
+          git add .github/workflows/fix-hoersaal-page4-wiring.yml
+          if ! git diff --cached --quiet; then
+            git commit -m "Cleanup: einmaligen Seite-4-Verdrahtungsworkflow entfernen"
+            git push
+          fi
