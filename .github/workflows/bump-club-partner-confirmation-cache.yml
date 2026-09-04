@@ -1,0 +1,36 @@
+name: Bump Club Partner confirmation cache
+
+on:
+  push:
+    paths:
+      - '.github/workflows/bump-club-partner-confirmation-cache.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Bump cache key
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('pages/vertraege/club-partner.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('club-partner-enhancements-v1.js?v=4','club-partner-enhancements-v1.js?v=5')
+          p.write_text(s,encoding='utf-8')
+          PY
+          grep -q 'club-partner-enhancements-v1.js?v=5' pages/vertraege/club-partner.html
+      - name: Commit and remove workflow
+        run: |
+          git config user.name 'Adler-FSA'
+          git config user.email 'ceo@liquiditybooster.de'
+          git add pages/vertraege/club-partner.html
+          git commit -m 'Refresh Club Partner confirmation script'
+          git rm .github/workflows/bump-club-partner-confirmation-cache.yml
+          git commit -m 'Remove one-time confirmation cache workflow'
+          git push
