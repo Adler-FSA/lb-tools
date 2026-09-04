@@ -1,4 +1,4 @@
-name: Wire Club Partner to existing PDF V3 engine
+name: Clean Club Partner contract PDF wiring
 
 on:
   push:
@@ -9,79 +9,44 @@ permissions:
   contents: write
 
 jobs:
-  wire:
+  clean:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Rewire contract page without changing PDF engine
+      - name: Keep contract completely contract-specific
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import re
 
-          html_path = Path('pages/vertraege/club-partner.html')
-          old_engine = Path('pages/vertraege/fsa-contract-pdf-engine.js')
-          existing_exporter = Path('pages/notfallakte/pdf-document-export-v3.js')
-          canonical_core = Path('blaupausen/pdf-core-canonical.js')
+          html = Path('pages/vertraege/club-partner.html')
+          engine = Path('pages/vertraege/fsa-contract-pdf-engine.js')
+          s = html.read_text(encoding='utf-8')
 
-          if not existing_exporter.exists() or 'FSA_PDF_DOCUMENT_EXPORT_V3' not in existing_exporter.read_text(encoding='utf-8'):
-              raise SystemExit('SCHUTZSTOPP: vorhandene Notfallakte PDF Document Engine V3 fehlt')
-          if not canonical_core.exists() or 'FSA_PDF_CORE_V3' not in canonical_core.read_text(encoding='utf-8'):
-              raise SystemExit('SCHUTZSTOPP: kanonischer FSA PDF Core V3 fehlt')
+          old = "Zu den derzeit vorgesehenen weiterführenden Angeboten können insbesondere Notfallakte, Krypto-Steuer-Assistent, Business-Assistent und Hörsäle gehören."
+          new = "Weiterführende Akademieprodukte, Werkzeuge, Vermarktungsrechte und Sichtbarkeitsrechte können gesonderten Qualifikations- und Freischaltungsregeln unterliegen."
+          s = s.replace(old, new)
 
-          s = html_path.read_text(encoding='utf-8')
+          # Der Club-Partner-Vertrag bleibt ausschließlich an seiner eigenen PDF-Ausgabe verdrahtet.
+          if '<script src="./fsa-contract-pdf-engine.js"></script>' not in s:
+              raise SystemExit('SCHUTZSTOPP: Vertrags-PDF-Engine ist nicht korrekt verdrahtet')
+          if 'pages/notfallakte' in s.lower() or '../notfallakte/' in s.lower():
+              raise SystemExit('SCHUTZSTOPP: Notfallakte-Dateipfad in Vertragsseite gefunden')
+          if 'notfallakte' in s.lower():
+              raise SystemExit('SCHUTZSTOPP: sichtbare Notfallakte-Referenz im Club-Partner-Vertrag gefunden')
+          if not engine.exists():
+              raise SystemExit('SCHUTZSTOPP: Vertrags-PDF-Engine fehlt')
+          if 'notfallakte' in engine.read_text(encoding='utf-8').lower():
+              raise SystemExit('SCHUTZSTOPP: Notfallakte-Referenz in Vertrags-PDF-Engine gefunden')
 
-          old_src = '<script src="./fsa-contract-pdf-engine.js"></script>'
-          new_src = '<script src="../notfallakte/pdf-document-export-v3.js?v=FSA_PDF_DOCUMENT_EXPORT_V3"></script>'
-          if old_src not in s and new_src not in s:
-              raise SystemExit('SCHUTZSTOPP: erwartete PDF-Script-Verdrahtung nicht gefunden')
-          s = s.replace(old_src, new_src)
-
-          s = s.replace('Die PDF wird direkt durch die FSA Contract PDF Engine erzeugt - ohne Browser-Druckdialog.', 'Die PDF wird direkt durch die vorhandene FSA PDF Document Engine V3 erzeugt - ohne Browser-Druckdialog.')
-          s = s.replace('The PDF is generated directly by the FSA Contract PDF Engine - without a browser print dialog.', 'The PDF is generated directly by the existing FSA PDF Document Engine V3 - without a browser print dialog.')
-
-          adapter = r'''function safePdfName(value){return String(value||'Unbekannt').trim().replace(/[^a-zA-Z0-9äöüÄÖÜß_-]+/g,'-').replace(/-+/g,'-').replace(/^-+|-+$/g,'')||'Unbekannt'}
-function pdfPage(sheet){const page=document.createElement('div');page.className='pPage';const inner=document.createElement('div');inner.className='pPageInner';page.appendChild(inner);sheet.appendChild(page);return inner}
-function pdfMessage(body,text){const d=document.createElement('div');d.textContent=String(text||'').trim();if(d.textContent)body.appendChild(d)}
-function pdfSection(inner,title,blocks){const sec=document.createElement('section');sec.className='pSection';const head=document.createElement('div');head.className='pSectionHead';const h2=document.createElement('h2');h2.textContent=title;head.appendChild(h2);const body=document.createElement('div');body.className='pBody';(blocks||[]).forEach(t=>pdfMessage(body,t));sec.append(head,body);inner.appendChild(sec)}
-function splitPdfText(text,limit=1100){let rest=String(text||'').trim(),out=[];while(rest.length>limit){let cut=rest.lastIndexOf(' ',limit);if(cut<Math.floor(limit*.62))cut=limit;out.push(rest.slice(0,cut).trim());rest=rest.slice(cut).trim()}if(rest)out.push(rest);return out}
-function pagedPdfSection(sheet,title,blocks){const flat=[];(blocks||[]).forEach(t=>splitPdfText(t).forEach(x=>flat.push(x)));let group=[],weight=0;const flush=()=>{if(!group.length)return;pdfSection(pdfPage(sheet),title,group);group=[];weight=0};flat.forEach(t=>{const w=Math.max(170,t.length+90);if(group.length&&weight+w>1950)flush();group.push(t);weight+=w});flush()}
-function contractSectionBlocks(sec){const out=[];Array.from(sec.children).forEach(ch=>{if(ch.tagName==='H3')return;if(ch.tagName==='P'){out.push(ch.textContent.trim());return}if(ch.matches('ol,ul')){Array.from(ch.querySelectorAll(':scope > li')).forEach((li,i)=>out.push((ch.tagName==='OL'?(i+1)+'. ':'• ')+li.textContent.trim()));return}if(ch.classList.contains('callout')){out.push(ch.textContent.trim());return}if(ch.classList.contains('table-wrap')){const table=ch.querySelector('table');if(!table)return;const headers=Array.from(table.querySelectorAll('thead th')).map(x=>x.textContent.trim());Array.from(table.querySelectorAll('tbody tr')).forEach(tr=>{const cells=Array.from(tr.children).map(x=>x.textContent.trim());out.push(cells.map((v,i)=>(headers[i]?headers[i]+': ':'')+v).join('\n'))});return}const text=ch.textContent.trim();if(text)out.push(text)});return out}
-function buildContractPrintSheet(blank){document.getElementById('printSheet')?.remove();const sheet=document.createElement('div');sheet.id='printSheet';sheet.hidden=true;document.body.appendChild(sheet);
-  let inner=pdfPage(sheet);const head=document.createElement('div');head.className='pHead';const eye=document.createElement('div');eye.className='pEyebrow';eye.textContent='LIQUIDITYBOOSTER · '+(lang==='de'?'VERTRAG':'AGREEMENT');const h1=document.createElement('h1');h1.textContent=$('.hero h1')?.textContent||'';const sub=document.createElement('p');sub.textContent=$('.hero .lead')?.textContent||'';head.append(eye,h1,sub);inner.appendChild(head);const overview=$$('.summary-card').map(x=>x.textContent.trim());const logic=$('.logic-note')?.textContent.trim();if(logic)overview.push(logic);pdfSection(inner,lang==='de'?'Vertragsübersicht':'Agreement overview',overview);
-  const v=blank?{}:vals();const partyBlocks=[];Array.from(document.querySelectorAll('.party-card > p')).slice(0,5).forEach(p=>partyBlocks.push(p.textContent.trim()));const fields=[['company','form.company'],['fullName','form.name'],['street','form.street'],['city','form.city'],['country','form.country'],['phone','form.phone'],['email','form.email'],['taxId','form.tax'],['iban','form.iban'],['bic','form.bic']];fields.forEach(([name,key])=>partyBlocks.push(ui[lang][key]+': '+(v[name]||'')));pagedPdfSection(sheet,ui[lang]['party.title'],partyBlocks);
-  $$('#contractContent .contract-section').forEach(sec=>{const title=sec.querySelector('h3')?.textContent.trim()||'';pagedPdfSection(sheet,title,contractSectionBlocks(sec))});
-  const acceptance=[];const intro=$('#acceptance > p')?.textContent.trim();if(intro)acceptance.push(intro);$$('.acceptCheck').forEach(c=>{const text=c.parentElement?.querySelector('span')?.textContent.trim()||'';acceptance.push('['+(blank?' ':c.checked?'X':' ')+'] '+text)});acceptance.push(ui[lang]['accept.place']+': '+(blank?'':$('#signPlace').value));acceptance.push(ui[lang]['accept.date']+': '+(blank?'':$('#signDate').value));acceptance.push(ui[lang]['accept.signer']+': '+(blank?'':$('#signerName').value));const note=$('.signature-note')?.textContent.trim();if(note)acceptance.push(note);pagedPdfSection(sheet,$('#acceptance h3')?.textContent.trim()||ui[lang]['accept.title'],acceptance);return sheet}
-'''
-
-          pattern_blocks = re.compile(r"function pdfBlocks\(blank\)\{.*?\}\nfunction showError", re.S)
-          s, count = pattern_blocks.subn(adapter + "\nfunction showError", s, count=1)
-          if count != 1:
-              raise SystemExit(f'SCHUTZSTOPP: pdfBlocks konnte nicht eindeutig ersetzt werden ({count})')
-
-          new_create = r'''async function createPdf(blank){$('#formError').classList.remove('show');if(!window.NotfallaktePdfExport||window.NotfallaktePdfExport.version!=='FSA_PDF_DOCUMENT_EXPORT_V3'){showError(lang==='de'?'Vorhandene PDF Engine V3 konnte nicht geladen werden.':'Existing PDF Engine V3 could not be loaded.');return}if(!blank&&!validateFilled())return;const signer=blank?'Leer':$('#signerName').value.trim(),filename=(lang==='de'?'Club-Partner-Vertrag-':'Club-Partner-Agreement-')+safePdfName(signer)+'.pdf';let sheet=null;try{sheet=buildContractPrintSheet(blank);const result=await window.NotfallaktePdfExport.generate({filename});if(currentUrl)URL.revokeObjectURL(currentUrl);currentUrl=URL.createObjectURL(result.blob);const a=$('#downloadLink');a.href=currentUrl;a.download=filename;$('#downloadInfo').textContent=(lang==='de'?`PDF erstellt: ${result.pages} Seiten · `:`PDF created: ${result.pages} pages · `)+filename;$('#downloadState').classList.add('show');setTimeout(()=>$('#downloadState').scrollIntoView({behavior:'smooth',block:'nearest'}),20)}catch(err){console.error(err);showError((lang==='de'?'PDF-Erstellung fehlgeschlagen: ':'PDF creation failed: ')+(err&&err.message?err.message:err))}finally{sheet?.remove()}}'''
-          pattern_create = re.compile(r"async function createPdf\(blank\)\{.*?\}\n\$\('#blankPdfBtn'\)", re.S)
-          s, count = pattern_create.subn(new_create + "\n$('#blankPdfBtn')", s, count=1)
-          if count != 1:
-              raise SystemExit(f'SCHUTZSTOPP: createPdf konnte nicht eindeutig ersetzt werden ({count})')
-
-          if 'FsaContractPdf' in s or 'pdfBlocks(' in s or './fsa-contract-pdf-engine.js' in s:
-              raise SystemExit('SCHUTZSTOPP: alte separate Vertrags-PDF-Engine ist noch verdrahtet')
-          if '../notfallakte/pdf-document-export-v3.js?v=FSA_PDF_DOCUMENT_EXPORT_V3' not in s:
-              raise SystemExit('SCHUTZSTOPP: bestehende PDF Document Engine V3 ist nicht verdrahtet')
-          if "$$('#contractContent .contract-section')" not in s:
-              raise SystemExit('SCHUTZSTOPP: DOM-Auslesung des sichtbaren Vertragstextes fehlt')
-
-          html_path.write_text(s, encoding='utf-8')
-          if old_engine.exists():
-              old_engine.unlink()
+          html.write_text(s, encoding='utf-8')
           PY
 
       - name: Syntax check contract JavaScript
         shell: bash
         run: |
+          node --check pages/vertraege/fsa-contract-pdf-engine.js
           python3 - <<'PY'
           from pathlib import Path
           import re
@@ -91,16 +56,12 @@ function buildContractPrintSheet(blank){document.getElementById('printSheet')?.r
           PY
           node --check /tmp/club-partner-inline.js
 
-      - name: Commit wiring
+      - name: Commit cleanup and remove one-time workflow
         shell: bash
         run: |
           git config user.name "Adler-FSA Automation"
           git config user.email "actions@users.noreply.github.com"
+          git rm .github/workflows/wire-club-partner-existing-pdf-v3.yml
           git add pages/vertraege/club-partner.html
-          git add -u pages/vertraege/fsa-contract-pdf-engine.js || true
-          if git diff --cached --quiet; then
-            echo "Contract already wired to existing PDF V3 engine"
-          else
-            git commit -m "Wire Club Partner contract to existing PDF V3 engine"
-            git push
-          fi
+          git commit -m "Keep Club Partner contract fully contract-specific"
+          git push
