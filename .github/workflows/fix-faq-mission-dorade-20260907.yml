@@ -1,0 +1,59 @@
+name: FAQ Mission Dorade korrigieren
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-faq-mission-dorade-20260907.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-faq:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Veraltete Mission-Dorade-Aussagen korrigieren
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('pages/faq/index.html')
+          text = path.read_text(encoding='utf-8')
+
+          replacements = {
+              'Möglichkeit, Mission Dorade für den aktiven Verdienst- und Aufbauweg zu aktivieren':
+                  'Möglichkeit, Mission Dorade als Qualifikations- und Aufbauweg für den Jackpot und Club Partner Plus zu nutzen',
+              'Der aktive Verdienst- und Aufbauweg setzt die Aktivierung und Teilnahme an <strong>Mission Dorade</strong> voraus. Sind die jeweils gültigen Voraussetzungen erfüllt, gilt die persönliche 3-Ebenen-Logik:':
+                  'Jeder Club Partner darf persönlich empfehlen. Für wirksam zugeordneten, angenommenen und vollständig bezahlten provisionsfähigen Umsatz gilt die persönliche 3-Ebenen-Logik:',
+              'Wer aktiv mitverdienen möchte, aktiviert Mission Dorade und nimmt am vorgesehenen Aufbauweg teil. Vergütung setzt zusätzlich einen tatsächlich zugeordneten und provisionsfähigen Umsatz nach den gültigen Regeln voraus.':
+                  'Für die persönliche Empfehlungsvergütung ist Mission Dorade keine Voraussetzung. Vergütung setzt einen tatsächlich zugeordneten und provisionsfähigen Umsatz nach den gültigen Regeln voraus.',
+              'Er aktiviert den aktiven Verdienst- und Aufbauweg und gehört verbindlich zur Club-Partner-Plus-Qualifikation.':
+                  'Er ist der Qualifikations- und Aufbauweg für die Teilnahme am Mission-Dorade-Jackpot und gehört verbindlich zur Club-Partner-Plus-Qualifikation.'
+          }
+
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'Erwarteter FAQ-Text nicht gefunden: {old}')
+              text = text.replace(old, new, 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Änderung committen
+        shell: bash
+        run: |
+          git config user.name "LiquidityBooster Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add pages/faq/index.html
+          if git diff --cached --quiet; then
+            echo "Keine Änderung erforderlich."
+            exit 0
+          fi
+          git commit -m "FAQ: Mission Dorade von Empfehlungsvergütung trennen"
+          git push origin main
