@@ -1,0 +1,73 @@
+name: Headteam Hörsaal-Konzept PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pages/headteam-hoersaal-konzept/index.html'
+      - '.github/workflows/build-headteam-hoersaal-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Chrome ermitteln
+        id: chrome
+        shell: bash
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "bin=$(command -v google-chrome)" >> "$GITHUB_OUTPUT"
+          elif command -v google-chrome-stable >/dev/null 2>&1; then
+            echo "bin=$(command -v google-chrome-stable)" >> "$GITHUB_OUTPUT"
+          elif command -v chromium-browser >/dev/null 2>&1; then
+            echo "bin=$(command -v chromium-browser)" >> "$GITHUB_OUTPUT"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "bin=$(command -v chromium)" >> "$GITHUB_OUTPUT"
+          else
+            echo "Kein Chrome/Chromium auf dem Runner gefunden." >&2
+            exit 1
+          fi
+
+      - name: PDF aus der Webseite erzeugen
+        shell: bash
+        run: |
+          PAGE="$GITHUB_WORKSPACE/pages/headteam-hoersaal-konzept/index.html"
+          PDF="$GITHUB_WORKSPACE/pages/headteam-hoersaal-konzept/Akademie_Hoersaal_Konzept_FINAL.pdf"
+          "${{ steps.chrome.outputs.bin }}" \
+            --headless \
+            --disable-gpu \
+            --no-sandbox \
+            --no-pdf-header-footer \
+            --print-to-pdf="$PDF" \
+            "file://$PAGE"
+          test -s "$PDF"
+
+      - name: PDF für den Download in Teile schreiben
+        shell: bash
+        run: |
+          DIR="$GITHUB_WORKSPACE/pages/headteam-hoersaal-konzept/pdf"
+          PDF="$GITHUB_WORKSPACE/pages/headteam-hoersaal-konzept/Akademie_Hoersaal_Konzept_FINAL.pdf"
+          mkdir -p "$DIR"
+          rm -f "$DIR"/part-*.txt "$DIR"/part-*
+          base64 -w0 "$PDF" | split -b 50000 -d -a 2 - "$DIR/part-"
+          for f in "$DIR"/part-[0-9][0-9]; do mv "$f" "$f.txt"; done
+
+      - name: Ergebnis committen
+        shell: bash
+        run: |
+          git config user.name "FSA Hörsaal Build"
+          git config user.email "actions@github.com"
+          git add pages/headteam-hoersaal-konzept/Akademie_Hoersaal_Konzept_FINAL.pdf pages/headteam-hoersaal-konzept/pdf/
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+            exit 0
+          fi
+          git commit -m "Headteam Hörsaal-Konzept: PDF aktualisieren"
+          git push
