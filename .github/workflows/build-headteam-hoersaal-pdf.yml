@@ -18,6 +18,20 @@ jobs:
       - name: Repository auschecken
         uses: actions/checkout@v4
 
+      - name: PDF-Download auf direkten Dateilink stellen
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('pages/headteam-hoersaal-konzept/index.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('<a class="btn primary" href="#" id="pdfDownload">','<a class="btn primary" href="Akademie_Hoersaal_Konzept_FINAL.pdf" download>')
+          s=re.sub(r'<script>const pdfBtn=document\.getElementById\(\'pdfDownload\'\);.*?</script>\s*', '', s, flags=re.S)
+          p.write_text(s,encoding='utf-8')
+          PY
+          rm -rf pages/headteam-hoersaal-konzept/pdf
+
       - name: Chrome ermitteln
         id: chrome
         shell: bash
@@ -49,25 +63,15 @@ jobs:
             "file://$PAGE"
           test -s "$PDF"
 
-      - name: PDF für den Download in Teile schreiben
-        shell: bash
-        run: |
-          DIR="$GITHUB_WORKSPACE/pages/headteam-hoersaal-konzept/pdf"
-          PDF="$GITHUB_WORKSPACE/pages/headteam-hoersaal-konzept/Akademie_Hoersaal_Konzept_FINAL.pdf"
-          mkdir -p "$DIR"
-          rm -f "$DIR"/part-*.txt "$DIR"/part-*
-          base64 -w0 "$PDF" | split -b 50000 -d -a 2 - "$DIR/part-"
-          for f in "$DIR"/part-[0-9][0-9]; do mv "$f" "$f.txt"; done
-
       - name: Ergebnis committen
         shell: bash
         run: |
           git config user.name "FSA Hörsaal Build"
           git config user.email "actions@github.com"
-          git add pages/headteam-hoersaal-konzept/Akademie_Hoersaal_Konzept_FINAL.pdf pages/headteam-hoersaal-konzept/pdf/
+          git add -A pages/headteam-hoersaal-konzept
           if git diff --cached --quiet; then
             echo "Keine Änderungen."
             exit 0
           fi
-          git commit -m "Headteam Hörsaal-Konzept: PDF aktualisieren"
+          git commit -m "Headteam Hörsaal-Konzept: PDF und Download aktualisieren"
           git push
