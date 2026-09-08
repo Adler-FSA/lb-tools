@@ -84,6 +84,25 @@
           "event": "updated"
         }
       ]
+    },
+    {
+      "id": "cc31d4f7-16b5-4bd4-9162-cad4b43b1454",
+      "title": "Leitartikel Über Geld Spricht man nicht",
+      "type": "website",
+      "releaseDate": "",
+      "url": "https://tools.liquiditybooster.de/pages/leitartikel/ueber-geld-spricht-man-nicht/",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-09-08T13:58:15.543Z",
+      "updatedAt": "2026-09-08T13:58:15.543Z",
+      "history": [
+        {
+          "at": "2026-09-08T13:58:15.543Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
