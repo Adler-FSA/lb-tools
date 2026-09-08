@@ -5,20 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#ffffff">
-<title>Einkommensrechner | LiquidityBooster Werkstatt</title>
+<title>Kontinuität & Tragfähigkeit | LiquidityBooster Werkstatt</title>
 <style>
 :root{
   --mint:#00a7ad;--mint-soft:#eaf9f9;
   --mag:#c6006f;--mag-soft:#fff0f7;
   --navy:#132238;--ink:#314253;--muted:#6f7d89;
   --line:#dbe8eb;--bg:#f7fbfb;--white:#fff;
+  --gold:#b88717;--gold-soft:#fff8e7;
   --shadow:0 18px 48px rgba(19,34,56,.08)
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:var(--ink);font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
 button,a,input{font:inherit}button{cursor:pointer}a{color:inherit}
-.wrap{width:min(1240px,calc(100% - 34px));margin:auto}
+.wrap{width:min(1320px,calc(100% - 34px));margin:auto}
 .topbar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(219,232,235,.9)}
 .top{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
 .brand-logo{display:flex;align-items:center;text-decoration:none}.brand-logo img{display:block;width:190px;max-width:42vw;max-height:52px;height:auto;object-fit:contain}
@@ -27,24 +28,26 @@ button,a,input{font:inherit}button{cursor:pointer}a{color:inherit}
 .course{padding:18px 0 0}.progress-row{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:13px}.progress-row strong{color:var(--navy)}
 .progress{height:6px;background:#e8f0f2;border-radius:99px;overflow:hidden;margin:8px 0 14px}.progress>span{display:block;width:87.5%;height:100%;background:linear-gradient(90deg,var(--mint),var(--mag));border-radius:99px}
 .nav{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:12px}.nav a,.nav span{padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;text-decoration:none;color:var(--muted);font-size:12px;line-height:1.25}.nav a.active{border-color:var(--mint);color:#fff;background:var(--mint);font-weight:850}.nav a.done{color:var(--mint);border-color:#bfe6e7;background:var(--mint-soft)}.nav span[aria-disabled=true]{opacity:.62}
-.hero{padding:50px 0 44px;background:linear-gradient(125deg,#fff 0,#f1fbfb 52%,#fff5fa 100%);border-bottom:1px solid #edf4f5}.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--mint);font-weight:850;margin-bottom:18px}.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--mint);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}.eyebrow:before{content:"";width:28px;height:3px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--mag))}
-h1,h2,h3{color:var(--navy);margin-top:0}h1{font-size:clamp(34px,4.2vw,56px);line-height:1.08;letter-spacing:-.025em;margin:16px 0 18px;font-weight:760}h2{font-size:clamp(27px,3vw,40px);line-height:1.18;letter-spacing:-.018em;font-weight:720}h3{font-size:20px}.lead{font-size:clamp(18px,2vw,22px);line-height:1.5;color:#5d6d79;max-width:1000px}
+.hero{padding:52px 0 46px;background:linear-gradient(125deg,#fff 0,#f1fbfb 52%,#fff5fa 100%);border-bottom:1px solid #edf4f5}.back{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--mint);font-weight:850;margin-bottom:18px}.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--mint);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}.eyebrow:before{content:"";width:28px;height:3px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--mag))}
+h1,h2,h3,h4{color:var(--navy);margin-top:0}h1{font-size:clamp(34px,4.2vw,58px);line-height:1.08;letter-spacing:-.025em;margin:16px 0 18px;font-weight:760}h2{font-size:clamp(27px,3vw,42px);line-height:1.18;letter-spacing:-.018em;font-weight:720}h3{font-size:20px}.lead{font-size:clamp(19px,2vw,24px);line-height:1.5;color:#5d6d79;max-width:1080px}
 .hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.pill{padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--navy);font-size:13px;font-weight:850}.pill.mint{background:var(--mint-soft);border-color:#bfe6e7;color:#087d83}.pill.mag{background:var(--mag-soft);border-color:#efd1e2;color:var(--mag)}
-.section{padding:54px 0}.soft{background:var(--bg)}
-.calc-shell{border:1px solid var(--line);border-radius:30px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
-.calc-head{padding:28px 30px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#fff,var(--mint-soft))}.calc-head p{margin:8px 0 0;color:var(--muted);max-width:1050px}.section-kicker{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--mint)}
-.calc-body{padding:30px}.card{border:1px solid var(--line);border-radius:23px;background:#fff;padding:22px;margin-bottom:18px;box-shadow:0 10px 30px rgba(19,34,56,.04)}.card:last-child{margin-bottom:0}.card h3{margin:0 0 8px}.card p{margin:0;color:var(--muted)}
-.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}.toggle{display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px solid var(--line);border-radius:15px;background:var(--bg);color:var(--navy);font-weight:750}.toggle input{accent-color:var(--mint);transform:scale(1.12)}
-.btn{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--navy);padding:10px 15px;font-weight:900}.btn.primary{background:var(--mint);border-color:var(--mint);color:#fff}.btn.secondary{color:var(--muted)}
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.price-box{padding:15px;border:1px solid var(--line);border-radius:17px;background:var(--bg)}.price-box span{display:block;color:var(--muted);font-size:11px;font-weight:850}.price-box b{display:block;color:var(--navy);font-size:18px;margin-top:4px}.price-box small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:20px;margin-top:15px}.table{width:100%;min-width:760px;border-collapse:collapse;table-layout:fixed}.table th,.table td{padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:middle}.table th{background:#f4fbfb;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;text-align:left}.table th:not(:first-child),.table td:not(:first-child){text-align:center}.table tbody tr:last-child td{border-bottom:0}.prodname{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:900}.chip{display:inline-flex;align-items:center;justify-content:center;min-width:34px;padding:6px 10px;border-radius:999px;background:var(--mint-soft);border:1px solid #bfe6e7;color:#087d83;font-size:11px;font-weight:900}.prodmeta{display:block;color:var(--muted);font-size:11px;margin-top:3px;margin-left:44px}.num{width:96px;max-width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--navy);font-weight:850;text-align:center;padding:6px 8px}.num:focus{outline:2px solid rgba(0,167,173,.16);border-color:var(--mint)}
-.hint{margin-top:12px;color:var(--muted);font-size:13px;line-height:1.5}
-.split{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.kpi{padding:17px;border:1px solid var(--line);border-radius:18px;background:#fff;min-width:0}.kpi.main{background:linear-gradient(145deg,var(--mint-soft),#fff);border-color:#bfe6e7}.kpi.mag{background:linear-gradient(145deg,var(--mag-soft),#fff);border-color:#efd1e2}.kpi .t{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;font-weight:850}.kpi .v{margin-top:6px;font-weight:900;font-size:clamp(22px,2.8vw,34px);color:var(--navy);white-space:nowrap;overflow:hidden}.product-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.product-kpis .kpi .v{font-size:22px}
-.academy-note{margin-top:20px;padding:18px 20px;border-left:5px solid var(--mag);border-radius:0 18px 18px 0;background:linear-gradient(100deg,var(--mag-soft),#fff);color:var(--navy)}.academy-note b{color:var(--mag)}
+.section{padding:58px 0}.soft{background:var(--bg)}
+.academy-note{padding:19px 21px;border-left:5px solid var(--mag);border-radius:0 18px 18px 0;background:linear-gradient(100deg,var(--mag-soft),#fff);color:var(--navy);margin-bottom:22px}.academy-note b{color:var(--mag)}.academy-note p{margin:5px 0 0}
+.calc-shell{border:1px solid var(--line);border-radius:30px;background:#fff;box-shadow:var(--shadow);overflow:hidden}.calc-head{padding:28px 30px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#fff,var(--mint-soft))}.calc-head p{margin:8px 0 0;color:var(--muted);max-width:1100px}.section-kicker{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--mint)}.calc-body{padding:30px}
+.card{border:1px solid var(--line);border-radius:23px;background:#fff;padding:22px;margin-bottom:18px;box-shadow:0 10px 30px rgba(19,34,56,.04)}.card:last-child{margin-bottom:0}.card h3{margin:0 0 7px}.card>p{margin:0;color:var(--muted)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:20px;margin-top:16px}.table{width:100%;min-width:760px;border-collapse:collapse;table-layout:fixed}.table th,.table td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:middle}.table th{background:#f4fbfb;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;text-align:left}.table th:not(:first-child),.table td:not(:first-child){text-align:center}.table tbody tr:last-child td{border-bottom:0}.prodname{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:900}.chip{display:inline-flex;align-items:center;justify-content:center;min-width:36px;padding:6px 10px;border-radius:999px;background:var(--mint-soft);border:1px solid #bfe6e7;color:#087d83;font-size:11px;font-weight:900}.prodmeta{display:block;color:var(--muted);font-size:11px;margin-top:3px;margin-left:46px}.num{width:100px;max-width:100%;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--navy);font-weight:850;text-align:center;padding:6px 8px}.num:focus{outline:2px solid rgba(0,167,173,.16);border-color:var(--mint)}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--navy);padding:9px 14px;font-weight:900}.btn.primary{background:var(--mint);border-color:var(--mint);color:#fff}.btn.secondary{color:var(--muted)}
+.period-panel{border:1px solid var(--line);border-radius:23px;padding:22px;background:linear-gradient(145deg,#fff,#fbfefe);margin-bottom:18px}.period-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}.period-head p{margin:0;color:var(--muted);font-size:13px}.year-tabs{display:flex;gap:8px;flex-wrap:wrap}.year-btn{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:8px 13px;font-weight:900}.year-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}.month-tabs{display:grid;grid-template-columns:repeat(12,1fr);gap:7px;margin-top:16px}.month-btn{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:13px;padding:9px 5px;font-weight:900}.month-btn.active{background:var(--mint);border-color:var(--mint);color:#fff}.period-summary{margin-top:16px;padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,var(--navy),#1e3b5b);color:#fff}.period-summary small{display:block;color:#cbd7e3;font-weight:800}.period-summary strong{display:block;font-size:clamp(25px,3vw,38px);line-height:1.08;margin-top:3px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}.kpi{padding:15px;border:1px solid var(--line);border-radius:17px;background:#fff;min-width:0}.kpi.main{background:linear-gradient(145deg,var(--mint-soft),#fff);border-color:#bfe6e7}.kpi.mag{background:linear-gradient(145deg,var(--mag-soft),#fff);border-color:#efd1e2}.kpi.gold{background:linear-gradient(145deg,var(--gold-soft),#fff);border-color:#ead9a6}.kpi span{display:block;color:var(--muted);font-size:10px;font-weight:850}.kpi b{display:block;color:var(--navy);font-size:clamp(19px,2.3vw,30px);line-height:1.15;margin-top:5px;white-space:nowrap;overflow:hidden}.kpi small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
+.product-results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.product-result{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fff;min-width:0}.product-result h4{margin:0;color:var(--navy);font-size:16px}.product-result .meta{margin-top:2px;color:var(--muted);font-size:10px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.mini{padding:10px;border-radius:13px;background:var(--bg);min-width:0}.mini span{display:block;color:var(--muted);font-size:9px;font-weight:850}.mini b{display:block;color:var(--navy);font-size:16px;margin-top:3px;white-space:nowrap;overflow:hidden}.level-break{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}.level-break div{font-size:9px;color:var(--muted)}.level-break b{display:block;color:var(--navy);font-size:11px;white-space:nowrap;overflow:hidden}
+.timeline{margin-top:18px}.timeline h4{margin-bottom:8px}.timeline p{margin:0;color:var(--muted);font-size:12px}.year-track{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}.year-card{border:1px solid var(--line);border-radius:17px;padding:14px;background:#fff;cursor:pointer;text-align:left}.year-card.active{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.1)}.year-card span{display:block;color:var(--muted);font-size:10px;font-weight:850}.year-card strong{display:block;color:var(--navy);font-size:19px;margin:4px 0}.year-card small{display:block;color:var(--muted);font-size:9px}
+.teaching{margin-top:18px;padding:18px 20px;border-left:5px solid var(--mint);border-radius:0 18px 18px 0;background:linear-gradient(100deg,var(--mint-soft),#fff);color:var(--navy)}.teaching strong{color:#087d83}.teaching p{margin:6px 0 0}
+.basket-shell{margin-top:26px;border:1px solid var(--line);border-radius:28px;background:#fff;box-shadow:var(--shadow);overflow:hidden}.basket-head{padding:26px 28px;border-bottom:1px solid var(--line);background:linear-gradient(135deg,#fff,var(--mag-soft))}.basket-head p{margin:7px 0 0;color:var(--muted);max-width:1050px}.basket-body{padding:28px}.basket-controls{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.basket-btn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:10px 16px;font-weight:900}.basket-btn.active{background:var(--mag);border-color:var(--mag);color:#fff}.custom-basket{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.custom-basket input{width:150px;height:44px;border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--navy);font-weight:850}.custom-basket input:focus{outline:2px solid rgba(198,0,111,.12);border-color:var(--mag)}.basket-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:17px}.basket-note{margin-top:14px;color:var(--muted);font-size:12px}
 .detail-footer-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px}.detail-footer-nav a{display:inline-flex;padding:12px 18px;border-radius:999px;border:1px solid var(--line);background:#fff;text-decoration:none;font-weight:850;color:var(--navy)}
 footer{padding:34px 0 46px;border-top:1px solid #edf3f4;text-align:center;color:var(--muted);font-size:12px}
-@media(max-width:850px){.price-grid,.split,.product-kpis{grid-template-columns:1fr}.calc-head,.calc-body{padding:22px 18px}}
-@media(max-width:620px){.wrap{width:min(100% - 20px,1240px)}.detail-footer-nav{flex-direction:column}.controls{align-items:stretch}.controls .btn,.toggle{width:100%}.prodmeta{margin-left:0}}
+@media(max-width:1100px){.kpis,.basket-kpis{grid-template-columns:repeat(2,1fr)}.product-results{grid-template-columns:1fr}.year-track{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.wrap{width:min(100% - 20px,1320px)}.calc-head,.calc-body,.basket-head,.basket-body{padding:22px 18px}.month-tabs{grid-template-columns:repeat(6,1fr)}.year-track{grid-template-columns:1fr 1fr}.kpis,.basket-kpis{grid-template-columns:1fr}.detail-footer-nav{flex-direction:column}.period-head{flex-direction:column}.year-tabs{width:100%}.year-btn{flex:1}}
+@media(max-width:480px){.month-tabs{grid-template-columns:repeat(4,1fr)}.year-track{grid-template-columns:1fr}.custom-basket{width:100%}.custom-basket input{width:100%}}
 </style>
 </head>
 <body>
@@ -53,106 +56,170 @@ footer{padding:34px 0 46px;border-top:1px solid #edf3f4;text-align:center;color:
 <div class="wrap course">
   <div class="progress-row"><span data-de="Dein Lernweg" data-en="Your learning path">Dein Lernweg</span><strong data-de="Seite 7 von 8" data-en="Page 7 of 8">Seite 7 von 8</strong></div>
   <div class="progress"><span></span></div>
-  <nav class="nav" aria-label="Hörsaal-Seiten">
-    <a class="done" href="01-willkommen.html">01 Willkommen</a><a class="done" href="02-big-picture.html">02 Big Picture</a><a class="done" href="03-gast-club.html">03 Gast & Club</a><a class="done" href="04-rollen.html">04 Rollen & Entwicklung</a><a class="done" href="05-mein-nutzen.html">05 Mein Nutzen</a><a class="done" href="06-empfehlung.html">06 Empfehlung</a><a class="active" href="07-werkstatt.html">07 Werkstatt</a><span aria-disabled="true">08 Entscheidung</span>
-  </nav>
+  <nav class="nav" aria-label="Hörsaal-Seiten"><a class="done" href="01-willkommen.html">01 Willkommen</a><a class="done" href="02-big-picture.html">02 Big Picture</a><a class="done" href="03-gast-club.html">03 Gast & Club</a><a class="done" href="04-rollen.html">04 Rollen & Entwicklung</a><a class="done" href="05-mein-nutzen.html">05 Mein Nutzen</a><a class="done" href="06-empfehlung.html">06 Empfehlung</a><a class="active" href="07-werkstatt.html">07 Werkstatt</a><span aria-disabled="true">08 Entscheidung</span></nav>
 </div>
 
 <section class="hero"><div class="wrap">
   <a class="back" href="07-werkstatt.html" data-de="← Zurück zur Werkstatt" data-en="← Back to workshop">← Zurück zur Werkstatt</a>
   <div class="eyebrow" data-de="Werkstatt · Rechner 3" data-en="Workshop · Calculator 3">Werkstatt · Rechner 3</div>
-  <h1 data-de="Drei Produkte. Drei Ebenen. Ein klarer Monatsmix." data-en="Three products. Three levels. One clear monthly mix.">Drei Produkte. Drei Ebenen. Ein klarer Monatsmix.</h1>
-  <p class="lead" data-de="Trage ein, wie viele Abschlüsse pro Monat auf E1, E2 und E3 entstehen. Der Rechner zeigt Dir unmittelbar, welche Provision dieser Monatsmix rechnerisch erzeugt – ohne Bestandsmodell, ohne Langzeit-Hochrechnung und ohne versteckte Annahmen." data-en="Enter how many sales per month arise on E1, E2 and E3. The calculator immediately shows the commission generated by that monthly mix — without a stock model, long-term projection or hidden assumptions.">Trage ein, wie viele Abschlüsse pro Monat auf E1, E2 und E3 entstehen. Der Rechner zeigt Dir unmittelbar, welche Provision dieser Monatsmix rechnerisch erzeugt – ohne Bestandsmodell, ohne Langzeit-Hochrechnung und ohne versteckte Annahmen.</p>
-  <div class="hero-pills"><span class="pill mint">E1 · 20 %</span><span class="pill">E2 · 15 %</span><span class="pill mag">E3 · 10 %</span></div>
+  <h1 data-de="Kontinuität baut Bestand auf." data-en="Consistency builds a recurring base.">Kontinuität baut Bestand auf.</h1>
+  <p class="lead" data-de="Eine einzelne Empfehlung zeigt nur einen Moment. Dieser Rechner zeigt Dir, was aus einer selbst gewählten, kontinuierlichen monatlichen Aktivität über Monate und Jahre entstehen kann – wenn der aufgebaute Bestand weitergeführt wird und die jeweiligen Zahlungszyklen erneut fällig werden." data-en="A single recommendation shows only one moment. This calculator shows what can develop from a self-chosen, consistent monthly activity over months and years when the built base continues and the respective payment cycles recur.">Eine einzelne Empfehlung zeigt nur einen Moment. Dieser Rechner zeigt Dir, was aus einer selbst gewählten, kontinuierlichen monatlichen Aktivität über Monate und Jahre entstehen kann – wenn der aufgebaute Bestand weitergeführt wird und die jeweiligen Zahlungszyklen erneut fällig werden.</p>
+  <div class="hero-pills"><span class="pill mint">E1 · 20 %</span><span class="pill">E2 · 15 %</span><span class="pill mag">E3 · 10 %</span><span class="pill" data-de="Vorschau · 5 Jahre" data-en="Preview · 5 years">Vorschau · 5 Jahre</span></div>
 </div></section>
 
 <section class="section soft"><div class="wrap">
+  <div class="academy-note"><b data-de="Akademie-Hinweis: Rechne mit Deiner Realität." data-en="Academy note: Calculate with your reality.">Akademie-Hinweis: Rechne mit Deiner Realität.</b><p data-de="Der Rechner begrenzt Deine Eingaben bewusst nicht. Große Zahlen sind mathematisch möglich. Für Deine persönliche Orientierung sind jedoch nur Annahmen sinnvoll, die zu Deiner tatsächlichen Aktivität und zum realistischen Aufbau Deiner Organisation passen. Fantasiewerte erzeugen mathematisch richtige, aber für Deine Planung bedeutungslose Ergebnisse." data-en="The calculator deliberately does not cap your inputs. Large numbers are mathematically possible. For personal orientation, however, only assumptions that match your actual activity and a realistic organisational build-up are useful. Fantasy values may be mathematically correct but meaningless for your planning.">Der Rechner begrenzt Deine Eingaben bewusst nicht. Große Zahlen sind mathematisch möglich. Für Deine persönliche Orientierung sind jedoch nur Annahmen sinnvoll, die zu Deiner tatsächlichen Aktivität und zum realistischen Aufbau Deiner Organisation passen. Fantasiewerte erzeugen mathematisch richtige, aber für Deine Planung bedeutungslose Ergebnisse.</p></div>
+
   <div class="calc-shell">
-    <div class="calc-head"><div class="section-kicker" data-de="Monatsrechner" data-en="Monthly calculator">Monatsrechner</div><h2 data-de="Dein Mix pro Monat" data-en="Your monthly mix">Dein Mix pro Monat</h2><p data-de="Die Bedienlogik bleibt bewusst einfach: Anzahl je Produkt und Ebene eintragen, Ergebnis ablesen." data-en="The operating logic stays deliberately simple: enter quantity by product and level, then read the result.">Die Bedienlogik bleibt bewusst einfach: Anzahl je Produkt und Ebene eintragen, Ergebnis ablesen.</p></div>
+    <div class="calc-head"><div class="section-kicker" data-de="Tragfähigkeitsrechner" data-en="Sustainability calculator">Tragfähigkeitsrechner</div><h2 data-de="Deine kontinuierliche Monatsleistung" data-en="Your continuous monthly activity">Deine kontinuierliche Monatsleistung</h2><p data-de="Jede Eingabe bedeutet: So viele neue Abschlüsse entstehen in jedem Monat erneut auf dieser Ebene. Beispiel: 1 Club Partner auf E1 bedeutet 12 neue Club Partner auf E1 nach zwölf Monaten – und bei gleichbleibender Leistung 24 nach zwei Jahren." data-en="Each input means: this many new sales arise again every month on this level. Example: 1 Club Partner on E1 means 12 new Club Partners on E1 after twelve months — and 24 after two years if the activity stays unchanged.">Jede Eingabe bedeutet: So viele neue Abschlüsse entstehen in jedem Monat erneut auf dieser Ebene. Beispiel: 1 Club Partner auf E1 bedeutet 12 neue Club Partner auf E1 nach zwölf Monaten – und bei gleichbleibender Leistung 24 nach zwei Jahren.</p></div>
 
     <div class="calc-body">
       <article class="card">
-        <h3 data-de="Modus & Planpreise" data-en="Mode & plan prices">Modus & Planpreise</h3>
-        <p data-de="Für eine monatliche Planung können wiederkehrende Beiträge auf einen Monatsdurchschnitt umgelegt werden. Alternativ rechnet der Rechner den jeweiligen Zahlungsbetrag pro Neuabschluss." data-en="For monthly planning, recurring fees can be converted to a monthly average. Alternatively, the calculator uses the payment amount per new sale.">Für eine monatliche Planung können wiederkehrende Beiträge auf einen Monatsdurchschnitt umgelegt werden. Alternativ rechnet der Rechner den jeweiligen Zahlungsbetrag pro Neuabschluss.</p>
-        <div class="controls">
-          <label class="toggle"><input id="avgMode" type="checkbox" checked><span data-de="Wiederkehrende Beiträge als Monatsdurchschnitt planen" data-en="Plan recurring fees as a monthly average">Wiederkehrende Beiträge als Monatsdurchschnitt planen</span></label>
-          <button class="btn secondary" id="btnReset" type="button" data-de="Zurücksetzen" data-en="Reset">Zurücksetzen</button>
-          <button class="btn primary" id="btnCalc" type="button" data-de="Jetzt berechnen" data-en="Calculate now">Jetzt berechnen</button>
-        </div>
-        <div class="price-grid">
-          <div class="price-box"><span data-de="Club Partner" data-en="Club Partner">Club Partner</span><b>99 €</b><small data-de="jährlich" data-en="annually">jährlich</small></div>
-          <div class="price-box"><span data-de="Club Leader" data-en="Club Leader">Club Leader</span><b>189 €</b><small data-de="halbjährlich · 2 × 189 € pro Jahr" data-en="semi-annually · 2 × €189 per year">halbjährlich · 2 × 189 € pro Jahr</small></div>
-          <div class="price-box"><span data-de="Hörsaal-Zugang" data-en="Lecture-hall access">Hörsaal-Zugang</span><b>59 €</b><small data-de="jährlich" data-en="annually">jährlich</small></div>
-        </div>
+        <h3 data-de="1. Monatsmix festlegen" data-en="1. Define monthly mix">1. Monatsmix festlegen</h3>
+        <p data-de="Trage Deinen realistischen Durchschnitt pro Monat ein. Die drei Produkte bleiben unabhängig voneinander." data-en="Enter your realistic monthly average. The three products remain independent from one another.">Trage Deinen realistischen Durchschnitt pro Monat ein. Die drei Produkte bleiben unabhängig voneinander.</p>
+        <div class="table-wrap"><table class="table" aria-label="Monatlicher Produktmix"><thead><tr><th data-de="Produkt" data-en="Product">Produkt</th><th>E1 · 20 %</th><th>E2 · 15 %</th><th>E3 · 10 %</th></tr></thead><tbody>
+          <tr><td><div class="prodname"><span class="chip">P1</span><span data-de="Club Partner · 99 €" data-en="Club Partner · €99">Club Partner · 99 €</span></div><span class="prodmeta" data-de="jährlich · neue Abschlüsse pro Monat" data-en="annual · new sales per month">jährlich · neue Abschlüsse pro Monat</span></td><td><input class="num qty" id="cp_e1" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num qty" id="cp_e2" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num qty" id="cp_e3" type="number" min="0" step="1" value="0" autocomplete="off"></td></tr>
+          <tr><td><div class="prodname"><span class="chip">P2</span><span data-de="Club Leader · 189 €" data-en="Club Leader · €189">Club Leader · 189 €</span></div><span class="prodmeta" data-de="halbjährlich · 2 Zahlungen pro Jahr" data-en="semiannual · 2 payments per year">halbjährlich · 2 Zahlungen pro Jahr</span></td><td><input class="num qty" id="cl_e1" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num qty" id="cl_e2" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num qty" id="cl_e3" type="number" min="0" step="1" value="0" autocomplete="off"></td></tr>
+          <tr><td><div class="prodname"><span class="chip">P3</span><span data-de="Hörsaal-Zugang · 59 €" data-en="Lecture-hall access · €59">Hörsaal-Zugang · 59 €</span></div><span class="prodmeta" data-de="jährlich · eigenständiges Produkt" data-en="annual · independent product">jährlich · eigenständiges Produkt</span></td><td><input class="num qty" id="hz_e1" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num qty" id="hz_e2" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num qty" id="hz_e3" type="number" min="0" step="1" value="0" autocomplete="off"></td></tr>
+        </tbody></table></div>
+        <div class="actions"><span style="color:var(--muted);font-size:12px" data-de="Die Eingaben werden in jedem Folgemonat unverändert wiederholt." data-en="The inputs are repeated unchanged in every following month.">Die Eingaben werden in jedem Folgemonat unverändert wiederholt.</span><button class="btn secondary" id="reset" type="button" data-de="Zurücksetzen" data-en="Reset">Zurücksetzen</button></div>
       </article>
 
-      <article class="card">
-        <h3 data-de="Dein Mix pro Monat · Anzahl Abschlüsse" data-en="Your monthly mix · number of sales">Dein Mix pro Monat · Anzahl Abschlüsse</h3>
-        <div class="table-wrap"><table class="table" aria-label="Eingaben">
-          <thead><tr><th data-de="Produkt" data-en="Product">Produkt</th><th data-de="Ebene 1 · 20 %" data-en="Level 1 · 20%">Ebene 1 · 20 %</th><th data-de="Ebene 2 · 15 %" data-en="Level 2 · 15%">Ebene 2 · 15 %</th><th data-de="Ebene 3 · 10 %" data-en="Level 3 · 10%">Ebene 3 · 10 %</th></tr></thead>
-          <tbody>
-            <tr><td><div class="prodname"><span class="chip">P1</span><span data-de="Club Partner · 99 €" data-en="Club Partner · €99">Club Partner · 99 €</span></div><span class="prodmeta" data-de="Jahresbeitrag" data-en="Annual fee">Jahresbeitrag</span></td><td><input class="num" id="p1_e1" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num" id="p1_e2" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num" id="p1_e3" type="number" min="0" step="1" value="0" autocomplete="off"></td></tr>
-            <tr><td><div class="prodname"><span class="chip">P2</span><span data-de="Club Leader · 189 €" data-en="Club Leader · €189">Club Leader · 189 €</span></div><span class="prodmeta" data-de="Halbjahresbeitrag · zweimal pro Jahr" data-en="Semi-annual fee · twice per year">Halbjahresbeitrag · zweimal pro Jahr</span></td><td><input class="num" id="p2_e1" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num" id="p2_e2" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num" id="p2_e3" type="number" min="0" step="1" value="0" autocomplete="off"></td></tr>
-            <tr><td><div class="prodname"><span class="chip">P3</span><span data-de="Hörsaal-Zugang · 59 €" data-en="Lecture-hall access · €59">Hörsaal-Zugang · 59 €</span></div><span class="prodmeta" data-de="Jahreszugang" data-en="Annual access">Jahreszugang</span></td><td><input class="num" id="p3_e1" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num" id="p3_e2" type="number" min="0" step="1" value="0" autocomplete="off"></td><td><input class="num" id="p3_e3" type="number" min="0" step="1" value="0" autocomplete="off"></td></tr>
-          </tbody>
-        </table></div>
-        <p class="hint" data-de="Trage die Anzahl der Abschlüsse ein, die Du pro Monat auf der jeweiligen Ebene annehmen möchtest. E1 steht für Deine eigene erste Ebene, E2 und E3 für die beiden weiteren vergüteten Ebenen." data-en="Enter the number of sales you want to assume per month at each level. E1 is your first level, E2 and E3 are the two additional compensated levels.">Trage die Anzahl der Abschlüsse ein, die Du pro Monat auf der jeweiligen Ebene annehmen möchtest. E1 steht für Deine eigene erste Ebene, E2 und E3 für die beiden weiteren vergüteten Ebenen.</p>
-      </article>
+      <section class="period-panel" aria-label="Zeitraum wählen">
+        <div class="period-head"><div><h3 data-de="2. Zeitraum erleben" data-en="2. Explore the period">2. Zeitraum erleben</h3><p data-de="Wähle zuerst das Jahr und dann den Monat. Jahr 2 beginnt nicht bei null: Der Bestand aus Jahr 1 bleibt bestehen und neue Abschlüsse kommen hinzu." data-en="Choose the year first, then the month. Year 2 does not start at zero: the base from year 1 remains and new sales are added.">Wähle zuerst das Jahr und dann den Monat. Jahr 2 beginnt nicht bei null: Der Bestand aus Jahr 1 bleibt bestehen und neue Abschlüsse kommen hinzu.</p></div><div class="year-tabs" id="yearTabs"></div></div>
+        <div class="month-tabs" id="monthTabs"></div>
+        <div class="period-summary"><small id="periodLabel">Jahr 1 · Monat 12</small><strong id="periodStory">0 neue Abschlüsse · 0 Bestand</strong></div>
 
-      <article class="card">
-        <h3 data-de="Ergebnis · Monat" data-en="Result · month">Ergebnis · Monat</h3>
-        <div class="split">
-          <div class="kpi main"><div class="t" data-de="Gesamteinnahmen" data-en="Total income">Gesamteinnahmen</div><div class="v" id="outTotal">0,00 €</div></div>
-          <div class="kpi"><div class="t" data-de="Ebene 1 Anteil" data-en="Level 1 share">Ebene 1 Anteil</div><div class="v" id="outE1">0,00 €</div></div>
-          <div class="kpi mag"><div class="t" data-de="Team · Ebene 2 + 3" data-en="Team · Level 2 + 3">Team · Ebene 2 + 3</div><div class="v" id="outTeam">0,00 €</div></div>
+        <div class="kpis">
+          <div class="kpi"><span data-de="Neue Abschlüsse / Monat" data-en="New sales / month">Neue Abschlüsse / Monat</span><b id="newMonth" data-animate data-format="num">0</b></div>
+          <div class="kpi main"><span data-de="Aufgebauter Bestand" data-en="Built base">Aufgebauter Bestand</span><b id="stockTotal" data-animate data-format="num">0</b><small data-de="alle drei Produkte zusammen" data-en="all three products combined">alle drei Produkte zusammen</small></div>
+          <div class="kpi mag"><span data-de="Provision im gewählten Monat" data-en="Commission in selected month">Provision im gewählten Monat</span><b id="monthCommission" data-animate data-format="money">0 €</b></div>
+          <div class="kpi"><span data-de="Davon Wiederholungen" data-en="Of which renewals">Davon Wiederholungen</span><b id="repeatCommission" data-animate data-format="money">0 €</b><small data-de="aus früher aufgebautem Bestand" data-en="from previously built base">aus früher aufgebautem Bestand</small></div>
+          <div class="kpi gold"><span data-de="Provision seit Start" data-en="Commission since start">Provision seit Start</span><b id="cumCommission" data-animate data-format="money">0 €</b></div>
         </div>
-        <div class="product-kpis">
-          <div class="kpi"><div class="t" data-de="P1 · Club Partner" data-en="P1 · Club Partner">P1 · Club Partner</div><div class="v" id="outP1">0,00 €</div></div>
-          <div class="kpi"><div class="t" data-de="P2 · Club Leader" data-en="P2 · Club Leader">P2 · Club Leader</div><div class="v" id="outP2">0,00 €</div></div>
-          <div class="kpi"><div class="t" data-de="P3 · Hörsaal-Zugang" data-en="P3 · Lecture-hall access">P3 · Hörsaal-Zugang</div><div class="v" id="outP3">0,00 €</div></div>
-        </div>
-        <p class="hint" id="outHint">Modus: wiederkehrende Beiträge als Monatsdurchschnitt geplant.</p>
-      </article>
 
-      <div class="academy-note"><b data-de="Hinweis der Akademie:" data-en="Academy note:">Hinweis der Akademie:</b> <span data-de="Der Rechner begrenzt Deine Eingaben bewusst nicht. Für eine sinnvolle persönliche Planung solltest Du jedoch mit Monatszahlen arbeiten, die zu Deiner tatsächlichen Aktivität und Deinem realistischen Organisationsaufbau passen. Fantasiewerte sind mathematisch berechenbar, verfälschen aber den Lernwert." data-en="The calculator deliberately does not cap your inputs. For meaningful personal planning, use monthly figures that match your actual activity and realistic organisational development. Fantasy values are mathematically calculable but distort the learning value.">Der Rechner begrenzt Deine Eingaben bewusst nicht. Für eine sinnvolle persönliche Planung solltest Du jedoch mit Monatszahlen arbeiten, die zu Deiner tatsächlichen Aktivität und Deinem realistischen Organisationsaufbau passen. Fantasiewerte sind mathematisch berechenbar, verfälschen aber den Lernwert.</span></div>
+        <div class="product-results">
+          <article class="product-result"><h4 data-de="Club Partner · 99 €" data-en="Club Partner · €99">Club Partner · 99 €</h4><div class="meta" data-de="Zahlungszyklus: 12 Monate" data-en="Payment cycle: 12 months">Zahlungszyklus: 12 Monate</div><div class="mini-grid"><div class="mini"><span data-de="Bestand" data-en="Base">Bestand</span><b id="cpStock" data-animate data-format="num">0</b></div><div class="mini"><span data-de="Zahlungen im Monat" data-en="Payments this month">Zahlungen im Monat</span><b id="cpPayments" data-animate data-format="num">0</b></div><div class="mini"><span data-de="Provision im Monat" data-en="Commission this month">Provision im Monat</span><b id="cpMonth" data-animate data-format="money">0 €</b></div><div class="mini"><span data-de="Provision seit Start" data-en="Commission since start">Provision seit Start</span><b id="cpCum" data-animate data-format="money">0 €</b></div></div><div class="level-break"><div>E1 · 20 %<b id="cpL1" data-animate data-format="money">0 €</b></div><div>E2 · 15 %<b id="cpL2" data-animate data-format="money">0 €</b></div><div>E3 · 10 %<b id="cpL3" data-animate data-format="money">0 €</b></div></div></article>
+          <article class="product-result"><h4 data-de="Club Leader · 189 €" data-en="Club Leader · €189">Club Leader · 189 €</h4><div class="meta" data-de="Zahlungszyklus: 6 Monate" data-en="Payment cycle: 6 months">Zahlungszyklus: 6 Monate</div><div class="mini-grid"><div class="mini"><span data-de="Bestand" data-en="Base">Bestand</span><b id="clStock" data-animate data-format="num">0</b></div><div class="mini"><span data-de="Zahlungen im Monat" data-en="Payments this month">Zahlungen im Monat</span><b id="clPayments" data-animate data-format="num">0</b></div><div class="mini"><span data-de="Provision im Monat" data-en="Commission this month">Provision im Monat</span><b id="clMonth" data-animate data-format="money">0 €</b></div><div class="mini"><span data-de="Provision seit Start" data-en="Commission since start">Provision seit Start</span><b id="clCum" data-animate data-format="money">0 €</b></div></div><div class="level-break"><div>E1 · 20 %<b id="clL1" data-animate data-format="money">0 €</b></div><div>E2 · 15 %<b id="clL2" data-animate data-format="money">0 €</b></div><div>E3 · 10 %<b id="clL3" data-animate data-format="money">0 €</b></div></div></article>
+          <article class="product-result"><h4 data-de="Hörsaal-Zugang · 59 €" data-en="Lecture-hall access · €59">Hörsaal-Zugang · 59 €</h4><div class="meta" data-de="Zahlungszyklus: 12 Monate" data-en="Payment cycle: 12 months">Zahlungszyklus: 12 Monate</div><div class="mini-grid"><div class="mini"><span data-de="Bestand" data-en="Base">Bestand</span><b id="hzStock" data-animate data-format="num">0</b></div><div class="mini"><span data-de="Zahlungen im Monat" data-en="Payments this month">Zahlungen im Monat</span><b id="hzPayments" data-animate data-format="num">0</b></div><div class="mini"><span data-de="Provision im Monat" data-en="Commission this month">Provision im Monat</span><b id="hzMonth" data-animate data-format="money">0 €</b></div><div class="mini"><span data-de="Provision seit Start" data-en="Commission since start">Provision seit Start</span><b id="hzCum" data-animate data-format="money">0 €</b></div></div><div class="level-break"><div>E1 · 20 %<b id="hzL1" data-animate data-format="money">0 €</b></div><div>E2 · 15 %<b id="hzL2" data-animate data-format="money">0 €</b></div><div>E3 · 10 %<b id="hzL3" data-animate data-format="money">0 €</b></div></div></article>
+        </div>
+
+        <div class="timeline"><h4 data-de="5-Jahres-Spur" data-en="5-year track">5-Jahres-Spur</h4><p data-de="Jede Karte zeigt den Bestand am Jahresende und die Provision, die innerhalb dieses Jahres aus Neuabschlüssen und fälligen Wiederholungen entsteht." data-en="Each card shows the year-end base and the commission generated within that year from new sales and due renewals.">Jede Karte zeigt den Bestand am Jahresende und die Provision, die innerhalb dieses Jahres aus Neuabschlüssen und fälligen Wiederholungen entsteht.</p><div class="year-track" id="yearTrack"></div></div>
+
+        <div class="teaching"><strong data-de="Was hier sichtbar wird" data-en="What becomes visible here">Was hier sichtbar wird</strong><p data-de="Ein einzelner Abschluss erzeugt eine Provision. Kontinuität erzeugt Bestand. Sobald frühere Jahrgänge ihre Beiträge erneut zahlen, besteht die Monatsprovision nicht mehr nur aus dem aktuellen Neuzugang. Genau darin liegt der Unterschied zwischen einem einzelnen Verkaufsmonat und einem über Zeit aufgebauten System." data-en="A single sale creates a commission. Consistency creates a base. Once earlier cohorts pay their fees again, monthly commission no longer comes only from current new sales. That is the difference between a single sales month and a system built over time.">Ein einzelner Abschluss erzeugt eine Provision. Kontinuität erzeugt Bestand. Sobald frühere Jahrgänge ihre Beiträge erneut zahlen, besteht die Monatsprovision nicht mehr nur aus dem aktuellen Neuzugang. Genau darin liegt der Unterschied zwischen einem einzelnen Verkaufsmonat und einem über Zeit aufgebauten System.</p></div>
+      </section>
     </div>
   </div>
 
-  <div class="detail-footer-nav"><a href="07-werkstatt.html" data-de="← Zurück zur Werkstatt" data-en="← Back to workshop">← Zurück zur Werkstatt</a><a href="06-empfehlung.html" data-de="06 Empfehlung" data-en="06 Recommendation">06 Empfehlung</a></div>
+  <section class="basket-shell" aria-label="Warenkorb-Simulator">
+    <div class="basket-head"><div class="section-kicker" data-de="Zusatz-Simulator" data-en="Additional simulator">Zusatz-Simulator</div><h2 data-de="Was verändert der durchschnittliche Warenkorb?" data-en="What changes with the average basket?">Was verändert der durchschnittliche Warenkorb?</h2><p data-de="Neben Mitgliedschaften können Club-Mitglieder weitere Produkte und Leistungen nutzen. Wähle einen durchschnittlichen Warenkorb pro Club Partner und Jahr – oder trage einen eigenen Wert ein. Auch darauf gilt die 3-Ebenen-Logik 20 % / 15 % / 10 %." data-en="In addition to memberships, club members can use further products and services. Choose an average annual basket per Club Partner or enter your own value. The 3-level logic of 20% / 15% / 10% also applies here.">Neben Mitgliedschaften können Club-Mitglieder weitere Produkte und Leistungen nutzen. Wähle einen durchschnittlichen Warenkorb pro Club Partner und Jahr – oder trage einen eigenen Wert ein. Auch darauf gilt die 3-Ebenen-Logik 20 % / 15 % / 10 %.</p></div>
+    <div class="basket-body">
+      <div class="basket-controls"><button class="basket-btn" type="button" data-basket="200">200 € / Jahr</button><button class="basket-btn" type="button" data-basket="400">400 € / Jahr</button><button class="basket-btn" type="button" data-basket="600">600 € / Jahr</button><div class="custom-basket"><input id="basketCustom" type="number" min="0" step="10" value="0" autocomplete="off" aria-label="Eigener Warenkorb pro Jahr"><span data-de="€ eigener Wert / Jahr" data-en="€ custom value / year">€ eigener Wert / Jahr</span></div></div>
+      <div class="basket-kpis">
+        <div class="kpi main"><span data-de="Club-Partner-Bestand" data-en="Club Partner base">Club-Partner-Bestand</span><b id="basketMembers" data-animate data-format="num">0</b><small data-de="Basis für den Warenkorb" data-en="base for basket calculation">Basis für den Warenkorb</small></div>
+        <div class="kpi mag"><span data-de="Jahresvolumen Warenkorb" data-en="Annual basket volume">Jahresvolumen Warenkorb</span><b id="basketVolume" data-animate data-format="money">0 €</b></div>
+        <div class="kpi"><span>E1 · 20 %</span><b id="basketE1" data-animate data-format="money">0 €</b></div>
+        <div class="kpi"><span>E2 · 15 %</span><b id="basketE2" data-animate data-format="money">0 €</b></div>
+        <div class="kpi gold"><span>E3 · 10 %</span><b id="basketE3" data-animate data-format="money">0 €</b></div>
+      </div>
+      <div class="basket-kpis" style="grid-template-columns:1fr 1fr;margin-top:10px"><div class="kpi"><span data-de="Warenkorb-Provision gesamt / Jahr" data-en="Total basket commission / year">Warenkorb-Provision gesamt / Jahr</span><b id="basketCommission" data-animate data-format="money">0 €</b></div><div class="kpi"><span data-de="Gewählter Warenkorb" data-en="Selected basket">Gewählter Warenkorb</span><b id="basketSelected" data-animate data-format="money">0 €</b><small data-de="pro Club Partner und Jahr" data-en="per Club Partner and year">pro Club Partner und Jahr</small></div></div>
+      <p class="basket-note" data-de="Für den Warenkorb wird der aufgebaute Club-Partner-Bestand als Mitgliederbasis verwendet. Club Leader werden nicht zusätzlich gezählt, damit dieselbe Person nicht doppelt in die Warenkorb-Annahme eingeht. Hörsaal-Zugänge sind ein eigenständiges Produkt und zählen ebenfalls nicht als Club-Mitglied." data-en="The built Club Partner base is used as the membership base for the basket. Club Leaders are not counted again so the same person is not double-counted. Lecture-hall access is an independent product and is not counted as a club member either.">Für den Warenkorb wird der aufgebaute Club-Partner-Bestand als Mitgliederbasis verwendet. Club Leader werden nicht zusätzlich gezählt, damit dieselbe Person nicht doppelt in die Warenkorb-Annahme eingeht. Hörsaal-Zugänge sind ein eigenständiges Produkt und zählen ebenfalls nicht als Club-Mitglied.</p>
+    </div>
+  </section>
+
+  <div class="detail-footer-nav"><a href="07-werkstatt.html" data-de="← Zurück zur Werkstatt" data-en="← Back to workshop">← Zurück zur Werkstatt</a><a href="07-werkstatt.html" data-de="Werkstatt-Übersicht" data-en="Workshop overview">Werkstatt-Übersicht</a></div>
 </div></section>
 
-<footer><div class="wrap"><strong>LiquidityBooster · Akademie für finanzielle Souveränität</strong><br><span data-de="Bildung, Orientierung und eigenverantwortliche Entscheidung. Keine Anlageberatung oder Anlagevermittlung." data-en="Education, orientation and personal responsibility. No investment advice or brokerage.">Bildung, Orientierung und eigenverantwortliche Entscheidung. Keine Anlageberatung oder Anlagevermittlung.</span></div></footer>
+<footer><div class="wrap"><span data-de="LiquidityBooster · Akademie für finanzielle Souveränität · Bildungs- und Orientierungsrechner · keine Finanz- oder Anlageberatung" data-en="LiquidityBooster · Academy for Financial Sovereignty · educational and orientation calculator · no financial or investment advice">LiquidityBooster · Akademie für finanzielle Souveränität · Bildungs- und Orientierungsrechner · keine Finanz- oder Anlageberatung</span></div></footer>
 
 <script>
 (()=>{
-'use strict';
-const $=id=>document.getElementById(id);
-const RATE_E1=.20,RATE_E2=.15,RATE_E3=.10;
-let lang='de';
-function n(id){const el=$(id),v=parseFloat(el.value);return Number.isFinite(v)&&v>=0?v:0}
-function fmtEUR(x){const locale=lang==='de'?'de-DE':'en-GB';return (Number.isFinite(x)?x:0).toLocaleString(locale,{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2})}
-function fit(el){if(!el)return;el.style.fontSize='';let size=parseFloat(getComputedStyle(el).fontSize);while(el.scrollWidth>el.clientWidth&&size>12){size-=1;el.style.fontSize=size+'px'}}
-function sumProd(counts,earn){const e1=counts.e1*earn.e1,e2=counts.e2*earn.e2,e3=counts.e3*earn.e3;return{e1,e2,e3,total:e1+e2+e3}}
-function calc(){
-  const avg=$('avgMode').checked;
-  const cpAnnual=99;
-  const clPayment=189,clAnnual=clPayment*2;
-  const accessAnnual=59;
-  const earnCP={e1:(avg?cpAnnual/12:cpAnnual)*RATE_E1,e2:(avg?cpAnnual/12:cpAnnual)*RATE_E2,e3:(avg?cpAnnual/12:cpAnnual)*RATE_E3};
-  const earnCL={e1:(avg?clAnnual/12:clPayment)*RATE_E1,e2:(avg?clAnnual/12:clPayment)*RATE_E2,e3:(avg?clAnnual/12:clPayment)*RATE_E3};
-  const earnAccess={e1:(avg?accessAnnual/12:accessAnnual)*RATE_E1,e2:(avg?accessAnnual/12:accessAnnual)*RATE_E2,e3:(avg?accessAnnual/12:accessAnnual)*RATE_E3};
-  const c1={e1:n('p1_e1'),e2:n('p1_e2'),e3:n('p1_e3')};
-  const c2={e1:n('p2_e1'),e2:n('p2_e2'),e3:n('p2_e3')};
-  const c3={e1:n('p3_e1'),e2:n('p3_e2'),e3:n('p3_e3')};
-  const r1=sumProd(c1,earnCP),r2=sumProd(c2,earnCL),r3=sumProd(c3,earnAccess);
-  const totalE1=r1.e1+r2.e1+r3.e1,totalE2=r1.e2+r2.e2+r3.e2,totalE3=r1.e3+r2.e3+r3.e3,total=totalE1+totalE2+totalE3;
-  $('outTotal').textContent=fmtEUR(total);$('outE1').textContent=fmtEUR(totalE1);$('outTeam').textContent=fmtEUR(totalE2+totalE3);$('outP1').textContent=fmtEUR(r1.total);$('outP2').textContent=fmtEUR(r2.total);$('outP3').textContent=fmtEUR(r3.total);
-  $('outHint').textContent=avg?(lang==='de'?'Modus: wiederkehrende Beiträge als Monatsdurchschnitt geplant.':'Mode: recurring fees planned as a monthly average.'):(lang==='de'?'Modus: jeweiliger Zahlungsbetrag pro Neuabschluss gerechnet.':'Mode: payment amount per new sale calculated.');
-  ['outTotal','outE1','outTeam','outP1','outP2','outP3'].forEach(id=>fit($(id)));
-}
-function reset(){['p1_e1','p1_e2','p1_e3','p2_e1','p2_e2','p2_e3','p3_e1','p3_e2','p3_e3'].forEach(id=>$(id).value='0');$('avgMode').checked=true;calc()}
-function applyLang(next){lang=next;document.documentElement.lang=lang;document.querySelectorAll('[data-de][data-en]').forEach(el=>{el.textContent=el.dataset[lang]});document.querySelectorAll('.lang button').forEach(b=>{const active=b.dataset.lang===lang;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});calc()}
-$('btnCalc').addEventListener('click',calc);$('btnReset').addEventListener('click',reset);$('avgMode').addEventListener('change',calc);document.querySelectorAll('.num').forEach(el=>{el.addEventListener('input',calc);el.addEventListener('change',calc)});document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));window.addEventListener('resize',calc);reset();
+  const $=id=>document.getElementById(id);
+  const rates={e1:.20,e2:.15,e3:.10};
+  const products={
+    cp:{price:99,cycle:12,ids:['cp_e1','cp_e2','cp_e3']},
+    cl:{price:189,cycle:6,ids:['cl_e1','cl_e2','cl_e3']},
+    hz:{price:59,cycle:12,ids:['hz_e1','hz_e2','hz_e3']}
+  };
+  let selectedYear=1,selectedMonth=12,basketValue=0,lang='de';
+  const previous=new WeakMap();
+
+  function val(id){const n=parseFloat($(id)?.value);return Number.isFinite(n)&&n>=0?n:0}
+  function fmtNum(n){return Math.round(n).toLocaleString('de-DE')}
+  function fmtMoney(n){return (Number.isFinite(n)?n:0).toLocaleString('de-DE',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2})}
+  function fit(el){if(!el)return;el.style.fontSize='';let px=parseFloat(getComputedStyle(el).fontSize)||20;while(el.scrollWidth>el.clientWidth&&px>11){px-=1;el.style.fontSize=px+'px'}}
+  function setAnimated(id,value,format='money'){
+    const el=$(id);if(!el)return;
+    const from=previous.get(el)??0,to=Number(value)||0;previous.set(el,to);
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced||Math.abs(to-from)<.001){el.textContent=format==='num'?fmtNum(to):fmtMoney(to);requestAnimationFrame(()=>fit(el));return}
+    const start=performance.now(),dur=780;
+    function tick(now){const p=Math.min(1,(now-start)/dur),ease=1-Math.pow(1-p,3),v=from+(to-from)*ease;el.textContent=format==='num'?fmtNum(v):fmtMoney(v);fit(el);if(p<1)requestAnimationFrame(tick)}
+    requestAnimationFrame(tick)
+  }
+  function counts(key){const p=products[key];return{e1:val(p.ids[0]),e2:val(p.ids[1]),e3:val(p.ids[2])}}
+  function baseNewCommission(key){const p=products[key],c=counts(key);return c.e1*p.price*rates.e1+c.e2*p.price*rates.e2+c.e3*p.price*rates.e3}
+  function totalNewCount(key){const c=counts(key);return c.e1+c.e2+c.e3}
+  function paymentMultiplier(month,cycle){return Math.floor((month-1)/cycle)+1}
+  function cumulativeMultiplier(month,cycle){let sum=0;for(let m=1;m<=month;m++)sum+=paymentMultiplier(m,cycle);return sum}
+  function productState(key,month){
+    const p=products[key],c=counts(key),payMult=paymentMultiplier(month,p.cycle),cumMult=cumulativeMultiplier(month,p.cycle);
+    const newCount=c.e1+c.e2+c.e3,stock=newCount*month,payments=newCount*payMult;
+    const l1=c.e1*p.price*rates.e1*payMult,l2=c.e2*p.price*rates.e2*payMult,l3=c.e3*p.price*rates.e3*payMult;
+    const monthCommission=l1+l2+l3;
+    const newCommission=baseNewCommission(key),repeatCommission=Math.max(0,monthCommission-newCommission);
+    const cum=baseNewCommission(key)*cumMult;
+    return{c,newCount,stock,payments,l1,l2,l3,monthCommission,newCommission,repeatCommission,cum}
+  }
+  function yearCommission(key,year){const start=(year-1)*12+1,end=year*12;let sum=0;for(let m=start;m<=end;m++)sum+=productState(key,m).monthCommission;return sum}
+  function totalYearCommission(year){return yearCommission('cp',year)+yearCommission('cl',year)+yearCommission('hz',year)}
+  function totalStockAt(month){return ['cp','cl','hz'].reduce((s,k)=>s+productState(k,month).stock,0)}
+  function totalMonthlyNew(){return ['cp','cl','hz'].reduce((s,k)=>s+totalNewCount(k),0)}
+
+  function renderTabs(){
+    $('yearTabs').innerHTML='';for(let y=1;y<=5;y++){const b=document.createElement('button');b.type='button';b.className='year-btn'+(y===selectedYear?' active':'');b.textContent=(lang==='de'?'Jahr ':'Year ')+y;b.onclick=()=>{selectedYear=y;render()};$('yearTabs').appendChild(b)}
+    $('monthTabs').innerHTML='';for(let m=1;m<=12;m++){const b=document.createElement('button');b.type='button';b.className='month-btn'+(m===selectedMonth?' active':'');b.textContent=m;b.setAttribute('aria-label',(lang==='de'?'Monat ':'Month ')+m);b.onclick=()=>{selectedMonth=m;render()};$('monthTabs').appendChild(b)}
+  }
+  function renderYearTrack(){
+    const host=$('yearTrack');host.innerHTML='';
+    for(let y=1;y<=5;y++){
+      const end=y*12,stock=totalStockAt(end),commission=totalYearCommission(y);const b=document.createElement('button');b.type='button';b.className='year-card'+(y===selectedYear?' active':'');
+      b.innerHTML=`<span>${lang==='de'?'Jahr':'Year'} ${y}</span><strong>${fmtMoney(commission)}</strong><small>${lang==='de'?'Bestand Jahresende':'Year-end base'}: ${fmtNum(stock)}</small>`;
+      b.onclick=()=>{selectedYear=y;selectedMonth=12;render()};host.appendChild(b)
+    }
+  }
+  function renderBasket(absMonth){
+    const cp=productState('cp',absMonth),c=cp.c,membersE1=c.e1*absMonth,membersE2=c.e2*absMonth,membersE3=c.e3*absMonth,total=membersE1+membersE2+membersE3;
+    const volume=total*basketValue,e1=membersE1*basketValue*rates.e1,e2=membersE2*basketValue*rates.e2,e3=membersE3*basketValue*rates.e3;
+    setAnimated('basketMembers',total,'num');setAnimated('basketVolume',volume);setAnimated('basketE1',e1);setAnimated('basketE2',e2);setAnimated('basketE3',e3);setAnimated('basketCommission',e1+e2+e3);setAnimated('basketSelected',basketValue);
+    document.querySelectorAll('[data-basket]').forEach(b=>b.classList.toggle('active',Number(b.dataset.basket)===basketValue&&Number($('basketCustom').value||0)===0))
+  }
+  function render(){
+    renderTabs();const absMonth=(selectedYear-1)*12+selectedMonth;
+    const s={cp:productState('cp',absMonth),cl:productState('cl',absMonth),hz:productState('hz',absMonth)};
+    const monthCommission=s.cp.monthCommission+s.cl.monthCommission+s.hz.monthCommission;
+    const repeat=s.cp.repeatCommission+s.cl.repeatCommission+s.hz.repeatCommission;
+    const cum=s.cp.cum+s.cl.cum+s.hz.cum;
+    const stock=s.cp.stock+s.cl.stock+s.hz.stock,newMonth=totalMonthlyNew();
+    $('periodLabel').textContent=(lang==='de'?`Jahr ${selectedYear} · Monat ${selectedMonth}`:`Year ${selectedYear} · Month ${selectedMonth}`);
+    $('periodStory').textContent=lang==='de'?`${fmtNum(newMonth)} neue Abschlüsse pro Monat · ${fmtNum(stock)} Bestand bis hier`:`${fmtNum(newMonth)} new sales per month · ${fmtNum(stock)} base so far`;
+    setAnimated('newMonth',newMonth,'num');setAnimated('stockTotal',stock,'num');setAnimated('monthCommission',monthCommission);setAnimated('repeatCommission',repeat);setAnimated('cumCommission',cum);
+    [['cp',s.cp],['cl',s.cl],['hz',s.hz]].forEach(([k,x])=>{setAnimated(k+'Stock',x.stock,'num');setAnimated(k+'Payments',x.payments,'num');setAnimated(k+'Month',x.monthCommission);setAnimated(k+'Cum',x.cum);setAnimated(k+'L1',x.l1);setAnimated(k+'L2',x.l2);setAnimated(k+'L3',x.l3)});
+    renderYearTrack();renderBasket(absMonth)
+  }
+  function reset(){document.querySelectorAll('.qty').forEach(i=>i.value='0');basketValue=0;$('basketCustom').value='0';selectedYear=1;selectedMonth=12;render()}
+
+  document.querySelectorAll('.qty').forEach(i=>{i.addEventListener('input',render);i.addEventListener('change',render)});
+  $('reset').addEventListener('click',reset);
+  document.querySelectorAll('[data-basket]').forEach(b=>b.addEventListener('click',()=>{basketValue=Number(b.dataset.basket)||0;$('basketCustom').value='0';render()}));
+  $('basketCustom').addEventListener('input',()=>{basketValue=Math.max(0,Number($('basketCustom').value)||0);render()});
+
+  document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>{
+    lang=btn.dataset.lang;document.documentElement.lang=lang;document.querySelectorAll('[data-lang]').forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle('active',on);b.setAttribute('aria-pressed',on?'true':'false')});
+    document.querySelectorAll('[data-de][data-en]').forEach(el=>{el.textContent=el.dataset[lang]});render()
+  }));
+
+  render();
 })();
 </script>
 </body>
