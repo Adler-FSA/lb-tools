@@ -103,6 +103,25 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "925a48e5-3d78-48f7-a0e7-5c21f5f6331c",
+      "title": "Liquiditybooster-Hörsaal",
+      "type": "clubhouse",
+      "releaseDate": "2026-09-28",
+      "url": "https://tools.liquiditybooster.de/hoersaal-liquiditybooster/01-willkommen.html",
+      "what": "Der neue LiquidityBooster-Hörsaal ist als vollständiger interaktiver Lern- und Präsentationsraum fertiggestellt. Er führt in 8 Stationen durch LiquidityBooster, Akademie, Community, Rollen, Nutzen und Empfehlung. In der Werkstatt stehen zusätzlich vier interaktive Rechner zur Verfügung. Der Hörsaal kann später auch gemeinsam mit Interessenten im Zoom durchgegangen werden.",
+      "why": "Der Hörsaal soll LiquidityBooster als Gesamtbild verständlich machen. Statt einzelne Seiten, Produkte und Erklärungen getrennt zu betrachten, erhält der Nutzer einen geführten Lernweg mit Hintergrundwissen, Beispielen, Interaktionen und eigenen Simulationen. Gleichzeitig entsteht damit ein Werkzeug, mit dem Club Partner LiquidityBooster strukturiert und nachvollziehbar präsentieren können.",
+      "test": "Bitte den Hörsaal wie ein normaler Nutzer vollständig von Seite 1 bis Seite 8 durchspielen.\nDabei insbesondere prüfen:\n\n* funktionieren alle Menü- und Weiter-Buttons?\n* lassen sich alle interaktiven Bereiche anklicken und bedienen?\n* funktionieren die vier Rechner und reagieren die Ergebnisse nachvollziehbar?\n* sind Texte, Bilder und Erklärungen auf Tablet, PC und Smartphone gut lesbar?\n* führen externe Buttons wie FAQ, Compliance und Einladungs-Kompass auf die richtigen Seiten?\n* gibt es Darstellungsfehler, tote Links, unverständliche Stellen oder andere technische Auffälligkeiten?",
+      "meeting": "Gesammelte Fehler und Auffälligkeiten gemeinsam durchgehen und entscheiden, welche Punkte vor der geplanten Freigabe noch korrigiert werden müssen. Wenn keine wesentlichen Fehler gefunden werden, kann der Hörsaal für die Freigabe vorbereitet werden.",
+      "createdAt": "2026-09-08T20:37:31.714Z",
+      "updatedAt": "2026-09-08T20:37:31.714Z",
+      "history": [
+        {
+          "at": "2026-09-08T20:37:31.714Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
