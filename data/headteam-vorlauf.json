@@ -2,25 +2,6 @@
   "version": 4,
   "projects": [
     {
-      "id": "2a1b2001-f224-48fe-9be0-c548f978aac1",
-      "title": "neue FAQ",
-      "type": "website",
-      "releaseDate": "2026-09-07",
-      "url": "https://tools.liquiditybooster.de/pages/faq/",
-      "what": "FAQ Aktualierst",
-      "why": "wir waren veraltet.",
-      "test": "Headteam-Besprechung: Befunde, Änderungen und Wünsche bitte in Schriftform.",
-      "meeting": "Fehlt etwas, ist etwas unklar formuliert, oder was soll geändert werden.",
-      "createdAt": "2026-08-30T16:59:27.538Z",
-      "updatedAt": "2026-08-30T16:59:27.538Z",
-      "history": [
-        {
-          "at": "2026-08-30T16:59:27.538Z",
-          "event": "created"
-        }
-      ]
-    },
-    {
       "id": "e345d482-3fd9-40fd-8590-ad1f71e52c8b",
       "title": "Upadte der Compliance",
       "type": "website",
@@ -215,6 +196,30 @@
         }
       ],
       "archivedAt": "2026-09-03T19:52:40.982Z"
+    },
+    {
+      "id": "2a1b2001-f224-48fe-9be0-c548f978aac1",
+      "title": "neue FAQ",
+      "type": "website",
+      "releaseDate": "2026-09-07",
+      "url": "https://tools.liquiditybooster.de/pages/faq/",
+      "what": "FAQ Aktualierst",
+      "why": "wir waren veraltet.",
+      "test": "Headteam-Besprechung: Befunde, Änderungen und Wünsche bitte in Schriftform.",
+      "meeting": "Fehlt etwas, ist etwas unklar formuliert, oder was soll geändert werden.",
+      "createdAt": "2026-08-30T16:59:27.538Z",
+      "updatedAt": "2026-08-30T16:59:27.538Z",
+      "history": [
+        {
+          "at": "2026-08-30T16:59:27.538Z",
+          "event": "created"
+        },
+        {
+          "at": "2026-09-08T13:57:45.382Z",
+          "event": "archived"
+        }
+      ],
+      "archivedAt": "2026-09-08T13:57:45.382Z"
     }
   ],
   "personalLinks": [
