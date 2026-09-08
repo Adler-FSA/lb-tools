@@ -84,25 +84,6 @@
           "event": "updated"
         }
       ]
-    },
-    {
-      "id": "0c5f5a3b-d6ed-4494-bd8a-55002fdcf659",
-      "title": "Entstehungsgeschichte",
-      "type": "clubhouse",
-      "releaseDate": "",
-      "url": "https://tools.liquiditybooster.de/pages/liquiditybooster-entstehung-standalone.html",
-      "what": "",
-      "why": "",
-      "test": "",
-      "meeting": "",
-      "createdAt": "2026-09-07T14:14:55.856Z",
-      "updatedAt": "2026-09-07T14:14:55.856Z",
-      "history": [
-        {
-          "at": "2026-09-07T14:14:55.856Z",
-          "event": "created"
-        }
-      ]
     }
   ],
   "archive": [
@@ -225,6 +206,30 @@
         }
       ],
       "archivedAt": "2026-09-08T13:57:50.428Z"
+    },
+    {
+      "id": "0c5f5a3b-d6ed-4494-bd8a-55002fdcf659",
+      "title": "Entstehungsgeschichte",
+      "type": "clubhouse",
+      "releaseDate": "",
+      "url": "https://tools.liquiditybooster.de/pages/liquiditybooster-entstehung-standalone.html",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-09-07T14:14:55.856Z",
+      "updatedAt": "2026-09-07T14:14:55.856Z",
+      "history": [
+        {
+          "at": "2026-09-07T14:14:55.856Z",
+          "event": "created"
+        },
+        {
+          "at": "2026-09-08T13:58:02.895Z",
+          "event": "archived"
+        }
+      ],
+      "archivedAt": "2026-09-08T13:58:02.895Z"
     }
   ],
   "personalLinks": [
