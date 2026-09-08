@@ -2,25 +2,6 @@
   "version": 4,
   "projects": [
     {
-      "id": "e345d482-3fd9-40fd-8590-ad1f71e52c8b",
-      "title": "Upadte der Compliance",
-      "type": "website",
-      "releaseDate": "2026-09-07",
-      "url": "https://tools.liquiditybooster.de/pages/compliance/",
-      "what": "Überarbeitete Version , weil veraltet.",
-      "why": "Zecks der neuen Ausrichtung des liquiditybooster,",
-      "test": "bitte einmal alles ansehen und wenn was fehlt bitte in Schriftform an mich weiterleiten.",
-      "meeting": "Fehlt etwas, soll etwas anders formuliert werden.",
-      "createdAt": "2026-08-30T17:03:33.850Z",
-      "updatedAt": "2026-08-30T17:03:33.850Z",
-      "history": [
-        {
-          "at": "2026-08-30T17:03:33.850Z",
-          "event": "created"
-        }
-      ]
-    },
-    {
       "id": "4ff1d75e-13cb-4bec-add8-ed2d97e2fe02",
       "title": "Sechs Monate Liquiditybooster",
       "type": "website",
@@ -220,6 +201,30 @@
         }
       ],
       "archivedAt": "2026-09-08T13:57:45.382Z"
+    },
+    {
+      "id": "e345d482-3fd9-40fd-8590-ad1f71e52c8b",
+      "title": "Upadte der Compliance",
+      "type": "website",
+      "releaseDate": "2026-09-07",
+      "url": "https://tools.liquiditybooster.de/pages/compliance/",
+      "what": "Überarbeitete Version , weil veraltet.",
+      "why": "Zecks der neuen Ausrichtung des liquiditybooster,",
+      "test": "bitte einmal alles ansehen und wenn was fehlt bitte in Schriftform an mich weiterleiten.",
+      "meeting": "Fehlt etwas, soll etwas anders formuliert werden.",
+      "createdAt": "2026-08-30T17:03:33.850Z",
+      "updatedAt": "2026-08-30T17:03:33.850Z",
+      "history": [
+        {
+          "at": "2026-08-30T17:03:33.850Z",
+          "event": "created"
+        },
+        {
+          "at": "2026-09-08T13:57:50.428Z",
+          "event": "archived"
+        }
+      ],
+      "archivedAt": "2026-09-08T13:57:50.428Z"
     }
   ],
   "personalLinks": [
