@@ -1,0 +1,73 @@
+name: Fix Sichtbar PDF V3 download
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-sichtbar-pdf-v3-download.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Align three visibility PDFs with proven Notfallakte V3 download handling
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          paths = [
+              Path('pages/gastredner-15-minuten/index.html'),
+              Path('pages/gastredner-30-minuten/index.html'),
+              Path('pages/leitartikel-vorbereitung/index.html'),
+          ]
+
+          old = "  const deliveryBlob=new Blob([pdfBlob],{type:'application/octet-stream'});\n  pendingPdfUrl=URL.createObjectURL(deliveryBlob);"
+          new = "  pendingPdfUrl=URL.createObjectURL(pdfBlob);"
+
+          for p in paths:
+              s = p.read_text(encoding='utf-8')
+              if old not in s:
+                  raise SystemExit(f'SCHUTZSTOPP: erwartete alte Download-Logik fehlt in {p}')
+              if "a.download=filename" not in s or "application/pdf" not in s:
+                  raise SystemExit(f'SCHUTZSTOPP: benannter PDF-Download ist in {p} nicht vollständig vorhanden')
+              s = s.replace(old, new, 1)
+              p.write_text(s, encoding='utf-8')
+              print(f'{p}: echter application/pdf Blob + sichtbarer benannter Download aktiv')
+          PY
+
+      - name: Syntax check embedded JavaScript
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, subprocess, tempfile
+          paths = [
+              Path('pages/gastredner-15-minuten/index.html'),
+              Path('pages/gastredner-30-minuten/index.html'),
+              Path('pages/leitartikel-vorbereitung/index.html'),
+          ]
+          for p in paths:
+              s = p.read_text(encoding='utf-8')
+              blocks = re.findall(r'<script(?:[^>]*)>(.*?)</script>', s, re.S)
+              inline = '\n'.join(blocks)
+              out = Path('/tmp') / (p.parent.name + '-inline.js')
+              out.write_text(inline, encoding='utf-8')
+              subprocess.run(['node','--check',str(out)], check=True)
+          PY
+
+      - name: Commit PDF V3 download alignment
+        shell: bash
+        run: |
+          git config user.name 'Adler-FSA Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add pages/gastredner-15-minuten/index.html pages/gastredner-30-minuten/index.html pages/leitartikel-vorbereitung/index.html
+          if git diff --cached --quiet; then
+            echo 'No PDF download changes required'
+          else
+            git commit -m 'Use proven Notfallakte PDF V3 download handling for visibility forms'
+            git push
+          fi
