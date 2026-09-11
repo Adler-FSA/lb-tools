@@ -2,8 +2,6 @@ name: Install original Club Leader Upgrade PDF
 
 on:
   push:
-    paths:
-      - '.tmp_club_leader_upgrade_pdf/READY'
 
 permissions:
   contents: write
@@ -14,58 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Assemble exact original PDF and wire download buttons
-        shell: bash
+          fetch-depth: 2
+      - name: Patch Head Control 2 task cards
+        run: python scripts/patch-head-control-2-tasks.py
+      - name: Restore workflow and commit patch
         run: |
-          set -euo pipefail
-          TARGET='hoersaal-liquiditybooster-standalone/Club_Leader_Upgrade_Leit_und_Erklaerung_2026-09-10_AKTUALISIERT.pdf'
-          cat .tmp_club_leader_upgrade_pdf/part-*.b64 | base64 -d > "$TARGET"
-          echo 'b8561c57444fe86f865bfb94d21ba45e12f781ebb5297774379bcef05cd302ee  hoersaal-liquiditybooster-standalone/Club_Leader_Upgrade_Leit_und_Erklaerung_2026-09-10_AKTUALISIERT.pdf' | sha256sum -c -
-
-          python3 - <<'PY'
-          from pathlib import Path
-
-          page = Path('hoersaal-liquiditybooster-standalone/club-leader-upgrade.html')
-          html = page.read_text(encoding='utf-8')
-          start = html.rfind('<script>')
-          end = html.rfind('</script>')
-          if start < 0 or end < 0 or end < start:
-              raise SystemExit('Download-Script in club-leader-upgrade.html nicht gefunden')
-
-          script = '''<script>
-(function(){
-  const pdfFile='Club_Leader_Upgrade_Leit_und_Erklaerung_2026-09-10_AKTUALISIERT.pdf';
-  function downloadOriginalPdf(){
-    const a=document.createElement('a');
-    a.href=pdfFile;
-    a.download=pdfFile;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-  document.getElementById('downloadPdfTop').addEventListener('click',downloadOriginalPdf);
-  document.getElementById('downloadPdfBottom').addEventListener('click',downloadOriginalPdf);
-})();
-</script>'''
-
-          html = html[:start] + script + html[end + len('</script>'):]
-          page.write_text(html, encoding='utf-8')
-          PY
-
-          rm -rf .tmp_club_leader_upgrade_pdf
-          rm -f .github/workflows/install-club-leader-upgrade-original-pdf.yml
-
-      - name: Commit correction
-        shell: bash
-        run: |
-          git config user.name 'Adler-FSA Automation'
-          git config user.email 'actions@users.noreply.github.com'
-          git add -A
-          if git diff --cached --quiet; then
-            echo 'Nothing to commit'
-          else
-            git commit -m 'Fix Club Leader Upgrade original PDF download'
-            git push
-          fi
+          git checkout HEAD^ -- .github/workflows/install-club-leader-upgrade-original-pdf.yml
+          git checkout HEAD^ -- .github/workflows/run-split-page7-workshop.yml
+          rm -f scripts/patch-head-control-2-tasks.py
+          rm -f .github/workflows/run-head-control-task-patch.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pages/headteam-vorlauf/head-control-2.html .github/workflows/install-club-leader-upgrade-original-pdf.yml .github/workflows/run-split-page7-workshop.yml scripts/patch-head-control-2-tasks.py .github/workflows/run-head-control-task-patch.yml
+          git commit -m 'test: Aufgabenverteilung in Head Control 2 als Karten darstellen'
+          git push
