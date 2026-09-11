@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Gastredner-Bühne & Leitartikel – Vorbereitung | LiquidityBooster</title>
+<style>
+:root{
+  --navy:#132238;--mint:#00a7ad;--magenta:#c6006f;--white:#fff;
+  --text:#253446;--muted:#677587;--line:#dce4e9;--soft:#f5f8fa;
+  --mint-soft:#eefafa;--magenta-soft:#fff2f8;--danger:#a52626;
+  --shadow:0 16px 42px rgba(19,34,56,.09);--radius:22px;--max:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f7fafb;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+button{touch-action:manipulation}
+.shell{max-width:var(--max);margin:0 auto;padding:18px 18px 82px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}
+.brand{display:flex;align-items:center;gap:11px;color:var(--navy)}
+.brand svg{width:40px;height:40px;flex:0 0 auto}
+.brand strong{display:block;font-size:15px}.brand span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.langs{display:flex;gap:7px}.lang{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 12px;font-weight:900;cursor:pointer}.lang.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.hero,.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.hero{background:linear-gradient(145deg,#fff 0%,#fbfdfd 65%,#edfafa 100%)}
+.hero-inner{padding:34px 34px 30px}
+.eyebrow{font-size:12px;font-weight:950;letter-spacing:.11em;text-transform:uppercase;color:var(--mint)}
+h1{margin:7px 0 12px;color:var(--navy);font-size:clamp(34px,5.8vw,56px);line-height:1.02;letter-spacing:-.04em;max-width:900px}
+.lead{margin:0;color:#425164;font-size:18px;line-height:1.62;max-width:930px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:24px}.flow div{border:1px solid #cfe7e8;background:rgba(255,255,255,.82);border-radius:16px;padding:14px 15px}.flow b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px}.flow span{font-size:13px;line-height:1.45;color:var(--muted)}
+.section{margin-top:18px}.head{padding:24px 26px 15px}.kicker{font-size:12px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;color:var(--magenta)}h2{margin:6px 0 7px;color:var(--navy);font-size:28px;line-height:1.15}.sub{margin:0;color:var(--muted);line-height:1.58}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0 26px 27px}.product{position:relative;border:2px solid var(--line);background:#fff;border-radius:19px;padding:20px;cursor:pointer;text-align:left;transition:.18s transform,.18s border-color,.18s box-shadow}.product:hover{transform:translateY(-2px);border-color:#a7dadd}.product.active{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,167,173,.10)}.product svg{width:34px;height:34px;margin-bottom:12px}.product h3{margin:0 0 5px;color:var(--navy);font-size:19px}.product p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.slot{display:inline-flex;margin-top:12px;padding:7px 10px;border-radius:999px;background:var(--mint-soft);color:#087a7f;font-size:12px;font-weight:900}.article .slot{background:var(--magenta-soft);color:var(--magenta)}
+.form-area{display:none}.form-area.show{display:block}.form-block{padding:0 26px 27px}.block-title{display:flex;align-items:center;gap:10px;margin:3px 0 15px;padding-top:4px;color:var(--navy)}.nr{width:30px;height:30px;border-radius:10px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:950}.block-title h3{margin:0;font-size:19px}.guide{border:1px solid #cce8e9;background:var(--mint-soft);border-radius:16px;padding:15px 16px;margin:0 0 17px;color:#36535a;line-height:1.55;font-size:14px}.guide.magenta{border-color:#efd1df;background:var(--magenta-soft)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.wide{grid-column:1/-1}.field label{display:block;margin:0 0 6px;color:var(--navy);font-size:12px;font-weight:850}.req::after{content:" *";color:var(--magenta)}.field input,.field textarea,.field select{width:100%;border:1.5px solid #cfd9df;border-radius:12px;background:#fff;color:var(--navy);padding:12px 13px;outline:none;transition:.15s border-color,.15s box-shadow}.field textarea{min-height:105px;resize:vertical;line-height:1.48}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,167,173,.09)}.hint{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}.date-error{display:none;color:var(--danger);font-size:11px;font-weight:800;margin-top:5px}.date-error.show{display:block}.field.invalid input{border-color:#ce5151;box-shadow:0 0 0 3px rgba(206,81,81,.08)}
+.sep{height:1px;background:var(--line);margin:24px 0}.checks{display:grid;gap:10px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:#fbfcfd;border-radius:14px;padding:12px 13px}.check input{width:19px;height:19px;margin:2px 0 0;accent-color:var(--mint);flex:0 0 auto}.check label{color:#465365;font-size:13px;line-height:1.5}
+.summarybar{position:sticky;bottom:10px;z-index:20;margin-top:18px;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:18px;box-shadow:0 16px 35px rgba(19,34,56,.14);padding:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}.summarytxt{font-size:12px;color:var(--muted);line-height:1.4}.summarytxt b{display:block;color:var(--navy);font-size:14px;margin-bottom:2px}.buttons{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}.btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:950;cursor:pointer}.btn.primary{background:var(--mint);color:#fff}.btn.secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}.btn.danger{background:#fff6f6;color:var(--danger);border:1px solid #efd1d1}.btn:disabled{opacity:.48;cursor:not-allowed}
+.notice{display:none;margin-top:12px;border-radius:14px;padding:13px 15px;font-size:13px;line-height:1.5}.notice.show{display:block}.notice.ok{background:#effaf7;border:1px solid #bde4d8;color:#17684f}.notice.err{background:#fff4f4;border:1px solid #efc7c7;color:#8c2828}
+.footer{text-align:center;color:var(--muted);font-size:11px;line-height:1.55;padding:24px 12px 0}
+.hidden{display:none!important}
+@media(max-width:820px){.product-grid,.flow{grid-template-columns:1fr}.grid,.grid.three{grid-template-columns:1fr}.hero-inner{padding:28px 22px 25px}.head,.form-block,.product-grid{padding-left:18px;padding-right:18px}.summarybar{align-items:flex-start;flex-direction:column}.buttons{width:100%;justify-content:stretch}.buttons .btn{flex:1}.brand span{display:none}}
+@media(max-width:520px){.shell{padding:10px 10px 72px}.topbar{align-items:flex-start}.brand{min-width:0}.brand strong{font-size:13px}.hero-inner{padding:24px 18px 22px}.lead{font-size:16px}h2{font-size:24px}.product{padding:17px}.buttons{display:grid;grid-template-columns:1fr}.buttons .btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 56 16v18c0 12-8 21-24 26C16 55 8 46 8 34V16Z" fill="#132238"/><path d="M20 31 28 39 45 22" fill="none" stroke="#00a7ad" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48" cy="47" r="8" fill="#c6006f"/></svg>
+      <div><strong>LiquidityBooster</strong><span data-i18n="brandSub">Gastredner-Bühne & Leitartikel</span></div>
+    </div>
+    <div class="langs" aria-label="Language"><button class="lang active" type="button" data-lang="de">DE</button><button class="lang" type="button" data-lang="en">EN</button></div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow" data-i18n="eyebrow">Deine gebuchte Sichtbarkeit vorbereiten</div>
+      <h1 data-i18n="heroTitle">Einmal ausfüllen. Professionelle PDF erhalten. Auftritt oder Leitartikel vorbereiten.</h1>
+      <p class="lead" data-i18n="heroLead">Wähle die Leistung, die du gebucht hast. Der Bogen führt dich durch alle Angaben, die LiquidityBooster für Ankündigung, Vorbereitung und redaktionelle Umsetzung benötigt. Am Ende erhältst du deine persönliche PDF als Leitfaden.</p>
+      <div class="flow">
+        <div><b data-i18n="flow1t">1. Leistung wählen</b><span data-i18n="flow1s">15 Minuten, 30 Minuten oder Leitartikel.</span></div>
+        <div><b data-i18n="flow2t">2. Angaben ergänzen</b><span data-i18n="flow2s">Geführt, strukturiert und passend zur Buchung.</span></div>
+        <div><b data-i18n="flow3t">3. PDF erstellen</b><span data-i18n="flow3s">Direkter PDF-Download – ohne Drucker-Dialog.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel section">
+    <div class="head"><div class="kicker" data-i18n="chooseKicker">Schritt 1</div><h2 data-i18n="chooseTitle">Was hast du gebucht?</h2><p class="sub" data-i18n="chooseSub">Wähle genau die gebuchte Leistung. Die Fragen und dein PDF-Leitfaden passen sich automatisch an.</p></div>
+    <div class="product-grid">
+      <button class="product" type="button" data-product="speaker15">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="4" width="30" height="22" rx="7" fill="#eefafa" stroke="#00a7ad" stroke-width="2"/><path d="M13 32h14M20 26v6" stroke="#132238" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="14" r="4" fill="#c6006f"/><path d="M12 22c2-4 5-6 8-6s6 2 8 6" fill="none" stroke="#132238" stroke-width="2"/></svg>
+        <h3 data-i18n="p15Title">Gastredner – 15 Minuten</h3><p data-i18n="p15Text">Kompakter Impuls mit klarer Kernbotschaft und vorbereiteter Ankündigung.</p><span class="slot">Montag · 19:15–19:30</span>
+      </button>
+      <button class="product" type="button" data-product="speaker30">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="4" width="30" height="22" rx="7" fill="#eefafa" stroke="#00a7ad" stroke-width="2"/><path d="M10 31h20M15 26v5M25 26v5" stroke="#132238" stroke-width="2" stroke-linecap="round"/><path d="m13 18 5-5 4 4 6-7" fill="none" stroke="#c6006f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3 data-i18n="p30Title">Gastredner – 30 Minuten</h3><p data-i18n="p30Text">Mehr Raum für Hintergrund, Ansatz, Beispiel und vertiefende Kernpunkte.</p><span class="slot">Montag · 19:15–19:45</span>
+      </button>
+      <button class="product article" type="button" data-product="article">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10 4h15l6 6v26H10Z" fill="#fff2f8" stroke="#c6006f" stroke-width="2"/><path d="M25 4v7h6M15 17h11M15 22h11M15 27h8" stroke="#132238" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3 data-i18n="paTitle">Leitartikel</h3><p data-i18n="paText">Redaktionelle Grundlage für deinen LiquidityBooster-Leitartikel und seine Ankündigung.</p><span class="slot" data-i18n="paSlot">3 Monate Sichtbarkeit</span>
+      </button>
+    </div>
+  </section>
+
+  <form id="prepForm" novalidate>
+    <section class="panel section form-area" id="commonPanel">
+      <div class="head"><div class="kicker" data-i18n="commonKicker">Schritt 2</div><h2 data-i18n="commonTitle">Deine Basisdaten</h2><p class="sub" data-i18n="commonSub">Diese Angaben ordnen deine Unterlagen eindeutig zu.</p></div>
+      <div class="form-block">
+        <div class="grid">
+          <div class="field"><label class="req" for="personName" data-i18n="personName">Vor- und Nachname</label><input id="personName" data-store type="text" autocomplete="name"></div>
+          <div class="field"><label for="company" data-i18n="company">Unternehmen / Projekt</label><input id="company" data-store type="text"></div>
+          <div class="field"><label for="role" data-i18n="role">Funktion / Rolle</label><input id="role" data-store type="text"></div>
+          <div class="field"><label class="req" for="email" data-i18n="email">E-Mail</label><input id="email" data-store type="email" autocomplete="email"></div>
+          <div class="field"><label for="phone" data-i18n="phone">Telefon</label><input id="phone" data-store type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="website" data-i18n="website">Website</label><input id="website" data-store type="text" placeholder="https://"></div>
+          <div class="field wide"><label for="publicSpelling" data-i18n="publicSpelling">Gewünschte öffentliche Schreibweise von Name, Unternehmen oder Projekt</label><input id="publicSpelling" data-store type="text"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section form-area" id="speakerPanel">
+      <div class="head"><div class="kicker" data-i18n="speakerKicker">Gastredner-Bühne</div><h2 id="speakerTitle">Gastredner vorbereiten</h2><p class="sub" id="speakerSub"></p></div>
+      <div class="form-block">
+        <div class="block-title"><span class="nr">1</span><h3 data-i18n="dateTitle">Deine gewünschten Montagstermine</h3></div>
+        <div class="guide" id="slotGuide"></div>
+        <div class="grid three">
+          <div class="field"><label class="req" for="date1" data-i18n="date1">1. Wunschtermin</label><input id="date1" data-store data-monday type="date"><div class="date-error" data-i18n="mondayError">Bitte einen Montag auswählen.</div></div>
+          <div class="field"><label for="date2" data-i18n="date2">2. Wunschtermin</label><input id="date2" data-store data-monday type="date"><div class="date-error" data-i18n="mondayError">Bitte einen Montag auswählen.</div></div>
+          <div class="field"><label for="date3" data-i18n="date3">3. Wunschtermin</label><input id="date3" data-store data-monday type="date"><div class="date-error" data-i18n="mondayError">Bitte einen Montag auswählen.</div></div>
+        </div>
+        <div class="sep"></div>
+        <div class="block-title"><span class="nr">2</span><h3 data-i18n="announceTitle">Angaben für deine Ankündigung</h3></div>
+        <div class="guide" data-i18n="announceGuide">Formuliere so, dass jemand, der dich noch nicht kennt, in wenigen Sätzen versteht, wer du bist und warum dein Thema interessant ist.</div>
+        <div class="grid">
+          <div class="field wide"><label class="req" for="stageTitle" data-i18n="stageTitle">Titel deines Auftritts</label><input id="stageTitle" data-store type="text"></div>
+          <div class="field wide"><label class="req" for="topic" data-i18n="topic">Worum geht es in deinem Auftritt?</label><textarea id="topic" data-store></textarea></div>
+          <div class="field wide"><label for="relevance" data-i18n="relevance">Warum ist dieses Thema gerade interessant oder relevant?</label><textarea id="relevance" data-store></textarea></div>
+          <div class="field"><label for="presentationType" data-i18n="presentationType">Was stellst du vor?</label><select id="presentationType" data-store><option value=""></option><option value="company" data-i18n="typeCompany">Unternehmen</option><option value="product" data-i18n="typeProduct">Produkt / Dienstleistung</option><option value="project" data-i18n="typeProject">Projekt</option><option value="knowledge" data-i18n="typeKnowledge">Wissen / Fachthema</option><option value="experience" data-i18n="typeExperience">Erfahrung / Geschichte</option><option value="other" data-i18n="typeOther">Sonstiges</option></select></div>
+          <div class="field"><label for="publicContact" data-i18n="publicContact">Welche Kontaktdaten dürfen in der Ankündigung erscheinen?</label><input id="publicContact" data-store type="text"></div>
+          <div class="field wide"><label for="shortIntro" data-i18n="shortIntro">Kurze Vorstellung deiner Person / deines Projekts</label><textarea id="shortIntro" data-store></textarea><div class="hint" data-i18n="shortIntroHint">Grundlage für die redaktionelle Ankündigung – kein fertiger Werbetext nötig.</div></div>
+        </div>
+        <div class="sep"></div>
+        <div class="block-title"><span class="nr">3</span><h3 data-i18n="contentTitle">Inhalt deines Auftritts</h3></div>
+        <div class="guide" id="contentGuide"></div>
+        <div class="grid">
+          <div class="field"><label class="req" for="key1" data-i18n="key1">Kernpunkt 1</label><input id="key1" data-store type="text"></div>
+          <div class="field"><label class="req" for="key2" data-i18n="key2">Kernpunkt 2</label><input id="key2" data-store type="text"></div>
+          <div class="field wide"><label for="key3" data-i18n="key3">Kernpunkt 3</label><input id="key3" data-store type="text"></div>
+          <div class="field wide"><label class="req" for="takeaway" data-i18n="takeaway">Was sollen die Teilnehmer nach deinem Auftritt verstanden oder mitgenommen haben?</label><textarea id="takeaway" data-store></textarea></div>
+          <div class="field wide"><label for="links" data-i18n="links">Links, Quellen oder Materialien, die LiquidityBooster kennen sollte</label><textarea id="links" data-store></textarea></div>
+          <div class="field wide"><label for="speakerNotes" data-i18n="speakerNotes">Was sollen wir bei der Vorbereitung zusätzlich berücksichtigen?</label><textarea id="speakerNotes" data-store></textarea></div>
+        </div>
+        <div id="speaker30Extra" class="hidden">
+          <div class="sep"></div>
+          <div class="block-title"><span class="nr">4</span><h3 data-i18n="deepTitle">Vertiefung für 30 Minuten</h3></div>
+          <div class="guide magenta" data-i18n="deepGuide">Nutze den zusätzlichen Raum für einen nachvollziehbaren roten Faden: Ausgangssituation, Hintergrund, Ansatz, Beispiel und klare Schlussbotschaft.</div>
+          <div class="grid">
+            <div class="field wide"><label for="problem" data-i18n="problem">Ausgangssituation / Problemstellung</label><textarea id="problem" data-store></textarea></div>
+            <div class="field"><label for="background" data-i18n="background">Wichtiger Hintergrund</label><textarea id="background" data-store></textarea></div>
+            <div class="field"><label for="approach" data-i18n="approach">Dein Ansatz / deine Lösung</label><textarea id="approach" data-store></textarea></div>
+            <div class="field wide"><label for="exampleStory" data-i18n="exampleStory">Beispiel, Erfahrung oder Geschichte</label><textarea id="exampleStory" data-store></textarea></div>
+            <div class="field wide"><label for="moderatorQuestions" data-i18n="moderatorQuestions">Welche Fragen darf die Moderation gern aufgreifen?</label><textarea id="moderatorQuestions" data-store></textarea></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section form-area" id="articlePanel">
+      <div class="head"><div class="kicker" data-i18n="articleKicker">Leitartikel</div><h2 data-i18n="articleTitle">Redaktionelle Grundlage für deinen Leitartikel</h2><p class="sub" data-i18n="articleSub">Du musst keinen fertigen Artikel schreiben. Gib uns die Fakten, Zusammenhänge und Aussagen, die wir für die redaktionelle Erstellung kennen müssen.</p></div>
+      <div class="form-block">
+        <div class="guide magenta" data-i18n="articleGuide">Deine PDF bleibt dein Leitfaden: Sie bündelt Thema, Zielgruppe, Kernaussage, Fakten, Quellen und Freigaben. LiquidityBooster erhält damit eine klare Arbeitsgrundlage für Erstellung und Ankündigung.</div>
+        <div class="block-title"><span class="nr">1</span><h3 data-i18n="articleAnnounceTitle">Thema & Ankündigung</h3></div>
+        <div class="grid">
+          <div class="field wide"><label class="req" for="articleHeadline" data-i18n="articleHeadline">Gewünschtes Thema / mögliche Überschrift</label><input id="articleHeadline" data-store type="text"></div>
+          <div class="field wide"><label class="req" for="articleTopic" data-i18n="articleTopic">Worum soll es im Leitartikel gehen?</label><textarea id="articleTopic" data-store></textarea></div>
+          <div class="field wide"><label for="articleTeaser" data-i18n="articleTeaser">Kurzer Teaser für die Ankündigung</label><textarea id="articleTeaser" data-store></textarea></div>
+          <div class="field"><label for="articleAudience" data-i18n="articleAudience">Für wen ist das Thema besonders interessant?</label><textarea id="articleAudience" data-store></textarea></div>
+          <div class="field"><label for="articleRelevance" data-i18n="articleRelevance">Warum ist das Thema gerade relevant?</label><textarea id="articleRelevance" data-store></textarea></div>
+          <div class="field wide"><label for="articlePublicContact" data-i18n="articlePublicContact">Welche Kontaktdaten / Links dürfen veröffentlicht werden?</label><textarea id="articlePublicContact" data-store></textarea></div>
+        </div>
+        <div class="sep"></div>
+        <div class="block-title"><span class="nr">2</span><h3 data-i18n="articleContentTitle">Inhalte für die Redaktion</h3></div>
+        <div class="grid">
+          <div class="field wide"><label class="req" for="articleQuestion" data-i18n="articleQuestion">Welche Ausgangssituation, Frage oder welches Problem steht im Mittelpunkt?</label><textarea id="articleQuestion" data-store></textarea></div>
+          <div class="field wide"><label class="req" for="articleGoal" data-i18n="articleGoal">Was soll der Leser nach dem Artikel verstanden haben?</label><textarea id="articleGoal" data-store></textarea></div>
+          <div class="field"><label for="articleApproach" data-i18n="articleApproach">Lösung / Ansatz / Perspektive</label><textarea id="articleApproach" data-store></textarea></div>
+          <div class="field"><label for="articleDifference" data-i18n="articleDifference">Was ist daran besonders oder unterscheidend?</label><textarea id="articleDifference" data-store></textarea></div>
+          <div class="field wide"><label for="articleBackground" data-i18n="articleBackground">Hintergrund / Entstehungsgeschichte</label><textarea id="articleBackground" data-store></textarea></div>
+          <div class="field wide"><label for="articleExamples" data-i18n="articleExamples">Konkrete Beispiele, Erfahrungen oder Fälle</label><textarea id="articleExamples" data-store></textarea></div>
+          <div class="field wide"><label for="articleFacts" data-i18n="articleFacts">Welche Fakten und Aussagen müssen unbedingt korrekt enthalten sein?</label><textarea id="articleFacts" data-store></textarea></div>
+          <div class="field wide"><label for="articleSources" data-i18n="articleSources">Quellen, Webseiten und weiterführende Links</label><textarea id="articleSources" data-store></textarea></div>
+          <div class="field wide"><label for="articleDoNotUse" data-i18n="articleDoNotUse">Was soll ausdrücklich nicht verwendet oder veröffentlicht werden?</label><textarea id="articleDoNotUse" data-store></textarea></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section form-area" id="confirmPanel">
+      <div class="head"><div class="kicker" data-i18n="finishKicker">Abschluss</div><h2 data-i18n="finishTitle">Prüfen und PDF erstellen</h2><p class="sub" data-i18n="finishSub">Die PDF enthält deinen persönlichen Leitfaden und die strukturierten Angaben für LiquidityBooster.</p></div>
+      <div class="form-block">
+        <div class="checks">
+          <div class="check"><input id="confirmCorrect" data-store type="checkbox"><label for="confirmCorrect" data-i18n="confirmCorrect">Ich bestätige, dass meine Angaben nach bestem Wissen richtig sind.</label></div>
+          <div class="check"><input id="confirmPublic" data-store type="checkbox"><label for="confirmPublic" data-i18n="confirmPublic">Ich bestätige, dass die ausdrücklich als öffentlich angegebenen Informationen für Ankündigung bzw. Veröffentlichung durch LiquidityBooster verwendet werden dürfen.</label></div>
+        </div>
+        <div class="notice" id="notice" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </form>
+
+  <div class="summarybar form-area" id="actionBar">
+    <div class="summarytxt"><b id="selectedLabel">–</b><span data-i18n="autoSave">Deine Eingaben werden nur lokal in diesem Browser gespeichert.</span></div>
+    <div class="buttons"><button class="btn secondary" type="button" id="saveBtn" data-i18n="saveBtn">Zwischenspeichern</button><button class="btn danger" type="button" id="resetBtn" data-i18n="resetBtn">Eingaben löschen</button><button class="btn primary" type="button" id="pdfBtn" data-i18n="pdfBtn">Professionelle PDF erstellen</button></div>
+  </div>
+
+  <div class="footer"><span data-i18n="footer">LiquidityBooster · Mehr Freiheit • Mehr Geld • Mehr vom Leben · Bildungs- und Informationsangebot, keine Anlageberatung.</span></div>
+</div>
+
+<script>
+(()=>{
+'use strict';
+const STORE='lb_gueststage_article_prep_v1';
+let lang=localStorage.getItem(STORE+'_lang')||'de';
+let product=localStorage.getItem(STORE+'_product')||'';
+const $=id=>document.getElementById(id);
+const dict={
+ de:{
+  brandSub:'Gastredner-Bühne & Leitartikel',eyebrow:'Deine gebuchte Sichtbarkeit vorbereiten',heroTitle:'Einmal ausfüllen. Professionelle PDF erhalten. Auftritt oder Leitartikel vorbereiten.',heroLead:'Wähle die Leistung, die du gebucht hast. Der Bogen führt dich durch alle Angaben, die LiquidityBooster für Ankündigung, Vorbereitung und redaktionelle Umsetzung benötigt. Am Ende erhältst du deine persönliche PDF als Leitfaden.',flow1t:'1. Leistung wählen',flow1s:'15 Minuten, 30 Minuten oder Leitartikel.',flow2t:'2. Angaben ergänzen',flow2s:'Geführt, strukturiert und passend zur Buchung.',flow3t:'3. PDF erstellen',flow3s:'Direkter PDF-Download – ohne Drucker-Dialog.',chooseKicker:'Schritt 1',chooseTitle:'Was hast du gebucht?',chooseSub:'Wähle genau die gebuchte Leistung. Die Fragen und dein PDF-Leitfaden passen sich automatisch an.',p15Title:'Gastredner – 15 Minuten',p15Text:'Kompakter Impuls mit klarer Kernbotschaft und vorbereiteter Ankündigung.',p30Title:'Gastredner – 30 Minuten',p30Text:'Mehr Raum für Hintergrund, Ansatz, Beispiel und vertiefende Kernpunkte.',paTitle:'Leitartikel',paText:'Redaktionelle Grundlage für deinen LiquidityBooster-Leitartikel und seine Ankündigung.',paSlot:'3 Monate Sichtbarkeit',commonKicker:'Schritt 2',commonTitle:'Deine Basisdaten',commonSub:'Diese Angaben ordnen deine Unterlagen eindeutig zu.',personName:'Vor- und Nachname',company:'Unternehmen / Projekt',role:'Funktion / Rolle',email:'E-Mail',phone:'Telefon',website:'Website',publicSpelling:'Gewünschte öffentliche Schreibweise von Name, Unternehmen oder Projekt',speakerKicker:'Gastredner-Bühne',dateTitle:'Deine gewünschten Montagstermine',date1:'1. Wunschtermin',date2:'2. Wunschtermin',date3:'3. Wunschtermin',mondayError:'Bitte einen Montag auswählen.',announceTitle:'Angaben für deine Ankündigung',announceGuide:'Formuliere so, dass jemand, der dich noch nicht kennt, in wenigen Sätzen versteht, wer du bist und warum dein Thema interessant ist.',stageTitle:'Titel deines Auftritts',topic:'Worum geht es in deinem Auftritt?',relevance:'Warum ist dieses Thema gerade interessant oder relevant?',presentationType:'Was stellst du vor?',typeCompany:'Unternehmen',typeProduct:'Produkt / Dienstleistung',typeProject:'Projekt',typeKnowledge:'Wissen / Fachthema',typeExperience:'Erfahrung / Geschichte',typeOther:'Sonstiges',publicContact:'Welche Kontaktdaten dürfen in der Ankündigung erscheinen?',shortIntro:'Kurze Vorstellung deiner Person / deines Projekts',shortIntroHint:'Grundlage für die redaktionelle Ankündigung – kein fertiger Werbetext nötig.',contentTitle:'Inhalt deines Auftritts',key1:'Kernpunkt 1',key2:'Kernpunkt 2',key3:'Kernpunkt 3',takeaway:'Was sollen die Teilnehmer nach deinem Auftritt verstanden oder mitgenommen haben?',links:'Links, Quellen oder Materialien, die LiquidityBooster kennen sollte',speakerNotes:'Was sollen wir bei der Vorbereitung zusätzlich berücksichtigen?',deepTitle:'Vertiefung für 30 Minuten',deepGuide:'Nutze den zusätzlichen Raum für einen nachvollziehbaren roten Faden: Ausgangssituation, Hintergrund, Ansatz, Beispiel und klare Schlussbotschaft.',problem:'Ausgangssituation / Problemstellung',background:'Wichtiger Hintergrund',approach:'Dein Ansatz / deine Lösung',exampleStory:'Beispiel, Erfahrung oder Geschichte',moderatorQuestions:'Welche Fragen darf die Moderation gern aufgreifen?',articleKicker:'Leitartikel',articleTitle:'Redaktionelle Grundlage für deinen Leitartikel',articleSub:'Du musst keinen fertigen Artikel schreiben. Gib uns die Fakten, Zusammenhänge und Aussagen, die wir für die redaktionelle Erstellung kennen müssen.',articleGuide:'Deine PDF bleibt dein Leitfaden: Sie bündelt Thema, Zielgruppe, Kernaussage, Fakten, Quellen und Freigaben. LiquidityBooster erhält damit eine klare Arbeitsgrundlage für Erstellung und Ankündigung.',articleAnnounceTitle:'Thema & Ankündigung',articleHeadline:'Gewünschtes Thema / mögliche Überschrift',articleTopic:'Worum soll es im Leitartikel gehen?',articleTeaser:'Kurzer Teaser für die Ankündigung',articleAudience:'Für wen ist das Thema besonders interessant?',articleRelevance:'Warum ist das Thema gerade relevant?',articlePublicContact:'Welche Kontaktdaten / Links dürfen veröffentlicht werden?',articleContentTitle:'Inhalte für die Redaktion',articleQuestion:'Welche Ausgangssituation, Frage oder welches Problem steht im Mittelpunkt?',articleGoal:'Was soll der Leser nach dem Artikel verstanden haben?',articleApproach:'Lösung / Ansatz / Perspektive',articleDifference:'Was ist daran besonders oder unterscheidend?',articleBackground:'Hintergrund / Entstehungsgeschichte',articleExamples:'Konkrete Beispiele, Erfahrungen oder Fälle',articleFacts:'Welche Fakten und Aussagen müssen unbedingt korrekt enthalten sein?',articleSources:'Quellen, Webseiten und weiterführende Links',articleDoNotUse:'Was soll ausdrücklich nicht verwendet oder veröffentlicht werden?',finishKicker:'Abschluss',finishTitle:'Prüfen und PDF erstellen',finishSub:'Die PDF enthält deinen persönlichen Leitfaden und die strukturierten Angaben für LiquidityBooster.',confirmCorrect:'Ich bestätige, dass meine Angaben nach bestem Wissen richtig sind.',confirmPublic:'Ich bestätige, dass die ausdrücklich als öffentlich angegebenen Informationen für Ankündigung bzw. Veröffentlichung durch LiquidityBooster verwendet werden dürfen.',autoSave:'Deine Eingaben werden nur lokal in diesem Browser gespeichert.',saveBtn:'Zwischenspeichern',resetBtn:'Eingaben löschen',pdfBtn:'Professionelle PDF erstellen',footer:'LiquidityBooster · Mehr Freiheit • Mehr Geld • Mehr vom Leben · Bildungs- und Informationsangebot, keine Anlageberatung.',speaker15Title:'Gastredner – 15 Minuten',speaker30Title:'Gastredner – 30 Minuten',speaker15Sub:'Dein fester Gastredner-Slot ist montags von 19:15 bis 19:30 Uhr.',speaker30Sub:'Dein fester Gastredner-Slot ist montags von 19:15 bis 19:45 Uhr.',slot15Guide:'Wähle bis zu drei Montage. Der erste Termin ist dein bevorzugter Wunschtermin. Deine Gastrednerzeit ist fest 19:15–19:30 Uhr. Die verbindliche Terminbestätigung erfolgt durch LiquidityBooster.',slot30Guide:'Wähle bis zu drei Montage. Der erste Termin ist dein bevorzugter Wunschtermin. Deine Gastrednerzeit ist fest 19:15–19:45 Uhr. Die verbindliche Terminbestätigung erfolgt durch LiquidityBooster.',content15Guide:'Konzentriere dich auf zwei bis drei klare Kernaussagen. Dein Leitfaden hilft dir, den 15-Minuten-Impuls fokussiert und verständlich aufzubauen.',content30Guide:'Plane einen klaren roten Faden. Die 30 Minuten geben Raum für Hintergrund, Ansatz, Beispiel und eine eindeutige Schlussbotschaft.',selected15:'Ausgewählt: Gastredner – 15 Minuten · Montag 19:15–19:30',selected30:'Ausgewählt: Gastredner – 30 Minuten · Montag 19:15–19:45',selectedArticle:'Ausgewählt: Leitartikel · 3 Monate Sichtbarkeit',saveOk:'Zwischenstand lokal gespeichert.',resetAsk:'Wirklich alle Eingaben dieser Vorbereitung löschen?',resetOk:'Eingaben wurden gelöscht.',validation:'Bitte ergänze die markierten Pflichtfelder und prüfe deine Montagstermine.',confirmMissing:'Bitte bestätige beide Abschlussfelder.',pdfOk:'Deine PDF wurde erstellt und heruntergeladen. Bitte sende sie anschließend an LiquidityBooster.',unknown:'Nicht angegeben',yes:'Ja',no:'Nein',pdfStatus:'Wunschtermin – verbindliche Bestätigung erfolgt durch LiquidityBooster.',pdfGuide:'Dein persönlicher Leitfaden',pdfData:'Deine Angaben',pdfInternal:'Arbeitsübersicht für LiquidityBooster',pdfBasic:'Basisdaten',pdfDates:'Terminwünsche',pdfAnnouncement:'Grundlage für die Ankündigung',pdfContent:'Inhaltliche Vorbereitung',pdfEditorial:'Redaktionelle Grundlage',pdfPublic:'Veröffentlichbare Angaben',pdfDoNot:'Nicht verwenden / veröffentlichen',pdfNext:'Nächster Schritt',pdfNextSpeaker:'Diese PDF dient dir als Leitfaden und LiquidityBooster als Vorbereitungsgrundlage. Sende die PDF an LiquidityBooster. Dein Wunschtermin wird anschließend verbindlich bestätigt.',pdfNextArticle:'Diese PDF dient dir als Leitfaden und LiquidityBooster als Redaktionsgrundlage. Sende die PDF an LiquidityBooster. Auf dieser Basis kann der Leitartikel vorbereitet und anschließend abgestimmt werden.',pdfGuide15:'15 Minuten funktionieren am stärksten mit einem klaren Fokus: kurze Vorstellung, zwei bis drei Kernpunkte und eine eindeutige Botschaft, die bei den Teilnehmern hängen bleibt.',pdfGuide30:'30 Minuten geben Raum für einen nachvollziehbaren Spannungsbogen: Ausgangssituation, Hintergrund, Ansatz, konkretes Beispiel und klare Schlussbotschaft.',pdfGuideArticle:'Du musst keinen fertigen Artikel liefern. Entscheidend sind belastbare Fakten, Kontext, gewünschte Kernaussage, Zielgruppe, Quellen und klare Grenzen dessen, was nicht veröffentlicht werden soll.'
+ },
+ en:{
+  brandSub:'Guest Speaker Stage & Feature Article',eyebrow:'Prepare your booked visibility',heroTitle:'Fill it in once. Receive a professional PDF. Prepare your appearance or feature article.',heroLead:'Select the service you booked. The form guides you through everything LiquidityBooster needs for announcement, preparation and editorial production. At the end you receive your personal PDF guide.',flow1t:'1. Select service',flow1s:'15 minutes, 30 minutes or feature article.',flow2t:'2. Add your details',flow2s:'Guided, structured and matched to your booking.',flow3t:'3. Create PDF',flow3s:'Direct PDF download – no print dialog.',chooseKicker:'Step 1',chooseTitle:'What did you book?',chooseSub:'Select exactly the service you booked. The questions and your PDF guide adapt automatically.',p15Title:'Guest speaker – 15 minutes',p15Text:'Compact impulse with a clear core message and prepared announcement.',p30Title:'Guest speaker – 30 minutes',p30Text:'More room for background, approach, example and deeper key points.',paTitle:'Feature article',paText:'Editorial basis for your LiquidityBooster feature article and its announcement.',paSlot:'3 months visibility',commonKicker:'Step 2',commonTitle:'Your basic details',commonSub:'These details clearly assign your documents.',personName:'First and last name',company:'Company / project',role:'Role / position',email:'Email',phone:'Phone',website:'Website',publicSpelling:'Preferred public spelling of your name, company or project',speakerKicker:'Guest speaker stage',dateTitle:'Your preferred Monday dates',date1:'1st preferred date',date2:'2nd preferred date',date3:'3rd preferred date',mondayError:'Please select a Monday.',announceTitle:'Details for your announcement',announceGuide:'Write so that someone who does not know you can understand in a few sentences who you are and why your topic is interesting.',stageTitle:'Title of your appearance',topic:'What is your appearance about?',relevance:'Why is this topic currently interesting or relevant?',presentationType:'What are you presenting?',typeCompany:'Company',typeProduct:'Product / service',typeProject:'Project',typeKnowledge:'Knowledge / specialist topic',typeExperience:'Experience / story',typeOther:'Other',publicContact:'Which contact details may appear in the announcement?',shortIntro:'Short introduction to you / your project',shortIntroHint:'Basis for the editorial announcement – no finished advertising copy required.',contentTitle:'Content of your appearance',key1:'Key point 1',key2:'Key point 2',key3:'Key point 3',takeaway:'What should participants understand or take away after your appearance?',links:'Links, sources or materials LiquidityBooster should know',speakerNotes:'What else should we consider in preparation?',deepTitle:'30-minute deep dive',deepGuide:'Use the extra room for a clear thread: starting point, background, approach, example and a clear final message.',problem:'Starting point / problem',background:'Important background',approach:'Your approach / solution',exampleStory:'Example, experience or story',moderatorQuestions:'Which questions may the moderator pick up?',articleKicker:'Feature article',articleTitle:'Editorial basis for your feature article',articleSub:'You do not need to write a finished article. Give us the facts, context and statements we need for editorial production.',articleGuide:'Your PDF remains your guide: it brings together topic, audience, core message, facts, sources and approvals. LiquidityBooster receives a clear working basis for production and announcement.',articleAnnounceTitle:'Topic & announcement',articleHeadline:'Desired topic / possible headline',articleTopic:'What should the feature article be about?',articleTeaser:'Short teaser for the announcement',articleAudience:'Who is this topic particularly relevant for?',articleRelevance:'Why is the topic relevant now?',articlePublicContact:'Which contact details / links may be published?',articleContentTitle:'Content for the editorial team',articleQuestion:'Which starting point, question or problem is central?',articleGoal:'What should the reader understand after the article?',articleApproach:'Solution / approach / perspective',articleDifference:'What is special or distinctive about it?',articleBackground:'Background / origin story',articleExamples:'Concrete examples, experiences or cases',articleFacts:'Which facts and statements must be included accurately?',articleSources:'Sources, websites and further links',articleDoNotUse:'What must explicitly not be used or published?',finishKicker:'Finish',finishTitle:'Review and create PDF',finishSub:'The PDF contains your personal guide and the structured details for LiquidityBooster.',confirmCorrect:'I confirm that my details are correct to the best of my knowledge.',confirmPublic:'I confirm that information explicitly marked as public may be used by LiquidityBooster for announcements or publication.',autoSave:'Your entries are stored only locally in this browser.',saveBtn:'Save progress',resetBtn:'Delete entries',pdfBtn:'Create professional PDF',footer:'LiquidityBooster · More freedom • More money • More from life · Educational and informational content, not investment advice.',speaker15Title:'Guest speaker – 15 minutes',speaker30Title:'Guest speaker – 30 minutes',speaker15Sub:'Your fixed guest-speaker slot is Monday from 19:15 to 19:30.',speaker30Sub:'Your fixed guest-speaker slot is Monday from 19:15 to 19:45.',slot15Guide:'Choose up to three Mondays. The first date is your preferred slot. Your guest-speaker time is fixed at 19:15–19:30. LiquidityBooster confirms the date as binding afterwards.',slot30Guide:'Choose up to three Mondays. The first date is your preferred slot. Your guest-speaker time is fixed at 19:15–19:45. LiquidityBooster confirms the date as binding afterwards.',content15Guide:'Focus on two to three clear core statements. Your guide helps you keep the 15-minute impulse focused and easy to follow.',content30Guide:'Plan a clear thread. The 30 minutes provide room for background, approach, example and a clear final message.',selected15:'Selected: Guest speaker – 15 minutes · Monday 19:15–19:30',selected30:'Selected: Guest speaker – 30 minutes · Monday 19:15–19:45',selectedArticle:'Selected: Feature article · 3 months visibility',saveOk:'Progress saved locally.',resetAsk:'Really delete all entries for this preparation?',resetOk:'Entries deleted.',validation:'Please complete the required fields and check your Monday dates.',confirmMissing:'Please confirm both final checkboxes.',pdfOk:'Your PDF has been created and downloaded. Please send it to LiquidityBooster afterwards.',unknown:'Not provided',yes:'Yes',no:'No',pdfStatus:'Preferred date – binding confirmation will follow from LiquidityBooster.',pdfGuide:'Your personal guide',pdfData:'Your details',pdfInternal:'Working summary for LiquidityBooster',pdfBasic:'Basic details',pdfDates:'Preferred dates',pdfAnnouncement:'Announcement basis',pdfContent:'Content preparation',pdfEditorial:'Editorial basis',pdfPublic:'Publishable information',pdfDoNot:'Do not use / publish',pdfNext:'Next step',pdfNextSpeaker:'This PDF serves as your guide and as LiquidityBooster’s preparation basis. Send the PDF to LiquidityBooster. Your preferred date will then be confirmed as binding.',pdfNextArticle:'This PDF serves as your guide and as LiquidityBooster’s editorial basis. Send the PDF to LiquidityBooster. The feature article can then be prepared and coordinated on this basis.',pdfGuide15:'15 minutes work best with a clear focus: short introduction, two to three key points and one clear message participants will remember.',pdfGuide30:'30 minutes provide room for a clear arc: starting point, background, approach, concrete example and clear final message.',pdfGuideArticle:'You do not need to deliver a finished article. What matters are reliable facts, context, desired core message, target audience, sources and clear boundaries on what must not be published.'
+ }
+};
+const tr=k=>(dict[lang]&&dict[lang][k])||dict.de[k]||k;
+function applyI18n(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(tr(k)!==undefined)el.textContent=tr(k)});document.querySelectorAll('.lang').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));renderProduct();}
+function fieldValue(id){const el=$(id);if(!el)return'';if(el.type==='checkbox')return el.checked;return (el.value||'').trim()}
+function save(){const data={};document.querySelectorAll('[data-store]').forEach(el=>{data[el.id]=el.type==='checkbox'?el.checked:el.value});localStorage.setItem(STORE,JSON.stringify(data));if(product)localStorage.setItem(STORE+'_product',product);localStorage.setItem(STORE+'_lang',lang)}
+function load(){try{const data=JSON.parse(localStorage.getItem(STORE)||'{}');Object.entries(data).forEach(([id,v])=>{const el=$(id);if(!el)return;if(el.type==='checkbox')el.checked=!!v;else el.value=v})}catch(e){} }
+function setProduct(p){product=p;localStorage.setItem(STORE+'_product',p);document.querySelectorAll('.product').forEach(b=>b.classList.toggle('active',b.dataset.product===p));document.querySelectorAll('.form-area').forEach(el=>el.classList.add('show'));$('speakerPanel').classList.toggle('show',p==='speaker15'||p==='speaker30');$('articlePanel').classList.toggle('show',p==='article');$('speaker30Extra').classList.toggle('hidden',p!=='speaker30');renderProduct();save();setTimeout(()=>$('commonPanel').scrollIntoView({behavior:'smooth',block:'start'}),80)}
+function renderProduct(){if(!product)return;const is30=product==='speaker30',is15=product==='speaker15';if(is15||is30){$('speakerTitle').textContent=tr(is30?'speaker30Title':'speaker15Title');$('speakerSub').textContent=tr(is30?'speaker30Sub':'speaker15Sub');$('slotGuide').textContent=tr(is30?'slot30Guide':'slot15Guide');$('contentGuide').textContent=tr(is30?'content30Guide':'content15Guide');$('selectedLabel').textContent=tr(is30?'selected30':'selected15')}else $('selectedLabel').textContent=tr('selectedArticle')}
+function isMonday(v){if(!v)return true;const [y,m,d]=v.split('-').map(Number);return new Date(y,m-1,d,12,0,0).getDay()===1}
+function validateDate(el){const ok=isMonday(el.value);el.closest('.field').classList.toggle('invalid',!ok);el.closest('.field').querySelector('.date-error').classList.toggle('show',!ok);return ok}
+function setDateMin(){const now=new Date(),y=now.getFullYear(),m=String(now.getMonth()+1).padStart(2,'0'),d=String(now.getDate()).padStart(2,'0');document.querySelectorAll('[data-monday]').forEach(el=>el.min=`${y}-${m}-${d}`)}
+function reqIds(){return product==='article'?['personName','email','articleHeadline','articleTopic','articleQuestion','articleGoal']:['personName','email','date1','stageTitle','topic','key1','key2','takeaway']}
+function validate(){let ok=true;document.querySelectorAll('.field.invalid').forEach(x=>x.classList.remove('invalid'));reqIds().forEach(id=>{const el=$(id);if(!el||!String(el.value||'').trim()){ok=false;el?.closest('.field')?.classList.add('invalid')}});if(product!=='article')document.querySelectorAll('[data-monday]').forEach(el=>{if(!validateDate(el))ok=false});if(!$('confirmCorrect').checked||!$('confirmPublic').checked){showNotice(tr('confirmMissing'),'err');return false}if(!ok){showNotice(tr('validation'),'err');return false}return true}
+function showNotice(msg,type){const n=$('notice');n.textContent=msg;n.className='notice show '+type;n.scrollIntoView({behavior:'smooth',block:'nearest'});setTimeout(()=>{if(n.textContent===msg)n.className='notice'},6500)}
+function formatDate(v){if(!v)return tr('unknown');const [y,m,d]=v.split('-');return lang==='de'?`${d}.${m}.${y}`:`${y}-${m}-${d}`}
+function selectedText(id){const el=$(id);if(!el||!el.value)return tr('unknown');return el.options[el.selectedIndex]?.textContent||el.value}
+function dataSnapshot(){return {personName:fieldValue('personName'),company:fieldValue('company'),role:fieldValue('role'),email:fieldValue('email'),phone:fieldValue('phone'),website:fieldValue('website'),publicSpelling:fieldValue('publicSpelling'),date1:fieldValue('date1'),date2:fieldValue('date2'),date3:fieldValue('date3'),stageTitle:fieldValue('stageTitle'),topic:fieldValue('topic'),relevance:fieldValue('relevance'),presentationType:selectedText('presentationType'),publicContact:fieldValue('publicContact'),shortIntro:fieldValue('shortIntro'),key1:fieldValue('key1'),key2:fieldValue('key2'),key3:fieldValue('key3'),takeaway:fieldValue('takeaway'),links:fieldValue('links'),speakerNotes:fieldValue('speakerNotes'),problem:fieldValue('problem'),background:fieldValue('background'),approach:fieldValue('approach'),exampleStory:fieldValue('exampleStory'),moderatorQuestions:fieldValue('moderatorQuestions'),articleHeadline:fieldValue('articleHeadline'),articleTopic:fieldValue('articleTopic'),articleTeaser:fieldValue('articleTeaser'),articleAudience:fieldValue('articleAudience'),articleRelevance:fieldValue('articleRelevance'),articlePublicContact:fieldValue('articlePublicContact'),articleQuestion:fieldValue('articleQuestion'),articleGoal:fieldValue('articleGoal'),articleApproach:fieldValue('articleApproach'),articleDifference:fieldValue('articleDifference'),articleBackground:fieldValue('articleBackground'),articleExamples:fieldValue('articleExamples'),articleFacts:fieldValue('articleFacts'),articleSources:fieldValue('articleSources'),articleDoNotUse:fieldValue('articleDoNotUse')};}
+
+/* Direct PDF Engine: A4 PDF file is generated in-browser. No print dialog, no external library. */
+function pdfWinAnsi(v){const map={'€':'EUR','–':'-','—':'-','„':'"','“':'"','”':'"','’':"'",'…':'...','•':'-','✓':'x','→':'->','‑':'-'};return String(v??'').replace(/[€–—„“”’…•✓→‑]/g,ch=>map[ch]||'?').replace(/[^\x20-\xFF]/g,'?')}
+function pdfEsc(v){return pdfWinAnsi(v).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)')}
+function pdfBytes(str){const out=new Uint8Array(str.length);for(let i=0;i<str.length;i++)out[i]=str.charCodeAt(i)&255;return out}
+function wrapText(v,max){const raw=pdfWinAnsi(v||tr('unknown')).replace(/\r/g,'');const result=[];raw.split('\n').forEach(par=>{if(!par.trim()){result.push('');return}const words=par.split(/\s+/),lines=[];let line='';words.forEach(word=>{while(word.length>max){if(line){lines.push(line);line=''}lines.push(word.slice(0,max));word=word.slice(max)}const next=line?line+' '+word:word;if(next.length>max&&line){lines.push(line);line=word}else line=next});if(line)lines.push(line);result.push(...lines)});return result.length?result:['']}
+function buildPdf(d){
+ const W=595,H=842,M=46,usable=W-M*2;let pages=[],cmd=[],y=0,pageNo=0;
+ const NAVY=[.075,.133,.22],MINT=[0,.655,.678],MAG=[.776,0,.435],TEXT=[.145,.204,.275],MUTED=[.40,.46,.53],LIGHT=[.955,.972,.978],MINTLIGHT=[.93,.985,.985],MAGLIGHT=[1,.95,.975],WHITE=[1,1,1];
+ const fill=c=>cmd.push(`${c[0]} ${c[1]} ${c[2]} rg`),stroke=c=>cmd.push(`${c[0]} ${c[1]} ${c[2]} RG`),rect=(x,yy,w,h,c)=>{fill(c);cmd.push(`${x} ${yy} ${w} ${h} re f`)},line=(x1,y1,x2,y2,c=MUTED,w=.6)=>{stroke(c);cmd.push(`${w} w ${x1} ${y1} m ${x2} ${y2} l S`)},txt=(x,yy,size,v,bold=false,c=TEXT)=>{fill(c);cmd.push(`BT /${bold?'F2':'F1'} ${size} Tf ${x} ${yy} Td (${pdfEsc(v)}) Tj ET`)};
+ const footer=()=>{line(M,36,W-M,36,[.82,.86,.88],.5);txt(M,20,7.5,'LiquidityBooster  ·  Mehr Freiheit · Mehr Geld · Mehr vom Leben',false,MUTED);txt(W-M-55,20,7.5,(lang==='de'?'Seite ':'Page ')+pageNo,false,MUTED)};
+ const close=()=>{if(cmd.length){footer();pages.push(cmd.join('\n'));cmd=[]}};
+ const header=()=>{pageNo++;rect(0,H-105,W,105,NAVY);rect(0,H-108,W,3,MINT);txt(M,H-43,10,'LIQUIDITYBOOSTER',true,MINT);txt(M,H-68,18,product==='article'?tr('paTitle'):(product==='speaker30'?tr('speaker30Title'):tr('speaker15Title')),true,WHITE);txt(M,H-86,8.5,lang==='de'?'Vorbereitungsbogen · persönlicher Leitfaden · Arbeitsgrundlage':'Preparation form · personal guide · working basis',false,[.83,.88,.92]);y=H-135};
+ const newPage=()=>{close();header()};
+ const ensure=h=>{if(y-h<52)newPage()};
+ const section=(title,accent=MINT)=>{ensure(38);txt(M,y,12,title,true,NAVY);y-=9;line(M,y,W-M,y,accent,1.5);y-=18};
+ const para=(value,{size=9.2,bold=false,color=TEXT,bg=null,pad=0,max=88}={})=>{const lines=wrapText(value,max);const lh=size+3.5,need=lines.length*lh+(bg?18:0);ensure(need+6);if(bg){rect(M,y-need+7,usable,need,bg);let yy=y-13;lines.forEach(l=>{txt(M+12,yy,size,l,bold,color);yy-=lh});y-=need+8}else{lines.forEach(l=>{txt(M+pad,y,size,l,bold,color);y-=lh});y-=4}};
+ const field=(label,value)=>{const lines=wrapText(value||tr('unknown'),84);const need=13+lines.length*12+7;ensure(need);txt(M,y,7.8,label.toUpperCase(),true,MAG);y-=13;lines.forEach(l=>{txt(M,y,9.2,l,false,TEXT);y-=12});y-=7};
+ const badge=(left,right)=>{ensure(34);rect(M,y-24,usable,29,LIGHT);txt(M+10,y-13,8,left,true,NAVY);txt(W-M-10-Math.min(245,right.length*4.5),y-13,8,right,true,MINT);y-=40};
+ header();
+ // Cover/meta
+ txt(M,y,24,lang==='de'?'Deine Vorbereitung auf einen Blick':'Your preparation at a glance',true,NAVY);y-=31;
+ para(product==='article'?tr('pdfGuideArticle'):(product==='speaker30'?tr('pdfGuide30'):tr('pdfGuide15')),{size:10,bg:product==='article'?MAGLIGHT:MINTLIGHT,max:78});
+ badge(lang==='de'?'Erstellt für':'Prepared for',d.personName||tr('unknown'));
+ if(product!=='article')badge(lang==='de'?'Gastrednerzeit':'Guest speaker time',product==='speaker30'?'Montag 19:15–19:45':'Montag 19:15–19:30');
+ else badge(lang==='de'?'Veröffentlichung':'Visibility',lang==='de'?'3 Monate Sichtbarkeit':'3 months visibility');
+ section(tr('pdfGuide'));
+ if(product==='speaker15')para(lang==='de'?'Dein Ziel ist ein kompakter, verständlicher Impuls. Führe kurz in dein Thema ein, konzentriere dich auf zwei bis drei Kernpunkte und beende deinen Auftritt mit einer klaren Botschaft. Die Terminangaben in dieser PDF sind zunächst Wunschter mine; die verbindliche Bestätigung erfolgt durch LiquidityBooster.':'Your goal is a compact, easy-to-follow impulse. Introduce your topic briefly, focus on two to three key points and end with one clear message. Dates in this PDF are preferred dates until LiquidityBooster confirms them.',{max:86});
+ if(product==='speaker30')para(lang==='de'?'Nutze die 30 Minuten für einen nachvollziehbaren roten Faden: Ausgangssituation, Hintergrund, Ansatz, ein konkretes Beispiel und eine klare Schlussbotschaft. Die Terminangaben in dieser PDF sind zunächst Wunschter mine; die verbindliche Bestätigung erfolgt durch LiquidityBooster.':'Use the 30 minutes for a clear arc: starting point, background, approach, a concrete example and a clear final message. Dates in this PDF are preferred dates until LiquidityBooster confirms them.',{max:86});
+ if(product==='article')para(lang==='de'?'Du musst keinen fertigen Werbe- oder Redaktionstext liefern. Diese PDF bündelt die Informationen, die LiquidityBooster benötigt, um Thema, Ankündigung und Leitartikel redaktionell vorzubereiten. Prüfe besonders Fakten, Quellen, veröffentlichbare Kontaktdaten und Angaben, die ausdrücklich nicht verwendet werden dürfen.':'You do not need to provide finished advertising or editorial copy. This PDF bundles the information LiquidityBooster needs to prepare the topic, announcement and feature article. Pay particular attention to facts, sources, publishable contact details and information that must explicitly not be used.',{max:86});
+ section(tr('pdfBasic'));
+ field(tr('personName'),d.personName);field(tr('company'),d.company);field(tr('role'),d.role);field(tr('email'),d.email);field(tr('phone'),d.phone);field(tr('website'),d.website);field(tr('publicSpelling'),d.publicSpelling);
+ if(product!=='article'){
+  section(tr('pdfDates'));
+  field(tr('date1'),formatDate(d.date1));field(tr('date2'),formatDate(d.date2));field(tr('date3'),formatDate(d.date3));field(lang==='de'?'Status':'Status',tr('pdfStatus'));
+  section(tr('pdfAnnouncement'));
+  field(tr('stageTitle'),d.stageTitle);field(tr('topic'),d.topic);field(tr('relevance'),d.relevance);field(tr('presentationType'),d.presentationType);field(tr('publicContact'),d.publicContact);field(tr('shortIntro'),d.shortIntro);
+  section(tr('pdfContent'));
+  field(tr('key1'),d.key1);field(tr('key2'),d.key2);field(tr('key3'),d.key3);field(tr('takeaway'),d.takeaway);field(tr('links'),d.links);field(tr('speakerNotes'),d.speakerNotes);
+  if(product==='speaker30'){field(tr('problem'),d.problem);field(tr('background'),d.background);field(tr('approach'),d.approach);field(tr('exampleStory'),d.exampleStory);field(tr('moderatorQuestions'),d.moderatorQuestions)}
+  section(tr('pdfInternal'),MAG);
+  para((lang==='de'?'ANKÜNDIGUNG: ':'ANNOUNCEMENT: ')+(d.stageTitle||tr('unknown')),{bold:true,max:82});para(d.shortIntro||d.topic,{max:86});
+  para((lang==='de'?'KERNAUSSAGE: ':'CORE MESSAGE: ')+(d.takeaway||tr('unknown')),{bold:true,max:84});
+  para((lang==='de'?'TERMIN 1: ':'DATE 1: ')+formatDate(d.date1)+' · '+(product==='speaker30'?'19:15–19:45':'19:15–19:30'),{bold:true,max:84});
+  section(tr('pdfNext'));para(tr('pdfNextSpeaker'),{bg:MINTLIGHT,max:80});
+ }else{
+  section(tr('pdfAnnouncement'));
+  field(tr('articleHeadline'),d.articleHeadline);field(tr('articleTopic'),d.articleTopic);field(tr('articleTeaser'),d.articleTeaser);field(tr('articleAudience'),d.articleAudience);field(tr('articleRelevance'),d.articleRelevance);field(tr('articlePublicContact'),d.articlePublicContact);
+  section(tr('pdfEditorial'));
+  field(tr('articleQuestion'),d.articleQuestion);field(tr('articleGoal'),d.articleGoal);field(tr('articleApproach'),d.articleApproach);field(tr('articleDifference'),d.articleDifference);field(tr('articleBackground'),d.articleBackground);field(tr('articleExamples'),d.articleExamples);field(tr('articleFacts'),d.articleFacts);field(tr('articleSources'),d.articleSources);field(tr('articleDoNotUse'),d.articleDoNotUse);
+  section(tr('pdfInternal'),MAG);
+  field(lang==='de'?'Thema':'Topic',d.articleHeadline);field(lang==='de'?'Kernaussage':'Core message',d.articleGoal);field(lang==='de'?'Zielgruppe':'Target audience',d.articleAudience);field(lang==='de'?'Relevanz':'Relevance',d.articleRelevance);field(lang==='de'?'Hintergrund':'Background',d.articleBackground);field(lang==='de'?'Besondere Fakten':'Key facts',d.articleFacts);field(lang==='de'?'Quellen / Links':'Sources / links',d.articleSources);field(tr('pdfPublic'),d.articlePublicContact);field(tr('pdfDoNot'),d.articleDoNotUse);
+  section(tr('pdfNext'));para(tr('pdfNextArticle'),{bg:MAGLIGHT,max:80});
+ }
+ close();
+ const objects=[];objects[1]='<< /Type /Catalog /Pages 2 0 R >>';const kids=[];objects[3]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';objects[4]='<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
+ pages.forEach((stream,i)=>{const p=5+i*2,c=6+i*2;kids.push(`${p} 0 R`);objects[p]=`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ${c} 0 R >>`;objects[c]=`<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`});objects[2]=`<< /Type /Pages /Kids [${kids.join(' ')}] /Count ${kids.length} >>`;
+ let pdf='%PDF-1.4\n%âãÏÓ\n',offsets=[0];for(let i=1;i<objects.length;i++){offsets[i]=pdf.length;pdf+=`${i} 0 obj\n${objects[i]}\nendobj\n`}const xref=pdf.length;pdf+=`xref\n0 ${objects.length}\n0000000000 65535 f \n`;for(let i=1;i<objects.length;i++)pdf+=String(offsets[i]).padStart(10,'0')+' 00000 n \n';pdf+=`trailer\n<< /Size ${objects.length} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+ return new Blob([pdfBytes(pdf)],{type:'application/pdf'});
+}
+function safeName(v){return String(v||'Unterlagen').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,45)||'Unterlagen'}
+function downloadBlob(name,blob){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function createPdf(){if(!product)return;if(!validate())return;save();const d=dataSnapshot(),type=product==='article'?'Leitartikel':product==='speaker30'?'Gastredner-30min':'Gastredner-15min',date=product==='article'?new Date().toISOString().slice(0,10):(d.date1||new Date().toISOString().slice(0,10));downloadBlob(`LiquidityBooster_${type}_${safeName(d.personName)}_${date}.pdf`,buildPdf(d));showNotice(tr('pdfOk'),'ok')}
+
+document.querySelectorAll('.product').forEach(b=>b.addEventListener('click',()=>setProduct(b.dataset.product)));
+document.querySelectorAll('.lang').forEach(b=>b.addEventListener('click',()=>{lang=b.dataset.lang;localStorage.setItem(STORE+'_lang',lang);applyI18n();save()}));
+document.querySelectorAll('[data-store]').forEach(el=>{el.addEventListener('input',save);el.addEventListener('change',save)});
+document.querySelectorAll('[data-monday]').forEach(el=>el.addEventListener('change',()=>validateDate(el)));
+$('saveBtn').addEventListener('click',()=>{save();showNotice(tr('saveOk'),'ok')});
+$('resetBtn').addEventListener('click',()=>{if(!confirm(tr('resetAsk')))return;localStorage.removeItem(STORE);document.querySelectorAll('[data-store]').forEach(el=>{if(el.type==='checkbox')el.checked=false;else el.value=''});showNotice(tr('resetOk'),'ok')});
+$('pdfBtn').addEventListener('click',createPdf);
+load();setDateMin();applyI18n();if(product)setProduct(product);
+})();
+</script>
+</body>
+</html>
