@@ -1,0 +1,254 @@
+name: Head Control 2 Testseite bauen
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build-head-control-2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Head Control 2 aus bestehender Seite erzeugen
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          src = Path('pages/headteam-vorlauf/head-control.html')
+          out = Path('pages/headteam-vorlauf/head-control-2.html')
+          alias = Path('pages/headteam-vorlauf/head-control-2/index.html')
+
+          html = src.read_text(encoding='utf-8')
+          html = html.replace('<title>Head Control</title>', '<title>Head Control 2</title>', 1)
+
+          override = r'''
+<style id="head-control-2-layout">
+:root{
+  --magenta:#c6006f;
+  --page:#f5fafb;
+  --mint-soft:#eaf9fa;
+  --magenta-soft:#fff1f7;
+}
+html,body{background:var(--page)}
+body{padding:0;min-height:100vh}
+.wrap{
+  max-width:none;
+  width:100%;
+  margin:0;
+  padding:28px 28px 42px 258px;
+  min-height:100vh;
+}
+h1{font-size:clamp(36px,4vw,54px);letter-spacing:-.025em}
+h1::after{
+  content:"";
+  display:block;
+  width:72px;
+  height:5px;
+  margin-top:12px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--mint) 0 62%,var(--magenta) 62% 100%);
+}
+.sub{margin:9px 0 20px}
+.card{
+  border-color:#d9e6e8;
+  border-radius:18px;
+  box-shadow:0 8px 25px rgba(19,34,56,.045);
+}
+.head{
+  padding:15px 18px;
+  background:linear-gradient(90deg,#ffffff 0%,#fbffff 100%);
+  border-bottom-color:#dce9ea;
+}
+.body{padding:18px}
+.cockpit-nav{
+  position:fixed;
+  z-index:40;
+  left:0;
+  top:0;
+  bottom:0;
+  width:230px;
+  margin:0;
+  padding:118px 16px 22px;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:8px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  background:#fff;
+  border:0;
+  border-right:1px solid #d9e6e8;
+  box-shadow:12px 0 32px rgba(19,34,56,.045);
+  backdrop-filter:none;
+}
+.cockpit-nav::before{
+  content:"HEAD CONTROL";
+  position:absolute;
+  left:20px;
+  top:30px;
+  right:20px;
+  padding-bottom:18px;
+  border-bottom:1px solid #e3ecee;
+  color:var(--navy);
+  font-size:19px;
+  font-weight:950;
+  letter-spacing:.02em;
+}
+.cockpit-nav::after{
+  content:"Management";
+  position:absolute;
+  left:20px;
+  top:61px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:750;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.nav-btn{
+  width:100%;
+  flex:0 0 auto;
+  border:1px solid transparent;
+  border-radius:12px;
+  background:transparent;
+  color:var(--navy);
+  padding:12px 13px;
+  text-align:left;
+  font-size:14px;
+  transition:.15s ease;
+}
+.nav-btn:hover{background:var(--mint-soft);border-color:#ccecee}
+.nav-btn.active{
+  background:var(--mint);
+  border-color:var(--mint);
+  color:#fff;
+  box-shadow:0 7px 18px rgba(0,167,173,.18);
+}
+.nav-btn:last-child.active{background:var(--magenta);border-color:var(--magenta);box-shadow:0 7px 18px rgba(198,0,111,.16)}
+.btn{border-radius:10px}
+.btn.mint{background:var(--mint)}
+.btn.danger{color:var(--magenta);border-color:#efb9d6;background:#fff}
+.btn.danger:hover{background:var(--magenta-soft)}
+.status.ok{color:var(--ok)}
+input,textarea,select{border-color:#cbdadd;background:#fff}
+input:focus,textarea:focus,select:focus{outline:3px solid rgba(0,167,173,.12);border-color:var(--mint)}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat{
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+  border-color:#d9e6e8;
+  padding:18px;
+  box-shadow:0 5px 18px rgba(19,34,56,.035);
+}
+.stat::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  right:0;
+  height:4px;
+  background:var(--mint);
+}
+.stat:nth-child(2n)::before{background:var(--magenta)}
+.formgrid{gap:14px 16px}
+.formgrid.zoom{gap:14px 16px}
+.field label{font-size:12px}
+textarea{min-height:118px}
+.tablewrap{overflow-x:auto}
+table{width:100%;min-width:0}
+th,td{
+  padding:13px 10px;
+  vertical-align:top;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+th{background:#fbfdfd}
+.url{
+  max-width:none;
+  overflow:visible;
+  text-overflow:clip;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  line-height:1.4;
+}
+.rowactions{flex-wrap:wrap;align-items:flex-start}
+.editing{background:#f1fbfb}
+.archive-badge{background:var(--mint-soft);color:#087e83}
+.error{border-color:#efb9d6;background:var(--magenta-soft);color:#8c1456}
+.success{border-color:#b7e2cf}
+@media(max-width:1050px){
+  .wrap{padding-left:220px;padding-right:18px}
+  .cockpit-nav{width:198px;padding-left:12px;padding-right:12px}
+  .cockpit-nav::before,.cockpit-nav::after{left:16px;right:16px}
+  .stats{grid-template-columns:1fr 1fr}
+  .formgrid.zoom{grid-template-columns:1fr 1fr}
+}
+@media(max-width:820px){
+  body{padding:0}
+  .wrap{padding:14px}
+  .cockpit-nav{
+    position:sticky;
+    top:0;
+    width:auto;
+    height:auto;
+    margin:0 -14px 16px;
+    padding:10px 14px;
+    flex-direction:row;
+    overflow-x:auto;
+    overflow-y:hidden;
+    border-right:0;
+    border-bottom:1px solid #d9e6e8;
+    box-shadow:0 7px 20px rgba(19,34,56,.045);
+  }
+  .cockpit-nav::before,.cockpit-nav::after{display:none}
+  .nav-btn{width:auto;white-space:nowrap;padding:9px 12px}
+  .formgrid{grid-template-columns:1fr 1fr}
+  .field.full{grid-column:1/-1}
+}
+@media(max-width:620px){
+  .wrap{padding:10px}
+  .cockpit-nav{margin:0 -10px 14px;padding-left:10px;padding-right:10px}
+  .connect,.formgrid,.formgrid.zoom{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .stats{grid-template-columns:1fr}
+  .head{align-items:flex-start;flex-direction:column}
+  table{min-width:760px}
+}
+</style>
+'''
+          html = html.replace('</head>', override + '</head>', 1)
+
+          alias.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(html, encoding='utf-8')
+          alias.write_text(html, encoding='utf-8')
+          print('Head Control 2 erzeugt:', out, alias)
+          PY
+
+      - name: Änderungen speichern
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FSA Head Control Test"
+          git config user.email "actions@github.com"
+          rm -f .github/workflows/build-head-control-2.yml
+          git add -- pages/headteam-vorlauf/head-control-2.html pages/headteam-vorlauf/head-control-2/index.html .github/workflows/build-head-control-2.yml
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+          else
+            git commit -m "test: Head Control 2 als echte Vollbreiten-Testseite erzeugen"
+            git push
+          fi
