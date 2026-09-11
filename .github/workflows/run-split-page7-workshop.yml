@@ -10,18 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-      - name: Patch Head Control 2 task cards
-        run: python scripts/patch-head-control-2-tasks.py
-      - name: Restore workflow and commit patch
+      - name: Generate workshop pages
+        run: python scripts/split_page7_workshop.py
+      - name: Commit generated pages
         run: |
-          git checkout HEAD^ -- .github/workflows/run-split-page7-workshop.yml
-          rm -f scripts/patch-head-control-2-tasks.py
-          rm -f .github/workflows/run-head-control-task-patch.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add pages/headteam-vorlauf/head-control-2.html .github/workflows/run-split-page7-workshop.yml scripts/patch-head-control-2-tasks.py .github/workflows/run-head-control-task-patch.yml
-          git commit -m 'test: Aufgabenverteilung in Head Control 2 als Karten darstellen'
+          git add hoersaal-liquiditybooster/07-werkstatt.html hoersaal-liquiditybooster/07-rechner-hoersaal.html hoersaal-liquiditybooster/07-rechner-businessbooster.html
+          git commit -m 'Build modular page 7 workshop architecture'
           git push
-# trigger second push
