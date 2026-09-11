@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Head Control 2</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --line:#dfe5ea;
+  --soft:#f5f8fa;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--soft);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body{overflow:hidden}
+.frame-shell{height:100vh;width:100%;background:var(--soft)}
+iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.loading{
+  position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--soft);color:var(--navy);font-weight:800;z-index:5
+}
+.loading.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="loading" id="loading">Head Control 2 wird geladen …</div>
+<div class="frame-shell">
+  <iframe id="headControlFrame" src="./head-control.html" title="Head Control 2"></iframe>
+</div>
+<script>
+(function(){
+  const frame=document.getElementById('headControlFrame');
+  const loading=document.getElementById('loading');
+
+  frame.addEventListener('load',()=>{
+    try{
+      const doc=frame.contentDocument;
+      if(!doc) return;
+
+      const style=doc.createElement('style');
+      style.id='head-control-2-theme';
+      style.textContent=`
+        :root{
+          --navy:#132238;
+          --mint:#00a7ad;
+          --magenta:#c6006f;
+          --text:#243142;
+          --muted:#667085;
+          --line:#dfe5ea;
+          --soft:#f5f8fa;
+          --ok:#067647;
+          --danger:#b42318;
+        }
+        html,body{margin:0!important;background:#f5f8fa!important;color:var(--text)!important}
+        body{padding:0!important;min-height:100vh!important}
+        .wrap{
+          max-width:none!important;
+          margin:0!important;
+          padding:0!important;
+          display:grid!important;
+          grid-template-columns:250px minmax(0,1fr)!important;
+          min-height:100vh!important;
+          align-items:start!important;
+        }
+        .hc-sidebar{
+          grid-column:1!important;
+          grid-row:1!important;
+          position:sticky!important;
+          top:0!important;
+          height:100vh!important;
+          background:#fff!important;
+          border-right:1px solid var(--line)!important;
+          padding:22px 14px!important;
+          overflow:auto!important;
+          z-index:30!important;
+        }
+        .hc-brand{
+          padding:2px 10px 20px!important;
+          margin-bottom:16px!important;
+          border-bottom:1px solid var(--line)!important;
+        }
+        .hc-brand-title{
+          margin:0!important;
+          color:var(--navy)!important;
+          font-size:25px!important;
+          font-weight:950!important;
+          line-height:1.05!important;
+        }
+        .hc-brand-sub{
+          margin-top:6px!important;
+          color:var(--muted)!important;
+          font-size:12px!important;
+        }
+        .hc-brand-accent{
+          width:54px!important;
+          height:5px!important;
+          border-radius:999px!important;
+          margin-top:14px!important;
+          background:linear-gradient(90deg,var(--mint) 0 55%,var(--magenta) 55% 100%)!important;
+        }
+        .hc-main{
+          grid-column:2!important;
+          grid-row:1!important;
+          min-width:0!important;
+          width:100%!important;
+          padding:24px 26px 40px!important;
+        }
+        .hc-titlebar{
+          display:flex!important;
+          align-items:flex-end!important;
+          justify-content:space-between!important;
+          gap:18px!important;
+          margin-bottom:16px!important;
+        }
+        .hc-title-copy h1{
+          margin:0!important;
+          color:var(--navy)!important;
+          font-size:clamp(34px,3vw,48px)!important;
+          line-height:1!important;
+        }
+        .hc-title-copy .sub{
+          margin:7px 0 0!important;
+          color:var(--muted)!important;
+          font-size:14px!important;
+        }
+        .hc-test-badge{
+          flex:0 0 auto!important;
+          padding:7px 11px!important;
+          border-radius:999px!important;
+          border:1px solid rgba(0,167,173,.28)!important;
+          background:#eefafa!important;
+          color:#087f84!important;
+          font-size:11px!important;
+          font-weight:900!important;
+        }
+        .cockpit-nav{
+          position:static!important;
+          display:flex!important;
+          flex-direction:column!important;
+          gap:6px!important;
+          overflow:visible!important;
+          padding:0!important;
+          margin:0!important;
+          background:transparent!important;
+          backdrop-filter:none!important;
+          border:0!important;
+        }
+        .nav-btn{
+          width:100%!important;
+          flex:0 0 auto!important;
+          text-align:left!important;
+          border:1px solid transparent!important;
+          border-radius:12px!important;
+          background:transparent!important;
+          color:var(--navy)!important;
+          padding:11px 12px!important;
+          font-size:14px!important;
+          font-weight:850!important;
+        }
+        .nav-btn:hover{background:#f3f7f8!important;border-color:#e6ecef!important}
+        .nav-btn.active{
+          background:#eafafa!important;
+          border-color:#b8e2e4!important;
+          color:#087f84!important;
+          box-shadow:inset 4px 0 0 var(--mint)!important;
+        }
+        .card{
+          border:1px solid var(--line)!important;
+          border-radius:18px!important;
+          background:#fff!important;
+          margin-bottom:16px!important;
+          box-shadow:0 8px 26px rgba(19,34,56,.035)!important;
+        }
+        .card>.head{
+          padding:15px 18px!important;
+          border-bottom:1px solid var(--line)!important;
+          color:var(--navy)!important;
+          background:linear-gradient(90deg,#fff 0%,#fbfefe 100%)!important;
+          position:relative!important;
+        }
+        .card>.head:before{
+          content:""!important;
+          position:absolute!important;
+          left:0!important;top:0!important;bottom:0!important;
+          width:4px!important;
+          background:var(--mint)!important;
+        }
+        #panel-chronicle .card>.head:before{background:var(--magenta)!important}
+        .body{padding:18px!important}
+        .connect{grid-template-columns:minmax(0,1fr) auto!important;gap:10px!important}
+        input,textarea,select{
+          border:1px solid #cfd8e3!important;
+          border-radius:11px!important;
+          background:#fff!important;
+        }
+        input:focus,textarea:focus,select:focus{
+          outline:3px solid rgba(0,167,173,.12)!important;
+          border-color:var(--mint)!important;
+        }
+        .btn{border-radius:10px!important}
+        .btn.mint{background:var(--mint)!important}
+        .btn.light{background:#f7f9fa!important;color:var(--navy)!important}
+        .btn.danger{background:#fff!important;color:var(--danger)!important}
+        .status.ok{color:var(--ok)!important}
+        .stats{
+          grid-template-columns:repeat(4,minmax(0,1fr))!important;
+          gap:12px!important;
+        }
+        .stat{
+          border:1px solid var(--line)!important;
+          border-radius:15px!important;
+          padding:16px!important;
+          background:#fff!important;
+        }
+        .stat:nth-child(1){border-top:4px solid var(--mint)!important}
+        .stat:nth-child(2){border-top:4px solid var(--navy)!important}
+        .stat:nth-child(3){border-top:4px solid var(--magenta)!important}
+        .stat:nth-child(4){border-top:4px solid #98a2b3!important}
+        .formgrid{grid-template-columns:1.25fr .65fr .55fr!important;gap:12px!important}
+        .formgrid.zoom{grid-template-columns:1.2fr .7fr .5fr .5fr!important;gap:12px!important}
+        .field label{font-size:12px!important;color:var(--navy)!important}
+        textarea{min-height:115px!important}
+        .tablewrap{
+          overflow-x:auto!important;
+          overflow-y:visible!important;
+          width:100%!important;
+        }
+        table{
+          width:100%!important;
+          min-width:0!important;
+          border-collapse:collapse!important;
+          table-layout:auto!important;
+        }
+        th,td{
+          padding:12px 10px!important;
+          vertical-align:top!important;
+          white-space:normal!important;
+          overflow:visible!important;
+          text-overflow:clip!important;
+          overflow-wrap:anywhere!important;
+        }
+        th{background:#fbfcfd!important}
+        .url{
+          max-width:none!important;
+          white-space:normal!important;
+          overflow:visible!important;
+          text-overflow:clip!important;
+          overflow-wrap:anywhere!important;
+          line-height:1.4!important;
+        }
+        .rowactions{
+          display:flex!important;
+          gap:7px!important;
+          justify-content:flex-end!important;
+          flex-wrap:wrap!important;
+          min-width:160px!important;
+        }
+        .history{line-height:1.5!important}
+        .panel{min-width:0!important}
+        @media(max-width:1050px){
+          .wrap{grid-template-columns:210px minmax(0,1fr)!important}
+          .hc-main{padding:20px 18px 34px!important}
+          .stats{grid-template-columns:1fr 1fr!important}
+          .formgrid,.formgrid.zoom{grid-template-columns:1fr 1fr!important}
+          .field.full{grid-column:1/-1!important}
+        }
+        @media(max-width:760px){
+          .wrap{display:block!important}
+          .hc-sidebar{position:relative!important;height:auto!important;border-right:0!important;border-bottom:1px solid var(--line)!important;padding:12px!important}
+          .cockpit-nav{flex-direction:row!important;overflow-x:auto!important;white-space:nowrap!important;padding-bottom:2px!important}
+          .nav-btn{width:auto!important;box-shadow:none!important}
+          .hc-brand{display:none!important}
+          .hc-main{padding:14px 12px 28px!important}
+          .hc-titlebar{align-items:flex-start!important;flex-direction:column!important}
+          .connect,.formgrid,.formgrid.zoom{grid-template-columns:1fr!important}
+          .field.full{grid-column:auto!important}
+          .stats{grid-template-columns:1fr 1fr!important}
+          .rowactions{justify-content:flex-start!important;min-width:0!important}
+        }
+      `;
+      doc.head.appendChild(style);
+
+      const wrap=doc.querySelector('.wrap');
+      const nav=doc.querySelector('.cockpit-nav');
+      const title=wrap&&wrap.querySelector('h1');
+      const sub=wrap&&wrap.querySelector('.sub');
+      if(!wrap||!nav||!title) return;
+
+      const sidebar=doc.createElement('aside');
+      sidebar.className='hc-sidebar';
+      const brand=doc.createElement('div');
+      brand.className='hc-brand';
+      brand.innerHTML='<div class="hc-brand-title">Head Control</div><div class="hc-brand-sub">Management Center</div><div class="hc-brand-accent"></div>';
+      sidebar.appendChild(brand);
+      sidebar.appendChild(nav);
+
+      const main=doc.createElement('main');
+      main.className='hc-main';
+      const titlebar=doc.createElement('div');
+      titlebar.className='hc-titlebar';
+      const titleCopy=doc.createElement('div');
+      titleCopy.className='hc-title-copy';
+      titleCopy.appendChild(title);
+      if(sub) titleCopy.appendChild(sub);
+      const testBadge=doc.createElement('div');
+      testBadge.className='hc-test-badge';
+      testBadge.textContent='TESTVERSION · HEAD CONTROL 2';
+      titlebar.appendChild(titleCopy);
+      titlebar.appendChild(testBadge);
+      main.appendChild(titlebar);
+
+      const remaining=Array.from(wrap.children).filter(el=>el!==sidebar&&el!==main&&el!==nav&&el!==title&&el!==sub);
+      remaining.forEach(el=>main.appendChild(el));
+      wrap.innerHTML='';
+      wrap.appendChild(sidebar);
+      wrap.appendChild(main);
+
+      loading.classList.add('hidden');
+    }catch(err){
+      loading.textContent='Head Control 2 konnte nicht dargestellt werden.';
+      console.error(err);
+    }
+  });
+})();
+</script>
+</body>
+</html>
