@@ -198,6 +198,25 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "e06cc914-b161-4746-857b-dde7d08bf364",
+      "title": "Leitartikel: 10.000 Euro – und was passiert jetzt?",
+      "type": "website",
+      "releaseDate": "2026-09-14",
+      "url": "https://tools.liquiditybooster.de/pages/leitartikel/10000-euro-geldwaesche-krypto/",
+      "what": "Neuer Leitartikel zu Geldwäschekontrollen bei Banküberweisungen, Bargeld und Krypto.",
+      "why": "Weil zu den Grenzen von 1.000 €, 10.000 € und 50.000 € viele Missverständnisse bestehen. Und Club Mitglieder nach dieser Information gefragt haben.",
+      "test": "Inhalt kurz ansehen und prüfen, ob der Artikel verständlich und freigabefähig ist.",
+      "meeting": "Freigabe am Montag und kurze Vorstellung im Clubtreffen.",
+      "createdAt": "2026-09-11T10:36:03.755Z",
+      "updatedAt": "2026-09-11T10:36:03.755Z",
+      "history": [
+        {
+          "at": "2026-09-11T10:36:03.755Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
