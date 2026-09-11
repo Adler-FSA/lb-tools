@@ -138,3 +138,5 @@ window.addEventListener('pagehide',()=>{if(pendingPdfUrl)URL.revokeObjectURL(pen
           git add pages/gastredner-15-minuten/index.html pages/gastredner-30-minuten/index.html pages/leitartikel-vorbereitung/index.html
           git commit -m 'Use named PDF V3 handoff for Sichtbar werden pages'
           git push
+
+# trigger registered workflow
