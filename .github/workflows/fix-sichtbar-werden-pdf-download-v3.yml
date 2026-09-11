@@ -1,0 +1,140 @@
+name: Fix Sichtbar werden PDF download V3
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-sichtbar-werden-pdf-download-v3.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace automatic blob download with named PDF V3 handoff
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          files = {
+            Path('pages/gastredner-15-minuten/index.html'): ('15', "val('name')", "val('date1')", 'load();i18n();buildMondays();load();'),
+            Path('pages/gastredner-30-minuten/index.html'): ('30', "v('name')", "v('date1')", 'load();i18n();buildMondays();load();'),
+            Path('pages/leitartikel-vorbereitung/index.html'): ('article', "v('name')", None, 'load();i18n();'),
+          }
+
+          common = r'''
+let pendingPdfUrl='';
+function pdfDateStamp(d=new Date()){const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`}
+function applyPdfIdentity(filename){
+  const base=filename.replace(/\.pdf$/i,'');
+  document.title=base;
+  document.documentElement.setAttribute('data-lb-pdf-filename',filename);
+  try{sessionStorage.setItem('lb_sichtbar_pdf_filename',filename)}catch(e){}
+  let meta=document.querySelector('meta[name="application-name"]');
+  if(!meta){meta=document.createElement('meta');meta.name='application-name';document.head.appendChild(meta)}
+  meta.content=base;
+}
+function pdfDownloadBox(){
+  let box=document.getElementById('lbPdfDownloadBox');
+  if(box)return box;
+  box=document.createElement('section');
+  box.id='lbPdfDownloadBox';
+  box.className='card section';
+  const sticky=document.querySelector('.sticky');
+  if(sticky)sticky.insertAdjacentElement('beforebegin',box);else document.querySelector('.shell')?.appendChild(box);
+  return box;
+}
+function offerNamedPdf(filename,pdfBlob){
+  applyPdfIdentity(filename);
+  if(pendingPdfUrl)URL.revokeObjectURL(pendingPdfUrl);
+  // WebKit/iPad: a PDF blob URL can lose the download filename. The delivery
+  // wrapper uses octet-stream while the generated file itself remains a PDF.
+  const deliveryBlob=new Blob([pdfBlob],{type:'application/octet-stream'});
+  pendingPdfUrl=URL.createObjectURL(deliveryBlob);
+  const box=pdfDownloadBox();
+  box.innerHTML='';
+  const head=document.createElement('div');head.className='head';
+  const body=document.createElement('div');body.className='body';
+  const kicker=document.createElement('div');kicker.className='kicker';kicker.textContent=lang==='de'?'PDF erfolgreich erstellt':'PDF successfully created';
+  const h2=document.createElement('h2');h2.textContent=lang==='de'?'Jetzt die fertige PDF herunterladen':'Download the finished PDF now';
+  const p=document.createElement('p');p.textContent=lang==='de'?'Prüfe den Dateinamen und klicke erst jetzt auf den Download-Button. Die PDF wurde lokal erzeugt – ohne Drucker-Dialog.':'Check the filename and only then click the download button. The PDF was generated locally – without a print dialog.';
+  head.append(kicker,h2,p);
+  const call=document.createElement('div');call.className='callout';
+  const label=document.createElement('b');label.textContent=lang==='de'?'Dateiname:':'Filename:';
+  const file=document.createElement('div');file.style.cssText='margin-top:6px;font-weight:800;word-break:break-all;color:#132238';file.textContent=filename;
+  call.append(label,file);
+  const actions=document.createElement('div');actions.className='actions';
+  const a=document.createElement('a');a.className='btn primary';a.style.textDecoration='none';a.textContent=lang==='de'?'PDF herunterladen / speichern':'Download / save PDF';a.href=pendingPdfUrl;a.download=filename;a.setAttribute('type','application/pdf');
+  a.addEventListener('click',()=>setTimeout(()=>notice(lang==='de'?'PDF-Download gestartet. Bitte speichere die Datei unter dem angezeigten Namen und sende sie anschließend an ceo@liquiditybooster.de zu Händen von Michael Rau.':'PDF download started. Please save the file with the displayed name and then send it to ceo@liquiditybooster.de for the attention of Michael Rau.','ok'),80));
+  actions.appendChild(a);body.append(call,actions);box.append(head,body);box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+window.addEventListener('pagehide',()=>{if(pendingPdfUrl)URL.revokeObjectURL(pendingPdfUrl)});
+'''
+
+          for path,(kind,name_expr,date_expr,tail) in files.items():
+            s=path.read_text(encoding='utf-8')
+            start=s.find('function safe(')
+            if start < 0:
+              raise SystemExit(f'{path}: safe() start not found')
+            tail_pos=s.find(tail,start)
+            if tail_pos < 0:
+              raise SystemExit(f'{path}: tail marker not found')
+
+            safe_end=s.find('function dl(',start)
+            if safe_end < 0:
+              raise SystemExit(f'{path}: old dl() not found')
+            safe_code=s[start:safe_end]
+
+            if kind=='15':
+              handler="$('pdf').onclick=()=>{if(!validate())return;save();const created=pdfDateStamp(),wish=val('date1')||'ohne-Wunschdatum',filename=`LiquidityBooster-Auftrag-Gastredner-15min-${safe(val('name'))}-Wunsch-${wish}-Erstellt-${created}.pdf`;offerNamedPdf(filename,buildPdf());notice(lang==='de'?'PDF wurde erstellt. Bitte prüfe jetzt den Dateinamen und nutze den separaten Download-Button.':'PDF created. Please check the filename and use the separate download button.','ok')};\n"
+            elif kind=='30':
+              handler="$('pdf').onclick=()=>{if(!validate())return;save();const created=pdfDateStamp(),wish=v('date1')||'ohne-Wunschdatum',filename=`LiquidityBooster-Auftrag-Gastredner-30min-${safe(v('name'))}-Wunsch-${wish}-Erstellt-${created}.pdf`;offerNamedPdf(filename,buildPdf());notice(lang==='de'?'PDF wurde erstellt. Bitte prüfe jetzt den Dateinamen und nutze den separaten Download-Button.':'PDF created. Please check the filename and use the separate download button.','ok')};\n"
+            else:
+              handler="$('pdf').onclick=()=>{if(!validate())return;save();const created=pdfDateStamp(),filename=`LiquidityBooster-Auftrag-Leitartikel-${safe(v('name'))}-Erstellt-${created}.pdf`;offerNamedPdf(filename,buildPdf());notice(lang==='de'?'PDF wurde erstellt. Bitte prüfe jetzt den Dateinamen und nutze den separaten Download-Button.':'PDF created. Please check the filename and use the separate download button.','ok')};\n"
+
+            new_tail=safe_code+common+handler
+            s=s[:start]+new_tail+s[tail_pos:]
+            path.write_text(s,encoding='utf-8')
+            print('patched',path)
+          PY
+
+      - name: Verify direct PDF behavior and JavaScript syntax
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          files=[
+            Path('pages/gastredner-15-minuten/index.html'),
+            Path('pages/gastredner-30-minuten/index.html'),
+            Path('pages/leitartikel-vorbereitung/index.html'),
+          ]
+          for p in files:
+            s=p.read_text(encoding='utf-8')
+            if "a.click()" in s[s.find('function safe('):]:
+              raise SystemExit(f'{p}: automatic PDF click still present')
+            if 'offerNamedPdf' not in s or 'PDF herunterladen / speichern' not in s:
+              raise SystemExit(f'{p}: named V3 download handoff missing')
+            if 'application/octet-stream' not in s:
+              raise SystemExit(f'{p}: iPad/WebKit delivery wrapper missing')
+            if 'window.print(' in s:
+              raise SystemExit(f'{p}: browser print call found')
+            blocks=re.findall(r'<script(?:[^>]*)>(.*?)</script>',s,re.S)
+            Path('/tmp/'+p.parent.name+'.js').write_text('\n'.join(blocks),encoding='utf-8')
+          PY
+          node --check /tmp/gastredner-15-minuten.js
+          node --check /tmp/gastredner-30-minuten.js
+          node --check /tmp/leitartikel-vorbereitung.js
+
+      - name: Commit PDF V3 handoff repair
+        shell: bash
+        run: |
+          git config user.name 'Adler-FSA Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add pages/gastredner-15-minuten/index.html pages/gastredner-30-minuten/index.html pages/leitartikel-vorbereitung/index.html
+          git commit -m 'Use named PDF V3 handoff for Sichtbar werden pages'
+          git push
