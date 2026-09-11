@@ -1,0 +1,156 @@
+name: Head Control 2 Bereiche erweitern
+
+on:
+  push:
+    paths:
+      - '.github/workflows/extend-head-control-2-categories.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Head Control 2 und 14-Tage-Ansicht erweitern
+        shell: bash
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          categories = [
+              ('leitartikel','Leitartikel','website'),
+              ('kms-content','KMS Content','other'),
+              ('serien','Serien','other'),
+              ('club-haus','Club Haus','clubhouse'),
+              ('oeffentlich','Öffentlich','website'),
+              ('newsletter','Newsletter','other'),
+              ('hoersaele','Hörsäle','course'),
+              ('kurse','Kurse','course'),
+              ('social-media','Social Media','other'),
+          ]
+
+          nav_buttons = ''.join(
+              f'<button class="nav-btn" data-panel="bereich-{slug}">{label}</button>'
+              for slug,label,_ in categories
+          )
+
+          def category_panel(slug,label):
+              return f'''\n<div class="panel" id="panel-bereich-{slug}">
+                <section class="card">
+                  <div class="head">{label} einstellen</div>
+                  <div class="body">
+                    <div class="formgrid">
+                      <div class="field"><label for="cat-{slug}-title">Bezeichnung</label><input id="cat-{slug}-title" autocomplete="off"></div>
+                      <div class="field"><label for="cat-{slug}-releaseDate">Geplante Freigabe</label><input id="cat-{slug}-releaseDate" type="date"></div>
+                      <div class="field full"><label for="cat-{slug}-url">Test-/Arbeitslink</label><input id="cat-{slug}-url" type="url" autocomplete="off" placeholder="https://..."></div>
+                      <div class="field full"><label for="cat-{slug}-what">Was entsteht?</label><textarea id="cat-{slug}-what"></textarea></div>
+                      <div class="field full"><label for="cat-{slug}-why">Warum entsteht es?</label><textarea id="cat-{slug}-why"></textarea></div>
+                      <div class="field full"><label for="cat-{slug}-test">Was soll getestet / angesehen werden?</label><textarea id="cat-{slug}-test"></textarea></div>
+                      <div class="field full"><label for="cat-{slug}-meeting">Beim nächsten Headteam-Meeting zu klären</label><textarea id="cat-{slug}-meeting"></textarea></div>
+                    </div>
+                    <div class="actionsline"><button class="btn mint" data-category-save="{slug}">Einstellen</button><button class="btn light" data-category-cancel="{slug}" style="display:none">Bearbeitung abbrechen</button></div>
+                  </div>
+                </section>
+                <section class="card">
+                  <div class="head"><span>{label}</span></div>
+                  <div class="tablewrap" style="margin-top:0;border-top:0"><table><thead><tr><th>Bezeichnung</th><th>Geplante Freigabe</th><th>Test-/Arbeitslink</th><th style="text-align:right">Aktion</th></tr></thead><tbody id="cat-{slug}-rows"></tbody></table></div>
+                </section>
+              </div>\n'''
+
+          category_panels = ''.join(category_panel(*c[:2]) for c in categories)
+          config_js = ','.join([f"'{s}':{{label:{label!r},type:{typ!r}}}" for s,label,typ in categories])
+
+          category_js = f'''
+          const HEAD_CATEGORIES={{{config_js}}};
+          const categoryEdit={{}};
+          function categoryLabel(v){{return HEAD_CATEGORIES[v]?.label||v||'–'}}
+          function categoryType(v){{return HEAD_CATEGORIES[v]?.type||'other'}}
+          function categoryField(slug,name){{return document.getElementById('cat-'+slug+'-'+name)}}
+          function resetCategoryProject(slug){{
+            categoryEdit[slug]=null;
+            ['title','releaseDate','url','what','why','test','meeting'].forEach(name=>{{const el=categoryField(slug,name);if(el)el.value=''}});
+            const save=document.querySelector('[data-category-save="'+slug+'"]'),cancel=document.querySelector('[data-category-cancel="'+slug+'"]');
+            if(save)save.textContent='Einstellen';if(cancel)cancel.style.display='none';
+          }}
+          function readCategoryProject(slug){{
+            return{{title:categoryField(slug,'title').value.trim(),type:categoryType(slug),category:slug,releaseDate:categoryField(slug,'releaseDate').value,url:categoryField(slug,'url').value.trim(),what:categoryField(slug,'what').value.trim(),why:categoryField(slug,'why').value.trim(),test:categoryField(slug,'test').value.trim(),meeting:categoryField(slug,'meeting').value.trim()}};
+          }}
+          async function submitCategoryProject(slug){{
+            showError('');showSuccess('');const p=readCategoryProject(slug);if(p.url&&!validUrl(p.url))return showError(t('invalidUrl'));const now=new Date().toISOString(),idx=categoryEdit[slug];
+            if(idx===null||idx===undefined){{state.projects.push({{id:newId(),...p,createdAt:now,updatedAt:now,history:[{{at:now,event:'created'}}]}});if(await saveState('Add Headteam '+categoryLabel(slug)+' '+(p.title||'without title'))){{resetCategoryProject(slug);render();showSuccess(categoryLabel(slug)+' wurde gespeichert.')}}}}
+            else{{const old=state.projects[idx]||{{}};state.projects[idx]={{...old,...p,updatedAt:now,history:[...(old.history||[]),{{at:now,event:'updated'}}]}};if(await saveState('Update Headteam '+categoryLabel(slug)+' '+(p.title||'without title'))){{resetCategoryProject(slug);render();showSuccess('Änderung wurde gespeichert.')}}}}
+          }}
+          function renderCategoryPanels(){{
+            Object.keys(HEAD_CATEGORIES).forEach(slug=>{{const body=document.getElementById('cat-'+slug+'-rows');if(!body)return;const list=state.projects.map((p,index)=>({{p,index}})).filter(x=>x.p.category===slug).sort((a,b)=>(a.p.releaseDate||'9999').localeCompare(b.p.releaseDate||'9999')||(a.p.title||'').localeCompare(b.p.title||'',lang));body.innerHTML=list.length?list.map(({{p,index}})=>`<tr><td><strong>${{esc(p.title||'–')}}</strong></td><td>${{esc(formatDate(p.releaseDate))}}</td><td><div class="url">${{esc(p.url||'–')}}</div></td><td><div class="rowactions"><button class="btn light" onclick="editCategoryProject('${{slug}}',${{index}})">${{esc(t('edit'))}}</button><button class="btn light" onclick="archiveCategoryProject('${{slug}}',${{index}})">${{esc(t('archive'))}}</button><button class="btn danger" onclick="deleteCategoryProject('${{slug}}',${{index}})">${{esc(t('remove'))}}</button></div></td></tr>`).join(''):`<tr><td colspan="4" class="empty">Noch keine Einträge in diesem Bereich.</td></tr>`;}});
+          }}
+          window.editCategoryProject=(slug,index)=>{{const p=state.projects[index];if(!p)return;categoryEdit[slug]=index;['title','releaseDate','url','what','why','test','meeting'].forEach(name=>{{const el=categoryField(slug,name);if(el)el.value=p[name]||''}});const save=document.querySelector('[data-category-save="'+slug+'"]'),cancel=document.querySelector('[data-category-cancel="'+slug+'"]');if(save)save.textContent='Änderung speichern';if(cancel)cancel.style.display='inline-block';setPanel('bereich-'+slug)}};
+          window.archiveCategoryProject=async(slug,index)=>{{resetCategoryProject(slug);await window.archiveProject(index)}};
+          window.deleteCategoryProject=async(slug,index)=>{{resetCategoryProject(slug);await window.deleteProject(index,false)}};
+          document.querySelectorAll('[data-category-save]').forEach(b=>b.onclick=()=>submitCategoryProject(b.dataset.categorySave));
+          document.querySelectorAll('[data-category-cancel]').forEach(b=>b.onclick=()=>{{resetCategoryProject(b.dataset.categoryCancel);render()}});
+          const __headControlRender=render;render=function(){{__headControlRender();renderCategoryPanels()}};
+          '''
+
+          control_paths = [
+              Path('pages/headteam-vorlauf/head-control-2.html'),
+              Path('pages/headteam-vorlauf/head-control-2/index.html'),
+          ]
+          for path in control_paths:
+              text=path.read_text(encoding='utf-8')
+              text=re.sub(r'<p class="sub"[^>]*>.*?</p>\s*','',text,count=1,flags=re.S)
+              text=re.sub(r'<div class="hint"[^>]*>.*?</div>','',text,flags=re.S)
+              if 'data-panel="bereich-leitartikel"' not in text:
+                  marker='<button class="nav-btn" data-panel="zoom"'
+                  if marker not in text: raise SystemExit(f'Nav marker fehlt in {path}')
+                  text=text.replace(marker,nav_buttons+marker,1)
+                  panel_marker='<div class="panel" id="panel-zoom">'
+                  if panel_marker not in text: raise SystemExit(f'Panel marker fehlt in {path}')
+                  text=text.replace(panel_marker,category_panels+panel_marker,1)
+                  js_marker="$('#connect').onclick=load;"
+                  if js_marker not in text: raise SystemExit(f'JS marker fehlt in {path}')
+                  text=text.replace(js_marker,category_js+js_marker,1)
+              text=text.replace("${esc(typeLabel(p.type))}</td><td>${esc(formatDate(p.releaseDate))}","${esc(p.category?categoryLabel(p.category):typeLabel(p.type))}</td><td>${esc(formatDate(p.releaseDate))}")
+              text=text.replace("<td>${esc(typeLabel(p.type))}</td><td>${esc(formatDateTime(p.archivedAt))}","<td>${esc(p.category?categoryLabel(p.category):typeLabel(p.type))}</td><td>${esc(formatDateTime(p.archivedAt))}")
+              path.write_text(text,encoding='utf-8')
+
+          # Read-only Headteam-Seite: gleiche Bereiche in der Navigation, ohne Bearbeitungsfunktionen.
+          view=Path('pages/headteam-vorlauf/index.html')
+          text=view.read_text(encoding='utf-8')
+          if 'data-panel="bereich-leitartikel"' not in text:
+              marker='    <button class="nav-btn" data-panel="zoom" data-i18n="navZoom">Zoom</button>'
+              ro_nav='\n'.join([f'    <button class="nav-btn" data-panel="bereich-{s}">{label}</button>' for s,label,_ in categories])+'\n'
+              if marker not in text: raise SystemExit('Read-only Nav marker fehlt')
+              text=text.replace(marker,ro_nav+marker,1)
+              ro_panels='\n'.join([f'''  <section class="panel" id="panel-bereich-{s}">\n    <div class="section-head"><div><h2 class="section-title">{label}</h2></div></div>\n    <div class="list" id="bereich-{s}-list"></div>\n  </section>''' for s,label,_ in categories])+'\n\n'
+              marker2='  <section class="panel" id="panel-zoom">'
+              if marker2 not in text: raise SystemExit('Read-only Panel marker fehlt')
+              text=text.replace(marker2,ro_panels+marker2,1)
+              ro_config=','.join([f"'{s}':{label!r}" for s,label,_ in categories])
+              ro_js=f'''
+          const READ_CATEGORIES={{{ro_config}}};
+          function readCategoryLabel(v){{return READ_CATEGORIES[v]||v||'–'}}
+          function renderCategorySections(){{Object.keys(READ_CATEGORIES).forEach(slug=>{{const target=document.getElementById('bereich-'+slug+'-list');if(!target)return;const list=(Array.isArray(state.projects)?state.projects:[]).filter(p=>p.category===slug).slice().sort((a,b)=>(a.releaseDate||'9999').localeCompare(b.releaseDate||'9999')||(a.title||'').localeCompare(b.title||'',lang));target.innerHTML=list.length?list.map(p=>{{const d=daysLeft(p.releaseDate),meta=[];meta.push(`<span class="type">${{esc(readCategoryLabel(p.category))}}</span>`);if(p.releaseDate)meta.push(`<span>${{esc(t('release'))}}: ${{esc(formatDate(p.releaseDate))}}</span>`);return`<article class="item"><div class="row"><div class="main"><div class="title">${{esc(p.title||'–')}}</div><div class="meta">${{meta.join('<span>·</span>')}}</div></div>${{d===null?'':`<span class="days ${{dayClass(d)}}">${{esc(dayText(d))}}</span>`}}${{openButton(p.url)}}</div>${{projectDetails(p,false)}}</article>`}}).join(''):`<div class="empty">Keine Einträge in diesem Bereich.</div>`;}})}}
+          '''
+              marker3='function render(){renderDashboard();renderAccess();renderProjects();renderPersonalLinks();renderArchive()}'
+              if marker3 not in text: raise SystemExit('Read-only Render marker fehlt')
+              text=text.replace(marker3,ro_js+'\nfunction render(){renderDashboard();renderAccess();renderProjects();renderCategorySections();renderPersonalLinks();renderArchive()}',1)
+          text=text.replace("if(p.type)meta.push(`<span class=\"type\">${esc(typeLabel(p.type))}</span>`);if(p.releaseDate)","if(p.category)meta.push(`<span class=\"type\">${esc(readCategoryLabel(p.category))}</span>`);else if(p.type)meta.push(`<span class=\"type\">${esc(typeLabel(p.type))}</span>`);if(p.releaseDate)")
+          text=text.replace("if(p.type)meta.push(`<span class=\"type\">${esc(typeLabel(p.type))}</span>`);if(p.archivedAt)","if(p.category)meta.push(`<span class=\"type\">${esc(readCategoryLabel(p.category))}</span>`);else if(p.type)meta.push(`<span class=\"type\">${esc(typeLabel(p.type))}</span>`);if(p.archivedAt)")
+          view.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Änderungen speichern und Workflow entfernen
+        shell: bash
+        run: |
+          rm -f .github/workflows/extend-head-control-2-categories.yml
+          git config user.name "FSA Head Control"
+          git config user.email "actions@github.com"
+          git add pages/headteam-vorlauf/head-control-2.html pages/headteam-vorlauf/head-control-2/index.html pages/headteam-vorlauf/index.html .github/workflows/extend-head-control-2-categories.yml
+          git commit -m "feat: Head Control 2 um neun Inhaltsbereiche erweitern"
+          git push
