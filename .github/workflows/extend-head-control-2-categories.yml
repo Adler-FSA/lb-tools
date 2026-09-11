@@ -119,7 +119,6 @@ jobs:
               text=text.replace("<td>${esc(typeLabel(p.type))}</td><td>${esc(formatDateTime(p.archivedAt))}","<td>${esc(p.category?categoryLabel(p.category):typeLabel(p.type))}</td><td>${esc(formatDateTime(p.archivedAt))}")
               path.write_text(text,encoding='utf-8')
 
-          # Read-only Headteam-Seite: gleiche Bereiche in der Navigation, ohne Bearbeitungsfunktionen.
           view=Path('pages/headteam-vorlauf/index.html')
           text=view.read_text(encoding='utf-8')
           if 'data-panel="bereich-leitartikel"' not in text:
