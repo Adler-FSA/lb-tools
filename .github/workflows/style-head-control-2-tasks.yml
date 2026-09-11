@@ -1,0 +1,71 @@
+name: Head Control 2 Aufgaben-Karten
+
+on:
+  push:
+    paths:
+      - '.github/workflows/style-head-control-2-tasks.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Aufgabenverteilung optisch auf Karten umstellen
+        shell: bash
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          path = Path('pages/headteam-vorlauf/head-control-2.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_css = ".token-details .status{margin-left:8px}.token-body{padding:14px 15px;border-top:1px solid #e3ecee}\n"
+          new_css = old_css + r'''
+.task-list{display:grid;gap:14px;margin-top:16px}.task-card{position:relative;border:1px solid #d9e6e8;border-radius:17px;background:#fff;box-shadow:0 7px 22px rgba(19,34,56,.045);padding:16px 17px 15px 20px;overflow:hidden}.task-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--mint)}.task-card.person-peter::before,.task-card.person-daniel::before{background:var(--magenta)}.task-card.editing{background:#f1fbfb;border-color:#b8dfe1}.task-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.task-main{min-width:0;flex:1}.task-person{display:inline-flex;align-items:center;border-radius:999px;background:var(--mint-soft);color:#08757a;padding:5px 9px;font-size:11px;font-weight:950;letter-spacing:.02em}.task-card.person-peter .task-person,.task-card.person-daniel .task-person{background:var(--magenta-soft);color:var(--magenta)}.task-title{margin-top:9px;color:var(--navy);font-size:17px;font-weight:950;line-height:1.35}.task-link-label,.task-note-label{margin-top:11px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}.task-link{margin-top:3px;color:#4d6480;font-size:13px;line-height:1.45;overflow-wrap:anywhere}.task-note{margin-top:3px;color:var(--text);font-size:14px;line-height:1.5;white-space:pre-wrap}.task-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:flex-start}.task-empty{border:1px dashed #cfdadd;border-radius:14px;padding:24px;text-align:center;color:var(--muted);background:#fbfdfd}.task-form-separator{margin-top:18px;padding-top:16px;border-top:1px solid #e5ecee}@media(max-width:760px){.task-top{flex-direction:column}.task-actions{justify-content:flex-start}.task-title{font-size:16px}}
+'''
+          if old_css not in text:
+              raise SystemExit('CSS marker not found')
+          text = text.replace(old_css, new_css, 1)
+
+          old_panel = '<div class="panel" id="panel-tasks"><section class="card"><div class="head" data-i18n="tasksTitle">Aufgabenverteilung</div><div class="body"><div class="formgrid" style="margin-top:12px"><div class="field"><label for="linkRecipient" data-i18n="forPerson">Für</label><select id="linkRecipient"><option value="alexander">Alexander</option><option value="oliver">Oliver</option><option value="peter">Peter</option><option value="daniel">Daniela</option></select></div><div class="field full"><label for="linkTitle"><span data-i18n="description">Bezeichnung</span> <span class="optional" data-i18n="optional">(optional)</span></label><input id="linkTitle"></div><div class="field full"><label for="personalUrl" data-i18n="personalLink">Link</label><input id="personalUrl" type="url" placeholder="https://..."></div><div class="field full"><label for="linkNote"><span data-i18n="note">Kurze Notiz</span> <span class="optional" data-i18n="optional">(optional)</span></label><textarea id="linkNote"></textarea></div></div><div class="actionsline"><button class="btn mint" id="savePersonalLink" data-i18n="saveTask">Aufgabe einstellen</button><button class="btn light" id="cancelLinkEdit" style="display:none" data-i18n="cancel">Bearbeitung abbrechen</button></div><div class="tablewrap"><table><thead><tr><th data-i18n="forPerson">Für</th><th data-i18n="description">Bezeichnung</th><th data-i18n="personalLink">Link</th><th data-i18n="note">Kurze Notiz</th><th style="text-align:right" data-i18n="action">Aktion</th></tr></thead><tbody id="personalRows"></tbody></table></div></div></section></div>'
+          new_panel = '<div class="panel" id="panel-tasks"><section class="card"><div class="head" data-i18n="tasksTitle">Aufgabenverteilung</div><div class="body"><div class="formgrid" style="margin-top:12px"><div class="field"><label for="linkRecipient" data-i18n="forPerson">Für</label><select id="linkRecipient"><option value="alexander">Alexander</option><option value="oliver">Oliver</option><option value="peter">Peter</option><option value="daniel">Daniela</option></select></div><div class="field full"><label for="linkTitle"><span data-i18n="description">Bezeichnung</span> <span class="optional" data-i18n="optional">(optional)</span></label><input id="linkTitle"></div><div class="field full"><label for="personalUrl" data-i18n="personalLink">Link</label><input id="personalUrl" type="url" placeholder="https://..."></div><div class="field full"><label for="linkNote"><span data-i18n="note">Kurze Notiz</span> <span class="optional" data-i18n="optional">(optional)</span></label><textarea id="linkNote"></textarea></div></div><div class="actionsline"><button class="btn mint" id="savePersonalLink" data-i18n="saveTask">Aufgabe einstellen</button><button class="btn light" id="cancelLinkEdit" style="display:none" data-i18n="cancel">Bearbeitung abbrechen</button></div><div class="task-form-separator"><div class="task-list" id="personalRows"></div></div></div></section></div>'
+          if old_panel not in text:
+              raise SystemExit('Task panel marker not found')
+          text = text.replace(old_panel, new_panel, 1)
+
+          old_render = "$('#personalRows').innerHTML=links.length?links.map(({p,index})=>`<tr class=\"${linkEditIndex===index?'editing':''}\"><td><strong>${esc(recipientLabel(p.recipient))}</strong></td><td>${esc(p.title||'–')}</td><td><div class=\"url\">${esc(p.url||'–')}</div></td><td>${esc(p.note||'–')}</td><td><div class=\"rowactions\"><button class=\"btn light\" onclick=\"editPersonalLink(${index})\">${esc(t('edit'))}</button><button class=\"btn danger\" onclick=\"deletePersonalLink(${index})\">${esc(t('remove'))}</button></div></td></tr>`).join(''):`<tr><td colspan=\"5\" class=\"empty\">${esc(t('personalEmpty'))}</td></tr>`;"
+          new_render = "$('#personalRows').innerHTML=links.length?links.map(({p,index})=>`<article class=\"task-card person-${esc(p.recipient||'unknown')} ${linkEditIndex===index?'editing':''}\"><div class=\"task-top\"><div class=\"task-main\"><span class=\"task-person\">${esc(recipientLabel(p.recipient))}</span><div class=\"task-title\">${esc(p.title||'–')}</div><div class=\"task-link-label\">${esc(t('personalLink'))}</div><div class=\"task-link\">${esc(p.url||'–')}</div><div class=\"task-note-label\">${esc(t('note'))}</div><div class=\"task-note\">${esc(p.note||'–')}</div></div><div class=\"task-actions\"><button class=\"btn light\" onclick=\"editPersonalLink(${index})\">${esc(t('edit'))}</button><button class=\"btn danger\" onclick=\"deletePersonalLink(${index})\">${esc(t('remove'))}</button></div></div></article>`).join(''):`<div class=\"task-empty\">${esc(t('personalEmpty'))}</div>`;"
+          if old_render not in text:
+              raise SystemExit('Task render marker not found')
+          text = text.replace(old_render, new_render, 1)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Syntax grob prüfen und Workflow entfernen
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('pages/headteam-vorlauf/head-control-2.html').read_text(encoding='utf-8')
+          required = ['task-list','task-card','person-alexander','editPersonalLink','deletePersonalLink']
+          for item in required:
+              if item not in text:
+                  raise SystemExit(f'Missing {item}')
+          PY
+          rm -f .github/workflows/style-head-control-2-tasks.yml
+
+      - name: Änderungen speichern
+        shell: bash
+        run: |
+          git config user.name 'FSA Head Control'
+          git config user.email 'actions@github.com'
+          git add pages/headteam-vorlauf/head-control-2.html .github/workflows/style-head-control-2-tasks.yml
+          git commit -m 'test: Aufgabenverteilung in Head Control 2 als Karten darstellen'
+          git push
