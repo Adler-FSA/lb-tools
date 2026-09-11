@@ -27,4 +27,4 @@ jobs:
           git commit -m "test: task cards in Head Control 2"
           git push
 
-# trigger
+# trigger via git data
