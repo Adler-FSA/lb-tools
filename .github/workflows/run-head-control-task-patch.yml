@@ -1,0 +1,30 @@
+name: Run Head Control Task Patch
+
+on:
+  push:
+    paths:
+      - '.github/workflows/run-head-control-task-patch.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch
+        run: python scripts/patch-head-control-2-tasks.py
+      - name: Cleanup and commit
+        run: |
+          rm -f scripts/patch-head-control-2-tasks.py
+          rm -f .github/workflows/run-head-control-task-patch.yml
+          git config user.name "FSA Head Control"
+          git config user.email "actions@github.com"
+          git add pages/headteam-vorlauf/head-control-2.html scripts/patch-head-control-2-tasks.py .github/workflows/run-head-control-task-patch.yml
+          git commit -m "test: task cards in Head Control 2"
+          git push
+
+# trigger
