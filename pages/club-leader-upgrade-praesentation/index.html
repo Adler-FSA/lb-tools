@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#132238">
+<title>Club Leader Upgrade · Präsentation</title>
+<style>
+:root{
+  --mint:#00a7ad;
+  --magenta:#c6006f;
+  --navy:#132238;
+  --ink:#193047;
+  --muted:#63788b;
+  --line:#d9e4ea;
+  --paper:#ffffff;
+  --soft:#f4f9fa;
+  --soft2:#fff7fb;
+  --shadow:0 24px 70px rgba(19,34,56,.14);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--navy);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy)}
+button,input{font:inherit}
+button{cursor:pointer}
+.presentation{position:relative;width:100%;height:100%;background:#eef5f7;isolation:isolate}
+.slide{
+  position:absolute;inset:0;display:grid;grid-template-rows:auto 1fr auto;
+  padding:clamp(24px,3vw,48px) clamp(28px,5vw,84px) clamp(28px,4vw,58px);
+  opacity:0;visibility:hidden;transform:translateX(4%);transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1),visibility .45s;
+  overflow:hidden;background:linear-gradient(135deg,#fff 0%,#f6fbfc 64%,#eef8f9 100%);
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0);z-index:2}
+.slide.prev{transform:translateX(-4%)}
+.slide::before{content:"";position:absolute;width:min(52vw,760px);aspect-ratio:1;border-radius:50%;right:-18vw;top:-35%;background:radial-gradient(circle,rgba(0,167,173,.14),rgba(0,167,173,0) 70%);pointer-events:none}
+.slide::after{content:"";position:absolute;width:min(44vw,640px);aspect-ratio:1;border-radius:50%;left:-18vw;bottom:-40%;background:radial-gradient(circle,rgba(198,0,111,.09),rgba(198,0,111,0) 72%);pointer-events:none}
+.topbar,.slide-main,.slide-footer{position:relative;z-index:3}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:13px;font-weight:850;letter-spacing:.11em;font-size:12px;text-transform:uppercase;color:var(--navy)}
+.brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--mint),var(--magenta));box-shadow:0 8px 24px rgba(0,167,173,.22)}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--mint)}
+.lang-switch{display:flex;gap:6px;padding:4px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid rgba(19,34,56,.08);backdrop-filter:blur(12px)}
+.lang-switch button{border:0;background:transparent;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800;color:var(--muted)}
+.lang-switch button.active{background:var(--navy);color:#fff}
+.slide-main{align-self:center;width:min(1180px,100%);margin:auto}
+h1,h2,h3,p{margin:0}
+h1{font-size:clamp(42px,7.2vw,98px);line-height:.94;letter-spacing:-.055em;max-width:1000px}
+h2{font-size:clamp(34px,5vw,72px);line-height:1;letter-spacing:-.045em;max-width:1050px}
+h3{font-size:clamp(18px,2vw,28px);letter-spacing:-.02em}
+.lead{margin-top:24px;font-size:clamp(20px,2vw,31px);line-height:1.35;color:var(--ink);max-width:960px}
+.accent{color:var(--magenta)}
+.mint{color:var(--mint)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:#eaf8f8;color:#007f84;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px}
+.hero-lines{display:grid;gap:12px;margin-top:38px;max-width:900px}
+.hero-line{display:flex;align-items:center;gap:16px;font-size:clamp(20px,2.1vw,31px);font-weight:720;color:var(--ink);opacity:0;transform:translateY(18px)}
+.active .hero-line{animation:rise .7s forwards}
+.active .hero-line:nth-child(2){animation-delay:.16s}.active .hero-line:nth-child(3){animation-delay:.32s}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 7px rgba(0,167,173,.09)}
+.dot.magenta{background:var(--magenta);box-shadow:0 0 0 7px rgba(198,0,111,.08)}
+@keyframes rise{to{opacity:1;transform:none}}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);align-items:center;gap:14px;margin-top:48px}
+.stage{position:relative;min-height:155px;padding:24px 18px;border:1px solid rgba(19,34,56,.08);background:rgba(255,255,255,.85);border-radius:24px;box-shadow:0 14px 45px rgba(19,34,56,.08);display:flex;align-items:flex-end;opacity:0;transform:translateY(25px)}
+.active .stage{animation:rise .55s forwards}.active .stage:nth-child(2){animation-delay:.12s}.active .stage:nth-child(3){animation-delay:.24s}.active .stage:nth-child(4){animation-delay:.36s}.active .stage:nth-child(5){animation-delay:.48s}
+.stage-number{position:absolute;top:18px;left:18px;font-weight:900;color:var(--mint);font-size:12px}
+.stage strong{font-size:clamp(16px,1.5vw,23px);line-height:1.15}
+.stage::after{content:"";position:absolute;top:50%;right:-15px;width:16px;height:2px;background:var(--line)}
+.stage:last-child::after{display:none}
+.news-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:38px}
+.card{border-radius:28px;background:rgba(255,255,255,.9);border:1px solid rgba(19,34,56,.08);padding:clamp(24px,3vw,38px);box-shadow:var(--shadow)}
+.card.magenta-card{background:linear-gradient(135deg,#fff,#fff5fa);border-color:rgba(198,0,111,.13)}
+.card h3{margin-bottom:12px}.card p{font-size:clamp(17px,1.45vw,22px);line-height:1.5;color:var(--ink)}
+.date-chip{display:inline-flex;margin-top:22px;padding:12px 18px;border-radius:14px;background:var(--navy);color:#fff;font-weight:900;font-size:clamp(18px,1.8vw,25px)}
+.product-map{display:grid;grid-template-columns:1fr .72fr 1fr;align-items:center;gap:28px;margin-top:38px}
+.map-col{display:grid;gap:14px}.map-item{padding:17px 19px;border-radius:18px;background:#fff;border:1px solid rgba(19,34,56,.08);font-weight:800;font-size:clamp(16px,1.4vw,21px);box-shadow:0 10px 30px rgba(19,34,56,.06)}
+.map-center{display:grid;place-items:center;aspect-ratio:1;border-radius:50%;background:linear-gradient(145deg,var(--navy),#1d3d58);color:#fff;text-align:center;padding:28px;box-shadow:0 24px 60px rgba(19,34,56,.25);position:relative}
+.map-center::before,.map-center::after{content:"";position:absolute;inset:-16px;border:1px dashed rgba(0,167,173,.45);border-radius:50%;animation:spin 18s linear infinite}.map-center::after{inset:-32px;border-color:rgba(198,0,111,.25);animation-direction:reverse;animation-duration:28s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.map-center strong{font-size:clamp(20px,2.2vw,33px);line-height:1.1}.map-center span{display:block;color:#bceff1;margin-top:8px;font-size:13px}
+.sim-wrap{display:grid;grid-template-columns:.82fr 1.18fr;gap:34px;margin-top:34px;align-items:stretch}
+.control-card{padding:28px;border-radius:26px;background:#fff;border:1px solid rgba(19,34,56,.08);box-shadow:var(--shadow)}
+.control-card label{display:block;font-size:13px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.range{width:100%;accent-color:var(--mint)}
+.range-value{font-size:clamp(44px,5vw,72px);font-weight:950;letter-spacing:-.06em;margin:10px 0 4px}
+.network{position:relative;min-height:310px;border-radius:28px;background:linear-gradient(145deg,#132238,#1c405b);overflow:hidden;box-shadow:var(--shadow)}
+.network svg{width:100%;height:100%;position:absolute;inset:0}.network-copy{position:absolute;left:26px;right:26px;bottom:24px;color:#fff}.network-copy strong{font-size:clamp(20px,2vw,30px)}.network-copy p{margin-top:6px;color:#cde4ec;line-height:1.45}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:34px}.calc-panel{border-radius:28px;padding:30px;background:#fff;border:1px solid rgba(19,34,56,.08);box-shadow:var(--shadow)}
+.calc-buttons{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.calc-buttons button{min-width:58px;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:#fff;font-weight:850;color:var(--navy)}.calc-buttons button.active{background:var(--mint);border-color:var(--mint);color:#fff}
+.calc-big{font-size:clamp(39px,5vw,70px);font-weight:950;letter-spacing:-.055em}.calc-sub{margin-top:7px;color:var(--muted);font-size:16px}.formula{display:grid;gap:12px;margin-top:8px}.formula-row{display:flex;justify-content:space-between;gap:20px;padding:15px 0;border-bottom:1px solid #edf2f4;font-size:17px}.formula-row strong{font-size:20px}.formula-row:last-child{border:0}.message-box{margin-top:20px;padding:18px 20px;border-radius:18px;background:#edf9f9;font-size:clamp(17px,1.5vw,22px);line-height:1.45;font-weight:750;color:#0b6570}
+.portfolio{position:relative;height:min(55vh,520px);margin-top:22px}.portfolio-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:190px;aspect-ratio:1;border-radius:50%;background:linear-gradient(145deg,var(--mint),#007d82);color:#fff;display:grid;place-items:center;text-align:center;padding:24px;font-weight:950;font-size:25px;box-shadow:0 20px 55px rgba(0,167,173,.26);z-index:2}.orbit{position:absolute;left:50%;top:50%;width:min(78vw,900px);height:min(48vh,430px);transform:translate(-50%,-50%);border:1px dashed rgba(19,34,56,.18);border-radius:50%}.portfolio-item{position:absolute;width:min(230px,22vw);padding:17px 20px;border-radius:18px;background:#fff;border:1px solid rgba(19,34,56,.08);box-shadow:0 12px 34px rgba(19,34,56,.09);font-weight:850;text-align:center;opacity:0;transform:scale(.88)}
+.active .portfolio-item{animation:pop .45s forwards}@keyframes pop{to{opacity:1;transform:scale(1)}}
+.pi1{left:3%;top:10%}.pi2{left:4%;bottom:8%}.pi3{left:28%;top:0}.pi4{right:28%;top:0}.pi5{right:3%;top:10%}.pi6{right:4%;bottom:8%}.pi7{left:27%;bottom:0}.pi8{right:27%;bottom:0}
+.active .pi2{animation-delay:.08s}.active .pi3{animation-delay:.16s}.active .pi4{animation-delay:.24s}.active .pi5{animation-delay:.32s}.active .pi6{animation-delay:.40s}.active .pi7{animation-delay:.48s}.active .pi8{animation-delay:.56s}
+.closing{display:grid;grid-template-columns:1.15fr .85fr;gap:42px;align-items:center}.closing-date{font-size:clamp(68px,11vw,155px);font-weight:1000;letter-spacing:-.075em;line-height:.8;color:var(--navy)}.closing-steps{display:grid;gap:14px}.closing-step{padding:18px 20px;border-radius:18px;background:#fff;border:1px solid rgba(19,34,56,.08);font-size:clamp(18px,1.65vw,24px);font-weight:850;display:flex;align-items:center;gap:14px;opacity:0;transform:translateX(24px)}.active .closing-step{animation:stepin .5s forwards}.active .closing-step:nth-child(2){animation-delay:.15s}.active .closing-step:nth-child(3){animation-delay:.3s}@keyframes stepin{to{opacity:1;transform:none}}
+.slide-footer{display:flex;align-items:center;justify-content:space-between;gap:18px;color:var(--muted);font-size:12px}.footer-label{font-weight:800;letter-spacing:.08em;text-transform:uppercase}.slide-no{font-weight:900;color:var(--navy)}
+.controls{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:8px;padding:7px;border-radius:999px;background:rgba(19,34,56,.88);backdrop-filter:blur(14px);box-shadow:0 12px 35px rgba(19,34,56,.28)}
+.ctrl{border:0;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:transparent;color:#fff}.ctrl:hover{background:rgba(255,255,255,.12)}.ctrl svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.counter{color:#fff;font-size:12px;font-weight:850;min-width:50px;text-align:center}.dots{display:flex;gap:5px;padding:0 4px}.dots button{width:7px;height:7px;border:0;padding:0;border-radius:50%;background:rgba(255,255,255,.3)}.dots button.active{background:#fff;transform:scale(1.35)}
+.notes{position:fixed;right:18px;top:18px;bottom:76px;width:min(360px,36vw);z-index:30;background:rgba(19,34,56,.97);color:#fff;border-radius:22px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.3);transform:translateX(calc(100% + 30px));transition:.35s ease;overflow:auto}.notes.open{transform:none}.notes h3{font-size:18px;margin-bottom:12px}.notes p{color:#d4e3eb;line-height:1.55;white-space:pre-line}.hint{position:fixed;left:16px;bottom:18px;z-index:10;color:rgba(19,34,56,.46);font-size:11px;font-weight:750}
+.progress-line{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--mint),var(--magenta));z-index:40;transition:width .35s ease}
+@media (max-width:900px){.timeline{grid-template-columns:1fr 1fr}.stage::after{display:none}.stage:nth-child(5){grid-column:span 2}.product-map{grid-template-columns:1fr}.map-center{width:220px;margin:auto}.sim-wrap,.calc,.closing{grid-template-columns:1fr}.portfolio{transform:scale(.82);transform-origin:center}.hint{display:none}}
+@media (max-width:650px){.slide{padding:20px 20px 74px}.brand span:last-child{display:none}.news-grid{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr;gap:8px}.stage{min-height:112px;padding:18px 13px}.portfolio{height:58vh;transform:scale(.7)}.portfolio-item{width:175px}.notes{width:calc(100vw - 24px);right:12px}.dots{display:none}.controls{bottom:max(8px,env(safe-area-inset-bottom))}.slide-footer{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.hero-line,.stage,.portfolio-item,.closing-step{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="presentation" id="presentation">
+  <div class="progress-line" id="progressLine"></div>
+
+  <section class="slide active" data-title="Club Leader Upgrade" data-notes="Auftakt bewusst knapp halten. Nicht sofort erklären. Erst die Perspektive setzen: Aus dem Aufbau der vergangenen Monate entsteht jetzt ein gemeinsames Portfolio.">
+    <div class="topbar">
+      <div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div>
+      <div class="lang-switch"><button class="active" data-lang="de">DE</button><button data-lang="en">EN</button></div>
+    </div>
+    <div class="slide-main">
+      <div class="badge" data-i18n="s1.badge">Club Leader Treffen · 12.09.2026</div>
+      <h1 data-i18n="s1.title">Club Leader <span class="accent">Upgrade</span></h1>
+      <p class="lead" data-i18n="s1.lead">Aus Aufbau wird Tragfähigkeit. Aus einzelnen Werkzeugen wird ein gemeinsames Portfolio.</p>
+      <div class="hero-lines">
+        <div class="hero-line"><span class="dot"></span><span data-i18n="s1.l1">Mehr Werkzeuge für echte Gespräche</span></div>
+        <div class="hero-line"><span class="dot magenta"></span><span data-i18n="s1.l2">Mehr Nutzen für Club Partner</span></div>
+        <div class="hero-line"><span class="dot"></span><span data-i18n="s1.l3">Mehr Tragfähigkeit durch aktive Club Leader</span></div>
+      </div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Club Leader Upgrade</span><span class="slide-no">01 / 08</span></div>
+  </section>
+
+  <section class="slide" data-title="Was wir aufgebaut haben" data-notes="Wichtig: Das Upgrade ist nicht am Schreibtisch entstanden. Die aktive Arbeit der Club Leader und das Aufbauprogramm haben die Grundlage geschaffen. Club Leader als Mitgestalter ansprechen, nicht als Empfänger eines Updates.">
+    <div class="topbar"><div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div><div class="kicker" data-i18n="s2.kicker">Vom Aufbau zur Tragfähigkeit</div></div>
+    <div class="slide-main">
+      <h2 data-i18n="s2.title">Das Upgrade ist aus <span class="mint">gemeinsamer Arbeit</span> entstanden.</h2>
+      <p class="lead" data-i18n="s2.lead">Nicht aus einer Idee auf Papier – sondern aus dem, was Club Leader in den vergangenen Monaten aufgebaut und erprobt haben.</p>
+      <div class="timeline">
+        <div class="stage"><span class="stage-number">01</span><strong data-i18n="s2.a">Club Partner</strong></div>
+        <div class="stage"><span class="stage-number">02</span><strong data-i18n="s2.b">Club Leader</strong></div>
+        <div class="stage"><span class="stage-number">03</span><strong data-i18n="s2.c">Aufbauprogramm</strong></div>
+        <div class="stage"><span class="stage-number">04</span><strong data-i18n="s2.d">Aktive Club Leader</strong></div>
+        <div class="stage"><span class="stage-number">05</span><strong data-i18n="s2.e">Neue Produkte & Portfolio</strong></div>
+      </div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Entwicklung</span><span class="slide-no">02 / 08</span></div>
+  </section>
+
+  <section class="slide" data-title="Was sich verändert" data-notes="Hier kommt die eigentliche Nachricht. Bestehende Club Leader aus dem Aufbauprogramm erhalten beim nächsten Update ihrer Club-Leader-Mitgliedschaft das neue Produkt freigeschaltet. Ab 01.10.2026 wird es außerdem für neue Club Partner und Club Leader ein zusätzliches starkes Akquise-Argument.">
+    <div class="topbar"><div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div><div class="kicker" data-i18n="s3.kicker">Die konkrete Veränderung</div></div>
+    <div class="slide-main">
+      <h2 data-i18n="s3.title">Was sich ab <span class="accent">01.10.2026</span> verändert</h2>
+      <div class="news-grid">
+        <div class="card">
+          <h3 data-i18n="s3.h1">Bestehende Club Leader</h3>
+          <p data-i18n="s3.p1">Wer sich am Club Leader Aufbauprogramm beworben und daran teilgenommen hat, bekommt beim nächsten Update der Club-Leader-Mitgliedschaft ein neues Produkt im Portfolio freigeschaltet.</p>
+          <span class="date-chip" data-i18n="s3.c1">Portfolio wird erweitert</span>
+        </div>
+        <div class="card magenta-card">
+          <h3 data-i18n="s3.h2">Neue Club Partner & Club Leader</h3>
+          <p data-i18n="s3.p2">Ab 01.10.2026 steht mit dem Sichtbar-werden-Prozess ein weiteres starkes Produkt der Akademie als Argument für Akquise und Aufbau bereit.</p>
+          <span class="date-chip" data-i18n="s3.c2">Start: 01.10.2026</span>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Upgrade</span><span class="slide-no">03 / 08</span></div>
+  </section>
+
+  <section class="slide" data-title="Das neue Produkt" data-notes="Das neue Hörsaal-Produkt nicht als isolierte Seite erklären, sondern als Sichtbar-werden-Prozess innerhalb des Akademie-Ökosystems. Der entscheidende Punkt: Es ist ein reales Akademie-Produkt und damit ein zusätzlicher Nutzen im Portfolio.">
+    <div class="topbar"><div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div><div class="kicker" data-i18n="s4.kicker">Das neue Produkt im Portfolio</div></div>
+    <div class="slide-main">
+      <h2 data-i18n="s4.title">Der <span class="mint">Sichtbar-werden-Prozess</span> verbindet mehrere Stärken.</h2>
+      <div class="product-map">
+        <div class="map-col">
+          <div class="map-item" data-i18n="s4.a">Wissen & Orientierung</div>
+          <div class="map-item" data-i18n="s4.b">Club & Community</div>
+          <div class="map-item" data-i18n="s4.c">Hörsaal & Präsentation</div>
+        </div>
+        <div class="map-center"><div><strong data-i18n="s4.center">Sichtbar werden</strong><span data-i18n="s4.center2">Akademie-Produkt</span></div></div>
+        <div class="map-col">
+          <div class="map-item" data-i18n="s4.d">Reichweite & Sichtbarkeit</div>
+          <div class="map-item" data-i18n="s4.e">Empfehlung & Kontakte</div>
+          <div class="map-item" data-i18n="s4.f">Neue Tragfähigkeit</div>
+        </div>
+      </div>
+      <div class="message-box" data-i18n="s4.msg">Kein theoretisches Verkaufsargument – sondern ein Produkt, das im System der Akademie tatsächlich genutzt werden kann.</div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Sichtbar werden</span><span class="slide-no">04 / 08</span></div>
+  </section>
+
+  <section class="slide" data-title="Kumulative Tragfähigkeit" data-notes="Hier live mit dem Regler spielen. Nicht behaupten, dass eine bestimmte Anzahl Club Leader automatisch ein Produkt finanziert. Die Grafik erklärt nur das Prinzip: Viele aktive Beiträge erzeugen gemeinsam mehr Tragfähigkeit als isolierte Einzelaktivität.">
+    <div class="topbar"><div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div><div class="kicker" data-i18n="s5.kicker">Interaktive Logik</div></div>
+    <div class="slide-main">
+      <h2 data-i18n="s5.title">Kumulative Tragfähigkeit: <span class="accent">Viele tragen mehr.</span></h2>
+      <div class="sim-wrap">
+        <div class="control-card">
+          <label for="leaderRange" data-i18n="s5.label">Aktive Club Leader im Beispiel</label>
+          <div class="range-value"><span id="leaderValue">10</span></div>
+          <input id="leaderRange" class="range" type="range" min="1" max="50" value="10">
+          <p class="calc-sub" data-i18n="s5.help">Bewege den Regler und zeige, wie aus vielen einzelnen Aktivitäten eine gemeinsame Struktur entsteht.</p>
+        </div>
+        <div class="network">
+          <svg viewBox="0 0 700 320" aria-hidden="true"><g id="networkLines"></g><g id="networkNodes"></g></svg>
+          <div class="network-copy"><strong data-i18n="s5.netTitle">Gemeinsame Tragfähigkeit</strong><p data-i18n="s5.netCopy">Nicht ein Einzelner muss alles tragen. Aktivität kann sich im Netzwerk kumulieren und neue Produkte möglich machen.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Tragfähigkeit</span><span class="slide-no">05 / 08</span></div>
+  </section>
+
+  <section class="slide" data-title="Was bedeutet das konkret?" data-notes="Kurzer Mini-Rechner. Grundlage: Club Partner 99 € netto pro Jahr und 20 % E1-Vergütung. Die eigentliche Aussage danach betonen: Das Upgrade ist wertvoll, weil Club Leader mehr Gründe für ein Gespräch haben – nicht nur wegen einer Provision.">
+    <div class="topbar"><div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div><div class="kicker" data-i18n="s6.kicker">Mini-Rechner</div></div>
+    <div class="slide-main">
+      <h2 data-i18n="s6.title">Was bedeutet mehr Nutzen für einen Club Leader <span class="mint">konkret?</span></h2>
+      <div class="calc">
+        <div class="calc-panel">
+          <h3 data-i18n="s6.h1">Neue Club Partner im Beispiel</h3>
+          <div class="calc-buttons" id="calcButtons"><button data-count="1">1</button><button class="active" data-count="2">2</button><button data-count="5">5</button><button data-count="10">10</button></div>
+          <div class="calc-big" id="revenueValue">198 €</div>
+          <div class="calc-sub" data-i18n="s6.rev">Club-Partner-Umsatz im Beispiel, netto</div>
+        </div>
+        <div class="calc-panel">
+          <div class="formula">
+            <div class="formula-row"><span data-i18n="s6.f1">Club Partner</span><strong>99 €</strong></div>
+            <div class="formula-row"><span data-i18n="s6.f2">E1-Vergütung</span><strong>20 %</strong></div>
+            <div class="formula-row"><span data-i18n="s6.f3">E1-Vergütung im Beispiel</span><strong id="commissionValue">39,60 €</strong></div>
+          </div>
+          <div class="message-box" data-i18n="s6.msg">Der größere Hebel ist nicht die Rechnung. Das Upgrade schafft zusätzliche Gründe, warum Menschen Club Partner oder Club Leader werden möchten.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Nutzen</span><span class="slide-no">06 / 08</span></div>
+  </section>
+
+  <section class="slide" data-title="Das Portfolio" data-notes="Diese Seite als Big Picture nutzen. Nicht jede Karte im Detail erklären. Die Wirkung soll sein: Aus einzelnen Angeboten ist inzwischen ein Portfolio geworden. Das ist der neue Gesprächsrahmen für Club Leader.">
+    <div class="topbar"><div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div><div class="kicker" data-i18n="s7.kicker">Das Big Picture</div></div>
+    <div class="slide-main">
+      <h2 data-i18n="s7.title">Aus einzelnen Werkzeugen wird ein <span class="accent">Club-Leader-Portfolio.</span></h2>
+      <div class="portfolio">
+        <div class="orbit"></div>
+        <div class="portfolio-center" data-i18n="s7.center">CLUB<br>LEADER</div>
+        <div class="portfolio-item pi1" data-i18n="s7.a">LiquidityBooster</div>
+        <div class="portfolio-item pi2" data-i18n="s7.b">Akademie für finanzielle Souveränität</div>
+        <div class="portfolio-item pi3" data-i18n="s7.c">Hörsäle</div>
+        <div class="portfolio-item pi4" data-i18n="s7.d">Projekt-Check</div>
+        <div class="portfolio-item pi5" data-i18n="s7.e">Mission Dorade</div>
+        <div class="portfolio-item pi6" data-i18n="s7.f">Werkzeuge & Simulatoren</div>
+        <div class="portfolio-item pi7" data-i18n="s7.g">Club-Marktplatz</div>
+        <div class="portfolio-item pi8" data-i18n="s7.h">Sichtbar-werden-Prozess</div>
+      </div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Portfolio</span><span class="slide-no">07 / 08</span></div>
+  </section>
+
+  <section class="slide" data-title="Die nächste Stufe" data-notes="Abschluss nicht mit Provision oder Technik. Perspektive setzen: Mehr Werkzeuge, mehr Nutzen, mehr gemeinsame Tragfähigkeit. Danach offen in die Diskussion gehen und Fragen der Club Leader aufnehmen.">
+    <div class="topbar"><div class="brand"><span class="brand-mark"></span><span>LiquidityBooster · Akademie</span></div><div class="kicker" data-i18n="s8.kicker">Die nächste Stufe</div></div>
+    <div class="slide-main">
+      <div class="closing">
+        <div>
+          <div class="closing-date">01.10.<br>2026</div>
+          <p class="lead" style="margin-top:30px" data-i18n="s8.lead">Der Club Leader bekommt nicht einfach ein weiteres Produkt. Das gemeinsame Portfolio wird stärker.</p>
+        </div>
+        <div class="closing-steps">
+          <div class="closing-step"><span class="dot"></span><span data-i18n="s8.a">Mehr Werkzeuge</span></div>
+          <div class="closing-step"><span class="dot magenta"></span><span data-i18n="s8.b">Mehr Nutzen für neue Club Partner</span></div>
+          <div class="closing-step"><span class="dot"></span><span data-i18n="s8.c">Mehr Tragfähigkeit für das gesamte Netzwerk</span></div>
+        </div>
+      </div>
+      <div class="message-box" style="margin-top:34px" data-i18n="s8.msg">Vom einzelnen Club Leader zum gemeinsamen Club-Leader-Portfolio.</div>
+    </div>
+    <div class="slide-footer"><span class="footer-label">Club Leader Upgrade</span><span class="slide-no">08 / 08</span></div>
+  </section>
+
+  <aside class="notes" id="notes"><h3 id="notesTitle">Referenten-Notiz</h3><p id="notesText"></p></aside>
+  <div class="hint">← → Slides · F Vollbild · N Notizen · R Reset</div>
+  <div class="controls" aria-label="Präsentationssteuerung">
+    <button class="ctrl" id="prevBtn" aria-label="Zurück"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="dots" id="dots"></div>
+    <div class="counter" id="counter">1 / 8</div>
+    <button class="ctrl" id="nextBtn" aria-label="Weiter"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    <button class="ctrl" id="fullscreenBtn" aria-label="Vollbild"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button>
+    <button class="ctrl" id="notesBtn" aria-label="Notizen"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/></svg></button>
+  </div>
+</div>
+<script>
+(() => {
+  const slides=[...document.querySelectorAll('.slide')];
+  const counter=document.getElementById('counter');
+  const dots=document.getElementById('dots');
+  const notes=document.getElementById('notes');
+  const notesText=document.getElementById('notesText');
+  const notesTitle=document.getElementById('notesTitle');
+  const progressLine=document.getElementById('progressLine');
+  let current=0;
+
+  const dict={
+    de:{
+      's1.badge':'Club Leader Treffen · 12.09.2026','s1.title':'Club Leader <span class="accent">Upgrade</span>','s1.lead':'Aus Aufbau wird Tragfähigkeit. Aus einzelnen Werkzeugen wird ein gemeinsames Portfolio.','s1.l1':'Mehr Werkzeuge für echte Gespräche','s1.l2':'Mehr Nutzen für Club Partner','s1.l3':'Mehr Tragfähigkeit durch aktive Club Leader',
+      's2.kicker':'Vom Aufbau zur Tragfähigkeit','s2.title':'Das Upgrade ist aus <span class="mint">gemeinsamer Arbeit</span> entstanden.','s2.lead':'Nicht aus einer Idee auf Papier – sondern aus dem, was Club Leader in den vergangenen Monaten aufgebaut und erprobt haben.','s2.a':'Club Partner','s2.b':'Club Leader','s2.c':'Aufbauprogramm','s2.d':'Aktive Club Leader','s2.e':'Neue Produkte & Portfolio',
+      's3.kicker':'Die konkrete Veränderung','s3.title':'Was sich ab <span class="accent">01.10.2026</span> verändert','s3.h1':'Bestehende Club Leader','s3.p1':'Wer sich am Club Leader Aufbauprogramm beworben und daran teilgenommen hat, bekommt beim nächsten Update der Club-Leader-Mitgliedschaft ein neues Produkt im Portfolio freigeschaltet.','s3.c1':'Portfolio wird erweitert','s3.h2':'Neue Club Partner & Club Leader','s3.p2':'Ab 01.10.2026 steht mit dem Sichtbar-werden-Prozess ein weiteres starkes Produkt der Akademie als Argument für Akquise und Aufbau bereit.','s3.c2':'Start: 01.10.2026',
+      's4.kicker':'Das neue Produkt im Portfolio','s4.title':'Der <span class="mint">Sichtbar-werden-Prozess</span> verbindet mehrere Stärken.','s4.a':'Wissen & Orientierung','s4.b':'Club & Community','s4.c':'Hörsaal & Präsentation','s4.center':'Sichtbar werden','s4.center2':'Akademie-Produkt','s4.d':'Reichweite & Sichtbarkeit','s4.e':'Empfehlung & Kontakte','s4.f':'Neue Tragfähigkeit','s4.msg':'Kein theoretisches Verkaufsargument – sondern ein Produkt, das im System der Akademie tatsächlich genutzt werden kann.',
+      's5.kicker':'Interaktive Logik','s5.title':'Kumulative Tragfähigkeit: <span class="accent">Viele tragen mehr.</span>','s5.label':'Aktive Club Leader im Beispiel','s5.help':'Bewege den Regler und zeige, wie aus vielen einzelnen Aktivitäten eine gemeinsame Struktur entsteht.','s5.netTitle':'Gemeinsame Tragfähigkeit','s5.netCopy':'Nicht ein Einzelner muss alles tragen. Aktivität kann sich im Netzwerk kumulieren und neue Produkte möglich machen.',
+      's6.kicker':'Mini-Rechner','s6.title':'Was bedeutet mehr Nutzen für einen Club Leader <span class="mint">konkret?</span>','s6.h1':'Neue Club Partner im Beispiel','s6.rev':'Club-Partner-Umsatz im Beispiel, netto','s6.f1':'Club Partner','s6.f2':'E1-Vergütung','s6.f3':'E1-Vergütung im Beispiel','s6.msg':'Der größere Hebel ist nicht die Rechnung. Das Upgrade schafft zusätzliche Gründe, warum Menschen Club Partner oder Club Leader werden möchten.',
+      's7.kicker':'Das Big Picture','s7.title':'Aus einzelnen Werkzeugen wird ein <span class="accent">Club-Leader-Portfolio.</span>','s7.center':'CLUB<br>LEADER','s7.a':'LiquidityBooster','s7.b':'Akademie für finanzielle Souveränität','s7.c':'Hörsäle','s7.d':'Projekt-Check','s7.e':'Mission Dorade','s7.f':'Werkzeuge & Simulatoren','s7.g':'Club-Marktplatz','s7.h':'Sichtbar-werden-Prozess',
+      's8.kicker':'Die nächste Stufe','s8.lead':'Der Club Leader bekommt nicht einfach ein weiteres Produkt. Das gemeinsame Portfolio wird stärker.','s8.a':'Mehr Werkzeuge','s8.b':'Mehr Nutzen für neue Club Partner','s8.c':'Mehr Tragfähigkeit für das gesamte Netzwerk','s8.msg':'Vom einzelnen Club Leader zum gemeinsamen Club-Leader-Portfolio.'
+    },
+    en:{
+      's1.badge':'Club Leader Meeting · 12 Sep 2026','s1.title':'Club Leader <span class="accent">Upgrade</span>','s1.lead':'Growth becomes capacity. Individual tools become a shared portfolio.','s1.l1':'More tools for real conversations','s1.l2':'More value for Club Partners','s1.l3':'More capacity through active Club Leaders',
+      's2.kicker':'From growth to capacity','s2.title':'The upgrade grew out of <span class="mint">shared work</span>.','s2.lead':'Not from an idea on paper, but from what Club Leaders have built and tested over the past months.','s2.a':'Club Partner','s2.b':'Club Leader','s2.c':'Development Program','s2.d':'Active Club Leaders','s2.e':'New products & portfolio',
+      's3.kicker':'The concrete change','s3.title':'What changes from <span class="accent">1 Oct 2026</span>','s3.h1':'Existing Club Leaders','s3.p1':'Those who applied for and participated in the Club Leader development program will receive a new product in their portfolio with the next update of their Club Leader membership.','s3.c1':'Portfolio expands','s3.h2':'New Club Partners & Club Leaders','s3.p2':'From 1 Oct 2026, the Visibility Process adds another strong Academy product as an argument for acquisition and development.','s3.c2':'Start: 1 Oct 2026',
+      's4.kicker':'The new portfolio product','s4.title':'The <span class="mint">Visibility Process</span> connects several strengths.','s4.a':'Knowledge & orientation','s4.b':'Club & community','s4.c':'Lecture room & presentation','s4.center':'Become visible','s4.center2':'Academy product','s4.d':'Reach & visibility','s4.e':'Referrals & contacts','s4.f':'New capacity','s4.msg':'Not a theoretical sales argument, but a product that can actually be used within the Academy system.',
+      's5.kicker':'Interactive logic','s5.title':'Cumulative capacity: <span class="accent">Together we carry more.</span>','s5.label':'Active Club Leaders in the example','s5.help':'Move the slider to show how many individual activities can form a shared structure.','s5.netTitle':'Shared capacity','s5.netCopy':'No single person has to carry everything. Activity can accumulate across the network and enable new products.',
+      's6.kicker':'Mini calculator','s6.title':'What does more value mean for a Club Leader <span class="mint">in practice?</span>','s6.h1':'New Club Partners in the example','s6.rev':'Club Partner revenue in the example, net','s6.f1':'Club Partner','s6.f2':'E1 commission','s6.f3':'E1 commission in the example','s6.msg':'The bigger lever is not the calculation. The upgrade creates additional reasons why people may want to become Club Partners or Club Leaders.',
+      's7.kicker':'The big picture','s7.title':'Individual tools become a <span class="accent">Club Leader portfolio.</span>','s7.center':'CLUB<br>LEADER','s7.a':'LiquidityBooster','s7.b':'Academy for Financial Sovereignty','s7.c':'Lecture rooms','s7.d':'Project Check','s7.e':'Mission Dorade','s7.f':'Tools & simulators','s7.g':'Club Marketplace','s7.h':'Visibility Process',
+      's8.kicker':'The next level','s8.lead':'The Club Leader is not simply getting one more product. The shared portfolio is becoming stronger.','s8.a':'More tools','s8.b':'More value for new Club Partners','s8.c':'More capacity for the entire network','s8.msg':'From the individual Club Leader to a shared Club Leader portfolio.'
+    }
+  };
+
+  function setLang(lang){
+    document.documentElement.lang=lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const v=dict[lang][el.dataset.i18n];if(v!==undefined)el.innerHTML=v;});
+    document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  }
+  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+  slides.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label',`Slide ${i+1}`);b.addEventListener('click',()=>go(i));dots.appendChild(b)});
+  function go(n){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n)});
+    current=n;counter.textContent=`${current+1} / ${slides.length}`;
+    [...dots.children].forEach((d,i)=>d.classList.toggle('active',i===current));
+    progressLine.style.width=`${((current+1)/slides.length)*100}%`;
+    notesTitle.textContent=slides[current].dataset.title||'Referenten-Notiz';
+    notesText.textContent=slides[current].dataset.notes||'';
+    if(current===4) renderNetwork(+document.getElementById('leaderRange').value);
+  }
+  document.getElementById('prevBtn').addEventListener('click',()=>go(current-1));
+  document.getElementById('nextBtn').addEventListener('click',()=>go(current+1));
+  document.getElementById('notesBtn').addEventListener('click',()=>notes.classList.toggle('open'));
+  document.getElementById('fullscreenBtn').addEventListener('click',toggleFullscreen);
+  function toggleFullscreen(){if(!document.fullscreenElement){document.documentElement.requestFullscreen?.()}else{document.exitFullscreen?.()}}
+  function resetSlide(){const i=current;slides[i].classList.remove('active');void slides[i].offsetWidth;slides[i].classList.add('active');if(i===4) renderNetwork(+document.getElementById('leaderRange').value)}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(current+1)}
+    if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(current-1)}
+    if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+    if(e.key.toLowerCase()==='f')toggleFullscreen();if(e.key.toLowerCase()==='n')notes.classList.toggle('open');if(e.key.toLowerCase()==='r')resetSlide();
+  });
+
+  let x0=null;
+  document.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>60)go(current+(dx<0?1:-1));x0=null},{passive:true});
+
+  const leaderRange=document.getElementById('leaderRange'),leaderValue=document.getElementById('leaderValue');
+  function renderNetwork(count){
+    leaderValue.textContent=count;
+    const nodes=document.getElementById('networkNodes'),lines=document.getElementById('networkLines');nodes.innerHTML='';lines.innerHTML='';
+    const cx=350,cy=128,r1=80,r2=130,r3=175;
+    const pts=[];
+    for(let i=0;i<count;i++){
+      const ring=count<=10?1:(i<count*.35?1:i<count*.72?2:3);const ringCount=ring===1?Math.min(count,Math.ceil(count*.35)):ring===2?Math.ceil(count*.37):Math.max(1,count-Math.ceil(count*.72));
+      const ringIndex=pts.filter(p=>p.ring===ring).length;const rr=ring===1?r1:ring===2?r2:r3;const a=(Math.PI*2*ringIndex/Math.max(1,ringCount))+(ring*.7);
+      pts.push({x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr,ring});
+    }
+    pts.forEach((p,i)=>{
+      if(i%2===0){const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',cx);line.setAttribute('y1',cy);line.setAttribute('x2',p.x);line.setAttribute('y2',p.y);line.setAttribute('stroke','rgba(173,228,231,.18)');line.setAttribute('stroke-width','1');lines.appendChild(line)}
+      const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',p.x);c.setAttribute('cy',p.y);c.setAttribute('r',i%7===0?'7':'4.5');c.setAttribute('fill',i%5===0?'#e457a3':'#5ce1e6');c.setAttribute('opacity','.9');nodes.appendChild(c)
+    });
+    const core=document.createElementNS('http://www.w3.org/2000/svg','circle');core.setAttribute('cx',cx);core.setAttribute('cy',cy);core.setAttribute('r','18');core.setAttribute('fill','#fff');nodes.appendChild(core);
+  }
+  leaderRange.addEventListener('input',()=>renderNetwork(+leaderRange.value));renderNetwork(+leaderRange.value);
+
+  function euro(v){return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(v).replace(/\u00a0/g,' ')}
+  document.getElementById('calcButtons').addEventListener('click',e=>{const b=e.target.closest('button[data-count]');if(!b)return;document.querySelectorAll('#calcButtons button').forEach(x=>x.classList.remove('active'));b.classList.add('active');const n=+b.dataset.count;document.getElementById('revenueValue').textContent=euro(n*99);document.getElementById('commissionValue').textContent=euro(n*99*.20)});
+
+  go(0);setLang('de');
+})();
+</script>
+</body>
+</html>
