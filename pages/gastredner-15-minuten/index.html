@@ -96,8 +96,7 @@ function pdfDownloadBox(){
 function offerNamedPdf(filename,pdfBlob){
   applyPdfIdentity(filename);
   if(pendingPdfUrl)URL.revokeObjectURL(pendingPdfUrl);
-  const deliveryBlob=new Blob([pdfBlob],{type:'application/octet-stream'});
-  pendingPdfUrl=URL.createObjectURL(deliveryBlob);
+  pendingPdfUrl=URL.createObjectURL(pdfBlob);
   const box=pdfDownloadBox();
   box.innerHTML='';
   const head=document.createElement('div');head.className='head';
