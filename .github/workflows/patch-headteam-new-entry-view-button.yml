@@ -1,0 +1,27 @@
+name: Patch Headteam New Entry View Button
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-headteam-new-entry-view-button.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add compact Ansehen button
+        run: python3 scripts/add-headteam-new-entry-view-button.py
+      - name: Commit patch and remove temporary files
+        run: |
+          set -e
+          rm -f scripts/add-headteam-new-entry-view-button.py
+          rm -f .github/workflows/patch-headteam-new-entry-view-button.yml
+          git config user.name 'FSA Headteam'
+          git config user.email 'actions@github.com'
+          git add -A
+          git commit -m 'Add quick Ansehen buttons to new Headteam entries'
+          git push
