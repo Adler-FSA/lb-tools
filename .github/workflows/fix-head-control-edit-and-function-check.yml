@@ -82,7 +82,6 @@ jobs:
               tmp.write_text(m.group(1))
               subprocess.run(['node','--check',str(tmp)], check=True)
 
-          # Validate production read-only page and current JSON as part of the full check.
           headteam = Path('pages/headteam-vorlauf/index.html').read_text()
           for c in required_categories:
               if f'data-project-category="{c}"' not in headteam:
@@ -109,3 +108,4 @@ jobs:
             git commit -m 'fix: make Head Control edit actions visible and validate functions'
             git push
           fi
+# trigger
