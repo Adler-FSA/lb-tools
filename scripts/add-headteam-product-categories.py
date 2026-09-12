@@ -60,3 +60,5 @@ for p in FILES.values():
             raise SystemExit(f"{p}: missing {token} after patch")
 
 print("Added 'Produkte aktualisiert' and 'Neue Produkte' to Head Control 2 and Headteam 14 Tage.")
+
+# trigger
