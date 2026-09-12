@@ -170,30 +170,6 @@
       "category": "kms-content"
     },
     {
-      "id": "41b0dcd7-b118-483f-a2a4-04dd9db5b729",
-      "title": "Sichtbar werden – Produktseite Gastredner & Leitartikel",
-      "type": "website",
-      "releaseDate": "2026-09-28",
-      "url": "https://tools.liquiditybooster.de/pages/sichtbar-werden-produkte.html",
-      "what": "Eine eigenständige Produkt- und Leistungsseite für zwei Angebote der Akademie, die auch ohne Club-Mitgliedschaft buchbar sind:\n    1. Gastredner im Clubtreffen – 15 Minuten für 35 € inklusive Sichtbarkeitspaket.\n    2. Redaktioneller Leitartikel – 69 € inklusive Erstellung und Veröffentlichung für drei Monate im News-Bereich des LiquidityBoosters.\n        Die Seite erklärt Leistungen, Ablauf, Abgrenzung, Verantwortlichkeiten, Regeln und Compliance verständlich an einer Stelle.",
-      "why": "Durch das Club Leader Upgrade und den neuen „Sichtbar werden“-Prozess brauchen wir eine klare öffentliche Produktbeschreibung, die Club Leader direkt an Unternehmer, Selbstständige, Experten, Projekte und Talente weitergeben können.\n    Interessenten sollen die Angebote verstehen können, ohne zuerst Club Partner oder Club Leader werden zu müssen. Gleichzeitig schafft die Seite klare Regeln und verhindert falsche Erwartungen hinsichtlich Reichweite, Empfehlung oder geschäftlichem Erfolg.",
-      "test": "Bitte prüfen:\n    – Sind beide Produkte und Preise sofort verständlich?\n    – Wird deutlich, dass keine Club-Mitgliedschaft erforderlich ist?\n    – Sind die enthaltenen Leistungen der Gastredner-Zeit vollständig und verständlich?\n    – Ist der Leitartikel mit 69 € und drei Monaten Sichtbarkeit klar beschrieben?\n    – Sind Regeln, Eigenverantwortung und Compliance ausreichend deutlich?\n    – Entsteht an keiner Stelle der Eindruck einer Empfehlung, Zertifizierung, Reichweiten- oder Erfolgsgarantie?\n    – Ist die Seite auf Windows, iPad und Smartphone gut lesbar?",
-      "meeting": "Finale Freigabe der beiden Produktbeschreibungen und der Compliance-Regeln. Außerdem klären, ab wann die Seite offiziell an Interessenten weitergegeben wird und wie anschließend die konkrete Buchung bzw. Bezahlung der Gastredner-Zeit und des Leitartikels erfolgt.",
-      "createdAt": "2026-09-10T18:34:53.576Z",
-      "updatedAt": "2026-09-12T07:23:34.545Z",
-      "history": [
-        {
-          "at": "2026-09-10T18:34:53.576Z",
-          "event": "created"
-        },
-        {
-          "at": "2026-09-12T07:23:34.545Z",
-          "event": "updated"
-        }
-      ],
-      "category": "neue-produkte"
-    },
-    {
       "id": "e06cc914-b161-4746-857b-dde7d08bf364",
       "title": "Leitartikel: 10.000 Euro – und was passiert jetzt?",
       "type": "website",
@@ -433,6 +409,35 @@
       ],
       "category": "leitartikel",
       "archivedAt": "2026-09-12T11:46:19.896Z"
+    },
+    {
+      "id": "41b0dcd7-b118-483f-a2a4-04dd9db5b729",
+      "title": "Sichtbar werden – Produktseite Gastredner & Leitartikel",
+      "type": "website",
+      "releaseDate": "2026-09-28",
+      "url": "https://tools.liquiditybooster.de/pages/sichtbar-werden-produkte.html",
+      "what": "Eine eigenständige Produkt- und Leistungsseite für zwei Angebote der Akademie, die auch ohne Club-Mitgliedschaft buchbar sind:\n    1. Gastredner im Clubtreffen – 15 Minuten für 35 € inklusive Sichtbarkeitspaket.\n    2. Redaktioneller Leitartikel – 69 € inklusive Erstellung und Veröffentlichung für drei Monate im News-Bereich des LiquidityBoosters.\n        Die Seite erklärt Leistungen, Ablauf, Abgrenzung, Verantwortlichkeiten, Regeln und Compliance verständlich an einer Stelle.",
+      "why": "Durch das Club Leader Upgrade und den neuen „Sichtbar werden“-Prozess brauchen wir eine klare öffentliche Produktbeschreibung, die Club Leader direkt an Unternehmer, Selbstständige, Experten, Projekte und Talente weitergeben können.\n    Interessenten sollen die Angebote verstehen können, ohne zuerst Club Partner oder Club Leader werden zu müssen. Gleichzeitig schafft die Seite klare Regeln und verhindert falsche Erwartungen hinsichtlich Reichweite, Empfehlung oder geschäftlichem Erfolg.",
+      "test": "Bitte prüfen:\n    – Sind beide Produkte und Preise sofort verständlich?\n    – Wird deutlich, dass keine Club-Mitgliedschaft erforderlich ist?\n    – Sind die enthaltenen Leistungen der Gastredner-Zeit vollständig und verständlich?\n    – Ist der Leitartikel mit 69 € und drei Monaten Sichtbarkeit klar beschrieben?\n    – Sind Regeln, Eigenverantwortung und Compliance ausreichend deutlich?\n    – Entsteht an keiner Stelle der Eindruck einer Empfehlung, Zertifizierung, Reichweiten- oder Erfolgsgarantie?\n    – Ist die Seite auf Windows, iPad und Smartphone gut lesbar?",
+      "meeting": "Finale Freigabe der beiden Produktbeschreibungen und der Compliance-Regeln. Außerdem klären, ab wann die Seite offiziell an Interessenten weitergegeben wird und wie anschließend die konkrete Buchung bzw. Bezahlung der Gastredner-Zeit und des Leitartikels erfolgt.",
+      "createdAt": "2026-09-10T18:34:53.576Z",
+      "updatedAt": "2026-09-12T07:23:34.545Z",
+      "history": [
+        {
+          "at": "2026-09-10T18:34:53.576Z",
+          "event": "created"
+        },
+        {
+          "at": "2026-09-12T07:23:34.545Z",
+          "event": "updated"
+        },
+        {
+          "at": "2026-09-12T11:50:22.393Z",
+          "event": "archived"
+        }
+      ],
+      "category": "neue-produkte",
+      "archivedAt": "2026-09-12T11:50:22.393Z"
     }
   ],
   "personalLinks": [
