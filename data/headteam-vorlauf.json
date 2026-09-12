@@ -150,26 +150,6 @@
       "category": "leitartikel"
     },
     {
-      "id": "5086a0d7-aaf9-46e8-830e-9b34bf751905",
-      "title": "neue Funnel-Ausspielung Hörsaal Liquiditybooster",
-      "type": "function",
-      "releaseDate": "",
-      "url": "https://tools.liquiditybooster.de/hoersaal-liquiditybooster-standalone/headteam-14-tage-sammlung.html",
-      "what": "Eine separate Salesfunnel-Version des LiquidityBooster-Hörsaals. Die acht bestehenden Hörsaal-Stationen wurden als eigenständige Standalone-Seiten umgesetzt. Jede Station besitzt eine eigene URL und kann damit einzeln in einem Salesfunnel des OnlyInside-KMS verwendet werden. Zusätzlich gibt es eine Arbeitsseite mit allen acht Funnel-Textvorlagen für Daniela sowie eine Sammelseite mit allen neun Seiten.",
-      "why": "Der vollständig verdrahtete Hörsaal bleibt unser gemeinsamer Präsentations- und Lernraum. Für einen Salesfunnel brauchen wir jedoch einen anderen Ablauf: Der Interessent soll immer nur die Reisestation sehen, die ihm im jeweiligen Funnel-Schritt freigeschaltet wird. So entsteht eine geführte Reise von Station 1 bis Station 8, ohne dass der Nutzer vorzeitig auf alle weiteren Inhalte zugreifen kann.",
-      "test": "Bitte die acht Standalone-Seiten einzeln öffnen und aus Sicht eines Funnel-Nutzers prüfen. Wichtig ist insbesondere, dass keine Navigation zum vollständigen Hörsaal sichtbar ist und jede Seite unabhängig funktioniert. Auf Seite 7 bitte auch die vier Rechner und die Rückkehr zur Werkstatt testen. Auf Seite 8 die weiterhin vorgesehenen Links wie FAQ und Compliance prüfen. Zusätzlich bitte die Salesfunnel-Vorlagen für Daniela testen: Texte bearbeiten, speichern, kopieren, archivieren, wiederherstellen und auf „Original“ zurücksetzen. Eventuelle Fehler oder unklare Stellen bitte dokumentieren.",
-      "meeting": "Rückmeldungen aus dem Funktionstest sammeln und prüfen, ob die acht Reisestationen in dieser Form für den Einsatz im OnlyInside-Salesfunnel freigegeben werden können. Zusätzlich klären, ob die Reihenfolge, die jeweiligen Funnel-Texte und die Übergänge zwischen den acht Reisestationen so übernommen werden sollen oder ob vor der finalen Freigabe noch kleine Anpassungen nötig sind.",
-      "createdAt": "2026-09-10T10:23:03.914Z",
-      "updatedAt": "2026-09-10T10:23:03.914Z",
-      "history": [
-        {
-          "at": "2026-09-10T10:23:03.914Z",
-          "event": "created"
-        }
-      ],
-      "category": "kms-content"
-    },
-    {
       "id": "e06cc914-b161-4746-857b-dde7d08bf364",
       "title": "Leitartikel: 10.000 Euro – und was passiert jetzt?",
       "type": "website",
@@ -438,6 +418,31 @@
       ],
       "category": "neue-produkte",
       "archivedAt": "2026-09-12T11:50:22.393Z"
+    },
+    {
+      "id": "5086a0d7-aaf9-46e8-830e-9b34bf751905",
+      "title": "neue Funnel-Ausspielung Hörsaal Liquiditybooster",
+      "type": "function",
+      "releaseDate": "",
+      "url": "https://tools.liquiditybooster.de/hoersaal-liquiditybooster-standalone/headteam-14-tage-sammlung.html",
+      "what": "Eine separate Salesfunnel-Version des LiquidityBooster-Hörsaals. Die acht bestehenden Hörsaal-Stationen wurden als eigenständige Standalone-Seiten umgesetzt. Jede Station besitzt eine eigene URL und kann damit einzeln in einem Salesfunnel des OnlyInside-KMS verwendet werden. Zusätzlich gibt es eine Arbeitsseite mit allen acht Funnel-Textvorlagen für Daniela sowie eine Sammelseite mit allen neun Seiten.",
+      "why": "Der vollständig verdrahtete Hörsaal bleibt unser gemeinsamer Präsentations- und Lernraum. Für einen Salesfunnel brauchen wir jedoch einen anderen Ablauf: Der Interessent soll immer nur die Reisestation sehen, die ihm im jeweiligen Funnel-Schritt freigeschaltet wird. So entsteht eine geführte Reise von Station 1 bis Station 8, ohne dass der Nutzer vorzeitig auf alle weiteren Inhalte zugreifen kann.",
+      "test": "Bitte die acht Standalone-Seiten einzeln öffnen und aus Sicht eines Funnel-Nutzers prüfen. Wichtig ist insbesondere, dass keine Navigation zum vollständigen Hörsaal sichtbar ist und jede Seite unabhängig funktioniert. Auf Seite 7 bitte auch die vier Rechner und die Rückkehr zur Werkstatt testen. Auf Seite 8 die weiterhin vorgesehenen Links wie FAQ und Compliance prüfen. Zusätzlich bitte die Salesfunnel-Vorlagen für Daniela testen: Texte bearbeiten, speichern, kopieren, archivieren, wiederherstellen und auf „Original“ zurücksetzen. Eventuelle Fehler oder unklare Stellen bitte dokumentieren.",
+      "meeting": "Rückmeldungen aus dem Funktionstest sammeln und prüfen, ob die acht Reisestationen in dieser Form für den Einsatz im OnlyInside-Salesfunnel freigegeben werden können. Zusätzlich klären, ob die Reihenfolge, die jeweiligen Funnel-Texte und die Übergänge zwischen den acht Reisestationen so übernommen werden sollen oder ob vor der finalen Freigabe noch kleine Anpassungen nötig sind.",
+      "createdAt": "2026-09-10T10:23:03.914Z",
+      "updatedAt": "2026-09-10T10:23:03.914Z",
+      "history": [
+        {
+          "at": "2026-09-10T10:23:03.914Z",
+          "event": "created"
+        },
+        {
+          "at": "2026-09-12T11:50:32.594Z",
+          "event": "archived"
+        }
+      ],
+      "category": "kms-content",
+      "archivedAt": "2026-09-12T11:50:32.594Z"
     }
   ],
   "personalLinks": [
