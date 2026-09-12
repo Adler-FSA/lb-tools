@@ -1,21 +1,676 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>VTravel verstehen | TLN Hörsaal</title>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>VTravel verstehen | TLN Hörsaal</title>
 <style>
-:root{--navy:#132238;--mint:#00a7ad;--magenta:#c6006f;--ink:#172033;--muted:#637083;--line:#dce4ea;--soft:#f4f8fa;--violet:#5b35f4;--ok:#167457;--warn:#a96808;--open:#6f4acb;--max:1160px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font:16px/1.65 Arial,Helvetica,sans-serif}button,input{font:inherit}a{color:#076f75;text-underline-offset:3px}.page{width:min(calc(100% - 28px),var(--max));margin:auto;padding:24px 0 64px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.crumb{font-weight:800;color:var(--navy)}.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}.lang button{border:0;background:transparent;padding:6px 11px;border-radius:999px;cursor:pointer;font-weight:800;color:var(--muted)}.lang button.active{background:var(--navy);color:#fff}.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-left:7px solid var(--violet);padding:clamp(24px,5vw,54px);background:linear-gradient(135deg,#fff 0 58%,#f2efff)}.hero:after{content:"";position:absolute;width:260px;height:260px;border:54px solid rgba(91,53,244,.11);border-radius:50%;right:-85px;top:-100px}.kicker{display:inline-flex;gap:8px;align-items:center;color:var(--violet);font-size:.82rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.kicker svg{width:21px}h1,h2,h3{line-height:1.2;margin-top:0;color:var(--navy)}h1{font-size:clamp(2.2rem,6vw,4.3rem);margin:.35em 0 .22em}h2{font-size:clamp(1.55rem,3vw,2.25rem)}h3{font-size:1.1rem}.lead{max-width:790px;color:var(--muted);font-size:1.1rem}.anchor{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px}.anchor a{padding:8px 12px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-weight:700;color:var(--navy)}.section{margin-top:24px;padding:clamp(20px,4vw,34px);border:1px solid var(--line)}.section-head{max-width:820px;margin-bottom:22px}.section-head p{color:var(--muted);margin-bottom:0}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.tile{padding:20px;background:var(--soft);border:1px solid var(--line)}.tile svg{width:34px;color:var(--violet);margin-bottom:8px}.tile p{color:var(--muted);margin-bottom:0}.journey{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.journey button{min-height:112px;border:1px solid var(--line);background:#fff;padding:12px 8px;cursor:pointer;font-weight:800;color:var(--navy)}.journey button.active{border:2px solid var(--violet);background:#f4f1ff}.journey small{display:block;color:var(--muted);font-weight:400;margin-top:5px}.explain{margin-top:12px;padding:18px;border-left:5px solid var(--violet);background:var(--soft)}.system{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.node{padding:18px;border:1px solid var(--line);background:#fff}.node strong{display:block;color:var(--navy)}.node span{color:var(--muted)}.node.unknown{border-style:dashed;background:#faf8ff}.state{display:inline-block;font-size:.74rem;font-weight:900;border-radius:999px;padding:3px 8px;margin-bottom:8px;background:#e9f7f1;color:var(--ok)}.unknown .state{background:#f0ebfb;color:var(--open)}.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}.controls label{display:block;font-weight:800;margin:10px 0 5px}.controls input[type=number]{width:100%;padding:11px;border:1px solid var(--line);border-radius:6px}.controls input[type=range]{width:100%;accent-color:var(--violet)}.result{background:var(--navy);padding:22px;color:#fff}.result h3{color:#fff}.rrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.15)}.rrow.highlight{color:#8af0e8;font-size:1.15rem;font-weight:900}.note{margin-top:12px;color:#dce5ef;font-size:.9rem}.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.phase{border:1px solid var(--line);padding:18px;background:var(--soft)}.phase.current{border-top:5px solid var(--mint)}.phase.future{border-top:5px solid #cfd5dc}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#e9f7f1;color:var(--ok);font-size:.76rem;font-weight:900}.future .pill{background:#edf0f3;color:#647084}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{padding:20px;border:1px solid var(--line);background:var(--soft)}.panel ul{padding-left:20px;margin-bottom:0}.panel li+li{margin-top:7px}.warning{padding:18px;border-left:5px solid var(--magenta);background:#fff4fa}.sources details{border-top:1px solid var(--line)}.sources summary{padding:14px 0;cursor:pointer;font-weight:800}.footer{margin-top:24px;padding:20px;border:1px solid var(--line);color:var(--muted);font-size:.92rem}@media(max-width:950px){.journey{grid-template-columns:repeat(4,1fr)}.system,.tiles,.timeline{grid-template-columns:1fr 1fr}}@media(max-width:700px){.compare,.split{grid-template-columns:1fr}}@media(max-width:580px){.page{width:min(calc(100% - 18px),var(--max));padding-top:12px}.hero,.section{padding:20px}.tiles,.system,.timeline{grid-template-columns:1fr}.journey{grid-template-columns:repeat(2,1fr)}.crumb{font-size:.9rem}}
-</style></head><body><main class="page">
-<div class="top"><div class="crumb" data-i18n="crumb">TLN Hörsaal · Seite 8</div><div class="lang" aria-label="Sprache"><button class="active" data-lang="de">DE</button><button data-lang="en">EN</button></div></div>
-<header class="hero"><div class="kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 15 8-4 4-8 2 1-2 8 5 4-1 2-6-2-4 5-2-1 2-6-5 3-1-2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span data-i18n="kicker">Lernraum · Reise und Rewards</span></div><h1 data-i18n="title">VTravel verstehen</h1><p class="lead" data-i18n="lead">Wie die Reiseplattform beschrieben wird, wie eine Buchung abläuft und wie v$-Rewards davon getrennt zu betrachten sind.</p></header>
-<nav class="anchor"><a href="#was" data-i18n="nav1">Überblick</a><a href="#ablauf" data-i18n="nav2">Buchungsweg</a><a href="#system" data-i18n="nav3">Verbindungen</a><a href="#vergleich" data-i18n="nav4">Preisvergleich</a><a href="#status" data-i18n="nav5">Status</a><a href="#sicherheit" data-i18n="nav6">Sicherheit</a></nav>
-<section class="section" id="was"><div class="section-head"><h2 data-i18n="whatTitle">Was ist VTravel?</h2><p data-i18n="whatLead">VTravel ist eine Reisebuchungsplattform im Umfeld des VOW-Ökosystems. Öffentlich sichtbar sind drei Buchungsbereiche.</p></div><div class="tiles"><article class="tile"><svg viewBox="0 0 24 24"><path d="m3 15 8-4 4-8 2 1-2 8 5 4-1 2-6-2-4 5-2-1 2-6-5 3-1-2Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><h3 data-i18n="flights">Flüge</h3><p data-i18n="flightsText">Suche nach Abflugort, Ziel, Reisedatum, Reisenden und Klasse.</p></article><article class="tile"><svg viewBox="0 0 24 24"><path d="M4 19V8h16v11M4 14h16M7 11h4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><h3 data-i18n="hotels">Hotels</h3><p data-i18n="hotelsText">Suche nach Ort, Zeitraum, Zimmern und Anzahl der Gäste.</p></article><article class="tile"><svg viewBox="0 0 24 24"><path d="M3 12h18M5 12v7m14-7v7M7 12V8h10v4M9 8V5h6v3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><h3>Staycation</h3><p data-i18n="stayText">Hotel- und Kurzaufenthalte, die auch unabhängig von einer Flugbuchung gesucht werden können.</p></article></div></section>
-<section class="section" id="ablauf"><div class="section-head"><h2 data-i18n="journeyTitle">Der öffentlich erkennbare Buchungsweg</h2><p data-i18n="journeyLead">Tippe einen Schritt an. Einzelne interne Übergaben sind öffentlich nicht dokumentiert.</p></div><div class="journey" id="journey"><button class="active" data-step="0"><span data-i18n="s1">1 · Suchen</span><small data-i18n="ss1">Reisedaten</small></button><button data-step="1"><span data-i18n="s2">2 · Vergleichen</span><small data-i18n="ss2">Leistung prüfen</small></button><button data-step="2"><span data-i18n="s3">3 · Anmelden</span><small data-i18n="ss3">VTravel-Konto</small></button><button data-step="3"><span data-i18n="s4">4 · Bezahlen</span><small>USDT / USDC</small></button><button data-step="4"><span data-i18n="s5">5 · Bestätigen</span><small data-i18n="ss5">Buchung</small></button><button data-step="5"><span data-i18n="s6">6 · Reward</span><small>v$</small></button><button data-step="6"><span data-i18n="s7">7 · Einlösen</span><small data-i18n="ss7">spätere Reise</small></button></div><div class="explain" id="journeyText" aria-live="polite"></div></section>
-<section class="section" id="system"><div class="section-head"><h2 data-i18n="systemTitle">VTravel, TLN, Wallet und Single.id</h2><p data-i18n="systemLead">Ökosystem-Zugehörigkeit ist nicht automatisch ein Beweis für eine direkte technische Verbindung.</p></div><div class="system"><article class="node"><span class="state" data-i18n="visible">Öffentlich sichtbar</span><strong>VTravel</strong><span data-i18n="n1">Eigenes Konto mit E-Mail und Passwort; Reise- und Reward-Bereiche.</span></article><article class="node"><span class="state" data-i18n="confirmed">Nachgewiesen</span><strong>v$ / VOW</strong><span data-i18n="n2">Voucher-Währung und Token mit öffentlich auffindbaren Blockchain-Adressen.</span></article><article class="node"><span class="state" data-i18n="ecosystem">Ökosystem-Infrastruktur</span><strong>Single.id</strong><span data-i18n="n3">Identitäts- und Attributionsschicht für verbundene Reward-Programme.</span></article><article class="node unknown"><span class="state" data-i18n="unclear">Nicht öffentlich geklärt</span><strong>TLN ↔ VTravel</strong><span data-i18n="n4">Wie die bei TLN registrierte Wallet technisch mit VTravel verbunden wird.</span></article><article class="node unknown"><span class="state" data-i18n="unclear">Nicht öffentlich geklärt</span><strong>Single.id ↔ VTravel</strong><span data-i18n="n5">Ob jede VTravel-Buchung tatsächlich über Single.id zugeordnet wird.</span></article><article class="node unknown"><span class="state" data-i18n="unclear">Nicht öffentlich geklärt</span><strong>VTravel ↔ Smart Contract</strong><span data-i18n="n6">Welche konkrete Contract-Adresse bei einer Buchung oder Reward-Ausgabe verwendet wird.</span></article></div></section>
-<section class="section" id="vergleich"><div class="section-head"><h2 data-i18n="compareTitle">Preis und Reward sauber vergleichen</h2><p data-i18n="compareLead">Der Reward ist ein mögliches späteres Rabattrecht und kein sofort ausgezahltes Bargeld.</p></div><div class="compare"><div class="controls"><label for="market" data-i18n="market">Vergleichspreis eines anderen Portals</label><input id="market" type="number" min="0" step="1" value="150"><label for="travel" data-i18n="travel">Preis bei VTravel</label><input id="travel" type="number" min="0" step="1" value="102"><label for="rate"><span data-i18n="rate">Angezeigter Reward-Satz</span>: <strong><span id="rateOut">20</span> %</strong></label><input id="rate" type="range" min="0" max="40" step="1" value="20"></div><div class="result"><h3 data-i18n="result">Vergleichsergebnis</h3><div class="rrow"><span data-i18n="direct">Unmittelbarer Preisunterschied</span><strong><span id="direct">48</span></strong></div><div class="rrow"><span data-i18n="reward">Rechnerischer v$-Reward</span><strong><span id="reward">20.40</span> v$</strong></div><div class="rrow highlight"><span data-i18n="future">Rechnerischer Gesamteffekt bei vollständiger späterer Einlösung</span><strong><span id="total">68.40</span></strong></div><p class="note" data-i18n="resultNote">Der Gesamteffekt ist nur eine Lernrechnung. Er setzt voraus, dass der Reward tatsächlich gewährt und später vollständig 1:1 akzeptiert wird.</p></div></div></section>
-<section class="section" id="status"><div class="section-head"><h2 data-i18n="statusTitle">Was ist aktuell – was ist angekündigt?</h2></div><div class="timeline"><article class="phase current"><span class="pill" data-i18n="current">Aktuelle Anbieterangabe</span><h3 data-i18n="phase1">Phase 1 · Crypto Live</h3><p data-i18n="phase1Text">Zahlungen mit USDT oder USDC; beworben werden 20 % v$ auf berechtigte Buchungen.</p></article><article class="phase future"><span class="pill" data-i18n="announced">Angekündigt</span><h3 data-i18n="phase2">Phase 2 · Kreditkarten</h3><p data-i18n="phase2Text">Kreditkartenzahlung und Reward wurden für Ende September 2026 angekündigt.</p></article><article class="phase future"><span class="pill" data-i18n="announced">Angekündigt</span><h3 data-i18n="phase3">Phase 3 · Gekaufte v$</h3><p data-i18n="phase3Text">Marktgekaufte v$ wurden für Ende Oktober 2026 angekündigt.</p></article></div></section>
-<section class="section" id="sicherheit"><div class="section-head"><h2 data-i18n="safeTitle">Vor einer Buchung prüfen</h2></div><div class="split"><article class="panel"><h3 data-i18n="booking">Buchung</h3><ul><li data-i18n="b1">Preis, Zimmer oder Flug, Personenanzahl und enthaltene Leistungen vergleichen</li><li data-i18n="b2">Stornierungs- und Erstattungsbedingungen des Leistungserbringers lesen</li><li data-i18n="b3">Reward getrennt vom unmittelbar bezahlten Preis betrachten</li><li data-i18n="b4">Buchungsbestätigung und Transaktionsnachweis sichern</li></ul></article><article class="panel"><h3 data-i18n="wallet">Zahlung und Wallet</h3><ul><li data-i18n="w1">Domain, Netzwerk, Empfänger und Betrag kontrollieren</li><li data-i18n="w2">Nur die angeforderte Freigabe bestätigen</li><li data-i18n="w3">Seed-Phrase und private Schlüssel niemals weitergeben</li><li data-i18n="w4">Bei Unsicherheit keine Transaktion ausführen</li></ul></article></div><div class="warning"><strong data-i18n="cancelTitle">Stornierungen können den Reward beeinflussen. </strong><span data-i18n="cancelText">Laut VTravel-Bedingungen gelten zusätzlich die Regeln des jeweiligen Reiseanbieters. Eine Erstattung kann um bereits gewährte Rewards reduziert werden.</span></div><div class="sources"><details><summary data-i18n="sources">Quellen und Einordnung</summary><ul><li><a href="https://vtravel.io/" target="_blank" rel="noopener noreferrer">VTravel Buchungsplattform</a></li><li><a href="https://vtravel.info/" target="_blank" rel="noopener noreferrer">VTravel Informationsseite und Roadmap</a></li><li><a href="https://vowwhitepaper.com/infrastructure/singleid" target="_blank" rel="noopener noreferrer">VOW Whitepaper: Single.id</a></li><li><a href="https://vowwhitepaper.com/infrastructure/fidel" target="_blank" rel="noopener noreferrer">VOW Whitepaper: Transaction Verification</a></li><li><a href="https://hacken.io/audits/vow/sca-vow-vowcurrency-sep2024/" target="_blank" rel="noopener noreferrer">Hacken Smart Contract Audit</a></li></ul></details></div></section>
-<footer class="footer" data-i18n="footer">Diese Seite ist ein neutraler Lernraum. Sie ist weder Reisevermittlung noch Anlageberatung oder Empfehlung. VTravel, TLN, Single.id und die beteiligten Blockchain-Projekte werden von ihren jeweiligen Verantwortlichen betrieben. Aktuelle Preise, Verfügbarkeiten und Bedingungen sind vor jeder Nutzung direkt zu prüfen.</footer>
-</main><script>
-const T={de:{crumb:'TLN Hörsaal · Seite 8',kicker:'Lernraum · Reise und Rewards',title:'VTravel verstehen',lead:'Wie die Reiseplattform beschrieben wird, wie eine Buchung abläuft und wie v$-Rewards davon getrennt zu betrachten sind.',nav1:'Überblick',nav2:'Buchungsweg',nav3:'Verbindungen',nav4:'Preisvergleich',nav5:'Status',nav6:'Sicherheit',whatTitle:'Was ist VTravel?',whatLead:'VTravel ist eine Reisebuchungsplattform im Umfeld des VOW-Ökosystems. Öffentlich sichtbar sind drei Buchungsbereiche.',flights:'Flüge',flightsText:'Suche nach Abflugort, Ziel, Reisedatum, Reisenden und Klasse.',hotels:'Hotels',hotelsText:'Suche nach Ort, Zeitraum, Zimmern und Anzahl der Gäste.',stayText:'Hotel- und Kurzaufenthalte, die auch unabhängig von einer Flugbuchung gesucht werden können.',journeyTitle:'Der öffentlich erkennbare Buchungsweg',journeyLead:'Tippe einen Schritt an. Einzelne interne Übergaben sind öffentlich nicht dokumentiert.',s1:'1 · Suchen',ss1:'Reisedaten',s2:'2 · Vergleichen',ss2:'Leistung prüfen',s3:'3 · Anmelden',ss3:'VTravel-Konto',s4:'4 · Bezahlen',s5:'5 · Bestätigen',ss5:'Buchung',s6:'6 · Reward',s7:'7 · Einlösen',ss7:'spätere Reise',systemTitle:'VTravel, TLN, Wallet und Single.id',systemLead:'Ökosystem-Zugehörigkeit ist nicht automatisch ein Beweis für eine direkte technische Verbindung.',visible:'Öffentlich sichtbar',confirmed:'Nachgewiesen',ecosystem:'Ökosystem-Infrastruktur',unclear:'Nicht öffentlich geklärt',n1:'Eigenes Konto mit E-Mail und Passwort; Reise- und Reward-Bereiche.',n2:'Voucher-Währung und Token mit öffentlich auffindbaren Blockchain-Adressen.',n3:'Identitäts- und Attributionsschicht für verbundene Reward-Programme.',n4:'Wie die bei TLN registrierte Wallet technisch mit VTravel verbunden wird.',n5:'Ob jede VTravel-Buchung tatsächlich über Single.id zugeordnet wird.',n6:'Welche konkrete Contract-Adresse bei einer Buchung oder Reward-Ausgabe verwendet wird.',compareTitle:'Preis und Reward sauber vergleichen',compareLead:'Der Reward ist ein mögliches späteres Rabattrecht und kein sofort ausgezahltes Bargeld.',market:'Vergleichspreis eines anderen Portals',travel:'Preis bei VTravel',rate:'Angezeigter Reward-Satz',result:'Vergleichsergebnis',direct:'Unmittelbarer Preisunterschied',reward:'Rechnerischer v$-Reward',future:'Rechnerischer Gesamteffekt bei vollständiger späterer Einlösung',resultNote:'Der Gesamteffekt ist nur eine Lernrechnung. Er setzt voraus, dass der Reward tatsächlich gewährt und später vollständig 1:1 akzeptiert wird.',statusTitle:'Was ist aktuell – was ist angekündigt?',current:'Aktuelle Anbieterangabe',announced:'Angekündigt',phase1:'Phase 1 · Crypto Live',phase1Text:'Zahlungen mit USDT oder USDC; beworben werden 20 % v$ auf berechtigte Buchungen.',phase2:'Phase 2 · Kreditkarten',phase2Text:'Kreditkartenzahlung und Reward wurden für Ende September 2026 angekündigt.',phase3:'Phase 3 · Gekaufte v$',phase3Text:'Marktgekaufte v$ wurden für Ende Oktober 2026 angekündigt.',safeTitle:'Vor einer Buchung prüfen',booking:'Buchung',b1:'Preis, Zimmer oder Flug, Personenanzahl und enthaltene Leistungen vergleichen',b2:'Stornierungs- und Erstattungsbedingungen des Leistungserbringers lesen',b3:'Reward getrennt vom unmittelbar bezahlten Preis betrachten',b4:'Buchungsbestätigung und Transaktionsnachweis sichern',wallet:'Zahlung und Wallet',w1:'Domain, Netzwerk, Empfänger und Betrag kontrollieren',w2:'Nur die angeforderte Freigabe bestätigen',w3:'Seed-Phrase und private Schlüssel niemals weitergeben',w4:'Bei Unsicherheit keine Transaktion ausführen',cancelTitle:'Stornierungen können den Reward beeinflussen. ',cancelText:'Laut VTravel-Bedingungen gelten zusätzlich die Regeln des jeweiligen Reiseanbieters. Eine Erstattung kann um bereits gewährte Rewards reduziert werden.',sources:'Quellen und Einordnung',footer:'Diese Seite ist ein neutraler Lernraum. Sie ist weder Reisevermittlung noch Anlageberatung oder Empfehlung. VTravel, TLN, Single.id und die beteiligten Blockchain-Projekte werden von ihren jeweiligen Verantwortlichen betrieben. Aktuelle Preise, Verfügbarkeiten und Bedingungen sind vor jeder Nutzung direkt zu prüfen.'},en:{crumb:'TLN Lecture Hall · Page 8',kicker:'Learning space · Travel and rewards',title:'Understanding VTravel',lead:'How the travel platform is described, how a booking works and why v$ rewards must be considered separately.',nav1:'Overview',nav2:'Booking path',nav3:'Connections',nav4:'Price comparison',nav5:'Status',nav6:'Safety',whatTitle:'What is VTravel?',whatLead:'VTravel is a travel booking platform in the VOW ecosystem. Three booking areas are publicly visible.',flights:'Flights',flightsText:'Search by departure, destination, travel dates, travellers and class.',hotels:'Hotels',hotelsText:'Search by location, dates, rooms and number of guests.',stayText:'Hotel and short stays that can be searched independently of a flight booking.',journeyTitle:'The publicly visible booking path',journeyLead:'Tap a step. Some internal handovers are not publicly documented.',s1:'1 · Search',ss1:'Travel details',s2:'2 · Compare',ss2:'Check service',s3:'3 · Sign in',ss3:'VTravel account',s4:'4 · Pay',s5:'5 · Confirm',ss5:'Booking',s6:'6 · Reward',s7:'7 · Redeem',ss7:'Future travel',systemTitle:'VTravel, TLN, wallet and Single.id',systemLead:'Ecosystem membership is not automatically proof of a direct technical connection.',visible:'Publicly visible',confirmed:'Verified',ecosystem:'Ecosystem infrastructure',unclear:'Not publicly clarified',n1:'Separate account with email and password; travel and reward areas.',n2:'Voucher currency and token with publicly discoverable blockchain addresses.',n3:'Identity and attribution layer for connected reward programmes.',n4:'How the wallet registered with TLN is technically connected to VTravel.',n5:'Whether every VTravel booking is actually attributed through Single.id.',n6:'Which contract address is used for a booking or reward issue.',compareTitle:'Compare price and reward correctly',compareLead:'The reward is a possible future discount right, not immediately paid cash.',market:'Comparison price on another portal',travel:'Price on VTravel',rate:'Displayed reward rate',result:'Comparison result',direct:'Immediate price difference',reward:'Calculated v$ reward',future:'Calculated total effect if later redeemed in full',resultNote:'The total effect is a learning calculation only. It assumes the reward is granted and later accepted in full at 1:1.',statusTitle:'What is current and what is announced?',current:'Current provider claim',announced:'Announced',phase1:'Phase 1 · Crypto Live',phase1Text:'Payments with USDT or USDC; 20% v$ is advertised for eligible bookings.',phase2:'Phase 2 · Credit cards',phase2Text:'Credit-card payment and rewards were announced for the end of September 2026.',phase3:'Phase 3 · Purchased v$',phase3Text:'Market-purchased v$ was announced for the end of October 2026.',safeTitle:'Check before booking',booking:'Booking',b1:'Compare price, room or flight, travellers and included services',b2:'Read the provider cancellation and refund terms',b3:'Consider the reward separately from the price paid now',b4:'Keep the booking confirmation and transaction record',wallet:'Payment and wallet',w1:'Check the domain, network, recipient and amount',w2:'Approve only the requested permission',w3:'Never share a seed phrase or private keys',w4:'Do not transact when uncertain',cancelTitle:'Cancellation can affect the reward. ',cancelText:'Under the VTravel terms, the travel provider’s rules also apply. A refund may be reduced by rewards already granted.',sources:'Sources and classification',footer:'This page is a neutral learning space. It is not a travel intermediary, investment advice or a recommendation. VTravel, TLN, Single.id and the participating blockchain projects are operated by their respective responsible entities. Current prices, availability and terms must be checked directly before use.'}};
-const J={de:['Reiseziel oder Abflug- und Zielort, Datum sowie Reisende eingeben. Die Verfügbarkeit kann sich laufend ändern.','Nicht nur den Endpreis prüfen: Leistung, Bedingungen, Gepäck, Verpflegung, Zimmer und Mindestaufenthalt müssen vergleichbar sein.','Die öffentlich sichtbare Anmeldung verwendet E-Mail-Adresse und Passwort. Die weiteren Registrierungsschritte sind ohne Konto nicht vollständig dokumentiert.','Nach aktueller Anbieterangabe werden USDT und USDC unterstützt. Netzwerk, Empfänger und Betrag müssen vor der Freigabe kontrolliert werden.','Nach Zahlung folgt die Buchungsbestätigung. Reiseanbieter und VTravel können dabei unterschiedliche Vertragsrollen haben.','VTravel bewirbt 20 % v$ auf berechtigte Buchungen. Ob eine einzelne Buchung berechtigt ist, muss im konkreten Angebot geprüft werden.','v$ sollen zukünftige Käufe 1:1 reduzieren. Auf den mit v$ eingelösten Anteil wird laut Darstellung kein weiterer Reward gewährt.'],en:['Enter destination or departure and arrival, dates and travellers. Availability may change continuously.','Do not compare the final price alone: service, terms, baggage, meals, room and minimum stay must be equivalent.','The publicly visible sign-in uses email and password. Further registration steps are not fully documented without an account.','The current provider information lists USDT and USDC. Check network, recipient and amount before approval.','Booking confirmation follows payment. The travel provider and VTravel may have different contractual roles.','VTravel advertises 20% v$ on eligible bookings. Eligibility must be checked in the individual offer.','v$ is intended to reduce future purchases 1:1. The redeemed v$ portion does not earn another reward according to the description.']};let lang='de';
-function applyLang(l){lang=l;document.documentElement.lang=l;document.querySelectorAll('[data-i18n]').forEach(el=>{const v=T[l][el.dataset.i18n];if(v!==undefined)el.textContent=v});document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));journeyText.textContent=J[l][+document.querySelector('#journey button.active').dataset.step]}
-document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>applyLang(b.dataset.lang));document.querySelectorAll('#journey button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#journey button').forEach(x=>x.classList.remove('active'));b.classList.add('active');journeyText.textContent=J[lang][+b.dataset.step]});const market=document.getElementById('market'),travel=document.getElementById('travel'),rate=document.getElementById('rate');function calc(){const m=Math.max(0,+market.value||0),t=Math.max(0,+travel.value||0),r=+rate.value;rateOut.textContent=r;const d=m-t,rew=t*r/100;direct.textContent=d.toFixed(2);reward.textContent=rew.toFixed(2);total.textContent=(d+rew).toFixed(2)}[market,travel,rate].forEach(x=>x.oninput=calc);applyLang('de');calc();
-</script></body></html>
+:root{
+  --navy:#132238;--mint:#00a7ad;--magenta:#c6006f;--ink:#172033;--muted:#637083;
+  --line:#dce4ea;--soft:#f4f8fa;--violet:#5b35f4;--violet-soft:#f3f0ff;
+  --ok:#167457;--warn:#a96808;--max:1160px;--shadow:0 12px 32px rgba(19,34,56,.08)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:#fff;font:16px/1.62 Arial,Helvetica,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+a{color:#076f75;text-underline-offset:3px}
+svg{display:block}
+.page{width:min(calc(100% - 28px),var(--max));margin:auto;padding:22px 0 56px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.crumb{font-weight:800;color:var(--navy)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:#fff}
+.lang button{border:0;background:transparent;padding:6px 11px;border-radius:999px;font-weight:800;color:var(--muted)}
+.lang button.active{background:var(--navy);color:#fff}
+.hero{position:relative;overflow:hidden;border:1px solid var(--line);border-left:7px solid var(--violet);padding:clamp(24px,5vw,48px);background:linear-gradient(135deg,#fff 0 60%,#f2efff)}
+.hero:after{content:"";position:absolute;width:250px;height:250px;border:52px solid rgba(91,53,244,.10);border-radius:50%;right:-85px;top:-105px}
+.kicker{display:inline-flex;gap:8px;align-items:center;color:var(--violet);font-size:.82rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.kicker svg{width:21px;height:21px}
+h1,h2,h3{line-height:1.2;margin-top:0;color:var(--navy)}
+h1{font-size:clamp(2.15rem,5vw,4rem);margin:.35em 0 .22em}
+h2{font-size:clamp(1.45rem,3vw,2.05rem);margin-bottom:.35em}
+h3{font-size:1.08rem}
+.lead{max-width:820px;color:var(--muted);font-size:1.08rem;margin-bottom:0}
+.statusline{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.8rem;font-weight:800;color:var(--navy)}
+.chip svg{width:15px;height:15px;color:var(--mint)}
+.workspace{margin-top:18px}
+.tabbar{position:sticky;top:8px;z-index:20;display:grid;grid-template-columns:repeat(6,1fr);gap:7px;padding:8px;border:1px solid var(--line);background:rgba(255,255,255,.96);backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+.tab{border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 8px;border-radius:8px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:7px;min-height:46px}
+.tab svg{width:18px;height:18px;flex:0 0 auto}
+.tab:hover{background:var(--soft);color:var(--navy)}
+.tab.active{background:var(--navy);color:#fff}
+.panel{display:none;margin-top:14px}
+.panel.active{display:block;animation:fade .16s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{border:1px solid var(--line);background:#fff;padding:clamp(18px,3vw,28px)}
+.card+.card{margin-top:14px}
+.section-head{max-width:850px;margin-bottom:20px}
+.section-head p{color:var(--muted);margin:0}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.tile{padding:18px;background:var(--soft);border:1px solid var(--line)}
+.tile svg{width:32px;height:32px;color:var(--violet);margin-bottom:10px}
+.tile p{color:var(--muted);margin:0}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.quick .mini{border:1px solid var(--line);padding:14px;background:#fff}
+.mini strong{display:block;color:var(--navy);margin-bottom:3px}
+.mini span{color:var(--muted);font-size:.92rem}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.phase{border:1px solid var(--line);padding:16px;background:var(--soft)}
+.phase.current{border-top:5px solid var(--mint)}
+.phase.future{border-top:5px solid #cfd5dc}
+.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#e9f7f1;color:var(--ok);font-size:.74rem;font-weight:900;margin-bottom:8px}
+.future .pill{background:#edf0f3;color:#647084}
+.compact-details{margin-top:14px;border:1px solid var(--line);background:#fff}
+.compact-details summary{padding:14px 16px;font-weight:800;color:var(--navy);cursor:pointer}
+.compact-details .details-body{padding:0 16px 16px}
+.system{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.node{padding:14px;border:1px solid var(--line);background:var(--soft)}
+.node strong{display:block;color:var(--navy)}
+.node span{color:var(--muted);font-size:.91rem}
+.node.unknown{border-style:dashed;background:#faf8ff}
+.state{display:inline-block!important;font-size:.7rem!important;font-weight:900;border-radius:999px;padding:3px 7px;margin-bottom:7px;background:#e9f7f1;color:var(--ok)!important}
+.unknown .state{background:#f0ebfb;color:#6f4acb!important}
+.reg-layout{display:grid;grid-template-columns:.9fr 1.4fr;gap:14px}
+.flowline{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+.flow-step{padding:14px;border:1px solid var(--line);background:var(--soft)}
+.flow-step b{display:block;color:var(--violet);font-size:.8rem;margin-bottom:4px}
+.flow-step strong{color:var(--navy)}
+.loginbox{border:1px solid var(--line);padding:18px;background:#fff}
+.loginbox .fake-input{padding:10px 12px;border:1px solid var(--line);color:#8a94a4;margin-top:8px;border-radius:6px}
+.fake-button{margin-top:10px;padding:10px 12px;text-align:center;background:var(--violet);color:#fff;font-weight:800;border-radius:6px}
+.fields{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.fields li{padding:9px 11px;border:1px solid var(--line);background:var(--soft);font-size:.92rem}
+.note-box{margin-top:14px;padding:14px 16px;border-left:5px solid var(--mint);background:#f2fbfb}
+.note-box.warn{border-left-color:var(--magenta);background:#fff4fa}
+.note-box p{margin:0}
+.journey{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.journey button{min-height:98px;border:1px solid var(--line);background:#fff;padding:10px 7px;font-weight:800;color:var(--navy)}
+.journey button.active{border:2px solid var(--violet);background:var(--violet-soft)}
+.journey small{display:block;color:var(--muted);font-weight:400;margin-top:5px}
+.explain{margin-top:10px;padding:16px;border-left:5px solid var(--violet);background:var(--soft)}
+.reward-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.reward-step{padding:16px;border:1px solid var(--line);background:#fff}
+.reward-step .num{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--violet-soft);color:var(--violet);font-weight:900;margin-bottom:9px}
+.reward-step p{color:var(--muted);margin-bottom:0}
+.flywheel{margin-top:12px;padding:18px;background:linear-gradient(135deg,#f7f5ff,#f3fbfb);border:1px solid var(--line)}
+.flywheel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.flywheel-item{padding:11px;border:1px solid rgba(91,53,244,.18);background:#fff}
+.flywheel-item strong{display:block;color:var(--navy)}
+.flywheel-item span{color:var(--muted);font-size:.88rem}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.controls label{display:block;font-weight:800;margin:9px 0 5px}
+.controls input[type=number]{width:100%;padding:10px;border:1px solid var(--line);border-radius:6px}
+.controls input[type=range]{width:100%;accent-color:var(--violet)}
+.result{background:var(--navy);padding:20px;color:#fff}
+.result h3{color:#fff}
+.rrow{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.rrow.highlight{color:#8af0e8;font-size:1.12rem;font-weight:900}
+.result .note{margin-top:10px;color:#dce5ef;font-size:.88rem}
+.story{border:1px solid var(--line);padding:20px;background:#fff}
+.story-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.story-tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef9f8;color:#08747a;font-size:.74rem;font-weight:900}
+.story p{margin-top:0}
+.story .numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0}
+.metric{padding:10px;background:var(--soft);border:1px solid var(--line)}
+.metric strong{display:block;color:var(--navy)}
+.metric span{color:var(--muted);font-size:.84rem}
+.classify{padding:13px 14px;border-left:4px solid var(--mint);background:#f5fbfb}
+.source-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.source-row small{color:var(--muted)}
+.source-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border:1px solid var(--line);border-radius:7px;text-decoration:none;font-weight:800;color:var(--navy);white-space:nowrap}
+.source-btn svg{width:15px;height:15px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.check-card{padding:18px;border:1px solid var(--line);background:var(--soft)}
+.check-card ul{padding-left:19px;margin-bottom:0}
+.check-card li+li{margin-top:7px}
+.sources-list{display:grid;gap:8px}
+.source-item{padding:12px 14px;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.source-item div strong{display:block;color:var(--navy)}
+.source-item div span{display:block;color:var(--muted);font-size:.88rem}
+.footer{margin-top:14px;padding:18px;border:1px solid var(--line);color:var(--muted);font-size:.9rem}
+@media(max-width:950px){
+  .tabbar{grid-template-columns:repeat(3,1fr)}
+  .grid-3,.timeline,.system,.reward-flow{grid-template-columns:1fr 1fr}
+  .reg-layout{grid-template-columns:1fr}
+  .journey{grid-template-columns:repeat(4,1fr)}
+  .flywheel-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .grid-2,.split,.compare{grid-template-columns:1fr}
+  .quick{grid-template-columns:1fr}
+}
+@media(max-width:580px){
+  .page{width:min(calc(100% - 18px),var(--max));padding-top:12px}
+  .hero,.card{padding:18px}
+  .tabbar{position:static;display:flex;overflow-x:auto;justify-content:flex-start}
+  .tab{flex:0 0 auto;min-width:132px}
+  .grid-3,.timeline,.system,.reward-flow,.flywheel-grid{grid-template-columns:1fr}
+  .journey{grid-template-columns:repeat(2,1fr)}
+  .fields{grid-template-columns:1fr}
+  .story .numbers{grid-template-columns:1fr}
+  .source-row,.source-item{align-items:flex-start;flex-direction:column}
+  .crumb{font-size:.9rem}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="top">
+    <div class="crumb" data-i18n="crumb">TLN Hörsaal · Seite 8</div>
+    <div class="lang" aria-label="Sprache">
+      <button class="active" data-lang="de">DE</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 15 8-4 4-8 2 1-2 8 5 4-1 2-6-2-4 5-2-1 2-6-5 3-1-2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+      <span data-i18n="kicker">Lernraum · Reise und Rewards</span>
+    </div>
+    <h1 data-i18n="title">VTravel verstehen und nutzen</h1>
+    <p class="lead" data-i18n="lead">Vom ersten Zugang über Registrierung und Buchung bis zu vCurrency-Rewards – kompakt in sechs Bereichen statt als lange Scroll-Seite.</p>
+    <div class="statusline">
+      <span class="chip"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="stand">Stand: 12.09.2026</span></span>
+      <span class="chip"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="phaseChip">Phase 1 · Crypto Live</span></span>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <nav class="tabbar" aria-label="Seiteninterne Navigation">
+      <button class="tab active" data-target="overview" aria-selected="true">
+        <svg viewBox="0 0 24 24"><path d="M4 5h7v6H4V5Zm9 0h7v4h-7V5ZM4 13h7v6H4v-6Zm9-2h7v8h-7v-8Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="nav1">Überblick</span>
+      </button>
+      <button class="tab" data-target="registration" aria-selected="false">
+        <svg viewBox="0 0 24 24"><path d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 6c1.4-3 3.7-4.5 7-4.5S17.6 16 19 19" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="nav2">Registrierung</span>
+      </button>
+      <button class="tab" data-target="booking" aria-selected="false">
+        <svg viewBox="0 0 24 24"><path d="m3 15 8-4 4-8 2 1-2 8 5 4-1 2-6-2-4 5-2-1 2-6-5 3-1-2Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="nav3">Reise buchen</span>
+      </button>
+      <button class="tab" data-target="rewards" aria-selected="false">
+        <svg viewBox="0 0 24 24"><path d="M4 8h16v10H4V8Zm3-3h10v3H7V5Zm5 6v4m-2-2h4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="nav4">Rewards</span>
+      </button>
+      <button class="tab" data-target="experiences" aria-selected="false">
+        <svg viewBox="0 0 24 24"><path d="M5 6h14v9H9l-4 4V6Zm4 4h6m-6 3h4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="nav5">Erfahrungen</span>
+      </button>
+      <button class="tab" data-target="safety" aria-selected="false">
+        <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.8 7.8 7 10 4.2-2.2 7-5.4 7-10V6l-7-3Zm-3 9 2 2 4-5" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="nav6">Sicherheit & Quellen</span>
+      </button>
+    </nav>
+
+    <section class="panel active" id="overview" aria-labelledby="nav1">
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="whatTitle">Was ist VTravel?</h2>
+          <p data-i18n="whatLead">VTravel ist eine Reisebuchungsplattform im VOW-Umfeld. Die aktuelle Oberfläche führt direkt in eine klassische Reisesuche und ergänzt sie um ein vCurrency-Reward-System.</p>
+        </div>
+        <div class="grid-3">
+          <article class="tile">
+            <svg viewBox="0 0 24 24"><path d="m3 15 8-4 4-8 2 1-2 8 5 4-1 2-6-2-4 5-2-1 2-6-5 3-1-2Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+            <h3 data-i18n="flights">Flüge</h3>
+            <p data-i18n="flightsText">Suche nach Abflugort, Ziel, Datum, Reisenden und Klasse.</p>
+          </article>
+          <article class="tile">
+            <svg viewBox="0 0 24 24"><path d="M4 19V8h16v11M4 14h16M7 11h4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+            <h3 data-i18n="hotels">Hotels</h3>
+            <p data-i18n="hotelsText">Hotelangebote lassen sich nach Reiseziel, Zeitraum und Belegung durchsuchen.</p>
+          </article>
+          <article class="tile">
+            <svg viewBox="0 0 24 24"><path d="M3 12h18M5 12v7m14-7v7M7 12V8h10v4M9 8V5h6v3" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+            <h3>Staycation</h3>
+            <p data-i18n="stayText">Kurz- und Hotelaufenthalte können auch unabhängig von einer Flugbuchung gesucht werden.</p>
+          </article>
+        </div>
+
+        <div class="quick">
+          <div class="mini"><strong>My Rewards</strong><span data-i18n="quick1">Reward-Bestand und erhaltene vCurrency-Rewards verfolgen.</span></div>
+          <div class="mini"><strong>Trips</strong><span data-i18n="quick2">Gebuchte beziehungsweise verwaltete Reisen im Konto einsehen.</span></div>
+          <div class="mini"><strong>Support</strong><span data-i18n="quick3">Direkter Zugang zum Unterstützungsbereich der Plattform.</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="statusTitle">Aktueller Rollout</h2>
+          <p data-i18n="statusLead">Die offizielle Informationsseite beschreibt einen gestaffelten Start. Angekündigte Funktionen sind nicht automatisch schon verfügbar.</p>
+        </div>
+        <div class="timeline">
+          <article class="phase current">
+            <span class="pill" data-i18n="current">Aktuell</span>
+            <h3 data-i18n="phase1">Phase 1 · Crypto Live</h3>
+            <p data-i18n="phase1Text">USDT- und USDC-Zahlungen sind live. Für berechtigte Buchungen werden aktuell 20 % v$ beworben.</p>
+          </article>
+          <article class="phase future">
+            <span class="pill" data-i18n="announced">Angekündigt</span>
+            <h3 data-i18n="phase2">Phase 2 · Kreditkarten</h3>
+            <p data-i18n="phase2Text">Kreditkartenzahlung mit Reward ist für Ende September 2026 angekündigt.</p>
+          </article>
+          <article class="phase future">
+            <span class="pill" data-i18n="announced">Angekündigt</span>
+            <h3 data-i18n="phase3">Phase 3 · Marktgekaufte v$</h3>
+            <p data-i18n="phase3Text">Die Nutzung marktgekaufter v$ ist für Ende Oktober 2026 angekündigt.</p>
+          </article>
+        </div>
+
+        <details class="compact-details">
+          <summary data-i18n="techSummary">Technischer Kontext: VTravel, TLN, Single.id und Smart Contracts</summary>
+          <div class="details-body">
+            <div class="system">
+              <article class="node"><span class="state" data-i18n="visible">Öffentlich sichtbar</span><strong>VTravel</strong><span data-i18n="n1">Eigenes Konto mit E-Mail und Passwort, Reise- und Reward-Bereiche.</span></article>
+              <article class="node"><span class="state" data-i18n="confirmed">Anbieterangabe</span><strong>v$ / VOW</strong><span data-i18n="n2">Die offizielle VTravel-Seite beschreibt den v$-Reward und den VOW-bezogenen Minting-Mechanismus.</span></article>
+              <article class="node"><span class="state" data-i18n="ecosystem">Ökosystem</span><strong>Single.id</strong><span data-i18n="n3">Single.id wird im VOW-Umfeld als Infrastruktur für verbundene Reward-Programme beschrieben.</span></article>
+              <article class="node unknown"><span class="state" data-i18n="unclear">Nicht öffentlich geklärt</span><strong>TLN ↔ VTravel</strong><span data-i18n="n4">Die genaue technische Verbindung einer bei TLN registrierten Wallet mit dem VTravel-Konto ist öffentlich nicht ausreichend dokumentiert.</span></article>
+              <article class="node unknown"><span class="state" data-i18n="unclear">Nicht öffentlich geklärt</span><strong>Single.id ↔ VTravel</strong><span data-i18n="n5">Eine zwingende Single.id-Nutzung bei jeder VTravel-Buchung ist öffentlich nicht belegt.</span></article>
+              <article class="node unknown"><span class="state" data-i18n="unclear">Nicht öffentlich geklärt</span><strong>Booking ↔ Smart Contract</strong><span data-i18n="n6">Welche konkrete Contract-Adresse bei einer einzelnen Buchung oder Reward-Ausgabe angesprochen wird, ist nicht transparent dokumentiert.</span></article>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="panel" id="registration">
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="regTitle">So startet die Registrierung</h2>
+          <p data-i18n="regLead">Die aktuelle Oberfläche zeigt einen klassischen Login und einen dreistufigen Prozess zum Erstellen eines neuen Kontos.</p>
+        </div>
+
+        <div class="flowline">
+          <div class="flow-step"><b data-i18n="stepA">SCHRITT A</b><strong data-i18n="stepATitle">vtravel.io öffnen</strong></div>
+          <div class="flow-step"><b data-i18n="stepB">SCHRITT B</b><strong data-i18n="stepBTitle">„Create account“ wählen</strong></div>
+          <div class="flow-step"><b data-i18n="stepC">SCHRITT C</b><strong data-i18n="stepCTitle">Registrierung 1/3 ausfüllen</strong></div>
+        </div>
+
+        <div class="reg-layout">
+          <article class="loginbox">
+            <h3 data-i18n="loginTitle">Bestehendes Konto</h3>
+            <p data-i18n="loginText">Für die Anmeldung werden aktuell E-Mail-Adresse und Passwort verwendet.</p>
+            <div class="fake-input">Email Address</div>
+            <div class="fake-input">Password</div>
+            <div class="fake-button">Sign in</div>
+            <p style="margin-bottom:0;color:var(--muted);font-size:.9rem" data-i18n="forgot">Zusätzlich ist „Forgot Password?“ vorhanden.</p>
+          </article>
+
+          <article class="loginbox">
+            <h3 data-i18n="createTitle">Create Your Account · Step 1/3</h3>
+            <ul class="fields">
+              <li data-i18n="f1">Title / Anrede</li>
+              <li data-i18n="f2">First Name / Vorname</li>
+              <li data-i18n="f3">Last Name / Nachname</li>
+              <li data-i18n="f4">Date of Birth / Geburtsdatum</li>
+              <li data-i18n="f5">Gender / Geschlecht</li>
+              <li data-i18n="f6">Nationality / Nationalität</li>
+              <li data-i18n="f7">Email Address / E-Mail-Adresse</li>
+              <li data-i18n="f8">Mobile Number / Mobilnummer</li>
+              <li data-i18n="f9">Select your vCurrency Rewards</li>
+              <li data-i18n="f10">Password + Confirm Password</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="note-box">
+          <p><strong data-i18n="regKnown">Gesichert:</strong> <span data-i18n="regKnownText">Die Registrierung besteht aus drei Schritten; Schritt 1 ist direkt sichtbar und enthält die oben genannten Felder.</span></p>
+        </div>
+        <div class="note-box warn">
+          <p><strong data-i18n="regOpen">Noch offen:</strong> <span data-i18n="regOpenText">Die genauen Inhalte von Schritt 2 und 3 sind ohne vollständige Registrierung nicht verlässlich dokumentiert. Diese Lernseite ergänzt dort bewusst nichts aus Vermutung.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="booking">
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="journeyTitle">Von der Suche bis zur nächsten Reise</h2>
+          <p data-i18n="journeyLead">Tippe einen Schritt an. Die Erklärung darunter wechselt, ohne dass die Seite länger wird.</p>
+        </div>
+        <div class="journey" id="journey">
+          <button class="active" data-step="0"><span data-i18n="s1">1 · Suchen</span><small data-i18n="ss1">Reisedaten</small></button>
+          <button data-step="1"><span data-i18n="s2">2 · Vergleichen</span><small data-i18n="ss2">Leistung prüfen</small></button>
+          <button data-step="2"><span data-i18n="s3">3 · Anmelden</span><small data-i18n="ss3">Konto</small></button>
+          <button data-step="3"><span data-i18n="s4">4 · Bezahlen</span><small>USDT / USDC</small></button>
+          <button data-step="4"><span data-i18n="s5">5 · Bestätigen</span><small data-i18n="ss5">Buchung</small></button>
+          <button data-step="5"><span data-i18n="s6">6 · Reward</span><small>vCurrency / v$</small></button>
+          <button data-step="6"><span data-i18n="s7">7 · Einlösen</span><small data-i18n="ss7">spätere Reise</small></button>
+        </div>
+        <div class="explain" id="journeyText" data-i18n="journey0" aria-live="polite">Reiseziel beziehungsweise Abflug- und Zielort, Datum, Reisende und Klasse auswählen. Die Oberfläche bietet unter anderem One Way, Round Trip und Nonstop Flights Only.</div>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="searchTitle">Was bei einer Flugsuche sichtbar ist</h2>
+          <p data-i18n="searchLead">Die Startseite verhält sich wie ein klassisches Reiseportal. Das erleichtert den Einstieg.</p>
+        </div>
+        <div class="grid-3">
+          <article class="tile"><h3>Leaving from / Going to</h3><p data-i18n="search1">Abflugort und Ziel eingeben.</p></article>
+          <article class="tile"><h3>Departure / Return</h3><p data-i18n="search2">Hin- und Rückreisedatum festlegen.</p></article>
+          <article class="tile"><h3>Travellers & Class</h3><p data-i18n="search3">Reisende und Reiseklasse auswählen.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="rewards">
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="rewardTitle">So erklärt VTravel die Rewards</h2>
+          <p data-i18n="rewardLead">Die Buchungsoberfläche nennt sie „vCurrency Rewards“, die öffentliche Informationsseite verwendet „v$“. Für die Lernseite werden beide Begriffe sichtbar voneinander eingeordnet.</p>
+        </div>
+
+        <div class="reward-flow">
+          <article class="reward-step"><div class="num">1</div><h3 data-i18n="r1Title">Buchen</h3><p data-i18n="r1Text">Flug oder Hotel auswählen und den konkreten Endpreis prüfen.</p></article>
+          <article class="reward-step"><div class="num">2</div><h3 data-i18n="r2Title">Bezahlen</h3><p data-i18n="r2Text">Aktuell nennt VTravel USDT und USDC als unterstützte Zahlungsarten.</p></article>
+          <article class="reward-step"><div class="num">3</div><h3 data-i18n="r3Title">Reward erhalten</h3><p data-i18n="r3Text">Die Informationsseite bewirbt aktuell 20 % v$ auf berechtigte Buchungen.</p></article>
+          <article class="reward-step"><div class="num">4</div><h3 data-i18n="r4Title">Später einlösen</h3><p data-i18n="r4Text">v$ sollen zukünftige Buchungen 1:1 reduzieren. Auf den mit Rewards bezahlten Anteil entsteht laut Oberfläche kein weiterer Reward.</p></article>
+        </div>
+
+        <div class="flywheel">
+          <h3 data-i18n="flyTitle">Der von VTravel beschriebene v$-Kreislauf</h3>
+          <div class="flywheel-grid">
+            <div class="flywheel-item"><strong data-i18n="fly1a">1 · Spend</strong><span data-i18n="fly1b">Mit USDT oder USDC buchen.</span></div>
+            <div class="flywheel-item"><strong data-i18n="fly2a">2 · Collect v$</strong><span data-i18n="fly2b">Reward auf berechtigte Buchungen erhalten.</span></div>
+            <div class="flywheel-item"><strong data-i18n="fly3a">3 · Backed by VOW</strong><span data-i18n="fly3b">VTravel erklärt, 20 % VOW zu kaufen und zu locken, um ausgegebene v$-Rewards zu minten.</span></div>
+            <div class="flywheel-item"><strong data-i18n="fly4a">4 · Re-spend</strong><span data-i18n="fly4b">v$ später wieder zur Reduzierung einer Reise einsetzen.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="compareTitle">Preis und Reward getrennt vergleichen</h2>
+          <p data-i18n="compareLead">Der Rechner trennt den sofort bezahlten Preis vom möglichen späteren Reward-Effekt.</p>
+        </div>
+        <div class="compare">
+          <div class="controls">
+            <label for="market" data-i18n="market">Vergleichspreis eines anderen Portals</label>
+            <input id="market" type="number" min="0" step="1" value="150">
+            <label for="travel" data-i18n="travel">Preis bei VTravel</label>
+            <input id="travel" type="number" min="0" step="1" value="102">
+            <label for="rate"><span data-i18n="rate">Angezeigter Reward-Satz</span>: <strong><span id="rateOut">20</span> %</strong></label>
+            <input id="rate" type="range" min="0" max="40" step="1" value="20">
+          </div>
+          <div class="result">
+            <h3 data-i18n="result">Vergleichsergebnis</h3>
+            <div class="rrow"><span data-i18n="direct">Unmittelbarer Preisunterschied</span><strong><span id="direct">48.00</span></strong></div>
+            <div class="rrow"><span data-i18n="reward">Rechnerischer v$-Reward</span><strong><span id="reward">20.40</span> v$</strong></div>
+            <div class="rrow highlight"><span data-i18n="future">Rechnerischer Gesamteffekt bei späterer vollständiger Einlösung</span><strong><span id="total">68.40</span></strong></div>
+            <p class="note" data-i18n="resultNote">Lernrechnung: tatsächliche Preise, Wechselkurse, Berechtigung und Einlösbarkeit müssen bei der konkreten Buchung geprüft werden.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="experiences">
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="expTitle">Praxisberichte aus dem Web</h2>
+          <p data-i18n="expLead">Öffentlich auffindbare Community-Berichte werden hier nicht als Werbung übernommen, sondern als Nutzererfahrung zusammengefasst und von der Akademie eingeordnet.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="story">
+            <div class="story-head">
+              <div>
+                <span class="story-tag" data-i18n="communityReport">Community-Bericht</span>
+                <h3 style="margin:8px 0 0" data-i18n="story1Title">Hotelbuchung für zwei Personen</h3>
+              </div>
+            </div>
+            <p data-i18n="story1Text">Ein Nutzer berichtet von einer Hotelübernachtung für zwei Personen: 158 US-Dollar bei VTravel, dazu 31 v$. Als Vergleich nennt er 153 Euro bei Check24 für dasselbe Zimmer. Nach eigener Umrechnung und Einbeziehung des Rewards beziffert er seinen effektiven Wert auf rund 112 Euro; außerdem nennt er eine Hotelrechnung über 111,54 Euro.</p>
+            <div class="numbers">
+              <div class="metric"><strong>158 $</strong><span data-i18n="m1a">VTravel laut Posting</span></div>
+              <div class="metric"><strong>31 v$</strong><span data-i18n="m1b">Reward laut Posting</span></div>
+              <div class="metric"><strong>153 €</strong><span data-i18n="m1c">Check24 laut Posting</span></div>
+            </div>
+            <div class="classify"><strong data-i18n="academy">Einordnung der Akademie:</strong> <span data-i18n="story1Class">Das ist ein persönlicher Erfahrungsbericht, kein allgemeingültiger Preisnachweis. Wechselkurs, Tarif, Zimmerbedingungen und spätere Einlösbarkeit des Rewards müssen für jede Buchung neu geprüft werden.</span></div>
+            <div class="source-row">
+              <small data-i18n="storySource">Quelle: öffentliches Telegram-Archiv, September 2026</small>
+              <a class="source-btn" href="https://telemetr.io/es/channels/1584268218-vowcashflow2023/posts" target="_blank" rel="noopener noreferrer"><span data-i18n="viewSource">Quelle ansehen</span><svg viewBox="0 0 24 24"><path d="M8 5h11v11M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+            </div>
+          </article>
+
+          <article class="story">
+            <div class="story-head">
+              <div>
+                <span class="story-tag" data-i18n="communityReport">Community-Bericht</span>
+                <h3 style="margin:8px 0 0" data-i18n="story2Title">Alpenhotel Stefanie</h3>
+              </div>
+            </div>
+            <p data-i18n="story2Text">Ein weiterer Nutzer beschreibt 118 US-Dollar bei VTravel und 41 v$ Reward. Für Booking nennt er 183 Euro beziehungsweise 150 Euro mit Genius. Zusätzlich berichtet er, dass bei VTravel eine Nacht buchbar gewesen sei, während seine Booking-Auswahl zwei Nächte Mindestaufenthalt verlangte.</p>
+            <div class="numbers">
+              <div class="metric"><strong>118 $</strong><span data-i18n="m2a">VTravel laut Posting</span></div>
+              <div class="metric"><strong>41 v$</strong><span data-i18n="m2b">Reward laut Posting</span></div>
+              <div class="metric"><strong>35 %</strong><span data-i18n="m2c">vom Nutzer genannter Reward</span></div>
+            </div>
+            <div class="classify"><strong data-i18n="academy">Einordnung der Akademie:</strong> <span data-i18n="story2Class">Der im Posting genannte Reward von 35 % weicht von der aktuellen offiziellen VTravel-Angabe von 20 % auf berechtigte Buchungen ab. Deshalb ist immer der tatsächlich im konkreten Angebot angezeigte Reward maßgeblich.</span></div>
+            <div class="source-row">
+              <small data-i18n="storySource">Quelle: öffentliches Telegram-Archiv, September 2026</small>
+              <a class="source-btn" href="https://telemetr.io/es/channels/1584268218-vowcashflow2023/posts" target="_blank" rel="noopener noreferrer"><span data-i18n="viewSource">Quelle ansehen</span><svg viewBox="0 0 24 24"><path d="M8 5h11v11M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="note-box warn">
+          <p><strong data-i18n="expRuleTitle">Wichtig:</strong> <span data-i18n="expRule">Community-Berichte werden nicht als Garantie, Empfehlung oder verifizierte Leistungszusage dargestellt. Sie zeigen nur, was einzelne Nutzer öffentlich berichtet haben.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="safety">
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="safeTitle">Vor einer Buchung prüfen</h2>
+          <p data-i18n="safeLead">Die Lernseite trennt Nutzung, Preisvergleich und technische Sicherheit bewusst voneinander.</p>
+        </div>
+        <div class="split">
+          <article class="check-card">
+            <h3 data-i18n="bookingCheck">Buchung</h3>
+            <ul>
+              <li data-i18n="b1">Preis, Zimmer oder Flug, Personenanzahl und enthaltene Leistungen vergleichen.</li>
+              <li data-i18n="b2">Stornierungs- und Erstattungsbedingungen des konkreten Reiseanbieters lesen.</li>
+              <li data-i18n="b3">Reward getrennt vom unmittelbar bezahlten Reisepreis betrachten.</li>
+              <li data-i18n="b4">Buchungsbestätigung und Zahlungsnachweis sichern.</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <h3 data-i18n="walletCheck">Zahlung</h3>
+            <ul>
+              <li data-i18n="w1">Domain, Netzwerk, Empfänger und Betrag kontrollieren.</li>
+              <li data-i18n="w2">Nur die konkret angeforderte Freigabe bestätigen.</li>
+              <li data-i18n="w3">Seed-Phrase und private Schlüssel niemals weitergeben.</li>
+              <li data-i18n="w4">Bei Unsicherheit keine Transaktion ausführen.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h2 data-i18n="sourcesTitle">Quellen und Nachweise</h2>
+          <p data-i18n="sourcesLead">Anbieterangaben und Community-Berichte werden getrennt ausgewiesen.</p>
+        </div>
+        <div class="sources-list">
+          <div class="source-item">
+            <div><strong>VTravel Buchungsplattform</strong><span data-i18n="src1">Login, Registrierung und aktuelle Benutzeroberfläche</span></div>
+            <a class="source-btn" href="https://vtravel.io/" target="_blank" rel="noopener noreferrer"><span data-i18n="open">Öffnen</span><svg viewBox="0 0 24 24"><path d="M8 5h11v11M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          </div>
+          <div class="source-item">
+            <div><strong>vTravel.io · New Beginnings</strong><span data-i18n="src2">Phase 1, Roadmap, 20-%-Reward und v$-Flywheel</span></div>
+            <a class="source-btn" href="https://vtravel.info/" target="_blank" rel="noopener noreferrer"><span data-i18n="open">Öffnen</span><svg viewBox="0 0 24 24"><path d="M8 5h11v11M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          </div>
+          <div class="source-item">
+            <div><strong>Öffentliches Telegram-Archiv</strong><span data-i18n="src3">Community-Berichte zu realen VTravel-Buchungen</span></div>
+            <a class="source-btn" href="https://telemetr.io/es/channels/1584268218-vowcashflow2023/posts" target="_blank" rel="noopener noreferrer"><span data-i18n="open">Öffnen</span><svg viewBox="0 0 24 24"><path d="M8 5h11v11M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          </div>
+          <div class="source-item">
+            <div><strong>VOW Whitepaper · Single.id</strong><span data-i18n="src4">Hintergrund zur Identitäts- und Reward-Infrastruktur</span></div>
+            <a class="source-btn" href="https://vowwhitepaper.com/infrastructure/singleid" target="_blank" rel="noopener noreferrer"><span data-i18n="open">Öffnen</span><svg viewBox="0 0 24 24"><path d="M8 5h11v11M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer" data-i18n="footer">Diese Seite ist ein neutraler Lernraum der Akademie. Sie ist weder Reisevermittlung noch Anlageberatung oder Empfehlung. VTravel und die beteiligten Systeme werden von ihren jeweiligen Verantwortlichen betrieben. Preise, Verfügbarkeiten, Rewards und Bedingungen sind vor jeder Nutzung direkt beim Anbieter zu prüfen.</footer>
+</main>
+
+<script>
+const EN={
+  crumb:'TLN Lecture Hall · Page 8',
+  kicker:'Learning space · Travel and rewards',
+  title:'Understanding and using VTravel',
+  lead:'From first access and registration to booking and vCurrency rewards — compactly organised in six sections instead of one long scrolling page.',
+  stand:'Updated: 12 Sep 2026',
+  phaseChip:'Phase 1 · Crypto Live',
+  nav1:'Overview',nav2:'Registration',nav3:'Book travel',nav4:'Rewards',nav5:'Experiences',nav6:'Safety & sources',
+  whatTitle:'What is VTravel?',
+  whatLead:'VTravel is a travel booking platform in the VOW environment. The current interface leads directly into a conventional travel search and adds a vCurrency reward system.',
+  flights:'Flights',flightsText:'Search by departure, destination, date, travellers and class.',
+  hotels:'Hotels',hotelsText:'Hotel offers can be searched by destination, dates and occupancy.',
+  stayText:'Short and hotel stays can also be searched independently of a flight booking.',
+  quick1:'Track your reward balance and earned vCurrency rewards.',
+  quick2:'View booked or managed trips in your account.',
+  quick3:'Direct access to the platform support area.',
+  statusTitle:'Current rollout',
+  statusLead:'The official information site describes a phased launch. Announced features are not automatically available yet.',
+  current:'Current',announced:'Announced',
+  phase1:'Phase 1 · Crypto Live',phase1Text:'USDT and USDC payments are live. 20% v$ is currently advertised for eligible bookings.',
+  phase2:'Phase 2 · Credit cards',phase2Text:'Credit-card payment with rewards is announced for the end of September 2026.',
+  phase3:'Phase 3 · Market-purchased v$',phase3Text:'Use of market-purchased v$ is announced for the end of October 2026.',
+  techSummary:'Technical context: VTravel, TLN, Single.id and smart contracts',
+  visible:'Publicly visible',confirmed:'Provider statement',ecosystem:'Ecosystem',unclear:'Not publicly clarified',
+  n1:'Separate account with email and password, travel and reward areas.',
+  n2:'The official VTravel site describes the v$ reward and the VOW-related minting mechanism.',
+  n3:'Single.id is described in the VOW environment as infrastructure for connected reward programmes.',
+  n4:'The exact technical link between a wallet registered with TLN and the VTravel account is not sufficiently documented publicly.',
+  n5:'Mandatory use of Single.id for every VTravel booking is not publicly evidenced.',
+  n6:'The specific contract address used for an individual booking or reward issue is not transparently documented.',
+  regTitle:'How registration starts',
+  regLead:'The current interface shows a conventional sign-in and a three-step process for creating a new account.',
+  stepA:'STEP A',stepATitle:'Open vtravel.io',stepB:'STEP B',stepBTitle:'Select “Create account”',stepC:'STEP C',stepCTitle:'Complete registration 1/3',
+  loginTitle:'Existing account',loginText:'The current sign-in uses an email address and password.',forgot:'A “Forgot Password?” option is also available.',
+  createTitle:'Create Your Account · Step 1/3',
+  f1:'Title',f2:'First Name',f3:'Last Name',f4:'Date of Birth',f5:'Gender',f6:'Nationality',f7:'Email Address',f8:'Mobile Number',f9:'Select your vCurrency Rewards',f10:'Password + Confirm Password',
+  regKnown:'Verified:',regKnownText:'Registration consists of three steps; step 1 is directly visible and contains the fields listed above.',
+  regOpen:'Still open:',regOpenText:'The exact contents of steps 2 and 3 are not reliably documented without completing registration. This learning page deliberately does not fill the gaps with assumptions.',
+  journeyTitle:'From search to your next trip',journeyLead:'Tap a step. The explanation below changes without making the page longer.',
+  s1:'1 · Search',ss1:'Travel details',s2:'2 · Compare',ss2:'Check service',s3:'3 · Sign in',ss3:'Account',s4:'4 · Pay',s5:'5 · Confirm',ss5:'Booking',s6:'6 · Reward',s7:'7 · Redeem',ss7:'Future trip',
+  journey0:'Select destination or departure and arrival, date, travellers and class. The interface includes One Way, Round Trip and Nonstop Flights Only.',
+  journey1:'Do not compare price alone: baggage, meals, room type, cancellation terms and minimum stay must also be equivalent.',
+  journey2:'Existing users sign in with email and password. New users create an account through the three-step registration process.',
+  journey3:'The current platform information lists USDT and USDC. Check network, recipient and amount carefully before approving a payment.',
+  journey4:'Keep the booking confirmation and transaction record. The travel provider and VTravel may have different contractual roles.',
+  journey5:'The provider currently advertises 20% v$ on eligible bookings. Check the reward actually displayed for the specific offer.',
+  journey6:'Rewards can later be used toward travel. According to the interface, the redeemed vCurrency portion does not earn an additional reward.',
+  searchTitle:'What is visible in a flight search',searchLead:'The home page behaves like a conventional travel portal, which makes the first steps familiar.',
+  search1:'Enter departure and destination.',search2:'Set departure and return dates.',search3:'Choose travellers and travel class.',
+  rewardTitle:'How VTravel explains rewards',
+  rewardLead:'The booking interface calls them “vCurrency Rewards”, while the public information page uses “v$”. This learning page keeps both terms visibly classified.',
+  r1Title:'Book',r1Text:'Choose a flight or hotel and check the actual total price.',
+  r2Title:'Pay',r2Text:'VTravel currently lists USDT and USDC as supported payment methods.',
+  r3Title:'Earn reward',r3Text:'The information site currently advertises 20% v$ on eligible bookings.',
+  r4Title:'Redeem later',r4Text:'v$ is intended to reduce future bookings 1:1. According to the interface, the portion paid with rewards does not earn another reward.',
+  flyTitle:'The v$ flywheel described by VTravel',
+  fly1a:'1 · Spend',fly1b:'Book with USDT or USDC.',
+  fly2a:'2 · Collect v$',fly2b:'Receive a reward on eligible bookings.',
+  fly3a:'3 · Backed by VOW',fly3b:'VTravel states that it buys and locks 20% VOW to mint all v$ rewards issued to travellers.',
+  fly4a:'4 · Re-spend',fly4b:'Use v$ later to reduce the cost of another trip.',
+  compareTitle:'Compare price and reward separately',compareLead:'The calculator separates the price paid now from the possible later reward effect.',
+  market:'Comparison price on another portal',travel:'Price on VTravel',rate:'Displayed reward rate',result:'Comparison result',
+  direct:'Immediate price difference',reward:'Calculated v$ reward',future:'Calculated total effect if later redeemed in full',
+  resultNote:'Learning calculation: actual prices, exchange rates, eligibility and redeemability must be checked for the specific booking.',
+  expTitle:'Real-world reports from the web',
+  expLead:'Publicly discoverable community reports are not adopted as advertising. They are summarised as user experiences and classified by the Academy.',
+  communityReport:'Community report',story1Title:'Hotel booking for two people',
+  story1Text:'One user reports a hotel stay for two people: US$158 on VTravel plus 31 v$. As a comparison, the post lists €153 on Check24 for the same room. After the user’s own conversion and inclusion of the reward, the post gives an effective value of about €112 and also mentions a hotel invoice of €111.54.',
+  m1a:'VTravel according to post',m1b:'Reward according to post',m1c:'Check24 according to post',
+  academy:'Academy classification:',story1Class:'This is a personal experience report, not a generally valid price proof. Exchange rate, tariff, room conditions and later redeemability of the reward must be checked for every booking.',
+  storySource:'Source: public Telegram archive, September 2026',viewSource:'View source',
+  story2Title:'Alpenhotel Stefanie',
+  story2Text:'Another user describes US$118 on VTravel and 41 v$ reward. For Booking, the post lists €183 or €150 with Genius. The user also reports that one night was bookable on VTravel while the selected Booking offer required a two-night minimum stay.',
+  m2a:'VTravel according to post',m2b:'Reward according to post',m2c:'Reward stated by user',
+  story2Class:'The 35% reward stated in the post differs from VTravel’s current official statement of 20% on eligible bookings. The reward actually displayed in the specific offer should therefore always be checked.',
+  expRuleTitle:'Important:',expRule:'Community reports are not presented as a guarantee, recommendation or verified performance promise. They only show what individual users have reported publicly.',
+  safeTitle:'Check before booking',safeLead:'The learning page deliberately separates use, price comparison and technical security.',
+  bookingCheck:'Booking',b1:'Compare price, room or flight, traveller count and included services.',b2:'Read the cancellation and refund terms of the specific travel provider.',b3:'Consider the reward separately from the travel price paid now.',b4:'Keep the booking confirmation and payment record.',
+  walletCheck:'Payment',w1:'Check domain, network, recipient and amount.',w2:'Approve only the permission specifically requested.',w3:'Never share seed phrases or private keys.',w4:'Do not proceed with a transaction when uncertain.',
+  sourcesTitle:'Sources and evidence',sourcesLead:'Provider statements and community reports are shown separately.',
+  src1:'Login, registration and current user interface',src2:'Phase 1, roadmap, 20% reward and v$ flywheel',src3:'Community reports about real VTravel bookings',src4:'Background on identity and reward infrastructure',
+  open:'Open',
+  footer:'This page is a neutral learning space of the Academy. It is not a travel intermediary, investment advice or recommendation. VTravel and the participating systems are operated by their respective responsible entities. Prices, availability, rewards and terms must be checked directly with the provider before every use.'
+};
+
+const DE={};
+document.querySelectorAll('[data-i18n]').forEach(el=>{DE[el.dataset.i18n]=el.textContent});
+Object.assign(DE,{
+  journey1:'Nicht nur den Preis vergleichen: Gepäck, Verpflegung, Zimmerart, Stornobedingungen und Mindestaufenthalt müssen ebenfalls vergleichbar sein.',
+  journey2:'Bestehende Nutzer melden sich mit E-Mail-Adresse und Passwort an. Neue Nutzer legen ihr Konto über den dreistufigen Registrierungsprozess an.',
+  journey3:'Aktuell nennt die Plattform USDT und USDC. Vor der Freigabe Netzwerk, Empfänger und Betrag sorgfältig kontrollieren.',
+  journey4:'Buchungsbestätigung und Transaktionsnachweis sichern. Reiseanbieter und VTravel können unterschiedliche Vertragsrollen haben.',
+  journey5:'Der Anbieter bewirbt aktuell 20 % v$ auf berechtigte Buchungen. Maßgeblich ist der Reward, der beim konkreten Angebot tatsächlich angezeigt wird.',
+  journey6:'Rewards können später für Reisen eingesetzt werden. Laut Oberfläche entsteht auf den mit vCurrency eingelösten Anteil kein zusätzlicher neuer Reward.'
+});
+
+let lang='de';
+function applyLang(next){
+  lang=next;
+  const table=next==='en'?EN:DE;
+  document.documentElement.lang=next;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.dataset.i18n;
+    if(table[key]!==undefined) el.textContent=table[key];
+  });
+  document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===next));
+  const activeJourney=document.querySelector('#journey button.active');
+  if(activeJourney){
+    journeyText.dataset.i18n='journey'+activeJourney.dataset.step;
+    journeyText.textContent=(next==='en'?EN:DE)[journeyText.dataset.i18n];
+  }
+  try{localStorage.setItem('vtravelLang',next)}catch(e){}
+}
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+
+function showPanel(id,updateHash=true){
+  const valid=[...document.querySelectorAll('.panel')].map(p=>p.id);
+  if(!valid.includes(id)) id='overview';
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));
+  document.querySelectorAll('.tab').forEach(b=>{
+    const active=b.dataset.target===id;
+    b.classList.toggle('active',active);
+    b.setAttribute('aria-selected',active?'true':'false');
+  });
+  if(updateHash && location.hash!=='#'+id) history.replaceState(null,'','#'+id);
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.target)));
+window.addEventListener('hashchange',()=>showPanel(location.hash.slice(1),false));
+
+document.querySelectorAll('#journey button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#journey button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  const key='journey'+b.dataset.step;
+  journeyText.dataset.i18n=key;
+  journeyText.textContent=(lang==='en'?EN:DE)[key];
+}));
+
+const market=document.getElementById('market');
+const travel=document.getElementById('travel');
+const rate=document.getElementById('rate');
+function calc(){
+  const m=Math.max(0,+market.value||0),t=Math.max(0,+travel.value||0),r=+rate.value;
+  rateOut.textContent=r;
+  const d=m-t,rew=t*r/100;
+  direct.textContent=d.toFixed(2);
+  reward.textContent=rew.toFixed(2);
+  total.textContent=(d+rew).toFixed(2);
+}
+[market,travel,rate].forEach(x=>x.addEventListener('input',calc));
+
+let saved='de';
+try{saved=localStorage.getItem('vtravelLang')||'de'}catch(e){}
+applyLang(saved==='en'?'en':'de');
+showPanel(location.hash.slice(1)||'overview',false);
+calc();
+</script>
+</body>
+</html>
