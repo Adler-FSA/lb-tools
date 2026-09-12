@@ -252,6 +252,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "bfeb8bd6-1e46-4ece-b3f0-5f5ca019f086",
+      "title": "Sichtbar werden – KMS E-Mailstrecke für Daniela",
+      "category": "kms-content",
+      "type": "function",
+      "releaseDate": "2026-09-14",
+      "url": "https://tools.liquiditybooster.de/hoersaal-liquiditybooster-standalone/sichtbar-werden-kms-emails-daniela.html",
+      "what": "Es entsteht die interne KMS-Arbeitsseite für Daniela zur vollständigen E-Mail-Kommunikation rund um die Produkte Gastredner-Bühne und Leitartikel.\n\nDie Seite stellt die vorbereiteten E-Mail-Vorlagen für den gesamten Ablauf nach einer verbindlichen Bestellung bereit. Daniela kann die Texte direkt bearbeiten, lokal speichern, kopieren, archivieren und bei Bedarf auf den Originalstand zurücksetzen.\n\nDie E-Mail-Strecken begleiten den Käufer vom Eingang der Bestellung über die Vorbereitung und PDF-Erstellung bis zur Terminbestätigung beziehungsweise Veröffentlichung.\n\nZiel ist ein klarer, einheitlicher Kommunikationsprozess, bei dem gegenüber dem Käufer ausschließlich LiquidityBooster beziehungsweise das LiquidityBooster-Team als Absender erscheint.\n\nDie Seite ist ein internes KMS-Werkzeug und keine Kundenseite.",
+      "why": "Für Gastredner und Leitartikel entstehen nach einer Bestellung mehrere aufeinanderfolgende Kommunikationsschritte.\n\nDiese Kommunikation soll nicht jedes Mal neu formuliert oder manuell zusammengesucht werden. Daniela benötigt deshalb eine zentrale Arbeitsseite, auf der der vollständige Ablauf bereits vorbereitet ist.\n\nDadurch werden Bestätigung, Vorbereitung, PDF-Anforderung, Rückmeldung zum PDF-Eingang, Terminbestätigung beziehungsweise Freigabe sowie die abschließende Erinnerung oder Veröffentlichung einheitlich gesteuert.\n\nGleichzeitig verhindert die Seite unterschiedliche Aussagen gegenüber Käufern und schafft ein verbindliches Wording für den gesamten Prozess.\n\nBesonders wichtig ist die klare Trennung zwischen Bestellung, Vorbereitung, Terminwunsch und verbindlicher Terminbestätigung.",
+      "test": "Bitte alle E-Mail-Vorlagen vollständig lesen und insbesondere das Wording prüfen.\n\nDabei besonders kontrollieren:\n\n– Stimmen alle Texte mit dem aktuellen Verkaufs- und Bestellprozess überein?\n\n– Wird eindeutig erklärt, dass die Vorbereitungsseite erst nach einer verbindlichen Bestellung per E-Mail an den Käufer übermittelt wird?\n\n– Ist klar, dass dort keine zweite Bestellung erfolgt, sondern die bereits gekaufte Leistung vorbereitet wird?\n\n– Wird eindeutig erklärt, dass die dort erzeugte PDF die Arbeitsgrundlage für die weitere Ausführung des Auftrags ist?\n\n– Stimmen die Bezeichnungen Gastredner-Bühne, 15 Minuten, Leitartikel und 3 Monate Sichtbarkeit überall überein?\n\n– Wird zwischen Terminwunsch und verbindlich bestätigtem Termin sauber unterschieden?\n\n– Sind alle Aussagen zu Montag und dem Zeitfenster 19:15–19:30 Uhr korrekt?\n\n– Ist bei jeder Mail eindeutig, zu welchem Zeitpunkt sie versendet wird?\n\n– Passt der Ton zu LiquidityBooster: professionell, freundlich und klar, ohne unnötigen Verkaufsdruck?\n\n– Sind alle Links aktuell?\n\n– Funktionieren Bearbeiten, lokale Speicherung, Kopieren, Archivieren und Zurücksetzen?\n\n– Bleiben eigene Änderungen nach einem Neuladen erhalten?\n\n– Ist auf iPad, Smartphone und Windows/Laptop alles gut bedienbar?\n\n– Sind veraltete Formulierungen oder alte Prozesse vollständig entfernt?",
+      "meeting": "Sind die E-Mail-Texte inhaltlich und sprachlich so freigegeben, dass Daniela sie künftig verbindlich verwenden kann?\n\nBesonders gemeinsam prüfen:\n\n– Ist der Ablauf nach der Bestellung für den Käufer jederzeit verständlich?\n\n– Ist klar genug, wann eine Bestellung verbindlich ist und wann ein Gastredner-Termin verbindlich bestätigt wurde?\n\n– Ist eindeutig, wofür die Vorbereitungs-PDF benötigt wird und wohin sie geschickt werden soll?\n\n– Haben wir für beide Produkte an jeder Stelle dasselbe Wording?\n\n– Gibt es Formulierungen, die beim Käufer Erwartungen erzeugen könnten, die wir nicht erfüllen wollen?\n\n– Sind alle E-Mail-Zeitpunkte sinnvoll oder müssen einzelne Mails zusammengelegt beziehungsweise zeitlich verändert werden?\n\nNach gemeinsamer Freigabe soll diese Seite Danielas verbindliche KMS-Grundlage für die Kommunikation mit Käufern sein.",
+      "createdAt": "2026-09-12T11:34:43.165Z",
+      "updatedAt": "2026-09-12T11:34:43.165Z",
+      "history": [
+        {
+          "at": "2026-09-12T11:34:43.165Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
