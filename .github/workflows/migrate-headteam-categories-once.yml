@@ -1,0 +1,32 @@
+name: Migrate Headteam Categories Once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/migrate-headteam-categories-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assign confirmed categories
+        run: python3 scripts/migrate-headteam-categories-once.py
+
+      - name: Commit migration and cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'FSA Headteam'
+          git config user.email 'actions@github.com'
+          rm -f scripts/migrate-headteam-categories-once.py
+          rm -f .github/workflows/migrate-headteam-categories-once.yml
+          git add data/headteam-vorlauf.json scripts/migrate-headteam-categories-once.py .github/workflows/migrate-headteam-categories-once.yml
+          git commit -m 'Migrate existing Headteam entries into categories'
+          git push
