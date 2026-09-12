@@ -25,4 +25,4 @@ jobs:
           git add -A
           git commit -m 'Add quick Ansehen buttons to new Headteam entries'
           git push
-# retry after robust selector fix
+# final retry with exact current template
