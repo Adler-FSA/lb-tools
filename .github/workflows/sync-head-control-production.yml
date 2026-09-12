@@ -46,3 +46,5 @@ jobs:
             git commit -m 'fix: sync Head Control with approved test version'
             git push origin HEAD:main
           fi
+
+# trigger sync
