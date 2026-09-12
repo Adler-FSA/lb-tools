@@ -1,0 +1,90 @@
+name: Promote Headteam Test Pages to Production
+
+on:
+  push:
+    paths:
+      - '.github/workflows/promote-headteam-test-to-production.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh checkout
+        run: git pull --rebase origin main
+
+      - name: Promote approved test pages
+        run: |
+          set -e
+          test -s pages/headteam-vorlauf/head-control-2/index.html
+          test -s pages/headteam-vorlauf/headteam-2/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+
+          head_control_src = Path('pages/headteam-vorlauf/head-control-2/index.html')
+          headteam_src = Path('pages/headteam-vorlauf/headteam-2/index.html')
+          head_control_dst = Path('pages/headteam-vorlauf/head-control.html')
+          headteam_dst = Path('pages/headteam-vorlauf/index.html')
+
+          hc = head_control_src.read_text(encoding='utf-8')
+          hc = hc.replace('<title>Head Control 2</title>', '<title>Head Control</title>', 1)
+          ht = headteam_src.read_text(encoding='utf-8')
+
+          head_control_dst.write_text(hc, encoding='utf-8')
+          headteam_dst.write_text(ht, encoding='utf-8')
+          PY
+
+      - name: Validate production copies
+        run: |
+          set -e
+          grep -q 'data-project-category="leitartikel"' pages/headteam-vorlauf/head-control.html
+          grep -q 'Produkte aktualisiert' pages/headteam-vorlauf/head-control.html
+          grep -q 'Neue Produkte' pages/headteam-vorlauf/head-control.html
+          grep -q 'task-card' pages/headteam-vorlauf/head-control.html
+          grep -q 'data-project-category="leitartikel"' pages/headteam-vorlauf/index.html
+          grep -q 'Produkte aktualisiert' pages/headteam-vorlauf/index.html
+          grep -q 'Neue Produkte' pages/headteam-vorlauf/index.html
+          grep -q 'class="new-view"' pages/headteam-vorlauf/index.html
+          grep -q 'Ansehen' pages/headteam-vorlauf/index.html
+          grep -q "const DATA_URL='/data/headteam-vorlauf.json'" pages/headteam-vorlauf/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, subprocess, tempfile
+          for path in [Path('pages/headteam-vorlauf/head-control.html'), Path('pages/headteam-vorlauf/index.html')]:
+              html = path.read_text(encoding='utf-8')
+              scripts = re.findall(r'<script[^>]*>(.*?)</script>', html, flags=re.S|re.I)
+              for i, script in enumerate(scripts):
+                  if not script.strip():
+                      continue
+                  tmp = Path('/tmp') / f'{path.stem}-{i}.js'
+                  tmp.write_text(script, encoding='utf-8')
+                  subprocess.run(['node', '--check', str(tmp)], check=True)
+          PY
+
+      - name: Commit production migration and preserve rollback tag
+        run: |
+          set -e
+          PRE_SHA="$(git rev-parse HEAD)"
+          TAG="headteam-vorlauf-before-migration-20260912"
+          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
+            git tag -a "$TAG" "$PRE_SHA" -m 'Headteam Vorlauf production state before 2026-09-12 migration'
+          fi
+          rm -f .github/workflows/promote-headteam-test-to-production.yml
+          git config user.name 'FSA Headteam'
+          git config user.email 'actions@github.com'
+          git add pages/headteam-vorlauf/index.html pages/headteam-vorlauf/head-control.html .github/workflows/promote-headteam-test-to-production.yml
+          git commit -m 'Promote approved Headteam 14 Tage and Head Control to production'
+          for attempt in 1 2 3; do
+            if git push origin main; then
+              break
+            fi
+            git pull --rebase origin main
+            if [ "$attempt" = "3" ]; then exit 1; fi
+          done
+          git push origin "$TAG" || true
