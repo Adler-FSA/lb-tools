@@ -55,7 +55,7 @@ jobs:
           grep -q "const DATA_URL='/data/headteam-vorlauf.json'" pages/headteam-vorlauf/index.html
           python3 - <<'PY'
           from pathlib import Path
-          import re, subprocess, tempfile
+          import re, subprocess
           for path in [Path('pages/headteam-vorlauf/head-control.html'), Path('pages/headteam-vorlauf/index.html')]:
               html = path.read_text(encoding='utf-8')
               scripts = re.findall(r'<script[^>]*>(.*?)</script>', html, flags=re.S|re.I)
@@ -88,3 +88,5 @@ jobs:
             if [ "$attempt" = "3" ]; then exit 1; fi
           done
           git push origin "$TAG" || true
+
+# trigger approved migration
