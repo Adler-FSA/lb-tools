@@ -192,6 +192,26 @@
           "event": "updated"
         }
       ]
+    },
+    {
+      "id": "1a306e5a-685a-47a6-bea0-987fba528351",
+      "title": "TLN Hörsaal – Seite 9 Network Entwurf",
+      "category": "hoersaele",
+      "type": "function",
+      "releaseDate": "2026-09-21",
+      "url": "https://tools.liquiditybooster.de/pages/tln/tln-network.html#start",
+      "what": "Neue Lernseite zur TLN-Network-Logik mit Empfehlungsebenen, Reward-Tiefe und interaktivem Simulator.",
+      "why": "Damit Club-Mitglieder das Network-Modell, die eigene E1 und die entstehende Tiefe einfach nachvollziehen können.",
+      "test": "Verständlichkeit der Ebenenlogik, Simulator, Reward-Sätze, mobile Darstellung und Disclaimer prüfen.",
+      "meeting": "Freigabe der Inhalte und Entscheidung, ob Seite 9 so in den TLN Hörsaal übernommen wird.",
+      "createdAt": "2026-09-12T16:55:02.655Z",
+      "updatedAt": "2026-09-12T16:55:02.655Z",
+      "history": [
+        {
+          "at": "2026-09-12T16:55:02.655Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
