@@ -232,6 +232,26 @@
         }
       ],
       "category": "leitartikel"
+    },
+    {
+      "id": "634977a1-3a3e-432f-9dce-e0ce98cbe51c",
+      "title": "Gastredner-Bühne & Leitartikel – Auftragsvorbereitung nach Bestellung",
+      "category": "kms-content",
+      "type": "function",
+      "releaseDate": "2026-09-14",
+      "url": "https://tools.liquiditybooster.de/pages/gastredner-buehne-leitartikel/",
+      "what": "Es entsteht der persönliche Vorbereitungs- und Auftragsbereich für Käufer einer Gastredner-Bühne beziehungsweise eines Leitartikels.\n\nDieser Bereich wird nicht vor der Bestellung genutzt. Nach einer verbindlichen Bestellung erhält der Käufer den Zugang per E-Mail zusammen mit seiner Bestätigung.\n\nAuf der Seite wählt er die tatsächlich gebuchte Leistung und trägt anschließend strukturiert alle Angaben ein, die LiquidityBooster für die weitere Umsetzung benötigt.\n\nDazu gehören unter anderem persönliche und unternehmerische Angaben, Thema, Kernbotschaft, Zielgruppe und die für die jeweilige Leistung benötigten Informationen.\n\nAm Ende wird aus diesen Angaben eine persönliche PDF erstellt. Diese PDF dient als verbindliche Arbeits- und Vorbereitungsgrundlage für die weitere Bearbeitung des Auftrags durch LiquidityBooster.",
+      "why": "Nach einer Bestellung benötigen wir vom Käufer wesentlich mehr als nur Name, E-Mail-Adresse und Zahlungsdaten.\n\nFür einen professionellen Gastredner-Auftritt oder die Erstellung eines Leitartikels müssen die Inhalte, Ziele und notwendigen Informationen strukturiert vorliegen.\n\nStatt diese Angaben anschließend über mehrere E-Mails, Telefonate oder einzelne Nachrichten einzusammeln, erhält jeder Käufer nach seiner verbindlichen Bestellung einen klar geführten Vorbereitungsbereich.\n\nDadurch entsteht ein einheitlicher Prozess:\n\nBestellung → Bestätigung per E-Mail → Vorbereitungsbereich ausfüllen → persönliche PDF erstellen → PDF als Arbeitsgrundlage für die Ausführung des Auftrags.\n\nDer Käufer weiß damit genau, welche Informationen benötigt werden, und LiquidityBooster erhält eine vollständige und übersichtliche Grundlage für die weitere Umsetzung.",
+      "test": "Bitte den vollständigen Ablauf aus Sicht eines Käufers testen.\n\nBesonders prüfen:\n\n– Ist eindeutig erkennbar, dass dieser Bereich erst nach einer verbindlichen Bestellung über die Bestätigungs-E-Mail aufgerufen wird?\n\n– Versteht der Käufer, dass hier keine neue Bestellung vorgenommen wird, sondern seine bereits gebuchte Leistung vorbereitet wird?\n\n– Ist die Auswahl der gebuchten Leistung eindeutig?\n\n– Sind alle Eingabefelder verständlich und sinnvoll aufgebaut?\n\n– Werden je nach gebuchter Leistung die richtigen Angaben abgefragt?\n\n– Funktioniert die DE/EN-Umschaltung?\n\n– Funktioniert die Seite auf PC, iPad/Tablet und Smartphone?\n\n– Bleiben eingegebene Daten während der Bearbeitung zuverlässig erhalten?\n\n– Wird die persönliche PDF vollständig und professionell erstellt?\n\n– Enthält die PDF alle Informationen, die wir anschließend zur Bearbeitung des Auftrags benötigen?\n\n– Ist für den Käufer verständlich, was er nach Erstellung der PDF damit tun soll?\n\n– Gibt es Stellen, an denen der Käufer nicht weiß, wie es weitergeht?",
+      "meeting": "Ist der Ablauf nach einer verbindlichen Bestellung für den Käufer eindeutig genug?\n\nIst klar, dass der Link zu diesem Bereich erst mit der Bestell-/Terminbestätigung per E-Mail versendet wird?\n\nSind die abgefragten Informationen vollständig genug, damit wir den Auftrag anschließend ohne unnötige Rückfragen bearbeiten können?\n\nReicht die erzeugte PDF als zentrale Arbeitsgrundlage für Daniela beziehungsweise die zuständige Bearbeitung aus?\n\nAußerdem gemeinsam prüfen, ob in der Bestätigungs-E-Mail noch ein kurzer Hinweis notwendig ist, bis wann der Käufer seine Angaben und die PDF fertigstellen soll.\n\nDer entscheidende Satz, den ich auch in eure interne Beschreibung und später in die Bestätigungs-E-Mail aufnehmen würde, ist:\n\nDieser Vorbereitungsbereich wird erst nach einer verbindlichen Bestellung freigeschaltet. Den persönlichen Zugang erhält der Käufer mit seiner Bestätigungs-E-Mail. Die dort erstellte PDF bildet anschließend die Arbeitsgrundlage für die Vorbereitung und Ausführung des gebuchten Auftrags.\n\nDamit ist die Funktion der Seite glasklar: Nicht verkaufen → sondern einen bereits bezahlten Auftrag in einen ausführbaren Auftrag verwandeln.",
+      "createdAt": "2026-09-12T11:27:17.354Z",
+      "updatedAt": "2026-09-12T11:27:17.354Z",
+      "history": [
+        {
+          "at": "2026-09-12T11:27:17.354Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
@@ -569,5 +589,6 @@
       "start": "",
       "repetitions": ""
     }
-  ]
+  ],
+  "taskArchive": []
 }
