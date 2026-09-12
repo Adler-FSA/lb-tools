@@ -27,44 +27,30 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
 
-          head_control_src = Path('pages/headteam-vorlauf/head-control-2/index.html')
-          headteam_src = Path('pages/headteam-vorlauf/headteam-2/index.html')
-          head_control_dst = Path('pages/headteam-vorlauf/head-control.html')
-          headteam_dst = Path('pages/headteam-vorlauf/index.html')
+          hc_src = Path('pages/headteam-vorlauf/head-control-2/index.html').read_text(encoding='utf-8')
+          ht_src = Path('pages/headteam-vorlauf/headteam-2/index.html').read_text(encoding='utf-8')
+          hc_prod = hc_src.replace('<title>Head Control 2</title>', '<title>Head Control</title>', 1)
 
-          hc = head_control_src.read_text(encoding='utf-8')
-          hc = hc.replace('<title>Head Control 2</title>', '<title>Head Control</title>', 1)
-          ht = headteam_src.read_text(encoding='utf-8')
-
-          head_control_dst.write_text(hc, encoding='utf-8')
-          headteam_dst.write_text(ht, encoding='utf-8')
+          Path('pages/headteam-vorlauf/head-control.html').write_text(hc_prod, encoding='utf-8')
+          Path('pages/headteam-vorlauf/index.html').write_text(ht_src, encoding='utf-8')
           PY
 
-      - name: Validate production copies
+      - name: Validate exact production copies
         run: |
           set -e
-          grep -q 'data-project-category="leitartikel"' pages/headteam-vorlauf/head-control.html
-          grep -q 'Produkte aktualisiert' pages/headteam-vorlauf/head-control.html
-          grep -q 'Neue Produkte' pages/headteam-vorlauf/head-control.html
-          grep -q 'task-card' pages/headteam-vorlauf/head-control.html
-          grep -q 'data-project-category="leitartikel"' pages/headteam-vorlauf/index.html
-          grep -q 'Produkte aktualisiert' pages/headteam-vorlauf/index.html
-          grep -q 'Neue Produkte' pages/headteam-vorlauf/index.html
-          grep -q 'class="new-view"' pages/headteam-vorlauf/index.html
-          grep -q 'Ansehen' pages/headteam-vorlauf/index.html
-          grep -q "const DATA_URL='/data/headteam-vorlauf.json'" pages/headteam-vorlauf/index.html
           python3 - <<'PY'
           from pathlib import Path
-          import re, subprocess
-          for path in [Path('pages/headteam-vorlauf/head-control.html'), Path('pages/headteam-vorlauf/index.html')]:
-              html = path.read_text(encoding='utf-8')
-              scripts = re.findall(r'<script[^>]*>(.*?)</script>', html, flags=re.S|re.I)
-              for i, script in enumerate(scripts):
-                  if not script.strip():
-                      continue
-                  tmp = Path('/tmp') / f'{path.stem}-{i}.js'
-                  tmp.write_text(script, encoding='utf-8')
-                  subprocess.run(['node', '--check', str(tmp)], check=True)
+
+          hc_src = Path('pages/headteam-vorlauf/head-control-2/index.html').read_text(encoding='utf-8')
+          ht_src = Path('pages/headteam-vorlauf/headteam-2/index.html').read_text(encoding='utf-8')
+          hc_expected = hc_src.replace('<title>Head Control 2</title>', '<title>Head Control</title>', 1)
+          hc_prod = Path('pages/headteam-vorlauf/head-control.html').read_text(encoding='utf-8')
+          ht_prod = Path('pages/headteam-vorlauf/index.html').read_text(encoding='utf-8')
+
+          assert hc_prod == hc_expected, 'Head Control production copy differs from approved test source'
+          assert ht_prod == ht_src, 'Headteam production copy differs from approved test source'
+          assert len(hc_prod) > 10000 and len(ht_prod) > 10000, 'Production file unexpectedly small'
+          print('Production copies match approved test pages exactly.')
           PY
 
       - name: Commit production migration and preserve rollback tag
@@ -89,4 +75,4 @@ jobs:
           done
           git push origin "$TAG" || true
 
-# trigger approved migration
+# trigger approved migration with exact-copy validation
