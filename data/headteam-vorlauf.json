@@ -12,11 +12,15 @@
       "test": "Bitte die Seite auf Smartphone, Tablet und Computer vollständig prüfen. Dabei besonders auf Verständlichkeit, Lesbarkeit, DE/EN-Umschaltung, Buchungsablauf, Preis-und-Reward-Rechner, Quellenlinks und die Darstellung der offenen technischen Verbindungen achten. Zusätzlich prüfen, ob aktuelle Funktionen und angekündigte Entwicklungen klar voneinander getrennt sind und ob der Unterschied zwischen sofortigem Preisvorteil und später einlösbarem v$-Reward verständlich erklärt wird.",
       "meeting": "Zu klären ist, ob die Reihenfolge und Tiefe der Inhalte für neue Nutzer verständlich sind. Gemeinsam soll geprüft werden, ob wichtige praktische Fragen fehlen und ob die neutrale Trennung zwischen nachgewiesenen Funktionen, Anbieterangaben und öffentlich ungeklärten Verbindungen ausreichend deutlich ist. Außerdem ist festzulegen, ob die Seite nach der Testphase unverändert als Menüseite 8 in den TLN-Hörsaal eingebunden werden kann.",
       "createdAt": "2026-09-03T19:47:54.422Z",
-      "updatedAt": "2026-09-03T19:47:54.422Z",
+      "updatedAt": "2026-09-12T16:56:25.123Z",
       "history": [
         {
           "at": "2026-09-03T19:47:54.422Z",
           "event": "created"
+        },
+        {
+          "at": "2026-09-12T16:56:25.123Z",
+          "event": "updated"
         }
       ],
       "category": "hoersaele"
