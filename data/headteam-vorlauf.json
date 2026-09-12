@@ -272,6 +272,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "20538205-49fd-452e-bb10-fd241c16e371",
+      "title": "",
+      "category": "kms-content",
+      "type": "",
+      "releaseDate": "",
+      "url": "",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-09-12T11:34:44.656Z",
+      "updatedAt": "2026-09-12T11:34:44.656Z",
+      "history": [
+        {
+          "at": "2026-09-12T11:34:44.656Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
