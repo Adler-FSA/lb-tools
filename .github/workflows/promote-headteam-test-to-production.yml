@@ -53,26 +53,20 @@ jobs:
           print('Production copies match approved test pages exactly.')
           PY
 
-      - name: Commit production migration and preserve rollback tag
+      - name: Commit production migration
         run: |
           set -e
-          PRE_SHA="$(git rev-parse HEAD)"
-          TAG="headteam-vorlauf-before-migration-20260912"
-          if ! git rev-parse "$TAG" >/dev/null 2>&1; then
-            git tag -a "$TAG" "$PRE_SHA" -m 'Headteam Vorlauf production state before 2026-09-12 migration'
-          fi
-          rm -f .github/workflows/promote-headteam-test-to-production.yml
           git config user.name 'FSA Headteam'
           git config user.email 'actions@github.com'
-          git add pages/headteam-vorlauf/index.html pages/headteam-vorlauf/head-control.html .github/workflows/promote-headteam-test-to-production.yml
+          git add pages/headteam-vorlauf/index.html pages/headteam-vorlauf/head-control.html
           git commit -m 'Promote approved Headteam 14 Tage and Head Control to production'
           for attempt in 1 2 3; do
-            if git push origin main; then
-              break
-            fi
             git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
             if [ "$attempt" = "3" ]; then exit 1; fi
+            sleep 2
           done
-          git push origin "$TAG" || true
 
-# trigger approved migration with exact-copy validation
+# trigger approved migration: production files only
