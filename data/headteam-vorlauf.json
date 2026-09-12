@@ -200,11 +200,15 @@
       "test": "Bitte prüfen:\n    – Sind beide Produkte und Preise sofort verständlich?\n    – Wird deutlich, dass keine Club-Mitgliedschaft erforderlich ist?\n    – Sind die enthaltenen Leistungen der Gastredner-Zeit vollständig und verständlich?\n    – Ist der Leitartikel mit 69 € und drei Monaten Sichtbarkeit klar beschrieben?\n    – Sind Regeln, Eigenverantwortung und Compliance ausreichend deutlich?\n    – Entsteht an keiner Stelle der Eindruck einer Empfehlung, Zertifizierung, Reichweiten- oder Erfolgsgarantie?\n    – Ist die Seite auf Windows, iPad und Smartphone gut lesbar?",
       "meeting": "Finale Freigabe der beiden Produktbeschreibungen und der Compliance-Regeln. Außerdem klären, ab wann die Seite offiziell an Interessenten weitergegeben wird und wie anschließend die konkrete Buchung bzw. Bezahlung der Gastredner-Zeit und des Leitartikels erfolgt.",
       "createdAt": "2026-09-10T18:34:53.576Z",
-      "updatedAt": "2026-09-10T18:34:53.576Z",
+      "updatedAt": "2026-09-12T07:23:34.545Z",
       "history": [
         {
           "at": "2026-09-10T18:34:53.576Z",
           "event": "created"
+        },
+        {
+          "at": "2026-09-12T07:23:34.545Z",
+          "event": "updated"
         }
       ],
       "category": "neue-produkte"
