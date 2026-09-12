@@ -18,56 +18,18 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
 (()=>{
   'use strict';
   const DATA_URL='/data/headteam-vorlauf.json';
-  const ARCHIVE_KEY='lb_headteam2_task_archive_v1';
-  const REMOVED_KEY='lb_headteam2_task_removed_v1';
   const frame=document.getElementById('head2Base');
   const errorBox=document.getElementById('bootError');
-  let data={projects:[],archive:[],personalLinks:[],headteamAccess:[]};
-  let taskArchive=readStore(ARCHIVE_KEY,{});
-  let removedTasks=readStore(REMOVED_KEY,{});
+  let data={projects:[],archive:[],personalLinks:[],taskArchive:[],headteamAccess:[]};
 
-  function readStore(key,fallback){
-    try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):fallback}catch(e){return fallback}
-  }
-  function saveStores(){
-    try{
-      localStorage.setItem(ARCHIVE_KEY,JSON.stringify(taskArchive));
-      localStorage.setItem(REMOVED_KEY,JSON.stringify(removedTasks));
-    }catch(e){}
-  }
   function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
   function normalize(v){return String(v??'').toLocaleLowerCase('de-DE').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim()}
   function personLabel(v){return({alexander:'Alexander',oliver:'Oliver',peter:'Peter',daniel:'Daniela'})[v]||v||'–'}
   function categoryLabel(v){return({'leitartikel':'Leitartikel','kms-content':'KMS Content','serien':'Serien','club-haus':'Club Haus','oeffentlich':'Öffentlich','newsletter':'Newsletter','hoersaele':'Hörsäle','kurse':'Kurse','produkte-aktualisiert':'Produkte aktualisiert','neue-produkte':'Neue Produkte','social-media':'Social Media'})[v]||v||''}
   function dateTime(v){if(!v)return'';try{return new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v))}catch(e){return v}}
-  function taskId(t){
-    const s=[t.recipient,t.title,t.url,t.note,t.createdAt,t.updatedAt].map(v=>String(v??'')).join('|');
-    let h=2166136261;
-    for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}
-    return 't'+(h>>>0).toString(36);
-  }
-  function activeTasks(){
-    return (Array.isArray(data.personalLinks)?data.personalLinks:[]).filter(t=>{const id=taskId(t);return !taskArchive[id]&&!removedTasks[id]});
-  }
-  function archivedTasks(){
-    return Object.entries(taskArchive).map(([id,entry])=>({id,...entry})).sort((a,b)=>(b.doneAt||'').localeCompare(a.doneAt||''));
-  }
-  function markDone(id){
-    const t=(data.personalLinks||[]).find(x=>taskId(x)===id);
-    if(!t)return;
-    taskArchive[id]={doneAt:new Date().toISOString(),task:{...t}};
-    saveStores();
-    renderAll();
-  }
-  function deleteArchived(id){
-    if(!taskArchive[id])return;
-    const w=frame.contentWindow;
-    if(w&&!w.confirm('Diese erledigte Aufgabe endgültig aus dem Head-2-Archiv löschen?'))return;
-    removedTasks[id]={removedAt:new Date().toISOString(),task:taskArchive[id].task};
-    delete taskArchive[id];
-    saveStores();
-    renderAll();
-  }
+  function activeTasks(){return Array.isArray(data.personalLinks)?data.personalLinks:[]}
+  function archivedTasks(){return (Array.isArray(data.taskArchive)?data.taskArchive:[]).slice().sort((a,b)=>(b.completedAt||b.archivedAt||'').localeCompare(a.completedAt||a.archivedAt||''))}
+
   function openTasks(person){
     const w=frame.contentWindow,d=frame.contentDocument;
     if(w&&typeof w.setPanel==='function')w.setPanel('tasks');
@@ -76,6 +38,7 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
       if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
     },80);
   }
+
   function injectStyles(d){
     if(d.getElementById('head2-enhancement-style'))return;
     const s=d.createElement('style');
@@ -95,12 +58,13 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
       .head2-search-head{padding:14px 16px;border-bottom:1px solid #e5ecee}.head2-search-head h3{margin:0;color:var(--navy);font-size:17px}.head2-search-head p{margin:4px 0 0;color:var(--muted);font-size:12px}
       .head2-search-box{padding:14px 16px}.head2-search-input{width:100%;border:1px solid #cfdadd;border-radius:12px;background:#fff;color:var(--navy);padding:12px 13px;font:inherit;font-size:14px;outline:none}.head2-search-input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
       .head2-search-results{display:grid;gap:8px;margin-top:10px}.head2-search-help{color:var(--muted);font-size:12px;padding:3px 1px}.head2-search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid #e3eaec;border-radius:12px;padding:10px 11px;background:#fbfdfd}.head2-search-title{font-weight:900;color:var(--navy);font-size:13px}.head2-search-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;color:var(--muted);font-size:11px}.head2-pill{display:inline-flex;border-radius:999px;padding:3px 7px;background:var(--mint-soft);color:#08757a;font-weight:900}.head2-pill.archive{background:#f5eff3;color:#8d245d}.head2-search-open{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;background:var(--mint);color:#fff;padding:7px 9px;font:inherit;font-size:11px;font-weight:900;text-decoration:none;cursor:pointer;white-space:nowrap}
-      #personalLinks{display:none!important}.head2-full{display:grid;gap:12px}.head2-person-group{border:1px solid #d9e6e8;border-radius:17px;background:#fff;box-shadow:0 7px 24px rgba(19,34,56,.05);overflow:hidden;scroll-margin-top:18px}.head2-person-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 15px;background:var(--soft);color:var(--navy);font-weight:900}.head2-person-head small{color:var(--muted);font-size:11px}.head2-task-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 15px;border-top:1px solid #edf1f4}.head2-task-title{font-weight:900;color:var(--navy);font-size:14px;line-height:1.35}.head2-task-url{margin-top:4px;color:var(--muted);font-size:11px;overflow-wrap:anywhere}.head2-task-note{margin-top:6px;color:var(--text);font-size:12px;line-height:1.45;white-space:pre-wrap}.head2-task-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.head2-task-action{border:1px solid #d5e3e5;border-radius:9px;background:#fff;color:var(--navy);padding:7px 9px;font:inherit;font-size:11px;font-weight:900;cursor:pointer;text-decoration:none;white-space:nowrap}.head2-task-action.done{background:var(--mint);border-color:var(--mint);color:#fff}.head2-task-action.delete{color:#9d1d55;border-color:#e7bfd3}.head2-archive-block{border-top:1px solid #e4eaec;background:#fbfcfc}.head2-archive-title{padding:10px 15px;color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.head2-done-date{margin-top:5px;color:var(--muted);font-size:11px;font-weight:800}.head2-empty{padding:16px;color:var(--muted);font-size:12px;border-top:1px solid #edf1f4}
+      #personalLinks{display:none!important}.head2-full{display:grid;gap:12px}.head2-person-group{border:1px solid #d9e6e8;border-radius:17px;background:#fff;box-shadow:0 7px 24px rgba(19,34,56,.05);overflow:hidden;scroll-margin-top:18px}.head2-person-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 15px;background:var(--soft);color:var(--navy);font-weight:900}.head2-person-head small{color:var(--muted);font-size:11px}.head2-task-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 15px;border-top:1px solid #edf1f4}.head2-task-title{font-weight:900;color:var(--navy);font-size:14px;line-height:1.35}.head2-task-url{margin-top:4px;color:var(--muted);font-size:11px;overflow-wrap:anywhere}.head2-task-note{margin-top:6px;color:var(--text);font-size:12px;line-height:1.45;white-space:pre-wrap}.head2-task-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.head2-task-action{border:1px solid #d5e3e5;border-radius:9px;background:#fff;color:var(--navy);padding:7px 9px;font:inherit;font-size:11px;font-weight:900;cursor:pointer;text-decoration:none;white-space:nowrap}.head2-archive-block{border-top:1px solid #e4eaec;background:#fbfcfc}.head2-archive-title{padding:10px 15px;color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.head2-done-date{margin-top:5px;color:var(--muted);font-size:11px;font-weight:800}.head2-empty{padding:16px;color:var(--muted);font-size:12px;border-top:1px solid #edf1f4}
       @media(max-width:1050px){.head2-task-grid{grid-template-columns:1fr 1fr}}
       @media(max-width:620px){.head2-task-grid{grid-template-columns:1fr}.head2-task-row,.head2-search-row{grid-template-columns:1fr}.head2-task-actions{justify-content:flex-start}}
     `;
     d.head.appendChild(s);
   }
+
   function prepareLayout(d){
     const overview=d.getElementById('panel-overview');
     const grid=d.getElementById('dashboardGrid');
@@ -109,7 +73,8 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
     const teamSection=teamQuick.closest('.dash-section');
     if(teamSection){
       teamSection.id='head2TaskOverview';
-      if(teamSection.previousElementSibling!==overview.querySelector('.section-head'))overview.insertBefore(teamSection,grid);
+      const sectionHead=overview.querySelector('.section-head');
+      if(sectionHead&&teamSection.previousElementSibling!==sectionHead)overview.insertBefore(teamSection,grid);
       const head=teamSection.querySelector('.dash-section-head');
       if(head)head.innerHTML='<h3>Aufgabenverteilung</h3><span>aktuelle Zuordnungen im Headteam</span>';
       teamQuick.style.display='none';
@@ -134,48 +99,48 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
     }
     return true;
   }
+
   function renderQuick(){
     const d=frame.contentDocument,el=d&&d.getElementById('head2TaskQuick');if(!el)return;
     const open=activeTasks(),arch=archivedTasks();
     el.innerHTML=['alexander','oliver','peter','daniel'].map(person=>{
       const items=open.filter(x=>x.recipient===person).sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''));
-      const done=arch.filter(x=>x.task&&x.task.recipient===person).length;
+      const done=arch.filter(x=>x.recipient===person).length;
       const first=items[0];
       return `<div class="head2-person-card"><button type="button" class="head2-person-btn" data-head2-open-person="${person}">${esc(personLabel(person))}</button><div class="head2-person-count">${items.length} offen <span>· ${done} erledigt</span></div><div class="head2-person-task">${first?esc(first.title||first.note||first.url||'Aufgabe'):'Aktuell keine offene Aufgabe'}</div></div>`;
     }).join('');
     el.querySelectorAll('[data-head2-open-person]').forEach(b=>b.onclick=()=>openTasks(b.dataset.head2OpenPerson));
   }
-  function taskRow(t,id,archived){
+
+  function taskRow(t,archived){
     const title=t.title||t.url||'Aufgabe';
     const url=t.url?`<div class="head2-task-url">${esc(t.url)}</div>`:'';
     const note=t.note?`<div class="head2-task-note">${esc(t.note)}</div>`:'';
     const open=t.url?`<a class="head2-task-action" href="${esc(t.url)}" target="_blank" rel="noopener">Öffnen</a>`:'';
-    if(archived){
-      const entry=taskArchive[id];
-      return `<div class="head2-task-row"><div><div class="head2-task-title">${esc(title)}</div>${url}${note}<div class="head2-done-date">Erledigt: ${esc(dateTime(entry&&entry.doneAt))}</div></div><div class="head2-task-actions">${open}<button type="button" class="head2-task-action delete" data-head2-delete="${id}">Endgültig löschen</button></div></div>`;
-    }
-    return `<div class="head2-task-row"><div><div class="head2-task-title">${esc(title)}</div>${url}${note}</div><div class="head2-task-actions">${open}<button type="button" class="head2-task-action done" data-head2-done="${id}">Erledigt</button></div></div>`;
+    const done=archived?`<div class="head2-done-date">Erledigt: ${esc(dateTime(t.completedAt||t.archivedAt))}</div>`:'';
+    return `<div class="head2-task-row"><div><div class="head2-task-title">${esc(title)}</div>${url}${note}${done}</div><div class="head2-task-actions">${open}</div></div>`;
   }
+
   function renderFullTasks(){
     const d=frame.contentDocument,el=d&&d.getElementById('head2TasksFull');if(!el)return;
     const open=activeTasks(),arch=archivedTasks();
     el.innerHTML=['alexander','oliver','peter','daniel'].map(person=>{
       const items=open.filter(x=>x.recipient===person).sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''));
-      const done=arch.filter(x=>x.task&&x.task.recipient===person);
-      return `<section class="head2-person-group" data-head2-person="${person}"><div class="head2-person-head"><span>${esc(personLabel(person))}</span><small>${items.length} offen · ${done.length} erledigt</small></div>${items.length?items.map(t=>taskRow(t,taskId(t),false)).join(''):'<div class="head2-empty">Aktuell keine offene Aufgabe.</div>'}<div class="head2-archive-block"><div class="head2-archive-title">Aufgabenarchiv · ${esc(personLabel(person))}</div>${done.length?done.map(x=>taskRow(x.task,x.id,true)).join(''):'<div class="head2-empty">Noch keine erledigte Aufgabe archiviert.</div>'}</div></section>`;
+      const done=arch.filter(x=>x.recipient===person);
+      return `<section class="head2-person-group" data-head2-person="${person}"><div class="head2-person-head"><span>${esc(personLabel(person))}</span><small>${items.length} offen · ${done.length} erledigt</small></div>${items.length?items.map(t=>taskRow(t,false)).join(''):'<div class="head2-empty">Aktuell keine offene Aufgabe.</div>'}<div class="head2-archive-block"><div class="head2-archive-title">Aufgabenarchiv · ${esc(personLabel(person))}</div>${done.length?done.map(t=>taskRow(t,true)).join(''):'<div class="head2-empty">Noch keine erledigte Aufgabe archiviert.</div>'}</div></section>`;
     }).join('');
-    el.querySelectorAll('[data-head2-done]').forEach(b=>b.onclick=()=>markDone(b.dataset.head2Done));
-    el.querySelectorAll('[data-head2-delete]').forEach(b=>b.onclick=()=>deleteArchived(b.dataset.head2Delete));
   }
+
   function searchIndex(){
     const items=[];
     (data.projects||[]).forEach(p=>items.push({kind:'Projekt',title:p.title||'Projekt',meta:[categoryLabel(p.category),p.releaseDate].filter(Boolean).join(' · '),text:[p.title,p.category,p.type,p.what,p.why,p.test,p.meeting,p.releaseDate].join(' '),url:p.url,panel:'lead'}));
     (data.archive||[]).forEach(p=>items.push({kind:'Chronik',archived:true,title:p.title||'Archivprojekt',meta:[categoryLabel(p.category),p.archivedAt?dateTime(p.archivedAt):''].filter(Boolean).join(' · '),text:[p.title,p.category,p.type,p.what,p.why,p.archivedAt].join(' '),url:p.url,panel:'chronicle'}));
     activeTasks().forEach(t=>items.push({kind:'Aufgabe',title:t.title||t.url||'Aufgabe',meta:personLabel(t.recipient)+' · offen',text:[t.title,t.note,t.url,t.recipient,personLabel(t.recipient)].join(' '),url:t.url,panel:'tasks'}));
-    archivedTasks().forEach(x=>{const t=x.task||{};items.push({kind:'Aufgabenarchiv',archived:true,title:t.title||t.url||'Erledigte Aufgabe',meta:personLabel(t.recipient)+' · erledigt '+dateTime(x.doneAt),text:[t.title,t.note,t.url,t.recipient,personLabel(t.recipient),x.doneAt].join(' '),url:t.url,panel:'tasks'})});
+    archivedTasks().forEach(t=>items.push({kind:'Aufgabenarchiv',archived:true,title:t.title||t.url||'Erledigte Aufgabe',meta:personLabel(t.recipient)+' · erledigt '+dateTime(t.completedAt||t.archivedAt),text:[t.title,t.note,t.url,t.recipient,personLabel(t.recipient),t.completedAt,t.archivedAt].join(' '),url:t.url,panel:'tasks'}));
     (data.headteamAccess||[]).forEach(z=>items.push({kind:'Zoom',title:z.title||'Zoom',meta:[z.day,[z.from,z.to].filter(Boolean).join('–')].filter(Boolean).join(' · '),text:[z.title,z.day,z.from,z.to,z.meetingId,z.passcode,z.recurring].join(' '),url:z.url,panel:'zoom'}));
     return items;
   }
+
   function renderSearch(value){
     const d=frame.contentDocument,box=d&&d.getElementById('head2SearchResults');if(!box)return;
     const q=normalize(value);
@@ -183,18 +148,24 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
     const terms=q.split(/\s+/).filter(Boolean);
     const found=searchIndex().map(item=>({item,hay:normalize([item.title,item.meta,item.text].join(' '))})).filter(x=>terms.every(term=>x.hay.includes(term))).slice(0,12).map(x=>x.item);
     if(!found.length){box.innerHTML='<div class="head2-search-help">Kein passender Eintrag gefunden.</div>';return}
-    box.innerHTML=found.map((r,i)=>`<div class="head2-search-row"><div><div class="head2-search-title">${esc(r.title)}</div><div class="head2-search-meta"><span class="head2-pill ${r.archived?'archive':''}">${esc(r.kind)}</span>${r.meta?`<span>${esc(r.meta)}</span>`:''}</div></div>${r.url?`<a class="head2-search-open" href="${esc(r.url)}" target="_blank" rel="noopener">Öffnen</a>`:`<button type="button" class="head2-search-open" data-head2-panel="${esc(r.panel||'overview')}">Anzeigen</button>`}</div>`).join('');
+    box.innerHTML=found.map(r=>`<div class="head2-search-row"><div><div class="head2-search-title">${esc(r.title)}</div><div class="head2-search-meta"><span class="head2-pill ${r.archived?'archive':''}">${esc(r.kind)}</span>${r.meta?`<span>${esc(r.meta)}</span>`:''}</div></div>${r.url?`<a class="head2-search-open" href="${esc(r.url)}" target="_blank" rel="noopener">Öffnen</a>`:`<button type="button" class="head2-search-open" data-head2-panel="${esc(r.panel||'overview')}">Anzeigen</button>`}</div>`).join('');
     box.querySelectorAll('[data-head2-panel]').forEach(b=>b.onclick=()=>{const w=frame.contentWindow;if(w&&typeof w.setPanel==='function')w.setPanel(b.dataset.head2Panel)});
   }
-  function renderAll(){renderQuick();renderFullTasks();const d=frame.contentDocument,input=d&&d.getElementById('head2SearchInput');if(input&&input.value)renderSearch(input.value)}
+
+  function renderAll(){
+    renderQuick();renderFullTasks();
+    const d=frame.contentDocument,input=d&&d.getElementById('head2SearchInput');if(input&&input.value)renderSearch(input.value);
+  }
+
   async function loadData(){
     try{
       const r=await fetch(DATA_URL+'?head2='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('data');
       const p=await r.json();
-      data={projects:Array.isArray(p.projects)?p.projects:[],archive:Array.isArray(p.archive)?p.archive:[],personalLinks:Array.isArray(p.personalLinks)?p.personalLinks:[],headteamAccess:Array.isArray(p.headteamAccess)?p.headteamAccess:[]};
+      data={projects:Array.isArray(p.projects)?p.projects:[],archive:Array.isArray(p.archive)?p.archive:[],personalLinks:Array.isArray(p.personalLinks)?p.personalLinks:[],taskArchive:Array.isArray(p.taskArchive)?p.taskArchive:[],headteamAccess:Array.isArray(p.headteamAccess)?p.headteamAccess:[]};
       renderAll();
     }catch(e){}
   }
+
   function start(){
     try{
       const d=frame.contentDocument;
@@ -211,6 +182,7 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
       },100);
     }catch(e){errorBox.classList.add('show')}
   }
+
   frame.addEventListener('load',start,{once:true});
 })();
 </script>
