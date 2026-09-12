@@ -18,7 +18,8 @@
           "at": "2026-09-01T15:01:09.341Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "leitartikel"
     },
     {
       "id": "293666ea-0632-4791-8460-a1fbcfd1702a",
@@ -37,7 +38,8 @@
           "at": "2026-09-03T19:47:54.422Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "hoersaele"
     },
     {
       "id": "4c763ef8-e5d2-46be-851e-2084d5aca5e7",
@@ -60,7 +62,8 @@
           "at": "2026-09-03T19:51:42.280Z",
           "event": "updated"
         }
-      ]
+      ],
+      "category": "hoersaele"
     },
     {
       "id": "3218c0ec-f658-497b-bffd-fb3fe47e43ee",
@@ -83,7 +86,8 @@
           "at": "2026-09-07T10:21:57.998Z",
           "event": "updated"
         }
-      ]
+      ],
+      "category": "neue-produkte"
     },
     {
       "id": "cc31d4f7-16b5-4bd4-9162-cad4b43b1454",
@@ -102,7 +106,8 @@
           "at": "2026-09-08T13:58:15.543Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "leitartikel"
     },
     {
       "id": "925a48e5-3d78-48f7-a0e7-5c21f5f6331c",
@@ -121,7 +126,8 @@
           "at": "2026-09-08T20:37:31.714Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "hoersaele"
     },
     {
       "id": "43fe73ee-8474-479a-a113-9273622e81e9",
@@ -140,7 +146,8 @@
           "at": "2026-09-09T08:02:57.987Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "hoersaele"
     },
     {
       "id": "67dda69c-cdea-42c3-8d54-0789de61343f",
@@ -159,7 +166,8 @@
           "at": "2026-09-10T09:10:14.993Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "leitartikel"
     },
     {
       "id": "5086a0d7-aaf9-46e8-830e-9b34bf751905",
@@ -178,7 +186,8 @@
           "at": "2026-09-10T10:23:03.914Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "kms-content"
     },
     {
       "id": "41b0dcd7-b118-483f-a2a4-04dd9db5b729",
@@ -197,7 +206,8 @@
           "at": "2026-09-10T18:34:53.576Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "neue-produkte"
     },
     {
       "id": "e06cc914-b161-4746-857b-dde7d08bf364",
@@ -216,7 +226,8 @@
           "at": "2026-09-11T10:36:03.755Z",
           "event": "created"
         }
-      ]
+      ],
+      "category": "leitartikel"
     }
   ],
   "archive": [
@@ -242,7 +253,8 @@
           "event": "archived"
         }
       ],
-      "archivedAt": "2026-09-03T19:52:26.786Z"
+      "archivedAt": "2026-09-03T19:52:26.786Z",
+      "category": "club-haus"
     },
     {
       "id": "441e9ccb-bb18-4cac-87cf-1acd7f1583fe",
@@ -266,7 +278,8 @@
           "event": "archived"
         }
       ],
-      "archivedAt": "2026-09-03T19:52:32.736Z"
+      "archivedAt": "2026-09-03T19:52:32.736Z",
+      "category": "club-haus"
     },
     {
       "id": "4e0883a3-d4c4-402c-b747-7e02757279c5",
@@ -290,7 +303,8 @@
           "event": "archived"
         }
       ],
-      "archivedAt": "2026-09-03T19:52:40.982Z"
+      "archivedAt": "2026-09-03T19:52:40.982Z",
+      "category": "club-haus"
     },
     {
       "id": "2a1b2001-f224-48fe-9be0-c548f978aac1",
@@ -314,7 +328,8 @@
           "event": "archived"
         }
       ],
-      "archivedAt": "2026-09-08T13:57:45.382Z"
+      "archivedAt": "2026-09-08T13:57:45.382Z",
+      "category": "oeffentlich"
     },
     {
       "id": "e345d482-3fd9-40fd-8590-ad1f71e52c8b",
@@ -338,7 +353,8 @@
           "event": "archived"
         }
       ],
-      "archivedAt": "2026-09-08T13:57:50.428Z"
+      "archivedAt": "2026-09-08T13:57:50.428Z",
+      "category": "oeffentlich"
     },
     {
       "id": "0c5f5a3b-d6ed-4494-bd8a-55002fdcf659",
@@ -362,7 +378,8 @@
           "event": "archived"
         }
       ],
-      "archivedAt": "2026-09-08T13:58:02.895Z"
+      "archivedAt": "2026-09-08T13:58:02.895Z",
+      "category": "club-haus"
     }
   ],
   "personalLinks": [
