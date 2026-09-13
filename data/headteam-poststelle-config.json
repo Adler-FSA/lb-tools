@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "mode": "local-demo",
+  "endpoint": "",
+  "storageKey": "lb_head3_poststelle_demo_v1",
+  "inboxPath": "data/headteam-poststelle/inbox",
+  "archivePath": "data/headteam-poststelle/archive"
+}
