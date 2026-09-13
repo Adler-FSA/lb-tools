@@ -216,6 +216,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "fea48b4f-e036-4017-8acc-8414ecc5840b",
+      "title": "Gastzugang – Neuausrichtung E-Mail-Kommunikation",
+      "category": "kms-content",
+      "type": "clubhouse",
+      "releaseDate": "2026-09-21",
+      "url": "https://tools.liquiditybooster.de/pages/gastzugang-emailvorlage/",
+      "what": "Die bestehende Gastzugang-Kommunikation wird neu geordnet. Die bisherige 72-Stunden-Logik wird aus den E-Mail-Texten entfernt. Stattdessen entsteht eine zeitneutrale Begleitung des Gastes: Willkommensmail, drei inhaltliche Begleitmails durch den Gastzugang und eine universelle Eingangsbestätigung für die eingesendete PDF. Als Arbeitsgrundlage für Daniela wurde bereits eine neue Vorlagenseite vorbereitet.",
+      "why": "Im Headteam wurde am Samstag noch einmal über die bisherige 72-Stunden-Kommunikation gesprochen. Dabei wurde deutlich, dass die Zeitangaben in den E-Mails nicht mehr zu unserem heutigen Gastzugang passen. Der Gast soll nicht über Restzeit, Ablauf oder Fristen geführt werden, sondern über Inhalte, Orientierung und seine eigenen Interessen. Daniela hat an diesem Bereich bereits gearbeitet. Die neue Fassung ist deshalb keine Korrektur ihrer Arbeit, sondern eine Weiterentwicklung der inzwischen gemeinsam im Headteam festgelegten Ausrichtung.",
+      "test": "Bitte die neue Vorlagenseite vollständig prüfen: Ist die Reihenfolge der E-Mails nachvollziehbar? Sind alle Texte freundlich, verständlich und zeitneutral? Führen die drei Begleitmails sinnvoll durch Gesamtbild, Wissen/Perspektiven/Talent & Business sowie Hörsaal und Wissenswert? Passt die universelle PDF-Eingangsbestätigung für alle drei Eingänge? Besonders prüfen, ob an keiner Stelle mehr ein Ablauf, eine Restzeit oder eine 72-Stunden-Frist kommuniziert wird.",
+      "meeting": "Gemeinsame Freigabe der neuen Gastzugang-Kommunikation. Erst nach dieser Freigabe bekommt Daniela die Aufgabe final zugeteilt , die bestätigten Texte im KMS einzubauen. Bis dahin bitte keine Änderungen an den bestehenden KMS-Mails vornehmen. Nach der Freigabe kann Daniela die neuen Vorlagen in Ruhe übernehmen und die bisherige zeitabhängige Kommunikation entsprechend ersetzen.",
+      "createdAt": "2026-09-13T07:02:25.149Z",
+      "updatedAt": "2026-09-13T07:02:25.149Z",
+      "history": [
+        {
+          "at": "2026-09-13T07:02:25.149Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
