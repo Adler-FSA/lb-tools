@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Merchant Kompass – Voucher-System für Unternehmen | LiquidityBooster</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--mag:#c6006f;--text:#2b3846;--muted:#667587;--line:#dbe5e9;--soft:#f5f8f9;--mintsoft:#eaf9f9;--magsoft:#fff1f7;--warn:#fff8e8;--warnline:#ead9a3;--ok:#eaf8f1;--shadow:0 16px 40px rgba(19,34,56,.09);--r:22px;--max:1180px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#fbfdfd 0,#f2f6f7 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}button,input,textarea,select{font:inherit}.wrap{width:min(calc(100% - 24px),var(--max));margin:auto;padding:16px 0 70px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:13px}.brand{display:flex;align-items:center;gap:10px}.brand svg{width:42px;height:42px}.brand b{display:block;color:var(--navy)}.brand span{display:block;font-size:12px;color:var(--muted)}.miniNav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.miniNav a{font-size:12px;text-decoration:none;color:var(--navy);border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-weight:850}.hero,.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}.hero{background:linear-gradient(145deg,#fff 0 64%,#edfafa 100%)}.heroIn{padding:38px 36px}.eyebrow,.kicker{font-size:12px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}.eyebrow{color:var(--mint)}.kicker{color:var(--mag)}h1{margin:8px 0 12px;color:var(--navy);font-size:clamp(38px,6vw,62px);line-height:1.01;letter-spacing:-.045em}.lead{margin:0;max-width:940px;font-size:19px;color:#455669}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:24px}.fact{padding:15px;border:1px solid #cde7e8;background:rgba(255,255,255,.88);border-radius:16px}.fact b{display:block;color:var(--navy);margin-bottom:4px}.fact span{font-size:13px;color:var(--muted)}.section{margin-top:18px}.head{padding:25px 27px 14px}.head h2{margin:6px 0 7px;color:var(--navy);font-size:29px;line-height:1.12}.head p{margin:0;color:var(--muted);max-width:960px}.body{padding:0 27px 28px}.switchbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;padding:14px;border:1px solid var(--line);border-radius:18px;background:#fff;margin-top:18px;box-shadow:var(--shadow)}.switchGroup{display:flex;gap:7px;flex-wrap:wrap}.switchGroup button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:10px 14px;font-weight:900;cursor:pointer}.switchGroup button.active{background:var(--navy);color:#fff;border-color:var(--navy)}.switchGroup.mode button.active{background:var(--mint);border-color:var(--mint)}.switchLabel{font-size:12px;color:var(--muted);font-weight:850;margin-right:4px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.benefit,.techCard,.resultBox{border:1px solid var(--line);border-radius:16px;padding:16px;background:linear-gradient(180deg,#fff,#fbfdfd)}.benefit b,.techCard b,.resultBox b{display:block;color:var(--navy);margin-bottom:5px}.benefit p,.techCard p{margin:0;color:var(--muted);font-size:13px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}.step{position:relative;border:1px solid var(--line);border-radius:15px;background:#fff;padding:15px 13px;min-height:108px}.step .n{display:inline-flex;width:26px;height:26px;border-radius:9px;background:var(--navy);color:#fff;align-items:center;justify-content:center;font-weight:950;font-size:12px;margin-bottom:9px}.step b{display:block;color:var(--navy);line-height:1.25}.step p{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.45}.callout{margin-top:14px;border:1px solid #cce7e8;background:var(--mintsoft);border-radius:16px;padding:15px 16px;color:#36535a}.callout.mag{border-color:#edccdd;background:var(--magsoft);color:#6b3151}.callout.warn{border-color:var(--warnline);background:var(--warn);color:#67551f}.twoWorlds{display:grid;grid-template-columns:1fr 56px 1fr;gap:13px;align-items:center}.world{border:1px solid var(--line);border-radius:17px;padding:17px;background:#fff}.world h3{margin:0 0 8px;color:var(--navy)}.world p{margin:0;color:var(--muted);font-size:13px}.arrow{text-align:center;color:var(--mint);font-size:30px;font-weight:950}.path{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:13px}.chip{border-radius:999px;background:var(--navy);color:#fff;padding:7px 10px;font-size:12px;font-weight:900}.chip.mint{background:var(--mint)}.chip.mag{background:var(--mag)}.arr{color:var(--muted);font-weight:900}.field{margin-bottom:15px}.field label{display:block;color:var(--navy);font-weight:850;font-size:13px;margin-bottom:6px}.field small{display:block;color:var(--muted);margin-top:5px}.req:after{content:" *";color:var(--mag)}input,textarea,select{width:100%;border:1.5px solid #cdd8de;border-radius:12px;background:#fff;color:var(--navy);padding:11px 12px;outline:none}textarea{min-height:96px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,167,173,.09)}.calc{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fbfdfd}.calc h3{margin:0 0 5px;color:var(--navy)}.calcLead{margin:0 0 16px;color:var(--muted);font-size:13px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.resultBox{background:#fff}.resultBox span{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.resultBox strong{display:block;color:var(--navy);font-size:22px;letter-spacing:-.02em}.rateRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}.statusDot{width:9px;height:9px;border-radius:50%;background:#bbb}.statusDot.live{background:#1da66a}.statusText{font-size:12px;color:var(--muted)}.btn{appearance:none;border:0;border-radius:12px;padding:11px 15px;font-weight:900;cursor:pointer}.btn.primary{background:var(--navy);color:#fff}.btn.mint{background:var(--mint);color:#fff}.btn.mag{background:var(--mag);color:#fff}.btn.secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.summary{display:none}.summary.show{display:block}.preview{border:1px solid var(--line);border-radius:17px;background:#fff;padding:18px}.preview h3{margin:0 0 10px;color:var(--navy)}.previewGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.previewItem{border:1px solid #e6edef;border-radius:12px;padding:11px;background:#fbfcfd}.previewItem span{display:block;color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.04em}.previewItem b{display:block;color:var(--navy);margin-top:3px}.downloadBox{display:none;margin-top:13px;border:1px solid #bee1e2;background:var(--mintsoft);border-radius:15px;padding:14px}.downloadBox.show{display:block}.downloadBox a{display:inline-flex;margin-top:8px;text-decoration:none;background:var(--navy);color:#fff;border-radius:11px;padding:10px 13px;font-weight:900}.roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.road{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fff}.road em{display:inline-flex;width:26px;height:26px;border-radius:9px;align-items:center;justify-content:center;background:var(--mint);color:#fff;font-style:normal;font-weight:950;font-size:12px}.road b{display:block;color:var(--navy);margin:8px 0 4px}.road p{margin:0;color:var(--muted);font-size:12px}.hidden{display:none!important}details{border:1px solid var(--line);border-radius:15px;background:#fff;padding:0 15px}summary{cursor:pointer;font-weight:900;color:var(--navy);padding:14px 0}.sources{padding:0 0 14px}.sources a{color:#087f84}.foot{margin-top:20px;text-align:center;color:var(--muted);font-size:11px;line-height:1.55}.pdfSource{position:fixed;left:-100000px;top:0;width:720px;background:#fff;pointer-events:none;padding:20px}.pdfSource table{width:100%;border-collapse:collapse}.pdfSource td{padding:5px;border-bottom:1px solid #ddd}.pdfSource td:first-child{font-weight:700;width:34%}
+@media(max-width:900px){.facts,.grid3,.results,.roadmap{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.twoWorlds{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.grid2,.previewGrid{grid-template-columns:1fr}.heroIn{padding:30px 23px}.head,.body{padding-left:20px;padding-right:20px}}
+@media(max-width:560px){.wrap{width:min(calc(100% - 16px),var(--max));padding-top:8px}.brand span,.miniNav{display:none}.flow{grid-template-columns:1fr}.heroIn{padding:25px 18px}.head,.body{padding-left:16px;padding-right:16px}.switchbar{align-items:flex-start}.switchGroup{width:100%}.switchGroup button{flex:1}.actions{display:grid}.btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 56 16v18c0 12-8 21-24 26C16 55 8 46 8 34V16Z" fill="#132238"/><path d="M19 32 28 41 46 21" fill="none" stroke="#00a7ad" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="49" cy="48" r="7" fill="#c6006f"/></svg><div><b>LiquidityBooster</b><span>Akademie für finanzielle Souveränität</span></div></div>
+    <nav class="miniNav"><a href="#system">System</a><a href="#rechner">Rechner</a><a href="#angebot">Angebot</a><a href="#onboarding">Onboarding</a></nav>
+  </div>
+
+  <section class="hero">
+    <div class="heroIn">
+      <div class="eyebrow">Merchant Kompass · Gesprächswerkzeug</div>
+      <h1>Vom eigenen Angebot zur Akzeptanzstelle.</h1>
+      <p class="lead">Ein Werkzeug für Hoteliers, Geschäftsführer und Anbieter im Club Marktplatz. Es verbindet Geschäftsmodell, Voucher-Logik, Kundenperspektive, Angebotsvorbereitung und den Weg ins offizielle Händler-Onboarding.</p>
+      <div class="facts">
+        <div class="fact"><b>Geschäft zuerst</b><span>Der Nutzen für das Unternehmen steht vor Blockchain- oder Token-Begriffen.</span></div>
+        <div class="fact"><b>Rechnen statt versprechen</b><span>Planungsmodelle zeigen Verpflichtung, Nutzung und Größenordnungen – keine Rendite.</span></div>
+        <div class="fact"><b>PDF zum Mitnehmen</b><span>Aus dem Gespräch entsteht ein sauberes Unternehmer- und Marktplatzprofil.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="switchbar">
+    <div><span class="switchLabel">Anwendungsfall</span><div class="switchGroup" id="segmentSwitch"><button type="button" class="active" data-segment="hotel">🏨 Hotel & Gastgewerbe</button><button type="button" data-segment="company">🏢 Unternehmen & Händler</button></div></div>
+    <div><span class="switchLabel">Ansicht</span><div class="switchGroup mode" id="viewSwitch"><button type="button" class="active" data-view="business">Geschäftssicht</button><button type="button" data-view="tech">Technik verstehen</button></div></div>
+  </div>
+
+  <section class="card section" id="system">
+    <div class="head"><div class="kicker">1 · Geschäftsidee</div><h2 id="businessTitle">Was verändert sich für ein Hotel?</h2><p id="businessLead">Das System wird zuerst aus Sicht von Gast, Direktbuchung und Kundenbindung erklärt. Technik kommt erst dann, wenn sie für die Entscheidung gebraucht wird.</p></div>
+    <div class="body">
+      <div class="grid3">
+        <div class="benefit"><b id="b1t">Direktbuchungen stärken</b><p id="b1p">Ein eigener Vorteil kann Gästen einen zusätzlichen Grund geben, direkt oder erneut zu buchen.</p></div>
+        <div class="benefit"><b>Kundenbindung aufbauen</b><p>Statt eines einmaligen Preisnachlasses kann ein digitales Rabattrecht eine spätere Nutzung auslösen.</p></div>
+        <div class="benefit"><b>Akzeptanzstelle werden</b><p>Das Unternehmen kann – nach erfolgreichem Onboarding – selbst Bedingungen festlegen, unter denen Voucher als Rabatt berücksichtigt werden.</p></div>
+      </div>
+      <div class="flow" style="margin-top:14px">
+        <div class="step"><span class="n">1</span><b id="s1t">Gast bucht</b><p id="s1p">Zimmer, Reiseleistung oder eigenes Hotelangebot.</p></div>
+        <div class="step"><span class="n">2</span><b>Reward / Voucher</b><p>Je nach Programm kann der Kunde ein digitales Rabattrecht erhalten.</p></div>
+        <div class="step"><span class="n">3</span><b>Kunde besitzt Rabattrecht</b><p>Voucher Currency ist nicht gleich Bargeld, Bankguthaben oder Stablecoin.</p></div>
+        <div class="step"><span class="n">4</span><b id="s4t">Spätere Reise oder Akzeptanzstelle</b><p id="s4p">Der Gast nutzt das Rabattrecht bei einer dafür vorgesehenen Leistung.</p></div>
+        <div class="step"><span class="n">5</span><b>Rabatt + reguläre Zahlung</b><p>Der Voucher reduziert den Preis nach den veröffentlichten Bedingungen; der Rest wird normal bezahlt.</p></div>
+      </div>
+      <div class="callout"><strong>Wichtig:</strong> v$ und andere Voucher Currencies werden hier als digitale Rabattrechte erklärt – nicht als gesetzliches Zahlungsmittel, Bankguthaben oder Garantie einer Fiat-Auszahlung.</div>
+    </div>
+  </section>
+
+  <section class="card section" id="techSection" hidden>
+    <div class="head"><div class="kicker">2 · Technik verstehen</div><h2>Was steckt hinter dem sichtbaren Rabatt?</h2><p>Die Logik aus der Voucher-Lernseite wird auf die Unternehmerperspektive übersetzt.</p></div>
+    <div class="body">
+      <div class="grid2">
+        <div class="techCard"><b>VOW · Reserve-/Allokationslogik</b><p>Beim Erzeugen von Voucher Currency kann nach den jeweils gültigen Regeln eine VOW-Allokation erforderlich sein. Ein Satz von 20 % ist ein Whitepaper-Beispiel und kein unveränderlicher Universalsatz.</p></div>
+        <div class="techCard"><b>Voucher Currency · Rabattrecht</b><p>v$, v€, v£ und weitere Einheiten bilden digitale Rabattrechte. Nennwert, DEX-Handelswert und tatsächlicher Nutzwert bei einer Akzeptanzstelle sind voneinander zu unterscheiden.</p></div>
+        <div class="techCard"><b>Voucher Ledger · Abrechnung</b><p>Der Voucher Ledger bildet die Infrastruktur für Ausgabe, Übertragung, Annahme und Einlösung innerhalb angeschlossener Programme.</p></div>
+        <div class="techCard"><b>Merchant Onboarding</b><p>Formale Händleraufnahme, Prüfung und technische Aktivierung laufen über den vorgesehenen Anbieter-/MVD-Prozess. Das Gesprächswerkzeug ersetzt dieses Onboarding nicht.</p></div>
+      </div>
+      <div class="twoWorlds" style="margin-top:16px">
+        <div class="world"><h3>Unternehmensseite · Ausgabe</h3><p>Das Unternehmen definiert Angebot und Bedingungen. Nach dem gültigen Onboarding kann Voucher Currency im vorgesehenen Programm ausgegeben und später wieder akzeptiert werden.</p><div class="path"><span class="chip">Angebot</span><span class="arr">→</span><span class="chip mint">Allokation</span><span class="arr">→</span><span class="chip mag">Voucher</span><span class="arr">→</span><span class="chip">Kunde</span></div></div>
+        <div class="arrow">↔</div>
+        <div class="world"><h3>Kundenseite · Nutzung</h3><p>Der Kunde erhält oder erwirbt ein Rabattrecht. Entscheidend ist anschließend, wo es akzeptiert wird und welchen Nutzwert die konkrete Akzeptanzstelle nach ihren Bedingungen gewährt.</p><div class="path"><span class="chip">v$</span><span class="arr">→</span><span class="chip mint" id="useChip">VTravel / Akzeptanzstelle</span><span class="arr">→</span><span class="chip mag">Rabatt</span></div></div>
+      </div>
+      <div class="callout warn"><strong>Trennung der Werte:</strong> Ein aktueller DEX-Handelswert ist nicht automatisch der Nutzwert beim Händler. Genau diese Trennung ist für Unternehmer und Kunden wichtig.</div>
+    </div>
+  </section>
+
+  <section class="card section">
+    <div class="head"><div class="kicker">3 · Seite 7 + Seite 8 in Unternehmersprache</div><h2 id="bridgeTitle">So greifen Voucher-Logik und VTravel für den Hotelier ineinander</h2><p id="bridgeLead">Die technische Ausgabe- und Reserve-Logik liegt auf der Unternehmensseite. Der Gast erlebt davon vor allem Reward, Rabattrecht und spätere Nutzung.</p></div>
+    <div class="body">
+      <div class="twoWorlds">
+        <div class="world"><h3>Unternehmen</h3><p id="companyWorld">Hotel definiert ein Angebot, entscheidet über Reward-/Akzeptanzbedingungen und durchläuft bei Nutzung des Voucher-Systems das offizielle Händler-Onboarding.</p><div class="path"><span class="chip">Hotel</span><span class="arr">→</span><span class="chip mint">Voucher-Modell</span><span class="arr">→</span><span class="chip mag">Akzeptanz</span></div></div>
+        <div class="arrow">→</div>
+        <div class="world"><h3>Kunde</h3><p id="customerWorld">Der Gast kann v$ erhalten oder erwerben und sie – entsprechend den aktuell geltenden Bedingungen – bei VTravel oder einer teilnehmenden Akzeptanzstelle als Rabattrecht nutzen.</p><div class="path"><span class="chip">v$</span><span class="arr">→</span><span class="chip mint" id="customerUseChip">VTravel</span><span class="arr">→</span><span class="chip mag">Nutzwert</span></div></div>
+      </div>
+      <div class="callout mag" id="travelNote"><strong>VTravel ist ein Anwendungsfall – nicht das gesamte Händlersystem.</strong> Das Händler-/Akzeptanzstellen-Modell ist größer und kann auch für andere Branchen und Angebote relevant sein.</div>
+    </div>
+  </section>
+
+  <section class="card section" id="rechner">
+    <div class="head"><div class="kicker">4 · Rechnen</div><h2>Werte sichtbar machen – ohne sie gleichzusetzen</h2><p>Zwei kleine Rechner helfen im Gespräch: einmal aus Kundensicht und einmal aus Unternehmenssicht.</p></div>
+    <div class="body">
+      <div class="grid2">
+        <div class="calc">
+          <h3>Kundensicht · Handelswert vs. Nutzwert</h3>
+          <p class="calcLead" id="customerCalcLead">Für Hotels ist als Beispiel der 1:1-Nutzwert von v$ im VTravel-Modell voreingestellt. Der aktuelle DEX-Handelswert bleibt davon getrennt.</p>
+          <div class="grid2">
+            <div class="field"><label for="vQty">v$ Menge</label><input id="vQty" type="number" min="0" step="1" value="100"></div>
+            <div class="field"><label for="vMarket">1 v$ · Handelswert in USD</label><input id="vMarket" type="number" min="0" step="0.0001" value="0.41"></div>
+            <div class="field"><label for="vUse" id="vUseLabel">1 v$ · VTravel-Nutzwert in USD</label><input id="vUse" type="number" min="0" step="0.01" value="1.00"></div>
+            <div class="field"><label for="usdEur">1 USD in EUR</label><input id="usdEur" type="number" min="0" step="0.0001" value="0.85"></div>
+          </div>
+          <div class="rateRow"><span id="vDot" class="statusDot"></span><span id="vStatus" class="statusText">Live-Kurs wird geladen …</span><button type="button" class="btn secondary" id="reloadRates">Kurse neu laden</button></div>
+          <div class="results">
+            <div class="resultBox"><span>DEX-Handelswert</span><strong id="tradeValue">—</strong></div>
+            <div class="resultBox"><span id="useValueCaption">VTravel-Nutzwert</span><strong id="useValue">—</strong></div>
+            <div class="resultBox"><span>Differenz der Werte</span><strong id="valueDiff">—</strong></div>
+          </div>
+        </div>
+
+        <div class="calc">
+          <h3>Unternehmenssicht · Voucher-Planungsmodell</h3>
+          <p class="calcLead">Das Modell übersetzt Umsatz, geplanten Reward, erwartete Einlösung und eine beispielhafte VOW-Allokation in Größenordnungen. Es ist kein Onboarding-Angebot.</p>
+          <div class="grid2">
+            <div class="field"><label for="eligibleSales">Monatlicher relevanter Umsatz in EUR</label><input id="eligibleSales" type="number" min="0" step="100" value="10000"></div>
+            <div class="field"><label for="rewardPct">Geplanter Reward in %</label><input id="rewardPct" type="number" min="0" max="100" step="1" value="10"></div>
+            <div class="field"><label for="redeemPct">Erwartete Einlösung in %</label><input id="redeemPct" type="number" min="0" max="100" step="1" value="30"></div>
+            <div class="field"><label for="allocationPct">Beispiel-Allokation in %</label><input id="allocationPct" type="number" min="0" max="100" step="1" value="20"><small>20 % ist ein Lern-/Whitepaper-Beispiel. Tatsächliche Bedingungen separat prüfen.</small></div>
+            <div class="field"><label for="vowUsd">1 VOW · Handelswert in USD</label><input id="vowUsd" type="number" min="0" step="0.0001" value="0.043"></div>
+          </div>
+          <div class="results">
+            <div class="resultBox"><span>Geplante Voucher-Ausgabe</span><strong id="issuedV">—</strong></div>
+            <div class="resultBox"><span>Modellierte VOW-Allokation</span><strong id="vowAlloc">—</strong></div>
+            <div class="resultBox"><span>VOW-Menge zum aktuellen Kurs</span><strong id="vowQty">—</strong></div>
+            <div class="resultBox"><span>Erwartet eingelöst</span><strong id="redeemedV">—</strong></div>
+            <div class="resultBox"><span>Offene Voucher-Menge</span><strong id="openV">—</strong></div>
+            <div class="resultBox"><span>Umsatzbasis in USD</span><strong id="salesUsd">—</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout warn"><strong>Planungsmodell:</strong> Gebühren, Slippage, konkrete Programmlimits, steuerliche Behandlung, individuelle Verträge und technische Onboarding-Regeln sind nicht enthalten. Vor einer echten Umsetzung gelten die aktuellen Anbieterbedingungen und die tatsächliche DApp-/Onboarding-Anzeige.</div>
+    </div>
+  </section>
+
+  <section class="card section" id="angebot">
+    <div class="head"><div class="kicker">5 · Club Marktplatz</div><h2>Das Angebot so vorbereiten, dass man es sofort versteht</h2><p>Der Merchant Kompass funktioniert auch ohne Voucher-System. Jeder Anbieter kann damit sein Angebot für den Club Marktplatz strukturieren; Voucher/Reward ist ein optionaler zusätzlicher Baustein.</p></div>
+    <div class="body">
+      <form id="offerForm" novalidate>
+        <div class="grid2">
+          <div class="field"><label class="req" for="company">Unternehmen / Hotel</label><input id="company" required></div>
+          <div class="field"><label class="req" for="contact">Ansprechpartner</label><input id="contact" required></div>
+          <div class="field"><label class="req" for="email">E-Mail</label><input id="email" type="email" required></div>
+          <div class="field"><label for="website">Website</label><input id="website" type="url" placeholder="https://"></div>
+          <div class="field"><label class="req" for="industry">Branche</label><input id="industry" required placeholder="z. B. Hotel, Gastronomie, Beratung, Gesundheit"></div>
+          <div class="field"><label for="region">Region / Verfügbarkeit</label><input id="region" placeholder="z. B. Bodensee, deutschlandweit, online"></div>
+        </div>
+        <div class="field"><label class="req" for="offerTitle">Titel des Club-Marktplatz-Angebots</label><input id="offerTitle" required placeholder="Kurz und konkret"></div>
+        <div class="field"><label class="req" for="offerDesc">Was bekommt das Club-Mitglied konkret?</label><textarea id="offerDesc" required></textarea></div>
+        <div class="grid2">
+          <div class="field"><label class="req" for="target">Zielgruppe</label><textarea id="target" required></textarea></div>
+          <div class="field"><label class="req" for="benefit">Club-Vorteil / Preis / Mehrwert</label><textarea id="benefit" required placeholder="z. B. Sonderpreis, Zusatzleistung, Upgrade, Rabatt"></textarea></div>
+          <div class="field"><label for="regularPrice">Regulärer Preis / Referenz</label><input id="regularPrice"></div>
+          <div class="field"><label for="clubPrice">Club-Preis / Club-Vorteil</label><input id="clubPrice"></div>
+          <div class="field"><label for="voucherRole">Voucher-/Reward-Modell</label><select id="voucherRole"><option value="Kein Voucher-Modell geplant">Kein Voucher-Modell geplant</option><option value="Reward ausgeben">Reward ausgeben</option><option value="v$ als Rabatt akzeptieren">v$ als Rabatt akzeptieren</option><option value="Reward ausgeben und v$ akzeptieren">Reward ausgeben und v$ akzeptieren</option><option value="Noch zu klären">Noch zu klären</option></select></div>
+          <div class="field"><label for="acceptance">Akzeptanzbedingungen / Grenzen</label><textarea id="acceptance" placeholder="z. B. Mindestumsatz, bestimmte Leistungen, Zeitraum, max. Anteil"></textarea></div>
+        </div>
+        <div class="field"><label for="cta">Was soll ein interessiertes Club-Mitglied als Nächstes tun?</label><textarea id="cta" placeholder="Kontakt aufnehmen, Termin buchen, Code nennen, Anfrage senden …"></textarea></div>
+        <div class="field"><label for="notes">Was muss vor Veröffentlichung noch geklärt werden?</label><textarea id="notes"></textarea></div>
+        <div class="actions"><button class="btn primary" type="submit">Angebotsprofil erstellen</button><button class="btn secondary" id="resetBtn" type="button">Felder leeren</button></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="summary" class="card section summary">
+    <div class="head"><div class="kicker">6 · Gesprächsergebnis</div><h2>Unternehmer- und Marktplatzprofil</h2><p>Die Angaben und die aktuelle Modellrechnung können jetzt als PDF ausgegeben werden. Die PDF entsteht direkt im Browser.</p></div>
+    <div class="body">
+      <div class="preview"><h3 id="previewTitle">—</h3><div class="previewGrid" id="previewGrid"></div></div>
+      <div class="actions"><button class="btn mint" id="pdfBtn" type="button">Unternehmer-PDF erstellen</button></div>
+      <div id="pdfDownload" class="downloadBox"></div>
+      <div class="callout" style="margin-top:13px"><strong>Datenschutz:</strong> Die PDF wird lokal auf dieser Seite erzeugt. Das Erstellen der PDF überträgt die Formulardaten nicht automatisch an LiquidityBooster.</div>
+    </div>
+  </section>
+
+  <section class="card section" id="onboarding">
+    <div class="head"><div class="kicker">7 · Nächster Schritt</div><h2>Vom Gespräch in den echten Händlerprozess</h2><p>Die Rollen werden bewusst getrennt: Gespräch und Angebotsvorbereitung hier – formales Merchant-Onboarding anschließend im dafür vorgesehenen System.</p></div>
+    <div class="body">
+      <div class="roadmap">
+        <div class="road"><em>1</em><b>Erstgespräch</b><p>Geschäftsmodell, Angebot und Ziel des Unternehmens verstehen.</p></div>
+        <div class="road"><em>2</em><b>Club-Marktplatz-Angebot</b><p>Nutzen, Zielgruppe, Preisvorteil und Bedingungen klar formulieren.</p></div>
+        <div class="road"><em>3</em><b>Voucher-Eignung</b><p>Prüfen, ob Reward, Akzeptanz oder beides für das Angebot sinnvoll sind.</p></div>
+        <div class="road"><em>4</em><b>Formale Prüfung</b><p>Unternehmensdaten, Verifikation und erforderliche Compliance im offiziellen Händlerprozess.</p></div>
+        <div class="road"><em>5</em><b>Technische Aktivierung</b><p>Voucher-/Ledger-/Akzeptanzfunktionen werden nur im vorgesehenen Anbieterprozess aktiviert.</p></div>
+        <div class="road"><em>6</em><b>Live gehen</b><p>Club-Marktplatz, Akzeptanzangebot und Kundenkommunikation werden sauber voneinander abgegrenzt veröffentlicht.</p></div>
+      </div>
+      <div class="callout mag"><strong>Rolle von Oliver / Club Leader:</strong> Geschäftsmodell erklären, Bedarf klären, Angebot vorbereiten und den Kontakt zum vorgesehenen Onboarding anstoßen. Eine formale MVD- oder Anbieterrolle wird hier nicht unterstellt.</div>
+    </div>
+  </section>
+
+  <section class="card section">
+    <div class="head"><div class="kicker">Nachweise</div><h2>Technik & Quellen nachvollziehen</h2></div>
+    <div class="body">
+      <details><summary>Quellen und interne Lernseiten öffnen</summary><div class="sources">
+        <p><a href="../tln/voucher-handling.html" target="_blank" rel="noopener">TLN Hörsaal · Voucher Handling – Grundlagen</a></p>
+        <p><a href="../tln/vtravel.html" target="_blank" rel="noopener">TLN Hörsaal · VTravel – praktische Nutzung</a></p>
+        <p><a href="https://vowwhitepaper.com/economics/minting-vouchers" target="_blank" rel="noopener">VOW Whitepaper · Minting vouchers</a></p>
+        <p><a href="https://vowwhitepaper.com/infrastructure/voucher-ledger" target="_blank" rel="noopener">VOW Whitepaper · Voucher Ledger</a></p>
+        <p><a href="https://vowchers.com/merchants" target="_blank" rel="noopener">Vowchers · Merchant information</a></p>
+      </div></details>
+    </div>
+  </section>
+
+  <div class="foot">Bildungs- und Gesprächswerkzeug der Akademie für finanzielle Souveränität · Keine Anlage-, Rechts- oder Steuerberatung · Keine Rendite-, Preis- oder Erfolgsgarantie.</div>
+</div>
+
+<script src="../vertraege/contract-pdf-engine-v2.js?v=3"></script>
+<script>
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let segment='hotel',view='business',pdfUrl='';
+const VPOOL='https://api.geckoterminal.com/api/v2/networks/bsc/pools/0x4cE91C45c140486A3a9d52b16015DD58254115B9';
+const VOWPOOL='https://api.geckoterminal.com/api/v2/networks/bsc/pools/0xC6585bc17b53792f281a9739579DD60535c1F9FB';
+const FX='https://api.frankfurter.dev/v2/rate/usd/eur';
+const num=id=>Math.max(0,Number($(id)?.value||0));
+const moneyUSD=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(isFinite(n)?n:0);
+const moneyEUR=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(isFinite(n)?n:0);
+const fmt=n=>new Intl.NumberFormat('de-DE',{maximumFractionDigits:2}).format(isFinite(n)?n:0);
+const val=id=>String($(id)?.value||'').trim();
+
+function applySegment(){
+  const hotel=segment==='hotel';
+  $('#businessTitle').textContent=hotel?'Was verändert sich für ein Hotel?':'Was verändert sich für ein Unternehmen?';
+  $('#businessLead').textContent=hotel?'Das System wird zuerst aus Sicht von Gast, Direktbuchung und Kundenbindung erklärt. Technik kommt erst dann, wenn sie für die Entscheidung gebraucht wird.':'Das System wird zuerst aus Sicht von Angebot, Kunde und Wiederkauf erklärt. Technik kommt erst dann, wenn sie für die Entscheidung gebraucht wird.';
+  $('#b1t').textContent=hotel?'Direktbuchungen stärken':'Eigenes Angebot sichtbarer machen';
+  $('#b1p').textContent=hotel?'Ein eigener Vorteil kann Gästen einen zusätzlichen Grund geben, direkt oder erneut zu buchen.':'Ein klarer Club-Vorteil kann das eigene Produkt oder die Dienstleistung für eine definierte Zielgruppe attraktiver machen.';
+  $('#s1t').textContent=hotel?'Gast bucht':'Kunde kauft / bucht';
+  $('#s1p').textContent=hotel?'Zimmer, Reiseleistung oder eigenes Hotelangebot.':'Produkt, Dienstleistung oder individuelles Club-Marktplatz-Angebot.';
+  $('#s4t').textContent=hotel?'Spätere Reise oder Akzeptanzstelle':'Spätere Nutzung bei einer Akzeptanzstelle';
+  $('#s4p').textContent=hotel?'Der Gast nutzt das Rabattrecht bei einer dafür vorgesehenen Reise- oder Händlerleistung.':'Der Kunde nutzt das Rabattrecht nach den veröffentlichten Bedingungen eines teilnehmenden Unternehmens.';
+  $('#bridgeTitle').textContent=hotel?'So greifen Voucher-Logik und VTravel für den Hotelier ineinander':'So greift die Voucher-Logik für Unternehmen und Club-Marktplatz-Angebote';
+  $('#bridgeLead').textContent=hotel?'Die technische Ausgabe- und Reserve-Logik liegt auf der Unternehmensseite. Der Gast erlebt davon vor allem Reward, Rabattrecht und spätere Nutzung.':'Das Club-Marktplatz-Angebot funktioniert auch ohne Voucher. Wird das Voucher-System genutzt, kommen Reward-/Akzeptanzbedingungen und formales Händler-Onboarding hinzu.';
+  $('#companyWorld').textContent=hotel?'Hotel definiert ein Angebot, entscheidet über Reward-/Akzeptanzbedingungen und durchläuft bei Nutzung des Voucher-Systems das offizielle Händler-Onboarding.':'Unternehmen definiert sein Club-Marktplatz-Angebot. Optional kann nach offiziellem Onboarding zusätzlich ein Reward-/Akzeptanzmodell eingebunden werden.';
+  $('#customerWorld').textContent=hotel?'Der Gast kann v$ erhalten oder erwerben und sie – entsprechend den aktuell geltenden Bedingungen – bei VTravel oder einer teilnehmenden Akzeptanzstelle als Rabattrecht nutzen.':'Der Kunde erhält den veröffentlichten Club-Vorteil. Wenn Voucher integriert sind, kann zusätzlich ein digitales Rabattrecht nach den Bedingungen der jeweiligen Akzeptanzstelle genutzt werden.';
+  $('#customerUseChip').textContent=hotel?'VTravel':'Akzeptanzstelle';
+  $('#useChip').textContent=hotel?'VTravel / Akzeptanzstelle':'Akzeptanzstelle';
+  $('#travelNote').innerHTML=hotel?'<strong>VTravel ist ein Anwendungsfall – nicht das gesamte Händlersystem.</strong> Das Händler-/Akzeptanzstellen-Modell ist größer und kann auch für andere Branchen und Angebote relevant sein.':'<strong>Club Marktplatz und Voucher-System sind zwei getrennte Ebenen.</strong> Ein Angebot kann im Club Marktplatz stehen, ohne dass automatisch Voucher ausgegeben oder akzeptiert werden.';
+  $('#customerCalcLead').textContent=hotel?'Für Hotels ist als Beispiel der 1:1-Nutzwert von v$ im VTravel-Modell voreingestellt. Der aktuelle DEX-Handelswert bleibt davon getrennt.':'Für andere Unternehmen bleibt der Anrechnungswert ein Planungsfeld. Der aktuelle DEX-Handelswert darf nicht automatisch mit dem späteren Nutzwert beim Händler gleichgesetzt werden.';
+  $('#vUseLabel').textContent=hotel?'1 v$ · VTravel-Nutzwert in USD':'1 v$ · geplanter Anrechnungswert in USD';
+  $('#useValueCaption').textContent=hotel?'VTravel-Nutzwert':'Geplanter Nutzwert';
+  calcAll();
+}
+function applyView(){
+  $('#techSection').hidden=view!=='tech';
+  if(view==='tech')$('#techSection').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$$('#segmentSwitch button').forEach(b=>b.addEventListener('click',()=>{segment=b.dataset.segment;$$('#segmentSwitch button').forEach(x=>x.classList.toggle('active',x===b));applySegment()}));
+$$('#viewSwitch button').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;$$('#viewSwitch button').forEach(x=>x.classList.toggle('active',x===b));applyView()}));
+
+function calcCustomer(){
+  const q=num('#vQty'),m=num('#vMarket'),u=num('#vUse'),fx=num('#usdEur');
+  const trade=q*m,use=q*u,diff=use-trade;
+  $('#tradeValue').textContent=moneyUSD(trade)+' · '+moneyEUR(trade*fx);
+  $('#useValue').textContent=moneyUSD(use)+' · '+moneyEUR(use*fx);
+  $('#valueDiff').textContent=moneyUSD(diff)+(trade>0?' · '+fmt((diff/trade)*100)+' %':'');
+}
+function calcMerchant(){
+  const eur=num('#eligibleSales'),reward=num('#rewardPct')/100,redeem=num('#redeemPct')/100,alloc=num('#allocationPct')/100,vow=num('#vowUsd'),fx=num('#usdEur')||1;
+  const salesUsd=eur/fx,issued=salesUsd*reward,redeemed=issued*redeem,open=issued-redeemed,allocUsd=issued*alloc,vowQty=vow>0?allocUsd/vow:0;
+  $('#salesUsd').textContent=moneyUSD(salesUsd);
+  $('#issuedV').textContent=fmt(issued)+' v$';
+  $('#redeemedV').textContent=fmt(redeemed)+' v$';
+  $('#openV').textContent=fmt(open)+' v$';
+  $('#vowAlloc').textContent=moneyUSD(allocUsd)+' · '+moneyEUR(allocUsd*fx);
+  $('#vowQty').textContent=fmt(vowQty)+' VOW';
+}
+function calcAll(){calcCustomer();calcMerchant()}
+['vQty','vMarket','vUse','usdEur','eligibleSales','rewardPct','redeemPct','allocationPct','vowUsd'].forEach(id=>$('#'+id).addEventListener('input',calcAll));
+
+function poolPrice(a,symbol){
+  const name=(a.name||'').toLowerCase().replace(/\s+/g,'');
+  const s=symbol.toLowerCase();
+  if(name.startsWith(s+'/'))return +a.base_token_price_usd;
+  if(name.includes('/'+s))return +a.quote_token_price_usd;
+  return NaN;
+}
+async function loadRates(){
+  $('#vStatus').textContent='Live-Kurse werden geladen …';$('#vDot').classList.remove('live');
+  try{
+    const [vr,vowr,fxr]=await Promise.all([fetch(VPOOL,{cache:'no-store'}),fetch(VOWPOOL,{cache:'no-store'}),fetch(FX,{cache:'no-store'})]);
+    if(!vr.ok||!vowr.ok||!fxr.ok)throw new Error('HTTP');
+    const [vj,wj,fj]=await Promise.all([vr.json(),vowr.json(),fxr.json()]);
+    const vp=poolPrice(vj.data?.attributes||{},'v$');
+    const wp=poolPrice(wj.data?.attributes||{},'vow');
+    const fx=+(fj.rate||fj.rates?.EUR||0);
+    if(vp>0)$('#vMarket').value=vp.toFixed(4);
+    if(wp>0)$('#vowUsd').value=wp.toFixed(4);
+    if(fx>0)$('#usdEur').value=fx.toFixed(4);
+    if(!(vp>0)||!(wp>0)||!(fx>0))throw new Error('Preis nicht vollständig');
+    $('#vDot').classList.add('live');$('#vStatus').textContent='Live-Daten: v$ aus USDC/v$ · VOW aus VOW/USDT · USD/EUR über Frankfurter';
+  }catch(e){
+    $('#vStatus').textContent='Live-Daten nicht vollständig verfügbar – Eingabefelder bleiben manuell nutzbar.';
+  }
+  calcAll();
+}
+$('#reloadRates').addEventListener('click',loadRates);
+
+function escapeHtml(s){return String(s||'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function currentCalcRows(){return [
+  ['Anwendungsfall',segment==='hotel'?'Hotel & Gastgewerbe':'Unternehmen & Händler'],
+  ['v$ DEX-Handelswert',val('#vMarket')+' USD'],['Geplanter/Nutzwert je v$',val('#vUse')+' USD'],
+  ['Relevanter Monatsumsatz',val('#eligibleSales')+' EUR'],['Reward-Planung',val('#rewardPct')+' %'],
+  ['Erwartete Einlösung',val('#redeemPct')+' %'],['Beispiel-Allokation',val('#allocationPct')+' %'],['VOW-Handelswert',val('#vowUsd')+' USD']
+]}
+function formRows(){return [
+  ['Unternehmen / Hotel',val('#company')],['Ansprechpartner',val('#contact')],['E-Mail',val('#email')],['Website',val('#website')],['Branche',val('#industry')],['Region / Verfügbarkeit',val('#region')],
+  ['Angebotstitel',val('#offerTitle')],['Angebot',val('#offerDesc')],['Zielgruppe',val('#target')],['Club-Vorteil / Mehrwert',val('#benefit')],['Regulärer Preis',val('#regularPrice')],['Club-Preis / Vorteil',val('#clubPrice')],['Voucher-/Reward-Modell',val('#voucherRole')],['Akzeptanzbedingungen',val('#acceptance')],['Nächster Schritt für Interessenten',val('#cta')],['Vor Veröffentlichung zu klären',val('#notes')]
+]}
+function showPreview(){
+  $('#previewTitle').textContent=val('#offerTitle')||val('#company')||'Angebotsprofil';
+  const rows=formRows().filter(r=>r[1]);
+  $('#previewGrid').innerHTML=rows.map(([a,b])=>`<div class="previewItem"><span>${escapeHtml(a)}</span><b>${escapeHtml(b)}</b></div>`).join('');
+  $('#summary').classList.add('show');$('#summary').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$('#offerForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const required=[...e.currentTarget.querySelectorAll('[required]')];
+  const bad=required.find(x=>!x.value.trim());
+  if(bad){bad.focus();bad.style.borderColor='#c6006f';return}
+  showPreview();
+});
+$('#resetBtn').addEventListener('click',()=>{
+  if(!confirm('Alle Angebotsfelder wirklich leeren?'))return;
+  $('#offerForm').reset();$('#summary').classList.remove('show');
+});
+
+function add(parent,tag,text){const el=document.createElement(tag);el.textContent=text;parent.appendChild(el);return el}
+function buildPdfSource(){
+  const src=document.createElement('section');src.className='pdfSource';src.id='merchantPdfSource';
+  add(src,'h1','Merchant Kompass – Unternehmer- & Marktplatzprofil');
+  add(src,'p','Gesprächs- und Vorbereitungsdokument · LiquidityBooster / Akademie für finanzielle Souveränität');
+  add(src,'h2','1. Unternehmen & Angebot');
+  const t=document.createElement('table');src.appendChild(t);
+  formRows().forEach(([a,b])=>{const tr=document.createElement('tr'),td1=document.createElement('td'),td2=document.createElement('td');td1.textContent=a;td2.textContent=b||'—';tr.append(td1,td2);t.appendChild(tr)});
+  add(src,'h2','2. Planungsannahmen');
+  const t2=document.createElement('table');src.appendChild(t2);
+  currentCalcRows().forEach(([a,b])=>{const tr=document.createElement('tr'),td1=document.createElement('td'),td2=document.createElement('td');td1.textContent=a;td2.textContent=b||'—';tr.append(td1,td2);t2.appendChild(tr)});
+  add(src,'h2','3. Aktuelle Modellrechnung');
+  add(src,'p','Geplante Voucher-Ausgabe: '+$('#issuedV').textContent);
+  add(src,'p','Modellierte VOW-Allokation: '+$('#vowAlloc').textContent);
+  add(src,'p','VOW-Menge zum eingegebenen/geladenen Kurs: '+$('#vowQty').textContent);
+  add(src,'p','Erwartet eingelöst: '+$('#redeemedV').textContent);
+  add(src,'p','Offene Voucher-Menge: '+$('#openV').textContent);
+  add(src,'h2','4. Einordnung');
+  add(src,'p','Das Club-Marktplatz-Angebot und das Voucher-System sind getrennte Ebenen. Voucher-/Reward-Funktionen setzen ein geeignetes offizielles Händler-Onboarding voraus.');
+  add(src,'p','Voucher Currency wird in diesem Dokument als digitales Rabattrecht dargestellt. DEX-Handelswert, Nennwert und Nutzwert bei einer Akzeptanzstelle sind voneinander zu unterscheiden.');
+  add(src,'p','Die Beispiel-Allokation und alle Rechenergebnisse dienen ausschließlich der Planung und Bildung. Maßgeblich sind vor einer echten Umsetzung die aktuellen Anbieterbedingungen, Verträge, technischen Anzeigen und erforderlichen Prüfungen.');
+  document.body.appendChild(src);return src;
+}
+async function makePdf(){
+  if(!window.FSAContractPdfEngine||window.FSAContractPdfEngine.version!=='FSA_CONTRACT_PDF_ENGINE_V2'){
+    alert('PDF Engine V2 konnte nicht geladen werden. Bitte Seite neu laden.');return;
+  }
+  const btn=$('#pdfBtn'),old=btn.textContent;btn.disabled=true;btn.textContent='PDF wird erstellt …';
+  const src=buildPdfSource();
+  try{
+    const safe=window.FSAContractPdfEngine.safeFilePart(val('#company')||'Unternehmen');
+    const d=new Date(),p=n=>String(n).padStart(2,'0'),date=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+    const out=await window.FSAContractPdfEngine.generate({contentRoot:src,fieldsRoot:src,titleText:'Merchant Kompass – Unternehmer- & Marktplatzprofil',subtitleText:(val('#company')||'Unternehmen')+' · '+(val('#offerTitle')||'Angebot'),footerText:'Merchant Kompass · LiquidityBooster',filename:`Merchant_Kompass_${safe}_${date}.pdf`,autoDownload:false});
+    if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=URL.createObjectURL(out.blob);
+    const box=$('#pdfDownload');box.classList.add('show');box.innerHTML='';
+    const b=document.createElement('b');b.textContent='PDF fertig · '+out.pages+' Seite'+(out.pages===1?'':'n');
+    const p=document.createElement('p');p.textContent='Die Datei wurde direkt im Browser erzeugt. Tippe auf den Button, um sie unter dem vorbereiteten Namen zu speichern.';
+    const a=document.createElement('a');a.href=pdfUrl;a.download=out.filename;a.rel='noopener';a.textContent='PDF herunterladen / speichern';
+    box.append(b,p,a);box.scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(err){console.error(err);alert('Die PDF konnte nicht erstellt werden: '+(err?.message||String(err)))}
+  finally{src.remove();btn.disabled=false;btn.textContent=old}
+}
+$('#pdfBtn').addEventListener('click',makePdf);
+window.addEventListener('pagehide',()=>{if(pdfUrl)URL.revokeObjectURL(pdfUrl)});
+applySegment();calcAll();loadRates();
+})();
+</script>
+</body>
+</html>
