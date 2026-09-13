@@ -184,16 +184,20 @@
       "type": "function",
       "releaseDate": "2026-09-21",
       "url": "https://tools.liquiditybooster.de/pages/tln/tln-network.html#start",
-      "what": "Neue Lernseite zur TLN-Network-Logik mit Empfehlungsebenen, Reward-Tiefe und interaktivem Simulator.",
-      "why": "Damit Club-Mitglieder das Network-Modell, die eigene E1 und die entstehende Tiefe einfach nachvollziehen können.",
-      "test": "Verständlichkeit der Ebenenlogik, Simulator, Reward-Sätze, mobile Darstellung und Disclaimer prüfen.",
-      "meeting": "Freigabe der Inhalte und Entscheidung, ob Seite 9 so in den TLN Hörsaal übernommen wird.",
+      "what": "Lernseite zur TLN-Network-Logik mit Empfehlungsebenen, Reward-Rechner und TLNx→v$ Wechselrechner inklusive VOW-Komponente und Live-Kursen.",
+      "why": "Damit Club-Mitglieder verstehen, wie TLNx-Rewards entstehen und wie daraus über den 1:1-Wechsel v$ für die weitere Nutzung im Ökosystem werden können.",
+      "test": "Ebenenlogik, Reward-Berechnung, TLNx→v$ Wechsel, 20-%-VOW-Komponente, Live-Kurse, mobile Darstellung und Verständlichkeit prüfen.",
+      "meeting": "Inhalte und Rechner freigeben und entscheiden, ob Seite 9 so in den TLN Hörsaal übernommen wird.",
       "createdAt": "2026-09-12T16:55:02.655Z",
-      "updatedAt": "2026-09-12T16:55:02.655Z",
+      "updatedAt": "2026-09-13T14:57:35.462Z",
       "history": [
         {
           "at": "2026-09-12T16:55:02.655Z",
           "event": "created"
+        },
+        {
+          "at": "2026-09-13T14:57:35.462Z",
+          "event": "updated"
         }
       ]
     },
