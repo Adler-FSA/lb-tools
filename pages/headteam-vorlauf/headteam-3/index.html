@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Headteam · Head 3 Poststellen-Test</title>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
+#head3Base{display:block;width:100%;height:100dvh;border:0;background:#f5fafb}
+#bootError{display:none;position:fixed;inset:20px;z-index:20;align-items:center;justify-content:center;padding:24px;border:1px solid #efc2c2;border-radius:18px;background:#fff5f5;color:#8d2020;font:700 15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;text-align:center}
+#bootError.show{display:flex}
+</style>
+</head>
+<body>
+<iframe id="head3Base" title="Headteam 3 – Poststellen-Teststrecke" src="../headteam-2/?head3base=1"></iframe>
+<div id="bootError">Die Head-3-Teststrecke konnte nicht geladen werden.</div>
+<script>
+(()=>{
+  'use strict';
+  const DATA_URL='/data/headteam-vorlauf.json';
+  const CONFIG_URL='/data/headteam-poststelle-config.json';
+  const DEFAULT_CONFIG={mode:'local-demo',endpoint:'',storageKey:'lb_head3_poststelle_demo_v1'};
+  const PEOPLE=['alexander','oliver','peter','daniel','mike'];
+  const LABELS={alexander:'Alexander',oliver:'Oliver',peter:'Peter',daniel:'Daniela',mike:'Mike'};
+  const TYPES=[['aenderungswunsch','Änderungswunsch'],['frage','Frage'],['fehler','Fehler gefunden'],['freigabe','Freigabe / OK']];
+  const frame=document.getElementById('head3Base');
+  const errorBox=document.getElementById('bootError');
+  let config={...DEFAULT_CONFIG},projects=[];
+
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const norm=v=>String(v??'').trim().toLocaleLowerCase('de-DE');
+  function id(){return crypto.randomUUID?crypto.randomUUID():'m-'+Date.now()+'-'+Math.random().toString(16).slice(2)}
+  function deepDocument(){
+    try{
+      const h2=frame.contentDocument;if(!h2)return null;
+      const inner=h2.getElementById('head2Base');
+      return inner&&inner.contentDocument?inner.contentDocument:null;
+    }catch(e){return null}
+  }
+  function modeText(){return config.mode==='live'&&config.endpoint?'Poststelle verbunden':'Lokaler Testmodus'}
+  function modeHint(){return config.mode==='live'&&config.endpoint?'Feedback wird zentral an die Headteam-Poststelle gesendet.':'Zum Aufbau-Test werden Nachrichten nur auf diesem Gerät gespeichert. Head 2 bleibt unverändert.'}
+
+  async function loadBasics(){
+    try{const r=await fetch(CONFIG_URL+'?v='+Date.now(),{cache:'no-store'});if(r.ok)config={...DEFAULT_CONFIG,...await r.json()}}catch(e){}
+    try{const r=await fetch(DATA_URL+'?v='+Date.now(),{cache:'no-store'});if(r.ok){const p=await r.json();projects=Array.isArray(p.projects)?p.projects:[]}}catch(e){}
+  }
+
+  function injectStyle(d){
+    if(d.getElementById('head3-feedback-style'))return;
+    const s=d.createElement('style');s.id='head3-feedback-style';s.textContent=`
+      .head3-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;padding:13px 15px;border:1px solid #cdebed;border-radius:16px;background:linear-gradient(90deg,#fff,#eefafa);box-shadow:0 7px 24px rgba(19,34,56,.04)}
+      .head3-banner strong{color:var(--navy);font-size:14px}.head3-banner span{display:block;margin-top:3px;color:var(--muted);font-size:11px;line-height:1.4}.head3-mode{flex:0 0 auto;border-radius:999px;padding:7px 10px;background:var(--mint);color:#fff!important;font-size:11px!important;font-weight:900}.head3-mode.demo{background:var(--magenta)}
+      .head3-feedback{border-top:1px solid #dfe8ea;background:#fbfdfd;padding:13px 15px}.head3-feedback-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.head3-feedback-head strong{color:var(--navy);font-size:13px}.head3-feedback-head span{color:var(--muted);font-size:10px;font-weight:800}.head3-feedback-grid{display:grid;grid-template-columns:170px 190px minmax(0,1fr) auto;gap:9px;align-items:end;margin-top:10px}.head3-feedback label{display:block;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.head3-feedback select,.head3-feedback textarea{width:100%;margin-top:4px;border:1px solid #cbdadd;border-radius:10px;background:#fff;color:var(--text);font:inherit;padding:9px 10px}.head3-feedback textarea{min-height:62px;resize:vertical;line-height:1.4}.head3-send{border:0;border-radius:10px;background:var(--mint);color:#fff;padding:10px 12px;font:inherit;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap}.head3-send:disabled{opacity:.55;cursor:wait}.head3-status{min-height:17px;margin-top:7px;color:#08757a;font-size:11px;font-weight:800}.head3-status.err{color:#a51c30}
+      @media(max-width:1050px){.head3-feedback-grid{grid-template-columns:1fr 1fr}.head3-message-field{grid-column:1/-1}.head3-send{justify-self:start}}
+      @media(max-width:620px){.head3-banner{align-items:flex-start;flex-direction:column}.head3-feedback-grid{grid-template-columns:1fr}.head3-message-field{grid-column:auto}.head3-send{width:100%}}
+    `;d.head.appendChild(s);
+  }
+
+  function injectBanner(d){
+    if(d.getElementById('head3Banner'))return;
+    const wrap=d.querySelector('.wrap'),headline=d.querySelector('.headline');if(!wrap||!headline)return;
+    const b=d.createElement('div');b.id='head3Banner';b.className='head3-banner';
+    b.innerHTML='<div><strong>Head 3 · Kommunikations-Teststrecke</strong><span>'+esc(modeHint())+'</span></div><span class="head3-mode '+((config.mode==='live'&&config.endpoint)?'':'demo')+'">'+esc(modeText())+'</span>';
+    wrap.insertBefore(b,headline);
+  }
+
+  function findProject(title){return projects.find(p=>norm(p.title)===norm(title))||null}
+  function senderOptions(){return PEOPLE.map(p=>'<option value="'+p+'">'+LABELS[p]+'</option>').join('')}
+  function typeOptions(){return TYPES.map(([v,l])=>'<option value="'+v+'">'+l+'</option>').join('')}
+
+  function injectFeedback(d){
+    const panel=d.getElementById('panel-lead');if(!panel)return;
+    panel.querySelectorAll('.item').forEach(item=>{
+      if(item.querySelector('.head3-feedback'))return;
+      const titleEl=item.querySelector('.title');if(!titleEl)return;
+      const p=findProject(titleEl.textContent);if(!p)return;
+      const box=d.createElement('section');box.className='head3-feedback';box.dataset.projectId=p.id||'';
+      box.innerHTML='<div class="head3-feedback-head"><strong>Feedback / Änderungswunsch an die Poststelle</strong><span>automatisch diesem Projekt zugeordnet</span></div><div class="head3-feedback-grid"><div><label>Ich bin</label><select data-head3-sender>'+senderOptions()+'</select></div><div><label>Art</label><select data-head3-type>'+typeOptions()+'</select></div><div class="head3-message-field"><label>Nachricht</label><textarea data-head3-message placeholder="Was soll geändert, geprüft oder geklärt werden?"></textarea></div><button type="button" class="head3-send" data-head3-send>An Poststelle senden</button></div><div class="head3-status" data-head3-status></div>';
+      item.appendChild(box);
+      const saved=localStorage.getItem('lb_head3_sender');const sender=box.querySelector('[data-head3-sender]');if(saved&&PEOPLE.includes(saved))sender.value=saved;
+      sender.addEventListener('change',()=>localStorage.setItem('lb_head3_sender',sender.value));
+      box.querySelector('[data-head3-send]').addEventListener('click',()=>send(box,p));
+    });
+  }
+
+  async function send(box,p){
+    const sender=box.querySelector('[data-head3-sender]').value;
+    const type=box.querySelector('[data-head3-type]').value;
+    const message=box.querySelector('[data-head3-message]').value.trim();
+    const status=box.querySelector('[data-head3-status]');const btn=box.querySelector('[data-head3-send]');
+    status.className='head3-status';status.textContent='';
+    if(!message){status.classList.add('err');status.textContent='Bitte eine Nachricht eintragen.';return}
+    const payload={version:1,id:id(),projectId:p.id||'',projectTitle:p.title||'',projectCategory:p.category||'',projectUrl:p.url||'',sender,type,message,createdAt:new Date().toISOString(),source:'headteam-3',status:'open'};
+    btn.disabled=true;
+    try{
+      if(config.mode==='live'&&config.endpoint){
+        const r=await fetch(config.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+        const j=await r.json().catch(()=>({}));if(!r.ok||j.ok===false)throw new Error(j.error||'Senden fehlgeschlagen');
+      }else{
+        const key=config.storageKey||DEFAULT_CONFIG.storageKey;let list=[];try{list=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){}if(!Array.isArray(list))list=[];list.push(payload);localStorage.setItem(key,JSON.stringify(list));
+      }
+      box.querySelector('[data-head3-message]').value='';status.textContent=(config.mode==='live'&&config.endpoint)?'✓ Nachricht wurde an die Poststelle gesendet.':'✓ Nachricht liegt in der lokalen Head-3-Testpoststelle.';
+    }catch(e){status.classList.add('err');status.textContent='Nachricht konnte nicht gesendet werden: '+(e.message||'Fehler')}
+    finally{btn.disabled=false}
+  }
+
+  function startObserver(d){
+    const panel=d.getElementById('panel-lead');if(!panel)return;
+    let timer=null;const obs=new MutationObserver(()=>{clearTimeout(timer);timer=setTimeout(()=>injectFeedback(d),80)});obs.observe(panel,{childList:true,subtree:true});
+  }
+
+  async function start(){
+    await loadBasics();let tries=0;
+    const wait=setInterval(()=>{
+      tries++;const d=deepDocument();
+      if(d&&d.body&&d.getElementById('panel-lead')){clearInterval(wait);injectStyle(d);injectBanner(d);injectFeedback(d);startObserver(d)}
+      else if(tries>120){clearInterval(wait);errorBox.classList.add('show')}
+    },100);
+  }
+  frame.addEventListener('load',start,{once:true});
+})();
+</script>
+</body>
+</html>
