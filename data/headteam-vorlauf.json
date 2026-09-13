@@ -35,12 +35,12 @@
       "type": "website",
       "releaseDate": "2026-09-21",
       "url": "https://tools.liquiditybooster.de/pages/tln/voucher-handling.html",
-      "what": "Es entsteht eine eigenständige, interaktive Lernseite über Voucher Handling als Seite 7 des TLN-Hörsaals. Sie erklärt die Unterschiede zwischen VOW, v$, Voucher und Vowcher sowie den beschriebenen Kreislauf aus Rabattzusage, Sperrung von VOW, Erzeugung und Verteilung einer Voucher-Währung, Einlösung und Erfüllung der Verpflichtung. Ein Lernsimulator zeigt beispielhaft, wie ein v$-Rabatt eingesetzt und die verbleibende Zahlung berechnet wird.",
-      "why": "Voucher-Währungen und ihre Funktionsweise werden häufig mit Token, Bargeld, Cashback oder klassischen Gutscheinen verwechselt. Die Lernseite soll diese Begriffe sauber trennen und verständlich zeigen, welche Vorgänge durch Smart Contracts ausgeführt werden und welche Prüfungen oder Entscheidungen außerhalb der Blockchain stattfinden. Mitglieder erhalten damit eine neutrale Grundlage, um die Anwendung bei VTravel und weiteren Partnerangeboten richtig einordnen zu können.",
-      "test": "Bitte die Seite auf Smartphone, Tablet und Computer vollständig prüfen. Besonders anzusehen sind die Begriffserklärungen, der interaktive Voucher-Kreislauf, die Trennung zwischen Blockchain und externen Abläufen, der Faktenfilter sowie der Voucher-Simulator. Zusätzlich soll geprüft werden, ob Risiken, administrative Rechte, offene technische Punkte und das historische Ereignis von 2024 sachlich, verständlich und ohne unnötige Bewertung dargestellt werden.",
-      "meeting": "Zu klären ist, ob der Voucher-Kreislauf auch ohne technisches Vorwissen verständlich wird und ob die Abgrenzung zwischen digitalem Rabattrecht, Voucher-Währung und VOW eindeutig genug ist. Gemeinsam soll entschieden werden, ob weitere praktische Beispiele erforderlich sind und ob die Seite nach Abschluss der Prüfung als Menüseite 7 vor der VTravel-Lernseite in den TLN-Hörsaal aufgenommen werden kann.",
+      "what": "Interaktive Lernseite zu VOW, Voucher Currency und Voucher Ledger. Sie erklärt Reserve-Logik, Ausgabe und Rückführung von Voucher-Währungen sowie die Trennung von Nennwert, Handelswert und Nutzwert.",
+      "why": "Damit Club-Mitglieder die technische und wirtschaftliche Grundlage hinter v$, VOW und digitalen Rabattrechten verstehen. Seite 7 bildet damit die Basis für die praktische Nutzung auf Seite 8 VTravel und den TLNx→v$-Weg auf Seite 9 Network.",
+      "test": "Begriffserklärung, Voucher-Ledger-Logik, VOW-Reserve, Ausgabe- und Burn-Prozess, Lernsimulator, Live-VOW-Kurs, DE/EN-Umschaltung sowie Darstellung auf Smartphone, Tablet und Computer prüfen.",
+      "meeting": "Inhalte und Lernsimulator freigeben und entscheiden, ob Seite 7 so als Grundlage vor VTravel und Network in den TLN Hörsaal übernommen wird.",
       "createdAt": "2026-09-03T19:49:48.033Z",
-      "updatedAt": "2026-09-03T19:51:42.280Z",
+      "updatedAt": "2026-09-13T15:19:45.732Z",
       "history": [
         {
           "at": "2026-09-03T19:49:48.033Z",
@@ -48,6 +48,10 @@
         },
         {
           "at": "2026-09-03T19:51:42.280Z",
+          "event": "updated"
+        },
+        {
+          "at": "2026-09-13T15:19:45.732Z",
           "event": "updated"
         }
       ],
