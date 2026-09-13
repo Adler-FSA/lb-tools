@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Head Control 3 · Poststellen-Test</title>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
+#control3Base{display:block;width:100%;height:100dvh;border:0;background:#f5fafb}
+#bootError{display:none;position:fixed;inset:20px;z-index:20;align-items:center;justify-content:center;padding:24px;border:1px solid #efc2c2;border-radius:18px;background:#fff5f5;color:#8d2020;font:700 15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;text-align:center}
+#bootError.show{display:flex}
+</style>
+</head>
+<body>
+<iframe id="control3Base" title="Head Control 3 – Poststellen-Teststrecke" src="../head-control-2/?headcontrol3base=1"></iframe>
+<div id="bootError">Head Control 3 konnte nicht geladen werden.</div>
+<script>
+(()=>{
+  'use strict';
+  const REPO='Adler-FSA/lb-tools';
+  const BRANCH='main';
+  const CONFIG_URL='/data/headteam-poststelle-config.json';
+  const DEFAULT_CONFIG={mode:'local-demo',storageKey:'lb_head3_poststelle_demo_v1',inboxPath:'data/headteam-poststelle/inbox',archivePath:'data/headteam-poststelle/archive'};
+  const frame=document.getElementById('control3Base'),errorBox=document.getElementById('bootError');
+  let config={...DEFAULT_CONFIG},messages=[],archive=[];
+  const labels={alexander:'Alexander',oliver:'Oliver',peter:'Peter',daniel:'Daniela',mike:'Mike'};
+  const typeLabels={aenderungswunsch:'Änderungswunsch',frage:'Frage',fehler:'Fehler gefunden',freigabe:'Freigabe / OK'};
+  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  function dateTime(v){if(!v)return'–';try{return new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v))}catch(e){return v}}
+  function b64decode(s){try{return decodeURIComponent(escape(atob(String(s||'').replace(/\n/g,''))))}catch(e){return''}}
+  function b64encode(s){return btoa(unescape(encodeURIComponent(s)))}
+  function deepDocument(){try{const c2=frame.contentDocument;if(!c2)return null;const inner=c2.getElementById('control2Base');return inner&&inner.contentDocument?inner.contentDocument:null}catch(e){return null}}
+  function deepWindow(){const d=deepDocument();return d&&d.defaultView?d.defaultView:null}
+  function githubToken(){try{return localStorage.getItem('md_control_github_token')||''}catch(e){return''}}
+  function auth(){const token=githubToken();return{'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28'}}
+
+  async function loadConfig(){try{const r=await fetch(CONFIG_URL+'?v='+Date.now(),{cache:'no-store'});if(r.ok)config={...DEFAULT_CONFIG,...await r.json()}}catch(e){}}
+
+  function injectStyle(d){
+    if(d.getElementById('head3-control-style'))return;
+    const s=d.createElement('style');s.id='head3-control-style';s.textContent=`
+      .hc3-post-btn{position:relative}.hc3-badge{display:inline-flex;min-width:20px;height:20px;margin-left:7px;align-items:center;justify-content:center;border-radius:999px;background:var(--magenta);color:#fff;font-size:10px;font-weight:950;padding:0 6px}.hc3-badge.zero{background:#98a2b3}
+      .hc3-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.hc3-top-copy h2{margin:0;color:var(--navy);font-size:22px}.hc3-top-copy p{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.45}.hc3-actions{display:flex;gap:8px;flex-wrap:wrap}.hc3-mode{display:inline-flex;border-radius:999px;padding:6px 9px;background:var(--mint-soft);color:#08757a;font-size:11px;font-weight:900}.hc3-mode.demo{background:var(--magenta-soft);color:var(--magenta)}
+      .hc3-mail-list{display:grid;gap:12px;margin-top:16px}.hc3-mail{border:1px solid #d9e6e8;border-radius:16px;background:#fff;box-shadow:0 7px 22px rgba(19,34,56,.045);overflow:hidden}.hc3-mail-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:13px 15px;background:#fbfdfd;border-bottom:1px solid #e7edef}.hc3-mail-person{color:var(--navy);font-size:15px;font-weight:950}.hc3-mail-meta{margin-top:4px;color:var(--muted);font-size:11px;font-weight:800}.hc3-type{display:inline-flex;border-radius:999px;padding:5px 8px;background:var(--mint-soft);color:#08757a;font-size:10px;font-weight:950;white-space:nowrap}.hc3-mail-body{padding:14px 15px}.hc3-project{color:var(--navy);font-weight:950;font-size:14px}.hc3-category{margin-top:3px;color:var(--muted);font-size:11px}.hc3-message{margin-top:10px;padding:11px 12px;border-radius:12px;background:#f7f9fa;color:var(--text);font-size:14px;line-height:1.5;white-space:pre-wrap}.hc3-mail-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.hc3-empty{border:1px dashed #cfdadd;border-radius:14px;padding:28px;text-align:center;color:var(--muted);background:#fbfdfd}.hc3-error{display:none;margin-top:12px;padding:10px 12px;border-radius:11px;background:#fff4f4;color:#9d1f2f;font-size:12px;font-weight:800}.hc3-error.show{display:block}.hc3-archive{margin-top:18px;border-top:1px solid #e4eaec;padding-top:16px}.hc3-archive summary{border:0;background:transparent;padding:0;color:var(--navy);font-size:14px}.hc3-archive-list{display:grid;gap:8px;margin-top:10px}.hc3-archive-row{border:1px solid #e0e6e8;border-radius:12px;background:#fbfcfc;padding:10px 12px}.hc3-archive-row strong{color:var(--navy);font-size:12px}.hc3-archive-row div{margin-top:4px;color:var(--muted);font-size:11px;line-height:1.4}
+    `;d.head.appendChild(s);
+  }
+
+  function injectPanel(d){
+    if(d.getElementById('panel-poststelle3'))return;
+    const nav=d.querySelector('.cockpit-nav'),wrap=d.querySelector('.wrap');if(!nav||!wrap)return;
+    const btn=d.createElement('button');btn.className='nav-btn hc3-post-btn';btn.dataset.panel='poststelle3';btn.innerHTML='Poststelle <span class="hc3-badge zero" id="hc3Badge">0</span>';
+    const chron=nav.querySelector('[data-panel="chronicle"]');if(chron)nav.insertBefore(btn,chron);else nav.appendChild(btn);
+    const panel=d.createElement('div');panel.className='panel';panel.id='panel-poststelle3';panel.innerHTML=`<section class="card"><div class="head"><span>Poststelle · Head 3</span><span class="hc3-mode demo" id="hc3Mode">Lokaler Testmodus</span></div><div class="body"><div class="hc3-top"><div class="hc3-top-copy"><h2>Feedback aus dem Headteam</h2><p>Nachrichten sind automatisch Projekt, Bereich, Absender und Zeitpunkt zugeordnet.</p></div><div class="hc3-actions"><button class="btn mint" id="hc3Fetch">Post abholen</button></div></div><div class="hc3-error" id="hc3Error"></div><div class="hc3-mail-list" id="hc3Inbox"></div><details class="hc3-archive"><summary>Erledigte Post / Archiv <span id="hc3ArchiveCount">0</span></summary><div class="hc3-archive-list" id="hc3Archive"></div></details></div></section>`;
+    wrap.appendChild(panel);
+    btn.onclick=()=>{const w=d.defaultView;if(w&&typeof w.setPanel==='function')w.setPanel('poststelle3');else{d.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p===panel));d.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b===btn))}loadInbox()};
+    panel.querySelector('#hc3Fetch').onclick=loadInbox;
+  }
+
+  function showError(d,msg=''){const e=d.getElementById('hc3Error');if(!e)return;e.textContent=msg;e.classList.toggle('show',!!msg)}
+  function updateMode(d){const el=d.getElementById('hc3Mode');if(!el)return;const live=config.mode==='live';el.textContent=live?'GitHub-Poststelle':'Lokaler Testmodus';el.classList.toggle('demo',!live)}
+  function updateBadge(d){const el=d.getElementById('hc3Badge');if(!el)return;el.textContent=messages.length;el.classList.toggle('zero',messages.length===0)}
+
+  async function loadInbox(){
+    const d=deepDocument();if(!d)return;showError(d,'');
+    try{
+      if(config.mode==='live'){await loadLive()}else loadLocal();
+      render(d);
+    }catch(e){showError(d,e.message||'Post konnte nicht abgeholt werden.')}
+  }
+
+  function loadLocal(){let list=[];try{list=JSON.parse(localStorage.getItem(config.storageKey||DEFAULT_CONFIG.storageKey)||'[]')}catch(e){}if(!Array.isArray(list))list=[];messages=list.filter(x=>x.status!=='done').sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));archive=list.filter(x=>x.status==='done').sort((a,b)=>(b.handledAt||'').localeCompare(a.handledAt||''))}
+
+  async function listGithub(path){
+    const token=githubToken();if(!token)throw new Error('Bitte Head Control zuerst mit GitHub verbinden.');
+    const url='https://api.github.com/repos/'+REPO+'/contents/'+path+'?ref='+BRANCH+'&_='+Date.now();const r=await fetch(url,{headers:auth(),cache:'no-store'});if(r.status===404)return[];if(!r.ok)throw new Error('GitHub-Poststelle konnte nicht gelesen werden.');const files=await r.json();if(!Array.isArray(files))return[];
+    const out=[];for(const f of files.filter(x=>x.type==='file'&&x.name.endsWith('.json'))){const rr=await fetch(f.url,{headers:auth(),cache:'no-store'});if(!rr.ok)continue;const j=await rr.json();try{const m=JSON.parse(b64decode(j.content));out.push({...m,_file:{name:f.name,path:f.path,sha:j.sha,content:j.content}})}catch(e){}}
+    return out;
+  }
+  async function loadLive(){messages=(await listGithub(config.inboxPath||DEFAULT_CONFIG.inboxPath)).sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));archive=(await listGithub(config.archivePath||DEFAULT_CONFIG.archivePath)).sort((a,b)=>(b.handledAt||b.createdAt||'').localeCompare(a.handledAt||a.createdAt||''))}
+
+  function render(d){
+    updateMode(d);updateBadge(d);const inbox=d.getElementById('hc3Inbox'),arch=d.getElementById('hc3Archive');if(!inbox||!arch)return;
+    inbox.innerHTML=messages.length?messages.map((m,i)=>`<article class="hc3-mail"><div class="hc3-mail-head"><div><div class="hc3-mail-person">${esc(labels[m.sender]||m.sender||'Unbekannt')}</div><div class="hc3-mail-meta">${esc(dateTime(m.createdAt))}</div></div><span class="hc3-type">${esc(typeLabels[m.type]||m.type||'Feedback')}</span></div><div class="hc3-mail-body"><div class="hc3-project">${esc(m.projectTitle||m.project?.title||'Projekt')}</div><div class="hc3-category">${esc(m.projectCategory||m.project?.category||'')}</div><div class="hc3-message">${esc(m.message||'')}</div><div class="hc3-mail-actions"><button class="btn light" onclick="window.parent.postMessage({type:'hc3-open-project',index:${i}},'*')">Projekt öffnen</button><button class="btn light" onclick="window.parent.postMessage({type:'hc3-task',index:${i}},'*')">Als Aufgabe übernehmen</button><button class="btn mint" onclick="window.parent.postMessage({type:'hc3-done',index:${i}},'*')">Erledigt</button></div></div></article>`).join(''):'<div class="hc3-empty">Keine neue Post vorhanden.</div>';
+    d.getElementById('hc3ArchiveCount').textContent='· '+archive.length;
+    arch.innerHTML=archive.length?archive.slice(0,40).map(m=>`<div class="hc3-archive-row"><strong>${esc(labels[m.sender]||m.sender||'')} · ${esc(m.projectTitle||m.project?.title||'Projekt')}</strong><div>${esc(typeLabels[m.type]||m.type||'Feedback')} · erledigt ${esc(dateTime(m.handledAt||m.createdAt))}</div></div>`).join(''):'<div class="hc3-empty">Noch keine erledigte Post archiviert.</div>';
+  }
+
+  function openProject(index){const m=messages[index],d=deepDocument();if(!m||!d)return;const w=d.defaultView;if(w&&typeof w.setPanel==='function')w.setPanel('lead');setTimeout(()=>{const title=m.projectTitle||m.project?.title||'';const rows=[...d.querySelectorAll('#rows tr')];const row=rows.find(r=>r.querySelector('strong')?.textContent.trim()===title);if(row){row.style.outline='3px solid rgba(0,167,173,.25)';row.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>row.style.outline='',2200)}},120)}
+  function makeTask(index){const m=messages[index],d=deepDocument();if(!m||!d)return;const w=d.defaultView;if(w&&typeof w.setPanel==='function')w.setPanel('tasks');setTimeout(()=>{const recipient=d.getElementById('linkRecipient');if(recipient){if([...recipient.options].some(o=>o.value==='mike'))recipient.value='mike'}const title=d.getElementById('linkTitle'),url=d.getElementById('personalUrl'),note=d.getElementById('linkNote');if(title)title.value='Feedback: '+(m.projectTitle||m.project?.title||'Projekt');if(url)url.value=m.projectUrl||m.project?.url||'';if(note)note.value=(labels[m.sender]||m.sender||'Headteam')+' · '+(typeLabels[m.type]||m.type||'Feedback')+'\n'+(m.message||'');d.getElementById('savePersonalLink')?.scrollIntoView({behavior:'smooth',block:'center'})},120)}
+
+  async function markDone(index){const m=messages[index];if(!m)return;const d=deepDocument();showError(d,'');try{if(config.mode==='live')await markLiveDone(m);else markLocalDone(m);await loadInbox()}catch(e){showError(d,e.message||'Nachricht konnte nicht archiviert werden.')}}
+  function markLocalDone(m){let list=[];try{list=JSON.parse(localStorage.getItem(config.storageKey||DEFAULT_CONFIG.storageKey)||'[]')}catch(e){}if(!Array.isArray(list))list=[];const x=list.find(x=>x.id===m.id);if(x){x.status='done';x.handledAt=new Date().toISOString()}localStorage.setItem(config.storageKey||DEFAULT_CONFIG.storageKey,JSON.stringify(list))}
+  async function markLiveDone(m){
+    if(!m._file)throw new Error('Dateiinformation der Nachricht fehlt.');const now=new Date().toISOString();const clean={...m,status:'done',handledAt:now};delete clean._file;const archivePath=(config.archivePath||DEFAULT_CONFIG.archivePath)+'/'+m._file.name;
+    const put=await fetch('https://api.github.com/repos/'+REPO+'/contents/'+archivePath,{method:'PUT',headers:{...auth(),'Content-Type':'application/json'},body:JSON.stringify({message:'Archive Headteam feedback '+(clean.projectTitle||clean.project?.title||''),content:b64encode(JSON.stringify(clean,null,2)),branch:BRANCH})});if(!put.ok)throw new Error('Archivdatei konnte nicht geschrieben werden.');
+    const del=await fetch('https://api.github.com/repos/'+REPO+'/contents/'+m._file.path,{method:'DELETE',headers:{...auth(),'Content-Type':'application/json'},body:JSON.stringify({message:'Remove handled Headteam feedback from inbox',sha:m._file.sha,branch:BRANCH})});if(!del.ok)throw new Error('Posteingang konnte nach dem Archivieren nicht bereinigt werden.');
+  }
+
+  window.addEventListener('message',e=>{const v=e.data||{};if(v.type==='hc3-open-project')openProject(v.index);if(v.type==='hc3-task')makeTask(v.index);if(v.type==='hc3-done')markDone(v.index)});
+
+  async function start(){await loadConfig();let tries=0;const wait=setInterval(()=>{tries++;const d=deepDocument();if(d&&d.body&&d.querySelector('.cockpit-nav')){clearInterval(wait);injectStyle(d);injectPanel(d);updateMode(d);loadInbox()}else if(tries>120){clearInterval(wait);errorBox.classList.add('show')}},100)}
+  frame.addEventListener('load',start,{once:true});
+})();
+</script>
+</body>
+</html>
