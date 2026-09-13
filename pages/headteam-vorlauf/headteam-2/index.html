@@ -20,11 +20,12 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
   const DATA_URL='/data/headteam-vorlauf.json';
   const frame=document.getElementById('head2Base');
   const errorBox=document.getElementById('bootError');
+  const PEOPLE=['alexander','oliver','peter','daniel','mike'];
   let data={projects:[],archive:[],personalLinks:[],taskArchive:[],headteamAccess:[]};
 
   function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
   function normalize(v){return String(v??'').toLocaleLowerCase('de-DE').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim()}
-  function personLabel(v){return({alexander:'Alexander',oliver:'Oliver',peter:'Peter',daniel:'Daniela'})[v]||v||'–'}
+  function personLabel(v){return({alexander:'Alexander',oliver:'Oliver',peter:'Peter',daniel:'Daniela',mike:'Mike'})[v]||v||'–'}
   function categoryLabel(v){return({'leitartikel':'Leitartikel','kms-content':'KMS Content','serien':'Serien','club-haus':'Club Haus','oeffentlich':'Öffentlich','newsletter':'Newsletter','hoersaele':'Hörsäle','kurse':'Kurse','produkte-aktualisiert':'Produkte aktualisiert','neue-produkte':'Neue Produkte','social-media':'Social Media'})[v]||v||''}
   function dateTime(v){if(!v)return'';try{return new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date(v))}catch(e){return v}}
   function activeTasks(){return Array.isArray(data.personalLinks)?data.personalLinks:[]}
@@ -48,7 +49,7 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
       .head2-task-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid #e5ecee;background:linear-gradient(90deg,#fff,#fbffff)}
       .head2-task-header h3{margin:0;color:var(--navy);font-size:17px}.head2-task-header span{color:var(--muted);font-size:11px;font-weight:800}
       .head2-task-note-wrap{padding:12px 14px 0}
-      .head2-task-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:14px}
+      .head2-task-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding:14px}
       .head2-person-card{border:1px solid #d9e6e8;border-radius:15px;background:#fff;padding:12px;box-shadow:0 7px 24px rgba(19,34,56,.04)}
       .head2-person-card:nth-child(even) .head2-person-btn{background:var(--magenta)}
       .head2-person-btn{width:100%;border:0;border-radius:11px;background:var(--mint);color:#fff;padding:10px 12px;font:inherit;font-weight:900;cursor:pointer}
@@ -58,8 +59,9 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
       .head2-search-head{padding:14px 16px;border-bottom:1px solid #e5ecee}.head2-search-head h3{margin:0;color:var(--navy);font-size:17px}.head2-search-head p{margin:4px 0 0;color:var(--muted);font-size:12px}
       .head2-search-box{padding:14px 16px}.head2-search-input{width:100%;border:1px solid #cfdadd;border-radius:12px;background:#fff;color:var(--navy);padding:12px 13px;font:inherit;font-size:14px;outline:none}.head2-search-input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
       .head2-search-results{display:grid;gap:8px;margin-top:10px}.head2-search-help{color:var(--muted);font-size:12px;padding:3px 1px}.head2-search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid #e3eaec;border-radius:12px;padding:10px 11px;background:#fbfdfd}.head2-search-title{font-weight:900;color:var(--navy);font-size:13px}.head2-search-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;color:var(--muted);font-size:11px}.head2-pill{display:inline-flex;border-radius:999px;padding:3px 7px;background:var(--mint-soft);color:#08757a;font-weight:900}.head2-pill.archive{background:#f5eff3;color:#8d245d}.head2-search-open{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;background:var(--mint);color:#fff;padding:7px 9px;font:inherit;font-size:11px;font-weight:900;text-decoration:none;cursor:pointer;white-space:nowrap}
-      #personalLinks{display:none!important}.head2-full{display:grid;gap:12px}.head2-person-group{border:1px solid #d9e6e8;border-radius:17px;background:#fff;box-shadow:0 7px 24px rgba(19,34,56,.05);overflow:hidden;scroll-margin-top:18px}.head2-person-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 15px;background:var(--soft);color:var(--navy);font-weight:900}.head2-person-head small{color:var(--muted);font-size:11px}.head2-task-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 15px;border-top:1px solid #edf1f4}.head2-task-title{font-weight:900;color:var(--navy);font-size:14px;line-height:1.35}.head2-task-url{margin-top:4px;color:var(--muted);font-size:11px;overflow-wrap:anywhere}.head2-task-note{margin-top:6px;color:var(--text);font-size:12px;line-height:1.45;white-space:pre-wrap}.head2-task-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.head2-task-action{border:1px solid #d5e3e5;border-radius:9px;background:#fff;color:var(--navy);padding:7px 9px;font:inherit;font-size:11px;font-weight:900;cursor:pointer;text-decoration:none;white-space:nowrap}.head2-archive-block{border-top:1px solid #e4eaec;background:#fbfcfc}.head2-archive-title{padding:10px 15px;color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.head2-done-date{margin-top:5px;color:var(--muted);font-size:11px;font-weight:800}.head2-empty{padding:16px;color:var(--muted);font-size:12px;border-top:1px solid #edf1f4}
-      @media(max-width:1050px){.head2-task-grid{grid-template-columns:1fr 1fr}}
+      #personalLinks{display:none!important}.head2-full{display:grid;gap:12px}.head2-person-group{border:1px solid #d9e6e8;border-radius:17px;background:#fff;box-shadow:0 7px 24px rgba(19,34,56,.05);overflow:hidden;scroll-margin-top:18px}.head2-person-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 15px;background:var(--soft);color:var(--navy);font-weight:900}.head2-person-head small{color:var(--muted);font-size:11px}.head2-task-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 15px;border-top:1px solid #edf1f4}.head2-task-title{font-weight:900;color:var(--navy);font-size:14px;line-height:1.35}.head2-task-source{display:inline-flex;margin-top:5px;border-radius:999px;padding:3px 7px;background:#eefafa;color:#08757a;font-size:10px;font-weight:900}.head2-task-url{margin-top:4px;color:var(--muted);font-size:11px;overflow-wrap:anywhere}.head2-task-note{margin-top:6px;color:var(--text);font-size:12px;line-height:1.45;white-space:pre-wrap}.head2-task-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.head2-task-action{border:1px solid #d5e3e5;border-radius:9px;background:#fff;color:var(--navy);padding:7px 9px;font:inherit;font-size:11px;font-weight:900;cursor:pointer;text-decoration:none;white-space:nowrap}.head2-archive-block{border-top:1px solid #e4eaec;background:#fbfcfc}.head2-archive-title{padding:10px 15px;color:var(--muted);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.head2-done-date{margin-top:5px;color:var(--muted);font-size:11px;font-weight:800}.head2-empty{padding:16px;color:var(--muted);font-size:12px;border-top:1px solid #edf1f4}
+      @media(max-width:1200px){.head2-task-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+      @media(max-width:850px){.head2-task-grid{grid-template-columns:1fr 1fr}}
       @media(max-width:620px){.head2-task-grid{grid-template-columns:1fr}.head2-task-row,.head2-search-row{grid-template-columns:1fr}.head2-task-actions{justify-content:flex-start}}
     `;
     d.head.appendChild(s);
@@ -86,7 +88,7 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
     }
     if(!d.getElementById('head2Search')){
       const search=d.createElement('section');search.className='head2-search';search.id='head2Search';
-      search.innerHTML='<div class="head2-search-head"><h3>Schnellsuche</h3><p>Projekt, Aufgabe, Person oder Stichwort suchen – ohne durch die Bereiche zu klicken.</p></div><div class="head2-search-box"><input class="head2-search-input" id="head2SearchInput" type="search" autocomplete="off" placeholder="z. B. Hörsaal, Alexander, Vertrag, Newsletter …"><div class="head2-search-results" id="head2SearchResults"><div class="head2-search-help">Mindestens 2 Zeichen eingeben.</div></div></div>';
+      search.innerHTML='<div class="head2-search-head"><h3>Schnellsuche</h3><p>Projekt, Aufgabe, Person oder Stichwort suchen – ohne durch die Bereiche zu klicken.</p></div><div class="head2-search-box"><input class="head2-search-input" id="head2SearchInput" type="search" autocomplete="off" placeholder="z. B. Hörsaal, Alexander, Mike, Vertrag, Newsletter …"><div class="head2-search-results" id="head2SearchResults"><div class="head2-search-help">Mindestens 2 Zeichen eingeben.</div></div></div>';
       grid.insertAdjacentElement('beforebegin',search);
       search.querySelector('#head2SearchInput').addEventListener('input',e=>renderSearch(e.target.value));
     }
@@ -103,7 +105,7 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
   function renderQuick(){
     const d=frame.contentDocument,el=d&&d.getElementById('head2TaskQuick');if(!el)return;
     const open=activeTasks(),arch=archivedTasks();
-    el.innerHTML=['alexander','oliver','peter','daniel'].map(person=>{
+    el.innerHTML=PEOPLE.map(person=>{
       const items=open.filter(x=>x.recipient===person).sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''));
       const done=arch.filter(x=>x.recipient===person).length;
       const first=items[0];
@@ -114,17 +116,18 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
 
   function taskRow(t,archived){
     const title=t.title||t.url||'Aufgabe';
+    const source=t.sourceProjectId?`<div class="head2-task-source">Aus 14-Tage-Vorlauf${t.sourceCategory?' · '+esc(categoryLabel(t.sourceCategory)):''}</div>`:'';
     const url=t.url?`<div class="head2-task-url">${esc(t.url)}</div>`:'';
     const note=t.note?`<div class="head2-task-note">${esc(t.note)}</div>`:'';
     const open=t.url?`<a class="head2-task-action" href="${esc(t.url)}" target="_blank" rel="noopener">Öffnen</a>`:'';
     const done=archived?`<div class="head2-done-date">Erledigt: ${esc(dateTime(t.completedAt||t.archivedAt))}</div>`:'';
-    return `<div class="head2-task-row"><div><div class="head2-task-title">${esc(title)}</div>${url}${note}${done}</div><div class="head2-task-actions">${open}</div></div>`;
+    return `<div class="head2-task-row"><div><div class="head2-task-title">${esc(title)}</div>${source}${url}${note}${done}</div><div class="head2-task-actions">${open}</div></div>`;
   }
 
   function renderFullTasks(){
     const d=frame.contentDocument,el=d&&d.getElementById('head2TasksFull');if(!el)return;
     const open=activeTasks(),arch=archivedTasks();
-    el.innerHTML=['alexander','oliver','peter','daniel'].map(person=>{
+    el.innerHTML=PEOPLE.map(person=>{
       const items=open.filter(x=>x.recipient===person).sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''));
       const done=arch.filter(x=>x.recipient===person);
       return `<section class="head2-person-group" data-head2-person="${person}"><div class="head2-person-head"><span>${esc(personLabel(person))}</span><small>${items.length} offen · ${done.length} erledigt</small></div>${items.length?items.map(t=>taskRow(t,false)).join(''):'<div class="head2-empty">Aktuell keine offene Aufgabe.</div>'}<div class="head2-archive-block"><div class="head2-archive-title">Aufgabenarchiv · ${esc(personLabel(person))}</div>${done.length?done.map(t=>taskRow(t,true)).join(''):'<div class="head2-empty">Noch keine erledigte Aufgabe archiviert.</div>'}</div></section>`;
@@ -134,9 +137,9 @@ html,body{margin:0;width:100%;height:100%;background:#f5fafb;overflow:hidden}
   function searchIndex(){
     const items=[];
     (data.projects||[]).forEach(p=>items.push({kind:'Projekt',title:p.title||'Projekt',meta:[categoryLabel(p.category),p.releaseDate].filter(Boolean).join(' · '),text:[p.title,p.category,p.type,p.what,p.why,p.test,p.meeting,p.releaseDate].join(' '),url:p.url,panel:'lead'}));
-    (data.archive||[]).forEach(p=>items.push({kind:'Chronik',archived:true,title:p.title||'Archivprojekt',meta:[categoryLabel(p.category),p.archivedAt?dateTime(p.archivedAt):''].filter(Boolean).join(' · '),text:[p.title,p.category,p.type,p.what,p.why,p.archivedAt].join(' '),url:p.url,panel:'chronicle'}));
-    activeTasks().forEach(t=>items.push({kind:'Aufgabe',title:t.title||t.url||'Aufgabe',meta:personLabel(t.recipient)+' · offen',text:[t.title,t.note,t.url,t.recipient,personLabel(t.recipient)].join(' '),url:t.url,panel:'tasks'}));
-    archivedTasks().forEach(t=>items.push({kind:'Aufgabenarchiv',archived:true,title:t.title||t.url||'Erledigte Aufgabe',meta:personLabel(t.recipient)+' · erledigt '+dateTime(t.completedAt||t.archivedAt),text:[t.title,t.note,t.url,t.recipient,personLabel(t.recipient),t.completedAt,t.archivedAt].join(' '),url:t.url,panel:'tasks'}));
+    (data.archive||[]).forEach(p=>items.push({kind:'Chronik',archived:true,title:p.title||'Archivprojekt',meta:[categoryLabel(p.category),p.archivedAt?dateTime(p.archivedAt):''].filter(Boolean).join(' · '),text:[p.title,p.category,p.type,p.what,p.why,p.archivedAt,p.implementationAt,(p.assignedTo||[]).map(personLabel).join(' ')].join(' '),url:p.url,panel:'chronicle'}));
+    activeTasks().forEach(t=>items.push({kind:'Aufgabe',title:t.title||t.url||'Aufgabe',meta:personLabel(t.recipient)+' · offen',text:[t.title,t.note,t.url,t.recipient,personLabel(t.recipient),t.sourceProjectTitle,t.sourceCategory,categoryLabel(t.sourceCategory)].join(' '),url:t.url,panel:'tasks'}));
+    archivedTasks().forEach(t=>items.push({kind:'Aufgabenarchiv',archived:true,title:t.title||t.url||'Erledigte Aufgabe',meta:personLabel(t.recipient)+' · erledigt '+dateTime(t.completedAt||t.archivedAt),text:[t.title,t.note,t.url,t.recipient,personLabel(t.recipient),t.completedAt,t.archivedAt,t.sourceProjectTitle,t.sourceCategory,categoryLabel(t.sourceCategory)].join(' '),url:t.url,panel:'tasks'}));
     (data.headteamAccess||[]).forEach(z=>items.push({kind:'Zoom',title:z.title||'Zoom',meta:[z.day,[z.from,z.to].filter(Boolean).join('–')].filter(Boolean).join(' · '),text:[z.title,z.day,z.from,z.to,z.meetingId,z.passcode,z.recurring].join(' '),url:z.url,panel:'zoom'}));
     return items;
   }
