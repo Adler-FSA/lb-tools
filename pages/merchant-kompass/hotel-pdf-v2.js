@@ -82,6 +82,8 @@ function buildPdfSource(){
 function setState(type,html){const box=$('#pdfState');if(!box)return;box.className='pdfState show '+type;box.innerHTML=html;requestAnimationFrame(()=>box.scrollIntoView({behavior:'smooth',block:'center'}))}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 async function makePdf(){
+  const enteredName=($('#hotelName')?.value||'').trim();
+  if(!enteredName){setState('error','<strong>Bitte tragen Sie zuerst den Hotelnamen ein.</strong><div class="pdfHint">Der Hotelname wird für die persönliche Auswertung und den eindeutigen Dateinamen benötigt.</div>');$('#hotelName')?.focus();return}
   if(!window.FSAContractPdfEngine||window.FSAContractPdfEngine.version!==EXPECTED){setState('error','<strong>PDF Engine V2 konnte nicht geladen werden.</strong><div class="pdfHint">Bitte laden Sie die Seite neu und versuchen Sie es erneut.</div>');return}
   const btn=$('#pdfBtn'),old=btn.textContent;btn.disabled=true;btn.textContent='PDF wird erstellt …';
   setState('generating','<span class="pdfSpinner" aria-hidden="true"></span><div><strong>Ihre Hotel-Auswertung wird erstellt.</strong><div class="pdfHint">Die PDF wird direkt aus Ihren aktuellen Angaben und Beispielwerten aufgebaut.</div></div>');
