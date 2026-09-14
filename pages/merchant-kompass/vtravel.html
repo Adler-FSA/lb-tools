@@ -24,9 +24,9 @@
   const back=from==='hotel'?'hotel.html':'./';
   const label=from==='hotel'?'← Zurück zur Hotel-Seite':'← Zurück zum Business-Kompass';
   ['backTop','backBottom'].forEach(id=>{const a=document.getElementById(id);a.href=back;a.textContent=label});
-  const f=document.getElementById('contentFrame');
-  function tune(){try{const d=f.contentDocument;if(!d)return;const top=d.querySelector('.top');if(top)top.style.display='none';const page=d.querySelector('.page');if(page){page.style.paddingTop='10px';page.style.paddingBottom='18px'}const h=Math.max(900,d.documentElement.scrollHeight,d.body?.scrollHeight||0);f.style.height=h+'px'}catch(e){}}
-  f.addEventListener('load',()=>{tune();setTimeout(tune,250);setTimeout(tune,900)});
+  const f=document.getElementById('contentFrame');let wired=false;
+  function tune(){try{const d=f.contentDocument;if(!d)return;const top=d.querySelector('.top');if(top)top.style.display='none';const page=d.querySelector('.page');if(page){page.style.paddingTop='10px';page.style.paddingBottom='18px'}if(!wired){wired=true;d.querySelectorAll('a[href^="./"],a[href="voucher-currency.html"],a[href="vtravel.html"]').forEach(a=>{a.target='_top';if(from==='hotel'&&a.getAttribute('href')==='voucher-currency.html')a.href='voucher-currency.html?from=hotel'})}const h=Math.max(900,d.documentElement.scrollHeight,d.body?.scrollHeight||0);f.style.height=h+'px'}catch(e){}}
+  f.addEventListener('load',()=>{wired=false;tune();setTimeout(tune,250);setTimeout(tune,900)});
   window.addEventListener('resize',()=>setTimeout(tune,120));
   setInterval(tune,1200);
 })();
