@@ -13,7 +13,7 @@
 <div class="shell">
   <div class="returnbar">
     <a class="back" id="backTop" href="./">← Zurück zum Business-Kompass</a>
-    <div class="where"><strong>Voucher Currency verstehen</strong><span>Systemwissen im Voucher Business Kompass</span></div>
+    <div class="where"><strong>Voucher Currency verstehen</strong><span id="whereText">Systemwissen im Voucher Business Kompass</span></div>
   </div>
   <iframe class="frame" id="contentFrame" src="voucher-currency-content.html" title="Voucher Currency verstehen"></iframe>
   <div class="bottomBack"><a class="back" id="backBottom" href="./">← Zurück zum Business-Kompass</a></div>
@@ -21,9 +21,11 @@
 <script>
 (()=>{
   const p=new URLSearchParams(location.search),from=p.get('from');
-  const back=from==='hotel'?'hotel.html':'./';
-  const label=from==='hotel'?'← Zurück zur Hotel-Seite':'← Zurück zum Business-Kompass';
+  let back='./',label='← Zurück zum Business-Kompass',context='Systemwissen im Voucher Business Kompass';
+  if(from==='hotel'){back='hotel.html';label='← Zurück zur Hotel-Seite';context='Technische Vertiefung aus der Hotel-Seite'}
+  if(from==='handel'){back='handel.html';label='← Zurück zu Handel & Produktverkauf';context='Technische Vertiefung aus Handel & Produktverkauf'}
   ['backTop','backBottom'].forEach(id=>{const a=document.getElementById(id);a.href=back;a.textContent=label});
+  document.getElementById('whereText').textContent=context;
   const f=document.getElementById('contentFrame');let wired=false;
   function tune(){try{const d=f.contentDocument;if(!d)return;const top=d.querySelector('.top');if(top)top.style.display='none';const page=d.querySelector('.page');if(page){page.style.paddingTop='10px';page.style.paddingBottom='18px'}if(!wired){wired=true;d.querySelectorAll('a[href^="./"],a[href="vtravel.html"],a[href="voucher-currency.html"]').forEach(a=>{a.target='_top';if(from==='hotel'&&a.getAttribute('href')==='vtravel.html')a.href='vtravel.html?from=hotel'})}const h=Math.max(900,d.documentElement.scrollHeight,d.body?.scrollHeight||0);f.style.height=h+'px'}catch(e){}}
   f.addEventListener('load',()=>{wired=false;tune();setTimeout(tune,250);setTimeout(tune,900)});
