@@ -25,9 +25,9 @@ function enhanceHotelUi(){
     .calcResultHead{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#132238;font-weight:950;font-size:18px}
     .calcResultHead:before{content:'';width:9px;height:32px;border-radius:999px;background:#00a7ad;flex:0 0 auto}
     .calculatorResults{margin-top:0!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}
-    .calculatorResults .metric{min-height:112px;display:flex;flex-direction:column;justify-content:center;padding:18px}
+    .calculatorResults .metric{min-height:112px;display:flex;flex-direction:column;justify-content:flex-start;padding:18px}
     .calculatorResults .metric span{font-size:14px;line-height:1.35}
-    .calculatorResults .metric strong{font-size:clamp(24px,2.2vw,34px);line-height:1.1;margin-top:4px}
+    .calculatorResults .metric strong{font-size:clamp(24px,2.2vw,34px);line-height:1.1;margin-top:auto;padding-top:8px}
     .detailsBody p:first-child{max-width:1050px}
     .detailsBody p:has(a){display:inline-block;margin:10px 10px 0 0}
     .detailsBody a{display:inline-flex;text-decoration:none;background:#132238;color:#fff!important;padding:10px 14px;border-radius:11px;font-weight:900}
