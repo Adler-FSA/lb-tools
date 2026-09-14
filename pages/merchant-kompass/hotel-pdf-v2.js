@@ -5,18 +5,19 @@
    fertigen PDF-Link auf direkte Ansicht statt Browser-Download um.
 */
 const core=document.createElement('script');
-core.src='./hotel-pdf-v2-core.js?v=2';
+core.src='./hotel-pdf-v2-core.js?v=3';
 core.onload=()=>{
   const tunePreviewLink=()=>{
     const link=document.getElementById('pdfDownloadLink');
-    if(!link)return;
+    if(!link||link.dataset.previewTuned==='1')return;
+    link.dataset.previewTuned='1';
     link.removeAttribute('download');
     link.setAttribute('target','_blank');
     link.setAttribute('rel','noopener');
     link.textContent='PDF ansehen / öffnen';
   };
   const state=document.getElementById('pdfState');
-  if(state)new MutationObserver(tunePreviewLink).observe(state,{childList:true,subtree:true});
+  if(state)new MutationObserver(tunePreviewLink).observe(state,{childList:true});
   tunePreviewLink();
 };
 core.onerror=()=>console.error('Hotel PDF Core konnte nicht geladen werden.');
