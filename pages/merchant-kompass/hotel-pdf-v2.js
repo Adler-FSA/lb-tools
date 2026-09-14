@@ -1,51 +1,69 @@
 (()=>{
 'use strict';
-/* HOTEL_PDF_V2_LOADER + FSA NAMED PDF HANDOFF
-   Lädt den bestehenden Hotel-PDF-Adapter.
-   Die PDF wird von der FSA_CONTRACT_PDF_ENGINE_V2 lokal erzeugt.
-   Danach wird der benannte Download exakt nach dem bewährten FSA PDF-Core-V3-
-   Prinzip vorbereitet: echter PDF-Blob, download-Dateiname, Dokumenttitel,
-   application-name und synchrones Reassert beim Klick.
-   Kein Druckdialog, kein Browser-Druck-PDF.
+/* HOTEL_PDF_V2_LOADER
+   PDF-Erzeugung: FSA_CONTRACT_PDF_ENGINE_V2 + hotel-pdf-v2-core.js.
+   PDF-Ausgabe: FSA_PDF_NAMED_PREVIEW_V1.
+   Der fertige PDF-Blob wird NICHT direkt als blob:/file:-URL geöffnet. Vor der
+   Freigabe des Buttons wird er unter einer gleichnamigen HTTPS-Vorschau-URL
+   bereitgestellt, damit iPad/Safari den echten Dateinamen behält.
 */
 
-let originalTitle=document.title;
-function applyPdfIdentity(filename){
-  if(!filename)return;
-  const base=filename.replace(/\.pdf$/i,'');
-  document.title=base;
-  document.documentElement.setAttribute('data-fsa-pdf-filename',filename);
-  try{sessionStorage.setItem('fsa_hotel_pdf_filename',filename)}catch{}
-  let meta=document.querySelector('meta[name="application-name"]');
-  if(!meta){meta=document.createElement('meta');meta.name='application-name';document.head.appendChild(meta)}
-  meta.content=base;
-}
-
-function wireNamedPdfHandoff(){
+async function prepareNamedLink(){
   const link=document.getElementById('pdfDownloadLink');
-  if(!link||link.dataset.fsaNamedHandoff==='1')return;
+  if(!link||link.dataset.namedPreviewState)return;
   const filename=(link.getAttribute('download')||'').trim();
-  if(!filename)return;
-  link.dataset.fsaNamedHandoff='1';
-  link.setAttribute('type','application/pdf');
-  applyPdfIdentity(filename);
-  link.addEventListener('click',()=>applyPdfIdentity(filename));
+  const sourceUrl=link.href;
+  if(!filename||!sourceUrl)return;
+
+  link.dataset.namedPreviewState='preparing';
+  link.setAttribute('aria-disabled','true');
+  link.style.pointerEvents='none';
+  const originalText=link.textContent||'PDF herunterladen / speichern';
+  link.textContent='PDF-Vorschau wird vorbereitet …';
+
+  try{
+    if(!window.FSAPdfNamedPreview)throw new Error('FSA PDF Preview Layer wurde nicht geladen.');
+    const out=await window.FSAPdfNamedPreview.prepare({sourceUrl,filename});
+    link.href=out.url;
+    link.removeAttribute('download');
+    link.setAttribute('target','_blank');
+    link.setAttribute('rel','noopener');
+    link.setAttribute('type','application/pdf');
+    link.removeAttribute('aria-disabled');
+    link.style.pointerEvents='';
+    link.textContent=originalText;
+    link.dataset.namedPreviewState='ready';
+  }catch(err){
+    console.error('Hotel PDF named preview',err);
+    link.dataset.namedPreviewState='error';
+    link.textContent='PDF-Vorschau konnte nicht bereitgestellt werden';
+    const state=document.getElementById('pdfState');
+    if(state){
+      const hint=document.createElement('div');
+      hint.className='pdfHint';
+      hint.textContent='Die PDF wurde erzeugt, aber die benannte Vorschau konnte nicht vorbereitet werden. Bitte die Seite neu laden und erneut erstellen.';
+      state.appendChild(hint);
+    }
+  }
 }
 
-const core=document.createElement('script');
-core.src='./hotel-pdf-v2-core.js?v=4';
-core.onload=()=>{
+function wireObserver(){
   const state=document.getElementById('pdfState');
-  if(state)new MutationObserver(wireNamedPdfHandoff).observe(state,{childList:true});
-  wireNamedPdfHandoff();
-};
-core.onerror=()=>console.error('Hotel PDF Core konnte nicht geladen werden.');
-document.head.appendChild(core);
+  if(state)new MutationObserver(prepareNamedLink).observe(state,{childList:true,subtree:true});
+  prepareNamedLink();
+}
 
-window.addEventListener('pagehide',()=>{
-  if(document.documentElement.getAttribute('data-fsa-pdf-filename')){
-    document.title=originalTitle;
-    document.documentElement.removeAttribute('data-fsa-pdf-filename');
-  }
-});
+function loadCore(){
+  const core=document.createElement('script');
+  core.src='./hotel-pdf-v2-core.js?v=6';
+  core.onload=wireObserver;
+  core.onerror=()=>console.error('Hotel PDF Core konnte nicht geladen werden.');
+  document.head.appendChild(core);
+}
+
+const delivery=document.createElement('script');
+delivery.src='../vertraege/pdf-named-preview-v1.js?v=1';
+delivery.onload=loadCore;
+delivery.onerror=()=>console.error('FSA PDF Preview Layer konnte nicht geladen werden.');
+document.head.appendChild(delivery);
 })();
