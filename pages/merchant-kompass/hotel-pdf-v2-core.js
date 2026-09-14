@@ -218,10 +218,10 @@ function buildPdfSource(){
   add(root,'h2','Wichtige Einordnung');
   add(root,'p','Diese Unterlage ist eine Beispiel- und Entscheidungsrechnung zur Veranschaulichung des Modells. Tatsächlicher Reserveanteil, Akzeptanzregeln, Kosten und wirtschaftliche Wirkung hängen von den jeweils geltenden Bedingungen und Ihrer eigenen Kalkulation ab. Keine Umsatz- oder Erfolgsgarantie.');
 
-  document.body.appendChild(root);return root;
+  return root;
 }
 
-function setState(type,html){const box=$('#pdfState');if(!box)return;box.className='pdfState show '+type;box.innerHTML=html;requestAnimationFrame(()=>box.scrollIntoView({behavior:'smooth',block:'center'}))}
+function setState(type,html){const box=$('#pdfState');if(!box)return;box.className='pdfState show '+type;box.innerHTML=html}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 async function makePdf(){
   const enteredName=enteredHouseName();
