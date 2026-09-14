@@ -5,7 +5,7 @@
    fertigen PDF-Link auf direkte Ansicht statt Browser-Download um.
 */
 const core=document.createElement('script');
-core.src='./hotel-pdf-v2-core.js?v=1';
+core.src='./hotel-pdf-v2-core.js?v=2';
 core.onload=()=>{
   const tunePreviewLink=()=>{
     const link=document.getElementById('pdfDownloadLink');
