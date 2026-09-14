@@ -68,7 +68,7 @@
   </section>
 
   <section class="card section" id="branchen">
-    <div class="head"><div class="kicker">Branchenwelten</div><h2>Der gleiche Mechanismus kann ganz unterschiedlich genutzt werden.</h2><p>Wählen Sie ein Beispiel. Die Logik bleibt gleich, aber das Folgegeschäft verändert sich je nach Branche.</p></div>
+    <div class="head"><div class="kicker">Branchenwelten</div><h2>Der gleiche Mechanismus kann ganz unterschiedlich genutzt werden.</h2><p>Wählen Sie ein Beispiel. Ab hier wechseln Folgegeschäft und Rechner vollständig mit Ihrer Branche.</p></div>
     <div class="body">
       <div class="sectorTabs"><button class="sectorTab active" data-sector="kueche">Küchenstudio</button><button class="sectorTab" data-sector="auto">Autohaus</button><button class="sectorTab" data-sector="moebel">Möbelhaus</button><button class="sectorTab" data-sector="wohnmobil">Wohnmobil</button></div>
       <div class="sectorHero">
@@ -94,7 +94,7 @@
   </section>
 
   <section class="card section" id="folgegeschaeft">
-    <div class="head"><div class="kicker">Folgegeschäft</div><h2>Sie bestimmen, wo der Wertgutschein den größten Hebel hat.</h2><p>Nicht jedes Produkt muss denselben Gutscheinwert zulassen. Marge, Lagerbestand, Auslastung und gewünschtes Folgegeschäft können unterschiedlich berücksichtigt werden.</p></div>
+    <div class="head"><div class="kicker">Folgegeschäft · <span id="followSector">Küchenstudio</span></div><h2 id="followTitle">Küchenstudio: Sie bestimmen, wo der Wertgutschein den größten Hebel hat.</h2><p id="followLead">Die Beispielprodukte und Startwerte gehören zum gewählten Küchenstudio-Modell und können direkt verändert werden.</p></div>
     <div class="body">
       <div class="rules">
         <div class="rule"><b>Hohe Marge</b><p>Produkte mit guter Marge können mehr Spielraum für einsetzbaren Gutscheinwert bieten.</p></div>
@@ -105,12 +105,7 @@
       <div style="margin-top:18px;overflow-x:auto">
         <table class="serviceTable" aria-label="Folgegeschäft-Beispiele">
           <thead><tr><th>Produkt / Leistung</th><th>Verkaufspreis</th><th>Direkte Kosten</th><th>Gutscheinwert einsetzbar</th><th>Kunde zahlt regulär</th><th>Verbleibt vor weiteren Kosten</th></tr></thead>
-          <tbody>
-            <tr data-item><td class="serviceName">Armatur</td><td><input data-price value="600" inputmode="decimal"></td><td><input data-cost value="260" inputmode="decimal"></td><td><input data-voucher value="150" inputmode="decimal"></td><td class="resultCell" data-pay>—</td><td class="resultCell" data-margin>—</td></tr>
-            <tr data-item><td class="serviceName">Kaffeemaschine</td><td><input data-price value="1200" inputmode="decimal"></td><td><input data-cost value="650" inputmode="decimal"></td><td><input data-voucher value="300" inputmode="decimal"></td><td class="resultCell" data-pay>—</td><td class="resultCell" data-margin>—</td></tr>
-            <tr data-item><td class="serviceName">Beleuchtung / Zubehör</td><td><input data-price value="800" inputmode="decimal"></td><td><input data-cost value="320" inputmode="decimal"></td><td><input data-voucher value="200" inputmode="decimal"></td><td class="resultCell" data-pay>—</td><td class="resultCell" data-margin>—</td></tr>
-            <tr data-item><td class="serviceName">Schrank-Erweiterung</td><td><input data-price value="2000" inputmode="decimal"></td><td><input data-cost value="950" inputmode="decimal"></td><td><input data-voucher value="500" inputmode="decimal"></td><td class="resultCell" data-pay>—</td><td class="resultCell" data-margin>—</td></tr>
-          </tbody>
+          <tbody id="itemRows"></tbody>
         </table>
       </div>
       <div class="summary">
@@ -124,22 +119,22 @@
   </section>
 
   <section class="card section">
-    <div class="head"><div class="kicker">Aus einem Kauf wird eine Kundenreise</div><h2>Der Wertgutschein kann der Anfang weiterer Umsätze sein.</h2><p>Ein vereinfachtes Beispiel zeigt den Weg vom Hauptkauf zum Folgegeschäft.</p></div>
+    <div class="head"><div class="kicker">Aus einem Kauf wird eine Kundenreise</div><h2 id="loopTitle">Der Wertgutschein kann der Anfang weiterer Umsätze sein.</h2><p>Ein vereinfachtes Beispiel zeigt den Weg vom Hauptkauf zum Folgegeschäft der gewählten Branche.</p></div>
     <div class="body">
       <div class="loop">
-        <div class="loopBox"><b>Hauptkauf</b><strong>15.000 €</strong><span>regulär bezahlt</span></div><div class="loopArrow">→</div>
-        <div class="loopBox"><b>Wertgutschein</b><strong>3.000 €</strong><span>zusätzliche Kaufkraft</span></div><div class="loopArrow">→</div>
-        <div class="loopBox"><b>Folgeprodukte</b><strong>4.600 €</strong><span>Gutscheinwert + reguläre Zahlungen</span></div>
+        <div class="loopBox"><b id="loopMainLabel">Hauptkauf</b><strong id="loopMain">15.000 €</strong><span>regulär bezahlt</span></div><div class="loopArrow">→</div>
+        <div class="loopBox"><b>Wertgutschein</b><strong id="loopVoucher">3.000 €</strong><span>zusätzliche Kaufkraft</span></div><div class="loopArrow">→</div>
+        <div class="loopBox"><b>Folgeprodukte</b><strong id="loopItems">4.600 €</strong><span>Gutscheinwert + reguläre Zahlungen</span></div>
       </div>
       <div class="dual" style="margin-top:14px"><div class="perspective customer"><h3>Was erlebt der Kunde?</h3><p>Er hat das Gefühl, bereits zusätzliche Kaufkraft zur Verfügung zu haben. Dadurch werden Ergänzungen, Zubehör und spätere Käufe leichter zu einer echten Option.</p></div><div class="perspective store"><h3>Was kann daraus entstehen?</h3><p>Mehr Zusatzverkäufe, weitere Kundenkontakte und eine stärkere Bindung an das eigene Geschäft – ohne den ursprünglichen Hauptverkauf sofort im Preis zu reduzieren.</p></div></div>
     </div>
   </section>
 
   <section class="card section" id="eigene-zahlen">
-    <div class="head"><div class="kicker">Jetzt mit Ihren Zahlen</div><h2>Wie sieht das für Ihren Verkauf aus?</h2><p>Erst das Prinzip verstehen – dann mit dem eigenen Produkt rechnen.</p></div>
+    <div class="head"><div class="kicker">Jetzt mit Ihren Zahlen · <span id="ownSector">Küchenstudio</span></div><h2 id="ownTitle">Wie sieht das für Ihr Küchenstudio aus?</h2><p id="ownLead">Die Startwerte passen zum ausgewählten Branchenbeispiel. Sie können alle Zahlen direkt durch Ihre eigenen Werte ersetzen.</p></div>
     <div class="body">
       <div class="calcShell">
-        <div class="calc"><h3>1 · Ihr Hauptverkauf</h3>
+        <div class="calc"><h3 id="mainCalcTitle">1 · Ihr Küchenverkauf</h3>
           <div class="field"><label for="mainPrice">Verkaufspreis</label><input id="mainPrice" value="15000" inputmode="decimal"></div>
           <div class="field"><label for="mainCost">Direkte Warenkosten</label><input id="mainCost" value="8000" inputmode="decimal"></div>
           <div class="field"><label for="rewardPct">Belohnung als Wertgutschein in %</label><input id="rewardPct" value="20" inputmode="decimal"></div>
@@ -150,7 +145,7 @@
       <div class="resultBand"><h3>Ihr Hauptverkauf auf einen Blick</h3><div class="summary"><div class="metric primary"><span>Kunde zahlt regulär</span><strong id="mainOut">—</strong></div><div class="metric mint"><span>Wertgutschein</span><strong id="voucherOut">—</strong></div><div class="metric"><span>Reserveanteil</span><strong id="reserveOut">—</strong></div><div class="metric mag"><span>Rohertrag vor weiteren Kosten</span><strong id="grossOut">—</strong></div></div></div>
 
       <div class="calcShell" style="margin-top:18px">
-        <div class="calc"><h3>2 · Ein konkretes Folgeprodukt</h3>
+        <div class="calc"><h3 id="nextCalcTitle">2 · Ein konkretes Küchen-Folgeprodukt</h3>
           <div class="field"><label for="nextPrice">Verkaufspreis Folgeprodukt</label><input id="nextPrice" value="1200" inputmode="decimal"></div>
           <div class="field"><label for="nextCost">Direkte Warenkosten</label><input id="nextCost" value="650" inputmode="decimal"></div>
           <div class="field"><label for="nextVoucher">Einsetzbarer Gutscheinwert</label><input id="nextVoucher" value="300" inputmode="decimal"></div>
@@ -168,19 +163,94 @@
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const num=el=>{const v=typeof el==='string'?$(el)?.value:el?.value;const x=Number(String(v??0).trim().replace(',','.'));return Number.isFinite(x)?Math.max(0,x):0};
 const eur=x=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(x||0);
-function calcItems(){let sales=0,costs=0,v=0,cash=0,margin=0;$$('[data-item]').forEach(r=>{const p=num(r.querySelector('[data-price]')),c=num(r.querySelector('[data-cost]')),g=Math.min(num(r.querySelector('[data-voucher]')),p),pay=Math.max(0,p-g),left=pay-c;r.querySelector('[data-pay]').textContent=eur(pay);r.querySelector('[data-margin]').textContent=eur(left);sales+=p;costs+=c;v+=g;cash+=pay;margin+=left});$('#itemSales').textContent=eur(sales);$('#itemVoucher').textContent=eur(v);$('#itemCash').textContent=eur(cash);$('#itemMargin').textContent=eur(margin)}
-$$('[data-item] input').forEach(i=>i.addEventListener('input',calcItems));
-function calcOwn(){const p=num('#mainPrice'),c=num('#mainCost'),rp=num('#rewardPct')/100,resP=num('#reservePct')/100,v=p*rp,res=v*resP,gross=p-c;$('#mainOut').textContent=eur(p);$('#voucherOut').textContent=eur(v);$('#reserveOut').textContent=eur(res);$('#grossOut').textContent=eur(gross);$('#mainExplain').textContent='Ihr Kunde bezahlt '+eur(p)+' regulär. Daraus entstehen in diesem Beispiel '+eur(v)+' Wertgutschein. Bei '+Math.round(resP*100)+' % Reserveanteil werden rechnerisch '+eur(res)+' Reserve angesetzt.';$('#customerExplain').textContent='Ihr Kunde erhält '+eur(v)+' zusätzliche Kaufkraft. Diese wird nicht als Bargeld ausgezahlt, sondern kann bei dafür vorgesehenen Angeboten eingesetzt werden.';const np=num('#nextPrice'),nc=num('#nextCost'),ng=Math.min(num('#nextVoucher'),np),pay=Math.max(0,np-ng),m=pay-nc;$('#nextPay').textContent=eur(pay);$('#nextBenefit').textContent=eur(ng);$('#nextCostOut').textContent=eur(nc);$('#nextMargin').textContent=eur(m);$('#nextExplain').textContent='Bei '+eur(np)+' Verkaufspreis setzt der Kunde '+eur(ng)+' Gutscheinwert ein und zahlt '+eur(pay)+' regulär. Nach '+eur(nc)+' direkten Warenkosten verbleiben '+eur(m)+' vor Personal, Fixkosten, Steuern und weiteren Kosten.'}
-['#mainPrice','#mainCost','#rewardPct','#reservePct','#nextPrice','#nextCost','#nextVoucher'].forEach(id=>$(id)?.addEventListener('input',calcOwn));
+const clone=x=>JSON.parse(JSON.stringify(x));
+
 const sectors={
- kueche:{k:'Küchenstudio',t:'Aus einer Küche wird mehr als ein einzelner Auftrag.',b:'15.000 € Hauptkauf',x:'Der Wertgutschein kann den Kunden später wieder ins Studio führen – für Ausstattung, Ergänzungen und weitere Produkte.',o:[['Armatur','Ergänzung zum Hauptkauf'],['Kaffeemaschine','hochwertiges Zusatzprodukt'],['Beleuchtung','Ausstattung und Komfort'],['Schrank-Erweiterung','spätere Ergänzung']]},
- auto:{k:'Autohaus',t:'Das Fahrzeug ist der Anfang – nicht das Ende der Kundenbeziehung.',b:'35.000 € Fahrzeug',x:'Service, Zubehör und spätere Fahrzeugthemen schaffen zahlreiche weitere Kontaktpunkte.',o:[['Winterräder','saisonales Zubehör'],['Inspektion','wiederkehrende Serviceleistung'],['Dachbox / Träger','Zubehör mit Zusatznutzen'],['Fahrzeugpflege','regelmäßiger Folgekontakt']]},
- moebel:{k:'Möbelhaus',t:'Ein Raum führt oft zum nächsten.',b:'8.000 € Einrichtung',x:'Aus Sofa, Essbereich oder Schlafzimmer können weitere Einrichtungsentscheidungen entstehen.',o:[['Teppich','Ergänzung zur Einrichtung'],['Beleuchtung','Raumwirkung und Zusatzverkauf'],['Esstisch','weiterer Wohnbereich'],['Dekoration','kleinere Folgekäufe']]},
- wohnmobil:{k:'Wohnmobil',t:'Nach dem Fahrzeugkauf beginnt die Ausstattung.',b:'70.000 € Wohnmobil',x:'Nachrüstung, Service und Reiseausstattung bieten zahlreiche Möglichkeiten für Folgegeschäft.',o:[['Markise','Nachrüstung'],['Fahrradträger','Reisezubehör'],['Solaranlage','technische Erweiterung'],['Service / Einlagerung','wiederkehrender Kontakt']]}
+  kueche:{
+    k:'Küchenstudio',title:'Aus einer Küche wird mehr als ein einzelner Auftrag.',big:'15.000 € Hauptkauf',text:'Der Wertgutschein kann den Kunden später wieder ins Studio führen – für Ausstattung, Ergänzungen und weitere Produkte.',mainLabel:'Küchenverkauf',loopLabel:'Küche',ownTitle:'Wie sieht das für Ihr Küchenstudio aus?',nextTitle:'2 · Ein konkretes Küchen-Folgeprodukt',
+    offers:[['Armatur','Ergänzung zum Hauptkauf'],['Kaffeemaschine','hochwertiges Zusatzprodukt'],['Beleuchtung','Ausstattung und Komfort'],['Schrank-Erweiterung','spätere Ergänzung']],
+    main:{price:15000,cost:8000,reward:20,reserve:20},
+    items:[{name:'Armatur',price:600,cost:260,voucher:150},{name:'Kaffeemaschine',price:1200,cost:650,voucher:300},{name:'Beleuchtung / Zubehör',price:800,cost:320,voucher:200},{name:'Schrank-Erweiterung',price:2000,cost:950,voucher:500}],
+    next:{price:1200,cost:650,voucher:300}
+  },
+  auto:{
+    k:'Autohaus',title:'Das Fahrzeug ist der Anfang – nicht das Ende der Kundenbeziehung.',big:'35.000 € Fahrzeug',text:'Service, Zubehör und spätere Fahrzeugthemen schaffen zahlreiche weitere Kontaktpunkte.',mainLabel:'Fahrzeugverkauf',loopLabel:'Fahrzeug',ownTitle:'Wie sieht das für Ihr Autohaus aus?',nextTitle:'2 · Ein konkretes Autohaus-Folgeprodukt',
+    offers:[['Winterräder','saisonales Zubehör'],['Inspektion','wiederkehrende Serviceleistung'],['Dachbox / Träger','Zubehör mit Zusatznutzen'],['Fahrzeugpflege','regelmäßiger Folgekontakt']],
+    main:{price:35000,cost:28000,reward:20,reserve:20},
+    items:[{name:'Winterräder',price:1800,cost:1050,voucher:300},{name:'Inspektion / Service',price:450,cost:180,voucher:100},{name:'Dachbox / Träger',price:950,cost:520,voucher:200},{name:'Fahrzeugpflege',price:350,cost:110,voucher:100}],
+    next:{price:1800,cost:1050,voucher:300}
+  },
+  moebel:{
+    k:'Möbelhaus',title:'Ein Raum führt oft zum nächsten.',big:'8.000 € Einrichtung',text:'Aus Sofa, Essbereich oder Schlafzimmer können weitere Einrichtungsentscheidungen entstehen.',mainLabel:'Möbelverkauf',loopLabel:'Einrichtung',ownTitle:'Wie sieht das für Ihr Möbelhaus aus?',nextTitle:'2 · Ein konkretes Möbel-Folgeprodukt',
+    offers:[['Teppich','Ergänzung zur Einrichtung'],['Beleuchtung','Raumwirkung und Zusatzverkauf'],['Esstisch','weiterer Wohnbereich'],['Dekoration','kleinere Folgekäufe']],
+    main:{price:8000,cost:4200,reward:20,reserve:20},
+    items:[{name:'Teppich',price:900,cost:360,voucher:200},{name:'Beleuchtung',price:650,cost:260,voucher:150},{name:'Esstisch',price:1800,cost:900,voucher:400},{name:'Dekoration / Accessoires',price:450,cost:150,voucher:100}],
+    next:{price:1800,cost:900,voucher:400}
+  },
+  wohnmobil:{
+    k:'Wohnmobil',title:'Nach dem Fahrzeugkauf beginnt die Ausstattung.',big:'70.000 € Wohnmobil',text:'Nachrüstung, Service und Reiseausstattung bieten zahlreiche Möglichkeiten für Folgegeschäft.',mainLabel:'Wohnmobilverkauf',loopLabel:'Wohnmobil',ownTitle:'Wie sieht das für Ihren Wohnmobilverkauf aus?',nextTitle:'2 · Ein konkretes Wohnmobil-Folgeprodukt',
+    offers:[['Markise','Nachrüstung'],['Fahrradträger','Reisezubehör'],['Solaranlage','technische Erweiterung'],['Service / Einlagerung','wiederkehrender Kontakt']],
+    main:{price:70000,cost:59000,reward:20,reserve:20},
+    items:[{name:'Markise',price:1800,cost:950,voucher:350},{name:'Fahrradträger',price:900,cost:480,voucher:200},{name:'Solaranlage',price:3000,cost:1700,voucher:600},{name:'Service / Einlagerung',price:850,cost:300,voucher:200}],
+    next:{price:1800,cost:950,voucher:350}
+  }
 };
-function setSector(key){const s=sectors[key];$('#sectorKicker').textContent=s.k;$('#sectorTitle').textContent=s.t;$('#sectorBig').textContent=s.b;$('#sectorText').textContent=s.x;$('#sectorOffers').innerHTML=s.o.map(([a,b])=>'<div class="offer"><b>'+a+'</b><span>'+b+'</span></div>').join('');$$('.sectorTab').forEach(b=>b.classList.toggle('active',b.dataset.sector===key))}
+
+const states={};
+let currentSector=null;
+function currentRows(){return $$('[data-item]')}
+function captureSector(){
+  if(!currentSector)return;
+  states[currentSector]={
+    main:{price:num('#mainPrice'),cost:num('#mainCost'),reward:num('#rewardPct'),reserve:num('#reservePct')},
+    items:currentRows().map(r=>({name:(r.querySelector('.serviceName')?.textContent||'').trim(),price:num(r.querySelector('[data-price]')),cost:num(r.querySelector('[data-cost]')),voucher:num(r.querySelector('[data-voucher]'))})),
+    next:{price:num('#nextPrice'),cost:num('#nextCost'),voucher:num('#nextVoucher')}
+  };
+}
+function stateFor(key){if(!states[key])states[key]=clone({main:sectors[key].main,items:sectors[key].items,next:sectors[key].next});return states[key]}
+function renderRows(items){
+  $('#itemRows').innerHTML=items.map(i=>`<tr data-item><td class="serviceName">${i.name}</td><td><input data-price value="${i.price}" inputmode="decimal"></td><td><input data-cost value="${i.cost}" inputmode="decimal"></td><td><input data-voucher value="${i.voucher}" inputmode="decimal"></td><td class="resultCell" data-pay>—</td><td class="resultCell" data-margin>—</td></tr>`).join('');
+  $$('#itemRows input').forEach(i=>i.addEventListener('input',()=>{calcItems();saveLiveState()}));
+}
+function saveLiveState(){
+  if(!currentSector)return;
+  states[currentSector]={
+    main:{price:num('#mainPrice'),cost:num('#mainCost'),reward:num('#rewardPct'),reserve:num('#reservePct')},
+    items:currentRows().map(r=>({name:(r.querySelector('.serviceName')?.textContent||'').trim(),price:num(r.querySelector('[data-price]')),cost:num(r.querySelector('[data-cost]')),voucher:num(r.querySelector('[data-voucher]'))})),
+    next:{price:num('#nextPrice'),cost:num('#nextCost'),voucher:num('#nextVoucher')}
+  };
+}
+function calcItems(){
+  let sales=0,costs=0,v=0,cash=0,margin=0;
+  currentRows().forEach(r=>{const p=num(r.querySelector('[data-price]')),c=num(r.querySelector('[data-cost]')),g=Math.min(num(r.querySelector('[data-voucher]')),p),pay=Math.max(0,p-g),left=pay-c;r.querySelector('[data-pay]').textContent=eur(pay);r.querySelector('[data-margin]').textContent=eur(left);sales+=p;costs+=c;v+=g;cash+=pay;margin+=left});
+  $('#itemSales').textContent=eur(sales);$('#itemVoucher').textContent=eur(v);$('#itemCash').textContent=eur(cash);$('#itemMargin').textContent=eur(margin);$('#loopItems').textContent=eur(sales);
+}
+function calcOwn(){
+  const p=num('#mainPrice'),c=num('#mainCost'),rp=num('#rewardPct')/100,resP=num('#reservePct')/100,v=p*rp,res=v*resP,gross=p-c;
+  $('#mainOut').textContent=eur(p);$('#voucherOut').textContent=eur(v);$('#reserveOut').textContent=eur(res);$('#grossOut').textContent=eur(gross);
+  $('#mainExplain').textContent='Ihr Kunde bezahlt '+eur(p)+' regulär. Daraus entstehen in diesem Beispiel '+eur(v)+' Wertgutschein. Bei '+Math.round(resP*100)+' % Reserveanteil werden rechnerisch '+eur(res)+' Reserve angesetzt.';
+  $('#customerExplain').textContent='Ihr Kunde erhält '+eur(v)+' zusätzliche Kaufkraft. Diese wird nicht als Bargeld ausgezahlt, sondern kann bei dafür vorgesehenen Angeboten eingesetzt werden.';
+  const np=num('#nextPrice'),nc=num('#nextCost'),ng=Math.min(num('#nextVoucher'),np),pay=Math.max(0,np-ng),m=pay-nc;
+  $('#nextPay').textContent=eur(pay);$('#nextBenefit').textContent=eur(ng);$('#nextCostOut').textContent=eur(nc);$('#nextMargin').textContent=eur(m);
+  $('#nextExplain').textContent='Bei '+eur(np)+' Verkaufspreis setzt der Kunde '+eur(ng)+' Gutscheinwert ein und zahlt '+eur(pay)+' regulär. Nach '+eur(nc)+' direkten Warenkosten verbleiben '+eur(m)+' vor Personal, Fixkosten, Steuern und weiteren Kosten.';
+  $('#loopMain').textContent=eur(p);$('#loopVoucher').textContent=eur(v);
+}
+function applyState(key){
+  const s=sectors[key],st=stateFor(key);
+  $('#sectorKicker').textContent=s.k;$('#sectorTitle').textContent=s.title;$('#sectorBig').textContent=s.big;$('#sectorText').textContent=s.text;
+  $('#sectorOffers').innerHTML=s.offers.map(([a,b])=>'<div class="offer"><b>'+a+'</b><span>'+b+'</span></div>').join('');
+  $('#followSector').textContent=s.k;$('#followTitle').textContent=s.k+': Sie bestimmen, wo der Wertgutschein den größten Hebel hat.';$('#followLead').textContent='Die Beispielprodukte und Startwerte gehören zum gewählten '+s.k+'-Modell und können direkt verändert werden.';
+  $('#ownSector').textContent=s.k;$('#ownTitle').textContent=s.ownTitle;$('#mainCalcTitle').textContent='1 · Ihr '+s.mainLabel;$('#nextCalcTitle').textContent=s.nextTitle;$('#loopMainLabel').textContent=s.loopLabel;
+  renderRows(st.items);
+  $('#mainPrice').value=st.main.price;$('#mainCost').value=st.main.cost;$('#rewardPct').value=st.main.reward;$('#reservePct').value=st.main.reserve;
+  $('#nextPrice').value=st.next.price;$('#nextCost').value=st.next.cost;$('#nextVoucher').value=st.next.voucher;
+  $$('.sectorTab').forEach(b=>b.classList.toggle('active',b.dataset.sector===key));
+  calcItems();calcOwn();
+}
+function setSector(key){if(!sectors[key])return;if(currentSector)captureSector();currentSector=key;applyState(key)}
 $$('.sectorTab').forEach(b=>b.addEventListener('click',()=>setSector(b.dataset.sector)));
-setSector('kueche');calcItems();calcOwn();
+['#mainPrice','#mainCost','#rewardPct','#reservePct','#nextPrice','#nextCost','#nextVoucher'].forEach(id=>$(id)?.addEventListener('input',()=>{calcOwn();saveLiveState()}));
+setSector('kueche');
 </script>
 </body>
 </html>
