@@ -15,6 +15,49 @@ function isoDate(){const d=new Date();return `${d.getFullYear()}-${pad(d.getMont
 function displayDate(){return new Intl.DateTimeFormat('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date())}
 function hotelName(){return ($('#hotelName')?.value||'').trim()||'Hotel'}
 
+function enhanceHotelUi(){
+  const style=document.createElement('style');
+  style.textContent=`
+    #eigene-zahlen .calcGrid{grid-template-columns:minmax(330px,.82fr) minmax(0,1.18fr);align-items:start}
+    #eigene-zahlen .calcGrid>div:last-child{min-width:0}
+    .calcResultBlock{margin:14px 0 24px;border:1px solid #dbe5e9;border-radius:20px;background:linear-gradient(180deg,#fbfdfd,#f4f8f9);padding:18px 18px 16px}
+    .calcResultHead{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#132238;font-weight:950;font-size:18px}
+    .calcResultHead:before{content:'';width:9px;height:32px;border-radius:999px;background:#00a7ad;flex:0 0 auto}
+    .calculatorResults{margin-top:0!important;grid-template-columns:repeat(4,minmax(0,1fr))!important}
+    .calculatorResults .metric{min-height:112px;display:flex;flex-direction:column;justify-content:center;padding:18px}
+    .calculatorResults .metric span{font-size:14px;line-height:1.35}
+    .calculatorResults .metric strong{font-size:clamp(24px,2.2vw,34px);line-height:1.1;margin-top:4px}
+    .detailsBody p:first-child{max-width:1050px}
+    .detailsBody p:has(a){display:inline-block;margin:10px 10px 0 0}
+    .detailsBody a{display:inline-flex;text-decoration:none;background:#132238;color:#fff!important;padding:10px 14px;border-radius:11px;font-weight:900}
+    @media(max-width:980px){#eigene-zahlen .calcGrid{grid-template-columns:1fr}.calculatorResults{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    @media(max-width:560px){.calculatorResults{grid-template-columns:1fr!important}.calcResultBlock{padding:14px}.calculatorResults .metric{min-height:auto}}
+  `;
+  document.head.appendChild(style);
+
+  const details=$('.detailsBody');
+  if(details){
+    const intro=details.querySelector('p');
+    if(intro)intro.textContent='Der auf dieser Seite als Wertgutschein bezeichnete digitale Gutscheinwert wird im zugrunde liegenden System technisch als Voucher Currency geführt. Die technischen Zusammenhänge und VTravel werden auf zwei eigenständigen Informationsseiten dieses Business-Kompasses erklärt.';
+    const links=[...details.querySelectorAll('a')];
+    if(links[0]){links[0].href='voucher-currency.html?from=hotel';links[0].removeAttribute('target');links[0].removeAttribute('rel')}
+    if(links[1]){links[1].href='vtravel.html?from=hotel';links[1].removeAttribute('target');links[1].removeAttribute('rel')}
+  }
+
+  const grids=$$('#eigene-zahlen .calcGrid');
+  grids.forEach((grid,i)=>{
+    const right=grid.children[1];
+    const summary=right?.querySelector('.summary');
+    if(!summary||summary.closest('.calcResultBlock'))return;
+    const block=document.createElement('div');block.className='calcResultBlock';
+    const head=document.createElement('div');head.className='calcResultHead';
+    head.textContent=i===0?'Ihre Direktbuchung auf einen Blick':'Ihre konkrete Leistung auf einen Blick';
+    summary.classList.add('calculatorResults');
+    block.append(head,summary);
+    grid.insertAdjacentElement('afterend',block);
+  });
+}
+
 function calcServices(){
   let sales=0,costs=0,gutschein=0,cash=0,margin=0;
   $$('[data-service]').forEach(r=>{
@@ -98,5 +141,6 @@ async function makePdf(){
 }
 $('#pdfBtn')?.addEventListener('click',makePdf);
 window.addEventListener('pagehide',()=>{if(pdfUrl)URL.revokeObjectURL(pdfUrl)});
+enhanceHotelUi();
 calcServices();calcOwn();
 })();
