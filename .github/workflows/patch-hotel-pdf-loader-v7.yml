@@ -32,3 +32,4 @@ jobs:
           git add pages/merchant-kompass/hotel.html
           git commit -m 'Load hotel named PDF preview V2 with fresh cache key'
           git push
+# trigger
