@@ -238,17 +238,3 @@ window.addEventListener('pagehide',()=>{if(pdfUrl)URL.revokeObjectURL(pdfUrl)});
 enhanceHotelUi();
 calcServices();calcOwn();
 })();
-
-/* Lädt die zweite, visuelle Broschüren-Ausgabe erst nach dem bestehenden Report. */
-(()=>{
-  function loadScript(src,opts={}){return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.async=true;if(opts.integrity){s.integrity=opts.integrity;s.crossOrigin='anonymous'}if(opts.marker)s.dataset[opts.marker]='1';s.onload=resolve;s.onerror=()=>reject(new Error('Script konnte nicht geladen werden: '+src));document.head.appendChild(s)})}
-  async function bootBrochure(){
-    if(!window.PDFLib){
-      await loadScript('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js',{integrity:'sha512-z8IYLHO8bTgFqj+yrPyIJnzBDf7DDhWwiEsk4sY+Oe6J2M+WQequeGS7qioI5vT6rXgVRb4K1UVQC5ER7MKzKQ=='});
-    }
-    if(!document.querySelector('script[data-hotel-brochure-v2="1"]')){
-      await loadScript('./hotel-broschuere-v2.js?v=1',{marker:'hotelBrochureV2'});
-    }
-  }
-  bootBrochure().catch(err=>console.error('Hotel Broschüre Loader',err));
-})();
