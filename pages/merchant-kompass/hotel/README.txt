@@ -1,0 +1,1 @@
+Hotel WOW brochure image assets. Files 01-08 are the approved main image set for the hotel PDF template.
