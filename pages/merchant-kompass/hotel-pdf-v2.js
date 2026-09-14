@@ -1,25 +1,13 @@
 (()=>{
 'use strict';
-/* HOTEL_PDF_PREVIEW_WRAPPER
-   Lädt den bestehenden Hotel-PDF-Adapter unverändert und schaltet den
-   fertigen PDF-Link auf direkte Ansicht statt Browser-Download um.
+/* HOTEL_PDF_V2_LOADER
+   Lädt den bestehenden Hotel-PDF-Adapter unverändert.
+   Die PDF wird von der FSA_CONTRACT_PDF_ENGINE_V2 erzeugt.
+   Danach stellt die Seite den fertigen PDF-Download mit dem von der Engine
+   vergebenen Dateinamen bereit. Kein Druckdialog, kein Browser-Druck-PDF.
 */
 const core=document.createElement('script');
-core.src='./hotel-pdf-v2-core.js?v=3';
-core.onload=()=>{
-  const tunePreviewLink=()=>{
-    const link=document.getElementById('pdfDownloadLink');
-    if(!link||link.dataset.previewTuned==='1')return;
-    link.dataset.previewTuned='1';
-    link.removeAttribute('download');
-    link.setAttribute('target','_blank');
-    link.setAttribute('rel','noopener');
-    link.textContent='PDF ansehen / öffnen';
-  };
-  const state=document.getElementById('pdfState');
-  if(state)new MutationObserver(tunePreviewLink).observe(state,{childList:true});
-  tunePreviewLink();
-};
+core.src='./hotel-pdf-v2-core.js?v=4';
 core.onerror=()=>console.error('Hotel PDF Core konnte nicht geladen werden.');
 document.head.appendChild(core);
 })();
