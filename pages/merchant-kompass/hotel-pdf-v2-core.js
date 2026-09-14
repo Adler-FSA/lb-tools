@@ -14,7 +14,8 @@ const pct=x=>new Intl.NumberFormat('de-DE',{maximumFractionDigits:1}).format(x||
 const pad=x=>String(x).padStart(2,'0');
 function isoDate(){const d=new Date();return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`}
 function displayDate(){return new Intl.DateTimeFormat('de-DE',{day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date())}
-function hotelName(){return ($('#hotelName')?.value||'').trim()||'Hotel'}
+function enteredHouseName(){return ($('#hotelName')?.value||'').trim()}
+function hotelName(){return enteredHouseName()||'Ihr Haus'}
 
 function enhanceHotelUi(){
   const style=document.createElement('style');
@@ -35,6 +36,10 @@ function enhanceHotelUi(){
     @media(max-width:560px){.calculatorResults{grid-template-columns:1fr!important}.calcResultBlock{padding:14px}.calculatorResults .metric{min-height:auto}}
   `;
   document.head.appendChild(style);
+
+  const nameLabel=document.querySelector('label[for="hotelName"]'),nameInput=$('#hotelName');
+  if(nameLabel)nameLabel.textContent='Name des Hauses / Betriebs';
+  if(nameInput)nameInput.placeholder='z. B. Fischerhaus';
 
   const details=$('.detailsBody');
   if(details){
@@ -219,14 +224,14 @@ function buildPdfSource(){
 function setState(type,html){const box=$('#pdfState');if(!box)return;box.className='pdfState show '+type;box.innerHTML=html;requestAnimationFrame(()=>box.scrollIntoView({behavior:'smooth',block:'center'}))}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 async function makePdf(){
-  const enteredName=($('#hotelName')?.value||'').trim();
-  if(!enteredName){setState('error','<strong>Bitte tragen Sie zuerst den Hotelnamen ein.</strong><div class="pdfHint">Der Hotelname wird für die persönliche Auswertung und den eindeutigen Dateinamen benötigt.</div>');$('#hotelName')?.focus();return}
+  const enteredName=enteredHouseName();
   if(!window.FSAContractPdfEngine||window.FSAContractPdfEngine.version!==EXPECTED){setState('error','<strong>PDF Engine V2 konnte nicht geladen werden.</strong><div class="pdfHint">Bitte laden Sie die Seite neu und versuchen Sie es erneut.</div>');return}
   const btn=$('#pdfBtn'),old=btn.textContent;btn.disabled=true;btn.textContent='PDF wird erstellt …';
   setState('generating','<span class="pdfSpinner" aria-hidden="true"></span><div><strong>Ihre Erklär- und Entscheidungsunterlage wird erstellt.</strong><div class="pdfHint">Die PDF baut zuerst das Hotel-Modell verständlich auf und übernimmt anschließend Ihre aktuellen Rechnerwerte und Hotel-Beispiele.</div></div>');
   const source=buildPdfSource();
   try{
-    const safe=window.FSAContractPdfEngine.safeFilePart(hotelName()),filename=`Hotel_Erklaerreport_${safe}_${isoDate()}.pdf`;
+    const safe=enteredName?window.FSAContractPdfEngine.safeFilePart(enteredName):'';
+    const filename=enteredName?`Hotel_Erklaerreport_${safe}_${isoDate()}.pdf`:`Hotel_Erklaerreport_${isoDate()}.pdf`;
     const out=await window.FSAContractPdfEngine.generate({contentRoot:source,fieldsRoot:source,titleText:'Mehr Direktbuchungen. Mehr Nutzung im Haus.',subtitleText:hotelName()+' · Erklär- und Entscheidungsunterlage · '+displayDate(),footerText:'LiquidityBooster · Hotel & Gastgewerbe',filename,autoDownload:false});
     if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=URL.createObjectURL(out.blob);
     setState('success','<div class="pdfReadyTop"><span class="pdfCheck">✓</span><div><strong>Ihre PDF ist fertig erstellt.</strong><div class="pdfHint">Die Unterlage ist so aufgebaut, dass sie auch ohne das ursprüngliche Gespräch intern weitergegeben werden kann.</div></div></div><div class="pdfFile">'+escapeHtml(out.filename)+'</div><a class="pdfDownload" id="pdfDownloadLink" href="'+pdfUrl+'" download="'+escapeHtml(out.filename)+'" type="application/pdf" rel="noopener">PDF herunterladen / speichern</a>');
