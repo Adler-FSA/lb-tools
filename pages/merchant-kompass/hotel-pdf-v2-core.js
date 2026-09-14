@@ -233,7 +233,7 @@ async function makePdf(){
     const safe=enteredName?window.FSAContractPdfEngine.safeFilePart(enteredName):'';
     const filename=enteredName?`Hotel_Erklaerreport_${safe}_${isoDate()}.pdf`:`Hotel_Erklaerreport_${isoDate()}.pdf`;
     const out=await window.FSAContractPdfEngine.generate({contentRoot:source,fieldsRoot:source,titleText:'Mehr Direktbuchungen. Mehr Nutzung im Haus.',subtitleText:hotelName()+' · Erklär- und Entscheidungsunterlage · '+displayDate(),footerText:'LiquidityBooster · Hotel & Gastgewerbe',filename,autoDownload:false});
-    if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=URL.createObjectURL(out.blob);
+    if(pdfUrl)URL.revokeObjectURL(pdfUrl);const pdfFile=out.file||out.blob;pdfUrl=URL.createObjectURL(pdfFile);
     setState('success','<div class="pdfReadyTop"><span class="pdfCheck">✓</span><div><strong>Ihre PDF ist fertig erstellt.</strong><div class="pdfHint">Die Unterlage ist so aufgebaut, dass sie auch ohne das ursprüngliche Gespräch intern weitergegeben werden kann.</div></div></div><div class="pdfFile">'+escapeHtml(out.filename)+'</div><a class="pdfDownload" id="pdfDownloadLink" href="'+pdfUrl+'" download="'+escapeHtml(out.filename)+'" type="application/pdf" rel="noopener">PDF herunterladen / speichern</a>');
   }catch(err){console.error('Hotel PDF V2',err);setState('error','<strong>Die PDF konnte nicht erstellt werden.</strong><div class="pdfHint">'+escapeHtml(err?.message||String(err))+'</div>')}
   finally{source.remove();btn.disabled=false;btn.textContent=old}
