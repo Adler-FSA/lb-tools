@@ -242,4 +242,8 @@ $('#pdfBtn')?.addEventListener('click',makePdf);
 window.addEventListener('pagehide',()=>{if(pdfUrl)URL.revokeObjectURL(pdfUrl)});
 enhanceHotelUi();
 calcServices();calcOwn();
+const hotelStorageBridge=document.createElement('script');
+hotelStorageBridge.src='./hotel-storage-hotel.js?v=1';
+hotelStorageBridge.async=false;
+document.head.appendChild(hotelStorageBridge);
 })();
