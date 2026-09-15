@@ -6,13 +6,22 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Hotel Gesamtausgabe PDF-Test | LiquidityBooster</title>
 <style>
-html,body{margin:0;padding:0;background:#eef4f5;color:#132238;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}body{overflow-x:hidden}#businessFrame{display:block;width:100%;min-height:100vh;border:0;background:#eef4f5}#hotelPdfFrame{display:none}.testFlag{position:fixed;z-index:9999;right:14px;top:14px;padding:8px 12px;border-radius:999px;background:#132238;color:#fff;font-size:12px;font-weight:900;box-shadow:0 8px 22px rgba(19,34,56,.18);pointer-events:none}.testFlag span{color:#7ce0e4}@media(max-width:700px){.testFlag{right:8px;top:8px;font-size:10px;padding:7px 9px}}
+html,body{margin:0;padding:0;background:#eef4f5;color:#132238;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}body{overflow-x:hidden}.pageFrame{display:block;width:100%;min-height:100vh;border:0;background:#eef4f5}#hotelPdfFrame{display:none}.divider{height:18px;background:linear-gradient(90deg,#eef4f5,#dfecee,#eef4f5);border-top:1px solid #d5e1e5;border-bottom:1px solid #d5e1e5}.testFlag{position:fixed;z-index:9999;right:14px;top:14px;padding:8px 12px;border-radius:999px;background:#132238;color:#fff;font-size:12px;font-weight:900;box-shadow:0 8px 22px rgba(19,34,56,.18);pointer-events:none}.testFlag span{color:#7ce0e4}@media(max-width:700px){.testFlag{right:8px;top:8px;font-size:10px;padding:7px 9px}}
 </style>
 </head>
 <body>
-<div class="testFlag"><span>TEST</span> · Gesamtausgabe PDF · 19 Seiten</div>
-<iframe id="businessFrame" src="./hotel-businessbooster.html?combined-pdf-test=1&v=20260915-1320" title="Hotel + BusinessBooster Gesamtausgabe PDF-Test"></iframe>
+<div class="testFlag"><span>TEST</span> · Gesamtausgabe PDF · 24 Seiten</div>
+<iframe id="businessFrame" class="pageFrame" src="./hotel-businessbooster.html?combined-pdf-test=1&v=20260915-1505" title="Hotel + BusinessBooster"></iframe>
+<div class="divider" aria-hidden="true"></div>
+<iframe id="thirdFrame" class="pageFrame" src="./hotel-direktmix-gastzugang.html?combined-pdf-test=1&v=20260915-1505" title="Direktmix + Gastzugang + 3-Ebenen-Logic"></iframe>
 <iframe id="hotelPdfFrame" src="./hotel-2-pdf-test.html?frozen-core=1&v=20260915-1150" title="Eingefrorener 12-Seiten-Hotel-PDF-Kern" aria-hidden="true"></iframe>
 <script src="./hotel-businessbooster-combined-pdf.js?v=2"></script>
+<script src="./hotel-direktmix-combined-pdf.js?v=1"></script>
+<script>
+(function(){
+  function fit(frame){try{const d=frame.contentDocument;if(!d)return;const h=Math.max(d.documentElement.scrollHeight,d.body?.scrollHeight||0,900);frame.style.height=h+'px'}catch(e){}}
+  ['businessFrame','thirdFrame'].forEach(id=>{const f=document.getElementById(id);if(!f)return;f.addEventListener('load',()=>{setTimeout(()=>fit(f),150);setTimeout(()=>fit(f),1000);try{new ResizeObserver(()=>fit(f)).observe(f.contentDocument.documentElement)}catch(e){}})});
+})();
+</script>
 </body>
 </html>
