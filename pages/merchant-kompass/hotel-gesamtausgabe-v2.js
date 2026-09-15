@@ -22,23 +22,16 @@ function showStep(i,scroll=true){
   $('flowPrev').style.visibility=current===0?'hidden':'visible';
   $('progressText').textContent=`Schritt ${current+1} von ${panels.length}`;
   $('progressBar').style.width=((current+1)/panels.length*100)+'%';
-  if(current===panels.length-1) renderSummary();
-  if(scroll) $('flowShell').scrollIntoView({behavior:'smooth',block:'start'});
+  if(current===panels.length-1)renderSummary();
+  if(scroll)$('flowShell').scrollIntoView({behavior:'smooth',block:'start'});
 }
 steps.forEach((b,i)=>b.addEventListener('click',()=>showStep(i)));
 $('flowPrev').addEventListener('click',()=>showStep(current-1));
 $('flowNext').addEventListener('click',()=>showStep(current+1));
 
-function stateObject(){
-  const o={};
-  $$('[data-store]').forEach(e=>{o[e.id]=e.type==='checkbox'?e.checked:e.value});
-  return o;
-}
+function stateObject(){const o={};$$('[data-store]').forEach(e=>{o[e.id]=e.type==='checkbox'?e.checked:e.value});return o}
 function save(){try{localStorage.setItem(STORAGE,JSON.stringify(stateObject()))}catch(e){}}
-function load(){
-  try{const o=JSON.parse(localStorage.getItem(STORAGE)||'{}');Object.entries(o).forEach(([id,v])=>{const e=$(id);if(!e)return;if(e.type==='checkbox')e.checked=!!v;else e.value=v})}catch(e){}
-  if(!$('meetingDateFinal').value)$('meetingDateFinal').value=new Date().toISOString().slice(0,10);
-}
+function load(){try{const o=JSON.parse(localStorage.getItem(STORAGE)||'{}');Object.entries(o).forEach(([id,v])=>{const e=$(id);if(!e)return;if(e.type==='checkbox')e.checked=!!v;else e.value=v})}catch(e){}if(!$('meetingDateFinal').value)$('meetingDateFinal').value=new Date().toISOString().slice(0,10)}
 $$('[data-store]').forEach(e=>{e.addEventListener('input',()=>{recalc();save()});e.addEventListener('change',()=>{recalc();save()})});
 
 function recalcHotel(){
@@ -74,29 +67,21 @@ function recalcTech(){
   const reserveUsd=amount*alloc,reserveVow=vow>0?reserveUsd/vow:0,remain=Math.max(0,amount-removed);
   $('v_reserveUsdOut').textContent=euro(reserveUsd);$('v_reserveVowOut').textContent=vow>0?num(reserveVow)+' VOW':'Live-/Marktpreis erforderlich';$('v_remainingOut').textContent=num(remain)+' v$';
   const eur=val('t_eurInput'),usdtEur=val('t_usdtEur'),vUsdt=val('t_vUsdt'),usdEur=val('t_usdEur');
-  const usdt=usdtEur>0?eur/usdtEur:0,v= vUsdt>0?usdt/vUsdt:0,useUsd=v, useEur=usdEur>0?useUsd*usdEur:0;
+  const usdt=usdtEur>0?eur/usdtEur:0,v=vUsdt>0?usdt/vUsdt:0,useUsd=v,useEur=usdEur>0?useUsd*usdEur:0;
   $('t_usdtOut').textContent=usdtEur>0?num(usdt)+' USDT':'Kurs erforderlich';$('t_vOut').textContent=vUsdt>0?num(v)+' v$':'Kurs erforderlich';$('t_useOut').textContent=(vUsdt>0&&usdEur>0)?euro(useEur):'Kurse erforderlich';$('t_multipleOut').textContent=(eur>0&&useEur>0)?num(useEur/eur)+'×':'—';
 }
 function recalc(){recalcHotel();recalcBusiness();recalcDirect();recalcTech();if(current===panels.length-1)renderSummary()}
 
 function renderSummary(){
-  const hotel=$('hotelNameFinal').value.trim()||'Ihr Hotel';
-  $('sumHotelName').textContent=hotel;
-  $('sumBooking').textContent=euro(val('h_booking'));
-  $('sumVoucher').textContent=euro(val('h_booking')*val('h_voucherPct')/100);
-  $('sumBB').textContent=euro(Number($('b_plan').value)||499)+' / Monat';
-  $('sumDirect').textContent=pct(val('d_directNow'))+' → '+pct(val('d_directTarget'));
-  $('sumLogic').textContent=$('d_logicOut').textContent;
-  $('sumMarket').textContent=$('d_marketYearOut').textContent;
-  $('sumVoucherTech').textContent=$('v_reserveUsdOut').textContent;
-  $('sumVTravel').textContent=$('t_useOut').textContent;
+  const hotel=$('hotelNameFinal').value.trim()||'Ihr Hotel';$('sumHotelName').textContent=hotel;
+  $('sumBooking').textContent=euro(val('h_booking'));$('sumVoucher').textContent=euro(val('h_booking')*val('h_voucherPct')/100);$('sumBB').textContent=euro(Number($('b_plan').value)||499)+' / Monat';$('sumDirect').textContent=pct(val('d_directNow'))+' → '+pct(val('d_directTarget'));$('sumLogic').textContent=$('d_logicOut').textContent;$('sumMarket').textContent=$('d_marketYearOut').textContent;$('sumVoucherTech').textContent=$('v_reserveUsdOut').textContent;$('sumVTravel').textContent=$('t_useOut').textContent;
 }
 
 function frameDoc(id){try{return $(id)?.contentDocument||null}catch(e){return null}}
 function setValue(doc,id,value){const e=doc?.getElementById(id);if(!e)return;e.value=value;e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}))}
-function syncServices(doc){const rows=$$('.serviceRow');const targets=$$('[data-service]',doc);rows.forEach((r,i)=>{const t=targets[i];if(!t)return;const map=[['[data-s-price]','[data-price]'],['[data-s-cost]','[data-cost]'],['[data-s-voucher]','[data-voucher]']];map.forEach(([a,b])=>{const src=r.querySelector(a),dst=t.querySelector(b);if(dst&&src){dst.value=src.value;dst.dispatchEvent(new Event('input',{bubbles:true}));dst.dispatchEvent(new Event('change',{bubbles:true}))}})})}
+function syncServices(doc){const rows=$$('.serviceRow'),targets=$$('[data-service]',doc);rows.forEach((r,i)=>{const t=targets[i];if(!t)return;[['[data-s-price]','[data-price]'],['[data-s-cost]','[data-cost]'],['[data-s-voucher]','[data-voucher]']].forEach(([a,b])=>{const src=r.querySelector(a),dst=t.querySelector(b);if(dst&&src){dst.value=src.value;dst.dispatchEvent(new Event('input',{bubbles:true}));dst.dispatchEvent(new Event('change',{bubbles:true}))}})})}
 function syncHotel(){const d=frameDoc('hotelMainFrame');if(!d)return;setValue(d,'hotelName',$('hotelNameFinal').value);[['booking','h_booking'],['voucherPct','h_voucherPct'],['reservePct','h_reservePct'],['otaPct','h_otaPct'],['offerPrice','h_offerPrice'],['offerCost','h_offerCost'],['offerVoucher','h_offerVoucher']].forEach(([to,from])=>setValue(d,to,$(from).value));syncServices(d)}
-function syncBusiness(){const d=frameDoc('businessFrame');if(!d)return;[['otaRevenue','b_otaRevenue'],['otaPct','b_otaPct'],['avgBooking','b_avgBooking'],['shiftPct','b_shiftPct']].forEach(([to,from])=>setValue(d,to,$(from).value));const plan=$('b_plan').value;const btn=d.querySelector(`.planBtn[data-plan="${plan}"]`);if(btn)btn.click()}
+function syncBusiness(){const d=frameDoc('businessFrame');if(!d)return;[['otaRevenue','b_otaRevenue'],['otaPct','b_otaPct'],['avgBooking','b_avgBooking'],['shiftPct','b_shiftPct']].forEach(([to,from])=>setValue(d,to,$(from).value));const p=String($('b_plan').value),plan=p==='999'?'premium':p==='1999'?'enterprise':'small';const btn=d.querySelector(`.planBtn[data-plan="${plan}"]`);if(btn)btn.click()}
 function syncDirect(){const d=frameDoc('thirdFrame');if(!d)return;const map={totalRevenue:'d_totalRevenue',bookNow:'d_bookNow',otaNow:'d_otaNow',directNow:'d_directNow',otherNow:'d_otherNow',bookTarget:'d_bookTarget',otaTarget:'d_otaTarget',directTarget:'d_directTarget',otherTarget:'d_otherTarget',bookCost:'d_bookCost',otaCost:'d_otaCost',directCost:'d_directCost',otherCost:'d_otherCost',guestAccesses:'d_guestAccesses',partnerRate:'d_partnerRate',e2Rate:'d_e2Rate',e2Avg:'d_e2Avg',e3Rate:'d_e3Rate',e3Avg:'d_e3Avg',offerValue:'d_offerValue',benefitPct:'d_benefitPct',marketBookings:'d_marketBookings',directCostPct:'d_directCostPct'};Object.entries(map).forEach(([to,from])=>setValue(d,to,$(from).value))}
 function syncVoucher(){const d=frameDoc('voucherFrame');if(!d)return;[['voucherAmount','v_voucherAmount'],['allocation','v_allocation'],['removed','v_removed'],['vowPrice','v_vowPrice']].forEach(([to,from])=>setValue(d,to,$(from).value))}
 function syncTravel(){const d=frameDoc('vtravelFrame');if(!d)return;[['eurInput','t_eurInput'],['usdtEur','t_usdtEur'],['vUsdt','t_vUsdt'],['usdEur','t_usdEur']].forEach(([to,from])=>{if($(from).value!=='')setValue(d,to,$(from).value)})}
@@ -104,24 +89,18 @@ function syncAll(){syncHotel();syncBusiness();syncDirect();syncVoucher();syncTra
 
 const frameIds=['hotelMainFrame','businessFrame','thirdFrame','voucherFrame','vtravelFrame','hotelPdfFrame'];
 const loaded=new Set();
-frameIds.forEach(id=>{const f=$(id);if(!f)return;f.addEventListener('load',()=>{loaded.add(id);syncAll();updateEngineStatus()})});
-function updateEngineStatus(){const ready=frameIds.every(id=>loaded.has(id));$('engineStatus').textContent=ready?'PDF-Engine bereit':'PDF-Engine wird vorbereitet …';$('engineStatus').className='engineStatus '+(ready?'ready':'')}
+frameIds.forEach(id=>{const f=$(id);if(!f)return;const mark=()=>{loaded.add(id);syncAll();updateEngineStatus()};f.addEventListener('load',mark);try{if(f.contentDocument?.readyState==='complete')mark()}catch(e){}});
+function updateEngineStatus(){const ready=frameIds.every(id=>loaded.has(id));$('engineStatus').textContent=ready?'PDF-Engine bereit':'PDF-Engine wird vorbereitet …';$('engineStatus').className='engineStatus '+(ready?'ready':'');$('createFinalPdf').disabled=!ready}
 
 function finalState(kind,html){const s=$('finalState');s.className='state show '+(kind||'');s.innerHTML=html}
 $('createFinalPdf').addEventListener('click',async()=>{
   const name=$('hotelNameFinal').value.trim(),person=$('contactNameFinal').value.trim(),role=$('contactRoleFinal').value.trim();
   if(!name||!person||!role){showStep(0);finalState('error','<strong>Bitte vervollständigen Sie zuerst Hotelname, Ansprechpartner und Funktion.</strong>');return}
-  const b=$('createFinalPdf'),old=b.textContent;b.disabled=true;b.textContent='Gesamtausgabe wird erstellt …';
-  finalState('','<strong>Die persönliche Gesamtausgabe wird erstellt.</strong><div class="hint">Alle Bereiche werden mit den eingetragenen Werten zusammengeführt.</div>');
-  try{
-    syncAll();await new Promise(r=>setTimeout(r,350));
-    if(!window.HotelFinalGesamtausgabePdf?.build)throw new Error('Die PDF-Engine ist noch nicht vollständig geladen.');
-    const r=await window.HotelFinalGesamtausgabePdf.build(document);const blob=new Blob([r.u8],{type:'application/pdf'});
-    if(!window.FSAPdfNamedPreview?.prepare)throw new Error('Die benannte PDF-Vorschau ist nicht verfügbar.');
-    const prepared=await window.FSAPdfNamedPreview.prepare({blob,filename:r.filename});
-    finalState('success','<strong>Ihre persönliche Gesamtausgabe ist fertig.</strong><div class="filename">'+esc(r.filename)+'</div><a class="openPdf" href="'+prepared.url+'" target="_blank" rel="noopener">PDF ansehen / speichern</a><div class="hint">Die PDF wird mit dem oben gezeigten Dateinamen an die Vorschau und an „In Dateien sichern“ übergeben.</div>');
-  }catch(e){console.error(e);finalState('error','<strong>Die Gesamtausgabe konnte nicht erstellt werden.</strong><div class="hint">'+esc(e?.message||e)+'</div>')}
-  finally{b.disabled=false;b.textContent=old}
+  if(!frameIds.every(id=>loaded.has(id))){finalState('error','<strong>Die PDF-Engine wird noch vorbereitet.</strong><div class="hint">Bitte warten Sie einen Moment und versuchen Sie es erneut.</div>');return}
+  const b=$('createFinalPdf'),old=b.textContent;b.disabled=true;b.textContent='Gesamtausgabe wird erstellt …';finalState('','<strong>Die persönliche Gesamtausgabe wird erstellt.</strong><div class="hint">Alle Bereiche werden mit den eingetragenen Werten zusammengeführt.</div>');
+  try{syncAll();await new Promise(r=>setTimeout(r,350));if(!window.HotelFinalGesamtausgabePdf?.build)throw new Error('Die PDF-Engine ist noch nicht vollständig geladen.');const r=await window.HotelFinalGesamtausgabePdf.build(document);const blob=new Blob([r.u8],{type:'application/pdf'});if(!window.FSAPdfNamedPreview?.prepare)throw new Error('Die benannte PDF-Vorschau ist nicht verfügbar.');const prepared=await window.FSAPdfNamedPreview.prepare({blob,filename:r.filename});finalState('success','<strong>Ihre persönliche Gesamtausgabe ist fertig.</strong><div class="filename">'+esc(r.filename)+'</div><a class="openPdf" href="'+prepared.url+'" target="_blank" rel="noopener">PDF ansehen / speichern</a><div class="hint">Die PDF wird mit dem oben gezeigten Dateinamen an die Vorschau und an „In Dateien sichern“ übergeben.</div>')}
+  catch(e){console.error(e);finalState('error','<strong>Die Gesamtausgabe konnte nicht erstellt werden.</strong><div class="hint">'+esc(e?.message||e)+'</div>')}
+  finally{b.textContent=old;updateEngineStatus()}
 });
 
 $('resetSuite').addEventListener('click',()=>{if(!confirm('Alle Eingaben dieser Hotel-Auswertung zurücksetzen?'))return;try{localStorage.removeItem(STORAGE)}catch(e){}location.reload()});
