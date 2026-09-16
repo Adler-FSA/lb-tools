@@ -59,7 +59,18 @@
     if(first)first.dispatchEvent(new Event('input',{bubbles:true}));
   }
 
+  function loadStandalonePdf(){
+    if(window.HotelDirectMixStandalonePdf)return;
+    if(document.querySelector('script[data-lb-directmix-standalone-pdf]'))return;
+    const s=document.createElement('script');
+    s.src='./hotel-direktmix-pdf.js?v=1';
+    s.async=false;
+    s.dataset.lbDirectmixStandalonePdf='1';
+    document.head.appendChild(s);
+  }
+
   loadCore().then(init).catch(function(err){
     console.warn('[HotelStorage] Direktmix-Seite konnte nicht verbunden werden:',err);
   });
+  loadStandalonePdf();
 })();
