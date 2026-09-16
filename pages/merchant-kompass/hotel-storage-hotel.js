@@ -98,4 +98,14 @@
   }
 
   loadCore().then(init).catch(function(err){console.warn('[HotelStorage] Hotel-Seite konnte nicht verbunden werden:',err)});
+
+  /* Ausschliesslich die produktive Hotel-Seite: die V6-Broschuere nutzt ihren
+     unveraenderten PDF-Testgenerator. In dessen iframe keinen Adapter laden. */
+  if(!new URLSearchParams(location.search).has('pdf-design-test')&&!document.querySelector('script[data-lb-hotel-pdf-v6-live]')){
+    const pdfScript=document.createElement('script');
+    pdfScript.src='./hotel-pdf-v6-live.js?v=1';
+    pdfScript.async=false;
+    pdfScript.dataset.lbHotelPdfV6Live='1';
+    document.head.appendChild(pdfScript);
+  }
 })();
