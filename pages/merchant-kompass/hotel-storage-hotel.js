@@ -101,11 +101,33 @@
 
   /* Ausschliesslich die produktive Hotel-Seite: die V6-Broschuere nutzt ihren
      unveraenderten PDF-Testgenerator. In dessen iframe keinen Adapter laden. */
-  if(!new URLSearchParams(location.search).has('pdf-design-test')&&!document.querySelector('script[data-lb-hotel-pdf-v6-live]')){
+  const hotelParams=new URLSearchParams(location.search);
+  if(!hotelParams.has('pdf-design-test')&&!document.querySelector('script[data-lb-hotel-pdf-v6-live]')){
+    const production=!hotelParams.has('final-suite');
+    if(production){const oldButton=document.getElementById('pdfBtn');if(oldButton)oldButton.disabled=true;}
     const pdfScript=document.createElement('script');
     pdfScript.src='./hotel-pdf-v6-live.js?v=1';
     pdfScript.async=false;
     pdfScript.dataset.lbHotelPdfV6Live='1';
+    pdfScript.onload=function(){
+      if(!production)return;
+      function activate(){
+        const b=document.getElementById('pdfBtn');
+        if(window.HotelBrochureStandalonePdf&&b?.textContent==='Hotelbroschuere als PDF erstellen'){
+          b.disabled=false;
+        }else if(document.readyState==='loading'){
+          document.addEventListener('DOMContentLoaded',activate,{once:true});
+        }else{
+          const e=document.getElementById('pdfState');
+          if(e){e.className='pdfState show error';e.textContent='Die 12-seitige Hotelbroschuere konnte nicht aktiviert werden. Bitte Seite neu laden.'}
+        }
+      }
+      activate();
+    };
+    pdfScript.onerror=function(){
+      const e=document.getElementById('pdfState');
+      if(e){e.className='pdfState show error';e.textContent='Die 12-seitige Hotelbroschuere konnte nicht geladen werden. Bitte Seite neu laden.'}
+    };
     document.head.appendChild(pdfScript);
   }
 })();
