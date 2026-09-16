@@ -77,9 +77,19 @@
     }
   }
 
+  function loadStandalonePdf(){
+    if(window.HotelVoucherStandalonePdf || document.querySelector('script[data-lb-voucher-standalone-pdf]'))return;
+    const s=document.createElement('script');
+    s.src='./hotel-voucher-standalone-pdf.js?v=1';
+    s.async=false;
+    s.dataset.lbVoucherStandalonePdf='1';
+    document.head.appendChild(s);
+  }
+
   loadCore().then(function(store){
     const wire=function(){setTimeout(function(){connect(store)},0)};
     frame.addEventListener('load',wire);
     wire();
   }).catch(function(err){console.warn('[HotelStorage] Voucher-Speicher konnte nicht geladen werden:',err)});
+  loadStandalonePdf();
 })();
