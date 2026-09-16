@@ -81,9 +81,19 @@
     }
   }
 
+  function loadStandalonePdf(){
+    if(window.HotelVTravelStandalonePdf || document.querySelector('script[data-lb-vtravel-standalone-pdf]'))return;
+    const s=document.createElement('script');
+    s.src='./hotel-vtravel-standalone-pdf.js?v=1';
+    s.async=false;
+    s.dataset.lbVtravelStandalonePdf='1';
+    document.head.appendChild(s);
+  }
+
   loadCore().then(function(store){
     const wire=function(){setTimeout(function(){connect(store)},0)};
     frame.addEventListener('load',wire);
     wire();
   }).catch(function(err){console.warn('[HotelStorage] VTravel-Speicher konnte nicht geladen werden:',err)});
+  loadStandalonePdf();
 })();
