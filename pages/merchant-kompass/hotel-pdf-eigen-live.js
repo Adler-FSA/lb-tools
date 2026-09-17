@@ -22,8 +22,9 @@ function prepare(){
    if(busy)return;busy=true;btn.disabled=true;btn.textContent='PDF wird erstellt …';
    info('generating','Ihre Hotel-PDF wird erstellt.','Aktuelle Gesprächswerte und vollständige Inhalte werden übernommen.');
    try{
-     if(!window.HotelPdfEigen||window.HotelPdfEigen.version!=='HOTEL_PDF_FIX_V2')throw Error('Der freigegebene PDF-Master ist noch nicht geladen.');
-     // Die Rechnung der Hotel-Seite bei Bedarf vor der Momentaufnahme abschließen lassen.
+     // Der unveränderte Master-Patch lädt asynchron: zunächst ist die Proxy-Version
+     // aktiv, nach dem Einspielen der zwölf Korrekturen die korrigierte V1-Engine.
+     if(typeof window.HotelPdfEigen?.generate!=='function')throw Error('Der freigegebene PDF-Master ist noch nicht geladen.');
      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
      const out=await window.HotelPdfEigen.generate(document,(done,total)=>info('generating','Ihre Hotel-PDF wird erstellt.','Abschnitt '+done+' von '+total+' wird übernommen.'));
      if(!(out?.blob instanceof Blob)||out.blob.type!=='application/pdf'||!Number.isInteger(out.pages)||out.pages<1)throw Error('Der Generator hat keine gültige PDF-Datei zurückgegeben.');
@@ -43,7 +44,7 @@ function prepare(){
  });
  const styles=document.createElement('style');styles.textContent='.hotelPdfMasterActions{display:flex;gap:10px;flex-wrap:wrap}.hotelPdfMasterActions .pdfDownload{margin-top:12px}@media(max-width:560px){.hotelPdfMasterActions .pdfDownload{width:100%;justify-content:center}}';document.head.appendChild(styles);
  const engine=document.createElement('script');engine.src='./hotel-pdf-eigen-fix.js?v=20260917-master';engine.async=false;
- engine.onload=()=>{if(window.HotelPdfEigen?.version==='HOTEL_PDF_FIX_V2'){btn.disabled=false;}else info('error','PDF-Master nicht verfügbar.','Bitte laden Sie die Seite erneut.');};
+ engine.onload=()=>{if(typeof window.HotelPdfEigen?.generate==='function'){btn.disabled=false;}else info('error','PDF-Master nicht verfügbar.','Bitte laden Sie die Seite erneut.');};
  engine.onerror=()=>info('error','PDF-Master konnte nicht geladen werden.','Bitte laden Sie die Seite erneut.');
  document.head.appendChild(engine);
 }
