@@ -106,7 +106,7 @@
     const oldButton=document.getElementById('pdfBtn');if(oldButton)oldButton.disabled=true;
     if(!document.querySelector('script[data-lb-hotel-pdf-master-live]')){
       const pdfScript=document.createElement('script');
-      pdfScript.src='./hotel-pdf-eigen-live.js?v=20260917-approved-abschluss-master-v1';
+      pdfScript.src='./hotel-pdf-eigen-live.js?v=20260917-named-file-handoff-v1';
       pdfScript.async=false;
       pdfScript.dataset.lbHotelPdfMasterLive='1';
       pdfScript.onerror=function(){
