@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>BusinessBooster · Merchant-Kompass | LiquidityBooster</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--ink:#263545;--line:#dbe5e9}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:linear-gradient(180deg,#fafdfd,#eef5f6);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button{font:inherit}
+.wrap{width:min(1200px,calc(100% - 28px));margin:18px auto 52px}
+.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;background:var(--navy);padding:11px;border-radius:17px;box-shadow:0 8px 24px #13223817}
+.route a{min-width:0;display:grid;place-items:center;text-align:center;min-height:47px;padding:9px 7px;color:#eaf7f8;text-decoration:none;border:1px solid #ffffff40;border-radius:10px;font-size:14px;font-weight:800;overflow-wrap:anywhere}
+.route a[aria-current="page"]{color:var(--navy);border-color:#b5eeee;background:#a4e7e7}
+.route a:focus-visible{outline:3px solid #c6006f;outline-offset:2px}
+.welcome{padding:26px 29px 23px;background:#fff;border:1px solid var(--line);border-radius:18px;margin:13px 0;box-shadow:0 8px 22px #1322380c}
+.eyebrow{color:#008e98;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900}h1{font-size:clamp(26px,3.5vw,38px);line-height:1.17;letter-spacing:-.025em;color:var(--navy);margin:6px 0 10px}.welcome p{margin:0;color:#435768;max-width:1030px;font-size:clamp(15px,1.6vw,18px)}
+.pdf-center{border-radius:18px;border:1px solid #badde0;background:linear-gradient(112deg,#132238,#0e5260);color:#fff;padding:21px 25px;margin:13px 0 17px;box-shadow:0 12px 28px #13223816}.pdf-main{display:flex;align-items:center;justify-content:space-between;gap:18px}.pdf-label{color:#9eeced;font-size:12px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}.pdf-center h2{font-size:clamp(21px,2.5vw,27px);margin:4px 0 5px;line-height:1.2;color:#fff}.pdf-center p{margin:0;color:#e0eef0;font-size:14px}.pdf-status{padding:10px 0 0;margin-top:11px!important;border-top:1px solid #ffffff35;color:#e8f5f5!important;overflow-wrap:anywhere}.pdf-status.error{color:#ffc8d8!important}
+.business-content{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px #1322380a}.business-content iframe{display:block;border:0;width:100%;height:600px;min-height:500px;background:#fff;overflow:hidden}.page-end{color:#667587;font-size:13px;text-align:center;margin:18px 0}
+@media(max-width:760px){.route{grid-template-columns:repeat(3,minmax(0,1fr))}.welcome{padding:21px 20px}.pdf-center{padding:19px}}
+@media(max-width:500px){.wrap{width:calc(100% - 16px);margin:8px auto 26px}.route{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:8px;border-radius:12px}.route a{font-size:12px;min-height:40px;padding:7px 4px}.route a:last-child{grid-column:1/-1}.welcome{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="route" aria-label="Merchant-Kompass · fünf Seiten">
+ <a href="./hotel-akademie-master-test.html">Hotel</a>
+ <a href="./hotel-businessbooster-akademie-test.html" aria-current="page">BusinessBooster</a>
+ <a href="./hotel-direktmix-gastzugang.html">Direktmix</a>
+ <a href="./voucher-currency.html">Voucher Currency</a>
+ <a href="./vtravel.html">VTravel</a>
+</nav>
+<header class="welcome">
+ <div class="eyebrow">LiquidityBooster · Hotel · BusinessBooster</div>
+ <h1>Willkommen auf Ihrer BusinessBooster-Gesprächsseite.</h1>
+ <p>Vergleichen Sie die heutigen OTA-Provisionen mit dem gewählten BusinessBooster-Budget. Lernen Sie Impulsmarketing, Medien-Ökosystem, Club-Marktplatz und den Fullservice kennen. Tragen Sie Ihre Werte ein und vergleichen Sie die drei Leistungsumfänge.</p>
+</header>
+<section class="pdf-center" aria-labelledby="pdfHeading">
+ <div class="pdf-main"><div><div class="pdf-label">Ihre persönliche Gesprächsunterlage</div><h2 id="pdfHeading">Akademie-PDF-Zentrale</h2><p>Ihre Business-Auswertung wird aus den aktuellen Eingaben erstellt und anschließend als benannte Datei bereitgestellt.</p></div></div>
+ <p class="pdf-status" id="pdfStatus" role="status" aria-live="polite">Die Business-PDF wird nach Abschluss der Inhaltsprüfung ergänzt. Die Hotel-PDF-Technik bleibt unverändert.</p>
+</section>
+<main class="business-content" aria-label="BusinessBooster · Erklärungen und Rechner">
+ <iframe id="businessFrame" src="./hotel-businessbooster-inhalt-test.html?v=20260917-bb-fullservice2" title="BusinessBooster-Gesprächsseite mit vollständigem Fullservice und Rechner" scrolling="no"></iframe>
+</main>
+<p class="page-end">Beispielrechnungen dienen der Veranschaulichung. Die konkreten Leistungen und Bedingungen richten sich nach dem gewählten Paket.</p>
+</div>
+<script>
+(()=>{'use strict';
+ const frame=document.getElementById('businessFrame'),status=document.getElementById('pdfStatus');
+ let observer=null,mutation=null,queued=false,loaded=false,checks=0;
+ function resize(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;try{const doc=frame.contentDocument,wrap=doc?.querySelector('.wrap');if(!wrap)return;const height=Math.max(530,Math.ceil(wrap.getBoundingClientRect().bottom+24));if(Math.abs(frame.getBoundingClientRect().height-height)>3)frame.style.height=height+'px';}catch(e){/* Status im Rahmen bleibt sichtbar. */}})}
+ function connect(){try{
+  const doc=frame.contentDocument;
+  if(!doc?.querySelector('#otaRevenue')||!doc.querySelector('#businessBrochureExtras')||!doc.querySelector('#bbFullserviceDetailsV2')||!doc.querySelector('.bbMediaFigure img')){
+   if(++checks<100)setTimeout(connect,120);else{status.textContent='Die ergänzten Business-Inhalte konnten nicht vollständig geladen werden.';status.classList.add('error');}return;
+  }
+  if(loaded)return;loaded=true;
+  const style=doc.createElement('style');style.textContent='.top,.actions,#bbStandalonePdfPanel{display:none!important}html,body{overflow-x:hidden!important;overflow-y:hidden!important}';doc.head.appendChild(style);
+  const wrap=doc.querySelector('.wrap');
+  if(typeof frame.contentWindow.ResizeObserver==='function'){observer=new frame.contentWindow.ResizeObserver(resize);observer.observe(wrap)}
+  mutation=new frame.contentWindow.MutationObserver(resize);mutation.observe(wrap,{subtree:true,childList:true,characterData:true});
+  doc.querySelectorAll('img').forEach(img=>img.addEventListener('load',resize,{once:true}));
+  frame.contentWindow.addEventListener('resize',resize);window.addEventListener('resize',resize);resize();
+ }catch(error){status.textContent='Die Business-Seite konnte nicht geladen werden.';status.classList.add('error');console.error('[Business-Seitenrahmen]',error)}}
+ frame.addEventListener('load',connect);
+ if(frame.contentDocument?.readyState==='complete')connect();
+})();
+</script>
+</body>
+</html>
