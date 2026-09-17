@@ -13,7 +13,7 @@
     // A4-Abschnitte starten nur, wenn genug Platz für zugehörigen Inhalt ist.
     s=replaceOnce(s,
       'this.ensure(Math.min(height+65,PH-TOP-BOT));',
-      'const reserve=s.idx===1?238:s.idx===6?330:s.idx===7?610:65;this.ensure(Math.min(height+reserve,PH-TOP-BOT));',
+      'const reserve=s.idx===1?238:s.idx===5?330:s.idx===7?610:65;this.ensure(Math.min(height+reserve,PH-TOP-BOT));',
       'Kapitelüberschriften');
     // Der Großrechner beginnt nach seiner Abschnittsüberschrift, statt diese allein zurückzulassen.
     s=replaceOnce(s,
@@ -36,6 +36,11 @@
       "cells:[...tr.cells].map(c=>c.querySelector('input')?.value??txt(c))",
       `cells:[...tr.cells].map(c=>{const el=c.querySelector('input');if(!el)return txt(c);const v=(el.value||'').trim();const n=Number(v.replace(',','.'));return v&&Number.isFinite(n)?new Intl.NumberFormat('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)+' €':v;})`,
       'Tabelleneinheiten');
+    // Linkbeschriftungen nicht doppelt als unanklickbaren Fließtext drucken.
+    s=replaceOnce(s,
+      "const p=children(d,'.detailsBody p').map(txt);",
+      "const p=children(d,'.detailsBody p').filter(x=>!x.querySelector('a[href]')).map(txt);",
+      'doppelte Linktexte');
     // Die beiden bereits in hotel.html vorhandenen Links als URI-Annotationen erhalten.
     s=replaceOnce(s,
       "sec.blocks.push({type:'paragraphs',texts:p.filter(Boolean)});}",
