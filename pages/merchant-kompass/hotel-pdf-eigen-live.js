@@ -1,6 +1,7 @@
 /* Ausschliesslich Ausgabe der freigegebenen Hotel-Master-PDF auf hotel.html.
  * Die PDF-Engine hotel-pdf-eigen-fix.js und die Hotel-HTML bleiben unveraendert.
- * Benannte Vorschau/Downloads werden lokal im Browser bereitgestellt (kein Fremddienst).
+ * Die Vorschau nutzt wie der freigegebene Master die PDF-Blob-Adresse;
+ * nur der Download nutzt den benannten lokalen Dateipfad.
  */
 (()=>{'use strict';
 const params=new URLSearchParams(location.search);
@@ -82,7 +83,9 @@ function init(){
    let delivery,warning='';
    try{delivery=await namedDelivery(out);}catch(err){console.warn('[Hotel PDF Dateiausgabe]',err);delivery={preview:fallbackUrl,download:fallbackUrl,named:false};warning='Dieser Browser konnte den benannten Dateipfad nicht aktivieren. Bei Problemen mit dem Download bitte die Datei ueber die Systemfreigabe speichern.';}
    $('hotelPdfFilename').textContent=`${out.filename} · ${out.pages} A4-Seiten`;
-   const preview=$('hotelPdfOpen');preview.href=delivery.preview;
+   // Die benannte Service-Worker-Adresse funktioniert fuer den Download, nicht
+   // in allen iPad-PDF-Betrachtern als Vorschau. Exakt wie im Master Blob oeffnen.
+   const preview=$('hotelPdfOpen');preview.href=fallbackUrl;
    download.href=delivery.download;download.download=out.filename;
    $('hotelPdfPreviewHint').textContent=warning||'Vorschau und Download verwenden die identische, lokal erstellte PDF. Die Datei wird unter dem oben angezeigten Namen bereitgestellt; kein Druckdialog.';
    result.classList.add('show');feedback(`Fertig: ${out.pages} A4-Seiten. Vorschau und Dateispeicherung stehen bereit.`);
