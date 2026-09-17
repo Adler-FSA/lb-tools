@@ -5,6 +5,7 @@
 const params=new URLSearchParams(location.search);
 if(params.has('pdf-design-test')||params.has('final-suite'))return;
 const $=id=>document.getElementById(id);
+const ipadSafari=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 let url='';
 function init(){
  const panel=$('pdfPanel'),old=$('pdfBtn'),status=$('pdfState');
@@ -14,9 +15,9 @@ function init(){
  if(heading)heading.textContent='Ihre Hotel-Auswertung als PDF';
  if(lead)lead.textContent='Gesprächswerte auf der Hotel-Seite eingeben, PDF erzeugen, ansehen und speichern.';
  const btn=old.cloneNode(true);btn.textContent='PDF erstellen';btn.disabled=true;old.replaceWith(btn);
- // Gleiche Struktur wie die bestaetigte Master-Testseite.
+ // Gleiche fertige PDF wie auf der bestaetigten Master-Testseite.
  const result=document.createElement('div');result.id='hotelPdfMasterResult';result.className='result';
- result.innerHTML='<strong>Ihre PDF ist fertig.</strong><div class="file" id="hotelPdfFilename"></div><div class="links"><a class="action preview" id="hotelPdfOpen" target="_blank" rel="noopener">PDF-Vorschau öffnen</a><a class="action" id="hotelPdfDownload" type="application/pdf">PDF herunterladen / speichern</a></div><iframe class="viewer" id="hotelPdfViewer" title="Vorschau der fertigen PDF"></iframe>';
+ result.innerHTML='<strong>Ihre PDF ist fertig.</strong><div class="file" id="hotelPdfFilename"></div><div class="links"><a class="action preview" id="hotelPdfOpen" target="_blank" rel="noopener">Vollständige PDF-Vorschau öffnen</a><a class="action" id="hotelPdfDownload" type="application/pdf">PDF herunterladen / speichern</a></div><iframe class="viewer" id="hotelPdfViewer" title="Vorschau der fertigen PDF"></iframe>';
  panel.appendChild(result);
  const style=document.createElement('style');style.textContent=`
  #hotelPdfMasterResult{display:none;padding:14px 18px;background:#fff;border:1px solid #dbe5e9;border-radius:17px;margin:12px 24px 24px;color:#263545}
@@ -27,8 +28,13 @@ function init(){
  #hotelPdfMasterResult .action.preview{background:#c6006f}
  #hotelPdfMasterResult .file{padding:7px 0;overflow-wrap:anywhere;color:#536778;font-size:14px}
  #hotelPdfMasterResult .viewer{width:100%;height:680px;max-height:75vh;border:1px solid #dbe5e9;border-radius:12px;background:#eef4f5}
+ #hotelPdfMasterResult .ipadPreview{border:1px solid #cce5e7;border-radius:12px;background:#f3fafa;padding:17px;font-size:15px;line-height:1.5;color:#132238}
  @media(max-width:600px){#hotelPdfMasterResult{margin:10px 12px 16px;padding:12px}#hotelPdfMasterResult .viewer{height:64vh}#hotelPdfMasterResult .links .action{flex:1 1 100%;justify-content:center}}`;
  document.head.appendChild(style);
+ // Safari auf dem iPad zeigt PDFs im eingebetteten iframe mitunter nur als
+ // erste Seite an. Kein irrefuehrendes Einseitenfenster: dieselbe PDF in
+ // Safaris vollstaendigem PDF-Betrachter ueber einen direkten Nutzerklick.
+ if(ipadSafari){const viewer=$('hotelPdfViewer');const hint=document.createElement('div');hint.id='hotelPdfPreviewHint';hint.className='ipadPreview';hint.textContent='Für die vollständige Vorschau auf „Vollständige PDF-Vorschau öffnen“ tippen. Safari öffnet die fertige PDF separat, damit alle Seiten durchgeblättert werden können. Kein Druckdialog.';viewer.replaceWith(hint);}
  function feedback(message,error=false){status.className='pdfState show '+(error?'error':'generating');status.textContent=message;}
  btn.addEventListener('click',async()=>{
   btn.disabled=true;result.classList.remove('show');feedback('PDF wird aus der aktuellen Hotel-Seite erzeugt …');
@@ -43,8 +49,9 @@ function init(){
    $('hotelPdfFilename').textContent=`${out.filename} · ${out.pages} A4-Seiten`;
    const open=$('hotelPdfOpen'),download=$('hotelPdfDownload');
    open.href=url;download.href=url;download.download=out.filename;
-   $('hotelPdfViewer').src=url;
-   result.classList.add('show');feedback(`Fertig: ${out.pages} A4-Seiten. PDF-Vorschau und Download stehen bereit.`);
+   const viewer=$('hotelPdfViewer');if(viewer)viewer.src=url;
+   const hint=$('hotelPdfPreviewHint');if(hint)hint.textContent=`Die PDF enthält ${out.pages} A4-Seiten. Tippe oben auf „Vollständige PDF-Vorschau öffnen“, um sie in Safari vollständig durchzublättern. Kein Druckdialog.`;
+   result.classList.add('show');feedback(`Fertig: ${out.pages} A4-Seiten. Vollständige PDF-Vorschau und Download stehen bereit.`);
    result.scrollIntoView({behavior:'smooth',block:'start'});
   }catch(e){console.error('[Hotel PDF Master]',e);feedback('PDF nicht erstellt: '+(e?.message||String(e)),true)}
   finally{btn.disabled=false}
