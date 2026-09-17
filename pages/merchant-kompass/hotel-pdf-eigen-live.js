@@ -1,53 +1,59 @@
-/* Hotel-Hauptseite: freigegebenen PDF-Master verwenden, ohne Layout oder Rechner zu verändern.
- * Quelle: hotel-pdf-eigen-test.html + hotel-pdf-eigen-fix.js (freigegebener Stand 17.09.2026).
- * Die alte V6-Broschüre bleibt für final-suite über die bestehende Speicherbrücke erreichbar.
- */
+/* Die freigegebene PDF-Testseite ist die Referenz fuer Erzeugung und Ausgabe.
+   Integration auf hotel.html: gleiche Engine, Ergebnisstruktur und Download-Zuweisung.
+   Hotel-Layout, Rechner und PDF-Renderer bleiben unveraendert. */
 (()=>{'use strict';
-if(new URLSearchParams(location.search).has('pdf-design-test')||new URLSearchParams(location.search).has('final-suite'))return;
+const params=new URLSearchParams(location.search);
+if(params.has('pdf-design-test')||params.has('final-suite'))return;
 const $=id=>document.getElementById(id);
-let pdfUrl='',busy=false;
-function state(kind){const el=$('pdfState');if(!el)return null;el.className='pdfState show '+kind;el.replaceChildren();return el}
-function text(parent,tag,content,cls){const el=document.createElement(tag);if(cls)el.className=cls;el.textContent=content;parent.appendChild(el);return el}
-function info(kind,title,details){const el=state(kind);if(!el)return; text(el,'strong',title);if(details)text(el,'div',details,'pdfHint')}
-function prepare(){
- const panel=$('pdfPanel'),old=$('pdfBtn');if(!panel||!old)return;
+let url='';
+function init(){
+ const panel=$('pdfPanel'),old=$('pdfBtn'),status=$('pdfState');
+ if(!panel||!old||!status)return;
  const label=panel.querySelector('.miniLabel'),heading=panel.querySelector('.pdfCopy h3'),lead=panel.querySelector('.pdfCopy p');
  if(label)label.textContent='Ihre persönliche Gesprächsunterlage';
- if(heading)heading.textContent='Ihre Hotel-Auswertung als fertige PDF';
- if(lead)lead.textContent='Die vollständige Hotel-Seite wird mit Ihren aktuellen Eingaben und Rechenergebnissen als mehrseitige PDF erstellt. Anschließend können Sie die fertige Datei ansehen und speichern.';
- // Der bisherige Hotel-PDF-Listener hängt am alten Knopf. Klonen entfernt ausschließlich
- // diesen Listener, ohne die Seite, Eingaben oder die alte PDF-Engine zu verändern.
- const btn=old.cloneNode(true);btn.id='pdfBtn';btn.textContent='Hotel-PDF erstellen';btn.disabled=true;old.replaceWith(btn);
+ if(heading)heading.textContent='Ihre Hotel-Auswertung als PDF';
+ if(lead)lead.textContent='Gesprächswerte auf der Hotel-Seite eingeben, PDF erzeugen, ansehen und speichern.';
+ const btn=old.cloneNode(true);btn.textContent='PDF erstellen';btn.disabled=true;old.replaceWith(btn);
+ // Gleiche Struktur wie die bestaetigte Master-Testseite.
+ const result=document.createElement('div');result.id='hotelPdfMasterResult';result.className='result';
+ result.innerHTML='<strong>Ihre PDF ist fertig.</strong><div class="file" id="hotelPdfFilename"></div><div class="links"><a class="action preview" id="hotelPdfOpen" target="_blank" rel="noopener">PDF-Vorschau öffnen</a><a class="action" id="hotelPdfDownload" type="application/pdf">PDF herunterladen / speichern</a></div><iframe class="viewer" id="hotelPdfViewer" title="Vorschau der fertigen PDF"></iframe>';
+ panel.appendChild(result);
+ const style=document.createElement('style');style.textContent=`
+ #hotelPdfMasterResult{display:none;padding:14px 18px;background:#fff;border:1px solid #dbe5e9;border-radius:17px;margin:12px 24px 24px;color:#263545}
+ #hotelPdfMasterResult.show{display:block}
+ #hotelPdfMasterResult strong{display:block;color:#132238}
+ #hotelPdfMasterResult .links{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}
+ #hotelPdfMasterResult .action{appearance:none;border:0;background:#132238;color:white;font:inherit;font-weight:850;border-radius:10px;padding:11px 15px;cursor:pointer;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+ #hotelPdfMasterResult .action.preview{background:#c6006f}
+ #hotelPdfMasterResult .file{padding:7px 0;overflow-wrap:anywhere;color:#536778;font-size:14px}
+ #hotelPdfMasterResult .viewer{width:100%;height:680px;max-height:75vh;border:1px solid #dbe5e9;border-radius:12px;background:#eef4f5}
+ @media(max-width:600px){#hotelPdfMasterResult{margin:10px 12px 16px;padding:12px}#hotelPdfMasterResult .viewer{height:64vh}#hotelPdfMasterResult .links .action{flex:1 1 100%;justify-content:center}}`;
+ document.head.appendChild(style);
+ function feedback(message,error=false){status.className='pdfState show '+(error?'error':'generating');status.textContent=message;}
  btn.addEventListener('click',async()=>{
-   if(busy)return;busy=true;btn.disabled=true;btn.textContent='PDF wird erstellt …';
-   info('generating','Ihre Hotel-PDF wird erstellt.','Aktuelle Gesprächswerte und vollständige Inhalte werden übernommen.');
-   try{
-     // Der unveränderte Master-Patch lädt asynchron: zunächst ist die Proxy-Version
-     // aktiv, nach dem Einspielen der zwölf Korrekturen die korrigierte V1-Engine.
-     if(typeof window.HotelPdfEigen?.generate!=='function')throw Error('Der freigegebene PDF-Master ist noch nicht geladen.');
-     await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-     const out=await window.HotelPdfEigen.generate(document,(done,total)=>info('generating','Ihre Hotel-PDF wird erstellt.','Abschnitt '+done+' von '+total+' wird übernommen.'));
-     if(!(out?.blob instanceof Blob)||out.blob.type!=='application/pdf'||!Number.isInteger(out.pages)||out.pages<1)throw Error('Der Generator hat keine gültige PDF-Datei zurückgegeben.');
-     const newUrl=URL.createObjectURL(out.blob);
-     const el=state('success');
-     if(!el){URL.revokeObjectURL(newUrl);throw Error('PDF-Anzeigebereich fehlt.');}
-     text(el,'strong','Ihre Hotel-PDF ist fertig.');
-     text(el,'div',out.filename+' · '+out.pages+' A4-Seiten','pdfFile');
-     const actions=text(el,'div','','hotelPdfMasterActions');
-     const preview=text(actions,'a','PDF-Vorschau öffnen','pdfDownload');preview.href=newUrl;preview.target='_blank';preview.rel='noopener';preview.type='application/pdf';
-     const download=text(actions,'a','PDF herunterladen / speichern','pdfDownload');download.href=newUrl;download.download=out.filename;download.type='application/pdf';download.rel='noopener';
-     const viewer=document.createElement('iframe');viewer.title='Vorschau der fertigen Hotel-PDF';viewer.src=newUrl;viewer.style.cssText='display:block;width:100%;height:72vh;min-height:440px;margin-top:14px;border:1px solid #cce5e7;border-radius:10px;background:white';el.appendChild(viewer);
-     if(pdfUrl)URL.revokeObjectURL(pdfUrl);pdfUrl=newUrl;
-     el.scrollIntoView({block:'start',behavior:'smooth'});
-   }catch(err){console.error('[Hotel PDF Master]',err);info('error','Die PDF konnte nicht erstellt werden.',err?.message||String(err))}
-   finally{busy=false;btn.disabled=false;btn.textContent='Hotel-PDF erstellen';}
+  btn.disabled=true;result.classList.remove('show');feedback('PDF wird aus der aktuellen Hotel-Seite erzeugt …');
+  try{
+   if(!window.HotelPdfEigen)throw Error('Lokaler PDF-Generator konnte nicht geladen werden.');
+   const doc=document;
+   await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+   const out=await window.HotelPdfEigen.generate(doc,(done,total)=>feedback(`PDF wird erzeugt: Bereich ${done} von ${total}`));
+   if(!out?.blob||out.blob.type!=='application/pdf')throw Error('Der PDF-Generator hat keine gültige PDF zurückgegeben.');
+   if(url)URL.revokeObjectURL(url);
+   url=URL.createObjectURL(out.blob);
+   $('hotelPdfFilename').textContent=`${out.filename} · ${out.pages} A4-Seiten`;
+   const open=$('hotelPdfOpen'),download=$('hotelPdfDownload');
+   open.href=url;download.href=url;download.download=out.filename;
+   $('hotelPdfViewer').src=url;
+   result.classList.add('show');feedback(`Fertig: ${out.pages} A4-Seiten. PDF-Vorschau und Download stehen bereit.`);
+   result.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){console.error('[Hotel PDF Master]',e);feedback('PDF nicht erstellt: '+(e?.message||String(e)),true)}
+  finally{btn.disabled=false}
  });
- const styles=document.createElement('style');styles.textContent='.hotelPdfMasterActions{display:flex;gap:10px;flex-wrap:wrap}.hotelPdfMasterActions .pdfDownload{margin-top:12px}@media(max-width:560px){.hotelPdfMasterActions .pdfDownload{width:100%;justify-content:center}}';document.head.appendChild(styles);
  const engine=document.createElement('script');engine.src='./hotel-pdf-eigen-fix.js?v=20260917-master';engine.async=false;
- engine.onload=()=>{if(typeof window.HotelPdfEigen?.generate==='function'){btn.disabled=false;}else info('error','PDF-Master nicht verfügbar.','Bitte laden Sie die Seite erneut.');};
- engine.onerror=()=>info('error','PDF-Master konnte nicht geladen werden.','Bitte laden Sie die Seite erneut.');
+ engine.onload=()=>{if(typeof window.HotelPdfEigen?.generate==='function'){btn.disabled=false;feedback('Hotel-Seite geladen. Werte eingeben und PDF erstellen.');}else feedback('PDF-Master nicht verfügbar. Bitte Seite neu laden.',true)};
+ engine.onerror=()=>feedback('PDF-Master konnte nicht geladen werden. Bitte Seite neu laden.',true);
  document.head.appendChild(engine);
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',prepare,{once:true});else prepare();
-window.addEventListener('pagehide',()=>{if(pdfUrl)URL.revokeObjectURL(pdfUrl)});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+window.addEventListener('pagehide',()=>{if(url)URL.revokeObjectURL(url)});
 })();
