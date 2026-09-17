@@ -8,7 +8,10 @@
 const WIDTH=595.28,HEIGHT=841.89,CACHE='lb-hotel-pdf-preview-v1';
 const $=id=>document.getElementById(id),escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
 const color=vals=>'rgb('+vals.map(v=>Math.max(0,Math.min(255,Math.round(v*255)))).join(',')+')';
-const decodeHex=h=>{const bytes=new Uint8Array((h.match(/../g)||[]).map(x=>parseInt(x,16)));return new TextDecoder('windows-1252').decode(bytes)};
+// Die Hotel-Master-PDF verwendet WinAnsi; 0x80 und 0x96 sind Euro bzw. Gedankenstrich.
+// Nicht auf die unterschiedliche TextDecoder-Implementierung der Browser vertrauen.
+const winAnsi={128:'€',130:'‚',131:'ƒ',132:'„',133:'…',134:'†',135:'‡',136:'ˆ',137:'‰',138:'Š',139:'‹',140:'Œ',142:'Ž',145:'‘',146:'’',147:'“',148:'”',149:'•',150:'–',151:'—',152:'˜',153:'™',154:'š',155:'›',156:'œ',158:'ž',159:'Ÿ'};
+const decodeHex=h=>{const bytes=h.match(/../g)||[];return bytes.map(x=>{const b=parseInt(x,16);return winAnsi[b]??String.fromCharCode(b)}).join('')};
 const number=x=>Number(x).toFixed(2);
 function extract(pdf){
  const objects=new Map(),pattern=/(\d+)\s+0\s+obj\s*([\s\S]*?)\s*endobj/g;let m;
@@ -48,7 +51,7 @@ function svgPage(stream){
    case 'ET':break;
    case 'Tf':{const v=values.splice(-2,2);font=v[0];size=Number(v[1]);break}
    case 'Td':[tx,ty]=take(2);break;
-   case 'Tj':{const hex=values.pop();if(!hex?.startsWith('<'))throw Error('PDF-Text konnte nicht gelesen werden.');const text=decodeHex(hex.slice(1,-1));elements.push(`<text x="0" y="0" transform="translate(${number(tx)} ${number(ty)}) scale(1 -1)" fill="${fill}" font-family="Arial,Helvetica,sans-serif" font-weight="${font==='/F2'?700:400}" font-size="${number(size)}">${escape(text)}</text>`);break}
+   case 'Tj':{const hex=values.pop();if(!hex?.startsWith('<'))throw Error('PDF-Text konnte nicht gelesen werden.');const text=decodeHex(hex.slice(1,-1));elements.push(`<text x="0" y="0" transform="translate(${number(tx)} ${number(ty)}) scale(1 -1)" fill="${fill}" font-family="Helvetica,Arial,sans-serif" font-weight="${font==='/F2'?700:400}" font-size="${number(size)}">${escape(text)}</text>`);break}
    default:throw Error('Unbekannte PDF-Zeichenanweisung: '+t);
   }
  }
