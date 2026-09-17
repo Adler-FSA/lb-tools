@@ -34,12 +34,17 @@ function show(){if(!documentFile)throw Error('Es liegt noch keine fertige PDF vo
  document.getElementById('akPdfDetails').textContent=[metadata?.origin||'Von dieser Seite erstellt',metadata?.pages?metadata.pages+' A4-Seiten':'',metadata?.created||''].filter(Boolean).join(' · ');
  const picker=typeof window.showSaveFilePicker==='function',sharing=canShare();document.getElementById('akPdfShare').disabled=!sharing;
  document.getElementById('akPdfNotice').textContent=picker?'Speichern öffnet die Ordnerauswahl Ihres Geräts.':sharing?'Speichern und Teilen übergeben die fertige, benannte PDF an die Dateifreigabe Ihres Geräts. Dort „In Dateien sichern“ oder einen anderen Speicherort wählen.':'Dieser Browser bietet weder eine Ordnerauswahl noch die Dateifreigabe für PDF-Dateien an. Speichern nutzt deshalb seinen normalen Download. Der Browser kann den Dateinamen dabei abweichend vergeben.';
- status('Die fertig erzeugte Datei liegt nur vorübergehend in dieser geöffneten Seite.');modal.hidden=false;document.body.style.setProperty('--ak-pdf-modal-open','1');document.getElementById('akPdfSave').focus();
+ status('Die fertig erzeugte Datei liegt nur vorübergehend in dieser geöffneten Seite.');modal.hidden=false;document.getElementById('akPdfSave').focus();
 }
 function hide(){if(!modal)return;modal.hidden=true;previousFocus?.focus?.();}
 function setDocument(result){if(!result?.blob||!(result.blob instanceof Blob)||!result.filename||result.blob.size===0)throw Error('Der Generator hat keine gueltige fertige Datei geliefert.');
  const filename=String(result.filename).replace(/[\\/\x00-\x1f<>:"|?*]/g,'_').trim();if(!filename.toLowerCase().endsWith('.pdf'))throw Error('Der PDF-Dateiname ist nicht gueltig.');
- documentFile=new File([result.blob],filename,{type:'application/pdf'});metadata={pages:result.pages,origin:result.origin||'Hotel-Gesprächsseite · tools.liquiditybooster.de',created:new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date())};
+ if(typeof File!=='function')throw Error('Dieser Browser kann keine benannte Datei zurueckgeben.');
+ documentFile=new File([result.blob],filename,{type:'application/pdf'});
+ // Keine alte PDF auf dem Fallback-Weg verwenden, wenn ein neues Gespraech erstellt wurde.
+ // Die alte URL nicht sofort widerrufen: Downloads koennen zeitverzoegert lesen.
+ downloadUrl='';
+ metadata={pages:result.pages,origin:result.origin||'Hotel-Gesprächsseite · tools.liquiditybooster.de',created:new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date())};
  show();return {filename:documentFile.name,bytes:documentFile.size};
 }
 async function saveFile(){if(!documentFile)return status('Keine Datei vorhanden.',true);
