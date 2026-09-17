@@ -1,17 +1,14 @@
-/* Hotel-Hauptseite: derselbe Generator, Snapshot und Downloadablauf wie
- * hotel-pdf-abschluss-test.html (freigegebener Master).
- * Einziger UI-Unterschied: auf der Hauptseite bleibt die Vorschau entfernt.
- * Keine Service-Worker-Dateirouten, keine alternativen PDF-Generatoren.
+/* Hotel-Hauptseite: exakt der PDF-Generator der freigegebenen
+ * hotel-pdf-eigen-test.html; nur die Ausgabe ohne Vorschau.
+ * Eine PDF je Klick erzeugen, danach dieselben Bytes als benannte Datei
+ * bereitstellen. Keine zweite Generierung, kein Server und kein Druckdialog.
  */
 (()=>{'use strict';
 const params=new URLSearchParams(location.search);
 if(params.has('pdf-design-test')||params.has('final-suite'))return;
 const $=id=>document.getElementById(id);
-let objectUrl='',busy=false;
+let objectUrl='',namedFile=null,busy=false,shareFailed=false;
 function feedback(message,error=false){const status=$('pdfState');if(!status)return;status.className='pdfState show '+(error?'error':'generating');status.textContent=message;}
-
-// Wortgleich mit der Snapshot-Funktion der freigegebenen Abschluss-Testseite.
-function snapshot(doc){const clone=doc.cloneNode(true),originalInputs=[...doc.querySelectorAll('input,textarea,select')],copiedInputs=[...clone.querySelectorAll('input,textarea,select')];if(originalInputs.length!==copiedInputs.length)throw Error('Gesprächseingaben konnten nicht vollständig übernommen werden.');originalInputs.forEach((el,i)=>{copiedInputs[i].value=el.value;if(el.type==='checkbox'||el.type==='radio')copiedInputs[i].checked=el.checked;});const sourceLinks=[...doc.querySelectorAll('.detailsBody a')],copyLinks=[...clone.querySelectorAll('.detailsBody a')];copyLinks.forEach((a,i)=>{if(sourceLinks[i])a.href=sourceLinks[i].href;});const box=clone.querySelector('.detailsBody');if(box){for(const p of [...box.querySelectorAll('p')]){const anchors=[...p.querySelectorAll('a')];if(!anchors.length)continue;let rest=p.textContent||'';for(const a of anchors)rest=rest.replace(a.textContent||'','');if(rest.trim())continue;anchors.forEach(a=>box.appendChild(a));p.remove();}}return clone;}
 
 function init(){
  const panel=$('pdfPanel'),original=$('pdfBtn');if(!panel||!original||!$('pdfState'))return;
@@ -32,30 +29,59 @@ function init(){
  @media(max-width:600px){#hotelPdfMasterResult{margin:10px 12px 16px;padding:12px}#hotelPdfMasterResult .links .action{flex:1 1 100%;justify-content:center}}`;
  document.head.appendChild(style);
  const download=$('hotelPdfDownload');
+ // Firefox auf iOS kann beim <a download> fuer blob:-URLs den Namen durch
+ // eine UUID ersetzen. Die fertige Datei stattdessen mit ihrem File.name an
+ // die native Dateifreigabe uebergeben. Safari und Brave behalten den
+ // bestaetigten Downloadablauf des Masters; alle anderen Browser ebenso.
+ download.addEventListener('click',event=>{
+   if(!objectUrl){event.preventDefault();feedback('Bitte zuerst die PDF erstellen.',true);return;}
+   if(!/FxiOS\//i.test(navigator.userAgent)||shareFailed||!namedFile)return;
+   let canShare=false;
+   try{canShare=typeof navigator.share==='function'&&typeof navigator.canShare==='function'&&navigator.canShare({files:[namedFile]});}catch(e){canShare=false;}
+   if(!canShare){feedback('Dieser Firefox bietet keine Dateifreigabe an. Der normale PDF-Download wird verwendet.',true);return;}
+   event.preventDefault();
+   try{
+     // Direkt im echten Klick ausloesen, bevor die Nutzeraktivierung verfaellt.
+     const operation=navigator.share({files:[namedFile],title:namedFile.name});
+     Promise.resolve(operation).catch(error=>{
+       if(error?.name==='AbortError')return;
+       shareFailed=true;
+       feedback('Dateifreigabe fehlgeschlagen. Beim naechsten Klick steht der normale Download bereit.',true);
+     });
+   }catch(error){
+     shareFailed=true;
+     feedback('Dateifreigabe fehlgeschlagen. Beim naechsten Klick steht der normale Download bereit.',true);
+   }
+ });
  btn.addEventListener('click',async()=>{
   if(busy)return;busy=true;btn.disabled=true;result.classList.remove('show');feedback('PDF wird aus der aktuellen Hotel-Seite erzeugt …');
   try{
-   if(window.HotelPdfEigen?.version!=='HOTEL_PDF_EIGEN_V2')throw Error('Freigegebener Hotel-PDF-Master konnte nicht geladen werden.');
-   await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
-   const doc=snapshot(document);
-   const out=await window.HotelPdfEigen.generate(doc,(i,n)=>feedback('PDF-Bereich '+i+' von '+n+' wird gesetzt …'));
-   // Unveränderte Dateierstellung und Linkzuweisung des freigegebenen Masters.
-   if(objectUrl)URL.revokeObjectURL(objectUrl);
-   objectUrl=URL.createObjectURL(out.blob);
+   if(typeof window.HotelPdfEigen?.generate!=='function')throw Error('Freigegebener Hotel-PDF-Master konnte nicht geladen werden.');
+   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+   // Wie auf der Master-Testseite: aktuelle HTML-Eingaben direkt lesen.
+   const out=await window.HotelPdfEigen.generate(document,(done,total)=>feedback(`PDF wird erzeugt: Bereich ${done} von ${total}`));
+   if(!out?.blob||!out.filename||!out.pages)throw Error('Der PDF-Master hat keine fertige Datei geliefert.');
+   const url=URL.createObjectURL(out.blob);
+   // Die Seite haelt die einmal erzeugte PDF selbst vor. Download und
+   // Dateifreigabe verwenden dieselben Bytes und denselben Dateinamen.
+   objectUrl=url;
+   namedFile=typeof File==='function'?new File([out.blob],out.filename,{type:'application/pdf'}):null;
+   shareFailed=false;
    download.href=objectUrl;
    download.download=out.filename;
    $('hotelPdfFilename').textContent=out.filename+' · '+out.pages+' A4-Seiten';
    result.classList.add('show');feedback('PDF erstellt – Download ist bereit.');
    result.scrollIntoView({block:'start',behavior:'smooth'});
-  }catch(e){console.error('[Hotel PDF Master]',e);feedback('PDF nicht erstellt: '+(e?.message||String(e)),true)}
+  }catch(error){console.error('[Hotel PDF Master]',error);feedback('PDF nicht erstellt: '+(error?.message||String(error)),true);}
   finally{busy=false;btn.disabled=false;}
  });
- // EXAKT die Engine der Abschluss-Testseite, nicht mehr hotel-pdf-eigen-fix.js.
- const engine=document.createElement('script');engine.src='./hotel-pdf-eigen-v2.js?v=51672411';engine.async=false;
- engine.onload=()=>{if(window.HotelPdfEigen?.version==='HOTEL_PDF_EIGEN_V2'){btn.disabled=false;feedback('Hotel-Seite geladen. Werte eingeben und PDF erstellen.');}else feedback('PDF-Master nicht verfügbar. Bitte Seite neu laden.',true);};
+ // Dieselbe Engine wie die vom Nutzer getestete Master-Testseite.
+ const engine=document.createElement('script');engine.src='./hotel-pdf-eigen-fix.js?v=2';engine.async=false;
+ engine.onload=()=>{if(typeof window.HotelPdfEigen?.generate==='function'){btn.disabled=false;feedback('Hotel-Seite geladen. Werte eingeben und PDF erstellen.');}else feedback('PDF-Master nicht verfügbar. Bitte Seite neu laden.',true);};
  engine.onerror=()=>feedback('PDF-Master konnte nicht geladen werden. Bitte Seite neu laden.',true);
  document.head.appendChild(engine);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-window.addEventListener('pagehide',()=>{if(objectUrl)URL.revokeObjectURL(objectUrl)});
+// Blob-URLs bewusst nicht beim Seitenwechsel widerrufen: einige Browser
+// lesen den Download erst nach dem Klick. Freigabe erfolgt beim Entladen.
 })();
