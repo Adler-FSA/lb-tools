@@ -1,48 +1,28 @@
-/* Hotel-Hauptseite: nur Ausgabe der freigegebenen Master-PDF mit Dateinamen.
- * PDF-Generator, Hotel-HTML und Rechner bleiben unveraendert.
- * Keine Vorschau, kein Druckdialog, kein externer PDF-Dienst.
+/* Hotel-Hauptseite: freigegebener PDF-Master, direkte lokale PDF-Datei.
+ * Nur Ausgabebruecke. Generator, Rechner und Hotel-HTML bleiben unveraendert.
+ * Kein virtueller Service-Worker-Dateipfad: Browser-Downloads muessen echte PDF-Bytes erhalten.
  */
 (()=>{'use strict';
 const params=new URLSearchParams(location.search);
 if(params.has('pdf-design-test')||params.has('final-suite'))return;
 const $=id=>document.getElementById(id);
-const CACHE='lb-hotel-pdf-delivery-v1';
-let fallbackUrl='',fallbackFile=null,busy=false;
+let pdfUrl='',busy=false;
 function feedback(message,error=false){const status=$('pdfState');if(!status)return;status.className='pdfState show '+(error?'error':'generating');status.textContent=message;}
-function timeout(p,ms){return Promise.race([p,new Promise((_,reject)=>setTimeout(()=>reject(Error('Benannte PDF-Ausgabe nicht rechtzeitig bereit.')),ms))]);}
-// Bestehende, vom Nutzer erfolgreich getestete Ausgabe mit echtem Dateinamen.
-async function namedDelivery(out){
- if(!('serviceWorker' in navigator)||!('caches' in window))throw Error('Lokale Dateiausgabe wird von diesem Browser nicht unterstuetzt.');
- const registration=await timeout(navigator.serviceWorker.register('./hotel-pdf-delivery-sw.js?v=20260917-1',{scope:'./',updateViaCache:'none'}),7500);
- await timeout(navigator.serviceWorker.ready,7500);
- const ours=()=>navigator.serviceWorker.controller?.scriptURL?.includes('hotel-pdf-delivery-sw.js');
- if(!ours())await timeout(new Promise(resolve=>{
-   const changed=()=>{if(ours()){navigator.serviceWorker.removeEventListener('controllerchange',changed);resolve();}};
-   navigator.serviceWorker.addEventListener('controllerchange',changed);changed();
- }),7500);
- if(!registration.active||!ours())throw Error('Benannte PDF-Ausgabe wurde nicht aktiviert.');
- const filename=out.filename;
- if(!/^[A-Za-z0-9_.-]+\.pdf$/.test(filename))throw Error('Hotel-PDF-Dateiname ist nicht sicher.');
- const base=new URL('./__hotel_pdf__/'+encodeURIComponent(filename),location.href);
- base.searchParams.set('id',Date.now()+'-'+Math.random().toString(36).slice(2));
- const preview=new URL(base.href),download=new URL(base.href);
- preview.searchParams.set('mode','preview');download.searchParams.set('mode','download');
- const cache=await caches.open(CACHE);
- const headers=(mode)=>({'Content-Type':'application/pdf','Content-Disposition':mode+'; filename="'+filename+'"','X-Content-Type-Options':'nosniff','Accept-Ranges':'bytes'});
- await cache.put(preview.href,new Response(out.blob,{headers:headers('inline')}));
- await cache.put(download.href,new Response(out.blob,{headers:headers('attachment')}));
- const check=await timeout(fetch(preview.href,{cache:'no-store'}),7500);
- if(!check.ok||!check.headers.get('Content-Disposition')?.includes(filename))throw Error('Dateipfad konnte nicht geprueft werden.');
- const old=await cache.keys();
- await Promise.all(old.filter(r=>r.url!==preview.href&&r.url!==download.href).map(r=>cache.delete(r)));
- return{download:download.href,named:true};
+async function verifyPdf(out){
+  if(!out?.blob||out.blob.type!=='application/pdf'||!out.filename?.endsWith('.pdf')||!Number.isInteger(out.pages)||out.pages<1)throw Error('Der PDF-Master hat keine gueltige Datei geliefert.');
+  const raw=await out.blob.arrayBuffer();
+  if(raw.byteLength<2000)throw Error('Die erstellte PDF ist unvollstaendig.');
+  const header=new TextDecoder('ascii').decode(raw.slice(0,8));
+  const footer=new TextDecoder('ascii').decode(raw.slice(-256));
+  if(!header.startsWith('%PDF-')||!footer.includes('%%EOF'))throw Error('Die erstellte PDF ist unvollstaendig.');
+  return raw.byteLength;
 }
 function init(){
  const panel=$('pdfPanel'),original=$('pdfBtn');if(!panel||!original||!$('pdfState'))return;
  const label=panel.querySelector('.miniLabel'),heading=panel.querySelector('.pdfCopy h3'),lead=panel.querySelector('.pdfCopy p');
  if(label)label.textContent='Ihre persoenliche Gespraechsunterlage';
  if(heading)heading.textContent='Ihre Hotel-Auswertung als PDF';
- if(lead)lead.textContent='Gespraechswerte eingeben, PDF erstellen und mit Dateinamen speichern.';
+ if(lead)lead.textContent='Gespraechswerte eingeben, PDF erstellen und speichern.';
  const btn=original.cloneNode(true);btn.textContent='PDF erstellen';btn.disabled=true;original.replaceWith(btn);
  const result=document.createElement('div');result.id='hotelPdfMasterResult';result.className='result';
  result.innerHTML='<strong>Ihre PDF ist fertig.</strong><div class="file" id="hotelPdfFilename"></div><div class="links"><a class="action" id="hotelPdfDownload" type="application/pdf">PDF herunterladen / speichern</a></div><div class="file" id="hotelPdfSaveHint" hidden></div>';
@@ -56,31 +36,25 @@ function init(){
  @media(max-width:600px){#hotelPdfMasterResult{margin:10px 12px 16px;padding:12px}#hotelPdfMasterResult .links .action{flex:1 1 100%;justify-content:center}}`;
  document.head.appendChild(style);
  const download=$('hotelPdfDownload');
- download.addEventListener('click',event=>{
-   if(!fallbackFile||typeof navigator.canShare!=='function'||typeof navigator.share!=='function')return;
-   if(!navigator.canShare({files:[fallbackFile]}))return;
-   event.preventDefault();
-   navigator.share({files:[fallbackFile],title:fallbackFile.name}).catch(err=>{
-     if(err?.name!=='AbortError')feedback('Dateifreigabe fehlgeschlagen. Bitte den Browser-Download versuchen.',true);
-   });
- });
  btn.addEventListener('click',async()=>{
   if(busy)return;busy=true;btn.disabled=true;result.classList.remove('show');feedback('PDF wird aus der aktuellen Hotel-Seite erzeugt …');
   try{
    if(typeof window.HotelPdfEigen?.generate!=='function')throw Error('Freigegebener Hotel-PDF-Master konnte nicht geladen werden.');
    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
    const out=await window.HotelPdfEigen.generate(document,(done,total)=>feedback(`PDF wird erzeugt: Bereich ${done} von ${total}`));
-   if(!out?.blob||out.blob.type!=='application/pdf'||!out.filename?.endsWith('.pdf')||!Number.isInteger(out.pages))throw Error('Der Master hat keine gueltige PDF geliefert.');
-   fallbackFile=typeof File==='function'?new File([out.blob],out.filename,{type:'application/pdf'}):null;
-   if(fallbackUrl)URL.revokeObjectURL(fallbackUrl);
-   fallbackUrl=URL.createObjectURL(out.blob);
-   let delivery,warning='';
-   try{delivery=await namedDelivery(out);}catch(err){console.warn('[Hotel PDF Dateiausgabe]',err);delivery={download:fallbackUrl,named:false};warning='Dieser Browser konnte den benannten Dateipfad nicht aktivieren. Bei Bedarf die Datei ueber die Systemfreigabe speichern.';}
-   $('hotelPdfFilename').textContent=`${out.filename} · ${out.pages} A4-Seiten`;
-   download.href=delivery.download;download.download=out.filename;
-   const hint=$('hotelPdfSaveHint');hint.hidden=!warning;hint.textContent=warning;
+   const bytes=await verifyPdf(out);
+   // Der Link zeigt direkt auf den lokal erzeugten PDF-Blob, nicht auf einen
+   // virtuellen Service-Worker-Pfad, den Safaris Downloadmanager umgehen kann.
+   const nextUrl=URL.createObjectURL(out.blob);
+   const oldUrl=pdfUrl;pdfUrl=nextUrl;
+   download.href=pdfUrl;download.download=out.filename;
+   $('hotelPdfFilename').textContent=`${out.filename} · ${out.pages} A4-Seiten · ${Math.ceil(bytes/1024)} KB`;
+   const hint=$('hotelPdfSaveHint');hint.hidden=true;hint.textContent='';
    result.classList.add('show');feedback(`Fertig: ${out.pages} A4-Seiten. PDF zum Speichern bereit.`);
    result.scrollIntoView({behavior:'smooth',block:'start'});
+   // Alte URL erst nach Erstellen einer neuen Datei freigeben; nicht bei pagehide:
+   // Safari kann den Download erst nach dem Seitenwechsel vollstaendig lesen.
+   if(oldUrl)URL.revokeObjectURL(oldUrl);
   }catch(err){console.error('[Hotel PDF Master]',err);feedback('PDF nicht erstellt: '+(err?.message||String(err)),true)}
   finally{busy=false;btn.disabled=false;}
  });
@@ -90,5 +64,4 @@ function init(){
  document.head.appendChild(engine);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
-window.addEventListener('pagehide',()=>{if(fallbackUrl)URL.revokeObjectURL(fallbackUrl)});
 })();
