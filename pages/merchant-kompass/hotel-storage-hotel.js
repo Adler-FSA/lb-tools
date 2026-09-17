@@ -99,9 +99,28 @@
 
   loadCore().then(init).catch(function(err){console.warn('[HotelStorage] Hotel-Seite konnte nicht verbunden werden:',err)});
 
-  /* Ausschliesslich die produktive Hotel-Seite: die V6-Broschuere nutzt ihren
-     unveraenderten PDF-Testgenerator. In dessen iframe keinen Adapter laden. */
+  /* Der freigegebene PDF-Master wird nur auf der eigentlichen Hotel-Seite
+     eingebunden. Test-iframe und bestehender Suite-Baustein bleiben unveraendert. */
   const hotelParams=new URLSearchParams(location.search);
+  if(!hotelParams.has('pdf-design-test')&&!hotelParams.has('final-suite')){
+    const oldButton=document.getElementById('pdfBtn');if(oldButton)oldButton.disabled=true;
+    if(!document.querySelector('script[data-lb-hotel-pdf-master-live]')){
+      const pdfScript=document.createElement('script');
+      pdfScript.src='./hotel-pdf-eigen-live.js?v=20260917-master';
+      pdfScript.async=false;
+      pdfScript.dataset.lbHotelPdfMasterLive='1';
+      pdfScript.onerror=function(){
+        const e=document.getElementById('pdfState');
+        if(e){e.className='pdfState show error';e.textContent='Der Hotel-PDF-Master konnte nicht geladen werden. Bitte Seite neu laden.'}
+      };
+      document.head.appendChild(pdfScript);
+    }
+    return;
+  }
+
+  /* Die unveraenderte V6-Broschuere bleibt als bisheriger Build-Zugang nur
+     fuer die kuenftige Gesamtausgabe verfuegbar. Im PDF-Test-iframe keine
+     weiteren Adapter laden. */
   if(!hotelParams.has('pdf-design-test')&&!document.querySelector('script[data-lb-hotel-pdf-v6-live]')){
     const production=!hotelParams.has('final-suite');
     if(production){const oldButton=document.getElementById('pdfBtn');if(oldButton)oldButton.disabled=true;}
