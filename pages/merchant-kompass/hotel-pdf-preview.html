@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Hotel-PDF · vollständige Vorschau</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#132238;background:#e9f0f2}*{box-sizing:border-box}body{margin:0}.bar{position:sticky;top:0;background:#132238;color:white;padding:12px clamp(12px,3vw,35px);z-index:2;display:flex;gap:12px;align-items:center;flex-wrap:wrap;box-shadow:0 3px 15px #0002}.bar strong{flex:1;min-width:200px;overflow-wrap:anywhere;font-size:15px}.bar a{color:white;text-decoration:none;background:#007f85;border-radius:9px;padding:8px 12px;font-weight:700}.bar span{font-size:13px}.pages{padding:20px 12px 48px;display:grid;gap:18px;justify-items:center}.page{width:min(100%,595px);max-width:595px;margin:0}.sheet{background:#fff;box-shadow:0 6px 22px #152b3840;aspect-ratio:595.28/841.89;overflow:hidden}.sheet svg{display:block;width:100%;height:100%}.page figcaption{text-align:center;font-size:12px;margin-top:6px;color:#50606f}.error{margin:35px auto;padding:24px;max-width:650px;background:white;border:1px solid #e4b9b9;border-radius:12px;color:#842323}@media(min-width:950px){.page{width:760px;max-width:760px}}
+</style></head><body><header class="bar"><strong id="title">Hotel-PDF · Vorschau wird geladen …</strong><span id="status" role="status">Bitte kurz warten</span><a href="#page1" id="first" hidden>Zur ersten Seite</a></header><main id="pages" class="pages"></main>
+<script>
+(()=>{'use strict';
+const WIDTH=595.28,HEIGHT=841.89,CACHE='lb-hotel-pdf-preview-v1';
+const $=id=>document.getElementById(id),escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+const color=vals=>'rgb('+vals.map(v=>Math.max(0,Math.min(255,Math.round(v*255)))).join(',')+')';
+const decodeHex=h=>{const bytes=new Uint8Array((h.match(/../g)||[]).map(x=>parseInt(x,16)));return new TextDecoder('windows-1252').decode(bytes)};
+const number=x=>Number(x).toFixed(2);
+function extract(pdf){
+ const objects=new Map(),pattern=/(\d+)\s+0\s+obj\s*([\s\S]*?)\s*endobj/g;let m;
+ while((m=pattern.exec(pdf)))objects.set(Number(m[1]),m[2]);
+ const root=objects.get(2)||'';const declared=Number(root.match(/\/Count\s+(\d+)/)?.[1]);
+ const pages=[];
+ for(const obj of objects.values()){
+  if(!/\/Type\s+\/Page\b/.test(obj))continue;
+  const id=Number(obj.match(/\/Contents\s+(\d+)\s+0\s+R/)?.[1]);
+  const content=objects.get(id)?.match(/stream\r?\n([\s\S]*?)\r?\nendstream/)?.[1];
+  if(!id||!content)throw Error('Eine PDF-Seite konnte nicht gelesen werden.');
+  pages.push(content);
+ }
+ if(!declared||pages.length!==declared||pages.length>150)throw Error('Die PDF-Seitenzahl ist unvollständig.');
+ return pages;
+}
+function svgPage(stream){
+ const tokens=stream.match(/<[0-9a-fA-F]+>|\/[A-Za-z0-9]+|-?(?:\d+\.?\d*|\.\d+)|[A-Za-z][A-Za-z*]*/g)||[];
+ let fill='#263545',stroke='#263545',weight=1,font='/F1',size=9,tx=0,ty=0,path='',elements=[],stack=[],values=[];
+ const take=n=>{if(values.length<n)throw Error('Ungültige PDF-Zeichenanweisung.');return values.splice(values.length-n,n).map(Number)};
+ for(const t of tokens){
+  if(/^[-\d.]/.test(t)||t[0]==='/'||t[0]==='<'){values.push(t);continue}
+  switch(t){
+   case 'q':stack.push({fill,stroke,weight,font,size});break;
+   case 'Q':{const old=stack.pop();if(!old)throw Error('PDF-Zeichenstatus nicht geschlossen.');({fill,stroke,weight,font,size}=old);break}
+   case 'rg':fill=color(take(3));break;
+   case 'RG':stroke=color(take(3));break;
+   case 'w':weight=take(1)[0];break;
+   case 'm':{const [x,y]=take(2);path+=`M ${number(x)} ${number(y)} `;break}
+   case 'l':{const [x,y]=take(2);path+=`L ${number(x)} ${number(y)} `;break}
+   case 'c':{const v=take(6);path+=`C ${v.map(number).join(' ')} `;break}
+   case 'h':path+='Z ';break;
+   case 're':{const [x,y,w,h]=take(4);path+=`M ${number(x)} ${number(y)} h ${number(w)} v ${number(h)} h ${number(-w)} Z `;break}
+   case 'f':case 'F':if(path)elements.push(`<path d="${path}" fill="${fill}"/>`);path='';break;
+   case 'S':if(path)elements.push(`<path d="${path}" fill="none" stroke="${stroke}" stroke-width="${number(weight)}"/>`);path='';break;
+   case 'BT':break;
+   case 'ET':break;
+   case 'Tf':{const v=values.splice(-2,2);font=v[0];size=Number(v[1]);break}
+   case 'Td':[tx,ty]=take(2);break;
+   case 'Tj':{const hex=values.pop();if(!hex?.startsWith('<'))throw Error('PDF-Text konnte nicht gelesen werden.');const text=decodeHex(hex.slice(1,-1));elements.push(`<text x="0" y="0" transform="translate(${number(tx)} ${number(ty)}) scale(1 -1)" fill="${fill}" font-family="Arial,Helvetica,sans-serif" font-weight="${font==='/F2'?700:400}" font-size="${number(size)}">${escape(text)}</text>`);break}
+   default:throw Error('Unbekannte PDF-Zeichenanweisung: '+t);
+  }
+ }
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${WIDTH} ${HEIGHT}" role="img"><rect width="${WIDTH}" height="${HEIGHT}" fill="#fff"/><g transform="translate(0 ${HEIGHT}) scale(1 -1)">${elements.join('')}</g></svg>`;
+}
+async function main(){
+ const id=new URL(location.href).searchParams.get('id');if(!id||!/^[a-zA-Z0-9_-]{10,90}$/.test(id))throw Error('Keine gültige Hotel-PDF-Vorschau ausgewählt.');
+ if(!('caches' in window))throw Error('Dieser Browser unterstützt die lokale Vorschau nicht.');
+ const key=new URL('./__hotel_preview_data__/'+id,location.href).href;
+ const pdf=await (await caches.open(CACHE)).match(key);
+ if(!pdf||!pdf.ok)throw Error('Die PDF wurde nicht gefunden. Bitte auf der Hotel-Seite erneut erstellen.');
+ const filename=pdf.headers.get('X-Hotel-Filename')||'Hotel-PDF';
+ const content=new TextDecoder('utf-8').decode(await pdf.arrayBuffer()),streams=extract(content);
+ document.title='Vorschau · '+filename;$('title').textContent=filename;
+ streams.forEach((stream,index)=>{const figure=document.createElement('figure');figure.className='page';figure.id='page'+(index+1);figure.innerHTML='<div class="sheet">'+svgPage(stream)+'</div><figcaption>Seite '+(index+1)+' von '+streams.length+'</figcaption>';$('pages').appendChild(figure)});
+ $('status').textContent=streams.length+' Seiten · nach unten scrollen';$('first').hidden=false;
+}
+main().catch(err=>{console.error('[Hotel PDF Vorschau]',err);$('title').textContent='Vorschau nicht verfügbar';$('status').textContent='Fehler';$('pages').innerHTML='<div class="error"><strong>Die PDF-Vorschau konnte nicht geöffnet werden.</strong><p>'+escape(err.message)+'</p><p>Bitte zur Hotel-Seite zurückkehren und die PDF erneut erzeugen. Der separate Download bleibt verfügbar.</p></div>'});
+})();
+</script></body></html>
