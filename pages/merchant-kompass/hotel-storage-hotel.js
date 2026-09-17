@@ -78,7 +78,7 @@
           name:(row.querySelector('.serviceName')?.textContent||'').trim(),
           price:readValue(row.querySelector('[data-price]')),
           cost:readValue(row.querySelector('[data-cost]')),
-          voucher:readValue(row.querySelector('[data-voucher]'))
+          voucher:readValue(row.querySelector('[data-voucher]')
         };
       });
       store.updateSection('directBooking',{services:services});
@@ -106,7 +106,7 @@
     const oldButton=document.getElementById('pdfBtn');if(oldButton)oldButton.disabled=true;
     if(!document.querySelector('script[data-lb-hotel-pdf-master-live]')){
       const pdfScript=document.createElement('script');
-      pdfScript.src='./hotel-pdf-eigen-live.js?v=20260917-master';
+      pdfScript.src='./hotel-pdf-eigen-live.js?v=20260917-master-ui2';
       pdfScript.async=false;
       pdfScript.dataset.lbHotelPdfMasterLive='1';
       pdfScript.onerror=function(){
