@@ -78,7 +78,7 @@
           name:(row.querySelector('.serviceName')?.textContent||'').trim(),
           price:readValue(row.querySelector('[data-price]')),
           cost:readValue(row.querySelector('[data-cost]')),
-          voucher:readValue(row.querySelector('[data-voucher]')
+          voucher:readValue(row.querySelector('[data-voucher]'))
         };
       });
       store.updateSection('directBooking',{services:services});
