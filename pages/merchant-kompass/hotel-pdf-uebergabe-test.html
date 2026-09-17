@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Hotel · PDF-Übergabe testen</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--line:#dbe5e9}*{box-sizing:border-box}body{margin:0;background:#f3f8f8;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:#263545}.wrap{width:min(1180px,calc(100% - 24px));margin:20px auto 50px}.head{background:linear-gradient(120deg,var(--navy),#0d5260);color:#fff;border-radius:19px;padding:20px 24px}.head small{color:#81e2e2;text-transform:uppercase;letter-spacing:.12em;font-weight:850}.head h1{margin:5px 0 2px;line-height:1.12;font-size:clamp(24px,3vw,34px)}.head p{margin:5px 0;color:#e2eff1}.controls{position:sticky;top:0;z-index:5;margin:11px 0;padding:13px 15px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid #c9dfe0;background:#fff;border-radius:15px;box-shadow:0 6px 24px #13223813}.btn{appearance:none;border:0;background:var(--mint);color:#fff;font:inherit;font-weight:850;border-radius:10px;padding:11px 15px;cursor:pointer}.btn.secondary{background:var(--navy)}.btn:disabled{opacity:.5;cursor:not-allowed}.status{font-size:14px;color:#536778}.status.error{color:#b00045}.source{margin:13px 0;border:1px solid var(--line);background:white;border-radius:17px;overflow:hidden}.sourceHead{padding:10px 14px;background:#fff;font-weight:850;color:var(--navy);border-bottom:1px solid var(--line)}.source iframe{border:0;width:100%;height:72vh;min-height:530px;display:block}.hint{margin:13px 3px;color:#536778;font-size:13px}@media(max-width:600px){.wrap{width:calc(100% - 12px);margin:6px auto 28px}.head{border-radius:12px;padding:17px}.controls{padding:10px;top:0}.btn{width:100%}.source iframe{min-height:490px;height:73vh}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="head"><small>LiquidityBooster · Hotel</small><h1>Hotel-PDF erstellen und als Datei übernehmen</h1><p>Gesprächswerte eingeben, fertige PDF erstellen, danach Speicherort oder Freigabe wählen.</p></header>
+<div class="controls"><button type="button" class="btn" id="make" disabled>PDF erstellen</button><button type="button" class="btn secondary" id="again" disabled>Fertige PDF erneut anzeigen</button><span class="status" id="status" role="status" aria-live="polite">Hotel-Seite wird geladen …</span></div>
+<section class="source"><div class="sourceHead">Hotel-Gesprächsseite · Ihre Eingaben</div><iframe id="hotelFrame" src="./hotel.html?pdf-design-test=1&amp;hotel-pdf-eigen=1" title="Originale Hotel-Gesprächsseite"></iframe></section>
+<p class="hint">Die fertige PDF wird einmal lokal erstellt und bis zum Schließen dieser Seite vorgehalten. Dieses separate Testwerkzeug ändert die Hotel-Hauptseite nicht. Kein Druckdialog und kein externer PDF-Dienst.</p>
+</div>
+<script src="./hotel-pdf-eigen-fix.js?v=2"></script>
+<script src="./akademie-pdf-uebergabe.js?v=1"></script>
+<script>
+(()=>{'use strict';
+ const frame=document.getElementById('hotelFrame'),make=document.getElementById('make'),again=document.getElementById('again'),status=document.getElementById('status');let frameReady=false,busy=false;
+ function message(text,error=false){status.textContent=text;status.classList.toggle('error',error)}
+ frame.addEventListener('load',()=>{try{const doc=frame.contentDocument;if(!doc)throw Error('Kein Zugriff auf die Gesprächsseite.');const hide=doc.createElement('style');hide.textContent='#pdfPanel{display:none!important}';doc.head.appendChild(hide);frameReady=true;make.disabled=false;message('Hotel-Seite geladen. Werte eingeben und PDF erstellen.');}catch(e){frameReady=false;make.disabled=true;message('Hotel-Seite konnte nicht gelesen werden.',true);}});
+ make.addEventListener('click',async()=>{if(busy)return;busy=true;make.disabled=true;again.disabled=true;message('PDF wird aus der aktuellen Hotel-Seite erstellt …');try{
+   if(!frameReady||!frame.contentDocument)throw Error('Die Hotel-Seite ist noch nicht bereit.');
+   if(typeof window.HotelPdfEigen?.generate!=='function')throw Error('Der freigegebene PDF-Master ist nicht verfügbar.');
+   if(typeof window.AkademiePdfUebergabe?.setDocument!=='function')throw Error('Die PDF-Zentrale ist nicht verfügbar.');
+   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+   // Exakt derselbe Aufruf wie auf hotel-pdf-eigen-test.html: keine neue Engine.
+   const out=await window.HotelPdfEigen.generate(frame.contentDocument,(done,total)=>message(`PDF wird erstellt: Bereich ${done} von ${total}`));
+   // Fertige PDF und bereits vom Master festgelegten Namen ohne Neu-Generierung weitergeben.
+   const item=window.AkademiePdfUebergabe.setDocument({blob:out.blob,filename:out.filename,pages:out.pages,origin:'Hotel-Gesprächsseite · tools.liquiditybooster.de'});
+   again.disabled=false;message('Fertig: '+out.pages+' A4-Seiten · '+item.filename+' · PDF-Zentrale geöffnet.');
+  }catch(e){console.error('[Hotel PDF Übergabe]',e);message('PDF nicht bereit: '+(e?.message||String(e)),true);}finally{busy=false;make.disabled=!frameReady;}});
+ again.addEventListener('click',()=>{try{window.AkademiePdfUebergabe.show();}catch(e){message(e?.message||String(e),true);}});
+})();
+</script>
+</body>
+</html>
