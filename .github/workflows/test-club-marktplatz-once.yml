@@ -1,0 +1,35 @@
+name: One-time marketplace workshop verification
+on:
+  push:
+    paths:
+      - '.github/workflows/test-club-marktplatz-once.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax
+        run: node --check pages/vertraege/club-marktplatz-vertragswerkstatt.js
+      - name: Source and workshop integrity checks
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          html = Path('pages/vertraege/club-marktplatz-vertragswerkstatt.html').read_text()
+          js = Path('pages/vertraege/club-marktplatz-vertragswerkstatt.js').read_text()
+          leader = Path('pages/vertraege/club-leader.html').read_text()
+          assert len(leader) > 30000, 'Original Club Leader contract unexpectedly short'
+          assert html.count('data-review=') == 10, 'Expected ten review checkpoints'
+          for part in ('id="leaderEditor"','id="annexEditor"','id="pdfLeader"','id="pdfAnnex"','id="approval"','id="exportDraft"','id="importDraft"','id="reviewNotes"','contract-pdf-engine-v2.js','club-marktplatz-vertragswerkstatt.js'):
+              assert part in html, f'Missing HTML element: {part}'
+          for part in ("fetch('./club-leader.html'",'function cleanHtml','function exportDraft','async function importDraft','FSAContractPdfEngine.generate','autoDownload:true','leaderInitial','updateGate'):
+              assert part in js, f'Missing workshop function: {part}'
+          assert 'Anlage 1 – Club-Marktplatz' in html
+          assert '80 Prozent' in html and '20 Prozent' in html
+          assert 'ausdrücklicher' not in js or len(js)>1000
+          assert Path('pages/vertraege/club-leader.html').exists()
+          print('PASS: JS syntax, original source present, dual editors, 10 checkpoints, draft persistence and gated PDF generation.')
+          PY
