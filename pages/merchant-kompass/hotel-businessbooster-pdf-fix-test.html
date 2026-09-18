@@ -5,9 +5,13 @@
 (async()=>{try{
  const response=await fetch('./hotel-businessbooster-akademie-test.html',{cache:'no-store'});
  if(!response.ok)throw Error('Die freigegebene Business-Testseite konnte nicht geladen werden.');
- const html=await response.text(),before='./hotel-businessbooster-akademie-pdf.js?v=1',after='./hotel-businessbooster-akademie-pdf-v3-loader.js?v=1';
- if(html.split(before).length!==2||!html.includes('id="businessFrame"'))throw Error('Die Vorlage hat sich verändert. Es wurde keine unvollständige Testseite geladen.');
- document.open();document.write(html.replace(before,after));document.close();
+ const html=await response.text();
+ // Versionsnummern der freigegebenen Vorlage dürfen sich ändern; die Skriptidentität nicht.
+ const masterTag=/<script\s+src="\.\/hotel-businessbooster-akademie-pdf\.js\?v=[^"]+"\s*><\/script>/g;
+ const matches=html.match(masterTag)||[];
+ if(matches.length!==1||!html.includes('id="businessFrame"'))throw Error('Die Vorlage hat sich verändert. Es wurde keine unvollständige Testseite geladen.');
+ const replacement=matches[0].replace(/hotel-businessbooster-akademie-pdf\.js\?v=[^"]+/, 'hotel-businessbooster-akademie-pdf-v3-loader.js?v=20260918-pdffix2');
+ document.open();document.write(html.replace(matches[0],replacement));document.close();
  }catch(error){const box=document.getElementById('message');if(box){box.textContent='Business-PDF-Test konnte nicht gestartet werden: '+error.message;}}
 })();
 </script></body></html>
