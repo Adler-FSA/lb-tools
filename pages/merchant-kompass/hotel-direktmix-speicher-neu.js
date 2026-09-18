@@ -1,0 +1,7 @@
+/* Direktmix: only the shared, approved localStorage bridge. No legacy PDF script. */
+(()=>{'use strict';
+const IDS=['totalRevenue','bookNow','otaNow','directNow','otherNow','bookTarget','otaTarget','directTarget','otherTarget','bookCost','otaCost','directCost','otherCost','guestAccesses','partnerRate','e2Rate','e2Avg','e3Rate','e3Avg','offerValue','benefitPct','marketBookings','directCostPct'];
+function connect(store){if(!store?.getSection||!store?.updateSection)throw Error('Der gemeinsame Hotelspeicher fehlt.');const saved=store.getSection('directMix')||{},seed={};for(const id of IDS){const el=document.getElementById(id);if(!el)throw Error('Direktmix-Rechnerfeld fehlt: '+id);if(Object.prototype.hasOwnProperty.call(saved,id)&&saved[id]!==''&&saved[id]!==null&&saved[id]!==undefined)el.value=String(saved[id]);else seed[id]=el.value;const save=()=>store.updateSection('directMix',{[id]:el.value});el.addEventListener('input',save);el.addEventListener('change',save);}if(Object.keys(seed).length)store.updateSection('directMix',seed);document.getElementById('totalRevenue').dispatchEvent(new Event('input',{bubbles:true}));}
+if(window.LBHotelStorage){connect(window.LBHotelStorage);return;}
+const script=document.createElement('script');script.src='./hotel-storage.js?v=1';script.onload=()=>{try{connect(window.LBHotelStorage)}catch(e){console.error('[Direktmix-Speicher]',e)}};script.onerror=()=>console.error('[Direktmix-Speicher] Gemeinsamer Hotelspeicher konnte nicht geladen werden.');document.head.appendChild(script);
+})();
