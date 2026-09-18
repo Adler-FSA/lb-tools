@@ -1,0 +1,97 @@
+name: Zoom backgrounds accordion on Aktiv dabei sein
+on:
+  push:
+    paths:
+      - '.github/workflows/add-zoom-hintergruende-aktiv-dabei-sein.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  insert-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add only the new Zoom background accordion
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          page = Path('pages/aktiv-dabei-sein/index.html')
+          html = page.read_text(encoding='utf-8')
+          marker = 'id="weitere-zoom-hintergruende"'
+          if marker in html:
+              print('Accordion already present; nothing to change.')
+              raise SystemExit(0)
+
+          images = [
+              ('IMG_9957.jpeg', 'Vom Ich zum Wir – Lounge', 'liquiditybooster-zoom-vom-ich-zum-wir-lounge.jpeg'),
+              ('IMG_9958.jpeg', 'Vom Ich zum Wir – Hell', 'liquiditybooster-zoom-vom-ich-zum-wir-hell.jpeg'),
+              ('IMG_9956.jpeg', 'Community-Lounge', 'liquiditybooster-zoom-community-lounge.jpeg'),
+              ('IMG_9955.jpeg', 'Club-Eingang', 'liquiditybooster-zoom-club-eingang.jpeg'),
+              ('IMG_9954.jpeg', 'Club-Empfang', 'liquiditybooster-zoom-club-empfang.jpeg'),
+          ]
+          base = Path('pages/aktiv-dabei-sein/assets')
+          for original, _, _ in images:
+              if not (base / original).is_file():
+                  raise RuntimeError(f'Missing original image: {original}')
+          css_anchor = '    .tip{\n'
+          html_anchor = '      <div class="tip">\n        <strong>Tipp:</strong>'
+          if html.count(css_anchor) != 1 or html.count(html_anchor) != 1:
+              raise RuntimeError('The known page anchors were changed; refusing to touch the page.')
+
+          css = '''    /* Five downloadable Zoom-room backgrounds; existing sections unchanged. */
+          .zoom-bg-gallery{margin-top:22px;border:1px solid var(--line);border-radius:28px;background:#fff;box-shadow:0 10px 24px rgba(0,0,0,.04);overflow:hidden}
+          .zoom-bg-gallery>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:22px 24px;color:#202020;font-weight:700;font-size:clamp(18px,2vw,23px);background:linear-gradient(120deg,#edf9fa,#fff 60%,#fff4fa)}
+          .zoom-bg-gallery>summary::-webkit-details-marker{display:none}
+          .zoom-bg-gallery>summary::after{content:'+';flex:0 0 auto;color:var(--magenta);font-size:30px;line-height:1}
+          .zoom-bg-gallery[open]>summary::after{content:'−'}
+          .zoom-bg-gallery>summary:focus-visible{outline:3px solid var(--mint);outline-offset:-4px}
+          .zoom-bg-gallery-body{padding:22px 24px 26px;border-top:1px solid var(--line)}
+          .zoom-bg-gallery-body>p{margin:0 0 18px;color:#595959}
+          .zoom-bg-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+          .zoom-bg-card{min-width:0;display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid var(--line);border-radius:22px;background:#fcfcfc}
+          .zoom-bg-card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;border-radius:13px;background:#eef3f4}
+          .zoom-bg-card h3{font-size:19px;line-height:1.3;color:#202020;font-weight:700}
+          .zoom-bg-card .btn{align-self:flex-start;margin-top:auto}
+          .zoom-bg-card .zoom-bg-open{font-size:14px;color:#168ea0;text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
+          @media(max-width:680px){.zoom-bg-gallery>summary{padding:18px}.zoom-bg-gallery-body{padding:16px}.zoom-bg-grid{grid-template-columns:1fr}.zoom-bg-card .btn{width:100%}}
+
+          '''
+          cards = []
+          for original, title, download in images:
+              src = 'assets/' + original
+              cards.append(f'''          <article class="zoom-bg-card">
+            <img src="{src}" alt="Zoom-Hintergrund: {title}" loading="lazy" decoding="async" width="1672" height="941">
+            <h3>{title}</h3>
+            <a class="btn btn-mint" href="{src}" download="{download}">Bild herunterladen</a>
+            <a class="zoom-bg-open" href="{src}" target="_blank" rel="noopener noreferrer">Bild in voller Größe öffnen</a>
+          </article>''')
+          gallery = '''      <details class="zoom-bg-gallery" id="weitere-zoom-hintergruende">
+        <summary>Weitere Zoom-Hintergründe ansehen &amp; herunterladen (5 Bilder)</summary>
+        <div class="zoom-bg-gallery-body">
+          <p>Wähle dein Motiv aus und lade das Originalbild für deinen Zoom-Raum herunter. Auf dem iPad kannst du es alternativ in voller Größe öffnen und über „Bild sichern“ speichern.</p>
+          <div class="zoom-bg-grid">
+''' + '\n'.join(cards) + '''
+          </div>
+        </div>
+      </details>
+
+'''
+          html = html.replace(css_anchor, css + css_anchor, 1)
+          html = html.replace(html_anchor, gallery + html_anchor, 1)
+          assert html.count(marker) == 1
+          assert all(html.count('src="assets/' + image + '"') == 1 for image, _, _ in images)
+          assert all(html.count('download="' + target + '"') == 1 for _, _, target in images)
+          page.write_text(html, encoding='utf-8')
+          print('Added the collapsible gallery of five existing original images. All other HTML preserved.')
+          PY
+      - name: Commit only the updated page
+        run: |
+          if git diff --quiet -- pages/aktiv-dabei-sein/index.html; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pages/aktiv-dabei-sein/index.html
+          git commit -m "Add five Zoom-background downloads in collapsible section"
+          git push
