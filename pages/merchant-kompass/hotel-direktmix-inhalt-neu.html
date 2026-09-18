@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Direktmix · LiquidityBooster</title><style>body{margin:0;background:#f5f8f9;color:#132238;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.loading{max-width:740px;margin:12vh auto;padding:25px;background:white;border:1px solid #dbe5e9;border-radius:19px}.loading strong{font-size:23px}.loading p{margin-bottom:0}</style></head><body>
+<div class="loading" id="loading"><strong>Direktmix</strong><p>Die Lernseite wird geladen …</p></div>
+<script>
+/* Only content and the original calculator logic are taken from the approved content source.
+   The old top navigation, obsolete combined-PDF block and standalone PDF script are never loaded. */
+(async()=>{try{
+ const response=await fetch('./hotel-direktmix-inhalt-basis.html?v=20260918-source1',{cache:'no-store'});
+ if(!response.ok)throw Error('Die Direktmix-Inhalte konnten nicht geladen werden.');
+ const source=new DOMParser().parseFromString(await response.text(),'text/html');
+ const sections=[...source.querySelectorAll('.wrap > section.card.section')];
+ if(sections.length!==7||!source.querySelector('#totalRevenue')||!source.querySelector('#leverTotal')||!source.querySelector('#totalPdfAnchor'))throw Error('Die Direktmix-Inhalte sind unvollständig.');
+ source.querySelector('.top')?.remove();
+ source.querySelector('#totalPdfAnchor').remove();
+ source.querySelectorAll('.actions,#embeddedPdfMount').forEach(el=>el.remove());
+ for(const s of source.querySelectorAll('script[src]')){
+  if(!/hotel-storage-directmix\.js|hotel-direktmix-(?:combined-)?pdf\.js/.test(s.getAttribute('src')||''))throw Error('Unerwartetes altes Skript in der Inhaltsquelle.');
+  s.remove();
+ }
+ source.title='Direktmix · LiquidityBooster';
+ const storage=source.createElement('script');storage.src='./hotel-direktmix-speicher-neu.js?v=1';source.body.appendChild(storage);
+ const html='<!doctype html>\n'+source.documentElement.outerHTML;
+ document.open();document.write(html);document.close();
+ }catch(error){const loading=document.getElementById('loading');if(loading){loading.replaceChildren();const title=document.createElement('strong'),p=document.createElement('p');title.textContent='Direktmix kann nicht geladen werden.';p.textContent=error?.message||String(error);loading.append(title,p);}console.error('[Direktmix-Inhalte]',error);}
+})();
+</script></body></html>
