@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Direktmix · Merchant-Kompass | LiquidityBooster</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--mag:#c6006f;--ink:#263545;--line:#dbe5e9;--muted:#536778}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:linear-gradient(180deg,#fafdfd,#eef5f6);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button{font:inherit}
+.wrap{width:min(1200px,calc(100% - 28px));margin:18px auto 52px}
+.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;background:var(--navy);padding:11px;border-radius:17px;box-shadow:0 8px 24px #13223817}
+.route a{min-width:0;display:grid;place-items:center;text-align:center;min-height:47px;padding:9px 7px;color:#eaf7f8;text-decoration:none;border:1px solid #ffffff40;border-radius:10px;font-size:14px;font-weight:800;overflow-wrap:anywhere}
+.route a[aria-current="page"]{color:var(--navy);border-color:#b5eeee;background:#a4e7e7}.route a:focus-visible,.make:focus-visible,.reopen:focus-visible{outline:3px solid var(--mag);outline-offset:2px}
+.welcome{padding:26px 29px 23px;background:#fff;border:1px solid var(--line);border-radius:18px;margin:13px 0;box-shadow:0 8px 22px #1322380c}
+.eyebrow{color:#008e98;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900}
+h1{font-size:clamp(26px,3.5vw,38px);line-height:1.17;letter-spacing:-.025em;color:var(--navy);margin:6px 0 10px}.welcome p{margin:0;color:#435768;max-width:1030px;font-size:clamp(15px,1.6vw,18px)}
+.pdf-center{border-radius:18px;border:1px solid #badde0;background:linear-gradient(112deg,#132238,#0e5260);color:#fff;padding:21px 25px;margin:13px 0 17px;box-shadow:0 12px 28px #13223816}
+.pdf-main{display:flex;align-items:center;justify-content:space-between;gap:18px}.pdf-label{color:#9eeced;font-size:12px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}.pdf-center h2{font-size:clamp(21px,2.5vw,27px);margin:4px 0 5px;line-height:1.2;color:#fff}.pdf-center p{margin:0;color:#e0eef0;font-size:14px}
+.make{appearance:none;flex:0 0 auto;border:1px solid #7cdee0;border-radius:11px;color:#fff;background:#008f98;font-weight:850;padding:14px 20px;cursor:pointer;min-width:150px}.make:disabled{opacity:.6;cursor:wait}.pdf-status{padding:10px 0 0;margin-top:11px!important;border-top:1px solid #ffffff35;color:#e8f5f5!important;overflow-wrap:anywhere}.pdf-status.error{color:#ffc8d8!important}
+.ready{margin-top:12px;padding:13px 14px;background:#f4ffff;color:var(--navy);border:1px solid #c4eaec;border-radius:11px;display:flex;align-items:center;justify-content:space-between;gap:12px}.ready[hidden]{display:none!important}.ready-name{font-weight:750;overflow-wrap:anywhere;font-size:13px;min-width:0}.reopen{appearance:none;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer;flex:0 0 auto;font-size:13px}
+.hotel-content{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px #1322380a}.hotel-content iframe{display:block;border:0;width:100%;height:600px;min-height:500px;background:#fff;overflow:hidden}
+@media(max-width:760px){.route{grid-template-columns:repeat(3,minmax(0,1fr))}.welcome{padding:21px 20px}.pdf-center{padding:19px}.pdf-main{align-items:flex-start}}
+@media(max-width:500px){.wrap{width:calc(100% - 16px);margin:8px auto 26px}.route{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:8px;border-radius:12px}.route a{font-size:12px;min-height:40px;padding:7px 4px}.route a:last-child{grid-column:1/-1}.welcome{padding:18px 16px}.pdf-main{flex-direction:column;gap:13px}.make{width:100%}.ready{flex-direction:column;align-items:stretch}.reopen{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="route" aria-label="Merchant-Kompass · fünf Seiten">
+ <a href="./hotel-akademie-master-test.html">Hotel</a>
+ <a href="./hotel-businessbooster-akademie-test.html">BusinessBooster</a>
+ <a href="./hotel-direktmix-akademie-vorschau.html" aria-current="page">Direktmix</a>
+ <a href="./voucher-currency.html">Voucher Currency</a>
+ <a href="./vtravel.html">VTravel</a>
+</nav>
+<header class="welcome"><div class="eyebrow">LiquidityBooster · Hotel · Direktmix</div><h1>Willkommen auf Ihrer Direktmix-Gesprächsseite.</h1><p>Erkunden Sie den Übergang zu mehr Direktbuchungen, den Gastzugang, die 3-Ebenen-Logic und den Club-Marktplatz. Passen Sie die vorhandenen Beispielwerte an und erstellen Sie daraus Ihre persönliche PDF.</p></header>
+<section class="pdf-center" aria-labelledby="pdfHeading"><div class="pdf-main"><div><div class="pdf-label">Ihre persönliche Gesprächsunterlage</div><h2 id="pdfHeading">Akademie-PDF-Zentrale</h2><p>Eine fertige PDF aus Ihren aktuellen Eingaben erstellen, speichern oder teilen.</p></div><button class="make" id="make" type="button" disabled>PDF erstellen</button></div><p class="pdf-status" id="status" role="status" aria-live="polite">Direktmix-Seite wird geladen …</p><div class="ready" id="ready" hidden><span class="ready-name" id="readyName"></span><button type="button" class="reopen" id="again">Fertige PDF öffnen</button></div></section>
+<main class="hotel-content" aria-label="Direktmix · Lerninhalte und Rechner"><iframe id="directFrame" src="./hotel-direktmix-inhalt-neu.html?v=20260918-clean1" title="Direktmix-Gesprächsseite mit vollständigen Inhalten und Rechnern" scrolling="no"></iframe></main>
+</div>
+<!-- Shared approved Academy PDF handoff; no old combined-PDF buttons or engines. -->
+<script src="./hotel-direktmix-akademie-pdf.js?v=20260918-v1"></script>
+<script src="./akademie-pdf-uebergabe.js?v=1"></script>
+<script>
+(()=>{'use strict';
+const frame=document.getElementById('directFrame'),make=document.getElementById('make'),again=document.getElementById('again'),status=document.getElementById('status'),ready=document.getElementById('ready'),readyName=document.getElementById('readyName');let loaded=false,busy=false,generated=false,checks=0,resizeQueued=false,observer=null,mutation=null;
+function message(s,error=false){status.textContent=s;status.classList.toggle('error',error)}
+function resize(){if(resizeQueued)return;resizeQueued=true;requestAnimationFrame(()=>{resizeQueued=false;try{const wrap=frame.contentDocument?.querySelector('.wrap');if(!wrap)return;const height=Math.max(530,Math.ceil(wrap.getBoundingClientRect().bottom+22));if(Math.abs(frame.getBoundingClientRect().height-height)>3)frame.style.height=height+'px';}catch(e){console.warn('[Direktmix-Höhe]',e)}})}
+function changed(){resize();if(generated&&!busy){generated=false;ready.hidden=true;message('Eingaben geändert. Bitte die PDF mit den aktuellen Werten neu erstellen.');}}
+function connect(){if(loaded)return;try{const doc=frame.contentDocument;if(!window.DirektmixAkademiePdf?.validDoc(doc)){if(++checks<120)setTimeout(connect,100);else message('Die Direktmix-Seite konnte nicht vollständig geladen werden.',true);return;}loaded=true;
+const wrap=doc.querySelector('.wrap');if(typeof frame.contentWindow.ResizeObserver==='function'){observer=new frame.contentWindow.ResizeObserver(resize);observer.observe(wrap);}mutation=new frame.contentWindow.MutationObserver(resize);mutation.observe(wrap,{subtree:true,childList:true,characterData:true});doc.addEventListener('input',changed);doc.addEventListener('change',changed);frame.contentWindow.addEventListener('resize',resize);window.addEventListener('resize',resize);resize();make.disabled=false;message('Direktmix-Seite geladen. Sie können die Werte anpassen und eine PDF erstellen.');
+}catch(e){message('Die Direktmix-Seite konnte nicht geladen werden: '+(e?.message||String(e)),true);console.error('[Direktmix-Seite]',e)}}
+frame.addEventListener('load',connect);if(frame.contentDocument?.readyState==='complete')connect();
+make.addEventListener('click',async()=>{if(!loaded||busy)return;busy=true;make.disabled=true;ready.hidden=true;generated=false;message('PDF wird aus Ihren aktuellen Direktmix-Angaben erstellt …');try{if(typeof window.DirektmixAkademiePdf?.generate!=='function'||typeof window.AkademiePdfUebergabe?.setDocument!=='function')throw Error('Die freigegebene PDF-Technik ist nicht verfügbar.');await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const out=await window.DirektmixAkademiePdf.generate(frame.contentDocument,(n,total)=>message(`PDF wird erstellt: Bereich ${n} von ${total}`));const item=window.AkademiePdfUebergabe.setDocument({blob:out.blob,filename:out.filename,pages:out.pages,origin:'Direktmix-Gesprächsseite · tools.liquiditybooster.de'});generated=true;readyName.textContent=item.filename+' · '+out.pages+' A4-Seiten';ready.hidden=false;message('Ihre PDF ist fertig. Sie können sie jetzt speichern oder teilen.');}catch(e){console.error('[Direktmix-PDF]',e);message('PDF konnte nicht bereitgestellt werden: '+(e?.message||String(e)),true);}finally{busy=false;make.disabled=!loaded;}});
+again.addEventListener('click',()=>{if(!generated)return;try{window.AkademiePdfUebergabe.show()}catch(e){message('Die fertige PDF konnte nicht geöffnet werden: '+(e?.message||String(e)),true);}});
+})();
+</script>
+</body></html>
