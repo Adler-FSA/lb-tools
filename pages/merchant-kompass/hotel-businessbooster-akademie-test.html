@@ -54,24 +54,28 @@ h1{font-size:clamp(26px,3.5vw,38px);line-height:1.17;letter-spacing:-.025em;colo
  <p>Vergleichen Sie die heutigen OTA-Provisionen mit dem gewählten BusinessBooster-Budget. Lernen Sie Impulsmarketing, Medien-Ökosystem, Club-Marktplatz und den Fullservice kennen. Tragen Sie Ihre Werte ein und vergleichen Sie die drei Leistungsumfänge.</p>
 </header>
 <section class="pdf-center" aria-labelledby="pdfHeading">
- <div class="pdf-main"><div><div class="pdf-label">Ihre persönliche Gesprächsunterlage</div><h2 id="pdfHeading">Akademie-PDF-Zentrale</h2><p>Eine fertige PDF aus Ihren aktuellen Eingaben erstellen, speichern oder teilen.</p></div><button class="make" id="make" type="button" disabled title="Die Business-PDF ist noch nicht freigeschaltet">PDF erstellen</button></div>
+ <div class="pdf-main"><div><div class="pdf-label">Ihre persönliche Gesprächsunterlage</div><h2 id="pdfHeading">Akademie-PDF-Zentrale</h2><p>Eine fertige PDF aus Ihren aktuellen Eingaben erstellen, speichern oder teilen.</p></div><button class="make" id="make" type="button" disabled>PDF erstellen</button></div>
  <p class="pdf-status" id="status" role="status" aria-live="polite">BusinessBooster-Seite wird geladen …</p>
  <div class="ready" id="ready" hidden><span class="ready-name" id="readyName"></span><button type="button" class="reopen" id="again">Fertige PDF öffnen</button></div>
 </section>
 <main class="hotel-content" aria-label="BusinessBooster · Erklärungen und Rechner">
- <iframe id="businessFrame" src="./hotel-businessbooster-inhalt-test.html?v=20260917-bb-fullservice2" title="BusinessBooster-Gesprächsseite mit vollständigem Fullservice und Rechner" scrolling="no"></iframe>
+ <iframe id="businessFrame" src="./hotel-businessbooster-inhalt-test.html?v=20260918-bb-live1" title="BusinessBooster-Gesprächsseite mit vollständigem Fullservice und Rechner" scrolling="no"></iframe>
 </main>
 </div>
-<!-- Hotel-Master: Kopf und PDF-Zentrale identisch. Business-PDF-Generator erst nach vollständiger Inhaltsübernahme freischalten. -->
+<!-- Der unveränderte Hotel-Zeichenkern und die freigegebene PDF-Übergabe werden wiederverwendet. -->
+<script src="./hotel-businessbooster-akademie-pdf.js?v=1"></script>
+<script src="./akademie-pdf-uebergabe.js?v=1"></script>
 <script>
 (()=>{'use strict';
- const frame=document.getElementById('businessFrame'),status=document.getElementById('status');
- let observer=null,mutation=null,queued=false,loaded=false,checks=0;
+ const frame=document.getElementById('businessFrame'),make=document.getElementById('make'),again=document.getElementById('again'),status=document.getElementById('status'),ready=document.getElementById('ready'),readyName=document.getElementById('readyName');
+ let observer=null,mutation=null,queued=false,loaded=false,checks=0,busy=false,generated=false;
+ function message(text,error=false){status.textContent=text;status.classList.toggle('error',error)}
  function resize(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;try{const doc=frame.contentDocument,wrap=doc?.querySelector('.wrap');if(!wrap)return;const height=Math.max(530,Math.ceil(wrap.getBoundingClientRect().bottom+22));if(Math.abs(frame.getBoundingClientRect().height-height)>3)frame.style.height=height+'px';}catch(e){/* Kein Eingriff in die PDF-Engine. */}})}
+ function changed(){resize();if(generated&&!busy){generated=false;ready.hidden=true;message('Eingaben geändert. Bitte die PDF mit den aktuellen Werten neu erstellen.');}}
  function connect(){try{
   const doc=frame.contentDocument;
-  if(!doc?.querySelector('#otaRevenue')||!doc.querySelector('#businessBrochureExtras')||!doc.querySelector('#bbFullserviceDetailsV2')||!doc.querySelector('.bbMediaFigure img')){
-   if(++checks<100)setTimeout(connect,120);else{status.textContent='Die BusinessBooster-Seite konnte nicht vollständig geladen werden.';status.classList.add('error');}return;
+  if(!window.BusinessBoosterAkademiePdf?.validDoc(doc)){
+   if(++checks<100)setTimeout(connect,120);else message('Die BusinessBooster-Seite konnte nicht vollständig geladen werden.',true);return;
   }
   if(loaded)return;loaded=true;
   const style=doc.createElement('style');style.textContent='.top,.actions,#bbStandalonePdfPanel{display:none!important}html,body{overflow-x:hidden!important;overflow-y:hidden!important}';doc.head.appendChild(style);
@@ -79,11 +83,22 @@ h1{font-size:clamp(26px,3.5vw,38px);line-height:1.17;letter-spacing:-.025em;colo
   if(typeof frame.contentWindow.ResizeObserver==='function'){observer=new frame.contentWindow.ResizeObserver(resize);observer.observe(wrap)}
   mutation=new frame.contentWindow.MutationObserver(resize);mutation.observe(wrap,{subtree:true,childList:true,characterData:true});
   doc.querySelectorAll('img').forEach(img=>img.addEventListener('load',resize,{once:true}));
+  doc.addEventListener('input',changed);doc.addEventListener('change',changed);
   frame.contentWindow.addEventListener('resize',resize);window.addEventListener('resize',resize);resize();
-  status.textContent='BusinessBooster-Seite geladen. Die PDF-Erstellung wird nach der vollständigen Inhaltsübernahme freigeschaltet.';
- }catch(error){status.textContent='Die BusinessBooster-Seite konnte nicht geladen werden.';status.classList.add('error');console.error('[Business-Seitenrahmen]',error)}}
+  make.disabled=false;message('BusinessBooster-Seite geladen. Sie können sofort mit den Beispielwerten eine PDF erstellen oder eigene Werte eingeben.');
+ }catch(error){message('Die BusinessBooster-Seite konnte nicht geladen werden.',true);console.error('[Business-Seitenrahmen]',error)}}
  frame.addEventListener('load',connect);
  if(frame.contentDocument?.readyState==='complete')connect();
+ make.addEventListener('click',async()=>{if(!loaded||busy)return;busy=true;make.disabled=true;ready.hidden=true;generated=false;message('PDF wird aus Ihren aktuellen BusinessBooster-Angaben erstellt …');try{
+  if(typeof window.BusinessBoosterAkademiePdf?.generate!=='function')throw Error('Der Business-PDF-Adapter ist nicht verfügbar.');
+  if(typeof window.AkademiePdfUebergabe?.setDocument!=='function')throw Error('Die Akademie-PDF-Zentrale ist nicht verfügbar.');
+  await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  const out=await window.BusinessBoosterAkademiePdf.generate(frame.contentDocument,(done,total)=>message(`PDF wird erstellt: Bereich ${done} von ${total}`));
+  const item=window.AkademiePdfUebergabe.setDocument({blob:out.blob,filename:out.filename,pages:out.pages,origin:'BusinessBooster-Gesprächsseite · tools.liquiditybooster.de'});
+  generated=true;readyName.textContent=item.filename+' · '+out.pages+' A4-Seiten';ready.hidden=false;
+  message(out.missingImages.length?'Ihre PDF ist bereit. '+out.missingImages.length+' Abbildung(en) konnten nur als Bildbeschreibung übernommen werden.':'Ihre PDF ist fertig. Die Datei kann jetzt gespeichert oder geteilt werden.');
+ }catch(error){console.error('[Business-PDF]',error);message('PDF konnte nicht bereitgestellt werden: '+(error?.message||String(error)),true);}finally{busy=false;make.disabled=!loaded;}});
+ again.addEventListener('click',()=>{if(!generated)return;try{window.AkademiePdfUebergabe.show()}catch(error){message('Die fertige PDF konnte nicht geöffnet werden: '+(error?.message||String(error)),true)}});
 })();
 </script>
 </body>
