@@ -31,7 +31,7 @@ function finishWithImages(p,k){const count=p.pages.length,assets=p._imgs;
  obj.set(cids[j],k.join([k.enc(`<< /Length ${stream.length} >>\nstream\n`),stream,k.enc('\nendstream')]));}
  for(const im of assets)obj.set(im.id,k.join([k.enc(`<< /Type /XObject /Subtype /Image /Width ${im.width} /Height ${im.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${im.data.length} >>\nstream\n`),im.data,k.enc('\nendstream')]));
  const hdr=k.enc('%PDF-1.4\n%LBBUSINESS\n'),arr=[hdr],offsets=[0];let cursor=hdr.length;
- for(let j=1;j<id;j++){offsets[j]=cursor;const blocks=[k.enc(`${j} 0 obj\n`),obj.get(j),k.enc('\nendobj\n')];arr.push(...blocks);cursor+=blocks.reduce((x,a)=>x+a.length,0);}
+ for(let j=1;j<id;j++){offsets[j]=cursor;const blocks=[k.enc(`${j} 0 obj\n`),obj.get(j),k.enc('\nendobj\n')];arr.push(...blocks);cursor+=blocks.reduce((x,a)=>x.length+a.length,0);}
  const start=cursor;let x=`xref\n0 ${id}\n0000000000 65535 f \n`;for(let j=1;j<id;j++)x+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';x+=`trailer\n<< /Size ${id} /Root 1 0 R >>\nstartxref\n${start}\n%%EOF`;arr.push(k.enc(x));return k.join(arr);
 }
 async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalte oder Rechner fehlen noch. Bitte die Seite neu laden.');
@@ -107,6 +107,48 @@ async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalt
   names.forEach((label,i)=>{const row=Math.floor(i/cols),col=i%cols,x=k.M+col*(cw+gap),yy=y-row*(rh+9);p.rect(x,yy-rh,cw,rh,row===0?'pale':'pink','line');p.text(label,x+12,yy-29,11,true,row===0?'mint':'mag');});
   p.current.y=y-total-12;
  };
+ // The existing live example is kept complete on a single A4 page, with its original values and notes.
+ const scenario=n=>{
+  const panel=n.querySelector('#bbScenarioForm');if(!panel)throw Error('Rechenbeispiel fehlt.');
+  const headings=[...panel.querySelectorAll(':scope > .bbScenarioHeading')],forms=[...panel.querySelectorAll(':scope > .bbScenarioForm')],results=[...panel.querySelectorAll(':scope > .bbScenarioResult')];
+  if(headings.length!==2||forms.length!==2||results.length!==2)throw Error('Rechenbeispiel ist unvollständig.');
+  p.page();
+  const write=(s,z,lh,color='ink',bold=false,after=0)=>{
+   if(!norm(s))return;const ls=k.split(s,k.W-6,z,bold);
+   if(p.current.y-ls.length*lh-after<k.BOT+4)throw Error('Rechenbeispiel passt nicht auf eine A4-Seite.');
+   for(const line of ls){p.current.y-=lh;p.text(line,k.M+3,p.current.y,z,bold,color);}p.current.y-=after;
+  };
+  const compactRow=(elements,cols,result=false)=>{
+   if(!elements.length)return;const gap=8,cw=(k.W-gap*(cols-1))/cols;
+   const items=elements.map(e=>({label:result?val(e.querySelector('span')):norm(e.childNodes[0]?.textContent),value:result?val(e.querySelector('strong')):formatted(e.querySelector('input')),note:result?val(e.querySelector('small')):''}));
+   const layouts=items.map(it=>({label:k.split(it.label,cw-18,7.8,true),value:k.split(it.value,cw-18,11.2,true),note:it.note?k.split(it.note,cw-18,7.1):[]}));
+   const h=Math.max(...layouts.map(q=>13+q.label.length*9.4+5+q.value.length*13+q.note.length*8.5+11));
+   if(p.current.y-h-8<k.BOT+4)throw Error('Rechenbeispiel passt nicht auf eine A4-Seite.');
+   const y=p.current.y;
+   items.forEach((it,i)=>{
+    const x=k.M+i*(cw+gap),q=layouts[i],theme=result&&i%2?'pink':'white';
+    p.rect(x,y-h,cw,h,theme,'line');p.rect(x,y-h,3,h,result&&i%2?'mag':'mint');
+    let yy=y-14;
+    for(const line of q.label){p.text(line,x+10,yy,7.8,true,'muted');yy-=9.4;}
+    yy-=4;for(const line of q.value){p.text(line,x+10,yy,11.2,true,'navy');yy-=13;}
+    yy-=2;for(const line of q.note){p.text(line,x+10,yy,7.1,false,'muted');yy-=8.5;}
+   });
+   p.current.y=y-h-8;
+  };
+  write(val(n.querySelector('.bbKicker')).toUpperCase(),8,12,'mint',true,3);
+  write(val(n.querySelector(':scope > h3')),16,20,'navy',true,3);
+  write(val(n.querySelector('.bbIntro')),9.2,12,'mag',false,10);
+  write(val(headings[0]),11,15,'navy',true,5);
+  compactRow([...forms[0].children],3);
+  compactRow([...results[0].children].slice(0,3),3,true);
+  compactRow([...results[0].children].slice(3),2,true);
+  write(val(panel.querySelector(':scope > .bbScenarioNote')),8.1,10.8,'ink',false,8);
+  write(val(headings[1]),11,15,'navy',true,5);
+  compactRow([...forms[1].children],2);
+  compactRow([...results[1].children],1,true);
+  write(val(n.querySelector(':scope > .bbFine')),8.1,10.8,'muted',false,6);
+  if(p.current.y<k.BOT+4)throw Error('Rechenbeispiel passt nicht auf eine A4-Seite.');
+ };
  const region=n=>{
   const center=n.querySelector(':scope > .bbRegionCenter');
   const names=[...n.querySelectorAll(':scope > .bbRegion > div')].map(val).filter(Boolean);if(names.length<3)return;
@@ -119,10 +161,11 @@ async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalt
  };
  async function awaitNode(n){if(!n||n.nodeType!==1||isHidden(n))return;const tag=n.tagName.toLowerCase(),cls=n.classList;
  if(n.id==='bb-impulsmarketing'){impuls(n);return;}
+ if(n.id==='bb-rechenbeispiel'){scenario(n);return;}
  if(n.matches('.field,.bbScenarioField')){field(n);return;}
  if(n.matches('.summary,.bbScenarioResult')){metrics(n);return;}
  if(n.matches('.bbMediaFigure,figure.stepImg')){const im=n.querySelector('img'),caption=val(n.querySelector('figcaption'));if(im){try{const image=await readImage(im),h=Math.min(310,k.W*image.height/image.width),cap=caption?k.split(caption,k.W-6,10,true).length*14+8:0;p.ensure(h+19+cap+10);if(caption)blockText(caption,true,10);addImage(p,k,image);}catch(e){missed.push(im.alt||'Abbildung');if(caption)blockText(caption,true,10);blockText('Abbildung: '+(im.alt||'Bild aus der Gesprächsseite')+' (konnte technisch nicht eingebettet werden).',false,8,'muted');}}else if(caption)blockText(caption,true,10);return;}
- if(n.matches('input,select,button,script,style,.top,.actions'))return;
+ if(n.matches('input,select,button,script,style,.top,.actions,.vs'))return;
  if(n.matches('h3,h4,h5')){p.ensure(n.nextElementSibling?.matches('.bbMonths')?165:88);blockText(val(n),true,12,'navy');return;}
  if(n.matches('p,li,figcaption,small')){blockText((tag==='li'?'• ':'')+val(n),false,9.3);return;}
  if(n.matches('table')){table(n);return;}
@@ -133,6 +176,7 @@ async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalt
  if(n.matches('.bbMini,.bbDetail,.service,.package,.flow,.bbOffer,.bbNode,.bbHub,.time,.costBox,.bbSum')){if(n.matches('.bbDetail--wide')&&n.querySelector('table')){blockText(val(n.querySelector('strong')),true,10);table(n.querySelector('table'));return;}cards([simpleCard(n)]);return;}
  if(n.matches('#bb-region > .body')){region(n);const note=n.querySelector(':scope > .bbNotice');if(note)await awaitNode(note);return;}
  if(n.matches('.bbTriplet,.bbOfferGrid,.grid3')){const items=[...n.children].map(simpleCard);cards(items,'grid3');return;}
+ if(n.matches('.packageGrid')){cards([...n.children].map(simpleCard),'grid3');return;}
  if(n.matches('.bbRegion')){region(n);return;}
  if(n.matches('.bbRegionCenter,.bbRegionLine'))return;
  if(n.matches('.bbScenarioForm')){cards([...n.children].map(fieldNode=>{const inp=fieldNode.querySelector('input'),label=val(fieldNode.childNodes[0]);return{title:label||inp?.id,body:inp?formatted(inp):''}}),'dual');return;}
@@ -147,9 +191,14 @@ async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalt
  }
  const hero=d.querySelector('.hero');p.hero({eyebrow:val(hero.querySelector('.eyebrow')),hero:val(hero.querySelector('h1')),lead:val(hero.querySelector('.lead')),chips:[...hero.querySelectorAll('.heroLine span')].map(val)});
  const sections=[...d.querySelectorAll('.wrap > section.card.section')];if(sections.length<8)throw Error('Nicht alle BusinessBooster-Abschnitte sind vorhanden.');
- for(let i=0;i<sections.length;i++){const s=sections[i],h=s.querySelector(':scope > .head'),b=s.querySelector(':scope > .body');if(!h||!b)throw Error('Business-Abschnitt unvollständig: '+(i+1));p.ensure(s.id==='bb-region'||s.querySelector('.stepImg')?470:230);/* Überschrift und nächster Abschnitt bleiben zusammen. */
+ for(let i=0;i<sections.length;i++){const s=sections[i],h=s.querySelector(':scope > .head'),b=s.querySelector(':scope > .body');if(!h||!b)throw Error('Business-Abschnitt unvollständig: '+(i+1));
+ const isPackages=/Drei Pakete/i.test(val(h.querySelector('.kicker')));if(isPackages)p.page();
+ const packagePage=p.pages.length;
+ p.ensure(s.id==='bb-region'||s.querySelector('.stepImg')?470:230);/* Überschrift und nächster Abschnitt bleiben zusammen. */
  p.section({idx:i,kicker:val(h.querySelector('.kicker')),heading:val(h.querySelector('h2')),lead:val(h.querySelector('p'))});
- for(const child of b.children)await awaitNode(child);progress?.(i+1,sections.length);if(i%2===1)await new Promise(r=>setTimeout(r,0));}
+ for(const child of b.children)await awaitNode(child);
+ if(isPackages&&p.pages.length!==packagePage)throw Error('Die drei Business-Pakete passen nicht gemeinsam auf eine A4-Seite.');
+ progress?.(i+1,sections.length);if(i%2===1)await new Promise(r=>setTimeout(r,0));}
  p.footer({foot:val(d.querySelector('.foot'))+' · Rechenbeispiele sind keine Erfolgsgarantie.'});
  const bytes=finishWithImages(p,k),dt=new Date(),date=[dt.getFullYear(),String(dt.getMonth()+1).padStart(2,'0'),String(dt.getDate()).padStart(2,'0')].join('-');
  return{blob:new Blob([bytes],{type:'application/pdf'}),pages:p.pages.length,filename:`BusinessBooster_${filePart(name)}_Gespraech_${date}.pdf`,missingImages:missed};
