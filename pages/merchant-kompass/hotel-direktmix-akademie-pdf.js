@@ -53,18 +53,34 @@ async function generate(d,progress){validate(d);const k=await core();const name=
    for(const l of val){p.text(l,k.M+14,yy,16,true,'navy');yy-=20;}yy-=7;
    for(const l of desc){p.text(l,k.M+14,yy,8.5,false,'ink');yy-=11;}if(yy<y-h-2)throw Error('Direktmix-Zusammenfassung überläuft.');p.current.y=y-h-11;
  };
+ // The four website result cards, including all four small explanations, stay with the complete mix table.
+ const mixMetrics=(nodes,explanation)=>{if(nodes.length!==4||!explanation)throw Error('Vier Vertriebsmix-Ergebnisse samt Erläuterung erforderlich.');
+   const gap=8,w=(k.W-gap*3)/4;
+   const entries=nodes.map(el=>({label:text(el.querySelector('span')),value:text(el.querySelector('strong')),detail:text(el.querySelector('small')),theme:el.classList.contains('mag')?'pink':el.classList.contains('mint')?'pale':'white'}));
+   if(entries.some(e=>!e.label||!e.value||!e.detail))throw Error('Erläuterungen des Vertriebsmix-Rechners fehlen.');
+   const heights=entries.map(e=>17+k.split(e.label,w-19,7.65,true).length*9.7+3+k.split(e.value,w-19,12.2,true).length*15.4+4+k.split(e.detail,w-19,7.05).length*9.1+9);
+   const h=Math.max(...heights),calloutHeight=k.split(text(explanation),k.W-30,9.3).length*13+23;
+   if(p.current.y-h-8-calloutHeight-11<k.BOT)throw Error('Der vollständige Vertriebsmix passt nicht auf die erste PDF-Seite.');
+   const y=p.current.y;entries.forEach((e,j)=>{const x=k.M+j*(w+gap);p.rect(x,y-h,w,h,e.theme,'line');p.rect(x,y-h,3,h,e.theme==='pink'?'mag':'mint');let yy=y-15;
+     for(const l of k.split(e.label,w-19,7.65,true)){p.text(l,x+9,yy,7.65,true,'muted');yy-=9.7;}yy-=3;
+     for(const l of k.split(e.value,w-19,12.2,true)){p.text(l,x+9,yy,12.2,true,'navy');yy-=15.4;}yy-=4;
+     for(const l of k.split(e.detail,w-19,7.05)){p.text(l,x+9,yy,7.05,false,'muted');yy-=9.1;}
+     if(yy<y-h-3)throw Error('Vertriebsmix-Ergebnis überläuft: '+e.label);
+   });p.current.y=y-h-8;note(explanation);
+ };
  const sections=[...d.querySelectorAll('.wrap > section.card.section')];const hero=d.querySelector('.hero');p.section({kicker:text(hero.querySelector('.eyebrow')),heading:text(hero.querySelector('h1')),lead:text(hero.querySelector('.lead'))});
- // Four website chips: concise two-row display instead of four oversized empty cards.
- const chips=[...hero.querySelectorAll('.heroLine span')].map(text);for(let i=0;i<chips.length;i+=2){const pair=chips.slice(i,i+2),w=(k.W-10)/2,h=26;p.ensure(h+7);const y=p.current.y;pair.forEach((label,j)=>{const x=k.M+j*(w+10);p.rect(x,y-h,w,h,'white','line');p.rect(x,y-h,3,h,'mint');p.text(label,x+11,y-17,8.3,true,'navy');});p.current.y=y-h-7;}
+ // All four original website chips in one compact row, allowing the complete calculator to remain on page one.
+ const chips=[...hero.querySelectorAll('.heroLine span')].map(text);if(chips.length!==4)throw Error('Vier Leitgedanken müssen sichtbar bleiben.');const chipGap=7,chipW=(k.W-chipGap*3)/4,chipH=34;p.ensure(chipH+8);let chipY=p.current.y;
+ chips.forEach((label,j)=>{const x=k.M+j*(chipW+chipGap),words=k.split(label,chipW-16,7.0,true);if(words.length>2)throw Error('Direktmix-Leitgedanke zu lang: '+label);p.rect(x,chipY-chipH,chipW,chipH,'white','line');p.rect(x,chipY-chipH,3,chipH,'mint');words.forEach((word,n)=>p.text(word,x+9,chipY-14-n*10,7.0,true,'navy'));});p.current.y=chipY-chipH-8;
  for(let i=0;i<sections.length;i++){const sec=sections[i],head=sec.querySelector(':scope > .head'),body=sec.querySelector(':scope > .body');if(!head||!body)throw Error('Direktmix-Abschnitt '+(i+1)+' unvollständig.');
  // These two calculations must not be split between input and output pages.
  if((i===3||i===4||i===5)&&p.current.y<k.PH-k.TOP-1)p.page();
  p.ensure(i===0?345:i===3?480:i===4?510:250);p.section({kicker:text(head.querySelector('.kicker')),heading:text(head.querySelector('h2')),lead:text(head.querySelector('p'))});
  if(i===0){const field=body.querySelector('#totalRevenue')?.closest('.field');if(field)inputCards([field]);
   const table=body.querySelector('.mixTable');if(!table)throw Error('Vertriebsmix-Tabelle fehlt.');const heads=[...table.querySelectorAll(':scope > .th')].map(text),rows=[...table.querySelectorAll(':scope > .mixRow')];const widths=[k.W*.32,k.W*.22,k.W*.22,k.W*.24],xx=[k.M,k.M+widths[0],k.M+widths[0]+widths[1],k.M+widths[0]+widths[1]+widths[2]];
-  const h=26;p.ensure(h+rows.length*34+20);let y=p.current.y;p.rect(k.M,y-h,k.W,h,'navy');heads.forEach((v,j)=>p.text(v,xx[j]+7,y-17,7.5,true,'white'));y-=h;for(const row of rows){p.rect(k.M,y-34,k.W,34,'white','line');p.text(text(row.querySelector('.mixName')),xx[0]+7,y-21,8.6,true,'navy');[...row.querySelectorAll('input')].forEach((inp,j)=>p.text(displayInput(inp),xx[j+1]+7,y-21,9.2,true,'ink'));y-=34;}p.current.y=y-13;
-  const mix=body.querySelector('#mixSum');const labels=[['Summe heute:',text(mix.querySelector('#sumNow'))],['Summe Ziel:',text(mix.querySelector('#sumTarget'))]];p.ensure(44);y=p.current.y;const sw=(k.W-10)/2;labels.forEach((item,j)=>{const x=k.M+j*(sw+10);p.rect(x,y-35,sw,35,'pale','line');p.text(item[0],x+10,y-21,8.7,true,'navy');p.text(item[1],x+130,y-21,9.5,true,'mint');});p.current.y=y-44;
-  p.ensure(190);metricCards([...body.querySelectorAll('.metrics > .metric')]);note(body.querySelector('.note'));
+  const th=23,rh=29;p.ensure(th+rows.length*rh+16);let y=p.current.y;p.rect(k.M,y-th,k.W,th,'navy');heads.forEach((v,j)=>p.text(v,xx[j]+7,y-16,7.5,true,'white'));y-=th;for(const row of rows){p.rect(k.M,y-rh,k.W,rh,'white','line');p.text(text(row.querySelector('.mixName')),xx[0]+7,y-19,8.6,true,'navy');[...row.querySelectorAll('input')].forEach((inp,j)=>p.text(displayInput(inp),xx[j+1]+7,y-19,9.2,true,'ink'));y-=rh;}p.current.y=y-9;
+  const mix=body.querySelector('#mixSum');const labels=[['Summe heute:',text(mix.querySelector('#sumNow'))],['Summe Ziel:',text(mix.querySelector('#sumTarget'))]];p.ensure(37);y=p.current.y;const sw=(k.W-10)/2;labels.forEach((item,j)=>{const x=k.M+j*(sw+10);p.rect(x,y-30,sw,30,'pale','line');p.text(item[0],x+10,y-20,8.7,true,'navy');p.text(item[1],x+130,y-20,9.5,true,'mint');});p.current.y=y-37;
+  mixMetrics([...body.querySelectorAll('.metrics > .metric')],body.querySelector('.note'));
  }else if(i===1){group([...body.querySelectorAll('.process > .phase')].map(el=>({title:text(el.querySelector('b')),paragraphs:[text(el.querySelector('p'))],notes:[],theme:el===body.querySelector('.phase:nth-child(2)')?'mag':'mint'})),'grid3');note(body.querySelector('.note'));
  }else if(i===2){group([...body.querySelectorAll('.funnel > .fstep')].map(el=>({title:text(el.querySelector('.n'))+' · '+text(el.querySelector('b')),paragraphs:[text(el.querySelector('p'))],notes:[],theme:'mint'})),'dual');
  }else if(i===3){const fields=[...body.querySelectorAll('.calc .field')];inputCards(fields);lines(text(body.querySelector('.calc > small')),8.5,false,'muted',12);group([...body.querySelectorAll('.levels > .level')].map(el=>({title:text(el.querySelector('span')),value:text(el.querySelector('b')),paragraphs:[text(el.querySelector('strong'))],notes:[],theme:'mint'})),'grid3');summary(body.querySelector('.totalBox'));
@@ -73,6 +89,6 @@ async function generate(d,progress){validate(d);const k=await core();const name=
  }
  progress?.(i+1,sections.length);if(i%2===1)await new Promise(resolve=>setTimeout(resolve,0));}
  // Avoid the formerly empty final page: only the existing legal footer is appended.
- p.footer({foot:text(d.querySelector('.foot'))});const bytes=pdfBytes(p,k),date=new Date(),stamp=[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');const safe=name.replace(/ß/g,'ss').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,55)||'Hotel';return{blob:new Blob([bytes],{type:'application/pdf'}),pages:p.pages.length,filename:`Direktmix_${safe}_Gespraech_${stamp}.pdf`};}
-window.DirektmixAkademiePdf=Object.freeze({version:'DIREKTMIX_AKADEMIE_PDF_V2_LAYOUT_ONLY',generate,validDoc:good});
+ p.footer({foot:text(d.querySelector('.foot'))});const bytes=pdfBytes(p,k),date=new Date(),stamp=[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');const safe=name.replace(/ß/g,'ss').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'-').slice(0,55)||'Hotel';return{blob:new Blob([bytes],{type:'application/pdf'}),pages:p.pages.length,filename:`Direktmix_${safe}_Gespraech_${stamp}.pdf`};}
+window.DirektmixAkademiePdf=Object.freeze({version:'DIREKTMIX_AKADEMIE_PDF_V3_MIX_ONLY',generate,validDoc:good});
 })();
