@@ -1,0 +1,66 @@
+name: Einmaliger Einbau der Zoom-Bilder
+on:
+  push:
+    paths:
+      - '.github/workflows/one-off-zoom-galerie.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  insert-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Nur den Aufklappreiter unter dem vorhandenen Hintergrund einfuegen
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html import escape
+
+          file = Path('pages/aktiv-dabei-sein/index.html')
+          original = file.read_text(encoding='utf-8')
+          marker = '      <div class="tip">\n        <strong>Tipp:</strong>'
+          assert original.count(marker) == 1, 'Einfügeposition nicht eindeutig – kein Eingriff'
+          assert 'id="weitere-zoom-hintergruende"' not in original, 'Galerie schon vorhanden – kein doppelter Einbau'
+          assets = Path('pages/aktiv-dabei-sein/assets')
+          images = [f'IMG_{number}.jpeg' for number in range(9954, 9959)]
+          assert all((assets / image).is_file() for image in images), 'Mindestens ein Originalbild fehlt'
+          cards = '\n'.join(
+              '            <article class="zoom-extra-card">\n'
+              f'              <img src="assets/{escape(image)}" alt="LiquidityBooster Zoom-Hintergrund {index}" loading="lazy" />\n'
+              f'              <a class="btn btn-mint" href="assets/{escape(image)}" download="LiquidityBooster-Zoom-Hintergrund-{index}.jpeg">Bild {index} herunterladen</a>\n'
+              '            </article>'
+              for index, image in enumerate(images, start=1)
+          )
+          gallery = '''      <details class="zoom-extra" id="weitere-zoom-hintergruende">
+            <summary>Weitere Zoom-Hintergründe ansehen und herunterladen (5)</summary>
+            <div class="zoom-extra-grid">
+          ''' + cards + '''
+            </div>
+          </details>
+          <style>
+            .zoom-extra{margin:20px 0 0;padding:18px 20px;border:1px solid #dce9ec;border-radius:22px;background:#f8fcfd}
+            .zoom-extra summary{cursor:pointer;color:#249bad;font-weight:700;font-size:18px;list-style-position:inside}
+            .zoom-extra summary:focus-visible{outline:3px solid #249bad;outline-offset:4px;border-radius:4px}
+            .zoom-extra-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:18px;margin-top:22px}
+            .zoom-extra-card{display:flex;flex-direction:column;gap:12px;padding:12px;background:#fff;border:1px solid #e6e6e6;border-radius:18px}
+            .zoom-extra-card img{width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;border-radius:10px}
+            .zoom-extra-card a{display:block;text-align:center;margin-top:auto}
+          </style>
+
+          '''
+          updated = original.replace(marker, gallery + marker, 1)
+          assert updated.replace(gallery, '', 1) == original, 'Unerwartete Änderung außerhalb der Galerie'
+          file.write_text(updated, encoding='utf-8')
+          print('Fünf Bilder vorhanden; ein Aufklappreiter exakt vor dem bestehenden Tipp ergänzt.')
+          PY
+          git diff --check
+          git add pages/aktiv-dabei-sein/index.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Show five Zoom background downloads in accordion below existing image"
+          git push
