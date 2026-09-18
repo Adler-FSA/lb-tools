@@ -94,6 +94,8 @@ h1{font-size:clamp(26px,3.5vw,38px);line-height:1.17;letter-spacing:-.025em;colo
   if(typeof window.AkademiePdfUebergabe?.setDocument!=='function')throw Error('Die Akademie-PDF-Zentrale ist nicht verfügbar.');
   await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
   const out=await window.BusinessBoosterAkademiePdf.generate(frame.contentDocument,(done,total)=>message(`PDF wird erstellt: Bereich ${done} von ${total}`));
+  const hotelName=frame.contentWindow.LBHotelStorage?.getSection('hotel')?.name?.trim();
+  if(hotelName){const safe=hotelName.replace(/ß/g,'ss').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,55)||'Hotel';out.filename=out.filename.replace(/^BusinessBooster_Hotel_/,`BusinessBooster_${safe}_`);}
   const item=window.AkademiePdfUebergabe.setDocument({blob:out.blob,filename:out.filename,pages:out.pages,origin:'BusinessBooster-Gesprächsseite · tools.liquiditybooster.de'});
   generated=true;readyName.textContent=item.filename+' · '+out.pages+' A4-Seiten';ready.hidden=false;
   message(out.missingImages.length?'Ihre PDF ist bereit. '+out.missingImages.length+' Abbildung(en) konnten nur als Bildbeschreibung übernommen werden.':'Ihre PDF ist fertig. Die Datei kann jetzt gespeichert oder geteilt werden.');
