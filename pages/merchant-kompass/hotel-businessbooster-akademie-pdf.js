@@ -31,7 +31,7 @@ function finishWithImages(p,k){const count=p.pages.length,assets=p._imgs;
  obj.set(cids[j],k.join([k.enc(`<< /Length ${stream.length} >>\nstream\n`),stream,k.enc('\nendstream')]));}
  for(const im of assets)obj.set(im.id,k.join([k.enc(`<< /Type /XObject /Subtype /Image /Width ${im.width} /Height ${im.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${im.data.length} >>\nstream\n`),im.data,k.enc('\nendstream')]));
  const hdr=k.enc('%PDF-1.4\n%LBBUSINESS\n'),arr=[hdr],offsets=[0];let cursor=hdr.length;
- for(let j=1;j<id;j++){offsets[j]=cursor;const blocks=[k.enc(`${j} 0 obj\n`),obj.get(j),k.enc('\nendobj\n')];arr.push(...blocks);cursor+=blocks.reduce((x,a)=>x.length+a.length,0);}
+ for(let j=1;j<id;j++){offsets[j]=cursor;const blocks=[k.enc(`${j} 0 obj\n`),obj.get(j),k.enc('\nendobj\n')];arr.push(...blocks);cursor+=blocks.reduce((x,a)=>x+a.length,0);}
  const start=cursor;let x=`xref\n0 ${id}\n0000000000 65535 f \n`;for(let j=1;j<id;j++)x+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';x+=`trailer\n<< /Size ${id} /Root 1 0 R >>\nstartxref\n${start}\n%%EOF`;arr.push(k.enc(x));return k.join(arr);
 }
 async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalte oder Rechner fehlen noch. Bitte die Seite neu laden.');
