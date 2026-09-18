@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "last_review": "2026-09-17",
+  "last_review": "2026-09-18",
   "sources": [
     {
       "id": "bafin-warnings",
@@ -211,7 +211,7 @@
       "url": "https://www.cftc.gov/LearnAndProtect/Resources/Check/redlist.htm",
       "note_de": "Automatisch aus der offiziellen CFTC RED List aktualisiert.",
       "note_en": "Automatically updated from the official CFTC RED List.",
-      "last_success": "2026-09-17T09:39:45Z",
+      "last_success": "2026-09-18T09:12:55Z",
       "record_count": 284
     },
     {
