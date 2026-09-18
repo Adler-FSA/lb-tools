@@ -14,7 +14,7 @@ async function core(){if(corePromise)return corePromise;corePromise=(async()=>{
  if(!window.LBBusinessPdfCore?.PDF)throw Error('PDF-Master konnte nicht geladen werden.');return window.LBBusinessPdfCore;
  })();return corePromise;}
 function filePart(s){return (norm(s)||'Hotel').replace(/ß/g,'ss').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,55)||'Hotel'}
-function formatted(input){const raw=norm(input?.value);if(!raw)return 'Keine Eingabe';const number=Number(raw.includes(',')?raw.replace(/\./g,'').replace(',','.'):raw);if(!Number.isFinite(number))return raw;const id=input.id||'',pct=/Pct|Conversion|shift|percent/i.test(id),money=/^(otaRevenue|avgBooking|bbBookingValue)$/i.test(id),count=/^(bbBookings|bbContacts)$/i.test(id);return new Intl.NumberFormat('de-DE',{minimumFractionDigits:money?2:0,maximumFractionDigits:count?0:2}).format(number)+(pct?' %':money?' €':'')}
+function formatted(input){const raw=norm(input?.value);if(!raw)return 'Keine Eingabe';const number=Number(raw.includes(',')?raw.replace(/\./g,'').replace(',','.'):raw);if(!Number.isFinite(number))return raw;const id=input.id||'',pct=/Pct|Conversion|shift|percent/i.test(id),money=/^(otaRevenue|avgBooking|bbBookingValue)$/i.test(id),count=/^(bbBookings|bbContacts)$/i.test(id);return new Intl.NumberFormat('de-DE',{minimumFractionDigits:money?2:0,maximumFractionDigits:count?0,2}).format(number)+(pct?' %':money?' €':'')}
 function profile(d){const hotel=d.defaultView?.parent?.LBHotelStorage?.getSection('hotel')||{};return norm(hotel.name)||norm(d.querySelector('#hotelName')?.value)||'Hotel';}
 function isHidden(e){return e.hidden||e.getAttribute('aria-hidden')==='true'||e.style.display==='none'||e.closest('#bbStandalonePdfPanel')!==null||e.closest('.actions')!==null;}
 async function readImage(img){const src=img.currentSrc||img.src;if(!src)throw Error('Bildquelle fehlt');const res=await fetch(src,{mode:'cors'});if(!res.ok)throw Error('Bild kann nicht abgerufen werden');const blob=await res.blob();const u=URL.createObjectURL(blob);try{const el=new Image();el.src=u;await (el.decode?el.decode():new Promise((a,b)=>{el.onload=a;el.onerror=b}));const max=1250,k=Math.min(1,max/Math.max(el.naturalWidth,el.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(el.naturalWidth*k));canvas.height=Math.max(1,Math.round(el.naturalHeight*k));canvas.getContext('2d').drawImage(el,0,0,canvas.width,canvas.height);const jpg=await new Promise((resolve,reject)=>canvas.toBlob(x=>x?resolve(x):reject(Error('JPEG-Konvertierung fehlgeschlagen')),'image/jpeg',.83));return{data:new Uint8Array(await jpg.arrayBuffer()),width:canvas.width,height:canvas.height};}finally{URL.revokeObjectURL(u)}}
@@ -65,6 +65,42 @@ async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalt
    p.current.y=y-h;
   }p.current.y-=17;
  };
+ // Only this existing PDF section is drawn in the original HTML order and color scheme.
+ const impuls=n=>{
+  p.ensure(340);
+  const top=p.current.y,round=(x,y,w,h,r,fill,stroke)=>{
+   const f=v=>v.toFixed(2),a=p.current.stream;
+   const path=`${f(x+r)} ${f(y)} m ${f(x+w-r)} ${f(y)} l ${f(x+w-r+r*.55228475)} ${f(y)} ${f(x+w)} ${f(y+r-r*.55228475)} ${f(x+w)} ${f(y+r)} c ${f(x+w)} ${f(y+h-r)} l ${f(x+w)} ${f(y+h-r+r*.55228475)} ${f(x+w-r+r*.55228475)} ${f(y+h)} ${f(x+w-r)} ${f(y+h)} c ${f(x+r)} ${f(y+h)} l ${f(x+r-r*.55228475)} ${f(y+h)} ${f(x)} ${f(y+h-r+r*.55228475)} ${f(x)} ${f(y+h-r)} c ${f(x)} ${f(y+r)} l ${f(x)} ${f(y+r-r*.55228475)} ${f(x+r-r*.55228475)} ${f(y)} ${f(x+r)} ${f(y)} c h`;
+   a.push(`q ${k.rgb(fill)} rg ${stroke?k.rgb(stroke)+' RG .65 w ':''}${path} ${stroke?'B':'f'} Q\n`);
+  };
+  const centered=(s,x,w,baseline,size=9,bold=false,color='navy')=>p.text(s,x+(w-k.measure(s,size,bold))/2,baseline,size,bold,color);
+  round(k.M,top-325,k.W,325,15,'white','line');
+  const x=k.M+15,w=k.W-30;
+  p.text(val(n.querySelector('.bbKicker')).toUpperCase(),x,top-24,8.2,true,'mint');
+  p.text(val(n.querySelector(':scope > h3')),x,top-51,19,true,'navy');
+  p.text(val(n.querySelector('.bbIntro')),x,top-73,10.5,false,'mag');
+  const months=[...n.querySelectorAll('.bbMonths > .bbMonth')].map(val),gap=4,cw=(w-gap*11)/12;
+  months.forEach((name,i)=>{
+   const odd=i%2===1,mx=x+i*(cw+gap),mt=top-(odd?110:102),color=odd?'mag':'mint';
+   round(mx,mt-52,cw,52,7,odd?'pink':'pale');
+   round(mx+(cw-14)/2,mt-27,14,14,4,'white');
+   round(mx+(cw-6)/2,mt-23,6,6,2,color);
+   centered(name,mx,cw,mt-43,8.3,true,color);
+  });
+  centered(val(n.querySelector(':scope > h4')),x,w,top-191,12.5,true,'navy');
+  centered(val(n.querySelector(':scope > p:not(.bbIntro)')),x,w,top-210,9.1,false,'ink');
+  const items=[...n.querySelectorAll('.bbTriplet > .bbMini')],cgap=8,cardW=(w-2*cgap)/3;
+  items.forEach((item,i)=>{
+   const cx=x+i*(cardW+cgap),ct=top-229,ch=86;
+   round(cx,ct-ch,cardW,ch,10,'white','line');
+   p.rect(cx+2,ct-5,cardW-4,4,i===1?'mag':'mint');
+   let ty=ct-23;
+   for(const line of k.split(val(item.querySelector('h4')),cardW-19,9.8,true)){p.text(line,cx+10,ty,9.8,true,'navy');ty-=12;}
+   ty-=4;
+   for(const line of k.split(val(item.querySelector('p')),cardW-19,8.3,false)){p.text(line,cx+10,ty,8.3,false,'ink');ty-=10.5;}
+  });
+  p.current.y=top-339;
+ };
  const months=n=>{
   const names=[...n.children].map(val);if(!names.length)return;
   const cols=6,gap=7,cw=(k.W-gap*5)/cols,rh=48,total=2*rh+14;p.ensure(total+15);const y=p.current.y;
@@ -82,6 +118,7 @@ async function generate(d,progress){if(!validDoc(d))throw Error('Business-Inhalt
   p.current.y=y-h-14;
  };
  async function awaitNode(n){if(!n||n.nodeType!==1||isHidden(n))return;const tag=n.tagName.toLowerCase(),cls=n.classList;
+ if(n.id==='bb-impulsmarketing'){impuls(n);return;}
  if(n.matches('.field,.bbScenarioField')){field(n);return;}
  if(n.matches('.summary,.bbScenarioResult')){metrics(n);return;}
  if(n.matches('.bbMediaFigure,figure.stepImg')){const im=n.querySelector('img'),caption=val(n.querySelector('figcaption'));if(im){try{const image=await readImage(im),h=Math.min(310,k.W*image.height/image.width),cap=caption?k.split(caption,k.W-6,10,true).length*14+8:0;p.ensure(h+19+cap+10);if(caption)blockText(caption,true,10);addImage(p,k,image);}catch(e){missed.push(im.alt||'Abbildung');if(caption)blockText(caption,true,10);blockText('Abbildung: '+(im.alt||'Bild aus der Gesprächsseite')+' (konnte technisch nicht eingebettet werden).',false,8,'muted');}}else if(caption)blockText(caption,true,10);return;}
