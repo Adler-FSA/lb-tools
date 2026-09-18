@@ -11,7 +11,7 @@
  const html=await response.text();
  if(!html.includes('id="otaRevenue"')||!html.includes('Fullservice statt Einzelmaßnahme'))throw Error('Die bestehende Business-Seite entspricht nicht der erwarteten Grundlage.');
  if((html.match(/<\/body>/gi)||[]).length!==1)throw Error('Der Seitenabschluss ist nicht eindeutig.');
- const addon='<script src="./hotel-businessbooster-inhalt-test.js?v=20260917-bb-content1"><\/script><script src="./hotel-businessbooster-inhalt-korrektur-v2.js?v=20260917-bb-fullservice2"><\/script><script src="./hotel-businessbooster-rechner-test.js?v=20260918-bb-scenario1"><\/script>';
+ const addon='<script src="./hotel-businessbooster-inhalt-test.js?v=20260917-bb-content1"><\/script><script src="./hotel-businessbooster-inhalt-korrektur-v2.js?v=20260917-bb-fullservice2"><\/script><script src="./hotel-businessbooster-rechner-test.js?v=20260918-bb-scenario1"><\/script><script src="./hotel-businessbooster-magazin-links.js?v=20260918-magazine1"><\/script>';
  document.open();document.write(html.replace(/<\/body>/i,addon+'</body>'));document.close();
  }catch(error){const box=document.getElementById('load');if(box){box.innerHTML='<strong>Die Testseite konnte nicht geladen werden.</strong><p>'+String(error.message).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))+'</p><p>Die produktive Business-Seite wurde nicht verändert.</p>';}}
 })();
