@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>BusinessBooster · PDF-Nachbesserung</title><style>body{font:16px/1.5 system-ui;background:#f3f8f9;color:#132238}.message{max-width:720px;margin:14vh auto;padding:25px;border:1px solid #dbe5e9;background:#fff;border-radius:16px}</style></head><body>
+<div class="message" id="message"><h1>BusinessBooster wird geladen …</h1><p>Die unveränderte Gesprächsseite wird mit dem korrigierten PDF-Generator geladen.</p></div>
+<script>
+(async()=>{try{
+ const response=await fetch('./hotel-businessbooster-akademie-test.html',{cache:'no-store'});
+ if(!response.ok)throw Error('Die freigegebene Business-Testseite konnte nicht geladen werden.');
+ const html=await response.text(),before='./hotel-businessbooster-akademie-pdf.js?v=1',after='./hotel-businessbooster-akademie-pdf-v3.js?v=1';
+ if(html.split(before).length!==2||!html.includes('id="businessFrame"'))throw Error('Die Vorlage hat sich verändert. Es wurde keine unvollständige Testseite geladen.');
+ document.open();document.write(html.replace(before,after));document.close();
+ }catch(error){const box=document.getElementById('message');if(box){box.textContent='Business-PDF-Test konnte nicht gestartet werden: '+error.message;}}
+})();
+</script></body></html>
