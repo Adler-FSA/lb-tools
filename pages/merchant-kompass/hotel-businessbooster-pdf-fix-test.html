@@ -5,7 +5,7 @@
 (async()=>{try{
  const response=await fetch('./hotel-businessbooster-akademie-test.html',{cache:'no-store'});
  if(!response.ok)throw Error('Die freigegebene Business-Testseite konnte nicht geladen werden.');
- const html=await response.text(),before='./hotel-businessbooster-akademie-pdf.js?v=1',after='./hotel-businessbooster-akademie-pdf-v3.js?v=1';
+ const html=await response.text(),before='./hotel-businessbooster-akademie-pdf.js?v=1',after='./hotel-businessbooster-akademie-pdf-v3-loader.js?v=1';
  if(html.split(before).length!==2||!html.includes('id="businessFrame"'))throw Error('Die Vorlage hat sich verändert. Es wurde keine unvollständige Testseite geladen.');
  document.open();document.write(html.replace(before,after));document.close();
  }catch(error){const box=document.getElementById('message');if(box){box.textContent='Business-PDF-Test konnte nicht gestartet werden: '+error.message;}}
