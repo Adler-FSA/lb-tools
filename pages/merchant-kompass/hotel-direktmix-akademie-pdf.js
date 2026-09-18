@@ -1,4 +1,4 @@
-/* Direktmix-PDF: approved Hotel drawing core + live content/figures. No former PDF chain. */
+/* Direktmix PDF rendering only. Existing content, calculator and approved Hotel drawing core remain unchanged. */
 (()=>{'use strict';
 const clean=s=>String(s??'').replace(/\s+/g,' ').trim();
 const text=e=>clean(e?.textContent).replace(/[✓✔]/g,'Ja');
@@ -28,23 +28,51 @@ function pdfBytes(p,k){const count=p.pages.length,obj=new Map(),pages=[],streams
 async function generate(d,progress){validate(d);const k=await core();const name=clean(d.defaultView?.parent?.LBHotelStorage?.getSection('hotel')?.name)||'Hotel';const p=new k.PDF({brand:'LiquidityBooster',brandLine:'Hotel · Direktmix',name});
  const lines=(s,size=9.3,bold=false,color='ink',after=9)=>{if(clean(s))p.lines(s,k.M+3,k.W-6,size,bold,color,size*1.38,after);};
  const group=(list,kind='dual')=>{if(list.length)p.cards({kind,cards:list});};
- const inputCards=fields=>group(fields.map(el=>({title:text(el.querySelector('label')),value:displayInput(el.querySelector('input')),paragraphs:[text(el.querySelector('small'))].filter(Boolean),notes:[],theme:'mint'})),'dual');
  const metricCards=nodes=>p.metrics(nodes.map(el=>({label:text(el.querySelector('span')),value:text(el.querySelector('strong')),theme:el.classList.contains('mag')?'mag':el.classList.contains('mint')?'mint':'white'})));
  const note=el=>{if(el)p.callout({text:text(el),theme:el.classList.contains('mag')?'mag':'mint'});};
- const dataCards=(rows,kind='dual')=>group(rows.map(el=>({title:text(el.querySelector('span')),value:text(el.querySelector('strong')),paragraphs:[],notes:[],theme:'mint'})),kind);
- const sections=[...d.querySelectorAll('.wrap > section.card.section')];const hero=d.querySelector('.hero');p.section({kicker:text(hero.querySelector('.eyebrow')),heading:text(hero.querySelector('h1')),lead:text(hero.querySelector('.lead'))});group([...hero.querySelectorAll('.heroLine span')].map(el=>({title:text(el),paragraphs:[],notes:[],theme:'mint'})),'dual');
- for(let i=0;i<sections.length;i++){const sec=sections[i],head=sec.querySelector(':scope > .head'),body=sec.querySelector(':scope > .body');if(!head||!body)throw Error('Direktmix-Abschnitt '+(i+1)+' unvollständig.');p.ensure(i===0?420:i===3?410:270);p.section({kicker:text(head.querySelector('.kicker')),heading:text(head.querySelector('h2')),lead:text(head.querySelector('p'))});
+ // Compact field cards retain every source label/value/note while reducing empty space.
+ const inputCards=fields=>{for(let i=0;i<fields.length;i+=2){const row=fields.slice(i,i+2);const gap=10,w=(k.W-(row.length===2?gap:0))/row.length;
+   const data=row.map(el=>({label:text(el.querySelector('label')),value:displayInput(el.querySelector('input')),note:text(el.querySelector('small'))}));
+   const heights=data.map(it=>13+k.split(it.label,w-24,8.4,true).length*11+4+k.split(it.value,w-24,12.5,true).length*16+(it.note?5+k.split(it.note,w-24,7.7).length*10:0)+11);
+   const h=Math.max(...heights);p.ensure(h+9);const y=p.current.y;
+   data.forEach((it,j)=>{const x=k.M+j*(w+gap);p.rect(x,y-h,w,h,'white','line');p.rect(x,y-h,3,h,'mint');let yy=y-15;
+     for(const l of k.split(it.label,w-24,8.4,true)){p.text(l,x+12,yy,8.4,true,'navy');yy-=11;}yy-=4;
+     for(const l of k.split(it.value,w-24,12.5,true)){p.text(l,x+12,yy,12.5,true,'navy');yy-=16;}
+     if(it.note){yy-=4;for(const l of k.split(it.note,w-24,7.7)){p.text(l,x+12,yy,7.7,false,'muted');yy-=10;}}
+     if(yy<y-h-2)throw Error('Direktmix-Rechnerfeld überläuft: '+it.label);
+   });p.current.y=y-h-9;}};
+ // Site tables use separate labels and values (not concatenated DOM text).
+ const dataCards=(rows)=>{const cards=rows.map(el=>({label:text(el.querySelector('span')),value:text(el.querySelector('strong'))}));for(let i=0;i<cards.length;i+=2){const pair=cards.slice(i,i+2),gap=10,w=(k.W-gap)/2;
+   const h=Math.max(...pair.map(it=>18+k.split(it.label,w-24,8.5,true).length*11+k.split(it.value,w-24,12.5,true).length*16+8));p.ensure(h+9);const y=p.current.y;
+   pair.forEach((it,j)=>{const x=k.M+j*(w+gap);p.rect(x,y-h,w,h,'white','line');p.rect(x,y-h,3,h,'mint');let yy=y-15;for(const l of k.split(it.label,w-24,8.5,true)){p.text(l,x+12,yy,8.5,true,'navy');yy-=11;}yy-=5;for(const l of k.split(it.value,w-24,12.5,true)){p.text(l,x+12,yy,12.5,true,'navy');yy-=16;}if(yy<y-h-2)throw Error('Direktmix-Wertekarte überläuft.');});p.current.y=y-h-9;
+ }};
+ // Keep label, result and explanation in distinct text positions.
+ const summary=el=>{if(!el)return;const label=text(el.querySelector('span')),value=text(el.querySelector('.big')),explanation=text(el.querySelector('small'));const lab=k.split(label,k.W-36,9.2,true),val=k.split(value,k.W-36,16,true),desc=k.split(explanation,k.W-36,8.5),h=15+lab.length*12+5+val.length*20+7+desc.length*11+12;
+   p.ensure(h+11);const y=p.current.y;p.rect(k.M,y-h,k.W,h,'pale','line');p.rect(k.M,y-h,4,h,'mint');let yy=y-18;
+   for(const l of lab){p.text(l,k.M+14,yy,9.2,true,'navy');yy-=12;}yy-=5;
+   for(const l of val){p.text(l,k.M+14,yy,16,true,'navy');yy-=20;}yy-=7;
+   for(const l of desc){p.text(l,k.M+14,yy,8.5,false,'ink');yy-=11;}if(yy<y-h-2)throw Error('Direktmix-Zusammenfassung überläuft.');p.current.y=y-h-11;
+ };
+ const sections=[...d.querySelectorAll('.wrap > section.card.section')];const hero=d.querySelector('.hero');p.section({kicker:text(hero.querySelector('.eyebrow')),heading:text(hero.querySelector('h1')),lead:text(hero.querySelector('.lead'))});
+ // Four website chips: concise two-row display instead of four oversized empty cards.
+ const chips=[...hero.querySelectorAll('.heroLine span')].map(text);for(let i=0;i<chips.length;i+=2){const pair=chips.slice(i,i+2),w=(k.W-10)/2,h=26;p.ensure(h+7);const y=p.current.y;pair.forEach((label,j)=>{const x=k.M+j*(w+10);p.rect(x,y-h,w,h,'white','line');p.rect(x,y-h,3,h,'mint');p.text(label,x+11,y-17,8.3,true,'navy');});p.current.y=y-h-7;}
+ for(let i=0;i<sections.length;i++){const sec=sections[i],head=sec.querySelector(':scope > .head'),body=sec.querySelector(':scope > .body');if(!head||!body)throw Error('Direktmix-Abschnitt '+(i+1)+' unvollständig.');
+ // These two calculations must not be split between input and output pages.
+ if((i===3||i===4||i===5)&&p.current.y<k.PH-k.TOP-1)p.page();
+ p.ensure(i===0?345:i===3?480:i===4?510:250);p.section({kicker:text(head.querySelector('.kicker')),heading:text(head.querySelector('h2')),lead:text(head.querySelector('p'))});
  if(i===0){const field=body.querySelector('#totalRevenue')?.closest('.field');if(field)inputCards([field]);
-  const table=body.querySelector('.mixTable');if(!table)throw Error('Vertriebsmix-Tabelle fehlt.');const heads=[...table.querySelectorAll(':scope > .th')].map(text);const rows=[...table.querySelectorAll(':scope > .mixRow')];const widths=[k.W*.32,k.W*.22,k.W*.22,k.W*.24],xx=[k.M,k.M+widths[0],k.M+widths[0]+widths[1],k.M+widths[0]+widths[1]+widths[2]];
+  const table=body.querySelector('.mixTable');if(!table)throw Error('Vertriebsmix-Tabelle fehlt.');const heads=[...table.querySelectorAll(':scope > .th')].map(text),rows=[...table.querySelectorAll(':scope > .mixRow')];const widths=[k.W*.32,k.W*.22,k.W*.22,k.W*.24],xx=[k.M,k.M+widths[0],k.M+widths[0]+widths[1],k.M+widths[0]+widths[1]+widths[2]];
   const h=26;p.ensure(h+rows.length*34+20);let y=p.current.y;p.rect(k.M,y-h,k.W,h,'navy');heads.forEach((v,j)=>p.text(v,xx[j]+7,y-17,7.5,true,'white'));y-=h;for(const row of rows){p.rect(k.M,y-34,k.W,34,'white','line');p.text(text(row.querySelector('.mixName')),xx[0]+7,y-21,8.6,true,'navy');[...row.querySelectorAll('input')].forEach((inp,j)=>p.text(displayInput(inp),xx[j+1]+7,y-21,9.2,true,'ink'));y-=34;}p.current.y=y-13;
-  const mix=body.querySelector('#mixSum');lines(text(mix),9.1,true,'mint',12);metricCards([...body.querySelectorAll('.metrics > .metric')]);note(body.querySelector('.note'));
+  const mix=body.querySelector('#mixSum');const labels=[['Summe heute:',text(mix.querySelector('#sumNow'))],['Summe Ziel:',text(mix.querySelector('#sumTarget'))]];p.ensure(44);y=p.current.y;const sw=(k.W-10)/2;labels.forEach((item,j)=>{const x=k.M+j*(sw+10);p.rect(x,y-35,sw,35,'pale','line');p.text(item[0],x+10,y-21,8.7,true,'navy');p.text(item[1],x+130,y-21,9.5,true,'mint');});p.current.y=y-44;
+  p.ensure(190);metricCards([...body.querySelectorAll('.metrics > .metric')]);note(body.querySelector('.note'));
  }else if(i===1){group([...body.querySelectorAll('.process > .phase')].map(el=>({title:text(el.querySelector('b')),paragraphs:[text(el.querySelector('p'))],notes:[],theme:el===body.querySelector('.phase:nth-child(2)')?'mag':'mint'})),'grid3');note(body.querySelector('.note'));
  }else if(i===2){group([...body.querySelectorAll('.funnel > .fstep')].map(el=>({title:text(el.querySelector('.n'))+' · '+text(el.querySelector('b')),paragraphs:[text(el.querySelector('p'))],notes:[],theme:'mint'})),'dual');
- }else if(i===3){const fields=[...body.querySelectorAll('.calc .field')];inputCards(fields);lines(text(body.querySelector('.calc > small')),8.5,false,'muted',12);group([...body.querySelectorAll('.levels > .level')].map(el=>({title:text(el.querySelector('span')),value:text(el.querySelector('b')),paragraphs:[text(el.querySelector('strong'))],notes:[],theme:'mint'})),'grid3');note(body.querySelector('.totalBox'));
+ }else if(i===3){const fields=[...body.querySelectorAll('.calc .field')];inputCards(fields);lines(text(body.querySelector('.calc > small')),8.5,false,'muted',12);group([...body.querySelectorAll('.levels > .level')].map(el=>({title:text(el.querySelector('span')),value:text(el.querySelector('b')),paragraphs:[text(el.querySelector('strong'))],notes:[],theme:'mint'})),'grid3');summary(body.querySelector('.totalBox'));
  }else if(i===4){lines(text(body.querySelector('.example > h3')),12,true,'navy',5);dataCards([...body.querySelectorAll('.example > .calcLine')]);note(body.querySelector('.example .note'));inputCards([...body.querySelectorAll('.calc > .field')]);dataCards([...body.querySelectorAll('.calc > .calcLine')]);
- }else if(i===5){group([...body.querySelectorAll('.leverGrid > .lever')].map(el=>({title:text(el.querySelector('b')),value:text(el.querySelector('strong')),paragraphs:[text(el.querySelector('p'))],notes:[],theme:'mint'})),'grid3');note(body.querySelector('.totalBox'));note(body.querySelector('.note'));
+ }else if(i===5){group([...body.querySelectorAll('.leverGrid > .lever')].map(el=>({title:text(el.querySelector('b')),value:text(el.querySelector('strong')),paragraphs:[text(el.querySelector('p'))],notes:[],theme:'mint'})),'grid3');summary(body.querySelector('.totalBox'));note(body.querySelector('.note'));
  }
  progress?.(i+1,sections.length);if(i%2===1)await new Promise(resolve=>setTimeout(resolve,0));}
+ // Avoid the formerly empty final page: only the existing legal footer is appended.
  p.footer({foot:text(d.querySelector('.foot'))});const bytes=pdfBytes(p,k),date=new Date(),stamp=[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');const safe=name.replace(/ß/g,'ss').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,55)||'Hotel';return{blob:new Blob([bytes],{type:'application/pdf'}),pages:p.pages.length,filename:`Direktmix_${safe}_Gespraech_${stamp}.pdf`};}
-window.DirektmixAkademiePdf=Object.freeze({version:'DIREKTMIX_AKADEMIE_PDF_V1',generate,validDoc:good});
+window.DirektmixAkademiePdf=Object.freeze({version:'DIREKTMIX_AKADEMIE_PDF_V2_LAYOUT_ONLY',generate,validDoc:good});
 })();
