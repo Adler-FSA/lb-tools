@@ -1,0 +1,108 @@
+name: Correct permanent guest access wording
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-guest-access-duration-once.yml'
+permissions:
+  contents: write
+jobs:
+  correct-copy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace only previously approved guest-access statements
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          root = Path('hoersaal-liquiditybooster')
+          fixes = {
+              '01-willkommen.html': (
+                  '96b500696efaa8ca997ee5142a7da2d1cb84c54b',
+                  [
+                      ('der begleitete 72-Stunden-Zugang', 'der dauerhafte Gastzugang', 2),
+                      ('the guided 72-hour access', 'permanent guest access', 1),
+                      ('ein begleiteter 72-Stunden-Zugang', 'ein dauerhafter Gastzugang', 2),
+                      ('a guided 72-hour access', 'permanent guest access', 1),
+                  ]
+              ),
+              '03-gast-club.html': (
+                  '91fedccb7a93570021ba55efcdc63210816bc984',
+                  [
+                      ('Orientierung, drei Tore, 72 Stunden, Club-Partnerschaft', 'Orientierung, drei Tore, dauerhafter Gastzugang, Club-Partnerschaft', 1),
+                      ('Nach 72 Stunden entscheidest du selbst', 'Du entscheidest selbst über eine Club-Partnerschaft', 2),
+                      ('After 72 hours, you decide', 'You decide whether to become a Club Partner', 1),
+                      ('3 begleitende E-Mails · 72 Stunden Zugang · danach endet der Zugang automatisch', 'Dauerhafter Gastzugang · keine automatische Mitgliedschaft', 2),
+                      ('3 accompanying emails · 72-hour access · then access ends automatically', 'Permanent guest access · no automatic membership', 1),
+                      ('data-de="72 Stunden" data-en="72 hours">72 Stunden', 'data-de="Gastzugang" data-en="Guest access">Gastzugang', 1),
+                      ('Ausgewählte Inhalte und drei E-Mails begleiten deinen Einblick.', 'Ausgewählte Inhalte begleiten deinen Einblick.', 2),
+                      ('Selected content and three emails accompany your visit.', 'Selected content supports your exploration.', 1),
+                      ('Der Zugang endet automatisch. Ob daraus mehr wird, entscheidest nur du.', 'Der Gastzugang bleibt geöffnet. Ob du Club Partner wirst, entscheidest nur du.', 2),
+                      ('Access ends automatically. You alone decide whether anything follows.', 'Guest access remains available. You alone decide whether to become a Club Partner.', 1),
+                      ('72-Stunden-Gastzugang', 'Gastzugang', 2),
+                      ('72-hour guest access', 'Guest access', 1),
+                      ('Ein zeitlich begrenzter Einblick, der dir hilft, deinen Einstieg in die gewachsene Akademiewelt zu finden.', 'Ein Einblick, der dir hilft, deinen Einstieg in die gewachsene Akademiewelt zu finden.', 2),
+                      ('A time-limited insight designed to help you find your way into the growing Academy world.', 'An introduction designed to help you find your way into the growing Academy world.', 1),
+                      ('kostenloser Zugang für 72 Stunden', 'kostenloser, dauerhafter Gastzugang', 2),
+                      ('free access for 72 hours', 'free, permanent guest access', 1),
+                      ('endet automatisch – keine automatische Mitgliedschaft', 'keine automatische Mitgliedschaft', 2),
+                      ('ends automatically – no automatic membership', 'no automatic membership', 1),
+                      ('72 Stunden Einblick. Der Zugang endet automatisch und erzeugt keine Mitgliedschaft.', 'Kostenloser Gastzugang. Es entsteht keine Clubmitgliedschaft.', 2),
+                      ('72 hours of access. It ends automatically and does not create a membership.', 'Free guest access. No club membership is created.', 1),
+                      ('Der Gastzugang öffnet einen Blick. Der Club öffnet eine dauerhafte Teilnahme.', 'Gastzugang zur Orientierung. Club-Partnerschaft für zusätzliche Mitgliederbereiche.', 2),
+                      ('Guest access opens a view. The club opens ongoing participation.', 'Guest access for orientation. Club partnership for additional members-only areas.', 1),
+                  ]
+              ),
+              '06-empfehlung.html': (
+                  '34fc4b1803d84581d599c347841448a1700baaf7',
+                  [
+                      ('72-Stunden-Gastzugang', 'Gastzugang', 2),
+                      ('72 Stunden, drei Tore und Raum für die eigene Orientierung.', 'Drei Tore und Raum für die eigene Orientierung.', 1),
+                      ('Der Gastzugang läuft nur 72 Stunden, du solltest ihn sofort nehmen.', 'Dann melde dich am besten sofort an, auch wenn du gerade keine Zeit hast.', 1),
+                  ]
+              ),
+          }
+
+          pending = {}
+          for filename, (expected_sha, mappings) in fixes.items():
+              path = root / filename
+              actual_sha = subprocess.check_output(['git', 'hash-object', str(path)], text=True).strip()
+              if actual_sha != expected_sha:
+                  raise SystemExit(f'STOP: {filename} was updated elsewhere ({actual_sha}); nothing will be written.')
+              original = path.read_bytes().decode('utf-8')
+              revised = original
+              for old, new, count in mappings:
+                  found = revised.count(old)
+                  if found != count:
+                      raise SystemExit(f'STOP: {filename}: expected {count} matches for {old!r}, found {found}; nothing will be written.')
+                  revised = revised.replace(old, new)
+              if revised == original:
+                  raise SystemExit(f'STOP: no edits detected in {filename}')
+              pending[path] = revised
+              print(f'{filename}: {len(mappings)} precisely matched text replacements; styling and scripts retained.')
+
+          # Write only after every SHA and every exact-match count has passed.
+          for path, revised in pending.items():
+              path.write_bytes(revised.encode('utf-8'))
+
+          changed = set(subprocess.check_output(['git', 'diff', '--name-only'], text=True).splitlines())
+          allowed = {str(path) for path in pending}
+          if changed != allowed:
+              raise SystemExit(f'STOP: unexpected changed files: {changed ^ allowed}')
+          PY
+          git diff --check
+          git diff --stat -- hoersaal-liquiditybooster/01-willkommen.html hoersaal-liquiditybooster/03-gast-club.html hoersaal-liquiditybooster/06-empfehlung.html
+      - name: Commit only three HTML corrections and remove one-time helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-guest-access-duration-once.yml
+          git add -- hoersaal-liquiditybooster/01-willkommen.html hoersaal-liquiditybooster/03-gast-club.html hoersaal-liquiditybooster/06-empfehlung.html
+          git diff --cached --check
+          git commit -m 'Correct guest access duration wording on lecture hall pages 1, 3 and 6'
+          git push
