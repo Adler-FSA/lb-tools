@@ -1,13 +1,15 @@
 /**
  * Nebenkosten Premium: independent HEATING / HOT WATER calculation subset (MH-07).
  * Never marks an invoice legally releasable, never merges with standard calculations.
- * Scope: separate, pre-separated annual cost pools; uninterrupted occupation and area.
- * Statutory exceptions, linked generation systems, CO2, heating oil and user changes block.
+ * Scope: separate, pre-separated annual cost pools; unchanged area.
+ * Documented occupant changes supported only with verified intermediate readings
+ * and confirmed stream-specific § 9b weights. Exceptions, linked systems, CO2 and oil block.
  */
 import { validateProject } from './model.js';
 import { distributeCents } from './calculation.js';
 import { occupancyForPeriod, consumptionForSegments } from './temporal.js';
 import { verifyThermalBasis } from './thermal-basis.js';
+import { verifyThermalUserChange, splitThermalUnitShare } from './thermal-user-change.js';
 
 const kinds = ['heating', 'hot_water'];
 const safe = n => Number.isSafeInteger(n) && n >= 0;
@@ -56,14 +58,10 @@ export function calculateThermalPeriod(project, accountingPeriodId, plan) {
   if (issues.length) return blocked(issues);
   const { occupancy } = occupancyForPeriod(project, units, period, issues);
   for (const unit of units) {
-    if (occupancy.get(unit.id)?.length !== 1) {
-      add(issues, 'THERMAL_USER_CHANGE_UNSUPPORTED', `units:${unit.id}`,
-        'Heiz-/Warmwasserkosten bei Nutzerwechsel werden erst nach Umsetzung des § 9b-Moduls berechnet.');
-    }
     const area = unit.areaHistory.filter(a => a.from <= period.startDate &&
       (a.to === null || a.to >= period.endDate));
     if (area.length !== 1 || unit.areaHistory.some(a => a !== area[0] &&
-      a.from <= period.endDate && (a.to === null || a.to >= period.startDate))) {
+      a.from <= period.endDate && (a.to === null || a.from >= period.startDate))) {
       add(issues, 'THERMAL_AREA_UNSUPPORTED', `units:${unit.id}`,
         'Eine einzige unveränderte, gültige Wohnfläche für das ganze Jahr ist nötig.');
     }
@@ -121,22 +119,25 @@ export function calculateThermalPeriod(project, accountingPeriodId, plan) {
       }
     }
     if (issues.length) continue;
+    if (!verifyThermalUserChange(stream, occupancy, issues)) continue;
     const verifiedBasis = verifyThermalBasis(project, units, stream, issues);
     if (!verifiedBasis || issues.length) continue;
     const rule = { id: `thermal_${stream.kind}`, meterIdsByUnit: mapping };
     const measured = consumptionForSegments(project, units, period, rule, occupancy, issues, verifiedBasis.factors);
     if (!measured || issues.length) continue;
     for (const unit of units) {
-      const occupant = occupancy.get(unit.id)[0];
-      if (occupant.kind !== 'tenant') continue;
-      const versions = project.contractTerms.filter(t => t.tenancyId === occupant.tenancyId &&
-        t.startDate <= period.endDate && (t.endDate === null || t.endDate >= period.startDate));
-      if (versions.length !== 1 || versions[0].startDate > period.startDate ||
-          (versions[0].endDate !== null && versions[0].endDate < period.endDate) ||
-          versions[0].operatingCostsModel !== 'advance' ||
-          !versions[0].allowedCostTypes?.includes(stream.kind)) {
-        add(issues, 'THERMAL_CONTRACT_UNCONFIRMED', `tenancies:${occupant.tenancyId}`,
-          'Passende Kostenvereinbarung und durchgehendes Vorauszahlungsmodell prüfen.');
+      for (const occupant of occupancy.get(unit.id)) {
+        if (occupant.kind !== 'tenant') continue;
+        const versions = project.contractTerms.filter(t => t.tenancyId === occupant.tenancyId &&
+          t.startDate <= occupant.endDate && (t.endDate === null || t.endDate >= occupant.startDate));
+        if (versions.length !== 1 || versions[0].startDate > occupant.startDate ||
+            (versions[0].endDate !== null && versions[0].endDate < occupant.endDate) ||
+            versions[0].operatingCostsModel !== 'advance' ||
+            !Array.isArray(versions[0].allowedCostTypes) ||
+            !versions[0].allowedCostTypes.includes(stream.kind)) {
+          add(issues, 'THERMAL_CONTRACT_UNCONFIRMED', `tenancies:${occupant.tenancyId}`,
+            'Für jeden Nutzerabschnitt Kostenvereinbarung und durchgehendes Vorauszahlungsmodell prüfen.');
+        }
       }
     }
     if (issues.length) continue;
@@ -153,12 +154,10 @@ export function calculateThermalPeriod(project, accountingPeriodId, plan) {
         const consumptionCents = portions.find(p => p.id === 'consumption').cents;
         const base = new Map(distributeCents(baseCents, areaWeights).map(p => [p.id, p.cents]));
         const used = new Map(distributeCents(consumptionCents, measured.weights).map(p => [p.id, p.cents]));
-        const unitShares = units.map(u => {
-          const occupant = occupancy.get(u.id)[0];
-          return { unitId: u.id, kind: occupant.kind, tenancyId: occupant.tenancyId,
-            baseCents: base.get(u.id), consumptionCents: used.get(u.id),
-            cents: sum([base.get(u.id), used.get(u.id)]) };
-        });
+        const unitShares = units.flatMap(u => splitThermalUnitShare(
+          u, base.get(u.id), used.get(u.id), occupancy.get(u.id),
+          measured.segmentWeights.get(u.id), stream, distributeCents, issues));
+        if (issues.length) throw new RangeError('USER_SPLIT');
         if (sum(unitShares.map(s => s.cents)) !== expense.amountCents) throw new RangeError('RECONCILIATION');
         return { expenseId: expense.id, amountCents: expense.amountCents,
           baseCents, consumptionCents, unitShares };
@@ -167,7 +166,7 @@ export function calculateThermalPeriod(project, accountingPeriodId, plan) {
         totalCents: sum(lines.map(l => l.amountCents)), lines,
         meterWeights: measured.weights, areaWeights, measurementBasis: verifiedBasis.basis });
     } catch {
-      add(issues, 'THERMAL_RECONCILIATION_FAILED', path, 'Sichere Aufteilung oder Cent-Summenprüfung fehlgeschlagen.');
+      if (!issues.length) add(issues, 'THERMAL_RECONCILIATION_FAILED', path, 'Sichere Aufteilung oder Cent-Summenprüfung fehlgeschlagen.');
     }
   }
   for (const e of project.expenses.filter(e => e.propertyId === period.propertyId &&
