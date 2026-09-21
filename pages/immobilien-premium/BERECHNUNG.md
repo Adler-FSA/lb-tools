@@ -1,45 +1,50 @@
-# Nebenkosten Premium — Berechnungskern, Stand Baustein 2.3
+# Nebenkosten Premium — Berechnungskern, Baustein 2.3
 
-**Stand: 21.09.2026. Technischer Teilstand, keine freigegebene Mieterabrechnungssoftware.** Grundlage: der freigegebene `MASTERPLAN.md` dieses eigenständigen Neubaus. Keine Übernahme oder Verbindung mit dem früheren Nebenkosten-Werkzeug.
+**Stand: 21.09.2026 · Teilstand Mieterwechsel und Leerstand umgesetzt. Keine freigegebene Abrechnungssoftware.** Grundlage: freigegebener `MASTERPLAN.md`. Vollständig eigenständige Neuentwicklung, ohne Code, Daten oder Abhängigkeiten des früheren Nebenkosten-Werkzeugs.
 
-## Dateien und Schnittstelle
+## Dateien und Schnittstellen
 
-- `assets/js/calculation.js` exportiert `calculatePeriod(project, accountingPeriodId)` und `distributeCents(amountCents, weights)`.
-- `tests/calculation.test.mjs` enthält fiktive Testfälle MH-01 bis MH-09 und weitere Prüfungen. Keine realen personenbezogenen Daten.
-- `calculatePeriod` verändert die übergebenen Daten nicht, nutzt das eigenständige Datenmodell (`model.js`), liest keinen Browser-Speicher, erzeugt keine PDFs und gibt keine rechtliche Freigabe.
-- Erfolgsfall: `{status:'calculated', calculationReady:true, issues:[], report:{...}}`; `report.legalRelease` und `report.pdfGenerated` sind stets `false`.
-- Bei ungültigen, widersprüchlichen oder nicht unterstützten Eingaben: `{status:'blocked', calculationReady:false, issues:[{code,path,detail}], report:null}`. Kein unvollständiger Scheinbetrag.
+- `assets/js/calculation.js`: `calculatePeriod(project, accountingPeriodId)` und `distributeCents(amountCents, weights)`.
+- `assets/js/temporal.js`: lückenlose Nutzungszeiträume, tagesbezogene Aufteilung und verifizierte Verbrauchsaufteilung anhand von Zwischenablesungen; reine Hilfsfunktionen.
+- `tests/calculation.test.mjs` und `tests/temporal.test.mjs`: MH-01 bis MH-03 einschließlich positiver und negativer Fallprüfungen sowie Sperrtests für MH-04 bis MH-09.
+- Kein Browser-Speicherzugriff, kein Import, keine PDF und keine automatische Rechtsprüfung im Rechenkern. Die Eingabe wird nicht verändert.
+- Erfolg nur für vollständig unterstützten und bestätigten Fall: `{status:'calculated', calculationReady:true, issues:[], report:{...}}` mit `report.legalRelease:false`, `report.pdfGenerated:false`.
+- Unsichere Eingabe: `{status:'blocked', calculationReady:false, issues:[{code,path,detail}], report:null}`. Es wird kein Teilbetrag als fertige Abrechnung ausgegeben.
 
-## Derzeit tatsächlich berechenbar
+## Berechenbarer Umfang
 
-1. Vollständig erfasster, abgeschlossener Abrechnungszeitraum, dessen Einheiten ganzjährig genau einer Nutzungsart zugeordnet sind (Eigennutzung, ein ganzjähriges Mietverhältnis oder durchgehend leer). Keine unterjährige Flächenänderung.
-2. Erfasste und ausdrücklich bestätigte Kostenarten `property_tax`, `building_insurance`, `waste`, `common_electricity` und `cold_water`; zusätzliche ausdrücklich als `owner` klassifizierte Eigentümerkosten bleiben Eigentümerkosten. Die Kategorien selbst sind **keine automatisierte rechtliche Umlageprüfung**.
-3. Pro umzulegender Rechnung exakt eine bestätigte Umlageregel des gewählten Jahres: `area`, `consumption` oder `direct`. Fläche benötigt eine durchgehende Flächenhistorie; Verbrauch benötigt eindeutige, passende Zähler mit Anfangs- und Endablesung genau an den Periodengrenzen. Ein Zählerwechsel, Überlauf, fehlende Werte und allgemeine Schätzungen werden noch nicht berechnet.
-4. Wohnungsanteile werden per BigInt centgenau verteilt; Rundungsreste gehen reproduzierbar nach größtem Rest und stabiler ID. Die Summe der Wohnungsanteile muss den Einzelkosten entsprechen. Eigennutzung und ganzjähriger Leerstand verbleiben beim Eigentümer.
-5. Mieteranteile werden nur bei durchgehendem Vorauszahlungsmodell und einzeln hinterlegter Kostenvereinbarung für die Testkategorien berechnet. Der bestätigte Vorauszahlungs-Zahlungsbestand muss pro Mietverhältnis angegeben werden (`accountingPeriods[].confirmedTenancyIds`). Tatsächliche Zahlungen benötigen `cashflows[].accountingPeriodId` und `purpose:'operating_cost_advance'`. Als `base_rent` gekennzeichnete Grundmieten zählen ausdrücklich nicht mit. Unzugeordnete Zahlungen und Mieter-Rückzahlungen sperren das Ergebnis.
-6. Versorgerzahlungen bleiben eigener Zahlungskreis; sie benötigen eine eindeutige `providerAccountId` und Periodenkennung. Nur Rechnungen und Zahlungen mit zugehörigem Konto werden miteinander verglichen. `providerBalances[].scope='recorded_provider_transactions_only'` kennzeichnet ausdrücklich: lediglich rechnerischer Stand der **erfassten** Positionen, kein bestätigter Jahresabschluss eines Versorgers.
-7. Eine Rechnung mit Zeitanteilen außerhalb der Abrechnungsperiode wird nicht automatisch über Jahre verteilt; der Fall wird gesperrt und ist gesondert zu modellieren.
+1. Abgeschlossene Periode mit vollständig hinterlegter, lückenloser Nutzung **jeder** Wohnung. Nutzungsarten `owner`, `tenant`, `vacant`. Nutzungsintervalle sind inklusive beider Kalendertage, überlappen nicht und werden anhand wirklicher Tageszahlen getrennt; 2028/Schaltjahr ist getestet. Mietverträge müssen die jeweiligen Nutzungsabschnitte decken. Ein nicht erfasster Leerstand wird niemals still ergänzt.
+2. Bestätigte Kategorien `property_tax`, `building_insurance`, `waste`, `common_electricity`, `cold_water` sowie ausdrücklich ausgewiesene reine Eigentümerkosten. Die technische Kategorienkennung beweist **keine** rechtliche Umlagefähigkeit. Pro Rechnung muss die einschlägige Kostenvereinbarung bei **jedem betroffenen Mietverhältnis** erfasst sein.
+3. Wohnungsanteile nach bestätigter `area`-, `consumption`- oder `direct`-Regel. Eine Flächenänderung innerhalb der Abrechnungsperiode bleibt gesperrt. Erst der **Wohnungsanteil**, dann der **Nutzeranteil** werden verteilt. Centbeträge und Rundungsreste werden mit BigInt und stabiler ID centgenau verteilt.
+4. **Mieterwechsel / Leerstand bei flächenbezogenen oder direkten Jahreskosten:** Wenn mehrere Nutzungsabschnitte in einer Wohnung vorliegen, erfordert die einzelne Umlageregel ausdrücklich `temporalMethod:'days'` und `temporalConfirmed:true`. Der bestätigte Wohnungsanteil wird nach tatsächlichen Kalendertagen auf die getrennten Nutzer und Leerstandszeiten aufgeteilt. Es ist eine Rechenfunktion für bestätigte Fälle, **keine** generelle gesetzliche Aussage, jeder Kostenposten müsse tagesanteilig umgelegt werden.
+5. **Kaltwasser bei Nutzerwechsel:** Erst jährliche Verteilung auf Wohnungen nach Zählerverbrauch; danach individuelle Verteilung anhand vollständig vorhandener Ablesungen am Periodenbeginn, am Beginn jedes neuen Nutzungsabschnitts sowie am Periodenende. Die Umlageregel muss `temporalMethod:'readings'` und `temporalConfirmed:true` enthalten. Zwischenstände werden als gemeinsame Grenze benachbarter Nutzungsabschnitte verwendet, sodass kein Verbrauch doppelt gezählt wird. Fehlende, doppelte, rückläufige oder unplausible Messwerte sperren das Ergebnis. Zählerwechsel sind weiterhin nicht unterstützt.
+6. Rechnungen mit Teiljahres-Leistungszeitraum während eines Nutzerwechsels verlangen zusätzlich `temporalExpenseConfirmed:true`; Kosten über die Abrechnungsperiode hinaus bleiben gesperrt. Die Bestätigung muss im künftigen UI fallbezogen erfolgen, nicht automatisch.
+7. Je Mietverhältnis sind ein durchgehendes Vorauszahlungsmodell, bestätigte relevante Vertrags-Kostenarten und `accountingPeriods[].confirmedTenancyIds` erforderlich. Tatsächlich anzurechnende Vorauszahlungen werden mit Zeitraum und `purpose:'operating_cost_advance'` eindeutig gebucht; Grundmiete wird nicht angerechnet. Vertrags-/Vorauszahlungsänderungen, unklare Zahlungen oder Mieter-Rückzahlungen bleiben zur weiteren Prüfung gesperrt.
+8. Versorgerzahlungen bleiben ein eigener Zahlungskreis mit eindeutigem Konto und Periodenkennung. Der ausgewiesene Saldo ist nur die Differenz der tatsächlich **erfassten** Versorgerkosten und Zahlungen, kein nachgewiesener Versorger-Jahresabschluss. Eigentümer-Direktkosten, Leerstand und Eigennutzung bleiben auf Eigentümerseite.
 
-## Referenzergebnis MH-01 (ausschließlich erfundene Testdaten)
+## Verbindliche Musterergebnisse (fiktive Daten)
 
-Hauskosten 3.700,00 EUR = Eigentümeranteil 2.595,00 EUR + Mieteranteil 1.105,00 EUR. Zugeordnete Mietervorauszahlungen 1.200,00 EUR ergeben ein rechnerisches Mieterguthaben von 95,00 EUR. Unabhängig davon: erfasste Wasserversorger-Zahlungen 600,00 EUR gegen Wasserkosten 500,00 EUR ergeben 100,00 EUR gesonderte Zahlungsdifferenz. Die Musterwerte begründen keine rechtliche Zulässigkeit der einzelnen Umlagen im realen Mietverhältnis.
+**MH-01:** Haus 3.700,00 € = Eigentümer 2.595,00 € + Mieter 1.105,00 €. Anrechenbare Mietervorauszahlungen 1.200,00 € → rechnerisch 95,00 € Mieterguthaben. Gesonderter Wasser-Zahlungsstand: 600,00 € Versorgerzahlungen – 500,00 € Wasserkosten = 100,00 € Differenz. Diese Zahlungskreise sind unabhängig.
 
-## Bewusst gesperrte, noch zu entwickelnde Funktionen
+**MH-02, 2026:** 365,00 € reine flächenbezogene Beispielkosten: Eigentümerwohnung 60 % = 219,00 €; Mietwohnung 40 % = 146,00 €. Vormieter 181 Tage = 72,40 €; Nachmieter 184 Tage = 73,60 €. Beide Mietverhältnisse haben unabhängig erfasste Vorauszahlungen und separate Ergebnisse.
 
-- MH-02: Mieterwechsel innerhalb des Jahres: noch keine Aufteilung auf zwei Mietverhältnisse.
-- MH-03: unterjähriger Leerstand beziehungsweise Wechsel der Nutzung: gesperrt; durchgehender Leerstand bereits berechenbar.
-- MH-04: unterjährige Vertrags- und Vorauszahlungsänderungen sowie Betriebskostenpauschale: noch kein eigener Rechenweg.
-- MH-05: Zählerwechsel, Überlauf oder unvollständige Zählerhistorie: keine stille Korrektur.
-- MH-06: fehlende/unplausible Ablesung: keine Ersatzermittlung ohne geklärte Grundlage.
-- MH-07: Heizung/Warmwasser, Heizöl, Verbrauchs-/Grundkosten, verbundene Anlagen und Ausnahmen: eigener Rechenkern ausstehend.
-- MH-08: CO2-Kostenaufteilung: eigenständige Berechnung und fachliche Prüfung ausstehend.
-- MH-09: verschiedene Abrechnungsjahre bleiben getrennt und unverändert; ein kompletter Jahreswechsel-Assistent kommt später.
-- Unbekannte Kostenarten, unbestätigte Umlagen, fehlende Mietervereinbarungen, unterjährige Flächenänderungen, Zahlungsrückflüsse und periodenübergreifende Rechnungen werden nicht freigegeben.
+**MH-03, 2026:** Mietwohnung ist vom 01.05. bis 30.06. leer (61 Tage). Vom Wohnungsanteil 146,00 € entfallen 48,00 € auf Vormieter (120 Tage), **24,40 € Leerstand auf Eigentümer** und 73,60 € auf Nachmieter (184 Tage). Insgesamt Eigentümer 243,40 €, beide Mieter zusammen 121,60 €; Summe unverändert 365,00 €.
 
-**Wichtig:** Ein technisches `calculationReady:true` bedeutet nur, dass dieser eng begrenzte Test-Rechenweg ausführbar war. Es ist weder eine formal/rechtlich freigegebene Betriebskostenabrechnung noch eine fertige PDF noch eine tatsächliche Zustellung. Fachliche Regelprüfung, sämtliche unterstützten Sonderfälle und Dokumentfreigabe erfolgen erst in späteren Schritten.
+**Verbrauchstest:** Jahreskaltwasser 500,00 €, davon Eigentümer 55 m³ → 275,00 €, Mietwohnung 45 m³ → 225,00 €. Bei gemessenem Zwischenstand 20 m³ / 25 m³ werden 100,00 € dem Vormieter und 125,00 € dem Nachmieter zugeordnet, **nicht** nach Kalendertagen geschätzt. Testdaten sind keine rechtliche Billigung der konkreten Vertragslage.
 
-## Test und Qualität
+## Weiterhin ausdrücklich gesperrt
 
-Aus `pages/immobilien-premium/` mit Node.js: `npm test`. **Modell-, Speicher- und Berechnungstests gemeinsam lokal ausgeführt: 43 bestanden, 0 fehlgeschlagen.** Die geprüften neuen Berechnungs- und Testdateien stimmen per Git-Blob-SHA mit den auf GitHub angelegten Dateien überein. Ein eigenständiger Testlauf auf einem GitHub-CI-System sowie Browser- und PDF-End-to-End-Tests stehen noch aus.
+- MH-04: wechselnde Vertragskonditionen, unterjährige Vorauszahlungsänderungen, Pauschale und unklare Rückzahlungen.
+- MH-05/06: Zählerwechsel, Überlauf, zulässige Schätz-/Ersatzverfahren, fehlende Messwerte; keine stille Nullsetzung.
+- MH-07: Heizung, Warmwasser, Heizöl, verbundene Anlagen und Sonderfälle: eigener fachlich geprüfter Rechenkern ausstehend.
+- MH-08: CO₂-Kostenaufteilung: gesondertes Regelwerk ausstehend.
+- MH-09: Jahre sind isoliert; automatischer Jahreswechsel-Assistent und Dokumentversionierung folgen später.
+- Unterjährige Flächenänderungen, ungeklärte Kostenarten, fehlende vertragliche Vereinbarung, periodenübergreifende Rechnungen ohne Regelmodell, fehlende Bestätigung oder unvollständige Nutzung führen zur Sperre.
 
-**Baustein 2 ist nicht abgeschlossen.** Nach dieser ersten Implementierung folgen gezielt die fehlenden Rechenfälle, damit MH-02 bis MH-08 später auch korrekt berechnet und nicht nur zuverlässig gesperrt werden. Erst dann steht der Rechenkern für die gesamte geplante Premium-Anwendung bereit.
+**Grenze:** Heiz- und Warmwasserkosten bei Nutzerwechsel haben besondere Anforderungen einschließlich Zwischenablesung und ggf. anderer Maßstäbe (§ 9b HeizkostenV, https://www.gesetze-im-internet.de/heizkostenv/__9b.html). Sie werden von der neuen Tages-/Kaltwasserlogik **nicht** als bereits unterstützt behandelt. Fachliche und rechtliche Freigabe sowie Dokumentausgabe erst später.
+
+## Tests und Verifikation
+
+Im lokalen eigenständigen Projektordner mit `npm test`: **56 automatisierte Tests bestanden, 0 fehlgeschlagen**, einschließlich Modell, Speicherung, normaler Jahresrechnung, Mieterwechsel, Leerstand, Verbrauchs-Zwischenablesung, Lücken, Überlappungen, Schaltjahr und Sperrprüfungen. Die vier in diesem Teilschritt angelegten/geänderten Quell- und Testdateien wurden anhand ihrer Git-Blob-SHA mit den in GitHub gespeicherten Dateien abgeglichen. Keine GitHub-CI-, Browser- oder PDF-End-to-End-Abnahme.
+
+**Baustein 2.3 und Baustein 2 insgesamt bleiben offen.** Als nächste Unteraufgabe folgen die noch gesperrten Vertrags-/Zahlungsänderungen sowie Zählerwechsel und die gesonderten Heizkosten-/CO₂-Regeln. Keine Produktfreigabe und keine Mieter-PDF in diesem Stand.
