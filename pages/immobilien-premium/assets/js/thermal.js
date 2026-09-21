@@ -61,7 +61,7 @@ export function calculateThermalPeriod(project, accountingPeriodId, plan) {
     const area = unit.areaHistory.filter(a => a.from <= period.startDate &&
       (a.to === null || a.to >= period.endDate));
     if (area.length !== 1 || unit.areaHistory.some(a => a !== area[0] &&
-      a.from <= period.endDate && (a.to === null || a.from >= period.startDate))) {
+      a.from <= period.endDate && (a.to === null || a.to >= period.startDate))) {
       add(issues, 'THERMAL_AREA_UNSUPPORTED', `units:${unit.id}`,
         'Eine einzige unveränderte, gültige Wohnfläche für das ganze Jahr ist nötig.');
     }
