@@ -1,42 +1,35 @@
 # Nebenkosten Premium – verbundene Heizungs- und Warmwasseranlagen
 
-**21.09.2026 · Baustein 2.3 · nur technische Kosten-Vorabtrennung. Keine Produkt-, Rechts-, PDF- oder Mieterabrechnungsfreigabe.** Ergänzt `HEIZUNG.md` und die verbindliche `MASTERPLAN-ERGAENZUNG-VERSORGUNG.md`; alter Nebenkostenrechner unverändert.
+**21.09.2026 · Baustein 2.3 · bestätigte Kosten-Vorabtrennung und technische Übergabebrücke. Keine Produkt-, Rechts-, PDF- oder fertige Mieterabrechnungsfreigabe.** Ergänzt `HEIZUNG.md` und `MASTERPLAN-ERGAENZUNG-VERSORGUNG.md`; der alte Nebenkostenrechner bleibt unverändert.
 
-## Warum eine getrennte Vorstufe?
+## 1. Belegte Rechnungen vorab getrennt
 
-Bei einer verbundenen Anlage entstehen einige Kosten gemeinsam für Heizung und Warmwasser, andere ausschließlich für eine der beiden Leistungen. Für die spätere Kostenverteilung müssen gemeinsame Kosten zunächst getrennt und ausschließlich einer Leistung zugehörige Kosten anschließend nur dieser Leistung zugerechnet werden. Rechtsgrundlage für die fachliche Prüfung ist § 9 HeizkostenV: https://www.gesetze-im-internet.de/heizkostenv/__9.html . Welche Methode und Ausnahmen im konkreten Fall einschlägig sind, entscheidet **nicht** dieses Modul.
+`assets/js/thermal-linked.js` mit `separateLinkedThermalCosts(project, accountingPeriodId, plan)` ordnet vollständige Originalrechnungspositionen als gemeinsame Energie-, reine Heizungs-, reine Warmwasser- bzw. separate CO₂-Positionen zu. Rechnungen brauchen eindeutige Beleg- und Positionskennungen, bestätigte jährliche Leistungszeiträume und eine centgenaue Übereinstimmung zwischen Rechnungspositionen **einschließlich CO₂** und Originalrechnungsbetrag. Doppelbuchung, unbekannte Rechnung und ungeklärte Klassifizierung sperren.
 
-## Implementiert: `assets/js/thermal-linked.js`
+Bei gemeinsamer Energie benötigen Gesamtmenge und Warmwasseranteil dieselbe ausdrücklich belegte physikalische Bezugsbasis in Tausendstel kWh. Gasheizkessel verwenden eine bestätigte Brennstoff-Energiebasis, Wärmepumpe bzw. Wärmelieferung eine bestätigte Wärmebasis. Das Modul rechnet Brennstoffenergie nicht einfach in Wärmeabgabe um; es erfindet weder Werte noch gesetzliche Ersatzformeln. Die bestätigte Methode ist eine Eingabebestätigung, keine automatische fachliche Anerkennung. Heizöl mit Beständen bleibt gesperrt.
 
-`separateLinkedThermalCosts(project, accountingPeriodId, plan)` gibt nur bei vollständig dokumentiertem, bestätigtem Fall `{status:'calculated', calculationReady:true, issues:[], report:{...}}` zurück. Andernfalls werden konkrete Fehler und `report:null` geliefert. Die Funktion ist rein; sie ändert keine Rechnungen, erzeugt keine Buchungen und liest weder Browser- noch Altdaten.
+**Fiktiver Prüffall:** 1.800,01 € gemeinsame Energiekosten ohne separat erfasstes CO₂. Zusätzlich 100,00 € nur für Heizung und 50,00 € nur für Warmwasser. Belegte 200 kWh Gesamtenergie, davon 50 kWh Warmwasser. Daraus entstehen 1.450,01 € Heizungs- und 500,00 € Warmwasserkosten; zusammen **1.950,01 €**. Die CO₂-Rechnungsposition von **20,00 €** wird getrennt nachgewiesen, nicht einem Nutzer zugewiesen. Die beiden Originalrechnungen mit 1.820,01 € bzw. 150,00 € stimmen vollständig mit ihren Quellpositionen überein.
 
-- Die Anlage wird als `linked` sowie als Gasheizkessel, Wärmepumpe oder gewerbliche Wärmelieferung erfasst. Der Spezialfall Heizöl/Lagerbestände wird **nicht** als Gas behandelt.
-- Für die gemeinsame Energieverteilung liegen Gesamtmenge und Warmwasseranteil in **derselben ausdrücklich bestätigten physikalischen Bezugsgröße** als ganze Tausendstel kWh vor, jeweils mit Belegreferenz. Gasheizkessel: bestätigte Brennstoff-Energiebasis; Wärmepumpe/Wärmelieferung: bestätigte Wärme-Energiebasis. Die Software rechnet **keine** Brennstoffenergie automatisch in Wärmeabgabe um und berechnet auch keine gesetzlichen Ersatzformeln. `methodReviewed:true` dokumentiert eine Nutzereingabe, **keine automatische fachliche Anerkennung**.
-- `sharedExpenseIds`, `heatingOnlyExpenseIds`, `hotWaterOnlyExpenseIds` und `co2ExpenseIds` listen die vollständigen zugehörigen Rechnungspositionen. Jede Position hat eine stabile Kennung, einen eindeutigen Beleg mit `invoiceReference` und `invoiceLineId`, einen Centbetrag, den vollständigen Jahres-Leistungszeitraum und eine bestätigte Kostenklassifizierung; ausgeschlossene CO₂-Positionen dürfen bis zur getrennten Prüfung `unresolved` sein.
-- `invoiceTotalsCentsByReference` enthält für jede Originalrechnung den belegten Gesamtbetrag. Die Summe aller aufgelisteten Positionen **einschließlich separat geführtem CO₂** muss exakt übereinstimmen. Eine doppelte Quellkennung, identische Belegposition oder fehlende Rechnung sperrt die gesamte Vorabtrennung.
-- Jede gemeinsame Kostenposition wird mit BigInt nach den bestätigten Mengenanteilen centgenau in Heizung und Warmwasser getrennt. Ausschließlich zu einer Leistung gehörende Kosten werden **danach** dieser Leistung zugeschlagen; Rundungsreste sind nachvollziehbar, jede Originalposition und jede Gesamtsumme werden ausgeglichen.
-- CO₂-Kosten werden als eigener, noch ungeklärter Bestand geführt und **nicht** still einem der beiden Kostentöpfe oder dem Mieter zugeteilt. Heizöl-Einkäufe werden nicht mit tatsächlich verbrauchten Brennstoffmengen verwechselt. Eigentümerkosten anderer Kategorien und Versorgerabschläge sind keine Bestandteile dieses Kosten-Splittings.
+## 2. Neue technische Übergabe an den Heizkostenrechner
 
-## Fiktiver Prüffall
+`assets/js/thermal-linked-integration.js` bietet:
 
-| Position | Betrag |
-|---|---:|
-| Gemeinsame Gas-Kostenposition ohne separat ausgewiesenes CO₂ | 1.800,01 € |
-| CO₂-Position derselben Originalrechnung – gesondert | 20,00 € |
-| Nachgewiesener Gesamtbetrag der Gasrechnung | **1.820,01 €** |
-| Separate Wartungsrechnung, Heizung | 100,00 € |
-| Separate Wartungsrechnung, Warmwasser | 50,00 € |
+- `prepareLinkedThermalAllocation(project, periodId, linkedPlan, thermalPlan)`: prüft zuerst die vollständige Vortrennung; danach erzeugt es **ausschließlich in einer tiefen Kopie im Arbeitsspeicher** zwei abgeleitete Kostentöpfe `derived_linked_heating` und `derived_linked_hot_water` mit den belegten Beträgen. Die originalen Heiz-/Warmwasser-/Gemeinschafts- und CO₂-Positionen werden nur aus dieser **temporären Kopie** entfernt, niemals aus der gespeicherten Immobilienakte. Andere Kosten bleiben unberührt. Alle ursprünglichen Belegkennungen und Beträge bleiben in der Rückverfolgung erhalten.
+- `calculateLinkedThermalPeriod(project, periodId, linkedPlan, thermalPlan, calculateThermalPeriod)`: übergibt die temporären Kostentöpfe an die separat bereitgestellte Heizkostenfunktion. Originalrechnungen dürfen nicht zusätzlich als `expenseIds` in den beiden Heizkosten-Plänen enthalten sein. `linkedTransferConfirmed:true` ist verpflichtend; die beiden Dienste müssen eindeutig Heizung und Warmwasser sein.
+- `assets/js/thermal-linked-runner.js` verbindet den Übergabeweg mit der **tatsächlichen** Funktion `calculateThermalPeriod` aus `thermal.js` über `calculateLinkedThermalWithEngine(project, periodId, linkedPlan, thermalPlan)`. Dieser Runner ist der reale Programmeinstieg; noch keine UI-Anbindung.
 
-Bestätigte gleiche Energie-Basis: Gesamt 200 kWh, Warmwasser 50 kWh, Heizung folglich 150 kWh. Getrennte **gemeinsame** Kosten: Heizung 1.350,01 €, Warmwasser 450,00 €. Nach Zuordnung der jeweils allein entstandenen Kosten: **Heizung 1.450,01 € + Warmwasser 500,00 € = 1.950,01 €**. Die getrennte CO₂-Position von 20,00 € ist in diesen beiden Kostentöpfen **nicht** enthalten; zusammen mit ihr und den übrigen belegten Positionen stimmen die Originalrechnungen. Das ist ausschließlich eine fiktive Rechenprüfung, keine Feststellung der gesetzlich zulässigen Aufteilung in einem realen Gebäude.
+Die Übergabebrücke kontrolliert anschließend Quell-Gesamtkosten gegen beide Wärme-Kostentöpfe, die Teilberichte je Wärmeart sowie die Summe Eigentümer + Mieter. Bei Centdifferenzen, ungültiger Modellkennung, reservierter ID-Kollision, fehlendem Ursprungsnachweis oder gesperrtem Heizkostenrechner entsteht **kein positiver Teilbericht**.
 
-## Was noch fehlt
+Ein erfolgreicher Bericht trägt `scope:'thermal_linked_subreport_only'`, das `linkedCosts`-Audit mit ursprünglichen Beleg-IDs, Rechnungssummen, abgeleiteten Kennungen und der separat ausgeschlossenen CO₂-Summe. `combinedWithOtherCosts:false`, `co2Calculated:false`, `legalRelease:false` und `pdfGenerated:false` bleiben verbindlich. Die temporären Kosten sind **keine zusätzlichen echten Rechnungen** und werden nicht in Speicher oder Buchungsjournal geschrieben. Versorgerabschläge und Mietervorauszahlungen sind weder Quellkosten noch Bestandteil dieses Teilberichts.
 
-Der Teilbericht hat `scope:'linked_cost_preallocation_only'`, `transferredToThermal:false`, `combinedWithOtherCosts:false`, `co2Calculated:false`, `legalRelease:false`, `pdfGenerated:false`. Die ermittelten Töpfe werden **noch nicht** in `thermal.js` oder `calculation.js` eingespielt. Es werden insbesondere keine fingierten neuen Rechnungen angelegt und keine ursprünglichen Kosten doppelt gezählt. Der vorhandene separate Heizkostenrechner darf für ein Gebäude mit gemeinsamen Kosten nicht als vollständige Gesamt-Heizkostenabrechnung benutzt werden.
+## 3. Testabdeckung und Abnahmegrenzen
 
-Vor einer Integration fehlen: eine belegbare Übertragung der beiden getrennten Kostentöpfe in den Nutzerrechner **ohne zweite Zählung**, verbindliche fachliche Prüfung der §-9-Messbasis/Anlagenvarianten einschließlich einschlägiger Formeln und Ausnahmen, Bestandsberechnung bei Heizöl, CO₂-Regeln, Gegenprüfung der Versorger- und Mieter-Zahlungskreise sowie sämtliche End-to-End-Abnahmen.
+`tests/thermal-linked.test.mjs`: die bereits vorhandenen 16 lokalen Tests der Rechnungsvortrennung. **Neu** `tests/thermal-linked-integration.test.mjs`: 14 Tests für die temporäre Übergabe, Centgleichheit, unveränderte Originaldaten, separate CO₂-Positionen, doppelte Rechnungen, Sperren und Fehlerweitergabe. Lokal wurden **diese beiden Dateien gemeinsam ausgeführt: 30 Tests bestanden, 0 fehlgeschlagen**. SHA-Abgleich mit GitHub für neues Brückenmodul, Runner und neuen Test.
 
-## Tests
+**Noch nicht durch diese Tests nachgewiesen:** vollständiger Lauf der gesamten Projekt-Testsuite und ein End-to-End-Test des realen Runners mit sämtlichen Produktmodulen und vollständigem Projektschema. Der neue Integrationstest verwendet zur Prüfung des Übergabevertrags eine kontrollierte Ersatzfunktion für `calculateThermalPeriod`, nicht den echten Heizkostenrechner. Der Runner importiert die echte Funktion, ist aber noch nicht als vollständige Anwendung abgenommen. Browser, iPad, PDF und Recht wurden ebenfalls nicht freigegeben.
 
-`tests/thermal-linked.test.mjs`: **16 zusätzliche lokale Node-Tests bestanden, 0 fehlgeschlagen** (positives Kostenbeispiel, Cent-Reste, mehrere Rechnungen, getrennte CO₂-Inventur, Bilanz je Originalrechnung, doppelte Rechnungspositionen, fehlende Belege, fremde Periode, falsche Energieeinheit und Sperrfälle). Das Modul und die Tests wurden lokal ausgeführt und anschließend auf GitHub gespeichert. **Nicht behauptet:** erneuter Durchlauf der gesamten früheren Testsuite, Browserprüfung, fachliche Rechtsabnahme oder funktionierende Integration in die Mieterabrechnung.
+## 4. Offene Aufgaben
 
-**Baustein 2.3 und Baustein 2 bleiben offen. Nächster technischer Schritt: sichere Integration ohne Doppelerfassung; anschließend separater CO₂-Rechenweg.**
+Fachliche Überprüfung der bei verbundenen Anlagen gewählten §-9-Methode, Sonderfälle und Heizöl-Bestände; vollständiger realer End-to-End-Test mit Messwerten, Nutzerwechsel und Originalrechnungen; eigenständiger CO₂-Rechenweg einschließlich Abgrenzung möglicher Direktverträge; Versorgungsvertrags-Datenmodell; spätere Gesamtintegration aller Zahlungskreise ohne Doppelerfassung. Auch eine positive Teilrechnung ist **keine fertige Betriebskostenabrechnung**.
+
+Fachlicher Prüfrahmen: § 9 HeizkostenV, https://www.gesetze-im-internet.de/heizkostenv/__9.html . **Baustein 2.3 und Baustein 2 bleiben offen.**
