@@ -14,6 +14,33 @@ const sum = nums => {
 };
 const signed = n => {if(n > MAX || n < -MAX)throw RangeError('overflow');return Number(n);};
 const inside = (e,p) => e?.startDate <= p.endDate && (e.endDate == null || e.endDate >= p.startDate);
+const validDay = d => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d) &&
+  !Number.isNaN(Date.parse(`${d}T00:00:00Z`)) &&
+  new Date(`${d}T00:00:00Z`).toISOString().slice(0, 10) === d;
+const nextDay = d => new Date(new Date(`${d}T00:00:00Z`).valueOf() + 86400000).toISOString().slice(0, 10);
+
+/** Confirmed, gapless, immutable price periods. Quantities and base charges are per version. */
+function priceHistory(versions, period) {
+  if (!Array.isArray(versions) || !versions.length) return null;
+  let cursor = period.startDate, unit = null;
+  const parts = [];
+  for (const v of versions) {
+    if (!v || !validDay(v.validFrom) || !validDay(v.validTo) ||
+        v.validFrom !== cursor || v.validTo < v.validFrom || v.validTo > period.endDate ||
+        v.confirmed !== true || !text(v.referenceId) || !safe(v.baseCentsPerPeriod) ||
+        !safe(v.plannedWholeUnits) || !safe(v.workPriceNumeratorCents) ||
+        !Number.isSafeInteger(v.workPriceDenominatorUnits) || v.workPriceDenominatorUnits <= 0 ||
+        !text(v.measurementUnit) || (unit !== null && v.measurementUnit !== unit)) return null;
+    unit = v.measurementUnit;
+    const work = (BigInt(v.workPriceNumeratorCents) * BigInt(v.plannedWholeUnits) +
+      BigInt(v.workPriceDenominatorUnits) / 2n) / BigInt(v.workPriceDenominatorUnits);
+    const estimate = signed(BigInt(v.baseCentsPerPeriod) + work);
+    parts.push({ validFrom:v.validFrom, validTo:v.validTo, referenceId:v.referenceId,
+      measurementUnit:unit, plannedWholeUnits:v.plannedWholeUnits, forecastCents:estimate });
+    cursor = nextDay(v.validTo);
+  }
+  return cursor === nextDay(period.endDate) ? parts : null;
+}
 
 export function reviewSupplyAccount(project, periodId, contract) {
   if (!project || !Array.isArray(project.accountingPeriods) ||
@@ -21,11 +48,14 @@ export function reviewSupplyAccount(project, periodId, contract) {
     return fail('SUPPLY_PROJECT_REQUIRED','project','Buchungskreise und Abrechnungsperioden fehlen.');
   const periods=project.accountingPeriods.filter(p=>p?.id===periodId);
   if(periods.length!==1 || !text(periods[0].propertyId) ||
-     !/^\d{4}-\d{2}-\d{2}$/.test(periods[0].startDate) ||
-     !/^\d{4}-\d{2}-\d{2}$/.test(periods[0].endDate) ||
+     !validDay(periods[0].startDate) ||
+     !validDay(periods[0].endDate) ||
      periods[0].startDate>periods[0].endDate)
     return fail('SUPPLY_PERIOD_INVALID','periodId','Eindeutige geschlossene Periode benötigt.');
   const period=periods[0];
+  if (period.reviewRequired === true || period.rolloverStatus === 'review_required')
+    return fail('SUPPLY_YEAR_REVIEW_REQUIRED','period',
+      'Neue Jahresperiode zuerst mit tatsächlichen Vertrags-, Rechnungs- und Zahlungswerten bestätigen.');
   if (!contract || !text(contract.providerAccountId) || !text(contract.service) ||
       !['owner','tenant_direct'].includes(contract.contractHolder) || contract.confirmed!==true)
     return fail('SUPPLY_CONTRACT_REQUIRED','contract','Sparte, Vertragsinhaber, Versorgerkonto und Bestätigung fehlen.');
@@ -43,15 +73,11 @@ export function reviewSupplyAccount(project, periodId, contract) {
       addedOwnerCostsCents:0,addedTenantCostsCents:0,forecastGenerated:false,
       actualOwnerCostsCents:0,netProviderPaidCents:0,postedToExpenses:false,legalRelease:false}};
   }
-  const versions=contract.priceVersions;
-  if(!Array.isArray(versions) || versions.length!==1 || versions[0]?.validFrom!==period.startDate ||
-     versions[0]?.validTo!==period.endDate || versions[0].confirmed!==true ||
-     !text(versions[0].referenceId) || !safe(versions[0].baseCentsPerPeriod) ||
-     !safe(versions[0].plannedWholeUnits) || !safe(versions[0].workPriceNumeratorCents) ||
-     !Number.isSafeInteger(versions[0].workPriceDenominatorUnits) ||
-     versions[0].workPriceDenominatorUnits<=0 || !text(versions[0].measurementUnit))
-    return fail('SUPPLY_FORECAST_UNCONFIRMED','contract.priceVersions',
-      'Bestätigten Preisstand über vollständige Periode mit eindeutiger Mengeneinheit angeben; Preisänderungen gesondert erfassen.');
+  let forecastParts;
+  try { forecastParts = priceHistory(contract.priceVersions, period); }
+  catch { forecastParts = null; }
+  if (!forecastParts) return fail('SUPPLY_FORECAST_UNCONFIRMED','contract.priceVersions',
+    'Lückenlose bestätigte Preisfassungen mit jeweiligem Grundpreis und geplanter Menge erfassen. Keine automatische Verbrauchs- oder Grundpreisaufteilung.');
   if(!Array.isArray(contract.expenseIds) || !contract.expenseIds.length || !costs.length ||
      new Set(contract.expenseIds).size!==contract.expenseIds.length ||
      costs.length!==contract.expenseIds.length ||
@@ -80,16 +106,13 @@ export function reviewSupplyAccount(project, periodId, contract) {
     for(const f of payments)if(f.accountingPeriodId!==period.id || !safe(f.amountCents) ||
       !['provider_payment','provider_refund'].includes(f.kind))
       return fail('SUPPLY_PAYMENT_UNRESOLVED',`cashflows:${f.id}`,'Versorgerzahlung unbestätigt oder periodenfremd.');
-    const v=versions[0];
-    const forecastWork=(BigInt(v.workPriceNumeratorCents)*BigInt(v.plannedWholeUnits)+
-      BigInt(v.workPriceDenominatorUnits)/2n)/BigInt(v.workPriceDenominatorUnits);
-    const forecastCents=signed(BigInt(v.baseCentsPerPeriod)+forecastWork);
+    const forecastCents=sum(forecastParts.map(p=>p.forecastCents));
     const actualCostsCents=sum(costs.map(e=>e.amountCents));
     const paid=signed(payments.reduce((a,f)=>a+BigInt(f.kind==='provider_payment'?f.amountCents:-f.amountCents),0n));
     const difference=signed(BigInt(paid)-BigInt(actualCostsCents));
     return {status:'reviewed',issues:[],report:{scope:'supply_review_only',
       periodId:period.id,propertyId:period.propertyId,providerAccountId:contract.providerAccountId,
-      contractHolder:'owner',service:contract.service,forecastCents,forecastIsEstimate:true,
+      contractHolder:'owner',service:contract.service,forecastCents,forecastParts,forecastIsEstimate:true,
       actualOwnerCostsCents:actualCostsCents,netProviderPaidCents:paid,
       providerDifferenceCents:difference,originalExpenseIds:costs.map(e=>e.id).sort(),
       originalPaymentIds:payments.map(f=>f.id).sort(),
