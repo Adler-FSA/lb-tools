@@ -4,6 +4,8 @@
  * Dates are ISO calendar days. A segment starts with a meter reading on its first day;
  * a previous segment ends at the next segment's start reading, without double-counting.
  */
+import { auditMeterEvidence } from './meter-quality.js';
+
 const DAY_MS = 86400000;
 const dayNumber = iso => Date.parse(`${iso}T00:00:00.000Z`) / DAY_MS;
 const nextDay = iso => new Date(Date.parse(`${iso}T00:00:00.000Z`) + DAY_MS).toISOString().slice(0, 10);
@@ -122,6 +124,9 @@ export function consumptionForSegments(project, units, period, rule, occupancy, 
         devices.push(meter);
       }
       if (devices.length !== chain.length) continue;
+      // Check all recorded readings of each device, including additional dates
+      // that would otherwise be ignored by the required boundary selection.
+      for (const meter of devices) auditMeterEvidence(project, meter, period, issues);
       const first = devices[0];
       const last = devices.at(-1);
       if ((first.installedAt && first.installedAt > period.startDate) ||
