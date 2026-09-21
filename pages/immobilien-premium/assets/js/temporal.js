@@ -65,64 +65,133 @@ function scaledReading(value) {
   return scaled <= BigInt(Number.MAX_SAFE_INTEGER) ? Number(scaled) : null;
 }
 
-/** Annual consumption and occupant-specific consumption from verified boundary readings. */
+/**
+ * Annual and occupant-specific consumption from fully documented meter chains.
+ * Legacy-free rule shapes:
+ *   meterIdsByUnit: { unitId: ['parallelMeter1', 'parallelMeter2'] } (one full-year chain each)
+ *   meterChainsByUnit: { unitId: [['old', 'new'], ['parallelMeter']] } (explicit consecutive meters)
+ * Only one mapping shape may be supplied; replacement chains require meterSwapConfirmed:true.
+ * Swap-day values belong to both meters as separate final and initial readings.
+ */
 export function consumptionForSegments(project, units, period, rule, occupancy, issues) {
-  const mapping = rule.meterIdsByUnit;
+  const hasChains = Object.hasOwn(rule, 'meterChainsByUnit');
+  const hasIds = Object.hasOwn(rule, 'meterIdsByUnit');
+  if (hasChains === hasIds) {
+    add(issues, 'METER_MAPPING_REQUIRED', `allocationRules:${rule.id}`,
+      'Genau eine Zählerzuordnung angeben: unabhängige Zähler oder ausdrücklich verkettete Zählerwechsel.');
+    return null;
+  }
+  const mapping = hasChains ? rule.meterChainsByUnit : rule.meterIdsByUnit;
   if (!mapping || typeof mapping !== 'object' || Array.isArray(mapping) ||
       Object.keys(mapping).sort().join('|') !== units.map(x => x.id).sort().join('|')) {
     add(issues, 'METER_MAPPING_REQUIRED', `allocationRules:${rule.id}`, 'Zähler sämtlicher Wohnungen eindeutig zuordnen.');
     return null;
   }
-  const used = new Set();
+  const globallyUsed = new Set();
   const annualWeights = [];
   const segmentWeights = new Map();
   for (const unit of units) {
-    const ids = mapping[unit.id];
-    if (!Array.isArray(ids) || !ids.length || new Set(ids).size !== ids.length) {
-      add(issues, 'METER_MAPPING_REQUIRED', `units:${unit.id}`, 'Mindestens einen eindeutigen Zähler je Wohnung angeben.');
+    const raw = mapping[unit.id];
+    const chains = hasChains ? raw : Array.isArray(raw) ? raw.map(id => [id]) : null;
+    if (!Array.isArray(chains) || !chains.length || chains.some(chain =>
+      !Array.isArray(chain) || !chain.length || chain.some(id => typeof id !== 'string' || !id))) {
+      add(issues, 'METER_MAPPING_REQUIRED', `units:${unit.id}`, 'Jeder Zählerkanal benötigt mindestens eine gültige Zähler-ID.');
       continue;
     }
     const segments = occupancy.get(unit.id) || [];
-    const starts = segments.map(segment => segment.startDate);
-    const boundaries = [...starts, period.endDate];
     const usageWeights = new Map(segments.map(segment => [segment.id, 0]));
-    for (const id of ids) {
-      if (used.has(id)) {
-        add(issues, 'METER_DUPLICATED', `meters:${id}`, 'Ein Zähler wurde mehrfach zugeordnet.');
+    const occupantBoundaries = segments.map(segment => segment.startDate);
+    for (const chain of chains) {
+      if (chain.length > 1 && (!hasChains || rule.meterSwapConfirmed !== true)) {
+        add(issues, 'METER_SWAP_UNCONFIRMED', `allocationRules:${rule.id}`,
+          'Zählerfolge und Zählerwechsel ausdrücklich bestätigen.');
         continue;
       }
-      used.add(id);
-      const meter = project.meters.find(x => x.id === id);
-      if (!meter || meter.unitId !== unit.id || meter.propertyId !== period.propertyId ||
-          (meter.installedAt && meter.installedAt > period.startDate) ||
-          (meter.removedAt && meter.removedAt < period.endDate)) {
-        add(issues, 'METER_CHANGE_UNSUPPORTED', `meters:${id}`, 'Zählerwechsel, Zeitraum oder Zuordnung müssen gesondert geprüft werden.');
-        continue;
-      }
-      const readings = [];
-      for (let j = 0; j < boundaries.length; j++) {
-        const date = boundaries[j];
-        const matches = project.readings.filter(x => x.meterId === id && x.date === date);
-        if (matches.length !== 1) {
-          add(issues, j > 0 && j < boundaries.length - 1 ? 'METER_INTERMEDIATE_READING_REQUIRED' : 'METER_READING_REQUIRED',
-            `meters:${id}`, `Eindeutige Ablesung am ${date} erforderlich.`);
-          readings.push(null);
-        } else {
-          const value = scaledReading(matches[0].value);
-          if (value === null) add(issues, 'METER_READING_INVALID', `meters:${id}`, 'Ablesung ist negativ, zu groß oder nicht mit drei Dezimalstellen darstellbar.');
-          readings.push(value);
-        }
-      }
-      for (let j = 0; j < segments.length; j++) {
-        if (readings[j] === null || readings[j + 1] === null) continue;
-        const difference = readings[j + 1] - readings[j];
-        if (difference < 0) {
-          add(issues, 'METER_READING_INVALID', `meters:${id}`, 'Rückläufiger Zählerstand wird nicht als Nullverbrauch gewertet.');
+      const devices = [];
+      for (const id of chain) {
+        if (globallyUsed.has(id)) {
+          add(issues, 'METER_DUPLICATED', `meters:${id}`, 'Zähler darf innerhalb einer Rechnung nur einmal zugeordnet sein.');
           continue;
         }
-        const next = usageWeights.get(segments[j].id) + difference;
-        if (!integer(next)) add(issues, 'NUMBER_OVERFLOW', `meters:${id}`, 'Verbrauch außerhalb des sicheren Zahlenbereichs.');
-        else usageWeights.set(segments[j].id, next);
+        globallyUsed.add(id);
+        const meter = project.meters.find(x => x.id === id);
+        if (!meter || meter.propertyId !== period.propertyId || meter.unitId !== unit.id) {
+          add(issues, 'METER_CHANGE_UNSUPPORTED', `meters:${id}`, 'Zähler ist nicht eindeutig dieser Wohnung zugeordnet.');
+          continue;
+        }
+        devices.push(meter);
+      }
+      if (devices.length !== chain.length) continue;
+      const first = devices[0];
+      const last = devices.at(-1);
+      if ((first.installedAt && first.installedAt > period.startDate) ||
+          (last.removedAt && last.removedAt < period.endDate) ||
+          devices.some(m => m.installedAt && m.removedAt && m.installedAt > m.removedAt)) {
+        add(issues, 'METER_CHANGE_UNSUPPORTED', `units:${unit.id}`, 'Die Zählerfolge deckt das Abrechnungsjahr nicht ab.');
+        continue;
+      }
+      let validChain = true;
+      const swaps = [];
+      for (let k = 1; k < devices.length; k++) {
+        const previous = devices[k - 1];
+        const current = devices[k];
+        const day = current.installedAt;
+        if (!day || !previous.removedAt || previous.removedAt !== day ||
+            day <= period.startDate || day >= period.endDate ||
+            (k > 1 && day <= swaps.at(-1))) {
+          add(issues, 'METER_CHAIN_GAP_OR_OVERLAP', `meters:${current.id}`,
+            'Ausbau des alten und Einbau des neuen Zählers müssen am selben dokumentierten Tag erfolgen, in korrekter Reihenfolge.');
+          validChain = false;
+        } else swaps.push(day);
+      }
+      if (!validChain) continue;
+      const boundaries = [...new Set([...occupantBoundaries, ...swaps, period.endDate])].sort();
+      // Each adjacent boundary pair represents one measured consumption interval.
+      // Precisely one meter must cover that interval; the swap date itself is a shared boundary.
+      for (let j = 0; j < boundaries.length - 1; j++) {
+        const from = boundaries[j];
+        const to = boundaries[j + 1];
+        const applicable = devices.filter(m =>
+          (!m.installedAt || m.installedAt <= from) && (!m.removedAt || m.removedAt >= to));
+        if (applicable.length !== 1) {
+          add(issues, 'METER_CHAIN_GAP_OR_OVERLAP', `units:${unit.id}`,
+            `Intervall ${from} bis ${to} ist nicht genau einem Zähler zugeordnet.`);
+          continue;
+        }
+        const meter = applicable[0];
+        const measurements = [];
+        for (const date of [from, to]) {
+          const matches = project.readings.filter(reading => reading.meterId === meter.id && reading.date === date);
+          if (matches.length !== 1) {
+            const code = swaps.includes(date) ? 'METER_SWAP_READING_REQUIRED'
+              : occupantBoundaries.slice(1).includes(date) ? 'METER_INTERMEDIATE_READING_REQUIRED'
+                : 'METER_READING_REQUIRED';
+            add(issues, code, `meters:${meter.id}`, `Genau eine Ablesung am ${date} erforderlich.`);
+            measurements.push(null);
+            continue;
+          }
+          const value = scaledReading(matches[0].value);
+          if (value === null) {
+            add(issues, 'METER_READING_INVALID', `meters:${meter.id}`, 'Ablesung ist negativ, zu groß oder zu ungenau.');
+          }
+          measurements.push(value);
+        }
+        if (measurements.some(v => v === null)) continue;
+        const difference = measurements[1] - measurements[0];
+        if (difference < 0) {
+          add(issues, 'METER_READING_INVALID', `meters:${meter.id}`,
+            'Rückläufiger Zählerstand wird weder verrechnet noch als Nullverbrauch gewertet.');
+          continue;
+        }
+        const segment = segments.find(s => s.startDate <= from && s.endDate >= from);
+        if (!segment) {
+          add(issues, 'USAGE_GAP', `units:${unit.id}`, `Verbrauchsintervall ab ${from} ist keinem Nutzer zugeordnet.`);
+          continue;
+        }
+        const next = BigInt(usageWeights.get(segment.id)) + BigInt(difference);
+        if (next > BigInt(Number.MAX_SAFE_INTEGER)) {
+          add(issues, 'NUMBER_OVERFLOW', `meters:${meter.id}`, 'Verbrauch außerhalb des sicheren Zahlenbereichs.');
+        } else usageWeights.set(segment.id, Number(next));
       }
     }
     segmentWeights.set(unit.id, usageWeights);
