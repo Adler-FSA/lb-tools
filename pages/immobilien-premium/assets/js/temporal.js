@@ -75,7 +75,7 @@ function scaledReading(value) {
  * Only one mapping shape may be supplied; replacement chains require meterSwapConfirmed:true.
  * Swap-day values belong to both meters as separate final and initial readings.
  */
-export function consumptionForSegments(project, units, period, rule, occupancy, issues) {
+export function consumptionForSegments(project, units, period, rule, occupancy, issues, normalization = null) {
   const hasChains = Object.hasOwn(rule, 'meterChainsByUnit');
   const hasIds = Object.hasOwn(rule, 'meterIdsByUnit');
   if (hasChains === hasIds) {
@@ -193,7 +193,24 @@ export function consumptionForSegments(project, units, period, rule, occupancy, 
           add(issues, 'USAGE_GAP', `units:${unit.id}`, `Verbrauchsintervall ab ${from} ist keinem Nutzer zugeordnet.`);
           continue;
         }
-        const next = BigInt(usageWeights.get(segment.id)) + BigInt(difference);
+        let measuredDifference = BigInt(difference);
+        if (normalization !== null) {
+          const factor = normalization.get(meter.id);
+          if (!factor || !integer(factor.numerator) || factor.numerator === 0 ||
+              !integer(factor.denominator) || factor.denominator === 0) {
+            add(issues, 'METER_NORMALIZATION_INVALID', `meters:${meter.id}`,
+              'Die geprüfte Umrechnung dieses Geräts fehlt oder ist ungültig.');
+            continue;
+          }
+          const exact = measuredDifference * BigInt(factor.numerator);
+          if (exact % BigInt(factor.denominator) !== 0n) {
+            add(issues, 'METER_NORMALIZATION_PRECISION', `meters:${meter.id}`,
+              'Umrechnung ist mit drei Dezimalstellen nicht verlustfrei darstellbar.');
+            continue;
+          }
+          measuredDifference = exact / BigInt(factor.denominator);
+        }
+        const next = BigInt(usageWeights.get(segment.id)) + measuredDifference;
         if (next > BigInt(Number.MAX_SAFE_INTEGER)) {
           add(issues, 'NUMBER_OVERFLOW', `meters:${meter.id}`, 'Verbrauch außerhalb des sicheren Zahlenbereichs.');
         } else usageWeights.set(segment.id, Number(next));
