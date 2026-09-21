@@ -1,10 +1,11 @@
 /**
- * Nebenkosten Premium — calculation kernel, first safe subset (2.3).
- * New code only. Pure function; no storage, PDF, migration or legal assessment.
- * Money is integer cents; allocations use BigInt and deterministic remainders.
- * An unsupported or ambiguous case blocks the whole result instead of guessing.
+ * Nebenkosten Premium — calculation kernel, supported confirmed subset (2.3).
+ * Independent new code. Pure function; no storage, PDF, migration or legal assessment.
+ * Money: integer cents; allocations: BigInt and deterministic remainders.
+ * Unconfirmed or unsupported cases block the entire result rather than guessing.
  */
 import { validateProject } from './model.js';
+import { occupancyForPeriod, consumptionForSegments, splitOccupancyShare } from './temporal.js';
 
 const SUPPORTED_TYPES = new Set([
   'property_tax', 'building_insurance', 'waste', 'common_electricity', 'cold_water'
@@ -44,15 +45,6 @@ export function distributeCents(amountCents, weights) {
 const blocked = issues => ({ status: 'blocked', calculationReady: false, issues, report: null });
 const issue = (issues, code, path, detail) => issues.push({ code, path, detail });
 
-function scaledReading(value) {
-  if (typeof value !== 'number' || !Number.isFinite(value)) return null;
-  const text = String(value);
-  if (!/^\d+(?:\.\d{1,3})?$/.test(text)) return null;
-  const [whole, fraction = ''] = text.split('.');
-  const result = BigInt(whole) * 1000n + BigInt(fraction.padEnd(3, '0') || '0');
-  return result <= BigInt(Number.MAX_SAFE_INTEGER) ? Number(result) : null;
-}
-
 /** Requires one uninterrupted area record for the entire period. */
 function areaBasis(unit, period, issues) {
   const relevant = unit.areaHistory.filter(a =>
@@ -65,58 +57,6 @@ function areaBasis(unit, period, issues) {
   return relevant[0].hundredthsM2;
 }
 
-/** Reading boundaries must be explicit; meter changes are not estimated. */
-function consumptionBasis(project, units, period, rule, issues) {
-  const byUnit = rule.meterIdsByUnit;
-  if (!byUnit || typeof byUnit !== 'object' || Array.isArray(byUnit) ||
-      Object.keys(byUnit).sort().join('|') !== units.map(x => x.id).sort().join('|')) {
-    issue(issues, 'METER_MAPPING_REQUIRED', `allocationRules:${rule.id}`, 'Zähler pro Wohneinheit vollständig zuordnen.');
-    return null;
-  }
-  const used = new Set();
-  const weights = [];
-  for (const unit of units) {
-    const ids = byUnit[unit.id];
-    if (!Array.isArray(ids) || !ids.length || new Set(ids).size !== ids.length) {
-      issue(issues, 'METER_MAPPING_REQUIRED', `units:${unit.id}`, 'Mindestens einen eindeutigen Zähler zuordnen.');
-      continue;
-    }
-    let value = 0;
-    for (const id of ids) {
-      if (used.has(id)) { issue(issues, 'METER_DUPLICATED', `meters:${id}`, 'Zähler darf nicht doppelt verteilt werden.'); continue; }
-      used.add(id);
-      const meter = project.meters.find(x => x.id === id);
-      if (!meter || meter.unitId !== unit.id || meter.propertyId !== period.propertyId ||
-          (meter.installedAt && meter.installedAt > period.startDate) ||
-          (meter.removedAt && meter.removedAt < period.endDate)) {
-        issue(issues, 'METER_CHANGE_UNSUPPORTED', `meters:${id}`, 'Zähler fehlt, gehört zu anderer Einheit oder wurde im Jahr gewechselt.');
-        continue;
-      }
-      const start = project.readings.filter(x => x.meterId === id && x.date === period.startDate);
-      const end = project.readings.filter(x => x.meterId === id && x.date === period.endDate);
-      if (start.length !== 1 || end.length !== 1) {
-        issue(issues, 'METER_READING_REQUIRED', `meters:${id}`, 'Eindeutige Anfangs- und Endablesung erforderlich.');
-        continue;
-      }
-      const first = scaledReading(start[0].value);
-      const last = scaledReading(end[0].value);
-      if (first === null || last === null || last < first) {
-        issue(issues, 'METER_READING_INVALID', `meters:${id}`, 'Nicht unterstützte Genauigkeit oder negativer Verbrauch.');
-        continue;
-      }
-      value += last - first;
-      if (!Number.isSafeInteger(value)) issue(issues, 'NUMBER_OVERFLOW', `meters:${id}`, 'Verbrauch überschreitet den sicheren Bereich.');
-    }
-    weights.push({ id: unit.id, weight: value });
-  }
-  if (issues.length) return null;
-  if (weights.every(x => x.weight === 0)) {
-    issue(issues, 'ZERO_CONSUMPTION', `allocationRules:${rule.id}`, 'Gesamtverbrauch null: Kostenverteilung nicht automatisch bestimmen.');
-    return null;
-  }
-  return weights;
-}
-
 /** Returns a report only when the entire selected period is in the supported, confirmed subset. */
 export function calculatePeriod(project, accountingPeriodId) {
   const issues = validateProject(project).map(e => ({ code: e.code, path: e.path, detail: e.message }));
@@ -127,40 +67,28 @@ export function calculatePeriod(project, accountingPeriodId) {
     return blocked(issues);
   }
   const units = project.units.filter(x => x.propertyId === period.propertyId).sort(idSort);
-  if (!units.length) { issue(issues, 'UNITS_REQUIRED', `accountingPeriods:${period.id}`, 'Keine Wohnungen angelegt.'); return blocked(issues); }
-  const occupancy = new Map();
-  const tenancyIds = [];
-  for (const unit of units) {
-    const relevant = project.usagePeriods.filter(x => x.unitId === unit.id && overlaps(x, period));
-    if (relevant.length !== 1 || !covers(relevant[0], period)) {
-      issue(issues, 'PARTIAL_USAGE_UNSUPPORTED', `units:${unit.id}`, 'Mieterwechsel, Leerstandwechsel oder Lücke: zeitabhängige Verteilung noch nicht freigegeben.');
-      continue;
-    }
-    const usage = relevant[0];
-    if (usage.kind === 'tenant') {
-      const tenancy = project.tenancies.find(x => x.id === usage.tenancyId);
-      if (!tenancy || !covers(tenancy, period)) {
-        issue(issues, 'TENANCY_PERIOD_INVALID', `units:${unit.id}`, 'Mietverhältnis deckt die Periode nicht vollständig ab.');
-        continue;
-      }
-      tenancyIds.push(usage.tenancyId);
-    }
-    occupancy.set(unit.id, usage);
+  if (!units.length) {
+    issue(issues, 'UNITS_REQUIRED', `accountingPeriods:${period.id}`, 'Keine Wohnungen angelegt.');
+    return blocked(issues);
   }
+  const { occupancy, tenancySegments } = occupancyForPeriod(project, units, period, issues);
+  const tenancyIds = [...tenancySegments.keys()].sort();
   const terms = new Map();
   for (const tenancyId of tenancyIds) {
-    const versions = project.contractTerms.filter(x => x.tenancyId === tenancyId &&
-      overlaps(x, period));
-    if (versions.length !== 1 || !covers(versions[0], period) || versions[0].operatingCostsModel !== 'advance') {
-      issue(issues, 'CONTRACT_MODEL_UNSUPPORTED', `tenancies:${tenancyId}`, 'Durchgehend bestätigtes Vorauszahlungsmodell nötig; Pauschale oder Vertragswechsel gesondert prüfen.');
+    const segments = tenancySegments.get(tenancyId);
+    const tenancyScope = { startDate: segments[0].startDate, endDate: segments.at(-1).endDate };
+    const versions = project.contractTerms.filter(x => x.tenancyId === tenancyId && overlaps(x, tenancyScope));
+    if (versions.length !== 1 || !covers(versions[0], tenancyScope) || versions[0].operatingCostsModel !== 'advance') {
+      issue(issues, 'CONTRACT_MODEL_UNSUPPORTED', `tenancies:${tenancyId}`,
+        'Durchgehend bestätigtes Vorauszahlungsmodell für die tatsächliche Mietdauer erforderlich.');
     } else terms.set(tenancyId, versions[0]);
     if (!Array.isArray(period.confirmedTenancyIds) || !period.confirmedTenancyIds.includes(tenancyId)) {
-      issue(issues, 'PAYMENT_LEDGER_UNCONFIRMED', `tenancies:${tenancyId}`, 'Zuordnung der Vorauszahlungen zum Abrechnungsjahr bestätigen.');
+      issue(issues, 'PAYMENT_LEDGER_UNCONFIRMED', `tenancies:${tenancyId}`,
+        'Zuordnung der Vorauszahlungen zum Abrechnungsjahr bestätigen.');
     }
   }
   const expenses = project.expenses.filter(x => x.propertyId === period.propertyId && overlaps(x, period));
   if (!expenses.length) issue(issues, 'EXPENSES_REQUIRED', `accountingPeriods:${period.id}`, 'Keine Kosten für dieses Jahr erfasst.');
-  const expenseIds = new Set(expenses.map(x => x.id));
   for (const expense of expenses) {
     if (!covers(period, expense)) issue(issues, 'EXPENSE_CROSSES_PERIOD', `expenses:${expense.id}`, 'Leistungszeitraum reicht über das Abrechnungsjahr hinaus.');
     if (expense.classification === 'unresolved') issue(issues, 'COST_UNRESOLVED', `expenses:${expense.id}`, 'Kostenart und Zuordnung klären.');
@@ -185,27 +113,40 @@ export function calculatePeriod(project, accountingPeriodId) {
     }
     const rule = rules[0];
     let weights;
+    let segmentWeights = null;
     if (rule.method === 'area') weights = units.map(unit => ({ id: unit.id, weight: areaBasis(unit, period, issues) }));
-    else if (rule.method === 'consumption') weights = consumptionBasis(project, units, period, rule, issues);
-    else if (rule.method === 'direct' && expense.unitId && units.some(x => x.id === expense.unitId)) {
+    else if (rule.method === 'consumption') {
+      const measured = consumptionForSegments(project, units, period, rule, occupancy, issues);
+      if (measured) { weights = measured.weights; segmentWeights = measured.segmentWeights; }
+    } else if (rule.method === 'direct' && expense.unitId && units.some(x => x.id === expense.unitId)) {
       weights = units.map(x => ({ id: x.id, weight: Number(x.id === expense.unitId) }));
-    } else issue(issues, 'METHOD_UNSUPPORTED', `allocationRules:${rule.id}`, 'Umlageschlüssel für diese Position noch nicht unterstützt.');
+    } else issue(issues, 'METHOD_UNSUPPORTED', `allocationRules:${rule.id}`, 'Schlüssel noch nicht unterstützt.');
     if (!weights || issues.length) continue;
+    const splitUnits = units.filter(unit => occupancy.get(unit.id)?.length > 1);
+    if (splitUnits.length && (expense.startDate !== period.startDate || expense.endDate !== period.endDate) &&
+        rule.temporalExpenseConfirmed !== true) {
+      issue(issues, 'TEMPORAL_EXPENSE_REVIEW', `expenses:${expense.id}`,
+        'Unterjährige Leistung/Rechnung: zeitlichen Bezug vor Aufteilung bestätigen.');
+    }
     for (const unit of units) {
-      const usage = occupancy.get(unit.id);
-      if (usage?.kind !== 'tenant') continue;
-      const term = terms.get(usage.tenancyId);
-      if (!Array.isArray(term?.allowedCostTypes) || !term.allowedCostTypes.includes(expense.category)) {
-        issue(issues, 'CONTRACT_COST_NOT_CONFIRMED', `tenancies:${usage.tenancyId}`, `Kostenart ${expense.category} vertraglich nicht bestätigt.`);
+      for (const segment of occupancy.get(unit.id) || []) {
+        if (segment.kind !== 'tenant') continue;
+        const term = terms.get(segment.tenancyId);
+        if (!Array.isArray(term?.allowedCostTypes) || !term.allowedCostTypes.includes(expense.category)) {
+          issue(issues, 'CONTRACT_COST_NOT_CONFIRMED', `tenancies:${segment.tenancyId}`,
+            `Kostenart ${expense.category} ist im Vertrag nicht bestätigt.`);
+        }
       }
     }
     if (issues.length) continue;
     try {
       const portions = distributeCents(expense.amountCents, weights);
+      const unitShares = portions.flatMap(portion => splitOccupancyShare(portion.id, portion.cents,
+        occupancy.get(portion.id), rule, segmentWeights?.get(portion.id), distributeCents, issues));
+      if (issues.length) continue;
       expenseLines.push({ expenseId: expense.id, category: expense.category, amountCents: expense.amountCents,
-        method: rule.method, ruleId: rule.id, weights: weights.map(x => ({ ...x })),
-        unitShares: portions.map(x => ({ unitId: x.id, cents: x.cents, kind: occupancy.get(x.id).kind,
-          tenancyId: occupancy.get(x.id).kind === 'tenant' ? occupancy.get(x.id).tenancyId : null })), ownerDirectCents: 0 });
+        method: rule.method, ruleId: rule.id, weights: weights.map(x => ({ ...x })), unitShares,
+        ownerDirectCents: 0 });
     } catch {
       issue(issues, 'ALLOCATION_INVALID', `expenses:${expense.id}`, 'Gewichte oder Beträge lassen sich nicht sicher verteilen.');
     }
