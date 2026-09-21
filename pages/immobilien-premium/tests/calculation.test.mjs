@@ -90,18 +90,18 @@ test('Cent-Rundung: jeder Cent wird verteilt, Gleichstand stabil nach ID', () =>
     .reduce((a, b) => a + b.cents, 0), 370000);
 });
 
-test('MH-02: unterjähriger Mieterwechsel wird nicht fälschlich als ganzjährig abgerechnet', () => {
+test('MH-02: fehlende Vertrags- und Zahlungsbestätigungen beim Nachmieter sperren', () => {
   const p = fixture(); p.usagePeriods[1].endDate = '2026-06-30';
   p.usagePeriods.push({ id: 'tenantB2', unitId: 'unitB', kind: 'tenant', tenancyId: 'leaseB2',
     startDate: '2026-07-01', endDate: null });
   p.tenancies.push({ id: 'leaseB2', unitId: 'unitB', startDate: '2026-07-01', endDate: null });
-  blockedWith(p, 'PARTIAL_USAGE_UNSUPPORTED');
+  blockedWith(p, 'CONTRACT_MODEL_UNSUPPORTED');
 });
 
-test('MH-03: Leerstand im Jahresverlauf sperrt pauschale Umverteilung', () => {
+test('MH-03: ohne bestätigte Zeitregel und Zwischenablesung sperrt der Leerstand', () => {
   const p = fixture(); p.usagePeriods[1].startDate = '2026-07-01';
   p.usagePeriods.push({ id: 'vacancyB', unitId: 'unitB', kind: 'vacant', startDate: '2026-01-01', endDate: '2026-06-30' });
-  blockedWith(p, 'PARTIAL_USAGE_UNSUPPORTED');
+  blockedWith(p, 'TEMPORAL_RULE_REQUIRED');
 });
 
 test('Ganzjähriger Leerstand trägt seinen Anteil beim Eigentümer', () => {
