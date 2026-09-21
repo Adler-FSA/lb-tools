@@ -65,3 +65,52 @@ test('direct tenant bill recorded as owner expense or payment blocks',()=>{
   blocked((p,s)=>{s.contractHolder='tenant_direct';s.unitId='B';s.directSupplyConfirmed=true;},
     'SUPPLY_DIRECT_CONTRACT_MIXED');
 });
+
+test('confirmed midyear tariff change: exact per-version estimates, invoice and paid ledger unchanged',()=>{
+  const {p,plan}=sample();
+  plan.priceVersions=[
+    {validFrom:'2026-01-01',validTo:'2026-06-30',confirmed:true,referenceId:'tariff_old',
+      baseCentsPerPeriod:9000,workPriceNumeratorCents:21,workPriceDenominatorUnits:2,
+      plannedWholeUnits:10000,measurementUnit:'kWh'},
+    {validFrom:'2026-07-01',validTo:'2026-12-31',confirmed:true,referenceId:'tariff_new',
+      baseCentsPerPeriod:9000,workPriceNumeratorCents:12,workPriceDenominatorUnits:1,
+      plannedWholeUnits:10000,measurementUnit:'kWh'}
+  ];
+  const before=JSON.stringify({p,plan});
+  const r=reviewSupplyAccount(p,'year',plan);
+  assert.equal(r.status,'reviewed',JSON.stringify(r.issues));
+  assert.deepEqual(r.report.forecastParts.map(x=>x.forecastCents),[114000,129000]);
+  assert.equal(r.report.forecastCents,243000);
+  assert.equal(r.report.actualOwnerCostsCents,218000);
+  assert.equal(r.report.netProviderPaidCents,240000);
+  assert.equal(r.report.providerDifferenceCents,22000);
+  assert.equal(JSON.stringify({p,plan}),before);
+});
+test('tariff changes without contiguous dates, confirmed prices and consistent units block',()=>{
+  const make=(change)=>blocked((p,plan)=>{
+    const v=plan.priceVersions[0];
+    v.validTo='2026-06-30';
+    plan.priceVersions.push({...v,validFrom:'2026-07-01',validTo:'2026-12-31',referenceId:'tariff2'});
+    change(plan.priceVersions);
+  },'SUPPLY_FORECAST_UNCONFIRMED');
+  make(v=>v[1].validFrom='2026-07-02');
+  make(v=>v[1].validFrom='2026-06-30');
+  make(v=>v[1].confirmed=false);
+  make(v=>v[1].measurementUnit='m3');
+  make(v=>v[1].baseCentsPerPeriod=-1);
+  make(v=>v[1].plannedWholeUnits=NaN);
+  make(v=>v[1].validTo='2026-12-32');
+  make(v=>v.reverse());
+});
+test('zero forecast quantity is legitimate but no incomplete month base charge is guessed',()=>{
+  const {p,plan}=sample();
+  plan.priceVersions[0].plannedWholeUnits=0;
+  assert.equal(reviewSupplyAccount(p,'year',plan).report.forecastCents,18000);
+  blocked((p,s)=>{s.priceVersions[0].validTo='2026-06-30';},'SUPPLY_FORECAST_UNCONFIRMED');
+});
+
+test('next-year draft cannot inherit an old supply forecast or invoice',()=>{
+  blocked((p)=>{p.accountingPeriods[0].reviewRequired=true;},'SUPPLY_YEAR_REVIEW_REQUIRED');
+  blocked((p)=>{p.accountingPeriods[0].rolloverStatus='review_required';},'SUPPLY_YEAR_REVIEW_REQUIRED');
+  blocked((p)=>{p.accountingPeriods[0].endDate='2026-02-31';},'SUPPLY_PERIOD_INVALID');
+});
