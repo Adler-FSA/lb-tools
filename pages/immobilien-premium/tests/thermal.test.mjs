@@ -23,7 +23,9 @@ function fixture() {
     ['heatA', 'A', 'heating', 100, 400], ['heatB', 'B', 'heating', 20, 120],
     ['hotA', 'A', 'hot_water', 1, 11], ['hotB', 'B', 'hot_water', 4, 34]
   ]) {
-    p.meters.push({ id, unitId, propertyId: 'house', service, installedAt: '2025-01-01' });
+    p.meters.push({ id, unitId, propertyId: 'house', service, installedAt: '2025-01-01',
+      measurementKind: service === 'heating' ? 'heat_energy' : 'hot_water_volume',
+      measurementUnit: service === 'heating' ? 'kWh' : 'm3' });
     p.readings.push({ id: `${id}_start`, meterId: id, date: '2026-01-01', value: start, readingType: 'measured' },
       { id: `${id}_end`, meterId: id, date: '2026-12-31', value: end, readingType: 'measured' });
   }
@@ -31,9 +33,11 @@ function fixture() {
     co2CostsSeparateConfirmed: true, exceptionStatus: 'reviewed_standard', groupPreallocationRequired: false,
     streams: [
       { kind: 'heating', expenseIds: ['expense_heating'], consumptionPercent: 70, mandatory70Applies: true,
-        rateConfirmed: true, readingsConfirmed: true, meterIdsByUnit: { A: ['heatA'], B: ['heatB'] } },
+        rateConfirmed: true, readingsConfirmed: true, measurementBasisConfirmed: true,
+        measurementKind: 'heat_energy', canonicalUnit: 'kWh', meterIdsByUnit: { A: ['heatA'], B: ['heatB'] } },
       { kind: 'hot_water', expenseIds: ['expense_hot_water'], consumptionPercent: 60, mandatory70Applies: false,
-        rateConfirmed: true, readingsConfirmed: true, meterIdsByUnit: { A: ['hotA'], B: ['hotB'] } }
+        rateConfirmed: true, readingsConfirmed: true, measurementBasisConfirmed: true,
+        measurementKind: 'hot_water_volume', canonicalUnit: 'm3', meterIdsByUnit: { A: ['hotA'], B: ['hotB'] } }
     ] };
   return { p, plan };
 }
@@ -179,4 +183,135 @@ test('Fehlende Periode und defektes Projekt produzieren keinen Teilbericht', () 
   const malformed = calculateThermalPeriod(p, 'year2026', plan);
   assert.equal(malformed.status, 'blocked');
   assert.equal(malformed.report, null);
+});
+
+test('MH-07 Messbasis: fehlende Geräte-Metadaten und fehlende Bestätigung blockieren', () => {
+  const { p, plan } = fixture();
+  delete p.meters[0].measurementUnit;
+  expectsBlock(p, plan, 'THERMAL_UNIT_UNKNOWN');
+  p.meters[0].measurementUnit = 'kWh';
+  plan.streams[0].measurementBasisConfirmed = false;
+  expectsBlock(p, plan, 'THERMAL_BASIS_UNCONFIRMED');
+});
+
+test('MH-07 Messbasis: inkorrekte Zieleinheit und falsche Maßeinheit blockieren', () => {
+  const { p, plan } = fixture();
+  plan.streams[0].canonicalUnit = 'm3';
+  expectsBlock(p, plan, 'THERMAL_BASIS_UNCONFIRMED');
+  plan.streams[0].canonicalUnit = 'kWh';
+  p.meters[0].measurementUnit = 'm3';
+  expectsBlock(p, plan, 'THERMAL_UNIT_UNKNOWN');
+});
+
+test('Energieverbrauch kWh und MWh werden exakt in gemeinsame kWh umgerechnet', () => {
+  const { p, plan } = fixture();
+  p.meters.find(m => m.id === 'heatB').measurementUnit = 'MWh';
+  p.readings.find(r => r.id === 'heatB_start').value = 0.02;
+  p.readings.find(r => r.id === 'heatB_end').value = 0.12;
+  const before = JSON.stringify({ p, plan });
+  const result = calculateThermalPeriod(p, 'year2026', plan);
+  assert.equal(result.status, 'calculated', JSON.stringify(result.issues));
+  assert.equal(result.report.ownerCostsCents, 108000);
+  assert.equal(result.report.streams[0].meterWeights.find(w => w.id === 'B').weight, 100000);
+  assert.deepEqual(result.report.streams[0].measurementBasis.devices.find(d => d.meterId === 'heatB'),
+    { meterId: 'heatB', inputUnit: 'MWh', numerator: 1000, denominator: 1,
+      evidence: 'physical_unit_conversion' });
+  assert.equal(JSON.stringify({ p, plan }), before);
+});
+
+test('Warmwasservolumen Liter und Kubikmeter werden exakt in m³ verglichen', () => {
+  const { p, plan } = fixture();
+  p.meters.find(m => m.id === 'hotB').measurementUnit = 'litre';
+  p.readings.find(r => r.id === 'hotB_start').value = 4000;
+  p.readings.find(r => r.id === 'hotB_end').value = 34000;
+  const result = calculateThermalPeriod(p, 'year2026', plan);
+  assert.equal(result.status, 'calculated', JSON.stringify(result.issues));
+  assert.equal(result.report.tenants[0].costsCents, 72000);
+  assert.equal(result.report.streams[1].meterWeights.find(w => w.id === 'B').weight, 30000);
+});
+
+test('Heizkostenverteiler erfordern vergleichbare Geräteart und individuelle dokumentierte Faktoren', () => {
+  const { p, plan } = fixture();
+  plan.streams[0].measurementKind = 'heat_allocator';
+  plan.streams[0].canonicalUnit = 'rated_allocator_unit';
+  p.meters.filter(m => m.service === 'heating').forEach(m => {
+    m.measurementKind = 'heat_allocator'; m.measurementUnit = 'allocator_unit';
+  });
+  expectsBlock(p, plan, 'THERMAL_DEVICE_FACTOR_REQUIRED');
+  p.meters.find(m => m.id === 'heatA').deviceFactor = {
+    numerator: 2, denominator: 1, confirmed: true, referenceId: 'beleg_faktor_A'
+  };
+  p.meters.find(m => m.id === 'heatB').deviceFactor = {
+    numerator: 1, denominator: 1, confirmed: true, referenceId: 'beleg_faktor_B'
+  };
+  const r = calculateThermalPeriod(p, 'year2026', plan);
+  assert.equal(r.status, 'calculated', JSON.stringify(r.issues));
+  assert.deepEqual(r.report.streams[0].meterWeights, [
+    { id: 'A', weight: 600000 }, { id: 'B', weight: 100000 }
+  ]);
+  assert.equal(r.report.ownerCostsCents, 117000);
+  assert.equal(r.report.tenants[0].costsCents, 63000);
+});
+
+test('Heizenergie und Heizkostenverteiler-Einheiten werden niemals addiert', () => {
+  const { p, plan } = fixture();
+  p.meters.find(m => m.id === 'heatA').measurementKind = 'heat_allocator';
+  p.meters.find(m => m.id === 'heatA').measurementUnit = 'allocator_unit';
+  expectsBlock(p, plan, 'THERMAL_BASIS_MIXED');
+});
+
+test('Heizkostenverteiler ohne bestätigte Quelle oder mit nichtpositivem Faktor sperren', () => {
+  const { p, plan } = fixture();
+  plan.streams[0].measurementKind = 'heat_allocator';
+  plan.streams[0].canonicalUnit = 'rated_allocator_unit';
+  p.meters.filter(m => m.service === 'heating').forEach(m => {
+    m.measurementKind = 'heat_allocator'; m.measurementUnit = 'allocator_unit';
+    m.deviceFactor = { numerator: 1, denominator: 1, confirmed: true, referenceId: 'nachweis' };
+  });
+  const factor = p.meters[0].deviceFactor;
+  factor.referenceId = ''; expectsBlock(p, plan, 'THERMAL_DEVICE_FACTOR_REQUIRED');
+  factor.referenceId = 'nachweis'; factor.confirmed = false;
+  expectsBlock(p, plan, 'THERMAL_DEVICE_FACTOR_REQUIRED');
+  factor.confirmed = true; factor.numerator = 0;
+  expectsBlock(p, plan, 'THERMAL_DEVICE_FACTOR_REQUIRED');
+  factor.numerator = 1; factor.denominator = 0;
+  expectsBlock(p, plan, 'THERMAL_DEVICE_FACTOR_REQUIRED');
+});
+
+test('Manueller Umrechnungsfaktor an einem kWh-Zähler sperrt', () => {
+  const { p, plan } = fixture();
+  p.meters[0].deviceFactor = { numerator: 2, denominator: 1, confirmed: true, referenceId: 'guess' };
+  expectsBlock(p, plan, 'THERMAL_DEVICE_FACTOR_UNSUPPORTED');
+});
+
+test('Nicht exakt in Tausendsteln darstellbare Bewertung sperrt ohne Rundung', () => {
+  const { p, plan } = fixture();
+  plan.streams[0].measurementKind = 'heat_allocator';
+  plan.streams[0].canonicalUnit = 'rated_allocator_unit';
+  p.meters.filter(m => m.service === 'heating').forEach(m => {
+    m.measurementKind = 'heat_allocator'; m.measurementUnit = 'allocator_unit';
+    m.deviceFactor = { numerator: 1, denominator: 1, confirmed: true, referenceId: 'beleg' };
+  });
+  p.meters[0].deviceFactor.denominator = 2;
+  p.readings.find(r => r.id === 'heatA_end').value = 100.001;
+  expectsBlock(p, plan, 'METER_NORMALIZATION_PRECISION');
+});
+
+test('Überlauf der normalisierten Verbrauchseinheit sperrt statt Genauigkeitsverlust', () => {
+  const { p, plan } = fixture();
+  plan.streams[0].measurementKind = 'heat_allocator';
+  plan.streams[0].canonicalUnit = 'rated_allocator_unit';
+  p.meters.filter(m => m.service === 'heating').forEach(m => {
+    m.measurementKind = 'heat_allocator'; m.measurementUnit = 'allocator_unit';
+    m.deviceFactor = { numerator: 1, denominator: 1, confirmed: true, referenceId: 'beleg' };
+  });
+  p.meters[0].deviceFactor.numerator = Number.MAX_SAFE_INTEGER;
+  expectsBlock(p, plan, 'NUMBER_OVERFLOW');
+});
+
+test('Heizung und Warmwasser dürfen selbst bei gleicher Text-Einheit keine Messgröße teilen', () => {
+  const { p, plan } = fixture();
+  p.meters.find(m => m.id === 'hotB').measurementKind = 'heat_energy';
+  p.meters.find(m => m.id === 'hotB').measurementUnit = 'kWh';
+  expectsBlock(p, plan, 'THERMAL_BASIS_MIXED');
 });
