@@ -40,6 +40,6 @@ Hauskosten 3.700,00 EUR = Eigentümeranteil 2.595,00 EUR + Mieteranteil 1.105,00
 
 ## Test und Qualität
 
-Aus `pages/immobilien-premium/` mit Node.js: `npm test`. Die zwei neuen Dateien wurden lokal zusammen mit den vorhandenen Modelltests ausgeführt: 29 Tests bestanden, 0 fehlgeschlagen. Die zuvor in GitHub gespeicherten Speicher-Tests waren in der lokalen Testkopie nicht enthalten und sind bei einer vollständigen Repository-/CI-Abnahme erneut auszuführen. Kein Browser- oder PDF-End-to-End-Test erfolgt.
+Aus `pages/immobilien-premium/` mit Node.js: `npm test`. **Modell-, Speicher- und Berechnungstests gemeinsam lokal ausgeführt: 43 bestanden, 0 fehlgeschlagen.** Die geprüften neuen Berechnungs- und Testdateien stimmen per Git-Blob-SHA mit den auf GitHub angelegten Dateien überein. Ein eigenständiger Testlauf auf einem GitHub-CI-System sowie Browser- und PDF-End-to-End-Tests stehen noch aus.
 
 **Baustein 2 ist nicht abgeschlossen.** Nach dieser ersten Implementierung folgen gezielt die fehlenden Rechenfälle, damit MH-02 bis MH-08 später auch korrekt berechnet und nicht nur zuverlässig gesperrt werden. Erst dann steht der Rechenkern für die gesamte geplante Premium-Anwendung bereit.
