@@ -7,6 +7,7 @@
 import { validateProject } from './model.js';
 import { distributeCents } from './calculation.js';
 import { occupancyForPeriod, consumptionForSegments } from './temporal.js';
+import { verifyThermalBasis } from './thermal-basis.js';
 
 const kinds = ['heating', 'hot_water'];
 const safe = n => Number.isSafeInteger(n) && n >= 0;
@@ -120,8 +121,10 @@ export function calculateThermalPeriod(project, accountingPeriodId, plan) {
       }
     }
     if (issues.length) continue;
+    const verifiedBasis = verifyThermalBasis(project, units, stream, issues);
+    if (!verifiedBasis || issues.length) continue;
     const rule = { id: `thermal_${stream.kind}`, meterIdsByUnit: mapping };
-    const measured = consumptionForSegments(project, units, period, rule, occupancy, issues);
+    const measured = consumptionForSegments(project, units, period, rule, occupancy, issues, verifiedBasis.factors);
     if (!measured || issues.length) continue;
     for (const unit of units) {
       const occupant = occupancy.get(unit.id)[0];
@@ -162,7 +165,7 @@ export function calculateThermalPeriod(project, accountingPeriodId, plan) {
       });
       streamReports.push({ kind: stream.kind, consumptionPercent: stream.consumptionPercent,
         totalCents: sum(lines.map(l => l.amountCents)), lines,
-        meterWeights: measured.weights, areaWeights });
+        meterWeights: measured.weights, areaWeights, measurementBasis: verifiedBasis.basis });
     } catch {
       add(issues, 'THERMAL_RECONCILIATION_FAILED', path, 'Sichere Aufteilung oder Cent-Summenprüfung fehlgeschlagen.');
     }
