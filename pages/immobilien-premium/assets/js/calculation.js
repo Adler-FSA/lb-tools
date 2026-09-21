@@ -6,6 +6,7 @@
  */
 import { validateProject } from './model.js';
 import { occupancyForPeriod, consumptionForSegments, splitOccupancyShare } from './temporal.js';
+import { resolveAdvanceSchedules } from './contract-history.js';
 
 const SUPPORTED_TYPES = new Set([
   'property_tax', 'building_insurance', 'waste', 'common_electricity', 'cold_water'
@@ -73,15 +74,8 @@ export function calculatePeriod(project, accountingPeriodId) {
   }
   const { occupancy, tenancySegments } = occupancyForPeriod(project, units, period, issues);
   const tenancyIds = [...tenancySegments.keys()].sort();
-  const terms = new Map();
+  const { terms, schedules } = resolveAdvanceSchedules(project, period, tenancySegments, issues);
   for (const tenancyId of tenancyIds) {
-    const segments = tenancySegments.get(tenancyId);
-    const tenancyScope = { startDate: segments[0].startDate, endDate: segments.at(-1).endDate };
-    const versions = project.contractTerms.filter(x => x.tenancyId === tenancyId && overlaps(x, tenancyScope));
-    if (versions.length !== 1 || !covers(versions[0], tenancyScope) || versions[0].operatingCostsModel !== 'advance') {
-      issue(issues, 'CONTRACT_MODEL_UNSUPPORTED', `tenancies:${tenancyId}`,
-        'Durchgehend bestätigtes Vorauszahlungsmodell für die tatsächliche Mietdauer erforderlich.');
-    } else terms.set(tenancyId, versions[0]);
     if (!Array.isArray(period.confirmedTenancyIds) || !period.confirmedTenancyIds.includes(tenancyId)) {
       issue(issues, 'PAYMENT_LEDGER_UNCONFIRMED', `tenancies:${tenancyId}`,
         'Zuordnung der Vorauszahlungen zum Abrechnungsjahr bestätigen.');
@@ -148,7 +142,7 @@ export function calculatePeriod(project, accountingPeriodId) {
         method: rule.method, ruleId: rule.id, weights: weights.map(x => ({ ...x })), unitShares,
         ownerDirectCents: 0 });
     } catch {
-      issue(issues, 'ALLOCATION_INVALID', `expenses:${expense.id}`, 'Gewichte oder Beträge lassen sich nicht sicher verteilen.');
+      issue(issues, 'ALLOCATION_INVALID', `expenses:${expense.id}`, 'Gewichte oder Beträge lassen sich nicht centgenau aufteilen.');
     }
   }
   // A payment without a period cannot silently disappear from the current tenant/provider ledger.
@@ -218,7 +212,14 @@ export function calculatePeriod(project, accountingPeriodId) {
     return { status: 'calculated', calculationReady: true, issues: [], report: {
       periodId: period.id, propertyId: period.propertyId, totalCostsCents, ownerCostsCents,
       ownerDirectCents, ownerAllocatedCents, tenantCostsCents, expenseLines, tenants,
-      providerBalances, legalRelease: false, pdfGenerated: false
+      providerBalances,
+      advanceSchedules: tenants.map(tenant => {
+        const schedule = schedules.get(tenant.tenancyId);
+        return { ...schedule, paidCents: tenant.advancesCents,
+          recordedDifferenceCents: schedule.scheduledCents - tenant.advancesCents,
+          differenceScope: 'scheduled_vs_recorded_only_not_an_arrears_determination' };
+      }),
+      legalRelease: false, pdfGenerated: false
     } };
   } catch {
     issue(issues, 'NUMBER_OVERFLOW', 'totals', 'Gesamtsumme überschreitet den sicheren Zahlenbereich.');
