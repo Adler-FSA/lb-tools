@@ -145,7 +145,7 @@ test('Nicht erfasste Kosten, Heizöl und CO₂ blockieren statt still zu verschw
 test('Nutzerwechsel darf nicht über Kaltwasser-Tagesverteilung abgerechnet werden', () => {
   const { p, plan } = fixture(); p.usagePeriods[1].endDate = '2026-06-30';
   p.usagePeriods.push({ id: 'vacancy', unitId: 'B', kind: 'vacant', startDate: '2026-07-01', endDate: null });
-  expectsBlock(p, plan, 'THERMAL_USER_CHANGE_UNSUPPORTED');
+  expectsBlock(p, plan, 'THERMAL_USER_CHANGE_UNCONFIRMED');
 });
 
 test('Änderung und Lücke in Flächen-/Vertragslaufzeit sperren', () => {
