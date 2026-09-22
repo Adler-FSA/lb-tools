@@ -97,6 +97,15 @@ function assertNoInlineBinary(project) {
       }
     }
   }
+  // Contract and price-version records carry only references to original evidence.
+  for (const record of project.supplyRegistry ?? []) {
+    for (const item of [record, record.contract, ...(record.contract?.priceVersions ?? [])]) {
+      if (item && forbidden.some(key => Object.hasOwn(item, key))) {
+        throw new StorageError('INLINE_FILE_UNSUPPORTED',
+          'Versorgungsverträge enthalten Dateiinhalte statt Belegreferenzen.');
+      }
+    }
+  }
 }
 
 /** Exports JSON metadata and project data only, never actual attachment/PDF bytes. */
@@ -141,7 +150,10 @@ export function previewBackup(text) {
     projectId: copy.projectId,
     createdAt: payload.createdAt,
     schemaVersion: SCHEMA_VERSION,
-    recordCounts: Object.fromEntries(COLLECTIONS.map(name => [name, copy[name].length])),
+    recordCounts: {
+      ...Object.fromEntries(COLLECTIONS.map(name => [name, copy[name].length])),
+      ...(copy.supplyRegistry?.length ? { supplyRegistry: copy.supplyRegistry.length } : {})
+    },
     containsAttachmentFiles: false,
     containsPdfFiles: false
   };
