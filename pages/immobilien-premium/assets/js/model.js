@@ -2,7 +2,9 @@
  * Nebenkosten Premium — eigenständiges Datenmodell v1.
  * Keine Alt-Daten-Schnittstelle, keine Browser-Speicherzugriffe, keine Rechtsentscheidung.
  * Geldbeträge: ganzzahlige Cent; Flächen: Hundertstel Quadratmeter.
+ * Optionale, rückwärtskompatible Versorgungserweiterung: Version 1.
  */
+import { validateSupplyRegistryExtension, SUPPLY_REGISTRY_VERSION } from './supply-schema.js';
 export const SCHEMA_VERSION = 1;
 export const STORAGE_NAMESPACE = 'akademie:nebenskosten-premium:v1';
 
@@ -28,7 +30,9 @@ export function createEmptyProject(projectId) {
   return {
     schemaVersion: SCHEMA_VERSION,
     projectId,
-    ...Object.fromEntries(COLLECTIONS.map(name => [name, []]))
+    ...Object.fromEntries(COLLECTIONS.map(name => [name, []])),
+    supplyRegistryVersion: SUPPLY_REGISTRY_VERSION,
+    supplyRegistry: []
   };
 }
 
@@ -74,7 +78,7 @@ export function validateProject(project) {
     }
   };
 
-  (project.units || []).forEach((unit, i) => {
+  (Array.isArray(project.units) ? project.units : []).forEach((unit, i) => {
     if (!plain(unit)) return;
     const path = `units[${i}]`;
     exists('properties', unit.propertyId, `${path}.propertyId`);
@@ -88,13 +92,13 @@ export function validateProject(project) {
       }
     });
   });
-  (project.tenancies || []).forEach((tenancy, i) => {
+  (Array.isArray(project.tenancies) ? project.tenancies : []).forEach((tenancy, i) => {
     if (!plain(tenancy)) return;
     const path = `tenancies[${i}]`;
     exists('units', tenancy.unitId, `${path}.unitId`);
     dates(tenancy, path);
   });
-  (project.usagePeriods || []).forEach((usage, i) => {
+  (Array.isArray(project.usagePeriods) ? project.usagePeriods : []).forEach((usage, i) => {
     if (!plain(usage)) return;
     const path = `usagePeriods[${i}]`;
     exists('units', usage.unitId, `${path}.unitId`);
@@ -108,7 +112,7 @@ export function validateProject(project) {
   });
   // Intervals are inclusive; open end is treated as infinity.
   const usageByUnit = new Map();
-  (project.usagePeriods || []).filter(plain).forEach(usage => {
+  (Array.isArray(project.usagePeriods) ? project.usagePeriods : []).filter(plain).forEach(usage => {
     const list = usageByUnit.get(usage.unitId) || [];
     list.push(usage);
     usageByUnit.set(usage.unitId, list);
@@ -123,7 +127,7 @@ export function validateProject(project) {
     }
   });
 
-  (project.contractTerms || []).forEach((term, i) => {
+  (Array.isArray(project.contractTerms) ? project.contractTerms : []).forEach((term, i) => {
     if (!plain(term)) return;
     const path = `contractTerms[${i}]`;
     exists('tenancies', term.tenancyId, `${path}.tenancyId`);
@@ -133,13 +137,13 @@ export function validateProject(project) {
     }
     if (term.advanceCents !== undefined && !cents(term.advanceCents)) add(`${path}.advanceCents`, 'INVALID_MONEY', 'Betrag muss ganzzahlige Cent enthalten.');
   });
-  (project.accountingPeriods || []).forEach((period, i) => {
+  (Array.isArray(project.accountingPeriods) ? project.accountingPeriods : []).forEach((period, i) => {
     if (!plain(period)) return;
     const path = `accountingPeriods[${i}]`;
     exists('properties', period.propertyId, `${path}.propertyId`);
     dates(period, path);
   });
-  (project.expenses || []).forEach((expense, i) => {
+  (Array.isArray(project.expenses) ? project.expenses : []).forEach((expense, i) => {
     if (!plain(expense)) return;
     const path = `expenses[${i}]`;
     exists('properties', expense.propertyId, `${path}.propertyId`);
@@ -150,7 +154,7 @@ export function validateProject(project) {
     }
     if (expense.unitId != null) exists('units', expense.unitId, `${path}.unitId`);
   });
-  (project.allocationRules || []).forEach((rule, i) => {
+  (Array.isArray(project.allocationRules) ? project.allocationRules : []).forEach((rule, i) => {
     if (!plain(rule)) return;
     const path = `allocationRules[${i}]`;
     exists('expenses', rule.expenseId, `${path}.expenseId`);
@@ -159,7 +163,7 @@ export function validateProject(project) {
       add(`${path}.method`, 'INVALID_ALLOCATION', 'Verteilungsmaßstab fehlt oder ist unbekannt.');
     }
   });
-  (project.meters || []).forEach((meter, i) => {
+  (Array.isArray(project.meters) ? project.meters : []).forEach((meter, i) => {
     if (!plain(meter)) return;
     const path = `meters[${i}]`;
     exists('properties', meter.propertyId, `${path}.propertyId`);
@@ -167,14 +171,14 @@ export function validateProject(project) {
     if (meter.installedAt != null && !validDay(meter.installedAt)) add(`${path}.installedAt`, 'INVALID_DATE', 'Ungültiges Einbaudatum.');
     if (meter.removedAt != null && !validDay(meter.removedAt)) add(`${path}.removedAt`, 'INVALID_DATE', 'Ungültiges Ausbaudatum.');
   });
-  (project.readings || []).forEach((reading, i) => {
+  (Array.isArray(project.readings) ? project.readings : []).forEach((reading, i) => {
     if (!plain(reading)) return;
     const path = `readings[${i}]`;
     exists('meters', reading.meterId, `${path}.meterId`);
     if (!validDay(reading.date)) add(`${path}.date`, 'INVALID_DATE', 'Ungültiges Ablesedatum.');
     if (!Number.isFinite(reading.value) || reading.value < 0) add(`${path}.value`, 'INVALID_READING', 'Ablesung muss eine nichtnegative Zahl sein.');
   });
-  (project.cashflows || []).forEach((flow, i) => {
+  (Array.isArray(project.cashflows) ? project.cashflows : []).forEach((flow, i) => {
     if (!plain(flow)) return;
     const path = `cashflows[${i}]`;
     if (!['provider_payment', 'provider_refund', 'tenant_advance_due', 'tenant_payment', 'tenant_refund'].includes(flow.kind)) {
@@ -185,7 +189,7 @@ export function validateProject(project) {
     if (flow.kind?.startsWith('tenant_')) exists('tenancies', flow.tenancyId, `${path}.tenancyId`);
     if (flow.kind?.startsWith('provider_')) exists('properties', flow.propertyId, `${path}.propertyId`);
   });
-  (project.documents || []).forEach((document, i) => {
+  (Array.isArray(project.documents) ? project.documents : []).forEach((document, i) => {
     if (!plain(document)) return;
     const path = `documents[${i}]`;
     if (!['draft', 'review', 'ready', 'released'].includes(document.status)) add(`${path}.status`, 'INVALID_STATUS', 'Unbekannter Dokumentstatus.');
@@ -193,6 +197,7 @@ export function validateProject(project) {
       add(path, 'MISSING_RELEASE_SNAPSHOT', 'Freigabe braucht Daten-Snapshot und Freigabedatum.');
     }
   });
+  errors.push(...validateSupplyRegistryExtension(project));
   return errors;
 }
 
