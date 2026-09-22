@@ -55,7 +55,8 @@ export function validateSupplyRegistryExtension(project) {
     const c = record.contract;
     if (!id(c.providerAccountId) || !text(c.service) ||
         !['owner','tenant_direct'].includes(c.contractHolder) ||
-        c.confirmed !== true || record.confirmed !== true) {
+        ![true,false].includes(record.confirmed) ||
+        (record.confirmed === true && c.confirmed !== true)) {
       add(`${p}.contract`,'SUPPLY_CONTRACT_INVALID','Vertragspartner, Versorgerkonto oder Bestätigung fehlt.');
       continue;
     }
@@ -67,6 +68,34 @@ export function validateSupplyRegistryExtension(project) {
       e.startDate <= period.endDate && (e.endDate == null || e.endDate >= period.startDate));
     const payments = project.cashflows.filter(f => f?.propertyId === period.propertyId &&
       f.providerAccountId === c.providerAccountId && f.kind?.startsWith('provider_'));
+    // Planning comes BEFORE the supplier issues a year-end bill. A draft may
+    // be saved without invented invoice amounts or unconfirmed future tariffs;
+    // only the separately invoked annual review may mark it complete.
+    if (record.confirmed === false) {
+      if (c.contractHolder === 'tenant_direct' &&
+          (!id(c.unitId) || !project.units.some(u => u?.id === c.unitId && u.propertyId === period.propertyId) ||
+           costs.length || payments.length)) {
+        add(`${p}.contract`,'SUPPLY_DIRECT_MIXED','Direktvertrag ist nicht eindeutig von Eigentümerkosten getrennt.');
+      }
+      if (c.priceVersions !== undefined && (!Array.isArray(c.priceVersions) ||
+          c.priceVersions.some(v => !plain(v) ||
+            (v.validFrom != null && !day(v.validFrom)) ||
+            (v.validTo != null && !day(v.validTo)) ||
+            ['baseCentsPerPeriod','plannedWholeUnits','workPriceNumeratorCents'].some(k => v[k] !== undefined && !money(v[k])) ||
+            (v.workPriceDenominatorUnits !== undefined && !pos(v.workPriceDenominatorUnits))))) {
+        add(`${p}.contract.priceVersions`,'SUPPLY_DRAFT_PRICE_INVALID','Erfasste Vertragswerte müssen gültige Datums- und Zahlenformate haben.');
+      }
+      if (c.expenseIds !== undefined) {
+        if (!Array.isArray(c.expenseIds) || new Set(c.expenseIds).size !== c.expenseIds.length ||
+            c.expenseIds.some(expenseId => !costs.some(e => e.id === expenseId))) {
+          add(`${p}.contract.expenseIds`,'SUPPLY_DRAFT_EXPENSE_INVALID','Vorgemerkte Rechnungsreferenzen müssen zu diesem Versorger gehören.');
+        } else for (const expenseId of c.expenseIds) {
+          if (seenExpenses.has(expenseId)) add(`expenses:${expenseId}`,'SUPPLY_EXPENSE_DUPLICATE','Rechnung mehrfach vorgemerkt.');
+          seenExpenses.add(expenseId);
+        }
+      }
+      continue;
+    }
     if (c.contractHolder === 'tenant_direct') {
       if (!id(c.unitId) || !project.units.some(u => u?.id === c.unitId && u.propertyId === period.propertyId) ||
           c.directSupplyConfirmed !== true || costs.length || payments.length ||
