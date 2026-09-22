@@ -113,3 +113,17 @@ test('validated intra-year price updates persist without changing original costs
   assert.equal(loaded.expenses[0].amountCents,218000);
   assert.equal(loaded.cashflows[0].amountCents,240000);
 });
+test('planning-only draft saves before invoice, then confirmed complete record saves with the same ID',()=>{
+  const p=fixture(), s=memory(), row=p.supplyRegistry[0];
+  p.expenses=[];p.cashflows=[];row.confirmed=false;
+  delete row.contract.expenseIds;delete row.contract.invoiceTotalsCentsByReference;
+  row.contract.priceVersions=[{validFrom:'2026-01-01',measurementUnit:'kWh',baseCentsPerPeriod:18000}];
+  assert.deepEqual(validateProject(p),[]);
+  saveProject(p,{storage:s});
+  assert.equal(loadProject({storage:s}).supplyRegistry[0].confirmed,false);
+  assert.equal(previewBackup(createBackup(p)).recordCounts.supplyRegistry,1);
+  const complete=fixture();
+  saveProject(complete,{storage:s});
+  assert.equal(loadProject({storage:s}).supplyRegistry[0].confirmed,true);
+  assert.equal(loadProject({storage:s}).expenses.length,1);
+});
