@@ -18,8 +18,12 @@ function fixture() {
     co2Tenants(p) { calls.push(['co2', p]); return { status: 'preview', issues: [], report: {} }; },
     supply(p) { calls.push(['supply', p]); return { status: 'reviewed', issues: [], report: { unreviewedProviderAccountIds: [] } }; },
     audit(p, id, reports) { calls.push(['audit', p, reports]); return { status: 'preview', issues: [], report: {
-      scope: 'period_integrity_preview_only', legalRelease: false, pdfGenerated: false,
-      combinedForPosting: false, originalCostsCents: p.expenses.reduce((n, e) => n + e.amountCents, 0) } }; }
+      scope: 'period_integrity_preview_only', periodId: id, propertyId: 'house',
+      originalExpenseIds: p.expenses.map(e => e.id).sort(), legalRelease: false,
+      pdfGenerated: false, combinedForPosting: false, providerPaymentsIncludedInCosts: false,
+      forecastsIncluded: false, co2Posted: false,
+      originalCostsCents: p.expenses.reduce((n, e) => n + e.amountCents, 0),
+      ownerCostsCents: p.expenses.reduce((n, e) => n + e.amountCents, 0), tenantCostsCents: 0 } }; }
   };
   return { project, engines, calls };
 }
@@ -113,4 +117,105 @@ test('missing engine and incomplete source year block before any calculation', (
   f.engines.audit = () => { throw Error('not used'); };
   f.project.expenses[0].endDate = null;
   expectCode(f, 'WORKFLOW_SOURCE_PERIOD_INVALID');
+});
+
+test('annual output rejects missing invoices, wrong property and inflated reconciled totals', () => {
+  const f = fixture();
+  const genuineAudit = f.engines.audit;
+  for (const alter of [
+    r => { r.originalExpenseIds = []; },
+    r => { r.periodId = 'otherYear'; },
+    r => { r.propertyId = 'otherHouse'; },
+    r => { r.originalCostsCents += 1; },
+    r => { r.ownerCostsCents += 1; },
+    r => { r.providerPaymentsIncludedInCosts = true; },
+    r => { r.forecastsIncluded = true; },
+    r => { r.co2Posted = true; }
+  ]) {
+    f.engines.audit = (...args) => {
+      const result = genuineAudit(...args);
+      alter(result.report);
+      return result;
+    };
+    expectCode(f, 'WORKFLOW_FINAL_RECONCILIATION');
+  }
+});
+
+test('annual source sum over safe integer range blocks even if an audit claims success', () => {
+  const f = fixture();
+  f.project.expenses[0].amountCents = Number.MAX_SAFE_INTEGER;
+  f.project.expenses.push({ id: 'extra', propertyId: 'house', category: 'property_tax',
+    classification: 'owner', amountCents: 1, startDate: '2026-01-01', endDate: '2026-12-31' });
+  expectCode(f, 'WORKFLOW_FINAL_RECONCILIATION');
+});
+
+test('even mutating calculation stages cannot alter caller data or later stage inputs', () => {
+  const f = fixture();
+  f.project.expenses.push({ id: 'heat', propertyId: 'house', category: 'heating',
+    classification: 'allocatable', amountCents: 5000, startDate: '2026-01-01', endDate: '2026-12-31' });
+  f.project.expenses.push({ id: 'carbon', propertyId: 'house', category: 'co2',
+    classification: 'unresolved', amountCents: 200, startDate: '2026-01-01', endDate: '2026-12-31' });
+  const plans = { thermal: { real: 'thermal' }, co2Building: { real: 'building' },
+    co2Tenants: { real: 'tenant' } };
+  const original = JSON.stringify({ project: f.project, plans });
+  f.engines.validate = p => { p.properties[0].label = 'changed'; return []; };
+  f.engines.standard = p => { p.expenses[0].amountCents = 999999; return {
+    status: 'calculated', issues: [], report: { totalCostsCents: 999999 } }; };
+  f.engines.thermalSeparate = (p, id, plan) => {
+    assert.equal(p.properties[0].label, undefined, 'validator changes are isolated');
+    assert.equal(p.expenses[0].amountCents, 12000, 'standard changes are isolated');
+    plan.real = 'changed';
+    p.expenses[1].amountCents = 1;
+    return { status: 'calculated', issues: [], report: { totalCostsCents: 1 } };
+  };
+  f.engines.co2Tenants = (p, id, cPlan, thermal, tPlan) => {
+    assert.equal(p.expenses[1].amountCents, 5000, 'thermal changes are isolated');
+    assert.equal(thermal.report.totalCostsCents, 1);
+    p.expenses[0].amountCents = 7;
+    cPlan.real = 'changed'; tPlan.real = 'changed'; thermal.report.totalCostsCents = 2;
+    return { status: 'preview', issues: [], report: { originalInvoiceCents: 200 } };
+  };
+  const genuineAudit = f.engines.audit;
+  f.engines.audit = (p, id, reports) => {
+    assert.equal(p.expenses[0].amountCents, 12000, 'CO2 changes are isolated');
+    assert.equal(reports.thermal.report.totalCostsCents, 1, 'CO2 cannot mutate audited thermal report');
+    return genuineAudit(p, id, reports);
+  };
+  const result = runAnnualWorkflow(f.project, 'year', plans, f.engines);
+  assert.equal(result.status, 'preview', JSON.stringify(result.issues));
+  assert.equal(JSON.stringify({ project: f.project, plans }), original);
+});
+
+test('real supplier registry review runs in annual sequence without copying supplier payments into costs', async () => {
+  const { reviewSupplyRegistry } = await import('../assets/js/supply-registry.js');
+  const f = fixture();
+  f.project.expenses.push({ id: 'gas', propertyId: 'house', category: 'heating',
+    classification: 'allocatable', amountCents: 218000, supplyManaged: true,
+    providerAccountId: 'supplier', invoiceReference: 'GAS2026', invoiceLineId: 'delivery',
+    startDate: '2026-01-01', endDate: '2026-12-31' });
+  f.project.cashflows.push({ id: 'providerPaid', propertyId: 'house',
+    providerAccountId: 'supplier', kind: 'provider_payment', amountCents: 240000,
+    date: '2026-09-01', accountingPeriodId: 'year' });
+  f.project.supplyRegistry.push({ id: 'contract2026', propertyId: 'house',
+    accountingPeriodId: 'year', confirmed: true,
+    contract: { providerAccountId: 'supplier', service: 'gas', contractHolder: 'owner', confirmed: true,
+      priceVersions: [{ validFrom: '2026-01-01', validTo: '2026-12-31', confirmed: true,
+        referenceId: 'priceEvidence', baseCentsPerPeriod: 18000, plannedWholeUnits: 20000,
+        workPriceNumeratorCents: 10, workPriceDenominatorUnits: 1, measurementUnit: 'kWh' }],
+      expenseIds: ['gas'], invoiceTotalsCentsByReference: { GAS2026: 218000 } } });
+  const original = JSON.stringify(f.project);
+  f.engines.supply = (project, periodId, records) => {
+    const reviewed = reviewSupplyRegistry(project, periodId, records);
+    assert.equal(reviewed.status, 'reviewed', JSON.stringify(reviewed.issues));
+    assert.equal(reviewed.report.accounts[0].actualOwnerCostsCents, 218000);
+    assert.equal(reviewed.report.accounts[0].netProviderPaidCents, 240000);
+    assert.equal(reviewed.report.accounts[0].forecastCents, 218000);
+    return reviewed;
+  };
+  const result = run(f, { thermal: {} });
+  assert.equal(result.status, 'preview', JSON.stringify(result.issues));
+  assert.equal(result.report.originalCostsCents, 230000);
+  assert.equal(result.report.supplyReviewed, true);
+  assert.deepEqual(f.calls.map(x => x[0]), ['standard', 'thermalSeparate', 'audit']);
+  assert.equal(JSON.stringify(f.project), original);
 });
