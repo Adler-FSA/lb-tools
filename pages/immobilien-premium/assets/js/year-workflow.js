@@ -4,6 +4,8 @@
  * exist only to prevent specialist items appearing twice in a calculation kernel.
  * No posting, legal decision, PDF, snapshot release or mutation is performed.
  */
+import { verifiedLinkedHeatInventory } from './linked-inventory-guard.js';
+
 const SPECIAL = new Set(['heating', 'hot_water', 'thermal_shared', 'co2', 'heating_oil']);
 const HEAT = new Set(['heating', 'hot_water', 'thermal_shared']);
 const blocked = (code, path, detail) => ({ status: 'blocked', calculationReady: false,
@@ -57,8 +59,12 @@ export function runAnnualWorkflow(project, periodId, plans, engines) {
         (co2 && (!has(selections?.co2Building) || !has(selections?.co2Tenants))) ||
         (!co2 && (has(selections?.co2Building) || has(selections?.co2Tenants))))
       return blocked('WORKFLOW_PLAN_REQUIRED', 'plans', 'Für alle vorhandenen Sonderkosten genau den passenden geprüften Rechenweg auswählen.');
-    if (linked && heating.some(e => e.category === 'heating' || e.category === 'hot_water'))
-      return blocked('WORKFLOW_MIXED_THERMAL_UNSUPPORTED', 'expenses', 'Mischbestand aus Original-Wärmetöpfen und verbundenen Rechnungen ist noch nicht integriert.');
+    // A linked plant can also have heating-only maintenance and hot-water-only
+    // invoices. The preallocator requires those originals; reject them only if
+    // the complete, confirmed inventory does not assign every invoice once.
+    if (linked && !verifiedLinkedHeatInventory(heating, selections.linked))
+      return blocked('WORKFLOW_MIXED_THERMAL_UNSUPPORTED', 'expenses',
+        'Gemeinsame und einzeln zugehörige Wärmekosten müssen vollständig und bestätigt im Anlagenplan stehen.');
     // Original payments are reconciled by the final auditor. The standard engine
     // sees no supplier flows so a heating-only supplier cannot cause a false
     // standard-cost assignment. All real tenant payments remain available.
