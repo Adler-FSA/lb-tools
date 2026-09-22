@@ -78,7 +78,14 @@ test('separater Mieterdirektvertrag darf keine Eigentümerkosten oder Eigentüme
 test('explizit zugehörige Versorgerrechnung darf im Vertragsverzeichnis nicht fehlen',()=>{
   blocked(p=>{p.expenses.push({...p.expenses[0],id:'water',providerAccountId:'waterSupplier',invoiceReference:'WATER'});},'SUPPLY_UNASSIGNED_EXPENSE');
 });
-test('unbestätigter Vertrag kann nicht als geprüfter Datensatz gespeichert werden',()=>{
-  blocked(p=>{p.supplyRegistry[0].confirmed=false;},'SUPPLY_CONTRACT_INVALID');
+test('Entwurf darf ohne Jahresrechnung gespeichert werden, aber nicht als geprüfter Abschluss gelten',()=>{
+  const p=fixture();p.expenses=[];p.cashflows=[];
+  p.supplyRegistry[0].confirmed=false;
+  delete p.supplyRegistry[0].contract.priceVersions;
+  delete p.supplyRegistry[0].contract.expenseIds;
+  delete p.supplyRegistry[0].contract.invoiceTotalsCentsByReference;
+  assert.deepEqual(errors(p),[]);
+  p.supplyRegistry[0].contract.priceVersions=[{workPriceDenominatorUnits:0}];
+  assert.ok(errors(p).includes('SUPPLY_DRAFT_PRICE_INVALID'));
   blocked(p=>{p.supplyRegistry[0].contract.confirmed=false;},'SUPPLY_CONTRACT_INVALID');
 });
