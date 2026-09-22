@@ -5,6 +5,7 @@
  * No posting, legal decision, PDF, snapshot release or mutation is performed.
  */
 import { verifiedLinkedHeatInventory } from './linked-inventory-guard.js';
+import { inspectAnnualSources } from './year-scope.js';
 
 const SPECIAL = new Set(['heating', 'hot_water', 'thermal_shared', 'co2', 'heating_oil']);
 const HEAT = new Set(['heating', 'hot_water', 'thermal_shared']);
@@ -44,10 +45,11 @@ export function runAnnualWorkflow(project, periodId, plans, engines) {
     const period = periods[0];
     if (period.reviewRequired === true || period.rolloverStatus === 'review_required')
       return blocked('WORKFLOW_YEAR_UNCONFIRMED', 'periodId', 'Folgejahr benötigt eine neue Prüfung.');
-    const originals = source.expenses.filter(e => e.propertyId === period.propertyId &&
-      e.startDate <= period.endDate && (e.endDate === null || e.endDate >= period.startDate));
-    if (!originals.length || originals.some(e => e.startDate !== period.startDate || e.endDate !== period.endDate))
-      return blocked('WORKFLOW_SOURCE_PERIOD_INVALID', 'expenses', 'Nur vollständige belegte Jahrespositionen im bestätigten Zeitraum.');
+    // Check payment-year provenance BEFORE the standard engine or the thermal
+    // split sees any input. The earlier standalone guard was not wired here.
+    const scope = inspectAnnualSources(source, periodId);
+    if (scope.status !== 'verified') return scope;
+    const originals = scope.originals;
     if (originals.some(e => e.category === 'heating_oil'))
       return blocked('WORKFLOW_HEATING_OIL_UNSUPPORTED', 'expenses', 'Heizöl-Bestand und tatsächlicher Verbrauch benötigen eigene Prüfung.');
     const standardIds = new Set(originals.filter(e => !SPECIAL.has(e.category)).map(e => e.id));
