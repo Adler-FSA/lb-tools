@@ -6,10 +6,15 @@ import { calculateLinkedThermalWithEngine } from './thermal-linked-runner.js';
 import { previewTenantCo2 } from './co2-tenants.js';
 import { auditPeriodPreview } from './period-integrity.js';
 import { reviewSupplyRegistry } from './supply-registry.js';
+import { inspectAnnualSources } from './year-scope.js';
 import { runAnnualWorkflow } from './year-workflow.js';
 
 /** Returns an audit-only, never bookable or legally released annual preview. */
 export function previewAnnualPeriod(project, periodId, plans = {}) {
+  // Fail closed before any specialist calculator: an open-ended invoice or a
+  // payment dated in the wrong year must not disappear or enter the wrong ledger.
+  const sourceScope = inspectAnnualSources(project, periodId);
+  if (sourceScope.status !== 'verified') return sourceScope;
   return runAnnualWorkflow(project, periodId, plans, {
     validate: validateProject,
     standard: calculatePeriod,
