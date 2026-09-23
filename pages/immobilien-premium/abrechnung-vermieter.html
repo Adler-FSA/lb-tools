@@ -162,15 +162,60 @@
         <div data-thermal-result style="margin-top:16px"></div>
       </section>
 
+      <section class="section card form-card">
+        <div class="section-head">
+          <div><div class="eyebrow">6 · CO₂</div><h2>Gebäudestufe und Mieteranteile getrennt prüfen</h2><p>Der vorhandene CO₂-Fachpfad unterstützt derzeit nur den eng belegten Wohngebäude-Standardfall für das vollständige Kalenderjahr 2026.</p></div>
+        </div>
+        <form data-co2-form>
+          <div class="grid grid-2">
+            <article class="card" style="box-shadow:none">
+              <h3>Gebäude &amp; Rechnung</h3>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2ApplicabilityReviewed"> Anwendbarkeit des CO₂-Kostenpfads geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2OwnerCentralSupply"> zentrale Versorgung durch Eigentümer bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2SpecialCasesExcluded"> besondere Heizungsfälle ausgeschlossen</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2ReductionExceptionsExcluded"> Kürzungs-/Ausnahmefälle ausgeschlossen</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2InvoiceInventoryConfirmed"> alle CO₂-Originalpositionen vollständig erfasst</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2AreaBasisConfirmed"> Gebäudewohnfläche geprüft</label>
+              <label>Flächennachweis / Referenz *</label><input name="co2AreaEvidenceRef" placeholder="z. B. Wohnflächenaufstellung 2026">
+              <label>CO₂-Kosten laut Originalrechnung in € *</label><input name="co2InvoiceEuro" type="number" min="0" step="0.01" inputmode="decimal">
+            </article>
+
+            <article class="card" style="box-shadow:none">
+              <h3>Emissionen</h3>
+              <label>Gebäudeemissionen in kg CO₂ *</label><input name="co2EmissionsKg" type="number" min="0" step="0.001" inputmode="decimal">
+              <label>Emissionsnachweis / Referenz *</label><input name="co2EmissionsEvidenceRef" placeholder="z. B. Gasrechnung Emissionsangabe">
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2EmissionsPeriodConfirmed"> Emissionswert gilt für das vollständige Abrechnungsjahr</label>
+              <div class="notice" style="margin-top:12px">Die CO₂-Originalkosten werden aus den bereits erfassten CO₂-Kostenpositionen gelesen. Der hier bestätigte Rechnungsbetrag muss exakt dazu passen.</div>
+            </article>
+
+            <article class="card" style="box-shadow:none">
+              <h3>Individuelle Mieteraufteilung</h3>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2TenantAllocationRequested"> individuelle Mieter-CO₂-Vorschau zusätzlich berechnen</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2TenantOnlyOccupancy"> lückenlose reine Mieternutzung aller Einheiten bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2ThermalMethodReviewed"> Verteilung nach geprüften Wärme-Kostenanteilen bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="co2ExcludedFromThermal"> CO₂-Originalpositionen sind aus den Wärmekosten ausgeschlossen</label>
+              <label>Verteilungsnachweis / Referenz</label><input name="co2DistributionEvidenceRef" placeholder="z. B. Wärmeverteilung 2026">
+            </article>
+
+            <article class="card" style="box-shadow:none">
+              <h3>Prüfung starten</h3>
+              <p class="kicker">Bei Eigennutzung oder Leerstand kann die Gebäudestufe sichtbar sein, während die individuelle Mieteraufteilung bewusst gesperrt bleibt.</p>
+              <div class="form-actions"><button class="btn btn-primary" type="submit">CO₂-Vorschau prüfen</button></div>
+            </article>
+          </div>
+        </form>
+        <div data-co2-result style="margin-top:16px"></div>
+      </section>
+
       <section class="section card">
         <div class="section-head">
-          <div><div class="eyebrow">6 · Rechenkern</div><h2>Individuelle Mieterergebnisse</h2><p>Der vorhandene Standard-Rechenkern prüft Vertrag, Schlüssel, Verbrauch, Nutzungszeiten und tatsächliche Vorauszahlungen gemeinsam.</p></div>
+          <div><div class="eyebrow">7 · Rechenkern</div><h2>Individuelle Mieterergebnisse</h2><p>Der vorhandene Standard-Rechenkern prüft Vertrag, Schlüssel, Verbrauch, Nutzungszeiten und tatsächliche Vorauszahlungen gemeinsam.</p></div>
         </div>
         <div data-landlord-preview></div>
       </section>
 
       <section class="section notice">
-        Heizung und Warmwasser besitzen jetzt einen eigenen geprüften Teilpfad. CO₂, Pauschalen und weitere Sonderfälle werden weiterhin nicht in den Standardpfad gezwungen.
+        Heizung/Warmwasser und der eng unterstützte CO₂-Standardfall besitzen eigene geprüfte Teilpfade. Pauschalen, Eigennutzungs-/Leerstands-Sonderfälle und weitere Ausnahmen werden weiterhin nicht in den Standardpfad gezwungen.
       </section>
     </div>
   </main>
