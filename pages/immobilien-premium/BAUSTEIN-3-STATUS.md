@@ -52,14 +52,22 @@ Automatisierte Regressionen liegen in `tests/owner-summary.test.mjs` und `tests/
 
 ## Technischer Prüfstand
 
-Vor dem aktuellen Historien-/Vergleichspaket war die vollständige Suite mit **295/295 Tests** fehlerfrei. Die neuen Historien- und Insight-Tests sind im Repository ergänzt. Nach dem letzten UI-/Testpaket wurde GitHub Pages erfolgreich gebaut und veröffentlicht. Ein erneuter vollständiger lokaler Node-Gesamtlauf ist für die neuen Tests noch nachzuholen; bis dahin wird keine höhere Gesamttestzahl behauptet.
+Der vollständige aktuelle GitHub-Pages-Artefaktstand wurde am 23.09.2026 erneut lokal ausgeführt. Ergebnis:
 
-## Noch offen innerhalb von Baustein 3
+- **318 Tests**
+- **318 bestanden**
+- **0 fehlgeschlagen**
+- **0 übersprungen**
+- **0 abgebrochen**
 
-- erneuter vollständiger Gesamttest inklusive der neuen Historien-/Insight-Tests,
-- geführte Abschlussprüfung der Eigentümerdaten: Was ist vollständig, was fehlt noch für den geprüften Jahres-Rechenkern,
-- letzte sichtbare Browser-/iPad-Korrekturen.
+Zusätzlich wurden alle **36 JavaScript-Dateien** unter `assets/js/` mit `node --check` syntaktisch geprüft.
 
-DE/EN gehört laut Masterplan zur Gesamtabnahme in Baustein 7 und hält Baustein 3 nicht auf.
+Während des Gesamtlaufs wurde eine echte Regression im Versorgungsvertrags-Entwurf sichtbar: eine bereits vorhandene, als Versorgung markierte Jahresrechnung konnte den Vertragsentwurf wegen `SUPPLY_UNASSIGNED_EXPENSE` blockieren. Der Entwurfsablauf wurde so korrigiert, dass genau die zum gewählten Versorger gehörenden bestehenden Originalrechnungen vorgemerkt werden dürfen, ohne fremde/verwaiste Versorgungsrechnungen zu entschuldigen. Ein zusätzlicher Regressionstest schützt diesen Fall.
 
-**Baustein 3 bleibt offen.** Es gibt weiterhin keine rechtlich freigegebene Mieterabrechnung oder PDF-Ausgabe.
+## Jahresprüfung und Abschlussstand
+
+Die Eigentümerübersicht enthält jetzt eine geführte **Jahresprüfung gegen den echten Produktions-Rechenkern**. `assets/js/owner-readiness.js` ruft `previewAnnualPeriod` read-only auf. Unterstützte vollständige Eigentümerjahre erreichen eine echte, ausdrücklich nicht buchbare Vorschau. Fehlende Angaben werden mit dem Original-Blocker des Rechenkerns angezeigt und zu Immobilien, Kosten oder Verbrauch zurückgeführt. Verteilungs-/Mieterthemen und Sonderkosten bleiben bewusst für die dafür vorgesehenen späteren Fachpfade gesperrt.
+
+Damit sind die Ziele des Masterplans für **Baustein 3 – Datenaufnahme, Dashboard, Kosten und Eigentümerrechnung** im unterstützten Umfang umgesetzt. DE/EN, PDF/Archiv, Vermieter-Umlage und rechtliche Endfreigaben gehören ausdrücklich zu späteren Bausteinen.
+
+**Baustein 3 ist technisch abnahmebereit und bleibt formal offen, bis der Auftraggeber ihn ausdrücklich mit „Baustein fertig“ freigibt.** Es gibt weiterhin keine rechtlich freigegebene Mieterabrechnung oder PDF-Ausgabe.
