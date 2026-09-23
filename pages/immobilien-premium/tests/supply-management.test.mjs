@@ -60,6 +60,8 @@ test('under-year price versions can be added only without overlap and confirm co
     }
   });
   assert.equal(previewSupplyPlan(r.project, 'power_contract').report.coverageComplete, false);
+  assert.throws(() => confirmSupplyRecord(r.project, 'power_contract'),
+    error => error instanceof SupplyManagementError && error.code === 'PRICE_HISTORY_INCOMPLETE');
   r = addSupplyPriceVersion(r.project, 'power_contract', {
     ...fullVersion, validFrom: '2026-07-01', referenceId: 'h2',
     baseCentsPerPeriod: 9500, plannedWholeUnits: 10500
