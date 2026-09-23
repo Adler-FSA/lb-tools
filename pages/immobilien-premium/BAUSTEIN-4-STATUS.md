@@ -26,8 +26,23 @@ Keine Differenz wird automatisch als rechtlich fällige Forderung, Rückstand od
 - `assets/js/landlord-preview.js` – read-only Einzelvorschau über den vorhandenen Standard-Rechenkern.
 - `tests/landlord-preview.test.mjs` – prüft individuelle Mieteranteile, tatsächliche Zahlungen und Nicht-Freigabe.
 
+## Sichtbarer erster Stand
+
+`abrechnung-vermieter.html` ist jetzt bedienbar angebunden. Der aktuelle Standardpfad ermöglicht:
+
+- Mietverhältnisse je Gebäude/Jahr auswählen,
+- Vertragsbasis als Vorauszahlung, Pauschale oder ungeklärt erfassen,
+- vertraglich bestätigte Standard-Kostenarten dokumentieren,
+- Vorauszahlungsänderungen ab Monatsanfang historisch speichern,
+- tatsächliche Mieterzahlungen und bestätigte Soll-Einträge getrennt erfassen,
+- Zahlungskreis je Mietverhältnis/Jahr ausdrücklich bestätigen,
+- Standard-Umlageschlüssel Fläche, Verbrauch oder direkte Einheit speichern,
+- individuelle technische Mieterergebnisse über den bestehenden Rechenkern anzeigen.
+
+Die Oberfläche erzeugt weder eine rechtlich freigegebene Forderung noch ein PDF.
+
 ## Als Nächstes
 
-Die Funktionen werden jetzt in `abrechnung-vermieter.html` bedienbar angebunden. Danach folgen die spezialisierten Heiz-/Warmwasser-/CO₂- und Sonderfallpfade, ohne sie in den Standardrechner zu zwingen.
+Als Nächstes werden die spezialisierten Heiz-/Warmwasser-/CO₂- und Sonderfallpfade in denselben Vermieterfluss eingebunden. Pauschalen und nicht unterstützte Fälle bleiben bis dahin gesperrt, statt in den Standardrechner gezwungen zu werden.
 
 **Baustein 4 bleibt offen.**
