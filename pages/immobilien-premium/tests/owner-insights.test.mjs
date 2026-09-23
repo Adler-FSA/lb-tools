@@ -90,3 +90,20 @@ test('foreign property and wrong period are blocked or excluded', () => {
   r = buildOwnerYearComparison(p, 'house');
   assert.equal(r.years.length, 2);
 });
+
+
+test('documented consumption does not overflow safe integer aggregation', () => {
+  const p = fixture();
+  p.meters.push({
+    id: 'huge2', propertyId: 'house', unitId: 'unit1', service: 'heating',
+    measurementKind: 'heat_energy', measurementUnit: 'kWh', installedAt: '2026-01-01'
+  });
+  const near = Number.MAX_SAFE_INTEGER / 1000;
+  p.readings.push(
+    { id: 'huge2a', meterId: 'huge2', date: '2026-01-01', value: 0, readingType: 'measured' },
+    { id: 'huge2b', meterId: 'huge2', date: '2026-12-31', value: Number(near.toFixed(3)), readingType: 'measured' }
+  );
+  const r = buildDocumentedConsumption(p, 'house', 'year2026');
+  assert.equal(r.status, 'consumption');
+  assert.ok(r.issues.some(issue => issue.code === 'CONSUMPTION_OVERFLOW') || r.report.totals.some(item => item.service === 'heating'));
+});
