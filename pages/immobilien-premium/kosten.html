@@ -90,6 +90,158 @@
         <div class="grid grid-4" data-kosten-metrics></div>
       </section>
 
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Versorgung &amp; Einkauf</div>
+            <h2>Eigene Versorgungsverträge</h2>
+            <p>Vertragsplanung, tatsächliche Jahresrechnung und echte Zahlungen werden getrennt geführt. Keine Tarifdatenbank, keine erfundenen Durchschnittspreise.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card form-card">
+            <h3>Versorgungsvertrag anlegen</h3>
+            <form data-supply-form>
+              <div class="form-grid">
+                <div>
+                  <label for="supplyProviderLabel">Versorger / Anbieter *</label>
+                  <input id="supplyProviderLabel" name="supplyProviderLabel" required placeholder="z. B. Stadtwerke">
+                </div>
+                <div>
+                  <label for="supplyAccountId">Vertrags-/Versorgerkennung *</label>
+                  <input id="supplyAccountId" name="supplyAccountId" required placeholder="z. B. gas_haus_2026">
+                  <div class="help">Interne stabile Kennung; Leerzeichen werden beim Speichern normalisiert.</div>
+                </div>
+                <div>
+                  <label for="supplyService">Sparte *</label>
+                  <select id="supplyService" name="supplyService">
+                    <option value="gas">Gas</option>
+                    <option value="electricity">Strom</option>
+                    <option value="water">Wasser</option>
+                    <option value="district_heat">Fernwärme</option>
+                    <option value="heating_oil">Heizöl</option>
+                    <option value="other">Sonstige Versorgung</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="supplyHolder">Vertragsinhaber *</label>
+                  <select id="supplyHolder" name="supplyHolder">
+                    <option value="owner">Eigentümer</option>
+                    <option value="tenant_direct">Mieter direkt</option>
+                  </select>
+                </div>
+                <div class="full hidden" data-direct-unit-fields>
+                  <label for="supplyUnitId">Direkt versorgte Einheit *</label>
+                  <select id="supplyUnitId" name="supplyUnitId"></select>
+                  <div class="help">Direktversorgung des Mieters wird nicht als Eigentümerkosten übernommen.</div>
+                </div>
+              </div>
+
+              <div data-owner-price-fields>
+                <h3 style="margin-top:20px">Erster Preisstand <span class="kicker">(optional)</span></h3>
+                <div class="form-grid">
+                  <div>
+                    <label for="supplyValidFrom">Gültig von</label>
+                    <input id="supplyValidFrom" name="supplyValidFrom" type="date">
+                  </div>
+                  <div>
+                    <label for="supplyValidTo">Gültig bis</label>
+                    <input id="supplyValidTo" name="supplyValidTo" type="date">
+                  </div>
+                  <div>
+                    <label for="supplyReference">Tarif-/Preisreferenz</label>
+                    <input id="supplyReference" name="supplyReference" placeholder="z. B. Vertrag 2026">
+                  </div>
+                  <div>
+                    <label for="supplyBaseEuro">Grundpreis im Zeitraum €</label>
+                    <input id="supplyBaseEuro" name="supplyBaseEuro" type="number" min="0" step="0.01" inputmode="decimal">
+                  </div>
+                  <div>
+                    <label for="supplyPlannedUnits">Geplante Menge</label>
+                    <input id="supplyPlannedUnits" name="supplyPlannedUnits" type="number" min="0" step="1" inputmode="numeric">
+                  </div>
+                  <div>
+                    <label for="supplyWorkPrice">Arbeitspreis Cent je Einheit</label>
+                    <input id="supplyWorkPrice" name="supplyWorkPrice" type="number" min="0" step="0.0001" inputmode="decimal">
+                  </div>
+                  <div class="full">
+                    <label for="supplyUnit">Einheit</label>
+                    <select id="supplyUnit" name="supplyUnit">
+                      <option value="kWh">kWh</option>
+                      <option value="m3">m³</option>
+                      <option value="l">Liter</option>
+                      <option value="unit">Einheit</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="help">Alle Preisfelder leer lassen, wenn der Vertrag zunächst nur als Entwurf ohne Planwert gespeichert werden soll.</div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Vertrag als Entwurf speichern</button>
+              </div>
+            </form>
+          </article>
+
+          <article class="card form-card">
+            <h3>Weiteren Preisstand ergänzen</h3>
+            <p class="kicker">Für unterjährige Preisänderungen. Bestehende Preisstände bleiben erhalten.</p>
+            <form data-price-version-form>
+              <div class="form-grid">
+                <div class="full">
+                  <label for="priceRecordId">Offener Vertrag *</label>
+                  <select id="priceRecordId" name="priceRecordId"></select>
+                </div>
+                <div>
+                  <label for="priceValidFrom">Gültig von *</label>
+                  <input id="priceValidFrom" name="priceValidFrom" type="date" required>
+                </div>
+                <div>
+                  <label for="priceValidTo">Gültig bis *</label>
+                  <input id="priceValidTo" name="priceValidTo" type="date" required>
+                </div>
+                <div>
+                  <label for="priceReference">Tarif-/Preisreferenz *</label>
+                  <input id="priceReference" name="priceReference" required>
+                </div>
+                <div>
+                  <label for="priceBaseEuro">Grundpreis im Zeitraum € *</label>
+                  <input id="priceBaseEuro" name="priceBaseEuro" type="number" min="0" step="0.01" inputmode="decimal" required>
+                </div>
+                <div>
+                  <label for="pricePlannedUnits">Geplante Menge *</label>
+                  <input id="pricePlannedUnits" name="pricePlannedUnits" type="number" min="0" step="1" inputmode="numeric" required>
+                </div>
+                <div>
+                  <label for="priceWorkPrice">Arbeitspreis Cent je Einheit *</label>
+                  <input id="priceWorkPrice" name="priceWorkPrice" type="number" min="0" step="0.0001" inputmode="decimal" required>
+                </div>
+                <div class="full">
+                  <label for="priceUnit">Einheit *</label>
+                  <select id="priceUnit" name="priceUnit">
+                    <option value="kWh">kWh</option>
+                    <option value="m3">m³</option>
+                    <option value="l">Liter</option>
+                    <option value="unit">Einheit</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-secondary" type="submit">Preisstand hinzufügen</button>
+              </div>
+            </form>
+            <div class="notice" style="margin-top:18px">
+              „Jahreswerte bestätigen“ funktioniert erst, wenn Preisstände das Jahr lückenlos abdecken und die tatsächliche Jahresrechnung diesem Vertrag zugeordnet wurde.
+            </div>
+          </article>
+        </div>
+
+        <div class="section">
+          <div class="grid grid-2" data-supply-list></div>
+        </div>
+      </section>
+
       <section class="section grid grid-2">
         <article class="card form-card">
           <div class="eyebrow">Kostenposition</div>
@@ -128,6 +280,13 @@
                 <label for="invoiceReference">Beleg-/Rechnungsreferenz</label>
                 <input id="invoiceReference" name="invoiceReference" data-requires-property placeholder="z. B. RE-2026-001">
               </div>
+              <div class="full">
+                <label for="expenseSupplyRecord">Versorgungsvertrag</label>
+                <select id="expenseSupplyRecord" name="expenseSupplyRecord">
+                  <option value="">Kein Versorgungsvertrag / manuell</option>
+                </select>
+                <div class="help">Bei Zuordnung wird die Originalkostenposition mit dem Versorgerkonto verknüpft, nicht dupliziert.</div>
+              </div>
               <div>
                 <label for="expenseStart">Leistungsbeginn *</label>
                 <input id="expenseStart" name="expenseStart" type="date" required data-requires-property>
@@ -154,8 +313,14 @@
           <form data-provider-form>
             <div class="form-grid">
               <div class="full">
-                <label for="providerLabel">Versorger / Anbieter *</label>
-                <input id="providerLabel" name="providerLabel" required data-requires-property placeholder="z. B. Stadtwerke">
+                <label for="paymentSupplyRecord">Versorgungsvertrag</label>
+                <select id="paymentSupplyRecord" name="paymentSupplyRecord">
+                  <option value="">Kein Versorgungsvertrag / manuell</option>
+                </select>
+              </div>
+              <div class="full">
+                <label for="providerLabel">Versorger / Anbieter <span class="kicker">(bei manueller Zahlung)</span></label>
+                <input id="providerLabel" name="providerLabel" data-requires-property placeholder="z. B. Stadtwerke">
               </div>
               <div>
                 <label for="paymentKind">Art *</label>
@@ -213,5 +378,6 @@
   </footer>
 </div>
 <script type="module" src="assets/js/kosten-ui.js"></script>
+<script type="module" src="assets/js/supply-ui.js"></script>
 </body>
 </html>
