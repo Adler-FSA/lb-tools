@@ -2,6 +2,7 @@ import { saveProject } from './storage.js';
 import { escapeText, formatEuro, newId, propertyAddress, safeLoadProject, showFlash, updateStoragePill } from './ui-core.js';
 import { addInitialContractTerms, changeAdvance, confirmTenancyLedger, recordTenantCashflow, setStandardAllocationRule } from './landlord-management.js';
 import { previewLandlordPeriod } from './landlord-preview.js';
+import { previewSeparateThermalLandlord } from './landlord-thermal.js';
 
 const COST_LABELS = {
   property_tax:'Grundsteuer',
@@ -15,7 +16,7 @@ const COST_LABELS = {
   repair:'Reparatur / Instandhaltung',
   other:'Sonstige Kosten'
 };
-const STANDARD_COST_TYPES = ['property_tax','building_insurance','waste','common_electricity','cold_water'];
+const STANDARD_COST_TYPES = ['property_tax','building_insurance','waste','common_electricity','cold_water','heating','hot_water'];
 
 let project = null;
 let selectedPropertyId = null;
@@ -23,7 +24,25 @@ let selectedPeriodId = null;
 let selectedTenancyId = null;
 
 function load() {
-  const state = safeLoadProject();
+  
+document.querySelector('[data-thermal-form]')?.addEventListener('submit', function(event){
+  event.preventDefault();
+  if (!load() || !project || !selectedPeriodId) return;
+  const form = event.currentTarget;
+  const config = {
+    scopeConfirmed:form.querySelector('[name="thermalScopeConfirmed"]')?.checked === true,
+    costBasisConfirmed:form.querySelector('[name="thermalCostBasisConfirmed"]')?.checked === true,
+    co2CostsSeparateConfirmed:form.querySelector('[name="thermalCo2SeparateConfirmed"]')?.checked === true,
+    exceptionReviewedStandard:form.querySelector('[name="thermalExceptionReviewed"]')?.checked === true,
+    groupPreallocationNotRequired:form.querySelector('[name="thermalNoGroupPreallocation"]')?.checked === true,
+    heating:thermalServiceConfig('heating', form),
+    hot_water:thermalServiceConfig('hotWater', form)
+  };
+  const result = previewSeparateThermalLandlord(project, selectedPeriodId, config);
+  renderThermalResult(result);
+});
+
+const state = safeLoadProject();
   project = state.project;
   updateStoragePill(project, state.error);
   if (state.error) {
@@ -288,6 +307,48 @@ function renderAllocation() {
     });
   });
 }
+
+function thermalServiceConfig(prefix, form) {
+  const mode = String(new FormData(form).get(prefix + 'Mode') || '');
+  if (mode === 'absent') {
+    return {
+      enabled:false,
+      absentConfirmed: form.querySelector('[name="' + prefix + 'AbsentConfirmed"]')?.checked === true
+    };
+  }
+  return {
+    enabled:mode === 'present',
+    consumptionPercent:Number(form.querySelector('[name="' + prefix + 'Percent"]')?.value),
+    mandatory70Applies:form.querySelector('[name="' + prefix + 'Mandatory70"]')?.checked === true,
+    rateConfirmed:form.querySelector('[name="' + prefix + 'RateConfirmed"]')?.checked === true,
+    readingsConfirmed:form.querySelector('[name="' + prefix + 'ReadingsConfirmed"]')?.checked === true,
+    measurementBasisConfirmed:form.querySelector('[name="' + prefix + 'BasisConfirmed"]')?.checked === true
+  };
+}
+function renderThermalResult(result) {
+  const host = document.querySelector('[data-thermal-result]');
+  if (!host) return;
+  if (result.status !== 'preview' || !result.report) {
+    const rows = (result.issues ?? []).slice(0,8).map(function(issue){
+      return '<div class="unit-row"><div><div class="unit-title">' + escapeText(issue.code) +
+        '</div><div class="unit-sub">' + escapeText(issue.detail) + '</div></div><div></div><div></div><div></div></div>';
+    }).join('');
+    host.innerHTML = '<div class="notice"><strong>Wärmevorschau gesperrt.</strong> Es werden keine fehlenden Werte ergänzt oder Annahmen erfunden.</div><div class="unit-list" style="margin-top:10px">' + rows + '</div>';
+    return;
+  }
+  const tenantTotal = result.report.tenants.reduce(function(sum,row){ return sum + row.costsCents; },0);
+  const streams = result.report.streams.map(function(stream){
+    return '<div class="mini-stat"><span>' + escapeText(COST_LABELS[stream.kind] || stream.kind) +
+      '</span><strong>' + escapeText(formatEuro(stream.totalCents)) + '</strong></div>';
+  }).join('');
+  host.innerHTML =
+    '<div class="grid grid-3"><div class="metric"><div class="metric-label">Wärmekosten gesamt</div><div class="metric-value">' +
+    escapeText(formatEuro(result.report.totalCostsCents)) + '</div></div><div class="metric"><div class="metric-label">Eigentümeranteil</div><div class="metric-value">' +
+    escapeText(formatEuro(result.report.ownerCostsCents)) + '</div></div><div class="metric"><div class="metric-label">Mieteranteile gesamt</div><div class="metric-value">' +
+    escapeText(formatEuro(tenantTotal)) + '</div></div></div><div class="grid grid-2" style="margin-top:14px">' + streams +
+    '</div><div class="notice" style="margin-top:14px">Technischer Wärme-Teilbericht. Noch nicht mit Standardkosten oder CO₂ zusammengeführt; keine Rechts- oder PDF-Freigabe.</div>';
+}
+
 function renderPreview() {
   const host = document.querySelector('[data-landlord-preview]');
   if (!selectedPeriodId) {
