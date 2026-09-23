@@ -3,6 +3,7 @@ import { escapeText, formatEuro, newId, propertyAddress, safeLoadProject, showFl
 import { addInitialContractTerms, changeAdvance, confirmTenancyLedger, recordTenantCashflow, setStandardAllocationRule } from './landlord-management.js';
 import { previewLandlordPeriod } from './landlord-preview.js';
 import { previewSeparateThermalLandlord } from './landlord-thermal.js';
+import { previewLandlordCo2 } from './landlord-co2.js';
 
 const COST_LABELS = {
   property_tax:'Grundsteuer',
@@ -29,17 +30,43 @@ document.querySelector('[data-thermal-form]')?.addEventListener('submit', functi
   event.preventDefault();
   if (!load() || !project || !selectedPeriodId) return;
   const form = event.currentTarget;
-  const config = {
-    scopeConfirmed:form.querySelector('[name="thermalScopeConfirmed"]')?.checked === true,
-    costBasisConfirmed:form.querySelector('[name="thermalCostBasisConfirmed"]')?.checked === true,
-    co2CostsSeparateConfirmed:form.querySelector('[name="thermalCo2SeparateConfirmed"]')?.checked === true,
-    exceptionReviewedStandard:form.querySelector('[name="thermalExceptionReviewed"]')?.checked === true,
-    groupPreallocationNotRequired:form.querySelector('[name="thermalNoGroupPreallocation"]')?.checked === true,
-    heating:thermalServiceConfig('heating', form),
-    hot_water:thermalServiceConfig('hotWater', form)
-  };
+  const config = collectThermalConfig(form);
   const result = previewSeparateThermalLandlord(project, selectedPeriodId, config);
   renderThermalResult(result);
+});
+
+document.querySelector('[data-co2-form]')?.addEventListener('submit', function(event){
+  event.preventDefault();
+  if (!load() || !project || !selectedPeriodId) return;
+  const form = event.currentTarget;
+  const emissionsGrams = parseKgToGrams(form.querySelector('[name="co2EmissionsKg"]')?.value);
+  const confirmedInvoiceCo2Cents = parseEuro(form.querySelector('[name="co2InvoiceEuro"]')?.value);
+  if (emissionsGrams === null || confirmedInvoiceCo2Cents === null) {
+    showFlash('Bitte Emissionen in kg und bestätigten CO₂-Rechnungsbetrag vollständig angeben.', 'error');
+    return;
+  }
+  const config = {
+    applicabilityReviewed:form.querySelector('[name="co2ApplicabilityReviewed"]')?.checked === true,
+    specialHeatingCasesExcludedConfirmed:form.querySelector('[name="co2SpecialCasesExcluded"]')?.checked === true,
+    reductionExceptionsExcludedConfirmed:form.querySelector('[name="co2ReductionExceptionsExcluded"]')?.checked === true,
+    ownerCentralSupplyConfirmed:form.querySelector('[name="co2OwnerCentralSupply"]')?.checked === true,
+    invoiceInventoryConfirmed:form.querySelector('[name="co2InvoiceInventoryConfirmed"]')?.checked === true,
+    areaBasisConfirmed:form.querySelector('[name="co2AreaBasisConfirmed"]')?.checked === true,
+    areaEvidenceRef:String(form.querySelector('[name="co2AreaEvidenceRef"]')?.value || '').trim(),
+    emissionsGrams,
+    emissionsEvidenceRef:String(form.querySelector('[name="co2EmissionsEvidenceRef"]')?.value || '').trim(),
+    emissionsPeriodConfirmed:form.querySelector('[name="co2EmissionsPeriodConfirmed"]')?.checked === true,
+    confirmedInvoiceCo2Cents,
+    tenantAllocationRequested:form.querySelector('[name="co2TenantAllocationRequested"]')?.checked === true,
+    tenantOnlyOccupancyConfirmed:form.querySelector('[name="co2TenantOnlyOccupancy"]')?.checked === true,
+    thermalCostShareMethodReviewed:form.querySelector('[name="co2ThermalMethodReviewed"]')?.checked === true,
+    originalCo2ExcludedFromThermalConfirmed:form.querySelector('[name="co2ExcludedFromThermal"]')?.checked === true,
+    distributionEvidenceRef:String(form.querySelector('[name="co2DistributionEvidenceRef"]')?.value || '').trim()
+  };
+  const thermalForm = document.querySelector('[data-thermal-form]');
+  const thermalConfig = thermalForm ? collectThermalConfig(thermalForm) : null;
+  const result = previewLandlordCo2(project, selectedPeriodId, config, thermalConfig);
+  renderCo2Result(result);
 });
 
 const state = safeLoadProject();
@@ -324,6 +351,61 @@ function thermalServiceConfig(prefix, form) {
     readingsConfirmed:form.querySelector('[name="' + prefix + 'ReadingsConfirmed"]')?.checked === true,
     measurementBasisConfirmed:form.querySelector('[name="' + prefix + 'BasisConfirmed"]')?.checked === true
   };
+}
+function collectThermalConfig(form) {
+  return {
+    scopeConfirmed:form.querySelector('[name="thermalScopeConfirmed"]')?.checked === true,
+    costBasisConfirmed:form.querySelector('[name="thermalCostBasisConfirmed"]')?.checked === true,
+    co2CostsSeparateConfirmed:form.querySelector('[name="thermalCo2SeparateConfirmed"]')?.checked === true,
+    exceptionReviewedStandard:form.querySelector('[name="thermalExceptionReviewed"]')?.checked === true,
+    groupPreallocationNotRequired:form.querySelector('[name="thermalNoGroupPreallocation"]')?.checked === true,
+    heating:thermalServiceConfig('heating', form),
+    hot_water:thermalServiceConfig('hotWater', form)
+  };
+}
+function parseKgToGrams(value) {
+  const raw = String(value ?? '').trim().replace(',', '.');
+  if (!/^\d+(?:\.\d{1,3})?$/.test(raw)) return null;
+  const parts = raw.split('.');
+  const grams = BigInt(parts[0]) * 1000n + BigInt(((parts[1] || '') + '000').slice(0,3));
+  return grams <= BigInt(Number.MAX_SAFE_INTEGER) ? Number(grams) : null;
+}
+function renderCo2Result(result) {
+  const host = document.querySelector('[data-co2-result]');
+  if (!host) return;
+  if (result.status === 'blocked' || !result.buildingReport) {
+    const rows = (result.issues ?? []).slice(0,8).map(function(issue){
+      return '<div class="unit-row"><div><div class="unit-title">' + escapeText(issue.code) +
+        '</div><div class="unit-sub">' + escapeText(issue.detail) + '</div></div><div></div><div></div><div></div></div>';
+    }).join('');
+    host.innerHTML = '<div class="notice"><strong>CO₂-Vorschau gesperrt.</strong> Fehlende Nachweise oder nicht unterstützte Fälle werden nicht geschätzt.</div><div class="unit-list" style="margin-top:10px">' + rows + '</div>';
+    return;
+  }
+  const b = result.buildingReport;
+  let tenantHtml = '';
+  if (result.status === 'tenant_preview' && result.tenantReport) {
+    tenantHtml = '<div class="grid grid-2" style="margin-top:14px">' +
+      result.tenantReport.tenants.map(function(row){
+        const tenancy = project.tenancies.find(function(t){ return t.id === row.tenancyId; });
+        return '<div class="mini-stat"><span>' + escapeText(tenancy?.partyLabel || row.tenancyId) +
+          '</span><strong>' + escapeText(formatEuro(row.provisionalCo2Cents)) + '</strong></div>';
+      }).join('') + '</div><div class="notice" style="margin-top:14px">Individuelle CO₂-Beträge sind ausschließlich eine technische Vorschau und noch nicht gebucht oder rechtlich freigegeben.</div>';
+  } else if ((result.issues ?? []).length) {
+    tenantHtml = '<div class="notice" style="margin-top:14px"><strong>Gebäudestufe berechnet, individuelle Mieteraufteilung bleibt gesperrt.</strong> ' +
+      escapeText(result.issues[0].detail) + '</div>';
+  } else {
+    tenantHtml = '<div class="notice" style="margin-top:14px">Nur Gebäudestufe berechnet. Eine individuelle Mieteraufteilung wurde nicht angefordert.</div>';
+  }
+  host.innerHTML =
+    '<div class="grid grid-4"><div class="metric"><div class="metric-label">CO₂-Originalkosten</div><div class="metric-value">' +
+    escapeText(formatEuro(b.originalInvoiceCents)) + '</div></div><div class="metric"><div class="metric-label">Gebäudestufe</div><div class="metric-value">' +
+    escapeText(String(b.stageIndex)) + '</div><div class="metric-note">' +
+    escapeText(new Intl.NumberFormat('de-DE',{maximumFractionDigits:1}).format(b.specificEmissionsTenthsKgPerM2Year / 10)) + ' kg CO₂/m²a</div></div>' +
+    '<div class="metric"><div class="metric-label">Eigentümeranteil</div><div class="metric-value">' +
+    escapeText(formatEuro(b.buildingLandlordPortionCents)) + '</div><div class="metric-note">' + escapeText(String(b.landlordPercent)) + ' %</div></div>' +
+    '<div class="metric"><div class="metric-label">Noch nicht zugeordnet</div><div class="metric-value">' +
+    escapeText(formatEuro(b.unallocatedRemainderCents)) + '</div><div class="metric-note">Mieterpool vor Einzelprüfung</div></div></div>' +
+    tenantHtml;
 }
 function renderThermalResult(result) {
   const host = document.querySelector('[data-thermal-result]');
