@@ -54,8 +54,26 @@ Der vollständige aktuelle Projektstand wurde nach Einbau des ersten Vermieterfl
 
 Damit sind die neuen Vertrags-, Vorauszahlungs-, Zahlungskreis-, Umlageschlüssel- und Einzelvorschau-Regressionen gemeinsam mit dem bisherigen technischen Fundament geprüft.
 
+## Heizungs- und Warmwasserpfad
+
+`assets/js/landlord-thermal.js` verbindet den vorhandenen geprüften Wärme-Rechenkern mit dem Vermieterfluss. Der Adapter leitet **keine** fachliche oder rechtliche Bestätigung automatisch ab. Er verlangt ausdrücklich bestätigte Angaben zu:
+
+- getrennter Heiz-/Warmwasserkostenbasis,
+- CO₂-Abgrenzung,
+- geprüften Ausnahmen,
+- fehlender Nutzergruppen-Vorverteilung,
+- Verbrauchsquote je vorhandener Leistung,
+- Messwerten und Messbasis,
+- ausdrücklich bestätigtem Nichtvorhandensein einer Leistung.
+
+Kostenpositionen und Zähler werden aus dem gespeicherten Objekt gelesen. Fehlt einer Einheit ein passender Zähler oder ein erforderlicher Beleg, bleibt der Teilbericht gesperrt. Der erzeugte Bericht bleibt `combinedWithOtherCosts:false`, `legalRelease:false` und `pdfGenerated:false`.
+
+`abrechnung-vermieter.html` enthält dafür jetzt einen eigenen sichtbaren Prüfabschnitt „Heizung & Warmwasser“.
+
+Automatisierte Regressionen liegen in `tests/landlord-thermal.test.mjs`.
+
 ## Als Nächstes
 
-Als Nächstes werden die spezialisierten Heiz-/Warmwasser-/CO₂- und Sonderfallpfade in denselben Vermieterfluss eingebunden. Pauschalen und nicht unterstützte Fälle bleiben bis dahin gesperrt, statt in den Standardrechner gezwungen zu werden.
+Als Nächstes folgt die CO₂-Verbindung für den vom bestehenden CO₂-Modul unterstützten engen Fall. Eigennutzung, Leerstand, Pauschalen und weitere nicht unterstützte Sonderfälle bleiben gesperrt, statt in einen Standardpfad gezwungen zu werden.
 
 **Baustein 4 bleibt offen.**
