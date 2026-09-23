@@ -41,6 +41,19 @@ Keine Differenz wird automatisch als rechtlich fällige Forderung, Rückstand od
 
 Die Oberfläche erzeugt weder eine rechtlich freigegebene Forderung noch ein PDF.
 
+## Technischer Prüfstand
+
+Der vollständige aktuelle Projektstand wurde nach Einbau des ersten Vermieterflusses erneut gemeinsam ausgeführt:
+
+- **327 Tests**
+- **327 bestanden**
+- **0 fehlgeschlagen**
+- **0 übersprungen**
+- **0 abgebrochen**
+- **39 JavaScript-Dateien** unter `assets/js/` zusätzlich mit `node --check` syntaktisch geprüft.
+
+Damit sind die neuen Vertrags-, Vorauszahlungs-, Zahlungskreis-, Umlageschlüssel- und Einzelvorschau-Regressionen gemeinsam mit dem bisherigen technischen Fundament geprüft.
+
 ## Als Nächstes
 
 Als Nächstes werden die spezialisierten Heiz-/Warmwasser-/CO₂- und Sonderfallpfade in denselben Vermieterfluss eingebunden. Pauschalen und nicht unterstützte Fälle bleiben bis dahin gesperrt, statt in den Standardrechner gezwungen zu werden.
