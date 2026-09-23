@@ -152,33 +152,44 @@ export function previewLandlordCo2(project, periodId, config, thermalConfig) {
     originalCo2ExcludedFromThermalConfirmed: true,
     distributionEvidenceRef: config.distributionEvidenceRef.trim()
   };
-  const thermalPreview = previewSeparateThermalLandlord(project, periodId, thermalConfig);
-  if (thermalPreview.status !== 'preview' || !thermalPreview.plan) {
-    return {
-      status: 'building_preview',
-      calculationReady: false,
-      buildingReport: building.report,
-      tenantReport: null,
-      issues: thermalPreview.issues ?? [{ code:'CO2_THERMAL_REQUIRED', path:'thermalPlan', detail:'Geprüfter Wärme-Teilbericht fehlt.' }],
-      co2BuildingPlan: co2Plan,
-      co2TenantPlan: tenantPlan,
-      legalRelease:false,
-      pdfGenerated:false
-    };
-  }
-  const rawThermal = calculateThermalPeriod(project, periodId, thermalPreview.plan);
-  if (rawThermal.status !== 'calculated' || !rawThermal.report) {
-    return {
-      status: 'building_preview',
-      calculationReady: false,
-      buildingReport: building.report,
-      tenantReport: null,
-      issues: rawThermal.issues ?? [{ code:'CO2_THERMAL_REQUIRED', path:'thermalResult', detail:'Geprüfter Wärme-Teilbericht fehlt.' }],
-      co2BuildingPlan: co2Plan,
-      co2TenantPlan: tenantPlan,
-      legalRelease:false,
-      pdfGenerated:false
-    };
+  let rawThermal = null;
+  const suppliedPreview = thermalConfig?.status === 'preview' ? thermalConfig : null;
+  if (suppliedPreview?.report &&
+      ['thermal_subreport_only','thermal_linked_subreport_only'].includes(suppliedPreview.report.scope) &&
+      suppliedPreview.report.legalRelease === false &&
+      suppliedPreview.report.pdfGenerated === false &&
+      suppliedPreview.report.co2Calculated === false &&
+      suppliedPreview.report.combinedWithOtherCosts === false) {
+    rawThermal = { status:'calculated', issues:[], report:structuredClone(suppliedPreview.report) };
+  } else {
+    const thermalPreview = previewSeparateThermalLandlord(project, periodId, thermalConfig);
+    if (thermalPreview.status !== 'preview' || !thermalPreview.plan) {
+      return {
+        status: 'building_preview',
+        calculationReady: false,
+        buildingReport: building.report,
+        tenantReport: null,
+        issues: thermalPreview.issues ?? [{ code:'CO2_THERMAL_REQUIRED', path:'thermalPlan', detail:'Geprüfter Wärme-Teilbericht fehlt.' }],
+        co2BuildingPlan: co2Plan,
+        co2TenantPlan: tenantPlan,
+        legalRelease:false,
+        pdfGenerated:false
+      };
+    }
+    rawThermal = calculateThermalPeriod(project, periodId, thermalPreview.plan);
+    if (rawThermal.status !== 'calculated' || !rawThermal.report) {
+      return {
+        status: 'building_preview',
+        calculationReady: false,
+        buildingReport: building.report,
+        tenantReport: null,
+        issues: rawThermal.issues ?? [{ code:'CO2_THERMAL_REQUIRED', path:'thermalResult', detail:'Geprüfter Wärme-Teilbericht fehlt.' }],
+        co2BuildingPlan: co2Plan,
+        co2TenantPlan: tenantPlan,
+        legalRelease:false,
+        pdfGenerated:false
+      };
+    }
   }
 
   const tenants = previewTenantCo2(project, periodId, co2Plan, rawThermal, tenantPlan);
