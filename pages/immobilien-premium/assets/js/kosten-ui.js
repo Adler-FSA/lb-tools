@@ -229,8 +229,21 @@ document.querySelector('[data-expense-form]').addEventListener('submit', event =
     return;
   }
 
-  ensurePeriod(selectedPropertyId, selectedYear);
+  const period = ensurePeriod(selectedPropertyId, selectedYear);
   const classification = String(form.get('classification') || 'unresolved');
+  const supplyRecordId = String(form.get('expenseSupplyRecord') || '');
+  const supplyRecord = supplyRecordId
+    ? project.supplyRegistry?.find(item => item.id === supplyRecordId &&
+        item.propertyId === selectedPropertyId && item.accountingPeriodId === period.id)
+    : null;
+  if (supplyRecordId && !supplyRecord) {
+    showFlash('Der gewählte Versorgungsvertrag gehört nicht zu dieser Immobilie und diesem Jahr.', 'error');
+    return;
+  }
+  if (supplyRecord?.contract?.contractHolder === 'tenant_direct') {
+    showFlash('Ein Direktvertrag des Mieters darf nicht als Eigentümerkosten erfasst werden.', 'error');
+    return;
+  }
   project.expenses.push({
     id: newId('expense'),
     propertyId: selectedPropertyId,
@@ -242,7 +255,11 @@ document.querySelector('[data-expense-form]').addEventListener('submit', event =
     endDate,
     invoiceReference: String(form.get('invoiceReference') || '').trim(),
     invoiceLineId: newId('invoice_line'),
-    note: String(form.get('note') || '').trim()
+    note: String(form.get('note') || '').trim(),
+    ...(supplyRecord ? {
+      providerAccountId: supplyRecord.contract.providerAccountId,
+      supplyManaged: true
+    } : {})
   });
 
   try {
@@ -253,6 +270,7 @@ document.querySelector('[data-expense-form]').addEventListener('submit', event =
     document.querySelector('[name="classification"]').value = 'unresolved';
     showFlash('Kostenposition wurde gespeichert. Umlagefähigkeit bleibt bis zur späteren Prüfung getrennt.');
     render();
+    document.dispatchEvent(new CustomEvent('np-project-saved'));
   } catch (error) {
     load();
     showFlash(error.message || 'Kostenposition konnte nicht gespeichert werden.', 'error');
@@ -266,14 +284,30 @@ document.querySelector('[data-provider-form]').addEventListener('submit', event 
   const form = new FormData(event.currentTarget);
   const amountCents = parseEuro(form.get('paymentEuro'));
   const date = String(form.get('paymentDate') || '');
-  const providerLabel = String(form.get('providerLabel') || '').trim();
+  const enteredProviderLabel = String(form.get('providerLabel') || '').trim();
+  const period = ensurePeriod(selectedPropertyId, selectedYear);
+  const supplyRecordId = String(form.get('paymentSupplyRecord') || '');
+  const supplyRecord = supplyRecordId
+    ? project.supplyRegistry?.find(item => item.id === supplyRecordId &&
+        item.propertyId === selectedPropertyId && item.accountingPeriodId === period.id)
+    : null;
+  if (supplyRecordId && !supplyRecord) {
+    showFlash('Der gewählte Versorgungsvertrag gehört nicht zu dieser Immobilie und diesem Jahr.', 'error');
+    return;
+  }
+  if (supplyRecord?.contract?.contractHolder === 'tenant_direct') {
+    showFlash('Eigentümerzahlungen dürfen nicht einem Direktvertrag des Mieters zugeordnet werden.', 'error');
+    return;
+  }
+  const providerLabel = supplyRecord?.contract?.providerLabel || enteredProviderLabel ||
+    supplyRecord?.contract?.providerAccountId || '';
   if (amountCents === null || !providerLabel || !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
       !date.startsWith(selectedYear)) {
     showFlash('Bitte Versorger, Betrag und Datum innerhalb des gewählten Jahres angeben.', 'error');
     return;
   }
-  const period = ensurePeriod(selectedPropertyId, selectedYear);
-  const providerAccountId = `provider_${providerLabel.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 70) || newId('account')}`;
+  const providerAccountId = supplyRecord?.contract?.providerAccountId ||
+    `provider_${providerLabel.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 70) || newId('account')}`;
   project.cashflows.push({
     id: newId('cashflow'),
     kind: String(form.get('paymentKind') || 'provider_payment'),
@@ -292,11 +326,16 @@ document.querySelector('[data-provider-form]').addEventListener('submit', event 
     document.querySelector('[name="paymentKind"]').value = 'provider_payment';
     showFlash('Versorgerbewegung wurde getrennt vom Kostenbetrag gespeichert.');
     render();
+    document.dispatchEvent(new CustomEvent('np-project-saved'));
   } catch (error) {
     load();
     showFlash(error.message || 'Versorgerbewegung konnte nicht gespeichert werden.', 'error');
     render();
   }
+});
+
+document.addEventListener('np-project-saved', () => {
+  if (load()) render();
 });
 
 if (load()) {
