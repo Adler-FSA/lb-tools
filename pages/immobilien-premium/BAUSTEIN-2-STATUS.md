@@ -1,33 +1,56 @@
-# Baustein 2 – technischer Zwischenstand vor den HTML-Seiten
+# Baustein 2 – technischer Abschlussstand vor den HTML-Seiten
 
-**22.09.2026 · Offen, nicht freigegeben.** Der freigegebene `MASTERPLAN.md` und `MASTERPLAN-ERGAENZUNG-VERSORGUNG.md` bleiben unverändert maßgeblich. Das frühere Nebenkosten-Werkzeug bleibt unangetastet. Michaels Sichtprüfung beginnt mit einer tatsächlich bedienbaren HTML-Oberfläche nach der technischen Freigabe von Baustein 2; keine Codeabnahme durch den Nutzer.
+**23.09.2026 · Technisch vollständig geprüft, noch nicht vom Auftraggeber freigegeben.** Der freigegebene `MASTERPLAN.md` und `MASTERPLAN-ERGAENZUNG-VERSORGUNG.md` bleiben unverändert maßgeblich. Das frühere Nebenkosten-Werkzeug bleibt unangetastet. Michaels Sichtprüfung beginnt erst mit einer bedienbaren HTML-Oberfläche in Baustein 3; eine Codeabnahme durch den Nutzer ist nicht erforderlich.
 
-## Bereits vorhandenes Fundament
+## Technisches Fundament
 
-- Eigenständiges Projektdatenmodell v1, speicherbare Vertragsentwürfe und bestätigte Versorgungsverträge, isolierte lokale Speicherung, JSON-Backup und bestätigte Wiederherstellung. Originaldateien von Rechnungen, Bildern und PDFs sind ausdrücklich **nicht** Teil dieser JSON-Sicherung.
-- Standardkosten: Eigentümer-/Mieteranteile, tatsächliche Mietervorauszahlungen, separater Versorger-Zahlungskreis, unterstützte Nutzerwechsel, Leerstände, Änderungen von Vorauszahlungen und Kaltwasser-Zählerprüfungen.
-- Heizung/Warmwasser: eigenständiger Rechenkern, belegte Messbasis und Nutzerwechsel; verbundene Anlagen mit Originalrechnungsinventur, Vorabtrennung, temporärer Überleitung und Cent-Audit. `linked-inventory-guard.js` erlaubt zusätzlich eindeutig inventarisierte direkte Wartungs-/Einzelkosten statt einer pauschalen Mischkosten-Sperre.
-- CO₂: Gebäudeprüfung und nicht buchende Einzelmieter-Vorschau nur für eng bestätigte Standardfälle. Andere Gebäude-, Nutzungs- und Rechtsfälle nicht allgemein unterstützt.
-- `year-workflow-runner.js` verbindet die echten Standard-, Wärme-, CO₂-, Versorger- und Prüffunktionen mit einer ausschließlich nicht buchbaren Jahresvorschau. Jahreswechsel bleibt ein nicht gespeicherter, bestätigungsbedürftiger Vorschlag.
+- Eigenständiges Projektdatenmodell v1 mit stabilen IDs, Zeitbezug, getrennten Kosten-/Zahlungskreisen und validierten Versorgungsverträgen.
+- Isolierte lokale Speicherung, JSON-Sicherung und Wiederherstellung. Originaldateien von Rechnungen, Bildern und PDFs sind weiterhin ausdrücklich **nicht** Bestandteil dieser JSON-Sicherung.
+- Standardkosten mit Eigentümer-/Mieteranteilen, tatsächlichen Mietervorauszahlungen, getrennten Versorgerzahlungen, Nutzerwechseln, Leerstand, Vorauszahlungsänderungen und Messwertkontrollen.
+- Heizung/Warmwasser mit eigenständigem Rechenkern, belegter Messbasis, Nutzerwechsel und verbundenen Anlagen einschließlich Originalrechnungsinventur, Vorabtrennung, temporärer Überleitung und Cent-Audit.
+- CO₂-Prüfpfad für eng belegte Standardfälle; nicht unterstützte Sonderfälle bleiben gesperrt.
+- Versorgungsverträge mit bestätigten Preisständen, Originalrechnungsreferenzen, tatsächlichen Zahlungen und getrennten Prognosen.
+- Jahres-Orchestrator `previewAnnualPeriod` verbindet die echten Standard-, Wärme-, CO₂-, Versorger- und Integritätsmodule. Er liefert ausschließlich eine **nicht buchbare Jahresvorschau**; `combinedForPosting:false`, `legalRelease:false` und `pdfGenerated:false` bleiben zwingend.
+- `year-scope.js` sperrt unvollständige Rechnungszeiträume, periodenfremde Zahlungen und unklare Jahreszuordnungen vor jedem Fachrechner.
+- MH-09 bereitet ein Folgejahr nur als bestätigungsbedürftigen Vorschlag vor und verändert das Vorjahr nicht.
 
-## Neues Paket: Jahres- und Zahlungszuordnung tatsächlich in den Rechenweg integriert
+## Vollständiger reproduzierbarer Gesamttest
 
-**Korrektur des vorigen Zwischenstands:** Der Quellenprüfer `assets/js/year-scope.js` war vorhanden, aber in `year-workflow.js` bislang noch nicht aufgerufen. Die frühere Formulierung, der Produktionseinstieg führe diesen Check bereits aus, war verfrüht. Jetzt ist `inspectAnnualSources` nach Datenmodell- und Jahresstatusprüfung direkt in `runAnnualWorkflow` eingebaut: Der echte Produktionseinstieg `previewAnnualPeriod` führt über diesen Aufruf den Quellencheck **vor** sämtlichen Fachrechnern aus und verwendet dessen verifizierte Originalkosteninventur.
+Der vollständige aktuelle Projektstand wurde am 23.09.2026 **direkt aus GitHub** bereitgestellt. Verwendet wurde das GitHub-Pages-Artefakt des letzten Commits, der `pages/immobilien-premium/` verändert hat:
 
-Rechnungen mit offenem/fehlendem Enddatum oder einem nicht vollständig passenden Zeitraum dürfen nicht unbemerkt aus dem Jahresinventar verschwinden; Teilüberlappungen blockieren. Zahlungen für das Gebäude oder seine Mietverhältnisse, die einem Jahr zugewiesen sind, aber ein Datum außerhalb dieses Jahres tragen, sperren; ebenso innerhalb des Jahres datierte, aber keiner Periode zugewiesene Zahlungen. Fremde Immobilien bleiben getrennt. Explizit einem anderen Jahr zugewiesene Zahlungen werden nicht automatisch umgebucht. Für zulässige Zahlungen über Periodengrenzen hinweg ist später eine gesonderte geprüfte Fachlogik nötig. Der Check speichert, verbucht oder mutiert keine Daten.
+`e9e15ebc0449808f3a15b1db2cdc35431b844ce8`  
+`test(immobilien-premium): verify genuine linked annual workflow and original invoice reconciliation`
 
-Neu ist `tests/year-workflow-scope.test.mjs` mit sieben Regressionstests des **tatsächlichen Jahres-Orchestrators einschließlich des echten Quellen-/Jahresprüfers**. Die nachfolgenden Spezialrechner werden in diesen Tests bewusst injiziert simuliert, damit nachgewiesen wird, dass beim fehlenden Nachweis keiner aufgerufen wird. Der Fall mit validen Daten prüft den sicheren Vorschau-Aufruf, nicht die rechnerische Korrektheit aller Fachmodule.
+Seit diesem Commit gibt es im Repository weitere Änderungen außerhalb des Immobilien-Projekts; für `pages/immobilien-premium/` ist dies weiterhin der neueste Commit.
 
-## Testnachweis – Zahlen nicht vermischen
+Im daraus extrahierten vollständigen Projektverzeichnis befinden sich **24 JavaScript-Module und 27 Testdateien**. Ausgeführt wurde im Projektordner:
 
-**Neu tatsächlich ausgeführt:** `node --test tests/linked-inventory-guard.test.mjs tests/year-scope.test.mjs tests/year-workflow-scope.test.mjs`: **24 Tests aus drei Dateien bestanden, 0 fehlgeschlagen** (8 Rechnungsinventur, 9 Quellen-/Perioden-Prüfung, 7 verdrahteter Orchestrator). JavaScript-Syntax geprüft; die SHA der aktualisierten Jahresablaufsteuerung und der neuen Testdatei auf GitHub stimmen mit den lokal getesteten Git-Blobs überein.
+```
+npm test
+```
 
-**Noch kein bestandener Gesamttest:** `tests/annual-real-engines.test.mjs` mit drei echten End-to-End-Testfällen kann im aktuellen lokalen Teilverzeichnis nicht starten (`ERR_MODULE_NOT_FOUND: assets/js/model.js` sowie weitere dort fehlende Originalmodule). Die vorhergehenden früheren Teiltestzahlen dürfen nicht aufaddiert werden. Keine Browser-, iPad-, GitHub-CI-, PDF- oder Rechtsabnahme.
+Ergebnis des vollständigen gemeinsamen Laufs:
 
-## Konkreter Engpass und begrenzte Abschlussstrecke
+- **291 Tests**
+- **291 bestanden**
+- **0 fehlgeschlagen**
+- **0 übersprungen**
+- **0 abgebrochen**
 
-Das aktuelle Arbeitsverzeichnis enthält nur Teile des GitHub-Projekts. Der GitHub-Connector ermöglicht die Einzeldateiübertragung, stellt aber keine vollständige lokale Repository-Kopie bereit. Ein direkter GitHub-Download per Terminal scheitert in diesem Arbeitscontainer an der DNS-Auflösung. Für den verlangten **reproduzierbaren vollständigen Testlauf** muss das gesamte aktuelle Projektverzeichnis `pages/immobilien-premium/` lokal bereitgestellt werden, etwa durch Hochladen des Verzeichnisses als ZIP oder einen Arbeitsmodus mit direktem Repository-Zugriff. Ohne das wäre eine behauptete vollständige Abnahme unseriös.
+Damit sind erstmals alle vorhandenen Testdateien in **einem** gemeinsamen reproduzierbaren Lauf geprüft worden. Darunter liegen die MH-01–MH-09-Grundfälle, Cent- und Überlaufkontrollen, Mieter-/Leerstands-/Nutzerwechsel, Vertrags- und Vorauszahlungshistorie, Zähler- und Messwertfälle, getrennte sowie verbundene Heiz-/Warmwasserpfade, CO₂-Sperren, Versorgungsverträge, Jahresquellenprüfung, Jahreswechsel und die echten Produktionseinstiege `annual-real-engines.test.mjs` und `annual-linked-real.test.mjs`.
 
-Sobald der vollständige Projektstand vorliegt: in **einem** Durchlauf sämtliche MH-01–MH-09-Tests und die drei echten Jahresablauf-Integrationstests ausführen, nur nachgewiesene Schnittstellenfehler korrigieren, Originalbelegidentität, centgenaue Kosten-/Zahlungsbilanz, Jahr-/Gebäudeschutz und unveränderte Speicher- und Vorjahresdaten verifizieren. Heizöl, nicht geprüfte CO₂-/Leerstands-/Direktversorgungsfälle und weitere ungeklärte Rechtsausnahmen bleiben gesperrt, nicht durch weitere unsichtbare Features künstlich freigegeben. Baustein 2 erst nach bestandener technischer Prüfung ausdrücklich zur Freigabe vorlegen. **Unmittelbar danach Baustein 3 mit der ersten responsiven, tatsächlich bedienbaren HTML-Immobilienzentrale**; PDF später ausschließlich nach Prüfung der genehmigten Originalvorlage.
+Die echten Jahresintegrationsfälle bestätigen unter anderem, dass Original-Wärmerechnungen nur einmal eingehen, separate Wartungskosten einer verbundenen Anlage nur bei vollständigem Rechnungsinventar zugelassen werden und fehlende bzw. unbestätigte Mess-/Quellnachweise die Jahresvorschau sperren.
 
-**Keine fertige HTML-Anwendung, keine Mieter-PDF, keine rechtlich freigegebene Jahresabrechnung. Baustein 2 bleibt offen.**
+## Bewusst nicht freigegebene Sonderfälle
+
+Der bestandene technische Test bedeutet **keine universelle fachliche oder rechtliche Freigabe**. Heizölbestände, nicht geprüfte CO₂-Fälle mit Eigennutzung/Leerstand, Direktversorgung, Ersatzwerte und weitere Rechtsausnahmen bleiben dort gesperrt, wo keine ausdrücklich getestete Fachlogik vorhanden ist. Sie werden nicht künstlich freigeschaltet, nur um Baustein 2 abzuschließen.
+
+Ebenso sind Browser-/iPad-Sichtprüfung, PDF-Technik, Dokumentgestaltung, DE/EN-Oberfläche und rechtliche Endprüfung Gegenstand späterer Bausteine und **keine Voraussetzung für den technischen Kern von Baustein 2**.
+
+## Abschlussbewertung Baustein 2
+
+Die zuvor offene technische Voraussetzung – ein vollständiger gemeinsamer Lauf aller vorhandenen Module und Tests – ist erfüllt. Es besteht aktuell kein nachgewiesener technischer Fehler aus der Gesamtsuite.
+
+**Baustein 2 ist damit technisch abnahmebereit.** Er bleibt formal offen, bis der Auftraggeber ihn ausdrücklich mit „Baustein fertig“ freigibt.
+
+Nach dieser Freigabe beginnt unmittelbar **Baustein 3 – Immobilienzentrale/Eigentümer** mit der ersten responsiven und tatsächlich bedienbaren HTML-Oberfläche. Keine weitere unsichtbare Erweiterungsrunde vor der Sichtprüfung.
