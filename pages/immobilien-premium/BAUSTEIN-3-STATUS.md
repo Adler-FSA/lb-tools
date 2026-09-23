@@ -1,6 +1,6 @@
 # Baustein 3 – Immobilienzentrale / Eigentümer
 
-**23.09.2026 · In Arbeit, sichtbarer Funktionsstand weit fortgeschritten.** Baustein 2 ist freigegeben. Baustein 3 baut ausschließlich auf dem neuen Datenmodell und der geprüften Speicherschicht auf; das frühere Nebenkosten-Werkzeug bleibt unberührt.
+**23.09.2026 · Technisch vollständig geprüft und vom Auftraggeber mit „Baustein fertig“ freigegeben.** Baustein 2 ist freigegeben. Baustein 3 baut ausschließlich auf dem neuen Datenmodell und der geprüften Speicherschicht auf; das frühere Nebenkosten-Werkzeug bleibt unberührt.
 
 ## Aktuell bedienbar
 
@@ -70,4 +70,4 @@ Die Eigentümerübersicht enthält jetzt eine geführte **Jahresprüfung gegen d
 
 Damit sind die Ziele des Masterplans für **Baustein 3 – Datenaufnahme, Dashboard, Kosten und Eigentümerrechnung** im unterstützten Umfang umgesetzt. DE/EN, PDF/Archiv, Vermieter-Umlage und rechtliche Endfreigaben gehören ausdrücklich zu späteren Bausteinen.
 
-**Baustein 3 ist technisch abnahmebereit und bleibt formal offen, bis der Auftraggeber ihn ausdrücklich mit „Baustein fertig“ freigibt.** Es gibt weiterhin keine rechtlich freigegebene Mieterabrechnung oder PDF-Ausgabe.
+**Baustein 3 ist abgeschlossen und freigegeben.** Die ausdrückliche Freigabe „Baustein fertig“ erfolgte am 23.09.2026. Es gibt weiterhin keine rechtlich freigegebene Mieterabrechnung oder PDF-Ausgabe; diese Funktionen gehören zu späteren Bausteinen.
