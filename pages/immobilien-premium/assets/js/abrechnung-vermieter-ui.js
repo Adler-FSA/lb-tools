@@ -236,6 +236,7 @@ function renderAllocation() {
   if (!period) { host.innerHTML = ''; return; }
   const expenses = project.expenses.filter(function(e){
     return e.propertyId === period.propertyId && e.classification === 'allocatable' &&
+      !['heating','hot_water','thermal_shared','co2','heating_oil'].includes(e.category) &&
       e.startDate <= period.endDate && (e.endDate ?? '9999-12-31') >= period.startDate;
   });
   if (!expenses.length) {
