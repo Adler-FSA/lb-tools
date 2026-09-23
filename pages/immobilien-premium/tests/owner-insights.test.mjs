@@ -105,5 +105,6 @@ test('documented consumption does not overflow safe integer aggregation', () => 
   );
   const r = buildDocumentedConsumption(p, 'house', 'year2026');
   assert.equal(r.status, 'consumption');
-  assert.ok(r.issues.some(issue => issue.code === 'CONSUMPTION_OVERFLOW') || r.report.totals.some(item => item.service === 'heating'));
+  assert.ok(r.issues.some(issue => issue.code === 'CONSUMPTION_OVERFLOW'));
+  assert.equal(r.report.totals.find(item => item.service === 'heating').value, 3500);
 });
