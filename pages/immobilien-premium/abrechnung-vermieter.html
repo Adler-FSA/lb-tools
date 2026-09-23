@@ -116,15 +116,61 @@
         <div class="grid" data-allocation-list></div>
       </section>
 
+      <section class="section card form-card">
+        <div class="section-head">
+          <div><div class="eyebrow">5 · Heizung &amp; Warmwasser</div><h2>Wärme-Teilbericht ausdrücklich prüfen</h2><p>Nur getrennte und belegte Jahreskosten mit dokumentierten Messwerten werden gerechnet. Die Bestätigungen hier ersetzen keine rechtliche Prüfung.</p></div>
+        </div>
+        <form data-thermal-form>
+          <div class="grid grid-2">
+            <article class="card" style="box-shadow:none">
+              <h3>Grundlage bestätigen</h3>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="thermalScopeConfirmed"> getrennte Heiz-/Warmwasserkosten geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="thermalCostBasisConfirmed"> Kostenbasis vollständig geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="thermalCo2SeparateConfirmed"> CO₂-Kosten sind separat abgegrenzt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="thermalExceptionReviewed"> Ausnahmen wurden geprüft; Standardfall bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="thermalNoGroupPreallocation"> keine Nutzergruppen-Vorverteilung erforderlich</label>
+            </article>
+            <article class="card" style="box-shadow:none">
+              <h3>Heizung</h3>
+              <label>Status</label>
+              <select name="heatingMode"><option value="">Bitte wählen</option><option value="present">vorhanden</option><option value="absent">nicht vorhanden</option></select>
+              <label>Verbrauchsanteil in %</label><input name="heatingPercent" type="number" min="50" max="70" step="1" value="70">
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingMandatory70"> 70-%-Anforderung für diesen Fall festgestellt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingRateConfirmed"> Quote fachlich bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingReadingsConfirmed"> Messwerte geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingBasisConfirmed"> Messbasis/Einheiten geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingAbsentConfirmed"> bei „nicht vorhanden“ ausdrücklich bestätigt</label>
+            </article>
+            <article class="card" style="box-shadow:none">
+              <h3>Warmwasser</h3>
+              <label>Status</label>
+              <select name="hotWaterMode"><option value="">Bitte wählen</option><option value="present">vorhanden</option><option value="absent">nicht vorhanden</option></select>
+              <label>Verbrauchsanteil in %</label><input name="hotWaterPercent" type="number" min="50" max="70" step="1" value="60">
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterMandatory70"> 70-%-Anforderung für diesen Fall festgestellt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterRateConfirmed"> Quote fachlich bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterReadingsConfirmed"> Messwerte geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterBasisConfirmed"> Messbasis/Einheiten geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterAbsentConfirmed"> bei „nicht vorhanden“ ausdrücklich bestätigt</label>
+            </article>
+            <article class="card" style="box-shadow:none">
+              <h3>Prüfung starten</h3>
+              <p class="kicker">Die Kostenpositionen und passenden Zähler je Einheit werden aus dem gespeicherten Projekt gelesen. Fehlende Belege oder Messwerte sperren die Vorschau.</p>
+              <div class="form-actions"><button class="btn btn-primary" type="submit">Wärmevorschau prüfen</button></div>
+            </article>
+          </div>
+        </form>
+        <div data-thermal-result style="margin-top:16px"></div>
+      </section>
+
       <section class="section card">
         <div class="section-head">
-          <div><div class="eyebrow">5 · Rechenkern</div><h2>Individuelle Mieterergebnisse</h2><p>Der vorhandene Standard-Rechenkern prüft Vertrag, Schlüssel, Verbrauch, Nutzungszeiten und tatsächliche Vorauszahlungen gemeinsam.</p></div>
+          <div><div class="eyebrow">6 · Rechenkern</div><h2>Individuelle Mieterergebnisse</h2><p>Der vorhandene Standard-Rechenkern prüft Vertrag, Schlüssel, Verbrauch, Nutzungszeiten und tatsächliche Vorauszahlungen gemeinsam.</p></div>
         </div>
         <div data-landlord-preview></div>
       </section>
 
       <section class="section notice">
-        Heizung, Warmwasser, CO₂, Pauschalen und weitere Sonderfälle werden nicht in den Standardpfad gezwungen. Sie bleiben gesperrt, bis der dafür vorhandene Fachpfad in Baustein 4 angeschlossen ist.
+        Heizung und Warmwasser besitzen jetzt einen eigenen geprüften Teilpfad. CO₂, Pauschalen und weitere Sonderfälle werden weiterhin nicht in den Standardpfad gezwungen.
       </section>
     </div>
   </main>
