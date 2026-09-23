@@ -1,6 +1,6 @@
 # Baustein 2 – technischer Abschlussstand vor den HTML-Seiten
 
-**23.09.2026 · Technisch vollständig geprüft, noch nicht vom Auftraggeber freigegeben.** Der freigegebene `MASTERPLAN.md` und `MASTERPLAN-ERGAENZUNG-VERSORGUNG.md` bleiben unverändert maßgeblich. Das frühere Nebenkosten-Werkzeug bleibt unangetastet. Michaels Sichtprüfung beginnt erst mit einer bedienbaren HTML-Oberfläche in Baustein 3; eine Codeabnahme durch den Nutzer ist nicht erforderlich.
+**23.09.2026 · Technisch vollständig geprüft und vom Auftraggeber mit „Baustein fertig“ freigegeben.** Der freigegebene `MASTERPLAN.md` und `MASTERPLAN-ERGAENZUNG-VERSORGUNG.md` bleiben unverändert maßgeblich. Das frühere Nebenkosten-Werkzeug bleibt unangetastet. Michaels Sichtprüfung beginnt erst mit einer bedienbaren HTML-Oberfläche in Baustein 3; eine Codeabnahme durch den Nutzer ist nicht erforderlich.
 
 ## Technisches Fundament
 
@@ -51,6 +51,6 @@ Ebenso sind Browser-/iPad-Sichtprüfung, PDF-Technik, Dokumentgestaltung, DE/EN-
 
 Die zuvor offene technische Voraussetzung – ein vollständiger gemeinsamer Lauf aller vorhandenen Module und Tests – ist erfüllt. Es besteht aktuell kein nachgewiesener technischer Fehler aus der Gesamtsuite.
 
-**Baustein 2 ist damit technisch abnahmebereit.** Er bleibt formal offen, bis der Auftraggeber ihn ausdrücklich mit „Baustein fertig“ freigibt.
+**Baustein 2 ist abgeschlossen und freigegeben.** Die ausdrückliche Freigabe „Baustein fertig“ erfolgte am 23.09.2026.
 
-Nach dieser Freigabe beginnt unmittelbar **Baustein 3 – Immobilienzentrale/Eigentümer** mit der ersten responsiven und tatsächlich bedienbaren HTML-Oberfläche. Keine weitere unsichtbare Erweiterungsrunde vor der Sichtprüfung.
+**Baustein 3 – Immobilienzentrale/Eigentümer** beginnt unmittelbar mit der ersten responsiven und tatsächlich bedienbaren HTML-Oberfläche. Keine weitere unsichtbare Erweiterungsrunde vor der Sichtprüfung.
