@@ -38,22 +38,22 @@ function scope() {
   return { propertyId, year, period };
 }
 
-function ensurePeriod(propertyId, year) {
-  let period = project.accountingPeriods.find(item =>
+function withPeriod(propertyId, year) {
+  const existing = project.accountingPeriods.find(item =>
     item.propertyId === propertyId &&
     item.startDate === `${year}-01-01` &&
     item.endDate === `${year}-12-31`);
-  if (!period) {
-    period = {
-      id: newId('period'),
-      propertyId,
-      startDate: `${year}-01-01`,
-      endDate: `${year}-12-31`,
-      confirmedTenancyIds: []
-    };
-    project.accountingPeriods.push(period);
-  }
-  return period;
+  if (existing) return { source: project, period: existing };
+  const source = structuredClone(project);
+  const period = {
+    id: newId('period'),
+    propertyId,
+    startDate: `${year}-01-01`,
+    endDate: `${year}-12-31`,
+    confirmedTenancyIds: []
+  };
+  source.accountingPeriods.push(period);
+  return { source, period };
 }
 
 function parseEuro(value) {
@@ -280,7 +280,7 @@ document.querySelector('[data-supply-form]')?.addEventListener('submit', event =
   const form = new FormData(event.currentTarget);
   const { propertyId, year } = scope();
   if (!propertyId || !year) return;
-  const period = ensurePeriod(propertyId, year);
+  const { source, period } = withPeriod(propertyId, year);
   const providerAccountId = normalizeAccount(form.get('supplyAccountId'));
   const providerLabel = String(form.get('supplyProviderLabel') || '').trim();
   const contractHolder = String(form.get('supplyHolder') || 'owner');
@@ -292,7 +292,7 @@ document.querySelector('[data-supply-form]')?.addEventListener('submit', event =
   try {
     const priceVersion = contractHolder === 'owner' && form.get('supplyIncludePrice') === 'on'
       ? priceVersionFromForm(form, 'supply', year) : null;
-    const result = createSupplyDraft(project, {
+    const result = createSupplyDraft(source, {
       recordId: newId('supply'),
       propertyId,
       accountingPeriodId: period.id,
