@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Nebenkosten Premium – Eigentümerübersicht</title>
+  <meta name="description" content="Eigentümer-Kostenübersicht in Nebenkosten Premium">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+              <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M9 20v-6h6v6"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Nebenkosten Premium</div>
+            <div class="brand-sub">Akademie Immobilien- &amp; Mietservice</div>
+          </div>
+        </div>
+        <div class="storage-pill" data-storage-pill>
+          <span class="storage-dot"></span>
+          <span class="storage-text" data-storage-text>Speicher wird geprüft</span>
+        </div>
+      </div>
+      <nav class="mainnav" aria-label="Hauptnavigation">
+        <a class="nav-item" href="index.html">Meine Zentrale</a>
+        <a class="nav-item" href="immobilien.html">Immobilien</a>
+        <span class="nav-item disabled" aria-disabled="true">Mietservice</span>
+        <a class="nav-item active" href="kosten.html">Kosten &amp; Abrechnung</a>
+        <span class="nav-item disabled" aria-disabled="true">Sicherheit &amp; Checks</span>
+        <span class="nav-item disabled" aria-disabled="true">Dokumente &amp; Hilfe</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Werkzeug 8 · Eigentümer-Kostenübersicht</div>
+        <h1>Kosten sehen, ohne Zahlungsströme zu vermischen.</h1>
+        <p>Diese Sicht fasst Deine tatsächlich erfassten Kosten zusammen und stellt Versorgerzahlungen separat daneben. Eine Mieterabrechnung oder rechtliche Umlagefreigabe wird daraus nicht automatisch abgeleitet.</p>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="kosten.html">← Kosten erfassen</a>
+          <a class="btn btn-primary" href="index.html">Zur Zentrale</a>
+        </div>
+      </div>
+      <aside class="status-card">
+        <div>
+          <div class="eyebrow">Auswertung</div>
+          <h2 data-owner-title>Immobilie</h2>
+          <p data-owner-status>Übersicht wird geladen.</p>
+        </div>
+        <div class="status-line">
+          <span>Freigabestatus</span>
+          <strong>Organisationsansicht</strong>
+        </div>
+      </aside>
+    </section>
+
+    <section class="empty-state hidden" data-no-property>
+      <h3>Zuerst eine Immobilie anlegen</h3>
+      <p>Die Eigentümerübersicht benötigt eine gespeicherte Immobilie.</p>
+      <a class="btn btn-primary" href="immobilien.html">Immobilie anlegen</a>
+    </section>
+
+    <div data-owner-workspace class="hidden">
+      <section class="card">
+        <div class="toolbar">
+          <div class="field-inline">
+            <label for="ownerProperty">Immobilie</label>
+            <select id="ownerProperty" name="ownerProperty"></select>
+          </div>
+          <div class="field-inline">
+            <label for="ownerPeriod">Abrechnungsjahr</label>
+            <select id="ownerPeriod" name="ownerPeriod"></select>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="grid grid-4" data-owner-metrics></div>
+      </section>
+
+      <section class="section grid grid-2">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h2>Kosten nach Art</h2>
+              <p>Alle erfassten tatsächlichen Kostenpositionen dieses Jahres.</p>
+            </div>
+          </div>
+          <div class="unit-list" data-owner-breakdown></div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h2>Versorger-Zahlungskreis</h2>
+              <p>Abschläge, Zahlungen und Erstattungen bleiben separat.</p>
+            </div>
+          </div>
+          <div data-provider-summary></div>
+        </article>
+      </section>
+
+      <section class="section" data-owner-issues></section>
+
+      <section class="section notice">
+        Diese Eigentümerübersicht ist eine interne Organisationsansicht. Für eine belastbare Jahresabrechnung werden später Umlageschlüssel, Messwerte, Vertragsgrundlagen und die spezialisierten Prüfmodule des Rechenkerns verwendet.
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Nebenkosten Premium · Eigentümerübersicht · Kein automatischer Schluss auf Mieterforderungen oder Versorgerguthaben.
+  </footer>
+</div>
+<script type="module" src="assets/js/abrechnung-eigentuemer-ui.js"></script>
+</body>
+</html>
