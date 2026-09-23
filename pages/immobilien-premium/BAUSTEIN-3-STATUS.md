@@ -1,41 +1,48 @@
 # Baustein 3 – Immobilienzentrale / Eigentümer
 
-**23.09.2026 · Begonnen nach ausdrücklicher Freigabe von Baustein 2.**
+**23.09.2026 · In Arbeit.** Baustein 2 ist freigegeben. Baustein 3 baut ausschließlich auf dem neuen Datenmodell und der geprüften Speicherschicht auf; das frühere Nebenkosten-Werkzeug bleibt unberührt.
 
-## Sichtbarer erster Stand
+## Sichtbarer Stand
 
-Der erste bedienbare Oberflächenstand ist angelegt. Er besteht aus:
+Aktuell bedienbar:
 
-- `index.html` – responsive „Meine Zentrale“ mit Projektstatus, Kennzahlen und Immobilienübersicht.
-- `immobilien.html` – geführte Immobilienakte für Immobilie, Einheiten, Fläche und aktuellen Nutzungsstatus.
-- `assets/css/app.css` – gemeinsame responsive Oberfläche für Laptop, iPad und kleinere Displays; sechs Hauptbereiche ohne horizontale Seitennavigation.
-- `assets/js/ui-core.js` – gemeinsame Darstellungs- und Speicherhilfen.
-- `assets/js/dashboard.js` – liest ausschließlich den neuen lokalen Projektbestand und erzeugt daraus die Zentrale.
-- `assets/js/immobilien-ui.js` – legt neue Immobilien und Einheiten im bestehenden v1-Datenmodell an und speichert sie über die geprüfte Speicherschicht.
+- `index.html` – „Meine Zentrale“ mit Projektstatus, Kennzahlen, Immobilienübersicht und Direkteinstiegen.
+- `immobilien.html` – Immobilienakte für Immobilie, Einheiten, Flächen und aktuellen Nutzungsstatus.
+- `kosten.html` – Kosten- und Belegverwaltung mit getrenntem Versorger-Zahlungskreis.
+- `abrechnung-eigentuemer.html` – interne Eigentümer-Kostenübersicht mit getrennten tatsächlichen Kosten und Versorgerbewegungen.
+- gemeinsame responsive Gestaltung unter `assets/css/app.css`.
+- gemeinsame UI-/Speicherhilfen sowie Seitenskripte unter `assets/js/`.
 
-## Aktuelle Bedienung
+Die Hauptnavigation „Kosten & Abrechnung“ ist jetzt aktiv. Mietservice, Sicherheit & Checks sowie Dokumente & Hilfe bleiben sichtbar, aber gesperrt, bis die jeweiligen Bausteine angeschlossen werden.
 
-Ein neuer Nutzer kann:
+## Kosten- und Zahlungsaufnahme
 
-1. eine Immobilie mit Bezeichnung, Arbeitsbereich, Gebäudetyp und Adresse anlegen,
-2. die Immobilie öffnen,
-3. Wohnungen/Nutzungseinheiten mit Fläche anlegen,
-4. Eigennutzung, Vermietung oder Leerstand mit Startdatum erfassen,
-5. bei Vermietung bereits ein minimales eigenständiges Mietverhältnis anlegen,
-6. zur Zentrale zurückkehren und dort die gespeicherten Immobilien, Einheiten, Nutzungen und bereits vorhandenen Kosten sehen.
+Kosten werden als tatsächliche Originalkostenpositionen gespeichert: Betrag, Kostenart, Leistungszeitraum, Belegreferenz und Einordnung. Die Einordnung kann bewusst auf „ungeklärt“ stehen. „Umlage später prüfen“ setzt **keine** rechtliche Umlagefreigabe.
 
-Es werden keine Alt-Daten gelesen oder importiert. Die Speicherung erfolgt über den separaten Namensraum von Nebenkosten Premium. Kosten, PDF, Mietservice und rechtliche Freigaben werden auf dieser Seite noch nicht vorgetäuscht.
+Versorgerzahlungen und Versorgererstattungen werden in einem eigenen Cashflow-Kreis mit Abrechnungsperiode gespeichert. Sie verändern weder den Rechnungsbetrag noch automatisch eine Mieterabrechnung.
 
-## Bewusste Begrenzung dieses Sichtstands
+Ein vollständiges Kalenderjahr wird beim ersten Kosten-/Zahlungsvorgang als Abrechnungsperiode angelegt, ohne bestehende Perioden zu überschreiben.
 
-Die Oberfläche enthält bereits die sechs Hauptnavigationsbereiche, aber nur „Meine Zentrale“ und „Immobilien“ sind freigeschaltet. Die übrigen Bereiche sind sichtbar, aber deaktiviert, bis der jeweilige Teil innerhalb der folgenden Bauarbeit angeschlossen wurde.
+## Eigentümerübersicht
 
-Noch offen innerhalb von Baustein 3:
+Das neue reine Modul `assets/js/owner-summary.js` bildet eine nicht buchbare Organisationsauswertung. Es trennt:
 
-- Kosten- und Belegverwaltung,
-- Verbrauch/Versorger-Zahlungsaufnahme für den Eigentümerfluss,
-- Eigentümer-Jahresübersicht auf Basis des geprüften Rechenkerns,
+- tatsächliche Kosten,
+- bereits als Eigentümerkosten eingeordnete Beträge,
+- nur zur späteren Umlageprüfung markierte Beträge,
+- ungeklärte Beträge,
+- Versorgerzahlungen und -erstattungen.
+
+Der Vergleich zwischen tatsächlichen Kosten und netto erfassten Versorgerzahlungen wird ausdrücklich **nicht** als Guthaben oder Nachzahlung behauptet.
+
+Automatisierter Test: `tests/owner-summary.test.mjs` prüft die Trennung der Rechnungskreise, Fremdobjektschutz, fehlende Belegreferenzen und ungültige Perioden.
+
+## Noch offen innerhalb von Baustein 3
+
+- Zähler-/Verbrauchsaufnahme für den Eigentümerfluss,
 - Bearbeitungs- und Historienfunktionen für bestehende Immobilien-/Einheitsdaten,
-- DE/EN-Vervollständigung und spätere formale Browser-/iPad-Abnahme.
+- geführte Verbindung der Eigentümeransicht mit dem vollständigen Jahres-Rechenkern, sobald alle dafür nötigen Fachangaben in der Oberfläche erfasst werden können,
+- weitere Browser-/iPad-Sichtprüfung und Korrekturen,
+- DE/EN-Vervollständigung.
 
-**Baustein 3 bleibt offen. Michaels erste Sichtprüfung kann jetzt an den HTML-Seiten beginnen.**
+**Baustein 3 bleibt offen.** Es gibt weiterhin keine rechtlich freigegebene Mieterabrechnung oder PDF-Ausgabe.
