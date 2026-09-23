@@ -108,7 +108,20 @@ export function previewSeparateThermalLandlord(project, periodId, config) {
     absentServices,
     absentServicesConfirmed: absentServices.length ? true : undefined
   };
-  const result = calculateThermalPeriod(project, periodId, plan);
+  // CO₂ and heating-oil costs have their own specialist paths. The independent
+  // thermal engine deliberately blocks them if they are present. Use a disposable
+  // calculation copy so the visible thermal preview can coexist with separately
+  // recorded CO₂ evidence without mutating or hiding the original ledger.
+  const thermalProject = structuredClone(project);
+  thermalProject.expenses = thermalProject.expenses.filter(expense =>
+    !['co2','heating_oil'].includes(expense.category));
+  const thermalExpenseIds = new Set(thermalProject.expenses.map(expense => expense.id));
+  thermalProject.allocationRules = thermalProject.allocationRules
+    .filter(rule => thermalExpenseIds.has(rule.expenseId));
+  delete thermalProject.supplyRegistry;
+  delete thermalProject.supplyRegistryVersion;
+
+  const result = calculateThermalPeriod(thermalProject, periodId, plan);
   if (result.status !== 'calculated' || !result.report) return result;
   return {
     status: 'preview',
