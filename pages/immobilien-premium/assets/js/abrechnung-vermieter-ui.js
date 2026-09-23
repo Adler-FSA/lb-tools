@@ -529,24 +529,28 @@ function annualBlock(message, issues) {
 function buildAnnualPreviewFromForms() {
   const flags = periodSpecialFlags();
   const plans = {};
-  let separateConfig = null;
+  let verifiedThermalPreview = null;
 
   if (flags.heating) {
     if (flags.linked) {
       const linkedForm = document.querySelector('[data-linked-form]');
       const linkedConfig = linkedForm ? collectLinkedConfig(linkedForm) : null;
       if (!linkedConfig) return annualBlock('Angaben zur verbundenen Anlage sind unvollständig.');
-      const linkedResult = previewLinkedThermalLandlord(project, selectedPeriodId, linkedConfig);
-      if (linkedResult.status !== 'preview') return annualBlock('Verbundene Anlage ist noch nicht vollständig geprüft.', linkedResult.issues);
-      plans.linked = linkedResult.linkedPlan;
-      plans.thermal = linkedResult.thermalPlan;
+      verifiedThermalPreview = previewLinkedThermalLandlord(project, selectedPeriodId, linkedConfig);
+      if (verifiedThermalPreview.status !== 'preview') {
+        return annualBlock('Verbundene Anlage ist noch nicht vollständig geprüft.', verifiedThermalPreview.issues);
+      }
+      plans.linked = verifiedThermalPreview.linkedPlan;
+      plans.thermal = verifiedThermalPreview.thermalPlan;
     } else {
       const thermalForm = document.querySelector('[data-thermal-form]');
-      separateConfig = thermalForm ? collectThermalConfig(thermalForm) : null;
+      const separateConfig = thermalForm ? collectThermalConfig(thermalForm) : null;
       if (!separateConfig) return annualBlock('Angaben zu Heizung/Warmwasser fehlen.');
-      const thermalResult = previewSeparateThermalLandlord(project, selectedPeriodId, separateConfig);
-      if (thermalResult.status !== 'preview') return annualBlock('Wärme-Teilbericht ist noch nicht vollständig geprüft.', thermalResult.issues);
-      plans.thermal = thermalResult.plan;
+      verifiedThermalPreview = previewSeparateThermalLandlord(project, selectedPeriodId, separateConfig);
+      if (verifiedThermalPreview.status !== 'preview') {
+        return annualBlock('Wärme-Teilbericht ist noch nicht vollständig geprüft.', verifiedThermalPreview.issues);
+      }
+      plans.thermal = verifiedThermalPreview.plan;
     }
   }
 
@@ -557,8 +561,10 @@ function buildAnnualPreviewFromForms() {
     if (co2Config.tenantAllocationRequested !== true) {
       return annualBlock('Für die gemeinsame Jahresvorschau muss die individuelle CO₂-Mieteraufteilung ausdrücklich angefordert und geprüft werden.');
     }
-    const thermalForCo2 = separateConfig ?? (document.querySelector('[data-thermal-form]') ? collectThermalConfig(document.querySelector('[data-thermal-form]')) : null);
-    const co2Result = previewLandlordCo2(project, selectedPeriodId, co2Config, thermalForCo2);
+    if (!verifiedThermalPreview) {
+      return annualBlock('CO₂ benötigt zuerst einen vollständig geprüften Wärme-Teilbericht.');
+    }
+    const co2Result = previewLandlordCo2(project, selectedPeriodId, co2Config, verifiedThermalPreview);
     if (!co2Result.co2BuildingPlan || !co2Result.co2TenantPlan) {
       return annualBlock('CO₂-Gebäude- und Mieterplan sind noch nicht vollständig bestätigt.', co2Result.issues);
     }
