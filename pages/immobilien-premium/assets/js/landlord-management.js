@@ -4,6 +4,7 @@
 import { validateProject } from './model.js';
 
 const DAY_MS = 86_400_000;
+const SPECIAL_ALLOCATION = new Set(['heating','hot_water','thermal_shared','co2','heating_oil']);
 const validId = value => typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/.test(value);
 const validDay = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) &&
   !Number.isNaN(Date.parse(`${value}T00:00:00.000Z`)) &&
@@ -194,6 +195,10 @@ export function setStandardAllocationRule(project, {
   const expense = copy.expenses.find(item => item.id === expenseId && item.propertyId === period.propertyId);
   if (!expense || expense.classification !== 'allocatable') {
     throw new LandlordDataError('ALLOCATABLE_EXPENSE_REQUIRED', 'Umlageposition wurde nicht gefunden oder ist nicht als prüfbare Umlage markiert.');
+  }
+  if (SPECIAL_ALLOCATION.has(expense.category)) {
+    throw new LandlordDataError('SPECIAL_ALLOCATION_PATH_REQUIRED',
+      'Heizung, Warmwasser, gemeinsame Wärmekosten, CO₂ und Heizöl benötigen ihren eigenen Fachpfad.');
   }
   if (copy.allocationRules.some(rule => rule.expenseId === expenseId && rule.accountingPeriodId === accountingPeriodId)) {
     throw new LandlordDataError('ALLOCATION_RULE_EXISTS', 'Für diese Kostenposition ist bereits ein Schlüssel gespeichert.');
