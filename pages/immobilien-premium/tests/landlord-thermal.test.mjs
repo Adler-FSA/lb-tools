@@ -82,3 +82,36 @@ test('absent service needs explicit confirmation',()=>{
   r=previewSeparateThermalLandlord(p,'y',config);
   assert.equal(r.status,'preview',JSON.stringify(r.issues));
 });
+
+
+test('documented occupant change works only with explicit intermediate-reading confirmation',()=>{
+  const {p,config}=fixture();
+  p.usagePeriods.find(x=>x.id==='uB').endDate='2026-06-30';
+  p.usagePeriods.push({id:'vacB',unitId:'B',kind:'vacant',startDate:'2026-07-01',endDate:null});
+  p.readings.push(
+    {id:'hbmid',meterId:'hb',date:'2026-07-01',value:70,readingType:'measured'},
+    {id:'wbmid',meterId:'wb',date:'2026-07-01',value:18,readingType:'measured'}
+  );
+
+  let r=previewSeparateThermalLandlord(p,'y',config);
+  assert.equal(r.status,'blocked');
+  assert.ok(r.issues.some(i=>i.code==='THERMAL_USER_CHANGE_UNCONFIRMED'));
+
+  config.heating.userChangeConfirmed=true;
+  config.hot_water.userChangeConfirmed=true;
+  r=previewSeparateThermalLandlord(p,'y',config);
+  assert.equal(r.status,'preview',JSON.stringify(r.issues));
+  assert.ok(r.report.streams.flatMap(s=>s.lines).flatMap(l=>l.unitShares)
+    .some(s=>s.usagePeriodId==='vacB'));
+});
+
+test('user-change confirmation does not replace a missing intermediate reading',()=>{
+  const {p,config}=fixture();
+  p.usagePeriods.find(x=>x.id==='uB').endDate='2026-06-30';
+  p.usagePeriods.push({id:'vacB',unitId:'B',kind:'vacant',startDate:'2026-07-01',endDate:null});
+  config.heating.userChangeConfirmed=true;
+  config.hot_water.userChangeConfirmed=true;
+  const r=previewSeparateThermalLandlord(p,'y',config);
+  assert.equal(r.status,'blocked');
+  assert.ok(r.issues.some(i=>i.code==='METER_INTERMEDIATE_READING_REQUIRED'));
+});
