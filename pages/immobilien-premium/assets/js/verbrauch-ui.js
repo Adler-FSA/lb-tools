@@ -194,7 +194,8 @@ function render() {
   const year = new Date().getFullYear();
   document.querySelector('[name="installedAt"]').value ||= `${year}-01-01`;
   document.querySelector('[name="readingDate"]').value ||= `${year}-01-01`;
-  document.querySelector('[name="swapDate"]')?.value ||= new Date().toISOString().slice(0, 10);
+  const swapDateInput = document.querySelector('[name="swapDate"]');
+  if (swapDateInput && !swapDateInput.value) swapDateInput.value = new Date().toISOString().slice(0, 10);
 }
 
 document.querySelector('[name="meterProperty"]').addEventListener('change', event => {
