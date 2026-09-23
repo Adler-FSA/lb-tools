@@ -1,4 +1,5 @@
 import { saveProject } from './storage.js';
+import { replaceMeter } from './history-changes.js';
 import {
   escapeText, newId, propertyAddress,
   safeLoadProject, showFlash, updateStoragePill
@@ -8,7 +9,49 @@ let project = null;
 let selectedPropertyId = null;
 
 function load() {
-  const state = safeLoadProject();
+  
+document.querySelector('[data-meter-replace-form]')?.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!load() || !project) return;
+  const form = new FormData(event.currentTarget);
+  const oldMeterId = String(form.get('replaceOldMeter') || '');
+  const swapDate = String(form.get('swapDate') || '');
+  const newLabel = String(form.get('replaceNewLabel') || '').trim();
+  const oldRaw = String(form.get('oldFinalValue') || '').trim().replace(',', '.');
+  const newRaw = String(form.get('newInitialValue') || '').trim().replace(',', '.');
+  const oldFinalValue = Number(oldRaw);
+  const newInitialValue = Number(newRaw);
+  if (!oldMeterId || !/^\d{4}-\d{2}-\d{2}$/.test(swapDate) ||
+      !/^\d+(?:\.\d{1,3})?$/.test(oldRaw) || !/^\d+(?:\.\d{1,3})?$/.test(newRaw) ||
+      !Number.isFinite(oldFinalValue) || !Number.isFinite(newInitialValue)) {
+    showFlash('Bitte alten Zähler, Wechseldatum sowie alten End- und neuen Anfangsstand vollständig angeben.', 'error');
+    return;
+  }
+  try {
+    const result = replaceMeter(project, {
+      oldMeterId,
+      swapDate,
+      newMeterId: newId('meter'),
+      newLabel,
+      oldFinalReadingId: newId('reading'),
+      newInitialReadingId: newId('reading'),
+      oldFinalValue,
+      newInitialValue
+    });
+    saveProject(result.project);
+    project = result.project;
+    event.currentTarget.reset();
+    document.querySelector('[name="swapDate"]').value = new Date().toISOString().slice(0, 10);
+    showFlash('Zählerwechsel wurde vollständig historisiert: alter Endstand, Ausbau, neuer Zähler und Anfangsstand sind gespeichert.');
+    render();
+  } catch (error) {
+    load();
+    showFlash(error.message || 'Zählerwechsel konnte nicht gespeichert werden.', 'error');
+    render();
+  }
+});
+
+const state = safeLoadProject();
   project = state.project;
   updateStoragePill(project, state.error);
   if (state.error) {
@@ -102,6 +145,20 @@ function renderMeters() {
     : '<option value="">Zuerst Zähler anlegen</option>';
   readingMeter.disabled = !meters.length;
   document.querySelector('[data-reading-submit]').disabled = !meters.length;
+
+  const activeMeters = meters.filter(meter => !meter.removedAt);
+  const replaceSelect = document.querySelector('[name="replaceOldMeter"]');
+  if (replaceSelect) {
+    replaceSelect.innerHTML = activeMeters.length
+      ? activeMeters.map(meter => {
+          const unit = units.get(meter.unitId);
+          return `<option value="${escapeText(meter.id)}">${escapeText(meter.label || meter.id)} · ${escapeText(unit?.label || 'Objekt')}</option>`;
+        }).join('')
+      : '<option value="">Kein aktiver Zähler</option>';
+    replaceSelect.disabled = !activeMeters.length;
+  }
+  const replaceButton = document.querySelector('[data-replace-submit]');
+  if (replaceButton) replaceButton.disabled = !activeMeters.length;
 }
 
 function renderReadings() {
@@ -137,6 +194,7 @@ function render() {
   const year = new Date().getFullYear();
   document.querySelector('[name="installedAt"]').value ||= `${year}-01-01`;
   document.querySelector('[name="readingDate"]').value ||= `${year}-01-01`;
+  document.querySelector('[name="swapDate"]')?.value ||= new Date().toISOString().slice(0, 10);
 }
 
 document.querySelector('[name="meterProperty"]').addEventListener('change', event => {
