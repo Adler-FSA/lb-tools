@@ -72,8 +72,28 @@ Kostenpositionen und Zähler werden aus dem gespeicherten Objekt gelesen. Fehlt 
 
 Automatisierte Regressionen liegen in `tests/landlord-thermal.test.mjs`.
 
+## CO₂-Pfad
+
+`assets/js/landlord-co2.js` verbindet den vorhandenen Gebäude- und Mieter-CO₂-Fachpfad mit der Vermieteroberfläche.
+
+Der Adapter unterstützt bewusst nur den bereits abgesicherten engen Fall:
+
+- vollständiges Kalenderjahr 2026,
+- Wohngebäude mit zentraler Eigentümer-Versorgung,
+- vollständige CO₂-Originalkostenpositionen,
+- bestätigte Gebäudewohnfläche und Emissionsangabe,
+- ausdrücklich geprüfte Sonder-/Kürzungsfälle,
+- individuelle Mieteraufteilung nur bei lückenloser reiner Mieternutzung aller Einheiten,
+- Mieteraufteilung ausschließlich auf Basis des zuvor geprüften Wärme-Teilberichts.
+
+Die Gebäudestufe kann separat angezeigt werden. Ist eine individuelle Mieteraufteilung nicht unterstützt – etwa bei Eigennutzung oder Leerstand – bleibt nur diese Einzelaufteilung gesperrt; sie wird nicht künstlich berechnet.
+
+`abrechnung-vermieter.html` enthält dafür jetzt den sichtbaren Abschnitt „CO₂“. Originalbetrag, Gebäudestufe, Eigentümeranteil und noch nicht zugeordneter Mieterpool werden getrennt dargestellt. Individuelle Werte bleiben ausdrücklich technische Vorschau.
+
+Regressionen liegen in `tests/landlord-co2.test.mjs`. Die neuen CO₂-Dateien und die aktualisierte UI wurden zusätzlich syntaktisch geprüft; der GitHub-Pages-Build für diesen Stand wurde erfolgreich veröffentlicht.
+
 ## Als Nächstes
 
-Als Nächstes folgt die CO₂-Verbindung für den vom bestehenden CO₂-Modul unterstützten engen Fall. Eigennutzung, Leerstand, Pauschalen und weitere nicht unterstützte Sonderfälle bleiben gesperrt, statt in einen Standardpfad gezwungen zu werden.
+Als Nächstes wird der bereits vorhandene Nutzerwechsel-Pfad für Heizung/Warmwasser sichtbar angebunden. Zwischenablesungen und die Grundkostenaufteilung werden dabei ausdrücklich bestätigt; fehlende Zwischenwerte bleiben gesperrt. Pauschalen und weitere nicht unterstützte Sonderfälle werden weiterhin nicht in einen Standardpfad gezwungen.
 
 **Baustein 4 bleibt offen.**
