@@ -4,12 +4,13 @@
  */
 import { previewAnnualPeriod } from './year-workflow-runner.js';
 
-const sectionForCode = code => {
-  if (/METER|READING|CONSUMPTION|THERMAL/.test(code)) return 'verbrauch';
-  if (/TENANCY|CONTRACT|PAYMENT_LEDGER|USAGE|AREA/.test(code)) return 'immobilien';
-  if (/ALLOCATION|COST_NOT_CONFIRMED|CONTRACT_COST/.test(code)) return 'vermieter';
-  if (/CO2|SPECIAL_COST|WORKFLOW_PLAN/.test(code)) return 'sonderkosten';
-  if (/SUPPLY|PROVIDER|PAYMENT|SOURCE|EXPENSE/.test(code)) return 'kosten';
+const sectionForIssue = issue => {
+  const text = `${String(issue?.code || '')} ${String(issue?.detail || '')}`;
+  if (/METER|READING|CONSUMPTION|THERMAL/.test(text)) return 'verbrauch';
+  if (/TENANCY|CONTRACT|PAYMENT_LEDGER|USAGE|AREA/.test(text)) return 'immobilien';
+  if (/ALLOCATION|COST_NOT_CONFIRMED|CONTRACT_COST/.test(text)) return 'vermieter';
+  if (/CO2|SPECIAL_COST|WORKFLOW_PLAN/.test(text)) return 'sonderkosten';
+  if (/SUPPLY|PROVIDER|PAYMENT|SOURCE|EXPENSE|COST_UNRESOLVED/.test(text)) return 'kosten';
   return 'pruefung';
 };
 
@@ -63,7 +64,7 @@ export function inspectOwnerAnnualReadiness(project, periodId) {
     status: 'blocked',
     preview: null,
     blockers: issues.map(issue => {
-      const section = sectionForCode(String(issue.code || ''));
+      const section = sectionForIssue(issue);
       return {
         code: String(issue.code || 'ANNUAL_PREVIEW_BLOCKED'),
         detail: String(issue.detail || 'Datengrundlage benötigt eine weitere Prüfung.'),
