@@ -217,6 +217,10 @@ export function confirmSupplyRecord(project, recordId) {
   } else {
     const versions = contract.priceVersions ?? [];
     if (!versions.length) throw new SupplyManagementError('PRICE_HISTORY_REQUIRED', 'Mindestens ein Preisstand wird benötigt.');
+    const planning = previewSupplyPlan(project, recordId);
+    if (planning.report?.coverageComplete !== true || planning.report?.forecastCents == null) {
+      throw new SupplyManagementError('PRICE_HISTORY_INCOMPLETE', 'Preisstände müssen das Abrechnungsjahr lückenlos und rechnerisch vollständig abdecken.');
+    }
     contract.priceVersions = versions.map(version => ({ ...version, confirmed: true }));
 
     const costs = copy.expenses.filter(item => item.propertyId === record.propertyId &&
