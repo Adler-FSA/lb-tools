@@ -43,16 +43,16 @@ Die Oberfläche erzeugt weder eine rechtlich freigegebene Forderung noch ein PDF
 
 ## Technischer Prüfstand
 
-Der vollständige aktuelle Projektstand wurde nach Einbau des ersten Vermieterflusses erneut gemeinsam ausgeführt:
+Der vollständige Projektstand einschließlich des sichtbaren Heizungs-/Warmwasserpfads wurde erneut gemeinsam ausgeführt:
 
-- **327 Tests**
-- **327 bestanden**
+- **331 Tests**
+- **331 bestanden**
 - **0 fehlgeschlagen**
 - **0 übersprungen**
 - **0 abgebrochen**
-- **39 JavaScript-Dateien** unter `assets/js/` zusätzlich mit `node --check` syntaktisch geprüft.
+- **40 JavaScript-Dateien** unter `assets/js/` zusätzlich mit `node --check` syntaktisch geprüft.
 
-Damit sind die neuen Vertrags-, Vorauszahlungs-, Zahlungskreis-, Umlageschlüssel- und Einzelvorschau-Regressionen gemeinsam mit dem bisherigen technischen Fundament geprüft.
+Damit sind Vertrags-, Vorauszahlungs-, Zahlungskreis-, Umlageschlüssel-, Einzelvorschau- sowie die neue Heizungs-/Warmwasser-Adapterlogik gemeinsam mit dem bisherigen technischen Fundament geprüft.
 
 ## Heizungs- und Warmwasserpfad
 
