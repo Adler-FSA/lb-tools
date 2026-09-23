@@ -10,6 +10,7 @@ Aktuell bedienbar:
 - `immobilien.html` – Immobilienakte für Immobilie, Einheiten, Flächen und aktuellen Nutzungsstatus.
 - `kosten.html` – Kosten- und Belegverwaltung mit getrenntem Versorger-Zahlungskreis.
 - `abrechnung-eigentuemer.html` – interne Eigentümer-Kostenübersicht mit getrennten tatsächlichen Kosten und Versorgerbewegungen.
+- `verbrauch.html` – Zähler- und Ableseerfassung für Kaltwasser, Heizung und Warmwasser; nur tatsächlich gemessene Werte.
 - gemeinsame responsive Gestaltung unter `assets/css/app.css`.
 - gemeinsame UI-/Speicherhilfen sowie Seitenskripte unter `assets/js/`.
 
@@ -35,12 +36,15 @@ Das neue reine Modul `assets/js/owner-summary.js` bildet eine nicht buchbare Org
 
 Der Vergleich zwischen tatsächlichen Kosten und netto erfassten Versorgerzahlungen wird ausdrücklich **nicht** als Guthaben oder Nachzahlung behauptet.
 
+## Zähler und Verbrauch
+
+`verbrauch.html` legt Geräte pro Immobilie/Einheit an und speichert Ablesungen mit Datum und Messwert. Kaltwasser und Warmwasser werden in m³, Heizenergie in kWh geführt. Mehrfachablesungen am selben Tag, Ablesungen außerhalb der Gerätelebensdauer und nicht monotone Zwischenwerte werden bereits in der Oberfläche gesperrt. Zählerwechsel, Überlauf und Ersatzwerte werden nicht automatisch erfunden, sondern bleiben eigener Prüfpfad des technischen Kerns.
+
 Automatisierter Test: `tests/owner-summary.test.mjs` prüft die Trennung der Rechnungskreise, Fremdobjektschutz, fehlende Belegreferenzen und ungültige Perioden.
 
 ## Noch offen innerhalb von Baustein 3
 
-- Zähler-/Verbrauchsaufnahme für den Eigentümerfluss,
-- Bearbeitungs- und Historienfunktionen für bestehende Immobilien-/Einheitsdaten,
+- Bearbeitungs- und Historienfunktionen für bestehende Immobilien-/Einheitsdaten sowie explizite Zählerwechsel,
 - geführte Verbindung der Eigentümeransicht mit dem vollständigen Jahres-Rechenkern, sobald alle dafür nötigen Fachangaben in der Oberfläche erfasst werden können,
 - weitere Browser-/iPad-Sichtprüfung und Korrekturen,
 - DE/EN-Vervollständigung.
