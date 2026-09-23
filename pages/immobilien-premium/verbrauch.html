@@ -54,7 +54,7 @@
         <div>
           <div class="eyebrow">Immobilie</div>
           <h2 data-meter-property-title>Projekt wird geladen</h2>
-          <p>Zählerwechsel und Überläufe werden später als eigene geprüfte Ereignisse geführt, nicht durch Überschreiben alter Werte.</p>
+          <p>Zählerwechsel werden als eigene Historienereignisse geführt. Überläufe und Ersatzwerte bleiben gesonderter Prüfbedarf.</p>
         </div>
         <div class="status-line">
           <span>Messwerte</span>
@@ -141,6 +141,46 @@
         </article>
       </section>
 
+      <section class="section card form-card">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Historienereignis</div>
+            <h2>Zählerwechsel dokumentieren</h2>
+            <p>Der alte Zähler wird beendet, der neue beginnt am selben dokumentierten Wechseltag. Beide Stände bleiben erhalten.</p>
+          </div>
+        </div>
+        <form data-meter-replace-form>
+          <div class="form-grid">
+            <div>
+              <label for="replaceOldMeter">Bisheriger Zähler *</label>
+              <select id="replaceOldMeter" name="replaceOldMeter"></select>
+            </div>
+            <div>
+              <label for="swapDate">Wechseldatum *</label>
+              <input id="swapDate" name="swapDate" type="date" required>
+            </div>
+            <div>
+              <label for="oldFinalValue">Endstand alter Zähler *</label>
+              <input id="oldFinalValue" name="oldFinalValue" type="number" min="0" step="0.001" inputmode="decimal" required>
+            </div>
+            <div>
+              <label for="newInitialValue">Anfangsstand neuer Zähler *</label>
+              <input id="newInitialValue" name="newInitialValue" type="number" min="0" step="0.001" inputmode="decimal" required>
+            </div>
+            <div class="full">
+              <label for="replaceNewLabel">Bezeichnung / Nummer neuer Zähler</label>
+              <input id="replaceNewLabel" name="replaceNewLabel" placeholder="z. B. Wasser EG 9922">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit" data-replace-submit>Zählerwechsel speichern</button>
+          </div>
+        </form>
+        <div class="notice" style="margin-top:18px">
+          Bereits vorhandene Ablesungen des alten Zählers am oder nach dem Wechseltag sperren den Wechsel. Dadurch werden widersprüchliche Gerätehistorien nicht still korrigiert.
+        </div>
+      </section>
+
       <section class="section grid grid-2">
         <article class="card">
           <div class="section-head">
@@ -164,7 +204,7 @@
       </section>
 
       <section class="section notice">
-        Diese Seite führt keine automatische Schätzung durch. Fehlende Zwischenablesungen, Zählerwechsel, Überläufe oder rückläufige Werte bleiben Prüfbedarf und werden später durch die vorhandenen Messwert- und Rechenmodule abgesichert.
+        Diese Seite führt keine automatische Schätzung durch. Zählerwechsel können jetzt dokumentiert werden; fehlende Zwischenablesungen, Überläufe, Ersatzwerte oder sonstige Widersprüche bleiben Prüfbedarf und werden durch die vorhandenen Messwert- und Rechenmodule abgesichert.
       </section>
     </div>
   </main>
