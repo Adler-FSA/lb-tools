@@ -244,8 +244,9 @@ document.querySelector('[data-expense-form]').addEventListener('submit', event =
     showFlash('Ein Direktvertrag des Mieters darf nicht als Eigentümerkosten erfasst werden.', 'error');
     return;
   }
+  const expenseId = newId('expense');
   project.expenses.push({
-    id: newId('expense'),
+    id: expenseId,
     propertyId: selectedPropertyId,
     category: String(form.get('category') || 'other'),
     classification,
@@ -261,6 +262,9 @@ document.querySelector('[data-expense-form]').addEventListener('submit', event =
       supplyManaged: true
     } : {})
   });
+  if (supplyRecord) {
+    supplyRecord.contract.expenseIds = [...new Set([...(supplyRecord.contract.expenseIds ?? []), expenseId])];
+  }
 
   try {
     saveProject(project);
