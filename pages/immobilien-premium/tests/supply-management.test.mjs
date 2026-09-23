@@ -93,6 +93,7 @@ test('owner contract confirmation binds existing annual invoice and payments wit
     providerAccountId: 'gas_supplier', service: 'gas', contractHolder: 'owner',
     priceVersion: fullVersion
   }).project;
+  assert.deepEqual(p.supplyRegistry[0].contract.expenseIds, ['gas_invoice']);
 
   const beforeExpense = structuredClone(p.expenses);
   const beforeCashflow = structuredClone(p.cashflows);
@@ -144,4 +145,28 @@ test('tenant direct supply confirms only when no owner cost or payment uses that
     providerAccountId: 'tenant_power', service: 'electricity',
     contractHolder: 'tenant_direct', unitId: 'flat'
   }), error => error instanceof SupplyManagementError);
+});
+
+
+test('draft binding does not excuse an unrelated orphan supply invoice', () => {
+  const p = baseProject();
+  p.expenses.push(
+    {
+      id: 'gas_invoice', propertyId: 'house', providerAccountId: 'gas_supplier',
+      supplyManaged: true, category: 'heating', classification: 'allocatable',
+      amountCents: 218000, startDate: '2026-01-01', endDate: '2026-12-31',
+      invoiceReference: 'GAS2026', invoiceLineId: 'delivery'
+    },
+    {
+      id: 'power_orphan', propertyId: 'house', providerAccountId: 'power_supplier',
+      supplyManaged: true, category: 'common_electricity', classification: 'allocatable',
+      amountCents: 1000, startDate: '2026-01-01', endDate: '2026-12-31',
+      invoiceReference: 'POWER2026', invoiceLineId: 'delivery'
+    }
+  );
+  assert.throws(() => createSupplyDraft(p, {
+    recordId: 'gas_contract', propertyId: 'house', accountingPeriodId: 'year2026',
+    providerAccountId: 'gas_supplier', service: 'gas', contractHolder: 'owner',
+    priceVersion: fullVersion
+  }), error => error instanceof SupplyManagementError && error.code === 'INVALID_PROJECT');
 });
