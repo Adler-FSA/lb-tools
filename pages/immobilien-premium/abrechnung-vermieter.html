@@ -166,7 +166,74 @@
 
       <section class="section card form-card">
         <div class="section-head">
-          <div><div class="eyebrow">6 · CO₂</div><h2>Gebäudestufe und Mieteranteile getrennt prüfen</h2><p>Der vorhandene CO₂-Fachpfad unterstützt derzeit nur den eng belegten Wohngebäude-Standardfall für das vollständige Kalenderjahr 2026.</p></div>
+          <div><div class="eyebrow">6 · Verbundene Anlage</div><h2>Gemeinsame Heizung-/Warmwasserrechnung vortrennen</h2><p>Eine gemeinsame Originalrechnung wird nur einmal erfasst. Erst nach bestätigter physikalischer Energiegrundlage wird sie temporär in Heizung und Warmwasser getrennt und anschließend über die vorhandenen Wohnungszähler verteilt.</p></div>
+        </div>
+        <form data-linked-form>
+          <div class="grid grid-2">
+            <article class="card" style="box-shadow:none">
+              <h3>Anlage &amp; Rechnungsbestand</h3>
+              <label>Anlagenart *</label>
+              <select name="linkedPlantType">
+                <option value="">Bitte wählen</option>
+                <option value="gas_boiler">Gas-Zentralanlage</option>
+                <option value="heat_pump">Wärmepumpe</option>
+                <option value="commercial_heat">Gewerbliche Wärmelieferung / Fernwärme</option>
+              </select>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="linkedScopeConfirmed"> verbundene Anlage fachlich bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="linkedInvoiceInventoryConfirmed"> vollständiger Originalrechnungsbestand geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="linkedCo2ExcludedConfirmed"> CO₂-Positionen separat abgegrenzt</label>
+              <div class="notice" style="margin-top:12px">Gemeinsame Kosten müssen unter „Kosten & Belege“ als <strong>Gemeinsame Heizung + Warmwasser</strong> erfasst sein. Separate Wartungs- oder Nebenkosten können zusätzlich als Heizung bzw. Warmwasser bestehen.</div>
+            </article>
+
+            <article class="card" style="box-shadow:none">
+              <h3>Gemeinsame Energiegrundlage</h3>
+              <label>Gesamtenergie in kWh *</label>
+              <input name="linkedTotalEnergyKWh" type="number" min="0.001" step="0.001" inputmode="decimal">
+              <label>davon Warmwasserenergie in kWh *</label>
+              <input name="linkedHotWaterEnergyKWh" type="number" min="0.001" step="0.001" inputmode="decimal">
+              <label>Nachweis Gesamtenergie *</label>
+              <input name="linkedTotalEvidenceRef" placeholder="z. B. Gasrechnung / Wärmemengenzähler">
+              <label>Nachweis Warmwasserenergie *</label>
+              <input name="linkedHotWaterEvidenceRef" placeholder="z. B. Wärmemengenzähler Warmwasser">
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="linkedSameBasisConfirmed"> beide Energiewerte verwenden dieselbe physikalische Bezugsgröße</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="linkedMethodReviewed"> Vortrennungsmethode fachlich geprüft</label>
+            </article>
+
+            <article class="card" style="box-shadow:none">
+              <h3>Heizungsverteilung</h3>
+              <label>Verbrauchsanteil in % *</label>
+              <input name="heatingLinkedPercent" type="number" min="50" max="70" step="1" value="70">
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingLinkedMandatory70"> 70-%-Anforderung festgestellt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingLinkedRateConfirmed"> Quote bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingLinkedReadingsConfirmed"> Heizungsablesungen geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="heatingLinkedBasisConfirmed"> Heizungs-Messbasis geprüft</label>
+            </article>
+
+            <article class="card" style="box-shadow:none">
+              <h3>Warmwasserverteilung</h3>
+              <label>Verbrauchsanteil in % *</label>
+              <input name="hotWaterLinkedPercent" type="number" min="50" max="70" step="1" value="60">
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterLinkedMandatory70"> 70-%-Anforderung festgestellt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterLinkedRateConfirmed"> Quote bestätigt</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterLinkedReadingsConfirmed"> Warmwasserablesungen geprüft</label>
+              <label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="hotWaterLinkedBasisConfirmed"> Warmwasser-Messbasis geprüft</label>
+            </article>
+          </div>
+
+          <div class="card" style="box-shadow:none;margin-top:16px">
+            <h3>Originalrechnungen bestätigen</h3>
+            <p class="kicker">Für jede verwendete Originalrechnung wird der vollständige Rechnungsbetrag separat bestätigt. Damit kann eine nur teilweise erfasste Rechnung nicht still als vollständig gelten.</p>
+            <div class="form-grid" data-linked-invoice-totals></div>
+          </div>
+
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Verbundene Anlage prüfen</button></div>
+        </form>
+        <div data-linked-result style="margin-top:16px"></div>
+      </section>
+
+      <section class="section card form-card">
+        <div class="section-head">
+          <div><div class="eyebrow">7 · CO₂</div><h2>Gebäudestufe und Mieteranteile getrennt prüfen</h2><p>Der vorhandene CO₂-Fachpfad unterstützt derzeit nur den eng belegten Wohngebäude-Standardfall für das vollständige Kalenderjahr 2026.</p></div>
         </div>
         <form data-co2-form>
           <div class="grid grid-2">
@@ -211,13 +278,13 @@
 
       <section class="section card">
         <div class="section-head">
-          <div><div class="eyebrow">7 · Rechenkern</div><h2>Individuelle Mieterergebnisse</h2><p>Der vorhandene Standard-Rechenkern prüft Vertrag, Schlüssel, Verbrauch, Nutzungszeiten und tatsächliche Vorauszahlungen gemeinsam.</p></div>
+          <div><div class="eyebrow">8 · Rechenkern</div><h2>Individuelle Mieterergebnisse</h2><p>Der vorhandene Standard-Rechenkern prüft Vertrag, Schlüssel, Verbrauch, Nutzungszeiten und tatsächliche Vorauszahlungen gemeinsam.</p></div>
         </div>
         <div data-landlord-preview></div>
       </section>
 
       <section class="section notice">
-        Heizung/Warmwasser und der eng unterstützte CO₂-Standardfall besitzen eigene geprüfte Teilpfade. Pauschalen, Eigennutzungs-/Leerstands-Sonderfälle und weitere Ausnahmen werden weiterhin nicht in den Standardpfad gezwungen.
+        Getrennte Heizung/Warmwasser, verbundene Anlagen und der eng unterstützte CO₂-Standardfall besitzen eigene geprüfte Teilpfade. Pauschalen, Heizölbestände, Eigennutzungs-/Leerstands-Sonderfälle und weitere Ausnahmen werden weiterhin nicht in den Standardpfad gezwungen.
       </section>
     </div>
   </main>
