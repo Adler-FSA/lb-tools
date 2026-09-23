@@ -349,7 +349,8 @@ function thermalServiceConfig(prefix, form) {
     mandatory70Applies:form.querySelector('[name="' + prefix + 'Mandatory70"]')?.checked === true,
     rateConfirmed:form.querySelector('[name="' + prefix + 'RateConfirmed"]')?.checked === true,
     readingsConfirmed:form.querySelector('[name="' + prefix + 'ReadingsConfirmed"]')?.checked === true,
-    measurementBasisConfirmed:form.querySelector('[name="' + prefix + 'BasisConfirmed"]')?.checked === true
+    measurementBasisConfirmed:form.querySelector('[name="' + prefix + 'BasisConfirmed"]')?.checked === true,
+    userChangeConfirmed:form.querySelector('[name="' + prefix + 'UserChangeConfirmed"]')?.checked === true
   };
 }
 function collectThermalConfig(form) {
