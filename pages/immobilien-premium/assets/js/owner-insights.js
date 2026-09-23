@@ -77,7 +77,12 @@ export function buildDocumentedConsumption(project, propertyId, accountingPeriod
     const unit = meter.measurementUnit ?? '';
     const key = `${service}::${unit}`;
     const current = groups.get(key) ?? { service, unit, milli: 0n, meterCount: 0 };
-    current.milli += delta;
+    const next = current.milli + delta;
+    if (next > BigInt(Number.MAX_SAFE_INTEGER)) {
+      issues.push({ code: 'CONSUMPTION_OVERFLOW', meterId: meter.id });
+      continue;
+    }
+    current.milli = next;
     current.meterCount += 1;
     groups.set(key, current);
     metersWithDelta += 1;
