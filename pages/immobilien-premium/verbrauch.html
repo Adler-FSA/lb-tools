@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Nebenkosten Premium – Verbrauch & Zähler</title>
+  <meta name="description" content="Zähler und Ablesungen in Nebenkosten Premium">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+              <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M9 20v-6h6v6"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Nebenkosten Premium</div>
+            <div class="brand-sub">Akademie Immobilien- &amp; Mietservice</div>
+          </div>
+        </div>
+        <div class="storage-pill" data-storage-pill>
+          <span class="storage-dot"></span>
+          <span class="storage-text" data-storage-text>Speicher wird geprüft</span>
+        </div>
+      </div>
+      <nav class="mainnav" aria-label="Hauptnavigation">
+        <a class="nav-item" href="index.html">Meine Zentrale</a>
+        <a class="nav-item" href="immobilien.html">Immobilien</a>
+        <span class="nav-item disabled" aria-disabled="true">Mietservice</span>
+        <a class="nav-item active" href="kosten.html">Kosten &amp; Abrechnung</a>
+        <span class="nav-item disabled" aria-disabled="true">Sicherheit &amp; Checks</span>
+        <span class="nav-item disabled" aria-disabled="true">Dokumente &amp; Hilfe</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Verbrauch · Zähler · Ablesungen</div>
+        <h1>Messwerte nachvollziehbar statt geschätzt.</h1>
+        <p>Jeder Zähler gehört zu einer Immobilie und Einheit. Ablesungen werden als tatsächlich gemessene Werte gespeichert; widersprüchliche oder rückläufige Werte werden nicht automatisch „repariert“.</p>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="kosten.html">← Kosten &amp; Abrechnung</a>
+          <a class="btn btn-primary" href="abrechnung-eigentuemer.html">Eigentümerübersicht</a>
+        </div>
+      </div>
+      <aside class="status-card">
+        <div>
+          <div class="eyebrow">Immobilie</div>
+          <h2 data-meter-property-title>Projekt wird geladen</h2>
+          <p>Zählerwechsel und Überläufe werden später als eigene geprüfte Ereignisse geführt, nicht durch Überschreiben alter Werte.</p>
+        </div>
+        <div class="status-line">
+          <span>Messwerte</span>
+          <strong>nur dokumentiert</strong>
+        </div>
+      </aside>
+    </section>
+
+    <div class="flash" data-flash role="status" aria-live="polite"></div>
+
+    <section class="empty-state hidden" data-no-property>
+      <h3>Zuerst eine Immobilie anlegen</h3>
+      <p>Für Zähler und Ablesungen wird mindestens eine Immobilie mit Nutzungseinheit benötigt.</p>
+      <a class="btn btn-primary" href="immobilien.html">Immobilie anlegen</a>
+    </section>
+
+    <div data-meter-workspace class="hidden">
+      <section class="card">
+        <div class="toolbar">
+          <div class="field-inline">
+            <label for="meterProperty">Immobilie</label>
+            <select id="meterProperty" name="meterProperty"></select>
+          </div>
+        </div>
+      </section>
+
+      <section class="section grid grid-2">
+        <article class="card form-card">
+          <div class="eyebrow">Zähler</div>
+          <h2>Zähler anlegen</h2>
+          <form data-meter-form>
+            <div class="form-grid">
+              <div>
+                <label for="meterUnit">Einheit *</label>
+                <select id="meterUnit" name="meterUnit"></select>
+              </div>
+              <div>
+                <label for="meterService">Messbereich *</label>
+                <select id="meterService" name="meterService">
+                  <option value="cold_water">Kaltwasser</option>
+                  <option value="heating">Heizung</option>
+                  <option value="hot_water">Warmwasser</option>
+                </select>
+                <div class="help" data-meter-unit-hint>Messwerte werden in m3 erfasst.</div>
+              </div>
+              <div>
+                <label for="meterLabel">Zählerbezeichnung / Nummer *</label>
+                <input id="meterLabel" name="meterLabel" required placeholder="z. B. Wasser EG 4711">
+              </div>
+              <div>
+                <label for="installedAt">Einbau / gültig seit *</label>
+                <input id="installedAt" name="installedAt" type="date" required>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Zähler speichern</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="card form-card">
+          <div class="eyebrow">Ablesung</div>
+          <h2>Messwert erfassen</h2>
+          <form data-reading-form>
+            <div class="form-grid">
+              <div class="full">
+                <label for="readingMeter">Zähler *</label>
+                <select id="readingMeter" name="readingMeter"></select>
+              </div>
+              <div>
+                <label for="readingDate">Datum *</label>
+                <input id="readingDate" name="readingDate" type="date" required>
+              </div>
+              <div>
+                <label for="readingValue">Zählerstand *</label>
+                <input id="readingValue" name="readingValue" type="number" min="0" step="0.001" inputmode="decimal" required placeholder="0">
+                <div class="help">Maximal drei Nachkommastellen.</div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" data-reading-submit>Ablesung speichern</button>
+            </div>
+          </form>
+        </article>
+      </section>
+
+      <section class="section grid grid-2">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h2>Zähler</h2>
+              <p>Aktive Geräte und dokumentierte Differenz zwischen erster und letzter Ablesung.</p>
+            </div>
+          </div>
+          <div class="unit-list" data-meter-list></div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h2>Letzte Ablesungen</h2>
+              <p>Die jüngsten tatsächlich gespeicherten Messwerte.</p>
+            </div>
+          </div>
+          <div class="unit-list" data-reading-list></div>
+        </article>
+      </section>
+
+      <section class="section notice">
+        Diese Seite führt keine automatische Schätzung durch. Fehlende Zwischenablesungen, Zählerwechsel, Überläufe oder rückläufige Werte bleiben Prüfbedarf und werden später durch die vorhandenen Messwert- und Rechenmodule abgesichert.
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Nebenkosten Premium · Messwerte und Gerätehistorie · Keine automatische Ersatzermittlung.
+  </footer>
+</div>
+<script type="module" src="assets/js/verbrauch-ui.js"></script>
+</body>
+</html>
