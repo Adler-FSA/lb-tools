@@ -105,3 +105,14 @@ test('consumption allocation requires a valid meter for every unit', () => {
     meterIdsByUnit:{ ownerUnit:['mOwner'] }
   }), error => error instanceof LandlordDataError && error.code === 'METER_MAPPING_INVALID');
 });
+
+
+test('special thermal and CO2 costs cannot enter the standard allocation helper', () => {
+  for (const category of ['heating','hot_water','thermal_shared','co2','heating_oil']) {
+    const p = fixture();
+    p.expenses[0].category = category;
+    assert.throws(() => setStandardAllocationRule(p, {
+      ruleId:'rule_special', expenseId:'tax', accountingPeriodId:'year2026', method:'area'
+    }), error => error instanceof LandlordDataError && error.code === 'SPECIAL_ALLOCATION_PATH_REQUIRED');
+  }
+});
