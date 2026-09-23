@@ -1,8 +1,18 @@
 import { buildOwnerSummary } from './owner-summary.js';
+import { buildDocumentedConsumption, buildOwnerYearComparison } from './owner-insights.js';
 import {
   escapeText, formatEuro, propertyAddress,
   safeLoadProject, updateStoragePill
 } from './ui-core.js';
+
+const SERVICE_LABELS = {
+  cold_water: 'Kaltwasser',
+  heating: 'Heizung',
+  hot_water: 'Warmwasser',
+  water_volume: 'Wasser',
+  heat_energy: 'Heizenergie',
+  other: 'Sonstiger Verbrauch'
+};
 
 const LABELS = {
   property_tax: 'Grundsteuer',
@@ -58,6 +68,56 @@ function renderBlocked(message) {
     </div>`;
   document.querySelector('[data-owner-status]').textContent = 'Prüfgrundlage fehlt';
   document.querySelector('[data-owner-issues]').innerHTML = '';
+  document.querySelector('[data-consumption-summary]').innerHTML = '';
+  document.querySelector('[data-year-comparison]').innerHTML = '';
+}
+
+
+function renderOwnerInsights() {
+  const consumption = buildDocumentedConsumption(project, selectedPropertyId, selectedPeriodId);
+  const consumptionHost = document.querySelector('[data-consumption-summary]');
+  if (consumption.status === 'consumption' && consumption.report) {
+    const totals = consumption.report.totals.map(item => `
+      <div class="mini-stat">
+        <span>${escapeText(SERVICE_LABELS[item.service] || item.service)}</span>
+        <strong>${escapeText(new Intl.NumberFormat('de-DE', { maximumFractionDigits: 3 }).format(item.value))} ${escapeText(item.unit)}</strong>
+      </div>`).join('');
+    consumptionHost.innerHTML = totals
+      ? `<div class="grid grid-3">${totals}</div>
+         <div class="notice" style="margin-top:14px">
+           ${consumption.report.metersWithDelta} von ${consumption.report.meterCount} Zähler(n) haben im gewählten Jahr mindestens zwei dokumentierte Ablesungen.
+           Es wurden keine fehlenden Werte geschätzt.
+         </div>`
+      : `<div class="empty-state"><h3>Noch kein dokumentierter Jahresverbrauch</h3>
+           <p>Für eine Verbrauchsdifferenz braucht ein Zähler mindestens zwei Ablesungen innerhalb des gewählten Jahres.</p>
+           <a class="btn btn-secondary" href="verbrauch.html">Zähler &amp; Ablesungen öffnen</a></div>`;
+  } else {
+    consumptionHost.innerHTML = '<div class="empty-state"><h3>Verbrauch noch nicht auswertbar</h3><p>Messwerte oder Zeitraum müssen zuerst geprüft werden.</p></div>';
+  }
+
+  const comparison = buildOwnerYearComparison(project, selectedPropertyId);
+  const comparisonHost = document.querySelector('[data-year-comparison]');
+  if (comparison.status !== 'comparison' || !comparison.years.length) {
+    comparisonHost.innerHTML = '<div class="empty-state"><h3>Noch kein Jahresvergleich</h3><p>Mindestens ein abgeschlossenes Abrechnungsjahr wird benötigt.</p></div>';
+    return;
+  }
+  let previous = null;
+  const rows = comparison.years.map(year => {
+    const delta = previous ? year.actualCostsCents - previous.actualCostsCents : null;
+    const percent = previous && previous.actualCostsCents > 0
+      ? (delta / previous.actualCostsCents) * 100 : null;
+    const deltaText = delta === null ? 'Startjahr'
+      : `${delta >= 0 ? '+' : '−'}${formatEuro(Math.abs(delta))}${percent === null ? '' : ` · ${percent >= 0 ? '+' : ''}${new Intl.NumberFormat('de-DE', { maximumFractionDigits: 1 }).format(percent)} %`}`;
+    previous = year;
+    return `
+      <div class="unit-row">
+        <div><div class="unit-title">${escapeText(year.yearLabel)}</div><div class="unit-sub">${year.expenseCount} Kostenposition(en)</div></div>
+        <div><span class="kicker">Kosten</span><div><strong>${escapeText(formatEuro(year.actualCostsCents))}</strong></div></div>
+        <div><span class="kicker">Versorger netto</span><div><strong>${escapeText(formatEuro(year.providerNetPaidCents))}</strong></div></div>
+        <div class="kicker">${escapeText(deltaText)}</div>
+      </div>`;
+  }).reverse().join('');
+  comparisonHost.innerHTML = rows;
 }
 
 function render() {
@@ -134,6 +194,8 @@ function render() {
       <strong>${escapeText(formatEuro(comparison))}</strong>.
       Das ist nur ein Organisationsvergleich und ausdrücklich kein automatisch festgestelltes Guthaben oder eine Nachzahlung.
     </div>`;
+
+  renderOwnerInsights();
 
   const issueText = result.issues.map(issue => {
     if (issue.code === 'INVOICE_REFERENCE_MISSING') return 'Mindestens einer Kostenposition fehlt eine Beleg-/Rechnungsreferenz.';
