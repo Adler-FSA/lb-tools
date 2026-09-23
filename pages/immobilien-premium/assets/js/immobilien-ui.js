@@ -1,5 +1,6 @@
 import { createEmptyProject } from './model.js';
 import { loadProject, saveProject } from './storage.js';
+import { changeUnitArea, changeUnitUsage } from './history-changes.js';
 import {
   activeUsage, escapeText, formatArea, newId, propertyAddress,
   safeLoadProject, showFlash, updateStoragePill, usageLabel, workspaceLabel
@@ -78,6 +79,22 @@ function renderPropertyList() {
   });
 }
 
+function renderHistoryControls(units) {
+  const panel = document.querySelector('[data-history-panel]');
+  if (!panel) return;
+  panel.classList.toggle('hidden', !units.length);
+  const options = units.map(unit =>
+    `<option value="${escapeText(unit.id)}">${escapeText(unit.label || unit.id)}</option>`).join('');
+  for (const name of ['areaHistoryUnit','usageHistoryUnit']) {
+    const select = document.querySelector(`[name="${name}"]`);
+    if (select) {
+      select.innerHTML = options || '<option value="">Keine Einheit</option>';
+      select.disabled = !units.length;
+    }
+  }
+  panel.querySelectorAll('button[type="submit"]').forEach(button => { button.disabled = !units.length; });
+}
+
 function renderUnitArea() {
   const panel = document.querySelector('[data-unit-panel]');
   const property = project?.properties?.find(item => item.id === selectedPropertyId);
@@ -90,6 +107,7 @@ function renderUnitArea() {
   document.querySelector('[name="propertyId"]').value = property.id;
 
   const units = project.units.filter(unit => unit.propertyId === property.id);
+  renderHistoryControls(units);
   const host = document.querySelector('[data-unit-list]');
   if (!units.length) {
     host.innerHTML = `
@@ -255,6 +273,75 @@ document.querySelector('[data-unit-form]').addEventListener('submit', event => {
   }
 });
 
+
+const historyUsageKind = document.querySelector('[name="usageHistoryKind"]');
+function toggleHistoryTenantFields() {
+  const fields = document.querySelector('[data-history-tenant-fields]');
+  if (fields && historyUsageKind) fields.classList.toggle('hidden', historyUsageKind.value !== 'tenant');
+}
+historyUsageKind?.addEventListener('change', toggleHistoryTenantFields);
+toggleHistoryTenantFields();
+
+document.querySelector('[data-area-history-form]')?.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!load() || !project) return;
+  const form = new FormData(event.currentTarget);
+  const unitId = String(form.get('areaHistoryUnit') || '');
+  const effectiveFrom = String(form.get('areaEffectiveFrom') || '');
+  const hundredthsM2 = parseArea(form.get('areaNewM2'));
+  if (!unitId || !/^\d{4}-\d{2}-\d{2}$/.test(effectiveFrom) || hundredthsM2 === null) {
+    showFlash('Bitte Einheit, neues Gültigkeitsdatum und positive Fläche angeben.', 'error');
+    return;
+  }
+  try {
+    const result = changeUnitArea(project, { unitId, effectiveFrom, hundredthsM2 });
+    saveProject(result.project);
+    project = result.project;
+    event.currentTarget.reset();
+    document.querySelector('[name="areaEffectiveFrom"]').value = new Date().toISOString().slice(0, 10);
+    showFlash('Neue Fläche wurde als eigener historischer Zeitraum gespeichert. Die bisherige Fläche bleibt erhalten.');
+    render();
+  } catch (error) {
+    load();
+    showFlash(error.message || 'Flächenhistorie konnte nicht geändert werden.', 'error');
+    render();
+  }
+});
+
+document.querySelector('[data-usage-history-form]')?.addEventListener('submit', event => {
+  event.preventDefault();
+  if (!load() || !project) return;
+  const form = new FormData(event.currentTarget);
+  const unitId = String(form.get('usageHistoryUnit') || '');
+  const effectiveFrom = String(form.get('usageEffectiveFrom') || '');
+  const kind = String(form.get('usageHistoryKind') || '');
+  const partyLabel = String(form.get('usageHistoryTenantName') || '').trim();
+  if (!unitId || !/^\d{4}-\d{2}-\d{2}$/.test(effectiveFrom) || !['owner','tenant','vacant'].includes(kind)) {
+    showFlash('Bitte Einheit, Änderungsdatum und neue Nutzung vollständig angeben.', 'error');
+    return;
+  }
+  try {
+    const result = changeUnitUsage(project, {
+      unitId, effectiveFrom, kind,
+      usageId: newId('usage'),
+      tenancyId: kind === 'tenant' ? newId('tenancy') : null,
+      partyLabel
+    });
+    saveProject(result.project);
+    project = result.project;
+    event.currentTarget.reset();
+    document.querySelector('[name="usageEffectiveFrom"]').value = new Date().toISOString().slice(0, 10);
+    document.querySelector('[name="usageHistoryKind"]').value = 'owner';
+    toggleHistoryTenantFields();
+    showFlash('Nutzungswechsel wurde als neuer Zeitraum gespeichert. Die bisherige Nutzung bleibt historisch erhalten.');
+    render();
+  } catch (error) {
+    load();
+    showFlash(error.message || 'Nutzungswechsel konnte nicht gespeichert werden.', 'error');
+    render();
+  }
+});
+
 window.addEventListener('hashchange', () => {
   const id = selectedFromHash();
   if (id) setSelected(id, { updateHash: false });
@@ -263,5 +350,10 @@ window.addEventListener('hashchange', () => {
 if (load()) {
   const defaultDate = document.querySelector('[name="usageStart"]');
   if (defaultDate && !defaultDate.value) defaultDate.value = `${new Date().getFullYear()}-01-01`;
+  const today = new Date().toISOString().slice(0, 10);
+  const areaChangeDate = document.querySelector('[name="areaEffectiveFrom"]');
+  const usageChangeDate = document.querySelector('[name="usageEffectiveFrom"]');
+  if (areaChangeDate && !areaChangeDate.value) areaChangeDate.value = today;
+  if (usageChangeDate && !usageChangeDate.value) usageChangeDate.value = today;
   render();
 }
