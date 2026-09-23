@@ -163,7 +163,7 @@ export function previewLandlordCo2(project, periodId, config, thermalConfig) {
     rawThermal = { status:'calculated', issues:[], report:structuredClone(suppliedPreview.report) };
   } else {
     const thermalPreview = previewSeparateThermalLandlord(project, periodId, thermalConfig);
-    if (thermalPreview.status !== 'preview' || !thermalPreview.plan) {
+    if (thermalPreview.status !== 'preview' || !thermalPreview.report) {
       return {
         status: 'building_preview',
         calculationReady: false,
@@ -176,20 +176,10 @@ export function previewLandlordCo2(project, periodId, config, thermalConfig) {
         pdfGenerated:false
       };
     }
-    rawThermal = calculateThermalPeriod(project, periodId, thermalPreview.plan);
-    if (rawThermal.status !== 'calculated' || !rawThermal.report) {
-      return {
-        status: 'building_preview',
-        calculationReady: false,
-        buildingReport: building.report,
-        tenantReport: null,
-        issues: rawThermal.issues ?? [{ code:'CO2_THERMAL_REQUIRED', path:'thermalResult', detail:'Geprüfter Wärme-Teilbericht fehlt.' }],
-        co2BuildingPlan: co2Plan,
-        co2TenantPlan: tenantPlan,
-        legalRelease:false,
-        pdfGenerated:false
-      };
-    }
+    // The landlord thermal adapter has already run the genuine thermal engine on
+    // its disposable CO₂-free calculation copy. Reuse that verified report
+    // instead of running the raw engine a second time on the full source ledger.
+    rawThermal = { status:'calculated', issues:[], report:structuredClone(thermalPreview.report) };
   }
 
   const tenants = previewTenantCo2(project, periodId, co2Plan, rawThermal, tenantPlan);
