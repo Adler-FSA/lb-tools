@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Nebenkosten Premium – Immobilien</title>
+  <meta name="description" content="Immobilienakte in Nebenkosten Premium">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+              <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M9 20v-6h6v6"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Nebenkosten Premium</div>
+            <div class="brand-sub">Akademie Immobilien- &amp; Mietservice</div>
+          </div>
+        </div>
+        <div class="storage-pill" data-storage-pill>
+          <span class="storage-dot"></span>
+          <span class="storage-text" data-storage-text>Speicher wird geprüft</span>
+        </div>
+      </div>
+      <nav class="mainnav" aria-label="Hauptnavigation">
+        <a class="nav-item" href="index.html">Meine Zentrale</a>
+        <a class="nav-item active" href="immobilien.html">Immobilien</a>
+        <span class="nav-item disabled" aria-disabled="true">Mietservice</span>
+        <span class="nav-item disabled" aria-disabled="true">Kosten &amp; Abrechnung</span>
+        <span class="nav-item disabled" aria-disabled="true">Sicherheit &amp; Checks</span>
+        <span class="nav-item disabled" aria-disabled="true">Dokumente &amp; Hilfe</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Werkzeug 1 · Immobilienakte</div>
+        <h1>Immobilie einmal sauber anlegen.</h1>
+        <p>Haus, Wohnung und Nutzung werden getrennt gespeichert. Flächen und Nutzungszeiträume überschreiben historische Angaben nicht stillschweigend.</p>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="index.html">← Zur Zentrale</a>
+        </div>
+      </div>
+      <aside class="status-card">
+        <div>
+          <div class="eyebrow">Aktuelle Daten</div>
+          <h2><span data-count-properties>0</span> Immobilien</h2>
+          <p><span data-count-units>0</span> Nutzungseinheiten sind im lokalen Projekt gespeichert.</p>
+        </div>
+        <div class="status-line">
+          <span>Speicher</span>
+          <strong>lokal auf diesem Gerät</strong>
+        </div>
+      </aside>
+    </section>
+
+    <div class="flash" data-flash role="status" aria-live="polite"></div>
+
+    <section class="grid grid-2">
+      <article class="card form-card">
+        <div class="eyebrow">Schritt 1</div>
+        <h2>Immobilie anlegen</h2>
+        <p class="kicker">Bezeichnung und Adresse reichen für den Start. Weitere Angaben kommen nur dort hinzu, wo sie gebraucht werden.</p>
+        <form data-property-form>
+          <div class="form-grid">
+            <div class="full">
+              <label for="label">Bezeichnung *</label>
+              <input id="label" name="label" required placeholder="z. B. Haus Gutenbergstraße">
+            </div>
+            <div>
+              <label for="workspaceMode">Arbeitsbereich</label>
+              <select id="workspaceMode" name="workspaceMode">
+                <option value="owner">Eigenes Haus</option>
+                <option value="landlord">Vermietung</option>
+                <option value="mixed">Eigennutzung &amp; Vermietung</option>
+              </select>
+            </div>
+            <div>
+              <label for="buildingType">Gebäudetyp</label>
+              <select id="buildingType" name="buildingType">
+                <option value="single_family">Einfamilienhaus</option>
+                <option value="multi_family">Mehrfamilienhaus</option>
+                <option value="condominium">Wohnungseigentum</option>
+                <option value="mixed_use">Gemischt genutzt</option>
+                <option value="other">Sonstiges</option>
+              </select>
+            </div>
+            <div>
+              <label for="street">Straße</label>
+              <input id="street" name="street" autocomplete="street-address">
+            </div>
+            <div>
+              <label for="houseNumber">Hausnummer</label>
+              <input id="houseNumber" name="houseNumber">
+            </div>
+            <div>
+              <label for="postalCode">PLZ</label>
+              <input id="postalCode" name="postalCode" inputmode="numeric" autocomplete="postal-code">
+            </div>
+            <div>
+              <label for="city">Ort *</label>
+              <input id="city" name="city" required autocomplete="address-level2">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Immobilie speichern</button>
+          </div>
+        </form>
+      </article>
+
+      <section>
+        <div class="section-head">
+          <div>
+            <h2>Gespeicherte Immobilien</h2>
+            <p>Wähle eine Immobilie, um Einheiten und Nutzung zu ergänzen.</p>
+          </div>
+        </div>
+        <div class="grid" data-property-list></div>
+      </section>
+    </section>
+
+    <section class="section card form-card hidden" data-unit-panel>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Schritt 2</div>
+          <h2>Einheiten in <span data-selected-property-name>Immobilie</span></h2>
+          <p>Wohnungen oder andere Einheiten erhalten eine eigene stabile Kennung, Flächenhistorie und Nutzung.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-2">
+        <form data-unit-form>
+          <input type="hidden" name="propertyId">
+          <div class="form-grid">
+            <div>
+              <label for="unitLabel">Einheit *</label>
+              <input id="unitLabel" name="unitLabel" required placeholder="z. B. Wohnung EG links">
+            </div>
+            <div>
+              <label for="floor">Lage / Etage</label>
+              <input id="floor" name="floor" placeholder="z. B. Erdgeschoss">
+            </div>
+            <div>
+              <label for="areaM2">Wohn-/Nutzfläche in m² *</label>
+              <input id="areaM2" name="areaM2" type="number" min="0.01" step="0.01" inputmode="decimal" required placeholder="80">
+              <div class="help">Intern wird die Fläche centgenau als Hundertstel m² gespeichert.</div>
+            </div>
+            <div>
+              <label for="usageKind">Aktuelle Nutzung *</label>
+              <select id="usageKind" name="usageKind">
+                <option value="owner">Eigennutzung</option>
+                <option value="tenant">Vermietet</option>
+                <option value="vacant">Leerstand</option>
+              </select>
+            </div>
+            <div>
+              <label for="usageStart">Nutzung seit *</label>
+              <input id="usageStart" name="usageStart" type="date" required>
+            </div>
+            <div class="hidden" data-tenant-fields>
+              <label for="tenantName">Mietverhältnis / Name</label>
+              <input id="tenantName" name="tenantName" placeholder="optional, z. B. Familie Mustermann">
+              <div class="help">Weitere Vertragsdaten werden später im Mietservice ergänzt.</div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Einheit speichern</button>
+          </div>
+        </form>
+
+        <div>
+          <div class="notice">
+            Nutzungswechsel werden später als neue Zeiträume ergänzt. Bereits gespeicherte historische Flächen oder Nutzungen werden nicht still überschrieben.
+          </div>
+          <div class="section" style="margin-top:18px">
+            <h3>Einheiten</h3>
+            <div class="unit-list" data-unit-list></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section notice">
+      Diese Seite legt ausschließlich Stammdaten und Nutzung an. Kosten, Belege, Zähler, Versorger und Abrechnungen werden in den nächsten Schritten von Baustein 3 an dieselbe Immobilienakte angebunden.
+    </section>
+  </main>
+
+  <footer class="footer">
+    Nebenkosten Premium · Lokale Speicherung · Keine Alt-Daten-Migration · Keine individuelle Rechtsberatung.
+  </footer>
+</div>
+<script type="module" src="assets/js/immobilien-ui.js"></script>
+</body>
+</html>
