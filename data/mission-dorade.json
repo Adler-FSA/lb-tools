@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "entries": [
     {
       "id": "1123c653-dcb4-4253-9113-d589eb8bfb37",
@@ -146,5 +146,91 @@
       "published": true,
       "publishedAt": "2026-09-01T00:46:52.403Z"
     }
-  }
+  },
+  "eligibleParticipants": [
+    {
+      "name": "Andrea Berndt",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Oliver Beyer",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Britta Steinert",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Michael (Mike) Rau",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Susanne Bittner",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Gretel Cappel",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Nadja Finke",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Achim Hubrich",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Peter Bösing",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Bernd Scheuerer",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Heinz Klötzner",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Daniela Karl",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Michaela Lang",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Alexander Finke",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Claudia Meier",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Marco Scheuermeier",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Gudrun Tuellmann",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Roland von Ledebur",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Katharina Müller",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Katrin Lindinger",
+      "eligibleFrom": "2026-08-01"
+    },
+    {
+      "name": "Petra Szontag",
+      "eligibleFrom": "2026-08-01"
+    }
+  ]
 }
