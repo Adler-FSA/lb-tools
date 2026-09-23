@@ -92,8 +92,22 @@ Die Gebäudestufe kann separat angezeigt werden. Ist eine individuelle Mieterauf
 
 Regressionen liegen in `tests/landlord-co2.test.mjs`. Die neuen CO₂-Dateien und die aktualisierte UI wurden zusätzlich syntaktisch geprüft; der GitHub-Pages-Build für diesen Stand wurde erfolgreich veröffentlicht.
 
+## Nutzerwechsel bei Heizung/Warmwasser
+
+Der bereits vorhandene Nutzerwechsel-Pfad ist jetzt ebenfalls in der Vermieteroberfläche erreichbar.
+
+Für Heizung und Warmwasser kann ausdrücklich bestätigt werden, dass bei einem dokumentierten Nutzerwechsel:
+
+- der Verbrauch über echte Zwischenablesungen am Wechselstichtag getrennt wird,
+- die Grundkosten im aktuell sichtbaren Pfad für diesen Fall nach Kalendertagen verteilt werden,
+- die Methode ausdrücklich geprüft wurde.
+
+Diese Bestätigung ersetzt die Messwerte nicht. Fehlt am Nutzerwechsel eine notwendige Zwischenablesung, sperrt der vorhandene Rechenkern die Vorschau weiterhin mit `METER_INTERMEDIATE_READING_REQUIRED`. Eine Gradtagzahlen-Verteilung wird von dieser Oberfläche noch nicht automatisch erzeugt.
+
+Zusätzliche Regressionen wurden in `tests/landlord-thermal.test.mjs` ergänzt. Die aktualisierten Thermal-/CO₂-/UI-Dateien und Testdateien wurden syntaktisch geprüft.
+
 ## Als Nächstes
 
-Als Nächstes wird der bereits vorhandene Nutzerwechsel-Pfad für Heizung/Warmwasser sichtbar angebunden. Zwischenablesungen und die Grundkostenaufteilung werden dabei ausdrücklich bestätigt; fehlende Zwischenwerte bleiben gesperrt. Pauschalen und weitere nicht unterstützte Sonderfälle werden weiterhin nicht in einen Standardpfad gezwungen.
+Als Nächstes werden die noch offenen Sonderfälle innerhalb von Baustein 4 systematisch gegen den vorhandenen Rechenkern abgegrenzt und der Vermieterfluss zur Gesamtabnahme gebracht. Pauschalen, Gradtagzahlen ohne belegte Gewichte sowie nicht unterstützte Eigennutzungs-/Leerstands-CO₂-Fälle bleiben fail-closed.
 
 **Baustein 4 bleibt offen.**
