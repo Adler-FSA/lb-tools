@@ -115,3 +115,18 @@ test('user-change confirmation does not replace a missing intermediate reading',
   assert.equal(r.status,'blocked');
   assert.ok(r.issues.some(i=>i.code==='METER_INTERMEDIATE_READING_REQUIRED'));
 });
+
+
+test('separately recorded CO2 does not poison the independent thermal preview',()=>{
+  const {p,config}=fixture();
+  p.expenses.push({
+    id:'carbon',propertyId:'house',category:'co2',classification:'unresolved',
+    amountCents:2001,startDate:'2026-01-01',endDate:'2026-12-31',
+    invoiceReference:'GAS',invoiceLineId:'co2'
+  });
+  const before=JSON.stringify(p);
+  const r=previewSeparateThermalLandlord(p,'y',config);
+  assert.equal(r.status,'preview',JSON.stringify(r.issues));
+  assert.equal(r.report.totalCostsCents,180000);
+  assert.equal(JSON.stringify(p),before);
+});
