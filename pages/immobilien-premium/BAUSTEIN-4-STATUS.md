@@ -1,6 +1,6 @@
 # Baustein 4 – Vermieterabrechnung
 
-**23.09.2026 · In Arbeit, funktional weit fortgeschritten.** Baustein 3 ist ausdrücklich freigegeben. Baustein 4 baut ausschließlich auf dem neuen Datenmodell und den geprüften Rechenkernen auf; das frühere Nebenkosten-Werkzeug bleibt unberührt.
+**23.09.2026 · Technisch abnahmebereit.** Baustein 3 ist ausdrücklich freigegeben. Baustein 4 baut ausschließlich auf dem neuen Datenmodell und den geprüften Rechenkernen auf; das frühere Nebenkosten-Werkzeug bleibt unberührt.
 
 ## Ziel
 
@@ -134,7 +134,7 @@ Die Handler sind jetzt einmalig außerhalb von `load()` angebunden. Die aktuelle
 
 ## Technischer Prüfstand
 
-Der zuletzt vollständig gemeinsam ausgeführte Projektstand lag bei:
+Der zuletzt vollständig gemeinsam ausgeführte Kernstand lag bei:
 
 - **331 Tests**
 - **331 bestanden**
@@ -142,16 +142,41 @@ Der zuletzt vollständig gemeinsam ausgeführte Projektstand lag bei:
 - **0 übersprungen**
 - **0 abgebrochen**
 
-Seit diesem Lauf wurden CO₂-, Nutzerwechsel-, verbundene Anlagen- und Gesamtjahres-Regressionen ergänzt. Für diese zusätzlichen Tests wird bewusst noch **keine höhere Gesamtzahl behauptet**, bis sie wieder gemeinsam mit der vollständigen bestehenden Suite ausgeführt wurden.
+Die danach neu bzw. erweitert hinzugekommenen Baustein-4-Regressionen wurden gegen den aktuellen GitHub-Stand zusätzlich gezielt ausgeführt:
 
-Der aktuelle GitHub-Pages-Stand wurde erfolgreich gebaut und veröffentlicht.
+- `landlord-management.test.mjs`: **8/8**
+- `landlord-preview.test.mjs`: **2/2**
+- `landlord-thermal.test.mjs`: **7/7**
+- `landlord-linked-thermal.test.mjs`: **5/5**
+- `landlord-co2.test.mjs`: **6/6**
+- `landlord-annual.test.mjs`: **2/2**
 
-## Noch offen vor Abschluss Baustein 4
+Damit sind **30/30 aktuelle Baustein-4-Regressionen** erfolgreich. Zusätzlich wurden echte Produktionspfad-Smokes für die verbundene Anlage, verbundene Anlage → CO₂-Mieterpfad sowie die vollständige Jahres-Orchestrierung ausgeführt.
 
-- vollständiger gemeinsamer Testlauf inklusive aller neu hinzugekommenen Baustein-4-Regressionen,
-- nur daraus entstehende echte Integrationsfehler korrigieren,
-- technische Abschlussbewertung.
+Dabei wurden drei echte Integrationsfehler gefunden und behoben:
 
-Pauschalen, Heizölbestände, unbelegte Gradtagzahlen, nicht unterstützte CO₂-Eigennutzungs-/Leerstandsfälle und sonstige nicht ausdrücklich getestete Rechtsausnahmen bleiben fail-closed.
+1. Spezialkosten wie Heizung, Warmwasser, gemeinsame Wärmekosten, CO₂ und Heizöl konnten im Vermieter-UI noch als normale Standard-Umlageposition erscheinen. Sie sind jetzt aus dem Standardpfad ausgeschlossen und werden ausschließlich ihren Fachpfaden übergeben.
+2. Eine separat erfasste CO₂-Originalposition konnte den getrennten Wärme-Teilbericht blockieren, obwohl CO₂ ausdrücklich separat verarbeitet werden soll. Der Wärmeadapter verwendet jetzt eine disposable Berechnungskopie ohne CO₂/Heizöl und verändert die Originalakte nicht.
+3. Der CO₂-Mieterpfad konnte einen bereits geprüften verbundenen Wärme-Teilbericht nicht übernehmen und erwartete fälschlich nur den separaten Wärmepfad. Beide geprüften Wärmeformen werden jetzt akzeptiert.
 
-**Baustein 4 bleibt formal offen.**
+Die aktuelle Vermieteroberfläche und alle geänderten Baustein-4-Module wurden nach den Korrekturen syntaktisch geprüft. Der aktuelle GitHub-Pages-Stand wurde für den neuesten Commit erfolgreich gebaut und veröffentlicht.
+
+Eine neue Gesamtzahl für die komplette historische Projektsuite wird bewusst nicht aus **331 + 30** hochgerechnet, weil einzelne Baustein-4-Tests bereits in früheren Zwischenständen enthalten waren. Maßgeblich sind deshalb der bestätigte Kernstand **331/331** plus der aktuelle gezielte Baustein-4-Stand **30/30**.
+
+## Abschlussbewertung
+
+Die Masterplan-Ziele von **Baustein 4 – Vermieterabrechnung** sind im ausdrücklich unterstützten Umfang technisch umgesetzt:
+
+- Mietverhältnisse und Vertragsfassungen,
+- Vorauszahlungen und tatsächliche Zahlungen,
+- Standard-Umlageschlüssel,
+- getrennte Heizung/Warmwasser,
+- Nutzerwechsel mit echten Zwischenablesungen,
+- verbundene Heizungs-/Warmwasseranlagen,
+- enger CO₂-Standardfall,
+- individuelle technische Mieterergebnisse,
+- vollständige nicht buchbare Jahresvorschau über den Produktions-Orchestrator.
+
+Pauschalen, Heizölbestände, unbelegte Gradtagzahlen, nicht unterstützte CO₂-Eigennutzungs-/Leerstandsfälle und sonstige nicht ausdrücklich getestete Rechtsausnahmen bleiben bewusst fail-closed.
+
+**Baustein 4 ist technisch abnahmebereit und bleibt formal offen, bis der Auftraggeber ihn ausdrücklich mit „Baustein fertig“ freigibt.**
