@@ -222,8 +222,10 @@ function renderRecords(records) {
 
 function toggleHolderFields() {
   const holder = document.querySelector('[name="supplyHolder"]')?.value;
+  const includePrice = document.querySelector('[name="supplyIncludePrice"]')?.checked === true;
   document.querySelector('[data-direct-unit-fields]')?.classList.toggle('hidden', holder !== 'tenant_direct');
-  document.querySelector('[data-owner-price-fields]')?.classList.toggle('hidden', holder !== 'owner');
+  document.querySelector('[data-supply-price-toggle]')?.classList.toggle('hidden', holder !== 'owner');
+  document.querySelector('[data-owner-price-fields]')?.classList.toggle('hidden', holder !== 'owner' || !includePrice);
 }
 
 function setDefaultDates() {
@@ -270,6 +272,7 @@ function confirmRecord(recordId) {
 }
 
 document.querySelector('[name="supplyHolder"]')?.addEventListener('change', toggleHolderFields);
+document.querySelector('[name="supplyIncludePrice"]')?.addEventListener('change', toggleHolderFields);
 
 document.querySelector('[data-supply-form]')?.addEventListener('submit', event => {
   event.preventDefault();
@@ -287,7 +290,7 @@ document.querySelector('[data-supply-form]')?.addEventListener('submit', event =
     return;
   }
   try {
-    const priceVersion = contractHolder === 'owner'
+    const priceVersion = contractHolder === 'owner' && form.get('supplyIncludePrice') === 'on'
       ? priceVersionFromForm(form, 'supply', year) : null;
     const result = createSupplyDraft(project, {
       recordId: newId('supply'),
@@ -303,6 +306,8 @@ document.querySelector('[data-supply-form]')?.addEventListener('submit', event =
     saveAndRefresh(result.project, 'Versorgungsvertrag wurde als Entwurf gespeichert. Planung, Rechnung und Zahlungen bleiben getrennt.');
     event.currentTarget.reset();
     document.querySelector('[name="supplyHolder"]').value = 'owner';
+    const includePrice = document.querySelector('[name="supplyIncludePrice"]');
+    if (includePrice) includePrice.checked = true;
     setDefaultDates();
     toggleHolderFields();
   } catch (error) {
