@@ -1,52 +1,65 @@
 # Baustein 3 – Immobilienzentrale / Eigentümer
 
-**23.09.2026 · In Arbeit.** Baustein 2 ist freigegeben. Baustein 3 baut ausschließlich auf dem neuen Datenmodell und der geprüften Speicherschicht auf; das frühere Nebenkosten-Werkzeug bleibt unberührt.
+**23.09.2026 · In Arbeit, sichtbarer Funktionsstand weit fortgeschritten.** Baustein 2 ist freigegeben. Baustein 3 baut ausschließlich auf dem neuen Datenmodell und der geprüften Speicherschicht auf; das frühere Nebenkosten-Werkzeug bleibt unberührt.
 
-## Sichtbarer Stand
-
-Aktuell bedienbar:
+## Aktuell bedienbar
 
 - `index.html` – „Meine Zentrale“ mit Projektstatus, Kennzahlen, Immobilienübersicht und Direkteinstiegen.
-- `immobilien.html` – Immobilienakte für Immobilie, Einheiten, Flächen und aktuellen Nutzungsstatus.
+- `immobilien.html` – Immobilienakte für Immobilie, Einheiten, Flächen und Nutzungsstatus.
 - `kosten.html` – Kosten- und Belegverwaltung mit getrenntem Versorger-Zahlungskreis.
-- `abrechnung-eigentuemer.html` – interne Eigentümer-Kostenübersicht mit getrennten tatsächlichen Kosten und Versorgerbewegungen.
-- `verbrauch.html` – Zähler- und Ableseerfassung für Kaltwasser, Heizung und Warmwasser; nur tatsächlich gemessene Werte.
+- `verbrauch.html` – Zähler, Ablesungen und dokumentierter Zählerwechsel.
+- `abrechnung-eigentuemer.html` – interne Eigentümer-Jahresübersicht mit Kosten, Versorgerbewegungen, dokumentiertem Verbrauch und Jahresvergleich.
 - gemeinsame responsive Gestaltung unter `assets/css/app.css`.
 - gemeinsame UI-/Speicherhilfen sowie Seitenskripte unter `assets/js/`.
 
-Die Hauptnavigation „Kosten & Abrechnung“ ist jetzt aktiv. Mietservice, Sicherheit & Checks sowie Dokumente & Hilfe bleiben sichtbar, aber gesperrt, bis die jeweiligen Bausteine angeschlossen werden.
+Die Hauptnavigation „Kosten & Abrechnung“ ist aktiv. Mietservice, Sicherheit & Checks sowie Dokumente & Hilfe bleiben sichtbar, aber gesperrt, bis die jeweiligen späteren Bausteine angeschlossen werden.
 
-## Kosten- und Zahlungsaufnahme
+## Datenaufnahme und Historie
 
-Kosten werden als tatsächliche Originalkostenpositionen gespeichert: Betrag, Kostenart, Leistungszeitraum, Belegreferenz und Einordnung. Die Einordnung kann bewusst auf „ungeklärt“ stehen. „Umlage später prüfen“ setzt **keine** rechtliche Umlagefreigabe.
+Immobilien und Einheiten werden getrennt angelegt. Fläche und Nutzung besitzen echte Zeiträume.
+
+Das reine Modul `assets/js/history-changes.js` ergänzt jetzt ausdrücklich historische Änderungen:
+
+- neue Fläche ab Datum beendet den vorherigen Flächenzeitraum einen Tag vorher,
+- Nutzungswechsel beendet den bisherigen Nutzungszeitraum und legt einen neuen an,
+- ein neuer Mieter erhält ein eigenes Mietverhältnis; das bisherige Mietverhältnis wird historisch beendet,
+- ein Zählerwechsel erhält altes Gerät, alten Endstand, Wechseldatum, neues Gerät und neuen Anfangsstand,
+- vorhandene Startwerte werden nicht still überschrieben,
+- widersprüchliche Wechsel oder Gerätehistorien werden gesperrt.
+
+Automatisierte Regressionen liegen in `tests/history-changes.test.mjs`.
+
+## Kosten und Versorger
+
+Kosten werden als tatsächliche Originalkostenpositionen gespeichert: Betrag, Kostenart, Leistungszeitraum, Belegreferenz und Einordnung. „Ungeklärt“ bleibt möglich. „Umlage später prüfen“ ist keine rechtliche Umlagefreigabe.
 
 Versorgerzahlungen und Versorgererstattungen werden in einem eigenen Cashflow-Kreis mit Abrechnungsperiode gespeichert. Sie verändern weder den Rechnungsbetrag noch automatisch eine Mieterabrechnung.
 
-Ein vollständiges Kalenderjahr wird beim ersten Kosten-/Zahlungsvorgang als Abrechnungsperiode angelegt, ohne bestehende Perioden zu überschreiben.
-
 ## Eigentümerübersicht
 
-Das neue reine Modul `assets/js/owner-summary.js` bildet eine nicht buchbare Organisationsauswertung. Es trennt:
+`assets/js/owner-summary.js` trennt tatsächliche Kosten, Eigentümerkosten, nur zur späteren Umlageprüfung markierte Beträge, ungeklärte Beträge sowie Versorgerzahlungen und -erstattungen.
 
-- tatsächliche Kosten,
-- bereits als Eigentümerkosten eingeordnete Beträge,
-- nur zur späteren Umlageprüfung markierte Beträge,
-- ungeklärte Beträge,
-- Versorgerzahlungen und -erstattungen.
+`assets/js/owner-insights.js` ergänzt:
 
-Der Vergleich zwischen tatsächlichen Kosten und netto erfassten Versorgerzahlungen wird ausdrücklich **nicht** als Guthaben oder Nachzahlung behauptet.
+- dokumentierte Verbrauchsdifferenzen ausschließlich aus tatsächlich gespeicherten Ablesungen,
+- keine Schätzung bei nur einem Messwert,
+- Jahresvergleich tatsächlicher Kosten und separat erfasster Versorgerzahlungen,
+- Überlaufschutz für die Verbrauchsaggregation.
 
-## Zähler und Verbrauch
+Die Differenz zwischen tatsächlichen Kosten und netto erfassten Versorgerzahlungen wird ausdrücklich nicht automatisch als Guthaben oder Nachzahlung behauptet.
 
-`verbrauch.html` legt Geräte pro Immobilie/Einheit an und speichert Ablesungen mit Datum und Messwert. Kaltwasser und Warmwasser werden in m³, Heizenergie in kWh geführt. Mehrfachablesungen am selben Tag, Ablesungen außerhalb der Gerätelebensdauer und nicht monotone Zwischenwerte werden bereits in der Oberfläche gesperrt. Zählerwechsel, Überlauf und Ersatzwerte werden nicht automatisch erfunden, sondern bleiben eigener Prüfpfad des technischen Kerns.
+Automatisierte Regressionen liegen in `tests/owner-summary.test.mjs` und `tests/owner-insights.test.mjs`.
 
-Automatisierter Test: `tests/owner-summary.test.mjs` prüft die Trennung der Rechnungskreise, Fremdobjektschutz, fehlende Belegreferenzen und ungültige Perioden.
+## Technischer Prüfstand
+
+Vor dem aktuellen Historien-/Vergleichspaket war die vollständige Suite mit **295/295 Tests** fehlerfrei. Die neuen Historien- und Insight-Tests sind im Repository ergänzt. Nach dem letzten UI-/Testpaket wurde GitHub Pages erfolgreich gebaut und veröffentlicht. Ein erneuter vollständiger lokaler Node-Gesamtlauf ist für die neuen Tests noch nachzuholen; bis dahin wird keine höhere Gesamttestzahl behauptet.
 
 ## Noch offen innerhalb von Baustein 3
 
-- Bearbeitungs- und Historienfunktionen für bestehende Immobilien-/Einheitsdaten sowie explizite Zählerwechsel,
-- geführte Verbindung der Eigentümeransicht mit dem vollständigen Jahres-Rechenkern, sobald alle dafür nötigen Fachangaben in der Oberfläche erfasst werden können,
-- weitere Browser-/iPad-Sichtprüfung und Korrekturen,
-- DE/EN-Vervollständigung.
+- erneuter vollständiger Gesamttest inklusive der neuen Historien-/Insight-Tests,
+- geführte Abschlussprüfung der Eigentümerdaten: Was ist vollständig, was fehlt noch für den geprüften Jahres-Rechenkern,
+- letzte sichtbare Browser-/iPad-Korrekturen.
+
+DE/EN gehört laut Masterplan zur Gesamtabnahme in Baustein 7 und hält Baustein 3 nicht auf.
 
 **Baustein 3 bleibt offen.** Es gibt weiterhin keine rechtlich freigegebene Mieterabrechnung oder PDF-Ausgabe.
