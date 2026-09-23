@@ -77,6 +77,11 @@ export function previewSeparateThermalLandlord(project, periodId, config) {
       mapping[unit.id] = meterIds;
     }
     const meta = SERVICES[kind];
+    const userChange = serviceConfig.userChangeConfirmed === true ? {
+      confirmed: true,
+      consumptionMethod: 'intermediate_reading',
+      baseMethod: 'days'
+    } : undefined;
     streams.push({
       kind,
       expenseIds: expenses.map(expense => expense.id).sort(),
@@ -87,7 +92,8 @@ export function previewSeparateThermalLandlord(project, periodId, config) {
       measurementBasisConfirmed: serviceConfig.measurementBasisConfirmed === true,
       measurementKind: meta.measurementKind,
       canonicalUnit: meta.canonicalUnit,
-      meterIdsByUnit: mapping
+      meterIdsByUnit: mapping,
+      ...(userChange ? { userChange } : {})
     });
   }
 
