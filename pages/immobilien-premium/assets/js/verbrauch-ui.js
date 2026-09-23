@@ -45,6 +45,7 @@ function renderScope() {
     ? units.map(unit => `<option value="${escapeText(unit.id)}">${escapeText(unit.label || unit.id)}</option>`).join('')
     : '<option value="">Noch keine Einheit</option>';
   unitSelect.disabled = !units.length;
+  document.querySelector('[data-meter-form] button[type="submit"]').disabled = !units.length;
 
   document.querySelector('[data-meter-property-title]').textContent =
     properties.find(item => item.id === selectedPropertyId)?.label || 'Immobilie';
@@ -211,8 +212,11 @@ document.querySelector('[data-reading-form]').addEventListener('submit', event =
   const prior = project.readings
     .filter(item => item.meterId === meterId && item.date < date)
     .sort((a,b) => b.date.localeCompare(a.date))[0];
-  if (prior && value < prior.value) {
-    showFlash('Der neue Zählerstand liegt unter dem vorherigen Messwert. Zählerwechsel oder Überlauf müssen gesondert dokumentiert werden.', 'error');
+  const next = project.readings
+    .filter(item => item.meterId === meterId && item.date > date)
+    .sort((a,b) => a.date.localeCompare(b.date))[0];
+  if ((prior && value < prior.value) || (next && value > next.value)) {
+    showFlash('Der Messwert passt nicht monoton zwischen die bereits gespeicherten Ablesungen. Zählerwechsel oder Überlauf müssen gesondert dokumentiert werden.', 'error');
     return;
   }
   project.readings.push({
