@@ -139,18 +139,18 @@ function currentRecords() {
 
 function updateContractSelectors(records) {
   const ownerRecords = records.filter(item => item.contract?.contractHolder === 'owner');
+  const drafts = ownerRecords.filter(item => item.confirmed === false);
   for (const name of ['expenseSupplyRecord', 'paymentSupplyRecord']) {
     const select = document.querySelector(`[name="${name}"]`);
     if (!select) continue;
     const selected = select.value;
+    const choices = name === 'expenseSupplyRecord' ? drafts : ownerRecords;
     select.innerHTML = '<option value="">Kein Versorgungsvertrag / manuell</option>' +
-      ownerRecords.map(item =>
+      choices.map(item =>
         `<option value="${escapeText(item.id)}">${escapeText(item.contract.providerLabel || item.contract.providerAccountId)} · ${escapeText(SERVICE_LABELS[item.contract.service] || item.contract.service)}</option>`
       ).join('');
     if ([...select.options].some(option => option.value === selected)) select.value = selected;
   }
-
-  const drafts = ownerRecords.filter(item => item.confirmed === false);
   const priceSelect = document.querySelector('[name="priceRecordId"]');
   if (priceSelect) {
     const selected = priceSelect.value;
