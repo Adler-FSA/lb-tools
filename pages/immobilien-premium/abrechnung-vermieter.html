@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Nebenkosten Premium – Vermieterabrechnung</title>
+  <meta name="description" content="Vermieterabrechnung in Nebenkosten Premium">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+              <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M9 20v-6h6v6"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Nebenkosten Premium</div>
+            <div class="brand-sub">Akademie Immobilien- &amp; Mietservice</div>
+          </div>
+        </div>
+        <div class="storage-pill" data-storage-pill>
+          <span class="storage-dot"></span>
+          <span class="storage-text" data-storage-text>Speicher wird geprüft</span>
+        </div>
+      </div>
+      <nav class="mainnav" aria-label="Hauptnavigation">
+        <a class="nav-item" href="index.html">Meine Zentrale</a>
+        <a class="nav-item" href="immobilien.html">Immobilien</a>
+        <span class="nav-item disabled" aria-disabled="true">Mietservice</span>
+        <a class="nav-item active" href="kosten.html">Kosten &amp; Abrechnung</a>
+        <span class="nav-item disabled" aria-disabled="true">Sicherheit &amp; Checks</span>
+        <span class="nav-item disabled" aria-disabled="true">Dokumente &amp; Hilfe</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Baustein 4 · Vermieterabrechnung</div>
+        <h1>Mietverhältnis, Schlüssel und Zahlungen sauber zusammenführen.</h1>
+        <p>Vertragsbasis, Vorauszahlungen, tatsächliche Zahlungen und Verteilungsmaßstäbe bleiben getrennt dokumentiert. Erst wenn der Rechenkern alle Grundlagen akzeptiert, entsteht eine individuelle technische Vorschau.</p>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="kosten.html">← Kosten</a>
+          <a class="btn btn-ghost" href="verbrauch.html">Zähler &amp; Verbrauch</a>
+          <a class="btn btn-primary" href="index.html">Zur Zentrale</a>
+        </div>
+      </div>
+      <aside class="status-card">
+        <div>
+          <div class="eyebrow">Vermieterfluss</div>
+          <h2 data-landlord-title>Projekt wird geladen</h2>
+          <p>Noch keine rechtliche Freigabe und keine PDF-Ausgabe.</p>
+        </div>
+        <div class="status-line"><span>Status</span><strong>Einzelvorschau</strong></div>
+      </aside>
+    </section>
+
+    <div class="flash" data-flash role="status" aria-live="polite"></div>
+
+    <section class="empty-state hidden" data-no-property>
+      <h3>Zuerst eine Immobilie anlegen</h3>
+      <p>Für die Vermieterabrechnung wird eine Immobilie mit vermieteter Einheit benötigt.</p>
+      <a class="btn btn-primary" href="immobilien.html">Immobilien öffnen</a>
+    </section>
+
+    <div data-landlord-workspace class="hidden">
+      <section class="card">
+        <div class="toolbar">
+          <div class="field-inline"><label>Immobilie</label><select name="landlordProperty"></select></div>
+          <div class="field-inline"><label>Abrechnungsjahr</label><select name="landlordPeriod"></select></div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="section-head">
+          <div><div class="eyebrow">1 · Mietverhältnisse</div><h2>Zahlungskreise bestätigen</h2><p>Das Mietverhältnis und seine Zahlungen werden ausdrücklich dem gewählten Abrechnungsjahr zugeordnet.</p></div>
+        </div>
+        <div class="unit-list" data-tenancy-list></div>
+      </section>
+
+      <section class="section grid grid-2">
+        <article class="card form-card">
+          <div class="section-head"><div><div class="eyebrow">2 · Vertragsbasis</div><h2>Vorauszahlung &amp; Kostenarten</h2></div></div>
+          <label>Mietverhältnis</label>
+          <select name="contractTenancy"></select>
+          <div data-contract-panel style="margin-top:16px"></div>
+        </article>
+
+        <article class="card form-card">
+          <div class="eyebrow">3 · Zahlung oder Soll</div>
+          <h2>Mieterbewegung erfassen</h2>
+          <form data-payment-form>
+            <div class="form-grid">
+              <div class="full"><label>Mietverhältnis *</label><select name="paymentTenancy"></select></div>
+              <div><label>Eintrag *</label><select name="entryType"><option value="payment">Tatsächliche Zahlung</option><option value="due">Bestätigter Soll-Eintrag</option></select></div>
+              <div><label>Zuordnung</label><select name="paymentPurpose"><option value="operating_cost_advance">Betriebskostenvorauszahlung</option><option value="base_rent">Grundmiete</option></select></div>
+              <div><label>Betrag in € *</label><input name="paymentEuro" type="number" min="0" step="0.01" required></div>
+              <div><label>Datum *</label><input name="paymentDate" type="date" required></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-primary" type="submit">Eintrag speichern</button></div>
+          </form>
+          <div class="notice" style="margin-top:14px">Soll-Einträge und tatsächlich eingegangene Zahlungen bleiben getrennt. Ein Unterschied wird nicht automatisch als Mietrückstand bewertet.</div>
+        </article>
+      </section>
+
+      <section class="section card">
+        <div class="section-head">
+          <div><div class="eyebrow">4 · Verteilung</div><h2>Umlageschlüssel je Kostenposition</h2><p>Fläche, Verbrauch oder direkte Einheit können nur ausdrücklich bestätigt werden. Die Auswahl ist keine automatische rechtliche Prüfung.</p></div>
+        </div>
+        <div class="grid" data-allocation-list></div>
+      </section>
+
+      <section class="section card">
+        <div class="section-head">
+          <div><div class="eyebrow">5 · Rechenkern</div><h2>Individuelle Mieterergebnisse</h2><p>Der vorhandene Standard-Rechenkern prüft Vertrag, Schlüssel, Verbrauch, Nutzungszeiten und tatsächliche Vorauszahlungen gemeinsam.</p></div>
+        </div>
+        <div data-landlord-preview></div>
+      </section>
+
+      <section class="section notice">
+        Heizung, Warmwasser, CO₂, Pauschalen und weitere Sonderfälle werden nicht in den Standardpfad gezwungen. Sie bleiben gesperrt, bis der dafür vorhandene Fachpfad in Baustein 4 angeschlossen ist.
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Nebenkosten Premium · Vermieterabrechnung im Aufbau · Keine rechtlich freigegebene Forderung oder PDF.
+  </footer>
+</div>
+<script type="module" src="assets/js/abrechnung-vermieter-ui.js"></script>
+</body>
+</html>
