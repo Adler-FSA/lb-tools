@@ -188,8 +188,73 @@
       </div>
     </section>
 
+    <section class="section card form-card hidden" data-history-panel>
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Historie statt Überschreiben</div>
+          <h2>Fläche oder Nutzung ab Datum ändern</h2>
+          <p>Änderungen erzeugen einen neuen Zeitraum. Der bisherige Wert bleibt mit seinem Ende in der Historie erhalten.</p>
+        </div>
+      </div>
+      <div class="grid grid-2">
+        <form data-area-history-form>
+          <h3>Neue Fläche ab Datum</h3>
+          <div class="form-grid">
+            <div class="full">
+              <label for="areaHistoryUnit">Einheit *</label>
+              <select id="areaHistoryUnit" name="areaHistoryUnit"></select>
+            </div>
+            <div>
+              <label for="areaEffectiveFrom">Gültig ab *</label>
+              <input id="areaEffectiveFrom" name="areaEffectiveFrom" type="date" required>
+            </div>
+            <div>
+              <label for="areaNewM2">Neue Fläche in m² *</label>
+              <input id="areaNewM2" name="areaNewM2" type="number" min="0.01" step="0.01" inputmode="decimal" required placeholder="80">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Flächenänderung speichern</button>
+          </div>
+        </form>
+
+        <form data-usage-history-form>
+          <h3>Nutzungswechsel ab Datum</h3>
+          <div class="form-grid">
+            <div class="full">
+              <label for="usageHistoryUnit">Einheit *</label>
+              <select id="usageHistoryUnit" name="usageHistoryUnit"></select>
+            </div>
+            <div>
+              <label for="usageEffectiveFrom">Gültig ab *</label>
+              <input id="usageEffectiveFrom" name="usageEffectiveFrom" type="date" required>
+            </div>
+            <div>
+              <label for="usageHistoryKind">Neue Nutzung *</label>
+              <select id="usageHistoryKind" name="usageHistoryKind">
+                <option value="owner">Eigennutzung</option>
+                <option value="tenant">Vermietet</option>
+                <option value="vacant">Leerstand</option>
+              </select>
+            </div>
+            <div class="full hidden" data-history-tenant-fields>
+              <label for="usageHistoryTenantName">Neues Mietverhältnis / Name</label>
+              <input id="usageHistoryTenantName" name="usageHistoryTenantName" placeholder="optional, z. B. Familie Mustermann">
+              <div class="help">Ein neuer Mieter erhält ein eigenes Mietverhältnis; der Vorgänger wird historisch beendet.</div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Nutzungswechsel speichern</button>
+          </div>
+        </form>
+      </div>
+      <div class="notice" style="margin-top:18px">
+        Bestehende Startdaten werden nicht überschrieben. Für Korrekturen am ursprünglichen Anfangsbestand bleibt eine gesonderte Prüfentscheidung nötig.
+      </div>
+    </section>
+
     <section class="section notice">
-      Diese Seite legt Stammdaten und Nutzung an. Kosten und Versorgerzahlungen sind inzwischen über „Kosten & Abrechnung“ an dieselbe Immobilienakte angebunden; Zähler und weitere Abrechnungsfunktionen folgen.
+      Diese Seite führt Stammdaten und Nutzung historisch. Kosten und Versorgerzahlungen sind über „Kosten & Abrechnung“ angebunden; Zähler und Verbrauch stehen unter „Zähler & Verbrauch“ bereit.
     </section>
   </main>
 
