@@ -1,4 +1,5 @@
 import { buildOwnerSummary } from './owner-summary.js';
+import { inspectOwnerAnnualReadiness } from './owner-readiness.js';
 import { buildDocumentedConsumption, buildOwnerYearComparison } from './owner-insights.js';
 import {
   escapeText, formatEuro, propertyAddress,
@@ -70,6 +71,7 @@ function renderBlocked(message) {
   document.querySelector('[data-owner-issues]').innerHTML = '';
   document.querySelector('[data-consumption-summary]').innerHTML = '';
   document.querySelector('[data-year-comparison]').innerHTML = '';
+  document.querySelector('[data-annual-readiness]').innerHTML = '';
 }
 
 
@@ -118,6 +120,44 @@ function renderOwnerInsights() {
       </div>`;
   }).reverse().join('');
   comparisonHost.innerHTML = rows;
+}
+
+
+function renderAnnualReadiness() {
+  const host = document.querySelector('[data-annual-readiness]');
+  const result = inspectOwnerAnnualReadiness(project, selectedPeriodId);
+  if (result.status === 'preview' && result.preview) {
+    host.innerHTML = `
+      <div class="notice">
+        <strong>Jahres-Rechenkern erreicht eine geprüfte Vorschau.</strong>
+        Die Originalkosten sind vollständig reconciliert. Diese Vorschau ist weiterhin nicht buchbar und keine rechtliche Freigabe.
+      </div>
+      <div class="grid grid-3" style="margin-top:14px">
+        <div class="mini-stat"><span>Originalkosten</span><strong>${escapeText(formatEuro(result.preview.originalCostsCents))}</strong></div>
+        <div class="mini-stat"><span>Eigentümeranteil</span><strong>${escapeText(formatEuro(result.preview.ownerCostsCents))}</strong></div>
+        <div class="mini-stat"><span>Mieteranteile gesamt</span><strong>${escapeText(formatEuro(result.preview.tenantCostsCents))}</strong></div>
+      </div>`;
+    return;
+  }
+  const items = result.blockers.slice(0, 6).map(blocker => {
+    const action = blocker.action?.href
+      ? `<a class="btn btn-secondary" href="${escapeText(blocker.action.href)}">${escapeText(blocker.action.label)}</a>`
+      : `<span class="badge">${escapeText(blocker.action?.label || 'Prüfung erforderlich')}</span>`;
+    return `
+      <div class="unit-row">
+        <div>
+          <div class="unit-title">${escapeText(blocker.code)}</div>
+          <div class="unit-sub">${escapeText(blocker.detail)}</div>
+        </div>
+        <div></div><div></div><div>${action}</div>
+      </div>`;
+  }).join('');
+  host.innerHTML = `
+    <div class="notice">
+      <strong>Jahresprüfung noch nicht vollständig.</strong>
+      Der echte Rechenkern wurde gestartet und sicher gestoppt. Es wird nichts geschätzt oder als fertig ausgegeben.
+    </div>
+    <div class="unit-list" style="margin-top:10px">${items}</div>`;
 }
 
 function render() {
@@ -196,6 +236,7 @@ function render() {
     </div>`;
 
   renderOwnerInsights();
+  renderAnnualReadiness();
 
   const issueText = result.issues.map(issue => {
     if (issue.code === 'INVOICE_REFERENCE_MISSING') return 'Mindestens einer Kostenposition fehlt eine Beleg-/Rechnungsreferenz.';
