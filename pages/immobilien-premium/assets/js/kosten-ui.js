@@ -12,6 +12,7 @@ const CATEGORY_LABELS = {
   cold_water: 'Kaltwasser',
   heating: 'Heizung',
   hot_water: 'Warmwasser',
+  thermal_shared: 'Gemeinsame Heizung + Warmwasser',
   co2: 'CO₂-Kosten',
   repair: 'Reparatur / Instandhaltung',
   other: 'Sonstige Kosten'
