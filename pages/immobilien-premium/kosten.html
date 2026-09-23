@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Nebenkosten Premium – Kosten & Belege</title>
+  <meta name="description" content="Kosten- und Belegverwaltung in Nebenkosten Premium">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+              <path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M9 20v-6h6v6"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Nebenkosten Premium</div>
+            <div class="brand-sub">Akademie Immobilien- &amp; Mietservice</div>
+          </div>
+        </div>
+        <div class="storage-pill" data-storage-pill>
+          <span class="storage-dot"></span>
+          <span class="storage-text" data-storage-text>Speicher wird geprüft</span>
+        </div>
+      </div>
+      <nav class="mainnav" aria-label="Hauptnavigation">
+        <a class="nav-item" href="index.html">Meine Zentrale</a>
+        <a class="nav-item" href="immobilien.html">Immobilien</a>
+        <span class="nav-item disabled" aria-disabled="true">Mietservice</span>
+        <a class="nav-item active" href="kosten.html">Kosten &amp; Abrechnung</a>
+        <span class="nav-item disabled" aria-disabled="true">Sicherheit &amp; Checks</span>
+        <span class="nav-item disabled" aria-disabled="true">Dokumente &amp; Hilfe</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">Werkzeug 7 · Kosten- und Belegverwaltung</div>
+        <h1>Rechnung einmal erfassen. Zahlungsfluss getrennt halten.</h1>
+        <p>Tatsächliche Kosten, mögliche Umlage und Versorgerzahlungen bleiben voneinander getrennte Kreise. Genau diese Trennung schützt später die Jahresabrechnung.</p>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="index.html">← Zur Zentrale</a>
+          <a class="btn btn-primary" href="abrechnung-eigentuemer.html">Eigentümerübersicht</a>
+        </div>
+      </div>
+      <aside class="status-card">
+        <div>
+          <div class="eyebrow">Arbeitsbereich</div>
+          <h2 data-scope-title>Projekt wird geladen</h2>
+          <p>Die Beträge auf dieser Seite sind Erfassungsdaten. Eine rechtliche Umlagefreigabe wird hier nicht automatisch erteilt.</p>
+        </div>
+        <div class="status-line">
+          <span>Modus</span>
+          <strong>Erfassung &amp; Organisation</strong>
+        </div>
+      </aside>
+    </section>
+
+    <div class="flash" data-flash role="status" aria-live="polite"></div>
+
+    <section class="empty-state hidden" data-no-property>
+      <h3>Zuerst eine Immobilie anlegen</h3>
+      <p>Die Kostenverwaltung braucht mindestens eine Immobilie als eindeutige Zuordnung.</p>
+      <a class="btn btn-primary" href="immobilien.html">Immobilie anlegen</a>
+    </section>
+
+    <div data-workspace class="hidden">
+      <section class="card">
+        <div class="toolbar">
+          <div class="field-inline">
+            <label for="scopeProperty">Immobilie</label>
+            <select id="scopeProperty" name="scopeProperty"></select>
+          </div>
+          <div class="field-inline">
+            <label for="scopeYear">Abrechnungsjahr</label>
+            <select id="scopeYear" name="scopeYear"></select>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="grid grid-4" data-kosten-metrics></div>
+      </section>
+
+      <section class="section grid grid-2">
+        <article class="card form-card">
+          <div class="eyebrow">Kostenposition</div>
+          <h2>Rechnung / Beleg erfassen</h2>
+          <p class="kicker">Die rechtliche Einordnung kann bewusst offen bleiben. Ungeklärte Kosten werden später nicht stillschweigend umgelegt.</p>
+          <form data-expense-form>
+            <div class="form-grid">
+              <div>
+                <label for="category">Kostenart *</label>
+                <select id="category" name="category" data-requires-property>
+                  <option value="property_tax">Grundsteuer</option>
+                  <option value="building_insurance">Gebäudeversicherung</option>
+                  <option value="waste">Müll / Entsorgung</option>
+                  <option value="common_electricity">Allgemeinstrom</option>
+                  <option value="cold_water">Kaltwasser</option>
+                  <option value="heating">Heizung</option>
+                  <option value="hot_water">Warmwasser</option>
+                  <option value="co2">CO₂-Kosten</option>
+                  <option value="repair">Reparatur / Instandhaltung</option>
+                  <option value="other">Sonstige Kosten</option>
+                </select>
+              </div>
+              <div>
+                <label for="classification">Einordnung *</label>
+                <select id="classification" name="classification" data-requires-property>
+                  <option value="unresolved">Noch ungeklärt</option>
+                  <option value="owner">Eigentümerkosten</option>
+                  <option value="allocatable">Umlage später prüfen</option>
+                </select>
+              </div>
+              <div>
+                <label for="amountEuro">Betrag in € *</label>
+                <input id="amountEuro" name="amountEuro" type="number" min="0" step="0.01" inputmode="decimal" required data-requires-property placeholder="0,00">
+              </div>
+              <div>
+                <label for="invoiceReference">Beleg-/Rechnungsreferenz</label>
+                <input id="invoiceReference" name="invoiceReference" data-requires-property placeholder="z. B. RE-2026-001">
+              </div>
+              <div>
+                <label for="expenseStart">Leistungsbeginn *</label>
+                <input id="expenseStart" name="expenseStart" type="date" required data-requires-property>
+              </div>
+              <div>
+                <label for="expenseEnd">Leistungsende *</label>
+                <input id="expenseEnd" name="expenseEnd" type="date" required data-requires-property>
+              </div>
+              <div class="full">
+                <label for="note">Notiz</label>
+                <textarea id="note" name="note" data-requires-property placeholder="optional, z. B. Tarifwechsel oder Besonderheit"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" data-requires-property>Kosten speichern</button>
+            </div>
+          </form>
+        </article>
+
+        <article class="card form-card">
+          <div class="eyebrow">Versorger-Zahlungskreis</div>
+          <h2>Zahlung oder Erstattung erfassen</h2>
+          <p class="kicker">Diese Zahlung verändert nicht automatisch den tatsächlichen Rechnungsbetrag und nicht automatisch eine Mieterabrechnung.</p>
+          <form data-provider-form>
+            <div class="form-grid">
+              <div class="full">
+                <label for="providerLabel">Versorger / Anbieter *</label>
+                <input id="providerLabel" name="providerLabel" required data-requires-property placeholder="z. B. Stadtwerke">
+              </div>
+              <div>
+                <label for="paymentKind">Art *</label>
+                <select id="paymentKind" name="paymentKind" data-requires-property>
+                  <option value="provider_payment">Zahlung / Abschlag</option>
+                  <option value="provider_refund">Erstattung / Guthaben</option>
+                </select>
+              </div>
+              <div>
+                <label for="paymentEuro">Betrag in € *</label>
+                <input id="paymentEuro" name="paymentEuro" type="number" min="0" step="0.01" inputmode="decimal" required data-requires-property placeholder="0,00">
+              </div>
+              <div class="full">
+                <label for="paymentDate">Datum *</label>
+                <input id="paymentDate" name="paymentDate" type="date" required data-requires-property>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" data-requires-property>Zahlung speichern</button>
+            </div>
+          </form>
+        </article>
+      </section>
+
+      <section class="section grid grid-2">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h2>Erfasste Kosten</h2>
+              <p>Originalkosten des gewählten Jahres.</p>
+            </div>
+          </div>
+          <div class="unit-list" data-expense-list></div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <h2>Versorgerbewegungen</h2>
+              <p>Zahlungen und Erstattungen separat dokumentiert.</p>
+            </div>
+          </div>
+          <div class="unit-list" data-provider-list></div>
+        </article>
+      </section>
+
+      <section class="section notice">
+        Belege werden in diesem ersten Stand als Referenz gespeichert; die eigentlichen PDF-/Bilddateien sind noch nicht Bestandteil des lokalen JSON-Backups. Die spätere Beleg- und PDF-Technik folgt gemäß Masterplan separat.
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    Nebenkosten Premium · Tatsächliche Kosten und Zahlungsströme getrennt · Keine automatische Rechtsfreigabe.
+  </footer>
+</div>
+<script type="module" src="assets/js/kosten-ui.js"></script>
+</body>
+</html>
