@@ -29,6 +29,23 @@ function assertValid(project) {
   }
 }
 
+function assertValidForDraftBinding(project, propertyId, accountingPeriodId, providerAccountId) {
+  const errors = validateProject(project);
+  if (!errors.length) return;
+  const period = project?.accountingPeriods?.find(item =>
+    item?.id === accountingPeriodId && item?.propertyId === propertyId && item?.endDate);
+  const bindable = new Set((project?.expenses ?? [])
+    .filter(item => period && item?.propertyId === propertyId &&
+      item.providerAccountId === providerAccountId && item.supplyManaged === true &&
+      item.startDate <= period.endDate && (item.endDate == null || item.endDate >= period.startDate))
+    .map(item => `expenses:${item.id}`));
+  const remaining = errors.filter(error =>
+    !(error.code === 'SUPPLY_UNASSIGNED_EXPENSE' && bindable.has(error.path)));
+  if (remaining.length) {
+    throw new SupplyManagementError('INVALID_PROJECT', `Projektdaten sind ungültig: ${remaining[0].code}`);
+  }
+}
+
 function assertUniqueRecordId(project, id) {
   if (!validId(id)) throw new SupplyManagementError('INVALID_ID', 'Ungültige Vertragskennung.');
   const globalCollections = [
@@ -64,7 +81,7 @@ export function createSupplyDraft(project, {
   recordId, propertyId, accountingPeriodId, providerAccountId, providerLabel = '',
   service, contractHolder, unitId = null, priceVersion = null
 }) {
-  assertValid(project);
+  assertValidForDraftBinding(project, propertyId, accountingPeriodId, providerAccountId);
   assertUniqueRecordId(project, recordId);
   if (!validId(providerAccountId) || !text(service) || !['owner','tenant_direct'].includes(contractHolder)) {
     throw new SupplyManagementError('CONTRACT_REQUIRED', 'Versorgerkennung, Sparte und Vertragsinhaber werden benötigt.');
@@ -86,6 +103,12 @@ export function createSupplyDraft(project, {
 
   const copy = structuredClone(project);
   copy.supplyRegistry ??= [];
+  const draftExpenseIds = contractHolder === 'owner'
+    ? (project.expenses ?? []).filter(item => item?.propertyId === propertyId &&
+        item.providerAccountId === providerAccountId && item.supplyManaged === true &&
+        item.startDate <= period.endDate && (item.endDate == null || item.endDate >= period.startDate))
+      .map(item => item.id).sort()
+    : [];
   const contract = {
     providerAccountId,
     providerLabel: String(providerLabel || '').trim(),
@@ -93,6 +116,7 @@ export function createSupplyDraft(project, {
     contractHolder,
     confirmed: false,
     ...(contractHolder === 'tenant_direct' ? { unitId } : {}),
+    ...(contractHolder === 'owner' && draftExpenseIds.length ? { expenseIds: draftExpenseIds } : {}),
     ...(contractHolder === 'owner' && priceVersion ? {
       priceVersions: [{ ...priceVersion, confirmed: false }]
     } : {})
