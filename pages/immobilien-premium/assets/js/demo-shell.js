@@ -2,6 +2,7 @@ import {DEMO_LEARNING_STEPS} from './demo-guide.js';
 import {buildDemoProject,DEMO_VERSION} from './demo-project.js';
 import {loadProject,resetDemoProject,setDemoMode} from './storage.js';
 import {getLanguage,initI18n} from './i18n.js';
+import {applyDemoShowcase} from './demo-showcase.js';
 
 const steps=DEMO_LEARNING_STEPS;
 const I18N={
@@ -63,6 +64,21 @@ function go(index,{navigate=true}={}){
 }
 function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));}
 
+
+function applyShowcase(){
+  try{
+    const doc=frame.contentDocument,win=frame.contentWindow;
+    if(!doc||!win)return;
+    const page=win.location.pathname.split('/').pop()||'index.html';
+    const project=loadProject({mode:'demo'});
+    applyDemoShowcase(doc,page,project);
+    if(!doc.documentElement.dataset.demoShowcaseListener){
+      doc.documentElement.dataset.demoShowcaseListener='1';
+      doc.addEventListener('np-project-saved',()=>setTimeout(applyShowcase,80));
+    }
+  }catch{}
+}
+
 function cleanDevelopmentLanguage(){
   try{
     const doc=frame.contentDocument;if(!doc)return;
@@ -112,7 +128,8 @@ document.querySelector('[data-exit-demo]').addEventListener('click',()=>{
 });
 frame.addEventListener('load',()=>{
   cleanDevelopmentLanguage();
-  setTimeout(cleanDevelopmentLanguage,250);
+  setTimeout(()=>{cleanDevelopmentLanguage();applyShowcase();},120);
+  setTimeout(applyShowcase,420);
 });
 
 window.addEventListener('app-language-change',()=>{
