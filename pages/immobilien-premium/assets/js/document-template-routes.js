@@ -1,3 +1,4 @@
+import {isDemoMode} from './storage.js';
 /** Nebenkosten Premium — feste Zuordnung Dokumenttyp → spezialisierte HTML-Vorlage. */
 export const DOCUMENT_TEMPLATE_ROUTES=Object.freeze({
   owner_annual_summary:'dokumentvorlagen/eigentuemer-jahresuebersicht.html',
@@ -13,5 +14,5 @@ export const DOCUMENT_TEMPLATE_ROUTES=Object.freeze({
 export function documentPreviewUrl(document){
   const route=DOCUMENT_TEMPLATE_ROUTES[document?.documentType];
   if(!route||!document?.id)throw new Error('Für diese Dokumentfassung ist keine Vorschauvorlage vorhanden.');
-  return route+'?id='+encodeURIComponent(document.id);
+  return route+'?id='+encodeURIComponent(document.id)+(isDemoMode()?'&demo=1':'');
 }
