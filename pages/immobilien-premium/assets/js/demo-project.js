@@ -9,7 +9,7 @@ import {upsertSafetyCheck} from './safety-checks.js';
 import {createLettingProcess,advanceLettingPhase,setLettingItemState,LETTING_ITEMS} from './letting-check.js';
 
 export const DEMO_PROJECT_ID='demo_lindenblick';
-export const DEMO_VERSION='LINDENBLICK_V2_2025-09-24';
+export const DEMO_VERSION='LINDENBLICK_V2_2026-09-24';
 
 const standardCosts=['property_tax','building_insurance','waste','common_electricity','cold_water'];
 const clone=v=>structuredClone(v);
@@ -88,9 +88,9 @@ function addCoreData(p){
       operatingCostsModel:'advance',advanceCents:20000,allowedCostTypes:[...standardCosts]}
   );
   p.accountingPeriods.push(
-    {id:'demo_year_2024',propertyId:'demo_house',startDate:'2024-01-01',endDate:'2025-12-31',
+    {id:'demo_year_2024',propertyId:'demo_house',startDate:'2024-01-01',endDate:'2024-12-31',
       confirmedTenancyIds:['demo_lease_berger','demo_lease_schneider']},
-    {id:'demo_year_2024',propertyId:'demo_house',startDate:'2025-01-01',endDate:'2025-12-31',
+    {id:'demo_year_2025',propertyId:'demo_house',startDate:'2025-01-01',endDate:'2025-12-31',
       confirmedTenancyIds:['demo_lease_berger','demo_lease_schneider','demo_lease_vogel']}
   );
 }
@@ -150,7 +150,7 @@ function addYear2025(p){
   ];
   for(const [id,category,amountCents,providerAccountId] of costs){
     addExpense(p,{id,year:2025,category,amountCents,providerAccountId});
-    if(category==='cold_water') addWaterRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2024',withUserChange:true});
+    if(category==='cold_water') addWaterRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2025',withUserChange:true});
     else addAreaRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2024',withUserChange:true});
     addProviderPayment(p,{id:`pay_${id}`,year:2025,providerAccountId,amountCents,date:'2025-12-20'});
   }
@@ -207,7 +207,7 @@ function addSafetyChecks(project){
     ['special_systems','not_applicable','done','Keine besonderen technischen Anlagen im Demo-Grundfall.',null],
     ['energy_certificate','unresolved','review','Gültigkeit und konkrete Unterlagen vor realer Verwendung prüfen.','2026-10-31'],
     ['maintenance','recommendation','review','Wartungsübersicht als jährliche Wiedervorlage führen.','2026-12-01'],
-    ['regional_obligations','unresolved','review','Landes- und örtliche Anforderungen sind objektbezogen zu prüfen.','2025-12-15']
+    ['regional_obligations','unresolved','review','Landes- und örtliche Anforderungen sind objektbezogen zu prüfen.','2026-12-15']
   ];
   for(let i=0;i<rows.length;i++){
     const [checkKey,classification,status,note,dueDate]=rows[i];
@@ -253,7 +253,7 @@ export function buildDemoProject(){
     resettable:true
   };
   assertValidProject(p);
-  for(const periodId of ['demo_year_2024','demo_year_2024']){
+  for(const periodId of ['demo_year_2024','demo_year_2025']){
     const result=calculatePeriod(p,periodId);
     if(result.status!=='calculated'||!result.report){
       throw new Error(`Demo-Referenzjahr ${periodId} ist nicht vollständig berechenbar: ${JSON.stringify(result.issues??[])}`);
