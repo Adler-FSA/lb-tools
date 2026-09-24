@@ -91,7 +91,7 @@ function renderServiceDrafts(){
  const host=document.querySelector('[data-service-drafts]');if(!host)return;
  const docs=(project?.documents??[]).filter(x=>x.source==='baustein5-mietservice-v1'&&x.status==='draft'&&(!propertyId||x.propertyId===propertyId));
  if(!docs.length){host.innerHTML='<div class="empty-state"><p>'+escapeText(I18N.noService[lang()])+'</p></div>';return;}
- host.innerHTML=docs.map(doc=>'<article class="card"><div class="property-top"><div><div class="property-name">'+escapeText(typeLabel(doc.type))+'</div><div class="property-address">'+escapeText(doc.title||'')+' · '+escapeText(doc.createdOn||'')+'</div></div><span class="badge">Baustein 5</span></div><div class="form-actions"><button class="btn btn-primary" type="button" data-service-source="'+escapeText(doc.id)+'">'+escapeText(I18N.servicePrepare[lang()])+'</button></div></article>').join('');
+ host.innerHTML=docs.map(doc=>'<article class="card"><div class="property-top"><div><div class="property-name">'+escapeText(typeLabel(doc.type))+'</div><div class="property-address">'+escapeText(doc.title||'')+' · '+escapeText(doc.createdOn||'')+'</div></div><span class="badge">Mietservice</span></div><div class="form-actions"><button class="btn btn-primary" type="button" data-service-source="'+escapeText(doc.id)+'">'+escapeText(I18N.servicePrepare[lang()])+'</button></div></article>').join('');
  host.querySelectorAll('[data-service-source]').forEach(btn=>btn.addEventListener('click',()=>{try{savePrepared(serviceDraftSnapshot(project,btn.dataset.serviceSource),true);}catch(e){showFlash(e.message||String(e),'error');}}));
 }
 function reviewDocs(){return listDocumentArchive(project).filter(x=>x.status==='review');}
