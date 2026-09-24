@@ -10,7 +10,7 @@ import {createLettingProcess,advanceLettingPhase,setLettingItemState,LETTING_ITE
 import {prepareReviewDocument,releaseReviewDocument,recordDocumentDelivery,RELEASE_CONFIRMATION} from './document-workflow.js';
 
 export const DEMO_PROJECT_ID='demo_lindenblick';
-export const DEMO_VERSION='LINDENBLICK_V3_2026-09-24';
+export const DEMO_VERSION='LINDENBLICK_V4_2026-09-24';
 
 const standardCosts=['property_tax','building_insurance','waste','common_electricity','cold_water'];
 const clone=v=>structuredClone(v);
@@ -293,6 +293,8 @@ export function buildDemoProject(){
   p.demoMetadata={
     demoVersion:DEMO_VERSION,
     title:'Demo-Haus Lindenblick',
+    ownerLabel:'Eva Linden · fiktiv',
+    ownerAddress:'Beispielweg 12, 64295 Darmstadt',
     fictional:true,
     referenceYear:'2025',
     learningPurpose:'Geführter Musterfall für Eigentümer, Vermieter und Mieterwechsel.',
