@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createRentalDocumentDraft,deleteRentalDocumentDraft,leaseReviewFlags} from '../assets/js/rental-service.js';
+function fixture(){return {properties:[{id:'p1'}],units:[{id:'u1',propertyId:'p1'}],tenancies:[{id:'t1',unitId:'u1'}],documents:[],usagePeriods:[],contractTerms:[],accountingPeriods:[],expenses:[],allocationRules:[],meters:[],readings:[],cashflows:[],checkItems:[],attachments:[]};}
+test('Mietservice legt nur einen nicht freigegebenen Entwurf an',()=>{const r=createRentalDocumentDraft(fixture(),{documentId:'d1',type:'lease_draft',propertyId:'p1',unitId:'u1',tenancyId:'t1',createdOn:'2026-09-24',fields:{baseRentCents:100000,depositCents:300000}});assert.equal(r.project.documents[0].status,'draft');assert.equal(r.project.documents[0].legalRelease,false);assert.equal(r.project.documents[0].pdfGenerated,false);});
+test('Kaution über drei Nettokaltmieten wird als Prüfhinweis markiert',()=>{assert.deepEqual(leaseReviewFlags({baseRentCents:100000,depositCents:300001}),['deposit_above_three_net_rents']);});
+test('Fremdes Mietverhältnis wird abgewiesen',()=>{assert.throws(()=>createRentalDocumentDraft(fixture(),{documentId:'d1',type:'lease_draft',propertyId:'p1',unitId:'u1',tenancyId:'other',createdOn:'2026-09-24',fields:{}}),/Mietverhältnis/);});
+test('Freigegebener Entwurf kann nicht gelöscht werden',()=>{const p=fixture();p.documents.push({id:'d1',type:'lease_draft',source:'baustein5-mietservice-v1',status:'released'});assert.throws(()=>deleteRentalDocumentDraft(p,{documentId:'d1'}),/Freigegebene/);});
