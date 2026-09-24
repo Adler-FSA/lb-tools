@@ -55,7 +55,7 @@ test('Käuferoberflächen enthalten keine sichtbaren Entwicklungs-Bausteine mehr
  const files=[
   'index.html','immobilien.html','kosten.html','verbrauch.html','abrechnung-eigentuemer.html',
   'abrechnung-vermieter.html','mietservice.html','schutzcheck.html','vermietungscheck.html',
-  'pdf-zentrale.html','archiv.html','einstellungen.html','hilfe.html','bedienungsanleitung.html',
+  'pdf-zentrale.html','archiv.html','einstellungen.html','hilfe.html','bedienungsanleitung.html','mietvertragswerkstatt.html','hausordnung-konfigurator.html',
   'assets/js/demo-guide.js','assets/js/bedienungsanleitung-ui.js','assets/js/pdf-zentrale-ui.js'
  ];
  for(const file of files){
