@@ -36,6 +36,17 @@ test('Demo 2025 bildet Mieterwechsel und Zwischenablesung vollständig ab',()=>{
  assert.ok(water.unitShares.some(x=>x.tenancyId==='demo_lease_schneider'));
  assert.ok(water.unitShares.some(x=>x.tenancyId==='demo_lease_vogel'));
 });
+test('Demo-Archiv enthält zwei freigegebene Musterfassungen und getrennte Übergaben',()=>{
+ const p=buildDemoProject();
+ const released=p.documents.filter(x=>x.status==='released');
+ assert.deepEqual(released.map(x=>[x.id,x.documentType,x.version]),[
+  ['demo_release_house_rules','house_rules',1],
+  ['demo_release_handover_vogel','handover_protocol',1]
+ ]);
+ const deliveries=p.checkItems.filter(x=>x.type==='document_delivery');
+ assert.equal(deliveries.length,2);
+ assert.deepEqual(deliveries.map(x=>x.documentId).sort(),['demo_release_handover_vogel','demo_release_house_rules']);
+});
 test('Demo enthält Mietservice, Sicherheitscheck und datensparsamen Vermietungsprozess',()=>{
  const p=buildDemoProject();
  assert.equal(p.documents.filter(x=>x.source==='baustein5-mietservice-v1').length,5);
