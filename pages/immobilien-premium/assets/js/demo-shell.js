@@ -7,9 +7,9 @@ import {applyDemoShowcase} from './demo-showcase.js';
 const steps=DEMO_LEARNING_STEPS;
 const I18N={
   demoTitle:{de:'Demo-Haus Lindenblick',en:'Lindenblick demo house'},
-  demoSubtitle:{de:'Geführte Lernreise · alle Personen, Adressen und Belege sind fiktiv',en:'Guided learning journey · all people, addresses and documents are fictitious'},
+  demoSubtitle:{de:'Vollständig ausgefülltes Anschauungsmodell · Lernreise optional · alle Daten fiktiv',en:'Fully populated showcase model · guided learning optional · all data fictitious'},
   demoBadge:{de:'DEMO · keine echten Daten',en:'DEMO · no real data'},
-  freeMode:{de:'Frei erkunden',en:'Explore freely'},guidedMode:{de:'Geführte Demo',en:'Guided demo'},
+  freeMode:{de:'Lernreise starten',en:'Start guided learning'},guidedMode:{de:'Lernreise schließen',en:'Close guided learning'},
   reset:{de:'Demo zurücksetzen',en:'Reset demo'},exit:{de:'Demo verlassen',en:'Exit demo'},
   journey:{de:'Akademie-Lernreise',en:'Academy learning journey'},why:{de:'Warum ist das wichtig?',en:'Why does this matter?'},
   prev:{de:'← Zurück',en:'← Back'},next:{de:'Weiter →',en:'Next →'},
@@ -28,7 +28,7 @@ const L=value=>{
 const shell=document.querySelector('[data-demo-shell]');
 const frame=document.querySelector('[data-demo-frame]');
 const toast=document.querySelector('[data-demo-toast]');
-let current=0,free=false,toastTimer=null;
+let current=0,free=true,toastTimer=null;
 
 function showToast(message){
   toast.textContent=message;toast.hidden=false;
@@ -141,9 +141,15 @@ window.addEventListener('app-language-change',()=>{
 
 try{
   ensureDemo();
-  const requested=Number(new URLSearchParams(window.location.search).get('step'));
-  if(Number.isInteger(requested)&&requested>=0&&requested<steps.length)current=requested;
-  renderGuide();frame.src=steps[current].url;
+  const rawStep=new URLSearchParams(window.location.search).get('step');
+  const requested=rawStep===null?null:Number(rawStep);
+  if(Number.isInteger(requested)&&requested>=0&&requested<steps.length){
+    current=requested;free=false;shell.classList.remove('free');
+  }
+  renderGuide();
+  const toggle=document.querySelector('[data-toggle-mode]');
+  if(toggle)toggle.textContent=free?I18N.freeMode[getLanguage()]:I18N.guidedMode[getLanguage()];
+  frame.src=steps[current].url;
 }catch(error){
   renderGuide();
   showToast(I18N.startError[getLanguage()]+(error?.message||String(error)));
