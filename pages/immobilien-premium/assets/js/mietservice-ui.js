@@ -12,7 +12,7 @@ const I18N={
   tool5:{de:'Werkzeug 5',en:'Tool 5'},handoverTitle:{de:'Ein- und Auszugsprotokoll',en:'Move-in / move-out protocol'},handoverCopy:{de:'Zustand, Schlüssel, Zählerstände und Mängel werden als sachlicher Entwurf erfasst.',en:'Condition, keys, meter readings and defects are captured as a factual draft.'},kind:{de:'Vorgang',en:'Process'},moveIn:{de:'Einzug',en:'Move in'},moveOut:{de:'Auszug',en:'Move out'},date:{de:'Datum',en:'Date'},keys:{de:'Schlüssel',en:'Keys'},meters:{de:'Zählerstände',en:'Meter readings'},defects:{de:'Zustand / Mängel',en:'Condition / defects'},
   tool6:{de:'Werkzeug 6',en:'Tool 6'},serviceTitle:{de:'Mieter-Serviceblatt',en:'Tenant service sheet'},serviceCopy:{de:'Anlassbezogene Mitteilungen und zweckgebundene Abfragen – keine pauschale unbegrenzte Auskunftspflicht.',en:'Purpose-specific notices and requests – no blanket unlimited duty to provide information.'},purpose:{de:'Anlass / Zweck',en:'Reason / purpose'},subject:{de:'Betreff',en:'Subject'},message:{de:'Mitteilung',en:'Message'},requestedInfo:{de:'Erbetene Information – nur soweit zweckgebunden nötig',en:'Requested information – only where necessary for the stated purpose'},deadline:{de:'Frist / Rückmeldung bis',en:'Deadline / reply by'},
   boundary:{de:'Bausteingrenze',en:'Module boundary'},noPdfTitle:{de:'Noch keine PDF-Ausgabe',en:'No PDF output yet'},noPdfCopy:{de:'Die Entwürfe werden lokal gespeichert. Vorschau, Dokumentvorlagen, Freigabe, PDF-Zentrale und Archiv folgen erst in Baustein 6.',en:'Drafts are stored locally. Preview, document templates, release, PDF centre and archive follow only in Module 6.'},draftsTitle:{de:'Gespeicherte Entwürfe',en:'Saved drafts'},draftsCopy:{de:'Nur Entwürfe der aktuell gewählten Einheit.',en:'Only drafts for the currently selected unit.'},legalNote:{de:'Mietvertragsentwürfe bleiben fachlich zu prüfen. § 551 BGB begrenzt eine vereinbarte Mietsicherheit bei Wohnraum grundsätzlich auf drei Nettokaltmieten; der Assistent setzt deshalb nur einen Prüfhinweis und gibt keinen Vertrag rechtlich frei.',en:'Lease drafts still require professional review. Section 551 BGB generally limits agreed residential tenancy security to three net base rents; the assistant therefore only creates a review flag and does not legally approve a contract.'},footer:{de:'Nebenkosten Premium · Lokale Speicherung · Keine individuelle Rechtsberatung.',en:'Nebenkosten Premium · Local storage · No individual legal advice.'},
-  title:{de:'Mietservice',en:'Tenant service'},saved:{de:'Entwurf wurde lokal gespeichert.',en:'Draft saved locally.'},deleted:{de:'Entwurf wurde gelöscht.',en:'Draft deleted.'},noProject:{de:'Bitte zuerst eine Immobilie und mindestens eine Einheit anlegen.',en:'Please create a property and at least one unit first.'},noDrafts:{de:'Für diese Einheit gibt es noch keine Mietservice-Entwürfe.',en:'There are no tenant-service drafts for this unit yet.'},draft:{de:'Entwurf',en:'Draft'},delete:{de:'Entwurf löschen',en:'Delete draft'},review:{de:'Prüfhinweis',en:'Review note'},depositFlag:{de:'Kaution liegt über drei Nettokaltmieten und muss vor einer späteren Freigabe korrigiert oder fachlich geprüft werden.',en:'The deposit exceeds three net base rents and must be corrected or professionally reviewed before any later release.'}
+  title:{de:'Mietservice',en:'Tenant service'},saved:{de:'Entwurf wurde lokal gespeichert.',en:'Draft saved locally.'},deleted:{de:'Entwurf wurde gelöscht.',en:'Draft deleted.'},noProject:{de:'Bitte zuerst eine Immobilie und mindestens eine Einheit anlegen.',en:'Please create a property and at least one unit first.'},noDrafts:{de:'Für diese Einheit gibt es noch keine Mietservice-Entwürfe.',en:'There are no tenant-service drafts for this unit yet.'},draft:{de:'Entwurf',en:'Draft'},delete:{de:'Entwurf löschen',en:'Delete draft'},review:{de:'Prüfhinweis',en:'Review note'},chooseTenancy:{de:'Bitte Mietverhältnis auswählen',en:'Please select a tenancy'},noTenancy:{de:'Für diese Einheit ist noch kein Mietverhältnis angelegt.',en:'No tenancy has been created for this unit yet.'},depositFlag:{de:'Kaution liegt über drei Nettokaltmieten und muss vor einer späteren Freigabe korrigiert oder fachlich geprüft werden.',en:'The deposit exceeds three net base rents and must be corrected or professionally reviewed before any later release.'}
 };
 initI18n(I18N);
 
@@ -42,9 +42,18 @@ function renderContext(){
   renderTenancies();renderDrafts();
 }
 function renderTenancies(){
-  const host=document.querySelector('[name="tenancyId"]');if(!host)return;
+  const hosts=[...document.querySelectorAll('[name="tenancyId"]')];if(!hosts.length)return;
   const items=project.tenancies.filter(x=>x.unitId===selectedUnitId);
-  host.innerHTML='<option value="">Nicht zuordnen / not assigned</option>'+items.map(x=>'<option value="'+escapeText(x.id)+'">'+escapeText(x.partyLabel||x.id)+'</option>').join('');
+  const first='<option value="">'+escapeText(items.length?I18N.chooseTenancy[getLanguage()]:I18N.noTenancy[getLanguage()])+'</option>';
+  const options=first+items.map(x=>'<option value="'+escapeText(x.id)+'">'+escapeText(x.partyLabel||x.id)+'</option>').join('');
+  hosts.forEach(host=>{host.innerHTML=options;host.disabled=!items.length;});
+  const tenancyBound=new Set(['lease_draft','handover_protocol','tenant_service_sheet']);
+  document.querySelectorAll('[data-doc-form]').forEach(form=>{
+    if(tenancyBound.has(form.dataset.docForm)){
+      const button=form.querySelector('button[type="submit"]');
+      if(button)button.disabled=!items.length;
+    }
+  });
 }
 function renderDrafts(){
   const host=document.querySelector('[data-drafts]');if(!host||!project||!selectedUnitId)return;
@@ -71,7 +80,8 @@ function submit(form){
   const type=form.dataset.docForm;
   try{
     const fields=fieldsFrom(form,type);
-    const tenancyId=type==='lease_draft'?String(new FormData(form).get('tenancyId')||''):null;
+    const tenancyBound=['lease_draft','handover_protocol','tenant_service_sheet'].includes(type);
+    const tenancyId=tenancyBound?String(new FormData(form).get('tenancyId')||''):null;
     const r=createRentalDocumentDraft(project,{documentId:newId('document'),type,propertyId:unit.propertyId,unitId:unit.id,tenancyId:tenancyId||null,title:labelFor(type),fields,createdOn:new Date().toISOString().slice(0,10)});
     saveProject(r.project);project=r.project;form.reset();renderTenancies();renderDrafts();
     showFlash(I18N.saved[getLanguage()]+(r.reviewFlags.length?' '+I18N.depositFlag[getLanguage()]:''),r.reviewFlags.length?'error':'success');
