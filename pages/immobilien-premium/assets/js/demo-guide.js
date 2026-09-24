@@ -59,12 +59,12 @@ export const DEMO_LEARNING_STEPS=Object.freeze([
   {
     title:{de:'Mietvertrag, Hausordnung und Übergabe',en:'Lease, house rules and handover'},
     short:{de:'Mietservice',en:'Tenant service'},
-    url:'mietservice.html?demo=1',
+    url:'mietvertragswerkstatt.html?demo=1&tenancy=demo_lease_berger',
     copy:{de:'Zum Vermieten gehören mehr als Zahlen. Im Demo-Haus liegen bereits Entwürfe für Mietvertrag, Hausordnung, Entsorgungsinformation, Übergabeprotokoll und Mieter-Serviceblatt.',en:'Letting involves more than numbers. The demo house already contains drafts for a lease, house rules, waste information, a handover record and a tenant service sheet.'},
     why:{de:'Dokumente sollen aus demselben Immobilienkontext entstehen. Fach- oder Rechtsprüfhinweise gehören separat zur Arbeitsoberfläche – nicht ungefragt in das eigentliche Vertragsdokument.',en:'Documents should come from the same property context. Professional or legal review notes belong separately in the workspace, not unexpectedly inside the actual contract document.'},
-    facts:{de:['Mietvertragsentwurf für Familie Berger','Übergabeprotokoll zum Einzug von Nina Vogel','Hausordnung und Entsorgungsinformation vorbereitet'],en:['Lease draft for the Berger family','Handover record for Nina Vogel moving in','House rules and waste information prepared']},
-    extraUrl:'wohnraum-vertragswerkstatt.html?demo=1',
-    extraLabel:{de:'Wohnraum-Vertragswerkstatt öffnen',en:'Open residential lease workshop'}
+    facts:{de:['Wohnraum-Mietvertragswerkstatt für Familie Berger','Übergabeprotokoll zum Einzug von Nina Vogel','Hausordnung und Entsorgungsinformation vorbereitet'],en:['Residential lease workshop for the Berger family','Handover record for Nina Vogel moving in','House rules and waste information prepared']},
+    extraUrl:'hausordnung-konfigurator.html?demo=1',
+    extraLabel:{de:'Hausordnungs-Konfigurator öffnen',en:'Open house rules configurator'}
   },
   {
     title:{de:'Was sollte ein Eigentümer prüfen?',en:'What should an owner review?'},
