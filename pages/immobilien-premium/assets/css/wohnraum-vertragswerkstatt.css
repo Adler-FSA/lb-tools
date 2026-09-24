@@ -1,0 +1,17 @@
+.contract-workspace{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:18px;align-items:start}
+.workshop-side{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto}
+.paper-stack{display:grid;gap:22px}
+.contract-paper{background:#fff;border:1px solid #dbe5e9;border-radius:18px;box-shadow:0 8px 30px #13223814;padding:42px clamp(22px,5vw,58px);min-height:900px}
+.contract-paper:focus{outline:3px solid #00a7ad33;outline-offset:2px}
+.contract-paper h1{font-size:28px;text-align:center;color:#132238;margin:0 0 28px}
+.contract-paper h2{font-size:16px;color:#132238;margin:24px 0 8px}
+.contract-paper p,.contract-paper li{line-height:1.55}
+.contract-paper .party{border:1px solid #dbe5e9;border-radius:12px;padding:14px;margin:12px 0}
+.signature-row{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:48px}.signature-line{border-top:1px solid #667587;padding-top:7px;font-size:12px;color:#667587}
+.workshop-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.workshop-tabs button{border:1px solid #c9dfe0;background:#fff;color:#132238;border-radius:9px;padding:9px 12px;font:inherit;font-weight:800;cursor:pointer}.workshop-tabs button.active{background:#132238;color:#fff}
+.review-list{display:grid;gap:9px;margin-top:12px}.review-item{border:1px solid #dbe5e9;border-radius:11px;padding:11px 12px;background:#f8fafb}.review-item strong{display:block;color:#132238;margin-bottom:3px}.review-item.ok{border-left:4px solid #00a7ad}.review-item.warn{border-left:4px solid #c6006f}
+.workshop-source{font-size:12px;color:#667587;line-height:1.5}
+.workshop-actions{display:flex;gap:8px;flex-wrap:wrap}.workshop-actions .btn{flex:1}
+[data-paper][hidden]{display:none!important}
+@media(max-width:900px){.contract-workspace{grid-template-columns:1fr}.workshop-side{position:static;max-height:none}.contract-paper{min-height:0}}
+@media(max-width:600px){.contract-paper{padding:26px 18px}.signature-row{grid-template-columns:1fr;gap:34px}.workshop-actions{display:grid}.workshop-actions .btn{width:100%}}
