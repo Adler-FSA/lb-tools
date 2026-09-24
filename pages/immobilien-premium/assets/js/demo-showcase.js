@@ -118,6 +118,8 @@ export function applyDemoShowcase(doc,page,project){
   }
 
   if(page==='mietservice.html'){
+    const unitSelect=doc.querySelector('[data-unit-select]');
+    if(unitSelect)setEl(unitSelect,'demo_rent_a',{change:true});
     const lease=doc.querySelector('[data-doc-form="lease_draft"]');
     fillForm(lease,{tenancyId:'demo_lease_berger',tenantLabel:'Familie Berger · fiktiv',startDate:'2024-01-01',baseRentCents:'980.00',operatingCostsModel:'advance',operatingCostCents:'220.00',depositCents:'2940.00',notes:'Kellerraum A1 und Stellplatz 2 sind der Wohnung zugeordnet.'});markForm(lease);
     const rules=doc.querySelector('[data-doc-form="house_rules"]');
