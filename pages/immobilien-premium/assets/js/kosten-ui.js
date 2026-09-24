@@ -1,4 +1,4 @@
-import { saveProject } from './storage.js';
+import { saveProject, isDemoMode } from './storage.js';
 import {
   escapeText, formatEuro, newId, propertyAddress,
   safeLoadProject, showFlash, updateStoragePill
@@ -345,6 +345,8 @@ document.addEventListener('np-project-saved', () => {
 
 if (load()) {
   selectedPropertyId = project?.properties?.[0]?.id ?? null;
-  selectedYear = selectedPropertyId ? yearsForProperty(selectedPropertyId)[0] : String(new Date().getFullYear());
+  const demoYear = isDemoMode() ? String(project?.demoMetadata?.referenceYear || '') : '';
+  const years = selectedPropertyId ? yearsForProperty(selectedPropertyId) : [String(new Date().getFullYear())];
+  selectedYear = demoYear && years.includes(demoYear) ? demoYear : (years[0] || String(new Date().getFullYear()));
   render();
 }
