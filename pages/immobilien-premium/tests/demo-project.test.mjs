@@ -11,8 +11,8 @@ test('Demo-Haus ist strukturell gültig und eindeutig als fiktiv markiert',()=>{
  assert.equal(p.demoMetadata.fictional,true);
  assert.deepEqual(validateProject(p),[]);
 });
-test('Demo 2025 ist vollständig berechenbar und bleibt fixer Referenzfall',()=>{
- const r=calculatePeriod(buildDemoProject(),'demo_year_2025');
+test('Demo 2024 ist vollständig berechenbar und bleibt fixer Referenzfall',()=>{
+ const r=calculatePeriod(buildDemoProject(),'demo_year_2024');
  assert.equal(r.status,'calculated',JSON.stringify(r.issues));
  assert.equal(r.report.totalCostsCents,750000);
  assert.equal(r.report.ownerCostsCents,411283);
@@ -21,8 +21,8 @@ test('Demo 2025 ist vollständig berechenbar und bleibt fixer Referenzfall',()=>
   ['demo_lease_berger',181123,82877],['demo_lease_schneider',157594,58406]
  ]);
 });
-test('Demo 2026 bildet Mieterwechsel und Zwischenablesung vollständig ab',()=>{
- const r=calculatePeriod(buildDemoProject(),'demo_year_2026');
+test('Demo 2025 bildet Mieterwechsel und Zwischenablesung vollständig ab',()=>{
+ const r=calculatePeriod(buildDemoProject(),'demo_year_2025');
  assert.equal(r.status,'calculated',JSON.stringify(r.issues));
  assert.equal(r.report.totalCostsCents,695000);
  assert.equal(r.report.ownerCostsCents,335535);
