@@ -1,64 +1,60 @@
-# Baustein 6.5 — Demo-Haus, Lernreise und Bedienung
+# Baustein 6.5 — Demo-Haus, Lernreise und Vertragswerkzeuge
 
 Stand: 24.09.2026
 
 ## Status
 
-Baustein 6.5 ist technisch abnahmebereit.
-
-Ziel dieses Zwischenbausteins ist ausdrücklich **keine zweite Anwendung**. Demo und echtes Projekt verwenden dieselben Produktionsseiten, dieselben Rechenkerne und dieselben Dokumentfunktionen. Nur der lokale Speicher ist getrennt.
+Baustein 6.5 ist technisch für die praktische Nutzerprüfung vorbereitet.
 
 Baustein 7 — Gesamtabnahme — wurde noch nicht begonnen.
 
+## Grundprinzip
+
+Demo und echtes Projekt verwenden dieselben Produktionsseiten, dieselben Rechenkerne und dieselben Dokumentfunktionen. Nur der lokale Speicher ist getrennt.
+
+Die neue Wohnraum-Mietvertragswerkstatt und der Hausordnungs-Konfigurator sind eigenständige Immobilien-Werkzeuge. Die frühere Club-Leader-Vertragswerkstatt unter `pages/vertraege/` wurde nur als Funktions-/Bedienreferenz untersucht. Ihr Vertragsinhalt wurde nicht übernommen.
+
 ## Demo-Haus Lindenblick
+
+Aktuelle Demo-Version:
+
+`LINDENBLICK_V5_2026-09-24`
 
 Vollständig fiktiver Referenzfall:
 
-- eine Immobilie: „Demo-Haus Lindenblick“
+- eine Immobilie: Demo-Haus Lindenblick
 - Adresse und alle Personendaten ausdrücklich fiktiv
 - 3 Einheiten / 235 m²
 - EG: 95 m² Eigennutzung
 - Wohnung A: 75 m² vermietet
 - Wohnung B: 65 m² vermietet
 - 3 Mietverhältnisse insgesamt
-- 2025 echter Mieterwechsel in Wohnung B zum 01.07.2025
+- 2025 Mieterwechsel in Wohnung B zum 01.07.2025
 - dokumentierte Zwischenablesung zum Nutzerwechsel
 - zwei vollständig abgeschlossene Referenzjahre: 2024 und 2025
 
-Aktuelle Demo-Version:
-
-`LINDENBLICK_V4_2026-09-24`
-
-## Referenzrechnungen
-
-Die Demo wird beim Aufbau gegen den echten Produktions-Rechenkern geprüft.
-
-### Jahr 2024
+### Referenzrechnung 2024
 
 - Gesamtkosten: 7.500,00 €
 - Eigentümeranteil: 4.112,83 €
 - Mieteranteile gesamt: 3.387,17 €
-
-Mieter:
 - Familie Berger: Kosten 1.811,23 € / Vorauszahlungen 2.640,00 € / Guthaben 828,77 €
 - Jonas Schneider: Kosten 1.575,94 € / Vorauszahlungen 2.160,00 € / Guthaben 584,06 €
 
-### Jahr 2025
+### Referenzrechnung 2025
 
 - Gesamtkosten: 6.950,00 €
 - Eigentümeranteil: 3.355,35 €
 - Mieteranteile gesamt: 3.594,65 €
-
-Mieter:
 - Familie Berger: Kosten 1.890,20 € / Vorauszahlungen 2.640,00 € / Guthaben 749,80 €
 - Jonas Schneider bis 30.06.2025: Kosten 829,25 € / Vorauszahlungen 1.080,00 € / Guthaben 250,75 €
 - Nina Vogel ab 01.07.2025: Kosten 875,20 € / Vorauszahlungen 1.200,00 € / Guthaben 324,80 €
 
-Die beiden Nutzer von Wohnung B werden nicht pauschal halbiert. Die zeitliche Kostenverteilung und die Kaltwasser-Zwischenablesung trennen die beiden Nutzungszeiträume.
+Der Nutzerwechsel wird zeitlich und über die Kaltwasser-Zwischenablesung getrennt verarbeitet.
 
-## Demo-Inhalte
+## Demo-Inhalte V5
 
-Der Ausgangsstand enthält:
+Der Ausgangsstand enthält unter anderem:
 
 - 1 Immobilie
 - 3 Einheiten
@@ -66,38 +62,20 @@ Der Ausgangsstand enthält:
 - 12 Kostenpositionen
 - 10 bestätigte Umlageregeln
 - 3 Kaltwasserzähler
-- 13 dokumentierte Ablesungen
+- 13 Ablesungen
 - 17 Zahlungsdatensätze
-- 5 Mietservice-Entwürfe
+- 5 bestehende Mietservice-Entwürfe
+- 1 vorkonfigurierten Wohnraum-Mietvertragswerkstatt-Entwurf
+- 1 vorkonfigurierten Hausordnungs-Konfigurator-Entwurf
 - 2 freigegebene Dokument-Snapshots
 - 2 dokumentierte Übergaben
 - 9 Eigentümer-Sicherheits-/Pflichtenchecks
-- 1 datensparsamen Vermietungsvorgang bis Phase C_SELECTED
+- 1 datensparsamen Vermietungsvorgang bis C_SELECTED
 - kein Bewerber-Score
 - kein Ranking
 - keine automatische Mieterauswahl
 
-## Mietservice und Vertragswerkstatt
-
-Im Demo-Haus vorhanden:
-
-- Mietvertragsentwurf
-- Hausordnung
-- Müll-/Entsorgungsinformation
-- Einzugsprotokoll
-- Mieter-Serviceblatt
-
-Die Lernreise verlinkt zusätzlich auf die bestehende Vertragswerkstatt:
-
-`../vertraege/club-marktplatz-vertragswerkstatt.html`
-
-Grundprinzip:
-
-**Dokumenteninhalt und Prüfhinweis bleiben getrennt.**
-
-Ein Hinweis auf fachliche oder rechtliche Prüfung wird nicht in den eigentlichen Demo-Mietvertrag oder die Hausordnung geschrieben. Der Demo-Vertrag enthält nur sachliche Vertragsdaten; Prüfhinweise bleiben auf der Arbeits-/Freigabeebene.
-
-## Eigener Demo-Speicher
+## Getrennter Demo-Speicher
 
 Normalprojekt:
 
@@ -112,27 +90,15 @@ Geprüft:
 - beide Speicher können gleichzeitig existieren
 - Demo-Änderungen verändern das Live-Projekt nicht
 - „Demo zurücksetzen“ schreibt ausschließlich den Demo-Schlüssel
-- freigegebene Dokumente des normalen Projekts werden davon nicht berührt
+- normale Projektdaten und freigegebene Dokumente werden vom Demo-Reset nicht verändert
 
-## Demo-Bedienung
-
-`demo.html`
-
-Funktionen:
-
-- geführte Lernreise
-- freie Erkundung
-- DE/EN-Lerntexte
-- sichtbar als DEMO gekennzeichnet
-- alle Personen, Adressen und Belege als fiktiv gekennzeichnet
-- Demo mit einem Klick auf geprüften Ausgangsstand zurücksetzen
-- Demo verlassen und in den normalen Speicher zurückkehren
-
-## Akademische Lernreise
+## Lernreise und Bedienungsanleitung
 
 Gemeinsame Quelle:
 
 `assets/js/demo-guide.js`
+
+Die geführte Demo und die klassische Bedienungsanleitung verwenden dieselbe Lernquelle.
 
 13 Lernschritte:
 
@@ -143,117 +109,286 @@ Gemeinsame Quelle:
 5. Verbrauch und Zwischenablesung
 6. Eigentümer-Sicht
 7. Vermieter-Abrechnung
-8. Mietservice und Vertragswerkstatt
+8. Mietvertrag, Hausordnung und Übergabe
 9. Sicherheit und Pflichten
 10. datensparsamer Vermietungsprozess
 11. PDF-Zentrale
 12. Archiv
 13. Sicherung und Folgejahr
 
-Jeder Schritt beantwortet:
+Der Dokument-Lernschritt führt jetzt direkt zu:
 
-- Was passiert hier?
-- Warum ist das wichtig?
-- Was sehe ich konkret im Demo-Haus?
+- `mietvertragswerkstatt.html?demo=1&tenancy=demo_lease_berger`
+- `hausordnung-konfigurator.html?demo=1`
 
-## Bedienungsanleitung
+Alte Verweise auf eine nicht vorhandene Wohnraum-Vertragswerkstatt wurden entfernt.
 
-`bedienungsanleitung.html`
+## Wohnraum-Mietvertragswerkstatt
 
-Die klassische Bedienungsanleitung verwendet **dieselbe Datenquelle wie die geführte Demo**.
+Produktionsseite:
 
-Dadurch gibt es keine zwei getrennt gepflegten Anleitungen.
+`mietvertragswerkstatt.html`
 
-Von jedem Kapitel kann der passende Schritt direkt im Demo-Haus geöffnet werden.
+Kern:
 
-## Käufer-Sprache
+`assets/js/lease-workshop.js`
 
-Die sichtbaren Hauptseiten wurden auf Entwickler-/Bauplan-Sprache geprüft.
+UI:
 
-Geprüft wurden unter anderem:
+`assets/js/mietvertragswerkstatt-ui.js`
 
-- Zentrale
-- Immobilien
-- Kosten
-- Verbrauch
-- Eigentümerübersicht
-- Vermieterabrechnung
-- Mietservice
-- Sicherheit / Vermietungscheck
-- PDF-Zentrale
-- Archiv
-- Sicherung
-- Hilfe
-- Bedienungsanleitung
+Version:
 
-In den sichtbaren Käuferoberflächen wurden Begriffe wie „Baustein 5“, „Bausteingrenze“ oder „technisch abnahmebereit“ entfernt.
+`DE_WOHNRAUM_V1_2026-09-24`
 
-Interne technische Kennungen wie `baustein5-mietservice-v1` bleiben als unsichtbare Datenherkunft bestehen.
+### Funktionsumfang
 
-## Startwege
+Konfigurierbar sind aktuell:
 
-Die Zentrale bietet direkt:
+- Vermieter und Mieter
+- Mietobjekt, Lage, Fläche, Zimmer, Keller, Stellplatz
+- unbefristetes Mietverhältnis
+- befristeter Zeitmietvertrag mit gesondertem Befristungsgrund
+- Nettokaltmiete
+- Betriebskostenvorauszahlung / Pauschale / keine gesonderte Umlage
+- Bankverbindung
+- gesetzliche Mietanpassung / Staffelmiete / Indexmiete
+- Mietsicherheit
+- Personenzahl
+- Kleinreparaturregelung
+- Schönheitsreparaturregelung
+- Tierhaltung
+- Hausordnung als Anlage
+- Übergabeprotokoll
+- Inventarliste
+- Schlüssel
+- mitvermietete Ausstattung
+- zusätzliche individuelle Vereinbarungen
 
-- „Immobilie verwalten“
-- „Demo-Haus ansehen“
-- „Bedienungsanleitung“
+### Technische Schutzregeln
 
-Die Hilfe verlinkt ebenfalls auf die Bedienungsanleitung.
+Die Werkstatt blockiert unter anderem:
 
-## Demo-Dokumente und Archiv
+- fehlende zentrale Vertragsdaten
+- Kaution über drei Nettokaltmieten
+- befristeten Vertrag ohne vorgesehenen Befristungsgrund
+- befristeten Vertrag ohne konkrete Begründung
+- Staffelmieten mit weniger als zwölf Monaten Abstand
+- ungültige Geldbeträge
 
-Der Demo-Ausgangsstand enthält zwei bewusst freigegebene Beispieldokumente mit zwei getrennten Übergabevermerken.
+Komplexe Themen werden nicht automatisch als rechtlich sicher bewertet, sondern separat als Prüfbedarf geführt, z. B.:
 
-Damit sind PDF-Zentrale und Archiv nicht leer, wenn ein Käufer die Demo zum ersten Mal öffnet.
+- zulässige Miethöhe / örtliche Begrenzungen
+- Staffelmiete
+- Indexmiete
+- Kleinreparaturklausel
+- Schönheitsreparaturklausel
+- Zeitmietvertrag
 
-Dokumentvorschauen, die in einem neuen Tab geöffnet werden, erhalten im Demo-Modus ausdrücklich `demo=1` und lesen dadurch weiterhin den Demo-Speicher.
+### Trennung Dokument / Prüfebene
 
-## Feste Regressionen
+Verbindliches Produktprinzip:
 
-### `tests/demo-project.test.mjs`
-5 Tests
+**Prüfhinweise, Anwaltshinweise und interne Freigabevermerke gehören nicht in den Mietvertrag.**
 
-### `tests/demo-storage.test.mjs`
-3 Tests
+Die Werkstatt hat deshalb zwei getrennte Bereiche:
 
-### `tests/demo-learning.test.mjs`
-6 Tests
+- links: Konfiguration, Fehler, Prüfbedarf und gesetzliche Referenzen
+- rechts: ausschließlich das Vertragsdokument
 
-**Summe: 14 feste Regressionen für Baustein 6.5.**
+Der tatsächlich erzeugte Vertrags-HTML wurde mit aktivierter Kleinreparatur- und Schönheitsreparaturfunktion geprüft. Ergebnis:
 
-Sie sind Bestandteil des bestehenden Testmusters `node --test tests/*.test.mjs`.
+- separate Prüfwarnungen vorhanden
+- kein „vor Verwendung prüfen“
+- kein Anwaltshinweis
+- kein „fachlich/rechtlich prüfen“
+- kein Prüfbedarf-Hinweis im Vertragsdokument
 
-## In dieser Prüfengine tatsächlich ausgeführte Laufzeitprüfungen
+### Rechtsstatus
 
-Direkt aus dem aktuellen GitHub-`main`-Quellstand ausgeführt und bestanden:
+Die aktuelle Fassung ist eine **konfigurierbare Muster-/Prüffassung**.
 
-- Demo V4 lässt sich vollständig erzeugen
-- Projektschema akzeptiert den Demo-Datensatz
-- 2024 wird vollständig berechnet
-- 2025 wird vollständig berechnet
-- 2025er Mieterwechsel wird getrennt ausgewiesen
-- Kaltwasser-Zwischenablesung trennt Vor- und Nachmieter
-- 5 Mietservice-Entwürfe vorhanden
-- 2 freigegebene Dokumente vorhanden
-- 2 Übergabevermerke vorhanden
-- 9 Eigentümerchecks vorhanden
-- Vermietungsvorgang endet in C_SELECTED
-- automaticScore = false
-- automaticSelection = false
-- Live- und Demo-Speicherschlüssel sind getrennt
-- Demo-Reset verändert den Live-Schlüssel nicht
-- Syntax der neuen Demo-/Lern-/Speichermodule sauber
+Sie ist **noch keine anwaltlich freigegebene Masterfassung** und wird nicht als pauschal „rechtssicher“ garantiert.
+
+Der vorgesehene spätere Prozess ist:
+
+1. Masterfassung funktional fertigstellen
+2. konkrete Fassung extern fachlich/juristisch prüfen lassen
+3. geprüfte Version eindeutig versionieren
+4. spätere materielle Klauseländerungen erneut als prüfbedürftig kennzeichnen
+
+Gesetzliche Referenzen werden in der Werkstatt separat verlinkt und erscheinen nicht im Vertragsdokument.
+
+## Hausordnungs-Konfigurator
+
+Produktionsseite:
+
+`hausordnung-konfigurator.html`
+
+Kern:
+
+`assets/js/house-rules-workshop.js`
+
+UI:
+
+`assets/js/hausordnung-konfigurator-ui.js`
+
+Version:
+
+`DE_HAUSORDNUNG_V1_2026-09-24`
+
+### Funktionsumfang
+
+Konfigurierbar:
+
+- Bewohnerinformation oder Vertragsanlage
+- Ruhezeiten
+- optionale Mittagsruhe
+- Gemeinschaftsflächen
+- Müll und Entsorgung
+- Fahrräder und abgestellte Gegenstände
+- Waschküche / Gemeinschaftsgeräte
+- Garten / Außenflächen
+- Grillen
+- Tiere in Gemeinschaftsbereichen
+- Flucht- und Rettungswege
+- Haus- und Zugangstüren
+- Rauchen in Gemeinschaftsbereichen
+- Reinigungsregel
+- Winterdienst
+- eigene zusätzliche Regeln
+
+### Schutzprinzip
+
+Werden Reinigung oder Winterdienst Bewohnern als Pflicht zugeordnet, markiert das System dies separat als Prüfbedarf.
+
+Der Konfigurator behauptet nicht automatisch, dass eine solche Pflicht wirksam übertragen wurde.
+
+Auch hier bleiben Prüfinformationen außerhalb des eigentlichen Dokuments.
+
+## PDF-Ausgabe
+
+Beide neuen Werkzeuge verwenden die bereits vorhandene generische Vertrags-PDF-Engine:
+
+`pages/vertraege/contract-pdf-engine-v2.js`
+
+Die Engine enthält selbst keine Club-Leader- oder Mietvertragslogik.
+
+Die fertige PDF wird an die bestehende Akademie-PDF-Übergabe gereicht:
+
+`pages/merchant-kompass/akademie-pdf-uebergabe.js`
+
+Es wurde keine zweite Vertrags-PDF-Engine gebaut.
+
+Bei den neuen Werkzeugen wird kein externes Logo für die PDF geladen (`logoUrl:''`).
+
+## Mietservice-Verknüpfung
+
+`mietservice.html` bietet jetzt zusätzlich zwei direkte Einstiege:
+
+- „Mietvertragswerkstatt öffnen“
+- „Hausordnung konfigurieren“
+
+Die bisherigen einfachen Mietservice-Entwürfe bleiben erhalten. Sie wurden nicht gelöscht oder umgebaut.
+
+## Demo V5 — Vertragswerkzeuge
+
+Das Demo-Haus enthält vorkonfiguriert:
+
+### Mietvertrag Familie Berger
+
+- Vermieter: Eva Linden · fiktiv
+- Mieter: Familie Berger · fiktiv
+- Wohnung A / 1. OG links
+- 75 m²
+- 3 Zimmer
+- Mietbeginn 01.01.2024
+- Nettokaltmiete 980,00 €
+- Betriebskostenvorauszahlung 220,00 €
+- Kaution 2.940,00 € = drei Nettokaltmieten
+- Hausordnung als Anlage
+- Übergabeprotokoll als Anlage
+- Schlüssel und mitvermietete Ausstattung
+
+### Hausordnung Demo-Haus Lindenblick
+
+- Vertragsanlage
+- Ruhe / Rücksicht
+- Gemeinschaftsflächen
+- Müll
+- Fahrräder
+- Waschküche
+- Außenflächen
+- Grillen
+- Tiere in Gemeinschaftsbereichen
+- Sicherheitsbereiche
+- keine automatisch zugewiesene Reinigungs- oder Winterdienstpflicht im Ausgangsstand
+
+## DE / EN
+
+Statisch geprüft:
+
+- Mietvertragswerkstatt: 73 verwendete i18n-Schlüssel, 0 fehlend
+- Hausordnungs-Konfigurator: 46 verwendete i18n-Schlüssel, 0 fehlend
+- Mietservice nach Verknüpfung: 76 verwendete i18n-Schlüssel, 0 fehlend
+
+Die Lernreise zeigt nur auf vorhandene Produktseiten.
+
+## Projektschema / Speicherung
+
+Gezielt zur Laufzeit geprüft:
+
+- Wohnraum-Mietvertragsentwurf passiert das bestehende Projektschema
+- Hausordnungsentwurf passiert das bestehende Projektschema
+- beide können mit dem bestehenden `saveProject/loadProject` gespeichert und wieder gelesen werden
+- keine zweite Datenbank oder Schattenablage erforderlich
+- Demo V5 passiert weiterhin das bestehende Projektschema
+- Referenzrechnungen 2024 / 2025 bleiben unverändert
+
+## Feste Regressionen Baustein 6.5
+
+- `tests/demo-project.test.mjs` — 7 Tests
+- `tests/demo-storage.test.mjs` — 3 Tests
+- `tests/demo-learning.test.mjs` — 6 Tests
+- `tests/lease-workshop.test.mjs` — 7 Tests
+- `tests/house-rules-workshop.test.mjs` — 4 Tests
+
+**Summe: 27 feste Regressionen für Baustein 6.5.**
+
+## In dieser Prüfengine tatsächlich ausgeführte gezielte Checks
+
+Bestanden wurden unter anderem:
+
+- Demo V5 vollständig erzeugt
+- Projektschema Demo V5 gültig
+- 2024 Referenzrechnung unverändert
+- 2025 Referenzrechnung unverändert
+- Mieterwechsel / Zwischenablesung unverändert
+- Demo-/Live-Speicher weiterhin getrennt
+- Mietvertrags-Standardkonfiguration gültig
+- Kaution über drei Nettokaltmieten blockiert
+- Zeitmietvertrag ohne Grund blockiert
+- Hausordnung Standard gültig
+- Reinigungs-/Winterdienst-Zuordnung erzeugt separaten Prüfbedarf
+- Mietvertragsentwurf durch bestehendes Schema und Storage
+- Hausordnungsentwurf durch bestehendes Schema und Storage
+- Vertragsdokument frei von Meta-/Prüfhinweisen
+- Syntax der vier neuen Werkstattmodule sauber
+- DE/EN-Schlüssel der neuen Seiten vollständig
+- alle Lernreise-Ziele vorhanden
+- keine alte `wohnraum-vertragswerkstatt`-Referenz mehr vorhanden
 
 ## Bewusst nicht als bestanden behauptet
 
-Ein kompletter lokaler `npm test`-Lauf aller bestehenden Projektregressionen wurde in dieser Prüfengine nicht ausgeführt.
+- kein vollständiger lokaler `npm test`-Lauf der gesamten Anwendung in dieser Prüfengine
+- keine anwaltliche Freigabe des Mietvertragsmasters
+- keine anwaltliche Freigabe der Hausordnungs-Masterfassung
+- keine abschließende visuelle Live-Abnahme auf iPad/Laptop
 
-Auch eine abschließende visuelle iPad-/Laptop-Abnahme der veröffentlichten Demo ist noch nicht als bestanden markiert.
+Diese Punkte sind von der technischen Werkstattfunktion getrennt.
 
-Genau dafür ist das Demo-Haus jetzt vorhanden: Der nächste praktische Schritt ist, die Lernreise selbst auf dem veröffentlichten System durchzugehen und Bedienungsprobleme als Produktoptimierungen festzuhalten.
+## Nächster praktischer Schritt
 
-## Bausteingrenze
-
-Baustein 6.5 ist technisch abnahmebereit.
+Baustein 6.5 bleibt geöffnet, bis die neue Mietvertragswerkstatt und der Hausordnungs-Konfigurator praktisch im Demo-Haus angesehen wurden und daraus ggf. Bedien-/Inhaltskorrekturen entstehen.
 
 Baustein 7 beginnt erst nach ausdrücklicher Freigabe „Baustein fertig“.
