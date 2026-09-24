@@ -25,6 +25,8 @@ Umgesetzt:
 - Müll- und Entsorgungsinformation
 - Ein-/Auszugsprotokoll
 - Mieter-Serviceblatt
+- Mietvertragsentwurf, Ein-/Auszugsprotokoll und Mieter-Serviceblatt sind zwingend einem konkreten Mietverhältnis zugeordnet
+- Hausordnung und Müll-/Entsorgungsinformation bleiben ohne künstliche Mietverhältnis-Zuordnung möglich
 - lokale Entwurfsspeicherung im bestehenden Projekt
 - Kautions-Prüfhinweis ohne automatische Rechtsfreigabe
 - keine PDF-Erzeugung
@@ -94,13 +96,19 @@ Die Zentrale `index.html` zeigt Baustein 5 als aktuellen Abschnitt und verlinkt 
 ## Tests und Prüflauf
 
 Gezielte Kernregressionen Baustein 5:
-- 12/12 bestanden
+- 16/16 bestanden
 
 Speicher-/Schema-Integrationssmokes:
 - Mietservice → bestehendes Schema → bestehender Speicher: bestanden
 - Eigentümer-Check → bestehendes Schema → bestehender Speicher: bestanden
 - Vermietungscheck → bestehendes Schema → bestehender Speicher: bestanden
 - Ergebnis: 3/3 bestanden
+
+Mietverhältnis-Verdrahtung:
+- Mietvertragsentwurf → konkretes Mietverhältnis: geprüft
+- Ein-/Auszugsprotokoll → konkretes Mietverhältnis: geprüft
+- Mieter-Serviceblatt → konkretes Mietverhältnis: geprüft
+- Ergebnis: 3/3 geprüft
 
 JavaScript-Syntax:
 - `rental-service.js`: sauber
@@ -136,6 +144,6 @@ Diese Funktionen bleiben für Baustein 6 reserviert.
 
 Die Quell- und Integrationsprüfungen sind abgeschlossen. Ein externer HTTP-Live-Smoke der veröffentlichten Domain konnte aus der aktuellen Prüfengine nicht ausgeführt werden, weil die Domain dort nicht aufgelöst/abgerufen werden konnte. Das ist kein festgestellter Seitenfehler und wird nicht als bestandener Live-Smoke ausgegeben.
 
-## Zusätzliche Datei auf main
+## Produktionspfad bereinigt
 
-Nach der Baustein-5-Integration wurde zusätzlich `assets/js/service-checks.js` auf `main` angelegt. Diese Datei wird von den drei Baustein-5-Seiten derzeit nicht importiert und ist deshalb ausdrücklich nicht Bestandteil des hier abgenommenen Produktionspfads. Sie wurde nicht verändert oder entfernt.
+Es existiert kein paralleler zweiter Baustein-5-Kern. Mietservice, Eigentümer-Check und Vermietungscheck verwenden ausschließlich die oben dokumentierten Produktionsmodule.
