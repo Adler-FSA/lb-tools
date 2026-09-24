@@ -1,0 +1,23 @@
+:root{--mint:#00a7ad;--mag:#c6006f;--navy:#132238;--ink:#263545;--muted:#667587;--line:#d8e4e7;--soft:#f4f9fa;--bg:#edf4f5}
+.workshop-layout{display:grid;grid-template-columns:380px minmax(0,1fr);gap:18px;align-items:start}
+.workshop-side{position:sticky;top:84px;max-height:calc(100vh - 98px);overflow:auto}
+.workshop-side .card{margin-bottom:12px}.workshop-side h3{margin:0 0 12px;color:var(--navy);font-size:17px}
+.workshop-side details{border-top:1px solid var(--line);padding:10px 0}.workshop-side details:first-of-type{border-top:0}.workshop-side summary{cursor:pointer;font-weight:850;color:var(--navy)}
+.workshop-fields{display:grid;gap:9px;margin-top:11px}.workshop-fields.two{grid-template-columns:1fr 1fr}.workshop-fields label{font-size:12px;font-weight:750;color:var(--muted)}
+.workshop-fields input,.workshop-fields select,.workshop-fields textarea{width:100%;margin-top:4px;border:1px solid #cbdadd;border-radius:9px;padding:9px 10px;background:#fff;color:var(--ink);font:inherit}.workshop-fields textarea{min-height:78px;resize:vertical}
+.check-row{display:flex;gap:8px;align-items:flex-start;font-size:13px}.check-row input{width:auto;margin-top:4px}
+.workshop-paper{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 34px #13223812;overflow:hidden}
+.workshop-paper-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;background:linear-gradient(#fff,#f9fcfc)}
+.workshop-paper-head h2{margin:0;color:var(--navy)}.workshop-paper-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.contract{padding:30px;min-height:600px;font:14px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+.contract h2,.contract h3{color:var(--navy)}.contract h2{font-size:24px}.contract h3{font-size:18px;margin:0 0 10px}.contract p{margin:0 0 10px}.contract .section{border-top:1px solid var(--line);padding:20px 0}.contract .party-card{border:1px solid var(--line);border-radius:13px;padding:15px;background:#fbfdfd;margin-bottom:20px}.contract .contract-title{text-transform:uppercase}
+.contract .signature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.contract .signature-box{border:1px solid var(--line);padding:13px;border-radius:10px}.contract .signature-line{height:27px;border-bottom:1px solid #b7c5c8}.contract .small{font-size:11px;color:var(--muted)}
+.contract table{width:100%;border-collapse:collapse;margin:12px 0}.contract th,.contract td{border:1px solid var(--line);padding:7px 9px;text-align:left}.contract th{background:var(--navy);color:#fff}
+.review-panel{border:1px solid #e4b7cb;background:#fff6fa;border-radius:12px;padding:12px}.review-panel strong{color:#8a174d}.review-panel ul{margin:8px 0 0;padding-left:18px}.review-panel li{margin:6px 0;font-size:13px}
+.validation-panel{border:1px solid #efc47f;background:#fff9ec;border-radius:12px;padding:12px}.validation-panel.ok{border-color:#a7d8c7;background:#effaf5}.validation-panel ul{margin:8px 0 0;padding-left:18px}
+.workshop-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.workshop-actions .btn{flex:1}
+.context-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.context-row select{width:100%}
+.stagger-list{display:grid;gap:7px}.stagger-row{display:grid;grid-template-columns:1fr 1fr auto;gap:7px}.stagger-row button{border:0;border-radius:8px;padding:0 10px;background:#f9e8f1;color:#9e1659}
+.legal-links{display:grid;gap:5px}.legal-links a{font-size:12px}
+@media(max-width:1000px){.workshop-layout{grid-template-columns:1fr}.workshop-side{position:static;max-height:none}.context-row{grid-template-columns:1fr}}
+@media(max-width:650px){.workshop-fields.two{grid-template-columns:1fr}.contract{padding:20px 16px}.contract .signature-grid{grid-template-columns:1fr}.stagger-row{grid-template-columns:1fr 1fr}}
