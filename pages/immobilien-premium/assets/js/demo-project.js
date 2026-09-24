@@ -129,7 +129,7 @@ function addYear2024(p){
     ['demo_insurance_2024','building_insurance',120000,'demo_insurer'],
     ['demo_waste_2024','waste',72000,'demo_waste_provider'],
     ['demo_power_2024','common_electricity',48000,'demo_power_provider'],
-    ['demo_water_2024','cold_water',90000,'demo_water_provider']
+    ['demo_water_2024','cold_water',90000,'demo_water_provider_2024']
   ];
   for(const [id,category,amountCents,providerAccountId] of costs){
     addExpense(p,{id,year:2024,category,amountCents,providerAccountId});
@@ -149,7 +149,7 @@ function addYear2025(p){
     ['demo_insurance_2025','building_insurance',126000,'demo_insurer'],
     ['demo_waste_2025','waste',75600,'demo_waste_provider'],
     ['demo_power_2025','common_electricity',50400,'demo_power_provider'],
-    ['demo_water_2025','cold_water',96000,'demo_water_provider']
+    ['demo_water_2025','cold_water',96000,'demo_water_provider_2025']
   ];
   for(const [id,category,amountCents,providerAccountId] of costs){
     addExpense(p,{id,year:2025,category,amountCents,providerAccountId});
@@ -170,7 +170,7 @@ function addSupplyRegistry(p){
   p.supplyRegistry=[
     {
       id:'demo_supply_water_2024',propertyId:'demo_house',accountingPeriodId:'demo_year_2024',confirmed:true,
-      contract:{providerLabel:'Stadtwerke Musterstadt · fiktiv',providerAccountId:'demo_water_provider',service:'cold_water',
+      contract:{providerLabel:'Stadtwerke Musterstadt · fiktiv',providerAccountId:'demo_water_provider_2024',service:'cold_water',
         contractHolder:'owner',confirmed:true,
         priceVersions:[{validFrom:'2024-01-01',validTo:'2024-12-31',confirmed:true,referenceId:'DEMO-TARIF-WASSER-2024',
           baseCentsPerPeriod:0,plannedWholeUnits:145,workPriceNumeratorCents:90000,workPriceDenominatorUnits:145,measurementUnit:'m³'}],
@@ -178,7 +178,7 @@ function addSupplyRegistry(p){
     },
     {
       id:'demo_supply_water_2025',propertyId:'demo_house',accountingPeriodId:'demo_year_2025',confirmed:true,
-      contract:{providerLabel:'Stadtwerke Musterstadt · fiktiv',providerAccountId:'demo_water_provider',service:'cold_water',
+      contract:{providerLabel:'Stadtwerke Musterstadt · fiktiv',providerAccountId:'demo_water_provider_2025',service:'cold_water',
         contractHolder:'owner',confirmed:true,
         priceVersions:[{validFrom:'2025-01-01',validTo:'2025-12-31',confirmed:true,referenceId:'DEMO-TARIF-WASSER-2025',
           baseCentsPerPeriod:0,plannedWholeUnits:167,workPriceNumeratorCents:96000,workPriceDenominatorUnits:167,measurementUnit:'m³'}],
