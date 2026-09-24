@@ -76,8 +76,30 @@ test('Demo startet als freies Anschauungsmodell und Lernreise bleibt optional',(
 test('Formularintensive Demoseiten erhalten eine Anschauungsbefüllung',async()=>{
  const {DEMO_SHOWCASE_PAGES}=await import('../assets/js/demo-showcase.js');
  assert.deepEqual(DEMO_SHOWCASE_PAGES,[
-  'immobilien.html','kosten.html','verbrauch.html','abrechnung-vermieter.html',
+  'index.html','immobilien.html','kosten.html','verbrauch.html','abrechnung-vermieter.html',
   'mietservice.html','vermietungscheck.html','einstellungen.html'
  ]);
  for(const page of DEMO_SHOWCASE_PAGES)assert.ok(fs.existsSync(path.join(root,page)),page);
+});
+
+test('Demo kann sich nicht selbst verschachteln',()=>{
+ const html=fs.readFileSync(path.join(root,'demo.html'),'utf8');
+ const showcase=fs.readFileSync(path.join(root,'assets/js/demo-showcase.js'),'utf8');
+ assert.ok(html.includes('window.self !== window.top'));
+ assert.ok(html.includes("location.replace('index.html?demo=1'"));
+ assert.ok(showcase.includes("if(page==='index.html')"));
+ assert.ok(showcase.includes("a[href^=\"demo.html\"]"));
+});
+test('Zentrale enthält jeden direkten Hero-Einstieg nur einmal',()=>{
+ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+ assert.equal((html.match(/href="demo\.html"/g)||[]).length,1);
+ assert.equal((html.match(/href="bedienungsanleitung\.html"/g)||[]).length,1);
+});
+test('Alter Wohnraum-Werkstattpfad ist nur Weiterleitung und kein aktiver Mietservice-Link',()=>{
+ const service=fs.readFileSync(path.join(root,'mietservice.html'),'utf8');
+ const legacy=fs.readFileSync(path.join(root,'wohnraum-vertragswerkstatt.html'),'utf8');
+ assert.equal(service.includes('href="wohnraum-vertragswerkstatt.html"'),false);
+ assert.ok(service.includes('href="mietvertragswerkstatt.html"'));
+ assert.ok(legacy.includes("location.replace(target)"));
+ assert.equal(legacy.includes('wohnraum-vertragswerkstatt-ui.js'),false);
 });
