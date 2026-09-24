@@ -4,6 +4,9 @@
 export const RENTAL_DOCUMENT_TYPES = Object.freeze([
   'lease_draft','house_rules','waste_info','handover_protocol','tenant_service_sheet'
 ]);
+export const TENANCY_DOCUMENT_TYPES = Object.freeze([
+  'lease_draft','handover_protocol','tenant_service_sheet'
+]);
 
 const validId = v => typeof v === 'string' && /^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/.test(v);
 const validDay = v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) &&
@@ -76,6 +79,9 @@ export function createRentalDocumentDraft(project,{
   assertProject(project); assertFreshId(project,documentId);
   if (!RENTAL_DOCUMENT_TYPES.includes(type)) {
     throw new RentalServiceError('DOCUMENT_TYPE','Unbekannter Mietservice-Dokumenttyp.');
+  }
+  if (TENANCY_DOCUMENT_TYPES.includes(type) && !tenancyId) {
+    throw new RentalServiceError('TENANCY_REQUIRED','Für diesen Entwurf ist ein konkretes Mietverhältnis erforderlich.');
   }
   if (!validDay(createdOn)) throw new RentalServiceError('INVALID_DATE','Gültiges Erstelldatum erforderlich.');
   context(project,{propertyId,unitId,tenancyId});
