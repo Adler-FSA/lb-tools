@@ -114,3 +114,13 @@ test('next-year draft cannot inherit an old supply forecast or invoice',()=>{
   blocked((p)=>{p.accountingPeriods[0].rolloverStatus='review_required';},'SUPPLY_YEAR_REVIEW_REQUIRED');
   blocked((p)=>{p.accountingPeriods[0].endDate='2026-02-31';},'SUPPLY_PERIOD_INVALID');
 });
+
+test('historische Zahlung desselben Versorgers blockiert das aktuelle Jahr nicht',()=>{
+  const {p,plan}=sample();
+  p.cashflows.push({id:'oldPayment',kind:'provider_payment',propertyId:'house',providerAccountId:'supplier',
+    accountingPeriodId:'year2025',date:'2025-06-01',amountCents:210000});
+  const r=reviewSupplyAccount(p,'year',plan);
+  assert.equal(r.status,'reviewed',JSON.stringify(r.issues));
+  assert.equal(r.report.netProviderPaidCents,240000);
+  assert.deepEqual(r.report.originalPaymentIds,['advance']);
+});
