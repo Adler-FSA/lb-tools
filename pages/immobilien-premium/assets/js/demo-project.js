@@ -151,7 +151,7 @@ function addYear2025(p){
   for(const [id,category,amountCents,providerAccountId] of costs){
     addExpense(p,{id,year:2025,category,amountCents,providerAccountId});
     if(category==='cold_water') addWaterRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2025',withUserChange:true});
-    else addAreaRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2024',withUserChange:true});
+    else addAreaRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2025',withUserChange:true});
     addProviderPayment(p,{id:`pay_${id}`,year:2025,providerAccountId,amountCents,date:'2025-12-20'});
   }
   addExpense(p,{id:'demo_repair_2025',year:2025,category:'repair',amountCents:95000,providerAccountId:'demo_crafts',classification:'owner'});
