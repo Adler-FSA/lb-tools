@@ -4,6 +4,8 @@
  * Keine PDF-Erzeugung, keine Rechtsfreigabe.
  */
 import {buildOwnerSummary} from './owner-summary.js';
+import {inspectOwnerAnnualReadiness} from './owner-readiness.js';
+import {buildDocumentedConsumption,buildOwnerYearComparison} from './owner-insights.js';
 import {previewLandlordPeriod} from './landlord-preview.js';
 import {SAFETY_CHECK_TEMPLATES,listSafetyChecks} from './safety-checks.js';
 import {LETTING_ITEMS,LETTING_PHASES,listLettingProcesses} from './letting-check.js';
@@ -52,9 +54,14 @@ export function ownerAnnualSnapshot(project,{propertyId,periodId}){
   const property=project.properties.find(x=>x.id===propertyId);
   const period=periodOf(project,periodId);
   if(!property||period.propertyId!==propertyId)throw new DocumentSourceError('CONTEXT_MISMATCH','Immobilie und Abrechnungsperiode passen nicht zusammen.');
+  const readiness=inspectOwnerAnnualReadiness(project,periodId);
+  if(readiness.status!=='preview'||!readiness.preview)
+    throw new DocumentSourceError('OWNER_ANNUAL_RECHECK_REQUIRED','Die vollständige Jahresprüfung ist noch nicht abgeschlossen.',readiness.blockers??[]);
   const result=buildOwnerSummary(project,propertyId,periodId);
   if(result.status!=='summary'||!result.report)
     throw new DocumentSourceError('OWNER_SUMMARY_BLOCKED','Eigentümer-Jahresübersicht ist noch nicht vollständig prüfbar.',result.issues??[]);
+  const consumption=buildDocumentedConsumption(project,propertyId,periodId);
+  const comparison=buildOwnerYearComparison(project,propertyId);
   return {
     documentType:'owner_annual_summary',
     title:`Eigentümer-Jahresübersicht ${period.startDate.slice(0,4)} · ${property.label||'Immobilie'}`,
@@ -65,6 +72,9 @@ export function ownerAnnualSnapshot(project,{propertyId,periodId}){
       property:propertySnapshot(property),
       period:{id:period.id,startDate:period.startDate,endDate:period.endDate},
       report:clone(result.report),
+      readiness:clone(readiness.preview),
+      consumption:consumption.status==='consumption'&&consumption.report?clone(consumption.report):null,
+      comparison:comparison.status==='comparison'?clone(comparison.years??[]):[],
       issues:clone(result.issues??[]),
       legalRelease:false
     }
