@@ -12,7 +12,7 @@ import {upsertLeaseWorkshopDraft,defaultLeaseConfig} from './lease-workshop.js';
 import {upsertHouseRulesDraft,defaultHouseRulesConfig} from './house-rules-workshop.js';
 
 export const DEMO_PROJECT_ID='demo_lindenblick';
-export const DEMO_VERSION='LINDENBLICK_V5_2026-09-24';
+export const DEMO_VERSION='LINDENBLICK_V6_2026-09-24';
 
 const standardCosts=['property_tax','building_insurance','waste','common_electricity','cold_water'];
 const clone=v=>structuredClone(v);
@@ -59,7 +59,7 @@ function addTenantPayment(project,{id,year,tenancyId,amountCents,date}){
 
 function addCoreData(p){
   p.properties.push({
-    id:'demo_house',label:'Demo-Haus Lindenblick',workspaceMode:'mixed',
+    id:'demo_house',label:'Demo-Haus Lindenblick',workspaceMode:'mixed',buildingType:'multi_family',buildingTypeLabel:'Mehrfamilienhaus',
     address:{street:'Beispielweg',houseNumber:'12',postalCode:'64295',city:'Darmstadt'},
     demo:true,demoNote:'Alle Personen, Belege und Adressdaten dieses Projekts sind frei erfunden.'
   });
@@ -164,6 +164,33 @@ function addYear2025(p){
   addTenantPayment(p,{id:'demo_paid_vogel_2025',year:2025,tenancyId:'demo_lease_vogel',amountCents:120000,date:'2025-12-15'});
 }
 
+
+function addSupplyRegistry(p){
+  p.supplyRegistryVersion=1;
+  p.supplyRegistry=[
+    {
+      id:'demo_supply_water_2024',propertyId:'demo_house',accountingPeriodId:'demo_year_2024',confirmed:true,
+      contract:{providerLabel:'Stadtwerke Musterstadt · fiktiv',providerAccountId:'demo_water_provider',service:'cold_water',
+        contractHolder:'owner',confirmed:true,
+        priceVersions:[{validFrom:'2024-01-01',validTo:'2024-12-31',confirmed:true,referenceId:'DEMO-TARIF-WASSER-2024',
+          baseCentsPerPeriod:0,plannedWholeUnits:145,workPriceNumeratorCents:90000,workPriceDenominatorUnits:145,measurementUnit:'m³'}],
+        expenseIds:['demo_water_2024'],invoiceTotalsCentsByReference:{'DEMO-2024-DEMO_WATER_2024':90000}}
+    },
+    {
+      id:'demo_supply_water_2025',propertyId:'demo_house',accountingPeriodId:'demo_year_2025',confirmed:true,
+      contract:{providerLabel:'Stadtwerke Musterstadt · fiktiv',providerAccountId:'demo_water_provider',service:'cold_water',
+        contractHolder:'owner',confirmed:true,
+        priceVersions:[{validFrom:'2025-01-01',validTo:'2025-12-31',confirmed:true,referenceId:'DEMO-TARIF-WASSER-2025',
+          baseCentsPerPeriod:0,plannedWholeUnits:167,workPriceNumeratorCents:96000,workPriceDenominatorUnits:167,measurementUnit:'m³'}],
+        expenseIds:['demo_water_2025'],invoiceTotalsCentsByReference:{'DEMO-2025-DEMO_WATER_2025':96000}}
+    }
+  ];
+  for(const id of ['demo_water_2024','demo_water_2025']){
+    const expense=p.expenses.find(x=>x.id===id);
+    if(expense)expense.supplyManaged=true;
+  }
+}
+
 function addRentalDocuments(project){
   let p=project;
   p=createRentalDocumentDraft(p,{
@@ -205,13 +232,13 @@ function addWorkshopDrafts(project){
   const lease=defaultLeaseConfig();
   lease.landlord={name:'Eva Linden · fiktiv',street:'Beispielweg 12',postalCity:'64295 Darmstadt'};
   lease.tenant={name:'Familie Berger · fiktiv',street:'Altstadtweg 7',postalCity:'64283 Darmstadt'};
-  lease.property={...lease.property,street:'Beispielweg 12',postalCity:'64295 Darmstadt',unitLabel:'1. OG links · Wohnung A',floor:'1. OG links',areaM2:'75',rooms:'3',cellar:'Kellerraum A1',parking:'',sharedFacilities:'Fahrradraum und gemeinschaftlicher Müllplatz'};
+  lease.property={...lease.property,street:'Beispielweg 12',postalCity:'64295 Darmstadt',unitLabel:'1. OG links · Wohnung A',floor:'1. OG links',areaM2:'75',rooms:'3',cellar:'Kellerraum A1',parking:'Stellplatz 2',sharedFacilities:'Fahrradraum und gemeinschaftlicher Müllplatz'};
   lease.term.startDate='2024-01-01';
-  lease.rent.baseRentCents=98000;lease.rent.operatingMode='advance';lease.rent.operatingCostCents=22000;
+  lease.rent.baseRentCents=98000;lease.rent.operatingMode='advance';lease.rent.operatingCostCents=22000;lease.rent.iban='DE00 0000 0000 0000 0000 00';lease.rent.bic='DEMODEFFXXX';lease.rent.bank='DemoBank · fiktiv';
   lease.deposit.enabled=true;lease.deposit.amountCents=294000;
-  lease.occupancy.persons='3';lease.houseRules.attached=true;lease.handover.protocolAttached=true;
+  lease.occupancy.persons='3';lease.care.smallRepairs=true;lease.care.smallRepairSingleCents=10000;lease.care.smallRepairAnnualCapCents=30000;lease.care.cosmeticRepairs=true;lease.pets.mode='case_by_case';lease.pets.details='Kleintiere im üblichen Umfang; sonstige Tierhaltung wird im Einzelfall abgestimmt.';lease.houseRules.attached=true;lease.handover.protocolAttached=true;lease.handover.inventoryAttached=true;
   lease.additional.keys='2 Haustürschlüssel, 2 Wohnungsschlüssel, 1 Briefkastenschlüssel';
-  lease.additional.fixtures='Einbauküche ohne Elektrogeräte';
+  lease.additional.fixtures='Einbauküche ohne Elektrogeräte, Kellerregal und Stellplatz 2';lease.additional.agreements='Der Kellerraum A1 und Stellplatz 2 sind der Wohnung zugeordnet. Die Übergabe erfolgt anhand des beigefügten Übergabeprotokolls.';
   p=upsertLeaseWorkshopDraft(p,{documentId:'demo_workshop_lease_berger',propertyId:'demo_house',unitId:'demo_rent_a',tenancyId:'demo_lease_berger',config:lease,createdOn:'2026-09-24'}).project;
 
   const rules=defaultHouseRulesConfig();
@@ -311,6 +338,7 @@ export function buildDemoProject(){
   addMeters(p);
   addYear2024(p);
   addYear2025(p);
+  addSupplyRegistry(p);
   p=addRentalDocuments(p);
   p=addWorkshopDrafts(p);
   p=addReleasedDocumentExamples(p);
@@ -323,7 +351,7 @@ export function buildDemoProject(){
     ownerAddress:'Beispielweg 12, 64295 Darmstadt',
     fictional:true,
     referenceYear:'2025',
-    learningPurpose:'Geführter Musterfall für Eigentümer, Vermieter und Mieterwechsel.',
+    learningPurpose:'Vollständig ausgefülltes Anschauungsmodell mit optionaler Lernreise.',
     resettable:true
   };
   assertValidProject(p);
