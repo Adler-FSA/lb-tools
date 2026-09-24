@@ -32,7 +32,7 @@ test('Demo 2025 bildet Mieterwechsel und Zwischenablesung vollständig ab',()=>{
   ['demo_lease_schneider',82925,25075],
   ['demo_lease_vogel',87520,32480]
  ]);
- const water=r.report.expenseLines.find(x=>x.expenseId==='demo_water_2026');
+ const water=r.report.expenseLines.find(x=>x.expenseId==='demo_water_2025');
  assert.ok(water.unitShares.some(x=>x.tenancyId==='demo_lease_schneider'));
  assert.ok(water.unitShares.some(x=>x.tenancyId==='demo_lease_vogel'));
 });
