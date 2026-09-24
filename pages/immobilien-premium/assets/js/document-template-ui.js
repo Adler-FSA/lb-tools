@@ -1,6 +1,6 @@
-import {loadProject} from '../assets/js/storage.js';
-import {escapeText} from '../assets/js/ui-core.js';
-import {getLanguage,initI18n} from '../assets/js/i18n.js';
+import {loadProject} from './storage.js';
+import {escapeText} from './ui-core.js';
+import {getLanguage,initI18n} from './i18n.js';
 
 const I18N={
  back:{de:'← PDF-Zentrale',en:'← PDF centre'},archive:{de:'Archiv',en:'Archive'},brandLine:{de:'Akademie Immobilien- & Mietservice',en:'Academy Property & Tenant Service'},
