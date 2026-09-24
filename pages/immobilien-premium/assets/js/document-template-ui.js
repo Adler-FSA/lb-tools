@@ -8,7 +8,7 @@ const I18N={
  version:{de:'Version',en:'Version'},created:{de:'Erstellt',en:'Created'},releasedOn:{de:'Freigegeben',en:'Released'},
  property:{de:'Immobilie',en:'Property'},unit:{de:'Einheit',en:'Unit'},tenancy:{de:'Mietverhältnis',en:'Tenancy'},period:{de:'Abrechnungszeitraum',en:'Accounting period'},
  details:{de:'Dokumentdaten',en:'Document data'},costs:{de:'Kostenübersicht',en:'Cost overview'},checks:{de:'Prüfpunkte',en:'Review items'},
- totalCosts:{de:'Gesamtkosten',en:'Total costs'},ownerCosts:{de:'Eigentümerkosten',en:'Owner costs'},allocatable:{de:'Als umlagefähig eingeordnet',en:'Classified as allocatable'},unresolved:{de:'Ungeklärt',en:'Unresolved'},providerNet:{de:'Netto an Versorger gezahlt',en:'Net paid to providers'},
+ totalCosts:{de:'Gesamtkosten',en:'Total costs'},ownerCosts:{de:'Eigentümeranteil',en:'Owner share'},tenantTotal:{de:'Mieteranteile gesamt',en:'Total tenant shares'},consumption:{de:'Dokumentierter Verbrauch',en:'Documented consumption'},yearComparison:{de:'Jahresvergleich',en:'Year comparison'},allocatable:{de:'Als umlagefähig eingeordnet',en:'Classified as allocatable'},unresolved:{de:'Ungeklärt',en:'Unresolved'},providerNet:{de:'Netto an Versorger gezahlt',en:'Net paid to providers'},
  category:{de:'Kostenart',en:'Cost category'},amount:{de:'Betrag',en:'Amount'},method:{de:'Schlüssel',en:'Allocation key'},tenantShare:{de:'Mieteranteil',en:'Tenant share'},advances:{de:'Berücksichtigte Zahlungen',en:'Recorded advance payments'},result:{de:'Ergebnis',en:'Result'},credit:{de:'Guthaben',en:'Credit'},additional:{de:'Nachzahlung',en:'Additional payment'},
  topic:{de:'Prüfthema',en:'Review item'},classification:{de:'Einordnung',en:'Classification'},status:{de:'Status',en:'Status'},due:{de:'Wiedervorlage',en:'Follow-up'},note:{de:'Notiz',en:'Note'},
  noData:{de:'Keine weiteren Angaben gespeichert.',en:'No further information stored.'},snapshotNote:{de:'Diese Vorschau liest ausschließlich den gespeicherten Dokument-Snapshot. Änderungen im Projekt verändern diese Fassung nicht.',en:'This preview reads only the stored document snapshot. Changes in the project do not alter this version.'},
@@ -65,12 +65,22 @@ function bodyFor(doc){
    const entries=Object.entries(s.payload||{}).filter(([,v])=>v!==''&&v!==null&&v!==undefined);
    out+=section(typeNames[lang()][doc.documentType]||doc.title,entries.length?'<div class="doc-grid">'+entries.map(([k,v])=>field(labels[k]||k,payloadValue(k,v))).join('')+'</div>':'<p>'+h(x.noData[lang()])+'</p>');
  }else if(s.kind==='owner_annual_summary'){
-   const r=s.report||{};
+   const r=s.report||{},ready=s.readiness||{};
    out+=section(x.costs[lang()],'<div class="doc-grid">'+[
-     field(x.totalCosts[lang()],money(r.actualCostsCents)),field(x.ownerCosts[lang()],money(r.ownerClassifiedCents)),
+     field(x.totalCosts[lang()],money(r.actualCostsCents)),
+     field(x.ownerCosts[lang()],money(Number.isSafeInteger(ready.ownerCostsCents)?ready.ownerCostsCents:r.ownerClassifiedCents)),
+     field(x.tenantTotal[lang()],money(ready.tenantCostsCents)),
      field(x.allocatable[lang()],money(r.allocatableClassifiedCents)),field(x.unresolved[lang()],money(r.unresolvedCents)),
      field(x.providerNet[lang()],money(r.providerNetPaidCents))
    ].join('')+'</div>'+(r.byCategory?.length?table([x.category[lang()],x.amount[lang()]],r.byCategory.map(a=>[category(a.category),money(a.amountCents)])):''));
+   if(s.consumption?.totals?.length)out+=section(x.consumption[lang()],table(
+     [lang()==='en'?'Service':'Verbrauchsart',lang()==='en'?'Value':'Wert'],
+     s.consumption.totals.map(a=>[a.service,String(a.value)+' '+(a.unit||'')])
+   ));
+   if(s.comparison?.length)out+=section(x.yearComparison[lang()],table(
+     [lang()==='en'?'Year':'Jahr',x.totalCosts[lang()],x.providerNet[lang()]],
+     s.comparison.map(y=>[y.yearLabel,money(y.actualCostsCents),money(y.providerNetPaidCents)])
+   ));
  }else if(s.kind==='tenant_operating_cost_statement'){
    const t=s.tenant||{};
    out+=section(x.costs[lang()],table([x.category[lang()],x.amount[lang()],x.method[lang()],x.tenantShare[lang()]],(s.expenseLines||[]).map(a=>[category(a.category),money(a.amountCents),method(a.method),money(a.tenantShareCents)]))+
