@@ -29,7 +29,7 @@ test('Alle Lernschritte zeigen auf vorhandene Produktseiten',()=>{
 test('Vertragswerkstatt aus dem Mietservice-Lernschritt existiert wirklich',()=>{
  const step=DEMO_LEARNING_STEPS.find(x=>x.extraUrl);
  assert.ok(step);
- const target=path.resolve(root,step.extraUrl);
+ const target=path.resolve(root,step.extraUrl.split('?')[0]);
  assert.ok(fs.existsSync(target),target);
  assert.equal(typeof step.extraLabel.de,'string');
  assert.equal(typeof step.extraLabel.en,'string');
