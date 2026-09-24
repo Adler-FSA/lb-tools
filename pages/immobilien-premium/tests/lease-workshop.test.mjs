@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {defaultLeaseConfig,validateLeaseConfig,buildLeaseDocument,upsertLeaseWorkshopDraft} from '../assets/js/lease-workshop.js';
+import {defaultLeaseConfig,validateLeaseConfig,buildLeaseDocument,renderLeaseHtml,upsertLeaseWorkshopDraft} from '../assets/js/lease-workshop.js';
 import {createEmptyProject,validateProject} from '../assets/js/model.js';
 
 function valid(){
@@ -38,11 +38,11 @@ test('Werkstattentwurf passiert bestehendes Projektschema',()=>{
  assert.deepEqual(validateProject(r.project),[]);assert.equal(r.project.documents[0].source,'residential-lease-workshop-v1');
 });
 
-test('Prüfhinweise bleiben außerhalb des Vertragsdokuments',async()=>{
+test('Prüfhinweise bleiben außerhalb des Vertragsdokuments',()=>{
  const c=valid();
  c.care.smallRepairs=true;c.care.smallRepairSingleCents=10000;c.care.smallRepairAnnualCapCents=30000;c.care.cosmeticRepairs=true;
  const q=validateLeaseConfig(c);
  assert.ok(q.warnings.length>0);
- const html=(await import('../assets/js/lease-workshop.js')).renderLeaseHtml(buildLeaseDocument(c));
+ const html=renderLeaseHtml(buildLeaseDocument(c));
  assert.equal(/vor Verwendung|anwalt|fachlich|rechtlich prüfen|Prüfbedarf/i.test(html),false);
 });
