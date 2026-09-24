@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Nebenkosten Premium – Mietservice</title>
+  <meta name="description" content="Mietservice in Nebenkosten Premium">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body><div class="shell">
+<header class="topbar"><div class="topbar-inner">
+  <div class="brand-row"><div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><div class="brand-text"><div class="brand-title">Nebenkosten Premium</div><div class="brand-sub">Akademie Immobilien- &amp; Mietservice</div></div></div><div class="toolbar"><button class="tab" type="button" data-lang="de" aria-pressed="true">DE</button><button class="tab" type="button" data-lang="en" aria-pressed="false">EN</button><div class="storage-pill" data-storage-pill><span class="storage-dot"></span><span class="storage-text" data-storage-text>Speicher wird geprüft</span></div></div></div>
+  <nav class="mainnav" aria-label="Hauptnavigation"><a class="nav-item" href="index.html" data-i18n="navHome">Meine Zentrale</a><a class="nav-item" href="immobilien.html" data-i18n="navProperties">Immobilien</a><a class="nav-item active" href="mietservice.html" data-i18n="navRental">Mietservice</a><a class="nav-item" href="kosten.html" data-i18n="navCosts">Kosten &amp; Abrechnung</a><a class="nav-item" href="schutzcheck.html" data-i18n="navChecks">Sicherheit &amp; Checks</a><span class="nav-item disabled" aria-disabled="true" data-i18n="navDocs">Dokumente &amp; Hilfe</span></nav>
+</div></header>
+<main class="page">
+  <section class="hero"><div class="hero-card"><div class="eyebrow" data-i18n="eyebrow">Baustein 5 · Mietservice</div><h1 data-i18n="heroTitle">Dokumente vorbereiten, ohne etwas vorwegzunehmen.</h1><p data-i18n="heroCopy">Mietvertrag, Hausordnung, Entsorgungsinfo, Übergabe und Serviceblatt werden als lokale Entwürfe vorbereitet. Eine Rechtsfreigabe oder PDF-Ausgabe erfolgt hier ausdrücklich noch nicht.</p><div class="hero-actions"><a class="btn btn-ghost" href="index.html" data-i18n="back">← Zur Zentrale</a></div></div>
+  <aside class="status-card"><div><div class="eyebrow" data-i18n="context">Arbeitskontext</div><h2 data-i18n="chooseUnit">Einheit auswählen</h2><p data-i18n="chooseUnitCopy">Alle Entwürfe werden einer konkreten Einheit zugeordnet.</p></div><div><select data-unit-select aria-label="Einheit"></select></div></aside></section>
+  <div class="flash" data-flash role="status" aria-live="polite"></div>
+
+  <section class="grid grid-2">
+    <article class="card form-card"><div class="eyebrow" data-i18n="tool2">Werkzeug 2</div><h2 data-i18n="leaseTitle">Mietvertragsassistent</h2><p class="kicker" data-i18n="leaseCopy">Erfasst Eckdaten als Entwurf. Miethöhe, Befristung, Klauseln und örtliche Besonderheiten werden nicht automatisch rechtlich freigegeben.</p>
+      <form data-doc-form="lease_draft"><div class="form-grid">
+        <div class="full"><label data-i18n="tenancy">Vorhandenes Mietverhältnis</label><select name="tenancyId"></select></div>
+        <div><label data-i18n="tenantLabel">Vertragspartei / Bezeichnung</label><input name="tenantLabel"></div>
+        <div><label data-i18n="startDate">Mietbeginn</label><input name="startDate" type="date"></div>
+        <div><label data-i18n="baseRent">Nettokaltmiete €</label><input name="baseRentCents" type="number" min="0" step="0.01" value="0"></div>
+        <div><label data-i18n="costModel">Betriebskostenmodell</label><select name="operatingCostsModel"><option value="unresolved" data-i18n="unresolved">Ungeklärt</option><option value="advance" data-i18n="advance">Vorauszahlung</option><option value="flat" data-i18n="flat">Pauschale</option></select></div>
+        <div><label data-i18n="costAmount">Betriebskosten €</label><input name="operatingCostCents" type="number" min="0" step="0.01" value="0"></div>
+        <div><label data-i18n="deposit">Kaution €</label><input name="depositCents" type="number" min="0" step="0.01" value="0"><div class="help" data-i18n="depositHelp">Technischer Prüfhinweis bei mehr als drei Nettokaltmieten; keine Rechtsfreigabe.</div></div>
+        <div class="full"><label data-i18n="notes">Notizen</label><textarea name="notes"></textarea></div>
+      </div><div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="saveDraft">Entwurf speichern</button></div></form>
+    </article>
+
+    <article class="card form-card"><div class="eyebrow" data-i18n="tool3">Werkzeug 3</div><h2 data-i18n="rulesTitle">Hausordnung</h2><p class="kicker" data-i18n="rulesCopy">Vertragliche Pflichten und organisatorische Hinweise werden bewusst getrennt gekennzeichnet.</p>
+      <form data-doc-form="house_rules"><div class="form-grid"><div><label data-i18n="ruleKind">Einordnung</label><select name="ruleKind"><option value="organisational" data-i18n="organisational">Organisatorischer Hinweis</option><option value="contractual" data-i18n="contractual">Vertraglicher Bestandteil – prüfen</option></select></div><div class="full"><label data-i18n="rules">Regeln / Hinweise</label><textarea name="rules" required></textarea></div></div><div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="saveDraft">Entwurf speichern</button></div></form>
+    </article>
+
+    <article class="card form-card"><div class="eyebrow" data-i18n="tool4">Werkzeug 4</div><h2 data-i18n="wasteTitle">Müll- und Entsorgungsinformation</h2><p class="kicker" data-i18n="wasteCopy">Objektbezogene Hinweise; örtliche Abhol- und Trennregeln müssen vom Nutzer bestätigt werden.</p>
+      <form data-doc-form="waste_info"><div class="form-grid"><div class="full"><label data-i18n="locations">Standorte / Sammelstellen</label><textarea name="locations"></textarea></div><div class="full"><label data-i18n="sorting">Trennhinweise</label><textarea name="sorting"></textarea></div><div class="full"><label data-i18n="schedule">Abholung / Bereitstellung</label><textarea name="schedule"></textarea></div><div class="full"><label><input style="width:auto;min-height:auto;margin-right:8px" type="checkbox" name="localDataConfirmed"> <span data-i18n="localConfirmed">Örtliche Angaben wurden geprüft.</span></label></div></div><div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="saveDraft">Entwurf speichern</button></div></form>
+    </article>
+
+    <article class="card form-card"><div class="eyebrow" data-i18n="tool5">Werkzeug 5</div><h2 data-i18n="handoverTitle">Ein- und Auszugsprotokoll</h2><p class="kicker" data-i18n="handoverCopy">Zustand, Schlüssel, Zählerstände und Mängel werden als sachlicher Entwurf erfasst.</p>
+      <form data-doc-form="handover_protocol"><div class="form-grid"><div><label data-i18n="kind">Vorgang</label><select name="kind"><option value="move_in" data-i18n="moveIn">Einzug</option><option value="move_out" data-i18n="moveOut">Auszug</option></select></div><div><label data-i18n="date">Datum</label><input name="date" type="date"></div><div class="full"><label data-i18n="keys">Schlüssel</label><textarea name="keys"></textarea></div><div class="full"><label data-i18n="meters">Zählerstände</label><textarea name="meters"></textarea></div><div class="full"><label data-i18n="defects">Zustand / Mängel</label><textarea name="defects"></textarea></div></div><div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="saveDraft">Entwurf speichern</button></div></form>
+    </article>
+
+    <article class="card form-card"><div class="eyebrow" data-i18n="tool6">Werkzeug 6</div><h2 data-i18n="serviceTitle">Mieter-Serviceblatt</h2><p class="kicker" data-i18n="serviceCopy">Anlassbezogene Mitteilungen und zweckgebundene Abfragen – keine pauschale unbegrenzte Auskunftspflicht.</p>
+      <form data-doc-form="tenant_service_sheet"><div class="form-grid"><div><label data-i18n="purpose">Anlass / Zweck</label><input name="purpose" required></div><div><label data-i18n="subject">Betreff</label><input name="subject"></div><div class="full"><label data-i18n="message">Mitteilung</label><textarea name="message" required></textarea></div><div class="full"><label data-i18n="requestedInfo">Erbetene Information – nur soweit zweckgebunden nötig</label><textarea name="requestedInfo"></textarea></div><div><label data-i18n="deadline">Frist / Rückmeldung bis</label><input name="deadline" type="date"></div></div><div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="saveDraft">Entwurf speichern</button></div></form>
+    </article>
+
+    <article class="card"><div class="eyebrow" data-i18n="boundary">Bausteingrenze</div><h2 data-i18n="noPdfTitle">Noch keine PDF-Ausgabe</h2><p class="kicker" data-i18n="noPdfCopy">Die Entwürfe werden lokal gespeichert. Vorschau, Dokumentvorlagen, Freigabe, PDF-Zentrale und Archiv folgen erst in Baustein 6.</p></article>
+  </section>
+
+  <section class="section"><div class="section-head"><div><h2 data-i18n="draftsTitle">Gespeicherte Entwürfe</h2><p data-i18n="draftsCopy">Nur Entwürfe der aktuell gewählten Einheit.</p></div></div><div class="grid grid-2" data-drafts></div></section>
+  <section class="section notice" data-i18n="legalNote">Mietvertragsentwürfe bleiben fachlich zu prüfen. § 551 BGB begrenzt eine vereinbarte Mietsicherheit bei Wohnraum grundsätzlich auf drei Nettokaltmieten; der Assistent setzt deshalb nur einen Prüfhinweis und gibt keinen Vertrag rechtlich frei.</section>
+</main>
+<footer class="footer" data-i18n="footer">Nebenkosten Premium · Lokale Speicherung · Keine individuelle Rechtsberatung.</footer>
+</div><script type="module" src="assets/js/mietservice-ui.js"></script></body></html>
