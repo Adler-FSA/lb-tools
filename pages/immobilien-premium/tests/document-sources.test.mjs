@@ -34,9 +34,16 @@ test('Mietservice-Entwurf wird als neutraler Snapshot übernommen',()=>{
   const r=serviceDraftSnapshot(p,'sd1');
   assert.equal(r.documentType,'tenant_service_sheet');assert.equal(r.tenancyId,'t1');assert.equal(r.snapshot.payload.purpose,'Termin');
 });
-test('Eigentümer-Jahresübersicht verwendet bestehenden geprüften Summary-Kern',()=>{
+test('Eigentümer-Jahresübersicht verwendet bestehenden vollständigen Jahrescheck',()=>{
   const r=ownerAnnualSnapshot(fixture(),{propertyId:'p1',periodId:'y26'});
-  assert.equal(r.snapshot.report.actualCostsCents,60000);assert.equal(r.snapshot.period.id,'y26');
+  assert.equal(r.snapshot.report.actualCostsCents,60000);
+  assert.equal(r.snapshot.readiness.ownerCostsCents,36000);
+  assert.equal(r.snapshot.readiness.tenantCostsCents,24000);
+  assert.equal(r.snapshot.period.id,'y26');
+});
+test('Ungeklärte Jahresbasis sperrt Eigentümer-Dokument statt sie freizugeben',()=>{
+  const p=fixture();p.expenses[0].classification='unresolved';p.expenses[0].confirmedForAllocation=false;p.allocationRules=[];
+  assert.throws(()=>ownerAnnualSnapshot(p,{propertyId:'p1',periodId:'y26'}),e=>e instanceof DocumentSourceError&&e.code==='OWNER_ANNUAL_RECHECK_REQUIRED');
 });
 test('Standard-Mieterabrechnung bildet den individuellen Anteil ab',()=>{
   const r=tenantStatementSnapshot(fixture(),{periodId:'y26',tenancyId:'t1'});
