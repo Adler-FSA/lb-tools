@@ -147,7 +147,7 @@ function addYear2024(p){
     else addAreaRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2024'});
     addProviderPayment(p,{id:`pay_${id}`,year:2024,providerAccountId,amountCents,date:'2024-12-20'});
   }
-  addExpense(p,{id:'demo_repair_2024',year:2024,category:'repair',amountCents:180000,providerAccountId:'demo_crafts_2025',classification:'owner'});
+  addExpense(p,{id:'demo_repair_2024',year:2024,category:'repair',amountCents:180000,providerAccountId:'demo_crafts_2024',classification:'owner'});
   addProviderPayment(p,{id:'pay_demo_repair_2024',year:2024,providerAccountId:'demo_crafts_2024',amountCents:180000,date:'2024-11-15'});
   addTenantPayment(p,{id:'demo_paid_berger_2024',year:2024,tenancyId:'demo_lease_berger',amountCents:264000,date:'2024-12-15'});
   addTenantPayment(p,{id:'demo_paid_schneider_2024',year:2024,tenancyId:'demo_lease_schneider',amountCents:216000,date:'2024-12-15'});
@@ -167,7 +167,7 @@ function addYear2025(p){
     else addAreaRule(p,{id:`rule_${id}`,expenseId:id,periodId:'demo_year_2025',withUserChange:true});
     addProviderPayment(p,{id:`pay_${id}`,year:2025,providerAccountId,amountCents,date:'2025-12-20'});
   }
-  addExpense(p,{id:'demo_repair_2025',year:2025,category:'repair',amountCents:95000,providerAccountId:'demo_crafts',classification:'owner'});
+  addExpense(p,{id:'demo_repair_2025',year:2025,category:'repair',amountCents:95000,providerAccountId:'demo_crafts_2025',classification:'owner'});
   addProviderPayment(p,{id:'pay_demo_repair_2025',year:2025,providerAccountId:'demo_crafts_2025',amountCents:95000,date:'2025-10-10'});
   addTenantPayment(p,{id:'demo_paid_berger_2025',year:2025,tenancyId:'demo_lease_berger',amountCents:264000,date:'2025-12-15'});
   addTenantPayment(p,{id:'demo_paid_schneider_2025',year:2025,tenancyId:'demo_lease_schneider',amountCents:108000,date:'2025-06-30'});
