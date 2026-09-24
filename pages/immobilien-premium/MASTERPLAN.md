@@ -1,7 +1,7 @@
 # Akademie Immobilien- & Mietservice — Nebenkosten Premium
 
-**Projektmasterplan · Version 1.0 · Stand 21.09.2026**  
-**Status: Baustein 1 vom Auftraggeber freigegeben. Baustein 2 begonnen: technische Grundlage.**
+**Projektmasterplan · Version 1.1 · Stand 24.09.2026**  
+**Status: Bausteine 1–5 freigegeben; Baustein 6 technisch abnahmebereit; Baustein 6.5 Demo-Haus & Lernreise in Umsetzung.**
 
 ## 0. Verbindlicher Projektbeschluss und Bestandsschutz
 
@@ -154,7 +154,8 @@ Eigener Namensraum/Version für Nebenkosten Premium; keine alte Speicherung lese
 - **Baustein 4 – Vermieterabrechnung:** Umlage, Mietverhältnisse, Zahlungen, Sonderfälle.
 - **Baustein 5 – Mietservice/Checks:** Dokumentassistenten und Checklisten.
 - **Baustein 6 – PDF/Archiv/Komfort:** separaten PDF-Master integrieren, Dokumentvorlagen, Versionierung, Jahreswechsel, Backup.
-- **Baustein 7 – Gesamtabnahme:** Rechentests, PDF-Konsistenz, Vertrags-/Rechtsvorlagen, Datenschutz, iPad/Laptop, DE/EN, keine Regression.
+- **Baustein 6.5 – Demo-Haus & Lernreise:** dieselbe Produktionsanwendung mit strikt getrenntem Demo-Speicher und vollständig fiktivem, rechnerisch konsistentem Referenzprojekt betreiben. Geführte Lernreise und freies Erkunden bereitstellen; Demo jederzeit auf einen geprüften Ausgangszustand zurücksetzen, ohne Live-Daten zu berühren. Die gemeinsame Lernstruktur speist zugleich eine klassische Bedienungsanleitung. Sichtbare Entwickler-/Bauplanbegriffe werden aus der Endnutzeroberfläche entfernt. Der Referenzfall deckt Eigennutzung, zwei Mietwohnungen, Mieterwechsel, Kosten, Zahlungen, Verbrauch, Dokumententwürfe, Eigentümer-Checks, datensparsamen Vermietungsprozess, PDF-Zentrale, Archiv und Jahreswechsel ab. Bestehende Vertragswerkstatt als technisches/konzeptionelles Prinzip nutzen statt eines zweiten parallelen Vertragseditors; Fach-/Rechtsprüfhinweise bleiben außerhalb des eigentlichen Mietvertrags bzw. der Hausordnung.
+- **Baustein 7 – Gesamtabnahme:** erst nach 6.5. Vollständiger gemeinsamer Rechentest, Demo-Referenzlauf, PDF-Konsistenz, Vertrags-/Rechtsvorlagen, Datenschutz, iPad/Laptop, DE/EN, Live-Pfade und keine Regression.
 
 Jeden Abschnitt nachvollziehbar prüfen; der Auftraggeber gibt den nächsten jeweils mit „Baustein fertig“ frei. Keine eigenmächtigen Änderungen an freigegebenen Bestandteilen oder anderem Repository.
 
