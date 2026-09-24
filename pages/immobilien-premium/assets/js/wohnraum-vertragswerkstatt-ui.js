@@ -87,7 +87,7 @@ function review(s){
 }
 function build({flash=true}={}){
  const s=state(),v=validate(s);
- if(!v.required){showFlash(I18N.invalid[getLanguage()],'error');review(s);return false;}
+ if(!v.required){if(flash)showFlash(I18N.invalid[getLanguage()],'error');review(s);return false;}
  leaseEditor.innerHTML=leaseHtml(s);rulesEditor.innerHTML=rulesHtml(s);review(s);saveDraft();
  if(flash)showFlash(I18N.rebuilt[getLanguage()]);
  return true;
