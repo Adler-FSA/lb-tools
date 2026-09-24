@@ -15,7 +15,7 @@ const T={
     tenantShare:'Mieteranteil',method:'Schlüssel',invoice:'Beleg',advances:'Berücksichtigte Zahlungen',
     balance:'Ergebnis',credit:'Guthaben',additional:'Nachzahlung',note:'Hinweis',
     dataRelease:'Diese Fassung fixiert den dokumentierten Datenstand. Die Freigabe ist keine automatische Rechtsprüfung.',
-    ownerSummary:'Eigentümer-Jahresübersicht',tenantStatement:'Betriebskostenabrechnung',
+    ownerSummary:'Eigentümer-Jahresübersicht',tenantStatement:'Betriebskostenabrechnung',consumption:'Dokumentierter Verbrauch',yearComparison:'Jahresvergleich',tenantTotal:'Mieteranteile gesamt',providerNet:'Versorger netto',
     safety:'Eigentümer-Sicherheits- und Pflichtenübersicht',letting:'Vermietungs-Checkliste',
     details:'Dokumentdaten',checks:'Prüfpunkte',status:'Status',classification:'Einordnung',due:'Wiedervorlage',
     open:'Offen',review:'Prüfen',done:'Erledigt',notApplicable:'Nicht zutreffend',
@@ -32,7 +32,7 @@ const T={
     tenantShare:'Tenant share',method:'Allocation key',invoice:'Reference',advances:'Recorded advance payments',
     balance:'Balance',credit:'Credit',additional:'Additional payment',note:'Note',
     dataRelease:'This version fixes the documented data state. Release is not an automatic legal review.',
-    ownerSummary:'Owner annual summary',tenantStatement:'Operating cost statement',
+    ownerSummary:'Owner annual summary',tenantStatement:'Operating cost statement',consumption:'Documented consumption',yearComparison:'Year comparison',tenantTotal:'Total tenant shares',providerNet:'Provider net paid',
     safety:'Owner safety and obligations overview',letting:'Letting checklist',
     details:'Document data',checks:'Review items',status:'Status',classification:'Classification',due:'Follow-up',
     open:'Open',review:'Review',done:'Done',notApplicable:'Not applicable',
@@ -115,20 +115,28 @@ function serviceSections(doc,s,x,lang){
   ];
 }
 function ownerSections(doc,s,x,lang){
-  const r=s.report||{};
-  return [
+  const r=s.report||{},ready=s.readiness||{};
+  const sections=[
     {heading:x.details,blocks:[{type:'key_values',items:baseMeta(doc,s,x,lang)}]},
     {heading:lang==='en'?'Annual totals':'Jahressummen',blocks:[
       {type:'key_values',items:[
         {label:x.costs,value:money(r.actualCostsCents,lang)},
-        {label:x.ownerCosts,value:money(r.ownerClassifiedCents,lang)},
+        {label:x.ownerCosts,value:money(Number.isSafeInteger(ready.ownerCostsCents)?ready.ownerCostsCents:r.ownerClassifiedCents,lang)},
+        {label:x.tenantTotal,value:money(ready.tenantCostsCents,lang)},
         {label:x.allocatable,value:money(r.allocatableClassifiedCents,lang)},
         {label:x.unresolved,value:money(r.unresolvedCents,lang)},
-        {label:x.providerPaid,value:money(r.providerNetPaidCents,lang)}
+        {label:x.providerNet,value:money(r.providerNetPaidCents,lang)}
       ]},
       {type:'table',headers:[x.category,x.amount],rows:(r.byCategory||[]).map(a=>[categoryLabel(a.category,lang),money(a.amountCents,lang)])}
     ]}
   ];
+  if(s.consumption?.totals?.length)sections.push({heading:x.consumption,blocks:[
+    {type:'table',headers:[lang==='en'?'Service':'Verbrauchsart',lang==='en'?'Value':'Wert'],rows:s.consumption.totals.map(a=>[a.service,String(a.value)+' '+(a.unit||'')])}
+  ]});
+  if(s.comparison?.length)sections.push({heading:x.yearComparison,blocks:[
+    {type:'table',headers:[lang==='en'?'Year':'Jahr',x.costs,x.providerNet],rows:s.comparison.map(y=>[y.yearLabel,money(y.actualCostsCents,lang),money(y.providerNetPaidCents,lang)])}
+  ]});
+  return sections;
 }
 function tenantSections(doc,s,x,lang){
   const t=s.tenant||{};
