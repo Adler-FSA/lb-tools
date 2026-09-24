@@ -2,6 +2,7 @@
 export const HOUSE_RULES_VERSION='DE_HAUSORDNUNG_V1_2026-09-24';
 export const HOUSE_RULES_SOURCE='house-rules-workshop-v1';
 const clone=v=>structuredClone(v),t=(v,n=1200)=>String(v??'').trim().slice(0,n);
+const esc=v=>String(v??'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[ch]));
 export function defaultHouseRulesConfig(){return{
  title:'Hausordnung',mode:'contractual_attachment',propertyLabel:'',
  quiet:{enabled:true,from:'22:00',to:'07:00',midday:false,middayFrom:'13:00',middayTo:'15:00'},
@@ -46,7 +47,7 @@ export function buildHouseRulesDocument(input){const q=validateHouseRulesConfig(
  if(c.cleaning.enabled)P('Reinigung gemeinschaftlicher Flächen',c.cleaning.text+(c.cleaning.assigned?' Die konkrete Zuordnung ergibt sich aus einer gesonderten wirksamen Vereinbarung oder einem abgestimmten Plan.':''));
  if(c.winter.enabled)P('Winterdienst',c.winter.text+(c.winter.assigned?' Die konkrete Zuordnung ergibt sich aus einer gesonderten wirksamen Vereinbarung oder einem abgestimmten Plan.':''));
  c.custom.filter(x=>x.enabled).forEach(x=>P(x.title,x.text));
- return{version:HOUSE_RULES_VERSION,title:c.title,mode:c.mode,propertyLabel:c.propertyLabel,sections,footer:c.mode==='contractual_attachment'?'Diese Hausordnung ist als Vertragsanlage vorgesehen. Individuelle Abreden und zwingendes Recht gehen vor.':'Diese Hausordnung dient als Bewohnerinformation.',reviewWarnings:q.warnings};
+ return{version:HOUSE_RULES_VERSION,title:esc(c.title),mode:c.mode,propertyLabel:esc(c.propertyLabel),sections,footer:c.mode==='contractual_attachment'?'Diese Hausordnung ist als Vertragsanlage vorgesehen. Individuelle Abreden und zwingendes Recht gehen vor.':'Diese Hausordnung dient als Bewohnerinformation.',reviewWarnings:q.warnings};
 }
 export function renderHouseRulesHtml(doc){return '<h2 class="contract-title">'+t(doc.title)+'</h2>'+(doc.propertyLabel?'<div class="party-card"><p><strong>'+t(doc.propertyLabel)+'</strong></p></div>':'')+doc.sections.map((s,i)=>'<section class="section"><h3>'+(i+1)+'. '+t(s.title)+'</h3><p>'+t(s.text,4000)+'</p></section>').join('')+'<section class="section"><p class="small">'+t(doc.footer,2000)+'</p></section>';}
 export function upsertHouseRulesDraft(project,{documentId,propertyId=null,unitId=null,config,createdOn}){const q=validateHouseRulesConfig(config),copy=clone(project);let doc=copy.documents.find(x=>x.source===HOUSE_RULES_SOURCE&&x.propertyId===propertyId&&x.unitId===unitId);const payload={id:doc?.id||documentId,kind:'workshop_draft',documentType:'house_rules',type:'house_rules',source:HOUSE_RULES_SOURCE,status:'draft',title:q.config.title,createdOn:doc?.createdOn||createdOn,updatedOn:createdOn,propertyId:propertyId||null,unitId:unitId||null,workshopVersion:HOUSE_RULES_VERSION,payload:clone(q.config),reviewWarnings:clone(q.warnings),legalApproval:false,pdfGenerated:false};if(doc)Object.assign(doc,payload);else copy.documents.push(payload);return{project:copy,documentId:payload.id,validation:q};}
