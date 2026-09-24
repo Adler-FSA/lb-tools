@@ -77,6 +77,14 @@ export function applyDemoShowcase(doc,page,project){
     }
   }
 
+  if(page==='index.html'){
+    for(const link of doc.querySelectorAll('a[href^="demo.html"]'))link.remove();
+    for(const link of doc.querySelectorAll('a[href="bedienungsanleitung.html"]')){
+      if(link.closest('.hero-actions')) link.style.display='none';
+    }
+    return;
+  }
+
   if(page==='immobilien.html'){
     const pf=doc.querySelector('[data-property-form]');
     fillForm(pf,{label:p?.label||'Demo-Haus Lindenblick',workspaceMode:'mixed',buildingType:'multi_family',street:a.street||'Beispielweg',houseNumber:a.houseNumber||'12',postalCode:a.postalCode||'64295',city:a.city||'Darmstadt'});
