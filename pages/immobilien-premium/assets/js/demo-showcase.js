@@ -1,6 +1,6 @@
 
 export const DEMO_SHOWCASE_PAGES=Object.freeze([
-  'immobilien.html','kosten.html','verbrauch.html','abrechnung-vermieter.html',
+  'index.html','immobilien.html','kosten.html','verbrauch.html','abrechnung-vermieter.html',
   'mietservice.html','vermietungscheck.html','einstellungen.html'
 ]);
 
