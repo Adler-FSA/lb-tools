@@ -1,4 +1,9 @@
 
+export const DEMO_SHOWCASE_PAGES=Object.freeze([
+  'immobilien.html','kosten.html','verbrauch.html','abrechnung-vermieter.html',
+  'mietservice.html','vermietungscheck.html','einstellungen.html'
+]);
+
 /**
  * Demo-only showcase prefill for the iframe presentation.
  * It never writes to storage. Actual demo records live in demo-project.js.
