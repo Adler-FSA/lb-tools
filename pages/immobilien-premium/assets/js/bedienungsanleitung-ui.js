@@ -12,11 +12,18 @@ const I18N={
 initI18n(I18N);
 
 function t(key){return I18N[key][getLanguage()];}
+function L(value){
+ if(value&&typeof value==='object'&&!Array.isArray(value)&&('de' in value||'en' in value)) return value[getLanguage()]??value.de??value.en;
+ return value;
+}
 function render(){
  const toc=document.querySelector('[data-manual-toc]'),host=document.querySelector('[data-manual-steps]');
  document.querySelector('[data-step-count]').textContent=DEMO_LEARNING_STEPS.length;
- toc.innerHTML=DEMO_LEARNING_STEPS.map((s,i)=>'<a class="card" style="text-decoration:none;color:inherit" href="#step-'+(i+1)+'"><div class="eyebrow">'+escapeText(String(i+1).padStart(2,'0'))+'</div><h3>'+escapeText(s.short)+'</h3><p class="kicker">'+escapeText(s.title)+'</p></a>').join('');
- host.innerHTML=DEMO_LEARNING_STEPS.map((s,i)=>'<article class="card form-card" id="step-'+(i+1)+'" style="margin-bottom:18px"><div class="eyebrow">'+escapeText((i+1)+'. '+s.short)+'</div><h2>'+escapeText(s.title)+'</h2><div class="grid grid-2" style="margin-top:16px"><div><h3>'+escapeText(t('what'))+'</h3><p class="kicker">'+escapeText(s.copy)+'</p></div><div><h3>'+escapeText(t('why'))+'</h3><p class="kicker">'+escapeText(s.why)+'</p></div></div><div class="notice" style="margin-top:14px"><strong>'+escapeText(t('example'))+':</strong><ul style="margin:8px 0 0 20px">'+s.facts.map(x=>'<li>'+escapeText(x)+'</li>').join('')+'</ul></div><div class="form-actions"><a class="btn btn-primary" href="demo.html?step='+i+'">'+escapeText(t('openStep'))+'</a>'+(s.extraUrl?'<a class="btn btn-secondary" target="_blank" rel="noopener" href="'+escapeText(s.extraUrl)+'">'+escapeText(t('extra'))+'</a>':'')+'</div></article>').join('');
+ toc.innerHTML=DEMO_LEARNING_STEPS.map((s,i)=>'<a class="card" style="text-decoration:none;color:inherit" href="#step-'+(i+1)+'"><div class="eyebrow">'+escapeText(String(i+1).padStart(2,'0'))+'</div><h3>'+escapeText(L(s.short))+'</h3><p class="kicker">'+escapeText(L(s.title))+'</p></a>').join('');
+ host.innerHTML=DEMO_LEARNING_STEPS.map((s,i)=>{
+   const facts=L(s.facts)||[];
+   return '<article class="card form-card" id="step-'+(i+1)+'" style="margin-bottom:18px"><div class="eyebrow">'+escapeText((i+1)+'. '+L(s.short))+'</div><h2>'+escapeText(L(s.title))+'</h2><div class="grid grid-2" style="margin-top:16px"><div><h3>'+escapeText(t('what'))+'</h3><p class="kicker">'+escapeText(L(s.copy))+'</p></div><div><h3>'+escapeText(t('why'))+'</h3><p class="kicker">'+escapeText(L(s.why))+'</p></div></div><div class="notice" style="margin-top:14px"><strong>'+escapeText(t('example'))+':</strong><ul style="margin:8px 0 0 20px">'+facts.map(x=>'<li>'+escapeText(x)+'</li>').join('')+'</ul></div><div class="form-actions"><a class="btn btn-primary" href="demo.html?step='+i+'">'+escapeText(t('openStep'))+'</a>'+(s.extraUrl?'<a class="btn btn-secondary" target="_blank" rel="noopener" href="'+escapeText(s.extraUrl)+'">'+escapeText(L(s.extraLabel)||t('extra'))+'</a>':'')+'</div></article>';
+ }).join('');
 }
 window.addEventListener('app-language-change',render);
 const state=safeLoadProject();updateStoragePill(state.project,state.error);render();
