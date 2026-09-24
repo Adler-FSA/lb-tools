@@ -63,8 +63,8 @@ export const DEMO_LEARNING_STEPS=Object.freeze([
     copy:{de:'Zum Vermieten gehören mehr als Zahlen. Im Demo-Haus liegen bereits Entwürfe für Mietvertrag, Hausordnung, Entsorgungsinformation, Übergabeprotokoll und Mieter-Serviceblatt.',en:'Letting involves more than numbers. The demo house already contains drafts for a lease, house rules, waste information, a handover record and a tenant service sheet.'},
     why:{de:'Dokumente sollen aus demselben Immobilienkontext entstehen. Fach- oder Rechtsprüfhinweise gehören separat zur Arbeitsoberfläche – nicht ungefragt in das eigentliche Vertragsdokument.',en:'Documents should come from the same property context. Professional or legal review notes belong separately in the workspace, not unexpectedly inside the actual contract document.'},
     facts:{de:['Mietvertragsentwurf für Familie Berger','Übergabeprotokoll zum Einzug von Nina Vogel','Hausordnung und Entsorgungsinformation vorbereitet'],en:['Lease draft for the Berger family','Handover record for Nina Vogel moving in','House rules and waste information prepared']},
-    extraUrl:'../vertraege/club-marktplatz-vertragswerkstatt.html',
-    extraLabel:{de:'Vertragswerkstatt separat öffnen',en:'Open contract workshop separately'}
+    extraUrl:'wohnraum-vertragswerkstatt.html?demo=1',
+    extraLabel:{de:'Wohnraum-Vertragswerkstatt öffnen',en:'Open residential lease workshop'}
   },
   {
     title:{de:'Was sollte ein Eigentümer prüfen?',en:'What should an owner review?'},
