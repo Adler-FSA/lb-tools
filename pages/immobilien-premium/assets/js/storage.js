@@ -2,7 +2,10 @@
 import { assertValidProject, COLLECTIONS, SCHEMA_VERSION, STORAGE_NAMESPACE } from './model.js';
 
 export const PROJECT_KEY = `${STORAGE_NAMESPACE}:project`;
+export const DEMO_PROJECT_KEY = `${STORAGE_NAMESPACE}:demo:project`;
 export const RECOVERY_PREFIX = `${STORAGE_NAMESPACE}:before-restore:`;
+export const DEMO_RECOVERY_PREFIX = `${STORAGE_NAMESPACE}:demo:before-restore:`;
+export const DEMO_MODE_KEY = `${STORAGE_NAMESPACE}:mode`;
 export const BACKUP_FORMAT = 'akademie-nebenkosten-premium-backup';
 export const BACKUP_VERSION = 1;
 export const MAX_BACKUP_CHARS = 8_000_000;
@@ -14,6 +17,40 @@ export class StorageError extends Error {
     this.code = code;
   }
 }
+
+export function isDemoMode() {
+  try {
+    if (globalThis.location?.search) {
+      const params = new URLSearchParams(globalThis.location.search);
+      if (params.get('demo') === '1') return true;
+      if (params.get('demo') === '0') return false;
+    }
+  } catch {}
+  try { return globalThis.sessionStorage?.getItem(DEMO_MODE_KEY) === 'demo'; }
+  catch { return false; }
+}
+
+export function setDemoMode(enabled) {
+  try {
+    const session = globalThis.sessionStorage;
+    if (!session || typeof session.setItem !== 'function' || typeof session.removeItem !== 'function') {
+      throw new Error('sessionStorage unavailable');
+    }
+    if (enabled) session.setItem(DEMO_MODE_KEY, 'demo');
+    else session.removeItem(DEMO_MODE_KEY);
+    return enabled === true;
+  } catch (cause) {
+    throw new StorageError('DEMO_MODE_UNAVAILABLE', 'Demo-Modus konnte in diesem Browser nicht umgeschaltet werden.', cause);
+  }
+}
+
+function resolvedMode(mode) {
+  if (mode === undefined || mode === null) return isDemoMode() ? 'demo' : 'live';
+  if (mode !== 'live' && mode !== 'demo') throw new StorageError('INVALID_STORAGE_MODE', 'Unbekannter Speicher-Modus.');
+  return mode;
+}
+function projectKeyFor(mode) { return resolvedMode(mode) === 'demo' ? DEMO_PROJECT_KEY : PROJECT_KEY; }
+function recoveryPrefixFor(mode) { return resolvedMode(mode) === 'demo' ? DEMO_RECOVERY_PREFIX : RECOVERY_PREFIX; }
 
 function storageOf(adapter) {
   let target = adapter;
@@ -69,22 +106,23 @@ function protectReleased(previous, next) {
 }
 
 /** Never creates a demo project or touches another application's keys. */
-export function loadProject({ storage } = {}) {
-  const raw = readRaw(storageOf(storage), PROJECT_KEY);
+export function loadProject({ storage, mode } = {}) {
+  const raw = readRaw(storageOf(storage), projectKeyFor(mode));
   return raw === null ? null : parseProject(raw);
 }
 
 /** Single-key save; no automatic replacement of another project or corrupt data. */
-export function saveProject(project, { storage } = {}) {
+export function saveProject(project, { storage, mode } = {}) {
   const target = storageOf(storage);
+  const key = projectKeyFor(mode);
   const { copy, json } = checkedProject(project);
-  const oldRaw = readRaw(target, PROJECT_KEY);
+  const oldRaw = readRaw(target, key);
   if (oldRaw !== null) {
     const old = parseProject(oldRaw);
     if (old.projectId !== copy.projectId) throw new StorageError('PROJECT_CONFLICT', 'Anderes Projekt vorhanden: nur eine ausdrücklich bestätigte Wiederherstellung darf es ersetzen.');
     protectReleased(old, copy);
   }
-  writeRaw(target, PROJECT_KEY, json);
+  writeRaw(target, key, json);
   return { projectId: copy.projectId, bytesApprox: json.length };
 }
 
@@ -160,18 +198,20 @@ export function previewBackup(text) {
 }
 
 /** Explicit replacement only, with a preserved raw recovery snapshot before writing. */
-export function restoreBackup(text, { storage, confirmation, now = () => new Date() } = {}) {
+export function restoreBackup(text, { storage, mode, confirmation, now = () => new Date() } = {}) {
   if (confirmation !== 'REPLACE_PROJECT') throw new StorageError('CONFIRMATION_REQUIRED', 'Wiederherstellung muss nach der Vorschau ausdrücklich bestätigt werden.');
   const info = previewBackup(text);
   const target = storageOf(storage);
   const project = JSON.parse(text).project;
   const { json } = checkedProject(project);
-  const previousRaw = readRaw(target, PROJECT_KEY);
+  const key = projectKeyFor(mode);
+  const recoveryPrefix = recoveryPrefixFor(mode);
+  const previousRaw = readRaw(target, key);
   let recoveryKey = null;
   if (previousRaw !== null) {
     const moment = now();
     if (!(moment instanceof Date) || Number.isNaN(moment.valueOf())) throw new StorageError('INVALID_CLOCK', 'Ungültiger Wiederherstellungszeitpunkt.');
-    const stem = `${RECOVERY_PREFIX}${moment.toISOString()}`;
+    const stem = `${recoveryPrefix}${moment.toISOString()}`;
     for (let index = 0; index < 1000; index++) {
       const candidate = `${stem}:${index}`;
       if (readRaw(target, candidate) === null) { recoveryKey = candidate; break; }
@@ -180,6 +220,18 @@ export function restoreBackup(text, { storage, confirmation, now = () => new Dat
     writeRaw(target, recoveryKey, previousRaw);
   }
   // setItem replaces one complete value; on failure, its previous value is retained by conforming Storage implementations.
-  writeRaw(target, PROJECT_KEY, json);
+  writeRaw(target, key, json);
   return { ...info, recoveryKey };
+}
+
+
+/** Explicit demo-only reset. Never reads, replaces or deletes the live PROJECT_KEY. */
+export function resetDemoProject(project, { storage, confirmation } = {}) {
+  if (confirmation !== 'RESET_DEMO_PROJECT') {
+    throw new StorageError('CONFIRMATION_REQUIRED', 'Demo-Zurücksetzen muss ausdrücklich bestätigt werden.');
+  }
+  const target = storageOf(storage);
+  const { copy, json } = checkedProject(project);
+  writeRaw(target, DEMO_PROJECT_KEY, json);
+  return { projectId: copy.projectId, bytesApprox: json.length, key: DEMO_PROJECT_KEY };
 }
