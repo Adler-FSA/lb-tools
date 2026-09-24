@@ -61,8 +61,13 @@ export function reviewSupplyAccount(project, periodId, contract) {
     return fail('SUPPLY_CONTRACT_REQUIRED','contract','Sparte, Vertragsinhaber, Versorgerkonto und Bestätigung fehlen.');
   const costs=project.expenses.filter(e=>e?.propertyId===period.propertyId &&
     e.providerAccountId===contract.providerAccountId && inside(e,period));
-  const payments=project.cashflows.filter(f=>f?.propertyId===period.propertyId &&
+  const accountFlows=project.cashflows.filter(f=>f?.propertyId===period.propertyId &&
     f.providerAccountId===contract.providerAccountId && f.kind?.startsWith('provider_'));
+  const misplaced=accountFlows.filter(f=>f.accountingPeriodId!==period.id &&
+    (!validDay(f.date) || (f.date>=period.startDate && f.date<=period.endDate)));
+  if(misplaced.length) return fail('SUPPLY_PAYMENT_UNRESOLVED',`cashflows:${misplaced[0].id}`,
+    'Versorgerzahlung liegt im aktuellen Zeitraum, ist aber einer anderen Periode zugeordnet.');
+  const payments=accountFlows.filter(f=>f.accountingPeriodId===period.id);
   if(contract.contractHolder==='tenant_direct') {
     if(!text(contract.unitId) || contract.directSupplyConfirmed!==true ||
         costs.length || payments.length ||
