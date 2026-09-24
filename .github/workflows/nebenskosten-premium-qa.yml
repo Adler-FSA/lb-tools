@@ -1,0 +1,35 @@
+name: Nebenkosten Premium QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pages/immobilien-premium/**'
+      - '.github/workflows/nebenskosten-premium-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: pages/immobilien-premium
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: JavaScript syntax
+        run: |
+          for file in assets/js/*.js; do
+            node --check "$file"
+          done
+      - name: Full regression suite
+        run: npm test
