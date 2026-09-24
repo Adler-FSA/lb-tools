@@ -65,7 +65,9 @@ export function reviewSupplyRegistry(project, periodId, records) {
     (e.endDate == null || e.endDate >= period.startDate) && !reviewedExpenses.has(e.id));
   if (missing.length) return bad('SUPPLY_REGISTRY_INVENTORY_INCOMPLETE', `expenses:${missing[0].id}`);
   const unreviewedAccounts = [...new Set(project.expenses.filter(e => e?.propertyId === period.propertyId &&
-    e.providerAccountId && !ownerAccounts.has(e.providerAccountId)).map(e => e.providerAccountId))].sort();
+    e.providerAccountId && e.startDate <= period.endDate &&
+    (e.endDate == null || e.endDate >= period.startDate) &&
+    !ownerAccounts.has(e.providerAccountId)).map(e => e.providerAccountId))].sort();
   return { status: 'reviewed', calculationReady: false, issues: [], report: {
     scope: 'supply_registry_review_only', periodId, propertyId: period.propertyId,
     accounts: reports.sort((a, b) => a.providerAccountId.localeCompare(b.providerAccountId, 'en')),
