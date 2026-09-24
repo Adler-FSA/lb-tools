@@ -79,3 +79,27 @@ test('Demo enthält Mietservice, Sicherheitscheck und datensparsamen Vermietungs
  assert.equal(process.automaticScore,false);
  assert.equal(process.automaticSelection,false);
 });
+
+test('Demo V6 enthält vollständige Gebäude- und Versorgerbeispiele',()=>{
+ const p=buildDemoProject();
+ assert.equal(p.demoMetadata.demoVersion,'LINDENBLICK_V6_2026-09-24');
+ assert.equal(p.properties[0].buildingType,'multi_family');
+ assert.equal(p.properties[0].buildingTypeLabel,'Mehrfamilienhaus');
+ assert.equal(p.supplyRegistryVersion,1);
+ assert.equal(p.supplyRegistry.length,2);
+ assert.ok(p.supplyRegistry.every(x=>x.confirmed===true));
+ const water2025=p.supplyRegistry.find(x=>x.id==='demo_supply_water_2025');
+ assert.equal(water2025.contract.providerLabel,'Stadtwerke Musterstadt · fiktiv');
+ assert.deepEqual(water2025.contract.expenseIds,['demo_water_2025']);
+});
+test('Demo-Mietvertrag ist als vollständiges Anschauungsbeispiel vorbelegt',()=>{
+ const p=buildDemoProject(),lease=p.documents.find(x=>x.source==='residential-lease-workshop-v1');
+ assert.equal(lease.payload.property.parking,'Stellplatz 2');
+ assert.equal(lease.payload.rent.iban,'DE00 0000 0000 0000 0000 00');
+ assert.equal(lease.payload.rent.bank,'DemoBank · fiktiv');
+ assert.equal(lease.payload.care.smallRepairs,true);
+ assert.equal(lease.payload.care.smallRepairSingleCents,10000);
+ assert.equal(lease.payload.care.cosmeticRepairs,true);
+ assert.equal(lease.payload.handover.inventoryAttached,true);
+ assert.ok(lease.payload.additional.agreements.length>20);
+});
