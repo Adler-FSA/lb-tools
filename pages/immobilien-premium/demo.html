@@ -7,23 +7,25 @@
 </head><body>
 <div class="demo-shell" data-demo-shell>
 <header class="demo-top">
-  <div class="demo-brand"><div class="demo-mark">D</div><div><strong>Demo-Haus Lindenblick</strong><span>Geführte Lernreise · alle Personen, Adressen und Belege sind fiktiv</span></div></div>
-  <span class="demo-badge">DEMO · keine echten Daten</span>
+  <div class="demo-brand"><div class="demo-mark">D</div><div><strong data-i18n="demoTitle">Demo-Haus Lindenblick</strong><span data-i18n="demoSubtitle">Geführte Lernreise · alle Personen, Adressen und Belege sind fiktiv</span></div></div>
+  <span class="demo-badge" data-i18n="demoBadge">DEMO · keine echten Daten</span>
   <div class="demo-actions">
-    <button class="demo-btn primary" type="button" data-toggle-mode>Frei erkunden</button>
-    <button class="demo-btn" type="button" data-reset-demo>Demo zurücksetzen</button>
-    <button class="demo-btn danger" type="button" data-exit-demo>Demo verlassen</button>
+    <button class="demo-btn" type="button" data-lang="de">DE</button>
+    <button class="demo-btn" type="button" data-lang="en">EN</button>
+    <button class="demo-btn primary" type="button" data-toggle-mode data-i18n="freeMode">Frei erkunden</button>
+    <button class="demo-btn" type="button" data-reset-demo data-i18n="reset">Demo zurücksetzen</button>
+    <button class="demo-btn danger" type="button" data-exit-demo data-i18n="exit">Demo verlassen</button>
   </div>
 </header>
 <div class="demo-body">
   <aside class="demo-guide">
-    <div class="guide-eyebrow">Akademie-Lernreise</div>
+    <div class="guide-eyebrow" data-i18n="journey">Akademie-Lernreise</div>
     <div class="guide-step" data-guide-step></div>
     <h1 class="guide-title" data-guide-title></h1>
     <p class="guide-copy" data-guide-copy></p>
-    <div class="guide-why"><strong>Warum ist das wichtig?</strong><span data-guide-why></span></div>
+    <div class="guide-why"><strong data-i18n="why">Warum ist das wichtig?</strong><span data-guide-why></span></div>
     <div class="guide-facts" data-guide-facts></div>
-    <div class="guide-nav"><button class="secondary" type="button" data-prev>← Zurück</button><button type="button" data-next>Weiter →</button></div>
+    <div class="guide-nav"><button class="secondary" type="button" data-prev data-i18n="prev">← Zurück</button><button type="button" data-next data-i18n="next">Weiter →</button></div>
     <div class="guide-list" data-guide-list></div>
   </aside>
   <main class="demo-stage">
