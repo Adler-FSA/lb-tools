@@ -18,7 +18,7 @@ const actionForSection = section => ({
   immobilien: { label: 'Immobilien & Nutzung prüfen', href: 'immobilien.html' },
   kosten: { label: 'Kosten & Zahlungen prüfen', href: 'kosten.html' },
   verbrauch: { label: 'Zähler & Verbrauch prüfen', href: 'verbrauch.html' },
-  vermieter: { label: 'Verteilung folgt im Vermieter-Baustein', href: null },
+  vermieter: { label: 'Verteilung in der Vermieterabrechnung prüfen', href: null },
   sonderkosten: { label: 'Sonderkosten-Fachpfad erforderlich', href: null },
   pruefung: { label: 'Datengrundlage prüfen', href: null }
 })[section];
