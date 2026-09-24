@@ -2,6 +2,8 @@
 export const LEASE_WORKSHOP_VERSION='DE_WOHNRAUM_V1_2026-09-24';
 export const LEASE_WORKSHOP_SOURCE='residential-lease-workshop-v1';
 const clone=v=>structuredClone(v), cents=v=>Number.isSafeInteger(v)&&v>=0;
+const esc=v=>String(v??'').replace(/[&<>\"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[ch]));
+const safeClone=v=>Array.isArray(v)?v.map(safeClone):(v&&typeof v==='object'?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,safeClone(x)])):(typeof v==='string'?esc(v):v));
 const day=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&!Number.isNaN(Date.parse(v+'T00:00:00Z'));
 const t=(v,n=800)=>String(v??'').trim().slice(0,n);
 const euro=c=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format((Number(c)||0)/100);
@@ -63,7 +65,7 @@ export function validateLeaseConfig(input){
 }
 function S(n,title,html){return{number:n,title,html};}
 export function buildLeaseDocument(input){
- const q=validateLeaseConfig(input);if(!q.valid)throw new Error('Mietvertrag ist noch nicht ausgabefähig.');const c=q.config,s=[];
+ const q=validateLeaseConfig(input);if(!q.valid)throw new Error('Mietvertrag ist noch nicht ausgabefähig.');const c=safeClone(q.config),s=[];
  const obj=[c.property.unitLabel?'Wohnung '+c.property.unitLabel:'',c.property.floor?'Lage: '+c.property.floor:'',c.property.areaM2?'Wohnfläche ca. '+c.property.areaM2+' m²':'',c.property.rooms?c.property.rooms+' Zimmer':''].filter(Boolean).join(' · ');
  s.push(S(1,'Mietobjekt','<p>Vermietet wird zu Wohnzwecken die Wohnung in <strong>'+t(c.property.street)+', '+t(c.property.postalCity)+'</strong>.</p><p>'+obj+'.</p>'+(c.property.cellar?'<p>Keller: '+t(c.property.cellar)+'.</p>':'')+(c.property.parking?'<p>Stellplatz/Garage: '+t(c.property.parking)+'.</p>':'')));
  if(c.term.kind==='fixed'){const L={own_use:'beabsichtigte Eigennutzung',construction:'beabsichtigte wesentliche bauliche Maßnahme',service_person:'beabsichtigte Vermietung an eine zur Dienstleistung verpflichtete Person'};s.push(S(2,'Mietzeit','<p>Beginn: <strong>'+d(c.term.startDate)+'</strong>. Ende: <strong>'+d(c.term.endDate)+'</strong>.</p><p>Befristungsgrund: <strong>'+L[c.term.fixedReason]+'</strong>. '+t(c.term.fixedReasonDetail,1500)+'</p>'));}else s.push(S(2,'Mietzeit und Kündigung','<p>Das Mietverhältnis beginnt am <strong>'+d(c.term.startDate)+'</strong> und läuft auf unbestimmte Zeit.</p><p>Für Kündigung gelten die gesetzlichen Voraussetzungen, Formen und Fristen.</p>'));
