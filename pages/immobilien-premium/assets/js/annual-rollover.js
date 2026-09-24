@@ -18,7 +18,8 @@ export function createNextAccountingPeriod(project,{sourcePeriodId,newPeriodId})
   if(!source||!validDay(source.startDate)||!validDay(source.endDate))
     throw new AnnualRolloverError('SOURCE_PERIOD_REQUIRED','Abgeschlossene Ausgangsperiode wurde nicht gefunden.');
   const startDate=plusYear(source.startDate),endDate=plusYear(source.endDate);
-  if(project.accountingPeriods.some(x=>x.propertyId===source.propertyId&&x.startDate<=endDate&&x.endDate>=startDate))
+  if(project.accountingPeriods.some(x=>x.propertyId===source.propertyId&&x.id!==source.id&&
+      x.startDate<=endDate&&(x.endDate??'9999-12-31')>=startDate))
     throw new AnnualRolloverError('PERIOD_EXISTS','Für diesen Zeitraum existiert bereits eine Abrechnungsperiode.');
   const before={
     expenses:JSON.stringify(project.expenses??[]),
