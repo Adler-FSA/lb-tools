@@ -7,9 +7,10 @@ import {calculatePeriod} from './calculation.js';
 import {createRentalDocumentDraft} from './rental-service.js';
 import {upsertSafetyCheck} from './safety-checks.js';
 import {createLettingProcess,advanceLettingPhase,setLettingItemState,LETTING_ITEMS} from './letting-check.js';
+import {prepareReviewDocument,releaseReviewDocument,recordDocumentDelivery,RELEASE_CONFIRMATION} from './document-workflow.js';
 
 export const DEMO_PROJECT_ID='demo_lindenblick';
-export const DEMO_VERSION='LINDENBLICK_V2_2026-09-24';
+export const DEMO_VERSION='LINDENBLICK_V3_2026-09-24';
 
 const standardCosts=['property_tax','building_insurance','waste','common_electricity','cold_water'];
 const clone=v=>structuredClone(v);
@@ -196,6 +197,50 @@ function addRentalDocuments(project){
   return p;
 }
 
+
+function addReleasedDocumentExamples(project){
+  let p=project;
+  const examples=[
+    {
+      sourceId:'demo_doc_house_rules',documentId:'demo_release_house_rules',
+      createdOn:'2026-01-05',releasedOn:'2026-01-05',deliveryId:'demo_delivery_house_rules',
+      deliveredOn:'2026-01-05',channel:'personal',note:'Demo: Hausordnung als Anlage persönlich übergeben.'
+    },
+    {
+      sourceId:'demo_doc_handover_vogel',documentId:'demo_release_handover_vogel',
+      createdOn:'2025-07-01',releasedOn:'2025-07-01',deliveryId:'demo_delivery_handover_vogel',
+      deliveredOn:'2025-07-01',channel:'personal',note:'Demo: Übergabeprotokoll gemeinsam bei Einzug bestätigt.'
+    }
+  ];
+  for(const example of examples){
+    const draft=p.documents.find(x=>x.id===example.sourceId);
+    const property=p.properties.find(x=>x.id===draft.propertyId);
+    const unit=p.units.find(x=>x.id===draft.unitId);
+    const tenancy=draft.tenancyId?p.tenancies.find(x=>x.id===draft.tenancyId):null;
+    const snapshot={
+      kind:'service_document',sourceDocumentId:draft.id,
+      property:{id:property.id,label:property.label,address:clone(property.address??{})},
+      unit:{id:unit.id,label:unit.label||unit.id,floor:unit.floor||''},
+      tenancy:tenancy?{id:tenancy.id,partyLabel:tenancy.partyLabel||tenancy.id,startDate:tenancy.startDate,endDate:tenancy.endDate}:null,
+      payload:clone(draft.payload??{}),sourceCreatedOn:draft.createdOn||null,
+      reviewFlags:clone(draft.reviewFlags??[]),legalRelease:false
+    };
+    p=prepareReviewDocument(p,{
+      documentId:example.documentId,documentType:draft.type,title:draft.title,createdOn:example.createdOn,
+      snapshot,propertyId:draft.propertyId,tenancyId:draft.tenancyId||null,sourceDocumentId:draft.id,
+      legalReviewRequired:true
+    }).project;
+    p=releaseReviewDocument(p,{
+      documentId:example.documentId,releasedOn:example.releasedOn,confirmation:RELEASE_CONFIRMATION
+    }).project;
+    p=recordDocumentDelivery(p,{
+      itemId:example.deliveryId,documentId:example.documentId,deliveredOn:example.deliveredOn,
+      channel:example.channel,note:example.note
+    }).project;
+  }
+  return p;
+}
+
 function addSafetyChecks(project){
   let p=project;
   const rows=[
@@ -242,6 +287,7 @@ export function buildDemoProject(){
   addYear2024(p);
   addYear2025(p);
   p=addRentalDocuments(p);
+  p=addReleasedDocumentExamples(p);
   p=addSafetyChecks(p);
   p=addLettingDemo(p);
   p.demoMetadata={
