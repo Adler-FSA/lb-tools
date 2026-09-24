@@ -44,3 +44,23 @@ test('Demo und Bedienungsanleitung verwenden dieselbe Lernquelle',()=>{
  assert.ok(html.includes('data-lang="en"'));
  assert.equal(/(?:src|href)=["']https?:\/\//i.test(html),false);
 });
+
+test('Zentrale bietet eigenes Projekt, Demo und Bedienungsanleitung direkt an',()=>{
+ const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+ assert.ok(html.includes('href="immobilien.html"'));
+ assert.ok(html.includes('href="demo.html"'));
+ assert.ok(html.includes('href="bedienungsanleitung.html"'));
+});
+test('Käuferoberflächen enthalten keine sichtbaren Entwicklungs-Bausteine mehr',()=>{
+ const files=[
+  'index.html','immobilien.html','kosten.html','verbrauch.html','abrechnung-eigentuemer.html',
+  'abrechnung-vermieter.html','mietservice.html','schutzcheck.html','vermietungscheck.html',
+  'pdf-zentrale.html','archiv.html','einstellungen.html','hilfe.html','bedienungsanleitung.html',
+  'assets/js/demo-guide.js','assets/js/bedienungsanleitung-ui.js','assets/js/pdf-zentrale-ui.js'
+ ];
+ for(const file of files){
+  const text=fs.readFileSync(path.join(root,file),'utf8');
+  assert.equal(/Baustein\s+\d/i.test(text),false,file);
+  assert.equal(/Bausteingrenze/i.test(text),false,file);
+ }
+});
