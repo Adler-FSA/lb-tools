@@ -65,6 +65,23 @@ function go(index,{navigate=true}={}){
 function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));}
 
 
+
+function guardAgainstNestedDemo(){
+  try{
+    const doc=frame.contentDocument;if(!doc||doc.documentElement.dataset.demoNavigationGuard)return;
+    doc.documentElement.dataset.demoNavigationGuard='1';
+    doc.addEventListener('click',event=>{
+      const link=event.target?.closest?.('a[href]');if(!link)return;
+      const raw=link.getAttribute('href')||'';
+      if(raw.split('?')[0].split('#')[0]==='demo.html'){
+        event.preventDefault();
+        event.stopPropagation();
+        showToast(getLanguage()==='en'?'You are already inside the demo.':'Du befindest Dich bereits in der Demo.');
+      }
+    },true);
+  }catch{}
+}
+
 function applyShowcase(){
   try{
     const doc=frame.contentDocument,win=frame.contentWindow;
@@ -128,8 +145,8 @@ document.querySelector('[data-exit-demo]').addEventListener('click',()=>{
 });
 frame.addEventListener('load',()=>{
   cleanDevelopmentLanguage();
-  setTimeout(()=>{cleanDevelopmentLanguage();applyShowcase();},120);
-  setTimeout(applyShowcase,420);
+  setTimeout(()=>{cleanDevelopmentLanguage();guardAgainstNestedDemo();applyShowcase();},120);
+  setTimeout(()=>{guardAgainstNestedDemo();applyShowcase();},420);
 });
 
 window.addEventListener('app-language-change',()=>{
