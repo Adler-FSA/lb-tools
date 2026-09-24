@@ -86,8 +86,12 @@ test('Demo V6 enthält vollständige Gebäude- und Versorgerbeispiele',()=>{
  assert.equal(p.properties[0].buildingType,'multi_family');
  assert.equal(p.properties[0].buildingTypeLabel,'Mehrfamilienhaus');
  assert.equal(p.supplyRegistryVersion,1);
- assert.equal(p.supplyRegistry.length,2);
- assert.ok(p.supplyRegistry.every(x=>x.confirmed===true));
+ assert.equal(p.supplyRegistry.length,12);
+ assert.equal(p.supplyRegistry.filter(x=>x.accountingPeriodId==='demo_year_2024').length,6);
+ assert.equal(p.supplyRegistry.filter(x=>x.accountingPeriodId==='demo_year_2025').length,6);
+ assert.ok(p.supplyRegistry.every(x=>x.confirmed===true&&x.contract.confirmed===true));
+ assert.ok(p.supplyRegistry.filter(x=>x.accountingPeriodId==='demo_year_2024').every(x=>x.contract.providerAccountId.endsWith('_2024')));
+ assert.ok(p.supplyRegistry.filter(x=>x.accountingPeriodId==='demo_year_2025').every(x=>x.contract.providerAccountId.endsWith('_2025')));
  const water2025=p.supplyRegistry.find(x=>x.id==='demo_supply_water_2025');
  assert.equal(water2025.contract.providerLabel,'Stadtwerke Musterstadt · fiktiv');
  assert.deepEqual(water2025.contract.expenseIds,['demo_water_2025']);
