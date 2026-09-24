@@ -169,7 +169,7 @@ function addRentalDocuments(project){
     tenancyId:'demo_lease_berger',createdOn:'2026-09-24',title:'Mietvertragsentwurf · Familie Berger',
     fields:{tenantLabel:'Familie Berger · fiktiv',startDate:'2024-01-01',baseRentCents:98000,
       operatingCostsModel:'advance',operatingCostCents:22000,depositCents:294000,
-      notes:'Demo: unbefristetes Wohnraummietverhältnis; Fach- und Rechtsprüfung erfolgt außerhalb des Dokuments.'}
+      notes:'Demo: Kellerraum A1 ist der Wohnung zugeordnet; ein Stellplatz ist nicht mitvermietet.'}
   }).project;
   p=createRentalDocumentDraft(p,{
     documentId:'demo_doc_house_rules',type:'house_rules',propertyId:'demo_house',unitId:'demo_rent_a',
