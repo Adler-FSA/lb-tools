@@ -8,9 +8,11 @@ import {createRentalDocumentDraft} from './rental-service.js';
 import {upsertSafetyCheck} from './safety-checks.js';
 import {createLettingProcess,advanceLettingPhase,setLettingItemState,LETTING_ITEMS} from './letting-check.js';
 import {prepareReviewDocument,releaseReviewDocument,recordDocumentDelivery,RELEASE_CONFIRMATION} from './document-workflow.js';
+import {upsertLeaseWorkshopDraft,defaultLeaseConfig} from './lease-workshop.js';
+import {upsertHouseRulesDraft,defaultHouseRulesConfig} from './house-rules-workshop.js';
 
 export const DEMO_PROJECT_ID='demo_lindenblick';
-export const DEMO_VERSION='LINDENBLICK_V4_2026-09-24';
+export const DEMO_VERSION='LINDENBLICK_V5_2026-09-24';
 
 const standardCosts=['property_tax','building_insurance','waste','common_electricity','cold_water'];
 const clone=v=>structuredClone(v);
@@ -198,6 +200,29 @@ function addRentalDocuments(project){
 }
 
 
+function addWorkshopDrafts(project){
+  let p=project;
+  const lease=defaultLeaseConfig();
+  lease.landlord={name:'Eva Linden · fiktiv',street:'Beispielweg 12',postalCity:'64295 Darmstadt'};
+  lease.tenant={name:'Familie Berger · fiktiv',street:'Altstadtweg 7',postalCity:'64283 Darmstadt'};
+  lease.property={...lease.property,street:'Beispielweg 12',postalCity:'64295 Darmstadt',unitLabel:'1. OG links · Wohnung A',floor:'1. OG links',areaM2:'75',rooms:'3',cellar:'Kellerraum A1',parking:'',sharedFacilities:'Fahrradraum und gemeinschaftlicher Müllplatz'};
+  lease.term.startDate='2024-01-01';
+  lease.rent.baseRentCents=98000;lease.rent.operatingMode='advance';lease.rent.operatingCostCents=22000;
+  lease.deposit.enabled=true;lease.deposit.amountCents=294000;
+  lease.occupancy.persons='3';lease.houseRules.attached=true;lease.handover.protocolAttached=true;
+  lease.additional.keys='2 Haustürschlüssel, 2 Wohnungsschlüssel, 1 Briefkastenschlüssel';
+  lease.additional.fixtures='Einbauküche ohne Elektrogeräte';
+  p=upsertLeaseWorkshopDraft(p,{documentId:'demo_workshop_lease_berger',propertyId:'demo_house',unitId:'demo_rent_a',tenancyId:'demo_lease_berger',config:lease,createdOn:'2026-09-24'}).project;
+
+  const rules=defaultHouseRulesConfig();
+  rules.title='Hausordnung · Demo-Haus Lindenblick';rules.propertyLabel='Demo-Haus Lindenblick';rules.mode='contractual_attachment';
+  rules.laundry.enabled=true;rules.garden.enabled=true;rules.grill.enabled=true;rules.petsCommon.enabled=true;
+  rules.cleaning.enabled=false;rules.winter.enabled=false;
+  p=upsertHouseRulesDraft(p,{documentId:'demo_workshop_house_rules',propertyId:'demo_house',unitId:null,config:rules,createdOn:'2026-09-24'}).project;
+  return p;
+}
+
+
 function addReleasedDocumentExamples(project){
   let p=project;
   const examples=[
@@ -287,6 +312,7 @@ export function buildDemoProject(){
   addYear2024(p);
   addYear2025(p);
   p=addRentalDocuments(p);
+  p=addWorkshopDrafts(p);
   p=addReleasedDocumentExamples(p);
   p=addSafetyChecks(p);
   p=addLettingDemo(p);
