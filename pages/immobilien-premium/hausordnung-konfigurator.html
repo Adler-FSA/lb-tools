@@ -1,0 +1,51 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hausordnungs-Konfigurator · Nebenkosten Premium</title>
+<meta name="description" content="Konfigurierbare Hausordnung mit separater Prüfebene">
+<link rel="stylesheet" href="assets/css/app.css"><link rel="stylesheet" href="assets/css/workshop.css">
+</head><body><div class="shell">
+<header class="topbar"><div class="topbar-inner"><div class="brand-row"><div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M4 10 12 3l8 7v10H4z"/><path d="M9 20v-6h6v6"/></svg></div><div class="brand-text"><div class="brand-title">Nebenkosten Premium</div><div class="brand-sub">Hausordnungs-Konfigurator</div></div></div><div class="toolbar"><button class="tab" type="button" data-lang="de">DE</button><button class="tab" type="button" data-lang="en">EN</button><div class="storage-pill" data-storage-pill><span class="storage-dot"></span><span class="storage-text" data-storage-text>Speicher wird geprüft</span></div></div></div>
+<nav class="mainnav"><a class="nav-item" href="index.html" data-i18n="navHome">Meine Zentrale</a><a class="nav-item" href="mietservice.html" data-i18n="navRental">Mietservice</a><a class="nav-item" href="mietvertragswerkstatt.html" data-i18n="navLease">Mietvertragswerkstatt</a><a class="nav-item active" href="hausordnung-konfigurator.html" data-i18n="navHouseRules">Hausordnung</a><a class="nav-item" href="pdf-zentrale.html" data-i18n="navDocs">Dokumente & Hilfe</a></nav></div></header>
+<main class="page">
+<section class="hero"><div class="hero-card"><div class="eyebrow" data-i18n="eyebrow">Hausgemeinschaft · konfigurierbare Musterfassung</div><h1 data-i18n="title">Hausordnung passend zum Gebäude zusammenstellen.</h1><p data-i18n="copy">Organisatorische Regeln, Gemeinschaftsflächen und Sicherheitsaspekte lassen sich auswählen. Übertragene Bewohnerpflichten werden separat als Prüfbedarf markiert.</p></div>
+<aside class="status-card"><div><div class="eyebrow" data-i18n="status">Dokumentart</div><h2 data-mode-status>Vertragsanlage</h2><p data-i18n="statusCopy">Der Status wird aus deiner Auswahl erzeugt. Prüfhinweise bleiben außerhalb des Dokuments.</p></div></aside></section>
+<div class="flash" data-flash role="status" aria-live="polite"></div>
+<section class="card form-card"><div class="section-head"><div><div class="eyebrow" data-i18n="context">Projektbezug</div><h2 data-i18n="contextTitle">Immobilie auswählen</h2></div></div><div class="context-row"><div><label data-i18n="property">Immobilie</label><select data-property></select></div><div><label data-i18n="unit">Optional: Wohnung</label><select data-unit></select></div><div><label data-i18n="mode">Verwendung</label><select data-field="mode"><option value="contractual_attachment">Als Vertragsanlage</option><option value="information">Nur Bewohnerinformation</option></select></div></div></section>
+<div class="workshop-layout section">
+<aside class="workshop-side">
+<div class="card"><h3 data-i18n="configure">Hausordnung konfigurieren</h3>
+<div class="workshop-fields"><label data-i18n="docTitle">Titel<input data-field="title"></label></div>
+<details open><summary data-i18n="quiet">Ruhe & Rücksicht</summary><div class="workshop-fields">
+<label class="check-row"><input type="checkbox" data-check="quiet.enabled"><span data-i18n="quietEnabled">Ruhezeiten aufnehmen</span></label>
+<div class="workshop-fields two"><label data-i18n="from">von<input type="time" data-field="quiet.from"></label><label data-i18n="to">bis<input type="time" data-field="quiet.to"></label></div>
+<label class="check-row"><input type="checkbox" data-check="quiet.midday"><span data-i18n="midday">Zusätzliche Mittagsruhe</span></label>
+<div class="workshop-fields two"><label data-i18n="from">von<input type="time" data-field="quiet.middayFrom"></label><label data-i18n="to">bis<input type="time" data-field="quiet.middayTo"></label></div>
+</div></details>
+<details open><summary data-i18n="common">Gemeinschaftsbereiche</summary><div class="workshop-fields">
+<label class="check-row"><input type="checkbox" data-check="common.enabled"><span data-i18n="commonAreas">Gemeinschaftsflächen</span></label><label><textarea data-field="common.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="waste.enabled"><span data-i18n="waste">Müll & Entsorgung</span></label><label><textarea data-field="waste.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="bikes.enabled"><span data-i18n="bikes">Fahrräder / Gegenstände</span></label><label><textarea data-field="bikes.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="laundry.enabled"><span data-i18n="laundry">Waschküche / Gemeinschaftsgeräte</span></label><label><textarea data-field="laundry.text"></textarea></label>
+</div></details>
+<details><summary data-i18n="outside">Außenflächen & Verhalten</summary><div class="workshop-fields">
+<label class="check-row"><input type="checkbox" data-check="garden.enabled"><span data-i18n="garden">Garten / Außenflächen</span></label><label><textarea data-field="garden.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="grill.enabled"><span data-i18n="grill">Grillen</span></label><label><textarea data-field="grill.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="petsCommon.enabled"><span data-i18n="pets">Tiere in Gemeinschaftsbereichen</span></label><label><textarea data-field="petsCommon.text"></textarea></label>
+</div></details>
+<details><summary data-i18n="safety">Sicherheit</summary><div class="workshop-fields">
+<label class="check-row"><input type="checkbox" data-check="safety.enabled"><span data-i18n="escape">Flucht- und Rettungswege</span></label><label><textarea data-field="safety.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="doors.enabled"><span data-i18n="doors">Haus- und Zugangstüren</span></label><label><textarea data-field="doors.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="smoking.enabled"><span data-i18n="smoking">Rauchen in Gemeinschaftsbereichen</span></label><label><textarea data-field="smoking.text"></textarea></label>
+</div></details>
+<details><summary data-i18n="duties">Besondere Bewohnerpflichten</summary><div class="workshop-fields">
+<label class="check-row"><input type="checkbox" data-check="cleaning.enabled"><span data-i18n="cleaning">Reinigungsregel aufnehmen</span></label><label class="check-row"><input type="checkbox" data-check="cleaning.assigned"><span data-i18n="cleaningAssigned">Pflicht Bewohnern zuordnen</span></label><label><textarea data-field="cleaning.text"></textarea></label>
+<label class="check-row"><input type="checkbox" data-check="winter.enabled"><span data-i18n="winter">Winterdienst aufnehmen</span></label><label class="check-row"><input type="checkbox" data-check="winter.assigned"><span data-i18n="winterAssigned">Pflicht Bewohnern zuordnen</span></label><label><textarea data-field="winter.text"></textarea></label>
+</div></details>
+</div>
+<div class="card"><div class="validation-panel" data-validation></div><div class="review-panel" data-review-panel style="margin-top:10px"></div><div class="workshop-actions"><button class="btn btn-secondary" type="button" data-save data-i18n="save">Entwurf speichern</button><button class="btn btn-primary" type="button" data-pdf data-i18n="pdf">PDF erstellen</button></div></div>
+</aside>
+<section class="workshop-paper"><header class="workshop-paper-head"><div><h2 data-i18n="preview">Dokumentvorschau</h2><p data-i18n="previewCopy">Nur dieser Bereich wird als Hausordnung ausgegeben.</p></div><span class="badge" data-i18n="draft">Musterfassung</span></header><div class="contract" data-contract-document></div></section>
+</div><div id="pdfEmptyFields" hidden></div>
+</main><footer class="footer" data-i18n="footer">Hausordnungs-Konfigurator · Prüfhinweise sind vom Dokument getrennt.</footer></div>
+<script src="../vertraege/contract-pdf-engine-v2.js?v=2"></script><script src="../merchant-kompass/akademie-pdf-uebergabe.js?v=1"></script><script type="module" src="assets/js/hausordnung-konfigurator-ui.js"></script>
+</body></html>
