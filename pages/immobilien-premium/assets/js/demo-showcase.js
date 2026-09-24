@@ -66,6 +66,17 @@ export function applyDemoShowcase(doc,page,project){
   const {p,a}=propertyData(project);
   doc.body?.classList.add('demo-showcase-view');
 
+  // A demo page must never open the demo shell inside its own iframe.
+  for(const link of doc.querySelectorAll('a[href]')){
+    const raw=link.getAttribute('href')||'';
+    if(raw.split('?')[0].split('#')[0]==='demo.html'){
+      link.dataset.demoShellSelfLink='1';
+      link.hidden=true;
+      link.setAttribute('aria-hidden','true');
+      link.setAttribute('tabindex','-1');
+    }
+  }
+
   if(page==='immobilien.html'){
     const pf=doc.querySelector('[data-property-form]');
     fillForm(pf,{label:p?.label||'Demo-Haus Lindenblick',workspaceMode:'mixed',buildingType:'multi_family',street:a.street||'Beispielweg',houseNumber:a.houseNumber||'12',postalCode:a.postalCode||'64295',city:a.city||'Darmstadt'});
