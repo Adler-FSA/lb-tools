@@ -64,3 +64,20 @@ test('Käuferoberflächen enthalten keine sichtbaren Entwicklungs-Bausteine mehr
   assert.equal(/Bausteingrenze/i.test(text),false,file);
  }
 });
+
+test('Demo startet als freies Anschauungsmodell und Lernreise bleibt optional',()=>{
+ const html=fs.readFileSync(path.join(root,'demo.html'),'utf8');
+ const shell=fs.readFileSync(path.join(root,'assets/js/demo-shell.js'),'utf8');
+ assert.ok(html.includes('class="demo-shell free"'));
+ assert.ok(html.includes('Lernreise starten'));
+ assert.ok(shell.includes("let current=0,free=true"));
+ assert.ok(shell.includes("from './demo-showcase.js'"));
+});
+test('Formularintensive Demoseiten erhalten eine Anschauungsbefüllung',async()=>{
+ const {DEMO_SHOWCASE_PAGES}=await import('../assets/js/demo-showcase.js');
+ assert.deepEqual(DEMO_SHOWCASE_PAGES,[
+  'immobilien.html','kosten.html','verbrauch.html','abrechnung-vermieter.html',
+  'mietservice.html','vermietungscheck.html','einstellungen.html'
+ ]);
+ for(const page of DEMO_SHOWCASE_PAGES)assert.ok(fs.existsSync(path.join(root,page)),page);
+});
