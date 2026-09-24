@@ -8,7 +8,7 @@ const steps=[
     url:'index.html?demo=1',
     copy:'Du schaust dir ein vollständig eingerichtetes Mehrfamilienhaus an. Eine Wohnung wird selbst genutzt, zwei Wohnungen sind vermietet. Alle Personen, Adressen und Belege sind frei erfunden.',
     why:'Du kannst das gesamte System ansehen und verändern, ohne eigene Immobilien- oder Mieterdaten zu benötigen.',
-    facts:['3 Wohnungen · insgesamt 235 m²','2 abgeschlossene Abrechnungsjahre','2026 mit echtem Mieterwechsel in Wohnung B']
+    facts:['3 Wohnungen · insgesamt 235 m²','2 abgeschlossene Abrechnungsjahre','2025 mit echtem Mieterwechsel in Wohnung B']
   },
   {
     title:'Das Gebäude und seine Wohnungen',
