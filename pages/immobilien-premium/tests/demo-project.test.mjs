@@ -50,6 +50,8 @@ test('Demo-Archiv enthält zwei freigegebene Musterfassungen und getrennte Über
 test('Demo enthält Mietservice, Sicherheitscheck und datensparsamen Vermietungsprozess',()=>{
  const p=buildDemoProject();
  assert.equal(p.documents.filter(x=>x.source==='baustein5-mietservice-v1').length,5);
+ assert.equal(p.documents.filter(x=>x.kind==='document_snapshot'&&x.status==='released').length,2);
+ assert.equal(p.checkItems.filter(x=>x.type==='document_delivery').length,2);
  assert.equal(p.checkItems.filter(x=>x.type==='owner_safety').length,9);
  const process=p.checkItems.find(x=>x.type==='letting_process');
  assert.equal(process.phase,'C_SELECTED');
