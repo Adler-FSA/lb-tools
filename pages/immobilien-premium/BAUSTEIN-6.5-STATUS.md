@@ -4,7 +4,7 @@ Stand: 24.09.2026
 
 ## Status
 
-Baustein 6.5 ist technisch für die praktische Nutzerprüfung vorbereitet.
+Baustein 6.5 ist technisch für die praktische Nutzerprüfung vorbereitet. Die Demo ist jetzt als vollständig ausgefülltes Anschauungsmodell ausgelegt; die Lernreise ist optional.
 
 Baustein 7 — Gesamtabnahme — wurde noch nicht begonnen.
 
@@ -18,7 +18,7 @@ Die neue Wohnraum-Mietvertragswerkstatt und der Hausordnungs-Konfigurator sind e
 
 Aktuelle Demo-Version:
 
-`LINDENBLICK_V5_2026-09-24`
+`LINDENBLICK_V6_2026-09-24`
 
 Vollständig fiktiver Referenzfall:
 
@@ -52,7 +52,7 @@ Vollständig fiktiver Referenzfall:
 
 Der Nutzerwechsel wird zeitlich und über die Kaltwasser-Zwischenablesung getrennt verarbeitet.
 
-## Demo-Inhalte V5
+## Demo-Inhalte V6
 
 Der Ausgangsstand enthält unter anderem:
 
@@ -91,6 +91,53 @@ Geprüft:
 - Demo-Änderungen verändern das Live-Projekt nicht
 - „Demo zurücksetzen“ schreibt ausschließlich den Demo-Schlüssel
 - normale Projektdaten und freigegebene Dokumente werden vom Demo-Reset nicht verändert
+
+## Vollständig ausgefüllte Anschauungsdemo
+
+Die Demo startet nicht mehr primär als Trainings-/Lernansicht.
+
+Standard:
+
+- `demo.html` öffnet als freies Anschauungsmodell
+- die Lernreise ist optional über „Lernreise starten“
+- direkte Links aus der Bedienungsanleitung können weiterhin einen konkreten Lernschritt öffnen
+
+Der Demo-Datensatz wurde auf V6 erweitert um:
+
+- Gebäudetyp „Mehrfamilienhaus“
+- bestätigte fiktive Wasser-Versorgerakte 2024 und 2025
+- vollständige Tarif-/Preisreferenzen
+- periodengerecht getrennte Versorgerkonten
+- vollständigere Mietvertragsdaten einschließlich fiktiver Bankverbindung, Stellplatz, Inventar und weiterer Vereinbarungen
+- aktiviertes Kleinreparatur-/Schönheitsreparaturbeispiel mit separatem Prüfbedarf
+
+Die Kostenseite öffnet im Demo-Modus bewusst das Referenzjahr 2025 statt automatisch das aktuelle Kalenderjahr 2026.
+
+### Demo-spezifische Formularbefüllung
+
+`assets/js/demo-showcase.js`
+
+Formularintensive Produktseiten werden innerhalb der Demo mit vollständig ausgefüllten Anschauungswerten vorbelegt:
+
+- Immobilien
+- Kosten & Versorger
+- Zähler & Verbrauch
+- Vermieterabrechnung
+- Mietservice
+- Vermietungscheck
+- Sicherung / Einstellungen
+
+Dabei gilt:
+
+- gespeicherte Demo-Daten werden mit ihren tatsächlichen Beispielwerten gezeigt
+- reine Aktionsformulare erhalten vollständige fiktive Beispielwerte
+- die Vorbelegung schreibt nichts in den Speicher, solange der Nutzer nicht selbst speichert
+- ein Demo-Reset stellt den geprüften Ausgangsstand wieder her
+- fachlich nicht anwendbare Sonderbereiche werden nicht mit erfundenen Fachwerten befüllt
+
+Beispiel: Heiz-/Warmwasser-, verbundene Anlagen- und CO₂-Sonderpfade werden im Referenzjahr 2025 als „nicht erforderlich“ gekennzeichnet, weil der Demo-Fall diese Kostenarten bewusst nicht enthält.
+
+Ein Browser-Dateiupload kann aus Sicherheitsgründen nicht programmatisch mit einer echten Datei befüllt werden. In der Demo wird deshalb an dieser Stelle eine fiktive Sicherungsdatei als Anschauungswert angezeigt.
 
 ## Lernreise und Bedienungsanleitung
 
@@ -291,7 +338,7 @@ Bei den neuen Werkzeugen wird kein externes Logo für die PDF geladen (`logoUrl:
 
 Die bisherigen einfachen Mietservice-Entwürfe bleiben erhalten. Sie wurden nicht gelöscht oder umgebaut.
 
-## Demo V5 — Vertragswerkzeuge
+## Demo V6 — Vertragswerkzeuge
 
 Das Demo-Haus enthält vorkonfiguriert:
 
@@ -342,25 +389,25 @@ Gezielt zur Laufzeit geprüft:
 - Hausordnungsentwurf passiert das bestehende Projektschema
 - beide können mit dem bestehenden `saveProject/loadProject` gespeichert und wieder gelesen werden
 - keine zweite Datenbank oder Schattenablage erforderlich
-- Demo V5 passiert weiterhin das bestehende Projektschema
+- Demo V6 passiert weiterhin das bestehende Projektschema
 - Referenzrechnungen 2024 / 2025 bleiben unverändert
 
 ## Feste Regressionen Baustein 6.5
 
-- `tests/demo-project.test.mjs` — 7 Tests
+- `tests/demo-project.test.mjs` — 9 Tests
 - `tests/demo-storage.test.mjs` — 3 Tests
-- `tests/demo-learning.test.mjs` — 6 Tests
+- `tests/demo-learning.test.mjs` — 8 Tests
 - `tests/lease-workshop.test.mjs` — 7 Tests
 - `tests/house-rules-workshop.test.mjs` — 4 Tests
 
-**Summe: 27 feste Regressionen für Baustein 6.5.**
+**Summe: 31 feste Regressionen für Baustein 6.5.**
 
 ## In dieser Prüfengine tatsächlich ausgeführte gezielte Checks
 
 Bestanden wurden unter anderem:
 
-- Demo V5 vollständig erzeugt
-- Projektschema Demo V5 gültig
+- Demo V6 vollständig erzeugt
+- Projektschema Demo V6 gültig
 - 2024 Referenzrechnung unverändert
 - 2025 Referenzrechnung unverändert
 - Mieterwechsel / Zwischenablesung unverändert
