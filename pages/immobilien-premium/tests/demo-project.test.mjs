@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {buildDemoProject,DEMO_PROJECT_ID,DEMO_VERSION} from '../assets/js/demo-project.js';
 import {validateProject} from '../assets/js/model.js';
 import {calculatePeriod} from '../assets/js/calculation.js';
+import {inspectOwnerAnnualReadiness} from '../assets/js/owner-readiness.js';
 
 test('Demo-Haus ist strukturell gültig und eindeutig als fiktiv markiert',()=>{
  const p=buildDemoProject();
@@ -36,6 +37,16 @@ test('Demo 2025 bildet Mieterwechsel und Zwischenablesung vollständig ab',()=>{
  assert.ok(water.unitShares.some(x=>x.tenancyId==='demo_lease_schneider'));
  assert.ok(water.unitShares.some(x=>x.tenancyId==='demo_lease_vogel'));
 });
+test('Demo 2025 erreicht auch den vollständigen Eigentümer-Jahrescheck',()=>{
+ const r=inspectOwnerAnnualReadiness(buildDemoProject(),'demo_year_2025');
+ assert.equal(r.status,'preview',JSON.stringify(r.blockers));
+ assert.equal(r.preview.originalCostsCents,695000);
+ assert.equal(r.preview.ownerCostsCents,335535);
+ assert.equal(r.preview.tenantCostsCents,359465);
+ assert.equal(r.preview.legalRelease,false);
+ assert.equal(r.preview.pdfGenerated,false);
+});
+
 test('Demo-Archiv enthält zwei freigegebene Musterfassungen und getrennte Übergaben',()=>{
  const p=buildDemoProject();
  const released=p.documents.filter(x=>x.status==='released');
