@@ -439,3 +439,92 @@ Diese Punkte sind von der technischen Werkstattfunktion getrennt.
 Baustein 6.5 bleibt geöffnet, bis die neue Mietvertragswerkstatt und der Hausordnungs-Konfigurator praktisch im Demo-Haus angesehen wurden und daraus ggf. Bedien-/Inhaltskorrekturen entstehen.
 
 Baustein 7 beginnt erst nach ausdrücklicher Freigabe „Baustein fertig“.
+
+
+## Systemweite Nachprüfung nach Demo-Screenshot
+
+Anlass: Sichtprüfung auf iPad zeigte eine doppelte Demo-Kopfleiste. Daraufhin wurde nicht nur die betroffene Stelle, sondern der aktuelle Immobilien-Premium-Stand systemweit nachgeprüft.
+
+### Gefundene Integrationsreste
+
+1. **Demo-in-Demo-Verschachtelung**
+   - Ursache: Die innerhalb der Demo eingebettete Zentrale enthielt weiterhin den Link `demo.html`.
+   - Folge: Bei erneutem Öffnen der Demo wurde eine zweite Demo-Hülle im iframe geladen.
+   - Korrektur:
+     - `demo.html` verhindert jetzt selbst eine Ausführung innerhalb eines iframe und leitet dort auf `index.html?demo=1` zurück.
+     - `demo-showcase.js` entfernt den inneren Demo-Selbstlink auf der eingebetteten Zentrale.
+
+2. **Doppelter Bedienungsanleitungs-Einstieg**
+   - Zwischenstände enthielten den Hero-Link doppelt.
+   - Aktueller Stand: genau ein direkter Demo-Link und genau ein direkter Bedienungsanleitungs-Link.
+   - Dauerregression vorhanden.
+
+3. **Alter paralleler Vertragswerkstattpfad**
+   - `wohnraum-vertragswerkstatt.html` war ein Altpfad neben der neuen `mietvertragswerkstatt.html`.
+   - Aktueller Stand:
+     - Mietservice verlinkt nur die aktuelle Mietvertragswerkstatt.
+     - Altpfad bleibt ausschließlich als kompatible Weiterleitung für alte Bookmarks bestehen.
+     - das alte `wohnraum-vertragswerkstatt-ui.js` und die alte CSS-Datei sind nicht mehr Teil des Produktivpfads.
+
+### Systemintegritätsprüfung
+
+Geprüft wurden:
+
+- alle Käufer-HTML-Seiten
+- alle Dokumentvorlagen
+- alle internen `href`-/`src`-Ziele
+- alle relativen JavaScript-Imports
+- Demo-Navigation
+- Demo-/Live-Speichertrennung
+- Demo V6 und Referenzjahre
+- Mietvertragswerkstatt
+- Hausordnungs-Konfigurator
+- Kosten / Versorger
+- Zähler / Verbrauch
+- Eigentümer- und Vermieterabrechnung
+- PDF / Archiv / Jahreswechsel
+
+Die bereits vorhandene Systemintegritäts-Testdatei wurde vollständig erhalten und um den aktuellen Rekursionsschutz angepasst. Ein zwischenzeitliches versehentliches Ersetzen dieser Datei wurde erkannt und vollständig rückgängig gemacht.
+
+### Vollständiger GitHub-QA-Lauf
+
+Workflow:
+
+`.github/workflows/nebenskosten-premium-qa.yml`
+
+Prüfschritte:
+
+- JavaScript-Syntax aller Dateien unter `assets/js/*.js`
+- vollständiges `npm test` über `tests/*.test.mjs`
+
+Finaler bestätigter Stand:
+
+- **447 Tests**
+- **447 bestanden**
+- **0 fehlgeschlagen**
+- **0 übersprungen**
+- vollständige JavaScript-Syntaxprüfung: **bestanden**
+
+### Build und Deployment
+
+Für denselben finalen Commit:
+
+- GitHub Pages Build: **success**
+- Artifact Upload: **success**
+- Deploy to GitHub Pages: **success**
+- Report Build Status: **success**
+
+Damit ist der aktuelle Repository-Stand technisch gebaut und erfolgreich auf GitHub Pages ausgeliefert.
+
+### Noch verbleibende manuelle Prüfung
+
+Die externe Web-Prüfengine kann die Custom-Domain `tools.liquiditybooster.de` nicht direkt öffnen. Deshalb bleibt die visuelle iPad-/Browser-Prüfung durch den Nutzer erforderlich.
+
+Insbesondere nach dem Deploy erneut prüfen:
+
+- nur eine Demo-Kopfleiste sichtbar
+- kein zweiter Demo-Header nach Navigation
+- keine doppelten Hero-Buttons
+- Demo startet als vollständig ausgefülltes Anschauungsmodell
+- Mietvertragswerkstatt und Hausordnung öffnen vorkonfiguriert
+- keine sichtbaren leeren Demo-Felder, soweit fachlich sinnvoll befüllbar
