@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {upsertSafetyCheck,listSafetyChecks} from '../assets/js/safety-checks.js';
+function fixture(){return {properties:[{id:'p1'}],checkItems:[],units:[],usagePeriods:[],tenancies:[],contractTerms:[],accountingPeriods:[],expenses:[],allocationRules:[],meters:[],readings:[],cashflows:[],documents:[],attachments:[]};}
+test('Schutzcheck speichert keine automatische Rechtsentscheidung',()=>{const r=upsertSafetyCheck(fixture(),{itemId:'c1',propertyId:'p1',checkKey:'energy_certificate',classification:'unresolved',status:'review',note:'prüfen'});const x=r.project.checkItems[0];assert.equal(x.autoLegalDecision,false);assert.equal(x.classification,'unresolved');});
+test('Nicht zutreffend wird als erledigter Vorgang geführt',()=>{const r=upsertSafetyCheck(fixture(),{itemId:'c1',propertyId:'p1',checkKey:'elementary_cover',classification:'not_applicable',status:'open'});assert.equal(r.project.checkItems[0].status,'done');});
+test('Vorhandener Check wird historisch nicht dupliziert',()=>{let p=upsertSafetyCheck(fixture(),{itemId:'c1',propertyId:'p1',checkKey:'maintenance'}).project;p=upsertSafetyCheck(p,{itemId:'unused',propertyId:'p1',checkKey:'maintenance',classification:'recommendation',status:'done'}).project;assert.equal(listSafetyChecks(p,{propertyId:'p1'}).length,1);assert.equal(p.checkItems[0].classification,'recommendation');});
+test('Ungültige Wiedervorlage wird abgewiesen',()=>{assert.throws(()=>upsertSafetyCheck(fixture(),{itemId:'c1',propertyId:'p1',checkKey:'maintenance',dueDate:'2026-02-30'}),/Wiedervorlage/);});
