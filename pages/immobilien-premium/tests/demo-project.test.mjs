@@ -58,6 +58,14 @@ test('Demo-Archiv enthält zwei freigegebene Musterfassungen und getrennte Über
  assert.equal(deliveries.length,2);
  assert.deepEqual(deliveries.map(x=>x.documentId).sort(),['demo_release_handover_vogel','demo_release_house_rules']);
 });
+test('Demo enthält vorkonfigurierte Wohnraum-Vertragswerkstätten',()=>{
+ const p=buildDemoProject();
+ const lease=p.documents.find(x=>x.source==='residential-lease-workshop-v1');
+ const rules=p.documents.find(x=>x.source==='house-rules-workshop-v1');
+ assert.ok(lease);assert.equal(lease.tenancyId,'demo_lease_berger');assert.equal(lease.payload.rent.baseRentCents,98000);assert.equal(lease.payload.deposit.amountCents,294000);
+ assert.ok(rules);assert.equal(rules.propertyId,'demo_house');assert.equal(rules.payload.mode,'contractual_attachment');
+});
+
 test('Demo enthält Mietservice, Sicherheitscheck und datensparsamen Vermietungsprozess',()=>{
  const p=buildDemoProject();
  assert.equal(p.documents.filter(x=>x.source==='baustein5-mietservice-v1').length,5);
