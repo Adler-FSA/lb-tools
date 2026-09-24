@@ -56,3 +56,13 @@ test('wrong building, unconfirmed next year and invoice mismatch prevent review'
   blocked((p,r)=>{p.accountingPeriods[0].reviewRequired=true;},'SUPPLY_REGISTRY_YEAR_UNCONFIRMED');
   blocked((p,r)=>{r[0].contract.invoiceTotalsCentsByReference.GAS2026++;},'SUPPLY_INVOICE_TOTAL_MISMATCH');
 });
+
+test('historisches Fremdkonto wird nicht als aktueller ungeprüfter Versorger gemeldet',()=>{
+  const {p,records}=fixture();
+  p.expenses.push({id:'oldWater',propertyId:'house',providerAccountId:'oldWaterSupplier',category:'cold_water',
+    startDate:'2025-01-01',endDate:'2025-12-31',amountCents:50000,
+    invoiceReference:'WATER2025',invoiceLineId:'water'});
+  const r=reviewSupplyRegistry(p,'year',records);
+  assert.equal(r.status,'reviewed',JSON.stringify(r.issues));
+  assert.deepEqual(r.report.unreviewedProviderAccountIds,['city']);
+});
