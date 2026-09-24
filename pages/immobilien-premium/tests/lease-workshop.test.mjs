@@ -37,3 +37,12 @@ test('Werkstattentwurf passiert bestehendes Projektschema',()=>{
  const r=upsertLeaseWorkshopDraft(p,{documentId:'d1',propertyId:'p1',unitId:'u1',tenancyId:'t1',config:valid(),createdOn:'2026-09-24'});
  assert.deepEqual(validateProject(r.project),[]);assert.equal(r.project.documents[0].source,'residential-lease-workshop-v1');
 });
+
+test('Prüfhinweise bleiben außerhalb des Vertragsdokuments',async()=>{
+ const c=valid();
+ c.care.smallRepairs=true;c.care.smallRepairSingleCents=10000;c.care.smallRepairAnnualCapCents=30000;c.care.cosmeticRepairs=true;
+ const q=validateLeaseConfig(c);
+ assert.ok(q.warnings.length>0);
+ const html=(await import('../assets/js/lease-workshop.js')).renderLeaseHtml(buildLeaseDocument(c));
+ assert.equal(/vor Verwendung|anwalt|fachlich|rechtlich prüfen|Prüfbedarf/i.test(html),false);
+});
