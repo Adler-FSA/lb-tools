@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nebenkosten Premium – Wohnraum-Vertragswerkstatt</title>
+<meta name="description" content="Konfigurierbarer Wohnraum-Mietvertrag und Hausordnung als Arbeitsentwurf">
+<link rel="stylesheet" href="assets/css/app.css"><link rel="stylesheet" href="assets/css/wohnraum-vertragswerkstatt.css">
+</head>
+<body><div class="shell">
+<header class="topbar"><div class="topbar-inner">
+<div class="brand-row"><div class="brand"><div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><path d="M5 3h14v18H5z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div><div class="brand-text"><div class="brand-title">Nebenkosten Premium</div><div class="brand-sub">Akademie Immobilien- &amp; Mietservice</div></div></div><div class="toolbar"><button class="tab" type="button" data-lang="de">DE</button><button class="tab" type="button" data-lang="en">EN</button><div class="storage-pill" data-storage-pill><span class="storage-dot"></span><span class="storage-text" data-storage-text>Speicher wird geprüft</span></div></div></div>
+<nav class="mainnav"><a class="nav-item" href="index.html" data-i18n="navHome">Meine Zentrale</a><a class="nav-item" href="immobilien.html" data-i18n="navProperties">Immobilien</a><a class="nav-item active" href="mietservice.html" data-i18n="navRental">Mietservice</a><a class="nav-item" href="kosten.html" data-i18n="navCosts">Kosten &amp; Abrechnung</a><a class="nav-item" href="schutzcheck.html" data-i18n="navChecks">Sicherheit &amp; Checks</a><a class="nav-item" href="pdf-zentrale.html" data-i18n="navDocs">Dokumente &amp; Hilfe</a></nav>
+</div></header>
+<main class="page">
+<section class="hero"><div class="hero-card"><div class="eyebrow" data-i18n="eyebrow">Wohnraum-Vertragswerkstatt</div><h1 data-i18n="title">Mietvertrag und Hausordnung selbst konfigurieren.</h1><p data-i18n="copy">Du gibst die Eckdaten ein und erhältst zwei bearbeitbare Dokumente. Die Vertragsdokumente bleiben frei von internen Prüfhinweisen; diese stehen ausschließlich im separaten Prüfbereich.</p><div class="hero-actions"><a class="btn btn-ghost" href="mietservice.html" data-i18n="back">← Mietservice</a><button class="btn btn-primary" type="button" data-build data-i18n="build">Dokumente aus Angaben neu aufbauen</button></div></div>
+<aside class="status-card"><div><div class="eyebrow" data-i18n="status">Dokumentstatus</div><h2 data-i18n="draft">Bearbeitbarer Arbeitsentwurf</h2><p data-i18n="statusCopy">Diese Version richtet sich an Wohnraummietverhältnisse in Deutschland. Besondere Vertragsmodelle brauchen eine gesonderte Prüfung.</p></div><div class="status-line"><span data-i18n="pdf">PDF</span><strong data-i18n="local">lokal erzeugt</strong></div></aside></section>
+<div class="flash" data-flash role="status" aria-live="polite"></div>
+
+<div class="contract-workspace">
+<aside class="card form-card workshop-side" data-pdf-exclude>
+<div class="eyebrow" data-i18n="details">Vertragsdaten</div><h2 data-i18n="detailsTitle">Eckdaten eintragen</h2>
+<form data-contract-form>
+<div class="form-grid">
+<div class="full"><label data-i18n="landlord">Vermieter</label><input name="landlordName" required></div>
+<div class="full"><label data-i18n="landlordAddress">Anschrift Vermieter</label><input name="landlordAddress" required></div>
+<div class="full"><label data-i18n="tenant">Mieter</label><input name="tenantName" required></div>
+<div class="full"><label data-i18n="tenantAddress">Bisherige Anschrift Mieter</label><input name="tenantAddress"></div>
+<div class="full"><label data-i18n="propertyAddress">Adresse des Mietobjekts</label><input name="propertyAddress" required></div>
+<div class="full"><label data-i18n="unit">Wohnung / Lage</label><input name="unitDescription" required placeholder="z. B. 1. OG links"></div>
+<div><label data-i18n="area">Wohnfläche ca. m²</label><input name="areaM2" type="number" min="0" step="0.01" required></div>
+<div><label data-i18n="rooms">Zimmer</label><input name="rooms" type="number" min="0" step="0.5"></div>
+<div class="full"><label data-i18n="extras">Mitvermietete Bereiche / Ausstattung</label><input name="extras" placeholder="z. B. Kellerraum, Balkon"></div>
+<div><label data-i18n="startDate">Mietbeginn</label><input name="startDate" type="date" required></div>
+<div><label data-i18n="baseRent">Nettokaltmiete €</label><input name="baseRentEuro" type="number" min="0" step="0.01" required></div>
+<div><label data-i18n="advance">Betriebskostenvorauszahlung €</label><input name="operatingAdvanceEuro" type="number" min="0" step="0.01" required></div>
+<div><label data-i18n="deposit">Kaution €</label><input name="depositEuro" type="number" min="0" step="0.01" required></div>
+<div class="full"><label data-i18n="iban">Zahlungskonto / IBAN – optional</label><input name="iban"></div>
+<div class="full"><label><input type="checkbox" name="houseRulesAnnex" style="width:auto;min-height:auto;margin-right:8px" checked> <span data-i18n="annex">Hausordnung als Anlage zum Vertrag bezeichnen</span></label></div>
+</div>
+<div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="build">Dokumente aus Angaben neu aufbauen</button></div>
+</form>
+<div class="notice" style="margin-top:16px"><strong data-i18n="editorHintTitle">Danach frei bearbeiten</strong><p data-i18n="editorHint">Du kannst direkt in Vertrag und Hausordnung klicken und Text ändern. „Neu aufbauen“ setzt den Dokumenttext wieder aus den Formularangaben zusammen.</p></div>
+<div class="workshop-actions" style="margin-top:14px"><button class="btn btn-secondary" type="button" data-pdf-lease data-i18n="pdfLease">PDF Mietvertrag</button><button class="btn btn-secondary" type="button" data-pdf-rules data-i18n="pdfRules">PDF Hausordnung</button></div>
+</aside>
+
+<section>
+<div class="workshop-tabs" data-pdf-exclude><button type="button" class="active" data-show-paper="lease" data-i18n="leaseTab">Mietvertrag</button><button type="button" data-show-paper="rules" data-i18n="rulesTab">Hausordnung</button><button type="button" data-show-paper="review" data-i18n="reviewTab">Separater Prüfbereich</button></div>
+<div class="paper-stack">
+<article class="contract-paper" id="leaseEditor" data-paper="lease" contenteditable="true" spellcheck="true" aria-label="Bearbeitbarer Wohnraum-Mietvertrag"></article>
+<article class="contract-paper" id="rulesEditor" data-paper="rules" contenteditable="true" spellcheck="true" aria-label="Bearbeitbare Hausordnung" hidden></article>
+<article class="card form-card" data-paper="review" data-pdf-exclude hidden>
+<div class="eyebrow" data-i18n="reviewOnly">Nicht Bestandteil der Vertrags-PDFs</div><h2 data-i18n="reviewTitle">Prüf- und Praxisblatt</h2><p data-i18n="reviewCopy">Dieser Bereich unterstützt Deine Prüfung vor Verwendung. Er wird weder in den Mietvertrag noch in die Hausordnung übernommen.</p>
+<div class="review-list" data-review-list></div>
+<div class="notice" style="margin-top:14px"><strong data-i18n="excludedTitle">Bewusst nicht automatisch eingebaut</strong><p data-i18n="excludedCopy">Befristung, Staffel- oder Indexmiete, Kleinreparaturklauseln, Schönheitsreparaturen und weitere besondere Klauseln. Dafür sollte eine passende Fachfassung gewählt und vor Verwendung geprüft werden.</p></div>
+<p class="workshop-source" data-i18n="lawBasis">Gesetzliche Orientierung dieser Werkstatt: §§ 551, 556, 556b und 573c BGB sowie Betriebskostenverordnung; Rechtsstand für die Werkstatt: 24.09.2026. Keine individuelle Rechtsberatung.</p>
+</article>
+</div>
+</section>
+</div>
+</main>
+<footer class="footer" data-i18n="footer">Nebenkosten Premium · Wohnraum-Vertragswerkstatt · Vertragsdokument und Prüfhinweise technisch getrennt.</footer>
+</div>
+<div id="contractPdfFields" hidden></div>
+<script src="../vertraege/contract-pdf-engine-v2.js?v=2"></script>
+<script src="../merchant-kompass/akademie-pdf-uebergabe.js?v=1"></script>
+<script type="module" src="assets/js/wohnraum-vertragswerkstatt-ui.js"></script>
+</body></html>
