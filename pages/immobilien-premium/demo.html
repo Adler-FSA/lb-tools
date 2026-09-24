@@ -4,6 +4,13 @@
 <title>Demo-Haus Lindenblick · Nebenkosten Premium</title>
 <meta name="description" content="Geführte Demo und Lernreise für Nebenkosten Premium">
 <link rel="stylesheet" href="assets/css/demo.css">
+<script data-demo-nesting-guard>
+  if (window.self !== window.top) {
+    const query = new URLSearchParams(location.search);
+    const step = query.get('step');
+    location.replace('index.html?demo=1' + (step ? '&step=' + encodeURIComponent(step) : ''));
+  }
+</script>
 </head><body>
 <div class="demo-shell free" data-demo-shell>
 <header class="demo-top">
