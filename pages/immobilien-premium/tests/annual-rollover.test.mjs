@@ -22,3 +22,8 @@ test('Bestehendes Folgejahr wird nicht dupliziert',()=>{
  const p=fixture();p.accountingPeriods.push({id:'other',propertyId:'p1',startDate:'2027-01-01',endDate:'2027-12-31'});
  assert.throws(()=>createNextAccountingPeriod(p,{sourcePeriodId:'y26',newPeriodId:'y27'}),/bereits/);
 });
+
+test('Offene bereits vorhandene Folgeperiode sperrt den Jahreswechsel',()=>{
+ const p=fixture();p.accountingPeriods.push({id:'open27',propertyId:'p1',startDate:'2027-01-01',endDate:null});
+ assert.throws(()=>createNextAccountingPeriod(p,{sourcePeriodId:'y26',newPeriodId:'y27'}),/bereits/);
+});
