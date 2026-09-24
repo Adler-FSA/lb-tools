@@ -21,10 +21,12 @@ test('Baustein 6 verwendet keinen Browserdruck, keine externe PDF-Bibliothek und
   assert.equal(/(?:src|href)=["']https?:\/\//i.test(text),false,rel);
  }
 });
-test('PDF-Zentrale verwendet exakt die freigegebene gemeinsame Akademie-PDF-Übergabe',()=>{
- const html=fs.readFileSync(path.join(root,'pdf-zentrale.html'),'utf8');
- assert.ok(html.includes('../merchant-kompass/akademie-pdf-uebergabe.js?v=1'));
- assert.equal((html.match(/akademie-pdf-uebergabe\.js/g)||[]).length,1);
+test('PDF-Zentrale und Archiv verwenden exakt die freigegebene gemeinsame Akademie-PDF-Übergabe',()=>{
+ for(const page of ['pdf-zentrale.html','archiv.html']){
+  const html=fs.readFileSync(path.join(root,page),'utf8');
+  assert.ok(html.includes('../merchant-kompass/akademie-pdf-uebergabe.js?v=1'),page);
+  assert.equal((html.match(/akademie-pdf-uebergabe\.js/g)||[]).length,1,page);
+ }
 });
 test('Neue Baustein-6-Seiten haben für jeden data-i18n-Schlüssel DE und EN',()=>{
  for(const [htmlPath,jsPath] of i18nPairs){
@@ -34,12 +36,22 @@ test('Neue Baustein-6-Seiten haben für jeden data-i18n-Schlüssel DE und EN',()
   for(const key of new Set(used))assert.ok(declared.includes(key),htmlPath+': '+key);
  }
 });
-test('Jeder unterstützte Dokumenttyp hat eine eigene spezialisierte HTML-Vorlage',()=>{
+test('Jeder unterstützte Dokumenttyp hat eine eigene spezialisierte DE/EN-HTML-Vorlage',()=>{
  const entries=Object.entries(DOCUMENT_TEMPLATE_ROUTES);assert.equal(entries.length,9);
+ const ui=fs.readFileSync(path.join(root,'assets/js/document-template-ui.js'),'utf8');
+ const declared=[...ui.matchAll(/(?:^|[,\n\s])([A-Za-z][A-Za-z0-9_]*)\s*:\s*\{\s*de\s*:\s*'[^']*'\s*,\s*en\s*:\s*'[^']*'/g)].map(m=>m[1]);
  for(const [type,route] of entries){
   const file=path.join(root,route);assert.ok(fs.existsSync(file),type);
   const html=fs.readFileSync(file,'utf8');assert.ok(html.includes('data-doc-type="'+type+'"'),type);
-  assert.equal(/<img\b/i.test(html),false,type);
+  assert.equal(/<img\b/i.test(html),false,type);assert.equal(/(?:src|href)=["']https?:\/\//i.test(html),false,type);
+  const used=[...html.matchAll(/data-i18n="([^"]+)"/g)].map(m=>m[1]);
+  for(const key of new Set(used))assert.ok(declared.includes(key),type+': '+key);
   assert.ok(documentPreviewUrl({id:'doc1',documentType:type}).endsWith('?id=doc1'));
+ }
+});
+test('Alle Hauptseiten führen zum freigeschalteten Dokumentbereich',()=>{
+ for(const page of ['index.html','immobilien.html','kosten.html','verbrauch.html','abrechnung-eigentuemer.html','abrechnung-vermieter.html','mietservice.html','schutzcheck.html','vermietungscheck.html']){
+  const html=fs.readFileSync(path.join(root,page),'utf8');
+  assert.ok(html.includes('href="pdf-zentrale.html"'),page);
  }
 });
