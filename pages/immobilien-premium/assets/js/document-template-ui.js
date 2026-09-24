@@ -1,5 +1,5 @@
 import {loadProject} from '../assets/js/storage.js';
-import {escapeText,formatEuro} from '../assets/js/ui-core.js';
+import {escapeText} from '../assets/js/ui-core.js';
 import {getLanguage,initI18n} from '../assets/js/i18n.js';
 
 const I18N={
@@ -30,7 +30,7 @@ const fieldLabels={
 const h=v=>escapeText(v??'');
 const lang=()=>getLanguage();
 const date=v=>{if(!v)return'–';try{return new Intl.DateTimeFormat(lang()==='en'?'en-GB':'de-DE').format(new Date(v+'T00:00:00'));}catch{return String(v);}};
-const money=v=>formatEuro(Number.isSafeInteger(v)?v:0);
+const money=v=>new Intl.NumberFormat(lang()==='en'?'en-GB':'de-DE',{style:'currency',currency:'EUR'}).format((Number.isSafeInteger(v)?v:0)/100);
 const address=p=>{const a=p?.address||{};return [[a.street,a.houseNumber].filter(Boolean).join(' '),[a.postalCode,a.city].filter(Boolean).join(' ')].filter(Boolean).join(', ')||'–';};
 const category=v=>({property_tax:{de:'Grundsteuer',en:'Property tax'},building_insurance:{de:'Gebäudeversicherung',en:'Building insurance'},waste:{de:'Müll / Entsorgung',en:'Waste'},common_electricity:{de:'Allgemeinstrom',en:'Common electricity'},cold_water:{de:'Kaltwasser',en:'Cold water'},repair:{de:'Reparatur / Instandhaltung',en:'Repair / maintenance'},other:{de:'Sonstige Kosten',en:'Other'}}[v]?.[lang()]||v||'–');
 const method=v=>({area:{de:'Fläche',en:'Area'},consumption:{de:'Verbrauch',en:'Consumption'},direct:{de:'Direkt',en:'Direct'},owner_only:{de:'Nur Eigentümer',en:'Owner only'}}[v]?.[lang()]||v||'–');
