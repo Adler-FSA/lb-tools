@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#132238">
+<title>LiquidityBooster – Unternehmenspräsentation</title>
+<meta name="description" content="LiquidityBooster Unternehmenspräsentation – Unternehmen, Geschäftsmodell, Perspektiven und Bewerbung.">
+<style>
+:root{
+  --mint:#00a7ad;
+  --mag:#c6006f;
+  --navy:#132238;
+  --ink:#26394a;
+  --muted:#6d7d89;
+  --line:#dbe6e9;
+  --bg:#edf3f5;
+  --nav-h:78px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-text-size-adjust:100%;
+}
+button{font:inherit}
+.app{
+  width:100%;
+  height:100vh;
+  height:100dvh;
+  display:grid;
+  grid-template-rows:minmax(0,1fr) var(--nav-h);
+  overflow:hidden;
+}
+.stage{
+  position:relative;
+  min-height:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 10%,rgba(0,167,173,.08),transparent 25%),
+    radial-gradient(circle at 88% 90%,rgba(198,0,111,.07),transparent 25%),
+    var(--bg);
+}
+.slide{
+  position:absolute;
+  inset:12px;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+  min-height:0;
+}
+.slide.active{display:flex}
+.slide img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  user-select:none;
+  -webkit-user-drag:none;
+  border-radius:16px;
+  filter:drop-shadow(0 12px 28px rgba(19,34,56,.12));
+}
+.progress{
+  position:absolute;
+  left:0;right:0;top:0;
+  height:4px;
+  background:rgba(255,255,255,.68);
+  z-index:20;
+}
+.progress span{
+  display:block;
+  height:100%;
+  width:10%;
+  background:linear-gradient(90deg,var(--mint),var(--mag));
+  transition:width .25s ease;
+}
+.tools{
+  position:absolute;
+  top:18px;
+  right:20px;
+  z-index:30;
+  display:flex;
+  gap:8px;
+}
+.toolbtn{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(19,34,56,.82);
+  color:#fff;
+  box-shadow:0 6px 20px rgba(19,34,56,.18);
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+}
+.toolbtn:hover{background:var(--navy)}
+.toolbtn svg{width:20px;height:20px}
+.hint{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  z-index:25;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(19,34,56,.75);
+  color:#fff;
+  font-size:10px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease;
+}
+.stage.show-hint .hint{opacity:.8}
+
+.navbar{
+  min-height:var(--nav-h);
+  background:#fff;
+  border-top:1px solid var(--line);
+  box-shadow:0 -8px 24px rgba(19,34,56,.06);
+  z-index:40;
+  display:flex;
+  align-items:center;
+}
+.navin{
+  width:min(1260px,calc(100% - 30px));
+  margin:auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  gap:16px;
+}
+.navbtn{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--navy);
+  min-height:54px;
+  border-radius:15px;
+  padding:8px 13px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-align:left;
+  cursor:pointer;
+  font-weight:850;
+}
+.navbtn:hover:not(:disabled){background:#f8fbfb;border-color:#c8dfe1}
+.navbtn.next{
+  justify-self:end;
+  text-align:right;
+  flex-direction:row-reverse;
+}
+.navbtn:disabled{opacity:.28;cursor:default}
+.arrow{
+  width:31px;
+  height:31px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#e9f9f9;
+  color:var(--mint);
+  font-size:20px;
+  line-height:1;
+}
+.next .arrow{background:#fff0f7;color:var(--mag)}
+.navcopy{min-width:0}
+.navcopy small{
+  display:block;
+  margin-bottom:2px;
+  color:var(--muted);
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.navcopy span{
+  display:block;
+  max-width:310px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:12px;
+}
+.center{
+  text-align:center;
+  color:var(--muted);
+  font-size:9px;
+  white-space:nowrap;
+}
+.center strong{
+  display:block;
+  color:var(--navy);
+  font-size:17px;
+  line-height:1.05;
+}
+.center .title{
+  display:block;
+  max-width:280px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-top:2px;
+}
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:4px;
+  margin-top:4px;
+}
+.dot{
+  width:5px;height:5px;
+  border-radius:50%;
+  background:#d4e0e3;
+  transition:.18s ease;
+}
+.dot.active{background:var(--mint);transform:scale(1.45)}
+
+@media(max-width:760px){
+  :root{--nav-h:72px}
+  .stage{padding:8px}
+  .slide{inset:8px}
+  .slide img{border-radius:10px}
+  .navin{width:calc(100% - 16px);gap:7px}
+  .navbtn{min-height:48px;padding:7px 8px;border-radius:12px}
+  .arrow{width:27px;height:27px;font-size:17px}
+  .navcopy small{font-size:7px}
+  .navcopy span{font-size:9px;max-width:28vw}
+  .center strong{font-size:14px}
+  .center{font-size:8px}
+  .center .title{display:none}
+  .tools{top:12px;right:12px}
+  .toolbtn{width:36px;height:36px}
+}
+@media(prefers-reduced-motion:reduce){
+  .progress span,.dot,.hint{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <main class="stage" id="stage" aria-label="LiquidityBooster Unternehmenspräsentation">
+    <div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
+
+    <section class="slide active" data-title="Cover" data-short="Start">
+      <img src="images/01-cover.png" alt="LiquidityBooster Unternehmenspräsentation – Cover" draggable="false">
+    </section>
+    <section class="slide" data-title="Wer wir sind" data-short="Wer wir sind">
+      <img src="images/02-bereich-01-wer-wir-sind.png" alt="Bereich 01 – Wer wir sind" draggable="false">
+    </section>
+    <section class="slide" data-title="Womit wir Geld verdienen" data-short="Womit wir Geld verdienen">
+      <img src="images/03-bereich-02-womit-wir-geld-verdienen.png" alt="Bereich 02 – Womit wir Geld verdienen" draggable="false">
+    </section>
+    <section class="slide" data-title="Wie daraus ein Geschäft entsteht" data-short="Wie daraus ein Geschäft entsteht">
+      <img src="images/04-bereich-03-wie-daraus-ein-geschaeft-entsteht.png" alt="Bereich 03 – Wie daraus ein Geschäft entsteht" draggable="false">
+    </section>
+    <section class="slide" data-title="Wen wir suchen" data-short="Wen wir suchen">
+      <img src="images/05-bereich-04-wen-wir-suchen.png" alt="Bereich 04 – Wen wir suchen" draggable="false">
+    </section>
+    <section class="slide" data-title="Unsere Entwicklungsstraße" data-short="Entwicklungsstraße">
+      <img src="images/06-bereich-05-entwicklungsstrasse.png" alt="Bereich 05 – Entwicklungsstraße" draggable="false">
+    </section>
+    <section class="slide" data-title="Was wir anbieten" data-short="Was wir anbieten">
+      <img src="images/07-bereich-06-was-wir-anbieten.png" alt="Bereich 06 – Was wir anbieten" draggable="false">
+    </section>
+    <section class="slide" data-title="Wo stehst du heute?" data-short="Wo stehst du heute?">
+      <img src="images/08-bereich-07-wo-stehst-du-heute.png" alt="Bereich 07 – Wo stehst du heute?" draggable="false">
+    </section>
+    <section class="slide" data-title="Deine Entscheidung" data-short="Deine Entscheidung">
+      <img src="images/09-bereich-08-deine-entscheidung.png" alt="Bereich 08 – Deine Entscheidung" draggable="false">
+    </section>
+    <section class="slide" data-title="Jetzt bewerben" data-short="Bewerbung">
+      <img src="images/10-call-to-action-bewerbung.png" alt="Call to Action – Bewerbung und persönliches Gespräch" draggable="false">
+    </section>
+
+    <div class="tools">
+      <button class="toolbtn" id="fullscreenBtn" type="button" aria-label="Vollbild" title="Vollbild">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/>
+        </svg>
+      </button>
+    </div>
+    <div class="hint">Wischen oder Pfeiltasten nutzen</div>
+  </main>
+
+  <nav class="navbar" aria-label="Präsentationsnavigation">
+    <div class="navin">
+      <button class="navbtn prev" id="prevBtn" type="button">
+        <span class="arrow" aria-hidden="true">←</span>
+        <span class="navcopy"><small>Vorher</small><span id="prevLabel">Start</span></span>
+      </button>
+
+      <div class="center">
+        <strong id="counter">1 / 10</strong>
+        <span class="title" id="currentTitle">Cover</span>
+        <div class="dots" id="dots" aria-hidden="true"></div>
+      </div>
+
+      <button class="navbtn next" id="nextBtn" type="button">
+        <span class="arrow" aria-hidden="true">→</span>
+        <span class="navcopy"><small>Als Nächstes</small><span id="nextLabel">Wer wir sind</span></span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<script>
+(()=>{
+  const slides=[...document.querySelectorAll('.slide')];
+  const stage=document.getElementById('stage');
+  const app=document.getElementById('app');
+  const prevBtn=document.getElementById('prevBtn');
+  const nextBtn=document.getElementById('nextBtn');
+  const prevLabel=document.getElementById('prevLabel');
+  const nextLabel=document.getElementById('nextLabel');
+  const counter=document.getElementById('counter');
+  const currentTitle=document.getElementById('currentTitle');
+  const progressFill=document.getElementById('progressFill');
+  const dots=document.getElementById('dots');
+  const fullscreenBtn=document.getElementById('fullscreenBtn');
+
+  let current=0;
+  let sx=0,sy=0;
+  let hintTimer=null;
+
+  slides.forEach((_,i)=>{
+    const d=document.createElement('span');
+    d.className='dot'+(i===0?' active':'');
+    dots.appendChild(d);
+  });
+
+  function titleAt(i){
+    if(i<0||i>=slides.length)return '';
+    return slides[i].dataset.short||slides[i].dataset.title||'';
+  }
+
+  function preloadAround(i){
+    [i-1,i+1].forEach(n=>{
+      if(n>=0&&n<slides.length){
+        const img=slides[n].querySelector('img');
+        if(img && !img.complete){
+          const p=new Image();
+          p.src=img.src;
+        }
+      }
+    });
+  }
+
+  function render(){
+    slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+    counter.textContent=(current+1)+' / '+slides.length;
+    currentTitle.textContent=slides[current].dataset.title||'';
+    progressFill.style.width=((current+1)/slides.length*100)+'%';
+    [...dots.children].forEach((d,i)=>d.classList.toggle('active',i===current));
+
+    prevBtn.disabled=current===0;
+    nextBtn.disabled=current===slides.length-1;
+
+    prevLabel.textContent=current===0?'Start':titleAt(current-1);
+    nextLabel.textContent=current===slides.length-1?'Abschluss':titleAt(current+1);
+
+    history.replaceState(null,'','#'+(current+1));
+    preloadAround(current);
+  }
+
+  function go(i){
+    if(i<0||i>=slides.length||i===current)return;
+    current=i;
+    render();
+  }
+
+  prevBtn.addEventListener('click',()=>go(current-1));
+  nextBtn.addEventListener('click',()=>go(current+1));
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){
+      e.preventDefault();go(current+1);
+    }
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){
+      e.preventDefault();go(current-1);
+    }
+    if(e.key==='Home'){e.preventDefault();go(0)}
+    if(e.key==='End'){e.preventDefault();go(slides.length-1)}
+  });
+
+  stage.addEventListener('touchstart',e=>{
+    const t=e.changedTouches[0];
+    sx=t.screenX;sy=t.screenY;
+  },{passive:true});
+
+  stage.addEventListener('touchend',e=>{
+    const t=e.changedTouches[0];
+    const dx=t.screenX-sx,dy=t.screenY-sy;
+    if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.25){
+      dx<0?go(current+1):go(current-1);
+    }
+  },{passive:true});
+
+  stage.addEventListener('pointerup',e=>{
+    if(e.pointerType==='mouse' && e.target.closest('.toolbtn')) return;
+    if(e.pointerType==='mouse'){
+      const rect=stage.getBoundingClientRect();
+      const x=e.clientX-rect.left;
+      if(x<rect.width*.18) go(current-1);
+      if(x>rect.width*.82) go(current+1);
+    }
+  });
+
+  function showHint(){
+    stage.classList.add('show-hint');
+    clearTimeout(hintTimer);
+    hintTimer=setTimeout(()=>stage.classList.remove('show-hint'),1800);
+  }
+  setTimeout(showHint,500);
+
+  async function toggleFullscreen(){
+    try{
+      if(!document.fullscreenElement){
+        if(app.requestFullscreen) await app.requestFullscreen();
+        else if(app.webkitRequestFullscreen) app.webkitRequestFullscreen();
+      }else{
+        if(document.exitFullscreen) await document.exitFullscreen();
+        else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
+    }catch(_){}
+  }
+  fullscreenBtn.addEventListener('click',toggleFullscreen);
+
+  if(!document.fullscreenEnabled && !document.webkitFullscreenEnabled){
+    fullscreenBtn.style.display='none';
+  }
+
+  const hash=parseInt(location.hash.slice(1),10);
+  if(hash>=1&&hash<=slides.length) current=hash-1;
+  render();
+})();
+</script>
+</body>
+</html>
