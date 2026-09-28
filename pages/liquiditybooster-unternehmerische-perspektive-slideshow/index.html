@@ -57,7 +57,7 @@ button{font:inherit}
   min-height:0;
 }
 .slide.active{display:flex}
-.slide > img{
+.slide img{
   display:block;
   width:100%;
   height:100%;
@@ -67,27 +67,6 @@ button{font:inherit}
   -webkit-user-drag:none;
   border-radius:16px;
   filter:drop-shadow(0 12px 28px rgba(19,34,56,.12));
-}
-.brand-patch{
-  position:absolute;
-  z-index:15;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  background:#fff;
-  border-radius:10px;
-  overflow:hidden;
-  padding:0.45%;
-  pointer-events:none;
-}
-.brand-patch img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  object-position:left center;
-  filter:none;
-  border-radius:0;
 }
 .progress{
   position:absolute;
@@ -348,54 +327,20 @@ button{font:inherit}
   const progressFill=document.getElementById('progressFill');
   const dots=document.getElementById('dots');
   const fullscreenBtn=document.getElementById('fullscreenBtn');
-  const ORIGINAL_LOGO='assets/liquiditybooster-logo-original.png';
 
   let current=0;
   let sx=0,sy=0;
   let hintTimer=null;
 
-  slides.forEach((slide,i)=>{
+  slides.forEach((_,i)=>{
     const d=document.createElement('span');
     d.className='dot'+(i===0?' active':'');
     dots.appendChild(d);
-
-    const patch=document.createElement('div');
-    patch.className='brand-patch';
-    patch.setAttribute('aria-hidden','true');
-    const official=document.createElement('img');
-    official.src=ORIGINAL_LOGO;
-    official.alt='';
-    official.draggable=false;
-    patch.appendChild(official);
-    slide.appendChild(patch);
   });
 
   function titleAt(i){
     if(i<0||i>=slides.length)return '';
     return slides[i].dataset.short||slides[i].dataset.title||'';
-  }
-
-  function positionBrandPatch(slide){
-    const mainImg=slide.querySelector(':scope > img');
-    const patch=slide.querySelector('.brand-patch');
-    if(!mainImg||!patch)return;
-    const sr=slide.getBoundingClientRect();
-    const ir=mainImg.getBoundingClientRect();
-    if(!ir.width||!ir.height)return;
-
-    const left=(ir.left-sr.left)+(ir.width*0.026);
-    const top=(ir.top-sr.top)+(ir.height*0.022);
-    const width=ir.width*0.375;
-    const height=ir.height*0.105;
-
-    patch.style.left=left+'px';
-    patch.style.top=top+'px';
-    patch.style.width=width+'px';
-    patch.style.height=height+'px';
-  }
-
-  function positionAllBrandPatches(){
-    slides.forEach(positionBrandPatch);
   }
 
   function preloadAround(i){
@@ -431,7 +376,6 @@ button{font:inherit}
 
     history.replaceState(null,'','#'+(current+1));
     preloadAround(current);
-    requestAnimationFrame(()=>positionBrandPatch(slides[current]));
   }
 
   function go(i){
@@ -501,12 +445,6 @@ button{font:inherit}
     }catch(_){}
   }
   fullscreenBtn.addEventListener('click',toggleFullscreen);
-  window.addEventListener('resize',positionAllBrandPatches);
-  document.addEventListener('fullscreenchange',()=>setTimeout(positionAllBrandPatches,50));
-  slides.forEach(slide=>{
-    const img=slide.querySelector(':scope > img');
-    if(img) img.addEventListener('load',()=>positionBrandPatch(slide),{once:true});
-  });
 
   if(!document.fullscreenEnabled && !document.webkitFullscreenEnabled){
     fullscreenBtn.style.display='none';
