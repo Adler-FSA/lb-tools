@@ -5,646 +5,199 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#132238">
 <meta name="color-scheme" content="light">
-<title>LiquidityBooster – Unternehmerische Perspektive</title>
-<meta name="description" content="LiquidityBooster: Unternehmen, Geschäftsmodell und Entwicklungsmöglichkeiten in acht klaren Präsentationsschritten.">
+<title>LiquidityBooster – Unternehmensvorstellung</title>
+<meta name="description" content="LiquidityBooster erklärt in acht Präsentationsschritten Unternehmen, Geschäftsmodell, Umsatzlogik, Entwicklung und Bewerbung.">
 <style>
 :root{
-  --mint:#00a7ad;
-  --mint-soft:#eaf9f9;
-  --mag:#c6006f;
-  --mag-soft:#fff0f7;
-  --navy:#132238;
-  --ink:#314253;
-  --muted:#687986;
-  --line:#dbe8eb;
-  --paper:#ffffff;
-  --stage:#eef4f6;
-  --gold:#b88a24;
-  --gold-soft:#fff8e7;
-  --header-h:54px;
-  --footer-h:76px;
-  --radius:22px;
+  --mint:#00a7ad;--mint2:#59d0d2;--mint-soft:#e9f9f9;
+  --mag:#c6006f;--mag2:#ed68b1;--mag-soft:#fff0f7;
+  --navy:#132238;--navy2:#1c3550;--ink:#314253;--muted:#6b7b87;
+  --line:#dbe8eb;--paper:#fff;--canvas:#eef4f5;--gold:#b88717;--gold-soft:#fff8e6;
+  --header:60px;--footer:78px;--safe:28px;--radius:26px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  color:var(--ink);
-  background:#fff;
-  -webkit-text-size-adjust:100%;
-}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink);background:#fff;-webkit-text-size-adjust:100%}
 button{font:inherit}
-.app{
-  height:100svh;
-  min-height:100svh;
-  display:grid;
-  grid-template-rows:var(--header-h) minmax(0,1fr) var(--footer-h);
-  overflow:hidden;
-}
-.topbar{
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  z-index:20;
-}
-.topbar-inner{
-  width:min(1220px,calc(100% - 40px));
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:var(--navy);
-  font-weight:900;
-  line-height:1.04;
-}
-.brand svg{width:35px;height:35px;flex:none}
-.brand small{
-  display:block;
-  margin-top:3px;
-  color:var(--muted);
-  font-size:9px;
-  font-weight:700;
-  letter-spacing:.025em;
-}
-.lang{
-  display:flex;
-  gap:4px;
-  padding:3px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:#fff;
-}
-.lang button{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  border-radius:999px;
-  padding:6px 10px;
-  font-size:12px;
-  font-weight:850;
-  cursor:pointer;
-}
+.app{height:100svh;display:grid;grid-template-rows:var(--header) minmax(0,1fr) var(--footer);overflow:hidden}
+.topbar{display:flex;align-items:center;background:#fff;border-bottom:1px solid var(--line);z-index:20}
+.topbar-in,.footer-in{width:min(1240px,calc(100% - 42px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo-img{display:block;width:270px;max-width:44vw;height:44px;object-fit:contain;object-position:left center}
+.logo-fallback{display:none;align-items:center;gap:10px;color:var(--navy);font-weight:900}
+.logo-fallback svg{width:38px;height:38px}
+.logo-fallback small{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+.lang{display:flex;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px;background:#fff}
+.lang button{border:0;background:transparent;color:var(--muted);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:850;cursor:pointer}
 .lang button.active{background:var(--navy);color:#fff}
 
-.stage{
-  position:relative;
-  min-height:0;
-  background:var(--stage);
-  padding:12px 22px;
-  overflow:hidden;
-}
-.progress{
-  position:absolute;
-  top:0;left:0;right:0;
-  height:3px;
-  background:#dfe8eb;
-  z-index:15;
-}
-.progress span{
-  display:block;
-  height:100%;
-  width:12.5%;
-  background:linear-gradient(90deg,var(--mint),var(--mag));
-  transition:width .22s ease;
-}
-.slide{
-  position:absolute;
-  inset:12px 22px;
-  display:none;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  background:#fff;
-  overflow:hidden;
-  box-shadow:0 14px 34px rgba(19,34,56,.06);
-}
+.stage{position:relative;min-height:0;background:var(--canvas);padding:14px 20px;overflow:hidden}
+.progress{position:absolute;left:0;right:0;top:0;height:3px;background:#dfe8eb;z-index:12}
+.progress span{display:block;height:100%;width:12.5%;background:linear-gradient(90deg,var(--mint),var(--mag));transition:width .24s ease}
+.slide{position:absolute;inset:14px 20px;display:none;overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 16px 42px rgba(19,34,56,.07)}
 .slide.active{display:block}
-.slide.dark{
-  color:#fff;
-  border-color:rgba(255,255,255,.10);
-  background:
-    radial-gradient(circle at 86% 8%,rgba(0,167,173,.20),transparent 27%),
-    radial-gradient(circle at 7% 92%,rgba(198,0,111,.16),transparent 28%),
-    linear-gradient(125deg,#0b1c30 0%,#132238 58%,#3b1737 100%);
-}
-.slide.soft{background:#f8fbfb}
-.slide.mintwash{background:linear-gradient(135deg,#fff 0%,#f5fcfc 100%)}
-.slide.magwash{background:linear-gradient(135deg,#fff 0%,#fff6fb 100%)}
-.slide-inner{
-  height:100%;
-  width:100%;
-  padding:22px 26px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  min-height:0;
-}
-.slide-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:18px;
-  margin-bottom:12px;
-  flex:none;
-}
-.heading{min-width:0}
-.kicker{
-  margin:0 0 5px;
-  color:var(--mag);
-  font-size:10px;
-  font-weight:950;
-  text-transform:uppercase;
-  letter-spacing:.15em;
-}
-.dark .kicker{color:#86e6e0}
+.slide.dark{border-color:rgba(255,255,255,.09);background:
+  radial-gradient(circle at 88% 12%,rgba(0,167,173,.18),transparent 26%),
+  radial-gradient(circle at 9% 93%,rgba(198,0,111,.14),transparent 25%),
+  linear-gradient(125deg,#0c1e32 0%,#132238 58%,#371834 100%);color:#fff}
+.slide-inner{height:100%;padding:26px 30px;display:flex;flex-direction:column;min-height:0}
+.eyebrow{margin:0 0 7px;color:var(--mag);font-size:11px;font-weight:950;letter-spacing:.15em;text-transform:uppercase}
+.dark .eyebrow{color:#83e5df}
 h1,h2,h3,p{margin-top:0}
-h1,h2{
-  color:var(--navy);
-  letter-spacing:-.035em;
-  line-height:1.08;
-}
-.dark h1,.dark h2{color:#fff}
-h1{
-  margin-bottom:0;
-  font-size:clamp(30px,3.6vw,48px);
-  max-width:820px;
-}
-h2{
-  margin-bottom:0;
-  font-size:clamp(25px,2.7vw,38px);
-  max-width:980px;
-}
+h1,h2{margin-bottom:0;color:var(--navy);line-height:1.07;letter-spacing:-.035em}
+.dark h1,.dark h2,.dark h3{color:#fff}
+h1{font-size:clamp(34px,4.2vw,58px);max-width:880px}
+h2{font-size:clamp(28px,3.1vw,43px);max-width:1040px}
 h3{color:var(--navy)}
-.dark h3{color:#fff}
-.lead{
-  margin:10px 0 0;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.43;
-  max-width:940px;
-}
-.dark .lead{color:#dce9ed}
-.small-copy{
-  font-size:13px;
-  line-height:1.42;
-  color:var(--muted);
-}
-.dark .small-copy{color:#c9d9df}
-.emphasis{
-  color:var(--navy);
-  font-weight:850;
-}
-.dark .emphasis{color:#fff}
-.mint{color:#78e4de}
-.mag{color:#ee67b3}
+.lead{margin:12px 0 0;color:var(--muted);font-size:16px;line-height:1.46;max-width:970px}
+.dark .lead{color:#dbe8ec}
+.copy{color:var(--muted);font-size:15px;line-height:1.48}
+.dark .copy{color:#d5e2e6}
+.mint{color:#77e2dd}.mag{color:#ed69b3}
+.big-quote{font-size:clamp(20px,2.2vw,30px);font-weight:900;line-height:1.25;letter-spacing:-.02em;color:var(--navy)}
+.dark .big-quote{color:#fff}
+.callout{padding:13px 16px;border-left:4px solid var(--mint);border-radius:0 14px 14px 0;background:linear-gradient(105deg,var(--mint-soft),#fff 60%,var(--mag-soft));color:var(--navy);font-size:14px;line-height:1.4;font-weight:800}
+.dark .callout{background:rgba(255,255,255,.08);border-left-color:#78e2dd;color:#fff}
 
-.hero-grid{
-  display:grid;
-  grid-template-columns:1.08fr .92fr;
-  gap:24px;
-  align-items:center;
-  min-height:0;
-  flex:1;
-}
-.hero-copy{
-  align-self:center;
-}
-.hero-copy .lead{font-size:15px;max-width:720px}
-.hero-copy .small-copy{font-size:13px;max-width:720px}
-.roadmap{
-  align-self:center;
-  justify-self:stretch;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(255,255,255,.06);
-  border-radius:18px;
-  padding:10px;
-  min-height:0;
-}
-.roadmap svg{width:100%;height:auto;display:block;max-height:300px}
-.company-strip{
-  display:grid;
-  grid-template-columns:1fr 1fr 1.15fr;
-  gap:10px;
-  margin-top:12px;
-  flex:none;
-}
-.company-card{
-  border:1px solid rgba(255,255,255,.13);
-  background:rgba(255,255,255,.96);
-  border-radius:15px;
-  padding:13px 15px;
-  color:var(--ink);
-}
-.company-card h3{
-  margin:0 0 5px;
-  font-size:15px;
-}
-.company-card p{
-  margin:0;
-  font-size:11.5px;
-  line-height:1.38;
-  color:var(--muted);
-}
-.company-card.statement{
-  border-left:4px solid var(--mint);
-  background:linear-gradient(110deg,var(--mint-soft),#fff 58%,var(--mag-soft));
-}
-.company-card.statement p{
-  color:var(--navy);
-  font-weight:800;
-  font-size:12px;
-}
+.hero-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;flex:1;min-height:0}
+.hero-text{align-self:center}
+.hero-text .lead{font-size:17px;max-width:720px}
+.hero-text .copy{font-size:14px;max-width:720px;margin:12px 0 0}
+.hero-visual{height:100%;min-height:0;display:flex;align-items:center;justify-content:center}
+.hero-visual svg{display:block;width:100%;max-height:470px;height:auto}
+.hero-bottom{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:12px;flex:none;margin-top:12px}
+.hero-note{padding:12px 14px;border-radius:15px;background:rgba(255,255,255,.96);color:var(--ink);border:1px solid rgba(255,255,255,.15)}
+.hero-note b{display:block;color:var(--navy);font-size:14px;margin-bottom:4px}
+.hero-note span{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.hero-note.feature{border-left:4px solid var(--mint);background:linear-gradient(110deg,#f0fbfb,#fff 62%,#fff3f9)}
+.hero-note.feature span{color:var(--navy);font-weight:760}
 
-.products{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  grid-template-rows:repeat(2,minmax(0,1fr));
-  gap:10px;
-  flex:1;
-  min-height:0;
-}
-.product{
-  border:1px solid var(--line);
-  border-radius:15px;
-  background:#fff;
-  padding:13px 15px;
-  display:grid;
-  grid-template-columns:34px 1fr;
-  gap:10px;
-  align-items:start;
-  min-height:0;
-}
-.product-icon{
-  width:34px;height:34px;
-  border-radius:11px;
-  background:var(--mint-soft);
-  display:grid;
-  place-items:center;
-}
-.product:nth-child(even) .product-icon{background:var(--mag-soft)}
-.product-icon svg{width:18px;height:18px}
-.product h3{margin:0 0 4px;font-size:14px}
-.product p{margin:0;color:var(--muted);font-size:11.5px;line-height:1.34}
-.formula{
-  margin-top:10px;
-  padding:11px 16px;
-  border-radius:13px;
-  background:var(--navy);
-  color:#fff;
-  text-align:center;
-  font-size:14px;
-  font-weight:900;
-  flex:none;
-}
-.formula span{color:#75e2dc}
+.two-col{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;flex:1;min-height:0;align-items:center}
+.text-stack{display:flex;flex-direction:column;justify-content:center;min-height:0}
+.visual-card{height:100%;min-height:0;border-radius:22px;background:linear-gradient(145deg,#f8fcfc,#fff);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:10px}
+.dark .visual-card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)}
+.visual-card svg{display:block;width:100%;height:100%;max-height:500px}
+.clean-list{margin:15px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.clean-list li{position:relative;padding-left:18px;color:var(--ink);font-size:14px;line-height:1.35}
+.clean-list li:before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--mint)}
+.clean-list li:nth-child(even):before{background:var(--mag)}
+.dark .clean-list li{color:#e7f0f2}
 
-.flow{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:8px;
-  margin:8px 0 10px;
-  flex:1;
-  min-height:0;
-  align-items:stretch;
-}
-.flow-step{
-  position:relative;
-  border:1px solid var(--line);
-  border-radius:15px;
-  background:#fff;
-  padding:14px 12px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  text-align:center;
-}
-.flow-step:nth-child(odd){background:var(--mint-soft)}
-.flow-step:nth-child(even){background:var(--mag-soft)}
-.flow-step b{color:var(--navy);font-size:14px}
-.flow-step span{margin-top:5px;color:var(--muted);font-size:11px;line-height:1.32}
-.flow-step:not(:last-child):after{
-  content:"→";
-  position:absolute;
-  right:-14px;
-  top:50%;
-  transform:translateY(-50%);
-  z-index:2;
-  width:26px;height:26px;
-  border:1px solid var(--line);
-  background:#fff;
-  color:var(--mint);
-  border-radius:50%;
-  display:grid;place-items:center;
-  font-weight:950;
-}
+.eco-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:28px;flex:1;min-height:0;align-items:center}
+.eco-copy .lead{max-width:520px}
+.eco-copy .copy{margin:14px 0 0;font-size:14px}
+.eco-copy .portfolio{margin-top:15px;padding:14px 16px;border-radius:16px;background:#f7fbfb;border:1px solid var(--line);font-size:13px;line-height:1.42;color:var(--ink)}
+.eco-copy .portfolio strong{color:var(--navy)}
+.eco-visual{height:100%;min-height:0;display:flex;align-items:center;justify-content:center}
+.eco-visual svg{width:100%;height:100%;max-height:520px}
 
-.seek-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  flex:1;
-  min-height:0;
-}
-.seek{
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:#fff;
-  padding:15px 18px;
-}
-.seek.no{border-top:4px solid #9ca8b1}
-.seek.yes{border-top:4px solid var(--mint)}
-.seek h3{margin:0 0 8px;font-size:16px}
-.seek ul{margin:0;padding-left:18px;color:var(--muted)}
-.seek li{font-size:11.5px;line-height:1.33;margin:4px 0}
-.filter{
-  margin-top:10px;
-  border-radius:14px;
-  padding:12px 16px;
-  background:linear-gradient(120deg,#132238,#17394a 65%,#45183e);
-  color:#fff;
-  flex:none;
-}
-.filter strong{display:block;font-size:15px;line-height:1.25}
-.filter span{display:block;margin-top:4px;color:#8be6e1;font-size:10.5px}
+.growth-layout{display:grid;grid-template-columns:1fr 1.05fr;gap:28px;flex:1;min-height:0;align-items:center}
+.growth-copy .copy{margin:14px 0 0}
+.growth-slogan{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+.growth-slogan span{padding:8px 11px;border-radius:999px;background:var(--mint-soft);color:var(--navy);font-size:12px;font-weight:850}
+.growth-slogan span:nth-child(2){background:var(--mag-soft)}
+.growth-slogan span:nth-child(3){background:#eef3f7}
+.growth-visual{height:100%;min-height:0}
+.growth-visual svg{width:100%;height:100%;max-height:500px}
 
-.career{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:8px;
-  margin-bottom:9px;
-  flex:none;
-}
-.role{
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#fff;
-  padding:10px 8px;
-  text-align:center;
-}
-.role .num{
-  width:26px;height:26px;
-  margin:0 auto 6px;
-  border-radius:50%;
-  display:grid;place-items:center;
-  background:var(--mint-soft);
-  color:var(--mint);
-  font-size:11px;font-weight:950;
-}
-.role:nth-child(4) .num,.role:nth-child(5) .num{background:var(--mag-soft);color:var(--mag)}
-.role b{display:block;color:var(--navy);font-size:11px}
-.role span{display:block;margin-top:4px;color:var(--muted);font-size:9px;line-height:1.28}
-.role-details{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  grid-template-rows:1fr 1fr;
-  gap:8px;
-  flex:1;
-  min-height:0;
-}
-.role-detail{
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#fff;
-  padding:10px 12px;
-}
-.role-detail h3{margin:0 0 4px;font-size:13px}
-.role-detail p{margin:0 0 4px;color:var(--muted);font-size:10px;line-height:1.3}
-.role-detail p:last-child{margin-bottom:0}
+.people-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;flex:1;min-height:0;align-items:center}
+.filter-visual{height:100%;min-height:0}
+.filter-visual svg{width:100%;height:100%;max-height:500px}
+.people-copy .copy{margin:12px 0 0}
+.criteria{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.criteria-col{padding:14px 15px;border-radius:16px;background:#f9fbfc;border:1px solid var(--line)}
+.criteria-col.good{border-top:4px solid var(--mint)}
+.criteria-col.bad{border-top:4px solid #9ca8b1}
+.criteria-col h3{margin:0 0 7px;font-size:15px}
+.criteria-col ul{margin:0;padding-left:18px;color:var(--muted)}
+.criteria-col li{font-size:12px;line-height:1.34;margin:3px 0}
+.people-bottom{margin-top:10px;padding:11px 14px;border-radius:14px;background:linear-gradient(120deg,var(--navy),#173a4b 65%,#47183f);color:#fff;font-size:14px;font-weight:900}
+.people-bottom small{display:block;margin-top:4px;color:#83e5df;font-size:10px;font-weight:700}
 
-.offer-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-  flex:1;
-  min-height:0;
-  align-items:stretch;
-}
-.offer{
-  border:1px solid var(--line);
-  border-radius:15px;
-  background:#fff;
-  padding:15px;
-}
-.offer b{display:block;color:var(--navy);font-size:14px;margin-bottom:5px}
-.offer p{margin:0;color:var(--muted);font-size:11px;line-height:1.34}
-.statement-bar{
-  margin-top:10px;
-  padding:12px 15px;
-  border-left:4px solid var(--mint);
-  border-radius:0 13px 13px 0;
-  background:linear-gradient(105deg,var(--mint-soft),#fff 62%,var(--mag-soft));
-  color:var(--navy);
-  font-size:13px;
-  line-height:1.35;
-  font-weight:850;
-  flex:none;
-}
+.road-layout{display:grid;grid-template-rows:auto minmax(0,1fr);flex:1;min-height:0}
+.road-visual{min-height:0;display:flex;align-items:center}
+.road-visual svg{width:100%;height:100%;max-height:330px}
+.road-notes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-top:10px}
+.road-note{padding:12px 13px;border-radius:15px;border:1px solid var(--line);background:#fff}
+.road-note h3{margin:0 0 4px;font-size:14px}
+.road-note p{margin:0;color:var(--muted);font-size:11px;line-height:1.35}
+.road-note.selection{background:linear-gradient(110deg,var(--mint-soft),#fff 62%,var(--mag-soft));border-left:4px solid var(--mag)}
 
-.audience{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  flex:1;
-  min-height:0;
-  align-items:stretch;
-}
-.audience-card{
-  border:1px solid var(--line);
-  border-radius:17px;
-  background:#fff;
-  padding:18px;
-  display:flex;
-  flex-direction:column;
-}
-.audience-card h3{margin:0 0 7px;font-size:17px}
-.audience-card p{margin:0 0 10px;color:var(--muted);font-size:12px;line-height:1.38}
-.audience-highlight{
-  margin-top:auto;
-  padding:12px 14px;
-  border-radius:13px;
-  background:var(--mint-soft);
-  color:var(--navy);
-  font-size:12px;
-  line-height:1.35;
-  font-weight:800;
-}
-.audience-card:last-child .audience-highlight{background:var(--mag-soft)}
+.pillars-layout{display:grid;grid-template-columns:1.08fr .92fr;gap:28px;flex:1;min-height:0;align-items:center}
+.pillar-visual{height:100%;min-height:0}
+.pillar-visual svg{width:100%;height:100%;max-height:500px}
+.pillar-copy .copy{margin:13px 0 0}
+.pillar-points{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:16px}
+.pillar-point{padding:10px 12px;border-radius:13px;background:#f8fbfb;border:1px solid var(--line)}
+.pillar-point b{display:block;color:var(--navy);font-size:13px;margin-bottom:2px}
+.pillar-point span{display:block;color:var(--muted);font-size:11px;line-height:1.3}
 
-.decision-grid{
-  display:grid;
-  grid-template-columns:.95fr 1.05fr;
-  gap:14px;
-  flex:1;
-  min-height:0;
-}
-.decision-copy{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-.decision-copy p{
-  margin:0 0 9px;
-  color:#dbe8ec;
-  font-size:12.5px;
-  line-height:1.4;
-}
-.decision-box{
-  border:1px solid rgba(255,255,255,.15);
-  background:rgba(255,255,255,.07);
-  border-radius:17px;
-  padding:17px 18px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-.decision-box p{
-  margin:0 0 8px;
-  color:#edf5f6;
-  font-size:12.5px;
-  line-height:1.38;
-}
-.decision-box p:last-child{margin-bottom:0}
-.decision-box strong{color:#82e7e1}
-.claim{
-  margin-top:10px;
-  color:#82e7e1;
-  font-size:16px;
-  font-weight:950;
-}
-.legal{
-  margin-top:8px;
-  color:#b8c9d0;
-  font-size:9px;
-  line-height:1.35;
-  flex:none;
-}
+.entry-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:28px;flex:1;min-height:0;align-items:center}
+.entry-visual{height:100%;min-height:0}
+.entry-visual svg{width:100%;height:100%;max-height:500px}
+.entry-copy .copy{margin:13px 0 0}
+.entry-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.entry-option{padding:12px 13px;border-radius:14px;background:#f9fbfc;border:1px solid var(--line)}
+.entry-option h3{margin:0 0 4px;font-size:14px}
+.entry-option p{margin:0;color:var(--muted);font-size:11px;line-height:1.32}
 
-.footer{
-  background:#fff;
-  border-top:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  z-index:20;
-}
-.footer-inner{
-  width:min(1220px,calc(100% - 40px));
-  margin:auto;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
-  align-items:center;
-  gap:16px;
-}
-.navbtn{
-  border:1px solid var(--line);
-  background:#fff;
-  color:var(--navy);
-  border-radius:14px;
-  min-height:50px;
-  padding:8px 12px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  cursor:pointer;
-  font-weight:850;
-  text-align:left;
-}
-.navbtn.next{
-  justify-self:end;
-  text-align:right;
-  flex-direction:row-reverse;
-}
-.navbtn:disabled{opacity:.32;cursor:default}
-.arrow{
-  width:28px;height:28px;
-  flex:none;
-  border-radius:50%;
-  display:grid;place-items:center;
-  background:var(--mint-soft);
-  color:var(--mint);
-  font-size:18px;
-}
+.final-layout{display:grid;grid-template-columns:1fr .9fr;gap:32px;flex:1;min-height:0;align-items:center}
+.final-copy .lead{font-size:16px;max-width:670px}
+.final-copy .copy{font-size:14px;max-width:670px;margin:12px 0 0}
+.final-box{padding:18px 20px;border-radius:18px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07)}
+.final-box p{margin:0 0 9px;color:#e7f0f2;font-size:13px;line-height:1.4}
+.final-box p:last-child{margin-bottom:0}
+.final-box strong{color:#7fe4df}
+.final-arrow{height:100%;min-height:0}
+.final-arrow svg{width:100%;height:100%;max-height:420px}
+.claim{margin-top:15px;color:#7fe4df;font-size:19px;font-weight:950}
+.legal{margin-top:9px;color:#b8c7cd;font-size:9.5px;line-height:1.35}
+
+.footer{display:flex;align-items:center;background:#fff;border-top:1px solid var(--line);z-index:20}
+.footer-in{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+.navbtn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:15px;min-height:52px;padding:8px 13px;display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:850;text-align:left}
+.navbtn.next{justify-self:end;text-align:right;flex-direction:row-reverse}
+.navbtn:disabled{opacity:.28;cursor:default}
+.arrow{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--mint-soft);color:var(--mint);font-size:19px;flex:none}
 .next .arrow{background:var(--mag-soft);color:var(--mag)}
-.navcopy small{
-  display:block;
-  color:var(--muted);
-  font-size:8px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  margin-bottom:2px;
-}
-.navcopy span{
-  display:block;
-  font-size:12px;
-  max-width:290px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
+.navcopy small{display:block;color:var(--muted);font-size:8px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:2px}
+.navcopy span{display:block;font-size:12px;max-width:300px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .counter{text-align:center;color:var(--muted);font-size:9px;white-space:nowrap}
-.counter strong{display:block;color:var(--navy);font-size:15px;line-height:1.05}
+.counter strong{display:block;color:var(--navy);font-size:16px;line-height:1.05}
 .dots{display:flex;justify-content:center;gap:4px;margin-top:4px}
-.dot{width:5px;height:5px;border-radius:50%;background:#d8e4e7}
-.dot.active{background:var(--mint);transform:scale(1.35)}
+.dot{width:5px;height:5px;border-radius:50%;background:#d7e3e6}
+.dot.active{background:var(--mint);transform:scale(1.4)}
 
-@media(max-width:900px){
-  .topbar-inner,.footer-inner{width:min(100% - 24px,1220px)}
-  .stage{padding-inline:12px}
-  .slide{left:12px;right:12px}
-  .slide-inner{padding:18px 20px}
-  .hero-grid{grid-template-columns:1.05fr .95fr;gap:16px}
-  h1{font-size:clamp(28px,4vw,42px)}
-  h2{font-size:clamp(23px,3vw,34px)}
-  .company-strip{gap:8px}
-  .product{padding:11px 12px}
-  .career{gap:6px}
-  .role-details{gap:6px}
+@media(max-height:820px){
+  :root{--header:54px;--footer:70px}
+  .slide-inner{padding:20px 24px}
+  h1{font-size:clamp(30px,3.8vw,48px)}
+  h2{font-size:clamp(25px,2.8vw,37px)}
+  .lead{font-size:14px}.copy{font-size:13px}
+  .hero-text .lead{font-size:15px}
+  .hero-note span{font-size:11px}
 }
-@media(max-width:680px){
-  :root{--header-h:50px;--footer-h:70px}
-  .brand small{display:none}
-  .brand svg{width:31px;height:31px}
-  .stage{padding:8px}
-  .slide{inset:8px}
-  .slide-inner{padding:14px 14px}
-  .hero-grid{grid-template-columns:1fr .88fr;gap:10px}
-  h1{font-size:clamp(22px,6vw,34px)}
-  h2{font-size:clamp(20px,5vw,30px)}
-  .lead{font-size:12px}
-  .small-copy{font-size:11px}
-  .company-card{padding:9px 10px}
-  .company-card p{font-size:9.5px}
-  .products{gap:6px}
-  .product{grid-template-columns:28px 1fr;gap:7px;padding:9px}
-  .product-icon{width:28px;height:28px}
-  .product h3{font-size:11px}
-  .product p{font-size:9px}
-  .formula{font-size:11px;padding:8px}
-  .flow{gap:5px}
-  .flow-step{padding:9px 7px}
-  .flow-step b{font-size:11px}
-  .flow-step span{font-size:8.5px}
-  .seek{padding:10px 12px}
-  .seek li{font-size:9.5px}
-  .career{gap:4px}
-  .role{padding:7px 4px}
-  .role b{font-size:9px}
-  .role span{font-size:7.5px}
-  .role-detail{padding:7px 8px}
-  .role-detail h3{font-size:10px}
-  .role-detail p{font-size:8px}
-  .offer{padding:10px}
-  .offer b{font-size:11px}
-  .offer p{font-size:8.5px}
-  .audience-card{padding:12px}
-  .audience-card h3{font-size:13px}
-  .audience-card p,.audience-highlight{font-size:9.5px}
-  .decision-copy p,.decision-box p{font-size:9.5px}
+@media(max-width:900px){
+  :root{--safe:18px}
+  .topbar-in,.footer-in{width:min(100% - 26px,1240px)}
+  .stage{padding:10px 12px}.slide{inset:10px 12px}.slide-inner{padding:20px 22px}
+  .hero-layout,.two-col,.eco-layout,.growth-layout,.people-layout,.pillars-layout,.entry-layout,.final-layout{gap:20px}
+  h1{font-size:clamp(30px,4.5vw,50px)}h2{font-size:clamp(24px,3.3vw,38px)}
+  .logo-img{width:230px;height:40px}
+}
+@media(max-width:690px){
+  :root{--header:50px;--footer:68px}
+  .logo-img{width:190px;height:36px}
+  .slide-inner{padding:14px 15px}
+  .hero-layout,.two-col,.eco-layout,.growth-layout,.people-layout,.pillars-layout,.entry-layout,.final-layout{grid-template-columns:1fr 1fr;gap:11px}
+  h1{font-size:clamp(23px,6vw,34px)}h2{font-size:clamp(20px,5vw,30px)}
+  .lead{font-size:11.5px}.copy{font-size:10.5px}
+  .hero-text .lead{font-size:12px}.hero-text .copy{font-size:10.5px}
+  .hero-bottom{gap:6px}.hero-note{padding:8px}.hero-note b{font-size:10px}.hero-note span{font-size:8px}
+  .clean-list{gap:4px 8px}.clean-list li{font-size:9px}
+  .criteria{gap:6px}.criteria-col{padding:8px}.criteria-col li{font-size:8px}
+  .road-notes{gap:5px}.road-note{padding:7px}.road-note h3{font-size:9px}.road-note p{font-size:7.5px}
+  .pillar-points,.entry-options{gap:5px}.pillar-point,.entry-option{padding:7px}.pillar-point span,.entry-option p{font-size:8px}
+  .final-box{padding:10px}.final-box p{font-size:9px}.claim{font-size:13px}
   .navcopy span{max-width:25vw;font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){.progress span{transition:none}}
@@ -652,431 +205,345 @@ h3{color:var(--navy)}
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M32 5 56 16v18c0 12-8 21-24 26C16 55 8 46 8 34V16Z" fill="#132238"/>
-          <path d="M20 31 28 39 45 22" fill="none" stroke="#00a7ad" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="48" cy="47" r="8" fill="#c6006f"/>
-        </svg>
+<header class="topbar">
+  <div class="topbar-in">
+    <div>
+      <img class="logo-img" src="/pages/liquiditybooster-geschaeftsmodell/0CFFD132-AAAE-496D-B8F0-BD97255FA238.png" alt="LiquidityBooster – Akademie für finanzielle Souveränität" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="logo-fallback">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5 56 16v18c0 12-8 21-24 26C16 55 8 46 8 34V16Z" fill="#132238"/><path d="M20 31 28 39 45 22" fill="none" stroke="#00a7ad" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48" cy="47" r="8" fill="#c6006f"/></svg>
         <span>LiquidityBooster<small data-i18n="brand">Akademie für finanzielle Souveränität</small></span>
       </div>
-      <div class="lang" aria-label="Sprache / Language">
-        <button type="button" data-lang="de" class="active">DE</button>
-        <button type="button" data-lang="en">EN</button>
+    </div>
+    <div class="lang" aria-label="Sprache / Language"><button type="button" data-lang="de" class="active">DE</button><button type="button" data-lang="en">EN</button></div>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+<div class="progress"><span id="progressFill"></span></div>
+
+<section class="slide dark active" data-title-de="Wer wir sind" data-title-en="Who we are">
+  <div class="slide-inner">
+    <div class="hero-layout">
+      <div class="hero-text">
+        <p class="eyebrow" data-i18n="k1">01 · Wer wir sind</p>
+        <h1 data-i18n="s1title">Wir bauen ein Unternehmen für eine <span class="mint">neue wirtschaftliche Zeit.</span></h1>
+        <p class="lead" data-i18n="s1a">LiquidityBooster verbindet Bildung, Vertrieb, digitale Produkte, Dienstleistungen und Unternehmertum zu einem gemeinsamen Geschäftsmodell.</p>
+        <p class="copy" data-i18n="s1b">Wir entwickeln Produkte und Lösungen, die Menschen und Unternehmen nutzen können. Wir gewinnen dafür Kunden. Wir bauen Vertriebs- und Managementstrukturen auf. Und wir beteiligen Menschen, die aktiv Umsatz, Kundenbeziehungen und wirtschaftliche Strukturen entwickeln.</p>
+      </div>
+      <div class="hero-visual">
+        <svg viewBox="0 0 620 470" role="img" aria-label="LiquidityBooster verbindet Wissen, Produkte, Kunden und Entwicklung">
+          <defs><linearGradient id="heroG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient><filter id="sh"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#071426" flood-opacity=".18"/></filter></defs>
+          <circle cx="310" cy="235" r="96" fill="#fff" filter="url(#sh)"/>
+          <circle cx="310" cy="235" r="79" fill="#132238"/>
+          <text x="310" y="225" text-anchor="middle" font-family="Arial" font-weight="800" font-size="24" fill="#fff">Liquidity</text>
+          <text x="310" y="253" text-anchor="middle" font-family="Arial" font-weight="800" font-size="24" fill="#74e2dc">Booster</text>
+          <path d="M310 139V77M393 187l58-34M393 283l58 34M310 331v63M227 283l-58 34M227 187l-58-34" stroke="url(#heroG)" stroke-width="5" stroke-linecap="round"/>
+          <g font-family="Arial" font-weight="700" text-anchor="middle">
+            <circle cx="310" cy="58" r="49" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/><text x="310" y="54" font-size="14" fill="#132238">WISSEN</text><text x="310" y="71" font-size="10" fill="#687986">Bildung</text>
+            <circle cx="476" cy="137" r="49" fill="#fff0f7" stroke="#c6006f" stroke-width="3"/><text x="476" y="133" font-size="14" fill="#132238">PRODUKTE</text><text x="476" y="150" font-size="10" fill="#687986">Lösungen</text>
+            <circle cx="476" cy="333" r="49" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/><text x="476" y="329" font-size="14" fill="#132238">KUNDEN</text><text x="476" y="346" font-size="10" fill="#687986">Bedarf</text>
+            <circle cx="310" cy="414" r="49" fill="#fff8e6" stroke="#b88717" stroke-width="3"/><text x="310" y="410" font-size="13" fill="#132238">UMSATZ</text><text x="310" y="427" font-size="10" fill="#687986">Wertschöpfung</text>
+            <circle cx="144" cy="333" r="49" fill="#fff0f7" stroke="#c6006f" stroke-width="3"/><text x="144" y="329" font-size="13" fill="#132238">VERTRIEB</text><text x="144" y="346" font-size="10" fill="#687986">Menschen</text>
+            <circle cx="144" cy="137" r="49" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/><text x="144" y="133" font-size="13" fill="#132238">ENTWICKLUNG</text><text x="144" y="150" font-size="10" fill="#687986">Strukturen</text>
+          </g>
+        </svg>
       </div>
     </div>
-  </header>
-
-  <main class="stage" id="stage">
-    <div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
-
-    <section class="slide dark active" data-title-de="Wer wir sind" data-title-en="Who we are">
-      <div class="slide-inner">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="kicker" data-i18n="eyebrow">01 · Unternehmen · Geschäftsmodell · Perspektive</p>
-            <h1 data-i18n="heroTitle">Wir bauen <span class="mint">Geschäft</span> – und suchen Menschen, die <span class="mag">mit aufbauen</span>.</h1>
-            <p class="lead" data-i18n="heroLead">LiquidityBooster verbindet Produkte, Dienstleistungen, Vertrieb, Bildung und digitale Infrastruktur zu einem Geschäftsmodell für eine neue wirtschaftliche Zeit.</p>
-            <p class="small-copy" data-i18n="heroSub">Nicht jeder sucht nur einen Nebenverdienst. Manche suchen eine Perspektive, aus der Schritt für Schritt eine tragfähige selbstständige Existenz entstehen kann.</p>
-          </div>
-          <div class="roadmap" aria-hidden="true">
-            <svg viewBox="0 0 620 390">
-              <defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient></defs>
-              <rect x="22" y="20" width="576" height="348" rx="28" fill="#fff" opacity=".98"/>
-              <path d="M92 300C155 278 184 240 225 224c42-17 74-8 113-41 38-32 61-87 185-120" fill="none" stroke="#dbe8eb" stroke-width="13" stroke-linecap="round"/>
-              <path d="M92 300C155 278 184 240 225 224c42-17 74-8 113-41 38-32 61-87 185-120" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round"/>
-              <g font-family="Arial" font-weight="700">
-                <circle cx="96" cy="297" r="29" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/>
-                <text x="96" y="294" text-anchor="middle" fill="#132238" font-size="11">FIRST</text><text x="96" y="308" text-anchor="middle" fill="#132238" font-size="11">BASE</text>
-                <circle cx="229" cy="222" r="31" fill="#fff0f7" stroke="#c6006f" stroke-width="3"/>
-                <text x="229" y="219" text-anchor="middle" fill="#132238" font-size="11">CLUB</text><text x="229" y="233" text-anchor="middle" fill="#132238" font-size="11">LEADER</text>
-                <circle cx="369" cy="158" r="33" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/>
-                <text x="369" y="155" text-anchor="middle" fill="#132238" font-size="11">CLUB</text><text x="369" y="169" text-anchor="middle" fill="#132238" font-size="11">MANAGER</text>
-                <circle cx="515" cy="69" r="37" fill="#fff8e7" stroke="#b88a24" stroke-width="3"/>
-                <text x="515" y="66" text-anchor="middle" fill="#132238" font-size="11">COUNTRY</text><text x="515" y="80" text-anchor="middle" fill="#132238" font-size="11">PARTNER</text>
-                <rect x="92" y="332" width="430" height="22" rx="11" fill="#132238"/>
-                <text x="307" y="347" text-anchor="middle" fill="#80e6e0" font-size="11">Produkte · Kunden · Umsatz · Entwicklung</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div class="company-strip">
-          <div class="company-card">
-            <h3 data-i18n="s1title">Mehr als ein Club</h3>
-            <p data-i18n="s1a">Unser Ziel ist es, Wissen, Unternehmertum, Vertrieb und digitale Lösungen so zu verbinden, dass reale Produkte, Kundenbeziehungen und Umsätze entstehen können.</p>
-          </div>
-          <div class="company-card">
-            <h3 data-i18n="s1bTitle">Wirtschaftliche Infrastruktur</h3>
-            <p data-i18n="s1b">Wir entwickeln Angebote, Werkzeuge und Strukturen, die Einsteigern ebenso wie erfahrenen Unternehmern und Führungskräften einen Platz bieten.</p>
-          </div>
-          <div class="company-card statement">
-            <h3 data-i18n="s1cTitle">Unser Grundsatz</h3>
-            <p data-i18n="statement">Wir versprechen kein Einkommen. Wir stellen Geschäftsmodell, Produkte, Infrastruktur und Entwicklungsmöglichkeiten bereit. Was daraus entsteht, entscheidet sich durch Kunden, Leistung, Umsatz und Verantwortung.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide soft" data-title-de="Womit wir Geld verdienen" data-title-en="How we earn money">
-      <div class="slide-inner">
-        <div class="slide-head">
-          <div class="heading">
-            <p class="kicker" data-i18n="k2">02 · Womit wir Geld verdienen</p>
-            <h2 data-i18n="s2title">Unser Unternehmen verdient Geld, wenn Produkte und Dienstleistungen verkauft werden.</h2>
-            <p class="lead" data-i18n="s2a">Das Geschäftsmodell basiert nicht darauf, einfach nur neue Mitglieder zu gewinnen. Die Club-Mitgliedschaft ist ein Teil des Systems. Die wirtschaftliche Basis entsteht aus einem wachsenden Portfolio unterschiedlicher Angebote.</p>
-          </div>
-        </div>
-        <div class="products">
-          <article class="product"><div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#00a7ad" stroke-width="2"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div><div><h3 data-i18n="p1t">Club-Angebote</h3><p data-i18n="p1">Mitgliedschaften, Rollen, Community und Zugänge.</p></div></article>
-          <article class="product"><div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c6006f" stroke-width="2"><path d="M3 6h18v12H3z"/><path d="M8 21h8M12 18v3"/></svg></div><div><h3 data-i18n="p2t">Digitale Hörsäle</h3><p data-i18n="p2">Professionelle Lern- und Präsentationsräume für Wissen und Unternehmen.</p></div></article>
-          <article class="product"><div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#00a7ad" stroke-width="2"><path d="M4 19V5h16v14z"/><path d="M7 15l3-4 3 2 4-5"/></svg></div><div><h3 data-i18n="p3t">BusinessBooster</h3><p data-i18n="p3">Digitale Werkzeuge und professionelle Fullservice-Lösungen.</p></div></article>
-          <article class="product"><div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c6006f" stroke-width="2"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><div><h3 data-i18n="p4t">Akademie & Bildung</h3><p data-i18n="p4">Lernangebote, Projekt-Checks, Fachinhalte und Weiterbildung.</p></div></article>
-          <article class="product"><div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#00a7ad" stroke-width="2"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="16" r="3"/><path d="m10 10 4 4"/></svg></div><div><h3 data-i18n="p5t">Marktplatz & Unternehmerangebote</h3><p data-i18n="p5">Eigene Leistungen sichtbar machen und Angebot mit Nachfrage verbinden.</p></div></article>
-          <article class="product"><div class="product-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c6006f" stroke-width="2"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2M4 11h16"/></svg></div><div><h3 data-i18n="p6t">Services & B2B</h3><p data-i18n="p6">Dienstleistungen, Veranstaltungen und weitere Geschäftslösungen.</p></div></article>
-        </div>
-        <div class="formula"><span data-i18n="bf1">Bedarf</span> → <span data-i18n="bf2">Produkt</span> → <span data-i18n="bf3">Kunde</span> → <span data-i18n="bf4">Umsatz</span> → <span data-i18n="bf5">Vergütung & Entwicklung</span></div>
-      </div>
-    </section>
-
-    <section class="slide mintwash" data-title-de="Wie daraus ein Geschäft entsteht" data-title-en="How a business grows">
-      <div class="slide-inner">
-        <div class="slide-head">
-          <div class="heading">
-            <p class="kicker" data-i18n="k3">03 · Wie daraus ein Geschäft entsteht</p>
-            <h2 data-i18n="s3title">Nicht eine Provision macht ein Geschäft tragfähig. Eine wachsende Umsatzbasis tut es.</h2>
-            <p class="lead" data-i18n="s3a">Ein einzelner Verkauf kann der Anfang sein. Doch unsere Stärke liegt darin, dass unterschiedliche Produkte und Kundenbeziehungen zusammenkommen können.</p>
-          </div>
-        </div>
-        <div class="flow">
-          <div class="flow-step"><b data-i18n="m1t">Erster Kontakt</b><span data-i18n="m1">Einladung, Gespräch, Bedarf verstehen.</span></div>
-          <div class="flow-step"><b data-i18n="m2t">Erstes Produkt</b><span data-i18n="m2">Ein passendes Angebot wird vermittelt.</span></div>
-          <div class="flow-step"><b data-i18n="m3t">Weitere Kunden</b><span data-i18n="m3">Aus Erfahrung entsteht Kontinuität.</span></div>
-          <div class="flow-step"><b data-i18n="m4t">Produktmix</b><span data-i18n="m4">Club, Hörsaal, BusinessBooster und weitere Produkte kommen zusammen.</span></div>
-          <div class="flow-step"><b data-i18n="m5t">Bestand</b><span data-i18n="m5">Wiederkehrende Umsätze können hinzukommen.</span></div>
-        </div>
-        <div class="statement-bar" data-i18n="s3b">So kann aus einzelnen Aktivitäten Schritt für Schritt eine persönliche wirtschaftliche Struktur entstehen. Nicht über Nacht und nicht garantiert – sondern über Produkte, Kunden, Fähigkeiten und konsequente Arbeit.</div>
-      </div>
-    </section>
-
-    <section class="slide" data-title-de="Wen wir suchen" data-title-en="Who we are looking for">
-      <div class="slide-inner">
-        <div class="slide-head">
-          <div class="heading">
-            <p class="kicker" data-i18n="k4">04 · Wen wir suchen</p>
-            <h2 data-i18n="s4title">Geld verdienen wollen viele. Wir suchen Menschen, die ein Geschäft aufbauen wollen.</h2>
-            <p class="lead" data-i18n="s4a">Wir möchten nicht Masse um jeden Preis. Unser Ziel ist Entwicklung: vom Interessenten zum qualifizierten Partner, vom Verkäufer zum Unternehmer und – für geeignete Menschen – bis hin zu regionaler oder nationaler Verantwortung.</p>
-          </div>
-        </div>
-        <div class="seek-grid">
-          <div class="seek no">
-            <h3 data-i18n="noTitle">Was nicht reicht</h3>
-            <ul>
-              <li data-i18n="no1">nur der Wunsch nach schnellem Geld</li>
-              <li data-i18n="no2">eine Anmeldung ohne Aktivität</li>
-              <li data-i18n="no3">Produkte nicht verstehen wollen</li>
-              <li data-i18n="no4">Kunden nur als Provisionsquelle sehen</li>
-              <li data-i18n="no5">Verantwortung dauerhaft bei anderen suchen</li>
-            </ul>
-          </div>
-          <div class="seek yes">
-            <h3 data-i18n="yesTitle">Was wir suchen</h3>
-            <ul>
-              <li data-i18n="yes1"><strong>Zuverlässigkeit</strong> und Verbindlichkeit</li>
-              <li data-i18n="yes2"><strong>Lernbereitschaft</strong> und Offenheit</li>
-              <li data-i18n="yes3"><strong>Kommunikationsfähigkeit</strong> und Interesse an Menschen</li>
-              <li data-i18n="yes4"><strong>unternehmerisches Denken</strong> und Eigeninitiative</li>
-              <li data-i18n="yes5"><strong>Rückgrat</strong>, Verantwortung und die Bereitschaft, etwas aufzubauen</li>
-            </ul>
-          </div>
-        </div>
-        <div class="filter"><strong data-i18n="filter">Aus Masse wird Klasse, wenn Auswahl, Ausbildung, Leistung und Verantwortung zusammenkommen.</strong><span data-i18n="filterSmall">Deshalb verstehen wir die nächsten Entwicklungsstufen nicht als automatische Beförderung, sondern als Qualifikation.</span></div>
-      </div>
-    </section>
-
-    <section class="slide soft" data-title-de="Unsere Entwicklungsstraße" data-title-en="Our development path">
-      <div class="slide-inner">
-        <div class="slide-head">
-          <div class="heading">
-            <p class="kicker" data-i18n="k5">05 · Unsere Entwicklungsstraße</p>
-            <h2 data-i18n="s5title">Vom First Base Einstieg bis zur unternehmerischen Verantwortung</h2>
-          </div>
-        </div>
-        <div class="career">
-          <div class="role"><div class="num">1</div><b>Club Partner</b><span data-i18n="c1">First Base: kennenlernen, nutzen, empfehlen, erste Erfahrungen sammeln.</span></div>
-          <div class="role"><div class="num">2</div><b>Club Partner Plus</b><span data-i18n="c2">Qualifikation vertiefen, Verantwortung übernehmen und Menschen begleiten.</span></div>
-          <div class="role"><div class="num">3</div><b>Club Leader</b><span data-i18n="c3">Kunden entwickeln, Produkte vertreiben, Gespräche führen und Strukturen aufbauen.</span></div>
-          <div class="role"><div class="num">4</div><b>Club Manager</b><span data-i18n="c4">Eine Region wirtschaftlich entwickeln und Club Leader begleiten.</span></div>
-          <div class="role"><div class="num">5</div><b>Country Partner</b><span data-i18n="c5">Mehrere Regionen und Manager zu einer tragfähigen Landesstruktur verbinden.</span></div>
-        </div>
-        <div class="role-details">
-          <div class="role-detail"><h3 data-i18n="r1title">Club Partner Plus & Club Leader</h3><p data-i18n="r1a">Diese Entwicklungsstufen sind Teil einer aktiveren Vertriebs- und Betreuungsrolle.</p><p data-i18n="r1b">Bewerbungs- und Entwicklungsgespräche können von dafür qualifizierten Club Partner Plus und Club Leadern innerhalb ihrer Strukturen geführt werden.</p></div>
-          <div class="role-detail"><h3 data-i18n="r2title">Club Manager</h3><p data-i18n="r2a">Hier verändert sich die Aufgabe grundlegend. Es geht nicht mehr nur um das persönliche Geschäft, sondern um die wirtschaftliche Entwicklung einer Region.</p><p data-i18n="r2b">Wir suchen dafür Menschen, die führen, organisieren, entwickeln und Verantwortung tragen können.</p></div>
-          <div class="role-detail"><h3 data-i18n="r3title">Country Partner</h3><p data-i18n="r3a">Auf Landesebene geht es um den Aufbau tragfähiger Strukturen über mehrere Regionen hinweg.</p><p data-i18n="r3b">Unternehmerische Führung, Strategie, Entwicklung von Club Managern und langfristiger Strukturaufbau stehen im Mittelpunkt.</p></div>
-          <div class="role-detail"><h3 data-i18n="r4title">Persönliche Auswahl</h3><p data-i18n="r4a">Bewerbungen für Club Manager und Country Partner werden persönlich durch Michael Rau geprüft und in einem individuellen Gespräch besprochen.</p><p data-i18n="r4b">Nicht jede Bewerbung muss zu einer höheren Rolle führen. Entscheidend ist, ob Aufgabe, Fähigkeiten, Haltung und Verantwortung zusammenpassen.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide magwash" data-title-de="Was wir anbieten" data-title-en="What we offer">
-      <div class="slide-inner">
-        <div class="slide-head">
-          <div class="heading">
-            <p class="kicker" data-i18n="k6">06 · Was wir anbieten</p>
-            <h2 data-i18n="s6title">Keine Stellenanzeige im klassischen Sinn. Eine unternehmerische Perspektive.</h2>
-            <p class="lead" data-i18n="s6a">LiquidityBooster bietet keine Erfolgsgarantie und keine automatische Karriere. Wir bieten einen Rahmen, in dem Menschen eine selbstständige wirtschaftliche Tätigkeit entwickeln können – vom kleinen Einstieg bis zur professionellen Führungs- und Managementrolle.</p>
-          </div>
-        </div>
-        <div class="offer-grid">
-          <div class="offer"><b data-i18n="a1t">Produkte</b><p data-i18n="a1">Du musst nicht bei null anfangen und erst selbst ein komplettes Portfolio entwickeln.</p></div>
-          <div class="offer"><b data-i18n="a2t">Infrastruktur</b><p data-i18n="a2">Digitale Werkzeuge, Hörsäle, Prozesse und Systeme unterstützen den Aufbau.</p></div>
-          <div class="offer"><b data-i18n="a3t">Entwicklung</b><p data-i18n="a3">Vom Einstieg über Vertrieb bis zu regionaler und nationaler Verantwortung.</p></div>
-          <div class="offer"><b data-i18n="a4t">Eigenleistung</b><p data-i18n="a4">Kunden, Umsatz und Ergebnisse entstehen durch tatsächliche Aktivität und Leistung.</p></div>
-        </div>
-        <div class="statement-bar" data-i18n="s6statement">Eine tragfähige Existenz entsteht nicht durch einen Titel. Sie entsteht, wenn aus Fähigkeiten Kunden werden, aus Kunden Umsatz wird und aus Umsatz eine stabile wirtschaftliche Basis wächst.</div>
-      </div>
-    </section>
-
-    <section class="slide" data-title-de="Für wen kann das interessant sein?" data-title-en="Who might find this interesting?">
-      <div class="slide-inner">
-        <div class="slide-head">
-          <div class="heading">
-            <p class="kicker" data-i18n="k7">07 · Für wen kann das interessant sein?</p>
-            <h2 data-i18n="s7title">Vielleicht suchst du keinen neuen Job. Vielleicht suchst du einen neuen Weg.</h2>
-          </div>
-        </div>
-        <div class="audience">
-          <div class="audience-card">
-            <h3 data-i18n="ap1t">Du stehst am Anfang?</h3>
-            <p data-i18n="ap1">Dann kann dein Weg über die First Base beginnen. Lernen, Produkte verstehen, erste Gespräche führen und herausfinden, ob diese Form des Unternehmertums zu dir passt.</p>
-            <div class="audience-highlight" data-i18n="ap1h">Du musst heute noch kein Profi sein. Aber du solltest bereit sein, einer zu werden, wenn du weitergehen möchtest.</div>
-          </div>
-          <div class="audience-card">
-            <h3 data-i18n="ap2t">Du bringst bereits Erfahrung mit?</h3>
-            <p data-i18n="ap2">Vielleicht bist du im Vertrieb, selbstständig, Unternehmer oder hast bereits Teams geführt. Dann kann für dich eine höhere Entwicklungsstufe interessant sein.</p>
-            <div class="audience-highlight" data-i18n="ap2h">Je größer die Rolle, desto wichtiger werden Führung, Verlässlichkeit, wirtschaftliches Denken und die Fähigkeit, andere Menschen zu entwickeln.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide dark" data-title-de="Deine Entscheidung" data-title-en="Your decision">
-      <div class="slide-inner">
-        <div class="slide-head">
-          <div class="heading">
-            <p class="kicker" data-i18n="k8">08 · Deine Entscheidung</p>
-            <h2 data-i18n="s8title">Wir suchen nicht möglichst viele Bewerber. Wir suchen die richtigen.</h2>
-          </div>
-        </div>
-        <div class="decision-grid">
-          <div class="decision-copy">
-            <p data-i18n="s8a">Vielleicht möchtest du zunächst zusätzliches Einkommen aufbauen. Vielleicht willst du dich selbstständig entwickeln. Vielleicht bringst du bereits Vertriebserfahrung mit. Oder vielleicht kannst du dir vorstellen, später Verantwortung für eine Region oder ein Land zu übernehmen.</p>
-            <p data-i18n="s8b">Entscheidend ist nicht, mit welchem Titel du heute zu uns kommst. Entscheidend ist, ob du bereit bist, Kunden zu gewinnen, Leistung zu erbringen, zu lernen und Verantwortung zu übernehmen.</p>
-            <div class="claim" data-i18n="claim">Mehr Freiheit • Mehr Geld • Mehr vom Leben</div>
-          </div>
-          <div class="decision-box">
-            <p data-i18n="f1"><strong>Wir versprechen dir kein Einkommen.</strong></p>
-            <p data-i18n="f2">Wir bieten dir Produkte, Infrastruktur, Ausbildung, Entwicklungsmöglichkeiten und einen klaren Weg vom Einstieg bis zur unternehmerischen Verantwortung.</p>
-            <p data-i18n="f3">Was daraus entsteht, entscheidet sich nicht durch eine Anmeldung. Es entscheidet sich durch Leistung, Kunden, Umsatz und Entwicklung.</p>
-            <p data-i18n="f4"><strong>Wenn du darin eine Perspektive für dich siehst, ist eine Bewerbung der nächste Schritt.</strong></p>
-          </div>
-        </div>
-        <div class="legal" data-i18n="legal">Hinweis: LiquidityBooster und die Akademie stellen Bildungsinhalte, Produkte, Dienstleistungen und selbstständige unternehmerische Perspektiven bereit. Es erfolgt keine Anlageberatung. Einkommens-, Umsatz- oder Geschäftserfolge werden nicht garantiert. Rollen, Vergütungen und Voraussetzungen richten sich nach den jeweils geltenden Vereinbarungen und Qualifikationen.</div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <button type="button" class="navbtn prev" id="prevBtn">
-        <span class="arrow" aria-hidden="true">←</span>
-        <span class="navcopy"><small data-i18n="prevSmall">Vorher</small><span id="prevLabel">Start</span></span>
-      </button>
-      <div class="counter">
-        <strong id="counter">1 / 8</strong>
-        <span data-i18n="counterLabel">Unternehmensvorstellung</span>
-        <div class="dots" id="dots" aria-hidden="true"></div>
-      </div>
-      <button type="button" class="navbtn next" id="nextBtn">
-        <span class="arrow" aria-hidden="true">→</span>
-        <span class="navcopy"><small data-i18n="nextSmall">Als Nächstes</small><span id="nextLabel">Womit wir Geld verdienen</span></span>
-      </button>
+    <div class="hero-bottom">
+      <div class="hero-note"><b data-i18n="s1n1t">Mehr als ein Club</b><span data-i18n="s1n1">Wir schaffen eine wirtschaftliche Infrastruktur aus Wissen, Produkten, Vertrieb und Unternehmertum.</span></div>
+      <div class="hero-note"><b data-i18n="s1n2t">Ein Platz für Entwicklung</b><span data-i18n="s1n2">Vom Einstieg bis zur professionellen Führungs- und Managementrolle.</span></div>
+      <div class="hero-note feature"><b data-i18n="s1n3t">Unser Grundsatz</b><span data-i18n="s1n3">Nicht der Titel schafft Einkommen. Wirtschaftliche Leistung, Kunden und Umsatz schaffen die Grundlage.</span></div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<section class="slide" data-title-de="Womit wir Geld verdienen" data-title-en="How we earn money">
+  <div class="slide-inner">
+    <div class="eco-layout">
+      <div class="eco-copy">
+        <p class="eyebrow" data-i18n="k2">02 · Womit wir Geld verdienen</p>
+        <h2 data-i18n="s2title">Womit verdient LiquidityBooster Geld?</h2>
+        <p class="lead" data-i18n="s2a">LiquidityBooster verdient Geld, wenn <strong>Produkte und Dienstleistungen verkauft werden.</strong></p>
+        <p class="copy" data-i18n="s2b">Die Club-Mitgliedschaft ist ein Teil des Systems – aber nicht das gesamte Geschäftsmodell. Unsere wirtschaftliche Basis entsteht aus einem wachsenden Portfolio unterschiedlicher Leistungen.</p>
+        <div class="portfolio" data-i18n="s2portfolio"><strong>Dazu gehören:</strong> Club-Angebote, digitale Hörsäle, BusinessBooster, Akademieangebote, Unternehmerleistungen, Marktplatzangebote, Projekt-Checks, Veranstaltungen, Services und weitere Produkte, die aus den Bedürfnissen unserer Kunden und Unternehmer entstehen.</div>
+        <div class="callout" style="margin-top:14px" data-i18n="s2call">Es gibt Kunden. Es gibt Leistungen. Es gibt Preise. Es gibt Umsatz. Ein Teil dieser Umsätze kann entsprechend der jeweiligen Vergütungsstruktur an diejenigen gehen, die zum Geschäft beigetragen haben.</div>
+      </div>
+      <div class="eco-visual">
+        <svg viewBox="0 0 700 560" role="img" aria-label="Produktökosystem LiquidityBooster">
+          <defs><linearGradient id="ecoG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient><filter id="ecoSh"><feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#132238" flood-opacity=".12"/></filter></defs>
+          <circle cx="350" cy="280" r="93" fill="#fff" stroke="#dbe8eb" stroke-width="2" filter="url(#ecoSh)"/>
+          <circle cx="350" cy="280" r="73" fill="#132238"/>
+          <text x="350" y="271" text-anchor="middle" font-family="Arial" font-weight="800" font-size="21" fill="#fff">Liquidity</text>
+          <text x="350" y="297" text-anchor="middle" font-family="Arial" font-weight="800" font-size="21" fill="#79e3dd">Booster</text>
+          <g stroke="url(#ecoG)" stroke-width="4" fill="none" stroke-linecap="round">
+            <path d="M350 187V91"/><path d="M428 232l91-53"/><path d="M428 328l91 53"/><path d="M350 373v96"/><path d="M272 328l-91 53"/><path d="M272 232l-91-53"/>
+          </g>
+          <g font-family="Arial" text-anchor="middle">
+            <g><rect x="260" y="26" width="180" height="75" rx="18" fill="#eaf9f9" stroke="#00a7ad" stroke-width="2"/><text x="350" y="58" font-weight="800" font-size="14" fill="#132238">DIGITALE HÖRSÄLE</text><text x="350" y="78" font-size="11" fill="#687986">Lernen · präsentieren</text></g>
+            <g><rect x="505" y="120" width="174" height="75" rx="18" fill="#fff0f7" stroke="#c6006f" stroke-width="2"/><text x="592" y="152" font-weight="800" font-size="14" fill="#132238">BUSINESSBOOSTER</text><text x="592" y="172" font-size="11" fill="#687986">Werkzeuge · Fullservice</text></g>
+            <g><rect x="505" y="365" width="174" height="75" rx="18" fill="#eaf9f9" stroke="#00a7ad" stroke-width="2"/><text x="592" y="397" font-weight="800" font-size="14" fill="#132238">SERVICES & B2B</text><text x="592" y="417" font-size="11" fill="#687986">Leistungen · Events</text></g>
+            <g><rect x="260" y="459" width="180" height="75" rx="18" fill="#fff8e6" stroke="#b88717" stroke-width="2"/><text x="350" y="490" font-weight="800" font-size="14" fill="#132238">MARKTPLATZ</text><text x="350" y="511" font-size="11" fill="#687986">Unternehmerangebote</text></g>
+            <g><rect x="21" y="365" width="174" height="75" rx="18" fill="#fff0f7" stroke="#c6006f" stroke-width="2"/><text x="108" y="397" font-weight="800" font-size="14" fill="#132238">AKADEMIE</text><text x="108" y="417" font-size="11" fill="#687986">Bildung · Projekt-Checks</text></g>
+            <g><rect x="21" y="120" width="174" height="75" rx="18" fill="#eaf9f9" stroke="#00a7ad" stroke-width="2"/><text x="108" y="152" font-weight="800" font-size="14" fill="#132238">CLUB-ANGEBOTE</text><text x="108" y="172" font-size="11" fill="#687986">Mitgliedschaft · Rollen</text></g>
+          </g>
+          <rect x="153" y="251" width="394" height="58" rx="29" fill="none" stroke="url(#ecoG)" stroke-width="3" stroke-dasharray="6 7" opacity=".75"/>
+          <text x="350" y="548" text-anchor="middle" font-family="Arial" font-weight="800" font-size="13" fill="#132238">BEDARF → PRODUKT → KUNDE → UMSATZ → VERGÜTUNG</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title-de="Wie daraus ein Geschäft entsteht" data-title-en="How a business grows">
+  <div class="slide-inner">
+    <div class="growth-layout">
+      <div class="growth-copy">
+        <p class="eyebrow" data-i18n="k3">03 · Wie daraus ein Geschäft entsteht</p>
+        <h2 data-i18n="s3title">Unser Geschäft wächst nicht durch eine einzige Einnahmequelle.</h2>
+        <p class="lead" data-i18n="s3a">Ein Produkt kann der Anfang sein. Ein weiterer Kunde, ein Hörsaal, ein BusinessBooster oder eine laufende Dienstleistung können hinzukommen.</p>
+        <p class="copy" data-i18n="s3b">Ein Geschäft muss das vorherige nicht ersetzen. Aus einzelnen Kunden kann mit der Zeit ein Bestand entstehen. Aus einzelnen Produkten kann ein persönlicher Produktmix entstehen. Und aus einzelnen Aktivitäten kann sich Schritt für Schritt eine eigene wirtschaftliche Struktur entwickeln.</p>
+        <div class="growth-slogan"><span data-i18n="g1">Kunde für Kunde.</span><span data-i18n="g2">Produkt für Produkt.</span><span data-i18n="g3">Monat für Monat.</span></div>
+        <div class="callout" style="margin-top:15px" data-i18n="s3call">Genau das meinen wir mit einem kumulativen Geschäftsmodell: Eine wachsende Umsatzbasis kann tragfähiger werden als die Betrachtung einer einzelnen Provision.</div>
+      </div>
+      <div class="growth-visual">
+        <svg viewBox="0 0 700 500" role="img" aria-label="Kumulative Umsatzentwicklung">
+          <defs><linearGradient id="areaG" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#00a7ad" stop-opacity=".18"/><stop offset="1" stop-color="#c6006f" stop-opacity=".28"/></linearGradient><linearGradient id="lineG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient></defs>
+          <line x1="80" y1="420" x2="650" y2="420" stroke="#bfcdd3" stroke-width="2"/>
+          <line x1="80" y1="70" x2="80" y2="420" stroke="#bfcdd3" stroke-width="2"/>
+          <g stroke="#e5edef" stroke-width="1"><line x1="80" y1="330" x2="650" y2="330"/><line x1="80" y1="240" x2="650" y2="240"/><line x1="80" y1="150" x2="650" y2="150"/></g>
+          <path d="M90 390 C160 380 170 350 230 338 C295 325 300 288 365 272 C425 257 442 216 505 192 C558 171 586 127 642 102 L642 420 L90 420 Z" fill="url(#areaG)"/>
+          <path d="M90 390 C160 380 170 350 230 338 C295 325 300 288 365 272 C425 257 442 216 505 192 C558 171 586 127 642 102" fill="none" stroke="url(#lineG)" stroke-width="7" stroke-linecap="round"/>
+          <g font-family="Arial" font-weight="800" text-anchor="middle">
+            <circle cx="125" cy="378" r="26" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/><text x="125" y="374" font-size="10" fill="#132238">CLUB</text><text x="125" y="387" font-size="9" fill="#687986">Start</text>
+            <circle cx="248" cy="332" r="28" fill="#fff0f7" stroke="#c6006f" stroke-width="3"/><text x="248" y="328" font-size="10" fill="#132238">HÖRSAAL</text><text x="248" y="341" font-size="9" fill="#687986">+ Umsatz</text>
+            <circle cx="370" cy="270" r="29" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/><text x="370" y="266" font-size="9" fill="#132238">BUSINESS</text><text x="370" y="279" font-size="9" fill="#687986">BOOSTER</text>
+            <circle cx="505" cy="192" r="30" fill="#fff0f7" stroke="#c6006f" stroke-width="3"/><text x="505" y="188" font-size="9" fill="#132238">WEITERE</text><text x="505" y="201" font-size="9" fill="#687986">KUNDEN</text>
+            <circle cx="642" cy="102" r="34" fill="#fff8e6" stroke="#b88717" stroke-width="3"/><text x="642" y="98" font-size="10" fill="#132238">BESTAND</text><text x="642" y="112" font-size="9" fill="#687986">laufend</text>
+          </g>
+          <g font-family="Arial" fill="#687986" font-size="11"><text x="80" y="448">Start</text><text x="608" y="448">Zeit →</text><text x="20" y="92" transform="rotate(-90 20 92)">Umsatzbasis</text></g>
+          <rect x="137" y="454" width="426" height="28" rx="14" fill="#132238"/>
+          <text x="350" y="473" text-anchor="middle" font-family="Arial" font-size="11" font-weight="800" fill="#79e3dd">EIN GESCHÄFT KOMMT ZUM NÄCHSTEN</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title-de="Wen wir suchen" data-title-en="Who we are looking for">
+  <div class="slide-inner">
+    <div class="people-layout">
+      <div class="filter-visual">
+        <svg viewBox="0 0 560 500" role="img" aria-label="Aus Masse wird Klasse">
+          <defs><linearGradient id="funnelG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient></defs>
+          <g fill="#dce8eb"><circle cx="90" cy="74" r="16"/><circle cx="145" cy="63" r="16"/><circle cx="200" cy="80" r="16"/><circle cx="255" cy="61" r="16"/><circle cx="310" cy="76" r="16"/><circle cx="365" cy="62" r="16"/><circle cx="420" cy="80" r="16"/><circle cx="475" cy="64" r="16"/></g>
+          <text x="280" y="30" text-anchor="middle" font-family="Arial" font-weight="800" font-size="15" fill="#687986">VIELE WOLLEN GELD VERDIENEN</text>
+          <path d="M72 118 H488 L390 270 H170 Z" fill="url(#funnelG)" opacity=".14" stroke="url(#funnelG)" stroke-width="4"/>
+          <text x="280" y="164" text-anchor="middle" font-family="Arial" font-weight="800" font-size="14" fill="#132238">AUSWAHL</text>
+          <text x="280" y="195" text-anchor="middle" font-family="Arial" font-weight="800" font-size="14" fill="#132238">AUSBILDUNG</text>
+          <text x="280" y="226" text-anchor="middle" font-family="Arial" font-weight="800" font-size="14" fill="#132238">LEISTUNG</text>
+          <path d="M170 270 H390 L342 355 H218 Z" fill="#132238"/>
+          <text x="280" y="315" text-anchor="middle" font-family="Arial" font-weight="800" font-size="15" fill="#fff">VERANTWORTUNG</text>
+          <circle cx="280" cy="417" r="57" fill="#eaf9f9" stroke="#00a7ad" stroke-width="4"/>
+          <path d="M253 418l18 18 37-43" fill="none" stroke="#00a7ad" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="280" y="493" text-anchor="middle" font-family="Arial" font-weight="900" font-size="17" fill="#c6006f">AUS MASSE WIRD KLASSE</text>
+        </svg>
+      </div>
+      <div class="people-copy">
+        <p class="eyebrow" data-i18n="k4">04 · Wen wir suchen</p>
+        <h2 data-i18n="s4title">Geld verdienen wollen viele. Wir suchen Menschen, die ein Geschäft aufbauen wollen.</h2>
+        <p class="copy" data-i18n="s4a">Ein tragfähiges Geschäft aufzubauen bedeutet mehr: zuverlässig sein, Gespräche führen, Kunden ernst nehmen, Produkte verstehen, Verantwortung übernehmen, lernen – und auch dann weitermachen, wenn nicht jedes Gespräch zu einem Geschäft führt.</p>
+        <div class="criteria">
+          <div class="criteria-col bad"><h3 data-i18n="badTitle">Was nicht reicht</h3><ul><li data-i18n="bad1">nur der Wunsch nach schnellem Geld</li><li data-i18n="bad2">eine Anmeldung ohne Aktivität</li><li data-i18n="bad3">Produkte nicht verstehen wollen</li><li data-i18n="bad4">Kunden nur als Provisionsquelle sehen</li><li data-i18n="bad5">Verantwortung immer bei anderen suchen</li></ul></div>
+          <div class="criteria-col good"><h3 data-i18n="goodTitle">Was wir suchen</h3><ul><li data-i18n="good1">Zuverlässigkeit & Verbindlichkeit</li><li data-i18n="good2">Lernbereitschaft & Offenheit</li><li data-i18n="good3">Kommunikationsfähigkeit</li><li data-i18n="good4">unternehmerisches Denken</li><li data-i18n="good5">Rückgrat & Verantwortung</li></ul></div>
+        </div>
+        <div class="people-bottom"><span data-i18n="s4bottom">Deshalb suchen wir nicht möglichst viele Menschen. Wir suchen Menschen, die etwas aufbauen wollen.</span><small data-i18n="s4small">Die nächsten Entwicklungsstufen sind Qualifikation – keine automatische Beförderung.</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title-de="Unsere Entwicklungsstraße" data-title-en="Our development path">
+  <div class="slide-inner">
+    <p class="eyebrow" data-i18n="k5">05 · Unsere Entwicklungsstraße</p>
+    <h2 data-i18n="s5title">Deine Einstiegsebene entscheidet nicht über dein Ziel.</h2>
+    <div class="road-layout">
+      <div class="road-visual">
+        <svg viewBox="0 0 1220 330" role="img" aria-label="Club Partner bis Country Partner">
+          <defs><linearGradient id="roadG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset=".55" stop-color="#c6006f"/><stop offset="1" stop-color="#b88717"/></linearGradient></defs>
+          <path d="M75 262 C220 262 245 221 355 221 C485 221 505 176 620 176 C745 176 775 126 890 126 C1005 126 1038 77 1142 77" fill="none" stroke="#dfe9ec" stroke-width="22" stroke-linecap="round"/>
+          <path d="M75 262 C220 262 245 221 355 221 C485 221 505 176 620 176 C745 176 775 126 890 126 C1005 126 1038 77 1142 77" fill="none" stroke="url(#roadG)" stroke-width="8" stroke-linecap="round"/>
+          <g font-family="Arial" text-anchor="middle">
+            <g><circle cx="135" cy="262" r="43" fill="#fff" stroke="#00a7ad" stroke-width="4"/><text x="135" y="256" font-weight="800" font-size="14" fill="#132238">CLUB</text><text x="135" y="273" font-weight="800" font-size="14" fill="#132238">PARTNER</text><text x="135" y="322" font-size="11" fill="#687986">FIRST BASE</text></g>
+            <g><circle cx="390" cy="221" r="43" fill="#fff" stroke="#00a7ad" stroke-width="4"/><text x="390" y="215" font-weight="800" font-size="13" fill="#132238">PARTNER</text><text x="390" y="232" font-weight="800" font-size="13" fill="#132238">PLUS</text><text x="390" y="281" font-size="11" fill="#687986">QUALIFIKATION</text></g>
+            <g><circle cx="650" cy="176" r="43" fill="#fff" stroke="#c6006f" stroke-width="4"/><text x="650" y="170" font-weight="800" font-size="13" fill="#132238">CLUB</text><text x="650" y="187" font-weight="800" font-size="13" fill="#132238">LEADER</text><text x="650" y="236" font-size="11" fill="#687986">VERTRIEB</text></g>
+            <g><circle cx="920" cy="126" r="43" fill="#fff" stroke="#c6006f" stroke-width="4"/><text x="920" y="120" font-weight="800" font-size="13" fill="#132238">CLUB</text><text x="920" y="137" font-weight="800" font-size="13" fill="#132238">MANAGER</text><text x="920" y="186" font-size="11" fill="#687986">REGION</text></g>
+            <g><circle cx="1120" cy="77" r="45" fill="#fff8e6" stroke="#b88717" stroke-width="4"/><text x="1120" y="70" font-weight="800" font-size="12" fill="#132238">COUNTRY</text><text x="1120" y="87" font-weight="800" font-size="12" fill="#132238">PARTNER</text><text x="1120" y="140" font-size="11" fill="#687986">LAND</text></g>
+          </g>
+        </svg>
+      </div>
+      <div class="road-notes">
+        <div class="road-note"><h3 data-i18n="r1t">First Base → aktive Vertriebsrolle</h3><p data-i18n="r1">Club Partner beginnen an der Basis. Club Partner Plus und Club Leader qualifizieren sich für mehr Begleitung, Kundengespräche, Vertrieb und Strukturaufbau.</p></div>
+        <div class="road-note"><h3 data-i18n="r2t">Region → Land</h3><p data-i18n="r2">Beim Club Manager verändert sich die Aufgabe: Eine Region wirtschaftlich entwickeln. Country Partner verbinden mehrere Regionen zu einer tragfähigen Landesstruktur.</p></div>
+        <div class="road-note selection"><h3 data-i18n="r3t">Persönliche Auswahl</h3><p data-i18n="r3">Bewerbungen für Club Manager und Country Partner werden persönlich durch Michael Rau geprüft. Partner Plus und Club Leader führen ihre eigenen Bewerbungs- und Entwicklungsgespräche in ihren Strukturen.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title-de="Was wir anbieten" data-title-en="What we offer">
+  <div class="slide-inner">
+    <div class="pillars-layout">
+      <div class="pillar-visual">
+        <svg viewBox="0 0 700 500" role="img" aria-label="Vier Säulen des Angebots">
+          <defs><linearGradient id="baseG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient></defs>
+          <rect x="75" y="410" width="550" height="38" rx="18" fill="#132238"/>
+          <text x="350" y="435" text-anchor="middle" font-family="Arial" font-weight="900" font-size="15" fill="#7ee4de">DEINE EIGENE WIRTSCHAFTLICHE BASIS</text>
+          <g font-family="Arial" text-anchor="middle">
+            <g><rect x="95" y="130" width="115" height="275" rx="18" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/><circle cx="152" cy="178" r="30" fill="#fff"/><path d="M136 180h32M152 164v32" stroke="#00a7ad" stroke-width="4" stroke-linecap="round"/><text x="152" y="232" font-size="15" font-weight="900" fill="#132238">PRODUKTE</text><text x="152" y="257" font-size="10" fill="#687986">Portfolio statt</text><text x="152" y="272" font-size="10" fill="#687986">bei null starten</text></g>
+            <g><rect x="225" y="92" width="115" height="313" rx="18" fill="#fff0f7" stroke="#c6006f" stroke-width="3"/><circle cx="282" cy="144" r="30" fill="#fff"/><path d="M266 151h32M270 138h24M274 125h16" stroke="#c6006f" stroke-width="4" stroke-linecap="round"/><text x="282" y="207" font-size="14" font-weight="900" fill="#132238">INFRASTRUKTUR</text><text x="282" y="232" font-size="10" fill="#687986">Tools · Hörsäle</text><text x="282" y="247" font-size="10" fill="#687986">Prozesse · Systeme</text></g>
+            <g><rect x="355" y="60" width="115" height="345" rx="18" fill="#eaf9f9" stroke="#00a7ad" stroke-width="3"/><circle cx="412" cy="116" r="30" fill="#fff"/><path d="M397 124l10 10 20-24" fill="none" stroke="#00a7ad" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="412" y="180" font-size="14" font-weight="900" fill="#132238">ENTWICKLUNG</text><text x="412" y="205" font-size="10" fill="#687986">Lernen · Vertrieb</text><text x="412" y="220" font-size="10" fill="#687986">Führung · Wachstum</text></g>
+            <g><rect x="485" y="108" width="115" height="297" rx="18" fill="#fff0f7" stroke="#c6006f" stroke-width="3"/><circle cx="542" cy="158" r="30" fill="#fff"/><path d="M528 173l14-30 14 30M534 162h16" fill="none" stroke="#c6006f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><text x="542" y="220" font-size="14" font-weight="900" fill="#132238">EIGENLEISTUNG</text><text x="542" y="245" font-size="10" fill="#687986">Kunden · Aktivität</text><text x="542" y="260" font-size="10" fill="#687986">Verantwortung</text></g>
+          </g>
+          <path d="M75 465H625" stroke="url(#baseG)" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="pillar-copy">
+        <p class="eyebrow" data-i18n="k6">06 · Was wir anbieten</p>
+        <h2 data-i18n="s6title">Keine Stellenanzeige im klassischen Sinn. Eine unternehmerische Perspektive.</h2>
+        <p class="copy" data-i18n="s6a">LiquidityBooster bietet keine Erfolgsgarantie und keine automatische Karriere. Wir bieten einen Rahmen, in dem Menschen eine selbstständige wirtschaftliche Tätigkeit entwickeln können – vom kleinen Einstieg bis zur professionellen Führungs- und Managementrolle.</p>
+        <div class="pillar-points">
+          <div class="pillar-point"><b data-i18n="p6aT">Produkte</b><span data-i18n="p6a">Du musst nicht erst selbst ein komplettes Portfolio entwickeln.</span></div>
+          <div class="pillar-point"><b data-i18n="p6bT">Infrastruktur</b><span data-i18n="p6b">Digitale Werkzeuge, Hörsäle, Prozesse und Systeme unterstützen den Aufbau.</span></div>
+          <div class="pillar-point"><b data-i18n="p6cT">Entwicklung</b><span data-i18n="p6c">Vom Einstieg über Vertrieb bis zu regionaler und nationaler Verantwortung.</span></div>
+          <div class="pillar-point"><b data-i18n="p6dT">Eigenleistung</b><span data-i18n="p6d">Kunden, Umsatz und Ergebnisse entstehen durch tatsächliche Aktivität und Leistung.</span></div>
+        </div>
+        <div class="callout" style="margin-top:15px" data-i18n="s6call">Eine tragfähige Existenz entsteht nicht durch einen Titel. Sie entsteht, wenn aus Fähigkeiten Kunden werden, aus Kunden Umsatz wird und aus Umsatz eine stabile wirtschaftliche Basis wächst.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-title-de="Für wen kann das interessant sein?" data-title-en="Who might find this interesting?">
+  <div class="slide-inner">
+    <div class="entry-layout">
+      <div class="entry-visual">
+        <svg viewBox="0 0 660 500" role="img" aria-label="Zwei Einstiegspfade führen in eine Entwicklung">
+          <defs><linearGradient id="entryG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient></defs>
+          <circle cx="120" cy="132" r="58" fill="#eaf9f9" stroke="#00a7ad" stroke-width="4"/>
+          <circle cx="120" cy="365" r="58" fill="#fff0f7" stroke="#c6006f" stroke-width="4"/>
+          <text x="120" y="122" text-anchor="middle" font-family="Arial" font-weight="900" font-size="15" fill="#132238">ICH</text><text x="120" y="142" text-anchor="middle" font-family="Arial" font-weight="900" font-size="15" fill="#132238">BEGINNE</text>
+          <text x="120" y="355" text-anchor="middle" font-family="Arial" font-weight="900" font-size="14" fill="#132238">ICH BRINGE</text><text x="120" y="375" text-anchor="middle" font-family="Arial" font-weight="900" font-size="14" fill="#132238">ERFAHRUNG MIT</text>
+          <path d="M178 132 C290 132 315 218 390 248" fill="none" stroke="#00a7ad" stroke-width="8" stroke-linecap="round"/>
+          <path d="M178 365 C292 365 316 282 390 252" fill="none" stroke="#c6006f" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="421" cy="250" r="60" fill="#132238"/>
+          <text x="421" y="240" text-anchor="middle" font-family="Arial" font-weight="900" font-size="15" fill="#fff">DEIN</text><text x="421" y="260" text-anchor="middle" font-family="Arial" font-weight="900" font-size="15" fill="#79e3dd">WEG</text>
+          <path d="M481 250 C530 250 548 207 595 176" fill="none" stroke="url(#entryG)" stroke-width="8" stroke-linecap="round"/>
+          <path d="M595 176l-15-1 7 13" fill="none" stroke="#c6006f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <g font-family="Arial" font-size="11" fill="#687986">
+            <text x="235" y="104">lernen · verstehen</text><text x="235" y="126">erste Gespräche</text>
+            <text x="235" y="394">Vertrieb · Führung</text><text x="235" y="416">Unternehmertum</text>
+          </g>
+          <text x="545" y="222" text-anchor="middle" font-family="Arial" font-weight="800" font-size="12" fill="#132238">ENTWICKLUNG</text>
+        </svg>
+      </div>
+      <div class="entry-copy">
+        <p class="eyebrow" data-i18n="k7">07 · Für wen kann das interessant sein?</p>
+        <h2 data-i18n="s7title">Vielleicht suchst du keinen neuen Job. Vielleicht suchst du einen neuen Weg.</h2>
+        <p class="copy" data-i18n="s7a">Vielleicht möchtest du zunächst ein zusätzliches Einkommen aufbauen. Vielleicht willst du eine selbstständige Existenz entwickeln. Vielleicht bist du bereits im Vertrieb, Unternehmer oder hast Teams geführt.</p>
+        <div class="entry-options">
+          <div class="entry-option"><h3 data-i18n="e1t">Du stehst am Anfang?</h3><p data-i18n="e1">Dann beginnt dein Weg auf der First Base: lernen, Produkte verstehen, erste Gespräche führen und herausfinden, ob diese Form des Unternehmertums zu dir passt.</p></div>
+          <div class="entry-option"><h3 data-i18n="e2t">Du bringst Erfahrung mit?</h3><p data-i18n="e2">Dann kann eine höhere Entwicklungsstufe interessant sein. Je größer die Rolle, desto wichtiger werden Führung, Verlässlichkeit und die Fähigkeit, andere Menschen zu entwickeln.</p></div>
+        </div>
+        <div class="callout" style="margin-top:15px" data-i18n="s7call">Entscheidend ist nicht, mit welchem Titel du heute zu uns kommst. Entscheidend ist, was du daraus machen möchtest – und ob deine Fähigkeiten, Erwartungen und Haltung zu unserem Geschäftsmodell passen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide dark" data-title-de="Deine Entscheidung" data-title-en="Your decision">
+  <div class="slide-inner">
+    <div class="final-layout">
+      <div class="final-copy">
+        <p class="eyebrow" data-i18n="k8">08 · Deine Entscheidung</p>
+        <h2 data-i18n="s8title">Wir suchen nicht möglichst viele Bewerber. Wir suchen die richtigen.</h2>
+        <p class="lead" data-i18n="s8a">Vielleicht beginnt hier deine neue berufliche oder unternehmerische Perspektive.</p>
+        <p class="copy" data-i18n="s8b">Vielleicht möchtest du zunächst zusätzliches Einkommen aufbauen. Vielleicht willst du dich selbstständig entwickeln. Vielleicht bringst du bereits Vertriebserfahrung mit. Oder vielleicht kannst du dir vorstellen, später Verantwortung für eine Region oder ein Land zu übernehmen.</p>
+        <div class="final-box">
+          <p data-i18n="f1"><strong>Wir versprechen dir kein Einkommen.</strong></p>
+          <p data-i18n="f2">Wir bieten dir ein Geschäftsmodell: Produkte, Kunden, Infrastruktur, Ausbildung, Entwicklungsmöglichkeiten und einen klaren Weg vom Einstieg bis zur unternehmerischen Verantwortung.</p>
+          <p data-i18n="f3">Was daraus entsteht, entscheidet sich nicht durch eine Anmeldung. Es entscheidet sich durch Leistung, Kunden, Umsatz und Entwicklung.</p>
+          <p data-i18n="f4"><strong>Wenn du darin eine Perspektive für dich siehst, ist eine Bewerbung der nächste Schritt.</strong></p>
+        </div>
+        <div class="claim" data-i18n="claim">Mehr Freiheit • Mehr Geld • Mehr vom Leben</div>
+      </div>
+      <div class="final-arrow">
+        <svg viewBox="0 0 560 480" role="img" aria-label="Der nächste Schritt">
+          <defs><linearGradient id="doorG" x1="0" x2="1"><stop stop-color="#00a7ad"/><stop offset="1" stop-color="#c6006f"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".45" stop-color="#7ee4de" stop-opacity=".55"/><stop offset="1" stop-color="#7ee4de" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="350" cy="235" r="178" fill="url(#glow)" opacity=".65"/>
+          <rect x="168" y="63" width="235" height="344" rx="13" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.25)" stroke-width="3"/>
+          <path d="M195 92H374V407H195Z" fill="#fff" opacity=".97"/>
+          <path d="M195 92H374V407H195Z" fill="none" stroke="url(#doorG)" stroke-width="5"/>
+          <path d="M283 250H482" stroke="url(#doorG)" stroke-width="9" stroke-linecap="round"/>
+          <path d="M482 250l-35-26M482 250l-35 26" fill="none" stroke="#c6006f" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="340" cy="250" r="8" fill="#132238"/>
+          <text x="285" y="150" text-anchor="middle" font-family="Arial" font-size="16" font-weight="900" fill="#132238">DEIN NÄCHSTER</text>
+          <text x="285" y="174" text-anchor="middle" font-family="Arial" font-size="16" font-weight="900" fill="#c6006f">SCHRITT</text>
+          <text x="285" y="344" text-anchor="middle" font-family="Arial" font-size="12" font-weight="800" fill="#00a7ad">BEWERBUNG</text>
+        </svg>
+      </div>
+    </div>
+    <div class="legal" data-i18n="legal">Hinweis: LiquidityBooster und die Akademie stellen Bildungsinhalte, Produkte, Dienstleistungen und selbstständige unternehmerische Perspektiven bereit. Es erfolgt keine Anlageberatung. Einkommens-, Umsatz- oder Geschäftserfolge werden nicht garantiert. Rollen, Vergütungen und Voraussetzungen richten sich nach den jeweils geltenden Vereinbarungen und Qualifikationen.</div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="footer-in">
+    <button type="button" class="navbtn prev" id="prevBtn"><span class="arrow">←</span><span class="navcopy"><small data-i18n="prevSmall">Vorher</small><span id="prevLabel">Start</span></span></button>
+    <div class="counter"><strong id="counter">1 / 8</strong><span data-i18n="counterLabel">Unternehmensvorstellung</span><div class="dots" id="dots"></div></div>
+    <button type="button" class="navbtn next" id="nextBtn"><span class="arrow">→</span><span class="navcopy"><small data-i18n="nextSmall">Als Nächstes</small><span id="nextLabel">Womit wir Geld verdienen</span></span></button>
+  </div>
+</footer>
 </div>
 
 <script>
 (()=>{
-  const slides=[...document.querySelectorAll('.slide')];
-  const prevBtn=document.getElementById('prevBtn');
-  const nextBtn=document.getElementById('nextBtn');
-  const prevLabel=document.getElementById('prevLabel');
-  const nextLabel=document.getElementById('nextLabel');
-  const counter=document.getElementById('counter');
-  const progressFill=document.getElementById('progressFill');
-  const dots=document.getElementById('dots');
-  let current=0,lang='de';
-  let sx=0,sy=0;
-
-  const de={};
-  document.querySelectorAll('[data-i18n]').forEach(el=>de[el.dataset.i18n]=el.innerHTML);
-  const en={
-    brand:'Academy for Financial Sovereignty',
-    eyebrow:'01 · Company · Business model · Perspective',
-    heroTitle:'We build <span class="mint">business</span> – and look for people who want to <span class="mag">build with us</span>.',
-    heroLead:'LiquidityBooster combines products, services, sales, education and digital infrastructure into a business model for a new economic era.',
-    heroSub:'Not everyone is only looking for extra income. Some are looking for a perspective from which a sustainable self-employed livelihood can grow step by step.',
-    s1title:'More than a club',
-    s1a:'Our goal is to connect knowledge, entrepreneurship, sales and digital solutions so that real products, customer relationships and revenues can emerge.',
-    s1bTitle:'Economic infrastructure',
-    s1b:'We develop offers, tools and structures that provide a place for beginners as well as experienced entrepreneurs and leaders.',
-    s1cTitle:'Our principle',
-    statement:'We do not promise income. We provide a business model, products, infrastructure and development opportunities. What grows from them is determined by customers, performance, revenue and responsibility.',
-    k2:'02 · How we earn money',
-    s2title:'Our company earns money when products and services are sold.',
-    s2a:'The business model is not based on simply recruiting new members. Club membership is one part of the system. The economic foundation comes from a growing portfolio of different offers.',
-    p1t:'Club offers',p1:'Memberships, roles, community and access.',
-    p2t:'Digital learning halls',p2:'Professional learning and presentation spaces for knowledge and businesses.',
-    p3t:'BusinessBooster',p3:'Digital tools and professional full-service solutions.',
-    p4t:'Academy & education',p4:'Learning offers, project checks, specialist content and education.',
-    p5t:'Marketplace & entrepreneur offers',p5:'Make services visible and connect supply with demand.',
-    p6t:'Services & B2B',p6:'Services, events and further business solutions.',
-    bf1:'Need',bf2:'Product',bf3:'Customer',bf4:'Revenue',bf5:'Compensation & development',
-    k3:'03 · How a business grows',
-    s3title:'A single commission does not make a business sustainable. A growing revenue base can.',
-    s3a:'A single sale can be the beginning. Our strength lies in the fact that different products and customer relationships can come together.',
-    m1t:'First contact',m1:'Invitation, conversation, understand the need.',
-    m2t:'First product',m2:'A suitable offer is provided.',
-    m3t:'More customers',m3:'Experience creates consistency.',
-    m4t:'Product mix',m4:'Club, learning hall, BusinessBooster and further products come together.',
-    m5t:'Customer base',m5:'Recurring revenues may be added.',
-    s3b:'In this way, individual activities can gradually develop into a personal economic structure. Not overnight and not guaranteed – but through products, customers, skills and consistent work.',
-    k4:'04 · Who we are looking for',
-    s4title:'Many people want to earn money. We look for people who want to build a business.',
-    s4a:'We do not want volume at any price. Our goal is development: from prospect to qualified partner, from salesperson to entrepreneur and – for suitable people – to regional or national responsibility.',
-    noTitle:'What is not enough',
-    no1:'only wanting fast money',no2:'signing up without activity',no3:'not wanting to understand the products',no4:'seeing customers only as a source of commission',no5:'permanently placing responsibility on others',
-    yesTitle:'What we are looking for',
-    yes1:'<strong>Reliability</strong> and commitment',yes2:'<strong>Willingness to learn</strong> and openness',yes3:'<strong>Communication skills</strong> and genuine interest in people',yes4:'<strong>Entrepreneurial thinking</strong> and initiative',yes5:'<strong>Backbone</strong>, responsibility and the willingness to build something',
-    filter:'Quantity becomes quality when selection, training, performance and responsibility come together.',
-    filterSmall:'That is why we see the next stages of development not as automatic promotion, but as qualification.',
-    k5:'05 · Our development path',
-    s5title:'From First Base entry to entrepreneurial responsibility',
-    c1:'First Base: learn, use, recommend and gain initial experience.',
-    c2:'Deepen qualification, take responsibility and support people.',
-    c3:'Develop customers, sell products, hold conversations and build structures.',
-    c4:'Develop a region economically and support Club Leaders.',
-    c5:'Connect several regions and managers into a sustainable national structure.',
-    r1title:'Club Partner Plus & Club Leader',
-    r1a:'These stages are part of a more active sales and support role.',
-    r1b:'Application and development conversations can be conducted by qualified Club Partner Plus and Club Leaders within their structures.',
-    r2title:'Club Manager',
-    r2a:'At this point the task changes fundamentally. It is no longer only about personal business, but about the economic development of a region.',
-    r2b:'We look for people who can lead, organise, develop and carry responsibility.',
-    r3title:'Country Partner',
-    r3a:'At country level, the focus is on building sustainable structures across several regions.',
-    r3b:'Entrepreneurial leadership, strategy, developing Club Managers and long-term structure building are central.',
-    r4title:'Personal selection',
-    r4a:'Applications for Club Manager and Country Partner are personally reviewed by Michael Rau and discussed in an individual conversation.',
-    r4b:'Not every application has to lead to a higher role. What matters is whether task, skills, mindset and responsibility fit together.',
-    k6:'06 · What we offer',
-    s6title:'Not a classic job advertisement. An entrepreneurial perspective.',
-    s6a:'LiquidityBooster offers no guarantee of success and no automatic career. We offer a framework in which people can develop a self-employed economic activity – from a small start to professional leadership and management responsibility.',
-    a1t:'Products',a1:'You do not have to start from zero and first develop an entire portfolio yourself.',
-    a2t:'Infrastructure',a2:'Digital tools, learning halls, processes and systems support the build-up.',
-    a3t:'Development',a3:'From entry and sales to regional and national responsibility.',
-    a4t:'Own performance',a4:'Customers, revenue and results arise from real activity and performance.',
-    s6statement:'A sustainable livelihood is not created by a title. It grows when skills lead to customers, customers lead to revenue, and revenue develops into a stable economic foundation.',
-    k7:'07 · Who might find this interesting?',
-    s7title:'Perhaps you are not looking for a new job. Perhaps you are looking for a new path.',
-    ap1t:'Are you at the beginning?',
-    ap1:'Then your path can begin at First Base. Learn, understand products, hold your first conversations and find out whether this form of entrepreneurship suits you.',
-    ap1h:'You do not have to be a professional today. But you should be willing to become one if you want to move forward.',
-    ap2t:'Do you already bring experience?',
-    ap2:'Perhaps you work in sales, are self-employed, an entrepreneur or have already led teams. Then a higher stage of development may be interesting for you.',
-    ap2h:'The larger the role, the more important leadership, reliability, economic thinking and the ability to develop other people become.',
-    k8:'08 · Your decision',
-    s8title:'We are not looking for as many applicants as possible. We are looking for the right ones.',
-    s8a:'Perhaps you want to build additional income first. Perhaps you want to develop self-employment. Perhaps you already bring sales experience. Or perhaps you can imagine taking responsibility for a region or a country later.',
-    s8b:'What matters is not the title you have today. What matters is whether you are ready to win customers, perform, learn and take responsibility.',
-    f1:'<strong>We do not promise you income.</strong>',
-    f2:'We offer products, infrastructure, training, development opportunities and a clear path from entry to entrepreneurial responsibility.',
-    f3:'What grows from it is not decided by signing up. It is decided by performance, customers, revenue and development.',
-    f4:'<strong>If you see a perspective for yourself in this, applying is the next step.</strong>',
-    claim:'More freedom • More money • More from life',
-    legal:'Note: LiquidityBooster and the Academy provide educational content, products, services and self-employed entrepreneurial perspectives. No investment advice is given. Income, revenue or business success is not guaranteed. Roles, compensation and requirements are governed by the applicable agreements and qualifications.',
-    prevSmall:'Previous',nextSmall:'Next',counterLabel:'Company presentation'
-  };
-
-  slides.forEach((_,i)=>{
-    const d=document.createElement('span');
-    d.className='dot'+(i===0?' active':'');
-    dots.appendChild(d);
-  });
-
-  function slideTitle(i){
-    if(i<0||i>=slides.length)return '';
-    return slides[i].dataset[lang==='en'?'titleEn':'titleDe'];
-  }
-
-  function render(){
-    slides.forEach((s,i)=>s.classList.toggle('active',i===current));
-    counter.textContent=(current+1)+' / '+slides.length;
-    progressFill.style.width=((current+1)/slides.length*100)+'%';
-    [...dots.children].forEach((d,i)=>d.classList.toggle('active',i===current));
-    prevBtn.disabled=current===0;
-    nextBtn.disabled=current===slides.length-1;
-    prevLabel.textContent=current===0?(lang==='en'?'Start':'Start'):slideTitle(current-1);
-    nextLabel.textContent=current===slides.length-1?(lang==='en'?'Complete':'Abschluss'):slideTitle(current+1);
-    history.replaceState(null,'','#'+(current+1));
-  }
-
-  function go(i){
-    if(i<0||i>=slides.length||i===current)return;
-    current=i;
-    render();
-  }
-
-  prevBtn.addEventListener('click',()=>go(current-1));
-  nextBtn.addEventListener('click',()=>go(current+1));
-
-  document.addEventListener('keydown',e=>{
-    if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(current+1)}
-    if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(current-1)}
-    if(e.key==='Home'){e.preventDefault();go(0)}
-    if(e.key==='End'){e.preventDefault();go(slides.length-1)}
-  });
-
-  const stage=document.getElementById('stage');
-  stage.addEventListener('touchstart',e=>{
-    const t=e.changedTouches[0];
-    sx=t.screenX;sy=t.screenY;
-  },{passive:true});
-  stage.addEventListener('touchend',e=>{
-    const t=e.changedTouches[0];
-    const dx=t.screenX-sx,dy=t.screenY-sy;
-    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.25){
-      dx<0?go(current+1):go(current-1);
-    }
-  },{passive:true});
-
-  function setLang(next){
-    lang=next==='en'?'en':'de';
-    document.documentElement.lang=lang;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{
-      const key=el.dataset.i18n;
-      el.innerHTML=lang==='en'?(en[key]??de[key]):de[key];
-    });
-    document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-    document.title=lang==='en'?'LiquidityBooster – Entrepreneurial perspective':'LiquidityBooster – Unternehmerische Perspektive';
-    render();
-  }
-  document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-
-  const hash=parseInt(location.hash.slice(1),10);
-  if(hash>=1&&hash<=slides.length)current=hash-1;
-  render();
+const slides=[...document.querySelectorAll('.slide')];
+const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),prevLabel=document.getElementById('prevLabel'),nextLabel=document.getElementById('nextLabel'),counter=document.getElementById('counter'),progressFill=document.getElementById('progressFill'),dots=document.getElementById('dots'),stage=document.getElementById('stage');
+let current=0,lang='de',sx=0,sy=0;
+const de={};document.querySelectorAll('[data-i18n]').forEach(el=>de[el.dataset.i18n]=el.innerHTML);
+const en={
+brand:'Academy for Financial Sovereignty',
+k1:'01 · Who we are',s1title:'We are building a company for a <span class="mint">new economic era.</span>',s1a:'LiquidityBooster connects education, sales, digital products, services and entrepreneurship into one business model.',s1b:'We develop products and solutions that people and companies can use. We win customers, build sales and management structures, and share revenue with people who actively develop sales, customer relationships and economic structures.',s1n1t:'More than a club',s1n1:'We create economic infrastructure from knowledge, products, sales and entrepreneurship.',s1n2t:'A place to develop',s1n2:'From the first step to professional leadership and management responsibility.',s1n3t:'Our principle',s1n3:'A title does not create income. Economic performance, customers and revenue create the foundation.',
+k2:'02 · How we earn money',s2title:'How does LiquidityBooster earn money?',s2a:'LiquidityBooster earns money when <strong>products and services are sold.</strong>',s2b:'Club membership is one part of the system – but it is not the entire business model. Our economic foundation comes from a growing portfolio of different services.',s2portfolio:'<strong>This includes:</strong> club offers, digital learning halls, BusinessBooster, academy offers, entrepreneur services, marketplace offers, project checks, events, services and further products that grow from customer and entrepreneur needs.',s2call:'There are customers. There are services. There are prices. There is revenue. Part of that revenue can be shared, under the applicable compensation structure, with those who contributed to the business.',
+k3:'03 · How a business grows',s3title:'Our business does not grow from a single source of income.',s3a:'One product can be the beginning. Another customer, a learning hall, a BusinessBooster or a recurring service can be added.',s3b:'One transaction does not have to replace the previous one. Individual customers can become a customer base. Individual products can become a personal product mix. Step by step, individual activities can become a personal economic structure.',g1:'Customer by customer.',g2:'Product by product.',g3:'Month by month.',s3call:'That is what we mean by a cumulative business model: a growing revenue base can become more sustainable than looking at a single commission.',
+k4:'04 · Who we are looking for',s4title:'Many people want to earn money. We look for people who want to build a business.',s4a:'Building a sustainable business takes more: being reliable, holding conversations, taking customers seriously, understanding products, taking responsibility, learning – and continuing even when not every conversation becomes a sale.',badTitle:'What is not enough',bad1:'only wanting fast money',bad2:'signing up without activity',bad3:'not wanting to understand products',bad4:'seeing customers only as commission',bad5:'putting responsibility on others',goodTitle:'What we are looking for',good1:'reliability & commitment',good2:'willingness to learn',good3:'communication skills',good4:'entrepreneurial thinking',good5:'backbone & responsibility',s4bottom:'That is why we are not looking for as many people as possible. We are looking for people who want to build something.',s4small:'The next stages are qualifications – not automatic promotions.',
+k5:'05 · Our development path',s5title:'Your entry level does not determine your destination.',r1t:'First Base → active sales role',r1:'Club Partners begin at the base. Club Partner Plus and Club Leaders qualify for more support, customer conversations, sales and structure building.',r2t:'Region → country',r2:'For Club Managers the task changes: economically develop a region. Country Partners connect several regions into a sustainable national structure.',r3t:'Personal selection',r3:'Applications for Club Manager and Country Partner are personally reviewed by Michael Rau. Partner Plus and Club Leaders conduct their own application and development conversations within their structures.',
+k6:'06 · What we offer',s6title:'Not a classic job advertisement. An entrepreneurial perspective.',s6a:'LiquidityBooster offers no guarantee of success and no automatic career. We offer a framework in which people can develop a self-employed economic activity – from a small start to professional leadership and management responsibility.',p6aT:'Products',p6a:'You do not have to build an entire portfolio from scratch.',p6bT:'Infrastructure',p6b:'Digital tools, learning halls, processes and systems support the build-up.',p6cT:'Development',p6c:'From entry and sales to regional and national responsibility.',p6dT:'Own performance',p6d:'Customers, revenue and results come from real activity and performance.',s6call:'A sustainable livelihood is not created by a title. It grows when skills lead to customers, customers lead to revenue, and revenue grows into a stable economic foundation.',
+k7:'07 · Who might find this interesting?',s7title:'Perhaps you are not looking for a new job. Perhaps you are looking for a new path.',s7a:'Perhaps you first want to build additional income. Perhaps you want to develop self-employment. Perhaps you already work in sales, are an entrepreneur or have led teams.',e1t:'Are you at the beginning?',e1:'Then your path begins at First Base: learn, understand products, hold your first conversations and find out whether this form of entrepreneurship suits you.',e2t:'Do you bring experience?',e2:'Then a higher development stage may be interesting. The larger the role, the more important leadership, reliability and the ability to develop other people become.',s7call:'What matters is not the title you have today. What matters is what you want to make of the opportunity – and whether your skills, expectations and mindset fit our business model.',
+k8:'08 · Your decision',s8title:'We are not looking for as many applicants as possible. We are looking for the right ones.',s8a:'Perhaps your new professional or entrepreneurial perspective starts here.',s8b:'Perhaps you first want to build additional income. Perhaps you want to become self-employed. Perhaps you already bring sales experience. Or perhaps you can imagine taking responsibility for a region or country later.',f1:'<strong>We do not promise you income.</strong>',f2:'We offer you a business model: products, customers, infrastructure, training, development opportunities and a clear path from entry to entrepreneurial responsibility.',f3:'What grows from it is not decided by signing up. It is decided by performance, customers, revenue and development.',f4:'<strong>If you see a perspective for yourself in this, applying is the next step.</strong>',claim:'More freedom • More money • More from life',legal:'Note: LiquidityBooster and the Academy provide educational content, products, services and self-employed entrepreneurial perspectives. No investment advice is given. Income, revenue or business success is not guaranteed. Roles, compensation and requirements are governed by the applicable agreements and qualifications.',
+prevSmall:'Previous',nextSmall:'Next',counterLabel:'Company presentation'
+};
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' active':'');dots.appendChild(d)});
+function titleAt(i){if(i<0||i>=slides.length)return'';return slides[i].dataset[lang==='en'?'titleEn':'titleDe']}
+function render(){
+ slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+ counter.textContent=(current+1)+' / '+slides.length;
+ progressFill.style.width=((current+1)/slides.length*100)+'%';
+ [...dots.children].forEach((d,i)=>d.classList.toggle('active',i===current));
+ prevBtn.disabled=current===0;nextBtn.disabled=current===slides.length-1;
+ prevLabel.textContent=current===0?(lang==='en'?'Start':'Start'):titleAt(current-1);
+ nextLabel.textContent=current===slides.length-1?(lang==='en'?'Complete':'Abschluss'):titleAt(current+1);
+ history.replaceState(null,'','#'+(current+1));
+}
+function go(i){if(i<0||i>=slides.length||i===current)return;current=i;render()}
+prevBtn.addEventListener('click',()=>go(current-1));nextBtn.addEventListener('click',()=>go(current+1));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();go(current+1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(current-1)}if(e.key==='Home'){e.preventDefault();go(0)}if(e.key==='End'){e.preventDefault();go(slides.length-1)}});
+stage.addEventListener('touchstart',e=>{const t=e.changedTouches[0];sx=t.screenX;sy=t.screenY},{passive:true});
+stage.addEventListener('touchend',e=>{const t=e.changedTouches[0],dx=t.screenX-sx,dy=t.screenY-sy;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.25){dx<0?go(current+1):go(current-1)}},{passive:true});
+function setLang(next){lang=next==='en'?'en':'de';document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;el.innerHTML=lang==='en'?(en[k]??de[k]):de[k]});document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));document.title=lang==='en'?'LiquidityBooster – Company presentation':'LiquidityBooster – Unternehmensvorstellung';render()}
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+const hash=parseInt(location.hash.slice(1),10);if(hash>=1&&hash<=slides.length)current=hash-1;render();
 })();
 </script>
 </body>
