@@ -135,6 +135,19 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .pdfHint{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.45}
 .pdfStatus{margin-top:12px;padding:11px 13px;border-radius:12px;background:#f6f8fa;border:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.45}
 .pdfStatus.error{color:#8d2020;background:#fff5f5;border-color:#f0b7b7}
+.pdfReadyBox{display:none;margin-top:14px;padding:16px;border:1px solid #cfe0e6;border-left:5px solid var(--mint);border-radius:15px;background:#f7fcfc}
+.pdfReadyBox.show{display:block}
+.pdfReadyTitle{font-weight:900;color:var(--navy);font-size:18px}
+.pdfReadyFile{margin-top:7px;font-weight:800;color:var(--navy);overflow-wrap:anywhere}
+.pdfReadyMeta{margin-top:4px;color:var(--muted);font-size:13px}
+.pdfReadyActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.pdfDownload{background:var(--mint)}
+.pdfPreviewOverlay{position:fixed;inset:0;z-index:2147483600;background:rgba(9,20,34,.86);display:none;flex-direction:column}
+.pdfPreviewOverlay.show{display:flex}
+.pdfPreviewBar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#fff;color:var(--navy);border-bottom:1px solid var(--line)}
+.pdfPreviewBar strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdfPreviewClose{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;font-weight:800}
+.pdfPreviewFrame{width:100%;height:100%;border:0;background:#fff}
 .error{display:none;margin-top:16px;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
 .error.show{display:block}
 
@@ -239,23 +252,43 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
         <div class="sheetPreviewWrap">
           <div class="sheetPreview" id="sheetPreview"></div>
         </div>
-        <div class="pdfHint" data-i18n="pdfHint">Beide PDFs werden direkt auf der Seite erzeugt und anschließend an die Akademie-PDF-Zentrale übergeben – ohne Browser-Druckdialog.</div>
+        <div class="pdfHint" data-i18n="pdfHint">Beide PDFs werden direkt auf der Seite fertig erzeugt. Danach erscheint ein eigener Download-Button mit festem Dateinamen – ohne Browser-Druckdialog.</div>
         <div class="pdfStatus" id="pdfStatus" role="status" aria-live="polite" data-i18n="pdfReady">PDF-Ausgabe bereit.</div>
+
+        <div class="pdfReadyBox" id="pdfReadyBox">
+          <div class="pdfReadyTitle" data-i18n="finishedTitle">PDF fertig erstellt</div>
+          <div class="pdfReadyFile" id="pdfReadyFile"></div>
+          <div class="pdfReadyMeta" id="pdfReadyMeta"></div>
+          <div class="pdfReadyActions">
+            <button class="btn" id="viewFinishedPdf" type="button" data-i18n="viewPdf">PDF ansehen</button>
+            <a class="btn pdfDownload" id="downloadFinishedPdf" href="#" download data-i18n="downloadPdf">PDF herunterladen / speichern</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <div class="pdfPreviewOverlay" id="pdfPreviewOverlay" aria-hidden="true">
+    <div class="pdfPreviewBar">
+      <strong id="pdfPreviewName">PDF</strong>
+      <button class="pdfPreviewClose" id="pdfPreviewClose" type="button" data-i18n="back">Zurück</button>
+    </div>
+    <iframe class="pdfPreviewFrame" id="pdfPreviewFrame" title="PDF-Vorschau"></iframe>
+  </div>
 
   <div class="error" id="error" role="alert"></div>
 </div>
 
 <script src="./qrcode-local.js?v=1"></script>
 <script src="./einladungskarte-pdf.js?v=1"></script>
-<script src="./akademie-pdf-uebergabe-karten.js?v=3"></script>
 <script>
 const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/club-partner.json';
 const $=s=>document.querySelector(s);
 let partners=[];
 let selected=null;
+let pendingPdfUrl='';
+let pendingPdfName='';
+let pendingPdfFormat='';
 
 const I18N={
   de:{
@@ -289,6 +322,10 @@ const I18N={
     pdfWorking:'PDF wird lokal erzeugt …',
     pdfDone:'PDF ist fertig und wurde an die Akademie-PDF-Zentrale übergeben.',
     pdfError:'PDF konnte nicht erstellt werden.',
+    finishedTitle:'PDF fertig erstellt',
+    viewPdf:'PDF ansehen',
+    downloadPdf:'PDF herunterladen / speichern',
+    back:'Zurück',
     cardHeadlineHtml:'WAS WÄRE,<br>WENN DU ETWAS<br>ENTDECKST,<br>DAS DU HEUTE NOCH<br>NICHT KENNST?',
     cardTagline:'Wissen • Perspektiven • Möglichkeiten',
     cardScan:'Scannen. Anschauen. Selbst entscheiden.',
@@ -321,11 +358,15 @@ const I18N={
     makeA4Pdf:'4 cards A4 as PDF',
     sheetTitle:'A4 print sheet – 4 cards',
     sheetText:'Four identical A6 cards in a clean 2×2 layout. No card is cropped.',
-    pdfHint:'Both PDFs are created directly on this page and handed to the Akademie PDF Center – without the browser print dialog.',
+    pdfHint:'Both PDFs are created directly on this page. A dedicated download button with the fixed filename appears afterwards – without the browser print dialog.',
     pdfReady:'PDF output ready.',
     pdfWorking:'PDF is being created locally …',
     pdfDone:'PDF is ready and has been handed to the Akademie PDF Center.',
     pdfError:'PDF could not be created.',
+    finishedTitle:'PDF created',
+    viewPdf:'View PDF',
+    downloadPdf:'Download / save PDF',
+    back:'Back',
     cardHeadlineHtml:'WHAT IF<br>YOU DISCOVERED<br>SOMETHING<br>YOU DO NOT<br>KNOW YET?',
     cardTagline:'Knowledge • Perspectives • Possibilities',
     cardScan:'Scan. Take a look. Decide for yourself.',
@@ -512,6 +553,7 @@ function renderInvitePreviews(p){
 
   $('#pdfStatus').textContent=t('pdfReady');
   $('#pdfStatus').classList.remove('error');
+  $('#pdfReadyBox').classList.remove('show');
   $('#inviteBuilder').classList.add('show');
 }
 
@@ -562,21 +604,31 @@ async function createPdf(mode){
   const status=$('#pdfStatus');
   status.textContent=t('pdfWorking');
   status.classList.remove('error');
+  $('#pdfReadyBox').classList.remove('show');
   $('#makeA6Pdf').disabled=true;
   $('#makeA4Pdf').disabled=true;
+
   try{
     if(!window.LBInvitationPdf)throw Error('PDF-Generator ist nicht verfügbar.');
-    if(!window.AkademiePdfUebergabe?.setDocument)throw Error('Akademie-PDF-Zentrale ist nicht verfügbar.');
     await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-    const out=mode==='a6'?window.LBInvitationPdf.single(selected):window.LBInvitationPdf.fourUp(selected);
-    window.AkademiePdfUebergabe.setDocument({
-      blob:out.blob,
-      filename:out.filename,
-      pages:1,
-      format:mode==='a6'?'A6 · Einzelkarte':'A4 · 4 Karten',
-      origin:mode==='a6'?'LiquidityBooster Einladungskarte':'LiquidityBooster Einladungskarten'
-    });
+
+    const out=mode==='a6'
+      ? window.LBInvitationPdf.single(selected)
+      : window.LBInvitationPdf.fourUp(selected);
+
+    if(pendingPdfUrl)URL.revokeObjectURL(pendingPdfUrl);
+    pendingPdfUrl=URL.createObjectURL(out.blob);
+    pendingPdfName=out.filename;
+    pendingPdfFormat=mode==='a6'?'A6 · Einzelkarte':'A4 · 4 Karten';
+
+    $('#pdfReadyFile').textContent=pendingPdfName;
+    $('#pdfReadyMeta').textContent=pendingPdfFormat+' · fertige PDF-Datei';
+    $('#downloadFinishedPdf').href=pendingPdfUrl;
+    $('#downloadFinishedPdf').download=pendingPdfName;
+    $('#pdfReadyBox').classList.add('show');
+
     status.textContent=t('pdfDone');
+    $('#pdfReadyBox').scrollIntoView({behavior:'smooth',block:'nearest'});
   }catch(e){
     console.error('[Einladungskarten-PDF]',e);
     status.textContent=t('pdfError')+' '+(e?.message||String(e));
@@ -587,6 +639,20 @@ async function createPdf(mode){
   }
 }
 
+function showFinishedPdf(){
+  if(!pendingPdfUrl)return;
+  $('#pdfPreviewName').textContent=pendingPdfName||'PDF';
+  $('#pdfPreviewFrame').src=pendingPdfUrl;
+  $('#pdfPreviewOverlay').classList.add('show');
+  $('#pdfPreviewOverlay').setAttribute('aria-hidden','false');
+}
+
+function closeFinishedPdf(){
+  $('#pdfPreviewOverlay').classList.remove('show');
+  $('#pdfPreviewOverlay').setAttribute('aria-hidden','true');
+  $('#pdfPreviewFrame').src='about:blank';
+}
+
 $('#copyUrl').addEventListener('click',async()=>{
   if(!selected)return;
   const ok=await copyText(selected.affiliateUrl);
@@ -594,7 +660,10 @@ $('#copyUrl').addEventListener('click',async()=>{
 });
 $('#makeA6Pdf').addEventListener('click',()=>createPdf('a6'));
 $('#makeA4Pdf').addEventListener('click',()=>createPdf('a4'));
+$('#viewFinishedPdf').addEventListener('click',showFinishedPdf);
+$('#pdfPreviewClose').addEventListener('click',closeFinishedPdf);
 $('#search').addEventListener('input',renderResults);
+window.addEventListener('pagehide',()=>{if(pendingPdfUrl)URL.revokeObjectURL(pendingPdfUrl)});
 
 async function load(){
   try{
