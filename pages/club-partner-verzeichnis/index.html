@@ -77,6 +77,11 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .qrDetails strong{display:block;color:var(--navy);margin-bottom:7px}
 .qrDetails p{margin:0 0 12px;color:var(--muted);line-height:1.55}
 .qrUrl{border:1px solid #b8dfe1;border-radius:12px;background:var(--mint-soft);padding:12px 13px;color:var(--navy);font-size:14px;overflow-wrap:anywhere}
+.qrImageActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.qrImageActions .btn{flex:0 0 auto}
+.qrImageStatus{min-height:20px;margin-top:9px;font-size:13px;color:var(--muted)}
+.qrImageStatus.ok{color:#007c74}
+.qrImageStatus.error{color:#8d2020}
 
 /* Einladungskarte – getesteter Schwarz-Weiß-Master */
 .inviteSelected{display:none;margin-top:16px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
@@ -140,6 +145,8 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
   .urlBox{grid-template-columns:1fr}
   .selectedBody{padding:18px}
   .qrBody{grid-template-columns:1fr;padding:18px}
+  .qrImageActions{flex-direction:column}
+  .qrImageActions .btn{width:100%}
   .inviteWorkspace{padding:16px}
   .singlePreviewWrap{padding:10px}
   .sheetPreviewWrap{padding:6px}
@@ -210,6 +217,11 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
         <strong data-i18n="qrTargetTitle">Zieladresse des QR-Codes</strong>
         <p data-i18n="qrTargetText">Beim Scannen öffnet sich die bereits bestehende persönliche LiquidityBooster-Seite dieses Club Partners.</p>
         <div class="qrUrl" id="qrUrl"></div>
+        <div class="qrImageActions">
+          <button class="btn qr" id="copyQrImage" type="button" data-i18n="copyQrImage">QR-Bild kopieren</button>
+          <button class="btn" id="saveQrPng" type="button" data-i18n="saveQrPng">QR als PNG speichern</button>
+        </div>
+        <div class="qrImageStatus" id="qrImageStatus" role="status" aria-live="polite"></div>
       </div>
     </div>
   </section>
@@ -2606,6 +2618,13 @@ const I18N={
     qrLabel:'Persönlicher QR-Code',
     qrTargetTitle:'Zieladresse des QR-Codes',
     qrTargetText:'Beim Scannen öffnet sich die bereits bestehende persönliche LiquidityBooster-Seite dieses Club Partners.',
+    copyQrImage:'QR-Bild kopieren',
+    saveQrPng:'QR als PNG speichern',
+    qrImageCopied:'QR-Code wurde als Bild in die Zwischenablage kopiert.',
+    qrImageCopyUnsupported:'Direktes Bild-Kopieren wird von diesem Browser nicht unterstützt. Bitte PNG speichern.',
+    qrImageCopyError:'QR-Code konnte nicht als Bild kopiert werden.',
+    qrPngSaved:'QR-Code wird als PNG gespeichert.',
+    qrPngError:'PNG konnte nicht erstellt werden.',
     invitePreviewLabel:'Einladungskarte',
     inviteIntro:'Schwarz-Weiß-Master im echten A6-Hochformat mit persönlichem QR-Code und Namen.',
     makeA6Pdf:'Einzelkarte A6 als PDF',
@@ -2652,6 +2671,13 @@ const I18N={
     qrLabel:'Personal QR code',
     qrTargetTitle:'QR code target address',
     qrTargetText:'Scanning opens this Club Partner’s existing personalized LiquidityBooster page.',
+    copyQrImage:'Copy QR image',
+    saveQrPng:'Save QR as PNG',
+    qrImageCopied:'QR code copied to the clipboard as an image.',
+    qrImageCopyUnsupported:'Direct image copying is not supported by this browser. Please save the PNG instead.',
+    qrImageCopyError:'The QR code could not be copied as an image.',
+    qrPngSaved:'QR code is being saved as a PNG.',
+    qrPngError:'The PNG could not be created.',
     invitePreviewLabel:'Invitation card',
     inviteIntro:'Black-and-white master in true A6 portrait format with personal QR code and name.',
     makeA6Pdf:'Single A6 card as PDF',
@@ -2882,12 +2908,124 @@ function showQr(p){
 
   $('#qrName').textContent=fullName(activePartner);
   $('#qrUrl').textContent=activePartner.affiliateUrl;
+  $('#qrImageStatus').textContent='';
+  $('#qrImageStatus').className='qrImageStatus';
 
   const panel=$('#qrPanel');
   panel.innerHTML='';
   panel.appendChild(buildQrSvg(activePartner.affiliateUrl));
 
   $('#qrSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function qrPngFilename(p){
+  const raw='LiquidityBooster-QR-'+fullName(p);
+  return raw
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .replace(/ß/g,'ss')
+    .replace(/[^A-Za-z0-9._-]+/g,'-')
+    .replace(/^-+|-+$/g,'')
+    +'.png';
+}
+
+function svgToPngBlob(svg,size=1200){
+  return new Promise((resolve,reject)=>{
+    try{
+      const clone=svg.cloneNode(true);
+      clone.setAttribute('width',String(size));
+      clone.setAttribute('height',String(size));
+
+      const xml='<?xml version="1.0" encoding="UTF-8"?>'+new XMLSerializer().serializeToString(clone);
+      const svgBlob=new Blob([xml],{type:'image/svg+xml;charset=utf-8'});
+      const url=URL.createObjectURL(svgBlob);
+      const img=new Image();
+
+      img.onload=()=>{
+        try{
+          const canvas=document.createElement('canvas');
+          canvas.width=size;
+          canvas.height=size;
+          const ctx=canvas.getContext('2d',{alpha:false});
+          ctx.fillStyle='#ffffff';
+          ctx.fillRect(0,0,size,size);
+          ctx.drawImage(img,0,0,size,size);
+          URL.revokeObjectURL(url);
+
+          canvas.toBlob(blob=>{
+            if(blob)resolve(blob);
+            else reject(new Error('PNG'));
+          },'image/png',1);
+        }catch(e){
+          URL.revokeObjectURL(url);
+          reject(e);
+        }
+      };
+
+      img.onerror=()=>{
+        URL.revokeObjectURL(url);
+        reject(new Error('SVG'));
+      };
+
+      img.src=url;
+    }catch(e){
+      reject(e);
+    }
+  });
+}
+
+function setQrImageStatus(message,type=''){
+  const el=$('#qrImageStatus');
+  el.textContent=message;
+  el.className='qrImageStatus'+(type?' '+type:'');
+}
+
+async function copyActiveQrImage(){
+  if(!activePartner || !$('#qrSelected').classList.contains('show'))return;
+
+  const svg=$('#qrPanel svg');
+  if(!svg)return;
+
+  if(!navigator.clipboard?.write || typeof ClipboardItem!=='function'){
+    setQrImageStatus(t('qrImageCopyUnsupported'),'error');
+    return;
+  }
+
+  try{
+    // Promise direkt an ClipboardItem geben: wichtig für Browser mit strenger User-Gesture.
+    const pngPromise=svgToPngBlob(svg,1200);
+    await navigator.clipboard.write([
+      new ClipboardItem({'image/png':pngPromise})
+    ]);
+    setQrImageStatus(t('qrImageCopied'),'ok');
+  }catch(e){
+    console.error('[QR Bild kopieren]',e);
+    setQrImageStatus(t('qrImageCopyError'),'error');
+  }
+}
+
+async function saveActiveQrPng(){
+  if(!activePartner || !$('#qrSelected').classList.contains('show'))return;
+
+  const svg=$('#qrPanel svg');
+  if(!svg)return;
+
+  try{
+    const blob=await svgToPngBlob(svg,1200);
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=qrPngFilename(activePartner);
+    a.hidden=true;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1500);
+    setQrImageStatus(t('qrPngSaved'),'ok');
+  }catch(e){
+    console.error('[QR PNG speichern]',e);
+    setQrImageStatus(t('qrPngError'),'error');
+  }
 }
 
 function createInviteCard(p){
@@ -3117,6 +3255,9 @@ async function selectPartner(p){
   $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
   $('#selected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+
+$('#copyQrImage').addEventListener('click',copyActiveQrImage);
+$('#saveQrPng').addEventListener('click',saveActiveQrPng);
 
 $('#makeA6Pdf').addEventListener('click',()=>createInvitationPdf('a6'));
 $('#makeA4Pdf').addEventListener('click',()=>createInvitationPdf('a4'));
