@@ -260,8 +260,8 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
           <div class="pdfReadyFile" id="pdfReadyFile"></div>
           <div class="pdfReadyMeta" id="pdfReadyMeta"></div>
           <div class="pdfReadyActions">
-            <button class="btn pdfDownload" id="saveFinishedPdf" type="button" data-i18n="savePdf">PDF speichern</button>
-            <button class="btn" id="shareFinishedPdf" type="button" data-i18n="sharePdf">PDF teilen</button>
+            <a class="btn pdfDownload" id="saveFinishedPdf" href="#" target="_blank" rel="noopener" data-i18n="savePdf">PDF speichern</a>
+            <a class="btn" id="shareFinishedPdf" href="#" target="_blank" rel="noopener" data-i18n="sharePdf">PDF teilen</a>
           </div>
           <div class="pdfModalStatus" id="pdfModalStatus" role="status" aria-live="polite"></div>
           <div class="pdfIframeHint" id="pdfIframeHint"></div>
@@ -3108,12 +3108,23 @@ function showInvite(p){
   $('#inviteSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
+function webSharePolicyAllows(){
+  try{
+    const policy=document.permissionsPolicy||document.featurePolicy;
+    if(policy?.allowsFeature)return policy.allowsFeature('web-share');
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
 function canSharePdf(){
   try{
     return !!(
       pendingPdfFile &&
       navigator.share &&
       navigator.canShare &&
+      webSharePolicyAllows() &&
       navigator.canShare({files:[pendingPdfFile]})
     );
   }catch(e){
@@ -3125,6 +3136,9 @@ function pdfStatusMessage(message,isError=false){
   const el=$('#pdfStatus');
   el.textContent=message;
   el.classList.toggle('error',isError);
+  const modal=$('#pdfModalStatus');
+  modal.textContent=message;
+  modal.classList.toggle('error',isError);
 }
 
 async function saveFinishedPdf(){
