@@ -260,8 +260,8 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
           <div class="pdfReadyFile" id="pdfReadyFile"></div>
           <div class="pdfReadyMeta" id="pdfReadyMeta"></div>
           <div class="pdfReadyActions">
-            <a class="btn pdfDownload" id="saveFinishedPdf" href="#" target="_blank" rel="noopener" data-i18n="savePdf">PDF speichern</a>
-            <a class="btn" id="shareFinishedPdf" href="#" target="_blank" rel="noopener" data-i18n="sharePdf">PDF teilen</a>
+            <a class="btn pdfDownload" id="saveFinishedPdf" href="#" target="_top" data-i18n="savePdf">PDF speichern</a>
+            <a class="btn" id="shareFinishedPdf" href="#" target="_top" data-i18n="sharePdf">PDF teilen</a>
           </div>
           <div class="pdfModalStatus" id="pdfModalStatus" role="status" aria-live="polite"></div>
           <div class="pdfIframeHint" id="pdfIframeHint"></div>
@@ -2585,9 +2585,6 @@ let loading=false;
 let pendingPdfFile=null;
 let pendingPdfName='';
 let pendingPdfFormat='';
-let pendingPdfToken='';
-const PDF_HANDOFF_DB='lb-invitation-pdf-handoff-v1';
-const PDF_HANDOFF_STORE='files';
 
 const I18N={
   de:{
@@ -2642,7 +2639,7 @@ const I18N={
     pdfShareDone:'PDF wurde an die Dateifreigabe des Geräts übergeben.',
     pdfSaveUnsupported:'Dieser Browser bietet hier keine direkte Dateispeicherung an.',
     pdfShareUnsupported:'Dieser Browser unterstützt das Teilen dieser PDF nicht.',
-    iframePdfHint:'Diese Seite läuft eingebettet. Falls dein Browser Speichern/Teilen im iFrame blockiert, öffnet sich dafür automatisch eine separate Speicheransicht.',
+    iframePdfHint:'Diese Seite läuft eingebettet. Speichern und Teilen werden deshalb außerhalb des iFrames in einer eigenen Speicheransicht geöffnet.',
     handoffOpened:'Die Speicheransicht wurde geöffnet. Dort kannst du die fertige PDF speichern oder teilen.',
     handoffBlocked:'Die Speicheransicht konnte nicht geöffnet werden.',
     cardHeadlineHtml:'WAS WÄRE,<br>WENN DU ETWAS<br>ENTDECKST,<br>DAS DU HEUTE NOCH<br>NICHT KENNST?',
@@ -2885,7 +2882,6 @@ function resetPdfState(){
   pendingPdfFile=null;
   pendingPdfName='';
   pendingPdfFormat='';
-  pendingPdfToken='';
 
   $('#pdfReadyBox').classList.remove('show');
   $('#pdfReadyFile').textContent='';
@@ -3153,14 +3149,14 @@ async function saveFinishedPdf(ev){
     return pdfStatusMessage(t('pdfError'),true);
   }
 
-  if(isEmbedded() && !canSharePdf()){
+  if(isEmbedded()){
     pdfStatusMessage(t('handoffOpened'));
     return;
   }
 
   ev.preventDefault();
 
-  if(typeof window.showSaveFilePicker==='function' && !isEmbedded()){
+  if(typeof window.showSaveFilePicker==='function'){
     try{
       const handle=await window.showSaveFilePicker({
         suggestedName:pendingPdfFile.name,
@@ -3195,7 +3191,7 @@ async function shareFinishedPdf(ev){
     return pdfStatusMessage(t('pdfError'),true);
   }
 
-  if(isEmbedded() && !canSharePdf()){
+  if(isEmbedded()){
     pdfStatusMessage(t('handoffOpened'));
     return;
   }
@@ -3217,38 +3213,27 @@ function isEmbedded(){
   try{return window.self!==window.top;}catch(e){return true;}
 }
 
-function openHandoffDb(){
-  return new Promise((resolve,reject)=>{
-    const req=indexedDB.open(PDF_HANDOFF_DB,1);
-    req.onupgradeneeded=()=>{
-      if(!req.result.objectStoreNames.contains(PDF_HANDOFF_STORE)){
-        req.result.createObjectStore(PDF_HANDOFF_STORE,{keyPath:'token'});
-      }
-    };
-    req.onsuccess=()=>resolve(req.result);
-    req.onerror=()=>reject(req.error||new Error('PDF-Speicher konnte nicht geöffnet werden.'));
-  });
+function bytesToBase64Url(bytes){
+  let binary='';
+  const chunk=0x8000;
+  for(let i=0;i<bytes.length;i+=chunk){
+    binary+=String.fromCharCode(...bytes.subarray(i,Math.min(i+chunk,bytes.length)));
+  }
+  return btoa(binary).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 }
 
-async function persistPdfForHandoff(){
-  if(!pendingPdfFile)return '';
-  if(pendingPdfToken)return pendingPdfToken;
-  const token=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,12);
-  const db=await openHandoffDb();
-  await new Promise((resolve,reject)=>{
-    const tx=db.transaction(PDF_HANDOFF_STORE,'readwrite');
-    tx.objectStore(PDF_HANDOFF_STORE).put({
-      token,
-      blob:pendingPdfFile,
-      filename:pendingPdfFile.name,
-      format:pendingPdfFormat,
-      created:new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date())
-    });
-    tx.oncomplete=()=>resolve();
-    tx.onerror=()=>reject(tx.error||new Error('PDF konnte nicht vorbereitet werden.'));
-  });
-  pendingPdfToken=token;
-  return token;
+async function buildPdfHandoffUrl(action){
+  if(!pendingPdfFile)throw Error('Keine PDF vorhanden.');
+  const buffer=await pendingPdfFile.arrayBuffer();
+  const data=bytesToBase64Url(new Uint8Array(buffer));
+  const url=new URL('./pdf-speichern.html',location.href);
+  const hash=new URLSearchParams();
+  hash.set('n',pendingPdfFile.name);
+  hash.set('f',pendingPdfFormat);
+  hash.set('a',action||'save');
+  hash.set('d',data);
+  url.hash=hash.toString();
+  return url.href;
 }
 
 async function createInvitationPdf(mode){
@@ -3289,15 +3274,12 @@ async function createInvitationPdf(mode){
     $('#pdfReadyFile').textContent=pendingPdfName;
     $('#pdfReadyMeta').textContent=pendingPdfFormat+' · fertige PDF-Datei';
 
-    const token=await persistPdfForHandoff();
-    const saveUrl=new URL('./pdf-speichern.html',location.href);
-    saveUrl.searchParams.set('token',token);
-    saveUrl.searchParams.set('action','save');
-    const shareUrl=new URL('./pdf-speichern.html',location.href);
-    shareUrl.searchParams.set('token',token);
-    shareUrl.searchParams.set('action','share');
-    $('#saveFinishedPdf').href=saveUrl.href;
-    $('#shareFinishedPdf').href=shareUrl.href;
+    const saveUrl=await buildPdfHandoffUrl('save');
+    const shareUrl=await buildPdfHandoffUrl('share');
+    $('#saveFinishedPdf').href=saveUrl;
+    $('#shareFinishedPdf').href=shareUrl;
+    $('#saveFinishedPdf').target=isEmbedded()?'_top':'_blank';
+    $('#shareFinishedPdf').target=isEmbedded()?'_top':'_blank';
 
     $('#pdfIframeHint').textContent=isEmbedded()?t('iframePdfHint'):'';
     $('#pdfModalStatus').textContent=t('pdfDone');
