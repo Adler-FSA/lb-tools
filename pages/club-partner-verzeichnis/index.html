@@ -2696,35 +2696,89 @@ function clearResults(){
   $('#results').innerHTML='';
   $('#results').classList.remove('show');
 }
-function lockPartnerChoice(p){
-  lockedPartner=p;
-  $('#search').value=fullName(p);
-  renderResults();
+function hideAllPartnerOutputs(){
+  $('#selected').classList.remove('show');
+  $('#qrSelected').classList.remove('show');
+  $('#inviteSelected').classList.remove('show');
 }
 
 function unlockPartnerChoice(){
   lockedPartner=null;
   activePartner=null;
-
-  $('#selected').classList.remove('show');
-  $('#qrSelected').classList.remove('show');
-  $('#inviteSelected').classList.remove('show');
-
+  hideAllPartnerOutputs();
   resetPdfState();
 }
 
-function renderResults(){
-  const q=normalize($('#search').value);
-  if(!q && !lockedPartner){clearResults();return}
+function createResultRow(p){
+  const row=document.createElement('div');
+  row.className='result';
+  row.setAttribute('role','option');
+  row.dataset.partnerUrl=p.affiliateUrl;
 
-  const found=lockedPartner
-    ? [lockedPartner]
-    : partners
-        .filter(p=>normalize(fullName(p)).includes(q))
-        .sort((a,b)=>fullName(a).localeCompare(fullName(b),lang==='de'?'de-DE':'en-US',{sensitivity:'base'}));
+  const person=document.createElement('div');
+  person.className='person';
+
+  const strong=document.createElement('strong');
+  strong.textContent=fullName(p);
+
+  const small=document.createElement('small');
+  small.textContent=t('partner');
+
+  person.append(strong,small);
+
+  const actions=document.createElement('div');
+  actions.className='rowActions';
+
+  const btn=document.createElement('button');
+  btn.type='button';
+  btn.className='btn';
+  btn.textContent=t('choose');
+  btn.addEventListener('click',()=>choosePartnerAction(p,'selected'));
+
+  const qrBtn=document.createElement('button');
+  qrBtn.type='button';
+  qrBtn.className='btn qr';
+  qrBtn.textContent=t('qrButton');
+  qrBtn.addEventListener('click',()=>choosePartnerAction(p,'qr'));
+
+  const inviteBtn=document.createElement('button');
+  inviteBtn.type='button';
+  inviteBtn.className='btn invite';
+  inviteBtn.textContent=t('inviteButton');
+  inviteBtn.addEventListener('click',()=>choosePartnerAction(p,'invite'));
+
+  actions.append(btn,qrBtn,inviteBtn);
+  row.append(person,actions);
+  return row;
+}
+
+function renderLockedPartner(p){
+  const box=$('#results');
+  box.innerHTML='';
+  box.appendChild(createResultRow(p));
+  box.classList.add('show');
+}
+
+function renderResults(){
+  if(lockedPartner){
+    renderLockedPartner(lockedPartner);
+    return;
+  }
+
+  const q=normalize($('#search').value);
+  if(!q){
+    clearResults();
+    return;
+  }
+
+  const found=partners
+    .filter(p=>normalize(fullName(p)).includes(q))
+    .sort((a,b)=>fullName(a).localeCompare(fullName(b),lang==='de'?'de-DE':'en-US',{sensitivity:'base'}));
+
   const box=$('#results');
   box.innerHTML='';
   box.classList.add('show');
+
   if(!found.length){
     const empty=document.createElement('div');
     empty.className='empty';
@@ -2732,53 +2786,24 @@ function renderResults(){
     box.appendChild(empty);
     return;
   }
-  found.forEach(p=>{
-    const row=document.createElement('div');
-    row.className='result';
-    row.setAttribute('role','option');
 
-    const person=document.createElement('div');
-    person.className='person';
-    const strong=document.createElement('strong');
-    strong.textContent=fullName(p);
-    const small=document.createElement('small');
-    small.textContent=t('partner');
-    person.append(strong,small);
+  found.forEach(p=>box.appendChild(createResultRow(p)));
+}
 
-    const actions=document.createElement('div');
-    actions.className='rowActions';
+function choosePartnerAction(p,view){
+  // Harte Auswahl: ab diesem Klick existiert in der Trefferliste nur noch dieser Partner.
+  lockedPartner=p;
+  activePartner=p;
+  $('#search').value=fullName(p);
+  renderLockedPartner(p);
 
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='btn';
-    btn.textContent=t('choose');
-    btn.addEventListener('click',()=>{
-      lockPartnerChoice(p);
-      selectPartner(p);
-    });
+  // Vor jeder Aktion werden ALLE alten Partner-Ausgaben entfernt.
+  hideAllPartnerOutputs();
+  resetPdfState();
 
-    const qrBtn=document.createElement('button');
-    qrBtn.type='button';
-    qrBtn.className='btn qr';
-    qrBtn.textContent=t('qrButton');
-    qrBtn.addEventListener('click',()=>{
-      lockPartnerChoice(p);
-      showQr(p);
-    });
-
-    const inviteBtn=document.createElement('button');
-    inviteBtn.type='button';
-    inviteBtn.className='btn invite';
-    inviteBtn.textContent=t('inviteButton');
-    inviteBtn.addEventListener('click',()=>{
-      lockPartnerChoice(p);
-      showInvite(p);
-    });
-
-    actions.append(btn,qrBtn,inviteBtn);
-    row.append(person,actions);
-    box.appendChild(row);
-  });
+  if(view==='selected')selectPartner(p);
+  if(view==='qr')showQr(p);
+  if(view==='invite')showInvite(p);
 }
 
 function buildQrSvg(text,color='#132238'){
@@ -2844,16 +2869,8 @@ function resetPdfState(){
 }
 
 function activatePartner(p,view){
-  const changed=!samePartner(activePartner,p);
   activePartner=p;
-
-  // Grundregel: Auf der Seite ist immer nur genau EIN Partner-Bereich aktiv.
-  $('#selected').classList.remove('show');
-  $('#qrSelected').classList.remove('show');
-  $('#inviteSelected').classList.remove('show');
-
-  // Alte PDF-Ausgaben niemals in einen neuen Partner-Kontext mitnehmen.
-  if(changed || view!=='invite')resetPdfState();
+  hideAllPartnerOutputs();
 
   if(view==='selected')$('#selected').classList.add('show');
   if(view==='qr')$('#qrSelected').classList.add('show');
@@ -3113,7 +3130,11 @@ $('#copyAgain').addEventListener('click',async()=>{
   $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
 });
 $('#search').addEventListener('input',()=>{
-  if(lockedPartner)unlockPartnerChoice();
+  if(lockedPartner){
+    unlockPartnerChoice();
+  }else{
+    hideAllPartnerOutputs();
+  }
   renderResults();
 });
 
