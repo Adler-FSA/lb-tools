@@ -2885,10 +2885,16 @@ function resetPdfState(){
   pendingPdfFile=null;
   pendingPdfName='';
   pendingPdfFormat='';
+  pendingPdfToken='';
 
   $('#pdfReadyBox').classList.remove('show');
   $('#pdfReadyFile').textContent='';
   $('#pdfReadyMeta').textContent='';
+  $('#pdfModalStatus').textContent='';
+  $('#pdfModalStatus').classList.remove('error');
+  $('#pdfIframeHint').textContent='';
+  $('#saveFinishedPdf').href='#';
+  $('#shareFinishedPdf').href='#';
 
   $('#pdfStatus').textContent=t('pdfReady');
   $('#pdfStatus').classList.remove('error');
@@ -3141,17 +3147,24 @@ function pdfStatusMessage(message,isError=false){
   modal.classList.toggle('error',isError);
 }
 
-async function saveFinishedPdf(){
-  if(!pendingPdfFile)return pdfStatusMessage(t('pdfError'),true);
+async function saveFinishedPdf(ev){
+  if(!pendingPdfFile){
+    ev.preventDefault();
+    return pdfStatusMessage(t('pdfError'),true);
+  }
 
-  if(typeof window.showSaveFilePicker==='function'){
+  if(isEmbedded() && !canSharePdf()){
+    pdfStatusMessage(t('handoffOpened'));
+    return;
+  }
+
+  ev.preventDefault();
+
+  if(typeof window.showSaveFilePicker==='function' && !isEmbedded()){
     try{
       const handle=await window.showSaveFilePicker({
         suggestedName:pendingPdfFile.name,
-        types:[{
-          description:'PDF-Dokument',
-          accept:{'application/pdf':['.pdf']}
-        }]
+        types:[{description:'PDF-Dokument',accept:{'application/pdf':['.pdf']}}]
       });
       const writable=await handle.createWritable();
       await writable.write(pendingPdfFile);
@@ -3176,8 +3189,19 @@ async function saveFinishedPdf(){
   return pdfStatusMessage(t('pdfSaveUnsupported'),true);
 }
 
-async function shareFinishedPdf(){
-  if(!pendingPdfFile)return pdfStatusMessage(t('pdfError'),true);
+async function shareFinishedPdf(ev){
+  if(!pendingPdfFile){
+    ev.preventDefault();
+    return pdfStatusMessage(t('pdfError'),true);
+  }
+
+  if(isEmbedded() && !canSharePdf()){
+    pdfStatusMessage(t('handoffOpened'));
+    return;
+  }
+
+  ev.preventDefault();
+
   if(!canSharePdf())return pdfStatusMessage(t('pdfShareUnsupported'),true);
 
   try{
@@ -3264,12 +3288,27 @@ async function createInvitationPdf(mode){
 
     $('#pdfReadyFile').textContent=pendingPdfName;
     $('#pdfReadyMeta').textContent=pendingPdfFormat+' · fertige PDF-Datei';
+
+    const token=await persistPdfForHandoff();
+    const saveUrl=new URL('./pdf-speichern.html',location.href);
+    saveUrl.searchParams.set('token',token);
+    saveUrl.searchParams.set('action','save');
+    const shareUrl=new URL('./pdf-speichern.html',location.href);
+    shareUrl.searchParams.set('token',token);
+    shareUrl.searchParams.set('action','share');
+    $('#saveFinishedPdf').href=saveUrl.href;
+    $('#shareFinishedPdf').href=shareUrl.href;
+
+    $('#pdfIframeHint').textContent=isEmbedded()?t('iframePdfHint'):'';
+    $('#pdfModalStatus').textContent=t('pdfDone');
+    $('#pdfModalStatus').classList.remove('error');
     $('#pdfReadyBox').classList.add('show');
 
-    $('#shareFinishedPdf').disabled=!canSharePdf();
-
     $('#pdfStatus').textContent=t('pdfDone');
-    $('#pdfReadyBox').scrollIntoView({behavior:'smooth',block:'nearest'});
+    requestAnimationFrame(()=>{
+      $('#pdfReadyBox').scrollIntoView({behavior:'smooth',block:'center'});
+      $('#saveFinishedPdf').focus({preventScroll:true});
+    });
   }catch(e){
     console.error('[Einladungskarten-PDF]',e);
     pendingPdfFile=null;
@@ -3323,6 +3362,8 @@ $('#makeA6Pdf').addEventListener('click',()=>createInvitationPdf('a6'));
 $('#makeA4Pdf').addEventListener('click',()=>createInvitationPdf('a4'));
 $('#saveFinishedPdf').addEventListener('click',saveFinishedPdf);
 $('#shareFinishedPdf').addEventListener('click',shareFinishedPdf);
+$('#closePdfReady').addEventListener('click',()=>$('#pdfReadyBox').classList.remove('show'));
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape'&&$('#pdfReadyBox').classList.contains('show'))$('#pdfReadyBox').classList.remove('show');});
 
 $('#copyAgain').addEventListener('click',async()=>{
   if(!activePartner || !$('#selected').classList.contains('show'))return;
