@@ -23,12 +23,17 @@ style.textContent=`
 .ak-pdf-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ak-pdf-action{border:0;border-radius:11px;padding:13px 10px;background:#132238;color:#fff;cursor:pointer;font:inherit;font-weight:800}
 .ak-pdf-action.primary{background:#008e98}
-.ak-pdf-action.light{background:#e8f1f3;color:#132238}
-.ak-pdf-action.copy{grid-column:1/-1}
+.ak-pdf-action.view{grid-column:1/-1;background:#008e98}
 .ak-pdf-notice{font-size:13px;color:#44586b;margin:14px 0 0}
 .ak-pdf-status{font-size:13px;margin:10px 0 0;color:#007c74;min-height:19px}
 .ak-pdf-status.error{color:#b00045}
-@media(max-width:480px){.ak-pdf-dialog{padding:17px;border-radius:17px}.ak-pdf-actions{grid-template-columns:1fr}.ak-pdf-action.copy{grid-column:auto}}
+.ak-pdf-preview{position:fixed;inset:0;z-index:2147483600;background:rgba(9,20,34,.86);display:flex;flex-direction:column}
+.ak-pdf-preview[hidden]{display:none!important}
+.ak-pdf-previewbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#fff;color:#132238;border-bottom:1px solid #d6e0e5}
+.ak-pdf-previewbar strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ak-pdf-previewclose{border:1px solid #d3e1e7;background:#fff;color:#132238;border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;font-weight:800;flex:0 0 auto}
+.ak-pdf-previewframe{width:100%;height:100%;border:0;background:#fff}
+@media(max-width:480px){.ak-pdf-dialog{padding:17px;border-radius:17px}.ak-pdf-actions{grid-template-columns:1fr}.ak-pdf-action.view{grid-column:auto}}
 `;
 document.head.appendChild(style);
 
@@ -77,10 +82,9 @@ function makeDialog(){
   const share=elem('button','ak-pdf-action','Teilen');
   share.type='button'; share.id='akPdfShare'; share.addEventListener('click',shareFile);
 
-  const copy=elem('button','ak-pdf-action light copy','Dateinamen kopieren');
-  copy.type='button'; copy.id='akPdfCopy'; copy.addEventListener('click',copyName);
+  view.classList.add('view');
 
-  actions.append(view,save,share,copy);
+  actions.append(view,save,share);
 
   const notice=elem('p','ak-pdf-notice');
   notice.id='akPdfNotice';
@@ -130,7 +134,7 @@ function show(){
   ].filter(Boolean).join(' · ');
 
   document.getElementById('akPdfNotice').textContent=
-    'Die PDF wurde auf dieser Seite fertig erzeugt. „PDF ansehen“ öffnet die Datei direkt. „Speichern“ und „Teilen“ verwenden – soweit verfügbar – die Dateifreigabe Ihres Geräts.';
+    'Die PDF wurde fertig erzeugt. „PDF ansehen“ zeigt sie direkt auf dieser Seite. „Speichern“ übergibt ausschließlich diese eine benannte PDF an die Dateifreigabe Ihres Geräts.';
 
   status('Datei bereit.');
   modal.hidden=false;
@@ -181,19 +185,46 @@ function viewFile(){
   if(!documentFile)return status('Keine Datei vorhanden.',true);
   try{
     const url=ensureUrl();
-    const opened=window.open(url,'_blank','noopener');
-    if(!opened){
-      window.location.href=url;
+    let preview=document.getElementById('akPdfPreview');
+    if(!preview){
+      preview=elem('div','ak-pdf-preview');
+      preview.id='akPdfPreview';
+      preview.hidden=true;
+
+      const bar=elem('div','ak-pdf-previewbar');
+      const name=elem('strong','',documentFile.name||'PDF');
+      name.id='akPdfPreviewName';
+      const close=elem('button','ak-pdf-previewclose','Zurück');
+      close.type='button';
+      close.addEventListener('click',()=>{
+        preview.hidden=true;
+        const frame=document.getElementById('akPdfPreviewFrame');
+        if(frame)frame.src='about:blank';
+      });
+      bar.append(name,close);
+
+      const frame=document.createElement('iframe');
+      frame.id='akPdfPreviewFrame';
+      frame.className='ak-pdf-previewframe';
+      frame.title='PDF-Vorschau';
+
+      preview.append(bar,frame);
+      document.body.appendChild(preview);
     }
-    status('PDF-Ansicht geöffnet.');
+
+    document.getElementById('akPdfPreviewName').textContent=documentFile.name||'PDF';
+    const frame=document.getElementById('akPdfPreviewFrame');
+    frame.src=url;
+    preview.hidden=false;
+    status('PDF-Vorschau geöffnet.');
   }catch(e){
-    status('PDF konnte nicht geöffnet werden: '+(e?.message||e),true);
+    status('PDF konnte nicht angezeigt werden: '+(e?.message||e),true);
   }
 }
 
 async function nativeShare(){
   if(!canShare())return false;
-  await navigator.share({files:[documentFile],title:documentFile.name});
+  await navigator.share({files:[documentFile]});
   return true;
 }
 
@@ -209,14 +240,14 @@ async function saveFile(){
       const writable=await handle.createWritable();
       await writable.write(documentFile);
       await writable.close();
-      return status('PDF gespeichert.');
+      return status('PDF unter dem angezeigten Dateinamen gespeichert.');
     }catch(e){
       if(e?.name==='AbortError')return status('Speichern abgebrochen.');
     }
   }
 
   try{
-    if(await nativeShare())return status('Dateifreigabe geöffnet. Dort „In Dateien sichern“ wählen.');
+    if(await nativeShare())return status('Eine PDF wurde an die Dateifreigabe übergeben. Dort „In Dateien sichern“ wählen.');
   }catch(e){
     if(e?.name==='AbortError')return status('Speichern abgebrochen.');
   }
@@ -231,7 +262,7 @@ async function saveFile(){
     document.body.appendChild(a);
     a.click();
     a.remove();
-    status('PDF-Download gestartet. Falls Ihr Browser ihn nicht übernimmt, bitte „PDF ansehen“ verwenden und dort speichern.');
+    status('PDF-Download gestartet.');
   }catch(e){
     status('Speichern konnte nicht gestartet werden: '+(e?.message||e),true);
   }
@@ -247,22 +278,10 @@ async function shareFile(){
   status('Direktes Teilen wird in diesem Browser nicht unterstützt. Bitte „PDF ansehen“ öffnen und von dort teilen.',true);
 }
 
-async function copyName(){
-  if(!documentFile)return;
-  const name=documentFile.name||'LiquidityBooster-Einladung.pdf';
-  try{
-    if(navigator.clipboard?.writeText){
-      await navigator.clipboard.writeText(name);
-      return status('Dateiname kopiert.');
-    }
-  }catch(e){}
-  status('Dateiname konnte nicht kopiert werden.',true);
-}
-
 window.addEventListener('pagehide',()=>{if(objectUrl)URL.revokeObjectURL(objectUrl)});
 
 window.AkademiePdfUebergabe=Object.freeze({
-  version:'AKADEMIE_PDF_UEBERGABE_KARTEN_V2',
+  version:'AKADEMIE_PDF_UEBERGABE_KARTEN_V3',
   setDocument,
   show,
   hasDocument:()=>!!documentFile
