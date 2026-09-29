@@ -248,6 +248,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "691a2804-ae72-4bd1-bf82-e3a7b11d10a5",
+      "title": "Visiten Karten Generator mit QR code",
+      "category": "club-haus",
+      "type": "function",
+      "releaseDate": "2026-10-05",
+      "url": "https://tools.liquiditybooster.de/pages/visitenkarten-generator/",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-09-29T21:46:38.662Z",
+      "updatedAt": "2026-09-29T21:46:38.662Z",
+      "history": [
+        {
+          "at": "2026-09-29T21:46:38.662Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
