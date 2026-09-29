@@ -51,6 +51,8 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .btn:focus-visible{outline:3px solid rgba(0,167,173,.28);outline-offset:2px}
 .rowActions{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
 .btn.qr{background:var(--mint)}
+.btn.invite{background:var(--magenta)}
+.btn.black{background:#111}
 .empty{padding:22px;text-align:center;color:var(--muted)}
 .selected{display:none;margin-top:16px;border:1px solid #bfe5e7;border-radius:22px;background:var(--mint-soft);box-shadow:var(--shadow);overflow:hidden}
 .selected.show{display:block}
@@ -75,6 +77,56 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .qrDetails strong{display:block;color:var(--navy);margin-bottom:7px}
 .qrDetails p{margin:0 0 12px;color:var(--muted);line-height:1.55}
 .qrUrl{border:1px solid #b8dfe1;border-radius:12px;background:var(--mint-soft);padding:12px 13px;color:var(--navy);font-size:14px;overflow-wrap:anywhere}
+
+/* Einladungskarte – getesteter Schwarz-Weiß-Master */
+.inviteSelected{display:none;margin-top:16px;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.inviteSelected.show{display:block}
+.inviteHead{padding:18px 22px;border-bottom:1px solid var(--line)}
+.inviteLabel{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mint)}
+.inviteHead h2{margin:5px 0 0;color:var(--navy);font-size:24px}
+.inviteWorkspace{padding:22px}
+.inviteIntro{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.inviteIntro p{margin:0;color:var(--muted);line-height:1.5;max-width:560px}
+.pdfActions{display:flex;gap:9px;flex-wrap:wrap}
+.singlePreviewWrap{display:flex;justify-content:center;padding:18px;border:1px solid var(--line);border-radius:18px;background:#f3f3f3}
+#singleCardMount{width:min(100%,105mm);display:block}
+.inviteCard{position:relative;overflow:hidden;width:min(100%,105mm);aspect-ratio:105/148;background:#fff;color:#000;border:1px solid #aaa;font-family:Arial,Helvetica,sans-serif;container-type:inline-size}
+.inviteQuestionMark{position:absolute;z-index:1;top:-4cqw;right:5cqw;font-size:35cqw;line-height:1;font-weight:900;color:#e1e1e1;user-select:none;pointer-events:none}
+.inviteInner{position:absolute;inset:0;z-index:2}
+.inviteHeadline{position:absolute;left:8.7cqw;top:10.4cqw;width:75cqw;margin:0;font-size:5.78cqw;line-height:1.116;letter-spacing:-.02em;font-weight:900;text-transform:uppercase}
+.inviteBrand{position:absolute;left:8.7cqw;top:46.4cqw;font-size:7.22cqw;line-height:1;font-weight:900;letter-spacing:-.035em}
+.inviteSwoosh{position:absolute;left:8.7cqw;top:56.2cqw;width:80cqw;height:auto}
+.inviteTagline{position:absolute;left:8.7cqw;top:61cqw;font-size:3.06cqw;line-height:1.2;white-space:nowrap}
+.inviteQr{position:absolute;width:34cqw;height:34cqw;left:33cqw;top:69.4cqw;background:#fff}
+.inviteQr svg{display:block;width:100%;height:100%}
+.inviteScan{position:absolute;left:4cqw;right:4cqw;top:107.2cqw;text-align:center;font-size:3.43cqw;line-height:1.15;font-weight:900;white-space:nowrap}
+.inviteFrom{position:absolute;left:10.4cqw;right:10.4cqw;top:115.4cqw;border-top:1px solid #aaa;padding-top:5.2cqw;text-align:center}
+.inviteFromLabel{font-size:2.82cqw;line-height:1.2}
+.inviteFromName{margin-top:1.9cqw;font-size:4.1cqw;line-height:1.05;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheetBlock{margin-top:24px}
+.sheetBlock h3{margin:0 0 7px;color:var(--navy);font-size:20px}
+.sheetBlock p{margin:0 0 12px;color:var(--muted);line-height:1.5}
+.sheetPreviewWrap{overflow:auto;padding:12px;border:1px solid var(--line);border-radius:18px;background:#ededed}
+.sheetPreview{position:relative;width:min(100%,210mm);aspect-ratio:210/297;margin:auto;display:grid;grid-template-rows:1fr 592fr 1fr;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.sheetGrid{grid-row:2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;min-height:0}
+.sheetGrid .inviteCard{width:100%;height:100%;aspect-ratio:auto;border-color:#bbb}
+.pdfHint{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.45}
+.pdfStatus{margin-top:12px;padding:11px 13px;border-radius:12px;background:#f6f8fa;border:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.45}
+.pdfStatus.error{color:#8d2020;background:#fff5f5;border-color:#f0b7b7}
+.pdfReadyBox{display:none;margin-top:14px;padding:16px;border:1px solid #cfe0e6;border-left:5px solid var(--mint);border-radius:15px;background:#f7fcfc}
+.pdfReadyBox.show{display:block}
+.pdfReadyTitle{font-weight:900;color:var(--navy);font-size:18px}
+.pdfReadyFile{margin-top:7px;font-weight:800;color:var(--navy);overflow-wrap:anywhere}
+.pdfReadyMeta{margin-top:4px;color:var(--muted);font-size:13px}
+.pdfReadyActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.pdfDownload{background:var(--mint)}
+.pdfPreviewOverlay{position:fixed;inset:0;z-index:2147483600;background:rgba(9,20,34,.86);display:none;flex-direction:column}
+.pdfPreviewOverlay.show{display:flex}
+.pdfPreviewBar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#fff;color:var(--navy);border-bottom:1px solid var(--line)}
+.pdfPreviewBar strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdfPreviewClose{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;font-weight:800}
+.pdfPreviewFrame{width:100%;height:100%;border:0;background:#fff}
+
 .error{display:none;margin-top:16px;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
 .error.show{display:block}
 @media(max-width:720px){
@@ -88,6 +140,11 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
   .urlBox{grid-template-columns:1fr}
   .selectedBody{padding:18px}
   .qrBody{grid-template-columns:1fr;padding:18px}
+  .inviteWorkspace{padding:16px}
+  .singlePreviewWrap{padding:10px}
+  .sheetPreviewWrap{padding:6px}
+  .pdfActions{width:100%}
+  .pdfActions .btn{flex:1 1 100%}
 }
 </style>
 </head>
@@ -156,6 +213,54 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
       </div>
     </div>
   </section>
+
+  <section class="inviteSelected" id="inviteSelected" aria-live="polite">
+    <div class="inviteHead">
+      <div class="inviteLabel" data-i18n="invitePreviewLabel">Einladungskarte</div>
+      <h2 id="invitePartnerName">–</h2>
+    </div>
+    <div class="inviteWorkspace">
+      <div class="inviteIntro">
+        <p data-i18n="inviteIntro">Schwarz-Weiß-Master im echten A6-Hochformat mit persönlichem QR-Code und Namen.</p>
+        <div class="pdfActions">
+          <button class="btn black" id="makeA6Pdf" type="button" data-i18n="makeA6Pdf">Einzelkarte A6 als PDF</button>
+          <button class="btn" id="makeA4Pdf" type="button" data-i18n="makeA4Pdf">4 Karten A4 als PDF</button>
+        </div>
+      </div>
+
+      <div class="singlePreviewWrap">
+        <div id="singleCardMount"></div>
+      </div>
+
+      <div class="sheetBlock">
+        <h3 data-i18n="sheetTitle">A4-Druckbogen – 4 Karten</h3>
+        <p data-i18n="sheetText">Vier identische A6-Karten im sauberen 2×2-Satz. Keine Karte wird abgeschnitten.</p>
+        <div class="sheetPreviewWrap">
+          <div class="sheetPreview" id="sheetPreview"></div>
+        </div>
+        <div class="pdfHint" data-i18n="pdfHint">Beide PDFs werden vollständig auf dieser Seite erzeugt. Danach erscheint eine fertige PDF mit festem Dateinamen zum Herunterladen – ohne Browser-Druckdialog.</div>
+        <div class="pdfStatus" id="pdfStatus" role="status" aria-live="polite" data-i18n="pdfReady">PDF-Ausgabe bereit.</div>
+
+        <div class="pdfReadyBox" id="pdfReadyBox">
+          <div class="pdfReadyTitle" data-i18n="finishedTitle">PDF fertig erstellt</div>
+          <div class="pdfReadyFile" id="pdfReadyFile"></div>
+          <div class="pdfReadyMeta" id="pdfReadyMeta"></div>
+          <div class="pdfReadyActions">
+            <button class="btn" id="viewFinishedPdf" type="button" data-i18n="viewPdf">PDF ansehen</button>
+            <a class="btn pdfDownload" id="downloadFinishedPdf" href="#" download data-i18n="downloadPdf">PDF herunterladen / speichern</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pdfPreviewOverlay" id="pdfPreviewOverlay" aria-hidden="true">
+    <div class="pdfPreviewBar">
+      <strong id="pdfPreviewName">PDF</strong>
+      <button class="pdfPreviewClose" id="pdfPreviewClose" type="button" data-i18n="back">Zurück</button>
+    </div>
+    <iframe class="pdfPreviewFrame" id="pdfPreviewFrame" title="PDF-Vorschau"></iframe>
+  </div>
 
   <div class="error" id="error" role="alert"></div>
 </div>
@@ -2460,13 +2565,20 @@ var qrcode = function() {
 }));
 
 </script>
+<script src="./einladungskarte-pdf.js?v=1"></script>
 
 <script>
 const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/club-partner.json';
 const $=s=>document.querySelector(s);
 let partners=[];
 let selectedPartner=null;
+let invitePartner=null;
 let loading=false;
+let pendingPdfViewUrl='';
+let pendingPdfDownloadUrl='';
+let pendingPdfName='';
+let pendingPdfFormat='';
+const PDF_CACHE='lb-invitation-pdf-download-v1';
 
 const I18N={
   de:{
@@ -2482,6 +2594,7 @@ const I18N={
     placeholder:'Vorname oder Nachname eingeben …',
     choose:'Übernehmen',
     qrButton:'QR-Code anzeigen',
+    inviteButton:'Einladung',
     partner:'Club Partner',
     noMatch:'Keine passende Person gefunden. Prüfe die Schreibweise oder versuche einen anderen Teil des Namens.',
     selectedLabel:'Ausgewählter Club Partner',
@@ -2493,6 +2606,25 @@ const I18N={
     qrLabel:'Persönlicher QR-Code',
     qrTargetTitle:'Zieladresse des QR-Codes',
     qrTargetText:'Beim Scannen öffnet sich die bereits bestehende persönliche LiquidityBooster-Seite dieses Club Partners.',
+    invitePreviewLabel:'Einladungskarte',
+    inviteIntro:'Schwarz-Weiß-Master im echten A6-Hochformat mit persönlichem QR-Code und Namen.',
+    makeA6Pdf:'Einzelkarte A6 als PDF',
+    makeA4Pdf:'4 Karten A4 als PDF',
+    sheetTitle:'A4-Druckbogen – 4 Karten',
+    sheetText:'Vier identische A6-Karten im sauberen 2×2-Satz. Keine Karte wird abgeschnitten.',
+    pdfHint:'Beide PDFs werden vollständig auf dieser Seite erzeugt. Danach erscheint eine fertige PDF mit festem Dateinamen zum Herunterladen – ohne Browser-Druckdialog.',
+    pdfReady:'PDF-Ausgabe bereit.',
+    pdfWorking:'PDF wird lokal erzeugt …',
+    pdfDone:'PDF ist fertig. Der Download mit festem Dateinamen ist bereit.',
+    pdfError:'PDF konnte nicht erstellt werden.',
+    finishedTitle:'PDF fertig erstellt',
+    viewPdf:'PDF ansehen',
+    downloadPdf:'PDF herunterladen / speichern',
+    back:'Zurück',
+    cardHeadlineHtml:'WAS WÄRE,<br>WENN DU ETWAS<br>ENTDECKST,<br>DAS DU HEUTE NOCH<br>NICHT KENNST?',
+    cardTagline:'Wissen • Perspektiven • Möglichkeiten',
+    cardScan:'Scannen. Anschauen. Selbst entscheiden.',
+    cardFrom:'Diese Einladung kommt von:',
     loadError:'Die Club-Partner-Daten konnten gerade nicht geladen werden. Bitte versuche es später erneut.'
   },
   en:{
@@ -2508,6 +2640,7 @@ const I18N={
     placeholder:'Enter first or last name …',
     choose:'Select',
     qrButton:'Show QR code',
+    inviteButton:'Invitation',
     partner:'Club Partner',
     noMatch:'No matching person found. Check the spelling or try another part of the name.',
     selectedLabel:'Selected Club Partner',
@@ -2519,6 +2652,25 @@ const I18N={
     qrLabel:'Personal QR code',
     qrTargetTitle:'QR code target address',
     qrTargetText:'Scanning opens this Club Partner’s existing personalized LiquidityBooster page.',
+    invitePreviewLabel:'Invitation card',
+    inviteIntro:'Black-and-white master in true A6 portrait format with personal QR code and name.',
+    makeA6Pdf:'Single A6 card as PDF',
+    makeA4Pdf:'4 cards A4 as PDF',
+    sheetTitle:'A4 print sheet – 4 cards',
+    sheetText:'Four identical A6 cards in a clean 2×2 layout. No card is cropped.',
+    pdfHint:'Both PDFs are fully created on this page. A finished PDF with a fixed filename is then provided for download – without the browser print dialog.',
+    pdfReady:'PDF output ready.',
+    pdfWorking:'PDF is being created locally …',
+    pdfDone:'PDF is ready. The fixed-name download is available.',
+    pdfError:'PDF could not be created.',
+    finishedTitle:'PDF created',
+    viewPdf:'View PDF',
+    downloadPdf:'Download / save PDF',
+    back:'Back',
+    cardHeadlineHtml:'WHAT IF<br>YOU DISCOVERED<br>SOMETHING<br>YOU DO NOT<br>KNOW YET?',
+    cardTagline:'Knowledge • Perspectives • Possibilities',
+    cardScan:'Scan. Take a look. Decide for yourself.',
+    cardFrom:'This invitation comes from:',
     loadError:'The Club Partner data could not be loaded right now. Please try again later.'
   }
 };
@@ -2588,13 +2740,19 @@ function renderResults(){
     qrBtn.textContent=t('qrButton');
     qrBtn.addEventListener('click',()=>showQr(p));
 
-    actions.append(btn,qrBtn);
+    const inviteBtn=document.createElement('button');
+    inviteBtn.type='button';
+    inviteBtn.className='btn invite';
+    inviteBtn.textContent=t('inviteButton');
+    inviteBtn.addEventListener('click',()=>showInvite(p));
+
+    actions.append(btn,qrBtn,inviteBtn);
     row.append(person,actions);
     box.appendChild(row);
   });
 }
 
-function buildQrSvg(text){
+function buildQrSvg(text,color='#132238'){
   const qr=qrcode(0,'M');
   qr.addData(text);
   qr.make();
@@ -2624,7 +2782,7 @@ function buildQrSvg(text){
     }
   }
   path.setAttribute('d',d);
-  path.setAttribute('fill','#132238');
+  path.setAttribute('fill',color);
   svg.appendChild(path);
   return svg;
 }
@@ -2639,6 +2797,200 @@ function showQr(p){
 
   $('#qrSelected').classList.add('show');
   $('#qrSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function createInviteCard(p){
+  const card=document.createElement('div');
+  card.className='inviteCard';
+
+  const qm=document.createElement('div');
+  qm.className='inviteQuestionMark';
+  qm.textContent='?';
+
+  const inner=document.createElement('div');
+  inner.className='inviteInner';
+
+  const headline=document.createElement('div');
+  headline.className='inviteHeadline';
+  headline.innerHTML=t('cardHeadlineHtml');
+
+  const brand=document.createElement('div');
+  brand.className='inviteBrand';
+  brand.textContent='LiquidityBooster';
+
+  const swoosh=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  swoosh.setAttribute('class','inviteSwoosh');
+  swoosh.setAttribute('viewBox','0 0 260 18');
+  swoosh.setAttribute('aria-hidden','true');
+  const swooshPath=document.createElementNS('http://www.w3.org/2000/svg','path');
+  swooshPath.setAttribute('d','M4 3 C66 14 150 16 256 5 C177 18 79 19 4 3 Z');
+  swooshPath.setAttribute('fill','#111');
+  swoosh.appendChild(swooshPath);
+
+  const tagline=document.createElement('div');
+  tagline.className='inviteTagline';
+  tagline.textContent=t('cardTagline');
+
+  const qr=document.createElement('div');
+  qr.className='inviteQr';
+  qr.appendChild(buildQrSvg(p.affiliateUrl,'#000'));
+
+  const scan=document.createElement('div');
+  scan.className='inviteScan';
+  scan.textContent=t('cardScan');
+
+  const from=document.createElement('div');
+  from.className='inviteFrom';
+  const fromLabel=document.createElement('div');
+  fromLabel.className='inviteFromLabel';
+  fromLabel.textContent=t('cardFrom');
+  const fromName=document.createElement('div');
+  fromName.className='inviteFromName';
+  fromName.textContent=fullName(p);
+  from.append(fromLabel,fromName);
+
+  inner.append(headline,brand,swoosh,tagline,qr,scan,from);
+  card.append(qm,inner);
+  return card;
+}
+
+function renderInvitePreviews(p){
+  $('#invitePartnerName').textContent=fullName(p);
+
+  const single=$('#singleCardMount');
+  single.innerHTML='';
+  single.appendChild(createInviteCard(p));
+
+  const sheet=$('#sheetPreview');
+  sheet.innerHTML='';
+  const grid=document.createElement('div');
+  grid.className='sheetGrid';
+  for(let i=0;i<4;i++)grid.appendChild(createInviteCard(p));
+  sheet.appendChild(grid);
+
+  $('#pdfStatus').textContent=t('pdfReady');
+  $('#pdfStatus').classList.remove('error');
+  $('#pdfReadyBox').classList.remove('show');
+}
+
+function showInvite(p){
+  invitePartner=p;
+  renderInvitePreviews(p);
+  $('#inviteSelected').classList.add('show');
+  $('#inviteSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+async function ensurePdfDelivery(){
+  if(!('serviceWorker' in navigator)||!('caches' in window)){
+    throw Error('Die benannte PDF-Ausgabe wird von diesem Browser nicht unterstützt.');
+  }
+
+  const registration=await navigator.serviceWorker.register('./pdf-download-sw.js?v=1',{scope:'./'});
+  await navigator.serviceWorker.ready;
+
+  if(!navigator.serviceWorker.controller){
+    await new Promise(resolve=>{
+      let finished=false;
+      const done=()=>{if(finished)return;finished=true;resolve();};
+      navigator.serviceWorker.addEventListener('controllerchange',done,{once:true});
+      setTimeout(done,1800);
+    });
+  }
+
+  if(!registration.active&&!navigator.serviceWorker.controller){
+    throw Error('Die benannte PDF-Ausgabe ist noch nicht aktiv. Bitte die Seite einmal neu laden.');
+  }
+}
+
+function dispositionFor(filename){
+  const ascii=String(filename)
+    .replace(/[^A-Za-z0-9._ -]+/g,'-')
+    .replace(/"/g,'')
+    .slice(0,150);
+  return 'attachment; filename="'+ascii+'"; filename*=UTF-8\'\''+encodeURIComponent(filename);
+}
+
+async function prepareNamedPdfDownload(blob,filename){
+  await ensurePdfDelivery();
+
+  const cache=await caches.open(PDF_CACHE);
+  const token=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+  const target=new URL('./__invite_pdf__/'+token+'/'+encodeURIComponent(filename),location.href).href;
+
+  const response=new Response(blob,{
+    status:200,
+    headers:{
+      'Content-Type':'application/pdf',
+      'Content-Disposition':dispositionFor(filename),
+      'Cache-Control':'no-store',
+      'X-LB-PDF-Filename':filename
+    }
+  });
+
+  await cache.put(target,response);
+
+  const keys=await cache.keys();
+  if(keys.length>8){
+    for(const key of keys.slice(0,keys.length-8))await cache.delete(key);
+  }
+
+  return target;
+}
+
+async function createInvitationPdf(mode){
+  if(!invitePartner)return;
+  const status=$('#pdfStatus');
+  status.textContent=t('pdfWorking');
+  status.classList.remove('error');
+  $('#pdfReadyBox').classList.remove('show');
+  $('#makeA6Pdf').disabled=true;
+  $('#makeA4Pdf').disabled=true;
+
+  try{
+    if(!window.LBInvitationPdf)throw Error('PDF-Generator ist nicht verfügbar.');
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+
+    const out=mode==='a6'
+      ? window.LBInvitationPdf.single(invitePartner)
+      : window.LBInvitationPdf.fourUp(invitePartner);
+
+    if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl);
+    pendingPdfViewUrl=URL.createObjectURL(out.blob);
+
+    pendingPdfDownloadUrl=await prepareNamedPdfDownload(out.blob,out.filename);
+    pendingPdfName=out.filename;
+    pendingPdfFormat=mode==='a6'?'A6 · Einzelkarte':'A4 · 4 Karten';
+
+    $('#pdfReadyFile').textContent=pendingPdfName;
+    $('#pdfReadyMeta').textContent=pendingPdfFormat+' · fertige PDF-Datei';
+    $('#downloadFinishedPdf').href=pendingPdfDownloadUrl;
+    $('#downloadFinishedPdf').download=pendingPdfName;
+    $('#pdfReadyBox').classList.add('show');
+
+    status.textContent=t('pdfDone');
+    $('#pdfReadyBox').scrollIntoView({behavior:'smooth',block:'nearest'});
+  }catch(e){
+    console.error('[Einladungskarten-PDF]',e);
+    status.textContent=t('pdfError')+' '+(e?.message||String(e));
+    status.classList.add('error');
+  }finally{
+    $('#makeA6Pdf').disabled=false;
+    $('#makeA4Pdf').disabled=false;
+  }
+}
+
+function showFinishedPdf(){
+  if(!pendingPdfViewUrl)return;
+  $('#pdfPreviewName').textContent=pendingPdfName||'PDF';
+  $('#pdfPreviewFrame').src=pendingPdfViewUrl;
+  $('#pdfPreviewOverlay').classList.add('show');
+  $('#pdfPreviewOverlay').setAttribute('aria-hidden','false');
+}
+
+function closeFinishedPdf(){
+  $('#pdfPreviewOverlay').classList.remove('show');
+  $('#pdfPreviewOverlay').setAttribute('aria-hidden','true');
+  $('#pdfPreviewFrame').src='about:blank';
 }
 
 async function copyText(text){
@@ -2674,6 +3026,12 @@ async function selectPartner(p){
   $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
   $('#selected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+
+$('#makeA6Pdf').addEventListener('click',()=>createInvitationPdf('a6'));
+$('#makeA4Pdf').addEventListener('click',()=>createInvitationPdf('a4'));
+$('#viewFinishedPdf').addEventListener('click',showFinishedPdf);
+$('#pdfPreviewClose').addEventListener('click',closeFinishedPdf);
+window.addEventListener('pagehide',()=>{if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl)});
 
 $('#copyAgain').addEventListener('click',async()=>{
   if(!selectedPartner)return;
