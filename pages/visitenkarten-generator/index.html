@@ -46,13 +46,12 @@ label{font-size:13px;font-weight:850}
 input{width:100%;border:1px solid #cfdde2;border-radius:11px;padding:12px 13px;color:var(--navy);background:#fff;outline:none}
 input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
 .hint{font-size:12px;line-height:1.45;color:var(--muted);margin-top:4px}
-.templates{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}
+.templates{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0}
 .template{position:relative;border:2px solid transparent;border-radius:13px;padding:8px;background:#f4f8f9;cursor:pointer;text-align:left}
 .template.active{border-color:var(--mint);background:#f0fbfb}
 .template input{position:absolute;opacity:0;pointer-events:none}
 .mini{aspect-ratio:85/55;border-radius:8px;border:1px solid #d6e0e4;overflow:hidden;margin-bottom:7px;position:relative}
 .mini.light{background:linear-gradient(165deg,#fff 0 68%,#00a7ad 68% 78%,#132238 78%)}
-.mini.dark{background:linear-gradient(155deg,#132238 0 75%,#0e5b77 75% 86%,#c6006f 86%)}
 .mini.split{background:linear-gradient(70deg,#fff 0 68%,#00a7ad 68% 72%,#132238 72%)}
 .mini:before{content:"";position:absolute;left:8%;top:12%;width:45%;height:14%;border-radius:4px;background:linear-gradient(90deg,#00a7ad 0 48%,#c6006f 48% 83%,#00a7ad 83%)}
 .mini:after{content:"";position:absolute;right:9%;top:26%;width:23%;aspect-ratio:1;background:repeating-conic-gradient(#111 0 10deg,#fff 10deg 20deg);border:5px solid #fff}
@@ -166,13 +165,8 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
         </label>
         <label class="template" data-template="2">
           <input type="radio" name="template" value="2">
-          <div class="mini dark"></div>
-          <div><strong data-i18n="design2">Design 2 · Navy</strong><span data-i18n="design2Sub">premium & markant</span></div>
-        </label>
-        <label class="template" data-template="3">
-          <input type="radio" name="template" value="3">
           <div class="mini split"></div>
-          <div><strong data-i18n="design3">Design 3 · Split</strong><span data-i18n="design3Sub">elegant & fokussiert</span></div>
+          <div><strong data-i18n="design2">Design 2 · Split</strong><span data-i18n="design2Sub">elegant & fokussiert</span></div>
         </label>
       </div>
 
@@ -241,14 +235,13 @@ var I18N={
     lead:'Daten eintragen, Design auswählen und die persönliche Affiliate-URL als QR-Code auf die Karte setzen. Danach entsteht eine druckfertige PDF.',
     dataTitle:'1. Deine Angaben',firstName:'Vorname',lastName:'Nachname',zip:'PLZ',city:'Ort',mobile:'Mobil',email:'E-Mail',
     affiliate:'Persönliche Affiliate-URL',affiliateHint:'Die URL wird nicht auf die Karte geschrieben. Sie steckt ausschließlich im QR-Code.',
-    designTitle:'2. Design auswählen',design1:'Design 1 · Hell',design1Sub:'klar & modern',design2:'Design 2 · Navy',design2Sub:'premium & markant',
-    design3:'Design 3 · Split',design3Sub:'elegant & fokussiert',pdfTitle:'3. Druckdatei erstellen',single:'Einzelkarte 85 × 55 mm',sheet:'10 Karten auf A4',
+    designTitle:'2. Design auswählen',design1:'Design 1 · Hell',design1Sub:'klar & modern',design2:'Design 2 · Split',design2Sub:'elegant & fokussiert',pdfTitle:'3. Druckdatei erstellen',single:'Einzelkarte 85 × 55 mm',sheet:'10 Karten auf A4',
     ready:'Bereit.',preview:'Live-Vorschau',note:'Der QR-Code wird lokal aus deiner eingegebenen URL erzeugt. Es gibt keine Verbindung zu Club Control oder einer Club-Partner-Liste.',
     doneEyebrow:'LiquidityBooster · fertige PDF',doneTitle:'PDF fertig erstellt',close:'Schließen',save:'PDF speichern',share:'PDF teilen',
     working:'PDF wird erstellt …',invalid:'Bitte fülle alle Felder vollständig aus und prüfe die Affiliate-URL.',stored:'PDF ist fertig und kann gespeichert oder geteilt werden.',
-    mobileLabel:'Mobil:',motto1a:'Neue Perspektiven beginnen',motto1b:'mit einem Gespräch.',motto2:'Alles beginnt mit einem Lächeln.',
+    mobileLabel:'Mobil:',motto1a:'Neue Perspektiven beginnen',motto1b:'mit einem Gespräch.',
     motto3a:'Es gibt keine Zufälle,',motto3b:'wenn es um Perspektiven geht.',
-    flow1:'Daten eingeben',flow1Sub:'Vorschau aktualisiert sich sofort',flow2:'Design auswählen',flow2Sub:'eine von drei Karten wählen',flow3:'PDF erstellen',flow3Sub:'speichern oder teilen',
+    flow1:'Daten eingeben',flow1Sub:'Vorschau aktualisiert sich sofort',flow2:'Design auswählen',flow2Sub:'eine von zwei Karten wählen',flow3:'PDF erstellen',flow3Sub:'speichern oder teilen',
     qrWaiting:'Affiliate-Link eintragen – der QR-Code entsteht automatisch.',qrOk:'QR-Code wurde aus deinem Affiliate-Link erstellt.',qrError:'Bitte einen gültigen Affiliate-Link eintragen.',
     actionHelp:'Einzelkarte für Druckerei/Weitergabe. A4-Bogen für 10 identische Karten zum Ausschneiden.',
     previewHelp:'Die Karte unten ändert sich automatisch während der Eingabe.',missing:'Bitte zuerst alle Angaben vollständig ausfüllen.',allReady:'Alles vollständig – PDF-Ausgabe ist bereit.'
@@ -258,14 +251,13 @@ var I18N={
     lead:'Enter your details, choose a design and turn your personal affiliate URL into the QR code on the card. Then create a print-ready PDF.',
     dataTitle:'1. Your details',firstName:'First name',lastName:'Last name',zip:'Postcode',city:'City',mobile:'Mobile',email:'Email',
     affiliate:'Personal affiliate URL',affiliateHint:'The URL is not printed on the card. It is stored only in the QR code.',
-    designTitle:'2. Choose a design',design1:'Design 1 · Light',design1Sub:'clean & modern',design2:'Design 2 · Navy',design2Sub:'premium & distinctive',
-    design3:'Design 3 · Split',design3Sub:'elegant & focused',pdfTitle:'3. Create print file',single:'Single card 85 × 55 mm',sheet:'10 cards on A4',
+    designTitle:'2. Choose a design',design1:'Design 1 · Light',design1Sub:'clean & modern',design2:'Design 2 · Split',design2Sub:'elegant & focused',pdfTitle:'3. Create print file',single:'Single card 85 × 55 mm',sheet:'10 cards on A4',
     ready:'Ready.',preview:'Live preview',note:'The QR code is generated locally from the URL you enter. There is no connection to Club Control or a Club Partner list.',
     doneEyebrow:'LiquidityBooster · finished PDF',doneTitle:'PDF created',close:'Close',save:'Save PDF',share:'Share PDF',
     working:'Creating PDF …',invalid:'Please complete all fields and check the affiliate URL.',stored:'The PDF is ready to save or share.',
-    mobileLabel:'Mobile:',motto1a:'New perspectives begin',motto1b:'with a conversation.',motto2:'Everything begins with a smile.',
+    mobileLabel:'Mobile:',motto1a:'New perspectives begin',motto1b:'with a conversation.',
     motto3a:'There are no coincidences',motto3b:'when it comes to perspectives.',
-    flow1:'Enter details',flow1Sub:'preview updates instantly',flow2:'Choose design',flow2Sub:'pick one of three cards',flow3:'Create PDF',flow3Sub:'save or share',
+    flow1:'Enter details',flow1Sub:'preview updates instantly',flow2:'Choose design',flow2Sub:'pick one of two cards',flow3:'Create PDF',flow3Sub:'save or share',
     qrWaiting:'Enter your affiliate link – the QR code is created automatically.',qrOk:'QR code created from your affiliate link.',qrError:'Please enter a valid affiliate link.',
     actionHelp:'Single card for print shop/sharing. A4 sheet contains 10 identical cards for cutting.',
     previewHelp:'The card below updates automatically while you type.',missing:'Please complete all details first.',allReady:'Everything is complete – PDF output is ready.'
@@ -462,26 +454,6 @@ function drawCard(c,w,h,data,templateNo){
     c.fillStyle=navy;c.font=font(35,400);c.fillText(t('motto1b'),64,632);
 
     drawQr(c,qr,745,290,180,mint);
-  }else if(templateNo===2){
-    var g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#081f34');g.addColorStop(1,'#0b3653');c.fillStyle=g;c.fillRect(0,0,w,h);
-    c.fillStyle='#0c4d6b';c.beginPath();c.moveTo(w*.62,h);c.quadraticCurveTo(w*.88,h*.64,w,h*.22);c.lineTo(w,h);c.closePath();c.fill();
-    c.fillStyle='#1dc2ca';c.beginPath();c.moveTo(w*.72,h);c.quadraticCurveTo(w*.90,h*.74,w,h*.55);c.lineTo(w,h*.68);c.quadraticCurveTo(w*.88,h*.84,w*.82,h);c.closePath();c.fill();
-    c.fillStyle=mag;c.beginPath();c.moveTo(w*.84,h);c.quadraticCurveTo(w*.94,h*.86,w,h*.77);c.lineTo(w,h*.82);c.quadraticCurveTo(w*.93,h*.93,w*.90,h);c.closePath();c.fill();
-
-    drawLogo(c,58,34,535);
-
-    var n2=(data.firstName+' '+data.lastName).trim();
-    c.fillStyle=white;fitText(c,n2,555,54,33,900);c.fillText(n2,68,357);
-    c.fillStyle=mint;c.fillRect(68,380,430,4);
-
-    drawContact(c,'pin',94,429,data.zip+' '+data.city,white,'#38d5d9',500);
-    drawContact(c,'phone',94,480,t('mobileLabel')+' '+data.mobile,white,'#38d5d9',500);
-    drawContact(c,'mail',94,531,'E-Mail: '+data.email,white,'#38d5d9',500);
-
-    c.strokeStyle='rgba(255,255,255,.55)';c.lineWidth=2;c.beginPath();c.moveTo(68,560);c.lineTo(505,560);c.stroke();
-    c.fillStyle=white;c.font=font(28,400,'italic','Georgia,serif');c.fillText(t('motto2'),70,611);
-
-    drawQr(c,qr,728,315,190,'#39d7d9');
   }else{
     c.fillStyle=white;c.fillRect(0,0,w,h);
     c.fillStyle=navy;c.beginPath();c.moveTo(w*.74,0);c.lineTo(w,0);c.lineTo(w,h);c.lineTo(w*.83,h);c.closePath();c.fill();
