@@ -71,6 +71,7 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .inviteIntro p{margin:0;color:var(--muted);line-height:1.5;max-width:560px}
 .pdfActions{display:flex;gap:9px;flex-wrap:wrap}
 .singlePreviewWrap{display:flex;justify-content:center;padding:18px;border:1px solid var(--line);border-radius:18px;background:#f3f3f3}
+#singleCardMount{width:min(100%,105mm);display:block}
 .inviteCard{
   position:relative;
   overflow:hidden;
@@ -249,7 +250,7 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 
 <script src="./qrcode-local.js?v=1"></script>
 <script src="./einladungskarte-pdf.js?v=1"></script>
-<script src="../merchant-kompass/akademie-pdf-uebergabe.js?v=1"></script>
+<script src="./akademie-pdf-uebergabe-karten.js?v=2"></script>
 <script>
 const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/club-partner.json';
 const $=s=>document.querySelector(s);
@@ -569,8 +570,9 @@ async function createPdf(mode){
     window.AkademiePdfUebergabe.setDocument({
       blob:out.blob,
       filename:out.filename,
-      pages:mode==='a4'?1:null,
-      origin:mode==='a6'?'LiquidityBooster Einladungskarte · A6':'LiquidityBooster Einladungskarten · 4er-A4'
+      pages:1,
+      format:mode==='a6'?'A6 · Einzelkarte':'A4 · 4 Karten',
+      origin:mode==='a6'?'LiquidityBooster Einladungskarte':'LiquidityBooster Einladungskarten'
     });
     status.textContent=t('pdfDone');
   }catch(e){
