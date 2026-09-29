@@ -251,7 +251,8 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
           <div class="pdfReadyFile" id="pdfReadyFile"></div>
           <div class="pdfReadyMeta" id="pdfReadyMeta"></div>
           <div class="pdfReadyActions">
-            <a class="btn pdfDownload" id="downloadFinishedPdf" href="#" download data-i18n="downloadPdf">PDF herunterladen / speichern</a>
+            <button class="btn pdfDownload" id="saveFinishedPdf" type="button" data-i18n="savePdf">PDF speichern</button>
+            <button class="btn" id="shareFinishedPdf" type="button" data-i18n="sharePdf">PDF teilen</button>
           </div>
         </div>
       </div>
@@ -2570,10 +2571,9 @@ let partners=[];
 let activePartner=null;
 let lockedPartner=null;
 let loading=false;
-let pendingPdfDownloadUrl='';
+let pendingPdfFile=null;
 let pendingPdfName='';
 let pendingPdfFormat='';
-const PDF_CACHE='lb-invitation-pdf-download-v1';
 
 const I18N={
   de:{
@@ -2620,7 +2620,14 @@ const I18N={
     pdfDone:'PDF ist fertig. Der Download mit festem Dateinamen ist bereit.',
     pdfError:'PDF konnte nicht erstellt werden.',
     finishedTitle:'PDF fertig erstellt',
-    downloadPdf:'PDF herunterladen / speichern',
+    savePdf:'PDF speichern',
+    sharePdf:'PDF teilen',
+    pdfSaved:'PDF wurde unter dem gewählten Dateinamen gespeichert.',
+    pdfSaveCancelled:'Speichern abgebrochen.',
+    pdfShareCancelled:'Teilen abgebrochen.',
+    pdfShareDone:'PDF wurde an die Dateifreigabe des Geräts übergeben.',
+    pdfSaveUnsupported:'Dieser Browser bietet hier keine direkte Dateispeicherung an.',
+    pdfShareUnsupported:'Dieser Browser unterstützt das Teilen dieser PDF nicht.',
     cardHeadlineHtml:'WAS WÄRE,<br>WENN DU ETWAS<br>ENTDECKST,<br>DAS DU HEUTE NOCH<br>NICHT KENNST?',
     cardTagline:'Wissen • Perspektiven • Möglichkeiten',
     cardScan:'Scannen. Anschauen. Selbst entscheiden.',
@@ -2671,7 +2678,14 @@ const I18N={
     pdfDone:'PDF is ready. The fixed-name download is available.',
     pdfError:'PDF could not be created.',
     finishedTitle:'PDF created',
-    downloadPdf:'Download / save PDF',
+    savePdf:'Save PDF',
+    sharePdf:'Share PDF',
+    pdfSaved:'PDF saved with the selected filename.',
+    pdfSaveCancelled:'Saving cancelled.',
+    pdfShareCancelled:'Sharing cancelled.',
+    pdfShareDone:'PDF handed to the device share sheet.',
+    pdfSaveUnsupported:'This browser does not provide direct file saving here.',
+    pdfShareUnsupported:'This browser does not support sharing this PDF.',
     cardHeadlineHtml:'WHAT IF<br>YOU DISCOVERED<br>SOMETHING<br>YOU DO NOT<br>KNOW YET?',
     cardTagline:'Knowledge • Perspectives • Possibilities',
     cardScan:'Scan. Take a look. Decide for yourself.',
@@ -2851,15 +2865,13 @@ function samePartner(a,b){
 }
 
 function resetPdfState(){
-  pendingPdfDownloadUrl='';
+  pendingPdfFile=null;
   pendingPdfName='';
   pendingPdfFormat='';
 
   $('#pdfReadyBox').classList.remove('show');
   $('#pdfReadyFile').textContent='';
   $('#pdfReadyMeta').textContent='';
-  $('#downloadFinishedPdf').href='#';
-  $('#downloadFinishedPdf').removeAttribute('download');
 
   $('#pdfStatus').textContent=t('pdfReady');
   $('#pdfStatus').classList.remove('error');
@@ -3079,96 +3091,121 @@ function showInvite(p){
   $('#inviteSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-async function ensurePdfDelivery(){
-  if(!('serviceWorker' in navigator)||!('caches' in window)){
-    throw Error('Die benannte PDF-Ausgabe wird von diesem Browser nicht unterstützt.');
-  }
-
-  const registration=await navigator.serviceWorker.register('./pdf-download-sw.js?v=1',{scope:'./'});
-  await navigator.serviceWorker.ready;
-
-  if(!navigator.serviceWorker.controller){
-    await new Promise(resolve=>{
-      let finished=false;
-      const done=()=>{if(finished)return;finished=true;resolve();};
-      navigator.serviceWorker.addEventListener('controllerchange',done,{once:true});
-      setTimeout(done,1800);
-    });
-  }
-
-  if(!registration.active&&!navigator.serviceWorker.controller){
-    throw Error('Die benannte PDF-Ausgabe ist noch nicht aktiv. Bitte die Seite einmal neu laden.');
+function canSharePdf(){
+  try{
+    return !!(
+      pendingPdfFile &&
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({files:[pendingPdfFile]})
+    );
+  }catch(e){
+    return false;
   }
 }
 
-function dispositionFor(filename){
-  const ascii=String(filename)
-    .replace(/[^A-Za-z0-9._ -]+/g,'-')
-    .replace(/"/g,'')
-    .slice(0,150);
-  return 'attachment; filename="'+ascii+'"; filename*=UTF-8\'\''+encodeURIComponent(filename);
+function pdfStatusMessage(message,isError=false){
+  const el=$('#pdfStatus');
+  el.textContent=message;
+  el.classList.toggle('error',isError);
 }
 
-async function prepareNamedPdfDownload(blob,filename){
-  await ensurePdfDelivery();
+async function saveFinishedPdf(){
+  if(!pendingPdfFile)return pdfStatusMessage(t('pdfError'),true);
 
-  const cache=await caches.open(PDF_CACHE);
-  const token=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
-  const target=new URL('./__invite_pdf__/'+token+'/'+encodeURIComponent(filename),location.href).href;
-
-  const response=new Response(blob,{
-    status:200,
-    headers:{
-      'Content-Type':'application/pdf',
-      'Content-Disposition':dispositionFor(filename),
-      'Cache-Control':'no-store',
-      'X-LB-PDF-Filename':filename
+  if(typeof window.showSaveFilePicker==='function'){
+    try{
+      const handle=await window.showSaveFilePicker({
+        suggestedName:pendingPdfFile.name,
+        types:[{
+          description:'PDF-Dokument',
+          accept:{'application/pdf':['.pdf']}
+        }]
+      });
+      const writable=await handle.createWritable();
+      await writable.write(pendingPdfFile);
+      await writable.close();
+      return pdfStatusMessage(t('pdfSaved'));
+    }catch(e){
+      if(e?.name==='AbortError')return pdfStatusMessage(t('pdfSaveCancelled'));
+      return pdfStatusMessage('Speichern fehlgeschlagen: '+(e?.message||e),true);
     }
-  });
-
-  await cache.put(target,response);
-
-  const keys=await cache.keys();
-  if(keys.length>8){
-    for(const key of keys.slice(0,keys.length-8))await cache.delete(key);
   }
 
-  return target;
+  if(canSharePdf()){
+    try{
+      await navigator.share({files:[pendingPdfFile],title:pendingPdfFile.name});
+      return pdfStatusMessage(t('pdfShareDone'));
+    }catch(e){
+      if(e?.name==='AbortError')return pdfStatusMessage(t('pdfSaveCancelled'));
+      return pdfStatusMessage('Speichern fehlgeschlagen: '+(e?.message||e),true);
+    }
+  }
+
+  return pdfStatusMessage(t('pdfSaveUnsupported'),true);
+}
+
+async function shareFinishedPdf(){
+  if(!pendingPdfFile)return pdfStatusMessage(t('pdfError'),true);
+  if(!canSharePdf())return pdfStatusMessage(t('pdfShareUnsupported'),true);
+
+  try{
+    await navigator.share({files:[pendingPdfFile],title:pendingPdfFile.name});
+    pdfStatusMessage(t('pdfShareDone'));
+  }catch(e){
+    if(e?.name==='AbortError')return pdfStatusMessage(t('pdfShareCancelled'));
+    pdfStatusMessage('Teilen fehlgeschlagen: '+(e?.message||e),true);
+  }
 }
 
 async function createInvitationPdf(mode){
   if(!activePartner || !$('#inviteSelected').classList.contains('show'))return;
-  const status=$('#pdfStatus');
-  status.textContent=t('pdfWorking');
-  status.classList.remove('error');
+
+  $('#pdfStatus').textContent=t('pdfWorking');
+  $('#pdfStatus').classList.remove('error');
   $('#pdfReadyBox').classList.remove('show');
   $('#makeA6Pdf').disabled=true;
   $('#makeA4Pdf').disabled=true;
 
   try{
     if(!window.LBInvitationPdf)throw Error('PDF-Generator ist nicht verfügbar.');
+    if(typeof File!=='function')throw Error('Dieser Browser kann keine benannte PDF-Datei bereitstellen.');
+
     await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
 
     const out=mode==='a6'
       ? window.LBInvitationPdf.single(activePartner)
       : window.LBInvitationPdf.fourUp(activePartner);
 
-    pendingPdfDownloadUrl=await prepareNamedPdfDownload(out.blob,out.filename);
-    pendingPdfName=out.filename;
+    if(!out?.blob || !(out.blob instanceof Blob) || !out.filename || out.blob.size===0){
+      throw Error('Der Generator hat keine gültige fertige PDF geliefert.');
+    }
+
+    const safeFilename=String(out.filename)
+      .replace(/[\\/\x00-\x1f<>:"|?*]/g,'_')
+      .trim();
+
+    if(!safeFilename.toLowerCase().endsWith('.pdf')){
+      throw Error('Der PDF-Dateiname ist nicht gültig.');
+    }
+
+    pendingPdfFile=new File([out.blob],safeFilename,{type:'application/pdf'});
+    pendingPdfName=pendingPdfFile.name;
     pendingPdfFormat=mode==='a6'?'A6 · Einzelkarte':'A4 · 4 Karten';
 
     $('#pdfReadyFile').textContent=pendingPdfName;
     $('#pdfReadyMeta').textContent=pendingPdfFormat+' · fertige PDF-Datei';
-    $('#downloadFinishedPdf').href=pendingPdfDownloadUrl;
-    $('#downloadFinishedPdf').download=pendingPdfName;
     $('#pdfReadyBox').classList.add('show');
 
-    status.textContent=t('pdfDone');
+    $('#shareFinishedPdf').disabled=!canSharePdf();
+
+    $('#pdfStatus').textContent=t('pdfDone');
     $('#pdfReadyBox').scrollIntoView({behavior:'smooth',block:'nearest'});
   }catch(e){
     console.error('[Einladungskarten-PDF]',e);
-    status.textContent=t('pdfError')+' '+(e?.message||String(e));
-    status.classList.add('error');
+    pendingPdfFile=null;
+    $('#pdfStatus').textContent=t('pdfError')+' '+(e?.message||String(e));
+    $('#pdfStatus').classList.add('error');
   }finally{
     $('#makeA6Pdf').disabled=false;
     $('#makeA4Pdf').disabled=false;
@@ -3215,6 +3252,8 @@ $('#saveQrPng').addEventListener('click',saveActiveQrPng);
 
 $('#makeA6Pdf').addEventListener('click',()=>createInvitationPdf('a6'));
 $('#makeA4Pdf').addEventListener('click',()=>createInvitationPdf('a4'));
+$('#saveFinishedPdf').addEventListener('click',saveFinishedPdf);
+$('#shareFinishedPdf').addEventListener('click',shareFinishedPdf);
 
 $('#copyAgain').addEventListener('click',async()=>{
   if(!activePartner || !$('#selected').classList.contains('show'))return;
