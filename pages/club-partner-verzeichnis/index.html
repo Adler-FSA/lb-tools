@@ -1866,251 +1866,7 @@ var qrcode = function() {
       } else {
         switch (c) {
         case ' ' : return 36;
-        case ''https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/club-partner.json';
-const $=s=>document.querySelector(s);
-let partners=[];
-let selectedPartner=null;
-let loading=false;
-
-const I18N={
-  de:{
-    eyebrow:'Club Partner finden',
-    title:'Kennst du schon jemanden beim LiquidityBooster?',
-    lead:'Überprüfe hier, ob die Person bereits als Club Partner dabei ist. Gib einfach den Vor- oder Nachnamen ein.',
-    centralTitle:'Die Zentrale und dein persönlicher Ansprechpartner',
-    centralText:'LiquidityBooster.de ist die Zentrale. Jeder Club Partner besitzt zusätzlich seine eigene personalisierte LiquidityBooster-Webseite. Dort findest du die jeweiligen Kontaktdaten und kannst direkt Kontakt aufnehmen.',
-    noContactTitle:'Du kennst noch niemanden persönlich?',
-    noContactText:'Dann gib einfach einen Buchstaben ein und wähle einen Club Partner aus. Unsere Club Partner helfen dir gerne beim Start und bei deinen Fragen. Vieles wird schneller verständlich, wenn man mit jemandem spricht, der bereits dabei ist und aus eigener Erfahrung helfen kann.',
-    searchTitle:'Club Partner suchen',
-    searchText:'Die Treffer werden sofort während deiner Eingabe angezeigt.',
-    placeholder:'Vorname oder Nachname eingeben …',
-    choose:'Übernehmen',
-    qrButton:'QR-Code anzeigen',
-    partner:'Club Partner',
-    noMatch:'Keine passende Person gefunden. Prüfe die Schreibweise oder versuche einen anderen Teil des Namens.',
-    selectedLabel:'Ausgewählter Club Partner',
-    copied:n=>'Der persönliche Link von '+n+' wurde in deine Zwischenablage kopiert.',
-    copyAgain:'Link erneut kopieren',
-    next:'Füge den Link jetzt in die Adresszeile deines Browsers ein. Auf der personalisierten LiquidityBooster-Seite findest du die Kontaktdaten deines ausgewählten Club Partners.',
-    copiedShort:'Link wurde in die Zwischenablage kopiert.',
-    copyFallback:'Der Link konnte nicht automatisch kopiert werden. Markiere ihn bitte und kopiere ihn manuell.',
-    qrLabel:'Persönlicher QR-Code',
-    qrTargetTitle:'Zieladresse des QR-Codes',
-    qrTargetText:'Beim Scannen öffnet sich die bereits bestehende persönliche LiquidityBooster-Seite dieses Club Partners.',
-    loadError:'Die Club-Partner-Daten konnten gerade nicht geladen werden. Bitte versuche es später erneut.'
-  },
-  en:{
-    eyebrow:'Find a Club Partner',
-    title:'Do you already know someone at LiquidityBooster?',
-    lead:'Check here whether the person is already a Club Partner. Simply enter a first or last name.',
-    centralTitle:'The central site and your personal contact',
-    centralText:'LiquidityBooster.de is the central site. Each Club Partner also has a personalized LiquidityBooster page containing their contact details so you can get in touch directly.',
-    noContactTitle:'You do not know anyone personally yet?',
-    noContactText:'Simply enter a letter and choose a Club Partner. Our Club Partners are happy to help you get started and answer your questions. Many things become clearer faster when you speak with someone who is already involved and can help from personal experience.',
-    searchTitle:'Search Club Partners',
-    searchText:'Matching results appear immediately while you type.',
-    placeholder:'Enter first or last name …',
-    choose:'Select',
-    qrButton:'Show QR code',
-    partner:'Club Partner',
-    noMatch:'No matching person found. Check the spelling or try another part of the name.',
-    selectedLabel:'Selected Club Partner',
-    copied:n=>'The personal link for '+n+' has been copied to your clipboard.',
-    copyAgain:'Copy link again',
-    next:'Paste the link into your browser address bar. On the personalized LiquidityBooster page you will find the contact details of your selected Club Partner.',
-    copiedShort:'Link copied to your clipboard.',
-    copyFallback:'The link could not be copied automatically. Please select it and copy it manually.',
-    qrLabel:'Personal QR code',
-    qrTargetTitle:'QR code target address',
-    qrTargetText:'Scanning opens this Club Partner’s existing personalized LiquidityBooster page.',
-    loadError:'The Club Partner data could not be loaded right now. Please try again later.'
-  }
-};
-
-const params=new URLSearchParams(location.search);
-const lang=(params.get('lang')||document.documentElement.lang||'de').toLowerCase().startsWith('en')?'en':'de';
-document.documentElement.lang=lang;
-const t=k=>I18N[lang][k];
-
-document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(typeof t(k)==='string')el.textContent=t(k)});
-document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const k=el.dataset.i18nPlaceholder;el.placeholder=t(k)});
-
-function normalize(v){
-  return String(v||'')
-    .toLocaleLowerCase(lang==='de'?'de-DE':'en-US')
-    .normalize('NFD')
-    .replace(/\p{Diacritic}/gu,'')
-    .replace(/ß/g,'ss')
-    .trim();
-}
-function fullName(p){return [p.firstName,p.lastName].filter(Boolean).join(' ').replace(/\s+/g,' ').trim()}
-function clearResults(){
-  $('#results').innerHTML='';
-  $('#results').classList.remove('show');
-}
-function renderResults(){
-  const q=normalize($('#search').value);
-  if(!q){clearResults();return}
-  const found=partners
-    .filter(p=>normalize(fullName(p)).includes(q))
-    .sort((a,b)=>fullName(a).localeCompare(fullName(b),lang==='de'?'de-DE':'en-US',{sensitivity:'base'}));
-  const box=$('#results');
-  box.innerHTML='';
-  box.classList.add('show');
-  if(!found.length){
-    const empty=document.createElement('div');
-    empty.className='empty';
-    empty.textContent=t('noMatch');
-    box.appendChild(empty);
-    return;
-  }
-  found.forEach(p=>{
-    const row=document.createElement('div');
-    row.className='result';
-    row.setAttribute('role','option');
-
-    const person=document.createElement('div');
-    person.className='person';
-    const strong=document.createElement('strong');
-    strong.textContent=fullName(p);
-    const small=document.createElement('small');
-    small.textContent=t('partner');
-    person.append(strong,small);
-
-    const actions=document.createElement('div');
-    actions.className='rowActions';
-
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='btn';
-    btn.textContent=t('choose');
-    btn.addEventListener('click',()=>selectPartner(p));
-
-    const qrBtn=document.createElement('button');
-    qrBtn.type='button';
-    qrBtn.className='btn qr';
-    qrBtn.textContent=t('qrButton');
-    qrBtn.addEventListener('click',()=>showQr(p));
-
-    actions.append(btn,qrBtn);
-    row.append(person,actions);
-    box.appendChild(row);
-  });
-}
-
-function buildQrSvg(text){
-  const qr=qrcode(0,'M');
-  qr.addData(text);
-  qr.make();
-
-  const count=qr.getModuleCount();
-  const quiet=4;
-  const size=count+(quiet*2);
-  const ns='http://www.w3.org/2000/svg';
-
-  const svg=document.createElementNS(ns,'svg');
-  svg.setAttribute('viewBox',`0 0 ${size} ${size}`);
-  svg.setAttribute('role','img');
-  svg.setAttribute('aria-label','QR Code');
-  svg.setAttribute('shape-rendering','crispEdges');
-
-  const bg=document.createElementNS(ns,'rect');
-  bg.setAttribute('width',size);
-  bg.setAttribute('height',size);
-  bg.setAttribute('fill','#ffffff');
-  svg.appendChild(bg);
-
-  const path=document.createElementNS(ns,'path');
-  let d='';
-  for(let r=0;r<count;r++){
-    for(let c=0;c<count;c++){
-      if(qr.isDark(r,c)) d+=`M${c+quiet} ${r+quiet}h1v1h-1z`;
-    }
-  }
-  path.setAttribute('d',d);
-  path.setAttribute('fill','#132238');
-  svg.appendChild(path);
-  return svg;
-}
-
-function showQr(p){
-  $('#qrName').textContent=fullName(p);
-  $('#qrUrl').textContent=p.affiliateUrl;
-
-  const panel=$('#qrPanel');
-  panel.innerHTML='';
-  panel.appendChild(buildQrSvg(p.affiliateUrl));
-
-  $('#qrSelected').classList.add('show');
-  $('#qrSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-async function copyText(text){
-  try{
-    if(navigator.clipboard && window.isSecureContext){
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-  }catch(e){}
-  try{
-    const ta=document.createElement('textarea');
-    ta.value=text;
-    ta.setAttribute('readonly','');
-    ta.style.position='fixed';
-    ta.style.left='-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    ta.setSelectionRange(0,ta.value.length);
-    const ok=document.execCommand('copy');
-    ta.remove();
-    return ok;
-  }catch(e){return false}
-}
-
-async function selectPartner(p){
-  selectedPartner=p;
-  const n=fullName(p);
-  $('#selectedName').textContent=n;
-  $('#selectedUrl').textContent=p.affiliateUrl;
-  $('#confirmText').textContent=t('copied')(n);
-  $('#selected').classList.add('show');
-  const ok=await copyText(p.affiliateUrl);
-  $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
-  $('#selected').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-$('#copyAgain').addEventListener('click',async()=>{
-  if(!selectedPartner)return;
-  const ok=await copyText(selectedPartner.affiliateUrl);
-  $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
-});
-$('#search').addEventListener('input',renderResults);
-
-async function load(){
-  if(loading)return;
-  loading=true;
-  try{
-    const r=await fetch(DATA_URL+'?v='+Date.now(),{cache:'no-store'});
-    if(!r.ok)throw new Error('load');
-    const data=await r.json();
-    partners=Array.isArray(data.partners)?data.partners.filter(p=>p&&p.firstName&&p.lastName&&p.affiliateUrl):[];
-    $('#error').classList.remove('show');
-    if($('#search').value.trim())renderResults();
-  }catch(e){
-    $('#error').textContent=t('loadError');
-    $('#error').classList.add('show');
-  }finally{
-    loading=false;
-  }
-}
-load();
-setInterval(load,60000);
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)load()});
-window.addEventListener('focus',load);
-</script>
-</body>
-</html>
- : return 37;
+        case '$' : return 37;
         case '%' : return 38;
         case '*' : return 39;
         case '+' : return 40;
@@ -2725,6 +2481,7 @@ const I18N={
     searchText:'Die Treffer werden sofort während deiner Eingabe angezeigt.',
     placeholder:'Vorname oder Nachname eingeben …',
     choose:'Übernehmen',
+    qrButton:'QR-Code anzeigen',
     partner:'Club Partner',
     noMatch:'Keine passende Person gefunden. Prüfe die Schreibweise oder versuche einen anderen Teil des Namens.',
     selectedLabel:'Ausgewählter Club Partner',
@@ -2733,6 +2490,9 @@ const I18N={
     next:'Füge den Link jetzt in die Adresszeile deines Browsers ein. Auf der personalisierten LiquidityBooster-Seite findest du die Kontaktdaten deines ausgewählten Club Partners.',
     copiedShort:'Link wurde in die Zwischenablage kopiert.',
     copyFallback:'Der Link konnte nicht automatisch kopiert werden. Markiere ihn bitte und kopiere ihn manuell.',
+    qrLabel:'Persönlicher QR-Code',
+    qrTargetTitle:'Zieladresse des QR-Codes',
+    qrTargetText:'Beim Scannen öffnet sich die bereits bestehende persönliche LiquidityBooster-Seite dieses Club Partners.',
     loadError:'Die Club-Partner-Daten konnten gerade nicht geladen werden. Bitte versuche es später erneut.'
   },
   en:{
@@ -2747,6 +2507,7 @@ const I18N={
     searchText:'Matching results appear immediately while you type.',
     placeholder:'Enter first or last name …',
     choose:'Select',
+    qrButton:'Show QR code',
     partner:'Club Partner',
     noMatch:'No matching person found. Check the spelling or try another part of the name.',
     selectedLabel:'Selected Club Partner',
@@ -2755,6 +2516,9 @@ const I18N={
     next:'Paste the link into your browser address bar. On the personalized LiquidityBooster page you will find the contact details of your selected Club Partner.',
     copiedShort:'Link copied to your clipboard.',
     copyFallback:'The link could not be copied automatically. Please select it and copy it manually.',
+    qrLabel:'Personal QR code',
+    qrTargetTitle:'QR code target address',
+    qrTargetText:'Scanning opens this Club Partner’s existing personalized LiquidityBooster page.',
     loadError:'The Club Partner data could not be loaded right now. Please try again later.'
   }
 };
@@ -2809,15 +2573,72 @@ function renderResults(){
     small.textContent=t('partner');
     person.append(strong,small);
 
+    const actions=document.createElement('div');
+    actions.className='rowActions';
+
     const btn=document.createElement('button');
     btn.type='button';
     btn.className='btn';
     btn.textContent=t('choose');
     btn.addEventListener('click',()=>selectPartner(p));
 
-    row.append(person,btn);
+    const qrBtn=document.createElement('button');
+    qrBtn.type='button';
+    qrBtn.className='btn qr';
+    qrBtn.textContent=t('qrButton');
+    qrBtn.addEventListener('click',()=>showQr(p));
+
+    actions.append(btn,qrBtn);
+    row.append(person,actions);
     box.appendChild(row);
   });
+}
+
+function buildQrSvg(text){
+  const qr=qrcode(0,'M');
+  qr.addData(text);
+  qr.make();
+
+  const count=qr.getModuleCount();
+  const quiet=4;
+  const size=count+(quiet*2);
+  const ns='http://www.w3.org/2000/svg';
+
+  const svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox',`0 0 ${size} ${size}`);
+  svg.setAttribute('role','img');
+  svg.setAttribute('aria-label','QR Code');
+  svg.setAttribute('shape-rendering','crispEdges');
+
+  const bg=document.createElementNS(ns,'rect');
+  bg.setAttribute('width',size);
+  bg.setAttribute('height',size);
+  bg.setAttribute('fill','#ffffff');
+  svg.appendChild(bg);
+
+  const path=document.createElementNS(ns,'path');
+  let d='';
+  for(let r=0;r<count;r++){
+    for(let c=0;c<count;c++){
+      if(qr.isDark(r,c)) d+=`M${c+quiet} ${r+quiet}h1v1h-1z`;
+    }
+  }
+  path.setAttribute('d',d);
+  path.setAttribute('fill','#132238');
+  svg.appendChild(path);
+  return svg;
+}
+
+function showQr(p){
+  $('#qrName').textContent=fullName(p);
+  $('#qrUrl').textContent=p.affiliateUrl;
+
+  const panel=$('#qrPanel');
+  panel.innerHTML='';
+  panel.appendChild(buildQrSvg(p.affiliateUrl));
+
+  $('#qrSelected').classList.add('show');
+  $('#qrSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 async function copyText(text){
