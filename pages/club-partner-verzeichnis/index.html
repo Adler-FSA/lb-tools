@@ -125,13 +125,6 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .pdfReadyMeta{margin-top:4px;color:var(--muted);font-size:13px}
 .pdfReadyActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
 .pdfDownload{background:var(--mint)}
-.pdfPreviewOverlay{position:fixed;inset:0;z-index:2147483600;background:rgba(9,20,34,.86);display:none;flex-direction:column}
-.pdfPreviewOverlay.show{display:flex}
-.pdfPreviewBar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:#fff;color:var(--navy);border-bottom:1px solid var(--line)}
-.pdfPreviewBar strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pdfPreviewClose{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;font-weight:800}
-.pdfPreviewFrame{width:100%;height:100%;border:0;background:#fff}
-
 .error{display:none;margin-top:16px;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
 .error.show{display:block}
 @media(max-width:720px){
@@ -258,21 +251,12 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
           <div class="pdfReadyFile" id="pdfReadyFile"></div>
           <div class="pdfReadyMeta" id="pdfReadyMeta"></div>
           <div class="pdfReadyActions">
-            <button class="btn" id="viewFinishedPdf" type="button" data-i18n="viewPdf">PDF ansehen</button>
             <a class="btn pdfDownload" id="downloadFinishedPdf" href="#" download data-i18n="downloadPdf">PDF herunterladen / speichern</a>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  <div class="pdfPreviewOverlay" id="pdfPreviewOverlay" aria-hidden="true">
-    <div class="pdfPreviewBar">
-      <strong id="pdfPreviewName">PDF</strong>
-      <button class="pdfPreviewClose" id="pdfPreviewClose" type="button" data-i18n="back">Zurück</button>
-    </div>
-    <iframe class="pdfPreviewFrame" id="pdfPreviewFrame" title="PDF-Vorschau"></iframe>
-  </div>
 
   <div class="error" id="error" role="alert"></div>
 </div>
@@ -2586,7 +2570,6 @@ let partners=[];
 let activePartner=null;
 let lockedPartner=null;
 let loading=false;
-let pendingPdfViewUrl='';
 let pendingPdfDownloadUrl='';
 let pendingPdfName='';
 let pendingPdfFormat='';
@@ -2637,9 +2620,7 @@ const I18N={
     pdfDone:'PDF ist fertig. Der Download mit festem Dateinamen ist bereit.',
     pdfError:'PDF konnte nicht erstellt werden.',
     finishedTitle:'PDF fertig erstellt',
-    viewPdf:'PDF ansehen',
     downloadPdf:'PDF herunterladen / speichern',
-    back:'Zurück',
     cardHeadlineHtml:'WAS WÄRE,<br>WENN DU ETWAS<br>ENTDECKST,<br>DAS DU HEUTE NOCH<br>NICHT KENNST?',
     cardTagline:'Wissen • Perspektiven • Möglichkeiten',
     cardScan:'Scannen. Anschauen. Selbst entscheiden.',
@@ -2690,9 +2671,7 @@ const I18N={
     pdfDone:'PDF is ready. The fixed-name download is available.',
     pdfError:'PDF could not be created.',
     finishedTitle:'PDF created',
-    viewPdf:'View PDF',
     downloadPdf:'Download / save PDF',
-    back:'Back',
     cardHeadlineHtml:'WHAT IF<br>YOU DISCOVERED<br>SOMETHING<br>YOU DO NOT<br>KNOW YET?',
     cardTagline:'Knowledge • Perspectives • Possibilities',
     cardScan:'Scan. Take a look. Decide for yourself.',
@@ -2872,10 +2851,6 @@ function samePartner(a,b){
 }
 
 function resetPdfState(){
-  if(pendingPdfViewUrl){
-    URL.revokeObjectURL(pendingPdfViewUrl);
-    pendingPdfViewUrl='';
-  }
   pendingPdfDownloadUrl='';
   pendingPdfName='';
   pendingPdfFormat='';
@@ -2888,10 +2863,6 @@ function resetPdfState(){
 
   $('#pdfStatus').textContent=t('pdfReady');
   $('#pdfStatus').classList.remove('error');
-
-  $('#pdfPreviewOverlay').classList.remove('show');
-  $('#pdfPreviewOverlay').setAttribute('aria-hidden','true');
-  $('#pdfPreviewFrame').src='about:blank';
 }
 
 function activatePartner(p,view){
@@ -3182,9 +3153,6 @@ async function createInvitationPdf(mode){
       ? window.LBInvitationPdf.single(activePartner)
       : window.LBInvitationPdf.fourUp(activePartner);
 
-    if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl);
-    pendingPdfViewUrl=URL.createObjectURL(out.blob);
-
     pendingPdfDownloadUrl=await prepareNamedPdfDownload(out.blob,out.filename);
     pendingPdfName=out.filename;
     pendingPdfFormat=mode==='a6'?'A6 · Einzelkarte':'A4 · 4 Karten';
@@ -3205,20 +3173,6 @@ async function createInvitationPdf(mode){
     $('#makeA6Pdf').disabled=false;
     $('#makeA4Pdf').disabled=false;
   }
-}
-
-function showFinishedPdf(){
-  if(!pendingPdfViewUrl)return;
-  $('#pdfPreviewName').textContent=pendingPdfName||'PDF';
-  $('#pdfPreviewFrame').src=pendingPdfViewUrl;
-  $('#pdfPreviewOverlay').classList.add('show');
-  $('#pdfPreviewOverlay').setAttribute('aria-hidden','false');
-}
-
-function closeFinishedPdf(){
-  $('#pdfPreviewOverlay').classList.remove('show');
-  $('#pdfPreviewOverlay').setAttribute('aria-hidden','true');
-  $('#pdfPreviewFrame').src='about:blank';
 }
 
 async function copyText(text){
@@ -3261,9 +3215,6 @@ $('#saveQrPng').addEventListener('click',saveActiveQrPng);
 
 $('#makeA6Pdf').addEventListener('click',()=>createInvitationPdf('a6'));
 $('#makeA4Pdf').addEventListener('click',()=>createInvitationPdf('a4'));
-$('#viewFinishedPdf').addEventListener('click',showFinishedPdf);
-$('#pdfPreviewClose').addEventListener('click',closeFinishedPdf);
-window.addEventListener('pagehide',()=>{if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl)});
 
 $('#copyAgain').addEventListener('click',async()=>{
   if(!activePartner || !$('#selected').classList.contains('show'))return;
