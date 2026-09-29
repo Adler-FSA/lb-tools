@@ -137,7 +137,6 @@ async function load(){
     $('#save').disabled=false;
     $('#share').disabled=!canShare();
     msg('PDF ist fertig und bereit zum Speichern.');
-    await removeRecord(token);
   }catch(e){
     msg(e?.message||String(e),true);
   }
