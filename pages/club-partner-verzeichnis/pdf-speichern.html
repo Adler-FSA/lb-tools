@@ -124,10 +124,37 @@ async function share(){
   }
 }
 
+function decodeBase64Url(value){
+  const base64=value.replace(/-/g,'+').replace(/_/g,'/');
+  const padded=base64+'='.repeat((4-base64.length%4)%4);
+  const binary=atob(padded);
+  const bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  return bytes;
+}
+
 async function load(){
-  const token=new URLSearchParams(location.search).get('token')||'';
-  if(!token)return msg('PDF-Kennung fehlt. Bitte die PDF auf der Einladungskarten-Seite erneut erstellen.',true);
   try{
+    const hash=new URLSearchParams(location.hash.replace(/^#/,''));
+    const data=hash.get('d');
+    const name=hash.get('n');
+    const format=hash.get('f');
+
+    if(data&&name){
+      const bytes=decodeBase64Url(data);
+      pdfFile=new File([bytes],name,{type:'application/pdf'});
+      $('#filename').textContent=pdfFile.name;
+      $('#meta').textContent=[format||'',new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date())].filter(Boolean).join(' · ');
+      $('#save').disabled=false;
+      $('#share').disabled=!canShare();
+      msg('PDF ist fertig und bereit zum Speichern.');
+      history.replaceState(null,'',location.pathname);
+      return;
+    }
+
+    const token=new URLSearchParams(location.search).get('token')||'';
+    if(!token)throw Error('PDF-Daten fehlen. Bitte die PDF auf der Einladungskarten-Seite erneut erstellen.');
+
     const record=await getRecord(token);
     if(!record?.blob||!record?.filename)throw Error('Die fertige PDF wurde nicht gefunden. Bitte erneut erstellen.');
 
