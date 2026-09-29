@@ -286,9 +286,11 @@ const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/c
 const $=s=>document.querySelector(s);
 let partners=[];
 let selected=null;
-let pendingPdfUrl='';
+let pendingPdfViewUrl='';
+let pendingPdfDownloadUrl='';
 let pendingPdfName='';
 let pendingPdfFormat='';
+const PDF_CACHE='lb-invitation-pdf-download-v1';
 
 const I18N={
   de:{
@@ -317,10 +319,10 @@ const I18N={
     makeA4Pdf:'4 Karten A4 als PDF',
     sheetTitle:'A4-Druckbogen – 4 Karten',
     sheetText:'Vier identische A6-Karten im sauberen 2×2-Satz. Keine Karte wird abgeschnitten.',
-    pdfHint:'Beide PDFs werden direkt auf der Seite erzeugt und anschließend an die Akademie-PDF-Zentrale übergeben – ohne Browser-Druckdialog.',
+    pdfHint:'Beide PDFs werden vollständig auf dieser Seite erzeugt. Danach erscheint eine fertige PDF mit festem Dateinamen zum Herunterladen – ohne Browser-Druckdialog.',
     pdfReady:'PDF-Ausgabe bereit.',
     pdfWorking:'PDF wird lokal erzeugt …',
-    pdfDone:'PDF ist fertig und wurde an die Akademie-PDF-Zentrale übergeben.',
+    pdfDone:'PDF ist fertig. Der Download mit festem Dateinamen ist bereit.',
     pdfError:'PDF konnte nicht erstellt werden.',
     finishedTitle:'PDF fertig erstellt',
     viewPdf:'PDF ansehen',
@@ -358,10 +360,10 @@ const I18N={
     makeA4Pdf:'4 cards A4 as PDF',
     sheetTitle:'A4 print sheet – 4 cards',
     sheetText:'Four identical A6 cards in a clean 2×2 layout. No card is cropped.',
-    pdfHint:'Both PDFs are created directly on this page. A dedicated download button with the fixed filename appears afterwards – without the browser print dialog.',
+    pdfHint:'Both PDFs are fully created on this page. A finished PDF with a fixed filename is then provided for download – without the browser print dialog.',
     pdfReady:'PDF output ready.',
     pdfWorking:'PDF is being created locally …',
-    pdfDone:'PDF is ready and has been handed to the Akademie PDF Center.',
+    pdfDone:'PDF is ready. The fixed-name download is available.',
     pdfError:'PDF could not be created.',
     finishedTitle:'PDF created',
     viewPdf:'View PDF',
@@ -599,6 +601,64 @@ async function copyText(text){
   }
 }
 
+async function ensurePdfDelivery(){
+  if(!('serviceWorker' in navigator)||!('caches' in window)){
+    throw Error('Die benannte PDF-Ausgabe wird von diesem Browser nicht unterstützt.');
+  }
+
+  const registration=await navigator.serviceWorker.register('./pdf-download-sw.js?v=1',{scope:'./'});
+  await navigator.serviceWorker.ready;
+
+  if(!navigator.serviceWorker.controller){
+    await new Promise(resolve=>{
+      let finished=false;
+      const done=()=>{if(finished)return;finished=true;resolve();};
+      navigator.serviceWorker.addEventListener('controllerchange',done,{once:true});
+      setTimeout(done,1800);
+    });
+  }
+
+  if(!registration.active&&!navigator.serviceWorker.controller){
+    throw Error('Die benannte PDF-Ausgabe ist noch nicht aktiv. Bitte die Seite einmal neu laden.');
+  }
+}
+
+function dispositionFor(filename){
+  const ascii=String(filename)
+    .replace(/[^A-Za-z0-9._ -]+/g,'-')
+    .replace(/"/g,'')
+    .slice(0,150);
+  return 'attachment; filename="'+ascii+'"; filename*=UTF-8\'\''+encodeURIComponent(filename);
+}
+
+async function prepareNamedPdfDownload(blob,filename){
+  await ensurePdfDelivery();
+
+  const cache=await caches.open(PDF_CACHE);
+  const token=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+  const target=new URL('./__invite_pdf__/'+token+'/'+encodeURIComponent(filename),location.href).href;
+
+  const response=new Response(blob,{
+    status:200,
+    headers:{
+      'Content-Type':'application/pdf',
+      'Content-Disposition':dispositionFor(filename),
+      'Cache-Control':'no-store',
+      'X-LB-PDF-Filename':filename
+    }
+  });
+
+  await cache.put(target,response);
+
+  // Maximal die letzten 8 erzeugten Vorlagen lokal vorhalten.
+  const keys=await cache.keys();
+  if(keys.length>8){
+    for(const key of keys.slice(0,keys.length-8))await cache.delete(key);
+  }
+
+  return target;
+}
+
 async function createPdf(mode){
   if(!selected)return;
   const status=$('#pdfStatus');
@@ -616,14 +676,16 @@ async function createPdf(mode){
       ? window.LBInvitationPdf.single(selected)
       : window.LBInvitationPdf.fourUp(selected);
 
-    if(pendingPdfUrl)URL.revokeObjectURL(pendingPdfUrl);
-    pendingPdfUrl=URL.createObjectURL(out.blob);
+    if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl);
+    pendingPdfViewUrl=URL.createObjectURL(out.blob);
+
+    pendingPdfDownloadUrl=await prepareNamedPdfDownload(out.blob,out.filename);
     pendingPdfName=out.filename;
     pendingPdfFormat=mode==='a6'?'A6 · Einzelkarte':'A4 · 4 Karten';
 
     $('#pdfReadyFile').textContent=pendingPdfName;
     $('#pdfReadyMeta').textContent=pendingPdfFormat+' · fertige PDF-Datei';
-    $('#downloadFinishedPdf').href=pendingPdfUrl;
+    $('#downloadFinishedPdf').href=pendingPdfDownloadUrl;
     $('#downloadFinishedPdf').download=pendingPdfName;
     $('#pdfReadyBox').classList.add('show');
 
@@ -640,9 +702,9 @@ async function createPdf(mode){
 }
 
 function showFinishedPdf(){
-  if(!pendingPdfUrl)return;
+  if(!pendingPdfViewUrl)return;
   $('#pdfPreviewName').textContent=pendingPdfName||'PDF';
-  $('#pdfPreviewFrame').src=pendingPdfUrl;
+  $('#pdfPreviewFrame').src=pendingPdfViewUrl;
   $('#pdfPreviewOverlay').classList.add('show');
   $('#pdfPreviewOverlay').setAttribute('aria-hidden','false');
 }
@@ -663,7 +725,7 @@ $('#makeA4Pdf').addEventListener('click',()=>createPdf('a4'));
 $('#viewFinishedPdf').addEventListener('click',showFinishedPdf);
 $('#pdfPreviewClose').addEventListener('click',closeFinishedPdf);
 $('#search').addEventListener('input',renderResults);
-window.addEventListener('pagehide',()=>{if(pendingPdfUrl)URL.revokeObjectURL(pendingPdfUrl)});
+window.addEventListener('pagehide',()=>{if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl)});
 
 async function load(){
   try{
