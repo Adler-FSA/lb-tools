@@ -250,7 +250,7 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 
 <script src="./qrcode-local.js?v=1"></script>
 <script src="./einladungskarte-pdf.js?v=1"></script>
-<script src="./akademie-pdf-uebergabe-karten.js?v=2"></script>
+<script src="./akademie-pdf-uebergabe-karten.js?v=3"></script>
 <script>
 const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/club-partner.json';
 const $=s=>document.querySelector(s);
@@ -517,6 +517,8 @@ function renderInvitePreviews(p){
 
 function selectPartner(p){
   selected=p;
+  $('#search').value=fullName(p);
+  clearResults();
   $('#partnerName').textContent=fullName(p);
   $('#partnerUrl').textContent=p.affiliateUrl;
   $('#openUrl').href=p.affiliateUrl;
