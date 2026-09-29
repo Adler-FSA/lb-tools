@@ -2572,6 +2572,7 @@ const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/c
 const $=s=>document.querySelector(s);
 let partners=[];
 let activePartner=null;
+let lockedPartner=null;
 let loading=false;
 let pendingPdfViewUrl='';
 let pendingPdfDownloadUrl='';
@@ -2695,12 +2696,32 @@ function clearResults(){
   $('#results').innerHTML='';
   $('#results').classList.remove('show');
 }
+function lockPartnerChoice(p){
+  lockedPartner=p;
+  $('#search').value=fullName(p);
+  renderResults();
+}
+
+function unlockPartnerChoice(){
+  lockedPartner=null;
+  activePartner=null;
+
+  $('#selected').classList.remove('show');
+  $('#qrSelected').classList.remove('show');
+  $('#inviteSelected').classList.remove('show');
+
+  resetPdfState();
+}
+
 function renderResults(){
   const q=normalize($('#search').value);
-  if(!q){clearResults();return}
-  const found=partners
-    .filter(p=>normalize(fullName(p)).includes(q))
-    .sort((a,b)=>fullName(a).localeCompare(fullName(b),lang==='de'?'de-DE':'en-US',{sensitivity:'base'}));
+  if(!q && !lockedPartner){clearResults();return}
+
+  const found=lockedPartner
+    ? [lockedPartner]
+    : partners
+        .filter(p=>normalize(fullName(p)).includes(q))
+        .sort((a,b)=>fullName(a).localeCompare(fullName(b),lang==='de'?'de-DE':'en-US',{sensitivity:'base'}));
   const box=$('#results');
   box.innerHTML='';
   box.classList.add('show');
@@ -2731,19 +2752,28 @@ function renderResults(){
     btn.type='button';
     btn.className='btn';
     btn.textContent=t('choose');
-    btn.addEventListener('click',()=>selectPartner(p));
+    btn.addEventListener('click',()=>{
+      lockPartnerChoice(p);
+      selectPartner(p);
+    });
 
     const qrBtn=document.createElement('button');
     qrBtn.type='button';
     qrBtn.className='btn qr';
     qrBtn.textContent=t('qrButton');
-    qrBtn.addEventListener('click',()=>showQr(p));
+    qrBtn.addEventListener('click',()=>{
+      lockPartnerChoice(p);
+      showQr(p);
+    });
 
     const inviteBtn=document.createElement('button');
     inviteBtn.type='button';
     inviteBtn.className='btn invite';
     inviteBtn.textContent=t('inviteButton');
-    inviteBtn.addEventListener('click',()=>showInvite(p));
+    inviteBtn.addEventListener('click',()=>{
+      lockPartnerChoice(p);
+      showInvite(p);
+    });
 
     actions.append(btn,qrBtn,inviteBtn);
     row.append(person,actions);
@@ -3082,7 +3112,10 @@ $('#copyAgain').addEventListener('click',async()=>{
   const ok=await copyText(activePartner.affiliateUrl);
   $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
 });
-$('#search').addEventListener('input',renderResults);
+$('#search').addEventListener('input',()=>{
+  if(lockedPartner)unlockPartnerChoice();
+  renderResults();
+});
 
 async function load(){
   if(loading)return;
