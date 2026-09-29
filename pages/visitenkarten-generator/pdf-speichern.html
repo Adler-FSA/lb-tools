@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>LiquidityBooster · PDF speichern</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--line:#d8e4e8;--muted:#607080}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#eef4f5;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy)}
+body{min-height:100vh;display:grid;place-items:center;padding:18px}
+.card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 25px 80px #1322382d;padding:24px}
+.eyebrow{font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:850;color:var(--mint)}
+h1{font-size:clamp(24px,5vw,30px);line-height:1.15;margin:5px 0 16px}
+.file{background:#f1fafb;border:1px solid #cfe4e7;border-left:5px solid var(--mint);border-radius:14px;padding:16px;overflow-wrap:anywhere}
+.file strong{display:block;font-size:16px}.meta{font-size:13px;color:var(--muted);margin-top:5px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+button{appearance:none;border:0;border-radius:11px;padding:13px 12px;background:var(--navy);color:#fff;font:inherit;font-weight:850;cursor:pointer}
+button.primary{background:var(--mint)}button:disabled{opacity:.45;cursor:not-allowed}
+.status{min-height:21px;margin:13px 0 0;font-size:13px;color:#007c74}.status.error{color:#a12020}
+.note{margin:11px 0 0;font-size:13px;line-height:1.45;color:var(--muted)}
+.back{display:inline-block;margin-top:12px;color:var(--navy);font-weight:800;text-decoration:none}
+@media(max-width:480px){.actions{grid-template-columns:1fr}.card{padding:18px;border-radius:17px}}
+</style>
+</head>
+<body>
+<main class="card" aria-live="polite">
+  <div class="eyebrow" data-i18n="eyebrow">LiquidityBooster · fertige PDF</div>
+  <h1 data-i18n="title">PDF speichern oder teilen</h1>
+  <div class="file"><strong id="filename">PDF wird geladen …</strong><div class="meta" id="meta"></div></div>
+  <div class="actions">
+    <button class="primary" id="save" type="button" disabled data-i18n="save">PDF speichern</button>
+    <button id="share" type="button" disabled data-i18n="share">PDF teilen</button>
+  </div>
+  <p class="status" id="status" data-i18n="loading">Die fertige Datei wird aus dem Visitenkarten-Generator übernommen …</p>
+  <p class="note" data-i18n="note">Die PDF wurde bereits erzeugt. Hier wird sie nur als benannte Datei an die Speicher- bzw. Teilen-Funktion deines Geräts übergeben.</p>
+  <a class="back" href="./index.html" data-i18n="back">Zurück zum Generator</a>
+</main>
+<script>
+(function(){
+'use strict';
+var DB_NAME='lb-businesscard-pdf-handoff-v1',STORE='files',pdfFile=null,recordToken='';
+var q=new URLSearchParams(location.search),lang=q.get('lang')==='en'?'en':'de';
+var T={
+ de:{eyebrow:'LiquidityBooster · fertige PDF',title:'PDF speichern oder teilen',save:'PDF speichern',share:'PDF teilen',loading:'Die fertige Datei wird aus dem Visitenkarten-Generator übernommen …',note:'Die PDF wurde bereits erzeugt. Hier wird sie nur als benannte Datei an die Speicher- bzw. Teilen-Funktion deines Geräts übergeben.',back:'Zurück zum Generator',ready:'PDF ist fertig und bereit.',none:'Keine fertige PDF vorhanden.',unsupported:'Dieses Gerät stellt hier keine direkte Speicher- oder Dateifreigabe bereit.',shareUnsupported:'Teilen wird auf diesem Gerät für diese PDF nicht unterstützt.',cancel:'Vorgang abgebrochen.',saved:'PDF wurde an die Speicherfunktion übergeben.',shared:'Dateifreigabe geöffnet.'},
+ en:{eyebrow:'LiquidityBooster · finished PDF',title:'Save or share PDF',save:'Save PDF',share:'Share PDF',loading:'The finished file is being loaded from the business card generator …',note:'The PDF has already been created. This page only hands the named file to your device save or share function.',back:'Back to generator',ready:'PDF is ready.',none:'No finished PDF available.',unsupported:'This device does not provide direct file saving here.',shareUnsupported:'Sharing this PDF is not supported on this device.',cancel:'Cancelled.',saved:'PDF handed to the device save function.',shared:'Share sheet opened.'}
+ };
+function t(k){return T[lang][k]||k;}
+document.documentElement.lang=lang;
+document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(T[lang][k])el.textContent=T[lang][k];});
+function msg(s,e){var el=document.getElementById('status');el.textContent=s;el.classList.toggle('error',!!e);}
+function canShare(){try{return !!(pdfFile&&navigator.share&&navigator.canShare&&navigator.canShare({files:[pdfFile]}));}catch(e){return false;}}
+function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'});};req.onsuccess=function(){resolve(req.result);};req.onerror=function(){reject(req.error||new Error('PDF store'));};});}
+async function getRecord(token){var db=await openDb();return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readonly');var req=tx.objectStore(STORE).get(token);req.onsuccess=function(){resolve(req.result||null);};req.onerror=function(){reject(req.error||new Error('PDF read'));};});}
+async function save(){
+ if(!pdfFile)return msg(t('none'),true);
+ if(typeof window.showSaveFilePicker==='function'){
+  try{var h=await window.showSaveFilePicker({suggestedName:pdfFile.name,types:[{description:'PDF',accept:{'application/pdf':['.pdf']}}]});var w=await h.createWritable();await w.write(pdfFile);await w.close();return msg(t('saved'));}catch(e){if(e&&e.name==='AbortError')return msg(t('cancel'));}
+ }
+ if(canShare()){
+  try{await navigator.share({files:[pdfFile],title:pdfFile.name});return msg(t('saved'));}catch(e){if(e&&e.name==='AbortError')return msg(t('cancel'));}
+ }
+ var url=URL.createObjectURL(pdfFile),a=document.createElement('a');a.href=url;a.download=pdfFile.name;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1500);msg(t('saved'));
+}
+async function share(){
+ if(!pdfFile)return msg(t('none'),true);
+ if(!canShare())return msg(t('shareUnsupported'),true);
+ try{await navigator.share({files:[pdfFile],title:pdfFile.name});msg(t('shared'));}catch(e){if(e&&e.name==='AbortError')return msg(t('cancel'));msg(String(e&&e.message?e.message:e),true);}
+}
+async function load(){
+ try{
+  recordToken=q.get('token')||'';if(!recordToken)throw new Error(t('none'));
+  var rec=await getRecord(recordToken);if(!rec||!rec.blob||!rec.filename)throw new Error(t('none'));
+  pdfFile=new File([rec.blob],rec.filename,{type:'application/pdf'});
+  document.getElementById('filename').textContent=pdfFile.name;
+  document.getElementById('meta').textContent=[rec.format||'',rec.created||''].filter(Boolean).join(' · ');
+  document.getElementById('save').disabled=false;document.getElementById('share').disabled=!canShare();msg(t('ready'));
+ }catch(e){msg(e&&e.message?e.message:String(e),true);}
+}
+document.getElementById('save').addEventListener('click',save);
+document.getElementById('share').addEventListener('click',share);
+load();
+})();
+</script>
+</body>
+</html>
