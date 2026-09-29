@@ -61,6 +61,118 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .urlBox{border:1px solid #b8dfe1;border-radius:12px;background:var(--mint-soft);padding:13px;color:var(--navy);font-size:14px;overflow-wrap:anywhere}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
 .note{margin-top:15px;padding:12px 13px;border-left:4px solid var(--mint);background:#f7fbfb;color:#47606b;font-size:13px;line-height:1.5}
+
+/* Einladungskarte – Schwarz/Weiß Master */
+.inviteBuilder{display:none}
+.inviteBuilder.show{display:block}
+.inviteWorkspace{padding:22px}
+.inviteIntro{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.inviteIntro p{margin:0;color:var(--muted);line-height:1.5}
+.printBtn{background:#111}
+.singlePreviewWrap{display:flex;justify-content:center;padding:18px;border:1px solid var(--line);border-radius:18px;background:#f3f3f3}
+.inviteCard{
+  position:relative;
+  overflow:hidden;
+  width:min(100%,105mm);
+  aspect-ratio:105/148;
+  background:#fff;
+  color:#000;
+  border:1px solid #a8a8a8;
+  font-family:Arial,Helvetica,sans-serif;
+  container-type:inline-size;
+}
+.inviteInner{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  padding:8% 8% 6%;
+}
+.inviteQuestionMark{
+  position:absolute;
+  z-index:1;
+  top:-7%;
+  right:1%;
+  font-size:50cqw;
+  line-height:.82;
+  font-weight:900;
+  color:#e2e2e2;
+  user-select:none;
+  pointer-events:none;
+}
+.inviteHeadline{
+  width:76%;
+  margin:0;
+  font-size:7.4cqw;
+  line-height:1.02;
+  letter-spacing:-.035em;
+  font-weight:900;
+  text-transform:uppercase;
+}
+.inviteBrand{
+  margin-top:7%;
+  font-size:9cqw;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.045em;
+}
+.inviteSwoosh{display:block;width:88%;height:auto;margin-top:1.5%}
+.inviteTagline{
+  margin-top:3.5%;
+  font-size:4.25cqw;
+  line-height:1.2;
+  letter-spacing:.005em;
+  white-space:nowrap;
+}
+.inviteQr{
+  width:48%;
+  margin:5.5% auto 3.5%;
+  background:#fff;
+}
+.inviteQr svg{display:block;width:100%;height:auto}
+.inviteScan{
+  text-align:center;
+  font-size:4.55cqw;
+  line-height:1.15;
+  font-weight:900;
+  white-space:nowrap;
+}
+.inviteFrom{
+  margin-top:auto;
+  padding-top:4%;
+  border-top:1px solid #aaa;
+  text-align:center;
+}
+.inviteFromLabel{font-size:3.45cqw;line-height:1.2}
+.inviteFromName{margin-top:1.3%;font-size:5.15cqw;line-height:1.1;font-weight:900}
+.sheetBlock{margin-top:24px}
+.sheetBlock h3{margin:0 0 7px;color:var(--navy);font-size:20px}
+.sheetBlock p{margin:0 0 12px;color:var(--muted);line-height:1.5}
+.sheetPreviewWrap{overflow:auto;padding:12px;border:1px solid var(--line);border-radius:18px;background:#ededed}
+.sheetPreview{
+  position:relative;
+  width:min(100%,210mm);
+  aspect-ratio:210/297;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:148fr 148fr 1fr;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+}
+.sheetPreview .inviteCard{
+  width:100%;
+  height:100%;
+  aspect-ratio:auto;
+  border-color:#bbb;
+}
+.sheetPreview .inviteCard:nth-child(1){grid-column:1;grid-row:1}
+.sheetPreview .inviteCard:nth-child(2){grid-column:2;grid-row:1}
+.sheetPreview .inviteCard:nth-child(3){grid-column:1;grid-row:2}
+.sheetPreview .inviteCard:nth-child(4){grid-column:2;grid-row:2}
+.printHint{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.45}
+
 .error{display:none;margin-top:16px;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
 .error.show{display:block}
 .status{min-height:18px;margin-top:9px;color:var(--muted);font-size:13px}
@@ -72,6 +184,9 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
   .searchBox{padding:0 16px 16px}
   .previewBody{grid-template-columns:1fr;padding:18px}
   .qrPanel{min-height:0}
+  .inviteWorkspace{padding:16px}
+  .singlePreviewWrap{padding:10px}
+  .sheetPreviewWrap{padding:6px}
 }
 </style>
 </head>
@@ -132,6 +247,33 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
         </div>
         <div class="status" id="copyStatus"></div>
         <div class="note" data-i18n="note">Kein Gastzugang und keine neue Verlinkung: Der QR-Code enthält nur den bereits vorhandenen Affiliate-Link des ausgewählten Club Partners.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card inviteBuilder" id="inviteBuilder" aria-live="polite">
+    <div class="previewHead">
+      <span data-i18n="invitePreviewLabel">Einladungskarte Vorschau</span>
+      <h2 id="invitePartnerName">–</h2>
+    </div>
+
+    <div class="inviteWorkspace">
+      <div class="inviteIntro">
+        <p data-i18n="inviteIntro">Schwarz-Weiß-Master im A6-Hochformat mit persönlichem QR-Code und Namen.</p>
+        <button class="btn printBtn" id="openPrintSheet" type="button" data-i18n="printSheet">A4 Druck/PDF öffnen</button>
+      </div>
+
+      <div class="singlePreviewWrap">
+        <div id="singleCardMount"></div>
+      </div>
+
+      <div class="sheetBlock">
+        <h3 data-i18n="sheetTitle">A4-Druckbogen – 4 Karten</h3>
+        <p data-i18n="sheetText">Vier identische A6-Karten auf einem A4-Blatt. Die feinen Außenlinien dienen als Schneidehilfe.</p>
+        <div class="sheetPreviewWrap">
+          <div class="sheetPreview" id="sheetPreview"></div>
+        </div>
+        <div class="printHint" data-i18n="printHint">Im Druckfenster kannst du direkt drucken oder „Als PDF sichern“ wählen.</div>
       </div>
     </div>
   </section>
@@ -2467,6 +2609,19 @@ const I18N={
     copied:'Link wurde kopiert.',
     copyFail:'Link konnte nicht automatisch kopiert werden.',
     note:'Kein Gastzugang und keine neue Verlinkung: Der QR-Code enthält nur den bereits vorhandenen Affiliate-Link des ausgewählten Club Partners.',
+    invitePreviewLabel:'Einladungskarte Vorschau',
+    inviteIntro:'Schwarz-Weiß-Master im A6-Hochformat mit persönlichem QR-Code und Namen.',
+    printSheet:'A4 Druck/PDF öffnen',
+    sheetTitle:'A4-Druckbogen – 4 Karten',
+    sheetText:'Vier identische A6-Karten auf einem A4-Blatt. Die feinen Außenlinien dienen als Schneidehilfe.',
+    printHint:'Im Druckfenster kannst du direkt drucken oder „Als PDF sichern“ wählen.',
+    cardHeadline1:'WAS WÄRE, WENN DU ETWAS ENTDECKST,',
+    cardHeadline2:'DAS DU HEUTE NOCH NICHT KENNST?',
+    cardTagline:'Wissen • Perspektiven • Möglichkeiten',
+    cardScan:'Scannen. Anschauen. Selbst entscheiden.',
+    cardFrom:'Diese Einladung kommt von:',
+    printWindowTitle:'LiquidityBooster – A4 Druckbogen',
+    printAction:'Drucken / Als PDF sichern',
     loadError:'Die Club-Partner-Daten konnten gerade nicht geladen werden.'
   },
   en:{
@@ -2489,6 +2644,19 @@ const I18N={
     copied:'Link copied.',
     copyFail:'The link could not be copied automatically.',
     note:'No guest access and no new routing: the QR code contains only the existing affiliate URL of the selected Club Partner.',
+    invitePreviewLabel:'Invitation card preview',
+    inviteIntro:'Black-and-white A6 portrait master with personal QR code and name.',
+    printSheet:'Open A4 print/PDF',
+    sheetTitle:'A4 print sheet – 4 cards',
+    sheetText:'Four identical A6 cards on one A4 sheet. Fine outer lines serve as cutting guides.',
+    printHint:'In the print window you can print directly or choose “Save as PDF”.',
+    cardHeadline1:'WHAT IF YOU DISCOVERED SOMETHING',
+    cardHeadline2:'YOU DO NOT KNOW YET?',
+    cardTagline:'Knowledge • Perspectives • Possibilities',
+    cardScan:'Scan. Take a look. Decide for yourself.',
+    cardFrom:'This invitation comes from:',
+    printWindowTitle:'LiquidityBooster – A4 print sheet',
+    printAction:'Print / Save as PDF',
     loadError:'The Club Partner data could not be loaded right now.'
   }
 };
@@ -2568,7 +2736,7 @@ function renderResults(){
   });
 }
 
-function buildQrSvg(text){
+function buildQrSvg(text,color='#132238'){
   const qr=qrcode(0,'M');
   qr.addData(text);
   qr.make();
@@ -2600,9 +2768,127 @@ function buildQrSvg(text){
     }
   }
   path.setAttribute('d',d);
-  path.setAttribute('fill','#132238');
+  path.setAttribute('fill',color);
   svg.appendChild(path);
   return svg;
+}
+
+function createInviteCard(p){
+  const card=document.createElement('div');
+  card.className='inviteCard';
+
+  const qm=document.createElement('div');
+  qm.className='inviteQuestionMark';
+  qm.textContent='?';
+
+  const inner=document.createElement('div');
+  inner.className='inviteInner';
+
+  const headline=document.createElement('div');
+  headline.className='inviteHeadline';
+  headline.innerHTML=t('cardHeadline1')+'<br>'+t('cardHeadline2');
+
+  const brand=document.createElement('div');
+  brand.className='inviteBrand';
+  brand.textContent='LiquidityBooster';
+
+  const swoosh=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  swoosh.setAttribute('class','inviteSwoosh');
+  swoosh.setAttribute('viewBox','0 0 260 18');
+  swoosh.setAttribute('aria-hidden','true');
+  const swooshPath=document.createElementNS('http://www.w3.org/2000/svg','path');
+  swooshPath.setAttribute('d','M4 3 C66 14 150 16 256 5 C177 18 79 19 4 3 Z');
+  swooshPath.setAttribute('fill','#111');
+  swoosh.appendChild(swooshPath);
+
+  const tagline=document.createElement('div');
+  tagline.className='inviteTagline';
+  tagline.textContent=t('cardTagline');
+
+  const qr=document.createElement('div');
+  qr.className='inviteQr';
+  qr.appendChild(buildQrSvg(p.affiliateUrl,'#000000'));
+
+  const scan=document.createElement('div');
+  scan.className='inviteScan';
+  scan.textContent=t('cardScan');
+
+  const from=document.createElement('div');
+  from.className='inviteFrom';
+
+  const fromLabel=document.createElement('div');
+  fromLabel.className='inviteFromLabel';
+  fromLabel.textContent=t('cardFrom');
+
+  const fromName=document.createElement('div');
+  fromName.className='inviteFromName';
+  fromName.textContent=fullName(p);
+
+  from.append(fromLabel,fromName);
+  inner.append(headline,brand,swoosh,tagline,qr,scan,from);
+  card.append(qm,inner);
+  return card;
+}
+
+function renderInvitePreviews(p){
+  $('#invitePartnerName').textContent=fullName(p);
+
+  const single=$('#singleCardMount');
+  single.innerHTML='';
+  single.appendChild(createInviteCard(p));
+
+  const sheet=$('#sheetPreview');
+  sheet.innerHTML='';
+  for(let i=0;i<4;i++) sheet.appendChild(createInviteCard(p));
+
+  $('#inviteBuilder').classList.add('show');
+}
+
+function openPrintSheet(){
+  if(!selected)return;
+
+  const cards=[];
+  for(let i=0;i<4;i++) cards.push(createInviteCard(selected).outerHTML);
+
+  const printCss=`
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:#fff;font-family:Arial,Helvetica,sans-serif}
+    .toolbar{position:sticky;top:0;z-index:50;display:flex;justify-content:center;padding:12px;background:#111}
+    .toolbar button{border:0;border-radius:10px;padding:11px 18px;background:#fff;color:#111;font:700 15px Arial;cursor:pointer}
+    .printSheet{position:relative;width:210mm;height:297mm;margin:0 auto;display:grid;grid-template-columns:105mm 105mm;grid-template-rows:148mm 148mm 1mm;background:#fff}
+    .inviteCard{position:relative;overflow:hidden;width:105mm;height:148mm;background:#fff;color:#000;border:.2mm solid #aaa;font-family:Arial,Helvetica,sans-serif;container-type:inline-size}
+    .inviteInner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;padding:8% 8% 6%}
+    .inviteQuestionMark{position:absolute;z-index:1;top:-7%;right:1%;font-size:50cqw;line-height:.82;font-weight:900;color:#e2e2e2}
+    .inviteHeadline{width:76%;margin:0;font-size:7.4cqw;line-height:1.02;letter-spacing:-.035em;font-weight:900;text-transform:uppercase}
+    .inviteBrand{margin-top:7%;font-size:9cqw;line-height:1;font-weight:900;letter-spacing:-.045em}
+    .inviteSwoosh{display:block;width:88%;height:auto;margin-top:1.5%}
+    .inviteTagline{margin-top:3.5%;font-size:4.25cqw;line-height:1.2;letter-spacing:.005em;white-space:nowrap}
+    .inviteQr{width:48%;margin:5.5% auto 3.5%;background:#fff}
+    .inviteQr svg{display:block;width:100%;height:auto}
+    .inviteScan{text-align:center;font-size:4.55cqw;line-height:1.15;font-weight:900;white-space:nowrap}
+    .inviteFrom{margin-top:auto;padding-top:4%;border-top:.2mm solid #aaa;text-align:center}
+    .inviteFromLabel{font-size:3.45cqw;line-height:1.2}
+    .inviteFromName{margin-top:1.3%;font-size:5.15cqw;line-height:1.1;font-weight:900}
+    @page{size:A4 portrait;margin:0}
+    @media print{
+      .toolbar{display:none!important}
+      .printSheet{margin:0}
+      body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    }
+  `;
+
+  const w=window.open('','_blank');
+  if(!w){
+    alert('Das Druckfenster konnte nicht geöffnet werden. Bitte Pop-ups für diese Seite erlauben.');
+    return;
+  }
+
+  w.document.open();
+  w.document.write('<!doctype html><html lang="'+lang+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+t('printWindowTitle')+'</title><style>'+printCss+'</style></head><body>');
+  w.document.write('<div class="toolbar"><button onclick="window.print()">'+t('printAction')+'</button></div>');
+  w.document.write('<div class="printSheet">'+cards.join('')+'</div>');
+  w.document.write('</body></html>');
+  w.document.close();
 }
 
 function selectPartner(p){
@@ -2619,6 +2905,7 @@ function selectPartner(p){
   panel.appendChild(buildQrSvg(p.affiliateUrl));
 
   $('#preview').classList.add('show');
+  renderInvitePreviews(p);
   $('#preview').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -2645,6 +2932,8 @@ async function copyText(text){
     return false;
   }
 }
+
+$('#openPrintSheet').addEventListener('click',openPrintSheet);
 
 $('#copyUrl').addEventListener('click',async()=>{
   if(!selected)return;
