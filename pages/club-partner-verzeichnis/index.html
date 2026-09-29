@@ -118,13 +118,19 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
 .pdfHint{margin-top:12px;font-size:13px;color:var(--muted);line-height:1.45}
 .pdfStatus{margin-top:12px;padding:11px 13px;border-radius:12px;background:#f6f8fa;border:1px solid var(--line);color:var(--muted);font-size:13px;line-height:1.45}
 .pdfStatus.error{color:#8d2020;background:#fff5f5;border-color:#f0b7b7}
-.pdfReadyBox{display:none;margin-top:14px;padding:16px;border:1px solid #cfe0e6;border-left:5px solid var(--mint);border-radius:15px;background:#f7fcfc}
+.pdfReadyBox{display:none;position:fixed;z-index:2147483000;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,calc(100% - 36px));max-height:min(82vh,760px);overflow:auto;padding:20px;border:1px solid #cfe0e6;border-left:5px solid var(--mint);border-radius:18px;background:#fff;box-shadow:0 24px 80px rgba(19,34,56,.34);outline:9999px solid rgba(9,20,34,.62)}
 .pdfReadyBox.show{display:block}
-.pdfReadyTitle{font-weight:900;color:var(--navy);font-size:18px}
-.pdfReadyFile{margin-top:7px;font-weight:800;color:var(--navy);overflow-wrap:anywhere}
-.pdfReadyMeta{margin-top:4px;color:var(--muted);font-size:13px}
-.pdfReadyActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.pdfReadyTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pdfReadyClose{appearance:none;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:9px;padding:7px 11px;font:inherit;font-weight:800;cursor:pointer}
+.pdfReadyTitle{font-weight:900;color:var(--navy);font-size:20px}
+.pdfReadyFile{margin-top:12px;padding:14px;border:1px solid #cfe0e6;border-left:4px solid var(--mint);border-radius:12px;background:#f7fcfc;font-weight:800;color:var(--navy);overflow-wrap:anywhere}
+.pdfReadyMeta{margin-top:6px;color:var(--muted);font-size:13px}
+.pdfReadyActions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.pdfReadyActions .btn{flex:1 1 180px}
 .pdfDownload{background:var(--mint)}
+.pdfModalStatus{min-height:20px;margin-top:12px;font-size:13px;color:#007c74}
+.pdfModalStatus.error{color:#8d2020}
+.pdfIframeHint{margin-top:10px;font-size:12px;line-height:1.45;color:var(--muted)}
 .error{display:none;margin-top:16px;border:1px solid #f0b7b7;background:#fff5f5;color:#8d2020;border-radius:14px;padding:13px 15px}
 .error.show{display:block}
 @media(max-width:720px){
@@ -246,14 +252,19 @@ input[type="search"]:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,
         <div class="pdfHint" data-i18n="pdfHint">Beide PDFs werden vollständig auf dieser Seite erzeugt. Danach erscheint eine fertige PDF mit festem Dateinamen zum Herunterladen – ohne Browser-Druckdialog.</div>
         <div class="pdfStatus" id="pdfStatus" role="status" aria-live="polite" data-i18n="pdfReady">PDF-Ausgabe bereit.</div>
 
-        <div class="pdfReadyBox" id="pdfReadyBox">
-          <div class="pdfReadyTitle" data-i18n="finishedTitle">PDF fertig erstellt</div>
+        <div class="pdfReadyBox" id="pdfReadyBox" role="dialog" aria-modal="true" aria-labelledby="pdfReadyTitle">
+          <div class="pdfReadyTop">
+            <div class="pdfReadyTitle" id="pdfReadyTitle" data-i18n="finishedTitle">PDF fertig erstellt</div>
+            <button class="pdfReadyClose" id="closePdfReady" type="button" aria-label="Schließen">×</button>
+          </div>
           <div class="pdfReadyFile" id="pdfReadyFile"></div>
           <div class="pdfReadyMeta" id="pdfReadyMeta"></div>
           <div class="pdfReadyActions">
             <button class="btn pdfDownload" id="saveFinishedPdf" type="button" data-i18n="savePdf">PDF speichern</button>
             <button class="btn" id="shareFinishedPdf" type="button" data-i18n="sharePdf">PDF teilen</button>
           </div>
+          <div class="pdfModalStatus" id="pdfModalStatus" role="status" aria-live="polite"></div>
+          <div class="pdfIframeHint" id="pdfIframeHint"></div>
         </div>
       </div>
     </div>
@@ -2574,6 +2585,9 @@ let loading=false;
 let pendingPdfFile=null;
 let pendingPdfName='';
 let pendingPdfFormat='';
+let pendingPdfToken='';
+const PDF_HANDOFF_DB='lb-invitation-pdf-handoff-v1';
+const PDF_HANDOFF_STORE='files';
 
 const I18N={
   de:{
@@ -2628,6 +2642,9 @@ const I18N={
     pdfShareDone:'PDF wurde an die Dateifreigabe des Geräts übergeben.',
     pdfSaveUnsupported:'Dieser Browser bietet hier keine direkte Dateispeicherung an.',
     pdfShareUnsupported:'Dieser Browser unterstützt das Teilen dieser PDF nicht.',
+    iframePdfHint:'Diese Seite läuft eingebettet. Falls dein Browser Speichern/Teilen im iFrame blockiert, öffnet sich dafür automatisch eine separate Speicheransicht.',
+    handoffOpened:'Die Speicheransicht wurde geöffnet. Dort kannst du die fertige PDF speichern oder teilen.',
+    handoffBlocked:'Die Speicheransicht konnte nicht geöffnet werden.',
     cardHeadlineHtml:'WAS WÄRE,<br>WENN DU ETWAS<br>ENTDECKST,<br>DAS DU HEUTE NOCH<br>NICHT KENNST?',
     cardTagline:'Wissen • Perspektiven • Möglichkeiten',
     cardScan:'Scannen. Anschauen. Selbst entscheiden.',
