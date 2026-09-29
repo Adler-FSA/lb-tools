@@ -2571,8 +2571,7 @@ var qrcode = function() {
 const DATA_URL='https://raw.githubusercontent.com/Adler-FSA/lb-tools/main/data/club-partner.json';
 const $=s=>document.querySelector(s);
 let partners=[];
-let selectedPartner=null;
-let invitePartner=null;
+let activePartner=null;
 let loading=false;
 let pendingPdfViewUrl='';
 let pendingPdfDownloadUrl='';
@@ -2787,15 +2786,60 @@ function buildQrSvg(text,color='#132238'){
   return svg;
 }
 
+function samePartner(a,b){
+  return !!(a&&b&&a.affiliateUrl===b.affiliateUrl);
+}
+
+function resetPdfState(){
+  if(pendingPdfViewUrl){
+    URL.revokeObjectURL(pendingPdfViewUrl);
+    pendingPdfViewUrl='';
+  }
+  pendingPdfDownloadUrl='';
+  pendingPdfName='';
+  pendingPdfFormat='';
+
+  $('#pdfReadyBox').classList.remove('show');
+  $('#pdfReadyFile').textContent='';
+  $('#pdfReadyMeta').textContent='';
+  $('#downloadFinishedPdf').href='#';
+  $('#downloadFinishedPdf').removeAttribute('download');
+
+  $('#pdfStatus').textContent=t('pdfReady');
+  $('#pdfStatus').classList.remove('error');
+
+  $('#pdfPreviewOverlay').classList.remove('show');
+  $('#pdfPreviewOverlay').setAttribute('aria-hidden','true');
+  $('#pdfPreviewFrame').src='about:blank';
+}
+
+function activatePartner(p,view){
+  const changed=!samePartner(activePartner,p);
+  activePartner=p;
+
+  // Grundregel: Auf der Seite ist immer nur genau EIN Partner-Bereich aktiv.
+  $('#selected').classList.remove('show');
+  $('#qrSelected').classList.remove('show');
+  $('#inviteSelected').classList.remove('show');
+
+  // Alte PDF-Ausgaben niemals in einen neuen Partner-Kontext mitnehmen.
+  if(changed || view!=='invite')resetPdfState();
+
+  if(view==='selected')$('#selected').classList.add('show');
+  if(view==='qr')$('#qrSelected').classList.add('show');
+  if(view==='invite')$('#inviteSelected').classList.add('show');
+}
+
 function showQr(p){
-  $('#qrName').textContent=fullName(p);
-  $('#qrUrl').textContent=p.affiliateUrl;
+  activatePartner(p,'qr');
+
+  $('#qrName').textContent=fullName(activePartner);
+  $('#qrUrl').textContent=activePartner.affiliateUrl;
 
   const panel=$('#qrPanel');
   panel.innerHTML='';
-  panel.appendChild(buildQrSvg(p.affiliateUrl));
+  panel.appendChild(buildQrSvg(activePartner.affiliateUrl));
 
-  $('#qrSelected').classList.add('show');
   $('#qrSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -2874,9 +2918,8 @@ function renderInvitePreviews(p){
 }
 
 function showInvite(p){
-  invitePartner=p;
-  renderInvitePreviews(p);
-  $('#inviteSelected').classList.add('show');
+  activatePartner(p,'invite');
+  renderInvitePreviews(activePartner);
   $('#inviteSelected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -2938,7 +2981,7 @@ async function prepareNamedPdfDownload(blob,filename){
 }
 
 async function createInvitationPdf(mode){
-  if(!invitePartner)return;
+  if(!activePartner || !$('#inviteSelected').classList.contains('show'))return;
   const status=$('#pdfStatus');
   status.textContent=t('pdfWorking');
   status.classList.remove('error');
@@ -2951,8 +2994,8 @@ async function createInvitationPdf(mode){
     await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
 
     const out=mode==='a6'
-      ? window.LBInvitationPdf.single(invitePartner)
-      : window.LBInvitationPdf.fourUp(invitePartner);
+      ? window.LBInvitationPdf.single(activePartner)
+      : window.LBInvitationPdf.fourUp(activePartner);
 
     if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl);
     pendingPdfViewUrl=URL.createObjectURL(out.blob);
@@ -3016,13 +3059,14 @@ async function copyText(text){
 }
 
 async function selectPartner(p){
-  selectedPartner=p;
-  const n=fullName(p);
+  activatePartner(p,'selected');
+
+  const n=fullName(activePartner);
   $('#selectedName').textContent=n;
-  $('#selectedUrl').textContent=p.affiliateUrl;
+  $('#selectedUrl').textContent=activePartner.affiliateUrl;
   $('#confirmText').textContent=t('copied')(n);
-  $('#selected').classList.add('show');
-  const ok=await copyText(p.affiliateUrl);
+
+  const ok=await copyText(activePartner.affiliateUrl);
   $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
   $('#selected').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -3034,8 +3078,8 @@ $('#pdfPreviewClose').addEventListener('click',closeFinishedPdf);
 window.addEventListener('pagehide',()=>{if(pendingPdfViewUrl)URL.revokeObjectURL(pendingPdfViewUrl)});
 
 $('#copyAgain').addEventListener('click',async()=>{
-  if(!selectedPartner)return;
-  const ok=await copyText(selectedPartner.affiliateUrl);
+  if(!activePartner || !$('#selected').classList.contains('show'))return;
+  const ok=await copyText(activePartner.affiliateUrl);
   $('#copyStatus').textContent=ok?t('copiedShort'):t('copyFallback');
 });
 $('#search').addEventListener('input',renderResults);
