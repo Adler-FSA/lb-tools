@@ -228,6 +228,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "ba2d1b06-09e4-4156-b712-21207094ad8b",
+      "title": "Marktplatz-Angebot-Kalkulator",
+      "category": "club-haus",
+      "type": "function",
+      "releaseDate": "",
+      "url": "https://tools.liquiditybooster.de/pages/marktplatz-angebot-kalkulator.html",
+      "what": "Ein einheitlicher Kalkulator für alle Angebote im LiquidityBooster Club-Marktplatz. Anbieter können Netto-Verkaufspreis und Marktplatz-Aufteilung auswählen und sehen sofort, wie sich der Umsatz auf Anbieter, LiquidityBooster, die 3-Ebenen-Logic und den Mission-Dorade-Jackpot verteilt. Unterstützt werden die Modelle 90/10, 80/20, 70/30, 60/40 und 50/50.",
+      "why": "Für den Club-Marktplatz soll ein transparenter und einheitlicher Kalkulationsstandard entstehen. Jeder Anbieter soll bereits vor Veröffentlichung erkennen können, welcher Anteil ihm selbst zufließt, welche Vergütung über die 3-Ebenen-Logic entsteht und welche Restmarge LiquidityBooster verbleibt. Gleichzeitig wird bei jedem Empfehlungsverkauf der Mission-Dorade-Jackpot mit 10 € gestärkt. Damit verbindet der Marktplatz Produktverkauf, Empfehlungsvergütung und Community-Wettbewerb miteinander.",
+      "test": "Bitte unterschiedliche Netto-Verkaufspreise und alle Aufteilungen von 90/10 bis 50/50 testen. Prüfen, ob Anbieteranteil, LB-Anteil sowie E1 = 20 %, E2 = 15 % und E3 = 10 % korrekt berechnet werden. Zusätzlich prüfen, ob bei Empfehlungsverkauf 10 € dem Mission-Dorade-Jackpot zugerechnet werden, die verbleibende LB-Marge richtig angezeigt wird und die Ampel bei knappen oder negativen Kalkulationen korrekt reagiert. Ebenfalls Jackpot-Simulator, DE/EN-Umschaltung, mobile Darstellung sowie Drucken/PDF testen.",
+      "meeting": "Freigabe des Kalkulators als verbindlichen Marktplatz-Standard. Bestätigung der möglichen Aufteilungen 90/10, 80/20, 70/30, 60/40 und 50/50 sowie der Regel: Die 3-Ebenen-Logic 20/15/10 wird auf den jeweiligen LiquidityBooster-Anteil berechnet. Zusätzlich Entscheidung, ob die 10 € Jackpot-Beitrag bei jedem Empfehlungsverkauf verbindlich für alle Marktplatz-Angebote gelten.\n\nDer letzte Punkt ist wichtig: Damit würden wir aus dem Rechner nicht nur ein Werkzeug, sondern tatsächlich eine Marktplatz-Regel machen.",
+      "createdAt": "2026-09-29T09:20:05.167Z",
+      "updatedAt": "2026-09-29T09:20:05.167Z",
+      "history": [
+        {
+          "at": "2026-09-29T09:20:05.167Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
