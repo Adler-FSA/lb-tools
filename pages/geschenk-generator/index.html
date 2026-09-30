@@ -110,6 +110,20 @@ var OCCASIONS={
 'ostern':{label:'Ostern',a:'Frühling & Leichtigkeit',b:'verspielt & herzlich'},
 'danke':{label:'Danke',a:'elegant & wertschätzend',b:'warm & herzlich'},
 'einfach-so':{label:'Einfach so',a:'schlicht & liebevoll',b:'Überraschung & Neugier'}};
+var CARD_STYLES={
+  'weihnachten-a':{headline:'#a60058',body:'#132238',box:.84},
+  'weihnachten-b':{headline:'#c6006f',body:'#102033',box:.86},
+  'neujahr-a':{headline:'#007f86',body:'#102033',box:.82},
+  'neujahr-b':{headline:'#c6006f',body:'#102033',box:.86},
+  'geburtstag-a':{headline:'#c6006f',body:'#132238',box:.83},
+  'geburtstag-b':{headline:'#b00064',body:'#132238',box:.82},
+  'ostern-a':{headline:'#007f86',body:'#132238',box:.80},
+  'ostern-b':{headline:'#c6006f',body:'#132238',box:.82},
+  'danke-a':{headline:'#a0005c',body:'#132238',box:.82},
+  'danke-b':{headline:'#a0005c',body:'#132238',box:.82},
+  'einfach-so-a':{headline:'#007f86',body:'#132238',box:.80},
+  'einfach-so-b':{headline:'#c6006f',body:'#132238',box:.83}
+};
 var TEXTS={
 weihnachten:{
 familie:{body:'Weihnachten ist die Zeit für Menschen, die uns besonders wichtig sind.\n\nManche Geschenke lassen sich nicht einpacken – dieses hier wartet darauf, von dir entdeckt zu werden.\n\nIch wünsche dir von Herzen wunderschöne Weihnachten und viele besondere Momente.',closing:'Von Herzen',cta:'Dein Weihnachtsgeschenk öffnen'},
@@ -158,45 +172,73 @@ function drawCard(c){
     c.fillStyle='#f5f8f9';c.fillRect(0,0,W,H);c.fillStyle='#607080';c.textAlign='center';c.font=font(34,700);c.fillText('Vorlage wird geladen …',W/2,H/2);c.textAlign='left';return;
   }
 
-  var t=currentText(),x=760,maxW=650;
+  var t=currentText(),key=state.occasion+'-'+state.variant,sty=CARD_STYLES[key]||{headline:'#c6006f',body:'#132238',box:.83};
+  var panelX=735,panelY=112,panelW=730,panelH=690,x=780,maxW=610;
+
   c.textBaseline='alphabetic';c.textAlign='left';
 
-  var veil=c.createLinearGradient(690,0,1465,0);
-  veil.addColorStop(0,'rgba(255,255,255,0)');
-  veil.addColorStop(.16,'rgba(255,255,255,.16)');
-  veil.addColorStop(.48,'rgba(255,255,255,.23)');
-  veil.addColorStop(1,'rgba(255,255,255,.16)');
-  c.fillStyle=veil;roundRect(c,690,102,790,670,38);c.fill();
+  /* Klare, aber weiterhin elegante Lesefläche. */
+  c.save();
+  c.shadowColor='rgba(19,34,56,.16)';
+  c.shadowBlur=30;
+  c.shadowOffsetY=10;
+  c.fillStyle='rgba(255,255,255,'+sty.box+')';
+  roundRect(c,panelX,panelY,panelW,panelH,34);c.fill();
+  c.restore();
 
-  c.fillStyle='#c6006f';
-  var hs=54;
-  while(hs>38){
+  /* Persönliche Anrede */
+  c.fillStyle=sty.headline;
+  var hs=64;
+  while(hs>46){
     c.font=serifFont(hs,700,true);
     if(c.measureText(t.headline).width<=maxW)break;
     hs--;
   }
-  c.font=serifFont(hs,700,true);c.fillText(t.headline,x,166);
+  c.shadowColor='rgba(255,255,255,.92)';
+  c.shadowBlur=4;
+  c.shadowOffsetX=0;c.shadowOffsetY=1;
+  c.fillText(t.headline,x,190);
+  c.shadowColor='transparent';c.shadowBlur=0;c.shadowOffsetY=0;
 
-  c.fillStyle='#00a7ad';c.fillRect(x,188,90,5);
+  c.fillStyle='#00a7ad';c.fillRect(x,214,112,6);
 
-  var b=bodyLayout(c,t.body,maxW,430),y=250;
-  c.fillStyle='#132238';c.font=font(Math.min(31,b.size),400);
-  var bodySize=Math.min(31,b.size),bodyLine=Math.max(40,bodySize*1.45);
-  b.lines.forEach(function(line){if(line)c.fillText(line,x,y);y+=bodyLine;});
+  /* Haupttext: größer, leichter und mit mehr Luft */
+  var bodySize=38,minBody=32,lineH=1.44,lines=[];
+  while(bodySize>=minBody){
+    c.font=font(bodySize,400);
+    lines=[];
+    String(t.body||'').split(/\n\s*\n|\n/).forEach(function(p,idx){
+      if(p.trim())wrapParagraph(c,p.trim(),maxW).forEach(function(l){lines.push(l)});
+      if(idx<String(t.body||'').split(/\n\s*\n|\n/).length-1)lines.push('');
+    });
+    if(lines.length*bodySize*lineH<=390)break;
+    bodySize--;
+  }
 
-  var closeY=Math.max(y+28,710);
+  var y=282;
+  c.fillStyle=sty.body;
+  c.font=font(bodySize,400);
+  c.shadowColor='rgba(255,255,255,.78)';
+  c.shadowBlur=2;
+  c.shadowOffsetY=1;
+  lines.forEach(function(line){if(line)c.fillText(line,x,y);y+=bodySize*lineH;});
+  c.shadowColor='transparent';c.shadowBlur=0;c.shadowOffsetY=0;
+
+  /* Gruß und Absender */
+  var closeY=Math.max(y+24,690);
   if(t.closing){
-    c.fillStyle='#132238';c.font=serifFont(25,400,true);c.fillText(t.closing,x,closeY);
+    c.fillStyle=sty.body;c.font=serifFont(31,400,true);c.fillText(t.closing,x,closeY);
   }
   if(t.sender){
-    c.fillStyle='#c6006f';c.font=font(30,700);c.fillText(t.sender,x,closeY+38);
+    c.fillStyle=sty.headline;c.font=font(37,700);c.fillText(t.sender,x,closeY+48);
   }
 
-  var url=normalizeUrl($('giftUrl').value),matrix=qrMatrix(url),qrSize=190,qrX=1220,qrY=720;
+  /* QR separat unten rechts */
+  var url=normalizeUrl($('giftUrl').value),matrix=qrMatrix(url),qrSize=205,qrX=1210,qrY=705;
   if(matrix){
     drawQr(c,matrix,qrX,qrY,qrSize);
-    c.textAlign='center';c.fillStyle='#132238';fitOneLine(c,t.cta,285,22,18,600);
-    c.fillText(t.cta,qrX+qrSize/2,950);c.textAlign='left';
+    c.textAlign='center';c.fillStyle=sty.body;fitOneLine(c,t.cta,300,27,21,700);
+    c.fillText(t.cta,qrX+qrSize/2,968);c.textAlign='left';
   }
 }
 function renderTemplates(){var o=OCCASIONS[state.occasion],box=$('templates');box.innerHTML='';['a','b'].forEach(function(v){var el=document.createElement('div');el.className='template'+(state.variant===v?' active':'');el.setAttribute('data-v',v);el.innerHTML='<img src="'+templatePath(state.occasion,v)+'" alt=""><strong>Variante '+v.toUpperCase()+'</strong><span>'+o[v]+'</span>';el.addEventListener('click',function(){state.variant=v;renderTemplates();loadImage(templatePath(state.occasion,v));render()});box.appendChild(el);loadImage(templatePath(state.occasion,v))})}
