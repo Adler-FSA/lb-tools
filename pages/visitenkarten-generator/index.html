@@ -491,44 +491,109 @@ function drawCard(c,w,h,data,templateNo){
     return;
   }
 
-  // Design 3: low-ink white card with mint + magenta accents only.
+  // Design 3: freigegebene druckfreundliche Mint/Magenta-Vorlage.
+  // Viel Weißraum, große Typografie, runde Mint-Kontakticons,
+  // großer QR-Code sowie feine Akzentlinien oben rechts und unten rechts.
   c.fillStyle=white;c.fillRect(0,0,w,h);
 
-  // very light edge ribbons - intentionally no large dark filled surfaces
+  // Feine Akzentlinien oben rechts.
   c.save();
-  c.strokeStyle='rgba(0,167,173,.18)';c.lineWidth=22;c.lineCap='round';
-  c.beginPath();c.moveTo(w*.63,h+10);c.bezierCurveTo(w*.78,h*.94,w*.91,h*.77,w+18,h*.66);c.stroke();
+  c.lineCap='round';
+  c.strokeStyle=mint;c.lineWidth=6;
+  c.beginPath();
+  c.moveTo(w*.70,-4);
+  c.bezierCurveTo(w*.82,h*.035,w*.92,h*.085,w+10,h*.18);
+  c.stroke();
 
-  c.strokeStyle=mint;c.lineWidth=8;
-  c.beginPath();c.moveTo(w*.72,h+4);c.bezierCurveTo(w*.84,h*.94,w*.93,h*.84,w+8,h*.73);c.stroke();
-  c.strokeStyle=mag;c.lineWidth=7;
-  c.beginPath();c.moveTo(w*.78,h+4);c.bezierCurveTo(w*.88,h*.97,w*.95,h*.87,w+8,h*.79);c.stroke();
+  c.strokeStyle=mag;c.lineWidth=4;
+  c.beginPath();
+  c.moveTo(w*.63,-4);
+  c.bezierCurveTo(w*.78,h*.025,w*.90,h*.070,w*.985,h*.135);
+  c.stroke();
 
-  c.strokeStyle=mint;c.lineWidth=8;
-  c.beginPath();c.moveTo(w*.73,-5);c.bezierCurveTo(w*.84,h*.04,w*.94,h*.10,w+8,h*.20);c.stroke();
+  // Zurückhaltende Schwünge unten rechts.
+  c.strokeStyle='rgba(0,167,173,.15)';c.lineWidth=14;
+  c.beginPath();
+  c.moveTo(w*.58,h+8);
+  c.bezierCurveTo(w*.74,h*.98,w*.89,h*.82,w+12,h*.69);
+  c.stroke();
+
+  c.strokeStyle=mint;c.lineWidth=6;
+  c.beginPath();
+  c.moveTo(w*.66,h+5);
+  c.bezierCurveTo(w*.80,h*.98,w*.92,h*.86,w+10,h*.75);
+  c.stroke();
+
   c.strokeStyle=mag;c.lineWidth=5;
-  c.beginPath();c.moveTo(w*.67,-4);c.bezierCurveTo(w*.80,h*.035,w*.90,h*.075,w*.97,h*.13);c.stroke();
+  c.beginPath();
+  c.moveTo(w*.72,h+5);
+  c.bezierCurveTo(w*.84,h*.99,w*.94,h*.89,w+10,h*.80);
+  c.stroke();
   c.restore();
 
-  drawLogo(c,48,38,525);
+  // Original LiquidityBooster Logo – großzügig wie in der Freigabe.
+  drawLogo(c,42,34,575);
 
+  // Name groß und dominant.
   var n3=(data.firstName+' '+data.lastName).trim();
-  c.fillStyle=navy;fitText(c,n3,600,56,34,900);c.fillText(n3,52,337);
-  c.fillStyle=mag;c.fillRect(52,357,92,5);
+  c.fillStyle=navy;
+  fitText(c,n3,615,62,39,900);
+  c.fillText(n3,46,340);
+  c.fillStyle=mag;
+  c.fillRect(47,357,92,5);
 
-  drawContact(c,'pin',78,407,data.zip+' '+data.city,navy,mint,535);
-  drawContact(c,'phone',78,461,t('mobileLabel')+' '+data.mobile,navy,mint,535);
-  drawContact(c,'mail',78,515,'E-Mail: '+data.email,navy,mint,535);
+  // Runde Mint-Kontakticons wie in der freigegebenen Vorlage.
+  function contactCircle(cx,cy,type){
+    c.save();
+    c.fillStyle=mint;
+    c.beginPath();c.arc(cx,cy,23,0,Math.PI*2);c.fill();
+    c.strokeStyle='#fff';c.fillStyle='#fff';c.lineWidth=4;c.lineCap='round';c.lineJoin='round';
 
-  c.strokeStyle='#d7e4e7';c.lineWidth=2;c.beginPath();c.moveTo(52,550);c.lineTo(650,550);c.stroke();
+    if(type==='pin'){
+      c.beginPath();c.arc(cx,cy-4,8,0,Math.PI*2);c.stroke();
+      c.beginPath();c.moveTo(cx-6,cy+2);c.lineTo(cx,cy+12);c.lineTo(cx+6,cy+2);c.stroke();
+      c.beginPath();c.arc(cx,cy-4,2.5,0,Math.PI*2);c.fill();
+    }else if(type==='phone'){
+      c.beginPath();
+      c.moveTo(cx-9,cy-8);c.bezierCurveTo(cx-12,cy-3,cx-5,cy+8,cx+6,cy+11);
+      c.stroke();
+      c.beginPath();c.moveTo(cx-9,cy-8);c.lineTo(cx-4,cy-12);c.stroke();
+      c.beginPath();c.moveTo(cx+6,cy+11);c.lineTo(cx+11,cy+6);c.stroke();
+    }else{
+      c.strokeRect(cx-11,cy-8,22,16);
+      c.beginPath();c.moveTo(cx-11,cy-7);c.lineTo(cx,cy+2);c.lineTo(cx+11,cy-7);c.stroke();
+    }
+    c.restore();
+  }
 
-  c.fillStyle=mint;c.font=font(34,900);c.fillText(t('motto3a'),52,603);
-  var x2=52+c.measureText(t('motto3a')).width+12;
-  c.fillStyle=navy;c.font=font(33,400);c.fillText(t('motto3b'),x2,603);
-  var x3=x2+c.measureText(t('motto3b')).width+12;
-  c.fillStyle=mag;c.font=font(34,900);c.fillText(t('motto3c'),x3,603);
+  var contactTextX=122;
+  contactCircle(75,411,'pin');
+  c.fillStyle=navy;fitText(c,data.zip+' '+data.city,520,31,21,400);c.fillText(data.zip+' '+data.city,contactTextX,420);
 
-  drawQr(c,qr,750,288,180,mint);
+  contactCircle(75,466,'phone');
+  c.fillStyle=navy;fitText(c,t('mobileLabel')+' '+data.mobile,520,31,21,400);c.fillText(t('mobileLabel')+' '+data.mobile,contactTextX,475);
+
+  contactCircle(75,521,'mail');
+  c.fillStyle=navy;fitText(c,'E-Mail: '+data.email,520,31,20,400);c.fillText('E-Mail: '+data.email,contactTextX,530);
+
+  // Dezente Trennlinie.
+  c.strokeStyle='#d7e4e7';c.lineWidth=2;
+  c.beginPath();c.moveTo(48,557);c.lineTo(650,557);c.stroke();
+
+  // Freigegebener Spruch.
+  c.fillStyle=mint;c.font=font(36,900);
+  c.fillText(t('motto3a'),48,610);
+  var x2=48+c.measureText(t('motto3a')).width+11;
+
+  c.fillStyle=navy;c.font=font(35,400);
+  c.fillText(t('motto3b'),x2,610);
+  var x3=x2+c.measureText(t('motto3b')).width+11;
+
+  c.fillStyle=mag;c.font=font(36,900);
+  c.fillText(t('motto3c'),x3,610);
+
+  // QR-Code größer und stärker präsent, mit schmalem Mint-Rahmen.
+  drawQr(c,qr,748,282,198,mint);
 }
 
 function renderPreview(){
