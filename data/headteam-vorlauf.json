@@ -251,21 +251,25 @@
     },
     {
       "id": "691a2804-ae72-4bd1-bf82-e3a7b11d10a5",
-      "title": "Visiten Karten Generator mit QR code",
+      "title": "Visiten Karten Generator mit QR code Geschenke Generator",
       "category": "club-haus",
       "type": "function",
       "releaseDate": "2026-10-05",
       "url": "https://tools.liquiditybooster.de/pages/visitenkarten-generator/",
-      "what": "",
-      "why": "",
-      "test": "",
-      "meeting": "",
+      "what": "Neues Club-Partner-Werkzeug: persönliche LiquidityBooster-Visitenkarten mit QR-Code sowie ein integrierter Geschenk-Generator für Weihnachten, Geburtstag, Neujahr, Ostern, Danke und „Einfach so“.",
+      "why": "Club Partner erhalten einfache Werkzeuge, um ihren persönlichen Gastzugang professionell weiterzugeben – als Visitenkarte oder als emotionales Geschenk für Familie, Freunde und Kollegen.",
+      "test": "Es ist alles getestet und funktioniert auch Einwand frei",
+      "meeting": "Finale Freigabe und Einbindung im Club Haus.",
       "createdAt": "2026-09-29T21:46:38.662Z",
-      "updatedAt": "2026-09-29T21:46:38.662Z",
+      "updatedAt": "2026-09-30T12:33:46.177Z",
       "history": [
         {
           "at": "2026-09-29T21:46:38.662Z",
           "event": "created"
+        },
+        {
+          "at": "2026-09-30T12:33:46.177Z",
+          "event": "updated"
         }
       ]
     },
