@@ -23,9 +23,6 @@ button,input{font:inherit}
 .wrap{width:min(1180px,100%);margin:0 auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .brandline{font-weight:900;letter-spacing:.02em}
-.lang{display:flex;gap:6px}
-.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:8px 11px;font-weight:800;cursor:pointer}
-.lang button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .hero{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,34px);box-shadow:0 20px 60px rgba(19,34,56,.10);margin-bottom:18px}
 .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--mint)}
 h1{font-size:clamp(28px,5vw,46px);line-height:1.06;margin:8px 0 10px}
@@ -100,18 +97,12 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar">
-    <div class="brandline">LiquidityBooster · Visitenkarten</div>
-    <div class="lang" aria-label="Sprache">
-      <button type="button" id="langDe" class="active">DE</button>
-      <button type="button" id="langEn">EN</button>
-    </div>
-  </div>
+  <div class="topbar"><div class="brandline">LiquidityBooster · Visitenkarten</div></div>
 
   <section class="hero">
     <div class="eyebrow" data-i18n="eyebrow">Club Partner Werkzeug</div>
     <h1 data-i18n="title">Deine LiquidityBooster Visitenkarte</h1>
-    <p class="lead" data-i18n="lead">Daten eintragen, eine der drei fertigen Designvorlagen auswählen und die persönliche Affiliate-URL als QR-Code auf die Karte setzen. Danach entsteht eine druckfertige PDF.</p>
+    <p class="lead" data-i18n="lead">Daten eintragen, eine der drei fertigen PNG-Vorlagen auswählen und die persönliche Affiliate-URL als QR-Code auf die Karte setzen. Jede Vorlage erhält ihren eigenen Spruch. Danach entsteht eine druckfertige PDF.</p>
     <div class="flow">
       <div class="flowStep"><span class="flowNo">1</span><div><strong data-i18n="flow1">Daten eingeben</strong><span data-i18n="flow1Sub">Vorschau aktualisiert sich sofort</span></div></div>
       <div class="flowStep"><span class="flowNo">2</span><div><strong data-i18n="flow2">Vorlage auswählen</strong><span data-i18n="flow2Sub">eine von drei PNG-Vorlagen wählen</span></div></div>
@@ -170,11 +161,11 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
         <h2 data-i18n="preview">Live-Vorschau</h2>
         <span class="badge">85 × 55 mm · 300 dpi</span>
       </div>
-      <p class="previewHelp" data-i18n="previewHelp">Die gewählte PNG-Vorlage bleibt unverändert. Nur deine Daten und der QR-Code werden darübergelegt.</p>
+      <p class="previewHelp" data-i18n="previewHelp">Die gewählte PNG-Vorlage bleibt unverändert. Nur deine Daten, der individuelle Spruch und der QR-Code werden darübergelegt.</p>
       <div class="previewStage">
         <canvas id="cardPreview" width="1004" height="650" aria-label="Visitenkarten Vorschau"></canvas>
       </div>
-      <p class="note" data-i18n="note">Die drei Designs sind feste PNG-Master. Der QR-Code wird lokal aus deiner eingegebenen URL erzeugt. Es gibt keine Verbindung zu Club Control oder einer Club-Partner-Liste.</p>
+      <p class="note" data-i18n="note">Die drei Designs sind feste PNG-Master. Persönliche Daten, Spruch und QR-Code werden erst im Generator ergänzt. Es gibt keine Verbindung zu Club Control oder einer Club-Partner-Liste.</p>
     </section>
   </div>
 </div>
@@ -204,7 +195,7 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
 
 var DB_NAME='lb-businesscard-pdf-handoff-v1';
 var STORE='files';
-var state={template:1,lang:'de'};
+var state={template:1};
 var preview=document.getElementById('cardPreview');
 var ctx=preview.getContext('2d');
 
@@ -217,65 +208,36 @@ var templateImages={};
 var templatePromises={};
 
 var LAYOUTS={
-  1:{nameX:62,nameY:306,nameW:585,contactX:90,contactTextX:116,contactY:[361,411,461],qrX:753,qrY:258,qrSize:176},
-  2:{nameX:118,nameY:315,nameW:545,contactX:146,contactTextX:172,contactY:[370,420,470],qrX:760,qrY:266,qrSize:172},
-  3:{nameX:62,nameY:310,nameW:590,contactX:90,contactTextX:116,contactY:[365,415,465],qrX:758,qrY:262,qrSize:178}
+  1:{nameX:62,nameY:300,nameW:590,iconX:78,textX:116,contactY:[360,410,460],qrX:758,qrY:238,qrSize:174,lineX1:62,lineX2:645,lineY:493,sloganX:62,sloganY:542},
+  2:{nameX:116,nameY:315,nameW:535,iconX:132,textX:170,contactY:[375,425,475],qrX:770,qrY:248,qrSize:170,lineX1:116,lineX2:655,lineY:505,sloganX:116,sloganY:548},
+  3:{nameX:62,nameY:302,nameW:590,iconX:78,textX:116,contactY:[362,412,462],qrX:748,qrY:242,qrSize:178,lineX1:62,lineX2:645,lineY:495,sloganX:62,sloganY:548}
 };
 
 var I18N={
   de:{
     eyebrow:'Club Partner Werkzeug',title:'Deine LiquidityBooster Visitenkarte',
-    lead:'Daten eintragen, eine der drei fertigen Designvorlagen auswählen und die persönliche Affiliate-URL als QR-Code auf die Karte setzen. Danach entsteht eine druckfertige PDF.',
+    lead:'Daten eintragen, eine der drei fertigen PNG-Vorlagen auswählen und die persönliche Affiliate-URL als QR-Code auf die Karte setzen. Jede Vorlage erhält ihren eigenen Spruch. Danach entsteht eine druckfertige PDF.',
     flow1:'Daten eingeben',flow1Sub:'Vorschau aktualisiert sich sofort',flow2:'Vorlage auswählen',flow2Sub:'eine von drei PNG-Vorlagen wählen',flow3:'PDF erstellen',flow3Sub:'speichern oder teilen',
-    dataTitle:'1. Deine Angaben',firstName:'Vorname',lastName:'Nachname',zip:'PLZ',city:'Ort',mobile:'Mobil',email:'E-Mail',firstNamePh:'Vorname',lastNamePh:'Nachname',cityPh:'Darmstadt',
+    dataTitle:'1. Deine Angaben',firstName:'Vorname',lastName:'Nachname',zip:'PLZ',city:'Ort',mobile:'Mobil',email:'E-Mail',
     affiliate:'Persönliche Affiliate-URL',affiliateHint:'Die URL wird nicht auf die Karte geschrieben. Sie steckt ausschließlich im QR-Code.',
     qrWaiting:'Affiliate-Link eintragen – der QR-Code entsteht automatisch.',qrOk:'QR-Code wurde aus deinem Affiliate-Link erstellt.',qrError:'Bitte einen gültigen Affiliate-Link eintragen.',
     designTitle:'2. Vorlage auswählen',design1:'Vorlage 1 · Flow',design1Sub:'leicht & offen',design2:'Vorlage 2 · Fokus',design2Sub:'elegant & dynamisch',design3:'Vorlage 3 · Schwung',design3Sub:'Mint/Magenta & klar',
     pdfTitle:'3. Druckdatei erstellen',single:'Einzelkarte 85 × 55 mm',sheet:'10 Karten auf A4',
     actionHelp:'Einzelkarte für Druckerei/Weitergabe. A4-Bogen für 10 identische Karten zum Ausschneiden.',
     missing:'Bitte zuerst alle Angaben vollständig ausfüllen.',allReady:'Alles vollständig – PDF-Ausgabe ist bereit.',working:'PDF wird erstellt …',invalid:'Bitte fülle alle Felder vollständig aus und prüfe die Affiliate-URL.',stored:'PDF ist fertig und kann gespeichert oder geteilt werden.',
-    preview:'Live-Vorschau',previewHelp:'Die gewählte PNG-Vorlage bleibt unverändert. Nur deine Daten und der QR-Code werden darübergelegt.',
-    note:'Die drei Designs sind feste PNG-Master. Der QR-Code wird lokal aus deiner eingegebenen URL erzeugt. Es gibt keine Verbindung zu Club Control oder einer Club-Partner-Liste.',
+    preview:'Live-Vorschau',previewHelp:'Die gewählte PNG-Vorlage bleibt unverändert. Nur deine Daten, der individuelle Spruch und der QR-Code werden darübergelegt.',
+    note:'Die drei Designs sind feste PNG-Master. Persönliche Daten, Spruch und QR-Code werden erst im Generator ergänzt. Es gibt keine Verbindung zu Club Control oder einer Club-Partner-Liste.',
     doneEyebrow:'LiquidityBooster · fertige PDF',doneTitle:'PDF fertig erstellt',close:'Schließen',save:'PDF speichern',share:'PDF teilen',
-    mobileLabel:'Mobil:'
-  },
-  en:{
-    eyebrow:'Club Partner Tool',title:'Your LiquidityBooster business card',
-    lead:'Enter your details, choose one of the three finished design templates and place your personal affiliate URL on the card as a QR code. Then create a print-ready PDF.',
-    flow1:'Enter details',flow1Sub:'preview updates instantly',flow2:'Choose template',flow2Sub:'choose one of three PNG templates',flow3:'Create PDF',flow3Sub:'save or share',
-    dataTitle:'1. Your details',firstName:'First name',lastName:'Last name',zip:'Postcode',city:'City',mobile:'Mobile',email:'Email',firstNamePh:'First name',lastNamePh:'Last name',cityPh:'City',
-    affiliate:'Personal affiliate URL',affiliateHint:'The URL is not printed on the card. It is stored only in the QR code.',
-    qrWaiting:'Enter your affiliate link – the QR code is created automatically.',qrOk:'QR code created from your affiliate link.',qrError:'Please enter a valid affiliate link.',
-    designTitle:'2. Choose template',design1:'Template 1 · Flow',design1Sub:'light & open',design2:'Template 2 · Focus',design2Sub:'elegant & dynamic',design3:'Template 3 · Motion',design3Sub:'mint/magenta & clean',
-    pdfTitle:'3. Create print file',single:'Single card 85 × 55 mm',sheet:'10 cards on A4',
-    actionHelp:'Single card for a print shop/sharing. A4 sheet contains 10 identical cards for cutting.',
-    missing:'Please complete all details first.',allReady:'Everything is complete – PDF output is ready.',working:'Creating PDF …',invalid:'Please complete all fields and check the affiliate URL.',stored:'The PDF is ready to save or share.',
-    preview:'Live preview',previewHelp:'The selected PNG template remains unchanged. Only your details and the QR code are placed on top.',
-    note:'The three designs are fixed PNG masters. The QR code is generated locally from the URL you enter. There is no connection to Club Control or a Club Partner list.',
-    doneEyebrow:'LiquidityBooster · finished PDF',doneTitle:'PDF created',close:'Close',save:'Save PDF',share:'Share PDF',
-    mobileLabel:'Mobile:'
+    mobileLabel:'Mobil:',
+    slogan1a:'Neue Perspektiven beginnen',slogan1b:'mit einem Gespräch.',
+    slogan2a:'Es gibt keine Zufälle,',slogan2b:'wenn es um Perspektiven geht.',
+    slogan3a:'Alles beginnt',slogan3b:'mit einem',slogan3c:'Lächeln.'
   }
-};
+}
 
 function $(id){return document.getElementById(id);}
-function t(key){return I18N[state.lang][key]||key;}
+function t(key){return I18N.de[key]||key;}
 function isEmbedded(){try{return window.self!==window.top;}catch(e){return true;}}
-
-function applyLang(lang){
-  state.lang=lang==='en'?'en':'de';
-  document.documentElement.lang=state.lang;
-  document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var key=el.getAttribute('data-i18n');
-    if(I18N[state.lang][key]) el.textContent=I18N[state.lang][key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
-    var key=el.getAttribute('data-i18n-placeholder');
-    if(I18N[state.lang][key]) el.placeholder=I18N[state.lang][key];
-  });
-  $('langDe').classList.toggle('active',state.lang==='de');
-  $('langEn').classList.toggle('active',state.lang==='en');
-  renderPreview();
-}
 
 function loadTemplate(n){
   if(templatePromises[n]) return templatePromises[n];
@@ -309,10 +271,10 @@ function val(id,fallback){var v=$(id).value.trim();return v||fallback;}
 function getData(useFallback){
   var demo=useFallback!==false;
   return {
-    firstName:val('firstName',demo?(state.lang==='de'?'Vorname':'First name'):''),
-    lastName:val('lastName',demo?(state.lang==='de'?'Nachname':'Last name'):''),
+    firstName:val('firstName',demo?'Vorname':''),
+    lastName:val('lastName',demo?'Nachname':''),
     zip:val('zip',demo?'64283':''),
-    city:val('city',demo?(state.lang==='de'?'Darmstadt':'City'):''),
+    city:val('city',demo?'Darmstadt':''),
     mobile:val('mobile',demo?'0170 1234567':''),
     email:val('email',demo?'vorname@beispiel.de':''),
     affiliateUrl:normalizeUrl($('affiliateUrl').value)
@@ -398,9 +360,44 @@ function drawQr(c,matrix,x,y,size){
   c.restore();
 }
 
-function drawContactLine(c,xDot,xText,y,text,maxWidth){
-  c.fillStyle='#00a7ad';c.beginPath();c.arc(xDot,y-7,7,0,Math.PI*2);c.fill();
+function drawContactIcon(c,x,y,type){
+  c.save();
+  c.fillStyle='#00a7ad';
+  c.beginPath();c.arc(x,y-7,14,0,Math.PI*2);c.fill();
+  c.strokeStyle='#fff';c.fillStyle='#fff';c.lineWidth=2.4;c.lineCap='round';c.lineJoin='round';
+  if(type==='pin'){
+    c.beginPath();c.arc(x,y-10,4.6,0,Math.PI*2);c.stroke();
+    c.beginPath();c.moveTo(x-3.8,y-6);c.lineTo(x,y+1);c.lineTo(x+3.8,y-6);c.stroke();
+    c.beginPath();c.arc(x,y-10,1.4,0,Math.PI*2);c.fill();
+  }else if(type==='phone'){
+    c.beginPath();c.moveTo(x-6,y-13);c.bezierCurveTo(x-8,y-8,x-2,y,x+5,y+3);c.stroke();
+    c.beginPath();c.moveTo(x-6,y-13);c.lineTo(x-2.5,y-16);c.stroke();
+    c.beginPath();c.moveTo(x+5,y+3);c.lineTo(x+8.5,y);c.stroke();
+  }else{
+    c.strokeRect(x-7,y-13,14,11);
+    c.beginPath();c.moveTo(x-7,y-12);c.lineTo(x,y-6);c.lineTo(x+7,y-12);c.stroke();
+  }
+  c.restore();
+}
+function drawContactLine(c,xIcon,xText,y,text,maxWidth,type){
+  drawContactIcon(c,xIcon,y,type);
   c.fillStyle='#132238';fitText(c,text,maxWidth,28,20,400);c.fillText(text,xText,y);
+}
+function drawSlogan(c,templateNo,l){
+  var mint='#00a7ad',navy='#132238',mag='#c6006f';
+  if(templateNo===1){
+    c.fillStyle=mint;c.font=font(31,900);c.fillText(t('slogan1a'),l.sloganX,l.sloganY);
+    c.fillStyle=navy;c.font=font(29,500);c.fillText(t('slogan1b'),l.sloganX,l.sloganY+34);
+  }else if(templateNo===2){
+    c.fillStyle=navy;c.font=font(29,900);c.fillText(t('slogan2a'),l.sloganX,l.sloganY);
+    c.fillStyle=mint;c.font=font(27,900);c.fillText(t('slogan2b'),l.sloganX,l.sloganY+33);
+  }else{
+    c.fillStyle=mint;c.font=font(30,900);c.fillText(t('slogan3a'),l.sloganX,l.sloganY);
+    var x2=l.sloganX+c.measureText(t('slogan3a')).width+10;
+    c.fillStyle=navy;c.font=font(29,500);c.fillText(t('slogan3b'),x2,l.sloganY);
+    var x3=x2+c.measureText(t('slogan3b')).width+10;
+    c.fillStyle=mag;c.font=font(30,900);c.fillText(t('slogan3c'),x3,l.sloganY);
+  }
 }
 
 function drawCard(c,w,h,data,templateNo){
@@ -409,12 +406,13 @@ function drawCard(c,w,h,data,templateNo){
   c.fillStyle='#fff';c.fillRect(0,0,w,h);
 
   if(img&&img.complete&&img.naturalWidth){
-    c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';
+    c.imageSmoothingEnabled=true;
+    c.imageSmoothingQuality='high';
     c.drawImage(img,0,0,w,h);
   }else{
     c.fillStyle='#eef4f5';c.fillRect(0,0,w,h);
     c.fillStyle='#607080';c.textAlign='center';c.textBaseline='middle';c.font=font(28,700);
-    c.fillText(state.lang==='de'?'Vorlage wird geladen …':'Loading template …',w/2,h/2);
+    c.fillText('Vorlage wird geladen …',w/2,h/2);
     c.textAlign='left';c.textBaseline='alphabetic';
     return;
   }
@@ -423,19 +421,22 @@ function drawCard(c,w,h,data,templateNo){
   var name=(data.firstName+' '+data.lastName).trim();
 
   c.fillStyle='#132238';
-  fitText(c,name,l.nameW,50,34,900);
+  fitText(c,name,l.nameW,49,33,900);
   c.fillText(name,l.nameX,l.nameY);
 
   c.fillStyle='#c6006f';
-  c.fillRect(l.nameX,l.nameY+14,88,5);
+  c.fillRect(l.nameX,l.nameY+13,86,5);
 
-  drawContactLine(c,l.contactX,l.contactTextX,l.contactY[0],data.zip+' '+data.city,520);
-  drawContactLine(c,l.contactX,l.contactTextX,l.contactY[1],t('mobileLabel')+' '+data.mobile,520);
-  drawContactLine(c,l.contactX,l.contactTextX,l.contactY[2],'E-Mail: '+data.email,520);
+  drawContactLine(c,l.iconX,l.textX,l.contactY[0],data.zip+' '+data.city,515,'pin');
+  drawContactLine(c,l.iconX,l.textX,l.contactY[1],t('mobileLabel')+' '+data.mobile,515,'phone');
+  drawContactLine(c,l.iconX,l.textX,l.contactY[2],'E-Mail: '+data.email,515,'mail');
 
+  c.strokeStyle='#d8e4e8';c.lineWidth=2;
+  c.beginPath();c.moveTo(l.lineX1,l.lineY);c.lineTo(l.lineX2,l.lineY);c.stroke();
+
+  drawSlogan(c,templateNo,l);
   drawQr(c,qrMatrix(data.affiliateUrl),l.qrX,l.qrY,l.qrSize);
 }
-
 function renderPreview(){
   drawCard(ctx,preview.width,preview.height,getData(true),state.template);
   updateUiState();
@@ -507,7 +508,7 @@ function openDb(){
 async function storePdf(blob,filename,format){
   var db=await openDb();
   var token=(crypto.randomUUID?crypto.randomUUID():(Date.now()+'-'+Math.random().toString(36).slice(2)));
-  var record={token:token,blob:blob,filename:filename,format:format,created:new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-GB',{dateStyle:'medium',timeStyle:'short'}).format(new Date()),createdAt:Date.now()};
+  var record={token:token,blob:blob,filename:filename,format:format,created:new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date()),createdAt:Date.now()};
   await new Promise(function(resolve,reject){
     var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(record);
     tx.oncomplete=function(){resolve();};tx.onerror=function(){reject(tx.error||new Error('PDF store'));};
@@ -516,7 +517,7 @@ async function storePdf(blob,filename,format){
 }
 function handoffUrl(token,action){
   var url=new URL('./pdf-speichern.html',location.href);
-  url.searchParams.set('token',token);url.searchParams.set('action',action);url.searchParams.set('lang',state.lang);
+  url.searchParams.set('token',token);url.searchParams.set('action',action);url.searchParams.set('lang','de');
   return url.href;
 }
 async function createPdf(mode){
@@ -551,8 +552,6 @@ document.querySelectorAll('.template').forEach(function(el){
     renderPreview();
   });
 });
-$('langDe').addEventListener('click',function(){applyLang('de');});
-$('langEn').addEventListener('click',function(){applyLang('en');});
 $('makeSingle').addEventListener('click',function(){createPdf('single');});
 $('makeSheet').addEventListener('click',function(){createPdf('sheet');});
 $('closeOverlay').addEventListener('click',function(){$('pdfOverlay').hidden=true;});
