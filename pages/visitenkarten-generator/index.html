@@ -505,6 +505,44 @@ function drawCard(c,w,h,data,templateNo){
     c.fillStyle=white;c.fillRect(0,0,w,h);
   }
 
+  // Letzte Master-Korrektur: die unsaubere "Ecke" unterhalb des QR-Felds
+  // wird nur im rechten unteren Randbereich bereinigt. Danach laufen die
+  // drei Schwunglinien dort sauber bis zum Kartenrand durch.
+  c.save();
+  c.beginPath();
+  c.rect(w*.855,h*.655,w*.145,h*.345);
+  c.clip();
+
+  // Problemstelle vollständig auf Weiß zurücksetzen.
+  c.fillStyle=white;
+  c.fillRect(w*.855,h*.655,w*.145,h*.345);
+
+  // Heller Basisschwung.
+  c.lineCap='round';
+  c.strokeStyle='rgba(0,167,173,.14)';
+  c.lineWidth=30;
+  c.beginPath();
+  c.moveTo(w*.80,h*1.015);
+  c.bezierCurveTo(w*.875,h*.965,w*.945,h*.84,w*1.02,h*.715);
+  c.stroke();
+
+  // Mint-Linie.
+  c.strokeStyle=mint;
+  c.lineWidth=7;
+  c.beginPath();
+  c.moveTo(w*.82,h*1.012);
+  c.bezierCurveTo(w*.895,h*.975,w*.96,h*.885,w*1.018,h*.79);
+  c.stroke();
+
+  // Magenta-Linie.
+  c.strokeStyle=mag;
+  c.lineWidth=8;
+  c.beginPath();
+  c.moveTo(w*.865,h*1.012);
+  c.bezierCurveTo(w*.92,h*.98,w*.975,h*.91,w*1.018,h*.835);
+  c.stroke();
+  c.restore();
+
   // Original LiquidityBooster Logo an der Position des freigegebenen Designs.
   drawLogo(c,40,55,595);
 
