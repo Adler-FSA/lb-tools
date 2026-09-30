@@ -2,56 +2,170 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
 <title>LiquidityBooster · Geschenk-Generator</title>
 <style>
-:root{--mint:#00a7ad;--mag:#c6006f;--navy:#132238;--bg:#f6fafb;--line:#dce8ea}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--navy)}
-.wrap{max-width:1100px;margin:0 auto;padding:28px 20px 50px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}
-.brand{font-weight:800;color:var(--mint)}
-.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:13px}
-.hero{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 12px 34px rgba(19,34,56,.08)}
-.eyebrow{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mag)}
-h1{font-size:clamp(32px,5vw,54px);line-height:1.02;margin:10px 0 14px}
-.lead{font-size:18px;line-height:1.55;max-width:780px;margin:0;color:#405163}
-.info{margin-top:18px;padding:14px 16px;border-radius:16px;background:#f0fbfb;border:1px solid #bfe7e9}
-h2{margin:32px 0 14px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}
-.card h3{margin:0 0 6px}
-.card p{margin:0 0 12px;color:#5a6b78}
-.files{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.65;background:#f7f9fa;border-radius:12px;padding:12px}
-.footer{margin-top:30px;font-size:13px;color:#6c7a85}
-@media(max-width:720px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}
+:root{--navy:#132238;--mint:#00a7ad;--mag:#c6006f;--bg:#eef4f5;--line:#d8e4e8;--muted:#607080;--ok:#087c73;--err:#a61754}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy);background:var(--bg)}body{padding:18px}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1220px,100%);margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.brandline{font-weight:900;letter-spacing:.02em}
+.backlink{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--navy);font-size:13px;font-weight:850;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 13px}
+.hero{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,34px);box-shadow:0 20px 60px rgba(19,34,56,.10);margin-bottom:18px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--mag)}h1{font-size:clamp(29px,5vw,47px);line-height:1.06;margin:8px 0 10px}
+.lead{margin:0;max-width:880px;color:var(--muted);font-size:17px;line-height:1.55}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.flowStep{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:13px;padding:11px 12px;background:#f8fbfc}.flowNo{width:28px;height:28px;border-radius:999px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:900;flex:0 0 auto}.flowStep strong{display:block;font-size:13px}.flowStep span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.grid{display:grid;grid-template-columns:minmax(330px,.85fr) minmax(0,1.15fr);gap:18px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 12px 35px rgba(19,34,56,.07)}.panel h2{font-size:19px;margin:0 0 14px}.section{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{min-width:0}.field.full{grid-column:1/-1}label,.label{display:block;font-size:12px;font-weight:850;margin:0 0 6px;color:#344958}
+input,select,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:var(--navy);border-radius:11px;padding:11px 12px;outline:none}textarea{min-height:112px;resize:vertical;line-height:1.45}input:focus,select:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.10)}
+.hint{font-size:11px;line-height:1.4;color:var(--muted);margin-top:6px}.modeRow,.relationRow{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.relationRow{grid-template-columns:repeat(3,1fr)}
+.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}.choice span{display:flex;align-items:center;justify-content:center;min-height:44px;text-align:center;border:1px solid var(--line);border-radius:11px;padding:9px 10px;background:#fff;font-size:13px;font-weight:800}.choice input:checked+span{background:#edfafa;border-color:var(--mint);box-shadow:inset 0 0 0 1px var(--mint)}
+.templates{display:grid;grid-template-columns:1fr 1fr;gap:10px}.template{border:2px solid transparent;border-radius:14px;padding:7px;background:#f7fafb;cursor:pointer;transition:.15s}.template.active{border-color:var(--mint);background:#edfbfb}.template img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:9px}.template strong{display:block;font-size:12px;margin-top:7px}.template span{font-size:11px;color:var(--muted)}
+.customBox[hidden],.presetBox[hidden]{display:none!important}.previewHead{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px}.previewHead h2{margin:0}.previewHead span{font-size:12px;color:var(--muted)}
+.previewShell{background:#dfeaec;border-radius:18px;padding:10px}canvas{display:block;width:100%;height:auto;aspect-ratio:3/2;background:#fff;border-radius:12px;box-shadow:0 8px 30px rgba(19,34,56,.12)}
+.status{font-size:12px;min-height:18px;margin:10px 0 0;color:var(--muted)}.status.ok{color:var(--ok)}.status.error{color:var(--err)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.actions button{border:0;border-radius:12px;padding:13px 12px;font-weight:900;color:#fff;background:var(--navy)}.actions button.primary{background:var(--mint)}.actions button:disabled{opacity:.4;cursor:not-allowed}.smallnote{font-size:11px;line-height:1.45;color:var(--muted);margin:11px 0 0}
+.overlay{position:fixed;inset:0;background:rgba(19,34,56,.58);display:grid;place-items:center;padding:18px;z-index:50}.overlay[hidden]{display:none}.dialog{width:min(520px,100%);background:#fff;border-radius:21px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.25)}.dialog h3{font-size:25px;margin:6px 0 12px}.filebox{background:#f2fafb;border-left:5px solid var(--mint);border-radius:12px;padding:13px;overflow-wrap:anywhere}.filebox strong{display:block}.filebox span{font-size:12px;color:var(--muted)}
+.dialogActions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}.dialogActions a,.dialogActions button{text-align:center;text-decoration:none;border:0;border-radius:11px;padding:12px;font-weight:900}.dialogActions a{background:var(--mint);color:#fff}.dialogActions .share{background:var(--navy);color:#fff}.dialogActions button{grid-column:1/-1;background:#edf2f4;color:var(--navy)}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}}@media(max-width:560px){body{padding:10px}.formgrid,.actions,.dialogActions,.templates{grid-template-columns:1fr}.relationRow{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.hero,.panel{border-radius:17px;padding:16px}.dialogActions button{grid-column:auto}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top">
-    <div class="brand">LiquidityBooster · Geschenk-Generator</div>
-    <div class="badge">Konzept / Designaufbau</div>
-  </div>
-
+  <div class="topbar"><div class="brandline">LiquidityBooster · Geschenk-Generator</div><a class="backlink" href="../visitenkarten-generator/">← Visitenkarten</a></div>
   <section class="hero">
-    <div class="eyebrow">Neues Club Partner Werkzeug</div>
+    <div class="eyebrow">Club Partner Werkzeug</div>
     <h1>Ein persönliches Geschenk gestalten</h1>
-    <p class="lead">Dieses Werkzeug wird persönliche Geschenk-Karten für Familie, Freunde und Arbeitskollegen erstellen. Das eigentliche Geschenk bleibt zunächst verborgen und wird erst über den QR-Code geöffnet.</p>
-    <div class="info"><strong>Aktueller Schritt:</strong> Die 12 festen PNG-Designvorlagen werden erstellt und anschließend hier eingebunden. Dynamische Texte, Empfänger, Absender und QR-Code folgen danach.</div>
+    <p class="lead">Du bestimmst Anlass, Empfänger und Ton. Das eigentliche Geschenk bleibt verborgen – erst der QR-Code öffnet die Überraschung.</p>
+    <div class="flow">
+      <div class="flowStep"><span class="flowNo">1</span><div><strong>Anlass wählen</strong><span>passende Designs</span></div></div>
+      <div class="flowStep"><span class="flowNo">2</span><div><strong>Text wählen</strong><span>Vorschlag oder Wunschtext</span></div></div>
+      <div class="flowStep"><span class="flowNo">3</span><div><strong>Personalisieren</strong><span>Name, Absender & Link</span></div></div>
+      <div class="flowStep"><span class="flowNo">4</span><div><strong>Geschenk erstellen</strong><span>PNG oder PDF</span></div></div>
+    </div>
   </section>
-
-  <h2>Vorgesehene 12 Designvorlagen</h2>
   <div class="grid">
-    <article class="card"><h3>Weihnachten</h3><p>Warm & liebevoll · Festlich & elegant</p><div class="files">weihnachten-a.png<br>weihnachten-b.png</div></article>
-    <article class="card"><h3>Neujahr</h3><p>Aufbruch & Neubeginn · Festlich & optimistisch</p><div class="files">neujahr-a.png<br>neujahr-b.png</div></article>
-    <article class="card"><h3>Geburtstag</h3><p>Fröhlich & festlich · Liebevoll & persönlich</p><div class="files">geburtstag-a.png<br>geburtstag-b.png</div></article>
-    <article class="card"><h3>Ostern</h3><p>Frühling & Leichtigkeit · Verspielt & herzlich</p><div class="files">ostern-a.png<br>ostern-b.png</div></article>
-    <article class="card"><h3>Danke</h3><p>Elegant & wertschätzend · Warm & herzlich</p><div class="files">danke-a.png<br>danke-b.png</div></article>
-    <article class="card"><h3>Einfach so</h3><p>Schlicht & liebevoll · Überraschung & Neugier</p><div class="files">einfach-so-a.png<br>einfach-so-b.png</div></article>
+    <section class="panel">
+      <h2>1. Anlass & Design</h2>
+      <div class="field full"><label for="occasion">Anlass</label><select id="occasion"><option value="weihnachten">Weihnachten</option><option value="neujahr">Neujahr</option><option value="geburtstag">Geburtstag</option><option value="ostern">Ostern</option><option value="danke">Danke</option><option value="einfach-so">Einfach so</option></select></div>
+      <div class="templates" id="templates" style="margin-top:12px"></div>
+      <div class="section">
+        <h2>2. Für wen ist das Geschenk?</h2>
+        <div class="formgrid">
+          <div class="field"><label for="recipient">Empfänger</label><input id="recipient" maxlength="55" placeholder="z. B. Monika"></div>
+          <div class="field"><label for="sender">Von</label><input id="sender" maxlength="55" placeholder="z. B. Michael"></div>
+          <div class="field full"><label for="giftUrl">Persönlicher Gastzugangs-Link</label><input id="giftUrl" inputmode="url" maxlength="1800" placeholder="https://..."><div class="hint">Der Link wird nicht auf die Karte geschrieben. Er steckt ausschließlich im QR-Code.</div></div>
+        </div>
+      </div>
+      <div class="section">
+        <h2>3. Text festlegen</h2>
+        <div class="modeRow">
+          <label class="choice"><input type="radio" name="mode" value="preset" checked><span>Textvorschlag</span></label>
+          <label class="choice"><input type="radio" name="mode" value="custom"><span>Eigener Wunschtext</span></label>
+        </div>
+        <div class="presetBox" id="presetBox">
+          <div class="label" style="margin-top:12px">Beziehung</div>
+          <div class="relationRow">
+            <label class="choice"><input type="radio" name="relation" value="familie" checked><span>Familie</span></label>
+            <label class="choice"><input type="radio" name="relation" value="freunde"><span>Freunde</span></label>
+            <label class="choice"><input type="radio" name="relation" value="kollegen"><span>Arbeitskollegen</span></label>
+          </div>
+          <div class="hint">Der Text passt sich automatisch an Anlass und Beziehung an.</div>
+        </div>
+        <div class="customBox" id="customBox" hidden>
+          <div class="field full" style="margin-top:12px"><label for="customHeadline">Überschrift / Anrede</label><input id="customHeadline" maxlength="80" placeholder="Deine eigene Überschrift"></div>
+          <div class="field full" style="margin-top:10px"><label for="customText">Dein persönlicher Text</label><textarea id="customText" maxlength="700" placeholder="Schreibe hier deinen eigenen Wunschtext …"></textarea></div>
+          <div class="field full" style="margin-top:10px"><label for="customClosing">Grußformel</label><input id="customClosing" maxlength="80" placeholder="z. B. Von Herzen"></div>
+          <div class="field full" style="margin-top:10px"><label for="customCta">Text am QR-Code</label><input id="customCta" maxlength="70" placeholder="z. B. Dein Geschenk öffnen"></div>
+        </div>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="previewHead"><h2>Live-Vorschau</h2><span>Geschenk bleibt bis zum Scan verborgen</span></div>
+      <div class="previewShell"><canvas id="preview" width="1536" height="1024"></canvas></div>
+      <div class="status" id="status">Empfänger, Absender und Gastzugangs-Link eintragen.</div>
+      <div class="actions"><button type="button" class="primary" id="makePng" disabled>PNG erstellen</button><button type="button" id="makePdf" disabled>PDF 15 × 10 cm</button></div>
+      <p class="smallnote">PNG eignet sich zum digitalen Versenden. Die PDF ist als einzelne Geschenkkarte im Format 15 × 10 cm angelegt.</p>
+    </section>
   </div>
-
-  <div class="footer">Vorlagenordner: <strong>pages/geschenk-generator/vorlagen/</strong></div>
 </div>
+<div class="overlay" id="fileOverlay" hidden>
+  <div class="dialog">
+    <div class="eyebrow">Dein Geschenk ist fertig</div><h3>Datei speichern oder teilen</h3>
+    <div class="filebox"><strong id="fileName"></strong><span id="fileMeta"></span></div>
+    <div class="dialogActions"><a id="saveFile" href="#">Datei speichern</a><a id="shareFile" class="share" href="#">Datei teilen</a><button id="closeOverlay" type="button">Schließen</button></div>
+  </div>
+</div>
+<script src="../visitenkarten-generator/qrcode-local.js"></script>
+<script>
+(function(){
+'use strict';
+var W=1536,H=1024,DB_NAME='lb-gift-file-handoff-v1',STORE='files';
+var state={occasion:'weihnachten',variant:'a',mode:'preset',relation:'familie'};
+var canvas=document.getElementById('preview'),ctx=canvas.getContext('2d'),images={},promises={};
+var OCCASIONS={
+'weihnachten':{label:'Weihnachten',a:'warm & liebevoll',b:'festlich & elegant'},
+'neujahr':{label:'Neujahr',a:'Aufbruch & Neubeginn',b:'festlich & optimistisch'},
+'geburtstag':{label:'Geburtstag',a:'fröhlich & festlich',b:'liebevoll & persönlich'},
+'ostern':{label:'Ostern',a:'Frühling & Leichtigkeit',b:'verspielt & herzlich'},
+'danke':{label:'Danke',a:'elegant & wertschätzend',b:'warm & herzlich'},
+'einfach-so':{label:'Einfach so',a:'schlicht & liebevoll',b:'Überraschung & Neugier'}};
+var TEXTS={
+weihnachten:{
+familie:{body:'Weihnachten ist die Zeit für Menschen, die uns besonders wichtig sind.\n\nManche Geschenke lassen sich nicht einpacken – dieses hier wartet darauf, von dir entdeckt zu werden.\n\nIch wünsche dir von Herzen wunderschöne Weihnachten und viele besondere Momente.',closing:'Von Herzen',cta:'Dein Weihnachtsgeschenk öffnen'},
+freunde:{body:'Weihnachten ist eine gute Gelegenheit, besonderen Menschen eine kleine Freude zu machen.\n\nDeshalb wartet hier etwas auf dich, das nicht unter den Weihnachtsbaum passt.\n\nIch wünsche dir entspannte, fröhliche und wunderschöne Weihnachten.',closing:'Alles Liebe',cta:'Überraschung öffnen'},
+kollegen:{body:'Zum Weihnachtsfest möchte ich dir eine kleine persönliche Aufmerksamkeit mit auf den Weg geben.\n\nEtwas, das sich nicht einpacken lässt – aber trotzdem entdeckt werden möchte.\n\nIch wünsche dir schöne Feiertage und eine erholsame Weihnachtszeit.',closing:'Mit den besten Wünschen',cta:'Geschenk öffnen'}},
+neujahr:{
+familie:{body:'Ein neues Jahr beginnt – mit neuen Gedanken, neuen Momenten und neuen Möglichkeiten.\n\nVielleicht beginnt auch mit diesem kleinen Geschenk etwas Neues.\n\nIch wünsche dir von Herzen Gesundheit, Glück und viele schöne Erfahrungen im neuen Jahr.',closing:'Von Herzen',cta:'Deine Überraschung öffnen'},
+freunde:{body:'Ein neues Jahr liegt vor uns.\nWer weiß, welche Überraschungen, Ideen und Möglichkeiten darin auf uns warten.\n\nEine kleine davon wartet schon jetzt auf dich.\n\nIch wünsche dir ein großartiges neues Jahr!',closing:'Alles Liebe',cta:'Jetzt entdecken'},
+kollegen:{body:'Zum Start ins neue Jahr wünsche ich dir Gesundheit, Erfolg und viele gute Perspektiven.\n\nAls kleinen Begleiter für das neue Jahr wartet hier eine Überraschung auf dich.',closing:'Alles Gute für das neue Jahr',cta:'Geschenk öffnen'}},
+geburtstag:{
+familie:{body:'Mit deinem Geburtstag beginnt ein neues Lebensjahr.\n\nUnd vielleicht beginnt auch mit diesem Geschenk etwas Neues.\n\nIch wünsche dir von Herzen Glück, Gesundheit und ganz viele Momente, die dich glücklich machen.',closing:'Von Herzen',cta:'Dein Geburtstagsgeschenk öffnen'},
+freunde:{body:'Ein neues Lebensjahr bedeutet neue Erlebnisse, neue Geschichten und vielleicht auch die eine oder andere Überraschung.\n\nEine davon wartet genau hier auf dich.\n\nIch wünsche dir einen wunderschönen Geburtstag und ein großartiges neues Lebensjahr.',closing:'Alles Liebe',cta:'Geschenk auspacken'},
+kollegen:{body:'Herzlichen Glückwunsch zum Geburtstag!\n\nFür dein neues Lebensjahr wünsche ich dir Gesundheit, Erfolg und viele schöne neue Erfahrungen.\n\nEine kleine Überraschung habe ich auch für dich.',closing:'Alles Gute',cta:'Geschenk öffnen'}},
+ostern:{
+familie:{body:'Ostern steht für Neubeginn, Hoffnung und kleine Überraschungen.\n\nEine davon habe ich für dich versteckt – nur diesmal nicht im Osternest.\n\nIch wünsche dir wunderschöne Ostertage und viele glückliche Momente.',closing:'Von Herzen',cta:'Dein Ostergeschenk entdecken'},
+freunde:{body:'Normalerweise muss man Ostergeschenke erst suchen.\n\nDieses hier habe ich dir etwas einfacher gemacht. 😉\n\nEine kleine Überraschung wartet schon auf dich.\n\nIch wünsche dir frohe Ostern und eine richtig schöne Zeit.',closing:'Alles Liebe',cta:'Jetzt entdecken'},
+kollegen:{body:'Zu Ostern eine kleine Aufmerksamkeit für dich.\n\nVielleicht bringt sie neben den Feiertagen auch noch einen neuen Gedanken oder eine kleine Überraschung mit.\n\nIch wünsche dir erholsame und schöne Ostertage.',closing:'Beste Grüße',cta:'Geschenk öffnen'}},
+danke:{
+familie:{body:'Manchmal reicht ein einfaches Danke nicht aus.\n\nDeshalb möchte ich dir auf eine andere Art zeigen, wie sehr ich dich und das, was du für mich bist, schätze.\n\nEine kleine Überraschung wartet auf dich.',closing:'Von Herzen',cta:'Für dich öffnen'},
+freunde:{body:'Danke, dass du da bist.\n\nFür gemeinsame Momente, Gespräche, Lachen und all die Dinge, die Freundschaft besonders machen.\n\nDeshalb wartet hier eine kleine Überraschung für dich.',closing:'Alles Liebe',cta:'Geschenk öffnen'},
+kollegen:{body:'Danke für die gute Zusammenarbeit und das angenehme Miteinander.\n\nAls kleines Zeichen meiner Wertschätzung wartet hier eine persönliche Aufmerksamkeit auf dich.',closing:'Mit besten Grüßen',cta:'Überraschung öffnen'}},
+'einfach-so':{
+familie:{body:'Nicht jedes Geschenk braucht einen Anlass.\n\nManchmal genügt der Gedanke an einen Menschen, der einem wichtig ist.\n\nUnd genau deshalb wartet hier etwas auf dich.',closing:'Von Herzen',cta:'Für dich öffnen'},
+freunde:{body:'Einfach so.\n\nWeil gute Dinge geteilt werden dürfen – besonders mit Menschen, die einem wichtig sind.\n\nEine kleine Überraschung wartet auf dich.',closing:'Alles Liebe',cta:'Jetzt entdecken'},
+kollegen:{body:'Eine kleine Aufmerksamkeit – ganz ohne besonderen Anlass.\n\nEinfach als nette Überraschung und Zeichen der Wertschätzung.',closing:'Beste Grüße',cta:'Geschenk öffnen'}}};
+function $(id){return document.getElementById(id)}
+function templatePath(o,v){return './vorlagen/'+o+'-'+v+'.png'}
+function font(size,weight){return (weight||400)+' '+size+'px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif'}
+function normalizeUrl(raw){var s=String(raw||'').trim();if(!s)return '';if(!/^https?:\/\//i.test(s))s='https://'+s;try{var u=new URL(s);return (u.protocol==='http:'||u.protocol==='https:')?u.href:''}catch(e){return ''}}
+function sanitize(s){return String(s||'Geschenk').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'Geschenk'}
+function loadImage(path){if(promises[path])return promises[path];promises[path]=new Promise(function(resolve,reject){var img=new Image();images[path]=img;img.onload=function(){resolve(img);render()};img.onerror=function(){reject(new Error('Vorlage konnte nicht geladen werden: '+path))};img.src=path});return promises[path]}
+function currentText(){var recipient=$('recipient').value.trim(),sender=$('sender').value.trim();if(state.mode==='custom')return{headline:$('customHeadline').value.trim()||('Für '+(recipient||'dich')),body:$('customText').value.trim(),closing:$('customClosing').value.trim(),sender:sender,cta:$('customCta').value.trim()||'Geschenk öffnen'};var p=TEXTS[state.occasion][state.relation];return{headline:'Für '+(recipient||'dich'),body:p.body,closing:p.closing,sender:sender,cta:p.cta}}
+function qrMatrix(text){if(!text||typeof qrcode!=='function')return null;var qr=qrcode(0,'M');qr.addData(text);qr.make();var rows=[],count=qr.getModuleCount();for(var r=0;r<count;r++){var row=[];for(var c=0;c<count;c++)row.push(qr.isDark(r,c));rows.push(row)}return rows}
+function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function drawQr(c,matrix,x,y,size){if(!matrix)return;var quiet=4,total=matrix.length+quiet*2,module=size/total;c.save();c.fillStyle='rgba(255,255,255,.97)';roundRect(c,x-14,y-14,size+28,size+28,20);c.fill();c.strokeStyle='#00a7ad';c.lineWidth=6;roundRect(c,x-14,y-14,size+28,size+28,20);c.stroke();c.fillStyle='#fff';c.fillRect(x,y,size,size);c.fillStyle='#000';for(var r=0;r<matrix.length;r++)for(var col=0;col<matrix.length;col++)if(matrix[r][col])c.fillRect(x+(col+quiet)*module,y+(r+quiet)*module,module+.45,module+.45);c.restore()}
+function wrapParagraph(c,text,maxWidth){if(!text)return[];var words=text.split(/\s+/),lines=[],line='';words.forEach(function(word){var test=line?line+' '+word:word;if(c.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test});if(line)lines.push(line);return lines}
+function bodyLayout(c,text,maxWidth,maxHeight){var paragraphs=String(text||'').split(/\n\s*\n|\n/),size=35,min=25,lineH=1.34;while(size>=min){c.font=font(size,500);var lines=[];paragraphs.forEach(function(p,idx){if(!p.trim()){lines.push('');return}wrapParagraph(c,p.trim(),maxWidth).forEach(function(l){lines.push(l)});if(idx<paragraphs.length-1)lines.push('')});if(lines.length*size*lineH<=maxHeight)return{size:size,lineH:size*lineH,lines:lines};size--}c.font=font(min,500);var out=[];paragraphs.forEach(function(p,idx){wrapParagraph(c,p.trim(),maxWidth).forEach(function(l){out.push(l)});if(idx<paragraphs.length-1)out.push('')});return{size:min,lineH:min*lineH,lines:out}}
+function fitOneLine(c,text,maxWidth,start,min,weight){var s=start;while(s>min){c.font=font(s,weight);if(c.measureText(text).width<=maxWidth)break;s--}c.font=font(s,weight);return s}
+function drawCard(c){var path=templatePath(state.occasion,state.variant),img=images[path];c.clearRect(0,0,W,H);c.fillStyle='#fff';c.fillRect(0,0,W,H);if(img&&img.complete&&img.naturalWidth){c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';c.drawImage(img,0,0,W,H)}else{c.fillStyle='#f5f8f9';c.fillRect(0,0,W,H);c.fillStyle='#607080';c.textAlign='center';c.font=font(34,700);c.fillText('Vorlage wird geladen …',W/2,H/2);c.textAlign='left';return}var t=currentText(),x=760,maxW=660;c.textBaseline='alphabetic';c.textAlign='left';c.fillStyle='#c6006f';fitOneLine(c,t.headline,maxW,54,36,850);c.fillText(t.headline,x,165);c.fillStyle='#00a7ad';c.fillRect(x,184,96,6);var b=bodyLayout(c,t.body,maxW,430),y=245;c.fillStyle='#132238';c.font=font(b.size,500);b.lines.forEach(function(line){if(line)c.fillText(line,x,y);y+=b.lineH});var closeY=Math.max(y+15,710);if(t.closing){c.fillStyle='#132238';c.font=font(26,600);c.fillText(t.closing,x,closeY)}if(t.sender){c.fillStyle='#c6006f';c.font=font(32,850);c.fillText(t.sender,x,closeY+42)}var url=normalizeUrl($('giftUrl').value),matrix=qrMatrix(url),qrSize=190,qrX=1220,qrY=720;drawQr(c,matrix,qrX,qrY,qrSize);c.textAlign='center';c.fillStyle='#132238';fitOneLine(c,t.cta,270,23,17,850);c.fillText(t.cta,qrX+qrSize/2,950);c.textAlign='left'}
+function renderTemplates(){var o=OCCASIONS[state.occasion],box=$('templates');box.innerHTML='';['a','b'].forEach(function(v){var el=document.createElement('div');el.className='template'+(state.variant===v?' active':'');el.setAttribute('data-v',v);el.innerHTML='<img src="'+templatePath(state.occasion,v)+'" alt=""><strong>Variante '+v.toUpperCase()+'</strong><span>'+o[v]+'</span>';el.addEventListener('click',function(){state.variant=v;renderTemplates();loadImage(templatePath(state.occasion,v));render()});box.appendChild(el);loadImage(templatePath(state.occasion,v))})}
+function ready(){return!!($('recipient').value.trim()&&$('sender').value.trim()&&normalizeUrl($('giftUrl').value))}
+function updateStatus(){var ok=ready(),s=$('status');$('makePng').disabled=!ok;$('makePdf').disabled=!ok;if(!normalizeUrl($('giftUrl').value)&&$('giftUrl').value.trim()){s.textContent='Bitte prüfe den Gastzugangs-Link.';s.className='status error'}else if(ok){s.textContent='Alles bereit – dein Geschenk kann erstellt werden.';s.className='status ok'}else{s.textContent='Empfänger, Absender und Gastzugangs-Link eintragen.';s.className='status'}}
+function render(){drawCard(ctx);updateStatus()}
+function setMode(){state.mode=document.querySelector('input[name="mode"]:checked').value;$('presetBox').hidden=state.mode!=='preset';$('customBox').hidden=state.mode!=='custom';render()}
+function setRelation(){state.relation=document.querySelector('input[name="relation"]:checked').value;render()}
+function canvasToBlob(c,type,quality){return new Promise(function(resolve,reject){c.toBlob(function(b){b?resolve(b):reject(new Error('Datei konnte nicht erstellt werden.'))},type,quality)})}
+function dataUrlBytes(dataUrl){var b64=dataUrl.split(',')[1],bin=atob(b64),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return bytes}
+function asciiBytes(s){return new TextEncoder().encode(s)}
+function concatBytes(parts){var len=parts.reduce(function(a,b){return a+b.length},0),out=new Uint8Array(len),off=0;parts.forEach(function(p){out.set(p,off);off+=p.length});return out}
+function jpegPdf(c,wmm,hmm){var jpg=dataUrlBytes(c.toDataURL('image/jpeg',.98)),wpt=(wmm*72/25.4).toFixed(2),hpt=(hmm*72/25.4).toFixed(2),objects=[];objects[1]=asciiBytes('<< /Type /Catalog /Pages 2 0 R >>');objects[2]=asciiBytes('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');objects[3]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');objects[4]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width '+c.width+' /Height '+c.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Im0 Do Q\n';objects[5]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream');var parts=[asciiBytes('%PDF-1.4\n%LBGIFT\n')],offsets=[0],pos=parts[0].length;for(var i=1;i<=5;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}var xref=pos,xs='xref\n0 6\n0000000000 65535 f \n';for(var j=1;j<=5;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';xs+='trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));return new Blob(parts,{type:'application/pdf'})}
+function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('Dateispeicher'))}})}
+async function storeFile(blob,filename,format,mime){var db=await openDb(),token='gift-'+Date.now()+'-'+Math.random().toString(36).slice(2);return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:filename,format:format,mime:mime,created:new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date())});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error||new Error('Dateispeicher'))}})}
+function handoff(token,action){var u=new URL('./datei-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);return u.href}
+async function createFile(type){if(!ready()){updateStatus();return}try{var path=templatePath(state.occasion,state.variant);await loadImage(path);drawCard(ctx);var recipient=sanitize($('recipient').value),occasion=sanitize(OCCASIONS[state.occasion].label),filename,blob,format,mime;if(type==='png'){blob=await canvasToBlob(canvas,'image/png');filename='LiquidityBooster-Geschenk-'+recipient+'-'+occasion+'-'+state.variant.toUpperCase()+'.png';format='PNG · 1536 × 1024 px';mime='image/png'}else{blob=jpegPdf(canvas,150,100);filename='LiquidityBooster-Geschenk-'+recipient+'-'+occasion+'-'+state.variant.toUpperCase()+'.pdf';format='PDF · 15 × 10 cm';mime='application/pdf'}var token=await storeFile(blob,filename,format,mime);$('fileName').textContent=filename;$('fileMeta').textContent=format;$('saveFile').href=handoff(token,'save');$('shareFile').href=handoff(token,'share');$('fileOverlay').hidden=false}catch(e){$('status').textContent='Fehler: '+(e&&e.message?e.message:String(e));$('status').className='status error'}}
+$('occasion').addEventListener('change',function(){state.occasion=this.value;state.variant='a';renderTemplates();render()});document.querySelectorAll('input[name="mode"]').forEach(function(x){x.addEventListener('change',setMode)});document.querySelectorAll('input[name="relation"]').forEach(function(x){x.addEventListener('change',setRelation)});['recipient','sender','giftUrl','customHeadline','customText','customClosing','customCta'].forEach(function(id){$(id).addEventListener('input',render)});$('makePng').addEventListener('click',function(){createFile('png')});$('makePdf').addEventListener('click',function(){createFile('pdf')});$('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});$('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});renderTemplates();render();
+})();
+</script>
 </body>
 </html>
