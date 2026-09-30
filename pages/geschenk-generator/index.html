@@ -173,7 +173,7 @@ function drawCard(c){
   }
 
   var t=currentText(),key=state.occasion+'-'+state.variant,sty=CARD_STYLES[key]||{headline:'#c6006f',body:'#132238',box:.83};
-  var panelX=735,panelY=112,panelW=730,panelH=690,x=780,maxW=610;
+  var panelX=735,panelY=112,panelW=730,panelH=690,x=780,maxW=(state.occasion==='neujahr'?650:610);
 
   c.textBaseline='alphabetic';c.textAlign='left';
 
@@ -203,29 +203,49 @@ function drawCard(c){
   c.fillStyle='#00a7ad';c.fillRect(x,214,112,6);
 
   /* Haupttext: größer, leichter und mit mehr Luft */
-  var bodySize=38,minBody=32,lineH=1.44,lines=[];
-  while(bodySize>=minBody){
-    c.font=font(bodySize,400);
-    lines=[];
-    String(t.body||'').split(/\n\s*\n|\n/).forEach(function(p,idx){
-      if(p.trim())wrapParagraph(c,p.trim(),maxW).forEach(function(l){lines.push(l)});
-      if(idx<String(t.body||'').split(/\n\s*\n|\n/).length-1)lines.push('');
-    });
-    if(lines.length*bodySize*lineH<=390)break;
-    bodySize--;
-  }
-
   var y=282;
   c.fillStyle=sty.body;
-  c.font=font(bodySize,400);
   c.shadowColor='rgba(255,255,255,.78)';
   c.shadowBlur=2;
   c.shadowOffsetY=1;
-  lines.forEach(function(line){if(line)c.fillText(line,x,y);y+=bodySize*lineH;});
+
+  if(state.occasion==='neujahr'){
+    /* Nur Neujahr: gleiche große Schrift, aber kompaktere Absatzabstände,
+       damit Gruß und Absender sicher innerhalb der Lesefläche bleiben. */
+    var paragraphs=String(t.body||'').split(/\n\s*\n|\n/).filter(function(p){return p.trim();});
+    var bodySize=36,minBody=30,lineH=1.42,paraGap=18,wrapped=[],totalH=0;
+    while(bodySize>=minBody){
+      c.font=font(bodySize,400);
+      wrapped=paragraphs.map(function(p){return wrapParagraph(c,p.trim(),maxW);});
+      totalH=wrapped.reduce(function(sum,ls){return sum+(ls.length*bodySize*lineH);},0)+Math.max(0,wrapped.length-1)*paraGap;
+      if(totalH<=380)break;
+      bodySize--;
+    }
+    c.font=font(bodySize,400);
+    wrapped.forEach(function(ls,pi){
+      ls.forEach(function(line){c.fillText(line,x,y);y+=bodySize*lineH;});
+      if(pi<wrapped.length-1)y+=paraGap;
+    });
+  }else{
+    var bodySize=38,minBody=32,lineH=1.44,lines=[];
+    while(bodySize>=minBody){
+      c.font=font(bodySize,400);
+      lines=[];
+      String(t.body||'').split(/\n\s*\n|\n/).forEach(function(p,idx){
+        if(p.trim())wrapParagraph(c,p.trim(),maxW).forEach(function(l){lines.push(l)});
+        if(idx<String(t.body||'').split(/\n\s*\n|\n/).length-1)lines.push('');
+      });
+      if(lines.length*bodySize*lineH<=390)break;
+      bodySize--;
+    }
+    c.font=font(bodySize,400);
+    lines.forEach(function(line){if(line)c.fillText(line,x,y);y+=bodySize*lineH;});
+  }
+
   c.shadowColor='transparent';c.shadowBlur=0;c.shadowOffsetY=0;
 
   /* Gruß und Absender */
-  var closeY=Math.max(y+24,690);
+  var closeY=state.occasion==='neujahr'?Math.max(y+18,650):Math.max(y+24,690);
   if(t.closing){
     c.fillStyle=sty.body;c.font=serifFont(31,400,true);c.fillText(t.closing,x,closeY);
   }
