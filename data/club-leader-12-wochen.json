@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-01T11:26:34.499Z",
+  "updatedAt": "2026-10-01T11:26:46.044Z",
   "program": {
     "currentCycle": "2026-Q4",
     "cycles": [
@@ -152,14 +152,14 @@
       "reports": [
         {
           "week": 1,
-          "workshopRegistered": false,
-          "presentationVisited": false,
-          "stammtischVisited": false,
+          "workshopRegistered": true,
+          "presentationVisited": true,
+          "stammtischVisited": true,
           "guestActivated": 5,
           "newPartners": 2,
           "twoPersonTalks": 3,
           "challengeStatus": "done",
-          "updatedAt": "2026-10-01T11:26:34.499Z",
+          "updatedAt": "2026-10-01T11:26:46.044Z",
           "createdAt": "2026-10-01T11:26:34.499Z"
         }
       ]
