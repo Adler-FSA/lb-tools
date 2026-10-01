@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="LiquidityBooster 3-Ebenen-Simulator für Club Leader – feste 80/20-Marktplatz-Logik mit Ebene 1, Ebene 2 und Ebene 3 transparent berechnen.">
+  <title>LiquidityBooster · 3-Ebenen-Simulator</title>
+  <style>
+    :root{
+      --navy:#132238;
+      --navy2:#1d3552;
+      --mint:#00a7ad;
+      --mint2:#62dadd;
+      --mag:#c6006f;
+      --ink:#22364a;
+      --muted:#6d7d8d;
+      --paper:#ffffff;
+      --soft:#f4f8fa;
+      --line:#dce6eb;
+      --max:1240px;
+      --shadow:0 24px 70px rgba(19,34,56,.12);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 3%,rgba(0,167,173,.10),transparent 30rem),
+        radial-gradient(circle at 95% 12%,rgba(198,0,111,.07),transparent 28rem),
+        linear-gradient(180deg,#f7fafb 0,#fff 42%,#f5f9fa 100%);
+      line-height:1.55;
+    }
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .wrap{width:min(calc(100% - 32px),var(--max));margin:auto}
+    .topbar{
+      position:sticky;top:0;z-index:40;
+      background:rgba(255,255,255,.91);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(220,230,235,.92);
+    }
+    .topbar-inner{
+      min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:950;color:var(--navy);letter-spacing:.01em}
+    .brand-mark{
+      width:40px;height:40px;border-radius:13px;background:var(--navy);
+      display:grid;place-items:center;box-shadow:0 9px 22px rgba(19,34,56,.15)
+    }
+    .lang{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:#f3f6f8}
+    .lang button{border:0;background:transparent;color:var(--muted);font-weight:900;padding:7px 11px;border-radius:999px}
+    .lang button.active{background:var(--navy);color:#fff}
+
+    .hero{padding:clamp(54px,8vw,96px) 0 38px}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(30px,6vw,80px);align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;color:var(--mint);
+      font-size:.78rem;font-weight:950;letter-spacing:.15em;text-transform:uppercase;margin-bottom:18px
+    }
+    .eyebrow::before{content:"";width:30px;height:2px;background:var(--mint);border-radius:999px}
+    h1,h2,h3{color:var(--navy);margin-top:0}
+    h1{
+      font-size:clamp(2.8rem,6.4vw,6.4rem);
+      line-height:.93;letter-spacing:-.062em;margin-bottom:22px
+    }
+    h1 span{color:var(--mag)}
+    .lead{font-size:clamp(1.05rem,1.45vw,1.24rem);color:#516476;max-width:760px;margin:0}
+    .logic-card{
+      background:linear-gradient(150deg,var(--navy),#21405f);
+      color:#fff;border-radius:var(--radius);padding:30px;box-shadow:var(--shadow);position:relative;overflow:hidden
+    }
+    .logic-card::after{
+      content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-120px;bottom:-140px;
+      background:radial-gradient(circle,rgba(0,167,173,.38),transparent 70%)
+    }
+    .logic-card h3{color:#fff;font-size:1.1rem;margin-bottom:18px;position:relative;z-index:2}
+    .formula{display:grid;gap:11px;position:relative;z-index:2}
+    .formula-row{
+      display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;
+      padding:13px 15px;border-radius:15px;background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.09)
+    }
+    .formula-row strong{color:#fff}
+    .formula-row span:last-child{font-weight:950;color:#7ce1e4}
+
+    .calculator-section{padding:34px 0 92px}
+    .calc-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:24px;align-items:start}
+    .panel{
+      background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+      box-shadow:0 18px 55px rgba(19,34,56,.07);overflow:hidden
+    }
+    .panel-head{padding:25px 26px 0}
+    .panel-head .mini{
+      color:var(--mint);font-size:.76rem;font-weight:950;letter-spacing:.13em;text-transform:uppercase
+    }
+    .panel-head h2{font-size:clamp(1.7rem,3vw,2.55rem);letter-spacing:-.04em;margin:8px 0 8px}
+    .panel-head p{color:var(--muted);margin:0}
+    .panel-body{padding:24px 26px 28px}
+    .field{margin-bottom:24px}
+    .field-label{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:10px}
+    .field-label label{font-weight:900;color:var(--navy)}
+    .field-label small{color:var(--muted)}
+    .money-wrap{position:relative}
+    .money-wrap input{
+      width:100%;height:62px;border:1px solid #cfdce2;border-radius:17px;background:#fbfdfe;
+      padding:0 58px 0 18px;font-size:1.55rem;font-weight:950;color:var(--navy);outline:none
+    }
+    .money-wrap input:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(0,167,173,.09)}
+    .currency{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-weight:950;color:var(--muted)}
+
+    .split-fixed{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:17px;border-radius:17px;background:linear-gradient(145deg,var(--navy),#21405f);color:#fff
+    }
+    .split-fixed-copy strong{display:block;color:#fff;font-size:1.03rem}
+    .split-fixed-copy span{display:block;color:#cfe3ea;font-size:.87rem;margin-top:3px}
+    .split-fixed-value{font-size:1.55rem;font-weight:950;white-space:nowrap;color:#7ce1e4}
+
+    .toggle-row{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:16px 17px;border:1px solid var(--line);border-radius:16px;background:#fbfdfe;margin-bottom:12px
+    }
+    .toggle-copy strong{display:block;color:var(--navy)}
+    .toggle-copy span{display:block;color:var(--muted);font-size:.87rem;margin-top:2px}
+    .switch{position:relative;width:52px;height:30px;flex:0 0 auto}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;inset:0;background:#cfd9df;border-radius:999px;transition:.2s}
+    .slider::before{
+      content:"";position:absolute;width:22px;height:22px;left:4px;top:4px;background:#fff;border-radius:50%;
+      box-shadow:0 3px 8px rgba(0,0,0,.18);transition:.2s
+    }
+    .switch input:checked + .slider{background:var(--mint)}
+    .switch input:checked + .slider::before{transform:translateX(22px)}
+    .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+    .level{
+      border:1px solid var(--line);border-radius:14px;padding:11px 10px;background:#fff;
+      display:flex;align-items:center;gap:8px;font-size:.87rem;font-weight:850;color:var(--navy)
+    }
+    .level input{accent-color:var(--mint);width:17px;height:17px}
+    .action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+    .btn{
+      border:0;border-radius:14px;padding:12px 16px;font-weight:900;display:inline-flex;align-items:center;gap:9px
+    }
+    .btn.primary{background:var(--navy);color:#fff}
+    .btn.secondary{background:#eef4f6;color:var(--navy);border:1px solid var(--line)}
+
+    .result-top{padding:24px 26px 0}
+    .hero-result{
+      border-radius:22px;padding:24px;background:linear-gradient(145deg,var(--navy),#244768);color:#fff;position:relative;overflow:hidden
+    }
+    .hero-result::after{
+      content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-120px;bottom:-140px;
+      background:radial-gradient(circle,rgba(0,167,173,.45),transparent 70%)
+    }
+    .hero-result small{display:block;color:#9edcdf;font-weight:900;letter-spacing:.08em;text-transform:uppercase;position:relative;z-index:2}
+    .hero-result .value{font-size:clamp(2.6rem,5vw,4.8rem);font-weight:950;letter-spacing:-.05em;line-height:1;margin:12px 0 5px;position:relative;z-index:2}
+    .hero-result .sub{color:#d7e5ec;position:relative;z-index:2}
+
+    .result-cards{padding:14px 26px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .result-card{border:1px solid var(--line);border-radius:17px;padding:16px;background:#fff}
+    .result-card small{display:block;color:var(--muted);font-weight:850;margin-bottom:6px}
+    .result-card strong{display:block;color:var(--navy);font-size:1.45rem}
+    .result-card em{display:block;font-style:normal;color:var(--muted);font-size:.82rem;margin-top:3px}
+    .result-card.total{background:#f7fbfc;border-color:#cfe4e6}
+
+    .logic-note-wrap{padding:14px 26px 0}
+    .logic-note{
+      display:flex;gap:14px;align-items:flex-start;border-radius:18px;padding:16px 17px;
+      background:#f2fbfb;border:1px solid #cce9ea
+    }
+    .logic-note-dot{width:13px;height:13px;border-radius:50%;margin-top:5px;background:var(--mint);box-shadow:0 0 0 5px rgba(0,167,173,.08);flex:0 0 auto}
+    .logic-note strong{display:block;color:var(--navy)}
+    .logic-note span{display:block;color:var(--muted);font-size:.9rem;margin-top:3px}
+
+    .distribution{padding:20px 26px 28px}
+    .bar-labels{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.84rem;margin-bottom:8px}
+    .bar{height:18px;border-radius:999px;overflow:hidden;display:flex;background:#edf2f5;border:1px solid #e2eaee}
+    .seg-provider{background:var(--mint)}
+    .seg-lb{background:var(--navy)}
+    .legend{display:flex;flex-wrap:wrap;gap:9px 16px;margin-top:12px;color:var(--muted);font-size:.82rem}
+    .legend-item{display:flex;align-items:center;gap:7px}
+    .swatch{width:10px;height:10px;border-radius:3px}
+
+    .volume{
+      margin-top:24px;background:linear-gradient(180deg,#fff,#f8fbfc);border:1px solid var(--line);border-radius:var(--radius);
+      box-shadow:0 18px 55px rgba(19,34,56,.06);padding:26px
+    }
+    .volume-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}
+    .volume h2{font-size:clamp(1.55rem,3vw,2.25rem);letter-spacing:-.04em;margin-bottom:5px}
+    .volume p{color:var(--muted);margin:0}
+    .count-wrap{display:flex;align-items:center;gap:10px}
+    .count-wrap input{
+      width:110px;height:48px;border:1px solid #cfdce2;border-radius:13px;padding:0 12px;
+      font-weight:950;color:var(--navy);font-size:1.08rem;background:#fff
+    }
+    .volume-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .volume-card{border:1px solid var(--line);border-radius:17px;padding:16px;background:#fff}
+    .volume-card small{display:block;color:var(--muted);font-weight:850}
+    .volume-card strong{display:block;color:var(--navy);font-size:1.55rem;margin-top:5px}
+    .volume-card.total{background:#f7fbfc;border-color:#cfe4e6}
+    .volume-card.total strong{color:var(--mag)}
+
+    .standard{
+      margin-top:24px;border-radius:var(--radius);padding:28px;background:var(--navy);color:#fff;box-shadow:var(--shadow)
+    }
+    .standard h2{color:#fff;font-size:clamp(1.55rem,3vw,2.3rem);margin-bottom:8px}
+    .standard p{color:#d3e1e8;margin:0 0 20px}
+    .standard-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+    .standard-step{
+      min-height:104px;border-radius:16px;padding:14px;background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.09);display:flex;flex-direction:column;justify-content:space-between
+    }
+    .standard-step b{color:#fff}
+    .standard-step span{color:#9fdde0;font-size:.8rem}
+    .standard-note{margin-top:17px;color:#9eb0bd;font-size:.84rem}
+
+    footer{padding:30px 0 46px;color:#7b8b98;font-size:.84rem}
+    .footer-inner{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+    @media(max-width:980px){
+      .hero-grid,.calc-grid{grid-template-columns:1fr}
+      .standard-flow{grid-template-columns:1fr}
+    }
+    @media(max-width:720px){
+      .levels,.result-cards,.volume-grid{grid-template-columns:1fr}
+      .volume-head{align-items:flex-start;flex-direction:column}
+    }
+    @media(max-width:520px){
+      .wrap{width:min(calc(100% - 20px),var(--max))}
+      .topbar-inner{min-height:60px}
+      .brand span{font-size:.86rem}
+      .hero{padding-top:42px}
+      .panel-head,.panel-body,.result-top,.result-cards,.logic-note-wrap,.distribution{padding-left:18px;padding-right:18px}
+      .split-fixed{align-items:flex-start;flex-direction:column}
+    }
+    @media print{
+      .topbar,.action-row{display:none!important}
+      body{background:#fff}
+      .hero{padding-top:20px}
+      .panel,.volume,.standard,.logic-card{box-shadow:none}
+    }
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="8.5" stroke="#6fe0e4" stroke-width="1.6"/>
+          <path d="M7.5 13.6 10 11l2.2 2.2L16.8 8.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="17" cy="8.5" r="1.4" fill="#c6006f"/>
+        </svg>
+      </div>
+      <span data-i18n="brand">3-Ebenen-Simulator</span>
+    </div>
+    <div class="lang" aria-label="Sprache">
+      <button class="active" type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow" data-i18n="eyebrow">LiquidityBooster · Club Leader</div>
+        <h1 data-i18n-html="title">3 Ebenen. <span>Eine klare Logik.</span></h1>
+        <p class="lead" data-i18n="lead">Der offizielle Simulator zeigt die feste 80/20-Marktplatz-Aufteilung und die Vergütung auf Ebene 1, Ebene 2 und Ebene 3 – transparent und sofort nachvollziehbar.</p>
+      </div>
+      <aside class="logic-card">
+        <h3 data-i18n="logic_title">Die feste Logik</h3>
+        <div class="formula">
+          <div class="formula-row"><strong data-i18n="logic_1">Netto-Verkaufspreis</strong><span>100 %</span></div>
+          <div class="formula-row"><strong data-i18n="logic_2">Anbieter / LiquidityBooster</strong><span>80 / 20</span></div>
+          <div class="formula-row"><strong data-i18n="logic_3">3-Ebenen-Logic auf LB-Basis</strong><span>20 % · 15 % · 10 %</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="calculator-section">
+    <div class="wrap">
+      <div class="calc-grid">
+        <section class="panel">
+          <div class="panel-head">
+            <div class="mini" data-i18n="input_kicker">Eingaben</div>
+            <h2 data-i18n="input_title">Dein Angebot</h2>
+            <p data-i18n="input_text">Gib den Netto-Verkaufspreis ein. Die 80/20-Aufteilung ist fest hinterlegt.</p>
+          </div>
+          <div class="panel-body">
+            <div class="field">
+              <div class="field-label">
+                <label for="price" data-i18n="price_label">Netto-Verkaufspreis</label>
+                <small data-i18n="price_hint">ohne Umsatzsteuer</small>
+              </div>
+              <div class="money-wrap">
+                <input id="price" type="number" min="0" step="0.01" value="179" inputmode="decimal">
+                <span class="currency">€</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-label">
+                <label data-i18n="split_label">Feste Marktplatz-Aufteilung</label>
+                <small data-i18n="split_hint">Anbieter zuerst</small>
+              </div>
+              <div class="split-fixed">
+                <div class="split-fixed-copy">
+                  <strong data-i18n="split_fixed_title">Anbieter / LiquidityBooster</strong>
+                  <span data-i18n="split_fixed_text">80 % Anbieter · 20 % LiquidityBooster</span>
+                </div>
+                <div class="split-fixed-value">80 / 20</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="toggle-row">
+                <div class="toggle-copy">
+                  <strong data-i18n="referral_title">Empfehlungsverkauf</strong>
+                  <span data-i18n="referral_text">aktiviert die 3-Ebenen-Logic</span>
+                </div>
+                <label class="switch">
+                  <input id="referral" type="checkbox" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="levels" id="levels">
+                <label class="level"><input id="e1Active" type="checkbox" checked><span data-i18n="e1_toggle">E1 belegt · 20 %</span></label>
+                <label class="level"><input id="e2Active" type="checkbox" checked><span data-i18n="e2_toggle">E2 belegt · 15 %</span></label>
+                <label class="level"><input id="e3Active" type="checkbox" checked><span data-i18n="e3_toggle">E3 belegt · 10 %</span></label>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button class="btn primary" id="copyBtn" type="button">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8 8h10v10H8zM5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <span data-i18n="copy">Ergebnis kopieren</span>
+              </button>
+              <button class="btn secondary" type="button" onclick="window.print()">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v7H6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+                <span data-i18n="print">Drucken / PDF</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div class="mini" data-i18n="result_kicker">Ergebnis pro Verkauf</div>
+            <h2 data-i18n="result_title">So funktioniert die 3-Ebenen-Logic</h2>
+            <p id="splitSummary">80 % Anbieter · 20 % LiquidityBooster</p>
+          </div>
+
+          <div class="result-top">
+            <div class="hero-result">
+              <small data-i18n="provider_gets">Anbieter erhält</small>
+              <div class="value" id="providerValue">143,20 €</div>
+              <div class="sub" id="providerSub">80 % vom Netto-Verkaufspreis</div>
+            </div>
+          </div>
+
+          <div class="result-cards">
+            <div class="result-card">
+              <small data-i18n="lb_basis">LB-Anteil = 100 % Basis</small>
+              <strong id="lbValue">35,80 €</strong>
+              <em data-i18n="lb_percent">20 % vom Verkaufspreis</em>
+            </div>
+            <div class="result-card">
+              <small data-i18n="e1">Ebene 1 · 20 %</small>
+              <strong id="e1Value">7,16 €</strong>
+              <em data-i18n="of_lb_basis">von der LB-Basis</em>
+            </div>
+            <div class="result-card">
+              <small data-i18n="e2">Ebene 2 · 15 %</small>
+              <strong id="e2Value">5,37 €</strong>
+              <em data-i18n="of_lb_basis">von der LB-Basis</em>
+            </div>
+            <div class="result-card">
+              <small data-i18n="e3">Ebene 3 · 10 %</small>
+              <strong id="e3Value">3,58 €</strong>
+              <em data-i18n="of_lb_basis">von der LB-Basis</em>
+            </div>
+            <div class="result-card total">
+              <small data-i18n="commission_total">3 Ebenen gesamt</small>
+              <strong id="commissionValue">16,11 €</strong>
+              <em id="commissionRate">45 % der LB-Basis</em>
+            </div>
+          </div>
+
+          <div class="logic-note-wrap">
+            <div class="logic-note">
+              <div class="logic-note-dot"></div>
+              <div>
+                <strong data-i18n="note_title">Klare Berechnungsbasis</strong>
+                <span data-i18n="note_text">Die Vergütungen auf Ebene 1 bis 3 werden ausschließlich aus dem 20-%-LiquidityBooster-Anteil berechnet.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="distribution">
+            <div class="bar-labels">
+              <span data-i18n="visual_distribution">Visuelle 80/20-Aufteilung</span>
+              <span id="checkTotal">179,00 €</span>
+            </div>
+            <div class="bar" id="distributionBar">
+              <div class="seg-provider" id="segProvider" style="width:80%"></div>
+              <div class="seg-lb" id="segLb" style="width:20%"></div>
+            </div>
+            <div class="legend">
+              <span class="legend-item"><i class="swatch" style="background:var(--mint)"></i><span data-i18n="legend_provider">Anbieter · 80 %</span></span>
+              <span class="legend-item"><i class="swatch" style="background:var(--navy)"></i><span data-i18n="legend_lb">LiquidityBooster-Basis · 20 %</span></span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="volume">
+        <div class="volume-head">
+          <div>
+            <div class="eyebrow" style="margin-bottom:8px" data-i18n="volume_kicker">Verkaufs-Simulator</div>
+            <h2 data-i18n="volume_title">Was passiert bei mehreren Verkäufen?</h2>
+            <p data-i18n="volume_text">Die gleiche 80/20- und 3-Ebenen-Logik hochgerechnet auf die gewünschte Anzahl an Verkäufen.</p>
+          </div>
+          <div class="count-wrap">
+            <input id="salesCount" type="number" min="1" step="1" value="100" inputmode="numeric" aria-label="Anzahl Verkäufe">
+            <strong data-i18n="sales">Verkäufe</strong>
+          </div>
+        </div>
+        <div class="volume-grid">
+          <div class="volume-card">
+            <small data-i18n="vol_provider">Anbieter gesamt</small>
+            <strong id="volProvider">14.320,00 €</strong>
+          </div>
+          <div class="volume-card">
+            <small data-i18n="vol_lb">LB-Basis gesamt</small>
+            <strong id="volLb">3.580,00 €</strong>
+          </div>
+          <div class="volume-card">
+            <small data-i18n="vol_e1">Ebene 1 gesamt</small>
+            <strong id="volE1">716,00 €</strong>
+          </div>
+          <div class="volume-card">
+            <small data-i18n="vol_e2">Ebene 2 gesamt</small>
+            <strong id="volE2">537,00 €</strong>
+          </div>
+          <div class="volume-card">
+            <small data-i18n="vol_e3">Ebene 3 gesamt</small>
+            <strong id="volE3">358,00 €</strong>
+          </div>
+          <div class="volume-card total">
+            <small data-i18n="vol_commission">3-Ebenen-Vergütung gesamt</small>
+            <strong id="volCommission">1.611,00 €</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="standard">
+        <h2 data-i18n="standard_title">Eine feste Logik für den Marktplatz</h2>
+        <p data-i18n="standard_text">Der Simulator reduziert die Berechnung auf die offizielle 80/20-Aufteilung und die drei Vergütungsebenen.</p>
+        <div class="standard-flow">
+          <div class="standard-step">
+            <b data-i18n="st1">1. Netto-Preis</b>
+            <span data-i18n="st1s">Ausgangspunkt des Angebots</span>
+          </div>
+          <div class="standard-step">
+            <b data-i18n="st2">2. Feste 80/20-Aufteilung</b>
+            <span data-i18n="st2s">80 % Anbieter · 20 % LiquidityBooster</span>
+          </div>
+          <div class="standard-step">
+            <b data-i18n="st3">3. 3-Ebenen-Logic</b>
+            <span data-i18n="st3s">20 % · 15 % · 10 % der LB-Basis</span>
+          </div>
+        </div>
+        <div class="standard-note" data-i18n="standard_note">Hinweis: Alle dargestellten Beträge sind Nettobeträge. Die Vergütungen E1 bis E3 werden aus der 20-%-LiquidityBooster-Basis berechnet.</div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>LiquidityBooster</span>
+    <span data-i18n="footer">3-Ebenen-Simulator · 80/20-Marktplatz-Logik</span>
+  </div>
+</footer>
+
+<script>
+var TEXT={
+de:{
+brand:"3-Ebenen-Simulator",
+eyebrow:"LiquidityBooster · Club Leader",
+title:'3 Ebenen. <span>Eine klare Logik.</span>',
+lead:"Der offizielle Simulator zeigt die feste 80/20-Marktplatz-Aufteilung und die Vergütung auf Ebene 1, Ebene 2 und Ebene 3 – transparent und sofort nachvollziehbar.",
+logic_title:"Die feste Logik",
+logic_1:"Netto-Verkaufspreis",
+logic_2:"Anbieter / LiquidityBooster",
+logic_3:"3-Ebenen-Logic auf LB-Basis",
+input_kicker:"Eingaben",
+input_title:"Dein Angebot",
+input_text:"Gib den Netto-Verkaufspreis ein. Die 80/20-Aufteilung ist fest hinterlegt.",
+price_label:"Netto-Verkaufspreis",
+price_hint:"ohne Umsatzsteuer",
+split_label:"Feste Marktplatz-Aufteilung",
+split_hint:"Anbieter zuerst",
+split_fixed_title:"Anbieter / LiquidityBooster",
+split_fixed_text:"80 % Anbieter · 20 % LiquidityBooster",
+referral_title:"Empfehlungsverkauf",
+referral_text:"aktiviert die 3-Ebenen-Logic",
+e1_toggle:"E1 belegt · 20 %",
+e2_toggle:"E2 belegt · 15 %",
+e3_toggle:"E3 belegt · 10 %",
+copy:"Ergebnis kopieren",
+copied:"Kopiert",
+print:"Drucken / PDF",
+result_kicker:"Ergebnis pro Verkauf",
+result_title:"So funktioniert die 3-Ebenen-Logic",
+provider_gets:"Anbieter erhält",
+provider_sub:"80 % vom Netto-Verkaufspreis",
+lb_basis:"LB-Anteil = 100 % Basis",
+lb_percent:"20 % vom Verkaufspreis",
+e1:"Ebene 1 · 20 %",
+e2:"Ebene 2 · 15 %",
+e3:"Ebene 3 · 10 %",
+of_lb_basis:"von der LB-Basis",
+commission_total:"3 Ebenen gesamt",
+commission_rate:"{rate} % der LB-Basis",
+note_title:"Klare Berechnungsbasis",
+note_text:"Die Vergütungen auf Ebene 1 bis 3 werden ausschließlich aus dem 20-%-LiquidityBooster-Anteil berechnet.",
+visual_distribution:"Visuelle 80/20-Aufteilung",
+legend_provider:"Anbieter · 80 %",
+legend_lb:"LiquidityBooster-Basis · 20 %",
+volume_kicker:"Verkaufs-Simulator",
+volume_title:"Was passiert bei mehreren Verkäufen?",
+volume_text:"Die gleiche 80/20- und 3-Ebenen-Logik hochgerechnet auf die gewünschte Anzahl an Verkäufen.",
+sales:"Verkäufe",
+vol_provider:"Anbieter gesamt",
+vol_lb:"LB-Basis gesamt",
+vol_e1:"Ebene 1 gesamt",
+vol_e2:"Ebene 2 gesamt",
+vol_e3:"Ebene 3 gesamt",
+vol_commission:"3-Ebenen-Vergütung gesamt",
+standard_title:"Eine feste Logik für den Marktplatz",
+standard_text:"Der Simulator reduziert die Berechnung auf die offizielle 80/20-Aufteilung und die drei Vergütungsebenen.",
+st1:"1. Netto-Preis",
+st1s:"Ausgangspunkt des Angebots",
+st2:"2. Feste 80/20-Aufteilung",
+st2s:"80 % Anbieter · 20 % LiquidityBooster",
+st3:"3. 3-Ebenen-Logic",
+st3s:"20 % · 15 % · 10 % der LB-Basis",
+standard_note:"Hinweis: Alle dargestellten Beträge sind Nettobeträge. Die Vergütungen E1 bis E3 werden aus der 20-%-LiquidityBooster-Basis berechnet.",
+footer:"3-Ebenen-Simulator · 80/20-Marktplatz-Logik",
+direct_note:"3-Ebenen-Logic deaktiviert",
+copy_head:"LiquidityBooster 3-Ebenen-Simulator"
+},
+en:{
+brand:"3-Level Simulator",
+eyebrow:"LiquidityBooster · Club Leader",
+title:'3 levels. <span>One clear logic.</span>',
+lead:"The official simulator shows the fixed 80/20 marketplace split and the compensation on level 1, level 2 and level 3 – transparently and immediately understandable.",
+logic_title:"The fixed logic",
+logic_1:"Net sales price",
+logic_2:"Provider / LiquidityBooster",
+logic_3:"3-level logic on the LB base",
+input_kicker:"Inputs",
+input_title:"Your offer",
+input_text:"Enter the net sales price. The 80/20 split is fixed.",
+price_label:"Net sales price",
+price_hint:"excluding VAT",
+split_label:"Fixed marketplace split",
+split_hint:"provider first",
+split_fixed_title:"Provider / LiquidityBooster",
+split_fixed_text:"80% provider · 20% LiquidityBooster",
+referral_title:"Referral sale",
+referral_text:"activates the 3-level logic",
+e1_toggle:"L1 active · 20%",
+e2_toggle:"L2 active · 15%",
+e3_toggle:"L3 active · 10%",
+copy:"Copy result",
+copied:"Copied",
+print:"Print / PDF",
+result_kicker:"Result per sale",
+result_title:"How the 3-level logic works",
+provider_gets:"Provider receives",
+provider_sub:"80% of the net sales price",
+lb_basis:"LB share = 100% base",
+lb_percent:"20% of the sales price",
+e1:"Level 1 · 20%",
+e2:"Level 2 · 15%",
+e3:"Level 3 · 10%",
+of_lb_basis:"of the LB base",
+commission_total:"3 levels total",
+commission_rate:"{rate}% of the LB base",
+note_title:"Clear calculation base",
+note_text:"Compensation on levels 1 to 3 is calculated exclusively from the 20% LiquidityBooster share.",
+visual_distribution:"Visual 80/20 split",
+legend_provider:"Provider · 80%",
+legend_lb:"LiquidityBooster base · 20%",
+volume_kicker:"Sales simulator",
+volume_title:"What happens with multiple sales?",
+volume_text:"The same 80/20 and 3-level logic projected to the desired number of sales.",
+sales:"sales",
+vol_provider:"Provider total",
+vol_lb:"LB base total",
+vol_e1:"Level 1 total",
+vol_e2:"Level 2 total",
+vol_e3:"Level 3 total",
+vol_commission:"3-level compensation total",
+standard_title:"One fixed logic for the marketplace",
+standard_text:"The simulator reduces the calculation to the official 80/20 split and the three compensation levels.",
+st1:"1. Net price",
+st1s:"starting point of the offer",
+st2:"2. Fixed 80/20 split",
+st2s:"80% provider · 20% LiquidityBooster",
+st3:"3. 3-level logic",
+st3s:"20% · 15% · 10% of the LB base",
+standard_note:"Note: All displayed amounts are net amounts. L1 to L3 compensation is calculated from the 20% LiquidityBooster base.",
+footer:"3-Level Simulator · 80/20 Marketplace Logic",
+direct_note:"3-level logic disabled",
+copy_head:"LiquidityBooster 3-Level Simulator"
+}
+};
+
+var state={lang:"de"};
+var rates={e1:.20,e2:.15,e3:.10};
+var PROVIDER_PCT=80;
+var LB_PCT=20;
+
+function eur(v){
+  var lang=state.lang==="en"?"en-IE":"de-DE";
+  return new Intl.NumberFormat(lang,{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(v)||0);
+}
+function num(v){return Math.max(0,Number(v)||0)}
+
+function activeRate(){
+  if(!document.getElementById("referral").checked)return 0;
+  var r=0;
+  if(document.getElementById("e1Active").checked)r+=rates.e1;
+  if(document.getElementById("e2Active").checked)r+=rates.e2;
+  if(document.getElementById("e3Active").checked)r+=rates.e3;
+  return r;
+}
+
+function calc(){
+  var price=num(document.getElementById("price").value);
+  var referral=document.getElementById("referral").checked;
+  var provider=price*PROVIDER_PCT/100;
+  var lb=price*LB_PCT/100;
+  var e1=referral&&document.getElementById("e1Active").checked?lb*rates.e1:0;
+  var e2=referral&&document.getElementById("e2Active").checked?lb*rates.e2:0;
+  var e3=referral&&document.getElementById("e3Active").checked?lb*rates.e3:0;
+  var commissions=e1+e2+e3;
+  var aRate=activeRate();
+
+  document.getElementById("providerValue").textContent=eur(provider);
+  document.getElementById("providerSub").textContent=TEXT[state.lang].provider_sub;
+  document.getElementById("lbValue").textContent=eur(lb);
+  document.getElementById("e1Value").textContent=eur(e1);
+  document.getElementById("e2Value").textContent=eur(e2);
+  document.getElementById("e3Value").textContent=eur(e3);
+  document.getElementById("commissionValue").textContent=eur(commissions);
+  document.getElementById("commissionRate").textContent=TEXT[state.lang].commission_rate.replace("{rate}",Math.round(aRate*100));
+  document.getElementById("splitSummary").textContent=state.lang==="de"?"80 % Anbieter · 20 % LiquidityBooster":"80% provider · 20% LiquidityBooster";
+  document.getElementById("checkTotal").textContent=eur(price);
+
+  var levels=document.getElementById("levels");
+  levels.style.opacity=referral?"1":".42";
+  levels.style.pointerEvents=referral?"auto":"none";
+
+  var count=Math.max(1,parseInt(document.getElementById("salesCount").value||"1",10));
+  document.getElementById("volProvider").textContent=eur(provider*count);
+  document.getElementById("volLb").textContent=eur(lb*count);
+  document.getElementById("volE1").textContent=eur(e1*count);
+  document.getElementById("volE2").textContent=eur(e2*count);
+  document.getElementById("volE3").textContent=eur(e3*count);
+  document.getElementById("volCommission").textContent=eur(commissions*count);
+
+  return {
+    price:price,
+    providerPct:PROVIDER_PCT,
+    lbPct:LB_PCT,
+    provider:provider,
+    lb:lb,
+    e1:e1,
+    e2:e2,
+    e3:e3,
+    commissions:commissions,
+    count:count,
+    referral:referral
+  };
+}
+
+["price","referral","e1Active","e2Active","e3Active","salesCount"].forEach(function(id){
+  document.getElementById(id).addEventListener("input",calc);
+  document.getElementById(id).addEventListener("change",calc);
+});
+
+function setLang(lang){
+  state.lang=lang;
+  var d=TEXT[lang]||TEXT.de;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    var k=el.dataset.i18n;
+    if(d[k]!==undefined)el.textContent=d[k];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+    var k=el.dataset.i18nHtml;
+    if(d[k]!==undefined)el.innerHTML=d[k];
+  });
+  document.querySelectorAll("[data-lang]").forEach(function(b){
+    b.classList.toggle("active",b.dataset.lang===lang);
+  });
+  try{localStorage.setItem("lb-3-level-sim-lang",lang)}catch(e){}
+  calc();
+}
+
+document.querySelectorAll("[data-lang]").forEach(function(btn){
+  btn.addEventListener("click",function(){setLang(btn.dataset.lang)});
+});
+
+document.getElementById("copyBtn").addEventListener("click",async function(){
+  var r=calc(),d=TEXT[state.lang];
+  var lines=[
+    d.copy_head,
+    (state.lang==="de"?"Netto: ":"Net: ")+eur(r.price),
+    (state.lang==="de"?"Aufteilung: ":"Split: ")+"80/20",
+    (state.lang==="de"?"Anbieter: ":"Provider: ")+eur(r.provider),
+    (state.lang==="de"?"LB-Basis: ":"LB base: ")+eur(r.lb),
+    "E1: "+eur(r.e1),
+    "E2: "+eur(r.e2),
+    "E3: "+eur(r.e3),
+    (state.lang==="de"?"3 Ebenen gesamt: ":"3 levels total: ")+eur(r.commissions)
+  ].join("\n");
+  try{
+    await navigator.clipboard.writeText(lines);
+    var span=this.querySelector("span");
+    span.textContent=d.copied;
+    var button=this;
+    setTimeout(function(){button.querySelector("span").textContent=d.copy},1200);
+  }catch(e){}
+});
+
+var initial="de";
+try{initial=localStorage.getItem("lb-3-level-sim-lang")||"de"}catch(e){}
+setLang(initial);
+calc();
+</script>
+</body>
+</html>
