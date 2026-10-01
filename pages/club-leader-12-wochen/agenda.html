@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111923">
+<title>Club Leader · 12-Wochen-Agenda</title>
+<style>
+:root{
+  --navy:#132238;--deep:#0b1119;--slate:#1a2632;--stone:#e8e5de;--stone2:#d7d3ca;
+  --ink:#17202a;--mint:#00a7ad;--magenta:#c6006f;--gold:#c8a45c;--white:#fff;
+  --line:rgba(255,255,255,.13);--muted:#aeb9c4
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#0b1119;color:#fff}
+body{
+  background:
+    radial-gradient(circle at 18% 8%,rgba(0,167,173,.10),transparent 28%),
+    radial-gradient(circle at 87% 22%,rgba(198,0,111,.08),transparent 24%),
+    linear-gradient(180deg,#101923 0%,#0b1119 38%,#111923 100%);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.24;mix-blend-mode:soft-light;
+  background:
+    repeating-linear-gradient(17deg,rgba(255,255,255,.018) 0 1px,transparent 1px 4px),
+    repeating-linear-gradient(103deg,rgba(0,0,0,.025) 0 2px,transparent 2px 7px);
+}
+button{font:inherit}
+.wrap{width:min(1180px,calc(100% - 28px));margin:auto;padding:18px 0 42px}
+.topbar{display:flex;justify-content:flex-end;position:relative;z-index:5;margin-bottom:10px}
+.lang{display:flex;gap:6px;padding:5px;border:1px solid rgba(255,255,255,.12);background:rgba(8,14,21,.72);border-radius:999px;backdrop-filter:blur(10px)}
+.lang button{border:0;background:transparent;color:#aab5c0;border-radius:999px;padding:7px 11px;font-weight:900;cursor:pointer}
+.lang button.active{background:#eef2f2;color:#132238}
+
+.hero{
+  min-height:560px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:32px;
+  display:grid;align-items:center;padding:clamp(34px,6vw,76px);
+  box-shadow:0 34px 90px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08);
+  background:
+    radial-gradient(circle at 80% 25%,rgba(255,255,255,.08),transparent 16%),
+    linear-gradient(145deg,rgba(255,255,255,.05),transparent 28%),
+    linear-gradient(135deg,#263440 0%,#17222d 48%,#0d151e 100%);
+}
+.hero:before{
+  content:"";position:absolute;inset:0;opacity:.55;
+  background:
+    repeating-linear-gradient(175deg,transparent 0 14px,rgba(255,255,255,.012) 14px 15px),
+    radial-gradient(circle at 20% 70%,rgba(0,0,0,.22),transparent 35%);
+}
+.hero:after{
+  content:"12";position:absolute;right:clamp(-10px,2vw,25px);bottom:-78px;
+  font-size:clamp(220px,34vw,430px);font-weight:1000;letter-spacing:-.09em;line-height:1;
+  color:rgba(255,255,255,.025);text-shadow:1px 1px 0 rgba(255,255,255,.025),-1px -1px 0 rgba(0,0,0,.4)
+}
+.hero-inner{position:relative;z-index:2;max-width:860px}
+.eyebrow{display:flex;align-items:center;gap:12px;color:#83dde1;text-transform:uppercase;font-size:12px;font-weight:900;letter-spacing:.22em}
+.eyebrow:before{content:"";width:42px;height:2px;background:var(--mint);box-shadow:0 0 18px rgba(0,167,173,.8)}
+.hero h1{
+  margin:14px 0 10px;font-size:clamp(52px,8vw,104px);letter-spacing:-.055em;line-height:.88;
+  color:#e8e8e3;
+  text-shadow:0 2px 0 #fff,0 -2px 0 #080d12,0 8px 26px rgba(0,0,0,.38);
+}
+.hero h1 span{display:block;color:#f5f5f0}
+.hero .claim{max-width:760px;margin:25px 0 0;font-size:clamp(19px,2.5vw,29px);line-height:1.35;font-weight:700;color:#cfd6dc}
+.hero .claim strong{color:#fff}
+.hero-route{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+.hero-route span{padding:8px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.045);color:#d8e0e5;font-size:11px;font-weight:850}
+.hero-route i{color:#5ed1d5;font-style:normal;align-self:center}
+
+.intro{margin:28px 0 0;display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.slab{
+  position:relative;border-radius:23px;padding:24px;border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 40px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.09);
+  background:linear-gradient(145deg,#26333e,#18232e);
+}
+.slab:before{content:"";position:absolute;inset:7px;border-radius:17px;border:1px solid rgba(255,255,255,.035);pointer-events:none}
+.slab h2,.section-title{margin:0;color:#fff;font-size:clamp(27px,4vw,42px);letter-spacing:-.035em}
+.slab p{margin:10px 0 0;color:#bdc7d0;line-height:1.65}
+.manifest{border-left:5px solid var(--mint)}
+.manifest strong{display:block;font-size:clamp(22px,3vw,33px);line-height:1.28;color:#fff;text-shadow:0 1px 0 #000}
+.seal{
+  display:grid;place-items:center;text-align:center;min-height:100%;
+  background:
+    radial-gradient(circle at center,rgba(200,164,92,.09),transparent 45%),
+    linear-gradient(145deg,#2e3031,#181d20);
+}
+.sealmark{
+  width:116px;height:116px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;
+  border:2px solid rgba(200,164,92,.52);box-shadow:inset 0 0 0 7px rgba(200,164,92,.06),0 10px 30px rgba(0,0,0,.35);
+  color:#d9bd7c;font-size:38px;font-weight:1000;text-shadow:0 1px 0 #000
+}
+.seal b{display:block;color:#eeeae0;font-size:18px}.seal p{font-size:13px;max-width:330px;margin-inline:auto}
+
+.section{margin-top:54px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:20px}
+.section-kicker{color:#6ad0d4;font-size:11px;font-weight:950;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px}
+.section-title{text-shadow:0 2px 0 #06090d}
+.section-head p{max-width:540px;margin:0;color:#9eabb6;line-height:1.6}
+
+.rhythm{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pillar{
+  position:relative;overflow:hidden;min-height:210px;padding:22px;border-radius:20px;
+  border:1px solid rgba(255,255,255,.12);background:linear-gradient(145deg,#2a3742,#18222c);
+  box-shadow:0 15px 34px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.08)
+}
+.pillar:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--mint)}
+.pillar:nth-child(2):after{background:#d0b06c}.pillar:nth-child(3):after{background:var(--magenta)}
+.pillar .day{font-size:12px;font-weight:950;letter-spacing:.15em;text-transform:uppercase;color:#82dce0}
+.pillar:nth-child(2) .day{color:#ddc184}.pillar:nth-child(3) .day{color:#f093c6}
+.pillar h3{margin:14px 0 8px;font-size:24px;color:#fff}
+.pillar p{margin:0;color:#aeb9c4;line-height:1.55}
+
+.road{position:relative;padding:2px 0}
+.road:before{
+  content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);
+  background:linear-gradient(180deg,transparent,var(--mint) 5%,rgba(255,255,255,.28) 50%,var(--magenta) 95%,transparent);
+  box-shadow:0 0 20px rgba(0,167,173,.25)
+}
+.week{
+  position:relative;width:calc(50% - 42px);margin:0 0 24px;padding:24px 24px 22px;border-radius:22px;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,255,255,.88),transparent 25%),
+    repeating-linear-gradient(13deg,rgba(0,0,0,.014) 0 1px,transparent 1px 5px),
+    linear-gradient(145deg,#eeece6,#d5d1c8);
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:0 18px 38px rgba(0,0,0,.31),inset 1px 1px 0 rgba(255,255,255,.85),inset -1px -1px 0 rgba(0,0,0,.08);
+}
+.week:nth-child(odd){margin-right:auto}.week:nth-child(even){margin-left:auto}
+.week:after{content:"";position:absolute;top:29px;width:24px;height:2px;background:#829096}
+.week:nth-child(odd):after{right:-25px}.week:nth-child(even):after{left:-25px}
+.weeknum{
+  position:absolute;top:12px;font-size:82px;line-height:1;font-weight:1000;letter-spacing:-.08em;
+  color:rgba(23,32,42,.08);text-shadow:1px 1px 0 rgba(255,255,255,.55)
+}
+.week:nth-child(odd) .weeknum{right:18px}.week:nth-child(even) .weeknum{right:18px}
+.weeklabel{font-size:10px;font-weight:950;letter-spacing:.18em;text-transform:uppercase;color:#68747d}
+.week h3{position:relative;z-index:1;margin:8px 0 12px;font-size:25px;line-height:1.12;color:#15202a;max-width:82%}
+.week p{margin:0;color:#45515a;line-height:1.55;font-size:14px}
+.challenge{margin-top:15px;padding:12px 13px;border-left:4px solid var(--magenta);background:rgba(198,0,111,.06);border-radius:0 12px 12px 0}
+.challenge b,.result b{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.challenge b{color:#9e075b}.challenge span{font-size:13px;line-height:1.5;color:#3f474e}
+.result{margin-top:10px;padding:11px 13px;border-left:4px solid var(--mint);background:rgba(0,167,173,.07);border-radius:0 12px 12px 0}
+.result b{color:#08797e}.result span{font-size:13px;font-weight:800;color:#25434a}
+
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.challenge-slab{
+  padding:25px;border-radius:22px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(145deg,#27343f,#18232d);
+  box-shadow:0 18px 42px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.08)
+}
+.challenge-slab.guest{border-top:5px solid var(--mint)}.challenge-slab.partner{border-top:5px solid var(--magenta)}
+.challenge-slab .mini{font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:950;color:#95a3ae}
+.challenge-slab h3{margin:8px 0 8px;font-size:30px}.challenge-slab p{margin:0;color:#b7c1ca;line-height:1.6}
+.challenge-slab .rule{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09);font-size:13px;color:#e5e8ea;font-weight:750}
+
+.scoreboard{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.score{
+  text-align:center;padding:24px 15px;border-radius:20px;
+  background:linear-gradient(145deg,#ece9e2,#d5d1c8);color:#17202a;border:1px solid #f4f2ec;
+  box-shadow:0 16px 34px rgba(0,0,0,.28),inset 1px 1px 0 #fff,inset -1px -1px 0 rgba(0,0,0,.08)
+}
+.score b{display:block;font-size:38px;letter-spacing:-.05em;text-shadow:1px 1px 0 #fff}
+.score span{display:block;margin-top:5px;font-size:12px;color:#5c6770;font-weight:800}
+
+.final{
+  position:relative;overflow:hidden;margin-top:56px;padding:clamp(34px,6vw,68px);border-radius:30px;
+  text-align:center;border:1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(circle at 50% 0,rgba(0,167,173,.13),transparent 34%),
+    linear-gradient(145deg,#25333f,#101821);
+  box-shadow:0 30px 70px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.08)
+}
+.final:before{content:"";position:absolute;inset:12px;border:1px solid rgba(255,255,255,.04);border-radius:22px}
+.final .section-kicker{position:relative}
+.final h2{position:relative;margin:6px auto 14px;font-size:clamp(38px,6vw,70px);line-height:.98;letter-spacing:-.045em;max-width:870px}
+.final p{position:relative;max-width:800px;margin:0 auto;color:#b9c4cc;font-size:17px;line-height:1.65}
+.pathline{position:relative;display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin-top:25px}
+.pathline span{font-size:12px;font-weight:900;color:#e7ecef}.pathline i{font-style:normal;color:var(--mint);font-weight:1000}
+.kickoff{position:relative;margin:26px auto 0;display:inline-flex;gap:10px;align-items:center;padding:11px 15px;border:1px solid rgba(200,164,92,.35);border-radius:999px;color:#ead39f;background:rgba(200,164,92,.06);font-weight:900;font-size:12px}
+
+footer{padding:28px 8px 0;text-align:center;color:#65727e;font-size:11px;letter-spacing:.05em}
+
+@media(max-width:900px){
+  .intro,.dual{grid-template-columns:1fr}
+  .rhythm{grid-template-columns:1fr}
+  .road:before{left:24px}
+  .week,.week:nth-child(odd),.week:nth-child(even){width:calc(100% - 54px);margin-left:54px;margin-right:0}
+  .week:after,.week:nth-child(odd):after,.week:nth-child(even):after{left:-31px;right:auto;width:30px}
+  .scoreboard{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .wrap{width:min(100% - 18px,1180px);padding-top:10px}
+  .hero{min-height:500px;border-radius:24px;padding:28px 22px}
+  .hero h1{font-size:54px}
+  .section{margin-top:40px}.section-head{display:block}.section-head p{margin-top:9px}
+  .week{padding:20px}.week h3{font-size:22px}.weeknum{font-size:66px}
+  .final{padding:34px 22px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="lang">
+      <button id="deBtn" class="active">DE</button>
+      <button id="enBtn">EN</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow" data-i18n="eyebrow">CLUB LEADER · AUFBAUPROGRAMM</div>
+      <h1><span data-i18n="heroTop">12 WOCHEN.</span><span data-i18n="heroBottom">EIN WEG.</span></h1>
+      <p class="claim" data-i18n="claim">Nicht zwölf Wochen Theorie. <strong>Zwölf Wochen Umsetzung.</strong> Vom persönlichen Ziel bis zu einer Arbeitsroutine, die du selbstständig weiterführen kannst.</p>
+      <div class="hero-route">
+        <span data-i18n="r1">Ziel setzen</span><i>→</i>
+        <span data-i18n="r2">Menschen erreichen</span><i>→</i>
+        <span data-i18n="r3">Einladen</span><i>→</i>
+        <span data-i18n="r4">Begleiten</span><i>→</i>
+        <span data-i18n="r5">Club Partner entwickeln</span><i>→</i>
+        <span data-i18n="r6">selbstständig weitermachen</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="intro">
+    <div class="slab manifest">
+      <div class="section-kicker" data-i18n="manifestKicker">DAS FUNDAMENT</div>
+      <strong data-i18n="manifestStrong">Wissen allein verändert nichts. Umsetzung schon.</strong>
+      <p data-i18n="manifestText">Jede Woche baut auf der vorherigen auf. Jeder Workshop endet mit einer konkreten Aufgabe. Jede Aktivität macht Entwicklung sichtbar. Ziel ist nicht, von Workshops abhängig zu sein – sondern nach zwölf Wochen den eigenen Club-Leader-Rhythmus zu beherrschen.</p>
+    </div>
+    <div class="slab seal">
+      <div>
+        <div class="sealmark">12</div>
+        <b data-i18n="closed">Geschlossene Quartalsgruppe</b>
+        <p data-i18n="closedText">Ein gemeinsamer Start. Ein gemeinsamer Rhythmus. Zwölf aufeinander aufbauende Wochen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker" data-i18n="rhythmKicker">DER TAKT</div>
+        <h2 class="section-title" data-i18n="rhythmTitle">Drei feste Anker. Jede Woche.</h2>
+      </div>
+      <p data-i18n="rhythmLead">Der Wochenrhythmus läuft vom ersten Tag an und bildet das Fundament des gesamten Aufbauprogramms.</p>
+    </div>
+    <div class="rhythm">
+      <article class="pillar">
+        <div class="day" data-i18n="monday">Montag</div>
+        <h3 data-i18n="presentation">LiquidityBooster-Präsentation</h3>
+        <p data-i18n="presentationText">Gesamtbild erleben, Gäste mitbringen und Sicherheit in der Präsentation gewinnen.</p>
+      </article>
+      <article class="pillar">
+        <div class="day" data-i18n="wednesday">Mittwoch</div>
+        <h3 data-i18n="roundtable">LiquidityBooster-Stammtisch</h3>
+        <p data-i18n="roundtableText">Community, Austausch, Fragen, Erfahrungen und persönliche Vernetzung.</p>
+      </article>
+      <article class="pillar">
+        <div class="day" data-i18n="friday">Freitag · 18:00 Uhr</div>
+        <h3 data-i18n="power">Power-Workshop</h3>
+        <p data-i18n="powerText">Rückblick, nächster Baustein, klare Wochen-Challenge und messbarer nächster Schritt.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker" data-i18n="roadKicker">DIE AGENDA</div>
+        <h2 class="section-title" data-i18n="roadTitle">12 Wochen. 12 Meilensteine.</h2>
+      </div>
+      <p data-i18n="roadLead">Von der eigenen Positionierung bis zum persönlichen 90-Tage-Plan. Keine Woche steht für sich – der Weg baut Schritt für Schritt aufeinander auf.</p>
+    </div>
+    <div class="road" id="weeks"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker" data-i18n="challengeKicker">PARALLEL ÜBER 12 WOCHEN</div>
+        <h2 class="section-title" data-i18n="challengeTitle">Zwei Challenges. Zwei Blickwinkel.</h2>
+      </div>
+      <p data-i18n="challengeLead">Aktivität und Ergebnis werden getrennt sichtbar. Entscheidend ist nicht nur, wie viele Menschen erreicht werden, sondern auch, was daraus entsteht.</p>
+    </div>
+    <div class="dual">
+      <article class="challenge-slab guest">
+        <div class="mini" data-i18n="activity">Aktivität</div>
+        <h3 data-i18n="guestTitle">Gastzugang-Challenge</h3>
+        <p data-i18n="guestText">Jeder tatsächlich aktivierte Gastzugang wird sichtbar. Alle aktuellen Platzierungen bleiben sichtbar.</p>
+        <div class="rule" data-i18n="guestRule">Ab 5 aktivierten Gastzugängen ist die Challenge-Qualifikation erreicht.</div>
+      </article>
+      <article class="challenge-slab partner">
+        <div class="mini" data-i18n="result">Ergebnis</div>
+        <h3 data-i18n="partnerTitle">Club-Partner-Challenge</h3>
+        <p data-i18n="partnerText">Gewertet werden neue Club Partner, die aus den eigenen Gastzugängen entstanden sind.</p>
+        <div class="rule" data-i18n="partnerRule">Die Umwandlungsquote bleibt sichtbar und zeigt, wie wirksam die Begleitung funktioniert.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="section-kicker" data-i18n="kickoffKicker">DER GEMEINSAME ABSCHLUSS</div>
+        <h2 class="section-title" data-i18n="kickoffTitle">Qualifikation für das Kickoff</h2>
+      </div>
+      <p data-i18n="kickoffLead">Die Teilnahme am Aufbauprogramm wird über einen einfachen, transparenten Rhythmus sichtbar gemacht.</p>
+    </div>
+    <div class="scoreboard">
+      <div class="score"><b>12 / 12</b><span data-i18n="q1">Workshop-Anmeldungen</span></div>
+      <div class="score"><b>6</b><span data-i18n="q2">besuchte Präsentationen</span></div>
+      <div class="score"><b>6</b><span data-i18n="q3">besuchte Stammtische</span></div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="section-kicker" data-i18n="finalKicker">NACH 12 WOCHEN</div>
+    <h2 data-i18n="finalTitle">Nicht fertig. Sondern startklar.</h2>
+    <p data-i18n="finalText">Das Ziel ist eine eigene, funktionierende Club-Leader-Routine: Menschen erreichen, Gastzugänge begleiten, Gespräche führen, Club Partner entwickeln, Kontakte organisieren und den eigenen Weg selbstständig fortsetzen.</p>
+    <div class="pathline">
+      <span data-i18n="f1">Ziel</span><i>→</i><span data-i18n="f2">Aktivität</span><i>→</i><span data-i18n="f3">Begleitung</span><i>→</i><span data-i18n="f4">Ergebnis</span><i>→</i><span data-i18n="f5">eigener Rhythmus</span>
+    </div>
+    <div class="kickoff" data-i18n="kickoffBadge">12 Wochen · ein gemeinsamer Weg · Kickoff Januar 2027</div>
+  </section>
+
+  <footer data-i18n="footer">Club Leader · 12-Wochen-Aufbauprogramm · LiquidityBooster</footer>
+</div>
+
+<script>
+const T={
+de:{
+eyebrow:"CLUB LEADER · AUFBAUPROGRAMM",heroTop:"12 WOCHEN.",heroBottom:"EIN WEG.",
+claim:'Nicht zwölf Wochen Theorie. <strong>Zwölf Wochen Umsetzung.</strong> Vom persönlichen Ziel bis zu einer Arbeitsroutine, die du selbstständig weiterführen kannst.',
+r1:"Ziel setzen",r2:"Menschen erreichen",r3:"Einladen",r4:"Begleiten",r5:"Club Partner entwickeln",r6:"selbstständig weitermachen",
+manifestKicker:"DAS FUNDAMENT",manifestStrong:"Wissen allein verändert nichts. Umsetzung schon.",manifestText:"Jede Woche baut auf der vorherigen auf. Jeder Workshop endet mit einer konkreten Aufgabe. Jede Aktivität macht Entwicklung sichtbar. Ziel ist nicht, von Workshops abhängig zu sein – sondern nach zwölf Wochen den eigenen Club-Leader-Rhythmus zu beherrschen.",
+closed:"Geschlossene Quartalsgruppe",closedText:"Ein gemeinsamer Start. Ein gemeinsamer Rhythmus. Zwölf aufeinander aufbauende Wochen.",
+rhythmKicker:"DER TAKT",rhythmTitle:"Drei feste Anker. Jede Woche.",rhythmLead:"Der Wochenrhythmus läuft vom ersten Tag an und bildet das Fundament des gesamten Aufbauprogramms.",
+monday:"Montag",presentation:"LiquidityBooster-Präsentation",presentationText:"Gesamtbild erleben, Gäste mitbringen und Sicherheit in der Präsentation gewinnen.",
+wednesday:"Mittwoch",roundtable:"LiquidityBooster-Stammtisch",roundtableText:"Community, Austausch, Fragen, Erfahrungen und persönliche Vernetzung.",
+friday:"Freitag · 18:00 Uhr",power:"Power-Workshop",powerText:"Rückblick, nächster Baustein, klare Wochen-Challenge und messbarer nächster Schritt.",
+roadKicker:"DIE AGENDA",roadTitle:"12 Wochen. 12 Meilensteine.",roadLead:"Von der eigenen Positionierung bis zum persönlichen 90-Tage-Plan. Keine Woche steht für sich – der Weg baut Schritt für Schritt aufeinander auf.",
+challengeKicker:"PARALLEL ÜBER 12 WOCHEN",challengeTitle:"Zwei Challenges. Zwei Blickwinkel.",challengeLead:"Aktivität und Ergebnis werden getrennt sichtbar. Entscheidend ist nicht nur, wie viele Menschen erreicht werden, sondern auch, was daraus entsteht.",
+activity:"Aktivität",result:"Ergebnis",guestTitle:"Gastzugang-Challenge",guestText:"Jeder tatsächlich aktivierte Gastzugang wird sichtbar. Alle aktuellen Platzierungen bleiben sichtbar.",guestRule:"Ab 5 aktivierten Gastzugängen ist die Challenge-Qualifikation erreicht.",
+partnerTitle:"Club-Partner-Challenge",partnerText:"Gewertet werden neue Club Partner, die aus den eigenen Gastzugängen entstanden sind.",partnerRule:"Die Umwandlungsquote bleibt sichtbar und zeigt, wie wirksam die Begleitung funktioniert.",
+kickoffKicker:"DER GEMEINSAME ABSCHLUSS",kickoffTitle:"Qualifikation für das Kickoff",kickoffLead:"Die Teilnahme am Aufbauprogramm wird über einen einfachen, transparenten Rhythmus sichtbar gemacht.",
+q1:"Workshop-Anmeldungen",q2:"besuchte Präsentationen",q3:"besuchte Stammtische",
+finalKicker:"NACH 12 WOCHEN",finalTitle:"Nicht fertig. Sondern startklar.",finalText:"Das Ziel ist eine eigene, funktionierende Club-Leader-Routine: Menschen erreichen, Gastzugänge begleiten, Gespräche führen, Club Partner entwickeln, Kontakte organisieren und den eigenen Weg selbstständig fortsetzen.",
+f1:"Ziel",f2:"Aktivität",f3:"Begleitung",f4:"Ergebnis",f5:"eigener Rhythmus",kickoffBadge:"12 Wochen · ein gemeinsamer Weg · Kickoff Januar 2027",footer:"Club Leader · 12-Wochen-Aufbauprogramm · LiquidityBooster"
+},
+en:{
+eyebrow:"CLUB LEADER · DEVELOPMENT PROGRAM",heroTop:"12 WEEKS.",heroBottom:"ONE PATH.",
+claim:'Not twelve weeks of theory. <strong>Twelve weeks of action.</strong> From a personal target to a working routine you can continue independently.',
+r1:"Set a target",r2:"Reach people",r3:"Invite",r4:"Support",r5:"Develop Club Partners",r6:"continue independently",
+manifestKicker:"THE FOUNDATION",manifestStrong:"Knowledge alone changes nothing. Action does.",manifestText:"Each week builds on the previous one. Every workshop ends with a concrete task. Every activity makes development visible. The goal is not to depend on workshops, but to master your own Club Leader rhythm after twelve weeks.",
+closed:"Closed quarterly group",closedText:"One shared start. One shared rhythm. Twelve consecutive weeks that build on each other.",
+rhythmKicker:"THE RHYTHM",rhythmTitle:"Three fixed anchors. Every week.",rhythmLead:"The weekly rhythm starts on day one and forms the foundation of the entire development program.",
+monday:"Monday",presentation:"LiquidityBooster presentation",presentationText:"Experience the overall picture, bring guests and gain confidence in the presentation.",
+wednesday:"Wednesday",roundtable:"LiquidityBooster round table",roundtableText:"Community, exchange, questions, experiences and personal networking.",
+friday:"Friday · 6:00 pm",power:"Power Workshop",powerText:"Review, next building block, clear weekly challenge and a measurable next step.",
+roadKicker:"THE AGENDA",roadTitle:"12 weeks. 12 milestones.",roadLead:"From personal positioning to a personal 90-day plan. No week stands alone – the path builds step by step.",
+challengeKicker:"RUNNING ACROSS ALL 12 WEEKS",challengeTitle:"Two challenges. Two perspectives.",challengeLead:"Activity and result are shown separately. What matters is not only how many people are reached, but also what develops from that activity.",
+activity:"Activity",result:"Result",guestTitle:"Guest Access Challenge",guestText:"Every genuinely activated guest access is visible. All current positions remain visible.",guestRule:"Challenge qualification is reached from 5 activated guest accesses.",
+partnerTitle:"Club Partner Challenge",partnerText:"New Club Partners resulting from the Club Leader's own guest accesses count.",partnerRule:"The conversion rate remains visible and shows how effectively the support process works.",
+kickoffKicker:"THE SHARED FINISH",kickoffTitle:"Qualification for the kickoff",kickoffLead:"Participation in the development program is made visible through a simple and transparent rhythm.",
+q1:"workshop registrations",q2:"presentations attended",q3:"round tables attended",
+finalKicker:"AFTER 12 WEEKS",finalTitle:"Not finished. Ready to move.",finalText:"The goal is a personal, functioning Club Leader routine: reach people, support guest accesses, hold conversations, develop Club Partners, organise contacts and continue independently.",
+f1:"Target",f2:"Activity",f3:"Support",f4:"Result",f5:"own rhythm",kickoffBadge:"12 weeks · one shared path · Kickoff January 2027",footer:"Club Leader · 12-week development program · LiquidityBooster"
+}
+};
+
+const weeks={
+de:[
+["Mein Start & mein 12-Wochen-Ziel","Profil, Sichtbarkeit, Club-Struktur und persönlicher Start. Du legst dein eigenes Ziel für neue Club Partner fest. Orientierung: 24 Club Partner entsprechen durchschnittlich 2 pro Woche.","Persönliches 12-Wochen-Ziel festlegen, Profil an 3 Menschen geben, Feedback einholen und erste Gastzugänge aussprechen.","Profil steht · Ziel steht · 3 Feedbacks · erste Gastzugänge"],
+["Menschen richtig einladen","Wen spreche ich an? Wie lade ich persönlich, klar und ohne Druck ein?","5 persönliche Einladungen aussprechen.","5 echte Einladungen"],
+["Mein eigenes Angebot","Eigene Fähigkeiten, Nutzen, Zielgruppe und ein passendes Angebot für den Club-Marktplatz herausarbeiten.","Angebotsentwurf erstellen und 3 Menschen zeigen.","Angebotsentwurf · 3 Rückmeldungen"],
+["KMS · Kontakte im Griff","Kontakte strukturiert führen, Status pflegen, nächste Schritte festlegen und Nachfassen organisieren.","10 reale Kontakte im eigenen KMS sauber pflegen.","10 gepflegte Kontakte"],
+["Gastzugänge richtig begleiten","Nach der Aktivierung Orientierung geben, Kontakt halten und den Gast durch die ersten Schritte begleiten.","Mindestens 3 aktivierte Gäste persönlich begleiten.","3 aktive Begleitungen"],
+["Das persönliche Zweiergespräch","Gesprächsführung, Bedarf erkennen und LiquidityBooster verständlich und ohne Verkaufsdruck erklären.","Mindestens 2 echte Zweiergespräche führen.","2 persönliche Gespräche"],
+["Die drei Tore","Wissen, Perspektiven sowie Talent & Business erkennen und passend zuordnen.","Bei 3 Gesprächen bewusst herausarbeiten, welches Tor passt.","3 klare Zuordnungen"],
+["Beziehungen pflegen & nachfassen","Offene Fragen klären, Verbindung halten und Entscheidungen ermöglichen, ohne Druck aufzubauen.","5 bestehende Kontakte gezielt nachfassen.","5 Nachfasskontakte"],
+["Vom Gast zum Club Partner","Verstehen, was ein Gast für eine klare Entscheidung braucht und wie die Begleitung bis zur Mitgliedschaft aussieht.","Mindestens 3 Gäste aktiv bis zu einer klaren Entscheidung begleiten.","3 abgeschlossene Entscheidungsprozesse"],
+["Empfehlungen & neues Netzwerk","Bestehende Beziehungen nutzen, um neue passende Kontakte über persönliche Empfehlungen kennenzulernen.","3 Menschen aktiv um eine persönliche Empfehlung bitten.","3 Empfehlungsanfragen"],
+["Mein Club-Leader-Rhythmus","Montag, Mittwoch, Freitag sowie eigene Gespräche, Kontakte, Angebot und Nachbereitung zu einer wiederholbaren Woche verbinden.","Eine komplette Woche nach dem eigenen Club-Leader-Plan durchführen.","Eigener funktionierender Wochenrhythmus"],
+["Auswertung & mein 90-Tage-Plan","Zahlen, Erfahrungen und Lernpunkte auswerten und daraus die nächsten drei Monate planen.","Persönlichen 90-Tage-Plan mit konkreten Aktivitäten und Zielen erstellen.","Klarer persönlicher Folgeplan"]
+],
+en:[
+["My start & my 12-week target","Set up profile, visibility, Club structure and your personal starting point. Set your own target for new Club Partners. Orientation: 24 Club Partners equals an average of 2 per week.","Set your personal 12-week target, show your profile to 3 people, collect feedback and issue the first guest accesses.","Profile ready · target set · 3 feedbacks · first guest accesses"],
+["Invite people properly","Who do I approach? How do I invite personally, clearly and without pressure?","Make 5 personal invitations.","5 genuine invitations"],
+["My own offer","Define your skills, value, target group and a suitable offer for the Club marketplace.","Create an offer draft and show it to 3 people.","Offer draft · 3 feedbacks"],
+["KMS · contacts under control","Organise contacts, maintain status, define next steps and structure follow-up.","Maintain 10 real contacts cleanly in your own KMS.","10 maintained contacts"],
+["Support guest accesses properly","After activation, provide orientation, stay connected and guide guests through the first steps.","Personally support at least 3 activated guests.","3 active guest journeys"],
+["The personal one-to-one conversation","Conversation structure, recognising needs and explaining LiquidityBooster clearly without sales pressure.","Hold at least 2 real one-to-one conversations.","2 personal conversations"],
+["The three doors","Recognise Knowledge, Perspectives, and Talent & Business and assign the right path.","Identify the appropriate door in 3 conversations.","3 clear assignments"],
+["Maintain relationships & follow up","Clarify open questions, stay connected and enable decisions without pressure.","Follow up with 5 existing contacts.","5 follow-up contacts"],
+["From guest to Club Partner","Understand what a guest needs for a clear decision and how support continues through membership.","Guide at least 3 guests to a clear decision.","3 completed decision processes"],
+["Referrals & new network","Use existing relationships to meet suitable new contacts through personal referrals.","Ask 3 people for a personal referral.","3 referral requests"],
+["My Club Leader rhythm","Combine Monday, Wednesday, Friday, personal conversations, contacts, offer and follow-up into a repeatable week.","Run one complete week according to your own Club Leader plan.","A functioning personal weekly rhythm"],
+["Review & my 90-day plan","Review numbers, experiences and lessons and plan the next three months.","Create a personal 90-day plan with concrete activities and targets.","Clear personal follow-up plan"]
+]};
+
+let lang=localStorage.getItem("lb12_agenda_lang")==="en"?"en":"de";
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+
+function renderWeeks(){
+  document.getElementById("weeks").innerHTML=weeks[lang].map((w,i)=>`
+    <article class="week">
+      <div class="weeknum">${String(i+1).padStart(2,"0")}</div>
+      <div class="weeklabel">${lang==="de"?"Woche":"Week"} ${i+1}</div>
+      <h3>${esc(w[0])}</h3>
+      <p>${esc(w[1])}</p>
+      <div class="challenge"><b>${lang==="de"?"Wochen-Challenge":"Weekly challenge"}</b><span>${esc(w[2])}</span></div>
+      <div class="result"><b>${lang==="de"?"Messbares Ergebnis":"Measurable result"}</b><span>${esc(w[3])}</span></div>
+    </article>
+  `).join("");
+}
+
+function applyLang(next){
+  lang=next;document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const value=T[lang][el.dataset.i18n];
+    if(value!==undefined)el.innerHTML=value;
+  });
+  document.getElementById("deBtn").classList.toggle("active",lang==="de");
+  document.getElementById("enBtn").classList.toggle("active",lang==="en");
+  localStorage.setItem("lb12_agenda_lang",lang);
+  renderWeeks();
+}
+document.getElementById("deBtn").onclick=()=>applyLang("de");
+document.getElementById("enBtn").onclick=()=>applyLang("en");
+applyLang(lang);
+</script>
+</body>
+</html>
