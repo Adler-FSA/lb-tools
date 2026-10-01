@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": null,
+  "updatedAt": "2026-10-01T11:13:00.000Z",
   "program": {
     "currentCycle": "2026-Q4",
     "cycles": [
@@ -33,5 +33,159 @@
       }
     }
   },
-  "leaders": []
+  "leaders": [
+    {
+      "id": "cl-2026q4-001",
+      "firstName": "Heinz",
+      "lastName": "Klötzner",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-002",
+      "firstName": "Oliver",
+      "lastName": "Brenner",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-003",
+      "firstName": "Peter",
+      "lastName": "Bösing",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-004",
+      "firstName": "Dietlind",
+      "lastName": "Melzer",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-005",
+      "firstName": "Heidrun",
+      "lastName": "Pfennig",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-006",
+      "firstName": "Bernd",
+      "lastName": "Scheuerer",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-007",
+      "firstName": "Jürgen",
+      "lastName": "Lück",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-008",
+      "firstName": "Oliver",
+      "lastName": "Beyer",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-009",
+      "firstName": "Ralf",
+      "lastName": "Wartmann",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-010",
+      "firstName": "Roland",
+      "lastName": "von Ledebur",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-011",
+      "firstName": "Susanne",
+      "lastName": "Bittner",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-012",
+      "firstName": "Sandra",
+      "lastName": "Leibner",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-013",
+      "firstName": "Andrea",
+      "lastName": "Berndt",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-014",
+      "firstName": "Daniela",
+      "lastName": "Karl",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-015",
+      "firstName": "Michael (Mike)",
+      "lastName": "Rau",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-016",
+      "firstName": "Susanne",
+      "lastName": "Scherzinger",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    },
+    {
+      "id": "cl-2026q4-017",
+      "firstName": "Michaela",
+      "lastName": "Lang",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "reports": []
+    }
+  ]
 }
