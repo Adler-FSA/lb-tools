@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-10-01T11:42:51.351Z",
   "program": {
     "currentCycle": "2026-Q4",
@@ -41,7 +41,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-002",
@@ -50,7 +57,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-003",
@@ -72,7 +86,14 @@
           "updatedAt": "2026-10-01T11:42:51.350Z",
           "createdAt": "2026-10-01T11:42:51.350Z"
         }
-      ]
+      ],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-004",
@@ -81,7 +102,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-005",
@@ -90,7 +118,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-006",
@@ -99,7 +134,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-007",
@@ -108,7 +150,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-008",
@@ -117,7 +166,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-009",
@@ -126,7 +182,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-010",
@@ -135,7 +198,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-011",
@@ -144,7 +214,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-012",
@@ -153,7 +230,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-013",
@@ -175,7 +259,14 @@
           "updatedAt": "2026-10-01T11:26:46.044Z",
           "createdAt": "2026-10-01T11:26:34.499Z"
         }
-      ]
+      ],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-014",
@@ -197,7 +288,14 @@
           "updatedAt": "2026-10-01T11:25:12.815Z",
           "createdAt": "2026-10-01T11:25:12.815Z"
         }
-      ]
+      ],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-015",
@@ -206,7 +304,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-016",
@@ -215,7 +320,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     },
     {
       "id": "cl-2026q4-017",
@@ -224,7 +336,14 @@
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
       "updatedAt": "2026-10-01T11:13:00.000Z",
-      "reports": []
+      "reports": [],
+      "goals": {
+        "guestActivated": null,
+        "newPartners": null,
+        "twoPersonTalks": null,
+        "development": "",
+        "outcome": ""
+      }
     }
   ]
 }
