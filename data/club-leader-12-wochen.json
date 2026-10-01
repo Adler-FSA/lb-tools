@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "updatedAt": null,
+  "program": {
+    "currentCycle": "2026-Q4",
+    "cycles": [
+      {
+        "id": "2026-Q4",
+        "nameDE": "Quartal 4 / 2026",
+        "nameEN": "Q4 / 2026",
+        "startDate": "",
+        "endDate": "",
+        "kickoffDE": "Kickoff Januar 2027",
+        "kickoffEN": "Kickoff January 2027"
+      }
+    ],
+    "qualification": {
+      "workshopRegistrations": 12,
+      "presentations": 6,
+      "stammtische": 6,
+      "guestChallengeMinimum": 5
+    },
+    "prizes": {
+      "guestChallenge": {
+        "first": null,
+        "second": null,
+        "third": null
+      },
+      "partnerChallenge": {
+        "first": null,
+        "second": null,
+        "third": null
+      }
+    }
+  },
+  "leaders": []
+}
