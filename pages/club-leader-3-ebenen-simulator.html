@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="LiquidityBooster 3-Ebenen-Simulator für Club Leader – feste 80/20-Marktplatz-Logik mit Ebene 1, Ebene 2 und Ebene 3 transparent berechnen.">
-  <title>LiquidityBooster · 3-Ebenen-Simulator</title>
+  <meta name="description" content="LiquidityBooster Marktplatz-Angebot-Simulator für Club Leader – eigenen Netto-Verkaufspreis eingeben, Anbieteranteil sehen und die Verteilung transparent nachvollziehen.">
+  <title>LiquidityBooster · Marktplatz-Angebot-Simulator</title>
   <style>
     :root{
       --navy:#132238;
@@ -256,7 +256,7 @@
           <circle cx="17" cy="8.5" r="1.4" fill="#c6006f"/>
         </svg>
       </div>
-      <span data-i18n="brand">3-Ebenen-Simulator</span>
+      <span data-i18n="brand">Marktplatz-Angebot-Simulator</span>
     </div>
     <div class="lang" aria-label="Sprache">
       <button class="active" type="button" data-lang="de">DE</button>
@@ -269,16 +269,17 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow" data-i18n="eyebrow">LiquidityBooster · Club Leader</div>
-        <h1 data-i18n-html="title">3 Ebenen. <span>Eine klare Logik.</span></h1>
-        <p class="lead" data-i18n="lead">Der offizielle Simulator zeigt die feste 80/20-Marktplatz-Aufteilung und die Vergütung auf Ebene 1, Ebene 2 und Ebene 3 – transparent und sofort nachvollziehbar.</p>
+        <div class="eyebrow" data-i18n="eyebrow">LiquidityBooster · Club-Marktplatz</div>
+        <h1 data-i18n-html="title">Dein Angebot. <span>Dein Umsatz.</span></h1>
+        <p class="lead" data-i18n="lead">Stelle Deinen eigenen Netto-Verkaufspreis ein und sieh sofort, was Du mit jedem Verkauf erhältst. Der Simulator zeigt Dir transparent, wie Dein Angebot im LiquidityBooster-Marktplatz funktioniert und wie die Vergütung über die drei Ebenen verteilt wird.</p>
       </div>
       <aside class="logic-card">
-        <h3 data-i18n="logic_title">Die feste Logik</h3>
+        <h3 data-i18n="logic_title">So funktioniert Dein Angebot</h3>
         <div class="formula">
-          <div class="formula-row"><strong data-i18n="logic_1">Netto-Verkaufspreis</strong><span>100 %</span></div>
-          <div class="formula-row"><strong data-i18n="logic_2">Anbieter / LiquidityBooster</strong><span>80 / 20</span></div>
-          <div class="formula-row"><strong data-i18n="logic_3">3-Ebenen-Logic auf LB-Basis</strong><span>20 % · 15 % · 10 %</span></div>
+          <div class="formula-row"><strong data-i18n="logic_1">Dein Netto-Verkaufspreis</strong><span data-i18n="logic_1_value">Du bestimmst den Preis.</span></div>
+          <div class="formula-row"><strong data-i18n="logic_2">Dein Anbieteranteil</strong><span data-i18n="logic_2_value">80 % für Dich</span></div>
+          <div class="formula-row"><strong data-i18n="logic_3">LiquidityBooster-Anteil</strong><span data-i18n="logic_3_value">20 % Vergütungsbasis</span></div>
+          <div class="formula-row"><strong data-i18n="logic_4">3-Ebenen-Vergütung</strong><span>20 % · 15 % · 10 %</span></div>
         </div>
       </aside>
     </div>
@@ -491,21 +492,25 @@
 <footer>
   <div class="wrap footer-inner">
     <span>LiquidityBooster</span>
-    <span data-i18n="footer">3-Ebenen-Simulator · 80/20-Marktplatz-Logik</span>
+    <span data-i18n="footer">Marktplatz-Angebot-Simulator · Club-Marktplatz</span>
   </div>
 </footer>
 
 <script>
 var TEXT={
 de:{
-brand:"3-Ebenen-Simulator",
-eyebrow:"LiquidityBooster · Club Leader",
-title:'3 Ebenen. <span>Eine klare Logik.</span>',
-lead:"Der offizielle Simulator zeigt die feste 80/20-Marktplatz-Aufteilung und die Vergütung auf Ebene 1, Ebene 2 und Ebene 3 – transparent und sofort nachvollziehbar.",
-logic_title:"Die feste Logik",
-logic_1:"Netto-Verkaufspreis",
-logic_2:"Anbieter / LiquidityBooster",
-logic_3:"3-Ebenen-Logic auf LB-Basis",
+brand:"Marktplatz-Angebot-Simulator",
+eyebrow:"LiquidityBooster · Club-Marktplatz",
+title:'Dein Angebot. <span>Dein Umsatz.</span>',
+lead:"Stelle Deinen eigenen Netto-Verkaufspreis ein und sieh sofort, was Du mit jedem Verkauf erhältst. Der Simulator zeigt Dir transparent, wie Dein Angebot im LiquidityBooster-Marktplatz funktioniert und wie die Vergütung über die drei Ebenen verteilt wird.",
+logic_title:"So funktioniert Dein Angebot",
+logic_1:"Dein Netto-Verkaufspreis",
+logic_1_value:"Du bestimmst den Preis.",
+logic_2:"Dein Anbieteranteil",
+logic_2_value:"80 % für Dich",
+logic_3:"LiquidityBooster-Anteil",
+logic_3_value:"20 % Vergütungsbasis",
+logic_4:"3-Ebenen-Vergütung",
 input_kicker:"Eingaben",
 input_title:"Dein Angebot",
 input_text:"Gib den Netto-Verkaufspreis ein. Die 80/20-Aufteilung ist fest hinterlegt.",
@@ -559,19 +564,23 @@ st2s:"80 % Anbieter · 20 % LiquidityBooster",
 st3:"3. 3-Ebenen-Logic",
 st3s:"20 % · 15 % · 10 % der LB-Basis",
 standard_note:"Hinweis: Alle dargestellten Beträge sind Nettobeträge. Die Vergütungen E1 bis E3 werden aus der 20-%-LiquidityBooster-Basis berechnet.",
-footer:"3-Ebenen-Simulator · 80/20-Marktplatz-Logik",
+footer:"Marktplatz-Angebot-Simulator · Club-Marktplatz",
 direct_note:"3-Ebenen-Logic deaktiviert",
-copy_head:"LiquidityBooster 3-Ebenen-Simulator"
+copy_head:"LiquidityBooster Marktplatz-Angebot-Simulator"
 },
 en:{
-brand:"3-Level Simulator",
-eyebrow:"LiquidityBooster · Club Leader",
-title:'3 levels. <span>One clear logic.</span>',
-lead:"The official simulator shows the fixed 80/20 marketplace split and the compensation on level 1, level 2 and level 3 – transparently and immediately understandable.",
-logic_title:"The fixed logic",
-logic_1:"Net sales price",
-logic_2:"Provider / LiquidityBooster",
-logic_3:"3-level logic on the LB base",
+brand:"Marketplace Offer Simulator",
+eyebrow:"LiquidityBooster · Club Marketplace",
+title:'Your offer. <span>Your revenue.</span>',
+lead:"Set your own net sales price and immediately see what you receive with each sale. The simulator transparently shows how your offer works in the LiquidityBooster marketplace and how compensation is distributed across the three levels.",
+logic_title:"How your offer works",
+logic_1:"Your net sales price",
+logic_1_value:"You set the price.",
+logic_2:"Your provider share",
+logic_2_value:"80% for you",
+logic_3:"LiquidityBooster share",
+logic_3_value:"20% compensation base",
+logic_4:"3-level compensation",
 input_kicker:"Inputs",
 input_title:"Your offer",
 input_text:"Enter the net sales price. The 80/20 split is fixed.",
@@ -625,9 +634,9 @@ st2s:"80% provider · 20% LiquidityBooster",
 st3:"3. 3-level logic",
 st3s:"20% · 15% · 10% of the LB base",
 standard_note:"Note: All displayed amounts are net amounts. L1 to L3 compensation is calculated from the 20% LiquidityBooster base.",
-footer:"3-Level Simulator · 80/20 Marketplace Logic",
+footer:"Marketplace Offer Simulator · Club Marketplace",
 direct_note:"3-level logic disabled",
-copy_head:"LiquidityBooster 3-Level Simulator"
+copy_head:"LiquidityBooster Marketplace Offer Simulator"
 }
 };
 
