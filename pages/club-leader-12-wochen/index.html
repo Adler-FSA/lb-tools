@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Club Leader · 12 Wochen · Leistungsbarometer</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--magenta:#c6006f;--text:#243142;--muted:#667085;--line:#dfe5ea;--soft:#f6f8fa;--ok:#067647;--gold:#a66d05}
+*{box-sizing:border-box}html,body{margin:0;background:#f7fafb;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}body{padding:18px}
+.wrap{max-width:1180px;margin:auto}.top{display:flex;justify-content:flex-end;margin-bottom:10px}.lang{display:flex;gap:6px}.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 12px;font-weight:800;cursor:pointer}.lang button.active{background:var(--navy);color:#fff}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:32px;background:linear-gradient(135deg,var(--navy),#0b6f75);color:#fff;box-shadow:0 20px 50px rgba(19,34,56,.16)}
+.hero:after{content:"";position:absolute;width:360px;height:360px;border:60px solid rgba(255,255,255,.055);right:-100px;top:-130px;border-radius:50%}.kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9be7e9;font-weight:900}
+.hero h1{position:relative;z-index:1;margin:7px 0 10px;font-size:clamp(34px,6vw,60px);line-height:1}.hero p{position:relative;z-index:1;max-width:760px;margin:0;color:rgba(255,255,255,.84);line-height:1.55}.cycleline{position:relative;z-index:1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}.cycleline select{border:1px solid rgba(255,255,255,.35);border-radius:999px;background:rgba(255,255,255,.95);color:var(--navy);padding:9px 12px;font:inherit;font-weight:850}
+.section{margin-top:20px}.section h2{margin:0 0 6px;color:var(--navy);font-size:clamp(25px,4vw,36px)}.lead{margin:0 0 14px;color:var(--muted);line-height:1.55}
+.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.sum{background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px}.sum span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.sum b{display:block;margin-top:4px;color:var(--navy);font-size:28px}.sum.mint b{color:var(--mint)}.sum.magenta b{color:var(--magenta)}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:12px}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 8px 24px rgba(19,34,56,.04)}.panelhead{padding:16px 18px;border-bottom:1px solid var(--line)}.panelhead h3{margin:0;color:var(--navy);font-size:20px}.panelhead p{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.45}.ranklist{padding:8px 16px 16px}.rank{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #edf1f4}.rank:last-child{border-bottom:0}.place{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#eef7f7;color:#087079;font-weight:900}.rank:first-child .place{background:#fff5d9;color:#8d5b00}.rank:nth-child(2) .place{background:#f1f4f6;color:#536170}.rank:nth-child(3) .place{background:#fff0e6;color:#98531f}.rankname{font-weight:850;color:var(--navy)}.rankmeta{font-size:11px;color:var(--muted);margin-top:2px}.score{text-align:right;font-size:22px;font-weight:900;color:var(--navy)}.score small{display:block;font-size:10px;color:var(--muted);font-weight:700}.empty{padding:24px;text-align:center;color:var(--muted)}
+.weekpanel{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}.weektop{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}.weektop h3{margin:0;color:var(--navy)}.weekbadge{border-radius:999px;background:var(--navy);color:#fff;padding:7px 10px;font-size:11px;font-weight:900}
+.tablewrap{overflow:auto}table{width:100%;min-width:840px;border-collapse:collapse}th,td{padding:11px 9px;border-bottom:1px solid #edf1f4;text-align:left}th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.yes{color:var(--ok);font-weight:900}.no{color:#a0a8b1}.challenge{display:inline-flex;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900}.challenge.done{background:#ecfdf3;color:var(--ok)}.challenge.partial{background:#fff7e6;color:#946200}.challenge.open{background:#f2f4f7;color:#667085}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.leader{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 8px 24px rgba(19,34,56,.04)}.leaderhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.leader h3{margin:0;color:var(--navy);font-size:21px}.subline{margin-top:3px;color:var(--muted);font-size:12px}.kick{border-radius:999px;padding:6px 9px;background:#f2f4f7;color:#667085;font-size:10px;font-weight:900}.kick.ok{background:#ecfdf3;color:var(--ok)}
+.progressgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.progressbox{border:1px solid var(--line);border-radius:13px;padding:10px}.progressbox span{display:block;color:var(--muted);font-size:10px}.progressbox b{display:block;color:var(--navy);font-size:18px;margin:2px 0 7px}.bar{height:6px;border-radius:999px;background:#edf1f4;overflow:hidden}.bar i{display:block;height:100%;background:var(--mint);border-radius:inherit}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}.metric{border-radius:13px;background:#f7fafb;padding:10px}.metric span{display:block;color:var(--muted);font-size:10px}.metric b{display:block;color:var(--navy);font-size:20px;margin-top:2px}.metric.magenta b{color:var(--magenta)}
+.qualrow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.pill{border-radius:999px;padding:6px 9px;background:#f2f4f7;color:#667085;font-size:10px;font-weight:900}.pill.ok{background:#ecfdf3;color:var(--ok)}.pill.mint{background:#eafafa;color:#087079}
+.error{display:none;margin-top:14px;border:1px solid #f0bbbb;background:#fff7f7;color:#8b1e1e;border-radius:14px;padding:12px}.error.show{display:block}
+footer{padding:24px 8px 8px;text-align:center;color:var(--muted);font-size:11px}
+@media(max-width:900px){.summary{grid-template-columns:repeat(2,1fr)}.dual,.cards{grid-template-columns:1fr}}
+@media(max-width:600px){body{padding:10px}.hero{padding:24px 20px}.summary{grid-template-columns:1fr 1fr}.progressgrid,.metrics{grid-template-columns:1fr}.leaderhead{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div class="lang"><button id="deBtn" class="active">DE</button><button id="enBtn">EN</button></div></div>
+<section class="hero">
+<div class="kicker" data-i18n="kicker">CLUB LEADER · 12-WOCHEN-PROGRAMM</div>
+<h1 data-i18n="title">Leistungsbarometer</h1>
+<p data-i18n="intro">Der aktuelle Stand der 12-Wochen-Gruppe: Teilnahme, Aktivität, aktivierte Gastzugänge, neue Club Partner und die beiden laufenden Challenges.</p>
+<div class="cycleline"><strong data-i18n="cycle">Zyklus</strong><select id="cycleSelect"></select><span id="kickoffText"></span></div>
+<div class="error" id="error"></div>
+</section>
+
+<section class="section">
+<h2 data-i18n="overviewTitle">Aktueller Gesamtstand</h2>
+<p class="lead" data-i18n="overviewLead">Alle Werte werden aus den wöchentlichen Freitagsberichten zusammengeführt.</p>
+<div class="summary">
+<div class="sum"><span data-i18n="leaders">Club Leader</span><b id="sLeaders">0</b></div>
+<div class="sum mint"><span data-i18n="guests">Aktivierte Gastzugänge</span><b id="sGuests">0</b></div>
+<div class="sum magenta"><span data-i18n="partners">Neue Club Partner</span><b id="sPartners">0</b></div>
+<div class="sum"><span data-i18n="guestQualified">Gastzugang qualifiziert</span><b id="sGuestQ">0</b></div>
+<div class="sum"><span data-i18n="kickoffQualified">Kickoff qualifiziert</span><b id="sKickoffQ">0</b></div>
+</div>
+</section>
+
+<section class="section">
+<h2 data-i18n="rankingTitle">12-Wochen-Challenges</h2>
+<p class="lead" data-i18n="rankingLead">Gastzugänge und daraus entstandene Club Partner werden getrennt gewertet.</p>
+<div class="dual">
+<div class="panel"><div class="panelhead"><h3 data-i18n="guestChallenge">Gastzugang-Challenge</h3><p data-i18n="guestRule">Rangliste ab mindestens 5 aktivierten Gastzugängen.</p></div><div class="ranklist" id="guestRanking"></div></div>
+<div class="panel"><div class="panelhead"><h3 data-i18n="partnerChallenge">Club-Partner-Challenge</h3><p data-i18n="partnerRule">Gewertet werden neue Club Partner aus den eigenen Gastzugängen.</p></div><div class="ranklist" id="partnerRanking"></div></div>
+</div>
+</section>
+
+<section class="section">
+<h2 data-i18n="weekTitle">Wochenabschluss</h2>
+<p class="lead" data-i18n="weekLead">Der jeweils jüngste eingetragene Freitagsbericht der laufenden Gruppe.</p>
+<div class="weekpanel">
+<div class="weektop"><h3 id="weekHeading">–</h3><span class="weekbadge" id="weekBadge">–</span></div>
+<div class="tablewrap"><table><thead><tr>
+<th data-i18n="name">Name</th><th data-i18n="registered">Workshop angemeldet</th><th data-i18n="presentation">Präsentation</th><th data-i18n="stammtisch">Stammtisch</th><th data-i18n="guestWeek">Gastzugänge</th><th data-i18n="partnerWeek">Club Partner</th><th data-i18n="talks">Zweiergespräche</th><th data-i18n="weeklyChallenge">Wochen-Challenge</th>
+</tr></thead><tbody id="weekRows"></tbody></table></div>
+</div>
+</section>
+
+<section class="section">
+<h2 data-i18n="barometerTitle">Leistungsbarometer je Club Leader</h2>
+<p class="lead" data-i18n="barometerLead">Fortschritt zur Kickoff-Qualifikation plus Gesamtwerte aus allen gemeldeten Wochen.</p>
+<div class="cards" id="leaderCards"></div>
+</section>
+
+<footer data-i18n="footer">Club Leader · 12-Wochen-Programm · LiquidityBooster</footer>
+</div>
+
+<script>
+const DATA="../../data/club-leader-12-wochen.json";
+let state=null,lang="de",cycle="";
+const I={
+de:{kicker:"CLUB LEADER · 12-WOCHEN-PROGRAMM",title:"Leistungsbarometer",intro:"Der aktuelle Stand der 12-Wochen-Gruppe: Teilnahme, Aktivität, aktivierte Gastzugänge, neue Club Partner und die beiden laufenden Challenges.",cycle:"Zyklus",overviewTitle:"Aktueller Gesamtstand",overviewLead:"Alle Werte werden aus den wöchentlichen Freitagsberichten zusammengeführt.",leaders:"Club Leader",guests:"Aktivierte Gastzugänge",partners:"Neue Club Partner",guestQualified:"Gastzugang qualifiziert",kickoffQualified:"Kickoff qualifiziert",rankingTitle:"12-Wochen-Challenges",rankingLead:"Gastzugänge und daraus entstandene Club Partner werden getrennt gewertet.",guestChallenge:"Gastzugang-Challenge",guestRule:"Rangliste ab mindestens 5 aktivierten Gastzugängen.",partnerChallenge:"Club-Partner-Challenge",partnerRule:"Gewertet werden neue Club Partner aus den eigenen Gastzugängen.",weekTitle:"Wochenabschluss",weekLead:"Der jeweils jüngste eingetragene Freitagsbericht der laufenden Gruppe.",name:"Name",registered:"Workshop angemeldet",presentation:"Präsentation",stammtisch:"Stammtisch",guestWeek:"Gastzugänge",partnerWeek:"Club Partner",talks:"Zweiergespräche",weeklyChallenge:"Wochen-Challenge",barometerTitle:"Leistungsbarometer je Club Leader",barometerLead:"Fortschritt zur Kickoff-Qualifikation plus Gesamtwerte aus allen gemeldeten Wochen.",footer:"Club Leader · 12-Wochen-Programm · LiquidityBooster",week:"Woche",yes:"Ja",no:"–",done:"Erfüllt",partial:"Teilweise",open:"Offen",none:"Noch keine Daten vorhanden.",noQualified:"Noch niemand qualifiziert.",noPartners:"Noch keine neuen Club Partner in der Wertung.",workshops:"Workshop-Anmeldungen",presentations:"Präsentationen",stammtische:"Stammtische",conversion:"Umwandlung",kickoff:"Kickoff",kickoffYes:"qualifiziert",kickoffNo:"noch offen",guestQ:"Gastzugang-Challenge qualifiziert",guestOpen:"Noch nicht für Gastzugang-Challenge qualifiziert",prize:"Preis",loadError:"Die aktuellen Daten konnten nicht geladen werden."},
+en:{kicker:"CLUB LEADER · 12-WEEK PROGRAM",title:"Performance barometer",intro:"The current status of the 12-week group: participation, activity, activated guest accesses, new Club Partners and both running challenges.",cycle:"Cycle",overviewTitle:"Current overall status",overviewLead:"All values are combined from the weekly Friday reports.",leaders:"Club Leaders",guests:"Activated guest accesses",partners:"New Club Partners",guestQualified:"Guest challenge qualified",kickoffQualified:"Kickoff qualified",rankingTitle:"12-week challenges",rankingLead:"Guest accesses and resulting Club Partners are ranked separately.",guestChallenge:"Guest Access Challenge",guestRule:"Ranking starts at a minimum of 5 activated guest accesses.",partnerChallenge:"Club Partner Challenge",partnerRule:"New Club Partners resulting from the Club Leader's own guest accesses count.",weekTitle:"Weekly close",weekLead:"The latest Friday report entered for the current group.",name:"Name",registered:"Workshop registered",presentation:"Presentation",stammtisch:"Round table",guestWeek:"Guest accesses",partnerWeek:"Club Partners",talks:"One-to-one talks",weeklyChallenge:"Weekly challenge",barometerTitle:"Performance barometer by Club Leader",barometerLead:"Progress toward kickoff qualification plus totals from all reported weeks.",footer:"Club Leader · 12-week program · LiquidityBooster",week:"Week",yes:"Yes",no:"–",done:"Done",partial:"Partial",open:"Open",none:"No data available yet.",noQualified:"Nobody qualified yet.",noPartners:"No new Club Partners in the ranking yet.",workshops:"Workshop registrations",presentations:"Presentations",stammtische:"Round tables",conversion:"Conversion",kickoff:"Kickoff",kickoffYes:"qualified",kickoffNo:"still open",guestQ:"Guest Access Challenge qualified",guestOpen:"Not yet qualified for Guest Access Challenge",prize:"Prize",loadError:"The current data could not be loaded."}
+};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const num=v=>{const n=Number(v);return Number.isFinite(n)&&n>=0?Math.floor(n):0};
+function t(k){return I[lang][k]||k}
+function cycleObj(id){return state?.program?.cycles?.find(c=>c.id===id)}
+function cycleName(id){const c=cycleObj(id);return c?(lang==="de"?(c.nameDE||c.id):(c.nameEN||c.nameDE||c.id)):id}
+function fullName(l){return [l.firstName,l.lastName].filter(Boolean).join(" ")}
+function totals(l){
+ const r=Array.isArray(l.reports)?l.reports:[];
+ const reg=r.filter(x=>x.workshopRegistered).length,pres=r.filter(x=>x.presentationVisited).length,st=r.filter(x=>x.stammtischVisited).length;
+ const guests=r.reduce((a,x)=>a+num(x.guestActivated),0),partners=r.reduce((a,x)=>a+num(x.newPartners),0),talks=r.reduce((a,x)=>a+num(x.twoPersonTalks),0);
+ const q=state.program.qualification||{},conversion=guests?partners/guests*100:0;
+ return{reg,pres,st,guests,partners,talks,conversion,kickoff:reg>=num(q.workshopRegistrations||12)&&pres>=num(q.presentations||6)&&st>=num(q.stammtische||6),guestQualified:guests>=num(q.guestChallengeMinimum||5)}
+}
+function formatPct(v){return v.toFixed(1).replace(".",lang==="de"?",":".")+"%"}
+function prize(kind,place){
+ const p=state?.program?.prizes?.[kind]?.[place];return p===null||p===undefined||p===""?"":` · ${t("prize")}: ${Number(p).toLocaleString(lang==="de"?"de-DE":"en-GB")} €`;
+}
+function progress(value,target){return Math.max(0,Math.min(100,target?value/target*100:0))}
+function currentLeaders(){return (state?.leaders||[]).filter(l=>l.cycle===cycle)}
+function latestWeek(leaders){
+ let w=0;leaders.forEach(l=>(l.reports||[]).forEach(r=>{w=Math.max(w,num(r.week))}));return w;
+}
+function renderRanking(leaders){
+ const arr=leaders.map(l=>({l,x:totals(l)}));
+ const min=num(state.program.qualification?.guestChallengeMinimum||5);
+ const guests=arr.filter(o=>o.x.guests>=min).sort((a,b)=>b.x.guests-a.x.guests||b.x.partners-a.x.partners||fullName(a.l).localeCompare(fullName(b.l),"de"));
+ $("#guestRanking").innerHTML=guests.length?guests.map((o,i)=>`<div class="rank"><div class="place">${i+1}</div><div><div class="rankname">${esc(fullName(o.l))}</div><div class="rankmeta">${o.x.partners} CP · ${formatPct(o.x.conversion)}${i<3?prize("guestChallenge",["first","second","third"][i]):""}</div></div><div class="score">${o.x.guests}<small>${esc(t("guests"))}</small></div></div>`).join(""):`<div class="empty">${esc(t("noQualified"))}</div>`;
+ const partners=arr.filter(o=>o.x.partners>0).sort((a,b)=>b.x.partners-a.x.partners||b.x.guests-a.x.guests||fullName(a.l).localeCompare(fullName(b.l),"de"));
+ $("#partnerRanking").innerHTML=partners.length?partners.map((o,i)=>`<div class="rank"><div class="place">${i+1}</div><div><div class="rankname">${esc(fullName(o.l))}</div><div class="rankmeta">${o.x.guests} ${esc(t("guests"))} · ${formatPct(o.x.conversion)}${i<3?prize("partnerChallenge",["first","second","third"][i]):""}</div></div><div class="score">${o.x.partners}<small>Club Partner</small></div></div>`).join(""):`<div class="empty">${esc(t("noPartners"))}</div>`;
+}
+function renderWeek(leaders){
+ const w=latestWeek(leaders);$("#weekHeading").textContent=w?`${t("week")} ${w}`:t("none");$("#weekBadge").textContent=w?`${t("week")} ${w} / 12`:"–";
+ if(!w){$("#weekRows").innerHTML=`<tr><td colspan="8" class="empty">${esc(t("none"))}</td></tr>`;return}
+ const list=leaders.slice().sort((a,b)=>fullName(a).localeCompare(fullName(b),"de",{sensitivity:"base"}));
+ $("#weekRows").innerHTML=list.map(l=>{const r=(l.reports||[]).find(x=>num(x.week)===w);if(!r)return`<tr><td><strong>${esc(fullName(l))}</strong></td><td colspan="7" class="no">–</td></tr>`;return`<tr><td><strong>${esc(fullName(l))}</strong></td><td class="${r.workshopRegistered?"yes":"no"}">${r.workshopRegistered?t("yes"):t("no")}</td><td class="${r.presentationVisited?"yes":"no"}">${r.presentationVisited?t("yes"):t("no")}</td><td class="${r.stammtischVisited?"yes":"no"}">${r.stammtischVisited?t("yes"):t("no")}</td><td>${num(r.guestActivated)}</td><td>${num(r.newPartners)}</td><td>${num(r.twoPersonTalks)}</td><td><span class="challenge ${esc(r.challengeStatus||"open")}">${esc(t(r.challengeStatus||"open"))}</span></td></tr>`}).join("");
+}
+function renderCards(leaders){
+ const q=state.program.qualification||{},wr=num(q.workshopRegistrations||12),pr=num(q.presentations||6),sr=num(q.stammtische||6),gm=num(q.guestChallengeMinimum||5);
+ const list=leaders.slice().sort((a,b)=>fullName(a).localeCompare(fullName(b),"de",{sensitivity:"base"}));
+ $("#leaderCards").innerHTML=list.length?list.map(l=>{const x=totals(l);return`
+ <article class="leader">
+  <div class="leaderhead"><div><h3>${esc(fullName(l))}</h3><div class="subline">${esc(cycleName(l.cycle))}</div></div><span class="kick ${x.kickoff?"ok":""}">${esc(t("kickoff"))}: ${esc(x.kickoff?t("kickoffYes"):t("kickoffNo"))}</span></div>
+  <div class="progressgrid">
+   <div class="progressbox"><span>${esc(t("workshops"))}</span><b>${x.reg} / ${wr}</b><div class="bar"><i style="width:${progress(x.reg,wr)}%"></i></div></div>
+   <div class="progressbox"><span>${esc(t("presentations"))}</span><b>${x.pres} / ${pr}</b><div class="bar"><i style="width:${progress(x.pres,pr)}%"></i></div></div>
+   <div class="progressbox"><span>${esc(t("stammtische"))}</span><b>${x.st} / ${sr}</b><div class="bar"><i style="width:${progress(x.st,sr)}%"></i></div></div>
+  </div>
+  <div class="metrics">
+   <div class="metric"><span>${esc(t("guests"))}</span><b>${x.guests}</b></div>
+   <div class="metric magenta"><span>${esc(t("partners"))}</span><b>${x.partners}</b></div>
+   <div class="metric"><span>${esc(t("conversion"))}</span><b>${formatPct(x.conversion)}</b></div>
+  </div>
+  <div class="qualrow"><span class="pill ${x.guestQualified?"mint":""}">${esc(x.guestQualified?t("guestQ"):`${t("guestOpen")} (${x.guests}/${gm})`)}</span></div>
+ </article>`}).join(""):`<div class="empty" style="grid-column:1/-1">${esc(t("none"))}</div>`;
+}
+function render(){
+ const cycles=state?.program?.cycles||[];if(!cycle||!cycles.some(c=>c.id===cycle))cycle=state?.program?.currentCycle||cycles[0]?.id||"";
+ $("#cycleSelect").innerHTML=cycles.map(c=>`<option value="${esc(c.id)}">${esc(cycleName(c.id))}</option>`).join("");$("#cycleSelect").value=cycle;
+ const c=cycleObj(cycle);$("#kickoffText").textContent=c?(lang==="de"?(c.kickoffDE||""):(c.kickoffEN||c.kickoffDE||"")):"";
+ const leaders=currentLeaders(),all=leaders.map(totals);
+ $("#sLeaders").textContent=leaders.length;$("#sGuests").textContent=all.reduce((a,x)=>a+x.guests,0);$("#sPartners").textContent=all.reduce((a,x)=>a+x.partners,0);$("#sGuestQ").textContent=all.filter(x=>x.guestQualified).length;$("#sKickoffQ").textContent=all.filter(x=>x.kickoff).length;
+ renderRanking(leaders);renderWeek(leaders);renderCards(leaders);
+}
+function applyLang(next){lang=next;document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(I[lang][k])el.textContent=I[lang][k]});$("#deBtn").classList.toggle("active",lang==="de");$("#enBtn").classList.toggle("active",lang==="en");localStorage.setItem("lb12_view_lang",lang);if(state)render()}
+async function load(){
+ try{const r=await fetch(DATA+"?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("load");state=await r.json();cycle=state.program?.currentCycle||"";render()}
+ catch(e){$("#error").textContent=t("loadError");$("#error").classList.add("show")}
+}
+$("#cycleSelect").onchange=e=>{cycle=e.target.value;render()};$("#deBtn").onclick=()=>applyLang("de");$("#enBtn").onclick=()=>applyLang("en");
+applyLang(localStorage.getItem("lb12_view_lang")==="en"?"en":"de");load();
+</script>
+</body>
+</html>
