@@ -20,6 +20,8 @@
 .pill{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:11px;font-weight:900;background:#eef7f7;color:#087079}.pill.ok{background:#ecfdf3;color:var(--ok)}.pill.warn{background:#fff7e6;color:var(--warn)}.pill.off{background:#f2f4f7;color:#667085}
 .sectionnote{padding:12px 14px;border-radius:14px;background:#eefafa;color:#075f64;font-size:13px;line-height:1.5;margin-bottom:12px}
 .flexend{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.divider{height:1px;background:var(--line);margin:16px 0}
+.rankcell{white-space:nowrap;font-weight:900;color:var(--navy)}.rankcell small{display:block;margin-top:3px;font-size:10px;font-weight:750;color:var(--muted);white-space:normal}.rankcell small.ok{color:var(--ok)}.rankcell small.warn{color:var(--warn)}
+.archivemeta{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.archivemeta .field{min-width:260px;flex:1}.archiveinfo{font-size:12px;color:var(--muted);padding:0 2px 2px}
 @media(max-width:950px){.formgrid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(3,1fr)}.checks{grid-template-columns:1fr}.span2{grid-column:span 2}}
 @media(max-width:620px){body{padding:10px}.topbar{flex-direction:column}.connect,.formgrid{grid-template-columns:1fr}.span2{grid-column:auto}.stats{grid-template-columns:1fr 1fr}.head{align-items:flex-start;flex-direction:column}}
 </style>
@@ -115,8 +117,23 @@
 </div>
 </div>
 <div class="tablewrap"><table>
-<thead><tr><th data-i18n="name">Name</th><th data-i18n="cycle">Zyklus</th><th data-i18n="workshopsShort">WS-Anm.</th><th data-i18n="presShort">Präs.</th><th data-i18n="stammShort">Stamm.</th><th data-i18n="guestsShort">Gäste</th><th data-i18n="partnersShort">CP</th><th data-i18n="conversion">Quote</th><th data-i18n="kickoff">Kickoff</th><th></th></tr></thead>
+<thead><tr><th data-i18n="name">Name</th><th data-i18n="cycle">Zyklus</th><th data-i18n="workshopsShort">WS-Anm.</th><th data-i18n="presShort">Präs.</th><th data-i18n="stammShort">Stamm.</th><th data-i18n="guestsShort">Gäste</th><th data-i18n="guestPlace">Gäste-Platz</th><th data-i18n="partnersShort">CP</th><th data-i18n="partnerPlace">CP-Platz</th><th data-i18n="conversion">Quote</th><th data-i18n="kickoff">Kickoff</th><th></th></tr></thead>
 <tbody id="leaderRows"></tbody>
+</table></div>
+</section>
+
+<section class="card">
+<div class="head"><span data-i18n="archiveTitle">Quartalsarchiv</span><span class="pill off" id="archiveBadge">0</span></div>
+<div class="body">
+<div class="sectionnote" data-i18n="archiveNote">Sobald ein neuer Zyklus aktiv wird, bleibt der vorherige Zyklus hier vollständig erhalten. Die Archivdaten sind schreibgeschützt und zeigen den damaligen Abschlussstand.</div>
+<div class="archivemeta">
+<div class="field"><label for="archiveCycle" data-i18n="archiveCycle">Archiv-Zyklus</label><select id="archiveCycle"></select></div>
+<div class="archiveinfo" id="archiveSummary"></div>
+</div>
+</div>
+<div class="tablewrap"><table>
+<thead><tr><th data-i18n="name">Name</th><th data-i18n="workshopsShort">WS-Anm.</th><th data-i18n="presShort">Präs.</th><th data-i18n="stammShort">Stamm.</th><th data-i18n="guestsShort">Gäste</th><th data-i18n="guestPlace">Gäste-Platz</th><th data-i18n="partnersShort">CP</th><th data-i18n="partnerPlace">CP-Platz</th><th data-i18n="conversion">Quote</th><th data-i18n="kickoff">Kickoff</th></tr></thead>
+<tbody id="archiveRows"></tbody>
 </table></div>
 </section>
 </div>
@@ -129,8 +146,8 @@ const KEY="md_control_github_token";
 let token="",sha="",lang="de",state=null,editLeaderId=null;
 
 const I={
-de:{title:"12-Wochen Control",subtitle:"Private Verwaltung der Club-Leader-Zyklen und Freitagsberichte.",connection:"GitHub-Verbindung",notConnected:"Nicht verbunden",connected:"Verbunden",connect:"Verbinden & laden",remember:"Token auf diesem Gerät speichern",removeToken:"Gespeicherten Token entfernen",tokenHint:"Verwendet exakt denselben lokalen Token-Schlüssel wie Mission-Control, Head Control und Club Control. Der Token wird niemals in der JSON-Datei gespeichert.",cycleTitle:"Programm & Zyklus",currentCycle:"Aktiver Zyklus",cycleId:"Neue Zyklus-ID",cycleNameDE:"Name DE",cycleNameEN:"Name EN",addCycle:"Neuen Zyklus anlegen",saveCycle:"Aktiven Zyklus speichern",guestPrize1:"Gastzugang Platz 1 (€)",guestPrize2:"Gastzugang Platz 2 (€)",guestPrize3:"Gastzugang Platz 3 (€)",partnerPrize1:"Club Partner Platz 1 (€)",partnerPrize2:"Club Partner Platz 2 (€)",partnerPrize3:"Club Partner Platz 3 (€)",kickoffLabel:"Kickoff-Bezeichnung",kickoffLabelEN:"Kickoff-Bezeichnung EN",saveProgram:"Programmeinstellungen speichern",leaderTitle:"Club Leader manuell anlegen",leaderNote:"Hier werden nur Vorname, Nachname und der zugehörige 12-Wochen-Zyklus geführt. Persönliche KMS-Daten bleiben vollständig außerhalb dieses Systems.",firstName:"Vorname",lastName:"Nachname",cycle:"Zyklus",addLeader:"Club Leader eintragen",updateLeader:"Änderung speichern",reportTitle:"Freitagsbericht eintragen",newEntry:"Neuer Eintrag",editEntry:"Vorhandene Woche",reportNote:"Die Club Leader melden im 15-Minuten-Wochenabschluss nur ihre Programmzahlen. Keine Gastnamen, keine Kontaktdaten und keine persönlichen KMS-Inhalte werden übernommen.",leader:"Club Leader",week:"Woche",challenge:"Wochen-Challenge",registered:"Für Workshop angemeldet",presentationVisited:"Präsentation besucht",stammtischVisited:"Stammtisch besucht",guests:"Aktivierte Gastzugänge",partners:"Neue Club Partner",talks:"Zweiergespräche",saveReport:"Wochenbericht speichern",overviewTitle:"Club-Leader-Übersicht",reload:"Neu laden",statLeaders:"Club Leader",statReports:"Wochenberichte",statQualified:"Gastzugang qualifiziert",statGuests:"Gastzugänge gesamt",statPartners:"Club Partner gesamt",statKickoff:"Kickoff qualifiziert",name:"Name",workshopsShort:"WS-Anm.",presShort:"Präs.",stammShort:"Stamm.",guestsShort:"Gäste",partnersShort:"CP",conversion:"Quote",kickoff:"Kickoff",yes:"Ja",no:"Noch nicht",edit:"Bearbeiten",remove:"Löschen",done:"Erfüllt",partial:"Teilweise",open:"Offen",choose:"Bitte auswählen",loadError:"Daten konnten nicht geladen werden. Bitte Token und Schreibrechte prüfen.",saveError:"Speichern fehlgeschlagen. Bitte neu laden und erneut versuchen.",saved:"Gespeichert.",missingLeader:"Bitte Vorname, Nachname und Zyklus vollständig eintragen.",duplicateLeader:"Dieser Club Leader ist in diesem Zyklus bereits vorhanden.",missingReport:"Bitte Club Leader und Woche auswählen.",cycleMissing:"Bitte Zyklus-ID sowie deutschen und englischen Namen eintragen.",cycleExists:"Diese Zyklus-ID existiert bereits.",confirmDelete:"Club Leader und alle zugehörigen Wochenberichte wirklich löschen?",tokenRemoved:"Gespeicherter Token wurde von diesem Gerät entfernt."},
-en:{title:"12-Week Control",subtitle:"Private management of Club Leader cycles and Friday reports.",connection:"GitHub connection",notConnected:"Not connected",connected:"Connected",connect:"Connect & load",remember:"Store token on this device",removeToken:"Remove stored token",tokenHint:"Uses exactly the same local token key as Mission Control, Head Control and Club Control. The token is never stored in the JSON file.",cycleTitle:"Program & cycle",currentCycle:"Active cycle",cycleId:"New cycle ID",cycleNameDE:"German name",cycleNameEN:"English name",addCycle:"Add new cycle",saveCycle:"Save active cycle",guestPrize1:"Guest access place 1 (€)",guestPrize2:"Guest access place 2 (€)",guestPrize3:"Guest access place 3 (€)",partnerPrize1:"Club Partner place 1 (€)",partnerPrize2:"Club Partner place 2 (€)",partnerPrize3:"Club Partner place 3 (€)",kickoffLabel:"Kickoff label",kickoffLabelEN:"Kickoff label EN",saveProgram:"Save program settings",leaderTitle:"Add Club Leader manually",leaderNote:"Only first name, last name and the assigned 12-week cycle are maintained here. Personal KMS data stays completely outside this system.",firstName:"First name",lastName:"Last name",cycle:"Cycle",addLeader:"Add Club Leader",updateLeader:"Save change",reportTitle:"Enter Friday report",newEntry:"New entry",editEntry:"Existing week",reportNote:"Club Leaders report only their program numbers during the 15-minute weekly close. No guest names, contact details or personal KMS content are transferred.",leader:"Club Leader",week:"Week",challenge:"Weekly challenge",registered:"Registered for workshop",presentationVisited:"Presentation attended",stammtischVisited:"Round table attended",guests:"Activated guest accesses",partners:"New Club Partners",talks:"One-to-one conversations",saveReport:"Save weekly report",overviewTitle:"Club Leader overview",reload:"Reload",statLeaders:"Club Leaders",statReports:"Weekly reports",statQualified:"Guest challenge qualified",statGuests:"Total guest accesses",statPartners:"Total Club Partners",statKickoff:"Kickoff qualified",name:"Name",workshopsShort:"WS reg.",presShort:"Pres.",stammShort:"Round",guestsShort:"Guests",partnersShort:"CP",conversion:"Rate",kickoff:"Kickoff",yes:"Yes",no:"Not yet",edit:"Edit",remove:"Delete",done:"Done",partial:"Partial",open:"Open",choose:"Please select",loadError:"Data could not be loaded. Please check token and write permissions.",saveError:"Saving failed. Please reload and try again.",saved:"Saved.",missingLeader:"Please enter first name, last name and cycle.",duplicateLeader:"This Club Leader already exists in this cycle.",missingReport:"Please select Club Leader and week.",cycleMissing:"Please enter cycle ID plus German and English names.",cycleExists:"This cycle ID already exists.",confirmDelete:"Really delete this Club Leader and all weekly reports?",tokenRemoved:"Stored token was removed from this device."}
+de:{title:"12-Wochen Control",subtitle:"Private Verwaltung der Club-Leader-Zyklen und Freitagsberichte.",connection:"GitHub-Verbindung",notConnected:"Nicht verbunden",connected:"Verbunden",connect:"Verbinden & laden",remember:"Token auf diesem Gerät speichern",removeToken:"Gespeicherten Token entfernen",tokenHint:"Verwendet exakt denselben lokalen Token-Schlüssel wie Mission-Control, Head Control und Club Control. Der Token wird niemals in der JSON-Datei gespeichert.",cycleTitle:"Programm & Zyklus",currentCycle:"Aktiver Zyklus",cycleId:"Neue Zyklus-ID",cycleNameDE:"Name DE",cycleNameEN:"Name EN",addCycle:"Neuen Zyklus anlegen",saveCycle:"Aktiven Zyklus speichern",guestPrize1:"Gastzugang Platz 1 (€)",guestPrize2:"Gastzugang Platz 2 (€)",guestPrize3:"Gastzugang Platz 3 (€)",partnerPrize1:"Club Partner Platz 1 (€)",partnerPrize2:"Club Partner Platz 2 (€)",partnerPrize3:"Club Partner Platz 3 (€)",kickoffLabel:"Kickoff-Bezeichnung",kickoffLabelEN:"Kickoff-Bezeichnung EN",saveProgram:"Programmeinstellungen speichern",leaderTitle:"Club Leader manuell anlegen",leaderNote:"Hier werden nur Vorname, Nachname und der zugehörige 12-Wochen-Zyklus geführt. Persönliche KMS-Daten bleiben vollständig außerhalb dieses Systems.",firstName:"Vorname",lastName:"Nachname",cycle:"Zyklus",addLeader:"Club Leader eintragen",updateLeader:"Änderung speichern",reportTitle:"Freitagsbericht eintragen",newEntry:"Neuer Eintrag",editEntry:"Vorhandene Woche",reportNote:"Die Club Leader melden im 15-Minuten-Wochenabschluss nur ihre Programmzahlen. Keine Gastnamen, keine Kontaktdaten und keine persönlichen KMS-Inhalte werden übernommen.",leader:"Club Leader",week:"Woche",challenge:"Wochen-Challenge",registered:"Für Workshop angemeldet",presentationVisited:"Präsentation besucht",stammtischVisited:"Stammtisch besucht",guests:"Aktivierte Gastzugänge",partners:"Neue Club Partner",talks:"Zweiergespräche",saveReport:"Wochenbericht speichern",overviewTitle:"Club-Leader-Übersicht",reload:"Neu laden",statLeaders:"Club Leader",statReports:"Wochenberichte",statQualified:"Gastzugang qualifiziert",statGuests:"Gastzugänge gesamt",statPartners:"Club Partner gesamt",statKickoff:"Kickoff qualifiziert",name:"Name",workshopsShort:"WS-Anm.",presShort:"Präs.",stammShort:"Stamm.",guestsShort:"Gäste",partnersShort:"CP",conversion:"Quote",kickoff:"Kickoff",guestPlace:"Gäste-Platz",partnerPlace:"CP-Platz",archiveTitle:"Quartalsarchiv",archiveNote:"Sobald ein neuer Zyklus aktiv wird, bleibt der vorherige Zyklus hier vollständig erhalten. Die Archivdaten sind schreibgeschützt und zeigen den damaligen Abschlussstand.",archiveCycle:"Archiv-Zyklus",archiveEmpty:"Noch kein früherer Zyklus vorhanden.",archivePeople:"Teilnehmer",archiveGuests:"Gastzugänge",archivePartners:"Club Partner",yes:"Ja",no:"Noch nicht",edit:"Bearbeiten",remove:"Löschen",done:"Erfüllt",partial:"Teilweise",open:"Offen",choose:"Bitte auswählen",loadError:"Daten konnten nicht geladen werden. Bitte Token und Schreibrechte prüfen.",saveError:"Speichern fehlgeschlagen. Bitte neu laden und erneut versuchen.",saved:"Gespeichert.",missingLeader:"Bitte Vorname, Nachname und Zyklus vollständig eintragen.",duplicateLeader:"Dieser Club Leader ist in diesem Zyklus bereits vorhanden.",missingReport:"Bitte Club Leader und Woche auswählen.",cycleMissing:"Bitte Zyklus-ID sowie deutschen und englischen Namen eintragen.",cycleExists:"Diese Zyklus-ID existiert bereits.",confirmDelete:"Club Leader und alle zugehörigen Wochenberichte wirklich löschen?",tokenRemoved:"Gespeicherter Token wurde von diesem Gerät entfernt."},
+en:{title:"12-Week Control",subtitle:"Private management of Club Leader cycles and Friday reports.",connection:"GitHub connection",notConnected:"Not connected",connected:"Connected",connect:"Connect & load",remember:"Store token on this device",removeToken:"Remove stored token",tokenHint:"Uses exactly the same local token key as Mission Control, Head Control and Club Control. The token is never stored in the JSON file.",cycleTitle:"Program & cycle",currentCycle:"Active cycle",cycleId:"New cycle ID",cycleNameDE:"German name",cycleNameEN:"English name",addCycle:"Add new cycle",saveCycle:"Save active cycle",guestPrize1:"Guest access place 1 (€)",guestPrize2:"Guest access place 2 (€)",guestPrize3:"Guest access place 3 (€)",partnerPrize1:"Club Partner place 1 (€)",partnerPrize2:"Club Partner place 2 (€)",partnerPrize3:"Club Partner place 3 (€)",kickoffLabel:"Kickoff label",kickoffLabelEN:"Kickoff label EN",saveProgram:"Save program settings",leaderTitle:"Add Club Leader manually",leaderNote:"Only first name, last name and the assigned 12-week cycle are maintained here. Personal KMS data stays completely outside this system.",firstName:"First name",lastName:"Last name",cycle:"Cycle",addLeader:"Add Club Leader",updateLeader:"Save change",reportTitle:"Enter Friday report",newEntry:"New entry",editEntry:"Existing week",reportNote:"Club Leaders report only their program numbers during the 15-minute weekly close. No guest names, contact details or personal KMS content are transferred.",leader:"Club Leader",week:"Week",challenge:"Weekly challenge",registered:"Registered for workshop",presentationVisited:"Presentation attended",stammtischVisited:"Round table attended",guests:"Activated guest accesses",partners:"New Club Partners",talks:"One-to-one conversations",saveReport:"Save weekly report",overviewTitle:"Club Leader overview",reload:"Reload",statLeaders:"Club Leaders",statReports:"Weekly reports",statQualified:"Guest challenge qualified",statGuests:"Total guest accesses",statPartners:"Total Club Partners",statKickoff:"Kickoff qualified",name:"Name",workshopsShort:"WS reg.",presShort:"Pres.",stammShort:"Round",guestsShort:"Guests",partnersShort:"CP",conversion:"Rate",kickoff:"Kickoff",guestPlace:"Guest rank",partnerPlace:"CP rank",archiveTitle:"Quarter archive",archiveNote:"As soon as a new cycle becomes active, the previous cycle remains fully preserved here. Archive data is read-only and shows the final status of that cycle.",archiveCycle:"Archive cycle",archiveEmpty:"No previous cycle yet.",archivePeople:"Participants",archiveGuests:"Guest accesses",archivePartners:"Club Partners",yes:"Yes",no:"Not yet",edit:"Edit",remove:"Delete",done:"Done",partial:"Partial",open:"Open",choose:"Please select",loadError:"Data could not be loaded. Please check token and write permissions.",saveError:"Saving failed. Please reload and try again.",saved:"Saved.",missingLeader:"Please enter first name, last name and cycle.",duplicateLeader:"This Club Leader already exists in this cycle.",missingReport:"Please select Club Leader and week.",cycleMissing:"Please enter cycle ID plus German and English names.",cycleExists:"This cycle ID already exists.",confirmDelete:"Really delete this Club Leader and all weekly reports?",tokenRemoved:"Stored token was removed from this device."}
 };
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
@@ -214,26 +231,62 @@ function fillProgram(){
 }
 function fillLeaderSelect(){
  const old=$("#reportLeader").value;
- const list=state.leaders.slice().sort((a,b)=>fullName(a).localeCompare(fullName(b),"de",{sensitivity:"base"}));
+ const list=state.leaders.filter(l=>l.cycle===state.program.currentCycle).slice().sort((a,b)=>fullName(a).localeCompare(fullName(b),"de",{sensitivity:"base"}));
  $("#reportLeader").innerHTML=`<option value="">${esc(t("choose"))}</option>`+list.map(l=>`<option value="${esc(l.id)}">${esc(fullName(l))} · ${esc(cycleName(l.cycle))}</option>`).join("");
  if(old&&state.leaders.some(l=>l.id===old))$("#reportLeader").value=old;
 }
 function fillWeeks(){
  const old=$("#reportWeek").value;$("#reportWeek").innerHTML=`<option value="">${esc(t("choose"))}</option>`+Array.from({length:12},(_,i)=>`<option value="${i+1}">${lang==="de"?"Woche":"Week"} ${i+1}</option>`).join("");if(old)$("#reportWeek").value=old;
 }
+function rankMap(leaders,key){
+ const arr=leaders.map(l=>({id:l.id,value:totals(l)[key]})).filter(o=>o.value>0).sort((a,b)=>b.value-a.value);
+ const out={};let prev=null,place=0;
+ arr.forEach((o,i)=>{if(o.value!==prev)place=i+1;out[o.id]=place;prev=o.value});
+ return out;
+}
+function guestProgressText(x){
+ const min=num(state.program.qualification?.guestChallengeMinimum||5);
+ if(x.guests>=min)return lang==="de"?"Qualifiziert":"Qualified";
+ if(x.guests===0)return lang==="de"?"Startphase":"Starting phase";
+ const left=Math.max(0,min-x.guests);
+ return lang==="de"?`Noch ${left} bis zur Qualifikation`:`${left} more to qualify`;
+}
 function renderTable(){
- const rows=state.leaders.slice().sort((a,b)=>fullName(a).localeCompare(fullName(b),"de",{sensitivity:"base"}));
- $("#leaderRows").innerHTML=rows.length?rows.map(l=>{const x=totals(l);return`<tr>
- <td><strong>${esc(fullName(l))}</strong></td><td>${esc(cycleName(l.cycle))}</td><td>${x.reg}/12</td><td>${x.pres}/6</td><td>${x.st}/6</td><td>${x.guests}</td><td>${x.partners}</td><td>${x.conversion.toFixed(1).replace(".",lang==="de"?",":".")}%</td>
+ const current=state.program.currentCycle;
+ const rows=state.leaders.filter(l=>l.cycle===current).slice().sort((a,b)=>fullName(a).localeCompare(fullName(b),"de",{sensitivity:"base"}));
+ const guestRanks=rankMap(rows,"guests"),partnerRanks=rankMap(rows,"partners");
+ $("#leaderRows").innerHTML=rows.length?rows.map(l=>{const x=totals(l),gp=guestRanks[l.id],pp=partnerRanks[l.id],gstate=guestProgressText(x);return`<tr>
+ <td><strong>${esc(fullName(l))}</strong></td><td>${esc(cycleName(l.cycle))}</td><td>${x.reg}/12</td><td>${x.pres}/6</td><td>${x.st}/6</td><td>${x.guests}</td>
+ <td class="rankcell">${gp?`Platz ${gp}`:"–"}<small class="${x.guestQualified?"ok":x.guests?"warn":""}">${esc(gstate)}</small></td>
+ <td>${x.partners}</td><td class="rankcell">${pp?`Platz ${pp}`:"–"}</td><td>${x.conversion.toFixed(1).replace(".",lang==="de"?",":".")}%</td>
  <td><span class="pill ${x.kickoff?"ok":"off"}">${esc(x.kickoff?t("yes"):t("no"))}</span></td>
  <td><div class="actions"><button class="btn light" onclick="editLeader('${l.id}')">${esc(t("edit"))}</button><button class="btn danger" onclick="removeLeader('${l.id}')">${esc(t("remove"))}</button></div></td>
- </tr>`}).join(""):`<tr><td colspan="10" class="empty">${esc(lang==="de"?"Noch keine Club Leader angelegt.":"No Club Leaders added yet.")}</td></tr>`;
- const cycle=state.program.currentCycle;
- const current=state.leaders.filter(l=>l.cycle===cycle);
- const all=current.map(totals);
- $("#statLeaders").textContent=current.length;$("#statReports").textContent=all.reduce((a,x)=>a+x.reports,0);$("#statQualified").textContent=all.filter(x=>x.guestQualified).length;$("#statGuests").textContent=all.reduce((a,x)=>a+x.guests,0);$("#statPartners").textContent=all.reduce((a,x)=>a+x.partners,0);$("#statKickoff").textContent=all.filter(x=>x.kickoff).length;
+ </tr>`}).join(""):`<tr><td colspan="12" class="empty">${esc(lang==="de"?"Noch keine Club Leader im aktiven Zyklus.":"No Club Leaders in the active cycle yet.")}</td></tr>`;
+ const all=rows.map(totals);
+ $("#statLeaders").textContent=rows.length;$("#statReports").textContent=all.reduce((a,x)=>a+x.reports,0);$("#statQualified").textContent=all.filter(x=>x.guestQualified).length;$("#statGuests").textContent=all.reduce((a,x)=>a+x.guests,0);$("#statPartners").textContent=all.reduce((a,x)=>a+x.partners,0);$("#statKickoff").textContent=all.filter(x=>x.kickoff).length;
 }
-function render(){fillCycleSelects();fillProgram();fillLeaderSelect();fillWeeks();renderTable();syncReportForm()}
+function fillArchiveSelect(){
+ const sel=$("#archiveCycle"),old=sel.value,current=state.program.currentCycle;
+ const cycles=(state.program.cycles||[]).filter(c=>c.id!==current);
+ $("#archiveBadge").textContent=cycles.length;
+ if(!cycles.length){sel.innerHTML=`<option value="">${esc(t("archiveEmpty"))}</option>`;sel.disabled=true;return}
+ sel.disabled=false;sel.innerHTML=cycles.slice().reverse().map(c=>`<option value="${esc(c.id)}">${esc(cycleName(c.id))}</option>`).join("");
+ sel.value=old&&cycles.some(c=>c.id===old)?old:cycles[0].id;
+}
+function renderArchive(){
+ const id=$("#archiveCycle").value;
+ if(!id){$("#archiveSummary").textContent=t("archiveEmpty");$("#archiveRows").innerHTML=`<tr><td colspan="10" class="empty">${esc(t("archiveEmpty"))}</td></tr>`;return}
+ const rows=state.leaders.filter(l=>l.cycle===id).slice().sort((a,b)=>fullName(a).localeCompare(fullName(b),"de",{sensitivity:"base"}));
+ const guestRanks=rankMap(rows,"guests"),partnerRanks=rankMap(rows,"partners");
+ const tx=rows.map(totals),guests=tx.reduce((a,x)=>a+x.guests,0),partners=tx.reduce((a,x)=>a+x.partners,0);
+ $("#archiveSummary").textContent=`${t("archivePeople")}: ${rows.length} · ${t("archiveGuests")}: ${guests} · ${t("archivePartners")}: ${partners}`;
+ $("#archiveRows").innerHTML=rows.length?rows.map(l=>{const x=totals(l),gp=guestRanks[l.id],pp=partnerRanks[l.id];return`<tr>
+ <td><strong>${esc(fullName(l))}</strong></td><td>${x.reg}/12</td><td>${x.pres}/6</td><td>${x.st}/6</td><td>${x.guests}</td>
+ <td class="rankcell">${gp?`Platz ${gp}`:"–"}<small class="${x.guestQualified?"ok":x.guests?"warn":""}">${esc(guestProgressText(x))}</small></td>
+ <td>${x.partners}</td><td class="rankcell">${pp?`Platz ${pp}`:"–"}</td><td>${x.conversion.toFixed(1).replace(".",lang==="de"?",":".")}%</td>
+ <td><span class="pill ${x.kickoff?"ok":"off"}">${esc(x.kickoff?t("yes"):t("no"))}</span></td></tr>`}).join(""):`<tr><td colspan="10" class="empty">${esc(t("archiveEmpty"))}</td></tr>`;
+}
+function render(){fillCycleSelects();fillProgram();fillLeaderSelect();fillWeeks();renderTable();fillArchiveSelect();renderArchive();syncReportForm()}
 function resetLeader(){editLeaderId=null;$("#firstName").value="";$("#lastName").value="";$("#saveLeader").textContent=t("addLeader")}
 window.editLeader=id=>{const l=state.leaders.find(x=>x.id===id);if(!l)return;editLeaderId=id;$("#firstName").value=l.firstName||"";$("#lastName").value=l.lastName||"";$("#leaderCycle").value=l.cycle||state.program.currentCycle;$("#saveLeader").textContent=t("updateLeader");window.scrollTo({top:document.querySelector("#firstName").getBoundingClientRect().top+window.scrollY-140,behavior:"smooth"})}
 window.removeLeader=async id=>{const l=state.leaders.find(x=>x.id===id);if(!l||!confirm(t("confirmDelete")+"\n"+fullName(l)))return;const before=state.leaders.slice();state.leaders=state.leaders.filter(x=>x.id!==id);if(await saveState("Remove Club Leader "+fullName(l))){if(editLeaderId===id)resetLeader()}else state.leaders=before}
@@ -271,7 +324,7 @@ async function saveProgram(){
  await saveState("Update Club Leader program settings");
 }
 $("#connect").onclick=load;$("#reload").onclick=load;$("#saveLeader").onclick=saveLeader;$("#saveReport").onclick=saveReport;$("#addCycle").onclick=addCycle;$("#saveCurrentCycle").onclick=saveCurrentCycle;$("#saveProgram").onclick=saveProgram;
-$("#reportLeader").onchange=syncReportForm;$("#reportWeek").onchange=syncReportForm;
+$("#reportLeader").onchange=syncReportForm;$("#reportWeek").onchange=syncReportForm;$("#archiveCycle").onchange=renderArchive;
 $("#removeToken").onclick=()=>{localStorage.removeItem(KEY);$("#token").value="";token="";sha="";$("#status").textContent=t("notConnected");$("#status").className="status";show("success",t("tokenRemoved"))};
 $("#deBtn").onclick=()=>applyLang("de");$("#enBtn").onclick=()=>applyLang("en");
 applyLang(localStorage.getItem("lb12_control_lang")==="en"?"en":"de");
