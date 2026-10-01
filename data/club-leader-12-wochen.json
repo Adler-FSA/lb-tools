@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-10-01T12:27:17.660Z",
+  "updatedAt": "2026-10-01T16:40:26.997Z",
   "program": {
     "currentCycle": "2026-Q4",
     "cycles": [
@@ -276,6 +276,18 @@
       "goals": {
         "clubPartnersTarget": null
       }
+    },
+    {
+      "id": "muprfx4lak56td",
+      "firstName": "Christiane",
+      "lastName": "Fellersmann",
+      "cycle": "2026-Q4",
+      "createdAt": "2026-10-01T16:40:26.997Z",
+      "updatedAt": "2026-10-01T16:40:26.997Z",
+      "goals": {
+        "clubPartnersTarget": null
+      },
+      "reports": []
     }
   ]
 }
