@@ -145,6 +145,19 @@
       "savedAt": "2026-09-01T00:46:52.403Z",
       "published": true,
       "publishedAt": "2026-09-01T00:46:52.403Z"
+    },
+    "2026-09": {
+      "place1": [
+        "Oliver Beyer",
+        "Peter Bösing"
+      ],
+      "place2": [],
+      "firstCount": 1,
+      "secondCount": 0,
+      "jackpot": 30,
+      "savedAt": "2026-10-01T16:42:43.168Z",
+      "published": true,
+      "publishedAt": "2026-10-01T16:42:43.168Z"
     }
   },
   "eligibleParticipants": [
