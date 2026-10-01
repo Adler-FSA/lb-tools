@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "updatedAt": "2026-10-01T11:42:51.351Z",
+  "updatedAt": "2026-10-01T12:27:17.660Z",
   "program": {
     "currentCycle": "2026-Q4",
     "cycles": [
@@ -64,7 +64,7 @@
       "lastName": "Bösing",
       "cycle": "2026-Q4",
       "createdAt": "2026-10-01T11:13:00.000Z",
-      "updatedAt": "2026-10-01T11:13:00.000Z",
+      "updatedAt": "2026-10-01T12:27:17.660Z",
       "reports": [
         {
           "week": 1,
@@ -80,7 +80,7 @@
         }
       ],
       "goals": {
-        "clubPartnersTarget": null
+        "clubPartnersTarget": 24
       }
     },
     {
