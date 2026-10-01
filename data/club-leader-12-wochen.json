@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "updatedAt": "2026-10-01T11:42:51.351Z",
   "program": {
     "currentCycle": "2026-Q4",
@@ -43,11 +43,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -59,11 +55,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -88,11 +80,7 @@
         }
       ],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -104,11 +92,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -120,11 +104,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -136,11 +116,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -152,11 +128,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -168,11 +140,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -184,11 +152,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -200,11 +164,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -216,11 +176,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -232,11 +188,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -261,11 +213,7 @@
         }
       ],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -290,11 +238,7 @@
         }
       ],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -306,11 +250,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -322,11 +262,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     },
     {
@@ -338,11 +274,7 @@
       "updatedAt": "2026-10-01T11:13:00.000Z",
       "reports": [],
       "goals": {
-        "guestActivated": null,
-        "newPartners": null,
-        "twoPersonTalks": null,
-        "development": "",
-        "outcome": ""
+        "clubPartnersTarget": null
       }
     }
   ]
