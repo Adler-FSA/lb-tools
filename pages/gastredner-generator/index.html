@@ -747,8 +747,6 @@ function createComplianceCanvas(kind){
   var footerLines=wrapParagraph(c,footer,1340),fy=H-238;
   footerLines.forEach(function(line){c.fillText(line,205,fy);fy+=38});
 
-  c.fillStyle='#6b7b87';c.font=font(20,650);
-  c.fillText(de?'Stand: Gastredner-Generator':'Guest Speaker Generator',170,H-85);
   return page
 }
 
