@@ -6,26 +6,398 @@
 <meta name="robots" content="noindex,nofollow">
 <title>LiquidityBooster · Webinar-Generator</title>
 <style>
-:root{--navy:#132238;--mint:#00a7ad;--mag:#c6006f;--bg:#eef4f5;--line:#d8e4e8;--muted:#607080}
+:root{--navy:#132238;--mint:#00a7ad;--mag:#c6006f;--bg:#eef4f5;--line:#d8e4e8;--muted:#607080;--ok:#087c73;--err:#a61754}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy);background:var(--bg)}
 body{padding:18px}
-.wrap{width:min(980px,100%);margin:0 auto}
-.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(24px,5vw,44px);box-shadow:0 18px 50px rgba(19,34,56,.08)}
-.eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--mint)}
-h1{font-size:clamp(30px,5vw,48px);line-height:1.05;margin:10px 0 12px}
-p{font-size:17px;line-height:1.6;color:var(--muted);max-width:760px;margin:0}
-.accent{height:6px;width:150px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--mag));margin-top:24px}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.wrap{width:min(1280px,100%);margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.brandline{font-weight:900;letter-spacing:.02em}
+.backlink{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--navy);font-size:13px;font-weight:850;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 13px}
+.hero{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,38px);box-shadow:0 18px 50px rgba(19,34,56,.08);margin-bottom:18px}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:999px;pointer-events:none}
+.hero:before{width:430px;height:140px;right:-130px;top:-72px;background:linear-gradient(90deg,rgba(0,167,173,.15),rgba(198,0,111,.09));transform:rotate(-8deg)}
+.hero:after{width:360px;height:110px;left:-130px;bottom:-68px;background:linear-gradient(90deg,rgba(198,0,111,.09),rgba(0,167,173,.13));transform:rotate(8deg)}
+.eyebrow{position:relative;z-index:1;font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--mint)}
+h1{position:relative;z-index:1;font-size:clamp(30px,5vw,48px);line-height:1.04;margin:9px 0 11px}
+.lead{position:relative;z-index:1;margin:0;max-width:930px;color:var(--muted);font-size:17px;line-height:1.55}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;position:relative;z-index:1}
+.flowStep{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdfd}
+.flowNo{width:29px;height:29px;border-radius:999px;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;flex:0 0 auto;background:var(--mint)}
+.flowStep:nth-child(2) .flowNo,.flowStep:nth-child(4) .flowNo{background:var(--mag)}
+.flowStep strong{display:block;font-size:13px}.flowStep span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.grid{display:grid;grid-template-columns:minmax(350px,470px) minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 14px 42px rgba(19,34,56,.07)}
+.panel h2{font-size:20px;margin:0 0 14px}
+.section{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
+.targetGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.targetGrid .choice:last-child{grid-column:1/-1}
+.choiceRow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.addressRow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.choice{position:relative}.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice span{display:flex;flex-direction:column;justify-content:center;min-height:56px;border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#fff;font-size:13px;font-weight:850;line-height:1.3}
+.choice small{display:block;font-size:10px;color:var(--muted);font-weight:650;margin-top:3px}
+.choice input:checked+span{background:#edfafa;border-color:var(--mint);box-shadow:inset 0 0 0 1px var(--mint)}
+.audienceHint{margin-top:10px;padding:10px 12px;border-radius:11px;background:#f4f8f9;border:1px solid var(--line);font-size:11px;line-height:1.45;color:var(--muted)}
+.audienceHint.private{background:#fff8fb;border-color:#f0cfdf}.audienceHint.business{background:#eefafa;border-color:#cde6e8}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{min-width:0}.field.full{grid-column:1/-1}
+label,.label{display:block;font-size:12px;font-weight:850;margin:0 0 6px;color:#344958}
+input,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:var(--navy);border-radius:11px;padding:11px 12px;outline:none}
+textarea{min-height:140px;resize:vertical;line-height:1.45}
+input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.10)}
+.hint{font-size:11px;line-height:1.45;color:var(--muted);margin-top:6px}.customBox[hidden],.formalBox[hidden]{display:none!important}
+.templateGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.template{position:relative;border:2px solid transparent;border-radius:15px;padding:8px;background:#f5f9fa;cursor:pointer;transition:.16s ease}
+.template[hidden]{display:none!important}.template:hover{transform:translateY(-1px)}.template.active{border-color:var(--mint);background:#effafa;box-shadow:0 8px 24px rgba(0,167,173,.10)}
+.template input{position:absolute;opacity:0;pointer-events:none}.thumbWrap{aspect-ratio:148/210;border-radius:10px;overflow:hidden;background:#f4f8f9;border:1px solid #d9e4e7}
+.thumb{width:100%;height:100%;display:block;object-fit:cover}.template strong{display:block;font-size:12px;margin-top:7px}.template span{font-size:11px;color:var(--muted)}
+.previewTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.previewTop h2{margin:0}
+.badge{font-size:12px;font-weight:850;background:#eefafa;color:#087c73;border:1px solid #cde7e8;border-radius:999px;padding:6px 9px}
+.previewStage{background:linear-gradient(135deg,#e7eff1,#f8fbfb);border-radius:18px;padding:clamp(12px,3vw,24px);display:grid;place-items:center}
+#preview{display:block;width:min(100%,600px);height:auto;aspect-ratio:148/210;background:#fff;box-shadow:0 24px 58px rgba(19,34,56,.18)}
+.status{font-size:12px;min-height:18px;margin:12px 0 0;color:var(--muted)}.status.ok{color:var(--ok)}.status.error{color:var(--err)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.actions button{border:0;border-radius:12px;padding:13px 12px;font-weight:900;color:#fff;background:var(--navy)}.actions button.primary{background:var(--mint)}.actions button:disabled{opacity:.4;cursor:not-allowed}
+.smallnote{font-size:11px;line-height:1.45;color:var(--muted);margin:10px 0 0}
+.overlay{position:fixed;inset:0;background:rgba(19,34,56,.58);display:grid;place-items:center;padding:18px;z-index:50}.overlay[hidden]{display:none}
+.dialog{width:min(520px,100%);background:#fff;border-radius:21px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.25)}.dialog h3{font-size:25px;margin:6px 0 12px}
+.filebox{background:#f2fafb;border-left:5px solid var(--mint);border-radius:12px;padding:13px;overflow-wrap:anywhere}.filebox strong{display:block}.filebox span{font-size:12px;color:var(--muted)}
+.dialogActions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}.dialogActions a,.dialogActions button{text-align:center;text-decoration:none;border:0;border-radius:11px;padding:12px;font-weight:900}.dialogActions a{background:var(--mint);color:#fff}.dialogActions .share{background:var(--navy);color:#fff}.dialogActions button{grid-column:1/-1;background:#edf2f4;color:var(--navy)}
+@media(min-width:901px){.grid>section:nth-child(2){position:sticky;top:14px}}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){body{padding:10px}.hero,.panel{border-radius:18px;padding:16px}.targetGrid,.choiceRow,.formgrid,.actions,.dialogActions{grid-template-columns:1fr}.targetGrid .choice:last-child{grid-column:auto}.templateGrid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.dialogActions button{grid-column:auto}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <main class="card">
+  <div class="topbar">
+    <div class="brandline">LiquidityBooster · Webinar-Generator</div>
+    <a class="backlink" href="../visitenkarten-generator/">← Visitenkarten</a>
+  </div>
+
+  <section class="hero">
     <div class="eyebrow">Club Partner Werkzeug</div>
-    <h1>Webinar-Generator</h1>
-    <p>Der neue A5-Webinar-Generator wird hier aufgebaut. Die vier Vorlagen werden im Unterordner <strong>vorlagen</strong> hinterlegt und anschließend in den Generator eingebunden.</p>
-    <div class="accent"></div>
-  </main>
+    <h1>Persönliche Webinar-Einladungen erstellen</h1>
+    <p class="lead">Wähle Zielgruppe und Einladungsart. Private Kontakte werden bewusst neutral und neugierig angesprochen. Bei gewerblichen Kontakten darf LiquidityBooster offen genannt werden. Der QR-Code verwendet ausschließlich deinen persönlichen Affiliate-Link.</p>
+    <div class="flow">
+      <div class="flowStep"><span class="flowNo">1</span><div><strong>Zielgruppe wählen</strong><span>privat oder gewerblich</span></div></div>
+      <div class="flowStep"><span class="flowNo">2</span><div><strong>Einladung wählen</strong><span>entdecken, Austausch oder frei</span></div></div>
+      <div class="flowStep"><span class="flowNo">3</span><div><strong>Personalisieren</strong><span>Name, Ansprache & Absender</span></div></div>
+      <div class="flowStep"><span class="flowNo">4</span><div><strong>Erstellen & teilen</strong><span>PNG oder A5-PDF</span></div></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>1. Wen möchtest du einladen?</h2>
+      <div class="targetGrid" id="targetGrid">
+        <label class="choice"><input type="radio" name="target" value="familie" checked><span><b>Familie</b><small>persönlich & vertraut</small></span></label>
+        <label class="choice"><input type="radio" name="target" value="freunde"><span><b>Freunde</b><small>locker & neugierig</small></span></label>
+        <label class="choice"><input type="radio" name="target" value="arbeitskollegen"><span><b>Arbeitskollegen</b><small>anderer Blickwinkel</small></span></label>
+        <label class="choice"><input type="radio" name="target" value="arbeitssuchende"><span><b>Arbeitssuchende</b><small>Orientierung & Perspektiven</small></span></label>
+        <label class="choice"><input type="radio" name="target" value="existenzgruender"><span><b>Existenzgründer</b><small>unternehmerischer Start</small></span></label>
+        <label class="choice"><input type="radio" name="target" value="selbststaendige"><span><b>Selbstständige</b><small>unternehmerischer Austausch</small></span></label>
+        <label class="choice"><input type="radio" name="target" value="firmen"><span><b>Firmen</b><small>geschäftlich & transparent</small></span></label>
+      </div>
+      <div class="audienceHint private" id="audienceHint">Diese Einladung bleibt bewusst neutral: kein LiquidityBooster-Name, kein Webinar-Hinweis und keine Uhrzeit auf der A5-Karte. Erst der QR-Code löst auf.</div>
+
+      <div class="section">
+        <h2>2. Welche Einladung?</h2>
+        <div class="choiceRow">
+          <label class="choice"><input type="radio" name="mode" value="entdecken" checked><span><b>Entdecken</b><small>anschauen & selbst beurteilen</small></span></label>
+          <label class="choice"><input type="radio" name="mode" value="austausch"><span><b>Austausch</b><small>Menschen, Fragen & Gespräche</small></span></label>
+          <label class="choice"><input type="radio" name="mode" value="custom"><span><b>Eigener Text</b><small>vollständig frei formulieren</small></span></label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>3. Ansprache</h2>
+        <div class="addressRow">
+          <label class="choice"><input type="radio" name="address" value="du" checked><span><b>Du</b><small>persönlich & direkt</small></span></label>
+          <label class="choice"><input type="radio" name="address" value="sie"><span><b>Sie</b><small>formell & geschäftlich</small></span></label>
+        </div>
+        <div class="formalBox" id="formalBox" hidden style="margin-top:12px">
+          <div class="label">Formelle Anrede des Eingeladenen</div>
+          <div class="addressRow">
+            <label class="choice"><input type="radio" name="recipientTitle" value="herr" checked><span><b>Herr</b></span></label>
+            <label class="choice"><input type="radio" name="recipientTitle" value="frau"><span><b>Frau</b></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>4. Persönliche Angaben</h2>
+        <div class="formgrid">
+          <div class="field full"><label for="recipient">Name des Eingeladenen</label><input id="recipient" maxlength="70" placeholder="z. B. Thomas Müller"></div>
+          <div class="field full" id="companyField" hidden><label for="company">Firma / Unternehmen <span style="font-weight:500">(optional)</span></label><input id="company" maxlength="100" placeholder="z. B. Beispiel GmbH"></div>
+          <div class="field full"><label for="sender">Eingeladen von</label><input id="sender" maxlength="70" placeholder="Dein Name"></div>
+          <div class="field full"><label for="affiliateUrl">Dein persönlicher LiquidityBooster-Affiliate-Link</label><input id="affiliateUrl" inputmode="url" autocomplete="url" maxlength="1800" placeholder="https://liquiditybooster.de/..."><div class="hint">Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code.</div></div>
+        </div>
+        <div class="hint" id="profileHint" hidden>Deine gespeicherten Club-Partner-Daten aus dem Visitenkarten-Generator wurden automatisch übernommen.</div>
+
+        <div class="customBox" id="customBox" hidden>
+          <div class="field full" style="margin-top:14px"><label for="customHeadline">Eigene Überschrift</label><input id="customHeadline" maxlength="100" placeholder="Deine eigene Überschrift"></div>
+          <div class="field full" style="margin-top:10px"><label for="customText">Dein Einladungstext</label><textarea id="customText" maxlength="1100" placeholder="Schreibe hier deine persönliche Einladung …"></textarea></div>
+          <div class="field full" style="margin-top:10px"><label for="customClosing">Eigener Abschlusssatz</label><input id="customClosing" maxlength="150" placeholder="Dein persönlicher Abschlusssatz"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>5. A5-Vorlage auswählen</h2>
+        <div class="templateGrid" id="templateGrid">
+          <label class="template active" data-template="1" data-audience="private">
+            <input type="radio" name="template" value="1" checked>
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-01-neugier.png" alt=""></div>
+            <strong>Vorlage 1 · Neugier</strong><span>weich, offen & persönlich</span>
+          </label>
+          <label class="template" data-template="2" data-audience="private">
+            <input type="radio" name="template" value="2">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-02-perspektive.png" alt=""></div>
+            <strong>Vorlage 2 · Perspektive</strong><span>klar, modern & reduziert</span>
+          </label>
+          <label class="template" data-template="3" data-audience="business" hidden>
+            <input type="radio" name="template" value="3">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-03-connection.png" alt=""></div>
+            <strong>Vorlage 3 · Connection</strong><span>professionell & vernetzt</span>
+          </label>
+          <label class="template" data-template="4" data-audience="business" hidden>
+            <input type="radio" name="template" value="4">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-04-forum.png" alt=""></div>
+            <strong>Vorlage 4 · Forum</strong><span>Austausch & Verbindung</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="previewTop"><h2>Live-Vorschau</h2><span class="badge">A5 · 148 × 210 mm · 300 dpi</span></div>
+      <div class="previewStage"><canvas id="preview" width="1748" height="2480" aria-label="Webinar Einladung Vorschau"></canvas></div>
+      <div class="status" id="status" role="status" aria-live="polite">Name, Absender und persönlichen Affiliate-Link eintragen.</div>
+      <div class="actions"><button type="button" class="primary" id="makePng" disabled>PNG erstellen</button><button type="button" id="makePdf" disabled>PDF A5 erstellen</button></div>
+      <p class="smallnote">PNG zum digitalen Versenden. Die PDF wird als einzelne A5-Einladung angelegt. Nach der Erstellung kannst du die Datei speichern oder direkt teilen.</p>
+    </section>
+  </div>
 </div>
+
+<div class="overlay" id="fileOverlay" hidden>
+  <div class="dialog">
+    <div class="eyebrow">Webinar-Einladung</div>
+    <h3>Datei ist fertig</h3>
+    <div class="filebox"><strong id="fileName"></strong><span id="fileMeta"></span></div>
+    <div class="dialogActions"><a id="saveFile" href="#">Datei speichern</a><a id="shareFile" class="share" href="#">Datei teilen</a><button id="closeOverlay" type="button">Schließen</button></div>
+  </div>
+</div>
+
+<script src="../visitenkarten-generator/qrcode-local.js"></script>
+<script>
+(function(){
+'use strict';
+var W=1748,H=2480,DB_NAME='lb-webinar-file-handoff-v1',STORE='files',PROFILE_KEY='lb-club-partner-profile-v1';
+var state={target:'familie',mode:'entdecken',address:'du',recipientTitle:'herr',template:1,audience:'private'};
+var canvas=document.getElementById('preview'),ctx=canvas.getContext('2d'),images={},promises={};
+var TEMPLATES={
+  1:'./vorlagen/webinar-a5-vorlage-01-neugier.png',
+  2:'./vorlagen/webinar-a5-vorlage-02-perspektive.png',
+  3:'./vorlagen/webinar-a5-vorlage-03-connection.png',
+  4:'./vorlagen/webinar-a5-vorlage-04-forum.png'
+};
+var PRIVATE_TARGETS=['familie','freunde','arbeitskollegen','arbeitssuchende'];
+var TARGET_LABELS={familie:'Familie',freunde:'Freunde',arbeitskollegen:'Arbeitskollegen',arbeitssuchende:'Arbeitssuchende',existenzgruender:'Existenzgründer',selbststaendige:'Selbstständige',firmen:'Firmen'};
+
+function $(id){return document.getElementById(id)}
+function font(size,weight){return (weight||400)+' '+size+'px Arial,Helvetica,sans-serif'}
+function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+function normalizeUrl(raw){var s=String(raw||'').trim();if(!s)return'';if(!/^https?:\/\//i.test(s))s='https://'+s;try{var u=new URL(s);if(u.protocol!=='http:'&&u.protocol!=='https:')return'';return u.href}catch(e){return''}}
+function affiliateUrl(){var n=normalizeUrl($('affiliateUrl').value);if(!n)return'';try{var u=new URL(n),h=u.hostname.toLowerCase();if(h==='liquiditybooster.de'||h.endsWith('.liquiditybooster.de'))return n}catch(e){}return''}
+function cleanPersonName(raw){return String(raw||'').trim().replace(/^(Herr|Frau)\s+/i,'').replace(/\s+/g,' ')}
+function firstName(raw){var n=cleanPersonName(raw);return n?n.split(' ')[0]:'[Name]'}
+function lastName(raw){var n=cleanPersonName(raw),p=n.split(' ');return n?p[p.length-1]:'[Name]'}
+function salutation(){var raw=$('recipient').value.trim();if(state.address==='du')return'Hallo '+firstName(raw)+',';return state.recipientTitle==='frau'?'Guten Tag Frau '+lastName(raw)+',':'Guten Tag Herr '+lastName(raw)+','}
+function sanitize(s){return String(s||'Einladung').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'Einladung'}
+
+function loadImage(path){if(promises[path])return promises[path];promises[path]=new Promise(function(resolve,reject){var img=new Image();images[path]=img;img.onload=function(){resolve(img);render()};img.onerror=function(){reject(new Error('Vorlage konnte nicht geladen werden: '+path))};img.src=path});return promises[path]}
+function preload(){Object.keys(TEMPLATES).forEach(function(k){loadImage(TEMPLATES[k])})}
+
+function loadClubPartnerProfile(){
+  try{
+    var raw=localStorage.getItem(PROFILE_KEY);if(!raw)return false;
+    var p=JSON.parse(raw)||{},changed=false,sender=[p.firstName,p.lastName].filter(Boolean).join(' ').trim();
+    if(sender&&!$('sender').value.trim()){$('sender').value=sender;changed=true}
+    if(p.affiliateUrl&&!$('affiliateUrl').value.trim()){$('affiliateUrl').value=p.affiliateUrl;changed=true}
+    if(changed)$('profileHint').hidden=false;
+    return changed
+  }catch(e){return false}
+}
+
+function isPrivate(){return PRIVATE_TARGETS.indexOf(state.target)!==-1}
+
+var TEXTS={
+familie:{
+  entdecken:{headline:'Ich möchte dir etwas zeigen',body:'Es gibt Dinge, die lassen sich schwer in ein paar Sätzen erklären. Deshalb möchte ich dir gar nicht viel vorwegnehmen.\n\nSchau es dir einfach in Ruhe selbst an und mach dir anschließend dein eigenes Bild.',closing:'Ich würde mich freuen, wenn du dir die Zeit dafür nimmst.'},
+  austausch:{headline:'Manchmal hilft ein gutes Gespräch',body:'Ich möchte dich zu einer Runde einladen, in der Menschen offen miteinander sprechen, Fragen stellen und unterschiedliche Sichtweisen kennenlernen können.',closing:'Komm einfach dazu, hör zu und mach dir selbst ein Bild.'}
+},
+freunde:{
+  entdecken:{headline:'Da musste ich an dich denken',body:'Ich bin auf etwas gestoßen, das ich interessant finde – und bei dem ich ziemlich schnell an dich gedacht habe.\n\nStatt dir jetzt alles zu erklären, möchte ich, dass du es dir einfach selbst anschaust.',closing:'Vielleicht entdeckst du dabei etwas, das du noch nicht auf dem Schirm hattest.'},
+  austausch:{headline:'Komm einfach mal mit dazu',body:'Ich kenne eine Runde, in der interessante Menschen und unterschiedliche Perspektiven zusammenkommen. Ich glaube, das könnte dir gefallen.',closing:'Einfach zuhören, fragen und schauen, was du daraus mitnimmst.'}
+},
+arbeitskollegen:{
+  entdecken:{headline:'Ein anderer Blickwinkel',body:'Neben unserem normalen Arbeitsalltag gibt es Themen, mit denen man sonst kaum in Berührung kommt.\n\nIch möchte dir etwas zeigen, das einen anderen Blickwinkel eröffnet.',closing:'Schau es dir einfach einmal an und entscheide selbst, was du davon hältst.'},
+  austausch:{headline:'Austausch außerhalb des normalen Alltags',body:'Manchmal entstehen interessante Gedanken gerade dann, wenn Menschen mit unterschiedlichen Erfahrungen miteinander ins Gespräch kommen.',closing:'Ich möchte dich einladen, einfach einmal dabei zu sein.'}
+},
+arbeitssuchende:{
+  entdecken:{headline:'Vielleicht beginnt hier eine neue Perspektive',body:'Wenn man sich neu orientiert, kann es hilfreich sein, auch Dinge anzuschauen, die bisher außerhalb des eigenen Blickfeldes lagen.\n\nIch möchte dir etwas zeigen – ohne Versprechen und ohne Erwartung.',closing:'Vielleicht entsteht daraus ein Gedanke, den du für dich weiterverfolgen möchtest.'},
+  austausch:{headline:'Neue Menschen. Neue Gedanken. Neue Perspektiven.',body:'Wer sich neu orientiert, profitiert manchmal nicht nur von Informationen, sondern auch von Gesprächen und anderen Sichtweisen.',closing:'Komm einfach dazu und schau, welche Gedanken du für dich mitnimmst.'}
+},
+existenzgruender:{
+  entdecken:{headline:'Neue Perspektiven für deinen unternehmerischen Weg',body:'Wer etwas Eigenes aufbaut, braucht Wissen, Ideen und den Blick über den eigenen Tellerrand. Deshalb möchte ich dich zur LiquidityBooster-Präsentation einladen.\n\nDu bekommst einen ersten Einblick in verschiedene Themen, Geschäftsmodelle und Möglichkeiten und kannst anschließend selbst entscheiden, welche davon für deinen Weg interessant sind.',closing:'Schau dir an, was davon zu deinen eigenen Plänen passt.'},
+  austausch:{headline:'Austausch für deinen nächsten Schritt',body:'Gerade in der Gründungsphase entstehen viele Fragen. Beim LiquidityBooster-Stammtisch treffen Menschen mit unterschiedlichen Erfahrungen, Ideen und Perspektiven zusammen.\n\nDu kannst zuhören, Fragen stellen und neue Gedanken für deinen eigenen Weg mitnehmen.',closing:'Nimm mit, was dich bei deinem nächsten Schritt weiterbringt.'}
+},
+selbststaendige:{
+  entdecken:{headline:'Unternehmerische Perspektiven entdecken',body:'Ich möchte dich zur LiquidityBooster-Präsentation einladen. Dort lernst du unterschiedliche Themen, Geschäftsmodelle und unternehmerische Ansätze kennen.\n\nNicht alles muss zum eigenen Unternehmen passen. Entscheidend ist, neue Perspektiven kennenzulernen und anschließend selbst zu beurteilen, was davon interessant sein könnte.',closing:'Entscheide selbst, welche Gedanken für dein Unternehmen interessant sind.'},
+  austausch:{headline:'Unternehmerischer Austausch auf Augenhöhe',body:'Beim LiquidityBooster-Stammtisch treffen Selbstständige, Unternehmer und interessierte Menschen zusammen, um Fragen, Erfahrungen und unterschiedliche Perspektiven auszutauschen.\n\nKein Vortrag – sondern Raum für Gespräche und neue Gedanken.',closing:'Ich freue mich, wenn du beim Austausch dabei bist.'}
+},
+firmen:{
+  entdecken:{headline:'Einladung zur LiquidityBooster-Präsentation',body:'Ich möchte Sie einladen, LiquidityBooster und die dahinterstehenden Themen und Perspektiven kennenzulernen.\n\nDie Präsentation gibt Ihnen einen ersten Einblick in unterschiedliche Geschäftsmodelle, Entwicklungen und unternehmerische Ansätze. Anschließend können Sie selbst beurteilen, welche Themen für Ihr Unternehmen interessant sein könnten.',closing:'Ich freue mich, wenn Sie sich die Zeit für einen ersten Einblick nehmen.'},
+  austausch:{headline:'Einladung zum unternehmerischen Austausch',body:'Ich möchte Sie zum LiquidityBooster-Stammtisch einladen.\n\nIm Mittelpunkt stehen der offene Austausch, Fragen, unterschiedliche Erfahrungen und neue unternehmerische Perspektiven. Sie können zuhören, eigene Fragen einbringen und Kontakte kennenlernen.',closing:'Ich freue mich, wenn Sie beim Austausch dabei sind.'}
+}
+};
+
+function adaptAddress(text){
+  if(state.address==='du')return text;
+  var pairs=[
+    [/\bdich\b/g,'Sie'],[/\bdir\b/g,'Ihnen'],[/\bdein(e|en|em|er|es)?\b/gi,function(m){var low=m.toLowerCase();var map={dein:'Ihr',deine:'Ihre',deinen:'Ihren',deinem:'Ihrem',deiner:'Ihrer',deines:'Ihres'};return map[low]||m}],
+    [/\bdu\b/g,'Sie'],[/\bDein(e|en|em|er|es)?\b/g,function(m){var low=m.toLowerCase();var map={dein:'Ihr',deine:'Ihre',deinen:'Ihren',deinem:'Ihrem',deiner:'Ihrer',deines:'Ihres'};return map[low]||m}]
+  ];
+  var out=text;pairs.forEach(function(p){out=out.replace(p[0],p[1])});return out
+}
+
+function content(){
+  var sender=$('sender').value.trim(),company=$('company').value.trim(),base;
+  if(state.mode==='custom'){
+    base={headline:$('customHeadline').value.trim()||'Persönliche Einladung',body:$('customText').value.trim()||'Hier steht deine persönliche Einladung.',closing:$('customClosing').value.trim()||'Ich freue mich, wenn du dabei bist.'}
+  }else base=TEXTS[state.target][state.mode];
+  var privateMode=isPrivate();
+  var body=adaptAddress(base.body),closing=adaptAddress(base.closing),headline=base.headline;
+  var intro=salutation()+'\n\n';
+  return{
+    headline:headline,
+    body:intro+body,
+    closing:closing,
+    sender:sender,
+    company:company,
+    privateMode:privateMode,
+    schedule:state.mode==='austausch'?'Mittwoch · 19:00–20:00 Uhr':'Montag · 19:00–20:00 Uhr',
+    format:state.mode==='austausch'?'LiquidityBooster-Stammtisch':'LiquidityBooster-Präsentation'
+  }
+}
+
+function wrapParagraph(c,text,maxWidth){if(!text)return[];var words=String(text).split(/\s+/),lines=[],line='';words.forEach(function(word){var test=line?line+' '+word:word;if(c.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test});if(line)lines.push(line);return lines}
+function fitBlock(c,text,maxWidth,maxHeight,start,min,weight,lineFactor){
+  var paragraphs=String(text||'').split(/\n\s*\n|\n/),size=start;
+  while(size>=min){
+    c.font=font(size,weight);var lines=[];
+    paragraphs.forEach(function(p,idx){if(p.trim())wrapParagraph(c,p.trim(),maxWidth).forEach(function(l){lines.push(l)});if(idx<paragraphs.length-1)lines.push('')});
+    var lh=size*lineFactor;if(lines.length*lh<=maxHeight)return{size:size,lineH:lh,lines:lines};size--
+  }
+  c.font=font(min,weight);var out=[];paragraphs.forEach(function(p,idx){if(p.trim())wrapParagraph(c,p.trim(),maxWidth).forEach(function(l){out.push(l)});if(idx<paragraphs.length-1)out.push('')});return{size:min,lineH:min*lineFactor,lines:out}
+}
+function fitOneLine(c,text,maxWidth,start,min,weight){var s=start;while(s>min){c.font=font(s,weight);if(c.measureText(text).width<=maxWidth)break;s--}c.font=font(s,weight);return s}
+function qrMatrix(text){if(!text||typeof qrcode!=='function')return null;var qr=qrcode(0,'M');qr.addData(text);qr.make();var rows=[],count=qr.getModuleCount();for(var r=0;r<count;r++){var row=[];for(var col=0;col<count;col++)row.push(qr.isDark(r,col));rows.push(row)}return rows}
+function drawQr(c,matrix,x,y,size){if(!matrix)return;var quiet=4,total=matrix.length+quiet*2,module=size/total;c.save();c.fillStyle='rgba(255,255,255,.98)';roundRect(c,x-18,y-18,size+36,size+36,22);c.fill();c.strokeStyle='#00a7ad';c.lineWidth=6;roundRect(c,x-18,y-18,size+36,size+36,22);c.stroke();c.fillStyle='#fff';c.fillRect(x,y,size,size);c.fillStyle='#000';for(var r=0;r<matrix.length;r++)for(var col=0;col<matrix.length;col++)if(matrix[r][col])c.fillRect(x+(col+quiet)*module,y+(r+quiet)*module,module+.55,module+.55);c.restore()}
+
+function drawCard(c){
+  c.clearRect(0,0,W,H);c.fillStyle='#fff';c.fillRect(0,0,W,H);
+  var img=images[TEMPLATES[state.template]];
+  if(img&&img.complete&&img.naturalWidth){c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';c.drawImage(img,0,0,W,H)}
+  else{c.fillStyle='#f6f9fa';c.fillRect(0,0,W,H);c.fillStyle='#607080';c.textAlign='center';c.font=font(42,700);c.fillText('Vorlage wird geladen …',W/2,H/2);c.textAlign='left';return}
+
+  var d=content(),x=170,maxW=1408,y=225;
+  c.textBaseline='alphabetic';c.textAlign='left';
+
+  c.save();c.fillStyle=d.privateMode?'rgba(255,255,255,.80)':'rgba(255,255,255,.88)';c.shadowColor='rgba(19,34,56,.10)';c.shadowBlur=28;c.shadowOffsetY=8;roundRect(c,120,145,1508,1535,34);c.fill();c.restore();
+
+  c.fillStyle=d.privateMode?'#c6006f':'#00a7ad';c.font=font(24,900);c.fillText(d.privateMode?'PERSÖNLICHE EINLADUNG':'LIQUIDITYBOOSTER · PERSÖNLICHE EINLADUNG',x,y);
+
+  c.fillStyle='#132238';fitOneLine(c,d.headline,maxW,66,43,900);c.fillText(d.headline,x,y+108);
+  c.fillStyle='#00a7ad';c.fillRect(x,y+146,150,6);
+
+  var bodyTop=y+225,bodyMaxH=d.privateMode?840:720;
+  c.fillStyle='#132238';var block=fitBlock(c,d.body,maxW,bodyMaxH,39,29,500,1.42),cy=bodyTop;c.font=font(block.size,500);
+  block.lines.forEach(function(line){if(line)c.fillText(line,x,cy);cy+=block.lineH});
+
+  if(!d.privateMode){
+    var infoY=Math.max(cy+38,1250);
+    c.save();c.fillStyle='rgba(255,255,255,.94)';c.strokeStyle='rgba(0,167,173,.35)';c.lineWidth=3;roundRect(c,x,infoY,maxW,205,24);c.fill();c.stroke();c.textAlign='center';
+    c.fillStyle='#132238';c.font=font(31,900);c.fillText(d.format,x+maxW/2,infoY+62);
+    c.fillStyle='#c6006f';c.font=font(30,900);c.fillText(d.schedule,x+maxW/2,infoY+113);
+    if(d.company){c.fillStyle='#526372';c.font=font(25,700);c.fillText('Für: '+$('recipient').value.trim()+' · '+d.company,x+maxW/2,infoY+160)}
+    c.restore();c.textAlign='left';
+  }
+
+  var footerY=1795;
+  c.save();c.fillStyle='rgba(255,255,255,.90)';c.shadowColor='rgba(19,34,56,.11)';c.shadowBlur=24;c.shadowOffsetY=7;roundRect(c,120,footerY,1508,545,30);c.fill();c.restore();
+
+  c.fillStyle='#132238';var close=fitBlock(c,d.closing,920,120,30,24,800,1.28),closeY=footerY+72;c.font=font(close.size,800);
+  close.lines.forEach(function(line){if(line)c.fillText(line,x,closeY);closeY+=close.lineH});
+  c.fillStyle='#c6006f';c.font=font(34,900);c.fillText(d.sender||'',x,footerY+155);
+
+  c.fillStyle='#00a7ad';c.font=font(29,900);c.fillText(d.privateMode?'Neugierig?':'Mehr erfahren',x,footerY+245);
+  var qrText=d.privateMode?'QR-Code scannen und selbst entdecken.':'QR-Code scannen → persönliche LiquidityBooster-Seite öffnen → im Menü „Webinare“ auswählen → aktuellen Termin wählen.';
+  c.fillStyle='#344958';var qrt=fitBlock(c,qrText,870,155,27,22,600,1.35),qy=footerY+300;c.font=font(qrt.size,600);
+  qrt.lines.forEach(function(line){if(line)c.fillText(line,x,qy);qy+=qrt.lineH});
+  var matrix=qrMatrix(affiliateUrl());if(matrix)drawQr(c,matrix,1260,footerY+115,280);
+}
+
+function ready(){var ok=$('recipient').value.trim()&&$('sender').value.trim()&&affiliateUrl();if(state.mode==='custom')ok=ok&&$('customHeadline').value.trim()&&$('customText').value.trim();return!!ok}
+function updateStatus(){var s=$('status'),raw=$('affiliateUrl').value.trim(),normalized=normalizeUrl(raw),allowed=affiliateUrl(),ok=ready();$('makePng').disabled=!ok;$('makePdf').disabled=!ok;if(raw&&normalized&&!allowed){s.textContent='Bitte ausschließlich deinen persönlichen LiquidityBooster-Affiliate-Link eintragen.';s.className='status error'}else if(raw&&!normalized){s.textContent='Bitte den Affiliate-Link prüfen.';s.className='status error'}else if(ok){s.textContent='Alles bereit – deine Einladung kann erstellt werden.';s.className='status ok'}else{s.textContent='Name, Absender und persönlichen Affiliate-Link eintragen.';s.className='status'}}
+function render(){drawCard(ctx);updateStatus()}
+
+function updateAudience(){
+  state.audience=isPrivate()?'private':'business';
+  $('audienceHint').className='audienceHint '+state.audience;
+  $('audienceHint').textContent=isPrivate()?'Diese Einladung bleibt bewusst neutral: kein LiquidityBooster-Name, kein Webinar-Hinweis und keine Uhrzeit auf der A5-Karte. Erst der QR-Code löst auf.':'Diese Einladung ist geschäftlich offen: LiquidityBooster, Veranstaltungsformat und Uhrzeit werden auf der A5-Karte genannt.';
+  $('companyField').hidden=isPrivate();
+  document.querySelectorAll('.template').forEach(function(el){el.hidden=el.getAttribute('data-audience')!==state.audience});
+  var allowed=isPrivate()?[1,2]:[3,4];if(allowed.indexOf(state.template)===-1)setTemplate(allowed[0]);
+  if(state.target==='firmen'){document.querySelector('input[name="address"][value="sie"]').checked=true;setAddress()}
+  else if(state.address==='sie'&&state.target!=='firmen'){document.querySelector('input[name="address"][value="du"]').checked=true;setAddress()}
+  render()
+}
+function setTarget(){state.target=document.querySelector('input[name="target"]:checked').value;updateAudience()}
+function setMode(){state.mode=document.querySelector('input[name="mode"]:checked').value;$('customBox').hidden=state.mode!=='custom';render()}
+function setAddress(){state.address=document.querySelector('input[name="address"]:checked').value;$('formalBox').hidden=state.address!=='sie';render()}
+function setRecipientTitle(){state.recipientTitle=document.querySelector('input[name="recipientTitle"]:checked').value;render()}
+function setTemplate(n){state.template=parseInt(n,10)||1;document.querySelectorAll('.template').forEach(function(el){el.classList.toggle('active',el.getAttribute('data-template')===String(state.template))});var r=document.querySelector('.template[data-template="'+state.template+'"] input');if(r)r.checked=true;loadImage(TEMPLATES[state.template]);render()}
+
+function canvasToBlob(c,type,quality){return new Promise(function(resolve,reject){c.toBlob(function(b){b?resolve(b):reject(new Error('Datei konnte nicht erstellt werden.'))},type,quality)})}
+function dataUrlBytes(dataUrl){var b64=dataUrl.split(',')[1],bin=atob(b64),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return bytes}
+function asciiBytes(s){return new TextEncoder().encode(s)}
+function concatBytes(parts){var len=parts.reduce(function(a,b){return a+b.length},0),out=new Uint8Array(len),off=0;parts.forEach(function(p){out.set(p,off);off+=p.length});return out}
+function jpegPdf(c,wmm,hmm){var jpg=dataUrlBytes(c.toDataURL('image/jpeg',.98)),wpt=(wmm*72/25.4).toFixed(2),hpt=(hmm*72/25.4).toFixed(2),objects=[];objects[1]=asciiBytes('<< /Type /Catalog /Pages 2 0 R >>');objects[2]=asciiBytes('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');objects[3]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');objects[4]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width '+c.width+' /Height '+c.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Im0 Do Q\n';objects[5]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream');var parts=[asciiBytes('%PDF-1.4\n%LBWEBINAR\n')],offsets=[0],pos=parts[0].length;for(var i=1;i<=5;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}var xref=pos,xs='xref\n0 6\n0000000000 65535 f \n';for(var j=1;j<=5;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';xs+='trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));return new Blob(parts,{type:'application/pdf'})}
+function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('Dateispeicher'))}})}
+async function storeFile(blob,filename,format,mime){var db=await openDb(),token='webinar-'+Date.now()+'-'+Math.random().toString(36).slice(2);return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:filename,format:format,mime:mime,created:new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date())});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error||new Error('Dateispeicher'))}})}
+function handoff(token,action){var u=new URL('./datei-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);return u.href}
+async function createFile(type){
+  if(!ready()){updateStatus();return}
+  try{
+    await loadImage(TEMPLATES[state.template]);drawCard(ctx);
+    var recipient=sanitize($('recipient').value),target=sanitize(TARGET_LABELS[state.target]),kind=state.mode==='entdecken'?'Entdecken':state.mode==='austausch'?'Austausch':'Eigener-Text',filename,blob,format,mime;
+    if(type==='png'){blob=await canvasToBlob(canvas,'image/png');filename='Webinar-Einladung-'+recipient+'-'+target+'-'+kind+'.png';format='PNG · A5 · 1748 × 2480 px';mime='image/png'}
+    else{blob=jpegPdf(canvas,148,210);filename='Webinar-Einladung-'+recipient+'-'+target+'-'+kind+'.pdf';format='PDF · A5 · 148 × 210 mm';mime='application/pdf'}
+    var token=await storeFile(blob,filename,format,mime);$('fileName').textContent=filename;$('fileMeta').textContent=format;$('saveFile').href=handoff(token,'save');$('shareFile').href=handoff(token,'share');$('fileOverlay').hidden=false
+  }catch(e){$('status').textContent='Fehler: '+(e&&e.message?e.message:String(e));$('status').className='status error'}
+}
+
+document.querySelectorAll('input[name="target"]').forEach(function(x){x.addEventListener('change',setTarget)});
+document.querySelectorAll('input[name="mode"]').forEach(function(x){x.addEventListener('change',setMode)});
+document.querySelectorAll('input[name="address"]').forEach(function(x){x.addEventListener('change',setAddress)});
+document.querySelectorAll('input[name="recipientTitle"]').forEach(function(x){x.addEventListener('change',setRecipientTitle)});
+document.getElementById('templateGrid').addEventListener('click',function(e){var el=e.target.closest('.template');if(el&&!el.hidden)setTemplate(el.getAttribute('data-template'))});
+['recipient','company','sender','affiliateUrl','customHeadline','customText','customClosing'].forEach(function(id){$(id).addEventListener('input',render)});
+$('makePng').addEventListener('click',function(){createFile('png')});$('makePdf').addEventListener('click',function(){createFile('pdf')});
+$('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});$('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
+
+loadClubPartnerProfile();preload();updateAudience();setMode();setAddress();setRecipientTitle();setTemplate(1);render();
+})();
+</script>
 </body>
 </html>
