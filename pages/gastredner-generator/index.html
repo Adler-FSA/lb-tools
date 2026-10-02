@@ -179,6 +179,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
             <div class="hint" data-i18n="affiliateHint">Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code. Es wird kein allgemeiner Ersatzlink verwendet.</div>
           </div>
         </div>
+        <div class="hint" id="profileHint" hidden data-i18n="profileLoaded">Deine gespeicherten Club-Partner-Daten aus dem Visitenkarten-Generator wurden übernommen.</div>
 
         <div class="customBox" id="customBox" hidden>
           <div class="field full" style="margin-top:14px">
@@ -284,7 +285,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 (function(){
 'use strict';
 
-var W=1748,H=2480,DB_NAME='lb-guest-speaker-file-handoff-v1',STORE='files';
+var W=1748,H=2480,DB_NAME='lb-guest-speaker-file-handoff-v1',STORE='files',PROFILE_KEY='lb-club-partner-profile-v1';
 var state={mode:'professional',address:'du',recipientTitle:'herr',template:1,lang:'de'};
 var canvas=document.getElementById('preview'),ctx=canvas.getContext('2d');
 var images={},promises={};
@@ -310,7 +311,7 @@ var I18N={
     addressTitle:'2. Ansprache',du:'Du',duSub:'persönlich & direkt',sie:'Sie',sieSub:'formell & geschäftlich',
     formalTitle:'Formelle Anrede des Eingeladenen',herr:'Herr',frau:'Frau',
     dataTitle:'3. Persönliche Angaben',recipient:'Name des Eingeladenen',recipientPh:'z. B. Thomas Müller',subject:'Thema / Business',subjectPh:'z. B. Mitarbeitergesundheit',subjectHint:'Optional. Wenn das Feld leer bleibt, wird neutral von deinem/Ihrem Thema gesprochen.',sender:'Eingeladen von',senderPh:'z. B. Michael Rau',
-    affiliate:'Dein persönlicher LiquidityBooster-Affiliate-Link',affiliateHint:'Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code. Es wird kein allgemeiner Ersatzlink verwendet.',
+    affiliate:'Dein persönlicher LiquidityBooster-Affiliate-Link',affiliateHint:'Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code. Es wird kein allgemeiner Ersatzlink verwendet.',profileLoaded:'Deine gespeicherten Club-Partner-Daten aus dem Visitenkarten-Generator wurden übernommen.',
     customHeadline:'Eigene Überschrift',customHeadlinePh:'Deine eigene Überschrift',customText:'Dein Einladungstext',customTextPh:'Schreibe hier deine persönliche Einladung …',customClosing:'Eigener Abschlusssatz',customClosingPh:'z. B. Ich freue mich darauf, dich dort zu erleben.',
     templateTitle:'4. A5-Vorlage auswählen',t1:'Vorlage 1 · Bühne',s1:'Gastredner & Publikum',t2:'Vorlage 2 · Geometrisch',s2:'klar & modern',t3:'Vorlage 3 · Architektur',s3:'räumlich & hochwertig',t4:'Vorlage 4 · Portal',s4:'rund & elegant',t5:'Vorlage 5 · Licht',s5:'dynamisch & leicht',t6:'Vorlage 6 · Minimal',s6:'ruhig & offen',
     preview:'Live-Vorschau',missing:'Name, Absender und persönlichen Affiliate-Link eintragen.',badLink:'Bitte ausschließlich deinen persönlichen LiquidityBooster-Affiliate-Link eintragen.',ready:'Alles bereit – deine Gastredner-Einladung kann erstellt werden.',
@@ -339,7 +340,7 @@ var I18N={
     addressTitle:'2. Form of address',du:'Personal',duSub:'direct & personal',sie:'Formal',sieSub:'formal & businesslike',
     formalTitle:'Formal salutation',herr:'Mr',frau:'Ms',
     dataTitle:'3. Personal details',recipient:'Name of invitee',recipientPh:'e.g. Thomas Miller',subject:'Topic / Business',subjectPh:'e.g. employee wellbeing',subjectHint:'Optional. If left blank, the invitation simply refers to your topic.',sender:'Invited by',senderPh:'e.g. Michael Rau',
-    affiliate:'Your personal LiquidityBooster affiliate link',affiliateHint:'The link is not printed. It is stored only in the QR code. No general replacement link is used.',
+    affiliate:'Your personal LiquidityBooster affiliate link',affiliateHint:'The link is not printed. It is stored only in the QR code. No general replacement link is used.',profileLoaded:'Your saved Club Partner details from the business card generator have been filled in automatically.',
     customHeadline:'Custom headline',customHeadlinePh:'Your own headline',customText:'Your invitation text',customTextPh:'Write your personal invitation here …',customClosing:'Custom closing line',customClosingPh:'e.g. I look forward to seeing you there.',
     templateTitle:'4. Choose A5 template',t1:'Template 1 · Stage',s1:'speaker & audience',t2:'Template 2 · Geometric',s2:'clear & modern',t3:'Template 3 · Architecture',s3:'spatial & refined',t4:'Template 4 · Portal',s4:'round & elegant',t5:'Template 5 · Light',s5:'dynamic & airy',t6:'Template 6 · Minimal',s6:'calm & open',
     preview:'Live preview',missing:'Enter invitee name, sender and your personal affiliate link.',badLink:'Please enter only your personal LiquidityBooster affiliate link.',ready:'Everything is ready – your guest speaker invitation can be created.',
@@ -434,6 +435,17 @@ function drawQr(c,matrix,x,y,size){
   c.restore()
 }
 
+function loadClubPartnerProfile(){
+  try{
+    var raw=localStorage.getItem(PROFILE_KEY);if(!raw)return false;
+    var p=JSON.parse(raw)||{},changed=false;
+    var sender=[p.firstName,p.lastName].filter(Boolean).join(' ').trim();
+    if(sender&&!$('sender').value.trim()){$('sender').value=sender;changed=true}
+    if(p.affiliateUrl&&!$('affiliateUrl').value.trim()){$('affiliateUrl').value=p.affiliateUrl;changed=true}
+    if(changed)$('profileHint').hidden=false;
+    return changed
+  }catch(e){return false}
+}
 function subjectText(){
   var v=$('subject').value.trim();
   if(v)return v;
@@ -815,7 +827,7 @@ $('makePdf').addEventListener('click',function(){createFile('pdf')});
 $('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});
 $('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
 
-preload();applyI18n();setAddress();setRecipientTitle();setTemplate(1);render();
+loadClubPartnerProfile();preload();applyI18n();setAddress();setRecipientTitle();setTemplate(1);render();
 })();
 </script>
 </body>
