@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>LiquidityBooster · Gastredner-Generator</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --mag:#c6006f;
+  --bg:#f4f8f9;
+  --line:#d9e5e8;
+  --muted:#667785;
+  --white:#ffffff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy);background:var(--bg)}
+body{padding:18px}
+button{font:inherit}
+.wrap{width:min(1240px,100%);margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.brandline{font-weight:900;letter-spacing:.02em}
+.lang{display:flex;gap:7px}
+.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 11px;font-weight:850;cursor:pointer}
+.lang button.active{background:var(--mint);border-color:var(--mint);color:#fff}
+.hero{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,38px);box-shadow:0 18px 50px rgba(19,34,56,.08);margin-bottom:18px}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:999px;pointer-events:none}
+.hero:before{width:360px;height:130px;right:-100px;top:-58px;background:linear-gradient(90deg,rgba(0,167,173,.17),rgba(198,0,111,.08));transform:rotate(-9deg)}
+.hero:after{width:330px;height:110px;left:-120px;bottom:-65px;background:linear-gradient(90deg,rgba(198,0,111,.10),rgba(0,167,173,.13));transform:rotate(8deg)}
+.eyebrow{position:relative;z-index:1;font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--mint)}
+h1{position:relative;z-index:1;font-size:clamp(30px,5vw,48px);line-height:1.04;margin:9px 0 11px}
+.lead{position:relative;z-index:1;margin:0;max-width:860px;color:var(--muted);font-size:17px;line-height:1.55}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;position:relative;z-index:1}
+.flowStep{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdfd}
+.flowNo{width:29px;height:29px;border-radius:999px;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;flex:0 0 auto}
+.flowStep:nth-child(1) .flowNo,.flowStep:nth-child(3) .flowNo{background:var(--mint)}
+.flowStep:nth-child(2) .flowNo{background:var(--mag)}
+.flowStep strong{display:block;font-size:13px}
+.flowStep span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.grid{display:grid;grid-template-columns:minmax(320px,430px) minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 14px 42px rgba(19,34,56,.07)}
+.panel h2{font-size:20px;margin:0 0 15px}
+.templateGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.template{position:relative;border:2px solid transparent;border-radius:15px;padding:8px;background:#f5f9fa;cursor:pointer;text-align:left;transition:.16s ease}
+.template:hover{transform:translateY(-1px)}
+.template.active{border-color:var(--mint);background:#effafa;box-shadow:0 8px 24px rgba(0,167,173,.10)}
+.template input{position:absolute;opacity:0;pointer-events:none}
+.thumbWrap{position:relative;aspect-ratio:148/210;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#eef7f7,#fff3f8);border:1px solid #d9e4e7}
+.thumb{width:100%;height:100%;display:block;object-fit:cover}
+.fallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:12px;color:var(--muted);font-size:11px;font-weight:800;line-height:1.35;background:linear-gradient(145deg,#eef9fa,#fff4f8)}
+.template strong{display:block;font-size:12px;margin-top:7px}
+.template span{font-size:11px;color:var(--muted)}
+.note{margin:14px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.previewTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.previewTop h2{margin:0}
+.badge{font-size:12px;font-weight:850;background:#eefafa;color:#087c73;border:1px solid #cde7e8;border-radius:999px;padding:6px 9px}
+.previewStage{background:linear-gradient(135deg,#edf4f5,#f8fbfb);border-radius:18px;padding:clamp(14px,3vw,26px);display:grid;place-items:center;min-height:540px}
+.paper{position:relative;width:min(100%,520px);aspect-ratio:148/210;background:#fff;box-shadow:0 24px 58px rgba(19,34,56,.18);overflow:hidden}
+.paper img{width:100%;height:100%;display:block;object-fit:cover}
+.paperFallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:var(--muted);font-weight:850;line-height:1.45;background:linear-gradient(145deg,#eef9fa,#fff3f8)}
+.infoStrip{margin-top:14px;border-left:5px solid var(--mag);background:linear-gradient(90deg,rgba(198,0,111,.055),rgba(0,167,173,.045));border-radius:12px;padding:12px 14px;color:var(--muted);font-size:12px;line-height:1.5}
+@media(min-width:901px){.grid>section:nth-child(2){position:sticky;top:14px}}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.previewStage{min-height:0}}
+@media(max-width:700px){.flow{grid-template-columns:1fr}}
+@media(max-width:540px){body{padding:10px}.hero,.panel{border-radius:18px}.templateGrid{grid-template-columns:1fr 1fr}.topbar{align-items:flex-start}.brandline{font-size:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brandline">LiquidityBooster · Gastredner-Generator</div>
+    <div class="lang" aria-label="Language">
+      <button type="button" class="active" data-lang="de">DE</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="eyebrow" data-i18n="eyebrow">Club Partner Werkzeug</div>
+    <h1 data-i18n="title">Gastredner persönlich einladen</h1>
+    <p class="lead" data-i18n="lead">Wähle eine A5-Vorlage für deine persönliche Einladung. Die Einladungstexte, Du/Sie-Auswahl und der persönliche Affiliate-QR-Code werden als nächster Baustein ergänzt.</p>
+    <div class="flow">
+      <div class="flowStep"><span class="flowNo">1</span><div><strong data-i18n="flow1">Vorlage wählen</strong><span data-i18n="flow1Sub">sechs helle A5-Designs</span></div></div>
+      <div class="flowStep"><span class="flowNo">2</span><div><strong data-i18n="flow2">Einladung gestalten</strong><span data-i18n="flow2Sub">Text und Ansprache folgen</span></div></div>
+      <div class="flowStep"><span class="flowNo">3</span><div><strong data-i18n="flow3">Persönlich teilen</strong><span data-i18n="flow3Sub">mit eigenem Affiliate-QR-Code</span></div></div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="panel">
+      <h2 data-i18n="choose">A5-Vorlage auswählen</h2>
+      <div class="templateGrid" id="templateGrid">
+
+        <label class="template active" data-template="1">
+          <input type="radio" name="template" value="1" checked>
+          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-01.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
+          <strong data-i18n="t1">Vorlage 1 · Mint Flow</strong><span data-i18n="s1">leicht & offen</span>
+        </label>
+
+        <label class="template" data-template="2">
+          <input type="radio" name="template" value="2">
+          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-02.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
+          <strong data-i18n="t2">Vorlage 2 · Magenta Flow</strong><span data-i18n="s2">klar & lebendig</span>
+        </label>
+
+        <label class="template" data-template="3">
+          <input type="radio" name="template" value="3">
+          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-03.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
+          <strong data-i18n="t3">Vorlage 3 · Double Wave</strong><span data-i18n="s3">dynamisch & offen</span>
+        </label>
+
+        <label class="template" data-template="4">
+          <input type="radio" name="template" value="4">
+          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-04.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
+          <strong data-i18n="t4">Vorlage 4 · Soft Stage</strong><span data-i18n="s4">ruhig & hochwertig</span>
+        </label>
+
+        <label class="template" data-template="5">
+          <input type="radio" name="template" value="5">
+          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-05.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
+          <strong data-i18n="t5">Vorlage 5 · Rising Motion</strong><span data-i18n="s5">schwungvoll & persönlich</span>
+        </label>
+
+        <label class="template" data-template="6">
+          <input type="radio" name="template" value="6">
+          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-06.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
+          <strong data-i18n="t6">Vorlage 6 · Open Space</strong><span data-i18n="s6">viel Raum für Freitext</span>
+        </label>
+      </div>
+      <p class="note" data-i18n="note">Die A5-Vorlagen bleiben bewusst ohne Logo. LiquidityBooster wird erst nach dem Scannen des persönlichen Affiliate-QR-Codes auf der Website sichtbar.</p>
+    </section>
+
+    <section class="panel">
+      <div class="previewTop">
+        <h2 data-i18n="preview">Vorlagen-Vorschau</h2>
+        <span class="badge">A5 · 148 × 210 mm</span>
+      </div>
+      <div class="previewStage">
+        <div class="paper">
+          <img id="previewImage" src="./vorlagen/gastredner-a5-vorlage-01.png" alt="">
+          <div class="paperFallback" id="previewFallback" data-i18n="previewMissing">Die gewählte Vorlage ist noch nicht hochgeladen.</div>
+        </div>
+      </div>
+      <div class="infoStrip" data-i18n="info">Die Vorlage dient nur als Hintergrund. Alle variablen Inhalte werden später darübergelegt, damit Name, Ansprache, Einladungstext und QR-Code individuell bleiben.</div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+var templates={
+  1:'./vorlagen/gastredner-a5-vorlage-01.png',
+  2:'./vorlagen/gastredner-a5-vorlage-02.png',
+  3:'./vorlagen/gastredner-a5-vorlage-03.png',
+  4:'./vorlagen/gastredner-a5-vorlage-04.png',
+  5:'./vorlagen/gastredner-a5-vorlage-05.png',
+  6:'./vorlagen/gastredner-a5-vorlage-06.png'
+};
+
+var I18N={
+  de:{
+    eyebrow:'Club Partner Werkzeug',
+    title:'Gastredner persönlich einladen',
+    lead:'Wähle eine A5-Vorlage für deine persönliche Einladung. Die Einladungstexte, Du/Sie-Auswahl und der persönliche Affiliate-QR-Code werden als nächster Baustein ergänzt.',
+    flow1:'Vorlage wählen',flow1Sub:'sechs helle A5-Designs',
+    flow2:'Einladung gestalten',flow2Sub:'Text und Ansprache folgen',
+    flow3:'Persönlich teilen',flow3Sub:'mit eigenem Affiliate-QR-Code',
+    choose:'A5-Vorlage auswählen',
+    missing:'Vorlage noch nicht verfügbar',
+    t1:'Vorlage 1 · Mint Flow',s1:'leicht & offen',
+    t2:'Vorlage 2 · Magenta Flow',s2:'klar & lebendig',
+    t3:'Vorlage 3 · Double Wave',s3:'dynamisch & offen',
+    t4:'Vorlage 4 · Soft Stage',s4:'ruhig & hochwertig',
+    t5:'Vorlage 5 · Rising Motion',s5:'schwungvoll & persönlich',
+    t6:'Vorlage 6 · Open Space',s6:'viel Raum für Freitext',
+    note:'Die A5-Vorlagen bleiben bewusst ohne Logo. LiquidityBooster wird erst nach dem Scannen des persönlichen Affiliate-QR-Codes auf der Website sichtbar.',
+    preview:'Vorlagen-Vorschau',
+    previewMissing:'Die gewählte Vorlage ist noch nicht hochgeladen.',
+    info:'Die Vorlage dient nur als Hintergrund. Alle variablen Inhalte werden später darübergelegt, damit Name, Ansprache, Einladungstext und QR-Code individuell bleiben.'
+  },
+  en:{
+    eyebrow:'Club Partner Tool',
+    title:'Invite a guest speaker personally',
+    lead:'Choose an A5 template for your personal invitation. Invitation texts, informal/formal address and the personal affiliate QR code will be added in the next building block.',
+    flow1:'Choose template',flow1Sub:'six bright A5 designs',
+    flow2:'Create invitation',flow2Sub:'text and form of address follow',
+    flow3:'Share personally',flow3Sub:'with your own affiliate QR code',
+    choose:'Choose A5 template',
+    missing:'Template not available yet',
+    t1:'Template 1 · Mint Flow',s1:'light & open',
+    t2:'Template 2 · Magenta Flow',s2:'clear & lively',
+    t3:'Template 3 · Double Wave',s3:'dynamic & open',
+    t4:'Template 4 · Soft Stage',s4:'calm & refined',
+    t5:'Template 5 · Rising Motion',s5:'dynamic & personal',
+    t6:'Template 6 · Open Space',s6:'more room for custom text',
+    note:'The A5 templates intentionally contain no logo. LiquidityBooster becomes visible only after scanning the personal affiliate QR code and opening the website.',
+    preview:'Template preview',
+    previewMissing:'The selected template has not been uploaded yet.',
+    info:'The template is only the background. Variable content will be placed on top later so name, form of address, invitation text and QR code remain individual.'
+  }
+};
+
+var lang='de';
+var preview=document.getElementById('previewImage');
+var previewFallback=document.getElementById('previewFallback');
+
+function applyI18n(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(I18N[lang][key]) el.textContent=I18N[lang][key];
+  });
+  document.querySelectorAll('.lang button').forEach(function(btn){
+    btn.classList.toggle('active',btn.getAttribute('data-lang')===lang);
+  });
+}
+
+function bindImageFallback(img){
+  var fb=img.parentElement.querySelector('.fallback');
+  img.addEventListener('error',function(){
+    img.style.display='none';
+    if(fb) fb.style.display='grid';
+  });
+  img.addEventListener('load',function(){
+    img.style.display='block';
+    if(fb) fb.style.display='none';
+  });
+}
+document.querySelectorAll('.thumb').forEach(bindImageFallback);
+
+preview.addEventListener('error',function(){
+  preview.style.display='none';
+  previewFallback.style.display='grid';
+});
+preview.addEventListener('load',function(){
+  preview.style.display='block';
+  previewFallback.style.display='none';
+});
+
+document.getElementById('templateGrid').addEventListener('click',function(e){
+  var label=e.target.closest('.template');
+  if(!label) return;
+  var n=label.getAttribute('data-template');
+  document.querySelectorAll('.template').forEach(function(x){x.classList.remove('active');});
+  label.classList.add('active');
+  var radio=label.querySelector('input');
+  if(radio) radio.checked=true;
+  preview.style.display='block';
+  previewFallback.style.display='none';
+  preview.src=templates[n]+'?v=1';
+});
+
+document.querySelectorAll('.lang button').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    lang=btn.getAttribute('data-lang')||'de';
+    applyI18n();
+  });
+});
+
+applyI18n();
+})();
+</script>
+</body>
+</html>
