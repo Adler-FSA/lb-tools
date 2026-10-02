@@ -59,7 +59,7 @@ input,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:var(--n
 textarea{min-height:138px;resize:vertical;line-height:1.45}
 input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.10)}
 .hint{font-size:11px;line-height:1.45;color:var(--muted);margin-top:6px}
-.customBox[hidden]{display:none!important}
+.customBox[hidden],.formalBox[hidden]{display:none!important}
 .templateGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .template{position:relative;border:2px solid transparent;border-radius:15px;padding:8px;background:#f5f9fa;cursor:pointer;transition:.16s ease}
 .template:hover{transform:translateY(-1px)}
@@ -142,6 +142,14 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
         <div class="addressRow">
           <label class="choice"><input type="radio" name="address" value="du" checked><span><b data-i18n="du">Du</b><small data-i18n="duSub">persönlich & direkt</small></span></label>
           <label class="choice"><input type="radio" name="address" value="sie"><span><b data-i18n="sie">Sie</b><small data-i18n="sieSub">formell & geschäftlich</small></span></label>
+        </div>
+        <div class="formalBox" id="formalBox" hidden style="margin-top:12px">
+          <div class="label" data-i18n="formalTitle">Formelle Anrede des Eingeladenen</div>
+          <div class="choiceRow">
+            <label class="choice"><input type="radio" name="recipientTitle" value="herr"><span><b data-i18n="herr">Herr</b><small data-i18n="herrSub">z. B. Herr Bösing</small></span></label>
+            <label class="choice"><input type="radio" name="recipientTitle" value="frau"><span><b data-i18n="frau">Frau</b><small data-i18n="frauSub">z. B. Frau Karl</small></span></label>
+            <label class="choice"><input type="radio" name="recipientTitle" value="neutral" checked><span><b data-i18n="neutral">Neutral</b><small data-i18n="neutralSub">Name ohne Herr/Frau</small></span></label>
+          </div>
         </div>
       </div>
 
@@ -258,7 +266,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 'use strict';
 
 var W=1748,H=2480,DB_NAME='lb-guest-speaker-file-handoff-v1',STORE='files';
-var state={mode:'professional',address:'du',template:1,lang:'de'};
+var state={mode:'professional',address:'du',recipientTitle:'neutral',template:1,lang:'de'};
 var canvas=document.getElementById('preview'),ctx=canvas.getContext('2d');
 var images={},promises={};
 
@@ -281,6 +289,7 @@ var I18N={
     flow4:'Erstellen & teilen',flow4Sub:'PNG oder A5-PDF',
     styleTitle:'1. Einladungsstil',professional:'Professionell',professionalSub:'sachlich & geschäftlich',enthusiastic:'Begeistert',enthusiasticSub:'direkt aus echter Begeisterung',custom:'Eigener Text',customSub:'vollständig selbst formulieren',
     addressTitle:'2. Ansprache',du:'Du',duSub:'persönlich & direkt',sie:'Sie',sieSub:'formell & geschäftlich',
+    formalTitle:'Formelle Anrede des Eingeladenen',herr:'Herr',herrSub:'z. B. Herr Bösing',frau:'Frau',frauSub:'z. B. Frau Karl',neutral:'Neutral',neutralSub:'Name ohne Herr/Frau',
     dataTitle:'3. Persönliche Angaben',recipient:'Name des Eingeladenen',recipientPh:'z. B. Thomas Müller',subject:'Thema / Business',subjectPh:'z. B. Mitarbeitergesundheit',subjectHint:'Optional. Wenn das Feld leer bleibt, wird neutral von deinem/Ihrem Thema gesprochen.',sender:'Eingeladen von',senderPh:'z. B. Michael Rau',
     affiliate:'Dein persönlicher LiquidityBooster-Affiliate-Link',affiliateHint:'Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code. Es wird kein allgemeiner Ersatzlink verwendet.',
     customHeadline:'Eigene Überschrift',customHeadlinePh:'Deine eigene Überschrift',customText:'Dein Einladungstext',customTextPh:'Schreibe hier deine persönliche Einladung …',customClosing:'Eigener Abschlusssatz',customClosingPh:'z. B. Ich freue mich darauf, dich dort zu erleben.',
@@ -308,6 +317,7 @@ var I18N={
     flow4:'Create & share',flow4Sub:'PNG or A5 PDF',
     styleTitle:'1. Invitation style',professional:'Professional',professionalSub:'clear & businesslike',enthusiastic:'Enthusiastic',enthusiasticSub:'directly from genuine enthusiasm',custom:'Custom text',customSub:'write it completely yourself',
     addressTitle:'2. Form of address',du:'Personal',duSub:'direct & personal',sie:'Formal',sieSub:'formal & businesslike',
+    formalTitle:'Formal salutation',herr:'Mr',herrSub:'e.g. Mr Bösing',frau:'Ms',frauSub:'e.g. Ms Karl',neutral:'Neutral',neutralSub:'name without title',
     dataTitle:'3. Personal details',recipient:'Name of invitee',recipientPh:'e.g. Thomas Miller',subject:'Topic / Business',subjectPh:'e.g. employee wellbeing',subjectHint:'Optional. If left blank, the invitation simply refers to your topic.',sender:'Invited by',senderPh:'e.g. Michael Rau',
     affiliate:'Your personal LiquidityBooster affiliate link',affiliateHint:'The link is not printed. It is stored only in the QR code. No general replacement link is used.',
     customHeadline:'Custom headline',customHeadlinePh:'Your own headline',customText:'Your invitation text',customTextPh:'Write your personal invitation here …',customClosing:'Custom closing line',customClosingPh:'e.g. I look forward to seeing you there.',
@@ -409,10 +419,28 @@ function subjectText(){
   if(state.lang==='de')return state.address==='sie'?'Ihr Thema':'dein Thema';
   return 'your topic';
 }
+function cleanPersonName(raw){
+  return String(raw||'').trim().replace(/^(Herr|Frau|Mr\.?|Mrs\.?|Ms\.?)\s+/i,'').replace(/\s+/g,' ');
+}
+function firstName(raw){
+  var n=cleanPersonName(raw);if(!n)return state.lang==='de'?'[Name]':'[Name]';
+  return n.split(' ')[0];
+}
+function lastName(raw){
+  var n=cleanPersonName(raw);if(!n)return state.lang==='de'?'[Name]':'[Name]';
+  var parts=n.split(' ');return parts[parts.length-1];
+}
 function salutation(){
-  var name=$('recipient').value.trim()||(state.lang==='de'?'[Name]':'[Name]');
-  if(state.lang==='de')return state.address==='sie'?'Guten Tag '+name+',':'Hallo '+name+',';
-  return state.address==='sie'?'Dear '+name+',':'Hi '+name+',';
+  var raw=$('recipient').value.trim(),full=cleanPersonName(raw)||(state.lang==='de'?'[Name]':'[Name]');
+  if(state.address==='du')return state.lang==='de'?'Hallo '+firstName(raw)+',':'Hi '+firstName(raw)+',';
+  if(state.lang==='de'){
+    if(state.recipientTitle==='herr')return 'Guten Tag Herr '+lastName(raw)+',';
+    if(state.recipientTitle==='frau')return 'Guten Tag Frau '+lastName(raw)+',';
+    return 'Guten Tag '+full+',';
+  }
+  if(state.recipientTitle==='herr')return 'Dear Mr '+lastName(raw)+',';
+  if(state.recipientTitle==='frau')return 'Dear Ms '+lastName(raw)+',';
+  return 'Dear '+full+',';
 }
 function presetContent(){
   var name=$('recipient').value.trim(),subject=subjectText(),sender=$('sender').value.trim();
@@ -571,7 +599,15 @@ function setMode(){
   state.mode=document.querySelector('input[name="mode"]:checked').value;
   $('customBox').hidden=state.mode!=='custom';render()
 }
-function setAddress(){state.address=document.querySelector('input[name="address"]:checked').value;render()}
+function setAddress(){
+  state.address=document.querySelector('input[name="address"]:checked').value;
+  $('formalBox').hidden=state.address!=='sie';
+  render()
+}
+function setRecipientTitle(){
+  state.recipientTitle=document.querySelector('input[name="recipientTitle"]:checked').value;
+  render()
+}
 function setTemplate(n){
   state.template=parseInt(n,10)||1;
   document.querySelectorAll('.template').forEach(function(el){el.classList.toggle('active',el.getAttribute('data-template')===String(state.template))});
@@ -624,6 +660,7 @@ async function createFile(type){
 
 document.querySelectorAll('input[name="mode"]').forEach(function(el){el.addEventListener('change',setMode)});
 document.querySelectorAll('input[name="address"]').forEach(function(el){el.addEventListener('change',setAddress)});
+document.querySelectorAll('input[name="recipientTitle"]').forEach(function(el){el.addEventListener('change',setRecipientTitle)});
 document.getElementById('templateGrid').addEventListener('click',function(e){var el=e.target.closest('.template');if(el)setTemplate(el.getAttribute('data-template'))});
 ['recipient','subject','sender','affiliateUrl','customHeadline','customText','customClosing'].forEach(function(id){$(id).addEventListener('input',render)});
 document.querySelectorAll('.lang button').forEach(function(btn){btn.addEventListener('click',function(){state.lang=btn.getAttribute('data-lang')||'de';applyI18n()})});
@@ -632,7 +669,7 @@ $('makePdf').addEventListener('click',function(){createFile('pdf')});
 $('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});
 $('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
 
-preload();applyI18n();setTemplate(1);render();
+preload();applyI18n();setAddress();setRecipientTitle();setTemplate(1);render();
 })();
 </script>
 </body>
