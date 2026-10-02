@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Gastredner-Einladung · Datei</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--mag:#c6006f;--line:#d8e4e8;--muted:#607080;--err:#a61754}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#eef4f5;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy)}
+body{min-height:100vh;display:grid;place-items:center;padding:18px}
+.card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 25px 80px #1322382d;padding:24px}
+.eyebrow{font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:850;color:var(--mint)}
+h1{font-size:clamp(24px,5vw,30px);line-height:1.15;margin:5px 0 16px}
+.file{background:#f1fafb;border:1px solid #cfe4e7;border-left:5px solid var(--mint);border-radius:14px;padding:16px;overflow-wrap:anywhere}
+.file strong{display:block;font-size:16px}.meta{font-size:13px;color:var(--muted);margin-top:5px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+button{appearance:none;border:0;border-radius:11px;padding:13px 12px;background:var(--navy);color:#fff;font:inherit;font-weight:850;cursor:pointer}
+button.primary{background:var(--mint)}button:disabled{opacity:.45;cursor:not-allowed}
+.status{min-height:21px;margin:13px 0 0;font-size:13px;color:#087c73}.status.error{color:var(--err)}
+.note{margin:11px 0 0;font-size:13px;line-height:1.45;color:var(--muted)}
+.back{display:inline-block;margin-top:12px;color:var(--navy);font-weight:800;text-decoration:none}
+@media(max-width:480px){.actions{grid-template-columns:1fr}.card{padding:18px;border-radius:17px}}
+</style>
+</head>
+<body>
+<main class="card" aria-live="polite">
+  <div class="eyebrow" id="eyebrow">Gastredner-Einladung</div>
+  <h1 id="title">Datei speichern oder teilen</h1>
+  <div class="file"><strong id="filename">Datei wird geladen …</strong><div class="meta" id="meta"></div></div>
+  <div class="actions"><button class="primary" id="save" type="button" disabled>Datei speichern</button><button id="share" type="button" disabled>Datei teilen</button></div>
+  <p class="status" id="status">Die fertige Einladung wird übernommen …</p>
+  <p class="note" id="note">Die Datei wurde bereits im Gastredner-Generator erzeugt. Hier wird sie nur an die Speicher- oder Teilen-Funktion deines Geräts übergeben.</p>
+  <a class="back" id="back" href="./index.html">← Zurück zum Gastredner-Generator</a>
+</main>
+<script>
+(function(){
+'use strict';
+var DB_NAME='lb-guest-speaker-file-handoff-v1',STORE='files',file=null;
+var q=new URLSearchParams(location.search),lang=q.get('lang')==='en'?'en':'de';
+var TXT={
+  de:{eyebrow:'Gastredner-Einladung',title:'Datei speichern oder teilen',loading:'Datei wird geladen …',save:'Datei speichern',share:'Datei teilen',status:'Die fertige Einladung wird übernommen …',note:'Die Datei wurde bereits im Gastredner-Generator erzeugt. Hier wird sie nur an die Speicher- oder Teilen-Funktion deines Geräts übergeben.',back:'← Zurück zum Gastredner-Generator',ready:'Datei ist fertig und bereit.',none:'Keine fertige Datei vorhanden.',saved:'Datei wurde an die Speicherfunktion übergeben.',shared:'Dateifreigabe geöffnet.',aborted:'Vorgang abgebrochen.',unsupported:'Teilen wird auf diesem Gerät für diese Datei nicht unterstützt.'},
+  en:{eyebrow:'Guest speaker invitation',title:'Save or share file',loading:'Loading file …',save:'Save file',share:'Share file',status:'Preparing your finished invitation …',note:'The file has already been created in the guest speaker generator. This page only hands it to your device’s save or share function.',back:'← Back to guest speaker generator',ready:'Your file is ready.',none:'No finished file is available.',saved:'The file was handed to the save function.',shared:'Sharing opened.',aborted:'Action cancelled.',unsupported:'Sharing this file is not supported on this device.'}
+}[lang];
+
+function apply(){
+  document.documentElement.lang=lang;
+  document.getElementById('eyebrow').textContent=TXT.eyebrow;
+  document.getElementById('title').textContent=TXT.title;
+  document.getElementById('filename').textContent=TXT.loading;
+  document.getElementById('save').textContent=TXT.save;
+  document.getElementById('share').textContent=TXT.share;
+  document.getElementById('status').textContent=TXT.status;
+  document.getElementById('note').textContent=TXT.note;
+  document.getElementById('back').textContent=TXT.back;
+}
+function msg(s,e){var el=document.getElementById('status');el.textContent=s;el.classList.toggle('error',!!e)}
+function canShare(){try{return!!(file&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]}))}catch(e){return false}}
+function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('File storage error'))}})}
+async function getRecord(token){var db=await openDb();return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readonly'),req=tx.objectStore(STORE).get(token);req.onsuccess=function(){resolve(req.result||null)};req.onerror=function(){reject(req.error||new Error('File could not be read.'))}})}
+function extension(name){var m=String(name||'').match(/(\.[A-Za-z0-9]+)$/);return m?m[1]:''}
+
+async function save(){
+  if(!file)return msg(TXT.none,true);
+  if(typeof window.showSaveFilePicker==='function'){
+    try{
+      var ext=extension(file.name),accept={};accept[file.type||'application/octet-stream']=[ext||'.bin'];
+      var h=await window.showSaveFilePicker({suggestedName:file.name,types:[{description:TXT.eyebrow,accept:accept}]});
+      var w=await h.createWritable();await w.write(file);await w.close();return msg(TXT.saved)
+    }catch(e){if(e&&e.name==='AbortError')return msg(TXT.aborted)}
+  }
+  if(canShare()){try{await navigator.share({files:[file],title:file.name});return msg(TXT.saved)}catch(e){if(e&&e.name==='AbortError')return msg(TXT.aborted)}}
+  var url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1800);msg(TXT.saved)
+}
+async function share(){
+  if(!file)return msg(TXT.none,true);
+  if(!canShare())return msg(TXT.unsupported,true);
+  try{await navigator.share({files:[file],title:file.name});msg(TXT.shared)}catch(e){if(e&&e.name==='AbortError')return msg(TXT.aborted);msg(e&&e.message?e.message:String(e),true)}
+}
+async function load(){
+  try{
+    var token=q.get('token')||'';if(!token)throw new Error(TXT.none);
+    var rec=await getRecord(token);if(!rec||!rec.blob||!rec.filename)throw new Error(TXT.none);
+    file=new File([rec.blob],rec.filename,{type:rec.mime||rec.blob.type||'application/octet-stream'});
+    document.getElementById('filename').textContent=file.name;
+    document.getElementById('meta').textContent=[rec.format||'',rec.created||''].filter(Boolean).join(' · ');
+    document.getElementById('save').disabled=false;document.getElementById('share').disabled=!canShare();msg(TXT.ready)
+  }catch(e){msg(e&&e.message?e.message:String(e),true)}
+}
+apply();
+document.getElementById('save').addEventListener('click',save);
+document.getElementById('share').addEventListener('click',share);
+load();
+})();
+</script>
+</body>
+</html>
