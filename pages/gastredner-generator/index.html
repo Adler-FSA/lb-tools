@@ -498,7 +498,7 @@ function drawCard(c){
   c.textBaseline='alphabetic';c.textAlign='left';
 
   c.save();
-  c.fillStyle='rgba(255,255,255,.82)';
+  c.fillStyle=state.template===1?'rgba(255,255,255,.85)':'rgba(255,255,255,.82)';
   c.shadowColor='rgba(19,34,56,.11)';c.shadowBlur=28;c.shadowOffsetY=8;
   roundRect(c,120,150,1508,1540,34);c.fill();
   c.restore();
@@ -530,7 +530,7 @@ function drawCard(c){
 
   var footerY=1805;
   c.save();
-  c.fillStyle='rgba(255,255,255,.94)';c.shadowColor='rgba(19,34,56,.12)';c.shadowBlur=24;c.shadowOffsetY=7;
+  c.fillStyle=state.template===1?'rgba(255,255,255,.90)':'rgba(255,255,255,.94)';c.shadowColor='rgba(19,34,56,.12)';c.shadowBlur=24;c.shadowOffsetY=7;
   roundRect(c,120,footerY,1508,545,30);c.fill();c.restore();
 
   c.fillStyle='#132238';c.font=font(30,800);c.fillText(data.closing,x,footerY+70);
