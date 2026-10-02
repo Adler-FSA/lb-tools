@@ -576,16 +576,21 @@ function drawCard(c){
   c.font=font(block.size,500);
   block.lines.forEach(function(line){if(line)c.fillText(line,x,cy);cy+=block.lineH});
 
-  var priceY=Math.max(cy+28,1270);
+  var priceY=Math.max(cy+28,1270),priceH=230,priceCx=x+maxW/2;
   c.save();
   c.fillStyle='rgba(255,255,255,.94)';c.strokeStyle='rgba(0,167,173,.38)';c.lineWidth=3;
-  roundRect(c,x,priceY,maxW,300,26);c.fill();c.stroke();c.restore();
+  roundRect(c,x,priceY,maxW,priceH,26);c.fill();c.stroke();
 
-  c.fillStyle='#132238';c.font=font(30,900);c.fillText(t('guestPrice'),x+34,priceY+60);
-  c.fillStyle='#c6006f';c.font=font(30,900);c.fillText(t('articlePrice'),x+34,priceY+112);
+  c.textAlign='center';
+  c.fillStyle='#132238';c.font=font(30,900);c.fillText(t('guestPrice'),priceCx,priceY+56);
+  c.fillStyle='#c6006f';c.font=font(30,900);c.fillText(t('articlePrice'),priceCx,priceY+103);
 
-  c.fillStyle='#445765';var rec=fitBlock(c,data.recommendation,maxW-68,118,27,22,600,1.34),ry=priceY+170;c.font=font(rec.size,600);
-  rec.lines.forEach(function(line){if(line)c.fillText(line,x+34,ry);ry+=rec.lineH});
+  c.fillStyle='#445765';
+  var rec=fitBlock(c,data.recommendation,maxW-120,76,25,21,600,1.30),ry=priceY+156;
+  c.font=font(rec.size,600);
+  rec.lines.forEach(function(line){if(line)c.fillText(line,priceCx,ry);ry+=rec.lineH});
+  c.restore();
+  c.textAlign='left';
 
   var footerY=1805;
   c.save();
