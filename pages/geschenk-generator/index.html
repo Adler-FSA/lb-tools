@@ -11,6 +11,23 @@
 button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{width:min(1220px,100%);margin:0 auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.brandline{font-weight:900;letter-spacing:.02em}
 .backlink{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--navy);font-size:13px;font-weight:850;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 13px}
+
+.toolNav{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin:0 0 16px;box-shadow:0 10px 30px rgba(19,34,56,.06)}
+.toolNavHead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toolNavTitle{font-size:13px;font-weight:900;letter-spacing:.02em}
+.toolNavLinks{display:flex;gap:7px;flex-wrap:wrap}
+.toolNavLink{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--navy);background:#f5f8f9;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:850}
+.toolNavLink:hover{border-color:var(--mint)}
+.toolNavLink.active{background:var(--mint);border-color:var(--mint);color:#fff}
+.howto{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.howto summary{cursor:pointer;font-size:13px;font-weight:900;color:var(--navy);list-style:none}
+.howto summary::-webkit-details-marker{display:none}
+.howto summary:after{content:"＋";float:right;color:var(--mint);font-size:16px;line-height:1}
+.howto[open] summary:after{content:"–"}
+.howto ol{margin:12px 0 2px;padding-left:22px;color:var(--muted);font-size:13px;line-height:1.5}
+.howto li+li{margin-top:8px}
+.howto strong{color:var(--navy)}
+@media(max-width:620px){.toolNavHead{align-items:flex-start;flex-direction:column}.toolNavLinks{width:100%}.toolNavLink{flex:1 1 calc(50% - 7px)}}
 .hero{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,34px);box-shadow:0 20px 60px rgba(19,34,56,.10);margin-bottom:18px}
 .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--mag)}h1{font-size:clamp(29px,5vw,47px);line-height:1.06;margin:8px 0 10px}
 .lead{margin:0;max-width:880px;color:var(--muted);font-size:17px;line-height:1.55}.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
@@ -32,7 +49,24 @@ input,select,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><div class="brandline">LiquidityBooster · Geschenk-Generator</div><a class="backlink" href="../visitenkarten-generator/">← Visitenkarten</a></div>
+  <div class="topbar"><div class="brandline">LiquidityBooster · Geschenk-Generator</div></div>
+  <nav class="toolNav" aria-label="Club Partner Werkzeuge">
+    <div class="toolNavHead">
+      <div class="toolNavTitle">Club Partner Werkzeuge</div>
+      <div class="toolNavLinks"><a class="toolNavLink" href="../visitenkarten-generator/">Visitenkarte</a><a class="toolNavLink active" href="../geschenk-generator/" aria-current="page">Geschenk</a><a class="toolNavLink" href="../gastredner-generator/">Gastredner</a><a class="toolNavLink" href="../webinar-generator/">Webinar</a></div>
+    </div>
+    <details class="howto">
+      <summary>So funktioniert’s</summary>
+      <ol>
+        <li><strong>Visitenkarte zuerst ausfüllen.</strong> Trage dort einmal deine persönlichen Daten und deinen persönlichen Link ein.</li>
+        <li><strong>Werkzeug auswählen.</strong> Wechsle zu Geschenk, Gastredner oder Webinar – je nachdem, was du erstellen möchtest.</li>
+        <li><strong>Daten werden übernommen.</strong> Dein Name und dein persönlicher Link werden automatisch eingesetzt. Empfänger und Anlass ergänzt du jeweils neu.</li>
+        <li><strong>Design und Text auswählen.</strong> Wähle eine Vorlage und passe bei Bedarf den Text an.</li>
+        <li><strong>Datei erstellen und teilen.</strong> Erzeuge PNG oder PDF und speichere oder teile die fertige Karte direkt.</li>
+      </ol>
+    </details>
+  </nav>
+
   <section class="hero">
     <div class="eyebrow">Club Partner Werkzeug</div>
     <h1>Ein persönliches Geschenk gestalten</h1>
