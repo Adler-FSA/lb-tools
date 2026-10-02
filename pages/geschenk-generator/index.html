@@ -56,6 +56,7 @@ input,select,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:
           <div class="field"><label for="sender">Von</label><input id="sender" maxlength="55" placeholder="z. B. Michael"></div>
           <div class="field full"><label for="giftUrl">Persönlicher Gastzugangs-Link</label><input id="giftUrl" inputmode="url" maxlength="1800" placeholder="https://..."><div class="hint">Der Link wird nicht auf die Karte geschrieben. Er steckt ausschließlich im QR-Code.</div></div>
         </div>
+        <div class="hint" id="profileHint" hidden>Deine gespeicherten Club-Partner-Daten aus dem Visitenkarten-Generator wurden übernommen.</div>
       </div>
       <div class="section">
         <h2>3. Text festlegen</h2>
@@ -100,7 +101,7 @@ input,select,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:
 <script>
 (function(){
 'use strict';
-var W=1536,H=1024,DB_NAME='lb-gift-file-handoff-v1',STORE='files';
+var W=1536,H=1024,DB_NAME='lb-gift-file-handoff-v1',STORE='files',PROFILE_KEY='lb-club-partner-profile-v1';
 var state={occasion:'weihnachten',variant:'a',mode:'preset',relation:'familie'};
 var canvas=document.getElementById('preview'),ctx=canvas.getContext('2d'),images={},promises={};
 var OCCASIONS={
@@ -262,6 +263,17 @@ function drawCard(c){
   }
 }
 function renderTemplates(){var o=OCCASIONS[state.occasion],box=$('templates');box.innerHTML='';['a','b'].forEach(function(v){var el=document.createElement('div');el.className='template'+(state.variant===v?' active':'');el.setAttribute('data-v',v);el.innerHTML='<img src="'+templatePath(state.occasion,v)+'" alt=""><strong>Variante '+v.toUpperCase()+'</strong><span>'+o[v]+'</span>';el.addEventListener('click',function(){state.variant=v;renderTemplates();loadImage(templatePath(state.occasion,v));render()});box.appendChild(el);loadImage(templatePath(state.occasion,v))})}
+function loadClubPartnerProfile(){
+  try{
+    var raw=localStorage.getItem(PROFILE_KEY);if(!raw)return false;
+    var p=JSON.parse(raw)||{},changed=false;
+    var sender=[p.firstName,p.lastName].filter(Boolean).join(' ').trim();
+    if(sender&&!$('sender').value.trim()){$('sender').value=sender;changed=true}
+    if(p.affiliateUrl&&!$('giftUrl').value.trim()){$('giftUrl').value=p.affiliateUrl;changed=true}
+    if(changed)$('profileHint').hidden=false;
+    return changed
+  }catch(e){return false}
+}
 function ready(){return!!($('recipient').value.trim()&&$('sender').value.trim()&&normalizeUrl($('giftUrl').value))}
 function updateStatus(){var ok=ready(),s=$('status');$('makePng').disabled=!ok;$('makePdf').disabled=!ok;if(!normalizeUrl($('giftUrl').value)&&$('giftUrl').value.trim()){s.textContent='Bitte prüfe den Gastzugangs-Link.';s.className='status error'}else if(ok){s.textContent='Alles bereit – dein Geschenk kann erstellt werden.';s.className='status ok'}else{s.textContent='Empfänger, Absender und Gastzugangs-Link eintragen.';s.className='status'}}
 function render(){drawCard(ctx);updateStatus()}
@@ -276,7 +288,7 @@ function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.
 async function storeFile(blob,filename,format,mime){var db=await openDb(),token='gift-'+Date.now()+'-'+Math.random().toString(36).slice(2);return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:filename,format:format,mime:mime,created:new Intl.DateTimeFormat('de-DE',{dateStyle:'medium',timeStyle:'short'}).format(new Date())});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error||new Error('Dateispeicher'))}})}
 function handoff(token,action){var u=new URL('./datei-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);return u.href}
 async function createFile(type){if(!ready()){updateStatus();return}try{var path=templatePath(state.occasion,state.variant);await loadImage(path);drawCard(ctx);var recipient=sanitize($('recipient').value),occasion=sanitize(OCCASIONS[state.occasion].label),filename,blob,format,mime;if(type==='png'){blob=await canvasToBlob(canvas,'image/png');filename='LiquidityBooster-Geschenk-'+recipient+'-'+occasion+'-'+state.variant.toUpperCase()+'.png';format='PNG · 1536 × 1024 px';mime='image/png'}else{blob=jpegPdf(canvas,150,100);filename='LiquidityBooster-Geschenk-'+recipient+'-'+occasion+'-'+state.variant.toUpperCase()+'.pdf';format='PDF · 15 × 10 cm';mime='application/pdf'}var token=await storeFile(blob,filename,format,mime);$('fileName').textContent=filename;$('fileMeta').textContent=format;$('saveFile').href=handoff(token,'save');$('shareFile').href=handoff(token,'share');$('fileOverlay').hidden=false}catch(e){$('status').textContent='Fehler: '+(e&&e.message?e.message:String(e));$('status').className='status error'}}
-$('occasion').addEventListener('change',function(){state.occasion=this.value;state.variant='a';renderTemplates();render()});document.querySelectorAll('input[name="mode"]').forEach(function(x){x.addEventListener('change',setMode)});document.querySelectorAll('input[name="relation"]').forEach(function(x){x.addEventListener('change',setRelation)});['recipient','sender','giftUrl','customHeadline','customText','customClosing','customCta'].forEach(function(id){$(id).addEventListener('input',render)});$('makePng').addEventListener('click',function(){createFile('png')});$('makePdf').addEventListener('click',function(){createFile('pdf')});$('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});$('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});renderTemplates();render();
+loadClubPartnerProfile();$('occasion').addEventListener('change',function(){state.occasion=this.value;state.variant='a';renderTemplates();render()});document.querySelectorAll('input[name="mode"]').forEach(function(x){x.addEventListener('change',setMode)});document.querySelectorAll('input[name="relation"]').forEach(function(x){x.addEventListener('change',setRelation)});['recipient','sender','giftUrl','customHeadline','customText','customClosing','customCta'].forEach(function(id){$(id).addEventListener('input',render)});$('makePng').addEventListener('click',function(){createFile('png')});$('makePdf').addEventListener('click',function(){createFile('pdf')});$('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});$('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});renderTemplates();render();
 })();
 </script>
 </body>
