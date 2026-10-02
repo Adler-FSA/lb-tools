@@ -53,10 +53,9 @@ h1{position:relative;z-index:1;font-size:clamp(30px,5vw,48px);line-height:1.04;m
 .lead{position:relative;z-index:1;margin:0;max-width:930px;color:var(--muted);font-size:17px;line-height:1.55}
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;position:relative;z-index:1}
 .flowStep{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdfd}
-.flowNo{width:29px;height:29px;border-radius:999px;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;flex:0 0 auto;background:var(--mint)}
-.flowStep:nth-child(2) .flowNo,.flowStep:nth-child(4) .flowNo{background:var(--mag)}
+.flowStep .flowNo{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;line-height:1;margin:0;flex:0 0 30px}
 .flowStep strong{display:block;font-size:13px}
-.flowStep span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+.flowStep > div > span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
 .grid{display:grid;grid-template-columns:minmax(340px,460px) minmax(0,1fr);gap:18px;align-items:start}
 .panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 14px 42px rgba(19,34,56,.07)}
 .panel h2{font-size:20px;margin:0 0 14px}
