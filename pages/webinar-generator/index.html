@@ -90,30 +90,29 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
     <section class="panel">
       <h2>1. Wen möchtest du einladen?</h2>
       <div class="targetGrid" id="targetGrid">
-        <label class="choice"><input type="radio" name="target" value="familie" checked><span><b>Familie</b><small>persönlich & vertraut</small></span></label>
-        <label class="choice"><input type="radio" name="target" value="freunde"><span><b>Freunde</b><small>locker & neugierig</small></span></label>
-        <label class="choice"><input type="radio" name="target" value="arbeitskollegen"><span><b>Arbeitskollegen</b><small>anderer Blickwinkel</small></span></label>
-        <label class="choice"><input type="radio" name="target" value="arbeitssuchende"><span><b>Arbeitssuchende</b><small>Orientierung & Perspektiven</small></span></label>
-        <label class="choice"><input type="radio" name="target" value="existenzgruender"><span><b>Existenzgründer</b><small>unternehmerischer Start</small></span></label>
-        <label class="choice"><input type="radio" name="target" value="selbststaendige"><span><b>Selbstständige</b><small>unternehmerischer Austausch</small></span></label>
-        <label class="choice"><input type="radio" name="target" value="firmen"><span><b>Firmen</b><small>geschäftlich & transparent</small></span></label>
+        <label class="choice"><input type="radio" name="target" value="familie" checked><span><b>Familie</b></span></label>
+        <label class="choice"><input type="radio" name="target" value="freunde"><span><b>Freunde</b></span></label>
+        <label class="choice"><input type="radio" name="target" value="arbeitskollegen"><span><b>Arbeitskollegen</b></span></label>
+        <label class="choice"><input type="radio" name="target" value="arbeitssuchende"><span><b>Arbeitssuchende</b></span></label>
+        <label class="choice"><input type="radio" name="target" value="existenzgruender"><span><b>Existenzgründer</b></span></label>
+        <label class="choice"><input type="radio" name="target" value="selbststaendige"><span><b>Selbstständige</b></span></label>
+        <label class="choice"><input type="radio" name="target" value="firmen"><span><b>Firmen</b></span></label>
       </div>
-      <div class="audienceHint private" id="audienceHint">Diese Einladung bleibt bewusst neutral: kein LiquidityBooster-Name, kein Webinar-Hinweis und keine Uhrzeit auf der A5-Karte. Erst der QR-Code löst auf.</div>
 
       <div class="section">
         <h2>2. Welche Einladung?</h2>
         <div class="choiceRow">
-          <label class="choice"><input type="radio" name="mode" value="entdecken" checked><span><b>Entdecken</b><small>anschauen & selbst beurteilen</small></span></label>
-          <label class="choice"><input type="radio" name="mode" value="austausch"><span><b>Austausch</b><small>Menschen, Fragen & Gespräche</small></span></label>
-          <label class="choice"><input type="radio" name="mode" value="custom"><span><b>Eigener Text</b><small>vollständig frei formulieren</small></span></label>
+          <label class="choice"><input type="radio" name="mode" value="entdecken" checked><span><b>Entdecken</b></span></label>
+          <label class="choice"><input type="radio" name="mode" value="austausch"><span><b>Austausch</b></span></label>
+          <label class="choice"><input type="radio" name="mode" value="custom"><span><b>Eigener Text</b></span></label>
         </div>
       </div>
 
       <div class="section">
         <h2>3. Ansprache</h2>
         <div class="addressRow">
-          <label class="choice"><input type="radio" name="address" value="du" checked><span><b>Du</b><small>persönlich & direkt</small></span></label>
-          <label class="choice"><input type="radio" name="address" value="sie"><span><b>Sie</b><small>formell & geschäftlich</small></span></label>
+          <label class="choice"><input type="radio" name="address" value="du" checked><span><b>Du</b></span></label>
+          <label class="choice"><input type="radio" name="address" value="sie"><span><b>Sie</b></span></label>
         </div>
         <div class="formalBox" id="formalBox" hidden style="margin-top:12px">
           <div class="label">Formelle Anrede des Eingeladenen</div>
@@ -132,7 +131,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
           <div class="field full"><label for="sender">Eingeladen von</label><input id="sender" maxlength="70" placeholder="Dein Name"></div>
           <div class="field full"><label for="affiliateUrl">Dein persönlicher LiquidityBooster-Affiliate-Link</label><input id="affiliateUrl" inputmode="url" autocomplete="url" maxlength="1800" placeholder="https://liquiditybooster.de/..."><div class="hint">Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code.</div></div>
         </div>
-        <div class="hint" id="profileHint" hidden>Deine gespeicherten Club-Partner-Daten aus dem Visitenkarten-Generator wurden automatisch übernommen.</div>
+
 
         <div class="customBox" id="customBox" hidden>
           <div class="field full" style="margin-top:14px"><label for="customHeadline">Eigene Überschrift</label><input id="customHeadline" maxlength="100" placeholder="Deine eigene Überschrift"></div>
@@ -144,25 +143,25 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
       <div class="section">
         <h2>5. A5-Vorlage auswählen</h2>
         <div class="templateGrid" id="templateGrid">
-          <label class="template active" data-template="1" data-audience="private">
+          <label class="template active" data-template="1">
             <input type="radio" name="template" value="1" checked>
             <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-01-neugier.png" alt=""></div>
-            <strong>Vorlage 1 · Neugier</strong><span>weich, offen & persönlich</span>
+            <strong>Vorlage 1 · Neugier</strong>
           </label>
-          <label class="template" data-template="2" data-audience="private">
+          <label class="template" data-template="2">
             <input type="radio" name="template" value="2">
             <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-02-perspektive.png" alt=""></div>
-            <strong>Vorlage 2 · Perspektive</strong><span>klar, modern & reduziert</span>
+            <strong>Vorlage 2 · Perspektive</strong>
           </label>
-          <label class="template" data-template="3" data-audience="business" hidden>
+          <label class="template" data-template="3">
             <input type="radio" name="template" value="3">
             <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-03-connection.png" alt=""></div>
-            <strong>Vorlage 3 · Connection</strong><span>professionell & vernetzt</span>
+            <strong>Vorlage 3 · Connection</strong>
           </label>
-          <label class="template" data-template="4" data-audience="business" hidden>
+          <label class="template" data-template="4">
             <input type="radio" name="template" value="4">
             <div class="thumbWrap"><img class="thumb" src="./vorlagen/webinar-a5-vorlage-04-forum.png" alt=""></div>
-            <strong>Vorlage 4 · Forum</strong><span>Austausch & Verbindung</span>
+            <strong>Vorlage 4 · Forum</strong>
           </label>
         </div>
       </div>
@@ -223,7 +222,6 @@ function loadClubPartnerProfile(){
     var p=JSON.parse(raw)||{},changed=false,sender=[p.firstName,p.lastName].filter(Boolean).join(' ').trim();
     if(sender&&!$('sender').value.trim()){$('sender').value=sender;changed=true}
     if(p.affiliateUrl&&!$('affiliateUrl').value.trim()){$('affiliateUrl').value=p.affiliateUrl;changed=true}
-    if(changed)$('profileHint').hidden=false;
     return changed
   }catch(e){return false}
 }
@@ -353,11 +351,7 @@ function render(){drawCard(ctx);updateStatus()}
 
 function updateAudience(){
   state.audience=isPrivate()?'private':'business';
-  $('audienceHint').className='audienceHint '+state.audience;
-  $('audienceHint').textContent=isPrivate()?'Diese Einladung bleibt bewusst neutral: kein LiquidityBooster-Name, kein Webinar-Hinweis und keine Uhrzeit auf der A5-Karte. Erst der QR-Code löst auf.':'Diese Einladung ist geschäftlich offen: LiquidityBooster, Veranstaltungsformat und Uhrzeit werden auf der A5-Karte genannt.';
   $('companyField').hidden=isPrivate();
-  document.querySelectorAll('.template').forEach(function(el){el.hidden=el.getAttribute('data-audience')!==state.audience});
-  var allowed=isPrivate()?[1,2]:[3,4];if(allowed.indexOf(state.template)===-1)setTemplate(allowed[0]);
   if(state.target==='firmen'){document.querySelector('input[name="address"][value="sie"]').checked=true;setAddress()}
   else if(state.address==='sie'&&state.target!=='firmen'){document.querySelector('input[name="address"][value="du"]').checked=true;setAddress()}
   render()
