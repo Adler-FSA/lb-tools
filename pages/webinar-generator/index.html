@@ -41,7 +41,8 @@ h1{position:relative;z-index:1;font-size:clamp(30px,5vw,48px);line-height:1.04;m
 .lead{position:relative;z-index:1;margin:0;max-width:930px;color:var(--muted);font-size:17px;line-height:1.55}
 .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;position:relative;z-index:1}
 .flowStep{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdfd}
-.flowStep .flowNo{width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;line-height:1;margin:0;flex:0 0 30px}
+.flowStep .flowNo{width:30px;height:30px;border-radius:50%;background:var(--mint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;line-height:1;padding:0;margin:0;text-align:center;flex:0 0 30px}
+.flowStep:nth-child(even) .flowNo{background:var(--mag)}
 .flowStep strong{display:block;font-size:13px}
 .flowStep > div > span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
 .grid{display:grid;grid-template-columns:minmax(350px,470px) minmax(0,1fr);gap:18px;align-items:start}
