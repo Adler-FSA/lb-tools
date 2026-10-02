@@ -23,6 +23,23 @@ button,input{font:inherit}
 .wrap{width:min(1180px,100%);margin:0 auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .brandline{font-weight:900;letter-spacing:.02em}\n.toolLinks{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}.giftLink,.guestLink{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:#fff;font-size:13px;font-weight:900;border-radius:999px;padding:10px 14px}.giftLink{background:var(--mag);box-shadow:0 8px 22px rgba(198,0,111,.18)}.guestLink{background:var(--mint);box-shadow:0 8px 22px rgba(0,167,173,.18)}.guestLink svg{width:16px;height:16px;flex:0 0 auto}
+
+.toolNav{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin:0 0 16px;box-shadow:0 10px 30px rgba(19,34,56,.06)}
+.toolNavHead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toolNavTitle{font-size:13px;font-weight:900;letter-spacing:.02em}
+.toolNavLinks{display:flex;gap:7px;flex-wrap:wrap}
+.toolNavLink{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:var(--navy);background:#f5f8f9;border:1px solid var(--line);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:850}
+.toolNavLink:hover{border-color:var(--mint)}
+.toolNavLink.active{background:var(--mint);border-color:var(--mint);color:#fff}
+.howto{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+.howto summary{cursor:pointer;font-size:13px;font-weight:900;color:var(--navy);list-style:none}
+.howto summary::-webkit-details-marker{display:none}
+.howto summary:after{content:"＋";float:right;color:var(--mint);font-size:16px;line-height:1}
+.howto[open] summary:after{content:"–"}
+.howto ol{margin:12px 0 2px;padding-left:22px;color:var(--muted);font-size:13px;line-height:1.5}
+.howto li+li{margin-top:8px}
+.howto strong{color:var(--navy)}
+@media(max-width:620px){.toolNavHead{align-items:flex-start;flex-direction:column}.toolNavLinks{width:100%}.toolNavLink{flex:1 1 calc(50% - 7px)}}
 .hero{background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(20px,4vw,34px);box-shadow:0 20px 60px rgba(19,34,56,.10);margin-bottom:18px}
 .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--mint)}
 h1{font-size:clamp(28px,5vw,46px);line-height:1.06;margin:8px 0 10px}
@@ -31,6 +48,17 @@ h1{font-size:clamp(28px,5vw,46px);line-height:1.06;margin:8px 0 10px}
 .giftNotice strong{color:var(--mag)}
 .giftNotice a{color:var(--navy);font-weight:900;text-decoration:underline;text-underline-offset:3px}
 .giftNotice .giftIcon{font-size:24px;flex:0 0 auto}.guestNotice{display:flex;align-items:center;gap:12px;margin-top:10px;padding:13px 15px;border:1px solid rgba(0,167,173,.22);border-left:5px solid var(--mint);border-radius:13px;background:linear-gradient(90deg,rgba(0,167,173,.06),rgba(198,0,111,.04));font-size:14px;line-height:1.45}.guestNotice strong{color:#087c73}.guestNotice a{color:var(--navy);font-weight:900;text-decoration:underline;text-underline-offset:3px}.guestNotice svg{width:24px;height:24px;flex:0 0 auto;color:var(--mint)}
+
+.toolHub{margin-top:18px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#f8fbfc}
+.toolHubTitle{font-size:16px;font-weight:900;color:var(--navy)}
+.toolHubLead{margin:5px 0 12px;max-width:none;font-size:13px;line-height:1.5;color:var(--muted)}
+.toolHubGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.toolHubCard{display:flex;flex-direction:column;gap:5px;min-height:142px;padding:13px;border:1px solid var(--line);border-radius:13px;background:#fff;text-decoration:none;color:var(--navy)}
+.toolHubCard:hover{border-color:var(--mint);transform:translateY(-1px)}
+.toolHubCard.active{border-color:rgba(0,167,173,.45);background:#f0fbfb}
+.toolHubCard strong{font-size:14px}.toolHubCard span{font-size:11px;line-height:1.4;color:var(--muted);flex:1}.toolHubCard b{font-size:11px;color:var(--mag)}
+@media(max-width:850px){.toolHubGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.toolHubGrid{grid-template-columns:1fr}.toolHubCard{min-height:0}}
 .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
 .flowStep{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:13px;padding:11px 12px;background:#f8fbfc}
 .flowNo{width:28px;height:28px;border-radius:999px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:900;flex:0 0 auto}
@@ -101,19 +129,38 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><div class="brandline">LiquidityBooster · Visitenkarten</div><div class="toolLinks"><a class="giftLink" href="../geschenk-generator/">🎁 Geschenk erstellen</a><a class="guestLink" href="../gastredner-generator/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4a3 3 0 0 1 6 0v7a3 3 0 0 1-6 0V4Zm-2 7a5 5 0 0 0 10 0M12 16v4M8 20h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Gastredner einladen</a></div></div>
+  <div class="topbar"><div class="brandline">LiquidityBooster · Visitenkarten</div></div>
+
+  <nav class="toolNav" aria-label="Club Partner Werkzeuge">
+    <div class="toolNavHead">
+      <div class="toolNavTitle">Club Partner Werkzeuge</div>
+      <div class="toolNavLinks"><a class="toolNavLink active" href="../visitenkarten-generator/" aria-current="page">Visitenkarte</a><a class="toolNavLink" href="../geschenk-generator/">Geschenk</a><a class="toolNavLink" href="../gastredner-generator/">Gastredner</a><a class="toolNavLink" href="../webinar-generator/">Webinar</a></div>
+    </div>
+    <details class="howto">
+      <summary>So funktioniert’s</summary>
+      <ol>
+        <li><strong>Visitenkarte zuerst ausfüllen.</strong> Trage dort einmal deine persönlichen Daten und deinen persönlichen Link ein.</li>
+        <li><strong>Werkzeug auswählen.</strong> Wechsle zu Geschenk, Gastredner oder Webinar – je nachdem, was du erstellen möchtest.</li>
+        <li><strong>Daten werden übernommen.</strong> Dein Name und dein persönlicher Link werden automatisch eingesetzt. Empfänger und Anlass ergänzt du jeweils neu.</li>
+        <li><strong>Design und Text auswählen.</strong> Wähle eine Vorlage und passe bei Bedarf den Text an.</li>
+        <li><strong>Datei erstellen und teilen.</strong> Erzeuge PNG oder PDF und speichere oder teile die fertige Karte direkt.</li>
+      </ol>
+    </details>
+  </nav>
 
   <section class="hero">
     <div class="eyebrow" data-i18n="eyebrow">Club Partner Werkzeug</div>
     <h1 data-i18n="title">Deine LiquidityBooster Visitenkarte</h1>
     <p class="lead" data-i18n="lead">Daten eintragen, eines der drei Designs auswählen und die persönliche Affiliate-URL als QR-Code hinzufügen. Danach kannst du deine fertige Visitenkarte als Einzelkarte oder auf einem A4-Bogen erstellen.</p>
-    <div class="giftNotice">
-      <span class="giftIcon">🎁</span>
-      <div><strong>Neu: Persönliche Geschenke gestalten.</strong> Neben deiner Visitenkarte kannst du jetzt auch eine persönliche Geschenk-Karte für Familie, Freunde oder Kollegen erstellen. <a href="../geschenk-generator/">Geschenk-Generator öffnen</a></div>
-    </div>
-    <div class="guestNotice">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4a3 3 0 0 1 6 0v7a3 3 0 0 1-6 0V4Zm-2 7a5 5 0 0 0 10 0M12 16v4M8 20h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <div><strong>Neu: Gastredner persönlich einladen.</strong> Erstelle eine persönliche A5-Einladung mit deinem eigenen Affiliate-QR-Code für einen 15-minütigen Gastauftritt. <a href="../gastredner-generator/">Gastredner-Generator öffnen</a></div>
+    <div class="toolHub">
+      <div class="toolHubTitle">Deine Club Partner Werkzeuge</div>
+      <p class="toolHubLead">Erstelle deine persönliche Visitenkarte und nutze anschließend die weiteren Werkzeuge. Deine gespeicherten Club-Partner-Daten werden dabei automatisch übernommen.</p>
+      <div class="toolHubGrid">
+        <a class="toolHubCard active" href="../visitenkarten-generator/"><strong>Visitenkarte</strong><span>Persönliche Kontaktdaten und Affiliate-QR-Code.</span><b>Visitenkarte erstellen</b></a>
+        <a class="toolHubCard" href="../geschenk-generator/"><strong>Geschenk</strong><span>Persönliche Geschenk-Karten für Familie, Freunde oder Kollegen.</span><b>Geschenk gestalten</b></a>
+        <a class="toolHubCard" href="../gastredner-generator/"><strong>Gastredner</strong><span>Persönliche A5-Einladungen für einen Gastauftritt.</span><b>Gastredner einladen</b></a>
+        <a class="toolHubCard" href="../webinar-generator/"><strong>Webinar</strong><span>Zielgruppengerechte A5-Einladungen für Gäste.</span><b>Webinar-Gast einladen</b></a>
+      </div>
     </div>
     <div class="flow">
       <div class="flowStep"><span class="flowNo">1</span><div><strong data-i18n="flow1">Daten eingeben</strong><span data-i18n="flow1Sub">Vorschau aktualisiert sich sofort</span></div></div>
