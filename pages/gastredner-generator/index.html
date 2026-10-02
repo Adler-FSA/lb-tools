@@ -82,6 +82,11 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 .actions button.primary{background:var(--mint)}
 .actions button:disabled{opacity:.4;cursor:not-allowed}
 .smallnote{font-size:11px;line-height:1.45;color:var(--muted);margin:10px 0 0}
+.pdfOptions{display:grid;gap:10px}
+.pdfOption{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfdfd;cursor:pointer}
+.pdfOption input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--mint);flex:0 0 auto}
+.pdfOption strong{display:block;font-size:13px;color:var(--navy)}
+.pdfOption span{display:block;font-size:11px;line-height:1.4;color:var(--muted);margin-top:3px}
 .overlay{position:fixed;inset:0;background:rgba(19,34,56,.58);display:grid;place-items:center;padding:18px;z-index:50}
 .overlay[hidden]{display:none}
 .dialog{width:min(520px,100%);background:#fff;border-radius:21px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.25)}
@@ -227,6 +232,21 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
           </label>
         </div>
       </div>
+
+      <div class="section">
+        <h2 data-i18n="pdfExtrasTitle">5. Zusatzseiten zur A5-PDF</h2>
+        <div class="pdfOptions">
+          <label class="pdfOption">
+            <input type="checkbox" id="addGuestRules">
+            <span><strong data-i18n="guestRulesOption">Gastredner-Regeln hinzufügen</strong><span data-i18n="guestRulesOptionSub">Ergänzt eine A5-Seite mit den sechs Regeln und Rahmenbedingungen für den 15-minütigen Gastauftritt.</span></span>
+          </label>
+          <label class="pdfOption">
+            <input type="checkbox" id="addArticleRules">
+            <span><strong data-i18n="articleRulesOption">Bedingungen Leitartikel hinzufügen</strong><span data-i18n="articleRulesOptionSub">Ergänzt eine A5-Seite mit den Bedingungen für den redaktionellen Leitartikel.</span></span>
+          </label>
+        </div>
+        <div class="hint" data-i18n="pdfExtrasHint">Die PNG-Ausgabe bleibt immer nur die persönliche Einladung. Zusatzseiten werden ausschließlich der PDF hinzugefügt.</div>
+      </div>
     </section>
 
     <section class="panel">
@@ -297,6 +317,7 @@ var I18N={
     preview:'Live-Vorschau',missing:'Name, Absender und persönlichen Affiliate-Link eintragen.',badLink:'Bitte ausschließlich deinen persönlichen LiquidityBooster-Affiliate-Link eintragen.',ready:'Alles bereit – deine Gastredner-Einladung kann erstellt werden.',
     makePng:'PNG erstellen',makePdf:'PDF A5 erstellen',outputNote:'PNG zum digitalen Versenden. Die PDF wird als einzelne A5-Einladung angelegt. Nach der Erstellung kannst du die Datei speichern oder direkt teilen.',
     doneEyebrow:'Gastredner-Einladung',doneTitle:'Datei ist fertig',save:'Datei speichern',share:'Datei teilen',close:'Schließen',
+    pdfExtrasTitle:'5. Zusatzseiten zur A5-PDF',guestRulesOption:'Gastredner-Regeln hinzufügen',guestRulesOptionSub:'Ergänzt eine A5-Seite mit den sechs Regeln und Rahmenbedingungen für den 15-minütigen Gastauftritt.',articleRulesOption:'Bedingungen Leitartikel hinzufügen',articleRulesOptionSub:'Ergänzt eine A5-Seite mit den Bedingungen für den redaktionellen Leitartikel.',pdfExtrasHint:'Die PNG-Ausgabe bleibt immer nur die persönliche Einladung. Zusatzseiten werden ausschließlich der PDF hinzugefügt.',
     headlineProfessionalDu:'Einladung als Gastredner',subtitleProfessionalDu:'15 Minuten für dein Thema. Deine Expertise. Deine Bühne.',
     headlineProfessionalSie:'Einladung als Gastredner',subtitleProfessionalSie:'15 Minuten für Ihr Thema. Ihre Expertise. Ihre Bühne.',
     headlineEnthusiasticDu:'Das solltest du sichtbar machen!',subtitleEnthusiasticDu:'Dein Thema gehört auf unsere Gastrednerbühne.',
@@ -325,6 +346,7 @@ var I18N={
     preview:'Live preview',missing:'Enter invitee name, sender and your personal affiliate link.',badLink:'Please enter only your personal LiquidityBooster affiliate link.',ready:'Everything is ready – your guest speaker invitation can be created.',
     makePng:'Create PNG',makePdf:'Create A5 PDF',outputNote:'Use PNG for digital sharing. The PDF is created as a single A5 invitation. After creation you can save or share the file directly.',
     doneEyebrow:'Guest speaker invitation',doneTitle:'Your file is ready',save:'Save file',share:'Share file',close:'Close',
+    pdfExtrasTitle:'5. Additional pages for the A5 PDF',guestRulesOption:'Add guest speaker rules',guestRulesOptionSub:'Adds one A5 page with the six rules and conditions for the 15-minute guest appearance.',articleRulesOption:'Add feature article terms',articleRulesOptionSub:'Adds one A5 page with the terms for the editorial feature article.',pdfExtrasHint:'The PNG always contains only the personal invitation. Additional pages are added to the PDF only.',
     headlineProfessionalDu:'Guest Speaker Invitation',subtitleProfessionalDu:'15 minutes for your topic. Your expertise. Your stage.',
     headlineProfessionalSie:'Guest Speaker Invitation',subtitleProfessionalSie:'15 minutes for your topic. Your expertise. Your stage.',
     headlineEnthusiasticDu:'You should make this visible!',subtitleEnthusiasticDu:'Your topic belongs on our guest speaker stage.',
@@ -619,18 +641,141 @@ function canvasToBlob(c,type,quality){return new Promise(function(resolve,reject
 function dataUrlBytes(dataUrl){var b64=dataUrl.split(',')[1],bin=atob(b64),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return bytes}
 function asciiBytes(s){return new TextEncoder().encode(s)}
 function concatBytes(parts){var len=parts.reduce(function(a,b){return a+b.length},0),out=new Uint8Array(len),off=0;parts.forEach(function(p){out.set(p,off);off+=p.length});return out}
-function jpegPdf(c,wmm,hmm){
-  var jpg=dataUrlBytes(c.toDataURL('image/jpeg',.98)),wpt=(wmm*72/25.4).toFixed(2),hpt=(hmm*72/25.4).toFixed(2),objects=[];
+function drawRuleItem(c,num,head,body,y,accent){
+  var x=210,textX=305,maxW=1240;
+  c.save();
+  c.fillStyle=accent;
+  c.beginPath();c.arc(235,y+20,31,0,Math.PI*2);c.fill();
+  c.fillStyle='#fff';c.font=font(28,900);c.textAlign='center';c.fillText(String(num),235,y+30);c.textAlign='left';
+
+  c.fillStyle='#132238';c.font=font(34,850);
+  var headLines=wrapParagraph(c,head,maxW),cy=y+18;
+  headLines.forEach(function(line){c.fillText(line,textX,cy);cy+=44});
+
+  c.fillStyle='#405364';c.font=font(29,500);
+  var bodyLines=wrapParagraph(c,body,maxW),by=cy+8;
+  bodyLines.forEach(function(line){c.fillText(line,textX,by);by+=39});
+  c.restore();
+  return Math.max(by,y+80)+32
+}
+
+function createComplianceCanvas(kind){
+  var page=document.createElement('canvas');page.width=W;page.height=H;
+  var c=page.getContext('2d');
+  c.fillStyle='#ffffff';c.fillRect(0,0,W,H);
+
+  var grad=c.createLinearGradient(0,0,W,0);
+  grad.addColorStop(0,'rgba(0,167,173,.10)');
+  grad.addColorStop(.52,'rgba(255,255,255,0)');
+  grad.addColorStop(1,'rgba(198,0,111,.09)');
+  c.fillStyle=grad;c.fillRect(0,0,W,250);
+  c.fillRect(0,H-230,W,230);
+
+  c.strokeStyle='rgba(0,167,173,.30)';c.lineWidth=5;
+  c.beginPath();c.moveTo(150,185);c.lineTo(520,185);c.stroke();
+  c.strokeStyle='rgba(198,0,111,.24)';
+  c.beginPath();c.moveTo(W-500,H-165);c.lineTo(W-150,H-165);c.stroke();
+
+  var isGuest=kind==='guest',de=state.lang==='de',title,subtitle,intro,footer,items;
+  if(de&&isGuest){
+    title='Regeln und Produktbedingungen';
+    subtitle='Gastredner im Club';
+    intro='Die Regeln dienen einem fairen, sachlichen und verlässlichen Rahmen für den 15-minütigen Gastauftritt.';
+    items=[
+      ['Verantwortung für eigene Aussagen','Der Gastredner ist für seine Aussagen, Präsentationen, Angebote und bereitgestellten Inhalte selbst verantwortlich.'],
+      ['Keine Empfehlung','Der Auftritt stellt keine Empfehlung oder Befürwortung des Gastredners, seines Unternehmens oder seines Angebots durch den LiquidityBooster oder die Akademie dar.'],
+      ['Keine irreführenden Versprechen','Unwahre, irreführende oder nicht belegbare Erfolgs-, Einkommens-, Rendite- oder Heilversprechen sind nicht Bestandteil unserer Gastrednerbühne.'],
+      ['Rechtmäßige Inhalte','Inhalte und Angebote müssen mit den geltenden gesetzlichen Vorgaben vereinbar sein.'],
+      ['Gebuchte Redezeit','Der Gastredner hält sich an das vereinbarte Zeitfenster von 15 Minuten.'],
+      ['Respektvoller Rahmen','Persönliche Angriffe, diskriminierende Inhalte oder Beiträge, die erkennbar nur der Herabsetzung anderer Personen oder Unternehmen dienen, gehören nicht auf unsere Bühne.']
+    ];
+    footer='Mit der Buchung der Gastredner-Zeit werden diese Rahmenbedingungen Bestandteil der Teilnahme.';
+  }else if(de){
+    title='Regeln und Produktbedingungen';
+    subtitle='Redaktioneller Leitartikel';
+    intro='Diese Bedingungen schaffen einen klaren und verlässlichen Rahmen für die redaktionelle Veröffentlichung.';
+    items=[
+      ['Redaktionelle Aufbereitung','Der Leitartikel wird durch den LiquidityBooster beziehungsweise die Akademie sachlich und verständlich aufbereitet.'],
+      ['Keine Empfehlung','Die Veröffentlichung bedeutet keine Empfehlung oder Qualitätsbestätigung des dargestellten Unternehmens, Projekts, Produkts oder Angebots.'],
+      ['Richtigkeit der Grundlagen','Der Auftraggeber stellt sicher, dass die von ihm gelieferten Informationen sachlich korrekt sind.'],
+      ['Nutzungsrechte','Der Auftraggeber stellt sicher, dass bereitgestellte Bilder, Texte, Aussagen und sonstige Materialien für die vorgesehene Veröffentlichung verwendet werden dürfen.'],
+      ['Veröffentlichungszeitraum','Der Leitartikel bleibt für den vereinbarten Zeitraum von drei Monaten im News-Bereich sichtbar.'],
+      ['Redaktioneller Charakter','Der Auftraggeber liefert die inhaltliche Grundlage; die redaktionelle Aufbereitung verbleibt beim LiquidityBooster beziehungsweise bei der Akademie.']
+    ];
+    footer='Diese Bedingungen gelten für den redaktionellen Leitartikel.';
+  }else if(isGuest){
+    title='Rules and Product Terms';
+    subtitle='Guest Speaker in the Club';
+    intro='These rules provide a fair, factual and reliable framework for the 15-minute guest appearance.';
+    items=[
+      ['Responsibility for own statements','The guest speaker is responsible for their own statements, presentations, offers and supplied content.'],
+      ['No endorsement','The appearance does not constitute an endorsement of the guest speaker, their company or offer by LiquidityBooster or the Academy.'],
+      ['No misleading promises','False, misleading or unsubstantiated claims about success, income, returns or healing are not part of our guest speaker platform.'],
+      ['Lawful content','Content and offers must comply with applicable legal requirements.'],
+      ['Booked speaking time','The guest speaker keeps to the agreed 15-minute time slot.'],
+      ['Respectful framework','Personal attacks, discriminatory content or contributions intended merely to disparage other people or companies do not belong on our platform.']
+    ];
+    footer='By booking the guest speaker slot, these conditions become part of the participation framework.';
+  }else{
+    title='Rules and Product Terms';
+    subtitle='Editorial Feature Article';
+    intro='These terms provide a clear and reliable framework for the editorial publication.';
+    items=[
+      ['Editorial preparation','The feature article is prepared by LiquidityBooster or the Academy in a factual and understandable form.'],
+      ['No endorsement','Publication does not constitute an endorsement or quality confirmation of the company, project, product or offer presented.'],
+      ['Accuracy of source information','The client ensures that the information supplied is factually correct.'],
+      ['Usage rights','The client ensures that supplied images, texts, statements and other materials may be used for the intended publication.'],
+      ['Publication period','The feature article remains visible in the News section for the agreed period of three months.'],
+      ['Editorial character','The client provides the content basis; editorial preparation remains with LiquidityBooster or the Academy.']
+    ];
+    footer='These terms apply to the editorial feature article.';
+  }
+
+  c.fillStyle='#00a7ad';c.font=font(25,900);c.fillText(de?'ZUSATZSEITE ZUR GASTREDNER-EINLADUNG':'ADDITIONAL PAGE TO THE GUEST SPEAKER INVITATION',170,170);
+  c.fillStyle='#132238';c.font=font(64,900);c.fillText(title,170,275);
+  c.fillStyle=isGuest?'#00a7ad':'#c6006f';c.font=font(39,850);c.fillText(subtitle,170,340);
+  c.fillStyle='#607080';c.font=font(28,500);
+  var introLines=wrapParagraph(c,intro,1405),iy=405;
+  introLines.forEach(function(line){c.fillText(line,170,iy);iy+=39});
+
+  var y=iy+48;
+  items.forEach(function(it,i){y=drawRuleItem(c,i+1,it[0],it[1],y,isGuest?'#00a7ad':'#c6006f')});
+
+  c.fillStyle='rgba(0,167,173,.055)';
+  roundRect(c,150,H-300,1448,145,22);c.fill();
+  c.fillStyle='#132238';c.font=font(27,800);
+  var footerLines=wrapParagraph(c,footer,1340),fy=H-238;
+  footerLines.forEach(function(line){c.fillText(line,205,fy);fy+=38});
+
+  c.fillStyle='#6b7b87';c.font=font(20,650);
+  c.fillText(de?'Stand: Gastredner-Generator':'Guest Speaker Generator',170,H-85);
+  return page
+}
+
+function multiPagePdf(canvases,wmm,hmm){
+  var wpt=(wmm*72/25.4).toFixed(2),hpt=(hmm*72/25.4).toFixed(2),objects=[],kids=[];
   objects[1]=asciiBytes('<< /Type /Catalog /Pages 2 0 R >>');
-  objects[2]=asciiBytes('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
-  objects[3]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');
-  objects[4]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width '+c.width+' /Height '+c.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);
-  var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Im0 Do Q\n';
-  objects[5]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream');
-  var parts=[asciiBytes('%PDF-1.4\n%LB-GASTREDNER\n')],offsets=[0],pos=parts[0].length;
-  for(var i=1;i<=5;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}
-  var xref=pos,xs='xref\n0 6\n0000000000 65535 f \n';for(var j=1;j<=5;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';
-  xs+='trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));
+
+  canvases.forEach(function(c,i){
+    var pageObj=3+i*3,imgObj=4+i*3,contentObj=5+i*3;
+    kids.push(pageObj+' 0 R');
+    var jpg=dataUrlBytes(c.toDataURL('image/jpeg',.98));
+    objects[pageObj]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Im0 '+imgObj+' 0 R >> >> /Contents '+contentObj+' 0 R >>');
+    objects[imgObj]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width '+c.width+' /Height '+c.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);
+    var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Im0 Do Q\n';
+    objects[contentObj]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream');
+  });
+
+  objects[2]=asciiBytes('<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+canvases.length+' >>');
+  var maxObj=2+canvases.length*3,parts=[asciiBytes('%PDF-1.4\n%LB-GASTREDNER\n')],offsets=[0],pos=parts[0].length;
+  for(var i=1;i<=maxObj;i++){
+    offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');
+    parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length
+  }
+  var xref=pos,xs='xref\n0 '+(maxObj+1)+'\n0000000000 65535 f \n';
+  for(var j=1;j<=maxObj;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';
+  xs+='trailer\n<< /Size '+(maxObj+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';
+  parts.push(asciiBytes(xs));
   return new Blob(parts,{type:'application/pdf'})
 }
 function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('Dateispeicher'))}})}
@@ -648,7 +793,13 @@ async function createFile(type){
     if(type==='png'){
       blob=await canvasToBlob(canvas,'image/png');filename='Gastredner-Einladung-'+recipient+'-'+mode+'.png';format='PNG · A5 · 1748 × 2480 px';mime='image/png'
     }else{
-      blob=jpegPdf(canvas,148,210);filename='Gastredner-Einladung-'+recipient+'-'+mode+'.pdf';format='PDF · A5 · 148 × 210 mm';mime='application/pdf'
+      var pages=[canvas];
+      if($('addGuestRules').checked)pages.push(createComplianceCanvas('guest'));
+      if($('addArticleRules').checked)pages.push(createComplianceCanvas('article'));
+      blob=multiPagePdf(pages,148,210);
+      filename='Gastredner-Einladung-'+recipient+'-'+mode+'.pdf';
+      format='PDF · A5 · '+pages.length+' '+(state.lang==='de'?(pages.length===1?'Seite':'Seiten'):(pages.length===1?'page':'pages'));
+      mime='application/pdf'
     }
     var token=await storeFile(blob,filename,format,mime);
     $('fileName').textContent=filename;$('fileMeta').textContent=format;
