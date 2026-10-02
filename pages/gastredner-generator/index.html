@@ -10,61 +10,100 @@
   --navy:#132238;
   --mint:#00a7ad;
   --mag:#c6006f;
-  --bg:#f4f8f9;
-  --line:#d9e5e8;
-  --muted:#667785;
-  --white:#ffffff;
+  --bg:#eef4f5;
+  --line:#d8e4e8;
+  --muted:#607080;
+  --ok:#087c73;
+  --err:#a61754;
 }
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy);background:var(--bg)}
 body{padding:18px}
-button{font:inherit}
-.wrap{width:min(1240px,100%);margin:0 auto}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1280px,100%);margin:0 auto}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
 .brandline{font-weight:900;letter-spacing:.02em}
 .lang{display:flex;gap:7px}
-.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 11px;font-weight:850;cursor:pointer}
+.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 11px;font-weight:850}
 .lang button.active{background:var(--mint);border-color:var(--mint);color:#fff}
 .hero{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,38px);box-shadow:0 18px 50px rgba(19,34,56,.08);margin-bottom:18px}
 .hero:before,.hero:after{content:"";position:absolute;border-radius:999px;pointer-events:none}
-.hero:before{width:360px;height:130px;right:-100px;top:-58px;background:linear-gradient(90deg,rgba(0,167,173,.17),rgba(198,0,111,.08));transform:rotate(-9deg)}
-.hero:after{width:330px;height:110px;left:-120px;bottom:-65px;background:linear-gradient(90deg,rgba(198,0,111,.10),rgba(0,167,173,.13));transform:rotate(8deg)}
+.hero:before{width:420px;height:140px;right:-130px;top:-72px;background:linear-gradient(90deg,rgba(0,167,173,.16),rgba(198,0,111,.08));transform:rotate(-8deg)}
+.hero:after{width:360px;height:110px;left:-130px;bottom:-68px;background:linear-gradient(90deg,rgba(198,0,111,.10),rgba(0,167,173,.13));transform:rotate(8deg)}
 .eyebrow{position:relative;z-index:1;font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--mint)}
 h1{position:relative;z-index:1;font-size:clamp(30px,5vw,48px);line-height:1.04;margin:9px 0 11px}
-.lead{position:relative;z-index:1;margin:0;max-width:860px;color:var(--muted);font-size:17px;line-height:1.55}
-.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;position:relative;z-index:1}
+.lead{position:relative;z-index:1;margin:0;max-width:930px;color:var(--muted);font-size:17px;line-height:1.55}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;position:relative;z-index:1}
 .flowStep{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdfd}
-.flowNo{width:29px;height:29px;border-radius:999px;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;flex:0 0 auto}
-.flowStep:nth-child(1) .flowNo,.flowStep:nth-child(3) .flowNo{background:var(--mint)}
-.flowStep:nth-child(2) .flowNo{background:var(--mag)}
+.flowNo{width:29px;height:29px;border-radius:999px;display:grid;place-items:center;font-size:13px;font-weight:900;color:#fff;flex:0 0 auto;background:var(--mint)}
+.flowStep:nth-child(2) .flowNo,.flowStep:nth-child(4) .flowNo{background:var(--mag)}
 .flowStep strong{display:block;font-size:13px}
 .flowStep span{display:block;font-size:11px;color:var(--muted);margin-top:2px}
-.grid{display:grid;grid-template-columns:minmax(320px,430px) minmax(0,1fr);gap:18px;align-items:start}
+.grid{display:grid;grid-template-columns:minmax(340px,460px) minmax(0,1fr);gap:18px;align-items:start}
 .panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 14px 42px rgba(19,34,56,.07)}
-.panel h2{font-size:20px;margin:0 0 15px}
+.panel h2{font-size:20px;margin:0 0 14px}
+.section{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}
+.choiceRow{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.addressRow{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice span{display:flex;flex-direction:column;justify-content:center;min-height:58px;border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#fff;font-size:13px;font-weight:850;line-height:1.3}
+.choice small{display:block;font-size:10px;color:var(--muted);font-weight:650;margin-top:3px}
+.choice input:checked+span{background:#edfafa;border-color:var(--mint);box-shadow:inset 0 0 0 1px var(--mint)}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{min-width:0}
+.field.full{grid-column:1/-1}
+label,.label{display:block;font-size:12px;font-weight:850;margin:0 0 6px;color:#344958}
+input,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:var(--navy);border-radius:11px;padding:11px 12px;outline:none}
+textarea{min-height:138px;resize:vertical;line-height:1.45}
+input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.10)}
+.hint{font-size:11px;line-height:1.45;color:var(--muted);margin-top:6px}
+.customBox[hidden]{display:none!important}
 .templateGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.template{position:relative;border:2px solid transparent;border-radius:15px;padding:8px;background:#f5f9fa;cursor:pointer;text-align:left;transition:.16s ease}
+.template{position:relative;border:2px solid transparent;border-radius:15px;padding:8px;background:#f5f9fa;cursor:pointer;transition:.16s ease}
 .template:hover{transform:translateY(-1px)}
 .template.active{border-color:var(--mint);background:#effafa;box-shadow:0 8px 24px rgba(0,167,173,.10)}
 .template input{position:absolute;opacity:0;pointer-events:none}
-.thumbWrap{position:relative;aspect-ratio:148/210;border-radius:10px;overflow:hidden;background:linear-gradient(145deg,#eef7f7,#fff3f8);border:1px solid #d9e4e7}
+.thumbWrap{aspect-ratio:148/210;border-radius:10px;overflow:hidden;background:#f4f8f9;border:1px solid #d9e4e7}
 .thumb{width:100%;height:100%;display:block;object-fit:cover}
-.fallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:12px;color:var(--muted);font-size:11px;font-weight:800;line-height:1.35;background:linear-gradient(145deg,#eef9fa,#fff4f8)}
 .template strong{display:block;font-size:12px;margin-top:7px}
 .template span{font-size:11px;color:var(--muted)}
-.note{margin:14px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
 .previewTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
 .previewTop h2{margin:0}
 .badge{font-size:12px;font-weight:850;background:#eefafa;color:#087c73;border:1px solid #cde7e8;border-radius:999px;padding:6px 9px}
-.previewStage{background:linear-gradient(135deg,#edf4f5,#f8fbfb);border-radius:18px;padding:clamp(14px,3vw,26px);display:grid;place-items:center;min-height:540px}
-.paper{position:relative;width:min(100%,520px);aspect-ratio:148/210;background:#fff;box-shadow:0 24px 58px rgba(19,34,56,.18);overflow:hidden}
-.paper img{width:100%;height:100%;display:block;object-fit:cover}
-.paperFallback{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:24px;color:var(--muted);font-weight:850;line-height:1.45;background:linear-gradient(145deg,#eef9fa,#fff3f8)}
-.infoStrip{margin-top:14px;border-left:5px solid var(--mag);background:linear-gradient(90deg,rgba(198,0,111,.055),rgba(0,167,173,.045));border-radius:12px;padding:12px 14px;color:var(--muted);font-size:12px;line-height:1.5}
+.previewStage{background:linear-gradient(135deg,#e7eff1,#f8fbfb);border-radius:18px;padding:clamp(12px,3vw,24px);display:grid;place-items:center}
+#preview{display:block;width:min(100%,600px);height:auto;aspect-ratio:148/210;background:#fff;box-shadow:0 24px 58px rgba(19,34,56,.18)}
+.status{font-size:12px;min-height:18px;margin:12px 0 0;color:var(--muted)}
+.status.ok{color:var(--ok)}
+.status.error{color:var(--err)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.actions button{border:0;border-radius:12px;padding:13px 12px;font-weight:900;color:#fff;background:var(--navy)}
+.actions button.primary{background:var(--mint)}
+.actions button:disabled{opacity:.4;cursor:not-allowed}
+.smallnote{font-size:11px;line-height:1.45;color:var(--muted);margin:10px 0 0}
+.overlay{position:fixed;inset:0;background:rgba(19,34,56,.58);display:grid;place-items:center;padding:18px;z-index:50}
+.overlay[hidden]{display:none}
+.dialog{width:min(520px,100%);background:#fff;border-radius:21px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.25)}
+.dialog h3{font-size:25px;margin:6px 0 12px}
+.filebox{background:#f2fafb;border-left:5px solid var(--mint);border-radius:12px;padding:13px;overflow-wrap:anywhere}
+.filebox strong{display:block}
+.filebox span{font-size:12px;color:var(--muted)}
+.dialogActions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.dialogActions a,.dialogActions button{text-align:center;text-decoration:none;border:0;border-radius:11px;padding:12px;font-weight:900}
+.dialogActions a{background:var(--mint);color:#fff}
+.dialogActions .share{background:var(--navy);color:#fff}
+.dialogActions button{grid-column:1/-1;background:#edf2f4;color:var(--navy)}
 @media(min-width:901px){.grid>section:nth-child(2){position:sticky;top:14px}}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.previewStage{min-height:0}}
-@media(max-width:700px){.flow{grid-template-columns:1fr}}
-@media(max-width:540px){body{padding:10px}.hero,.panel{border-radius:18px}.templateGrid{grid-template-columns:1fr 1fr}.topbar{align-items:flex-start}.brandline{font-size:14px}}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){
+  body{padding:10px}.hero,.panel{border-radius:18px;padding:16px}
+  .choiceRow,.formgrid,.actions,.dialogActions{grid-template-columns:1fr}
+  .templateGrid{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:1fr}
+  .topbar{align-items:flex-start;flex-direction:column}
+  .dialogActions button{grid-column:auto}
+}
 </style>
 </head>
 <body>
@@ -80,188 +119,521 @@ h1{position:relative;z-index:1;font-size:clamp(30px,5vw,48px);line-height:1.04;m
   <section class="hero">
     <div class="eyebrow" data-i18n="eyebrow">Club Partner Werkzeug</div>
     <h1 data-i18n="title">Gastredner persönlich einladen</h1>
-    <p class="lead" data-i18n="lead">Wähle eine A5-Vorlage für deine persönliche Einladung. Die Einladungstexte, Du/Sie-Auswahl und der persönliche Affiliate-QR-Code werden als nächster Baustein ergänzt.</p>
+    <p class="lead" data-i18n="lead">Erstelle eine persönliche A5-Einladung für einen 15-minütigen Gastauftritt bei der LiquidityBooster-Präsentation am Montag um 19:00 Uhr. Der QR-Code verwendet ausschließlich deinen eigenen Affiliate-Link.</p>
     <div class="flow">
-      <div class="flowStep"><span class="flowNo">1</span><div><strong data-i18n="flow1">Vorlage wählen</strong><span data-i18n="flow1Sub">sechs helle A5-Designs</span></div></div>
-      <div class="flowStep"><span class="flowNo">2</span><div><strong data-i18n="flow2">Einladung gestalten</strong><span data-i18n="flow2Sub">Text und Ansprache folgen</span></div></div>
-      <div class="flowStep"><span class="flowNo">3</span><div><strong data-i18n="flow3">Persönlich teilen</strong><span data-i18n="flow3Sub">mit eigenem Affiliate-QR-Code</span></div></div>
+      <div class="flowStep"><span class="flowNo">1</span><div><strong data-i18n="flow1">Einladungsstil</strong><span data-i18n="flow1Sub">professionell, begeistert oder frei</span></div></div>
+      <div class="flowStep"><span class="flowNo">2</span><div><strong data-i18n="flow2">Personalisieren</strong><span data-i18n="flow2Sub">Name, Thema und Ansprache</span></div></div>
+      <div class="flowStep"><span class="flowNo">3</span><div><strong data-i18n="flow3">Design wählen</strong><span data-i18n="flow3Sub">sechs unterschiedliche A5-Vorlagen</span></div></div>
+      <div class="flowStep"><span class="flowNo">4</span><div><strong data-i18n="flow4">Erstellen & teilen</strong><span data-i18n="flow4Sub">PNG oder A5-PDF</span></div></div>
     </div>
   </section>
 
   <div class="grid">
     <section class="panel">
-      <h2 data-i18n="choose">A5-Vorlage auswählen</h2>
-      <div class="templateGrid" id="templateGrid">
-
-        <label class="template active" data-template="1">
-          <input type="radio" name="template" value="1" checked>
-          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-01.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
-          <strong data-i18n="t1">Vorlage 1 · Mint Flow</strong><span data-i18n="s1">leicht & offen</span>
-        </label>
-
-        <label class="template" data-template="2">
-          <input type="radio" name="template" value="2">
-          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-02.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
-          <strong data-i18n="t2">Vorlage 2 · Magenta Flow</strong><span data-i18n="s2">klar & lebendig</span>
-        </label>
-
-        <label class="template" data-template="3">
-          <input type="radio" name="template" value="3">
-          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-03.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
-          <strong data-i18n="t3">Vorlage 3 · Double Wave</strong><span data-i18n="s3">dynamisch & offen</span>
-        </label>
-
-        <label class="template" data-template="4">
-          <input type="radio" name="template" value="4">
-          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-04.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
-          <strong data-i18n="t4">Vorlage 4 · Soft Stage</strong><span data-i18n="s4">ruhig & hochwertig</span>
-        </label>
-
-        <label class="template" data-template="5">
-          <input type="radio" name="template" value="5">
-          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-05.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
-          <strong data-i18n="t5">Vorlage 5 · Rising Motion</strong><span data-i18n="s5">schwungvoll & persönlich</span>
-        </label>
-
-        <label class="template" data-template="6">
-          <input type="radio" name="template" value="6">
-          <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-06.png" alt=""><div class="fallback" data-i18n="missing">Vorlage noch nicht verfügbar</div></div>
-          <strong data-i18n="t6">Vorlage 6 · Open Space</strong><span data-i18n="s6">viel Raum für Freitext</span>
-        </label>
+      <h2 data-i18n="styleTitle">1. Einladungsstil</h2>
+      <div class="choiceRow">
+        <label class="choice"><input type="radio" name="mode" value="professional" checked><span><b data-i18n="professional">Professionell</b><small data-i18n="professionalSub">sachlich & geschäftlich</small></span></label>
+        <label class="choice"><input type="radio" name="mode" value="enthusiastic"><span><b data-i18n="enthusiastic">Begeistert</b><small data-i18n="enthusiasticSub">direkt aus echter Begeisterung</small></span></label>
+        <label class="choice"><input type="radio" name="mode" value="custom"><span><b data-i18n="custom">Eigener Text</b><small data-i18n="customSub">vollständig selbst formulieren</small></span></label>
       </div>
-      <p class="note" data-i18n="note">Die A5-Vorlagen bleiben bewusst ohne Logo. LiquidityBooster wird erst nach dem Scannen des persönlichen Affiliate-QR-Codes auf der Website sichtbar.</p>
+
+      <div class="section">
+        <h2 data-i18n="addressTitle">2. Ansprache</h2>
+        <div class="addressRow">
+          <label class="choice"><input type="radio" name="address" value="du" checked><span><b data-i18n="du">Du</b><small data-i18n="duSub">persönlich & direkt</small></span></label>
+          <label class="choice"><input type="radio" name="address" value="sie"><span><b data-i18n="sie">Sie</b><small data-i18n="sieSub">formell & geschäftlich</small></span></label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 data-i18n="dataTitle">3. Persönliche Angaben</h2>
+        <div class="formgrid">
+          <div class="field full">
+            <label for="recipient" data-i18n="recipient">Name des Eingeladenen</label>
+            <input id="recipient" maxlength="70" data-i18n-placeholder="recipientPh" placeholder="z. B. Thomas Müller">
+          </div>
+          <div class="field full">
+            <label for="subject" data-i18n="subject">Thema / Business</label>
+            <input id="subject" maxlength="100" data-i18n-placeholder="subjectPh" placeholder="z. B. Mitarbeitergesundheit">
+            <div class="hint" data-i18n="subjectHint">Optional. Wenn das Feld leer bleibt, wird neutral von deinem/Ihrem Thema gesprochen.</div>
+          </div>
+          <div class="field full">
+            <label for="sender" data-i18n="sender">Eingeladen von</label>
+            <input id="sender" maxlength="70" data-i18n-placeholder="senderPh" placeholder="z. B. Michael Rau">
+          </div>
+          <div class="field full">
+            <label for="affiliateUrl" data-i18n="affiliate">Dein persönlicher LiquidityBooster-Affiliate-Link</label>
+            <input id="affiliateUrl" inputmode="url" autocomplete="url" maxlength="1800" placeholder="https://liquiditybooster.de/...">
+            <div class="hint" data-i18n="affiliateHint">Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code. Es wird kein allgemeiner Ersatzlink verwendet.</div>
+          </div>
+        </div>
+
+        <div class="customBox" id="customBox" hidden>
+          <div class="field full" style="margin-top:14px">
+            <label for="customHeadline" data-i18n="customHeadline">Eigene Überschrift</label>
+            <input id="customHeadline" maxlength="90" data-i18n-placeholder="customHeadlinePh" placeholder="Deine eigene Überschrift">
+          </div>
+          <div class="field full" style="margin-top:10px">
+            <label for="customText" data-i18n="customText">Dein Einladungstext</label>
+            <textarea id="customText" maxlength="1000" data-i18n-placeholder="customTextPh" placeholder="Schreibe hier deine persönliche Einladung …"></textarea>
+          </div>
+          <div class="field full" style="margin-top:10px">
+            <label for="customClosing" data-i18n="customClosing">Eigener Abschlusssatz</label>
+            <input id="customClosing" maxlength="120" data-i18n-placeholder="customClosingPh" placeholder="z. B. Ich freue mich darauf, dich dort zu erleben.">
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 data-i18n="templateTitle">4. A5-Vorlage auswählen</h2>
+        <div class="templateGrid" id="templateGrid">
+          <label class="template active" data-template="1">
+            <input type="radio" name="template" value="1" checked>
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-01-buehne.png" alt=""></div>
+            <strong data-i18n="t1">Vorlage 1 · Bühne</strong><span data-i18n="s1">Gastredner & Publikum</span>
+          </label>
+          <label class="template" data-template="2">
+            <input type="radio" name="template" value="2">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-02-geometrisch.png" alt=""></div>
+            <strong data-i18n="t2">Vorlage 2 · Geometrisch</strong><span data-i18n="s2">klar & modern</span>
+          </label>
+          <label class="template" data-template="3">
+            <input type="radio" name="template" value="3">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-03-architektur.png" alt=""></div>
+            <strong data-i18n="t3">Vorlage 3 · Architektur</strong><span data-i18n="s3">räumlich & hochwertig</span>
+          </label>
+          <label class="template" data-template="4">
+            <input type="radio" name="template" value="4">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-04-portal.png" alt=""></div>
+            <strong data-i18n="t4">Vorlage 4 · Portal</strong><span data-i18n="s4">rund & elegant</span>
+          </label>
+          <label class="template" data-template="5">
+            <input type="radio" name="template" value="5">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-05-licht.png" alt=""></div>
+            <strong data-i18n="t5">Vorlage 5 · Licht</strong><span data-i18n="s5">dynamisch & leicht</span>
+          </label>
+          <label class="template" data-template="6">
+            <input type="radio" name="template" value="6">
+            <div class="thumbWrap"><img class="thumb" src="./vorlagen/gastredner-a5-vorlage-06-minimal.png" alt=""></div>
+            <strong data-i18n="t6">Vorlage 6 · Minimal</strong><span data-i18n="s6">ruhig & offen</span>
+          </label>
+        </div>
+      </div>
     </section>
 
     <section class="panel">
       <div class="previewTop">
-        <h2 data-i18n="preview">Vorlagen-Vorschau</h2>
-        <span class="badge">A5 · 148 × 210 mm</span>
+        <h2 data-i18n="preview">Live-Vorschau</h2>
+        <span class="badge">A5 · 148 × 210 mm · 300 dpi</span>
       </div>
       <div class="previewStage">
-        <div class="paper">
-          <img id="previewImage" src="./vorlagen/gastredner-a5-vorlage-01.png" alt="">
-          <div class="paperFallback" id="previewFallback" data-i18n="previewMissing">Die gewählte Vorlage ist noch nicht hochgeladen.</div>
-        </div>
+        <canvas id="preview" width="1748" height="2480" aria-label="Gastredner Einladung Vorschau"></canvas>
       </div>
-      <div class="infoStrip" data-i18n="info">Die Vorlage dient nur als Hintergrund. Alle variablen Inhalte werden später darübergelegt, damit Name, Ansprache, Einladungstext und QR-Code individuell bleiben.</div>
+      <div class="status" id="status" role="status" aria-live="polite" data-i18n="missing">Name, Absender und persönlichen Affiliate-Link eintragen.</div>
+      <div class="actions">
+        <button type="button" class="primary" id="makePng" disabled data-i18n="makePng">PNG erstellen</button>
+        <button type="button" id="makePdf" disabled data-i18n="makePdf">PDF A5 erstellen</button>
+      </div>
+      <p class="smallnote" data-i18n="outputNote">PNG zum digitalen Versenden. Die PDF wird als einzelne A5-Einladung angelegt. Nach der Erstellung kannst du die Datei speichern oder direkt teilen.</p>
     </section>
   </div>
 </div>
 
+<div class="overlay" id="fileOverlay" hidden>
+  <div class="dialog">
+    <div class="eyebrow" data-i18n="doneEyebrow">Gastredner-Einladung</div>
+    <h3 data-i18n="doneTitle">Datei ist fertig</h3>
+    <div class="filebox"><strong id="fileName"></strong><span id="fileMeta"></span></div>
+    <div class="dialogActions">
+      <a id="saveFile" href="#" data-i18n="save">Datei speichern</a>
+      <a id="shareFile" class="share" href="#" data-i18n="share">Datei teilen</a>
+      <button id="closeOverlay" type="button" data-i18n="close">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script src="../visitenkarten-generator/qrcode-local.js"></script>
 <script>
 (function(){
 'use strict';
 
-var templates={
-  1:'./vorlagen/gastredner-a5-vorlage-01.png',
-  2:'./vorlagen/gastredner-a5-vorlage-02.png',
-  3:'./vorlagen/gastredner-a5-vorlage-03.png',
-  4:'./vorlagen/gastredner-a5-vorlage-04.png',
-  5:'./vorlagen/gastredner-a5-vorlage-05.png',
-  6:'./vorlagen/gastredner-a5-vorlage-06.png'
+var W=1748,H=2480,DB_NAME='lb-guest-speaker-file-handoff-v1',STORE='files';
+var state={mode:'professional',address:'du',template:1,lang:'de'};
+var canvas=document.getElementById('preview'),ctx=canvas.getContext('2d');
+var images={},promises={};
+
+var TEMPLATES={
+  1:'./vorlagen/gastredner-a5-vorlage-01-buehne.png',
+  2:'./vorlagen/gastredner-a5-vorlage-02-geometrisch.png',
+  3:'./vorlagen/gastredner-a5-vorlage-03-architektur.png',
+  4:'./vorlagen/gastredner-a5-vorlage-04-portal.png',
+  5:'./vorlagen/gastredner-a5-vorlage-05-licht.png',
+  6:'./vorlagen/gastredner-a5-vorlage-06-minimal.png'
 };
 
 var I18N={
   de:{
-    eyebrow:'Club Partner Werkzeug',
-    title:'Gastredner persönlich einladen',
-    lead:'Wähle eine A5-Vorlage für deine persönliche Einladung. Die Einladungstexte, Du/Sie-Auswahl und der persönliche Affiliate-QR-Code werden als nächster Baustein ergänzt.',
-    flow1:'Vorlage wählen',flow1Sub:'sechs helle A5-Designs',
-    flow2:'Einladung gestalten',flow2Sub:'Text und Ansprache folgen',
-    flow3:'Persönlich teilen',flow3Sub:'mit eigenem Affiliate-QR-Code',
-    choose:'A5-Vorlage auswählen',
-    missing:'Vorlage noch nicht verfügbar',
-    t1:'Vorlage 1 · Mint Flow',s1:'leicht & offen',
-    t2:'Vorlage 2 · Magenta Flow',s2:'klar & lebendig',
-    t3:'Vorlage 3 · Double Wave',s3:'dynamisch & offen',
-    t4:'Vorlage 4 · Soft Stage',s4:'ruhig & hochwertig',
-    t5:'Vorlage 5 · Rising Motion',s5:'schwungvoll & persönlich',
-    t6:'Vorlage 6 · Open Space',s6:'viel Raum für Freitext',
-    note:'Die A5-Vorlagen bleiben bewusst ohne Logo. LiquidityBooster wird erst nach dem Scannen des persönlichen Affiliate-QR-Codes auf der Website sichtbar.',
-    preview:'Vorlagen-Vorschau',
-    previewMissing:'Die gewählte Vorlage ist noch nicht hochgeladen.',
-    info:'Die Vorlage dient nur als Hintergrund. Alle variablen Inhalte werden später darübergelegt, damit Name, Ansprache, Einladungstext und QR-Code individuell bleiben.'
+    eyebrow:'Club Partner Werkzeug',title:'Gastredner persönlich einladen',
+    lead:'Erstelle eine persönliche A5-Einladung für einen 15-minütigen Gastauftritt bei der LiquidityBooster-Präsentation am Montag um 19:00 Uhr. Der QR-Code verwendet ausschließlich deinen eigenen Affiliate-Link.',
+    flow1:'Einladungsstil',flow1Sub:'professionell, begeistert oder frei',
+    flow2:'Personalisieren',flow2Sub:'Name, Thema und Ansprache',
+    flow3:'Design wählen',flow3Sub:'sechs unterschiedliche A5-Vorlagen',
+    flow4:'Erstellen & teilen',flow4Sub:'PNG oder A5-PDF',
+    styleTitle:'1. Einladungsstil',professional:'Professionell',professionalSub:'sachlich & geschäftlich',enthusiastic:'Begeistert',enthusiasticSub:'direkt aus echter Begeisterung',custom:'Eigener Text',customSub:'vollständig selbst formulieren',
+    addressTitle:'2. Ansprache',du:'Du',duSub:'persönlich & direkt',sie:'Sie',sieSub:'formell & geschäftlich',
+    dataTitle:'3. Persönliche Angaben',recipient:'Name des Eingeladenen',recipientPh:'z. B. Thomas Müller',subject:'Thema / Business',subjectPh:'z. B. Mitarbeitergesundheit',subjectHint:'Optional. Wenn das Feld leer bleibt, wird neutral von deinem/Ihrem Thema gesprochen.',sender:'Eingeladen von',senderPh:'z. B. Michael Rau',
+    affiliate:'Dein persönlicher LiquidityBooster-Affiliate-Link',affiliateHint:'Der Link wird nicht ausgeschrieben. Er steckt ausschließlich im QR-Code. Es wird kein allgemeiner Ersatzlink verwendet.',
+    customHeadline:'Eigene Überschrift',customHeadlinePh:'Deine eigene Überschrift',customText:'Dein Einladungstext',customTextPh:'Schreibe hier deine persönliche Einladung …',customClosing:'Eigener Abschlusssatz',customClosingPh:'z. B. Ich freue mich darauf, dich dort zu erleben.',
+    templateTitle:'4. A5-Vorlage auswählen',t1:'Vorlage 1 · Bühne',s1:'Gastredner & Publikum',t2:'Vorlage 2 · Geometrisch',s2:'klar & modern',t3:'Vorlage 3 · Architektur',s3:'räumlich & hochwertig',t4:'Vorlage 4 · Portal',s4:'rund & elegant',t5:'Vorlage 5 · Licht',s5:'dynamisch & leicht',t6:'Vorlage 6 · Minimal',s6:'ruhig & offen',
+    preview:'Live-Vorschau',missing:'Name, Absender und persönlichen Affiliate-Link eintragen.',badLink:'Bitte ausschließlich deinen persönlichen LiquidityBooster-Affiliate-Link eintragen.',ready:'Alles bereit – deine Gastredner-Einladung kann erstellt werden.',
+    makePng:'PNG erstellen',makePdf:'PDF A5 erstellen',outputNote:'PNG zum digitalen Versenden. Die PDF wird als einzelne A5-Einladung angelegt. Nach der Erstellung kannst du die Datei speichern oder direkt teilen.',
+    doneEyebrow:'Gastredner-Einladung',doneTitle:'Datei ist fertig',save:'Datei speichern',share:'Datei teilen',close:'Schließen',
+    headlineProfessionalDu:'Einladung als Gastredner',subtitleProfessionalDu:'15 Minuten für dein Thema. Deine Expertise. Deine Bühne.',
+    headlineProfessionalSie:'Einladung als Gastredner',subtitleProfessionalSie:'15 Minuten für Ihr Thema. Ihre Expertise. Ihre Bühne.',
+    headlineEnthusiasticDu:'Das solltest du sichtbar machen!',subtitleEnthusiasticDu:'Dein Thema gehört auf unsere Gastrednerbühne.',
+    headlineEnthusiasticSie:'Das sollten Sie sichtbar machen!',subtitleEnthusiasticSie:'Ihr Thema gehört auf unsere Gastrednerbühne.',
+    guestPrice:'15 Minuten Gastredner-Zeit · 35 € einmalig',
+    articlePrice:'Redaktioneller Leitartikel · 69 € einmalig',
+    qrTitle:'Mehr erfahren',
+    qrDu:'QR-Code scannen → persönliche LiquidityBooster-Seite öffnen → im Menü „Webinare“ auswählen.',
+    qrSie:'QR-Code scannen → persönliche LiquidityBooster-Seite öffnen → im Menü „Webinare“ auswählen.',
+    invitedBy:'Persönlich eingeladen von'
   },
   en:{
-    eyebrow:'Club Partner Tool',
-    title:'Invite a guest speaker personally',
-    lead:'Choose an A5 template for your personal invitation. Invitation texts, informal/formal address and the personal affiliate QR code will be added in the next building block.',
-    flow1:'Choose template',flow1Sub:'six bright A5 designs',
-    flow2:'Create invitation',flow2Sub:'text and form of address follow',
-    flow3:'Share personally',flow3Sub:'with your own affiliate QR code',
-    choose:'Choose A5 template',
-    missing:'Template not available yet',
-    t1:'Template 1 · Mint Flow',s1:'light & open',
-    t2:'Template 2 · Magenta Flow',s2:'clear & lively',
-    t3:'Template 3 · Double Wave',s3:'dynamic & open',
-    t4:'Template 4 · Soft Stage',s4:'calm & refined',
-    t5:'Template 5 · Rising Motion',s5:'dynamic & personal',
-    t6:'Template 6 · Open Space',s6:'more room for custom text',
-    note:'The A5 templates intentionally contain no logo. LiquidityBooster becomes visible only after scanning the personal affiliate QR code and opening the website.',
-    preview:'Template preview',
-    previewMissing:'The selected template has not been uploaded yet.',
-    info:'The template is only the background. Variable content will be placed on top later so name, form of address, invitation text and QR code remain individual.'
+    eyebrow:'Club Partner Tool',title:'Invite a guest speaker personally',
+    lead:'Create a personal A5 invitation for a 15-minute guest appearance at the LiquidityBooster presentation on Monday at 7:00 pm. The QR code uses only your own affiliate link.',
+    flow1:'Invitation style',flow1Sub:'professional, enthusiastic or custom',
+    flow2:'Personalize',flow2Sub:'name, topic and form of address',
+    flow3:'Choose design',flow3Sub:'six different A5 templates',
+    flow4:'Create & share',flow4Sub:'PNG or A5 PDF',
+    styleTitle:'1. Invitation style',professional:'Professional',professionalSub:'clear & businesslike',enthusiastic:'Enthusiastic',enthusiasticSub:'directly from genuine enthusiasm',custom:'Custom text',customSub:'write it completely yourself',
+    addressTitle:'2. Form of address',du:'Personal',duSub:'direct & personal',sie:'Formal',sieSub:'formal & businesslike',
+    dataTitle:'3. Personal details',recipient:'Name of invitee',recipientPh:'e.g. Thomas Miller',subject:'Topic / Business',subjectPh:'e.g. employee wellbeing',subjectHint:'Optional. If left blank, the invitation simply refers to your topic.',sender:'Invited by',senderPh:'e.g. Michael Rau',
+    affiliate:'Your personal LiquidityBooster affiliate link',affiliateHint:'The link is not printed. It is stored only in the QR code. No general replacement link is used.',
+    customHeadline:'Custom headline',customHeadlinePh:'Your own headline',customText:'Your invitation text',customTextPh:'Write your personal invitation here …',customClosing:'Custom closing line',customClosingPh:'e.g. I look forward to seeing you there.',
+    templateTitle:'4. Choose A5 template',t1:'Template 1 · Stage',s1:'speaker & audience',t2:'Template 2 · Geometric',s2:'clear & modern',t3:'Template 3 · Architecture',s3:'spatial & refined',t4:'Template 4 · Portal',s4:'round & elegant',t5:'Template 5 · Light',s5:'dynamic & airy',t6:'Template 6 · Minimal',s6:'calm & open',
+    preview:'Live preview',missing:'Enter invitee name, sender and your personal affiliate link.',badLink:'Please enter only your personal LiquidityBooster affiliate link.',ready:'Everything is ready – your guest speaker invitation can be created.',
+    makePng:'Create PNG',makePdf:'Create A5 PDF',outputNote:'Use PNG for digital sharing. The PDF is created as a single A5 invitation. After creation you can save or share the file directly.',
+    doneEyebrow:'Guest speaker invitation',doneTitle:'Your file is ready',save:'Save file',share:'Share file',close:'Close',
+    headlineProfessionalDu:'Guest Speaker Invitation',subtitleProfessionalDu:'15 minutes for your topic. Your expertise. Your stage.',
+    headlineProfessionalSie:'Guest Speaker Invitation',subtitleProfessionalSie:'15 minutes for your topic. Your expertise. Your stage.',
+    headlineEnthusiasticDu:'You should make this visible!',subtitleEnthusiasticDu:'Your topic belongs on our guest speaker stage.',
+    headlineEnthusiasticSie:'You should make this visible!',subtitleEnthusiasticSie:'Your topic belongs on our guest speaker stage.',
+    guestPrice:'15-minute guest speaker slot · €35 one-time',
+    articlePrice:'Editorial feature article · €69 one-time',
+    qrTitle:'Learn more',
+    qrDu:'Scan the QR code → open my personal LiquidityBooster page → select “Webinars” in the menu.',
+    qrSie:'Scan the QR code → open my personal LiquidityBooster page → select “Webinars” in the menu.',
+    invitedBy:'Personally invited by'
   }
 };
 
-var lang='de';
-var preview=document.getElementById('previewImage');
-var previewFallback=document.getElementById('previewFallback');
+function $(id){return document.getElementById(id)}
+function t(key){return I18N[state.lang][key]||key}
+function font(size,weight){return (weight||400)+' '+size+'px -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif'}
+function sanitize(s){return String(s||'Einladung').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'Einladung'}
+
+function normalizeUrl(raw){
+  var s=String(raw||'').trim();if(!s)return '';
+  if(!/^https?:\/\//i.test(s))s='https://'+s;
+  try{var u=new URL(s);return (u.protocol==='http:'||u.protocol==='https:')?u.href:''}catch(e){return ''}
+}
+function affiliateUrl(){
+  var url=normalizeUrl($('affiliateUrl').value);if(!url)return '';
+  try{
+    var host=new URL(url).hostname.toLowerCase().replace(/\.$/,'');
+    return (host==='liquiditybooster.de'||host.endsWith('.liquiditybooster.de'))?url:'';
+  }catch(e){return ''}
+}
+
+function loadImage(path){
+  if(promises[path])return promises[path];
+  promises[path]=new Promise(function(resolve,reject){
+    var img=new Image();images[path]=img;
+    img.onload=function(){resolve(img);render()};
+    img.onerror=function(){reject(new Error('Template could not be loaded: '+path))};
+    img.src=path;
+  });
+  return promises[path];
+}
+function preload(){Object.keys(TEMPLATES).forEach(function(k){loadImage(TEMPLATES[k])})}
+
+function drawImageCover(c,img,x,y,w,h){
+  var sr=img.naturalWidth/img.naturalHeight,tr=w/h,sx=0,sy=0,sw=img.naturalWidth,sh=img.naturalHeight;
+  if(sr>tr){sw=sh*tr;sx=(img.naturalWidth-sw)/2}else{sh=sw/tr;sy=(img.naturalHeight-sh)/2}
+  c.drawImage(img,sx,sy,sw,sh,x,y,w,h);
+}
+function roundRect(c,x,y,w,h,r){
+  c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();
+}
+function wrapParagraph(c,text,maxWidth){
+  if(!text)return[];var words=String(text).split(/\s+/),lines=[],line='';
+  words.forEach(function(word){var test=line?line+' '+word:word;if(c.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test});
+  if(line)lines.push(line);return lines
+}
+function fitBlock(c,text,maxWidth,maxHeight,start,min,weight,lineFactor){
+  var paragraphs=String(text||'').split(/\n\s*\n|\n/),size=start,lines=[];
+  while(size>=min){
+    c.font=font(size,weight);lines=[];
+    paragraphs.forEach(function(p,idx){
+      if(p.trim())wrapParagraph(c,p.trim(),maxWidth).forEach(function(l){lines.push(l)});
+      if(idx<paragraphs.length-1)lines.push('');
+    });
+    var lineH=size*lineFactor;
+    if(lines.length*lineH<=maxHeight)return{size:size,lineH:lineH,lines:lines};
+    size--;
+  }
+  return{size:min,lineH:min*lineFactor,lines:lines}
+}
+function fitOneLine(c,text,maxWidth,start,min,weight){
+  var s=start;while(s>min){c.font=font(s,weight);if(c.measureText(text).width<=maxWidth)break;s--}c.font=font(s,weight);return s
+}
+function qrMatrix(text){
+  if(!text||typeof qrcode!=='function')return null;
+  var qr=qrcode(0,'M');qr.addData(text);qr.make();var rows=[],count=qr.getModuleCount();
+  for(var r=0;r<count;r++){var row=[];for(var col=0;col<count;col++)row.push(qr.isDark(r,col));rows.push(row)}
+  return rows
+}
+function drawQr(c,matrix,x,y,size){
+  if(!matrix)return;var quiet=4,total=matrix.length+quiet*2,module=size/total;
+  c.save();c.fillStyle='rgba(255,255,255,.98)';roundRect(c,x-18,y-18,size+36,size+36,22);c.fill();
+  c.strokeStyle='#00a7ad';c.lineWidth=6;roundRect(c,x-18,y-18,size+36,size+36,22);c.stroke();
+  c.fillStyle='#fff';c.fillRect(x,y,size,size);c.fillStyle='#000';
+  for(var r=0;r<matrix.length;r++)for(var col=0;col<matrix.length;col++)if(matrix[r][col])c.fillRect(x+(col+quiet)*module,y+(r+quiet)*module,module+.55,module+.55);
+  c.restore()
+}
+
+function subjectText(){
+  var v=$('subject').value.trim();
+  if(v)return v;
+  if(state.lang==='de')return state.address==='sie'?'Ihr Thema':'dein Thema';
+  return 'your topic';
+}
+function salutation(){
+  var name=$('recipient').value.trim()||(state.lang==='de'?'[Name]':'[Name]');
+  if(state.lang==='de')return state.address==='sie'?'Guten Tag '+name+',':'Hallo '+name+',';
+  return state.address==='sie'?'Dear '+name+',':'Hi '+name+',';
+}
+function presetContent(){
+  var name=$('recipient').value.trim(),subject=subjectText(),sender=$('sender').value.trim();
+  if(state.lang==='de'){
+    if(state.mode==='professional'){
+      if(state.address==='sie'){
+        return{
+          headline:t('headlineProfessionalSie'),subtitle:t('subtitleProfessionalSie'),
+          body:salutation()+'\n\nich möchte Sie einladen, '+( $('subject').value.trim()?subject:'Ihr Unternehmen, Ihr Projekt oder Ihre Expertise')+' im Rahmen unserer LiquidityBooster-Präsentation am Montag um 19:00 Uhr als Gastredner vorzustellen.\n\nSie erhalten 15 Minuten, um Ihr Thema persönlich zu präsentieren, Ihre Perspektive darzustellen und den Teilnehmern einen direkten Einblick in Ihre Arbeit zu geben.\n\nUnsere Präsentationen bringen Menschen zusammen, die sich für neue Ideen, interessante Geschäftsmodelle, innovative Lösungen und unternehmerische Perspektiven interessieren.',
+          recommendation:'Zusätzlich können Sie Ihr Thema mit einem redaktionellen Leitartikel ausführlicher sichtbar machen.',
+          closing:'Ich freue mich darauf, Ihr Thema auf unserer Bühne zu sehen.',sender:sender
+        }
+      }
+      return{
+        headline:t('headlineProfessionalDu'),subtitle:t('subtitleProfessionalDu'),
+        body:salutation()+'\n\nich möchte dich einladen, '+( $('subject').value.trim()?subject:'dein Unternehmen, dein Projekt oder deine Expertise')+' im Rahmen unserer LiquidityBooster-Präsentation am Montag um 19:00 Uhr als Gastredner vorzustellen.\n\nDu erhältst 15 Minuten, um dein Thema persönlich zu präsentieren, deine Perspektive darzustellen und den Teilnehmern einen direkten Einblick in deine Arbeit zu geben.\n\nUnsere Präsentationen bringen Menschen zusammen, die sich für neue Ideen, interessante Geschäftsmodelle, innovative Lösungen und unternehmerische Perspektiven interessieren.',
+        recommendation:'Zusätzlich kannst du dein Thema mit einem redaktionellen Leitartikel ausführlicher sichtbar machen.',
+        closing:'Ich freue mich darauf, dein Thema auf unserer Bühne zu sehen.',sender:sender
+      }
+    }
+    if(state.mode==='enthusiastic'){
+      if(state.address==='sie'){
+        return{
+          headline:t('headlineEnthusiasticSie'),subtitle:t('subtitleEnthusiasticSie'),
+          body:salutation()+'\n\nwas Sie mir gerade über '+subject+' gezeigt haben, hat mich wirklich begeistert. Genau solche Themen gehören auf eine Bühne.\n\nBei unserer LiquidityBooster-Präsentation am Montag um 19:00 Uhr treffen Menschen zusammen, die offen für neue Ideen, interessante Geschäftsmodelle, besondere Lösungen und spannende Perspektiven sind.\n\nSie sollten ihnen zeigen, was Sie gerade mir gezeigt haben. Deshalb lade ich Sie persönlich ein, Ihr Thema als Gastredner für 15 Minuten vorzustellen. Erzählen Sie selbst, was Sie machen, warum Sie davon überzeugt sind und was daran besonders ist.',
+          recommendation:'Und weil Ihr Thema mehr verdient als nur einen kurzen Auftritt, empfehle ich Ihnen zusätzlich einen redaktionellen Leitartikel.',
+          closing:'Ich möchte, dass Sie das sichtbar machen.',sender:sender
+        }
+      }
+      return{
+        headline:t('headlineEnthusiasticDu'),subtitle:t('subtitleEnthusiasticDu'),
+        body:salutation()+'\n\nwas du mir gerade über '+subject+' gezeigt hast, hat mich wirklich begeistert. Genau solche Themen gehören auf eine Bühne.\n\nBei unserer LiquidityBooster-Präsentation am Montag um 19:00 Uhr treffen Menschen zusammen, die offen für neue Ideen, interessante Geschäftsmodelle, besondere Lösungen und spannende Perspektiven sind.\n\nDu solltest ihnen zeigen, was du gerade mir gezeigt hast. Deshalb lade ich dich persönlich ein, dein Thema als Gastredner für 15 Minuten vorzustellen. Erzähl selbst, was du machst, warum du davon überzeugt bist und was daran besonders ist.',
+        recommendation:'Und weil dein Thema mehr verdient als nur einen kurzen Auftritt, empfehle ich dir zusätzlich einen redaktionellen Leitartikel.',
+        closing:'Ich möchte, dass du das sichtbar machst.',sender:sender
+      }
+    }
+    return{
+      headline:$('customHeadline').value.trim()||'Persönliche Einladung als Gastredner',
+      subtitle:state.address==='sie'?'15 Minuten für Ihr Thema.':'15 Minuten für dein Thema.',
+      body:$('customText').value.trim()||salutation()+'\n\n'+(state.address==='sie'?'Hier steht Ihre persönliche Einladung.':'Hier steht deine persönliche Einladung.'),
+      recommendation:state.address==='sie'?'Optional können Sie zusätzlich einen redaktionellen Leitartikel buchen.':'Optional kannst du zusätzlich einen redaktionellen Leitartikel buchen.',
+      closing:$('customClosing').value.trim()||(state.address==='sie'?'Ich freue mich auf Ihre Präsentation.':'Ich freue mich auf deine Präsentation.'),
+      sender:sender
+    }
+  }
+
+  if(state.mode==='professional'){
+    return{
+      headline:t('headlineProfessionalDu'),subtitle:t('subtitleProfessionalDu'),
+      body:salutation()+'\n\nI would like to invite you to present '+( $('subject').value.trim()?subject:'your business, project or expertise')+' as a guest speaker during our LiquidityBooster presentation on Monday at 7:00 pm.\n\nYou will have 15 minutes to present your topic personally, share your perspective and give participants a direct insight into your work.\n\nOur presentations bring together people who are open to new ideas, interesting business models, innovative solutions and entrepreneurial perspectives.',
+      recommendation:'You can also make your topic more visible with an editorial feature article.',
+      closing:'I look forward to seeing your topic on our stage.',sender:sender
+    }
+  }
+  if(state.mode==='enthusiastic'){
+    return{
+      headline:t('headlineEnthusiasticDu'),subtitle:t('subtitleEnthusiasticDu'),
+      body:salutation()+'\n\nwhat you just showed me about '+subject+' genuinely excited me. Topics like this belong on a stage.\n\nAt our LiquidityBooster presentation on Monday at 7:00 pm, people come together who are open to new ideas, interesting business models, special solutions and fresh perspectives.\n\nYou should show them what you just showed me. That is why I am personally inviting you to present your topic as a guest speaker for 15 minutes. Tell people what you do, why you believe in it and what makes it special.',
+      recommendation:'And because your topic deserves more than a short appearance, I also recommend an editorial feature article.',
+      closing:'I want you to make this visible.',sender:sender
+    }
+  }
+  return{
+    headline:$('customHeadline').value.trim()||'Personal Guest Speaker Invitation',
+    subtitle:'15 minutes for your topic.',
+    body:$('customText').value.trim()||salutation()+'\n\nYour personal invitation text goes here.',
+    recommendation:'You can optionally add an editorial feature article.',
+    closing:$('customClosing').value.trim()||'I look forward to your presentation.',
+    sender:sender
+  }
+}
+
+function drawCard(c){
+  c.clearRect(0,0,W,H);c.fillStyle='#fff';c.fillRect(0,0,W,H);
+  var path=TEMPLATES[state.template],img=images[path];
+  if(img&&img.complete&&img.naturalWidth){
+    c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';drawImageCover(c,img,0,0,W,H)
+  }else{
+    c.fillStyle='#f6f9fa';c.fillRect(0,0,W,H);c.fillStyle='#607080';c.textAlign='center';c.font=font(42,700);c.fillText('Vorlage wird geladen …',W/2,H/2);c.textAlign='left';return
+  }
+
+  var data=presetContent(),x=170,maxW=1408,y=230;
+  c.textBaseline='alphabetic';c.textAlign='left';
+
+  c.save();
+  c.fillStyle='rgba(255,255,255,.82)';
+  c.shadowColor='rgba(19,34,56,.11)';c.shadowBlur=28;c.shadowOffsetY=8;
+  roundRect(c,120,150,1508,1540,34);c.fill();
+  c.restore();
+
+  c.fillStyle='#00a7ad';c.font=font(24,900);c.letterSpacing='0px';
+  c.fillText(state.lang==='de'?'PERSÖNLICHE GASTREDNER-EINLADUNG':'PERSONAL GUEST SPEAKER INVITATION',x,y);
+
+  c.fillStyle='#132238';fitOneLine(c,data.headline,maxW,72,50,900);c.fillText(data.headline,x,y+105);
+  c.fillStyle='#c6006f';fitOneLine(c,data.subtitle,maxW,34,26,800);c.fillText(data.subtitle,x,y+160);
+
+  c.fillStyle='#00a7ad';c.fillRect(x,y+195,150,6);
+
+  var bodyTop=y+265,bodyMaxH=900;
+  c.fillStyle='#132238';
+  var block=fitBlock(c,data.body,maxW,bodyMaxH,40,30,500,1.42),cy=bodyTop;
+  c.font=font(block.size,500);
+  block.lines.forEach(function(line){if(line)c.fillText(line,x,cy);cy+=block.lineH});
+
+  var priceY=Math.max(cy+28,1270);
+  c.save();
+  c.fillStyle='rgba(255,255,255,.94)';c.strokeStyle='rgba(0,167,173,.38)';c.lineWidth=3;
+  roundRect(c,x,priceY,maxW,300,26);c.fill();c.stroke();c.restore();
+
+  c.fillStyle='#132238';c.font=font(30,900);c.fillText(t('guestPrice'),x+34,priceY+60);
+  c.fillStyle='#c6006f';c.font=font(30,900);c.fillText(t('articlePrice'),x+34,priceY+112);
+
+  c.fillStyle='#445765';var rec=fitBlock(c,data.recommendation,maxW-68,118,27,22,600,1.34),ry=priceY+170;c.font=font(rec.size,600);
+  rec.lines.forEach(function(line){if(line)c.fillText(line,x+34,ry);ry+=rec.lineH});
+
+  var footerY=1805;
+  c.save();
+  c.fillStyle='rgba(255,255,255,.94)';c.shadowColor='rgba(19,34,56,.12)';c.shadowBlur=24;c.shadowOffsetY=7;
+  roundRect(c,120,footerY,1508,545,30);c.fill();c.restore();
+
+  c.fillStyle='#132238';c.font=font(30,800);c.fillText(data.closing,x,footerY+70);
+  c.fillStyle='#c6006f';c.font=font(34,900);c.fillText(data.sender||'',x,footerY+120);
+
+  c.fillStyle='#00a7ad';c.font=font(28,900);c.fillText(t('qrTitle'),x,footerY+210);
+  c.fillStyle='#344958';var qrt=fitBlock(c,state.address==='sie'?t('qrSie'):t('qrDu'),860,160,27,23,600,1.35),qy=footerY+260;c.font=font(qrt.size,600);
+  qrt.lines.forEach(function(line){if(line)c.fillText(line,x,qy);qy+=qrt.lineH});
+
+  var matrix=qrMatrix(affiliateUrl());
+  if(matrix)drawQr(c,matrix,1260,footerY+105,280);
+
+  c.fillStyle='#607080';c.font=font(22,700);c.fillText(t('invitedBy')+': '+(data.sender||''),x,footerY+480);
+}
+
+function ready(){
+  var base=$('recipient').value.trim()&&$('sender').value.trim()&&affiliateUrl();
+  if(state.mode==='custom')base=base&&$('customHeadline').value.trim()&&$('customText').value.trim();
+  return!!base
+}
+function updateStatus(){
+  var s=$('status'),raw=$('affiliateUrl').value.trim(),normalized=normalizeUrl(raw),allowed=affiliateUrl(),ok=ready();
+  $('makePng').disabled=!ok;$('makePdf').disabled=!ok;
+  if(raw&&normalized&&!allowed){s.textContent=t('badLink');s.className='status error'}
+  else if(raw&&!normalized){s.textContent=t('badLink');s.className='status error'}
+  else if(ok){s.textContent=t('ready');s.className='status ok'}
+  else{s.textContent=t('missing');s.className='status'}
+}
+function render(){drawCard(ctx);updateStatus()}
 
 function applyI18n(){
-  document.documentElement.lang=lang;
-  document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var key=el.getAttribute('data-i18n');
-    if(I18N[lang][key]) el.textContent=I18N[lang][key];
-  });
-  document.querySelectorAll('.lang button').forEach(function(btn){
-    btn.classList.toggle('active',btn.getAttribute('data-lang')===lang);
-  });
+  document.documentElement.lang=state.lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){var key=el.getAttribute('data-i18n');if(I18N[state.lang][key])el.textContent=I18N[state.lang][key]});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){var key=el.getAttribute('data-i18n-placeholder');if(I18N[state.lang][key])el.placeholder=I18N[state.lang][key]});
+  document.querySelectorAll('.lang button').forEach(function(btn){btn.classList.toggle('active',btn.getAttribute('data-lang')===state.lang)});
+  render()
+}
+function setMode(){
+  state.mode=document.querySelector('input[name="mode"]:checked').value;
+  $('customBox').hidden=state.mode!=='custom';render()
+}
+function setAddress(){state.address=document.querySelector('input[name="address"]:checked').value;render()}
+function setTemplate(n){
+  state.template=parseInt(n,10)||1;
+  document.querySelectorAll('.template').forEach(function(el){el.classList.toggle('active',el.getAttribute('data-template')===String(state.template))});
+  var radio=document.querySelector('.template[data-template="'+state.template+'"] input');if(radio)radio.checked=true;
+  loadImage(TEMPLATES[state.template]);render()
 }
 
-function bindImageFallback(img){
-  var fb=img.parentElement.querySelector('.fallback');
-  img.addEventListener('error',function(){
-    img.style.display='none';
-    if(fb) fb.style.display='grid';
-  });
-  img.addEventListener('load',function(){
-    img.style.display='block';
-    if(fb) fb.style.display='none';
-  });
+function canvasToBlob(c,type,quality){return new Promise(function(resolve,reject){c.toBlob(function(b){b?resolve(b):reject(new Error('Datei konnte nicht erstellt werden.'))},type,quality)})}
+function dataUrlBytes(dataUrl){var b64=dataUrl.split(',')[1],bin=atob(b64),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return bytes}
+function asciiBytes(s){return new TextEncoder().encode(s)}
+function concatBytes(parts){var len=parts.reduce(function(a,b){return a+b.length},0),out=new Uint8Array(len),off=0;parts.forEach(function(p){out.set(p,off);off+=p.length});return out}
+function jpegPdf(c,wmm,hmm){
+  var jpg=dataUrlBytes(c.toDataURL('image/jpeg',.98)),wpt=(wmm*72/25.4).toFixed(2),hpt=(hmm*72/25.4).toFixed(2),objects=[];
+  objects[1]=asciiBytes('<< /Type /Catalog /Pages 2 0 R >>');
+  objects[2]=asciiBytes('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+  objects[3]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>');
+  objects[4]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width '+c.width+' /Height '+c.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);
+  var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Im0 Do Q\n';
+  objects[5]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream');
+  var parts=[asciiBytes('%PDF-1.4\n%LB-GASTREDNER\n')],offsets=[0],pos=parts[0].length;
+  for(var i=1;i<=5;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}
+  var xref=pos,xs='xref\n0 6\n0000000000 65535 f \n';for(var j=1;j<=5;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';
+  xs+='trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));
+  return new Blob(parts,{type:'application/pdf'})
 }
-document.querySelectorAll('.thumb').forEach(bindImageFallback);
+function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('Dateispeicher'))}})}
+async function storeFile(blob,filename,format,mime){
+  var db=await openDb(),token='guest-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+  return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:filename,format:format,mime:mime,created:new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-GB',{dateStyle:'medium',timeStyle:'short'}).format(new Date())});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error||new Error('Dateispeicher'))}})
+}
+function handoff(token,action){var u=new URL('./datei-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);u.searchParams.set('lang',state.lang);return u.href}
 
-preview.addEventListener('error',function(){
-  preview.style.display='none';
-  previewFallback.style.display='grid';
-});
-preview.addEventListener('load',function(){
-  preview.style.display='block';
-  previewFallback.style.display='none';
-});
+async function createFile(type){
+  if(!ready()){updateStatus();return}
+  try{
+    await loadImage(TEMPLATES[state.template]);drawCard(ctx);
+    var recipient=sanitize($('recipient').value),mode=sanitize(state.mode),filename,blob,format,mime;
+    if(type==='png'){
+      blob=await canvasToBlob(canvas,'image/png');filename='Gastredner-Einladung-'+recipient+'-'+mode+'.png';format='PNG · A5 · 1748 × 2480 px';mime='image/png'
+    }else{
+      blob=jpegPdf(canvas,148,210);filename='Gastredner-Einladung-'+recipient+'-'+mode+'.pdf';format='PDF · A5 · 148 × 210 mm';mime='application/pdf'
+    }
+    var token=await storeFile(blob,filename,format,mime);
+    $('fileName').textContent=filename;$('fileMeta').textContent=format;
+    $('saveFile').href=handoff(token,'save');$('shareFile').href=handoff(token,'share');$('fileOverlay').hidden=false
+  }catch(e){
+    $('status').textContent='Fehler: '+(e&&e.message?e.message:String(e));$('status').className='status error'
+  }
+}
 
-document.getElementById('templateGrid').addEventListener('click',function(e){
-  var label=e.target.closest('.template');
-  if(!label) return;
-  var n=label.getAttribute('data-template');
-  document.querySelectorAll('.template').forEach(function(x){x.classList.remove('active');});
-  label.classList.add('active');
-  var radio=label.querySelector('input');
-  if(radio) radio.checked=true;
-  preview.style.display='block';
-  previewFallback.style.display='none';
-  preview.src=templates[n]+'?v=1';
-});
+document.querySelectorAll('input[name="mode"]').forEach(function(el){el.addEventListener('change',setMode)});
+document.querySelectorAll('input[name="address"]').forEach(function(el){el.addEventListener('change',setAddress)});
+document.getElementById('templateGrid').addEventListener('click',function(e){var el=e.target.closest('.template');if(el)setTemplate(el.getAttribute('data-template'))});
+['recipient','subject','sender','affiliateUrl','customHeadline','customText','customClosing'].forEach(function(id){$(id).addEventListener('input',render)});
+document.querySelectorAll('.lang button').forEach(function(btn){btn.addEventListener('click',function(){state.lang=btn.getAttribute('data-lang')||'de';applyI18n()})});
+$('makePng').addEventListener('click',function(){createFile('png')});
+$('makePdf').addEventListener('click',function(){createFile('pdf')});
+$('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});
+$('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
 
-document.querySelectorAll('.lang button').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    lang=btn.getAttribute('data-lang')||'de';
-    applyI18n();
-  });
-});
-
-applyI18n();
+preload();applyI18n();setTemplate(1);render();
 })();
 </script>
 </body>
