@@ -282,7 +282,15 @@ h1 span{
   inset:0;
   z-index:4;
   pointer-events:none;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease,visibility .25s ease;
 }
+.image-frame.symbols-visible .symbol-layer{
+  opacity:1;
+  visibility:visible;
+}
+.image-frame:not(.symbols-visible) .symbol-hotspot{pointer-events:none}
 .symbol-hotspot{
   position:absolute;
   padding:0;
@@ -301,11 +309,11 @@ h1 span{
   height:26px;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  border:1px solid rgba(255,240,185,.95);
-  background:rgba(7,16,28,.34);
+  border:1px solid rgba(255,240,185,.82);
+  background:rgba(7,16,28,.18);
   box-shadow:
-    0 0 0 5px rgba(231,191,106,.12),
-    0 0 24px rgba(255,220,145,.55);
+    0 0 0 3px rgba(231,191,106,.08),
+    0 0 16px rgba(255,220,145,.34);
   transition:transform .22s ease,background .22s ease,box-shadow .22s ease;
 }
 .symbol-hotspot .marker:before,
@@ -363,12 +371,19 @@ h1 span{
   font-size:.89rem;
   line-height:1.5;
 }
+.symbol-controls{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  margin-top:14px;
+}
 .symbol-hint{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:8px;
-  margin-top:12px;
+  margin:0;
   color:#8da0b2;
   text-align:center;
   font-size:.79rem;
@@ -381,6 +396,38 @@ h1 span{
   border-radius:50%;
   background:var(--gold);
   box-shadow:0 0 0 4px rgba(231,191,106,.12);
+}
+.symbol-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  min-height:42px;
+  padding:10px 17px;
+  border:1px solid rgba(231,191,106,.34);
+  border-radius:999px;
+  color:var(--gold2);
+  background:rgba(231,191,106,.07);
+  font-weight:850;
+  font-size:.87rem;
+  cursor:pointer;
+  box-shadow:0 10px 28px rgba(0,0,0,.16);
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+.symbol-toggle:hover{
+  transform:translateY(-1px);
+  background:rgba(231,191,106,.12);
+  border-color:rgba(231,191,106,.5);
+}
+.symbol-toggle svg{
+  width:17px;
+  height:17px;
+  flex:0 0 auto;
+}
+.symbol-toggle[aria-pressed="true"]{
+  color:#08111f;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+  border-color:transparent;
 }
 
 .symbol-hotspot.knowledge{left:4%;top:2%;width:23%;height:17%}
@@ -767,7 +814,17 @@ footer{
 
         </div>
         <figcaption class="image-caption" data-i18n="image_caption">Eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</figcaption>
-        <div class="symbol-hint" data-i18n="symbol_hint">Fahre mit der Maus über ein markiertes Symbol oder tippe darauf.</div>
+        <div class="symbol-controls">
+          <div class="symbol-hint" id="symbolHint" data-i18n="symbol_hint_closed">Dieses Bild trägt mehrere Bedeutungsebenen. Entdecke die Symbole und ihre Botschaft.</div>
+          <button class="symbol-toggle" id="symbolToggle" type="button" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.2" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="12" cy="12" r="2.4" fill="currentColor"/>
+              <path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <span id="symbolToggleText" data-i18n="symbol_toggle_show">Symbole entdecken</span>
+          </button>
+        </div>
       </figure>
     </div>
   </div>
@@ -937,7 +994,10 @@ const translations = {
     image_wait_title:"Das Bild bekommt hier seinen Platz.",
     image_wait_text:"Sobald die Bilddatei hochgeladen ist, erscheint sie automatisch in diesem Rahmen.",
     image_caption:"Eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.",
-    symbol_hint:"Fahre mit der Maus über ein markiertes Symbol oder tippe darauf.",
+    symbol_hint_closed:"Dieses Bild trägt mehrere Bedeutungsebenen. Entdecke die Symbole und ihre Botschaft.",
+    symbol_hint_open:"Fahre mit der Maus über ein Symbol oder tippe darauf.",
+    symbol_toggle_show:"Symbole entdecken",
+    symbol_toggle_hide:"Symbole ausblenden",
     hs_knowledge_title:"Wissen & Vernetzung",
     hs_knowledge_text:"Das blaue Zeichen über der Bibliothek steht für Wissen, vernetztes Denken und die Fähigkeit, Zusammenhänge sichtbar zu machen.",
     hs_heart_title:"Herz & Verstand",
@@ -1027,7 +1087,10 @@ const translations = {
     image_wait_title:"The image will have its place here.",
     image_wait_text:"As soon as the image file is uploaded, it will appear automatically in this frame.",
     image_caption:"A visual condensation of what I have been working for over many years.",
-    symbol_hint:"Move the pointer over a marked symbol or tap it.",
+    symbol_hint_closed:"This image carries several layers of meaning. Discover the symbols and their message.",
+    symbol_hint_open:"Move the pointer over a symbol or tap it.",
+    symbol_toggle_show:"Discover symbols",
+    symbol_toggle_hide:"Hide symbols",
     hs_knowledge_title:"Knowledge & Connection",
     hs_knowledge_text:"The blue symbol above the library represents knowledge, connected thinking, and the ability to make relationships visible.",
     hs_heart_title:"Heart & Mind",
@@ -1128,12 +1191,31 @@ function setLanguage(lang){
 }
 
 document.querySelectorAll("[data-lang]").forEach(btn=>{
-  btn.addEventListener("click",()=>setLanguage(btn.dataset.lang));
+  btn.addEventListener("click",()=>{
+    setLanguage(btn.dataset.lang);
+    syncSymbolUI();
+  });
 });
 
 const initialLang=localStorage.getItem("michael-manifest-lang")||"de";
 setLanguage(initialLang);
 
+
+const portrait=document.getElementById("portraitImage");
+const frame=document.getElementById("portraitFrame");
+const symbolToggle=document.getElementById("symbolToggle");
+const symbolToggleText=document.getElementById("symbolToggleText");
+const symbolHint=document.getElementById("symbolHint");
+let symbolsVisible=false;
+
+function syncSymbolUI(){
+  const lang=document.documentElement.lang||"de";
+  const dict=translations[lang]||translations.de;
+  frame.classList.toggle("symbols-visible",symbolsVisible);
+  symbolToggle.setAttribute("aria-pressed",String(symbolsVisible));
+  symbolToggleText.textContent=symbolsVisible ? dict.symbol_toggle_hide : dict.symbol_toggle_show;
+  symbolHint.textContent=symbolsVisible ? dict.symbol_hint_open : dict.symbol_hint_closed;
+}
 
 const overlay=document.getElementById("symbolOverlay");
 const overlayTitle=document.getElementById("symbolOverlayTitle");
@@ -1161,6 +1243,15 @@ function hideSymbolInfo(force=false){
   overlay.classList.remove("show");
   hotspots.forEach(h=>h.classList.remove("active"));
 }
+symbolToggle.addEventListener("click",()=>{
+  symbolsVisible=!symbolsVisible;
+  if(!symbolsVisible){
+    activeHotspot=null;
+    hideSymbolInfo(true);
+  }
+  syncSymbolUI();
+});
+
 hotspots.forEach(h=>{
   h.addEventListener("mouseenter",()=>showSymbolInfo(h,false));
   h.addEventListener("mouseleave",()=>{ if(activeHotspot!==h) hideSymbolInfo(true); });
@@ -1183,14 +1274,13 @@ document.addEventListener("click",e=>{
   }
 });
 
-const portrait=document.getElementById("portraitImage");
-const frame=document.getElementById("portraitFrame");
 function markReady(){
   if(portrait.complete && portrait.naturalWidth>0) frame.classList.add("ready");
 }
 portrait.addEventListener("load",markReady);
 portrait.addEventListener("error",()=>frame.classList.remove("ready"));
 markReady();
+syncSymbolUI();
 
 const io=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
