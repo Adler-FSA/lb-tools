@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Michael Rau – Architekt von Souveränität. Die persönliche Botschaft hinter meinem Weg, meiner Haltung und meiner Arbeit.">
+<title>Michael Rau · Architekt von Souveränität</title>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Michael Rau · Architekt von Souveränität">
+<meta property="og:description" content="Wissen ordnen. Klarheit schaffen. Menschen befähigen, ihren eigenen Weg selbstbestimmt zu gehen.">
+<meta property="og:url" content="https://tools.liquiditybooster.de/pages/michael-rau-architekt-souveraenitaet.html">
+<meta property="og:image" content="https://tools.liquiditybooster.de/pages/assets/michael-rau-architekt-souveraenitaet.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="Michael Rau – Architekt von Souveränität">
+
+<style>
+:root{
+  --navy:#08111f;
+  --navy2:#0f1d30;
+  --navy3:#132238;
+  --paper:#f7f3ea;
+  --white:#ffffff;
+  --text:#e9eef4;
+  --muted:#aeb9c7;
+  --mint:#00a7ad;
+  --mint2:#74e1df;
+  --mag:#c6006f;
+  --gold:#e7bf6a;
+  --gold2:#fff0b9;
+  --line:rgba(255,255,255,.12);
+  --soft:rgba(255,255,255,.055);
+  --max:1180px;
+  --reading:790px;
+  --shadow:0 30px 90px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.75;
+  background:
+    radial-gradient(circle at 12% 0%,rgba(0,167,173,.16),transparent 28rem),
+    radial-gradient(circle at 88% 9%,rgba(198,0,111,.12),transparent 31rem),
+    radial-gradient(circle at 50% 32%,rgba(231,191,106,.08),transparent 34rem),
+    linear-gradient(180deg,#07101c 0%,#0a1525 45%,#07101b 100%);
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:58px 58px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.8),transparent 78%);
+}
+a{color:inherit}
+button{font:inherit}
+.wrap{width:min(calc(100% - 36px),var(--max));margin-inline:auto}
+.reading{width:min(100%,var(--reading));margin-inline:auto}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(7,16,28,.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topbar-inner{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.identity{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.identity-mark{
+  width:38px;
+  height:38px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(145deg,rgba(231,191,106,.18),rgba(0,167,173,.12));
+  border:1px solid rgba(231,191,106,.34);
+  box-shadow:0 0 26px rgba(231,191,106,.12);
+}
+.identity strong{
+  display:block;
+  color:#fff;
+  font-size:.96rem;
+  letter-spacing:.02em;
+}
+.identity span{
+  display:block;
+  margin-top:1px;
+  color:#91a0b0;
+  font-size:.76rem;
+  line-height:1.15;
+}
+.lang{
+  display:flex;
+  gap:4px;
+  padding:4px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.045);
+}
+.lang button{
+  border:0;
+  background:transparent;
+  color:#93a1b0;
+  font-weight:850;
+  padding:7px 11px;
+  border-radius:999px;
+  cursor:pointer;
+}
+.lang button.active{
+  color:#08111f;
+  background:linear-gradient(135deg,var(--gold2),var(--gold));
+}
+
+.hero{
+  padding:clamp(62px,8vw,112px) 0 clamp(48px,7vw,88px);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:.82fr 1.18fr;
+  gap:clamp(38px,6vw,84px);
+  align-items:center;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+  color:var(--mint2);
+  font-size:.77rem;
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.eyebrow:before{
+  content:"";
+  width:31px;
+  height:2px;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--mint),var(--gold));
+}
+h1,h2,h3{margin-top:0}
+h1{
+  margin-bottom:24px;
+  color:#fff;
+  font-size:clamp(3.4rem,7.3vw,7.4rem);
+  line-height:.87;
+  letter-spacing:-.07em;
+}
+h1 span{
+  display:block;
+  margin-top:.14em;
+  color:transparent;
+  background:linear-gradient(105deg,var(--gold2),var(--gold),#f3d89b);
+  -webkit-background-clip:text;
+  background-clip:text;
+}
+.hero-lead{
+  max-width:660px;
+  margin:0 0 28px;
+  color:#c7d1dc;
+  font-size:clamp(1.08rem,1.5vw,1.27rem);
+  line-height:1.7;
+}
+.hero-signature{
+  display:flex;
+  gap:13px;
+  align-items:flex-start;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+  color:#fff;
+  font-weight:750;
+}
+.hero-signature svg{flex:0 0 auto;margin-top:3px}
+
+.image-shell{
+  position:relative;
+  isolation:isolate;
+}
+.image-shell:before{
+  content:"";
+  position:absolute;
+  inset:-4%;
+  z-index:-1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(231,191,106,.2),transparent 62%);
+  filter:blur(16px);
+}
+.image-frame{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:4/5;
+  border-radius:34px;
+  border:1px solid rgba(231,191,106,.33);
+  background:
+    radial-gradient(circle at 50% 26%,rgba(231,191,106,.18),transparent 31%),
+    radial-gradient(circle at 19% 62%,rgba(0,167,173,.15),transparent 26%),
+    radial-gradient(circle at 82% 72%,rgba(198,0,111,.12),transparent 29%),
+    linear-gradient(155deg,#12233a,#091423 65%,#111c2a);
+  box-shadow:var(--shadow);
+}
+.image-frame:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.025),inset 0 -70px 100px rgba(0,0,0,.17);
+}
+.image-frame img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transform:scale(1.01);
+  transition:opacity .45s ease;
+}
+.image-frame.ready img{opacity:1}
+.image-placeholder{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:34px;
+  text-align:center;
+}
+.image-placeholder-inner{
+  max-width:340px;
+}
+.image-placeholder svg{
+  width:70px;
+  height:70px;
+  margin-bottom:20px;
+  opacity:.95;
+}
+.image-placeholder strong{
+  display:block;
+  margin-bottom:9px;
+  color:#fff;
+  font-size:1.12rem;
+}
+.image-placeholder span{
+  display:block;
+  color:#8fa0b1;
+  font-size:.89rem;
+  line-height:1.55;
+}
+.image-frame.ready .image-placeholder{display:none}
+.image-caption{
+  margin-top:14px;
+  color:#7f90a2;
+  text-align:center;
+  font-size:.82rem;
+  letter-spacing:.04em;
+}
+
+.intro{
+  padding:clamp(62px,8vw,112px) 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.008));
+}
+.intro-copy{
+  position:relative;
+  padding-left:clamp(26px,4vw,54px);
+}
+.intro-copy:before{
+  content:"";
+  position:absolute;
+  top:8px;
+  bottom:8px;
+  left:0;
+  width:2px;
+  background:linear-gradient(var(--mint),var(--gold),var(--mag));
+  border-radius:99px;
+}
+.intro-copy p{
+  margin:0;
+  color:#eef3f7;
+  font-size:clamp(1.35rem,2.5vw,2.25rem);
+  line-height:1.5;
+  letter-spacing:-.025em;
+}
+.intro-copy strong{color:var(--gold2)}
+
+.story{
+  padding:clamp(76px,9vw,128px) 0;
+}
+.story-grid{
+  display:grid;
+  grid-template-columns:240px minmax(0,1fr);
+  gap:clamp(32px,7vw,92px);
+  align-items:start;
+}
+.story-nav{
+  position:sticky;
+  top:104px;
+  display:grid;
+  gap:10px;
+}
+.story-nav-line{
+  height:1px;
+  margin-bottom:8px;
+  background:linear-gradient(90deg,var(--gold),transparent);
+}
+.story-nav span{
+  color:#73879b;
+  font-size:.79rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.story-nav strong{
+  color:#dce4eb;
+  font-size:1rem;
+  line-height:1.35;
+}
+.story-content{min-width:0}
+.chapter{
+  position:relative;
+  padding:0 0 clamp(62px,8vw,96px);
+}
+.chapter:last-child{padding-bottom:0}
+.chapter-kicker{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-bottom:16px;
+  color:var(--gold);
+  font-size:.76rem;
+  font-weight:900;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.chapter-kicker svg{flex:0 0 auto}
+.chapter h2{
+  max-width:760px;
+  margin-bottom:25px;
+  color:#fff;
+  font-size:clamp(2.1rem,4.5vw,4.3rem);
+  line-height:1.02;
+  letter-spacing:-.052em;
+}
+.chapter p{
+  max-width:790px;
+  margin:0 0 20px;
+  color:#bdc9d5;
+  font-size:clamp(1.02rem,1.3vw,1.16rem);
+}
+.chapter p strong{
+  color:#fff;
+  font-weight:800;
+}
+.symbol-card{
+  margin:30px 0 4px;
+  padding:clamp(24px,4vw,36px);
+  border:1px solid rgba(231,191,106,.18);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 0 0,rgba(0,167,173,.12),transparent 38%),
+    linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
+  box-shadow:0 16px 46px rgba(0,0,0,.14);
+}
+.symbol-card strong{
+  display:block;
+  margin-bottom:8px;
+  color:var(--gold2);
+  font-size:1.18rem;
+}
+.symbol-card span{color:#bdc8d2}
+
+.axis{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin:31px 0 2px;
+}
+.axis-item{
+  min-height:112px;
+  padding:17px 16px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.035);
+}
+.axis-item b{
+  display:block;
+  margin-bottom:5px;
+  color:var(--gold2);
+}
+.axis-item span{
+  color:#8fa0b1;
+  font-size:.86rem;
+  line-height:1.4;
+}
+
+.manifest{
+  padding:clamp(78px,10vw,138px) 0;
+  border-top:1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 38%,rgba(231,191,106,.12),transparent 26rem),
+    linear-gradient(180deg,rgba(255,255,255,.015),transparent);
+  text-align:center;
+}
+.manifest-symbol{
+  width:78px;
+  height:78px;
+  margin:0 auto 28px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  border:1px solid rgba(231,191,106,.34);
+  background:rgba(231,191,106,.06);
+  box-shadow:0 0 55px rgba(231,191,106,.12);
+}
+.manifest h2{
+  max-width:940px;
+  margin:0 auto 30px;
+  color:#fff;
+  font-size:clamp(2.35rem,5.6vw,5.8rem);
+  line-height:1;
+  letter-spacing:-.06em;
+}
+.manifest h2 em{
+  font-style:normal;
+  color:var(--gold2);
+}
+.manifest p{
+  max-width:840px;
+  margin:0 auto 18px;
+  color:#c3ced8;
+  font-size:clamp(1.05rem,1.5vw,1.23rem);
+}
+.manifest-quote{
+  max-width:900px;
+  margin:44px auto 0;
+  padding-top:36px;
+  border-top:1px solid rgba(231,191,106,.24);
+  color:#fff;
+  font-size:clamp(1.45rem,2.9vw,2.45rem);
+  font-weight:850;
+  line-height:1.42;
+  letter-spacing:-.025em;
+}
+.manifest-quote span{color:var(--mint2)}
+
+footer{
+  padding:26px 0 42px;
+  color:#687b8f;
+  font-size:.82rem;
+}
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+.reveal.visible{
+  opacity:1;
+  transform:none;
+}
+
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-copy{max-width:790px}
+  .image-shell{width:min(100%,720px);margin-inline:auto}
+  .story-grid{grid-template-columns:1fr}
+  .story-nav{position:relative;top:auto;grid-template-columns:auto 1fr;align-items:center}
+  .story-nav-line{display:none}
+  .story-nav span{grid-column:1/-1}
+  .axis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .wrap{width:min(calc(100% - 22px),var(--max))}
+  .topbar-inner{height:62px}
+  .identity span{display:none}
+  .identity-mark{width:34px;height:34px}
+  .lang button{padding:6px 9px}
+  .hero{padding-top:44px}
+  h1{font-size:clamp(3.15rem,16vw,5.3rem)}
+  .image-frame{border-radius:22px}
+  .axis{grid-template-columns:1fr}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="identity">
+      <div class="identity-mark" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="8.2" stroke="#e7bf6a" stroke-width="1.3"/>
+          <circle cx="12" cy="12" r="3.8" stroke="#74e1df" stroke-width="1.3"/>
+          <path d="M12 2.6v5.6M12 15.8v5.6M2.6 12h5.6M15.8 12h5.6" stroke="#fff" stroke-width="1.15" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="1.25" fill="#c6006f"/>
+        </svg>
+      </div>
+      <div>
+        <strong>Michael Rau</strong>
+        <span data-i18n="identity_sub">Persönliches Manifest</span>
+      </div>
+    </div>
+
+    <div class="lang" aria-label="Sprache / Language">
+      <button class="active" type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <div class="eyebrow" data-i18n="hero_kicker">Mein Weg · Meine Haltung · Meine Arbeit</div>
+      <h1 data-i18n-html="hero_title">Architekt von <span>Souveränität.</span></h1>
+      <p class="hero-lead" data-i18n="hero_lead">Dieses Bild steht für meinen Weg, meine Haltung und für das, was ich mit meiner Arbeit in die Welt bringen möchte.</p>
+      <div class="hero-signature">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="#e7bf6a" stroke-width="1.5"/>
+          <path d="M7.5 12h9M12 7.5v9" stroke="#74e1df" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="2.2" fill="#c6006f"/>
+        </svg>
+        <span data-i18n="hero_signature">Wissen ordnen. Klarheit schaffen. Menschen befähigen, ihren eigenen Weg selbstbestimmt zu gehen.</span>
+      </div>
+    </div>
+
+    <div class="image-shell reveal">
+      <figure style="margin:0">
+        <div class="image-frame" id="portraitFrame">
+          <div class="image-placeholder" aria-hidden="true">
+            <div class="image-placeholder-inner">
+              <svg viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="29" stroke="#e7bf6a" stroke-width="1.2"/>
+                <circle cx="36" cy="36" r="17" stroke="#74e1df" stroke-width="1.2"/>
+                <path d="M36 7v18M36 47v18M7 36h18M47 36h18" stroke="#fff" stroke-opacity=".7" stroke-width="1.2"/>
+                <circle cx="36" cy="36" r="5" fill="#c6006f" fill-opacity=".85"/>
+              </svg>
+              <strong data-i18n="image_wait_title">Das Bild bekommt hier seinen Platz.</strong>
+              <span data-i18n="image_wait_text">Sobald die Bilddatei hochgeladen ist, erscheint sie automatisch in diesem Rahmen.</span>
+            </div>
+          </div>
+          <img
+            id="portraitImage"
+            src="assets/michael-rau-architekt-souveraenitaet.png"
+            alt="Michael Rau – Architekt von Souveränität"
+            loading="eager"
+          >
+        </div>
+        <figcaption class="image-caption" data-i18n="image_caption">Eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <div class="reading intro-copy reveal">
+      <p data-i18n-html="intro_text">Dieses Bild ist keine Darstellung dessen, was ich sein möchte. Es ist eine <strong>bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="wrap story-grid">
+    <aside class="story-nav reveal" aria-hidden="true">
+      <div class="story-nav-line"></div>
+      <span data-i18n="story_label">Die Botschaft hinter dem Bild</span>
+      <strong data-i18n="story_summary">Verstehen → Ordnen → Orientieren → Handeln</strong>
+    </aside>
+
+    <div class="story-content">
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 5.5h9.5A2.5 2.5 0 0 1 17 8v10.5H7.5A2.5 2.5 0 0 0 5 21V5.5Z" stroke="#e7bf6a" stroke-width="1.4"/>
+            <path d="M17 8h2v11H8" stroke="#74e1df" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <span data-i18n="c1_kicker">Wissen & Erkenntnis</span>
+        </div>
+        <h2 data-i18n="c1_title">Wissen bekommt erst durch Zusammenhänge Bedeutung.</h2>
+        <p data-i18n="c1_p1">Im Mittelpunkt stehe ich nicht als jemand, der über anderen steht, sondern als jemand, der Wissen sammelt, Erfahrungen verbindet, Zusammenhänge sichtbar macht und daraus Orientierung entstehen lässt.</p>
+        <p data-i18n="c1_p2">Mein Ziel ist nicht, Menschen vorzuschreiben, welchen Weg sie gehen sollen. Ich möchte ihnen vielmehr das Wissen, die Werkzeuge und die Klarheit geben, die sie brauchen, um ihren eigenen Weg selbstbestimmt gehen zu können.</p>
+        <p data-i18n="c1_p3">Die leuchtende Bibliothek im Bild steht für Wissen, Lernen und die vielen Erfahrungen, die sich über Jahrzehnte angesammelt haben. Wissen allein genügt für mich jedoch nicht. Erst wenn wir verstehen, wie einzelne Informationen miteinander verbunden sind, entsteht daraus wirkliche Erkenntnis.</p>
+        <div class="symbol-card">
+          <strong data-i18n="c1_card_title">Die geometrischen Strukturen</strong>
+          <span data-i18n="c1_card_text">Sie stehen für meine Art zu denken: Komplexität ordnen, Zusammenhänge erkennen und daraus verständliche Strukturen entwickeln.</span>
+        </div>
+      </article>
+
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 20s-7-4.35-7-9.25A3.75 3.75 0 0 1 12 8.7a3.75 3.75 0 0 1 7 2.05C19 15.65 12 20 12 20Z" stroke="#e7bf6a" stroke-width="1.4"/>
+            <circle cx="12" cy="11.5" r="2.2" stroke="#74e1df" stroke-width="1.2"/>
+          </svg>
+          <span data-i18n="c2_kicker">Herz & Verstand</span>
+        </div>
+        <h2 data-i18n="c2_title">Entwicklung muss den Kopf erreichen – und das Herz.</h2>
+        <p data-i18n="c2_p1">Das Licht in meiner Brust steht für die Verbindung von Verstand und Herz. Entwicklung geschieht nicht ausschließlich durch Fakten.</p>
+        <p data-i18n="c2_p2">Menschen brauchen Klarheit, aber ebenso Vertrauen, Mut, Geschichten, Emotionen und manchmal einen Impuls, der sie tief im Inneren erreicht. Deshalb gehören für mich Wissen und Menschlichkeit untrennbar zusammen.</p>
+      </article>
+
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="8.2" stroke="#e7bf6a" stroke-width="1.4"/>
+            <path d="M12 5.7v12.6M5.7 12h12.6" stroke="#74e1df" stroke-width="1.2"/>
+            <circle cx="12" cy="12" r="2.3" fill="#c6006f"/>
+          </svg>
+          <span data-i18n="c3_kicker">Souveränität & Verantwortung</span>
+        </div>
+        <h2 data-i18n="c3_title">Souveränität beginnt mit Selbstführung.</h2>
+        <p data-i18n="c3_p1">Die goldene Mitte meines Körpers symbolisiert Selbstführung und Verantwortung. Souveränität beginnt für mich dort, wo ein Mensch lernt, eigene Entscheidungen zu treffen und die Verantwortung für seinen Weg zu übernehmen.</p>
+        <p data-i18n="c3_p2">Finanzielle Bildung, persönliche Entwicklung oder unternehmerisches Denken sind deshalb keine getrennten Themen. Sie gehören zu derselben Frage:</p>
+        <div class="symbol-card">
+          <strong data-i18n="c3_card_title">Wie werde ich wieder handlungsfähig?</strong>
+          <span data-i18n="c3_card_text">Verstehen, prüfen, entscheiden und anschließend selbst handeln.</span>
+        </div>
+      </article>
+
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 14.5c4.2.1 5.3-3.7 8-3.7 2.3 0 2.8 2 5.8 2.1" stroke="#e7bf6a" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M6 17.8c4.9.2 6-3.1 8.7-3.1 1.7 0 2.3 1 3.9 1.2" stroke="#74e1df" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="17.8" cy="8.2" r="3.3" stroke="#fff" stroke-opacity=".8" stroke-width="1.2"/>
+          </svg>
+          <span data-i18n="c4_kicker">Die offene Hand</span>
+        </div>
+        <h2 data-i18n="c4_title">Ich halte Wissen nicht fest. Ich gebe es weiter.</h2>
+        <p data-i18n="c4_p1">Die leuchtende Kugel in meiner offenen Hand trägt für mich eine besondere Bedeutung. Die offene Hand steht dafür, Menschen nichts aufzuzwingen.</p>
+        <p data-i18n="c4_p2">Ich kann Möglichkeiten zeigen, Erfahrungen teilen, Zusammenhänge erklären und Werkzeuge bereitstellen. Was ein Mensch daraus macht, entscheidet er selbst.</p>
+        <p><strong data-i18n="c4_p3">Genau darin liegt für mich echte Befähigung.</strong></p>
+      </article>
+
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="5" cy="12" r="2" fill="#00a7ad"/>
+            <circle cx="12" cy="12" r="2" fill="#e7bf6a"/>
+            <circle cx="19" cy="12" r="2" fill="#c6006f"/>
+            <path d="M7 12h3M14 12h3" stroke="#fff" stroke-opacity=".75" stroke-width="1.3"/>
+          </svg>
+          <span data-i18n="c5_kicker">Vom Verstehen zum Handeln</span>
+        </div>
+        <h2 data-i18n="c5_title">Erkenntnis soll im wirklichen Leben etwas verändern.</h2>
+        <p data-i18n="c5_p1">Die Symbole entlang meines Körpers stehen für einen Weg: vom Verstehen über Orientierung und Struktur bis hin zur Umsetzung.</p>
+        <p data-i18n="c5_p2">Erkenntnis soll nicht im Kopf bleiben. Sie soll zu Entscheidungen führen, und Entscheidungen sollen schließlich im wirklichen Leben etwas verändern.</p>
+
+        <div class="axis">
+          <div class="axis-item"><b data-i18n="a1_t">Verstehen</b><span data-i18n="a1_s">Wissen zugänglich und verständlich machen.</span></div>
+          <div class="axis-item"><b data-i18n="a2_t">Ordnen</b><span data-i18n="a2_s">Komplexität in tragfähige Strukturen übersetzen.</span></div>
+          <div class="axis-item"><b data-i18n="a3_t">Orientieren</b><span data-i18n="a3_s">Möglichkeiten und Risiken klarer erkennen.</span></div>
+          <div class="axis-item"><b data-i18n="a4_t">Handeln</b><span data-i18n="a4_s">Aus Erkenntnis eigene Entscheidungen machen.</span></div>
+        </div>
+      </article>
+
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5.5 17.5 12 5l6.5 12.5" stroke="#e7bf6a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.4 13.6h7.2" stroke="#74e1df" stroke-width="1.2"/>
+            <circle cx="12" cy="5" r="1.5" fill="#c6006f"/>
+          </svg>
+          <span data-i18n="c6_kicker">Der Pionier</span>
+        </div>
+        <h2 data-i18n="c6_title">Neue Wege beginnen mit dem Mut, anders zu denken.</h2>
+        <p data-i18n="c6_p1">Der Widder aus Licht verkörpert die Kraft des Anfangs. Den Mut, neue Wege zu gehen, Dinge infrage zu stellen und etwas aufzubauen, das vorher noch nicht existiert hat.</p>
+        <p data-i18n="c6_p2">Doch diese Energie bedeutet für mich nicht, blind voranzustürmen. Sie verbindet sich mit Struktur, Verantwortung und Beständigkeit.</p>
+        <div class="symbol-card">
+          <strong data-i18n="c6_card_title">Nicht nur Pionier – Architekt von Souveränität.</strong>
+          <span data-i18n="c6_card_text">Der Impuls eröffnet einen Weg. Struktur macht ihn tragfähig.</span>
+        </div>
+      </article>
+
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="6" cy="12" r="2.2" stroke="#74e1df" stroke-width="1.3"/>
+            <circle cx="18" cy="8" r="2.2" stroke="#e7bf6a" stroke-width="1.3"/>
+            <circle cx="18" cy="17" r="2.2" stroke="#c6006f" stroke-width="1.3"/>
+            <path d="m8.1 11.3 7.8-2.6M8.1 12.8l7.8 3.4" stroke="#fff" stroke-opacity=".75" stroke-width="1.2"/>
+          </svg>
+          <span data-i18n="c7_kicker">Gemeinschaft & Eigenständigkeit</span>
+        </div>
+        <h2 data-i18n="c7_title">Verbunden sein, ohne die eigene Verantwortung abzugeben.</h2>
+        <p data-i18n="c7_p1">Die Landschaft im Hintergrund steht für das, was daraus entstehen kann: Menschen, die miteinander verbunden sind, ohne ihre Eigenständigkeit zu verlieren.</p>
+        <p data-i18n="c7_p2">Wissen, Möglichkeiten, neue Einkommenswege, Dezentralität und Gemeinschaft bilden ein Netzwerk – aber jeder Mensch bleibt selbst verantwortlich für seinen Platz darin.</p>
+        <p data-i18n="c7_p3">Auch die Menschen im Vordergrund sind deshalb wichtig. Sie stehen nicht dort, um mir zu folgen. Sie stehen dort, weil sie etwas erkennen, lernen und anschließend ihren eigenen Weg weitergehen können.</p>
+      </article>
+
+      <article class="chapter reveal">
+        <div class="chapter-kicker">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3.5 19 6v5.2c0 4.4-2.8 7.7-7 9.3-4.2-1.6-7-4.9-7-9.3V6l7-2.5Z" stroke="#e7bf6a" stroke-width="1.4"/>
+            <path d="m9.2 12 1.8 1.8 4-4.1" stroke="#74e1df" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span data-i18n="c8_kicker">Schutz & Stärke</span>
+        </div>
+        <h2 data-i18n="c8_title">Schutz gehört für mich genauso zur Bildung wie das Aufzeigen von Chancen.</h2>
+        <p data-i18n="c8_p1">Der Löwe verkörpert Schutz, Stärke und innere Ruhe. Menschen sollen Möglichkeiten erkennen können, aber ebenso lernen, Risiken zu verstehen und kritisch zu prüfen.</p>
+        <p data-i18n="c8_p2">Mein Weg verbindet Wissen mit Erfahrung, Struktur mit Menschlichkeit und Möglichkeiten mit Verantwortung.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="manifest">
+  <div class="wrap">
+    <div class="manifest-symbol reveal" aria-hidden="true">
+      <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="17.5" stroke="#e7bf6a" stroke-width="1.3"/>
+        <circle cx="24" cy="24" r="9.5" stroke="#74e1df" stroke-width="1.3"/>
+        <path d="M24 6.5 29 19l12.5 5L29 29l-5 12.5L19 29 6.5 24 19 19l5-12.5Z" stroke="#fff" stroke-opacity=".82" stroke-width="1.1"/>
+        <circle cx="24" cy="24" r="2.7" fill="#c6006f"/>
+      </svg>
+    </div>
+
+    <h2 class="reveal" data-i18n-html="m_title">Was einmal bleiben soll, ist <em>Befähigung.</em></h2>
+
+    <div class="reveal">
+      <p data-i18n="m_p1">Ich möchte nichts schaffen, das Menschen von mir abhängig macht. Ich möchte etwas schaffen, das Menschen stärker, klarer und selbstständiger macht.</p>
+      <p data-i18n="m_p2">Wenn davon eines Tages etwas bleibt, dann soll es nicht nur eine Akademie, ein Unternehmen oder eine Sammlung von Kursen sein.</p>
+      <p data-i18n="m_p3">Es soll die Idee bleiben, dass Menschen ihre eigene Souveränität zurückgewinnen können, wenn sie verstehen, erkennen, entscheiden und schließlich selbst handeln.</p>
+    </div>
+
+    <div class="manifest-quote reveal" data-i18n-html="m_quote">Echte Bildung zeigt einem Menschen nicht, wem er folgen soll.<br><span>Sie hilft ihm zu erkennen, wohin er selbst gehen möchte.</span></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>Michael Rau</span>
+    <span data-i18n="footer_text">Wissen · Orientierung · Befähigung · Souveränität</span>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  de:{
+    identity_sub:"Persönliches Manifest",
+    hero_kicker:"Mein Weg · Meine Haltung · Meine Arbeit",
+    hero_title:'Architekt von <span>Souveränität.</span>',
+    hero_lead:"Dieses Bild steht für meinen Weg, meine Haltung und für das, was ich mit meiner Arbeit in die Welt bringen möchte.",
+    hero_signature:"Wissen ordnen. Klarheit schaffen. Menschen befähigen, ihren eigenen Weg selbstbestimmt zu gehen.",
+    image_wait_title:"Das Bild bekommt hier seinen Platz.",
+    image_wait_text:"Sobald die Bilddatei hochgeladen ist, erscheint sie automatisch in diesem Rahmen.",
+    image_caption:"Eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.",
+    intro_text:'Dieses Bild ist keine Darstellung dessen, was ich sein möchte. Es ist eine <strong>bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</strong>',
+    story_label:"Die Botschaft hinter dem Bild",
+    story_summary:"Verstehen → Ordnen → Orientieren → Handeln",
+    c1_kicker:"Wissen & Erkenntnis",
+    c1_title:"Wissen bekommt erst durch Zusammenhänge Bedeutung.",
+    c1_p1:"Im Mittelpunkt stehe ich nicht als jemand, der über anderen steht, sondern als jemand, der Wissen sammelt, Erfahrungen verbindet, Zusammenhänge sichtbar macht und daraus Orientierung entstehen lässt.",
+    c1_p2:"Mein Ziel ist nicht, Menschen vorzuschreiben, welchen Weg sie gehen sollen. Ich möchte ihnen vielmehr das Wissen, die Werkzeuge und die Klarheit geben, die sie brauchen, um ihren eigenen Weg selbstbestimmt gehen zu können.",
+    c1_p3:"Die leuchtende Bibliothek im Bild steht für Wissen, Lernen und die vielen Erfahrungen, die sich über Jahrzehnte angesammelt haben. Wissen allein genügt für mich jedoch nicht. Erst wenn wir verstehen, wie einzelne Informationen miteinander verbunden sind, entsteht daraus wirkliche Erkenntnis.",
+    c1_card_title:"Die geometrischen Strukturen",
+    c1_card_text:"Sie stehen für meine Art zu denken: Komplexität ordnen, Zusammenhänge erkennen und daraus verständliche Strukturen entwickeln.",
+    c2_kicker:"Herz & Verstand",
+    c2_title:"Entwicklung muss den Kopf erreichen – und das Herz.",
+    c2_p1:"Das Licht in meiner Brust steht für die Verbindung von Verstand und Herz. Entwicklung geschieht nicht ausschließlich durch Fakten.",
+    c2_p2:"Menschen brauchen Klarheit, aber ebenso Vertrauen, Mut, Geschichten, Emotionen und manchmal einen Impuls, der sie tief im Inneren erreicht. Deshalb gehören für mich Wissen und Menschlichkeit untrennbar zusammen.",
+    c3_kicker:"Souveränität & Verantwortung",
+    c3_title:"Souveränität beginnt mit Selbstführung.",
+    c3_p1:"Die goldene Mitte meines Körpers symbolisiert Selbstführung und Verantwortung. Souveränität beginnt für mich dort, wo ein Mensch lernt, eigene Entscheidungen zu treffen und die Verantwortung für seinen Weg zu übernehmen.",
+    c3_p2:"Finanzielle Bildung, persönliche Entwicklung oder unternehmerisches Denken sind deshalb keine getrennten Themen. Sie gehören zu derselben Frage:",
+    c3_card_title:"Wie werde ich wieder handlungsfähig?",
+    c3_card_text:"Verstehen, prüfen, entscheiden und anschließend selbst handeln.",
+    c4_kicker:"Die offene Hand",
+    c4_title:"Ich halte Wissen nicht fest. Ich gebe es weiter.",
+    c4_p1:"Die leuchtende Kugel in meiner offenen Hand trägt für mich eine besondere Bedeutung. Die offene Hand steht dafür, Menschen nichts aufzuzwingen.",
+    c4_p2:"Ich kann Möglichkeiten zeigen, Erfahrungen teilen, Zusammenhänge erklären und Werkzeuge bereitstellen. Was ein Mensch daraus macht, entscheidet er selbst.",
+    c4_p3:"Genau darin liegt für mich echte Befähigung.",
+    c5_kicker:"Vom Verstehen zum Handeln",
+    c5_title:"Erkenntnis soll im wirklichen Leben etwas verändern.",
+    c5_p1:"Die Symbole entlang meines Körpers stehen für einen Weg: vom Verstehen über Orientierung und Struktur bis hin zur Umsetzung.",
+    c5_p2:"Erkenntnis soll nicht im Kopf bleiben. Sie soll zu Entscheidungen führen, und Entscheidungen sollen schließlich im wirklichen Leben etwas verändern.",
+    a1_t:"Verstehen",a1_s:"Wissen zugänglich und verständlich machen.",
+    a2_t:"Ordnen",a2_s:"Komplexität in tragfähige Strukturen übersetzen.",
+    a3_t:"Orientieren",a3_s:"Möglichkeiten und Risiken klarer erkennen.",
+    a4_t:"Handeln",a4_s:"Aus Erkenntnis eigene Entscheidungen machen.",
+    c6_kicker:"Der Pionier",
+    c6_title:"Neue Wege beginnen mit dem Mut, anders zu denken.",
+    c6_p1:"Der Widder aus Licht verkörpert die Kraft des Anfangs. Den Mut, neue Wege zu gehen, Dinge infrage zu stellen und etwas aufzubauen, das vorher noch nicht existiert hat.",
+    c6_p2:"Doch diese Energie bedeutet für mich nicht, blind voranzustürmen. Sie verbindet sich mit Struktur, Verantwortung und Beständigkeit.",
+    c6_card_title:"Nicht nur Pionier – Architekt von Souveränität.",
+    c6_card_text:"Der Impuls eröffnet einen Weg. Struktur macht ihn tragfähig.",
+    c7_kicker:"Gemeinschaft & Eigenständigkeit",
+    c7_title:"Verbunden sein, ohne die eigene Verantwortung abzugeben.",
+    c7_p1:"Die Landschaft im Hintergrund steht für das, was daraus entstehen kann: Menschen, die miteinander verbunden sind, ohne ihre Eigenständigkeit zu verlieren.",
+    c7_p2:"Wissen, Möglichkeiten, neue Einkommenswege, Dezentralität und Gemeinschaft bilden ein Netzwerk – aber jeder Mensch bleibt selbst verantwortlich für seinen Platz darin.",
+    c7_p3:"Auch die Menschen im Vordergrund sind deshalb wichtig. Sie stehen nicht dort, um mir zu folgen. Sie stehen dort, weil sie etwas erkennen, lernen und anschließend ihren eigenen Weg weitergehen können.",
+    c8_kicker:"Schutz & Stärke",
+    c8_title:"Schutz gehört für mich genauso zur Bildung wie das Aufzeigen von Chancen.",
+    c8_p1:"Der Löwe verkörpert Schutz, Stärke und innere Ruhe. Menschen sollen Möglichkeiten erkennen können, aber ebenso lernen, Risiken zu verstehen und kritisch zu prüfen.",
+    c8_p2:"Mein Weg verbindet Wissen mit Erfahrung, Struktur mit Menschlichkeit und Möglichkeiten mit Verantwortung.",
+    m_title:'Was einmal bleiben soll, ist <em>Befähigung.</em>',
+    m_p1:"Ich möchte nichts schaffen, das Menschen von mir abhängig macht. Ich möchte etwas schaffen, das Menschen stärker, klarer und selbstständiger macht.",
+    m_p2:"Wenn davon eines Tages etwas bleibt, dann soll es nicht nur eine Akademie, ein Unternehmen oder eine Sammlung von Kursen sein.",
+    m_p3:"Es soll die Idee bleiben, dass Menschen ihre eigene Souveränität zurückgewinnen können, wenn sie verstehen, erkennen, entscheiden und schließlich selbst handeln.",
+    m_quote:'Echte Bildung zeigt einem Menschen nicht, wem er folgen soll.<br><span>Sie hilft ihm zu erkennen, wohin er selbst gehen möchte.</span>',
+    footer_text:"Wissen · Orientierung · Befähigung · Souveränität"
+  },
+  en:{
+    identity_sub:"Personal Manifesto",
+    hero_kicker:"My path · My values · My work",
+    hero_title:'Architect of <span>Sovereignty.</span>',
+    hero_lead:"This image represents my path, my values, and what I want to bring into the world through my work.",
+    hero_signature:"Organize knowledge. Create clarity. Enable people to walk their own path with self-determination.",
+    image_wait_title:"The image will have its place here.",
+    image_wait_text:"As soon as the image file is uploaded, it will appear automatically in this frame.",
+    image_caption:"A visual condensation of what I have been working for over many years.",
+    intro_text:'This image is not a depiction of what I want to become. It is a <strong>visual condensation of what I have been working for over many years.</strong>',
+    story_label:"The message behind the image",
+    story_summary:"Understand → Organize → Orient → Act",
+    c1_kicker:"Knowledge & Insight",
+    c1_title:"Knowledge gains meaning through connection.",
+    c1_p1:"I do not stand at the center as someone above others, but as someone who gathers knowledge, connects experience, makes relationships visible, and turns them into orientation.",
+    c1_p2:"My goal is not to tell people which path they should take. I want to give them the knowledge, tools, and clarity they need to walk their own path with self-determination.",
+    c1_p3:"The luminous library in the image stands for knowledge, learning, and the experience accumulated over decades. Knowledge alone, however, is not enough for me. Real insight emerges when we understand how individual pieces of information are connected.",
+    c1_card_title:"The geometric structures",
+    c1_card_text:"They represent the way I think: organizing complexity, recognizing connections, and developing structures that people can understand.",
+    c2_kicker:"Heart & Mind",
+    c2_title:"Development has to reach the mind – and the heart.",
+    c2_p1:"The light in my chest represents the connection between reason and heart. Development does not happen through facts alone.",
+    c2_p2:"People need clarity, but also trust, courage, stories, emotion, and sometimes an impulse that reaches them deeply. For me, knowledge and humanity are inseparable.",
+    c3_kicker:"Sovereignty & Responsibility",
+    c3_title:"Sovereignty begins with self-leadership.",
+    c3_p1:"The golden center of my body symbolizes self-leadership and responsibility. For me, sovereignty begins when a person learns to make their own decisions and take responsibility for their path.",
+    c3_p2:"Financial education, personal development, and entrepreneurial thinking are therefore not separate subjects. They belong to the same question:",
+    c3_card_title:"How do I become capable of acting again?",
+    c3_card_text:"Understand, examine, decide, and then act for yourself.",
+    c4_kicker:"The Open Hand",
+    c4_title:"I do not hold knowledge back. I pass it on.",
+    c4_p1:"The luminous sphere in my open hand has a special meaning for me. The open hand represents not imposing anything on people.",
+    c4_p2:"I can show possibilities, share experience, explain connections, and provide tools. What a person does with them remains their own decision.",
+    c4_p3:"That is what genuine empowerment means to me.",
+    c5_kicker:"From Understanding to Action",
+    c5_title:"Insight should change something in real life.",
+    c5_p1:"The symbols along my body represent a path: from understanding to orientation and structure, and finally to implementation.",
+    c5_p2:"Insight should not remain in the mind. It should lead to decisions, and decisions should ultimately change something in real life.",
+    a1_t:"Understand",a1_s:"Make knowledge accessible and understandable.",
+    a2_t:"Organize",a2_s:"Translate complexity into viable structures.",
+    a3_t:"Orient",a3_s:"Recognize possibilities and risks more clearly.",
+    a4_t:"Act",a4_s:"Turn insight into your own decisions.",
+    c6_kicker:"The Pioneer",
+    c6_title:"New paths begin with the courage to think differently.",
+    c6_p1:"The ram made of light represents the power of beginning: the courage to take new paths, question assumptions, and build something that did not exist before.",
+    c6_p2:"For me, however, this energy does not mean rushing forward blindly. It is connected with structure, responsibility, and permanence.",
+    c6_card_title:"Not only a pioneer – an architect of sovereignty.",
+    c6_card_text:"The impulse opens a path. Structure makes it sustainable.",
+    c7_kicker:"Community & Independence",
+    c7_title:"Being connected without giving away personal responsibility.",
+    c7_p1:"The landscape in the background represents what can emerge from this: people who are connected without losing their independence.",
+    c7_p2:"Knowledge, possibilities, new income paths, decentralization, and community form a network – while every person remains responsible for their own place within it.",
+    c7_p3:"That is why the people in the foreground matter. They are not there to follow me. They are there because they can recognize something, learn, and then continue on their own path.",
+    c8_kicker:"Protection & Strength",
+    c8_title:"For me, protection belongs to education just as much as showing opportunities.",
+    c8_p1:"The lion represents protection, strength, and inner calm. People should be able to recognize opportunities, while also learning to understand risks and examine them critically.",
+    c8_p2:"My path connects knowledge with experience, structure with humanity, and possibility with responsibility.",
+    m_title:'What I want to remain is <em>empowerment.</em>',
+    m_p1:"I do not want to create anything that makes people dependent on me. I want to create something that makes people stronger, clearer, and more independent.",
+    m_p2:"If something remains one day, it should not only be an academy, a company, or a collection of courses.",
+    m_p3:"I want the idea to remain that people can reclaim their own sovereignty when they understand, recognize, decide, and ultimately act for themselves.",
+    m_quote:'True education does not show a person whom to follow.<br><span>It helps them recognize where they want to go for themselves.</span>',
+    footer_text:"Knowledge · Orientation · Empowerment · Sovereignty"
+  }
+};
+
+function setLanguage(lang){
+  const dict=translations[lang]||translations.de;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.dataset.i18n;
+    if(dict[key]!==undefined) el.textContent=dict[key];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{
+    const key=el.dataset.i18nHtml;
+    if(dict[key]!==undefined) el.innerHTML=dict[key];
+  });
+  document.querySelectorAll("[data-lang]").forEach(btn=>{
+    btn.classList.toggle("active",btn.dataset.lang===lang);
+  });
+  localStorage.setItem("michael-manifest-lang",lang);
+}
+
+document.querySelectorAll("[data-lang]").forEach(btn=>{
+  btn.addEventListener("click",()=>setLanguage(btn.dataset.lang));
+});
+
+const initialLang=localStorage.getItem("michael-manifest-lang")||"de";
+setLanguage(initialLang);
+
+const portrait=document.getElementById("portraitImage");
+const frame=document.getElementById("portraitFrame");
+function markReady(){
+  if(portrait.complete && portrait.naturalWidth>0) frame.classList.add("ready");
+}
+portrait.addEventListener("load",markReady);
+portrait.addEventListener("error",()=>frame.classList.remove("ready"));
+markReady();
+
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      io.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
