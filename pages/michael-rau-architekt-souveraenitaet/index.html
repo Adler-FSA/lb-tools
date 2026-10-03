@@ -209,7 +209,6 @@ h1 span{
 .image-frame{
   position:relative;
   overflow:hidden;
-  aspect-ratio:4/5;
   border-radius:34px;
   border:1px solid rgba(231,191,106,.33);
   background:
@@ -230,10 +229,10 @@ h1 span{
 .image-frame img{
   display:block;
   width:100%;
-  height:100%;
-  object-fit:cover;
+  height:auto;
+  object-fit:contain;
   opacity:0;
-  transform:scale(1.01);
+  transform:none;
   transition:opacity .45s ease;
 }
 .image-frame.ready img{opacity:1}
@@ -304,20 +303,51 @@ h1 span{
   -webkit-tap-highlight-color:transparent;
 }
 .symbol-hotspot:focus{outline:none}
+.symbol-hotspot:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:24px;
+  height:24px;
+  transform:translate(-50%,-50%) scale(1);
+  border-radius:50%;
+  border:1.5px solid rgba(116,225,223,.82);
+  box-shadow:0 0 8px rgba(255,240,185,.42);
+  opacity:0;
+  pointer-events:none;
+}
+.image-frame.symbols-visible .symbol-hotspot:before{
+  animation:symbolPulse 2s ease-out infinite;
+  animation-delay:var(--pulse-delay,0s);
+}
+.symbol-hotspot.active:before{
+  animation:none!important;
+  transform:translate(-50%,-50%) scale(1.45);
+  opacity:.78;
+  border-color:rgba(255,240,185,.94);
+  box-shadow:0 0 18px rgba(116,225,223,.72);
+}
+@keyframes symbolPulse{
+  0%{transform:translate(-50%,-50%) scale(.82);opacity:0}
+  18%{opacity:.92}
+  72%{opacity:.28}
+  100%{transform:translate(-50%,-50%) scale(2.05);opacity:0}
+}
 .symbol-hotspot .marker{
   position:absolute;
   left:50%;
   top:50%;
-  width:26px;
-  height:26px;
+  width:24px;
+  height:24px;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  border:1px solid rgba(255,240,185,.82);
-  background:rgba(7,16,28,.18);
+  border:1.5px solid rgba(116,225,223,.96);
+  background:rgba(4,13,22,.72);
   box-shadow:
-    0 0 0 3px rgba(231,191,106,.08),
-    0 0 16px rgba(255,220,145,.34);
-  transition:transform .22s ease,background .22s ease,box-shadow .22s ease;
+    0 0 0 2px rgba(231,191,106,.22),
+    0 0 15px rgba(0,167,173,.48);
+  transition:transform .22s ease,background .22s ease,box-shadow .22s ease,border-color .22s ease;
 }
 .symbol-hotspot .marker:before,
 .symbol-hotspot .marker:after{
@@ -334,10 +364,11 @@ h1 span{
 .symbol-hotspot:focus-visible .marker,
 .symbol-hotspot.active .marker{
   transform:translate(-50%,-50%) scale(1.18);
-  background:rgba(0,167,173,.28);
+  border-color:rgba(255,240,185,.98);
+  background:rgba(0,167,173,.46);
   box-shadow:
-    0 0 0 7px rgba(0,167,173,.16),
-    0 0 34px rgba(116,225,223,.75);
+    0 0 0 5px rgba(0,167,173,.18),
+    0 0 30px rgba(116,225,223,.82);
 }
 .symbol-overlay{
   position:absolute;
@@ -433,18 +464,18 @@ h1 span{
   border-color:transparent;
 }
 
-.symbol-hotspot.knowledge{left:10%;top:10.8%;--hit-w:13%;--hit-h:12%}
-.symbol-hotspot.heart{left:49.7%;top:25.4%;--hit-w:12%;--hit-h:11%}
-.symbol-hotspot.center{left:49.4%;top:33.2%;--hit-w:10%;--hit-h:9%}
-.symbol-hotspot.hand{left:73.4%;top:33.3%;--hit-w:14%;--hit-h:12%}
-.symbol-hotspot.order{left:49.6%;top:40.4%;--hit-w:8%;--hit-h:8%}
-.symbol-hotspot.orientation{left:51.3%;top:49.7%;--hit-w:8%;--hit-h:8%}
-.symbol-hotspot.insight{left:52.5%;top:57.8%;--hit-w:8%;--hit-h:8%}
-.symbol-hotspot.world{left:53.8%;top:66.5%;--hit-w:8%;--hit-h:8%}
-.symbol-hotspot.step{left:37.8%;top:63.1%;--hit-w:11%;--hit-h:10%}
-.symbol-hotspot.ram{left:74.8%;top:14.6%;--hit-w:15%;--hit-h:14%}
-.symbol-hotspot.community{left:79.5%;top:69.7%;--hit-w:17%;--hit-h:16%}
-.symbol-hotspot.lion{left:11.5%;top:55.1%;--hit-w:14%;--hit-h:13%}
+.symbol-hotspot.knowledge{left:9.7%;top:10.6%;--hit-w:13%;--hit-h:12%;--pulse-delay:0s}
+.symbol-hotspot.heart{left:49.5%;top:25.3%;--hit-w:12%;--hit-h:11%;--pulse-delay:.16s}
+.symbol-hotspot.center{left:49.3%;top:33.2%;--hit-w:10%;--hit-h:9%;--pulse-delay:.32s}
+.symbol-hotspot.hand{left:73.0%;top:33.3%;--hit-w:14%;--hit-h:12%;--pulse-delay:.48s}
+.symbol-hotspot.order{left:49.6%;top:40.3%;--hit-w:8%;--hit-h:8%;--pulse-delay:.64s}
+.symbol-hotspot.orientation{left:51.4%;top:49.7%;--hit-w:8%;--hit-h:8%;--pulse-delay:.8s}
+.symbol-hotspot.insight{left:52.3%;top:57.8%;--hit-w:8%;--hit-h:8%;--pulse-delay:.96s}
+.symbol-hotspot.world{left:53.7%;top:66.4%;--hit-w:8%;--hit-h:8%;--pulse-delay:1.12s}
+.symbol-hotspot.step{left:38.2%;top:63.0%;--hit-w:11%;--hit-h:10%;--pulse-delay:1.28s}
+.symbol-hotspot.ram{left:74.4%;top:14.7%;--hit-w:15%;--hit-h:14%;--pulse-delay:1.44s}
+.symbol-hotspot.community{left:79.4%;top:69.7%;--hit-w:17%;--hit-h:16%;--pulse-delay:1.6s}
+.symbol-hotspot.lion{left:11.3%;top:55.1%;--hit-w:14%;--hit-h:13%;--pulse-delay:1.76s}
 
 .chapter-kicker{
   align-items:center;
@@ -727,6 +758,7 @@ footer{
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*:before,*:after{animation:none!important;transition:none!important}
+  .symbol-hotspot:before{opacity:.55!important;transform:translate(-50%,-50%) scale(1.35)!important}
   .reveal{opacity:1;transform:none}
 }
 </style>
