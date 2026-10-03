@@ -558,33 +558,69 @@ h1 span{
 }
 
 .intro{
-  padding:clamp(62px,8vw,112px) 0;
+  padding:clamp(58px,7vw,96px) 0;
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
-  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.008));
+  background:
+    radial-gradient(circle at 18% 0%,rgba(0,167,173,.07),transparent 28rem),
+    linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.008));
 }
 .intro-copy{
   position:relative;
+  width:min(100%,860px);
+  margin-inline:auto;
   padding-left:clamp(26px,4vw,54px);
 }
 .intro-copy:before{
   content:"";
   position:absolute;
-  top:8px;
-  bottom:8px;
+  top:6px;
+  bottom:6px;
   left:0;
   width:2px;
   background:linear-gradient(var(--mint),var(--gold),var(--mag));
   border-radius:99px;
 }
-.intro-copy p{
-  margin:0;
-  color:#eef3f7;
-  font-size:clamp(1.35rem,2.5vw,2.25rem);
-  line-height:1.5;
-  letter-spacing:-.025em;
+.intro-kicker{
+  margin-bottom:12px;
+  color:var(--mint2);
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase;
 }
-.intro-copy strong{color:var(--gold2)}
+.intro-copy h2{
+  max-width:760px;
+  margin:0 0 28px;
+  color:#fff;
+  font-size:clamp(2.2rem,4.7vw,4.7rem);
+  line-height:1.02;
+  letter-spacing:-.052em;
+}
+.intro-body p{
+  margin:0 0 18px;
+  color:#c7d1dc;
+  font-size:clamp(1.02rem,1.35vw,1.14rem);
+  line-height:1.78;
+}
+.intro-body p:last-child{margin-bottom:0}
+.intro-invite{
+  margin-top:28px;
+  padding-top:24px;
+  border-top:1px solid rgba(231,191,106,.2);
+  color:#fff;
+  font-size:clamp(1.08rem,1.5vw,1.25rem);
+  font-weight:800;
+  line-height:1.55;
+}
+.intro-invite strong{color:var(--gold2)}
+.intro-note{
+  margin-top:14px;
+  color:#8292a2;
+  font-size:.9rem;
+  font-style:italic;
+  line-height:1.6;
+}
 
 .story{
   padding:clamp(76px,9vw,128px) 0;
@@ -1081,8 +1117,18 @@ footer{
 
 <section class="intro">
   <div class="wrap">
-    <div class="reading intro-copy reveal">
-      <p data-i18n-html="intro_text">Dieses Bild ist keine Darstellung dessen, was ich sein möchte. Es ist eine <strong>bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</strong></p>
+    <div class="intro-copy reveal">
+      <div class="intro-kicker" data-i18n="intro_kicker">Ein paar Worte zu mir</div>
+      <h2 data-i18n="intro_title">Herzlich willkommen auf meiner Seite.</h2>
+      <div class="intro-body">
+        <p data-i18n="intro_p1">Hier möchte ich dir zeigen, wer ich bin, was mich bewegt und was mich seit vielen Jahren antreibt.</p>
+        <p data-i18n="intro_p2">Jedes Symbol in diesem Bild steht für einen Teil von mir – für meine Werte, meine Haltung, meine Erfahrungen und die Art, wie ich denke und arbeite.</p>
+        <p data-i18n="intro_p3">Ich lade dich ein, mich auf dieser Seite ein Stück näher kennenzulernen. Diese Reise führt durch meine Gedanken, meine Seele und mein Herz – und durch die Liebe zu dem, was ich tue.</p>
+        <p data-i18n="intro_p4">Sie zeigt dir auch die Erfahrung und Expertise, die ich heute einbringe: Wissen verständlich zu machen, Zusammenhänge sichtbar zu machen, Orientierung zu geben und Menschen dabei zu unterstützen, ihren eigenen Weg selbstbestimmt zu gehen.</p>
+        <p data-i18n="intro_p5">Für mich geht es dabei nicht nur um meine Arbeit. Es geht darum, gemeinsam zu wachsen, Menschen zu befähigen und die Mission des LiquidityBoosters in die Welt zu tragen.</p>
+      </div>
+      <div class="intro-invite" data-i18n-html="intro_invite">Wenn du verstehen möchtest, was mich ausmacht, dann <strong>entdecke die Symbole in diesem Bild.</strong></div>
+      <div class="intro-note" data-i18n="intro_note">Dieses Bild ist eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</div>
     </div>
   </div>
 </section>
@@ -1296,7 +1342,15 @@ const translations = {
     hs_lion_title:"Schutz & Stärke",
     hs_lion_text:"Der Löwe verkörpert Schutz, innere Ruhe und die Stärke, Chancen zu erkennen und Risiken zugleich kritisch zu prüfen.",
 
-    intro_text:'Dieses Bild ist keine Darstellung dessen, was ich sein möchte. Es ist eine <strong>bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</strong>',
+    intro_kicker:"Ein paar Worte zu mir",
+    intro_title:"Herzlich willkommen auf meiner Seite.",
+    intro_p1:"Hier möchte ich dir zeigen, wer ich bin, was mich bewegt und was mich seit vielen Jahren antreibt.",
+    intro_p2:"Jedes Symbol in diesem Bild steht für einen Teil von mir – für meine Werte, meine Haltung, meine Erfahrungen und die Art, wie ich denke und arbeite.",
+    intro_p3:"Ich lade dich ein, mich auf dieser Seite ein Stück näher kennenzulernen. Diese Reise führt durch meine Gedanken, meine Seele und mein Herz – und durch die Liebe zu dem, was ich tue.",
+    intro_p4:"Sie zeigt dir auch die Erfahrung und Expertise, die ich heute einbringe: Wissen verständlich zu machen, Zusammenhänge sichtbar zu machen, Orientierung zu geben und Menschen dabei zu unterstützen, ihren eigenen Weg selbstbestimmt zu gehen.",
+    intro_p5:"Für mich geht es dabei nicht nur um meine Arbeit. Es geht darum, gemeinsam zu wachsen, Menschen zu befähigen und die Mission des LiquidityBoosters in die Welt zu tragen.",
+    intro_invite:'Wenn du verstehen möchtest, was mich ausmacht, dann <strong>entdecke die Symbole in diesem Bild.</strong>',
+    intro_note:"Dieses Bild ist eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.",
     story_label:"Die Botschaft hinter dem Bild",
     story_summary:"Verstehen → Ordnen → Orientieren → Handeln",
     acc_section_title:"Die Symbole und ihre Botschaft",
@@ -1420,7 +1474,15 @@ const translations = {
     hs_lion_title:"Protection & Strength",
     hs_lion_text:"The lion represents protection, inner calm, and the strength to recognize opportunities while critically examining risks.",
 
-    intro_text:'This image is not a depiction of what I want to become. It is a <strong>visual condensation of what I have been working for over many years.</strong>',
+    intro_kicker:"A few words about me",
+    intro_title:"A warm welcome to my page.",
+    intro_p1:"Here I want to show you who I am, what moves me, and what has driven me for many years.",
+    intro_p2:"Each symbol in this image represents a part of me – my values, my attitude, my experience, and the way I think and work.",
+    intro_p3:"I invite you to get to know me a little more closely on this page. This journey leads through my thoughts, my soul, and my heart – and through the love I have for what I do.",
+    intro_p4:"It also shows you the experience and expertise I bring today: making knowledge understandable, making connections visible, providing orientation, and helping people walk their own path with self-determination.",
+    intro_p5:"For me, this is not only about my work. It is about growing together, empowering people, and carrying the mission of LiquidityBooster into the world.",
+    intro_invite:'If you want to understand what shapes me, then <strong>discover the symbols in this image.</strong>',
+    intro_note:"This image is a visual condensation of what I have been working for over many years.",
     story_label:"The message behind the image",
     story_summary:"Understand → Organize → Orient → Act",
     acc_section_title:"The Symbols and Their Message",
