@@ -695,6 +695,183 @@ h1 span{
   line-height:1.4;
 }
 
+
+/* Symbol-Lexikon als kompakte Aufklappbereiche */
+.symbol-accordion-wrap{
+  padding:clamp(72px,8vw,112px) 0;
+}
+.symbol-accordion-intro{
+  margin-bottom:28px;
+}
+.symbol-accordion-intro h2{
+  margin:0 0 12px;
+  color:#fff;
+  font-size:clamp(2.25rem,4.6vw,4.7rem);
+  line-height:1;
+  letter-spacing:-.052em;
+}
+.symbol-accordion-intro p{
+  max-width:760px;
+  margin:0;
+  color:#9fadb9;
+  font-size:1rem;
+}
+.symbol-accordion{
+  display:grid;
+  gap:10px;
+}
+.symbol-accordion-item{
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 0 0,rgba(0,167,173,.055),transparent 34%),
+    linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
+  transition:border-color .25s ease,background .25s ease,box-shadow .25s ease;
+}
+.symbol-accordion-item:hover{
+  border-color:rgba(231,191,106,.27);
+}
+.symbol-accordion-item.open{
+  border-color:rgba(231,191,106,.34);
+  background:
+    radial-gradient(circle at 0 0,rgba(0,167,173,.085),transparent 38%),
+    linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.022));
+  box-shadow:0 18px 50px rgba(0,0,0,.14);
+}
+.symbol-accordion-item.symbol-pulse{
+  border-color:rgba(231,191,106,.72);
+  box-shadow:0 0 0 3px rgba(231,191,106,.11),0 18px 50px rgba(0,0,0,.14);
+}
+.symbol-accordion-trigger{
+  width:100%;
+  display:grid;
+  grid-template-columns:68px minmax(0,1fr) 38px;
+  align-items:center;
+  gap:18px;
+  padding:14px 18px;
+  border:0;
+  color:inherit;
+  text-align:left;
+  background:transparent;
+  cursor:pointer;
+}
+.accordion-thumb{
+  width:68px;
+  height:68px;
+  display:block;
+  border-radius:16px;
+  border:1px solid rgba(231,191,106,.32);
+  background-image:url("michael-rau-architekt-souveraenitaet.png");
+  background-repeat:no-repeat;
+  background-size:430% auto;
+  box-shadow:0 10px 28px rgba(0,0,0,.24),inset 0 0 0 1px rgba(255,255,255,.045);
+}
+.acc-thumb-knowledge{background-position:5% 2%}
+.acc-thumb-staff{background-position:27% 3%}
+.acc-thumb-heart{background-position:50% 22%}
+.acc-thumb-center{background-position:50% 32%}
+.acc-thumb-hand{background-position:78% 31%}
+.acc-thumb-order{background-position:50% 40%}
+.acc-thumb-orientation{background-position:52% 49%}
+.acc-thumb-insight{background-position:53% 58%}
+.acc-thumb-world{background-position:54% 67%}
+.acc-thumb-step{background-position:38% 63%}
+.acc-thumb-ram{background-position:88% 7%}
+.acc-thumb-lion{background-position:4% 55%}
+.acc-thumb-community{background-position:82% 72%}
+.symbol-accordion-heading{
+  min-width:0;
+}
+.symbol-accordion-heading strong{
+  display:block;
+  margin-bottom:3px;
+  color:var(--gold2);
+  font-size:1.02rem;
+  line-height:1.3;
+}
+.symbol-accordion-heading span{
+  display:block;
+  color:#9baaba;
+  font-size:.88rem;
+  line-height:1.45;
+}
+.acc-toggle{
+  position:relative;
+  width:34px;
+  height:34px;
+  justify-self:end;
+  border-radius:50%;
+  border:1px solid rgba(231,191,106,.28);
+  background:rgba(231,191,106,.055);
+  transition:background .22s ease,border-color .22s ease,transform .22s ease;
+}
+.acc-toggle:before,
+.acc-toggle:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:12px;
+  height:1.5px;
+  border-radius:99px;
+  background:var(--gold2);
+  transform:translate(-50%,-50%);
+  transition:transform .22s ease,opacity .22s ease;
+}
+.acc-toggle:after{
+  transform:translate(-50%,-50%) rotate(90deg);
+}
+.symbol-accordion-item.open .acc-toggle{
+  background:rgba(0,167,173,.15);
+  border-color:rgba(116,225,223,.38);
+}
+.symbol-accordion-item.open .acc-toggle:after{
+  opacity:0;
+  transform:translate(-50%,-50%) rotate(0deg);
+}
+.symbol-accordion-content{
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows .32s ease;
+}
+.symbol-accordion-item.open .symbol-accordion-content{
+  grid-template-rows:1fr;
+}
+.symbol-accordion-inner{
+  overflow:hidden;
+}
+.symbol-accordion-copy{
+  padding:0 24px 24px 104px;
+  color:#bdc9d5;
+}
+.symbol-accordion-copy p{
+  max-width:820px;
+  margin:0 0 16px;
+  font-size:1rem;
+  line-height:1.75;
+}
+.symbol-accordion-copy p:last-child{margin-bottom:0}
+.symbol-accordion-copy strong{color:#fff}
+.symbol-accordion-copy .accent-line{
+  color:var(--gold2);
+  font-weight:800;
+}
+@media (max-width:720px){
+  .symbol-accordion-trigger{
+    grid-template-columns:56px minmax(0,1fr) 34px;
+    gap:12px;
+    padding:12px;
+  }
+  .accordion-thumb{width:56px;height:56px;border-radius:14px}
+  .symbol-accordion-copy{padding:0 16px 20px 80px}
+}
+@media (max-width:480px){
+  .symbol-accordion-heading span{font-size:.8rem}
+  .symbol-accordion-heading strong{font-size:.94rem}
+  .symbol-accordion-copy{padding:0 14px 18px}
+}
+
 .manifest{
   padding:clamp(78px,10vw,138px) 0;
   border-top:1px solid var(--line);
@@ -865,19 +1042,19 @@ footer{
           >
 
           <div class="symbol-layer" id="symbolLayer" aria-label="Interaktive Symbole im Bild">
-            <button class="symbol-hotspot knowledge" type="button" data-title-key="hs_knowledge_title" data-text-key="hs_knowledge_text" data-target="chapter-knowledge" aria-label="Wissen und Vernetzung"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot staff" type="button" data-title-key="hs_staff_title" data-text-key="hs_staff_text" data-target="chapter-knowledge" aria-label="Orientierung und Klarheit"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot heart" type="button" data-title-key="hs_heart_title" data-text-key="hs_heart_text" data-target="chapter-heart" aria-label="Herz und Verstand"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot center" type="button" data-title-key="hs_center_title" data-text-key="hs_center_text" data-target="chapter-center" aria-label="Innere Mitte"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot hand" type="button" data-title-key="hs_hand_title" data-text-key="hs_hand_text" data-target="chapter-hand" aria-label="Die offene Hand"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot order" type="button" data-title-key="hs_order_title" data-text-key="hs_order_text" data-target="chapter-path" aria-label="Ordnung in der Komplexität"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot orientation" type="button" data-title-key="hs_orientation_title" data-text-key="hs_orientation_text" data-target="chapter-path" aria-label="Orientierung"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot insight" type="button" data-title-key="hs_insight_title" data-text-key="hs_insight_text" data-target="chapter-path" aria-label="Erkenntnis in Bewegung"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot world" type="button" data-title-key="hs_world_title" data-text-key="hs_world_text" data-target="chapter-path" aria-label="Umsetzung in der Welt"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot step" type="button" data-title-key="hs_step_title" data-text-key="hs_step_text" data-target="chapter-path" aria-label="Der nächste Schritt"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot ram" type="button" data-title-key="hs_ram_title" data-text-key="hs_ram_text" data-target="chapter-ram" aria-label="Pioniergeist"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot community" type="button" data-title-key="hs_community_title" data-text-key="hs_community_text" data-target="chapter-community" aria-label="Gemeinschaft und Dezentralität"><span class="marker" aria-hidden="true"></span></button>
-            <button class="symbol-hotspot lion" type="button" data-title-key="hs_lion_title" data-text-key="hs_lion_text" data-target="chapter-lion" aria-label="Schutz und Stärke"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot knowledge" type="button" data-title-key="hs_knowledge_title" data-text-key="hs_knowledge_text" data-target="symbol-knowledge" aria-label="Wissen und Vernetzung"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot staff" type="button" data-title-key="hs_staff_title" data-text-key="hs_staff_text" data-target="symbol-staff" aria-label="Orientierung und Klarheit"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot heart" type="button" data-title-key="hs_heart_title" data-text-key="hs_heart_text" data-target="symbol-heart" aria-label="Herz und Verstand"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot center" type="button" data-title-key="hs_center_title" data-text-key="hs_center_text" data-target="symbol-center" aria-label="Innere Mitte"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot hand" type="button" data-title-key="hs_hand_title" data-text-key="hs_hand_text" data-target="symbol-hand" aria-label="Die offene Hand"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot order" type="button" data-title-key="hs_order_title" data-text-key="hs_order_text" data-target="symbol-order" aria-label="Ordnung in der Komplexität"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot orientation" type="button" data-title-key="hs_orientation_title" data-text-key="hs_orientation_text" data-target="symbol-orientation" aria-label="Orientierung"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot insight" type="button" data-title-key="hs_insight_title" data-text-key="hs_insight_text" data-target="symbol-insight" aria-label="Erkenntnis in Bewegung"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot world" type="button" data-title-key="hs_world_title" data-text-key="hs_world_text" data-target="symbol-world" aria-label="Umsetzung in der Welt"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot step" type="button" data-title-key="hs_step_title" data-text-key="hs_step_text" data-target="symbol-step" aria-label="Der nächste Schritt"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot ram" type="button" data-title-key="hs_ram_title" data-text-key="hs_ram_text" data-target="symbol-ram" aria-label="Pioniergeist"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot community" type="button" data-title-key="hs_community_title" data-text-key="hs_community_text" data-target="symbol-community" aria-label="Gemeinschaft und Dezentralität"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot lion" type="button" data-title-key="hs_lion_title" data-text-key="hs_lion_text" data-target="symbol-lion" aria-label="Schutz und Stärke"><span class="marker" aria-hidden="true"></span></button>
           </div>
           <div class="symbol-overlay" id="symbolOverlay" role="status" aria-live="polite">
             <strong id="symbolOverlayTitle"></strong>
@@ -910,7 +1087,7 @@ footer{
   </div>
 </section>
 
-<section class="story">
+<section class="story symbol-accordion-wrap">
   <div class="wrap story-grid">
     <aside class="story-nav reveal" aria-hidden="true">
       <div class="story-nav-line"></div>
@@ -919,107 +1096,129 @@ footer{
     </aside>
 
     <div class="story-content">
-      <article class="chapter reveal linked-symbol" id="chapter-knowledge">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-knowledge" aria-hidden="true"></span>
-          <span data-i18n="c1_kicker">Wissen & Erkenntnis</span>
-        </div>
-        <h2 data-i18n="c1_title">Wissen bekommt erst durch Zusammenhänge Bedeutung.</h2>
-        <p data-i18n="c1_p1">Im Mittelpunkt stehe ich nicht als jemand, der über anderen steht, sondern als jemand, der Wissen sammelt, Erfahrungen verbindet, Zusammenhänge sichtbar macht und daraus Orientierung entstehen lässt.</p>
-        <p data-i18n="c1_p2">Mein Ziel ist nicht, Menschen vorzuschreiben, welchen Weg sie gehen sollen. Ich möchte ihnen vielmehr das Wissen, die Werkzeuge und die Klarheit geben, die sie brauchen, um ihren eigenen Weg selbstbestimmt gehen zu können.</p>
-        <p data-i18n="c1_p3">Die leuchtende Bibliothek im Bild steht für Wissen, Lernen und die vielen Erfahrungen, die sich über Jahrzehnte angesammelt haben. Wissen allein genügt für mich jedoch nicht. Erst wenn wir verstehen, wie einzelne Informationen miteinander verbunden sind, entsteht daraus wirkliche Erkenntnis.</p>
-        <div class="symbol-card">
-          <strong data-i18n="c1_card_title">Die geometrischen Strukturen</strong>
-          <span data-i18n="c1_card_text">Sie stehen für meine Art zu denken: Komplexität ordnen, Zusammenhänge erkennen und daraus verständliche Strukturen entwickeln.</span>
-        </div>
-      </article>
+      <div class="symbol-accordion-intro reveal">
+        <h2 data-i18n="acc_section_title">Die Symbole und ihre Botschaft</h2>
+        <p data-i18n="acc_section_intro">Jeder Bildausschnitt steht für eine eigene Bedeutungsebene. Tippe auf ein Symbol, um die ausführliche Botschaft dahinter zu öffnen.</p>
+      </div>
 
-      <article class="chapter reveal linked-symbol" id="chapter-heart">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-heart" aria-hidden="true"></span>
-          <span data-i18n="c2_kicker">Herz & Verstand</span>
-        </div>
-        <h2 data-i18n="c2_title">Entwicklung muss den Kopf erreichen – und das Herz.</h2>
-        <p data-i18n="c2_p1">Das Licht in meiner Brust steht für die Verbindung von Verstand und Herz. Entwicklung geschieht nicht ausschließlich durch Fakten.</p>
-        <p data-i18n="c2_p2">Menschen brauchen Klarheit, aber ebenso Vertrauen, Mut, Geschichten, Emotionen und manchmal einen Impuls, der sie tief im Inneren erreicht. Deshalb gehören für mich Wissen und Menschlichkeit untrennbar zusammen.</p>
-      </article>
+      <div class="symbol-accordion" id="symbolAccordion">
+        <article class="symbol-accordion-item reveal" id="symbol-knowledge">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-knowledge" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_knowledge_title">Wissen & Vernetzung</strong><span data-i18n="acc_knowledge_lead">Wissen wird durch Zusammenhänge zu Erkenntnis.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_knowledge_body"></div></div></div>
+        </article>
 
-      <article class="chapter reveal linked-symbol" id="chapter-center">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-center" aria-hidden="true"></span>
-          <span data-i18n="c3_kicker">Souveränität & Verantwortung</span>
-        </div>
-        <h2 data-i18n="c3_title">Souveränität beginnt mit Selbstführung.</h2>
-        <p data-i18n="c3_p1">Die goldene Mitte meines Körpers symbolisiert Selbstführung und Verantwortung. Souveränität beginnt für mich dort, wo ein Mensch lernt, eigene Entscheidungen zu treffen und die Verantwortung für seinen Weg zu übernehmen.</p>
-        <p data-i18n="c3_p2">Finanzielle Bildung, persönliche Entwicklung oder unternehmerisches Denken sind deshalb keine getrennten Themen. Sie gehören zu derselben Frage:</p>
-        <div class="symbol-card">
-          <strong data-i18n="c3_card_title">Wie werde ich wieder handlungsfähig?</strong>
-          <span data-i18n="c3_card_text">Verstehen, prüfen, entscheiden und anschließend selbst handeln.</span>
-        </div>
-      </article>
+        <article class="symbol-accordion-item reveal" id="symbol-staff">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-staff" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_staff_title">Orientierung & Klarheit</strong><span data-i18n="acc_staff_lead">Haltung gibt Richtung, Klarheit macht Zusammenhänge sichtbar.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_staff_body"></div></div></div>
+        </article>
 
-      <article class="chapter reveal linked-symbol" id="chapter-hand">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-hand" aria-hidden="true"></span>
-          <span data-i18n="c4_kicker">Die offene Hand</span>
-        </div>
-        <h2 data-i18n="c4_title">Ich halte Wissen nicht fest. Ich gebe es weiter.</h2>
-        <p data-i18n="c4_p1">Die leuchtende Kugel in meiner offenen Hand trägt für mich eine besondere Bedeutung. Die offene Hand steht dafür, Menschen nichts aufzuzwingen.</p>
-        <p data-i18n="c4_p2">Ich kann Möglichkeiten zeigen, Erfahrungen teilen, Zusammenhänge erklären und Werkzeuge bereitstellen. Was ein Mensch daraus macht, entscheidet er selbst.</p>
-        <p><strong data-i18n="c4_p3">Genau darin liegt für mich echte Befähigung.</strong></p>
-      </article>
+        <article class="symbol-accordion-item reveal" id="symbol-heart">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-heart" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_heart_title">Herz & Verstand</strong><span data-i18n="acc_heart_lead">Entwicklung muss den Kopf erreichen – und das Herz.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_heart_body"></div></div></div>
+        </article>
 
-      <article class="chapter reveal linked-symbol" id="chapter-path">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-path" aria-hidden="true"></span>
-          <span data-i18n="c5_kicker">Vom Verstehen zum Handeln</span>
-        </div>
-        <h2 data-i18n="c5_title">Erkenntnis soll im wirklichen Leben etwas verändern.</h2>
-        <p data-i18n="c5_p1">Die Symbole entlang meines Körpers stehen für einen Weg: vom Verstehen über Orientierung und Struktur bis hin zur Umsetzung.</p>
-        <p data-i18n="c5_p2">Erkenntnis soll nicht im Kopf bleiben. Sie soll zu Entscheidungen führen, und Entscheidungen sollen schließlich im wirklichen Leben etwas verändern.</p>
+        <article class="symbol-accordion-item reveal" id="symbol-center">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-center" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_center_title">Innere Mitte</strong><span data-i18n="acc_center_lead">Souveränität beginnt mit Selbstführung und Verantwortung.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_center_body"></div></div></div>
+        </article>
 
-        <div class="axis">
-          <div class="axis-item"><b data-i18n="a1_t">Verstehen</b><span data-i18n="a1_s">Wissen zugänglich und verständlich machen.</span></div>
-          <div class="axis-item"><b data-i18n="a2_t">Ordnen</b><span data-i18n="a2_s">Komplexität in tragfähige Strukturen übersetzen.</span></div>
-          <div class="axis-item"><b data-i18n="a3_t">Orientieren</b><span data-i18n="a3_s">Möglichkeiten und Risiken klarer erkennen.</span></div>
-          <div class="axis-item"><b data-i18n="a4_t">Handeln</b><span data-i18n="a4_s">Aus Erkenntnis eigene Entscheidungen machen.</span></div>
-        </div>
-      </article>
+        <article class="symbol-accordion-item reveal" id="symbol-hand">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-hand" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_hand_title">Die offene Hand</strong><span data-i18n="acc_hand_lead">Wissen weitergeben, ohne Menschen abhängig zu machen.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_hand_body"></div></div></div>
+        </article>
 
-      <article class="chapter reveal linked-symbol" id="chapter-ram">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-ram" aria-hidden="true"></span>
-          <span data-i18n="c6_kicker">Der Pionier</span>
-        </div>
-        <h2 data-i18n="c6_title">Neue Wege beginnen mit dem Mut, anders zu denken.</h2>
-        <p data-i18n="c6_p1">Der Widder aus Licht verkörpert die Kraft des Anfangs. Den Mut, neue Wege zu gehen, Dinge infrage zu stellen und etwas aufzubauen, das vorher noch nicht existiert hat.</p>
-        <p data-i18n="c6_p2">Doch diese Energie bedeutet für mich nicht, blind voranzustürmen. Sie verbindet sich mit Struktur, Verantwortung und Beständigkeit.</p>
-        <div class="symbol-card">
-          <strong data-i18n="c6_card_title">Nicht nur Pionier – Architekt von Souveränität.</strong>
-          <span data-i18n="c6_card_text">Der Impuls eröffnet einen Weg. Struktur macht ihn tragfähig.</span>
-        </div>
-      </article>
+        <article class="symbol-accordion-item reveal" id="symbol-order">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-order" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_order_title">Ordnung in der Komplexität</strong><span data-i18n="acc_order_lead">Viele Informationen werden zu einer verständlichen Struktur.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_order_body"></div></div></div>
+        </article>
 
-      <article class="chapter reveal linked-symbol" id="chapter-community">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-community" aria-hidden="true"></span>
-          <span data-i18n="c7_kicker">Gemeinschaft & Eigenständigkeit</span>
-        </div>
-        <h2 data-i18n="c7_title">Verbunden sein, ohne die eigene Verantwortung abzugeben.</h2>
-        <p data-i18n="c7_p1">Die Landschaft im Hintergrund steht für das, was daraus entstehen kann: Menschen, die miteinander verbunden sind, ohne ihre Eigenständigkeit zu verlieren.</p>
-        <p data-i18n="c7_p2">Wissen, Möglichkeiten, neue Einkommenswege, Dezentralität und Gemeinschaft bilden ein Netzwerk – aber jeder Mensch bleibt selbst verantwortlich für seinen Platz darin.</p>
-        <p data-i18n="c7_p3">Auch die Menschen im Vordergrund sind deshalb wichtig. Sie stehen nicht dort, um mir zu folgen. Sie stehen dort, weil sie etwas erkennen, lernen und anschließend ihren eigenen Weg weitergehen können.</p>
-      </article>
+        <article class="symbol-accordion-item reveal" id="symbol-orientation">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-orientation" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_orientation_title">Orientierung</strong><span data-i18n="acc_orientation_lead">Aus Möglichkeiten wird eine Richtung, die tragfähig ist.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_orientation_body"></div></div></div>
+        </article>
 
-      <article class="chapter reveal linked-symbol" id="chapter-lion">
-        <div class="chapter-kicker">
-          <span class="symbol-thumb thumb-lion" aria-hidden="true"></span>
-          <span data-i18n="c8_kicker">Schutz & Stärke</span>
-        </div>
-        <h2 data-i18n="c8_title">Schutz gehört für mich genauso zur Bildung wie das Aufzeigen von Chancen.</h2>
-        <p data-i18n="c8_p1">Der Löwe verkörpert Schutz, Stärke und innere Ruhe. Menschen sollen Möglichkeiten erkennen können, aber ebenso lernen, Risiken zu verstehen und kritisch zu prüfen.</p>
-        <p data-i18n="c8_p2">Mein Weg verbindet Wissen mit Erfahrung, Struktur mit Menschlichkeit und Möglichkeiten mit Verantwortung.</p>
-      </article>
+        <article class="symbol-accordion-item reveal" id="symbol-insight">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-insight" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_insight_title">Erkenntnis in Bewegung</strong><span data-i18n="acc_insight_lead">Verstehen soll in Entschluss und Handlung übergehen.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_insight_body"></div></div></div>
+        </article>
+
+        <article class="symbol-accordion-item reveal" id="symbol-world">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-world" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_world_title">Umsetzung in der Welt</strong><span data-i18n="acc_world_lead">Erkenntnis muss sich auch im wirklichen Leben bewähren.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_world_body"></div></div></div>
+        </article>
+
+        <article class="symbol-accordion-item reveal" id="symbol-step">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-step" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_step_title">Der nächste Schritt</strong><span data-i18n="acc_step_lead">Entwicklung wird sichtbar, wenn aus Erkenntnis Bewegung entsteht.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_step_body"></div></div></div>
+        </article>
+
+        <article class="symbol-accordion-item reveal" id="symbol-ram">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-ram" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_ram_title">Pioniergeist</strong><span data-i18n="acc_ram_lead">Neue Wege beginnen mit dem Mut, anders zu denken.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_ram_body"></div></div></div>
+        </article>
+
+        <article class="symbol-accordion-item reveal" id="symbol-lion">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-lion" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_lion_title">Schutz & Stärke</strong><span data-i18n="acc_lion_lead">Chancen erkennen und zugleich Risiken kritisch prüfen.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_lion_body"></div></div></div>
+        </article>
+
+        <article class="symbol-accordion-item reveal" id="symbol-community">
+          <button class="symbol-accordion-trigger" type="button" aria-expanded="false">
+            <span class="accordion-thumb acc-thumb-community" aria-hidden="true"></span>
+            <span class="symbol-accordion-heading"><strong data-i18n="hs_community_title">Gemeinschaft & Dezentralität</strong><span data-i18n="acc_community_lead">Verbunden sein, ohne die eigene Verantwortung abzugeben.</span></span>
+            <span class="acc-toggle" aria-hidden="true"></span>
+          </button>
+          <div class="symbol-accordion-content"><div class="symbol-accordion-inner"><div class="symbol-accordion-copy" data-i18n-html="acc_community_body"></div></div></div>
+        </article>
+      </div>
     </div>
   </div>
 </section>
@@ -1100,6 +1299,35 @@ const translations = {
     intro_text:'Dieses Bild ist keine Darstellung dessen, was ich sein möchte. Es ist eine <strong>bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</strong>',
     story_label:"Die Botschaft hinter dem Bild",
     story_summary:"Verstehen → Ordnen → Orientieren → Handeln",
+    acc_section_title:"Die Symbole und ihre Botschaft",
+    acc_section_intro:"Jeder Bildausschnitt steht für eine eigene Bedeutungsebene. Tippe auf ein Symbol, um die ausführliche Botschaft dahinter zu öffnen.",
+    acc_knowledge_lead:"Wissen wird durch Zusammenhänge zu Erkenntnis.",
+    acc_knowledge_body:'<p>Im Mittelpunkt stehe ich nicht als jemand, der über anderen steht, sondern als jemand, der Wissen sammelt, Erfahrungen verbindet, Zusammenhänge sichtbar macht und daraus Orientierung entstehen lässt.</p><p>Mein Ziel ist nicht, Menschen vorzuschreiben, welchen Weg sie gehen sollen. Ich möchte ihnen vielmehr das Wissen, die Werkzeuge und die Klarheit geben, die sie brauchen, um ihren eigenen Weg selbstbestimmt gehen zu können.</p><p>Die leuchtende Bibliothek steht für Wissen, Lernen und die vielen Erfahrungen, die sich über Jahrzehnte angesammelt haben. Wissen allein genügt jedoch nicht. Erst wenn einzelne Informationen miteinander verbunden werden, entsteht daraus wirkliche Erkenntnis.</p>',
+    acc_staff_lead:"Haltung gibt Richtung, Klarheit macht Zusammenhänge sichtbar.",
+    acc_staff_body:'<p>Der Stab steht für Haltung, Orientierung und einen inneren Kompass. Er symbolisiert die Fähigkeit, auch in komplexen Situationen einen festen Bezugspunkt zu behalten.</p><p>Die kreisenden Bahnen an seiner Spitze stehen für das Erkennen von Zusammenhängen: Viele Informationen bewegen sich um einen gemeinsamen Kern. Wissen wird geordnet, Komplexität verständlich und aus Erkenntnis entsteht Orientierung.</p><p class="accent-line">Die eine Hand hält Haltung und Struktur. Die andere Hand gibt Wissen weiter.</p>',
+    acc_heart_lead:"Entwicklung muss den Kopf erreichen – und das Herz.",
+    acc_heart_body:'<p>Das Licht in meiner Brust steht für die Verbindung von Verstand und Herz. Entwicklung geschieht nicht ausschließlich durch Fakten.</p><p>Menschen brauchen Klarheit, aber ebenso Vertrauen, Mut, Geschichten, Emotionen und manchmal einen Impuls, der sie tief im Inneren erreicht. Deshalb gehören für mich Wissen und Menschlichkeit untrennbar zusammen.</p>',
+    acc_center_lead:"Souveränität beginnt mit Selbstführung und Verantwortung.",
+    acc_center_body:'<p>Die goldene Mitte meines Körpers symbolisiert Selbstführung, Verantwortung und innere Stabilität. Souveränität beginnt für mich dort, wo ein Mensch lernt, eigene Entscheidungen zu treffen und die Verantwortung für seinen Weg zu übernehmen.</p><p>Finanzielle Bildung, persönliche Entwicklung und unternehmerisches Denken sind deshalb keine getrennten Themen. Sie gehören zu derselben Frage: <strong>Wie werde ich wieder handlungsfähig?</strong></p><p class="accent-line">Verstehen, prüfen, entscheiden und anschließend selbst handeln.</p>',
+    acc_hand_lead:"Wissen weitergeben, ohne Menschen abhängig zu machen.",
+    acc_hand_body:'<p>Die leuchtende Kugel in meiner offenen Hand steht für Wissen, das weitergegeben wird. Die offene Hand zeigt gleichzeitig, dass ich Menschen nichts aufzwingen möchte.</p><p>Ich kann Möglichkeiten zeigen, Erfahrungen teilen, Zusammenhänge erklären und Werkzeuge bereitstellen. Was ein Mensch daraus macht, entscheidet er selbst.</p><p class="accent-line">Genau darin liegt für mich echte Befähigung.</p>',
+    acc_order_lead:"Viele Informationen werden zu einer verständlichen Struktur.",
+    acc_order_body:'<p>Dieses Zeichen steht für meine Art, Komplexität zu bearbeiten: Einzelne Informationen werden nicht einfach gesammelt, sondern geordnet und miteinander verbunden.</p><p>Aus vielen Teilen entsteht eine Struktur, die verständlich und nutzbar wird. Genau dort beginnt für mich praktische Aufklärung: Komplexes so weit zu ordnen, dass ein Mensch selbst damit arbeiten kann.</p>',
+    acc_orientation_lead:"Aus Möglichkeiten wird eine Richtung, die tragfähig ist.",
+    acc_orientation_body:'<p>Dieses Symbol steht für Orientierung. Es geht nicht darum, Menschen einen Weg vorzuschreiben, sondern ihnen dabei zu helfen, Möglichkeiten, Risiken und Konsequenzen klarer zu erkennen.</p><p>Orientierung bedeutet für mich, aus vielen denkbaren Wegen denjenigen erkennen zu können, der zur eigenen Situation, Verantwortung und Entscheidung passt.</p>',
+    acc_insight_lead:"Verstehen soll in Entschluss und Handlung übergehen.",
+    acc_insight_body:'<p>Das leuchtende Sonnensymbol steht für Erkenntnis, die lebendig wird. Wissen hat für mich erst dann wirklichen Wert, wenn daraus etwas entsteht.</p><p>Verstehen soll nicht im Kopf stehen bleiben. Es darf zu Klarheit, Entschlusskraft und schließlich zu eigenem Handeln führen.</p>',
+    acc_world_lead:"Erkenntnis muss sich auch im wirklichen Leben bewähren.",
+    acc_world_body:'<p>Dieses Symbol steht für die materielle und praktische Ebene. Ideen und Erkenntnisse müssen irgendwann im wirklichen Leben Bestand haben.</p><p>Geld, Unternehmertum, Verantwortung, Entscheidungen und konkrete Umsetzung gehören deshalb genauso zur Souveränität wie persönliche oder geistige Entwicklung.</p>',
+    acc_step_lead:"Entwicklung wird sichtbar, wenn aus Erkenntnis Bewegung entsteht.",
+    acc_step_body:'<p>Das große Symbol am Knie steht für Bewegung, Fortschritt und den nächsten konkreten Schritt. Erkenntnis allein verändert noch nichts.</p><p>Erst wenn ein Mensch beginnt, auf Grundlage des Verstandenen selbst zu handeln, wird aus Wissen Entwicklung und aus Orientierung ein eigener Weg.</p>',
+    acc_ram_lead:"Neue Wege beginnen mit dem Mut, anders zu denken.",
+    acc_ram_body:'<p>Der Widder aus Licht verkörpert die Kraft des Anfangs: den Mut, neue Wege zu gehen, Dinge infrage zu stellen und etwas aufzubauen, das vorher noch nicht existiert hat.</p><p>Doch diese Energie bedeutet für mich nicht, blind voranzustürmen. Sie verbindet sich mit Struktur, Verantwortung und Beständigkeit.</p><p class="accent-line">Nicht nur Pionier – Architekt von Souveränität. Der Impuls eröffnet einen Weg. Struktur macht ihn tragfähig.</p>',
+    acc_lion_lead:"Chancen erkennen und zugleich Risiken kritisch prüfen.",
+    acc_lion_body:'<p>Der Löwe verkörpert Schutz, Stärke und innere Ruhe. Für mich gehört Schutz genauso zur Bildung wie das Aufzeigen von Möglichkeiten.</p><p>Menschen sollen Chancen erkennen können, aber ebenso lernen, Risiken zu verstehen und kritisch zu prüfen. Mein Weg verbindet Wissen mit Erfahrung, Struktur mit Menschlichkeit und Möglichkeiten mit Verantwortung.</p>',
+    acc_community_lead:"Verbunden sein, ohne die eigene Verantwortung abzugeben.",
+    acc_community_body:'<p>Die vernetzte Landschaft steht für Menschen, die miteinander verbunden sind, ohne ihre Eigenständigkeit zu verlieren.</p><p>Wissen, Möglichkeiten, neue Einkommenswege, Dezentralität und Gemeinschaft können ein Netzwerk bilden – aber jeder Mensch bleibt selbst verantwortlich für seinen Platz darin.</p><p>Auch die Menschen im Vordergrund stehen deshalb nicht dort, um mir zu folgen. Sie stehen dort, weil sie etwas erkennen, lernen und anschließend ihren eigenen Weg weitergehen können.</p>',
+
     c1_kicker:"Wissen & Erkenntnis",
     c1_title:"Wissen bekommt erst durch Zusammenhänge Bedeutung.",
     c1_p1:"Im Mittelpunkt stehe ich nicht als jemand, der über anderen steht, sondern als jemand, der Wissen sammelt, Erfahrungen verbindet, Zusammenhänge sichtbar macht und daraus Orientierung entstehen lässt.",
@@ -1195,6 +1423,35 @@ const translations = {
     intro_text:'This image is not a depiction of what I want to become. It is a <strong>visual condensation of what I have been working for over many years.</strong>',
     story_label:"The message behind the image",
     story_summary:"Understand → Organize → Orient → Act",
+    acc_section_title:"The Symbols and Their Message",
+    acc_section_intro:"Each image detail represents its own layer of meaning. Tap a symbol to open the fuller message behind it.",
+    acc_knowledge_lead:"Knowledge becomes insight through connection.",
+    acc_knowledge_body:'<p>I do not stand at the center as someone above others, but as someone who gathers knowledge, connects experience, makes relationships visible, and turns them into orientation.</p><p>My goal is not to tell people which path they should take. I want to give them the knowledge, tools, and clarity they need to walk their own path with self-determination.</p><p>The luminous library represents knowledge, learning, and experience accumulated over decades. Knowledge alone is not enough. Real insight emerges when individual pieces of information are connected.</p>',
+    acc_staff_lead:"Inner alignment gives direction; clarity makes connections visible.",
+    acc_staff_body:'<p>The staff represents inner alignment, orientation, and an internal compass. It symbolizes the ability to keep a stable point of reference even in complex situations.</p><p>The orbiting paths at its top represent recognizing connections: many pieces of information move around a common core. Knowledge is organized, complexity becomes understandable, and insight becomes orientation.</p><p class="accent-line">One hand holds alignment and structure. The other passes knowledge on.</p>',
+    acc_heart_lead:"Development has to reach the mind – and the heart.",
+    acc_heart_body:'<p>The light in my chest represents the connection between reason and heart. Development does not happen through facts alone.</p><p>People need clarity, but also trust, courage, stories, emotion, and sometimes an impulse that reaches them deeply. For me, knowledge and humanity are inseparable.</p>',
+    acc_center_lead:"Sovereignty begins with self-leadership and responsibility.",
+    acc_center_body:'<p>The golden center of my body symbolizes self-leadership, responsibility, and inner stability. For me, sovereignty begins when a person learns to make their own decisions and take responsibility for their path.</p><p>Financial education, personal development, and entrepreneurial thinking are therefore not separate subjects. They belong to the same question: <strong>How do I become capable of acting again?</strong></p><p class="accent-line">Understand, examine, decide, and then act for yourself.</p>',
+    acc_hand_lead:"Share knowledge without creating dependence.",
+    acc_hand_body:'<p>The luminous sphere in my open hand represents knowledge that is passed on. The open hand also shows that I do not want to impose anything on people.</p><p>I can show possibilities, share experience, explain connections, and provide tools. What a person does with them remains their own decision.</p><p class="accent-line">That is what genuine empowerment means to me.</p>',
+    acc_order_lead:"Many pieces of information become a clear structure.",
+    acc_order_body:'<p>This symbol represents the way I work with complexity: individual pieces of information are not simply collected, but organized and connected.</p><p>Many parts become a structure that is understandable and useful. For me, that is where practical education begins: organizing complexity until a person can work with it independently.</p>',
+    acc_orientation_lead:"Possibilities become a direction that can be carried forward.",
+    acc_orientation_body:'<p>This symbol represents orientation. It is not about prescribing a path, but helping people recognize possibilities, risks, and consequences more clearly.</p><p>For me, orientation means being able to recognize, among many possible paths, the one that fits a person’s own situation, responsibility, and decision.</p>',
+    acc_insight_lead:"Understanding should move into decision and action.",
+    acc_insight_body:'<p>The luminous sun symbol represents insight becoming alive. Knowledge only gains real value for me when something grows from it.</p><p>Understanding should not remain in the mind. It can lead to clarity, resolve, and ultimately independent action.</p>',
+    acc_world_lead:"Insight must also prove itself in real life.",
+    acc_world_body:'<p>This symbol represents the material and practical level. Ideas and insights eventually have to stand up in real life.</p><p>Money, entrepreneurship, responsibility, decisions, and concrete implementation therefore belong to sovereignty just as much as personal or inner development.</p>',
+    acc_step_lead:"Development becomes visible when insight creates movement.",
+    acc_step_body:'<p>The large symbol at the knee represents movement, progress, and the next concrete step. Insight alone does not change anything.</p><p>Only when a person begins to act independently on the basis of what they understand does knowledge become development and orientation become their own path.</p>',
+    acc_ram_lead:"New paths begin with the courage to think differently.",
+    acc_ram_body:'<p>The ram made of light represents the power of beginning: the courage to take new paths, question assumptions, and build something that did not exist before.</p><p>For me, however, this energy does not mean rushing forward blindly. It is connected with structure, responsibility, and permanence.</p><p class="accent-line">Not only a pioneer – an architect of sovereignty. The impulse opens a path. Structure makes it sustainable.</p>',
+    acc_lion_lead:"Recognize opportunities while examining risks critically.",
+    acc_lion_body:'<p>The lion represents protection, strength, and inner calm. For me, protection belongs to education just as much as showing possibilities.</p><p>People should be able to recognize opportunities, while also learning to understand risks and examine them critically. My path connects knowledge with experience, structure with humanity, and possibility with responsibility.</p>',
+    acc_community_lead:"Be connected without giving away personal responsibility.",
+    acc_community_body:'<p>The connected landscape represents people who are linked without losing their independence.</p><p>Knowledge, possibilities, new income paths, decentralization, and community can form a network – while every person remains responsible for their own place within it.</p><p>That is why the people in the foreground are not there to follow me. They are there because they can recognize something, learn, and then continue on their own path.</p>',
+
     c1_kicker:"Knowledge & Insight",
     c1_title:"Knowledge gains meaning through connection.",
     c1_p1:"I do not stand at the center as someone above others, but as someone who gathers knowledge, connects experience, makes relationships visible, and turns them into orientation.",
@@ -1277,6 +1534,24 @@ const initialLang=localStorage.getItem("michael-manifest-lang")||"de";
 setLanguage(initialLang);
 
 
+
+const accordionItems=[...document.querySelectorAll(".symbol-accordion-item")];
+accordionItems.forEach(item=>{
+  const trigger=item.querySelector(".symbol-accordion-trigger");
+  trigger.addEventListener("click",()=>{
+    const shouldOpen=!item.classList.contains("open");
+    accordionItems.forEach(other=>{
+      other.classList.remove("open");
+      const otherTrigger=other.querySelector(".symbol-accordion-trigger");
+      if(otherTrigger) otherTrigger.setAttribute("aria-expanded","false");
+    });
+    if(shouldOpen){
+      item.classList.add("open");
+      trigger.setAttribute("aria-expanded","true");
+    }
+  });
+});
+
 const portrait=document.getElementById("portraitImage");
 const frame=document.getElementById("portraitFrame");
 const symbolToggle=document.getElementById("symbolToggle");
@@ -1308,7 +1583,7 @@ function showSymbolInfo(hotspot,persist=false){
   hotspots.forEach(h=>h.classList.toggle("active",h===hotspot));
   if(persist) activeHotspot=hotspot;
   const target=document.getElementById(hotspot.dataset.target);
-  document.querySelectorAll(".chapter.symbol-pulse").forEach(el=>el.classList.remove("symbol-pulse"));
+  document.querySelectorAll(".symbol-accordion-item.symbol-pulse").forEach(el=>el.classList.remove("symbol-pulse"));
   if(target){
     target.classList.add("symbol-pulse");
     window.setTimeout(()=>target.classList.remove("symbol-pulse"),1200);
