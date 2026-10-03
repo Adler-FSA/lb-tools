@@ -275,6 +275,167 @@ h1 span{
   letter-spacing:.04em;
 }
 
+
+/* Interaktive Bildsymbolik */
+.symbol-layer{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+}
+.symbol-hotspot{
+  position:absolute;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  pointer-events:auto;
+  -webkit-tap-highlight-color:transparent;
+}
+.symbol-hotspot:focus{outline:none}
+.symbol-hotspot .marker{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:26px;
+  height:26px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid rgba(255,240,185,.95);
+  background:rgba(7,16,28,.34);
+  box-shadow:
+    0 0 0 5px rgba(231,191,106,.12),
+    0 0 24px rgba(255,220,145,.55);
+  transition:transform .22s ease,background .22s ease,box-shadow .22s ease;
+}
+.symbol-hotspot .marker:before,
+.symbol-hotspot .marker:after{
+  content:"";
+  position:absolute;
+  inset:50% auto auto 50%;
+  background:var(--gold2);
+  border-radius:99px;
+  transform:translate(-50%,-50%);
+}
+.symbol-hotspot .marker:before{width:10px;height:1px}
+.symbol-hotspot .marker:after{width:1px;height:10px}
+.symbol-hotspot:hover .marker,
+.symbol-hotspot:focus-visible .marker,
+.symbol-hotspot.active .marker{
+  transform:translate(-50%,-50%) scale(1.18);
+  background:rgba(0,167,173,.28);
+  box-shadow:
+    0 0 0 7px rgba(0,167,173,.16),
+    0 0 34px rgba(116,225,223,.75);
+}
+.symbol-overlay{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  z-index:7;
+  width:min(calc(100% - 32px),520px);
+  padding:18px 20px;
+  border:1px solid rgba(231,191,106,.38);
+  border-radius:18px;
+  background:rgba(6,14,25,.91);
+  backdrop-filter:blur(15px);
+  box-shadow:0 18px 55px rgba(0,0,0,.42);
+  opacity:0;
+  visibility:hidden;
+  transform:translate(-50%,12px);
+  transition:opacity .2s ease,transform .2s ease,visibility .2s ease;
+  pointer-events:none;
+}
+.symbol-overlay.show{
+  opacity:1;
+  visibility:visible;
+  transform:translate(-50%,0);
+}
+.symbol-overlay strong{
+  display:block;
+  margin-bottom:4px;
+  color:var(--gold2);
+  font-size:1rem;
+}
+.symbol-overlay span{
+  display:block;
+  color:#d4dde6;
+  font-size:.89rem;
+  line-height:1.5;
+}
+.symbol-hint{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:12px;
+  color:#8da0b2;
+  text-align:center;
+  font-size:.79rem;
+}
+.symbol-hint:before{
+  content:"";
+  width:8px;
+  height:8px;
+  flex:0 0 auto;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 0 4px rgba(231,191,106,.12);
+}
+
+.symbol-hotspot.knowledge{left:4%;top:2%;width:23%;height:17%}
+.symbol-hotspot.heart{left:43%;top:20%;width:20%;height:15%}
+.symbol-hotspot.center{left:46%;top:31%;width:16%;height:11%}
+.symbol-hotspot.hand{left:66%;top:28%;width:25%;height:18%}
+.symbol-hotspot.path{left:46%;top:40%;width:18%;height:31%}
+.symbol-hotspot.ram{left:67%;top:1%;width:31%;height:27%}
+.symbol-hotspot.community{left:61%;top:55%;width:37%;height:36%}
+.symbol-hotspot.lion{left:1%;top:45%;width:31%;height:24%}
+
+.chapter-kicker{
+  align-items:center;
+  gap:16px;
+  text-transform:uppercase;
+}
+.chapter-kicker svg{display:none}
+.symbol-thumb{
+  width:72px;
+  height:72px;
+  flex:0 0 72px;
+  display:block;
+  border-radius:18px;
+  border:1px solid rgba(231,191,106,.33);
+  background-image:url("michael-rau-architekt-souveraenitaet.png");
+  background-repeat:no-repeat;
+  background-size:360% auto;
+  box-shadow:0 12px 34px rgba(0,0,0,.25),inset 0 0 0 1px rgba(255,255,255,.05);
+}
+.thumb-knowledge{background-position:7% 3%}
+.thumb-heart{background-position:47% 22%}
+.thumb-center{background-position:50% 32%}
+.thumb-hand{background-position:78% 32%}
+.thumb-path{background-position:52% 52%}
+.thumb-ram{background-position:88% 7%}
+.thumb-community{background-position:81% 72%}
+.thumb-lion{background-position:4% 55%}
+
+.chapter.linked-symbol{
+  border-radius:26px;
+  transition:background .3s ease,box-shadow .3s ease;
+}
+.chapter.linked-symbol.symbol-pulse{
+  background:linear-gradient(90deg,rgba(231,191,106,.07),transparent 72%);
+  box-shadow:-8px 0 0 rgba(231,191,106,.45);
+}
+
+@media (max-width:620px){
+  .symbol-hotspot .marker{width:23px;height:23px}
+  .symbol-overlay{bottom:10px;width:calc(100% - 18px);padding:14px 15px;border-radius:14px}
+  .symbol-overlay strong{font-size:.93rem}
+  .symbol-overlay span{font-size:.82rem}
+  .symbol-thumb{width:58px;height:58px;flex-basis:58px;border-radius:15px}
+}
+
 .intro{
   padding:clamp(62px,8vw,112px) 0;
   border-top:1px solid var(--line);
@@ -580,8 +741,25 @@ footer{
             alt="Michael Rau – Architekt von Souveränität"
             loading="eager"
           >
+
+          <div class="symbol-layer" id="symbolLayer" aria-label="Interaktive Symbole im Bild">
+            <button class="symbol-hotspot knowledge" type="button" data-title-key="hs_knowledge_title" data-text-key="hs_knowledge_text" data-target="chapter-knowledge" aria-label="Wissen und Vernetzung"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot heart" type="button" data-title-key="hs_heart_title" data-text-key="hs_heart_text" data-target="chapter-heart" aria-label="Herz und Verstand"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot center" type="button" data-title-key="hs_center_title" data-text-key="hs_center_text" data-target="chapter-center" aria-label="Innere Mitte"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot hand" type="button" data-title-key="hs_hand_title" data-text-key="hs_hand_text" data-target="chapter-hand" aria-label="Die offene Hand"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot path" type="button" data-title-key="hs_path_title" data-text-key="hs_path_text" data-target="chapter-path" aria-label="Vom Verstehen zum Handeln"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot ram" type="button" data-title-key="hs_ram_title" data-text-key="hs_ram_text" data-target="chapter-ram" aria-label="Pioniergeist"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot community" type="button" data-title-key="hs_community_title" data-text-key="hs_community_text" data-target="chapter-community" aria-label="Gemeinschaft und Dezentralität"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot lion" type="button" data-title-key="hs_lion_title" data-text-key="hs_lion_text" data-target="chapter-lion" aria-label="Schutz und Stärke"><span class="marker" aria-hidden="true"></span></button>
+          </div>
+          <div class="symbol-overlay" id="symbolOverlay" role="status" aria-live="polite">
+            <strong id="symbolOverlayTitle"></strong>
+            <span id="symbolOverlayText"></span>
+          </div>
+
         </div>
         <figcaption class="image-caption" data-i18n="image_caption">Eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</figcaption>
+        <div class="symbol-hint" data-i18n="symbol_hint">Fahre mit der Maus über ein markiertes Symbol oder tippe darauf.</div>
       </figure>
     </div>
   </div>
@@ -604,12 +782,9 @@ footer{
     </aside>
 
     <div class="story-content">
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-knowledge">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 5.5h9.5A2.5 2.5 0 0 1 17 8v10.5H7.5A2.5 2.5 0 0 0 5 21V5.5Z" stroke="#e7bf6a" stroke-width="1.4"/>
-            <path d="M17 8h2v11H8" stroke="#74e1df" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
+          <span class="symbol-thumb thumb-knowledge" aria-hidden="true"></span>
           <span data-i18n="c1_kicker">Wissen & Erkenntnis</span>
         </div>
         <h2 data-i18n="c1_title">Wissen bekommt erst durch Zusammenhänge Bedeutung.</h2>
@@ -622,12 +797,9 @@ footer{
         </div>
       </article>
 
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-heart">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 20s-7-4.35-7-9.25A3.75 3.75 0 0 1 12 8.7a3.75 3.75 0 0 1 7 2.05C19 15.65 12 20 12 20Z" stroke="#e7bf6a" stroke-width="1.4"/>
-            <circle cx="12" cy="11.5" r="2.2" stroke="#74e1df" stroke-width="1.2"/>
-          </svg>
+          <span class="symbol-thumb thumb-heart" aria-hidden="true"></span>
           <span data-i18n="c2_kicker">Herz & Verstand</span>
         </div>
         <h2 data-i18n="c2_title">Entwicklung muss den Kopf erreichen – und das Herz.</h2>
@@ -635,13 +807,9 @@ footer{
         <p data-i18n="c2_p2">Menschen brauchen Klarheit, aber ebenso Vertrauen, Mut, Geschichten, Emotionen und manchmal einen Impuls, der sie tief im Inneren erreicht. Deshalb gehören für mich Wissen und Menschlichkeit untrennbar zusammen.</p>
       </article>
 
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-center">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="8.2" stroke="#e7bf6a" stroke-width="1.4"/>
-            <path d="M12 5.7v12.6M5.7 12h12.6" stroke="#74e1df" stroke-width="1.2"/>
-            <circle cx="12" cy="12" r="2.3" fill="#c6006f"/>
-          </svg>
+          <span class="symbol-thumb thumb-center" aria-hidden="true"></span>
           <span data-i18n="c3_kicker">Souveränität & Verantwortung</span>
         </div>
         <h2 data-i18n="c3_title">Souveränität beginnt mit Selbstführung.</h2>
@@ -653,13 +821,9 @@ footer{
         </div>
       </article>
 
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-hand">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 14.5c4.2.1 5.3-3.7 8-3.7 2.3 0 2.8 2 5.8 2.1" stroke="#e7bf6a" stroke-width="1.4" stroke-linecap="round"/>
-            <path d="M6 17.8c4.9.2 6-3.1 8.7-3.1 1.7 0 2.3 1 3.9 1.2" stroke="#74e1df" stroke-width="1.4" stroke-linecap="round"/>
-            <circle cx="17.8" cy="8.2" r="3.3" stroke="#fff" stroke-opacity=".8" stroke-width="1.2"/>
-          </svg>
+          <span class="symbol-thumb thumb-hand" aria-hidden="true"></span>
           <span data-i18n="c4_kicker">Die offene Hand</span>
         </div>
         <h2 data-i18n="c4_title">Ich halte Wissen nicht fest. Ich gebe es weiter.</h2>
@@ -668,14 +832,9 @@ footer{
         <p><strong data-i18n="c4_p3">Genau darin liegt für mich echte Befähigung.</strong></p>
       </article>
 
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-path">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="5" cy="12" r="2" fill="#00a7ad"/>
-            <circle cx="12" cy="12" r="2" fill="#e7bf6a"/>
-            <circle cx="19" cy="12" r="2" fill="#c6006f"/>
-            <path d="M7 12h3M14 12h3" stroke="#fff" stroke-opacity=".75" stroke-width="1.3"/>
-          </svg>
+          <span class="symbol-thumb thumb-path" aria-hidden="true"></span>
           <span data-i18n="c5_kicker">Vom Verstehen zum Handeln</span>
         </div>
         <h2 data-i18n="c5_title">Erkenntnis soll im wirklichen Leben etwas verändern.</h2>
@@ -690,13 +849,9 @@ footer{
         </div>
       </article>
 
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-ram">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5.5 17.5 12 5l6.5 12.5" stroke="#e7bf6a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8.4 13.6h7.2" stroke="#74e1df" stroke-width="1.2"/>
-            <circle cx="12" cy="5" r="1.5" fill="#c6006f"/>
-          </svg>
+          <span class="symbol-thumb thumb-ram" aria-hidden="true"></span>
           <span data-i18n="c6_kicker">Der Pionier</span>
         </div>
         <h2 data-i18n="c6_title">Neue Wege beginnen mit dem Mut, anders zu denken.</h2>
@@ -708,14 +863,9 @@ footer{
         </div>
       </article>
 
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-community">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="6" cy="12" r="2.2" stroke="#74e1df" stroke-width="1.3"/>
-            <circle cx="18" cy="8" r="2.2" stroke="#e7bf6a" stroke-width="1.3"/>
-            <circle cx="18" cy="17" r="2.2" stroke="#c6006f" stroke-width="1.3"/>
-            <path d="m8.1 11.3 7.8-2.6M8.1 12.8l7.8 3.4" stroke="#fff" stroke-opacity=".75" stroke-width="1.2"/>
-          </svg>
+          <span class="symbol-thumb thumb-community" aria-hidden="true"></span>
           <span data-i18n="c7_kicker">Gemeinschaft & Eigenständigkeit</span>
         </div>
         <h2 data-i18n="c7_title">Verbunden sein, ohne die eigene Verantwortung abzugeben.</h2>
@@ -724,12 +874,9 @@ footer{
         <p data-i18n="c7_p3">Auch die Menschen im Vordergrund sind deshalb wichtig. Sie stehen nicht dort, um mir zu folgen. Sie stehen dort, weil sie etwas erkennen, lernen und anschließend ihren eigenen Weg weitergehen können.</p>
       </article>
 
-      <article class="chapter reveal">
+      <article class="chapter reveal linked-symbol" id="chapter-lion">
         <div class="chapter-kicker">
-          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 3.5 19 6v5.2c0 4.4-2.8 7.7-7 9.3-4.2-1.6-7-4.9-7-9.3V6l7-2.5Z" stroke="#e7bf6a" stroke-width="1.4"/>
-            <path d="m9.2 12 1.8 1.8 4-4.1" stroke="#74e1df" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <span class="symbol-thumb thumb-lion" aria-hidden="true"></span>
           <span data-i18n="c8_kicker">Schutz & Stärke</span>
         </div>
         <h2 data-i18n="c8_title">Schutz gehört für mich genauso zur Bildung wie das Aufzeigen von Chancen.</h2>
@@ -782,6 +929,24 @@ const translations = {
     image_wait_title:"Das Bild bekommt hier seinen Platz.",
     image_wait_text:"Sobald die Bilddatei hochgeladen ist, erscheint sie automatisch in diesem Rahmen.",
     image_caption:"Eine bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.",
+    symbol_hint:"Fahre mit der Maus über ein markiertes Symbol oder tippe darauf.",
+    hs_knowledge_title:"Wissen & Vernetzung",
+    hs_knowledge_text:"Das blaue Zeichen über der Bibliothek steht für Wissen, vernetztes Denken und die Fähigkeit, Zusammenhänge sichtbar zu machen.",
+    hs_heart_title:"Herz & Verstand",
+    hs_heart_text:"Das Licht in der Brust verbindet Klarheit und Wissen mit Menschlichkeit, Haltung und innerer Verantwortung.",
+    hs_center_title:"Innere Mitte",
+    hs_center_text:"Das goldene Zentrum steht für Selbstführung, Verantwortung und die Fähigkeit, aus der eigenen Mitte heraus zu entscheiden.",
+    hs_hand_title:"Die offene Hand",
+    hs_hand_text:"Die Lichtkugel steht für Wissen, das weitergegeben wird, ohne Menschen abhängig zu machen. Orientierung anbieten – Entscheidung beim Menschen lassen.",
+    hs_path_title:"Vom Verstehen zum Handeln",
+    hs_path_text:"Die Zeichen entlang des Gewands bilden eine Achse: verstehen, ordnen, orientieren und schließlich selbst handeln.",
+    hs_ram_title:"Pioniergeist",
+    hs_ram_text:"Der Widder aus Licht steht für Anfangskraft, Mut und den Impuls, neue Wege zu öffnen – verbunden mit Struktur und Verantwortung.",
+    hs_community_title:"Gemeinschaft & Dezentralität",
+    hs_community_text:"Die vernetzte Landschaft steht für Menschen, die miteinander verbunden sind, ohne ihre Eigenständigkeit und Verantwortung abzugeben.",
+    hs_lion_title:"Schutz & Stärke",
+    hs_lion_text:"Der Löwe verkörpert Schutz, innere Ruhe und die Stärke, Chancen zu erkennen und Risiken zugleich kritisch zu prüfen.",
+
     intro_text:'Dieses Bild ist keine Darstellung dessen, was ich sein möchte. Es ist eine <strong>bildliche Verdichtung dessen, wofür ich seit vielen Jahren arbeite.</strong>',
     story_label:"Die Botschaft hinter dem Bild",
     story_summary:"Verstehen → Ordnen → Orientieren → Handeln",
@@ -846,6 +1011,24 @@ const translations = {
     image_wait_title:"The image will have its place here.",
     image_wait_text:"As soon as the image file is uploaded, it will appear automatically in this frame.",
     image_caption:"A visual condensation of what I have been working for over many years.",
+    symbol_hint:"Move the pointer over a marked symbol or tap it.",
+    hs_knowledge_title:"Knowledge & Connection",
+    hs_knowledge_text:"The blue symbol above the library represents knowledge, connected thinking, and the ability to make relationships visible.",
+    hs_heart_title:"Heart & Mind",
+    hs_heart_text:"The light in the chest connects clarity and knowledge with humanity, values, and inner responsibility.",
+    hs_center_title:"Inner Center",
+    hs_center_text:"The golden center represents self-leadership, responsibility, and the ability to decide from a grounded inner center.",
+    hs_hand_title:"The Open Hand",
+    hs_hand_text:"The sphere of light represents knowledge that is shared without creating dependence. Offer orientation – leave the decision with the person.",
+    hs_path_title:"From Understanding to Action",
+    hs_path_text:"The symbols along the robe form an axis: understand, organize, orient, and ultimately act for yourself.",
+    hs_ram_title:"Pioneering Spirit",
+    hs_ram_text:"The ram made of light represents the power of beginnings, courage, and opening new paths – joined with structure and responsibility.",
+    hs_community_title:"Community & Decentralization",
+    hs_community_text:"The connected landscape represents people who are linked without surrendering their independence or responsibility.",
+    hs_lion_title:"Protection & Strength",
+    hs_lion_text:"The lion represents protection, inner calm, and the strength to recognize opportunities while critically examining risks.",
+
     intro_text:'This image is not a depiction of what I want to become. It is a <strong>visual condensation of what I have been working for over many years.</strong>',
     story_label:"The message behind the image",
     story_summary:"Understand → Organize → Orient → Act",
@@ -918,6 +1101,9 @@ function setLanguage(lang){
     btn.classList.toggle("active",btn.dataset.lang===lang);
   });
   localStorage.setItem("michael-manifest-lang",lang);
+  if(typeof activeHotspot!=="undefined" && activeHotspot){
+    showSymbolInfo(activeHotspot,true);
+  }
 }
 
 document.querySelectorAll("[data-lang]").forEach(btn=>{
@@ -926,6 +1112,55 @@ document.querySelectorAll("[data-lang]").forEach(btn=>{
 
 const initialLang=localStorage.getItem("michael-manifest-lang")||"de";
 setLanguage(initialLang);
+
+
+const overlay=document.getElementById("symbolOverlay");
+const overlayTitle=document.getElementById("symbolOverlayTitle");
+const overlayText=document.getElementById("symbolOverlayText");
+const hotspots=[...document.querySelectorAll(".symbol-hotspot")];
+let activeHotspot=null;
+
+function showSymbolInfo(hotspot,persist=false){
+  const lang=document.documentElement.lang||"de";
+  const dict=translations[lang]||translations.de;
+  overlayTitle.textContent=dict[hotspot.dataset.titleKey]||"";
+  overlayText.textContent=dict[hotspot.dataset.textKey]||"";
+  overlay.classList.add("show");
+  hotspots.forEach(h=>h.classList.toggle("active",h===hotspot));
+  if(persist) activeHotspot=hotspot;
+  const target=document.getElementById(hotspot.dataset.target);
+  document.querySelectorAll(".chapter.symbol-pulse").forEach(el=>el.classList.remove("symbol-pulse"));
+  if(target){
+    target.classList.add("symbol-pulse");
+    window.setTimeout(()=>target.classList.remove("symbol-pulse"),1200);
+  }
+}
+function hideSymbolInfo(force=false){
+  if(activeHotspot&&!force) return;
+  overlay.classList.remove("show");
+  hotspots.forEach(h=>h.classList.remove("active"));
+}
+hotspots.forEach(h=>{
+  h.addEventListener("mouseenter",()=>showSymbolInfo(h,false));
+  h.addEventListener("mouseleave",()=>{ if(activeHotspot!==h) hideSymbolInfo(true); });
+  h.addEventListener("focus",()=>showSymbolInfo(h,false));
+  h.addEventListener("blur",()=>{ if(activeHotspot!==h) hideSymbolInfo(true); });
+  h.addEventListener("click",e=>{
+    e.stopPropagation();
+    if(activeHotspot===h){
+      activeHotspot=null;
+      hideSymbolInfo(true);
+    }else{
+      showSymbolInfo(h,true);
+    }
+  });
+});
+document.addEventListener("click",e=>{
+  if(activeHotspot&&!e.target.closest(".symbol-hotspot")){
+    activeHotspot=null;
+    hideSymbolInfo(true);
+  }
+});
 
 const portrait=document.getElementById("portraitImage");
 const frame=document.getElementById("portraitFrame");
