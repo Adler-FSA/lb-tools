@@ -465,6 +465,7 @@ h1 span{
 }
 
 .symbol-hotspot.knowledge{left:9.7%;top:10.6%;--hit-w:13%;--hit-h:12%;--pulse-delay:0s}
+.symbol-hotspot.staff{left:28.2%;top:10.1%;--hit-w:13%;--hit-h:12%;--pulse-delay:.08s}
 .symbol-hotspot.heart{left:49.5%;top:25.3%;--hit-w:12%;--hit-h:11%;--pulse-delay:.16s}
 .symbol-hotspot.center{left:49.3%;top:33.2%;--hit-w:10%;--hit-h:9%;--pulse-delay:.32s}
 .symbol-hotspot.hand{left:73.0%;top:33.3%;--hit-w:14%;--hit-h:12%;--pulse-delay:.48s}
@@ -476,6 +477,41 @@ h1 span{
 .symbol-hotspot.ram{left:74.4%;top:14.7%;--hit-w:15%;--hit-h:14%;--pulse-delay:1.44s}
 .symbol-hotspot.community{left:79.4%;top:69.7%;--hit-w:17%;--hit-h:16%;--pulse-delay:1.6s}
 .symbol-hotspot.lion{left:11.3%;top:55.1%;--hit-w:14%;--hit-h:13%;--pulse-delay:1.76s}
+
+
+.symbol-hotspot.order .marker,
+.symbol-hotspot.orientation .marker,
+.symbol-hotspot.insight .marker,
+.symbol-hotspot.world .marker,
+.symbol-hotspot.step .marker{
+  width:19px;
+  height:19px;
+  border-width:1.2px;
+  box-shadow:
+    0 0 0 2px rgba(231,191,106,.15),
+    0 0 11px rgba(0,167,173,.36);
+}
+.symbol-hotspot.order:before,
+.symbol-hotspot.orientation:before,
+.symbol-hotspot.insight:before,
+.symbol-hotspot.world:before,
+.symbol-hotspot.step:before{
+  width:19px;
+  height:19px;
+  border-width:1.2px;
+  box-shadow:0 0 6px rgba(255,240,185,.30);
+}
+.symbol-hotspot.order .marker:before,
+.symbol-hotspot.orientation .marker:before,
+.symbol-hotspot.insight .marker:before,
+.symbol-hotspot.world .marker:before,
+.symbol-hotspot.step .marker:before{width:8px}
+.symbol-hotspot.order .marker:after,
+.symbol-hotspot.orientation .marker:after,
+.symbol-hotspot.insight .marker:after,
+.symbol-hotspot.world .marker:after,
+.symbol-hotspot.step .marker:after{height:8px}
+
 
 .chapter-kicker{
   align-items:center;
@@ -830,6 +866,7 @@ footer{
 
           <div class="symbol-layer" id="symbolLayer" aria-label="Interaktive Symbole im Bild">
             <button class="symbol-hotspot knowledge" type="button" data-title-key="hs_knowledge_title" data-text-key="hs_knowledge_text" data-target="chapter-knowledge" aria-label="Wissen und Vernetzung"><span class="marker" aria-hidden="true"></span></button>
+            <button class="symbol-hotspot staff" type="button" data-title-key="hs_staff_title" data-text-key="hs_staff_text" data-target="chapter-knowledge" aria-label="Orientierung und Klarheit"><span class="marker" aria-hidden="true"></span></button>
             <button class="symbol-hotspot heart" type="button" data-title-key="hs_heart_title" data-text-key="hs_heart_text" data-target="chapter-heart" aria-label="Herz und Verstand"><span class="marker" aria-hidden="true"></span></button>
             <button class="symbol-hotspot center" type="button" data-title-key="hs_center_title" data-text-key="hs_center_text" data-target="chapter-center" aria-label="Innere Mitte"><span class="marker" aria-hidden="true"></span></button>
             <button class="symbol-hotspot hand" type="button" data-title-key="hs_hand_title" data-text-key="hs_hand_text" data-target="chapter-hand" aria-label="Die offene Hand"><span class="marker" aria-hidden="true"></span></button>
@@ -1035,6 +1072,8 @@ const translations = {
     symbol_toggle_hide:"Symbole ausblenden",
     hs_knowledge_title:"Wissen & Vernetzung",
     hs_knowledge_text:"Das blaue Zeichen über der Bibliothek steht für Wissen, vernetztes Denken und die Fähigkeit, Zusammenhänge sichtbar zu machen.",
+    hs_staff_title:"Orientierung & Klarheit",
+    hs_staff_text:"Der Stab steht für Haltung und einen inneren Kompass. Die kreisenden Bahnen an seiner Spitze symbolisieren das Erkennen von Zusammenhängen: Wissen wird geordnet, Komplexität verständlich und aus Erkenntnis entsteht Orientierung.",
     hs_heart_title:"Herz & Verstand",
     hs_heart_text:"Das Licht in der Brust verbindet Klarheit und Wissen mit Menschlichkeit, Haltung und innerer Verantwortung.",
     hs_center_title:"Innere Mitte",
@@ -1128,6 +1167,8 @@ const translations = {
     symbol_toggle_hide:"Hide symbols",
     hs_knowledge_title:"Knowledge & Connection",
     hs_knowledge_text:"The blue symbol above the library represents knowledge, connected thinking, and the ability to make relationships visible.",
+    hs_staff_title:"Orientation & Clarity",
+    hs_staff_text:"The staff represents inner alignment and an internal compass. The orbiting paths at its top symbolize recognizing connections: knowledge is organized, complexity becomes understandable, and insight becomes orientation.",
     hs_heart_title:"Heart & Mind",
     hs_heart_text:"The light in the chest connects clarity and knowledge with humanity, values, and inner responsibility.",
     hs_center_title:"Inner Center",
