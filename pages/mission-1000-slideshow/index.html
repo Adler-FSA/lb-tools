@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#132238">
+<title>MISSION 1.000 – LiquidityBooster</title>
+<meta name="description" content="MISSION 1.000 – 1.000 × mehr vom Leben. Eine Challenge von Herz zu Herz und vom ICH zum WIR.">
+<style>
+:root{
+  --mint:#00a7ad;
+  --mag:#c6006f;
+  --navy:#132238;
+  --ink:#26394a;
+  --muted:#6d7d89;
+  --line:#dbe6e9;
+  --bg:#edf3f5;
+  --paper:#fff;
+  --nav-h:78px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
+button{font:inherit}.app{width:100%;height:100vh;height:100dvh;display:grid;grid-template-rows:minmax(0,1fr) var(--nav-h);overflow:hidden}
+.stage{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden;background:radial-gradient(circle at 12% 10%,rgba(0,167,173,.08),transparent 25%),radial-gradient(circle at 88% 90%,rgba(198,0,111,.07),transparent 25%),var(--bg)}
+.slide{position:absolute;inset:12px;display:none;align-items:center;justify-content:center;min-width:0;min-height:0}.slide.active{display:flex}
+.deck{position:relative;aspect-ratio:16/9;width:min(100%,calc((100vh - var(--nav-h) - 24px)*16/9));max-height:100%;background:var(--paper);overflow:hidden;border-radius:16px;box-shadow:0 12px 28px rgba(19,34,56,.12)}
+.canvas{position:absolute;inset:0;padding:5.2% 6.5% 4.8%;display:flex;flex-direction:column}
+.progress{position:absolute;left:0;right:0;top:0;height:4px;background:rgba(255,255,255,.68);z-index:20}.progress span{display:block;height:100%;width:6.25%;background:linear-gradient(90deg,var(--mint),var(--mag));transition:width .25s ease}
+.tools{position:absolute;top:18px;right:20px;z-index:30;display:flex;gap:8px}.toolbtn{width:42px;height:42px;border:1px solid rgba(255,255,255,.72);border-radius:50%;display:grid;place-items:center;background:rgba(19,34,56,.82);color:#fff;box-shadow:0 6px 20px rgba(19,34,56,.18);cursor:pointer;backdrop-filter:blur(10px)}.toolbtn:hover{background:var(--navy)}.toolbtn svg{width:20px;height:20px}
+.hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:25;padding:7px 11px;border-radius:999px;background:rgba(19,34,56,.75);color:#fff;font-size:10px;opacity:0;pointer-events:none;transition:opacity .2s ease}.stage.show-hint .hint{opacity:.8}
+.navbar{min-height:var(--nav-h);background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(19,34,56,.06);z-index:40;display:flex;align-items:center}.navin{width:min(1260px,calc(100% - 30px));margin:auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px}.navbtn{border:1px solid var(--line);background:#fff;color:var(--navy);min-height:54px;border-radius:15px;padding:8px 13px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;font-weight:850}.navbtn:hover:not(:disabled){background:#f8fbfb;border-color:#c8dfe1}.navbtn.next{justify-self:end;text-align:right;flex-direction:row-reverse}.navbtn:disabled{opacity:.28;cursor:default}.arrow{width:31px;height:31px;flex:none;display:grid;place-items:center;border-radius:50%;background:#e9f9f9;color:var(--mint);font-size:20px;line-height:1}.next .arrow{background:#fff0f7;color:var(--mag)}.navcopy{min-width:0}.navcopy small{display:block;margin-bottom:2px;color:var(--muted);font-size:8px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}.navcopy span{display:block;max-width:310px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}.center{text-align:center;color:var(--muted);font-size:9px;white-space:nowrap}.center strong{display:block;color:var(--navy);font-size:17px;line-height:1.05}.center .title{display:block;max-width:280px;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.dots{display:flex;justify-content:center;gap:4px;margin-top:4px}.dot{width:5px;height:5px;border-radius:50%;background:#d4e0e3;transition:.18s ease}.dot.active{background:var(--mint);transform:scale(1.45)}
+/* slide typography */
+.kicker{font-weight:800;letter-spacing:.08em;color:var(--mint);font-size:clamp(9px,1vw,16px)}
+h1,h2,h3,p{margin:0}.title-xl{font-size:clamp(26px,4.2vw,66px);line-height:1.02;color:var(--mag);font-weight:780;letter-spacing:-.03em}.title-lg{font-size:clamp(22px,3.1vw,48px);line-height:1.05;color:var(--navy);font-weight:800;letter-spacing:-.025em}.title-md{font-size:clamp(18px,2.3vw,36px);line-height:1.1;color:var(--navy);font-weight:800}.lead{font-size:clamp(12px,1.35vw,22px);line-height:1.45}.small{font-size:clamp(9px,.95vw,15px);line-height:1.4}.muted{color:var(--muted)}.mint{color:var(--mint)}.mag{color:var(--mag)}.navy{color:var(--navy)}.bold{font-weight:800}
+.footer{position:absolute;left:6.5%;right:6.5%;bottom:3.2%;display:flex;justify-content:space-between;align-items:center;color:#4b7f87;font-size:clamp(7px,.7vw,11px)}.footer strong{font-weight:900}.footer .page{color:#7b8b96}
+.logo-lock{display:flex;align-items:center;gap:1.2vw}.logo-mark{width:clamp(48px,6vw,92px);height:auto}.logo-word{display:flex;flex-direction:column}.logo-name{font-size:clamp(15px,2.35vw,36px);font-weight:800;line-height:1}.logo-name .mint{color:#26a8bd}.logo-tag{font-size:clamp(5px,.55vw,9px);color:#54b7c6;margin-top:.35em;letter-spacing:-.01em}
+.hero-center{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:2vw}.handline{font-size:clamp(15px,2.2vw,34px);font-style:italic;color:#204a56}.handline .script{font-family:"Segoe Script","Bradley Hand",cursive;color:var(--mag);font-size:1.15em}.heart{display:inline-block;color:#e60045;font-style:normal;filter:drop-shadow(0 1px 0 #97102f)}.hero-box{width:min(76%,920px);background:#35a7bb;color:#fff;border-radius:1.6vw;padding:2.2vw 3vw;font-size:clamp(14px,1.75vw,27px);line-height:1.5}.claim{font-size:clamp(12px,1.55vw,24px);color:#35a7bb}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:2.2vw;align-items:stretch}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}.metric{border:1px solid #e3edf0;border-radius:1.4vw;padding:1.5vw;background:#fff;box-shadow:0 8px 20px rgba(19,34,56,.05)}.metric .num{font-size:clamp(28px,4.6vw,72px);line-height:1;color:var(--mag);font-weight:850}.metric .label{margin-top:.55vw;font-size:clamp(10px,1.1vw,18px);color:var(--navy)}
+.steps{display:flex;flex-direction:column;gap:1.15vw;margin-top:2vw}.step{display:grid;grid-template-columns:auto 1fr;gap:1.25vw;align-items:start}.stepnum{width:clamp(30px,3.2vw,50px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#eaf9fa;color:var(--mint);font-weight:900;font-size:clamp(10px,1vw,16px)}.step h3{font-size:clamp(12px,1.35vw,21px);color:var(--navy);margin:.05em 0 .2em}.step p{font-size:clamp(9px,1vw,16px);line-height:1.4;color:#566977}
+.challenge{display:grid;grid-template-columns:.8fr 1.2fr;gap:3vw;align-items:center;flex:1}.big3{font-size:clamp(120px,20vw,320px);line-height:.8;color:var(--mag);font-weight:850;letter-spacing:-.08em}.challenge-copy .bigline{font-size:clamp(20px,2.8vw,44px);line-height:1.18;color:var(--navy);font-weight:760}.challenge-copy .subline{margin-top:2vw;font-size:clamp(12px,1.35vw,21px);line-height:1.55}.accent-bottom{margin-top:auto;font-size:clamp(11px,1.25vw,20px);font-weight:800;color:var(--mag)}
+.quote{margin:auto;width:88%;font-size:clamp(13px,1.65vw,26px);line-height:1.55;color:var(--navy);font-weight:500}.quote:before{content:'„';font-size:3em;line-height:0;vertical-align:-.45em;color:var(--mag);font-weight:800}.quote:after{content:'“';font-size:3em;line-height:0;vertical-align:-.45em;color:var(--mag);font-weight:800}.note{margin-top:auto;font-size:clamp(10px,1vw,16px);color:#62727e}.note strong{color:var(--mint)}
+.team-card{display:flex;flex-direction:column;gap:.9vw;border-left:.35vw solid var(--mint);padding:.4vw 0 .4vw 1.5vw}.team-card h3{font-size:clamp(12px,1.5vw,24px);color:var(--navy)}.team-card p{font-size:clamp(9px,1.05vw,17px)}.team-big{font-size:clamp(48px,7vw,110px);font-weight:850;color:var(--mag);line-height:.9}.bullets{display:grid;gap:.7vw}.bullet{display:flex;gap:.8vw;align-items:flex-start;font-size:clamp(10px,1.05vw,17px)}.bullet:before{content:'';width:.72vw;height:.72vw;min-width:7px;min-height:7px;margin-top:.35em;border-radius:50%;background:var(--mint)}
+.chart{display:flex;align-items:end;justify-content:space-around;gap:2vw;height:56%;border-bottom:1px solid #cfdade;padding:0 2vw 0}.barwrap{width:18%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}.barvalue{font-size:clamp(8px,.9vw,14px);margin-bottom:.35vw;color:#26333b}.bar{width:62%;background:#35a7bb}.barlabel{font-size:clamp(7px,.82vw,13px);margin-top:.7vw;color:#65727a;text-align:center}.months{display:flex;gap:2vw;margin-top:2.4vw;font-size:clamp(9px,1.08vw,17px);color:#63808a}.months span{white-space:nowrap}
+.awards{display:grid;grid-template-columns:1fr 1fr;gap:.7vw 4vw;margin-top:2vw}.award{display:grid;grid-template-columns:minmax(130px,.8fr) 1.2fr;gap:1vw;align-items:center;border-bottom:1px solid #e2ecee;padding:.55vw 0}.award .count{font-size:clamp(11px,1.2vw,19px);font-weight:800;color:var(--navy)}.award .rank{font-size:clamp(10px,1.1vw,18px);color:var(--mag);font-weight:800}.founder-note{margin-top:1vw;padding:1vw 1.3vw;border-radius:1vw;background:#eefafa;color:#31505a;font-size:clamp(9px,1vw,15px)}
+.calc{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;align-items:center;flex:1}.calcitem{text-align:center}.calcitem .num{font-size:clamp(56px,9vw,140px);font-weight:850;line-height:.88;color:var(--mag)}.calcitem:nth-child(2) .num,.calcitem:nth-child(3) .num{color:var(--mint)}.calcitem .label{margin-top:1vw;font-size:clamp(11px,1.25vw,20px);color:var(--navy)}.calc-example{text-align:center;font-size:clamp(13px,1.55vw,24px);font-weight:800;color:var(--navy);margin-bottom:1vw}.calc-foot{text-align:center;font-size:clamp(9px,1vw,16px);color:#63747f}
+.final-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.4vw}.final-center .three{font-size:clamp(34px,5vw,78px);line-height:1;color:var(--mag);font-weight:850}.final-center .line{font-size:clamp(18px,2.5vw,40px);font-weight:800;color:var(--navy)}.final-center .copy{max-width:72%;font-size:clamp(11px,1.3vw,20px);line-height:1.5}.final-center .closing{margin-top:1vw;font-size:clamp(24px,3.7vw,58px);font-weight:850;color:#35a7bb}
+.gift15{background:linear-gradient(135deg,#fff 0 55%,#f0fbfb 55% 100%)}.gift15 .giftcenter{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.gift15 .alex{font-size:clamp(22px,3.4vw,54px);color:#35a7bb;font-weight:800}.gift15 .calling{font-size:clamp(28px,4vw,64px);color:var(--navy);font-weight:850;max-width:80%;margin-top:1vw}
+.giftgrid{display:grid;grid-template-columns:1fr 1.05fr;gap:3vw;flex:1;align-items:center;margin-top:1.8vw}.prompt-title{font-size:clamp(12px,1.25vw,19px);font-weight:900;color:#111;margin-bottom:1.4vw}.prompt{font-size:clamp(9px,1.04vw,16px);line-height:1.65;color:#1c2024}.prompt .mag{color:#ca377c}.prompt .mint{color:#3da7b2}.gift-note{margin-top:1.5vw;font-size:clamp(7px,.82vw,12px)}.autumn{width:100%;height:100%;max-height:26vw;min-height:180px;border-radius:.4vw;overflow:hidden;position:relative;background:linear-gradient(#f7dd84 0%,#f4b54d 40%,#f4e3a4 66%,#d8c27d 100%);box-shadow:inset 0 0 60px rgba(124,72,12,.18)}.autumn svg{width:100%;height:100%;display:block}.autumn-word{position:absolute;left:8%;right:4%;bottom:9%;font-family:"Segoe Script","Bradley Hand",cursive;font-size:clamp(26px,4.6vw,74px);color:#fff;text-shadow:0 2px 4px rgba(75,54,18,.2);white-space:nowrap}.autumn-word b{color:#cc2b78;font-weight:500}
+@media(max-width:760px){:root{--nav-h:72px}.stage{padding:8px}.slide{inset:8px}.deck{border-radius:10px}.navin{width:calc(100% - 16px);gap:7px}.navbtn{min-height:48px;padding:7px 8px;border-radius:12px}.arrow{width:27px;height:27px;font-size:17px}.navcopy small{font-size:7px}.navcopy span{font-size:9px;max-width:28vw}.center strong{font-size:14px}.center{font-size:8px}.center .title{display:none}.tools{top:12px;right:12px}.toolbtn{width:36px;height:36px}}
+@media(prefers-reduced-motion:reduce){.progress span,.dot,.hint{transition:none}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<main class="stage" id="stage" aria-label="MISSION 1.000 Präsentation">
+<div class="progress" aria-hidden="true"><span id="progressFill"></span></div>
+
+<section class="slide active" data-title="1.000 × mehr vom Leben" data-short="Start"><div class="deck"><div class="canvas">
+  <div class="logo-lock">
+    <svg class="logo-mark" viewBox="0 0 90 108" aria-label="LiquidityBooster Symbol" role="img"><path d="M11 12c15 8 28 7 34 2 7 5 20 6 34-2v38c0 26-12 42-34 55C23 92 11 76 11 50Z" fill="none" stroke="#35a7bb" stroke-width="5"/><path d="M18 22c11 5 20 5 27 1 7 4 16 4 27-1v26c0 20-8 34-27 46-19-12-27-26-27-46Z" fill="none" stroke="#35a7bb" stroke-width="2.5"/><path d="M45 30 33 54h8v25h8V54h8Z" fill="#c6006f"/></svg>
+    <div class="logo-word"><div class="logo-name"><span class="mint">liquidity</span> <span class="mag">booster.de</span></div><div class="logo-tag">MEHR GELD - MEHR FREIHEIT - MEHR VOM LEBEN</div></div>
+  </div>
+  <div class="hero-center">
+    <h1 class="title-xl">1.000 × mehr vom Leben</h1>
+    <div class="handline">Eine Challenge von Herz zu <span class="heart">♥</span> und <span class="script">Vom ICH zum WIR</span></div>
+    <div class="hero-box">Gemeinsam wollen wir möglichst viele Menschen erreichen<br>für eine Zukunft in Frieden &amp; Wohlstand.</div>
+    <div class="claim">Mehr Geld - Mehr Freiheit - Mehr vom Leben</div>
+  </div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">01</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Unser gemeinsames Ziel" data-short="Gemeinsames Ziel"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Unser gemeinsames Ziel</h2>
+  <div class="grid4" style="margin-top:4vw">
+    <div class="metric"><div class="num">183</div><div class="label">Mitglieder heute</div></div>
+    <div class="metric"><div class="num">1.001+</div><div class="label">Mitglieder bis 31.12.2026</div></div>
+    <div class="metric"><div class="num">818</div><div class="label">zus. Mitglieder</div></div>
+    <div class="metric"><div class="num">13</div><div class="label">Wochen Zeit</div></div>
+  </div>
+  <div style="margin-top:3vw;display:flex;justify-content:space-between;align-items:end"><div class="title-md mag">Unglaublich oder?</div><div class="lead navy bold">Vom ICH zum WIR macht´s möglich!</div></div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">02</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Warum wir Menschen einladen" data-short="Warum einladen"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Warum wir Menschen einladen</h2>
+  <div class="steps">
+    <div class="step"><div class="stepnum">01</div><div><h3>Finanzwissen zugänglich machen</h3><p>Menschen können neue Perspektiven entdecken und selbst entscheiden.</p></div></div>
+    <div class="step"><div class="stepnum">02</div><div><h3>Gemeinschaft erlebbar machen</h3><p>Erfahrungen teilen, Fragen stellen und voneinander lernen.</p></div></div>
+    <div class="step"><div class="stepnum">03</div><div><h3>Mehr Menschen erreichen</h3><p>Jede persönliche Einladung kann eine wertvolle Verbindung eröffnen.</p></div></div>
+  </div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">03</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Deine Challenge: Meine 3" data-short="Meine 3"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Deine Challenge: Meine 3</h2>
+  <div class="challenge"><div class="big3">3</div><div class="challenge-copy"><div class="bigline">Menschen, denen du<br>diese Chance zeigen möchtest</div><div class="subline">Namen aufschreiben. Persönlich einladen.<br>Gemeinsam den Club kennenlernen.</div></div></div>
+  <div class="accent-bottom">Dein erster Schritt: 3 Einladungen innerhalb von 5Tagen.</div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">04</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Der Weg vom Gast zum ClubPartner" data-short="Gast → ClubPartner"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Der Weg vom Gast zum ClubPartner</h2>
+  <div class="steps">
+    <div class="step"><div class="stepnum">01</div><div><h3>Persönliche Einladung</h3><p>Du teilst deinen Gastlink und begleitest den ersten Kontakt.</p></div></div>
+    <div class="step"><div class="stepnum">02</div><div><h3>Gastzugang und Entdecker-Abend</h3><p>Der Gast lernt Club, Akademie und Angebote kennen.</p></div></div>
+    <div class="step"><div class="stepnum">03</div><div><h3>Persönliches Gespräch und Entscheidung</h3><p>Du fragst nach seinem Interesse. Der Gast entscheidet über den Beitritt.</p></div></div>
+    <div class="step"><div class="stepnum">04</div><div><h3>Willkommen und eigene Einladung</h3><p>Neue ClubPartner erhalten ihren Link und die „Meine 3“-Challenge.</p></div></div>
+  </div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">05</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Eine Einladung, die leichtfällt" data-short="Einladung"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Eine Einladung, die leichtfällt</h2>
+  <div class="quote">Ich bin ClubPartner bei LiquidityBooster und möchte dir gerne einen kostenfreien Gastzugang schenken. Dort kannst du neue Perspektiven rund um finanzielle Bildung und Souveränität entdecken.<br><br>Schau es dir in Ruhe an und entscheide selbst, ob es für dich interessant ist.<br>Darf ich dir meinen persönlichen Einladungslink schicken?</div>
+  <div class="note">Persönlich formulieren und Raum für eine freie Entscheidung lassen.<br><strong>Oder noch einfacher die Einladung per E-Mail oder WhatsApp auf deine personalisierte Landingpage</strong></div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">06</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Der wöchentliche Rhythmus" data-short="Wochenrhythmus"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Der wöchentliche Rhythmus</h2>
+  <div class="steps">
+    <div class="step"><div class="stepnum">01</div><div><h3>Montag: Fokus im Team</h3><p>15 Minuten mit dem ClubLeader. Wer lädt wen ein?</p></div></div>
+    <div class="step"><div class="stepnum">02</div><div><h3>Bis zum Gästeabend: persönliche Einladungen</h3><p>Partner nutzen Gastlink, Vorlage und ein kurzes Video.</p></div></div>
+    <div class="step"><div class="stepnum">03</div><div><h3>Ein Entdecker-Abend pro Woche</h3><p>30–45 Minuten. Clubvorstellung, Fragen und Einladung zum Beitritt.</p></div></div>
+    <div class="step"><div class="stepnum">04</div><div><h3>Freitag: Rückblick und Anerkennung</h3><p>Ergebnisse teilen, Unterstützung anbieten und nächste Schritte planen.</p></div></div>
+  </div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">07</span></div>
+</div></div></section>
+
+<section class="slide" data-title="ClubLeader entwickeln aktive Empfehler" data-short="Aktive Empfehler"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">ClubLeader entwickeln aktive Empfehler</h2>
+  <div class="grid2" style="margin-top:3.2vw;align-items:center">
+    <div class="team-card"><div class="team-big">5–10</div><h3>ClubPartner pro Team</h3></div>
+    <div class="bullets"><div class="bullet">Ein kurzer Teamtermin pro Woche</div><div class="bullet">Hilfe bei Einladung und Nachfassen</div><div class="bullet">Neue Partner persönlich begrüßen</div><div class="bullet">Erfahrungen im Team teilen</div></div>
+  </div>
+  <div class="accent-bottom">Die Leitfrage: Wie viele Menschen im Team empfehlen aktiv?</div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">08</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Etappenziele bis Silvester" data-short="Etappenziele"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Etappenziele bis Silvester</h2>
+  <div class="chart">
+    <div class="barwrap"><div class="barvalue">160</div><div class="bar" style="height:15%"></div><div class="barlabel">Start: 160</div></div>
+    <div class="barwrap"><div class="barvalue">450</div><div class="bar" style="height:42%"></div><div class="barlabel">31.10.: 450</div></div>
+    <div class="barwrap"><div class="barvalue">700</div><div class="bar" style="height:63%"></div><div class="barlabel">30.11.: 700</div></div>
+    <div class="barwrap"><div class="barvalue">1001</div><div class="bar" style="height:90%"></div><div class="barlabel">31.12.: 1.001</div></div>
+  </div>
+  <div class="months"><span>Oktober: Aktivierung</span><span>November: neue Empfehler</span><span>Dezember: gemeinsamer Endspurt</span></div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">09</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Anerkennung für dein Engagement" data-short="Anerkennung"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Anerkennung für dein Engagement</h2>
+  <div class="awards">
+    <div class="award"><div class="count">1 neuer ClubPartner</div><div class="rank">Mission-Abzeichen</div></div>
+    <div class="award"><div class="count">3 neue ClubPartner</div><div class="rank">Bronze-Botschafter</div></div>
+    <div class="award"><div class="count">5 neue ClubPartner</div><div class="rank">Persönliches Zertifikat</div></div>
+    <div class="award"><div class="count">10 neue ClubPartner</div><div class="rank">Silber-Botschafter</div></div>
+    <div class="award"><div class="count">25 neue ClubPartner</div><div class="rank">Gold-Botschafter</div></div>
+    <div class="award"><div class="count">50 neue ClubPartner</div><div class="rank">Founder Circle</div></div>
+  </div>
+  <div class="founder-note">KickOff und 2-tägiger Jahresauftakt für den Founder Circle als Präsenzveranstaltung bei einem LQB-Hotelpartner</div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">10</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Fortschritt, den wir gemeinsam sehen" data-short="Fortschritt"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Fortschritt, den wir gemeinsam sehen</h2>
+  <div class="steps" style="margin-top:2.8vw">
+    <div class="step"><div class="stepnum">01</div><div><h3>Aktive Empfehler und registrierte Gäste</h3><p>Wie viele Partner laden ein? Wie viele Gäste kommen an?</p></div></div>
+    <div class="step"><div class="stepnum">02</div><div><h3>Teilnehmer am Gästeabend und neue ClubPartner</h3><p>Wo gelingt der nächste Schritt? Wer braucht Unterstützung?</p></div></div>
+    <div class="step"><div class="stepnum">03</div><div><h3>Aktive Mitglieder und Abstand zum Ziel</h3><p>Gäste separat zählen. Abgänge bei den Nettozugängen berücksichtigen.</p></div></div>
+  </div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">11</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Was das Ziel rechnerisch verlangt" data-short="Rechenbeispiel"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Was das Ziel rechnerisch verlangt</h2>
+  <div class="calc">
+    <div class="calcitem"><div class="num">80</div><div class="label">aktive Empfehler</div></div>
+    <div class="calcitem"><div class="num">10</div><div class="label">Einladungen pro Woche</div></div>
+    <div class="calcitem"><div class="num">10 %</div><div class="label">werden ClubPartner</div></div>
+  </div>
+  <div class="calc-example">Rechenbeispiel: 80 neue ClubPartner pro Woche</div>
+  <div class="calc-foot">Die „Meine 3“-Challenge startet die Aktivität. Regelmäßige Einladungen tragen das Ziel.</div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">12</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Deine ersten sieben Tage" data-short="Erste 7 Tage"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Deine ersten sieben Tage</h2>
+  <div class="steps" style="margin-top:2.8vw">
+    <div class="step"><div class="stepnum">01</div><div><h3>Heute: deine drei Namen</h3><p>Menschen auswählen, für die Finanzwissen und Gemeinschaft relevant sind.</p></div></div>
+    <div class="step"><div class="stepnum">02</div><div><h3>In den nächsten 48 Stunden: persönlich einladen</h3><p>Deinen Gastlink prüfen und die Einladung versenden.</p></div></div>
+    <div class="step"><div class="stepnum">03</div><div><h3>Diese Woche: gemeinsam entdecken</h3><p>Gäste zum nächsten Entdecker-Abend begleiten und anschließend nachfragen.</p></div></div>
+  </div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">13</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Mit wem beginnt deine Mission" data-short="Deine Mission"><div class="deck"><div class="canvas">
+  <h2 class="title-lg">Mit wem beginnt deine Mission</h2>
+  <div class="final-center">
+    <div class="three">3 Menschen.</div>
+    <div class="line">3 persönliche Einladungen.</div>
+    <div class="copy">Dein Beitrag und deine Einladung kann jedem Menschen<br>eine neue Perspektive für einfach mehr vom Leben eröffnen.</div>
+    <div class="closing">1.000 × mehr vom Leben</div>
+  </div>
+  <div class="footer"><strong>MISSION 1.000</strong><span class="page">14</span></div>
+</div></div></section>
+
+<section class="slide" data-title="Alexanders Geschenk" data-short="Alexanders Geschenk"><div class="deck gift15"><div class="canvas">
+  <div class="giftcenter"><div class="alex">Alexanders Geschenk</div><div class="calling">Deine höchste Berufung auf Seelenebene:</div></div>
+</div></div></section>
+
+<section class="slide" data-title="Geschenk #1 von 6" data-short="Geschenk #1"><div class="deck"><div class="canvas" style="padding-top:4.2%">
+  <h2 class="title-lg"><span class="mint">Geschenk #1</span> <span style="font-size:.58em;color:#111">von 6 für unsere gemeinsame Reise</span></h2>
+  <div class="giftgrid">
+    <div>
+      <div class="prompt-title">PROMPT für ChatGPT</div>
+      <div class="prompt">„Was ist meine höchste Berufung auf Seelenebene basierend auf meinem Geburtstag <span class="mag">[Geburtsdatum]</span> <span class="mint">[Zeit und Ort]</span> und meinem Sternzeichen <span class="mag">[Sternzeichen]</span> und wie kann ich sie konkret in meinem aktuellen Business <span class="mint">[kurz beschreiben]</span> verkörpern, um Menschen tiefgreifend zu helfen und zu transformieren?<br><br>Bitte berücksichtige meine besonderen Leidenschaften und Stärken <span class="mag">[Persönliche Leidenschaften &amp; Stärken]</span>.“</div>
+      <div class="gift-note">Bitte die Daten in den <span class="mint bold">[eckigen Klammern]</span> vorab ganz in Ruhe (sinnvollerweise in Word o.Ä.) ausfüllen.</div>
+    </div>
+    <div class="autumn" aria-label="Herbstenergie">
+      <svg viewBox="0 0 800 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs><linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8d672"/><stop offset=".55" stop-color="#efb14a"/><stop offset="1" stop-color="#d9c684"/></linearGradient><filter id="blur"><feGaussianBlur stdDeviation="18"/></filter></defs>
+        <rect width="800" height="760" fill="url(#water)"/><circle cx="135" cy="120" r="130" fill="#fff4cf" opacity=".45" filter="url(#blur)"/><g opacity=".9">
+          <path d="M620 0c-20 80-50 120-115 174" fill="none" stroke="#4d3015" stroke-width="12"/>
+          <path d="M575 87c-90 0-167 41-220 92M652 34c-14 88-8 145 17 213" fill="none" stroke="#5c3518" stroke-width="7"/>
+          <g transform="translate(366 180) rotate(-24)"><path d="M0 0C62-94 156-87 192-12c-29 102-126 150-192 12Z" fill="#e45f0b"/><path d="M0 0 192-12" stroke="#9b3c08" stroke-width="5"/></g>
+          <g transform="translate(486 80) rotate(18)"><path d="M0 0C45-76 124-80 163-14-16 86-83 121-163 14Z" fill="#f39a16"/><path d="M0 0 163-14" stroke="#a95c09" stroke-width="4"/></g>
+          <g transform="translate(575 230) rotate(43)"><path d="M0 0C35-75 110-74 149-10-20 78-87 108-149 10Z" fill="#cc4b0d"/><path d="M0 0 149-10" stroke="#8d3008" stroke-width="4"/></g>
+          <g transform="translate(300 300) rotate(-7)"><path d="M0 0C50-93 143-98 197-24-15 105-106 153-197 24Z" fill="#f7a21c"/><path d="M0 0 197-24" stroke="#a85b08" stroke-width="4"/></g>
+        </g><path d="M0 555c180 18 320-14 490 2 124 12 213 48 310 35v168H0Z" fill="#d7bc72" opacity=".55"/><path d="M0 590c130-18 254 11 384-2 144-14 267-9 416 19" fill="none" stroke="#fff4ce" stroke-width="6" opacity=".65"/>
+      </svg>
+      <div class="autumn-word">Herbst<b>energie</b></div>
+    </div>
+  </div>
+</div></div></section>
+
+<div class="tools"><button class="toolbtn" id="fullscreenBtn" type="button" aria-label="Vollbild" title="Vollbild"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button></div>
+<div class="hint">Wischen oder Pfeiltasten nutzen</div>
+</main>
+
+<nav class="navbar" aria-label="Präsentationsnavigation"><div class="navin">
+<button class="navbtn prev" id="prevBtn" type="button"><span class="arrow" aria-hidden="true">←</span><span class="navcopy"><small>Vorher</small><span id="prevLabel">Start</span></span></button>
+<div class="center"><strong id="counter">1 / 16</strong><span class="title" id="currentTitle">1.000 × mehr vom Leben</span><div class="dots" id="dots" aria-hidden="true"></div></div>
+<button class="navbtn next" id="nextBtn" type="button"><span class="arrow" aria-hidden="true">→</span><span class="navcopy"><small>Als Nächstes</small><span id="nextLabel">Gemeinsames Ziel</span></span></button>
+</div></nav>
+</div>
+<script>
+(()=>{
+const slides=[...document.querySelectorAll('.slide')],stage=document.getElementById('stage'),app=document.getElementById('app'),prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),prevLabel=document.getElementById('prevLabel'),nextLabel=document.getElementById('nextLabel'),nextSmall=nextBtn.querySelector('.navcopy small'),counter=document.getElementById('counter'),currentTitle=document.getElementById('currentTitle'),progressFill=document.getElementById('progressFill'),dots=document.getElementById('dots'),fullscreenBtn=document.getElementById('fullscreenBtn');
+let current=0,sx=0,sy=0,hintTimer=null;slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' active':'');dots.appendChild(d)});
+function titleAt(i){if(i<0||i>=slides.length)return '';return slides[i].dataset.short||slides[i].dataset.title||''}
+function render(){slides.forEach((s,i)=>s.classList.toggle('active',i===current));counter.textContent=(current+1)+' / '+slides.length;currentTitle.textContent=slides[current].dataset.title||'';progressFill.style.width=((current+1)/slides.length*100)+'%';[...dots.children].forEach((d,i)=>d.classList.toggle('active',i===current));prevBtn.disabled=current===0;nextBtn.disabled=false;prevLabel.textContent=current===0?'Start':titleAt(current-1);if(current===slides.length-1){nextSmall.textContent='Zurück';nextLabel.textContent='Wieder zurück zum Start'}else{nextSmall.textContent='Als Nächstes';nextLabel.textContent=titleAt(current+1)}history.replaceState(null,'','#'+(current+1))}
+function go(i){if(i<0||i>=slides.length||i===current)return;current=i;render()}function goNext(){current===slides.length-1?go(0):go(current+1)}
+prevBtn.addEventListener('click',()=>go(current-1));nextBtn.addEventListener('click',goNext);document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();goNext()}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(current-1)}if(e.key==='Home'){e.preventDefault();go(0)}if(e.key==='End'){e.preventDefault();go(slides.length-1)}});stage.addEventListener('touchstart',e=>{const t=e.changedTouches[0];sx=t.screenX;sy=t.screenY},{passive:true});stage.addEventListener('touchend',e=>{const t=e.changedTouches[0],dx=t.screenX-sx,dy=t.screenY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.25){dx<0?goNext():go(current-1)}},{passive:true});stage.addEventListener('pointerup',e=>{if(e.pointerType==='mouse'&&e.target.closest('.toolbtn'))return;if(e.pointerType==='mouse'){const r=stage.getBoundingClientRect(),x=e.clientX-r.left;if(x<r.width*.18)go(current-1);if(x>r.width*.82)goNext()}});function showHint(){stage.classList.add('show-hint');clearTimeout(hintTimer);hintTimer=setTimeout(()=>stage.classList.remove('show-hint'),1800)}setTimeout(showHint,500);async function toggleFullscreen(){try{if(!document.fullscreenElement){if(app.requestFullscreen)await app.requestFullscreen();else if(app.webkitRequestFullscreen)app.webkitRequestFullscreen()}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen()}}catch(_){}}fullscreenBtn.addEventListener('click',toggleFullscreen);if(!document.fullscreenEnabled&&!document.webkitFullscreenEnabled)fullscreenBtn.style.display='none';const hash=parseInt(location.hash.slice(1),10);if(hash>=1&&hash<=slides.length)current=hash-1;render();
+})();
+</script>
+</body>
+</html>
