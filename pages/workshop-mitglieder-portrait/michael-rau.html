@@ -142,7 +142,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 <body>
 <div class="wrap">
   <div class="topbar">
-    <div class="brandline">LiquidityBooster · Persönliche Arbeitsversion · Michael Rau</div>
+    <div class="brandline">LiquidityBooster · Persönliche Arbeitsversion · Michael Rau · vorausgefüllt</div>
     <div class="lang" aria-label="Sprache">
       <button type="button" data-lang="de" class="active">DE</button>
       <button type="button" data-lang="en">EN</button>
@@ -417,7 +417,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
             <label><input type="checkbox" class="kmsCategory" value="Kunst, Kultur & Kreatives">Kunst, Kultur &amp; Kreatives</label>
             <label><input type="checkbox" class="kmsCategory" value="Steuern & Finanzen">Steuern &amp; Finanzen</label>
             <label><input type="checkbox" class="kmsCategory" value="Wohnen & Immobilien">Wohnen &amp; Immobilien</label>
-            <label><input type="checkbox" class="kmsCategory" value="Keines (Siehe alternativer Bereich)">Keines (Siehe alternativer Bereich)</label>
+            <label><input type="checkbox" class="kmsCategory" value="Keines (Siehe alternativer Bereich)" checked>Keines (Siehe alternativer Bereich)</label>
           </div>
           <input type="hidden" id="kmsCategoriesText" value="">
           <div class="hint" data-i18n="kmsCategoryHint">Die Kategorien entsprechen den Auswahlfeldern im OnlyInside-KMS. Setze dort später dieselben Häkchen.</div>
@@ -466,7 +466,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 (function(){
 'use strict';
 
-var DRAFT_KEY='lb-workshop-mitglieder-portrait-michael-rau-v1';
+var DRAFT_KEY='lb-workshop-mitglieder-portrait-michael-rau-v2';
 var PROFILE_KEY='lb-club-partner-profile-v1';
 var LOCAL_DB='lb-workshop-mitglieder-portrait-michael-rau-local-v1';
 var FILE_DB='lb-member-portrait-file-handoff-v1';
@@ -764,13 +764,13 @@ function saveDraft(){
 function loadDraft(){
  try{
   var raw=localStorage.getItem(DRAFT_KEY);
-  if(!raw){applyMichaelProfile();return}
+  if(!raw){applyMichaelProfile();saveDraft();return}
   var data=JSON.parse(raw)||{};
   inputIds().forEach(function(id){if(data[id]!==undefined)$(id).value=data[id]});
   if(Array.isArray(data.kmsCategories)){document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=data.kmsCategories.indexOf(cb.value)!==-1})}
   updateKmsCategories();
   if(data.lang==='en'||data.lang==='de')state.lang=data.lang
- }catch(e){applyMichaelProfile()}
+ }catch(e){applyMichaelProfile();saveDraft()}
 }
 function loadClubProfile(){
  try{
