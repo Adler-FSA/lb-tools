@@ -71,6 +71,28 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 .question{margin-top:12px}
 .question:first-child{margin-top:0}
 .question label{font-size:13px;color:var(--navy)}
+.kmsBlock{margin-top:20px;border:1px solid #cfe3e6;border-radius:18px;background:linear-gradient(180deg,#f7fbfc,#fff);padding:18px}
+.kmsHead{display:flex;gap:12px;align-items:flex-start;margin-bottom:15px}
+.kmsHead svg{width:30px;height:30px;flex:0 0 auto;color:var(--mint)}
+.kmsHead h3{margin:0 0 5px;font-size:20px}
+.kmsHead p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.kmsField{padding:14px 0;border-top:1px solid var(--line)}
+.kmsField:first-of-type{border-top:0}
+.kmsLabelRow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.kmsLabelRow label,.kmsLabelRow .label{margin:0;font-size:13px;color:var(--navy)}
+.copyBtn{appearance:none;border:1px solid #bcd9dc;background:#fff;color:var(--navy);border-radius:10px;padding:7px 10px;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:900;white-space:nowrap}
+.copyBtn:hover{border-color:var(--mint)}
+.copyBtn:disabled{opacity:.38;cursor:not-allowed}
+.copyBtn.copied{border-color:var(--mint);background:#edf9f7;color:#087c73}
+.copyBtn svg{width:15px;height:15px;flex:0 0 auto}
+.kmsPhotoNote{display:flex;gap:12px;align-items:center;padding:12px;border-radius:13px;background:#eef8f9;border:1px solid #d4e8ea}
+.kmsPhotoThumb{width:64px;height:64px;border-radius:12px;overflow:hidden;background:#e7eff1;display:grid;place-items:center;color:var(--muted);font-size:10px;font-weight:850;text-align:center;flex:0 0 auto}
+.kmsPhotoThumb img{width:100%;height:100%;object-fit:cover}
+.kmsPhotoNote p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.kmsCategories{display:grid;gap:8px}
+.kmsCategories label{display:flex;gap:9px;align-items:flex-start;margin:0;font-size:13px;font-weight:600;color:#344958}
+.kmsCategories input{width:auto;margin-top:2px}
+.kmsCategoryTools{display:flex;justify-content:flex-end;margin-top:10px}
 .photoBox{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:13px;background:#f8fbfc}
 .photoThumb{width:110px;height:110px;border-radius:18px;background:#e8eff1;border:1px solid #d5e1e4;overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:12px;font-weight:850;text-align:center}
 .photoThumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -113,7 +135,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 @media(max-width:920px){.grid{grid-template-columns:1fr}}
 @media(max-width:600px){
   body{padding:10px}.hero,.panel{border-radius:18px;padding:16px}.formgrid,.actions,.dialogActions{grid-template-columns:1fr}.field.full{grid-column:auto}
-  .topbar{align-items:flex-start;flex-direction:column}.photoBox{grid-template-columns:86px 1fr}.photoThumb{width:86px;height:86px}.dialogActions button{grid-column:auto}
+  .topbar{align-items:flex-start;flex-direction:column}.photoBox{grid-template-columns:86px 1fr}.photoThumb{width:86px;height:86px}.dialogActions button{grid-column:auto}.kmsLabelRow{align-items:flex-start}.copyBtn{flex:0 0 auto}
 }
 </style>
 </head>
@@ -314,6 +336,104 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
         </div>
       </details>
 
+      <section class="kmsBlock" aria-labelledby="kmsTitle">
+        <div class="kmsHead">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v13H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 9h10M7 12.5h10M7 16h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div>
+            <h3 id="kmsTitle" data-i18n="kmsTitle">11. Dein fertiges Mitgliederprofil für das KMS</h3>
+            <p data-i18n="kmsIntro">Formuliere hier aus deinen Workshop-Antworten die Endfassung für dein OnlyInside-KMS. Jedes Textfeld kannst du anschließend einzeln kopieren und im KMS einfügen.</p>
+          </div>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow"><span class="label" data-i18n="kmsPhoto">Bildmotiv</span></div>
+          <div class="kmsPhotoNote">
+            <div class="kmsPhotoThumb" id="kmsPhotoThumb"><span data-i18n="photoEmpty">Noch kein Profilbild</span></div>
+            <p data-i18n="kmsPhotoHint">Verwende im KMS dasselbe Bildmotiv, das du oben lokal für dein persönliches Backup ausgewählt hast.</p>
+          </div>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsSlogan" data-i18n="kmsSlogan">Dein Slogan</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsSlogan" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsSlogan" class="kmsInput" maxlength="1200" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsAbout" data-i18n="kmsAbout">*Über mich:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsAbout" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsAbout" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsHelp" data-i18n="kmsHelp">Ich helfe Menschen (ich helfe Dir) durch:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsHelp" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsHelp" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsSuccess" data-i18n="kmsSuccess">Mein größter Erfolg:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsSuccess" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsSuccess" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsJoy" data-i18n="kmsJoy">Ich habe Freude an:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsJoy" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsJoy" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsPromise" data-i18n="kmsPromise">Mein Versprechen an Dich:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsPromise" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsPromise" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <span class="label" data-i18n="kmsCategory">*Unter welchem Bereich findest du dich wieder?</span>
+            <button type="button" class="copyBtn" id="copyKmsCategories" data-copy-target="kmsCategoriesText" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copySelection">Auswahl kopieren</span></button>
+          </div>
+          <div class="kmsCategories" id="kmsCategories">
+            <label><input type="checkbox" class="kmsCategory" value="Auto, Verkehr & Mobilität">Auto, Verkehr &amp; Mobilität</label>
+            <label><input type="checkbox" class="kmsCategory" value="Beauty, Wellness & Gesundheit">Beauty, Wellness &amp; Gesundheit</label>
+            <label><input type="checkbox" class="kmsCategory" value="Coaching & Consulting">Coaching &amp; Consulting</label>
+            <label><input type="checkbox" class="kmsCategory" value="Fachgeschäfte & Einzelhandel">Fachgeschäfte &amp; Einzelhandel</label>
+            <label><input type="checkbox" class="kmsCategory" value="Handwerk & Dienstleistungen">Handwerk &amp; Dienstleistungen</label>
+            <label><input type="checkbox" class="kmsCategory" value="Hotellerie & Gastronomie">Hotellerie &amp; Gastronomie</label>
+            <label><input type="checkbox" class="kmsCategory" value="Kinder, Familie & Freizeit">Kinder, Familie &amp; Freizeit</label>
+            <label><input type="checkbox" class="kmsCategory" value="Kunst, Kultur & Kreatives">Kunst, Kultur &amp; Kreatives</label>
+            <label><input type="checkbox" class="kmsCategory" value="Steuern & Finanzen">Steuern &amp; Finanzen</label>
+            <label><input type="checkbox" class="kmsCategory" value="Wohnen & Immobilien">Wohnen &amp; Immobilien</label>
+            <label><input type="checkbox" class="kmsCategory" value="Keines (Siehe alternativer Bereich)">Keines (Siehe alternativer Bereich)</label>
+          </div>
+          <input type="hidden" id="kmsCategoriesText" value="">
+          <div class="hint" data-i18n="kmsCategoryHint">Die Kategorien entsprechen den Auswahlfeldern im OnlyInside-KMS. Setze dort später dieselben Häkchen.</div>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsAlternative" data-i18n="kmsAlternative">Alternativer Bereich:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsAlternative" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsAlternative" class="kmsInput" maxlength="2000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="hint" data-i18n="kmsBackupHint">Die KMS-Endfassung wird zusammen mit allen 39 Workshop-Antworten in deiner persönlichen Backup-PDF gespeichert.</div>
+      </section>
+
       <div class="actions">
         <button type="button" class="btn primary" id="makePdf" disabled data-i18n="makePdf">Mein Mitglieder-Portrait als PDF erstellen</button>
         <button type="button" class="btn secondary" id="clearDraft" data-i18n="clearDraft">Lokale Eingaben zurücksetzen</button>
@@ -336,7 +456,6 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
     <div class="filebox"><strong id="fileName"></strong><span id="fileMeta"></span></div>
     <div class="dialogActions">
       <a id="saveFile" href="#" data-i18n="save">PDF speichern</a>
-      <a id="shareFile" class="share" href="#" data-i18n="share">PDF teilen</a>
       <button id="closeOverlay" type="button" data-i18n="close">Schließen</button>
     </div>
   </div>
@@ -373,7 +492,7 @@ goal5:'Nimm Dir etwas Zeit und einen ruhigen Rahmen.',
 goal6:'Am Ende muss nicht alles beantwortet sein und manches wird sich noch Ent-Wickeln.',
 goal7:'Vertraue dem Prozess und wenn Du magst, wiederhole ihn von Zeit zu Zeit.',
 privacyTitle:'Alles bleibt lokal auf deinem Gerät.',
-privacyText:'Profilbild, Antworten und Affiliate-Link werden nicht an LiquidityBooster, GitHub oder einen anderen Server übertragen. Erst du entscheidest, ob du die fertige PDF speicherst oder teilst.',
+privacyText:'Profilbild, Antworten, Affiliate-Link und deine KMS-Endfassung bleiben lokal auf deinem Gerät. Die PDF dient ausschließlich als persönliche Sicherung deiner Arbeit.',
 startTitle:'Dein persönliches Mitglieder-Portrait',firstName:'Vorname',lastName:'Nachname',firstNamePh:'Vorname',lastNamePh:'Nachname',
 affiliate:'Persönlicher Affiliate-Link',affiliateHint:'Der Link wird nicht ausgeschrieben. Er wird ausschließlich als QR-Code in deine PDF übernommen.',
 qrWaiting:'Affiliate-Link eintragen – der QR-Code entsteht automatisch.',qrOk:'QR-Code wurde aus deinem Affiliate-Link erstellt.',qrError:'Bitte einen gültigen Affiliate-Link eintragen.',
@@ -388,9 +507,10 @@ joyTitle:'Ich habe Freude an',joyIntro:'In diesem Punkt geht es mehr so um das w
 promiseTitle:'Mein Versprechen An Dich',promiseIntro:'Nun gehst Du langsam auf andere Menschen zu …',promiseQ1:'Womit kannst Du helfen?',promiseQ2:'Worauf können sich Menschen bei Dir verlassen?',promiseQ3:'Warum bist Du sicher, dass Du etwas bieten kannst?',promiseQ4:'Möglicherweise hast Du schon ein Angebot – beschreibe es in kurzen Worten',
 meetingTitle:'Termin buchen',meetingIntro1:'Dieser Punkt kann auch später erledigt werden.',meetingIntro2:'Die einfachste Möglichkeit ist Calendly in Verbindung mit Google.',meetingIntro3:'Jedoch überlege heute … wenn Du eine Möglichkeit hättest:',meetingQ1:'Wie lange würde ein Erstgespräch dauern?',meetingQ2:'Gibt es Vorkenntnisse für Deinen Ansprechpartner?',meetingQ3:'Gibt es Fragebögen zum ausfüllen?',
 networkTitle:'Vernetzung innerhalb vom liquidity booster',networkIntro:'Manchmal sieht ein anderer Partner Dein Profil und kommt auf die Idee „da könnte ich mal Nachfragen…“',networkQ1:'Welche Kontakte könnten das sein?',networkQ2:'Gibt es Dienstleistungen / Arbeiten die Du nicht machen kannst/willst',networkQ3:'Wo könnte eine Kooperation sinnvoll sein?',networkQ4:'Welche Möglichkeiten bietet Dein Angebot für eine Kooperation?',networkQ5:'Wobei kann das Netzwerk aktuell helfen?',
-makePdf:'Mein Mitglieder-Portrait als PDF erstellen',clearDraft:'Lokale Eingaben zurücksetzen',previewTitle:'PDF-Titelseite',previewNote:'Die Vorschau zeigt die Titelseite. Deine Antworten werden anschließend automatisch auf übersichtliche A4-Seiten verteilt.',
-missing:'Für die PDF bitte Vorname, Nachname, Profilbild und einen gültigen Affiliate-Link eintragen.',ready:'Alles bereit – deine persönliche PDF kann erstellt werden.',working:'PDF wird lokal erstellt …',errorPhoto:'Das Profilbild konnte nicht gelesen werden.',tooLarge:'Bitte wähle ein Bild mit maximal 15 MB.',confirmClear:'Möchtest du wirklich alle lokalen Workshop-Eingaben und das Profilbild zurücksetzen?',cleared:'Die lokalen Workshop-Eingaben wurden zurückgesetzt.',
-doneEyebrow:'Workshop Mitglieder-Portrait',doneTitle:'Deine PDF ist fertig',save:'PDF speichern',share:'PDF teilen',close:'Schließen',
+kmsTitle:'11. Dein fertiges Mitgliederprofil für das KMS',kmsIntro:'Formuliere hier aus deinen Workshop-Antworten die Endfassung für dein OnlyInside-KMS. Jedes Textfeld kannst du anschließend einzeln kopieren und im KMS einfügen.',kmsPhoto:'Bildmotiv',kmsPhotoHint:'Verwende im KMS dasselbe Bildmotiv, das du oben lokal für dein persönliches Backup ausgewählt hast.',kmsSlogan:'Dein Slogan',kmsAbout:'*Über mich:',kmsHelp:'Ich helfe Menschen (ich helfe Dir) durch:',kmsSuccess:'Mein größter Erfolg:',kmsJoy:'Ich habe Freude an:',kmsPromise:'Mein Versprechen an Dich:',kmsCategory:'*Unter welchem Bereich findest du dich wieder?',kmsCategoryHint:'Die Kategorien entsprechen den Auswahlfeldern im OnlyInside-KMS. Setze dort später dieselben Häkchen.',kmsAlternative:'Alternativer Bereich:',kmsFinalPh:'Fertige Fassung für das KMS …',copy:'Kopieren',copySelection:'Auswahl kopieren',copied:'Kopiert ✓',copyError:'Kopieren nicht möglich',kmsBackupHint:'Die KMS-Endfassung wird zusammen mit allen 39 Workshop-Antworten in deiner persönlichen Backup-PDF gespeichert.',kmsPdfTitle:'KMS-Mitgliederprofil',kmsPdfIntro:'Endfassung zur Übertragung in das persönliche OnlyInside-KMS.',
+makePdf:'Persönliche Backup-PDF erstellen',clearDraft:'Lokale Eingaben zurücksetzen',previewTitle:'PDF-Titelseite',previewNote:'Die Vorschau zeigt die Titelseite. Die Backup-PDF enthält alle 39 Workshop-Antworten und zusätzlich deine KMS-Endfassung.',
+missing:'Für die PDF bitte Vorname, Nachname, Profilbild und einen gültigen Affiliate-Link eintragen.',ready:'Alles bereit – deine persönliche Backup-PDF kann erstellt werden.',working:'Backup-PDF wird lokal erstellt …',errorPhoto:'Das Profilbild konnte nicht gelesen werden.',tooLarge:'Bitte wähle ein Bild mit maximal 15 MB.',confirmClear:'Möchtest du wirklich alle lokalen Workshop- und KMS-Eingaben sowie das Profilbild zurücksetzen?',cleared:'Die lokalen Workshop- und KMS-Eingaben wurden zurückgesetzt.',
+doneEyebrow:'Persönliche Sicherung',doneTitle:'Deine Backup-PDF ist fertig',save:'PDF speichern',close:'Schließen',
 pdfSubtitle:'Woche 1 vom 12 Wochenprogramm für Club Leader',pdfQr:'Meine persönliche LiquidityBooster-Seite',pdfEmpty:'Noch offen',pdfPage:'Seite',pdfCreated:'Persönliches Mitglieder-Portrait'
 },
 en:{
@@ -407,7 +527,7 @@ goal5:'Take some time and give yourself a calm setting.',
 goal6:'Not everything has to be answered at the end, and some things will continue to develop.',
 goal7:'Trust the process and, if you like, repeat it from time to time.',
 privacyTitle:'Everything stays local on your device.',
-privacyText:'Your profile photo, answers and affiliate link are not transferred to LiquidityBooster, GitHub or any other server. You decide whether to save or share the finished PDF.',
+privacyText:'Your profile photo, answers, affiliate link and final KMS text stay local on your device. The PDF is solely your personal backup of the work.',
 startTitle:'Your personal member portrait',firstName:'First name',lastName:'Last name',firstNamePh:'First name',lastNamePh:'Last name',
 affiliate:'Personal affiliate link',affiliateHint:'The link is not printed as text. It is included only as a QR code in your PDF.',
 qrWaiting:'Enter your affiliate link – the QR code is created automatically.',qrOk:'The QR code has been created from your affiliate link.',qrError:'Please enter a valid affiliate link.',
@@ -422,9 +542,10 @@ joyTitle:'I enjoy',joyIntro:'This point is more about what puts a smile on your 
 promiseTitle:'My promise to you',promiseIntro:'Now you are slowly turning towards other people …',promiseQ1:'What can you help with?',promiseQ2:'What can people rely on you for?',promiseQ3:'Why are you sure that you have something to offer?',promiseQ4:'You may already have an offer – describe it in a few words',
 meetingTitle:'Book an appointment',meetingIntro1:'This point can also be completed later.',meetingIntro2:'The simplest option is Calendly in connection with Google.',meetingIntro3:'But think about it today … if you had the option:',meetingQ1:'How long would an initial conversation take?',meetingQ2:'Is any prior knowledge needed for the person you speak with?',meetingQ3:'Are there questionnaires to complete?',
 networkTitle:'Networking within LiquidityBooster',networkIntro:'Sometimes another partner sees your profile and thinks: “I could ask them about that …”',networkQ1:'Which contacts could that be?',networkQ2:'Are there services / tasks you cannot or do not want to do?',networkQ3:'Where could cooperation make sense?',networkQ4:'What opportunities does your offer provide for cooperation?',networkQ5:'Where could the network currently help?',
-makePdf:'Create my member portrait as PDF',clearDraft:'Reset local entries',previewTitle:'PDF cover page',previewNote:'The preview shows the cover page. Your answers are then automatically distributed across clear A4 pages.',
-missing:'For the PDF, please enter first name, last name, a profile photo and a valid affiliate link.',ready:'Everything is ready – your personal PDF can be created.',working:'Creating the PDF locally …',errorPhoto:'The profile photo could not be read.',tooLarge:'Please choose an image no larger than 15 MB.',confirmClear:'Do you really want to reset all local workshop entries and the profile photo?',cleared:'The local workshop entries have been reset.',
-doneEyebrow:'Workshop Member Portrait',doneTitle:'Your PDF is ready',save:'Save PDF',share:'Share PDF',close:'Close',
+kmsTitle:'11. Your finished member profile for the KMS',kmsIntro:'Use your workshop answers to write the final version for your OnlyInside KMS. You can then copy each text field individually into the KMS.',kmsPhoto:'Image motif',kmsPhotoHint:'Use the same profile image in the KMS that you selected locally above for your personal backup.',kmsSlogan:'Your slogan',kmsAbout:'*About me:',kmsHelp:'I help people (I help you) through:',kmsSuccess:'My greatest success:',kmsJoy:'I enjoy:',kmsPromise:'My promise to you:',kmsCategory:'*Which area best describes you?',kmsCategoryHint:'The categories below match the selection fields in the OnlyInside KMS. Select the same boxes there later.',kmsAlternative:'Alternative area:',kmsFinalPh:'Final version for the KMS …',copy:'Copy',copySelection:'Copy selection',copied:'Copied ✓',copyError:'Could not copy',kmsBackupHint:'Your KMS final version is saved in your personal backup PDF together with all 39 workshop answers.',kmsPdfTitle:'KMS member profile',kmsPdfIntro:'Final version for transfer into your personal OnlyInside KMS.',
+makePdf:'Create personal backup PDF',clearDraft:'Reset local entries',previewTitle:'PDF cover page',previewNote:'The preview shows the cover page. The backup PDF contains all 39 workshop answers plus your final KMS text.',
+missing:'For the PDF, please enter first name, last name, a profile photo and a valid affiliate link.',ready:'Everything is ready – your personal backup PDF can be created.',working:'Creating the backup PDF locally …',errorPhoto:'The profile photo could not be read.',tooLarge:'Please choose an image no larger than 15 MB.',confirmClear:'Do you really want to reset all local workshop and KMS entries and the profile photo?',cleared:'The local workshop and KMS entries have been reset.',
+doneEyebrow:'Personal backup',doneTitle:'Your backup PDF is ready',save:'Save PDF',close:'Close',
 pdfSubtitle:'Week 1 of the 12-week Club Leader programme',pdfQr:'My personal LiquidityBooster page',pdfEmpty:'Still open',pdfPage:'Page',pdfCreated:'Personal member portrait'
 }
 };
@@ -438,7 +559,8 @@ var sections=[
  {title:'joyTitle',intro:['joyIntro'],fields:[['joyQ1','joyHobbies'],['joyQ2','joyTravel'],['joyQ3','joyPeople'],['joyQ4','joyInspiration']]},
  {title:'promiseTitle',intro:['promiseIntro'],fields:[['promiseQ1','promiseHelp'],['promiseQ2','promiseReliable'],['promiseQ3','promiseWhy'],['promiseQ4','promiseOffer']]},
  {title:'meetingTitle',intro:['meetingIntro1','meetingIntro2','meetingIntro3'],fields:[['meetingQ1','meetingLength'],['meetingQ2','meetingKnowledge'],['meetingQ3','meetingForms']]},
- {title:'networkTitle',intro:['networkIntro'],fields:[['networkQ1','networkContacts'],['networkQ2','networkNo'],['networkQ3','networkCoop'],['networkQ4','networkOfferCoop'],['networkQ5','networkHelp']]}
+ {title:'networkTitle',intro:['networkIntro'],fields:[['networkQ1','networkContacts'],['networkQ2','networkNo'],['networkQ3','networkCoop'],['networkQ4','networkOfferCoop'],['networkQ5','networkHelp']]},
+ {title:'kmsPdfTitle',intro:['kmsPdfIntro'],fields:[['kmsSlogan','kmsSlogan'],['kmsAbout','kmsAbout'],['kmsHelp','kmsHelp'],['kmsSuccess','kmsSuccess'],['kmsJoy','kmsJoy'],['kmsPromise','kmsPromise'],['kmsCategory','kmsCategoriesText'],['kmsAlternative','kmsAlternative']]}
 ];
 
 function $(id){return document.getElementById(id)}
@@ -554,19 +676,28 @@ function loadImageFromBlob(blob){
 async function setPhotoBlob(blob,persist){
  var loaded=await loadImageFromBlob(blob);if(photoUrl)URL.revokeObjectURL(photoUrl);photoUrl=loaded.url;photoBlob=blob;photoImage=loaded.img;
  $('photoThumb').innerHTML='';var im=document.createElement('img');im.src=photoUrl;im.alt='';$('photoThumb').appendChild(im);
+ if($('kmsPhotoThumb')){$('kmsPhotoThumb').innerHTML='';var kim=document.createElement('img');kim.src=photoUrl;kim.alt='';$('kmsPhotoThumb').appendChild(kim)}
  if(persist!==false)await savePhoto(blob);updateUi();renderPreview()
 }
 
 function inputIds(){
- return ['firstName','lastName','affiliateUrl','slogan','city','mobile','email','website','otherLinks','missingChannels','aboutOrigin','aboutFamily','aboutCalling','aboutEducation','aboutHobbies','aboutGoal','aboutWorld','wirJoy','wirHelped','wirPart','wirUnique','wirDaily','successProud','successGrandchildren','successHappy','successFamily','joyHobbies','joyTravel','joyPeople','joyInspiration','promiseHelp','promiseReliable','promiseWhy','promiseOffer','meetingLength','meetingKnowledge','meetingForms','networkContacts','networkNo','networkCoop','networkOfferCoop','networkHelp']
+ return ['firstName','lastName','affiliateUrl','slogan','city','mobile','email','website','otherLinks','missingChannels','aboutOrigin','aboutFamily','aboutCalling','aboutEducation','aboutHobbies','aboutGoal','aboutWorld','wirJoy','wirHelped','wirPart','wirUnique','wirDaily','successProud','successGrandchildren','successHappy','successFamily','joyHobbies','joyTravel','joyPeople','joyInspiration','promiseHelp','promiseReliable','promiseWhy','promiseOffer','meetingLength','meetingKnowledge','meetingForms','networkContacts','networkNo','networkCoop','networkOfferCoop','networkHelp','kmsSlogan','kmsAbout','kmsHelp','kmsSuccess','kmsJoy','kmsPromise','kmsAlternative']
+}
+function selectedKmsCategories(){
+ return Array.prototype.slice.call(document.querySelectorAll('.kmsCategory:checked')).map(function(el){return el.value})
+}
+function updateKmsCategories(){
+ var values=selectedKmsCategories();$('kmsCategoriesText').value=values.join(', ');updateCopyButtons()
 }
 function saveDraft(){
- var data={version:1,updatedAt:Date.now(),lang:state.lang};inputIds().forEach(function(id){data[id]=$(id).value});try{localStorage.setItem(DRAFT_KEY,JSON.stringify(data))}catch(e){}
+ var data={version:2,updatedAt:Date.now(),lang:state.lang,kmsCategories:selectedKmsCategories()};inputIds().forEach(function(id){data[id]=$(id).value});try{localStorage.setItem(DRAFT_KEY,JSON.stringify(data))}catch(e){}
 }
 function loadDraft(){
  try{
   var raw=localStorage.getItem(DRAFT_KEY),data=raw?JSON.parse(raw):{};
   inputIds().forEach(function(id){if(data[id]!==undefined)$(id).value=data[id]});
+  if(Array.isArray(data.kmsCategories)){document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=data.kmsCategories.indexOf(cb.value)!==-1})}
+  updateKmsCategories();
   if(data.lang==='en'||data.lang==='de')state.lang=data.lang
  }catch(e){}
 }
@@ -580,13 +711,35 @@ function updateProgress(){
  var els=Array.prototype.slice.call(document.querySelectorAll('.answer')),done=els.filter(function(el){return el.value.trim()}).length,total=els.length,pct=total?Math.round(done/total*100):0;
  $('progressCount').textContent=done+' / '+total;$('progressBar').style.width=pct+'%'
 }
+function updateCopyButtons(){
+ document.querySelectorAll('.copyBtn[data-copy-target]').forEach(function(btn){
+  var el=$(btn.getAttribute('data-copy-target')),v=el?String(el.value||'').trim():'';
+  btn.disabled=!v
+ })
+}
+function fallbackCopy(text){
+ var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,ta.value.length);
+ var ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();return ok
+}
+async function copyField(btn){
+ var el=$(btn.getAttribute('data-copy-target'));if(!el)return;
+ var value=String(el.value||'').trim();if(!value)return;
+ try{
+  if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(value);
+  else if(!fallbackCopy(value))throw new Error('copy');
+  var span=btn.querySelector('span'),old=span.textContent;btn.classList.add('copied');span.textContent=t('copied');
+  setTimeout(function(){btn.classList.remove('copied');span.textContent=old},1400)
+ }catch(e){
+  var span2=btn.querySelector('span'),old2=span2.textContent;span2.textContent=t('copyError');setTimeout(function(){span2.textContent=old2},1600)
+ }
+}
 function ready(){
  return !!($('firstName').value.trim()&&$('lastName').value.trim()&&normalizeUrl($('affiliateUrl').value)&&photoImage)
 }
 function updateUi(){
  var raw=$('affiliateUrl').value.trim(),u=normalizeUrl(raw),q=$('qrState');q.className='qrState';
  if(!raw){q.textContent=t('qrWaiting')}else if(u){q.textContent=t('qrOk');q.classList.add('ok')}else{q.textContent=t('qrError');q.classList.add('error')}
- updateProgress();var ok=ready();$('makePdf').disabled=!ok;$('status').textContent=ok?t('ready'):t('missing');$('status').className='status '+(ok?'ok':'')
+ updateProgress();updateCopyButtons();var ok=ready();$('makePdf').disabled=!ok;$('status').textContent=ok?t('ready'):t('missing');$('status').className='status '+(ok?'ok':'')
 }
 
 function drawPageHeader(c,w,h,title,pageNo){
@@ -700,7 +853,7 @@ async function createPdf(){
   var jpegs=[coverPageBytes()],pageNo=2;
   sections.forEach(function(section){var out=sectionPageBytes(section,pageNo);Array.prototype.push.apply(jpegs,out.pages);pageNo=out.lastPage+1});
   var blob=multiPagePdfFromJpegs(jpegs,210,297,logoBytes),name=sanitize($('firstName').value+'-'+$('lastName').value),filename='Mitglieder-Portrait-'+name+'.pdf',format='PDF · A4 · '+jpegs.length+' '+(state.lang==='de'?(jpegs.length===1?'Seite':'Seiten'):(jpegs.length===1?'page':'pages'));
-  var token=await storeFile(blob,filename,format);$('fileName').textContent=filename;$('fileMeta').textContent=format;$('saveFile').href=handoff(token,'save');$('shareFile').href=handoff(token,'share');$('fileOverlay').hidden=false;$('status').textContent=t('ready');$('status').className='status ok'
+  var token=await storeFile(blob,filename,format);$('fileName').textContent=filename;$('fileMeta').textContent=format;$('saveFile').href=handoff(token,'save');$('fileOverlay').hidden=false;$('status').textContent=t('ready');$('status').className='status ok'
  }catch(e){$('status').textContent='Fehler: '+(e&&e.message?e.message:String(e));$('status').className='status error'}
  $('makePdf').disabled=!ready()
 }
@@ -709,11 +862,14 @@ async function resetAll(){
  if(!confirm(t('confirmClear')))return;
  try{localStorage.removeItem(DRAFT_KEY)}catch(e){}
  inputIds().forEach(function(id){$(id).value=''});
- await clearStoredPhoto();if(photoUrl)URL.revokeObjectURL(photoUrl);photoUrl='';photoBlob=null;photoImage=null;$('profilePhoto').value='';$('photoThumb').innerHTML='<span data-i18n="photoEmpty">'+t('photoEmpty')+'</span>';
+ await clearStoredPhoto();if(photoUrl)URL.revokeObjectURL(photoUrl);photoUrl='';photoBlob=null;photoImage=null;$('profilePhoto').value='';$('photoThumb').innerHTML='<span data-i18n="photoEmpty">'+t('photoEmpty')+'</span>';if($('kmsPhotoThumb'))$('kmsPhotoThumb').innerHTML='<span data-i18n="photoEmpty">'+t('photoEmpty')+'</span>';
+ document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=false});updateKmsCategories();
  loadClubProfile();saveDraft();applyI18n();$('status').textContent=t('cleared')
 }
 
 inputIds().forEach(function(id){$(id).addEventListener('input',function(){saveDraft();updateUi();renderPreview()})});
+document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.addEventListener('change',function(){updateKmsCategories();saveDraft()})});
+document.querySelectorAll('.copyBtn[data-copy-target]').forEach(function(btn){btn.addEventListener('click',function(){copyField(btn)})});
 $('profilePhoto').addEventListener('change',async function(){
  var f=this.files&&this.files[0];if(!f)return;if(f.size>15*1024*1024){$('status').textContent=t('tooLarge');$('status').className='status error';this.value='';return}
  try{await setPhotoBlob(f,true);saveDraft()}catch(e){$('status').textContent=t('errorPhoto');$('status').className='status error'}
