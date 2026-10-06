@@ -95,6 +95,36 @@
     .network-chain span{padding:10px 13px;border-radius:999px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.17);font-weight:850}
     .network-chain b{color:#82e8eb;font-size:19px}
     .network-claim{margin-top:19px;text-align:center;font-size:21px;font-weight:950;color:#fff}
+    .program-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+    .program-stat{padding:22px;border:1px solid var(--line);border-radius:21px;background:#fff;text-align:center}
+    .program-stat:nth-child(1),.program-stat:nth-child(3){background:linear-gradient(145deg,var(--mint-soft),#fff)}
+    .program-stat:nth-child(2),.program-stat:nth-child(4){background:linear-gradient(145deg,var(--magenta-soft),#fff)}
+    .program-stat b{display:block;font-size:34px;line-height:1;color:var(--navy);margin-bottom:8px}
+    .program-stat strong{display:block;color:var(--navy);font-size:14px}
+    .program-stat span{display:block;color:var(--muted);font-size:12px;margin-top:5px}
+    .week-plan{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;margin-top:22px}
+    .week-day{padding:20px;border:1px solid var(--line);border-radius:20px;background:#fff;position:relative;overflow:hidden}
+    .week-day:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--mint)}
+    .week-day:nth-child(even):before{background:var(--magenta)}
+    .week-day .day{display:block;font-size:11px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+    .week-day .time{display:block;color:var(--magenta);font-weight:950;font-size:18px;margin-bottom:8px}
+    .week-day:nth-child(even) .time{color:var(--mint-dark)}
+    .week-day h3{font-size:17px;margin:0 0 6px}.week-day p{margin:0;color:var(--muted);font-size:13px}
+    .program-note{margin-top:18px;padding:22px 24px;border-radius:19px;background:var(--navy);color:#fff}
+    .program-note strong{color:#82e8eb}.program-note p{margin:0;color:#dce9ee}
+    .market-value{margin-top:28px;padding-top:28px;border-top:1px solid var(--line)}
+    .market-value h3{font-size:26px;margin-bottom:8px}.market-value>p{margin:0;color:var(--muted)}
+    .market-value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+    .market-value-card{padding:22px;border:1px solid var(--line);border-radius:20px;background:#fff}
+    .market-value-card .price-ref{display:block;font-size:25px;font-weight:950;color:var(--navy);line-height:1.1;margin:7px 0}
+    .market-value-card small{display:block;color:var(--muted);line-height:1.45}
+    .market-value-card a{display:inline-block;margin-top:10px;color:var(--mint-dark);font-size:12px;font-weight:900;text-decoration:none}
+    .market-value-card a:hover{text-decoration:underline}
+    .comparison-callout{margin-top:18px;padding:24px;border-left:5px solid var(--magenta);border-radius:0 19px 19px 0;background:var(--magenta-soft)}
+    .comparison-callout strong{display:block;color:var(--navy);font-size:20px;margin-bottom:5px}
+    .comparison-callout p{margin:0;color:var(--muted)}
+    .source-note{margin-top:14px;color:var(--muted);font-size:11px;line-height:1.5}
+
     .network-claim em{font-style:normal;color:#82e8eb}
 
     .portfolio-worlds{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
@@ -190,6 +220,8 @@
       .business-pillars{grid-template-columns:1fr}
       .portfolio-worlds{grid-template-columns:1fr}
       .foundation-grid{grid-template-columns:repeat(2,1fr)}
+      .program-stats,.market-value-grid{grid-template-columns:repeat(2,1fr)}
+      .week-plan{grid-template-columns:repeat(2,1fr)}
       .kms-grid,.apps{grid-template-columns:repeat(2,1fr)}
       .flow{grid-template-columns:repeat(3,1fr)}
       .flow-step:after{display:none}
@@ -201,7 +233,7 @@
       .top{min-height:64px}.brand span{font-size:14px}
       .hero{padding:42px 0 28px;gap:28px}.hero-card{min-height:300px;border-radius:25px}
       .section,.closing{padding:27px 20px;border-radius:24px}
-      .overview,.kms-grid,.apps,.market,.leader-grid,.logic,.tools,.data-box,.personal-list,.flow,.product-row,.marketplace-grid,.foundation-grid,.network-wrap{grid-template-columns:1fr}
+      .overview,.kms-grid,.apps,.market,.leader-grid,.logic,.tools,.data-box,.personal-list,.flow,.product-row,.marketplace-grid,.foundation-grid,.network-wrap,.program-stats,.market-value-grid,.week-plan{grid-template-columns:1fr}
       .domain-card{padding:24px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -287,6 +319,71 @@
       <article class="foundation-card"><b>04</b><h3 data-i18n data-de="Du konzentrierst dich aufs Geschäft" data-en="You focus on the business">Du konzentrierst dich aufs Geschäft</h3><p data-i18n data-de="Kontakte, Kunden, Sichtbarkeit, Angebote und Umsetzung rücken in den Mittelpunkt – statt zuerst eine technische Grundausstattung zusammensetzen zu müssen." data-en="Contacts, customers, visibility, offers and execution move to the centre – instead of first having to assemble a technical foundation.">Kontakte, Kunden, Sichtbarkeit, Angebote und Umsetzung rücken in den Mittelpunkt – statt zuerst eine technische Grundausstattung zusammensetzen zu müssen.</p></article>
     </div>
     <div class="foundation-line" data-i18n data-de="Der Wert liegt nicht nur in den einzelnen Werkzeugen. Der eigentliche Mehrwert entsteht dadurch, dass sie als gemeinsames Fundament zusammenspielen." data-en="The value is not only in the individual tools. The real benefit comes from them working together as a shared foundation.">Der Wert liegt nicht nur in den einzelnen Werkzeugen. Der eigentliche Mehrwert entsteht dadurch, dass sie als <strong>gemeinsames Fundament</strong> zusammenspielen.</div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow" data-i18n data-de="12 Wochen begleitet aufbauen" data-en="12 weeks of guided development">12 Wochen begleitet aufbauen</div>
+    <h2 data-i18n data-de="Die Vollausstattung kommt nicht allein. Du lernst, sie praktisch einzusetzen." data-en="The full infrastructure does not come alone. You learn how to use it in practice.">Die Vollausstattung kommt nicht allein. Du lernst, sie praktisch einzusetzen.</h2>
+    <p class="intro" data-i18n data-de="Zum ClubLeader gehört ein 12-Wochen-Aufbauprogramm des Headteams. Technik, Vertrieb, Präsentation, Austausch und praktische Umsetzung laufen dabei nicht nebeneinander her, sondern greifen Woche für Woche ineinander." data-en="ClubLeader includes a 12-week development program run by the Head Team. Technology, sales, presentation, exchange and practical implementation do not run separately; they work together week by week.">Zum ClubLeader gehört ein 12-Wochen-Aufbauprogramm des Headteams. Technik, Vertrieb, Präsentation, Austausch und praktische Umsetzung laufen dabei nicht nebeneinander her, sondern greifen Woche für Woche ineinander.</p>
+
+    <div class="program-stats">
+      <div class="program-stat"><b>12</b><strong data-i18n data-de="Wochen Aufbauprogramm" data-en="weeks of development">Wochen Aufbauprogramm</strong><span data-i18n data-de="klarer gemeinsamer Lern- und Umsetzungsrhythmus" data-en="a clear shared learning and implementation rhythm">klarer gemeinsamer Lern- und Umsetzungsrhythmus</span></div>
+      <div class="program-stat"><b>60</b><strong data-i18n data-de="feste Live-Termine" data-en="scheduled live sessions">feste Live-Termine</strong><span data-i18n data-de="fünf Formate pro Woche × zwölf Wochen" data-en="five formats per week × twelve weeks">fünf Formate pro Woche × zwölf Wochen</span></div>
+      <div class="program-stat"><b>5</b><strong data-i18n data-de="Tage pro Woche" data-en="days per week">Tage pro Woche</strong><span data-i18n data-de="Montag, Dienstag, Mittwoch, Freitag und Samstag" data-en="Monday, Tuesday, Wednesday, Friday and Saturday">Montag, Dienstag, Mittwoch, Freitag und Samstag</span></div>
+      <div class="program-stat"><b>1</b><strong data-i18n data-de="Headteam als Begleitung" data-en="Head Team supporting you">Headteam als Begleitung</strong><span data-i18n data-de="nicht nur Softwarezugang, sondern gemeinsame Umsetzung" data-en="not just software access, but guided implementation">nicht nur Softwarezugang, sondern gemeinsame Umsetzung</span></div>
+    </div>
+
+    <div class="week-plan">
+      <article class="week-day"><span class="day" data-i18n data-de="Montag" data-en="Monday">Montag</span><span class="time">19:00</span><h3 data-i18n data-de="LiquidityBooster-Präsentation" data-en="LiquidityBooster presentation">LiquidityBooster-Präsentation</h3><p data-i18n data-de="Das System verstehen, erleben und die Präsentationslogik aus der Praxis kennenlernen." data-en="Understand and experience the system and learn the presentation logic in practice.">Das System verstehen, erleben und die Präsentationslogik aus der Praxis kennenlernen.</p></article>
+      <article class="week-day"><span class="day" data-i18n data-de="Dienstag" data-en="Tuesday">Dienstag</span><span class="time">10:00–12:00</span><h3 data-i18n data-de="ClubLeader Telefontraining" data-en="ClubLeader phone training">ClubLeader Telefontraining</h3><p data-i18n data-de="Gesprächsführung, Ansprache, Einladung und vertriebliche Sicherheit praktisch trainieren." data-en="Practise conversation skills, outreach, invitations and sales confidence.">Gesprächsführung, Ansprache, Einladung und vertriebliche Sicherheit praktisch trainieren.</p></article>
+      <article class="week-day"><span class="day" data-i18n data-de="Mittwoch" data-en="Wednesday">Mittwoch</span><span class="time">19:00–20:00</span><h3 data-i18n data-de="LiquidityBooster-Stammtisch" data-en="LiquidityBooster round table">LiquidityBooster-Stammtisch</h3><p data-i18n data-de="Fragen klären, Erfahrungen austauschen und aus der Praxis der anderen lernen." data-en="Clarify questions, exchange experiences and learn from others' practical work.">Fragen klären, Erfahrungen austauschen und aus der Praxis der anderen lernen.</p></article>
+      <article class="week-day"><span class="day" data-i18n data-de="Freitag" data-en="Friday">Freitag</span><span class="time">18:00</span><h3 data-i18n data-de="ClubLeader Workshop" data-en="ClubLeader workshop">ClubLeader Workshop</h3><p data-i18n data-de="Geschäftsaufbau, Umsetzung, Wochenfortschritt und die nächsten konkreten Schritte gemeinsam bearbeiten." data-en="Work together on business development, implementation, weekly progress and the next concrete steps.">Geschäftsaufbau, Umsetzung, Wochenfortschritt und die nächsten konkreten Schritte gemeinsam bearbeiten.</p></article>
+      <article class="week-day"><span class="day" data-i18n data-de="Samstag" data-en="Saturday">Samstag</span><span class="time">10:00–12:00</span><h3 data-i18n data-de="ClubLeader KMS-Schulung" data-en="ClubLeader KMS training">ClubLeader KMS-Schulung</h3><p data-i18n data-de="Das eigene KMS praktisch beherrschen: Kontakte, CRM, Kommunikation, Newsletter und digitale Organisation." data-en="Master your own KMS in practice: contacts, CRM, communication, newsletters and digital organisation.">Das eigene KMS praktisch beherrschen: Kontakte, CRM, Kommunikation, Newsletter und digitale Organisation.</p></article>
+    </div>
+
+    <div class="program-note">
+      <p data-i18n data-de="Allein die fest definierten Zeitfenster am Dienstag, Mittwoch und Samstag ergeben über zwölf Wochen bereits 60 Live-Stunden. Die LiquidityBooster-Präsentation am Montag und der ClubLeader-Workshop am Freitag kommen zusätzlich hinzu." data-en="The fixed time blocks on Tuesday, Wednesday and Saturday alone already amount to 60 live hours over twelve weeks. The LiquidityBooster presentation on Monday and the ClubLeader workshop on Friday come on top of that.">Allein die fest definierten Zeitfenster am Dienstag, Mittwoch und Samstag ergeben über zwölf Wochen bereits 60 Live-Stunden. Die LiquidityBooster-Präsentation am Montag und der ClubLeader-Workshop am Freitag kommen zusätzlich hinzu.</p>
+    </div>
+
+    <div class="market-value">
+      <div class="eyebrow" data-i18n data-de="Gegenwert im Markt" data-en="Market value comparison">Gegenwert im Markt</div>
+      <h3 data-i18n data-de="Was kosten einzelne Bausteine, wenn du sie separat einkaufst?" data-en="What do individual components cost when purchased separately?">Was kosten einzelne Bausteine, wenn du sie separat einkaufst?</h3>
+      <p data-i18n data-de="Die folgenden Beispiele sind bewusst nur eine Orientierung. Sie sind keine 1:1-Vergleichsprodukte zum ClubLeader, zeigen aber, welche Größenordnungen einzelne Bausteine am Markt bereits haben." data-en="The following examples are intentionally only a guide. They are not one-to-one equivalents to ClubLeader, but they show the price ranges of individual components in the market.">Die folgenden Beispiele sind bewusst nur eine Orientierung. Sie sind keine 1:1-Vergleichsprodukte zum ClubLeader, zeigen aber, welche Größenordnungen einzelne Bausteine am Markt bereits haben.</p>
+
+      <div class="market-value-grid">
+        <article class="market-value-card">
+          <strong data-i18n data-de="Website-System" data-en="Website system">Website-System</strong>
+          <span class="price-ref">ab 16,66 € / Monat</span>
+          <small data-i18n data-de="Wix nennt für 2026 je nach Paket rund 16,66 € bis 177,31 € monatlich; professionell erstellte Websites werden dort mit etwa 600 € bis 10.000 € einmalig eingeordnet." data-en="Wix lists 2026 plans from about €16.66 to €177.31 per month; professionally built websites are described there at roughly €600 to €10,000 one-off.">Wix nennt für 2026 je nach Paket rund 16,66 € bis 177,31 € monatlich; professionell erstellte Websites werden dort mit etwa 600 € bis 10.000 € einmalig eingeordnet.</small>
+          <a href="https://de.wix.com/blog/beitrag/was-kostet-eine-website" target="_blank" rel="noopener" data-i18n data-de="Quelle: Wix" data-en="Source: Wix">Quelle: Wix</a>
+        </article>
+        <article class="market-value-card">
+          <strong data-i18n data-de="CRM & Newsletter" data-en="CRM & newsletters">CRM & Newsletter</strong>
+          <span class="price-ref">ab 17 € / Monat</span>
+          <small data-i18n data-de="Brevo nennt für sein Standard-Paket aktuell einen Einstieg ab 17 € monatlich; umfangreichere professionelle Pakete liegen deutlich höher." data-en="Brevo currently lists its Standard plan from €17 per month; more extensive professional plans are considerably higher.">Brevo nennt für sein Standard-Paket aktuell einen Einstieg ab 17 € monatlich; umfangreichere professionelle Pakete liegen deutlich höher.</small>
+          <a href="https://help.brevo.com/hc/de/articles/208589409-%C3%9Cber-die-Brevo-Preispakete" target="_blank" rel="noopener" data-i18n data-de="Quelle: Brevo" data-en="Source: Brevo">Quelle: Brevo</a>
+        </article>
+        <article class="market-value-card">
+          <strong data-i18n data-de="Affiliate-System" data-en="Affiliate system">Affiliate-System</strong>
+          <span class="price-ref">ab 49 US$ / Monat</span>
+          <small data-i18n data-de="FirstPromoter startet aktuell bei 49 US$ monatlich; höhere Stufen liegen bei 99 US$ bzw. ab 149 US$ monatlich." data-en="FirstPromoter currently starts at US$49 per month; higher tiers are US$99 and from US$149 per month.">FirstPromoter startet aktuell bei 49 US$ monatlich; höhere Stufen liegen bei 99 US$ bzw. ab 149 US$ monatlich.</small>
+          <a href="https://firstpromoter.com/pricing" target="_blank" rel="noopener" data-i18n data-de="Quelle: FirstPromoter" data-en="Source: FirstPromoter">Quelle: FirstPromoter</a>
+        </article>
+        <article class="market-value-card">
+          <strong data-i18n data-de="12-Wochen-Begleitung" data-en="12-week guidance">12-Wochen-Begleitung</strong>
+          <span class="price-ref">ca. 990–4.000 €</span>
+          <small data-i18n data-de="Aktuelle Marktbeispiele für 12-Wochen-Programme reichen je nach Intensität von 990 € für wöchentliches Live-Coaching bis 4.000 € netto für ein individuelles Sales-Training." data-en="Current market examples for 12-week programmes range, depending on intensity, from €990 for weekly live coaching to €4,000 net for individual sales training.">Aktuelle Marktbeispiele für 12-Wochen-Programme reichen je nach Intensität von 990 € für wöchentliches Live-Coaching bis 4.000 € netto für ein individuelles Sales-Training.</small>
+          <a href="https://www.mike-anlauf.de/programm.html" target="_blank" rel="noopener" data-i18n data-de="Beispiel ab 990 €" data-en="Example from €990">Beispiel ab 990 €</a>
+          <a href="https://dianawalther-action.coach/angebote/12-wochen/" target="_blank" rel="noopener" data-i18n data-de="Beispiel 4.000 € netto" data-en="Example €4,000 net">Beispiel 4.000 € netto</a>
+        </article>
+      </div>
+
+      <div class="comparison-callout">
+        <strong data-i18n data-de="ClubLeader: rechnerisch 31,50 € netto pro Monat." data-en="ClubLeader: calculated at €31.50 net per month.">ClubLeader: rechnerisch 31,50 € netto pro Monat.</strong>
+        <p data-i18n data-de="Darin wird nicht nur ein einzelner Softwarebaustein bereitgestellt, sondern die miteinander verbundene Vollausstattung aus KMS, CRM, persönlicher Webseite, Affiliate-Zuordnung, Werkzeugen, Produktportfolio, Marktplatz, Sichtbarkeitsnetzwerk und dem 12-Wochen-Aufbauprogramm des Headteams. Abgerechnet werden 189 € netto je Halbjahr." data-en="This does not provide just one software component, but an interconnected full infrastructure consisting of KMS, CRM, personal website, affiliate attribution, tools, product portfolio, marketplace, visibility network and the Head Team's 12-week development programme. Billing is €189 net every six months.">Darin wird nicht nur ein einzelner Softwarebaustein bereitgestellt, sondern die miteinander verbundene Vollausstattung aus KMS, CRM, persönlicher Webseite, Affiliate-Zuordnung, Werkzeugen, Produktportfolio, Marktplatz, Sichtbarkeitsnetzwerk und dem 12-Wochen-Aufbauprogramm des Headteams. Abgerechnet werden 189 € netto je Halbjahr.</p>
+      </div>
+      <div class="source-note" data-i18n data-de="Marktbeispiele: Stand 06.10.2026. Preise, Leistungsumfänge, Steuern und Abrechnungsmodelle der genannten Anbieter können sich ändern und sind nicht unmittelbar mit der ClubLeader-Leistung gleichzusetzen." data-en="Market examples as of 6 October 2026. Prices, scopes of service, taxes and billing models of the named providers may change and are not directly equivalent to the ClubLeader service.">Marktbeispiele: Stand 06.10.2026. Preise, Leistungsumfänge, Steuern und Abrechnungsmodelle der genannten Anbieter können sich ändern und sind nicht unmittelbar mit der ClubLeader-Leistung gleichzusetzen.</div>
+    </div>
   </section>
 
   <section class="section">
