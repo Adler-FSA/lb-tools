@@ -333,7 +333,42 @@
     }
 
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  </style>
+  
+    /* Big Picture + komplette Seiten-PDF */
+    .bigpicture-panel{margin:30px 0;border:1px solid #cce8e9;border-radius:30px;background:linear-gradient(135deg,#fff,var(--mint-soft) 48%,#fff 66%,var(--magenta-soft));box-shadow:var(--shadow);overflow:hidden}
+    .bigpicture-panel summary{list-style:none;cursor:pointer;padding:27px 30px;display:flex;align-items:center;justify-content:space-between;gap:18px;color:var(--navy);font-weight:950}
+    .bigpicture-panel summary::-webkit-details-marker{display:none}
+    .bigpicture-title{display:flex;align-items:center;gap:13px;font-size:clamp(19px,2.4vw,26px)}
+    .bigpicture-title:before{content:"◎";display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:linear-gradient(145deg,var(--mint),var(--magenta));color:#fff;font-size:22px}
+    .bigpicture-hint{font-size:12px;color:var(--magenta);font-weight:900;white-space:nowrap}
+    .bigpicture-body{padding:0 24px 27px}
+    .bigpicture-frame{padding:14px;border:1px solid var(--line);border-radius:23px;background:#fff;box-shadow:0 16px 38px rgba(19,34,56,.08)}
+    .bigpicture-frame img{display:block;width:100%;height:auto;border-radius:15px}
+    .bigpicture-copy{margin:16px 2px 0;color:var(--muted);font-size:14px}
+    .pdf-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .pdf-btn{appearance:none;border:0;border-radius:999px;padding:12px 17px;font:inherit;font-weight:950;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .pdf-btn.primary{background:linear-gradient(90deg,var(--mint),#078d93);color:#fff}
+    .pdf-btn.secondary{background:#fff;border:1px solid var(--line);color:var(--navy)}
+    .pdf-btn:disabled{opacity:.5;cursor:wait}
+    .pdf-status{margin-top:11px;min-height:19px;color:var(--muted);font-size:12px}
+    .pdf-status.ok{color:#087c73}.pdf-status.error{color:#a61754}
+    .pdf-overlay{position:fixed;inset:0;z-index:100;background:rgba(19,34,56,.64);display:grid;place-items:center;padding:18px}
+    .pdf-overlay[hidden]{display:none}
+    .pdf-dialog{width:min(570px,100%);background:#fff;border-radius:24px;padding:24px;box-shadow:0 32px 95px rgba(0,0,0,.28)}
+    .pdf-dialog-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .pdf-dialog h3{font-size:27px;margin:5px 0 14px}
+    .pdf-close{border:0;border-radius:999px;padding:8px 11px;background:#eef3f4;color:var(--navy);font-weight:900;cursor:pointer}
+    .pdf-filebox{background:linear-gradient(135deg,var(--mint-soft),#fff);border:1px solid #cfe7e8;border-left:5px solid var(--mint);border-radius:15px;padding:15px;overflow-wrap:anywhere}
+    .pdf-filebox strong{display:block;color:var(--navy)}.pdf-filebox span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+    .pdf-dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+    .pdf-dialog-actions a{text-align:center;text-decoration:none;border-radius:12px;padding:13px;font-weight:950;background:var(--mint);color:#fff}
+    .pdf-dialog-actions a:last-child{background:var(--magenta)}
+    .pdf-dialog-status{margin-top:12px;color:#087c73;font-size:13px}
+    @media(max-width:650px){
+      .bigpicture-panel summary{padding:22px 18px}.bigpicture-hint{display:none}.bigpicture-body{padding:0 13px 18px}
+      .pdf-actions{display:grid}.pdf-dialog-actions{grid-template-columns:1fr}
+    }
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -406,8 +441,28 @@
       <a class="quick-link" href="#entwicklung"><span class="quick-check">✓</span><span data-i18n data-de="Vertriebshandbuch, Hörsäle, Expertenbegleitung & Premium-Vorteile" data-en="Sales handbook, lecture halls, expert support & premium benefits">Vertriebshandbuch, Hörsäle, Expertenbegleitung & Premium-Vorteile</span></a>
       <a class="quick-link" href="#daten"><span class="quick-check">✓</span><span data-i18n data-de="Eigene Kontakte bleiben im persönlichen KMS-Arbeitsbereich" data-en="Your contacts remain in your personal KMS workspace">Eigene Kontakte bleiben im persönlichen KMS-Arbeitsbereich</span></a>
       <a class="quick-link" href="#vertrag"><span class="quick-check">✓</span><span data-i18n data-de="Klare vertragliche Grundlage für die ClubLeader-Mitgliedschaft" data-en="Clear contractual basis for ClubLeader membership">Klare vertragliche Grundlage für die ClubLeader-Mitgliedschaft</span></a>
+      <a class="quick-link" href="#bigpicture"><span class="quick-check">✓</span><span data-i18n data-de="Big Picture der gesamten Leistungswelt" data-en="Big Picture of the complete service world">Big Picture der gesamten Leistungswelt</span></a>
+      <a class="quick-link" href="#bigpicture"><span class="quick-check">✓</span><span data-i18n data-de="Komplette Leistungsübersicht als PDF speichern oder teilen" data-en="Save or share the complete service overview as PDF">Komplette Leistungsübersicht als PDF speichern oder teilen</span></a>
     </div>
     <div class="quick-nav-foot" data-i18n data-de="Jeder Punkt ist gleichzeitig ein Sprunglink zur ausführlichen Erklärung weiter unten auf dieser Seite." data-en="Each item is also a jump link to the detailed explanation further down this page.">Jeder Punkt ist gleichzeitig ein Sprunglink zur ausführlichen Erklärung weiter unten auf dieser Seite.</div>
+  </details>
+
+  <details class="bigpicture-panel" id="bigpicture">
+    <summary>
+      <span class="bigpicture-title" data-i18n data-de="ClubLeader · Das Big Picture" data-en="ClubLeader · The Big Picture">ClubLeader · Das Big Picture</span>
+      <span class="bigpicture-hint" data-i18n data-de="Grafik ansehen ↓" data-en="View graphic ↓">Grafik ansehen ↓</span>
+    </summary>
+    <div class="bigpicture-body">
+      <div class="bigpicture-frame">
+        <img id="bigPictureImage" src="./big-picture/clubleader-das-big-picture.png" alt="ClubLeader – Das Big Picture">
+      </div>
+      <p class="bigpicture-copy" data-i18n data-de="Die Grafik fasst die gesamte ClubLeader-Leistungswelt auf einer Seite zusammen. Für die ausführliche Dokumentation kannst du die komplette Leistungsseite als mehrseitige A4-PDF erzeugen." data-en="The graphic summarises the complete ClubLeader service world on one page. For full documentation, you can create the complete service page as a multi-page A4 PDF.">Die Grafik fasst die gesamte ClubLeader-Leistungswelt auf einer Seite zusammen. Für die ausführliche Dokumentation kannst du die komplette Leistungsseite als mehrseitige A4-PDF erzeugen.</p>
+      <div class="pdf-actions">
+        <a class="pdf-btn secondary" href="./big-picture/clubleader-das-big-picture.png" target="_blank" rel="noopener" data-i18n data-de="Big Picture groß öffnen" data-en="Open Big Picture">Big Picture groß öffnen</a>
+        <button class="pdf-btn primary" id="makeFullPdf" type="button" data-i18n data-de="Komplette Seite als PDF erstellen" data-en="Create complete page as PDF">Komplette Seite als PDF erstellen</button>
+      </div>
+      <div class="pdf-status" id="pdfStatus" role="status" aria-live="polite" data-i18n data-de="Die PDF wird erst beim Klick lokal auf deinem Gerät erzeugt." data-en="The PDF is created locally on your device only when you click the button.">Die PDF wird erst beim Klick lokal auf deinem Gerät erzeugt.</div>
+    </div>
   </details>
 
   <section class="section" id="preis">
@@ -852,10 +907,34 @@
   <div class="wrap"><strong>LiquidityBooster · Akademie für finanzielle Souveränität</strong><br><span data-i18n data-de="ClubLeader Geschäftsausstattung · Stand 06.10.2026" data-en="ClubLeader business infrastructure · as of 6 October 2026">Leistungsübersicht für ClubLeader · Stand 06.10.2026</span></div>
 </footer>
 
+<div class="pdf-overlay" id="pdfOverlay" hidden>
+  <section class="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="pdfDialogTitle">
+    <div class="pdf-dialog-top">
+      <div>
+        <div class="eyebrow" data-i18n data-de="LiquidityBooster · fertige PDF" data-en="LiquidityBooster · finished PDF">LiquidityBooster · fertige PDF</div>
+        <h3 id="pdfDialogTitle" data-i18n data-de="PDF fertig erstellt" data-en="PDF created">PDF fertig erstellt</h3>
+      </div>
+      <button class="pdf-close" id="closePdfOverlay" type="button" data-i18n data-de="Schließen" data-en="Close">Schließen</button>
+    </div>
+    <div class="pdf-filebox"><strong id="pdfFilename"></strong><span id="pdfMeta"></span></div>
+    <div class="pdf-dialog-actions">
+      <a id="savePdf" href="#" target="_top" data-i18n data-de="PDF speichern" data-en="Save PDF">PDF speichern</a>
+      <a id="sharePdf" href="#" target="_top" data-i18n data-de="PDF teilen" data-en="Share PDF">PDF teilen</a>
+    </div>
+    <div class="pdf-dialog-status" id="pdfDialogStatus" role="status" aria-live="polite"></div>
+  </section>
+</div>
+
 <script>
 (function(){
+'use strict';
   var buttons=Array.from(document.querySelectorAll('[data-lang]'));
   var nodes=Array.from(document.querySelectorAll('[data-i18n]'));
+  var FILE_DB='lb-clubleader-full-page-file-handoff-v1',STORE='files';
+  var PAGE_W=1240,PAGE_H=1754,MARGIN=82,CONTENT_W=PAGE_W-MARGIN*2;
+  var pageCounter=0;
+
+  function currentLang(){return document.documentElement.lang==='en'?'en':'de'}
   function setLang(lang){
     document.documentElement.lang=lang;
     nodes.forEach(function(el){
@@ -869,12 +948,150 @@
     });
     try{localStorage.setItem('lb-leistungswelt-lang',lang)}catch(e){}
   }
-  buttons.forEach(function(btn){
-    btn.addEventListener('click',function(){setLang(btn.getAttribute('data-lang'));});
-  });
-  var initial='de';
-  try{initial=localStorage.getItem('lb-leistungswelt-lang')||'de'}catch(e){}
+  buttons.forEach(function(btn){btn.addEventListener('click',function(){setLang(btn.getAttribute('data-lang'))})});
+  var initial='de';try{initial=localStorage.getItem('lb-leistungswelt-lang')||'de'}catch(e){}
   setLang(initial==='en'?'en':'de');
+
+  function $(id){return document.getElementById(id)}
+  function isEmbedded(){try{return window.self!==window.top}catch(e){return true}}
+  function sanitize(s){return String(s||'ClubLeader-Vollausstattung').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,100)||'ClubLeader-Vollausstattung'}
+  function dataUrlBytes(dataUrl){var b64=dataUrl.split(',')[1],bin=atob(b64),out=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)out[i]=bin.charCodeAt(i);return out}
+  function asciiBytes(s){return new TextEncoder().encode(s)}
+  function concatBytes(parts){var len=parts.reduce(function(a,b){return a+b.length},0),out=new Uint8Array(len),off=0;parts.forEach(function(p){out.set(p,off);off+=p.length});return out}
+
+  function newCanvas(){
+    var c=document.createElement('canvas');c.width=PAGE_W;c.height=PAGE_H;
+    var x=c.getContext('2d');x.fillStyle='#ffffff';x.fillRect(0,0,PAGE_W,PAGE_H);
+    x.fillStyle='#00a7ad';x.fillRect(0,0,PAGE_W/2,10);x.fillStyle='#c6006f';x.fillRect(PAGE_W/2,0,PAGE_W/2,10);
+    return c
+  }
+  function font(ctx,size,weight){ctx.font=(weight||400)+' '+size+'px Arial,Helvetica,sans-serif'}
+  function wrap(ctx,text,maxW){
+    var words=String(text||'').replace(/\s+/g,' ').trim().split(' '),lines=[],line='';
+    words.forEach(function(w){var test=line?line+' '+w:w;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=w}else line=test});
+    if(line)lines.push(line);return lines
+  }
+  function drawBrand(ctx,pageNo){
+    ctx.textBaseline='top';
+    font(ctx,21,900);ctx.fillStyle='#132238';ctx.fillText('LiquidityBooster',MARGIN,34);
+    font(ctx,13,800);ctx.fillStyle='#00a7ad';ctx.fillText(currentLang()==='de'?'CLUBLEADER · LEISTUNGSWELT':'CLUBLEADER · SERVICE WORLD',MARGIN,61);
+    ctx.strokeStyle='#dce8ec';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(MARGIN,88);ctx.lineTo(PAGE_W-MARGIN,88);ctx.stroke();
+    font(ctx,12,700);ctx.fillStyle='#7a8895';ctx.fillText((currentLang()==='de'?'Seite ':'Page ')+pageNo,MARGIN,PAGE_H-49);
+    ctx.textAlign='right';ctx.fillText('liquiditybooster.de',PAGE_W-MARGIN,PAGE_H-49);ctx.textAlign='left'
+  }
+  function jpegBytes(canvas,quality){return dataUrlBytes(canvas.toDataURL('image/jpeg',quality||.88))}
+
+  function coverPage(){
+    pageCounter++;var c=newCanvas(),ctx=c.getContext('2d');drawBrand(ctx,pageCounter);
+    var hero=document.querySelector('.hero'),title=hero&&hero.querySelector('h1')?hero.querySelector('h1').innerText:'ClubLeader',lead=hero&&hero.querySelector('.lead')?hero.querySelector('.lead').innerText:'';
+    ctx.fillStyle='#e9f9f9';ctx.fillRect(MARGIN,160,CONTENT_W,330);
+    ctx.fillStyle='#fff0f7';ctx.fillRect(MARGIN,490,CONTENT_W,115);
+    font(ctx,19,900);ctx.fillStyle='#00a7ad';ctx.fillText(currentLang()==='de'?'GESCHÄFTSIDEE MIT VOLLAUSSTATTUNG':'BUSINESS IDEA WITH FULL INFRASTRUCTURE',MARGIN+36,205);
+    font(ctx,52,900);ctx.fillStyle='#132238';var y=250;wrap(ctx,title,CONTENT_W-72).forEach(function(line){ctx.fillText(line,MARGIN+36,y);y+=62});
+    font(ctx,24,400);ctx.fillStyle='#5f6f7d';y+=20;wrap(ctx,lead,CONTENT_W-72).slice(0,6).forEach(function(line){ctx.fillText(line,MARGIN+36,y);y+=35});
+    font(ctx,39,900);ctx.fillStyle='#c6006f';ctx.fillText('31,50 €',MARGIN+36,515);
+    font(ctx,18,800);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'rechnerisch netto pro Monat · 189 € netto je Halbjahr':'calculated net per month · €189 net every six months',MARGIN+245,529);
+    var chips=Array.from(document.querySelectorAll('.hero-chips .chip')).map(function(x){return x.innerText}).filter(Boolean);
+    y=700;font(ctx,18,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'Das Fundament auf einen Blick':'The foundation at a glance',MARGIN,y);y+=42;
+    font(ctx,18,600);chips.forEach(function(t,i){var col=i%2,row=Math.floor(i/2),x=MARGIN+col*(CONTENT_W/2),yy=y+row*54;ctx.fillStyle=i%2?'#c6006f':'#00a7ad';ctx.beginPath();ctx.arc(x+8,yy+10,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#26374b';ctx.fillText(t,x+27,yy)});
+    font(ctx,18,700);ctx.fillStyle='#687789';ctx.fillText(currentLang()==='de'?'Stand 06.10.2026 · vollständige Leistungsübersicht':'As of 6 October 2026 · complete service overview',MARGIN,1185);
+    return jpegBytes(c,.9)
+  }
+
+  function loadImage(src){return new Promise(function(resolve,reject){var img=new Image();img.onload=function(){resolve(img)};img.onerror=function(){reject(new Error('Bild konnte nicht geladen werden: '+src))};img.src=src})}
+  async function bigPicturePage(){
+    var img=await loadImage('./big-picture/clubleader-das-big-picture.png');
+    pageCounter++;var c=newCanvas(),ctx=c.getContext('2d');drawBrand(ctx,pageCounter);
+    font(ctx,34,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'Das Big Picture':'The Big Picture',MARGIN,115);
+    font(ctx,16,600);ctx.fillStyle='#687789';ctx.fillText(currentLang()==='de'?'Die gesamte ClubLeader-Leistungswelt auf einen Blick.':'The complete ClubLeader service world at a glance.',MARGIN,161);
+    var maxW=CONTENT_W,maxH=PAGE_H-275,scale=Math.min(maxW/img.width,maxH/img.height),w=img.width*scale,h=img.height*scale,x=MARGIN+(maxW-w)/2,y=210+(maxH-h)/2;
+    ctx.fillStyle='#f7fbfb';ctx.fillRect(MARGIN,198,CONTENT_W,maxH+20);ctx.drawImage(img,x,y,w,h);
+    return jpegBytes(c,.92)
+  }
+
+  function sectionLines(section){
+    var eyebrow=section.querySelector(':scope > .eyebrow'),h2=section.querySelector(':scope > h2');
+    var eyebrowText=eyebrow?eyebrow.innerText.trim():'',title=h2?h2.innerText.trim():'';
+    var h3=new Set(Array.from(section.querySelectorAll('h3')).map(function(x){return x.innerText.trim()}).filter(Boolean));
+    var lis=new Set(Array.from(section.querySelectorAll('li')).map(function(x){return x.innerText.trim()}).filter(Boolean));
+    var lines=section.innerText.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean).filter(function(x){
+      return x!==eyebrowText&&x!==title&&!/^↑\s/.test(x)&&x!=='Zur Schnellansicht'&&x!=='Back to quick view'
+    });
+    var seen=[];
+    lines.forEach(function(t){if(!seen.length||seen[seen.length-1]!==t)seen.push(t)});
+    return {eyebrow:eyebrowText,title:title,h3:h3,lis:lis,lines:seen}
+  }
+
+  function renderSection(section){
+    var data=sectionLines(section),pages=[],c=null,ctx=null,y=0;
+    function begin(cont){
+      pageCounter++;c=newCanvas();ctx=c.getContext('2d');drawBrand(ctx,pageCounter);y=116;
+      if(data.eyebrow){font(ctx,15,900);ctx.fillStyle='#00a7ad';ctx.fillText(data.eyebrow.toUpperCase(),MARGIN,y);y+=33}
+      font(ctx,37,900);ctx.fillStyle='#132238';var title=cont?(data.title+(currentLang()==='de'?' · Fortsetzung':' · Continued')):data.title;
+      wrap(ctx,title,CONTENT_W).forEach(function(line){ctx.fillText(line,MARGIN,y);y+=45});y+=18
+    }
+    function finish(){pages.push(jpegBytes(c,.87))}
+    begin(false);
+    data.lines.forEach(function(t){
+      var type=data.h3.has(t)?'h3':data.lis.has(t)?'li':'body';
+      var size=type==='h3'?25:type==='li'?20:20,weight=type==='h3'?900:type==='li'?650:450,lineH=type==='h3'?34:29;
+      if((/^[€$]?\d[\d.,]*\s*€/.test(t)||/\b\d+\s*%/.test(t))&&t.length<55){size=27;weight=900}
+      font(ctx,size,weight);
+      var prefix=type==='li'?'✓  ':'',max=CONTENT_W-(type==='li'?22:0),wrapped=wrap(ctx,prefix+t,max);
+      var need=wrapped.length*lineH+(type==='h3'?15:10);
+      if(y+need>PAGE_H-105){finish();begin(true)}
+      ctx.fillStyle=type==='h3'?'#132238':type==='li'?'#26374b':'#4f6170';
+      wrapped.forEach(function(line){ctx.fillText(line,MARGIN+(type==='li'?12:0),y);y+=lineH});
+      y+=type==='h3'?15:10
+    });
+    finish();return pages
+  }
+
+  function multiPagePdf(jpegs,wmm,hmm){
+    var wpt=(wmm*72/25.4).toFixed(2),hpt=(hmm*72/25.4).toFixed(2),objects=[],kids=[];
+    objects[1]=asciiBytes('<< /Type /Catalog /Pages 2 0 R >>');
+    jpegs.forEach(function(jpg,i){
+      var pageObj=3+i*3,imgObj=pageObj+1,contentObj=pageObj+2;kids.push(pageObj+' 0 R');
+      objects[pageObj]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Im0 '+imgObj+' 0 R >> >> /Contents '+contentObj+' 0 R >>');
+      objects[imgObj]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width '+PAGE_W+' /Height '+PAGE_H+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);
+      var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Im0 Do Q\n';
+      objects[contentObj]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream')
+    });
+    objects[2]=asciiBytes('<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+jpegs.length+' >>');
+    var maxObj=2+jpegs.length*3,parts=[asciiBytes('%PDF-1.4\n%LB-CLUBLEADER-LEISTUNGSWELT\n')],offsets=[0],pos=parts[0].length;
+    for(var i=1;i<=maxObj;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}
+    var xref=pos,xs='xref\n0 '+(maxObj+1)+'\n0000000000 65535 f \n';for(var j=1;j<=maxObj;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';
+    xs+='trailer\n<< /Size '+(maxObj+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));
+    return new Blob(parts,{type:'application/pdf'})
+  }
+  function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(FILE_DB,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('Dateispeicher'))}})}
+  async function storePdf(blob,filename,format){
+    var db=await openDb(),token='clubleader-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+    return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:filename,format:format,mime:'application/pdf',created:new Intl.DateTimeFormat(currentLang()==='de'?'de-DE':'en-GB',{dateStyle:'medium',timeStyle:'short'}).format(new Date())});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error||new Error('Dateispeicher'))}})
+  }
+  function handoff(token,action){var u=new URL('./datei-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);u.searchParams.set('lang',currentLang());return u.href}
+
+  async function createFullPdf(){
+    var btn=$('makeFullPdf'),status=$('pdfStatus');btn.disabled=true;status.textContent=currentLang()==='de'?'PDF wird lokal erstellt …':'Creating PDF locally …';status.className='pdf-status';
+    try{
+      pageCounter=0;var pages=[coverPage(),await bigPicturePage()];
+      var sections=Array.from(document.querySelectorAll('main.wrap > section.section, main.wrap > section.closing')).filter(function(s){return s.id!=='bigpicture'});
+      sections.forEach(function(s){Array.prototype.push.apply(pages,renderSection(s))});
+      var blob=multiPagePdf(pages,210,297),filename=currentLang()==='de'?'LiquidityBooster-ClubLeader-Vollausstattung.pdf':'LiquidityBooster-ClubLeader-Full-Infrastructure.pdf',format='PDF · A4 · '+pages.length+' '+(currentLang()==='de'?(pages.length===1?'Seite':'Seiten'):(pages.length===1?'page':'pages'));
+      var token=await storePdf(blob,filename,format);
+      $('pdfFilename').textContent=filename;$('pdfMeta').textContent=format;
+      $('savePdf').href=handoff(token,'save');$('sharePdf').href=handoff(token,'share');
+      $('savePdf').target=isEmbedded()?'_top':'_blank';$('sharePdf').target=isEmbedded()?'_top':'_blank';
+      $('pdfDialogStatus').textContent=currentLang()==='de'?'PDF ist fertig und kann gespeichert oder geteilt werden.':'PDF is ready to save or share.';
+      $('pdfOverlay').hidden=false;status.textContent=currentLang()==='de'?'PDF erfolgreich erstellt.':'PDF created successfully.';status.className='pdf-status ok'
+    }catch(e){
+      console.error(e);status.textContent=(currentLang()==='de'?'PDF-Fehler: ':'PDF error: ')+(e&&e.message?e.message:String(e));status.className='pdf-status error'
+    }finally{btn.disabled=false}
+  }
+
+  $('makeFullPdf').addEventListener('click',createFullPdf);
+  $('closePdfOverlay').addEventListener('click',function(){$('pdfOverlay').hidden=true});
+  $('pdfOverlay').addEventListener('click',function(e){if(e.target===$('pdfOverlay'))$('pdfOverlay').hidden=true});
 })();
 </script>
 </body>
