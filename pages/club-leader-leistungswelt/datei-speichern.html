@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>ClubLeader Big Picture · PDF</title>
+<title>ClubLeader Leistungsübersicht · PDF</title>
 <style>
 :root{--navy:#132238;--mint:#00a7ad;--mag:#c6006f;--line:#d8e4e8;--muted:#607080;--err:#a61754}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:linear-gradient(135deg,#eefafa,#fff 52%,#fff2f8);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:linear-gradient(135deg,#eefafa,#fff 52%,#fff2f8);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy)}
 body{min-height:100vh;display:grid;place-items:center;padding:18px}
-.card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 25px 80px #1322382d;padding:24px}
+.card{width:min(570px,100%);background:#fff;border:1px solid var(--line);border-radius:23px;box-shadow:0 25px 80px #1322382d;padding:25px}
+.brandline{height:4px;border-radius:999px;background:linear-gradient(90deg,var(--mint) 0 50%,var(--mag) 50%);margin-bottom:20px}
 .eyebrow{font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:900;color:var(--mint)}
-h1{font-size:clamp(24px,5vw,30px);line-height:1.15;margin:5px 0 16px}
+h1{font-size:clamp(24px,5vw,31px);line-height:1.15;margin:5px 0 16px}
 .file{background:#f1fafb;border:1px solid #cfe4e7;border-left:5px solid var(--mint);border-radius:14px;padding:16px;overflow-wrap:anywhere}
 .file strong{display:block;font-size:16px}.meta{font-size:13px;color:var(--muted);margin-top:5px}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
@@ -26,54 +26,47 @@ button.primary{background:var(--mint)}button.share{background:var(--mag)}button:
 </head>
 <body>
 <main class="card" aria-live="polite">
-  <div class="eyebrow">LiquidityBooster · ClubLeader</div>
-  <h1>Big-Picture-PDF speichern oder teilen</h1>
+  <div class="brandline"></div>
+  <div class="eyebrow" id="eyebrow">LiquidityBooster · ClubLeader</div>
+  <h1 id="title">Leistungsübersicht als PDF speichern oder teilen</h1>
   <div class="file"><strong id="filename">PDF wird geladen …</strong><div class="meta" id="meta"></div></div>
   <div class="actions"><button class="primary" id="save" type="button" disabled>PDF speichern</button><button class="share" id="share" type="button" disabled>PDF teilen</button></div>
   <p class="status" id="status">Die fertige PDF wird übernommen …</p>
-  <p class="note">Die PDF wurde bereits lokal auf deinem Gerät aus der Big-Picture-Grafik erzeugt. Hier wird sie nur an die Speicher- oder Teilen-Funktion deines Geräts übergeben.</p>
-  <a class="back" href="./#bigpicture">← Zurück zum Big Picture</a>
+  <p class="note" id="note">Die mehrseitige PDF wurde bereits lokal aus der ClubLeader-Leistungsseite erzeugt. Hier wird sie nur an die Speicher- oder Teilen-Funktion deines Geräts übergeben.</p>
+  <a class="back" id="back" href="./#bigpicture">← Zurück zur ClubLeader-Seite</a>
 </main>
 <script>
 (function(){
 'use strict';
-var DB_NAME='lb-clubleader-big-picture-file-handoff-v1',STORE='files',file=null;
-var q=new URLSearchParams(location.search);
+var DB_NAME='lb-clubleader-full-page-file-handoff-v1',STORE='files',file=null;
+var q=new URLSearchParams(location.search),lang=q.get('lang')==='en'?'en':'de';
+var T={
+ de:{title:'Leistungsübersicht als PDF speichern oder teilen',loading:'PDF wird geladen …',save:'PDF speichern',share:'PDF teilen',status:'Die fertige PDF wird übernommen …',note:'Die mehrseitige PDF wurde bereits lokal aus der ClubLeader-Leistungsseite erzeugt. Hier wird sie nur an die Speicher- oder Teilen-Funktion deines Geräts übergeben.',back:'← Zurück zur ClubLeader-Seite',ready:'PDF ist fertig und bereit.',none:'Keine fertige PDF vorhanden.',saved:'PDF wurde an die Speicherfunktion übergeben.',shared:'Dateifreigabe geöffnet.',shareUnsupported:'Teilen wird auf diesem Gerät für diese PDF nicht unterstützt.',cancel:'Vorgang abgebrochen.'},
+ en:{title:'Save or share the service overview PDF',loading:'Loading PDF …',save:'Save PDF',share:'Share PDF',status:'Loading the finished PDF …',note:'The multi-page PDF has already been created locally from the ClubLeader service page. This page only hands it to your device save or share function.',back:'← Back to the ClubLeader page',ready:'PDF is ready.',none:'No finished PDF is available.',saved:'PDF handed to the device save function.',shared:'Share sheet opened.',shareUnsupported:'Sharing this PDF is not supported on this device.',cancel:'Cancelled.'}
+}[lang];
+function apply(){document.documentElement.lang=lang;document.getElementById('title').textContent=T.title;document.getElementById('filename').textContent=T.loading;document.getElementById('save').textContent=T.save;document.getElementById('share').textContent=T.share;document.getElementById('status').textContent=T.status;document.getElementById('note').textContent=T.note;document.getElementById('back').textContent=T.back}
 function msg(s,e){var el=document.getElementById('status');el.textContent=s;el.classList.toggle('error',!!e)}
 function canShare(){try{return!!(file&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]}))}catch(e){return false}}
 function openDb(){return new Promise(function(resolve,reject){var req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('Dateispeicher'))}})}
 async function getRecord(token){var db=await openDb();return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readonly'),req=tx.objectStore(STORE).get(token);req.onsuccess=function(){resolve(req.result||null)};req.onerror=function(){reject(req.error||new Error('Datei konnte nicht gelesen werden.'))}})}
 function extension(name){var m=String(name||'').match(/(\.[A-Za-z0-9]+)$/);return m?m[1]:''}
 async function save(){
- if(!file)return msg('Keine fertige PDF vorhanden.',true);
+ if(!file)return msg(T.none,true);
  if(typeof window.showSaveFilePicker==='function'){
-  try{
-   var ext=extension(file.name),accept={};accept[file.type||'application/pdf']=[ext||'.pdf'];
-   var h=await window.showSaveFilePicker({suggestedName:file.name,types:[{description:'PDF',accept:accept}]});
-   var w=await h.createWritable();await w.write(file);await w.close();return msg('PDF wurde an die Speicherfunktion übergeben.')
-  }catch(e){if(e&&e.name==='AbortError')return msg('Vorgang abgebrochen.')}
+  try{var ext=extension(file.name),accept={};accept[file.type||'application/pdf']=[ext||'.pdf'];var h=await window.showSaveFilePicker({suggestedName:file.name,types:[{description:'PDF',accept:accept}]});var w=await h.createWritable();await w.write(file);await w.close();return msg(T.saved)}catch(e){if(e&&e.name==='AbortError')return msg(T.cancel)}
  }
- if(canShare()){try{await navigator.share({files:[file],title:file.name});return msg('PDF wurde an die Speicherfunktion übergeben.')}catch(e){if(e&&e.name==='AbortError')return msg('Vorgang abgebrochen.')}}
- var url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1800);msg('PDF wurde an die Speicherfunktion übergeben.')
+ if(canShare()){try{await navigator.share({files:[file],title:file.name});return msg(T.saved)}catch(e){if(e&&e.name==='AbortError')return msg(T.cancel)}}
+ var url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1800);msg(T.saved)
 }
 async function share(){
- if(!file)return msg('Keine fertige PDF vorhanden.',true);
- if(!canShare())return msg('Teilen wird auf diesem Gerät für diese PDF nicht unterstützt.',true);
- try{await navigator.share({files:[file],title:file.name});msg('Dateifreigabe geöffnet.')}catch(e){if(e&&e.name==='AbortError')return msg('Vorgang abgebrochen.');msg(e&&e.message?e.message:String(e),true)}
+ if(!file)return msg(T.none,true);
+ if(!canShare())return msg(T.shareUnsupported,true);
+ try{await navigator.share({files:[file],title:file.name});msg(T.shared)}catch(e){if(e&&e.name==='AbortError')return msg(T.cancel);msg(e&&e.message?e.message:String(e),true)}
 }
 async function load(){
- try{
-  var token=q.get('token')||'';if(!token)throw new Error('Keine fertige PDF vorhanden.');
-  var rec=await getRecord(token);if(!rec||!rec.blob||!rec.filename)throw new Error('Keine fertige PDF vorhanden.');
-  file=new File([rec.blob],rec.filename,{type:rec.mime||rec.blob.type||'application/pdf'});
-  document.getElementById('filename').textContent=file.name;
-  document.getElementById('meta').textContent=[rec.format||'',rec.created||''].filter(Boolean).join(' · ');
-  document.getElementById('save').disabled=false;document.getElementById('share').disabled=!canShare();msg('PDF ist fertig und bereit.')
- }catch(e){msg(e&&e.message?e.message:String(e),true)}
+ try{var token=q.get('token')||'';if(!token)throw new Error(T.none);var rec=await getRecord(token);if(!rec||!rec.blob||!rec.filename)throw new Error(T.none);file=new File([rec.blob],rec.filename,{type:rec.mime||rec.blob.type||'application/pdf'});document.getElementById('filename').textContent=file.name;document.getElementById('meta').textContent=[rec.format||'',rec.created||''].filter(Boolean).join(' · ');document.getElementById('save').disabled=false;document.getElementById('share').disabled=!canShare();msg(T.ready)}catch(e){msg(e&&e.message?e.message:String(e),true)}
 }
-document.getElementById('save').addEventListener('click',save);
-document.getElementById('share').addEventListener('click',share);
-load();
+apply();document.getElementById('save').addEventListener('click',save);document.getElementById('share').addEventListener('click',share);load();
 })();
 </script>
 </body>
