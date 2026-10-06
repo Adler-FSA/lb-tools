@@ -353,6 +353,7 @@ var STORE='files';
 var PHOTO_STORE='drafts';
 var state={lang:'de'};
 var photoBlob=null,photoImage=null,photoUrl='';
+var logoImage=null,logoPromise=null;
 var preview=document.getElementById('preview'),pctx=preview.getContext('2d');
 
 var I18N={
@@ -441,6 +442,24 @@ var sections=[
 function $(id){return document.getElementById(id)}
 function t(key){return I18N[state.lang][key]||key}
 function font(size,weight){return (weight||400)+' '+size+'px Arial,Helvetica,sans-serif'}
+function loadLogo(){
+ if(logoImage&&logoImage.complete&&logoImage.naturalWidth)return Promise.resolve(logoImage);
+ if(logoPromise)return logoPromise;
+ logoPromise=new Promise(function(resolve,reject){
+  var img=new Image();
+  img.onload=function(){logoImage=img;renderPreview();resolve(img)};
+  img.onerror=function(){logoPromise=null;reject(new Error('LiquidityBooster-Logo konnte nicht geladen werden.'))};
+  img.src='./liquiditybooster-logo.png'
+ });
+ return logoPromise
+}
+function drawLogo(c,x,y,maxW,maxH){
+ if(!(logoImage&&logoImage.complete&&logoImage.naturalWidth)){
+  c.fillStyle='#00a7ad';c.font=font(Math.max(18,Math.round(maxH*.28)),900);c.fillText('liquiditybooster.de',x,y+Math.round(maxH*.62));return
+ }
+ var iw=logoImage.naturalWidth,ih=logoImage.naturalHeight,scale=Math.min(maxW/iw,maxH/ih),w=iw*scale,h=ih*scale;
+ c.drawImage(logoImage,x,y+(maxH-h)/2,w,h)
+}
 function sanitize(s){return String(s||'Mitglieder-Portrait').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,90)||'Mitglieder-Portrait'}
 
 function applyI18n(){
@@ -495,7 +514,7 @@ function wrap(c,text,maxWidth){
 function drawCover(c,w,h){
  c.fillStyle='#fff';c.fillRect(0,0,w,h);
  var grad=c.createLinearGradient(0,0,w,0);grad.addColorStop(0,'rgba(0,167,173,.12)');grad.addColorStop(.55,'rgba(255,255,255,0)');grad.addColorStop(1,'rgba(198,0,111,.10)');c.fillStyle=grad;c.fillRect(0,0,w,180);
- c.fillStyle='#00a7ad';c.font=font(Math.round(w*.023),900);c.fillText('liquiditybooster.de',Math.round(w*.075),Math.round(h*.075));
+ drawLogo(c,Math.round(w*.075),Math.round(h*.035),Math.round(w*.49),Math.round(h*.105));
  c.fillStyle='#132238';c.font=font(Math.round(w*.053),900);c.fillText(t('title'),Math.round(w*.075),Math.round(h*.145));
  c.fillStyle='#607080';c.font=font(Math.round(w*.022),650);c.fillText(t('pdfSubtitle'),Math.round(w*.075),Math.round(h*.182));
  var photoX=Math.round(w*.075),photoY=Math.round(h*.245),photoW=Math.round(w*.37),photoH=Math.round(h*.35);
@@ -581,7 +600,7 @@ function updateUi(){
 function drawPageHeader(c,w,h,title,pageNo){
  c.fillStyle='#fff';c.fillRect(0,0,w,h);
  var g=c.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,167,173,.11)');g.addColorStop(1,'rgba(198,0,111,.08)');c.fillStyle=g;c.fillRect(0,0,w,120);
- c.fillStyle='#00a7ad';c.font=font(24,900);c.fillText('liquiditybooster.de',88,72);
+ drawLogo(c,88,16,330,86);
  c.fillStyle='#132238';c.font=font(46,900);var titleLines=wrap(c,title,w-176);titleLines.slice(0,2).forEach(function(line,i){c.fillText(line,88,170+i*54)});
  c.strokeStyle='#d8e4e8';c.lineWidth=2;c.beginPath();c.moveTo(88,245);c.lineTo(w-88,245);c.stroke();
  c.fillStyle='#607080';c.font=font(18,700);c.fillText(t('title')+' · '+t('pdfPage')+' '+pageNo,88,h-58)
@@ -654,6 +673,7 @@ async function createPdf(){
  if(!ready()){updateUi();return}
  $('status').textContent=t('working');$('status').className='status ok';$('makePdf').disabled=true;
  try{
+  await loadLogo();
   var jpegs=[coverPageBytes()],pageNo=2;
   sections.forEach(function(section){var out=sectionPageBytes(section,pageNo);Array.prototype.push.apply(jpegs,out.pages);pageNo=out.lastPage+1});
   var blob=multiPagePdfFromJpegs(jpegs,210,297),name=sanitize($('firstName').value+'-'+$('lastName').value),filename='Mitglieder-Portrait-'+name+'.pdf',format='PDF · A4 · '+jpegs.length+' '+(state.lang==='de'?(jpegs.length===1?'Seite':'Seiten'):(jpegs.length===1?'page':'pages'));
@@ -682,6 +702,7 @@ $('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=tr
 $('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
 
 loadDraft();loadClubProfile();loadStoredPhoto().then(function(){applyI18n();updateUi();renderPreview()});
+loadLogo().catch(function(){});
 applyI18n();updateUi();renderPreview();
 })();
 </script>
