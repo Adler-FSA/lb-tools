@@ -27,11 +27,11 @@ button.primary{background:var(--mint)}button:disabled{opacity:.45;cursor:not-all
 <body>
 <main class="card" aria-live="polite">
   <div class="eyebrow" id="eyebrow">Workshop Mitglieder-Portrait</div>
-  <h1 id="title">PDF speichern oder teilen</h1>
+  <h1 id="title">Persönliche Backup-PDF speichern</h1>
   <div class="file"><strong id="filename">PDF wird geladen …</strong><div class="meta" id="meta"></div></div>
-  <div class="actions"><button class="primary" id="save" type="button" disabled>PDF speichern</button><button id="share" type="button" disabled>PDF teilen</button></div>
+  <div class="actions"><button class="primary" id="save" type="button" disabled>PDF speichern</button></div>
   <p class="status" id="status">Die fertige PDF wird übernommen …</p>
-  <p class="note" id="note">Die PDF wurde bereits lokal im Workshop erzeugt. Hier wird sie nur an die Speicher- oder Teilen-Funktion deines Geräts übergeben.</p>
+  <p class="note" id="note">Diese PDF ist deine persönliche Sicherung deiner Workshop-Antworten und KMS-Inhalte. Sie wurde bereits lokal erzeugt und wird hier nur an die Speicherfunktion deines Geräts übergeben.</p>
   <a class="back" id="back" href="./index.html">← Zurück zum Workshop</a>
 </main>
 <script>
@@ -40,8 +40,8 @@ button.primary{background:var(--mint)}button:disabled{opacity:.45;cursor:not-all
 var DB_NAME='lb-member-portrait-file-handoff-v1',STORE='files',file=null;
 var q=new URLSearchParams(location.search),lang=q.get('lang')==='en'?'en':'de';
 var TXT={
- de:{eyebrow:'Workshop Mitglieder-Portrait',title:'PDF speichern oder teilen',loading:'PDF wird geladen …',save:'PDF speichern',share:'PDF teilen',status:'Die fertige PDF wird übernommen …',note:'Die PDF wurde bereits lokal im Workshop erzeugt. Hier wird sie nur an die Speicher- oder Teilen-Funktion deines Geräts übergeben.',back:'← Zurück zum Workshop',ready:'PDF ist fertig und bereit.',none:'Keine fertige PDF vorhanden.',saved:'PDF wurde an die Speicherfunktion übergeben.',shared:'Dateifreigabe geöffnet.',aborted:'Vorgang abgebrochen.',unsupported:'Teilen wird auf diesem Gerät für diese PDF nicht unterstützt.'},
- en:{eyebrow:'Workshop Member Portrait',title:'Save or share PDF',loading:'Loading PDF …',save:'Save PDF',share:'Share PDF',status:'Preparing your finished PDF …',note:'The PDF has already been created locally in the workshop. This page only hands it to your device save or share function.',back:'← Back to workshop',ready:'Your PDF is ready.',none:'No finished PDF is available.',saved:'The PDF was handed to the save function.',shared:'Sharing opened.',aborted:'Action cancelled.',unsupported:'Sharing this PDF is not supported on this device.'}
+ de:{eyebrow:'Persönliche Sicherung',title:'Persönliche Backup-PDF speichern',loading:'PDF wird geladen …',save:'PDF speichern',status:'Die fertige Backup-PDF wird übernommen …',note:'Diese PDF ist deine persönliche Sicherung deiner Workshop-Antworten und KMS-Inhalte. Sie wurde bereits lokal erzeugt und wird hier nur an die Speicherfunktion deines Geräts übergeben.',back:'← Zurück zum Workshop',ready:'Backup-PDF ist fertig und bereit.',none:'Keine fertige PDF vorhanden.',saved:'PDF wurde an die Speicherfunktion übergeben.',aborted:'Vorgang abgebrochen.'},
+ en:{eyebrow:'Personal backup',title:'Save personal backup PDF',loading:'Loading PDF …',save:'Save PDF',status:'Preparing your finished backup PDF …',note:'This PDF is your personal backup of your workshop answers and KMS content. It was created locally and is only handed to your device save function here.',back:'← Back to workshop',ready:'Your backup PDF is ready.',none:'No finished PDF is available.',saved:'The PDF was handed to the save function.',aborted:'Action cancelled.'}
 }[lang];
 
 function apply(){
@@ -50,7 +50,6 @@ function apply(){
  document.getElementById('title').textContent=TXT.title;
  document.getElementById('filename').textContent=TXT.loading;
  document.getElementById('save').textContent=TXT.save;
- document.getElementById('share').textContent=TXT.share;
  document.getElementById('status').textContent=TXT.status;
  document.getElementById('note').textContent=TXT.note;
  document.getElementById('back').textContent=TXT.back
@@ -73,11 +72,6 @@ async function save(){
  if(canShare()){try{await navigator.share({files:[file],title:file.name});return msg(TXT.saved)}catch(e){if(e&&e.name==='AbortError')return msg(TXT.aborted)}}
  var url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1800);msg(TXT.saved)
 }
-async function share(){
- if(!file)return msg(TXT.none,true);
- if(!canShare())return msg(TXT.unsupported,true);
- try{await navigator.share({files:[file],title:file.name});msg(TXT.shared)}catch(e){if(e&&e.name==='AbortError')return msg(TXT.aborted);msg(e&&e.message?e.message:String(e),true)}
-}
 async function load(){
  try{
   var token=q.get('token')||'';if(!token)throw new Error(TXT.none);
@@ -85,12 +79,11 @@ async function load(){
   file=new File([rec.blob],rec.filename,{type:rec.mime||rec.blob.type||'application/pdf'});
   document.getElementById('filename').textContent=file.name;
   document.getElementById('meta').textContent=[rec.format||'',rec.created||''].filter(Boolean).join(' · ');
-  document.getElementById('save').disabled=false;document.getElementById('share').disabled=!canShare();msg(TXT.ready)
+  document.getElementById('save').disabled=false;msg(TXT.ready)
  }catch(e){msg(e&&e.message?e.message:String(e),true)}
 }
 apply();
 document.getElementById('save').addEventListener('click',save);
-document.getElementById('share').addEventListener('click',share);
 load();
 })();
 </script>
