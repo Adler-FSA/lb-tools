@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Michael Rau · Workshop Mitglieder-Portrait</title>
+<style>
+:root{
+  --navy:#132238;
+  --mint:#00a7ad;
+  --mag:#c6006f;
+  --bg:#eef4f5;
+  --line:#d8e4e8;
+  --muted:#607080;
+  --ok:#087c73;
+  --err:#a61754;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--navy);background:var(--bg)}
+body{padding:18px}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1320px,100%);margin:0 auto}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.brandline{font-weight:900;letter-spacing:.02em}
+.lang{display:flex;gap:6px}
+.lang button{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:999px;padding:8px 11px;font-size:12px;font-weight:900}
+.lang button.active{background:var(--mint);border-color:var(--mint);color:#fff}
+.hero{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,40px);box-shadow:0 18px 50px rgba(19,34,56,.08);margin-bottom:18px}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:999px;pointer-events:none}
+.hero:before{width:460px;height:150px;right:-145px;top:-72px;background:linear-gradient(90deg,rgba(0,167,173,.14),rgba(198,0,111,.09));transform:rotate(-8deg)}
+.hero:after{width:390px;height:120px;left:-150px;bottom:-70px;background:linear-gradient(90deg,rgba(198,0,111,.08),rgba(0,167,173,.12));transform:rotate(8deg)}
+.eyebrow{position:relative;z-index:1;font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--mint)}
+h1{position:relative;z-index:1;font-size:clamp(31px,5vw,50px);line-height:1.04;margin:8px 0 10px}
+.lead{position:relative;z-index:1;margin:0;max-width:980px;color:var(--muted);font-size:17px;line-height:1.55}
+.quote{position:relative;z-index:1;margin-top:18px;padding:14px 16px;border-left:5px solid var(--mag);background:linear-gradient(90deg,rgba(198,0,111,.055),rgba(0,167,173,.04));border-radius:12px;font-weight:850;line-height:1.45}
+.goal{position:relative;z-index:1;margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+.goal summary{cursor:pointer;font-weight:900;list-style:none}
+.goal summary::-webkit-details-marker{display:none}
+.goal summary:after{content:"＋";float:right;color:var(--mint)}
+.goal[open] summary:after{content:"–"}
+.goalBody{margin-top:12px;color:var(--muted);line-height:1.55}
+.goalBody p{margin:0 0 8px}
+.privacy{display:flex;gap:12px;align-items:flex-start;background:#f1fafb;border:1px solid #cae6e8;border-left:5px solid var(--mint);border-radius:14px;padding:14px 16px;margin:0 0 18px}
+.privacy svg{width:26px;height:26px;flex:0 0 auto;color:var(--mint)}
+.privacy strong{display:block;margin-bottom:3px}
+.privacy span{color:var(--muted);font-size:13px;line-height:1.45}
+.grid{display:grid;grid-template-columns:minmax(390px,540px) minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 14px 42px rgba(19,34,56,.07)}
+.panel h2{font-size:21px;margin:0 0 15px}
+.startBox{padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{min-width:0}
+.field.full{grid-column:1/-1}
+label,.label{display:block;font-size:12px;font-weight:850;margin:0 0 6px;color:#344958}
+input,textarea{width:100%;border:1px solid #cbdadd;background:#fff;color:var(--navy);border-radius:11px;padding:11px 12px;outline:none}
+textarea{min-height:92px;resize:vertical;line-height:1.45}
+input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.10)}
+.hint{font-size:11px;line-height:1.45;color:var(--muted);margin-top:6px}
+.details{border-top:1px solid var(--line)}
+.details summary{list-style:none;cursor:pointer;padding:17px 2px;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.details summary::-webkit-details-marker{display:none}
+.details summary .no{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--mint);color:#fff;font-size:12px;margin-right:8px}
+.details:nth-of-type(even) summary .no{background:var(--mag)}
+.details summary:after{content:"＋";font-size:18px;color:var(--mint)}
+.details[open] summary:after{content:"–"}
+.detailsBody{padding:0 2px 20px}
+.sectionIntro{font-size:13px;line-height:1.5;color:var(--muted);margin:0 0 14px}
+.sectionIntro p{margin:0 0 7px}
+.question{margin-top:12px}
+.question:first-child{margin-top:0}
+.question label{font-size:13px;color:var(--navy)}
+.kmsBlock{margin-top:20px;border:1px solid #cfe3e6;border-radius:18px;background:linear-gradient(180deg,#f7fbfc,#fff);padding:18px}
+.kmsHead{display:flex;gap:12px;align-items:flex-start;margin-bottom:15px}
+.kmsHead svg{width:30px;height:30px;flex:0 0 auto;color:var(--mint)}
+.kmsHead h3{margin:0 0 5px;font-size:20px}
+.kmsHead p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.kmsField{padding:14px 0;border-top:1px solid var(--line)}
+.kmsField:first-of-type{border-top:0}
+.kmsLabelRow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.kmsLabelRow label,.kmsLabelRow .label{margin:0;font-size:13px;color:var(--navy)}
+.copyBtn{appearance:none;border:1px solid #bcd9dc;background:#fff;color:var(--navy);border-radius:10px;padding:7px 10px;display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:900;white-space:nowrap}
+.copyBtn:hover{border-color:var(--mint)}
+.copyBtn:disabled{opacity:.38;cursor:not-allowed}
+.copyBtn.copied{border-color:var(--mint);background:#edf9f7;color:#087c73}
+.copyBtn svg{width:15px;height:15px;flex:0 0 auto}
+.kmsPhotoNote{display:flex;gap:12px;align-items:center;padding:12px;border-radius:13px;background:#eef8f9;border:1px solid #d4e8ea}
+.kmsPhotoThumb{width:64px;height:64px;border-radius:12px;overflow:hidden;background:#e7eff1;display:grid;place-items:center;color:var(--muted);font-size:10px;font-weight:850;text-align:center;flex:0 0 auto}
+.kmsPhotoThumb img{width:100%;height:100%;object-fit:cover}
+.kmsPhotoNote p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+.kmsCategories{display:grid;gap:8px}
+.kmsCategories label{display:flex;gap:9px;align-items:flex-start;margin:0;font-size:13px;font-weight:600;color:#344958}
+.kmsCategories input{width:auto;margin-top:2px}
+.kmsCategoryTools{display:flex;justify-content:flex-end;margin-top:10px}
+.photoBox{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:13px;background:#f8fbfc}
+.photoThumb{width:110px;height:110px;border-radius:18px;background:#e8eff1;border:1px solid #d5e1e4;overflow:hidden;display:grid;place-items:center;color:var(--muted);font-size:12px;font-weight:850;text-align:center}
+.photoThumb img{width:100%;height:100%;object-fit:cover;display:block}
+.fileInput{padding:9px;background:#fff}
+.qrState{margin-top:7px;padding:9px 10px;border-radius:10px;background:#f3f7f8;color:var(--muted);font-size:12px;font-weight:750}
+.qrState.ok{background:#edf9f7;color:#087c73;border:1px solid #cde8e3}
+.qrState.error{background:#fff1f6;color:#a61754;border:1px solid #f0c9da}
+.progressWrap{margin-top:14px}
+.progressText{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted);margin-bottom:6px}
+.progressBar{height:8px;background:#edf2f4;border-radius:999px;overflow:hidden}
+.progressBar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--mag));transition:.2s ease}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.btn{border:0;border-radius:12px;padding:13px 12px;font-weight:900;color:#fff;background:var(--navy)}
+.btn.primary{background:var(--mint)}
+.btn.secondary{background:#edf2f4;color:var(--navy)}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+.status{font-size:12px;min-height:18px;margin:11px 0 0;color:var(--muted)}
+.status.ok{color:var(--ok)}
+.status.error{color:var(--err)}
+.previewTop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.previewTop h2{margin:0}
+.badge{font-size:12px;font-weight:850;background:#eefafa;color:#087c73;border:1px solid #cde7e8;border-radius:999px;padding:6px 9px}
+.previewStage{background:linear-gradient(135deg,#e7eff1,#f8fbfb);border-radius:18px;padding:clamp(12px,3vw,24px);display:grid;place-items:center}
+.previewCanvasWrap{position:relative;width:min(100%,720px)}
+#preview{display:block;width:100%;height:auto;aspect-ratio:210/297;background:#fff;box-shadow:0 24px 58px rgba(19,34,56,.18)}
+.previewLogoOriginal{position:absolute;left:7.5%;top:2.8%;width:29%;height:auto;display:block;z-index:2;pointer-events:none}
+.previewNote{font-size:12px;line-height:1.45;color:var(--muted);margin:11px 0 0}
+.overlay{position:fixed;inset:0;background:rgba(19,34,56,.62);display:grid;place-items:center;padding:18px;z-index:50}
+.overlay[hidden]{display:none}
+.dialog{width:min(540px,100%);background:#fff;border-radius:21px;padding:22px;box-shadow:0 30px 90px rgba(0,0,0,.25)}
+.dialog h3{font-size:25px;margin:6px 0 12px}
+.filebox{background:#f2fafb;border-left:5px solid var(--mint);border-radius:12px;padding:13px;overflow-wrap:anywhere}
+.filebox strong{display:block}.filebox span{font-size:12px;color:var(--muted)}
+.dialogActions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.dialogActions a,.dialogActions button{text-align:center;text-decoration:none;border:0;border-radius:11px;padding:12px;font-weight:900}
+.dialogActions a{background:var(--mint);color:#fff}
+.dialogActions .share{background:var(--navy);color:#fff}
+.dialogActions button{grid-column:1/-1;background:#edf2f4;color:var(--navy)}
+@media(min-width:921px){.grid>section:nth-child(2){position:sticky;top:14px}}
+@media(max-width:920px){.grid{grid-template-columns:1fr}}
+@media(max-width:600px){
+  body{padding:10px}.hero,.panel{border-radius:18px;padding:16px}.formgrid,.actions,.dialogActions{grid-template-columns:1fr}.field.full{grid-column:auto}
+  .topbar{align-items:flex-start;flex-direction:column}.photoBox{grid-template-columns:86px 1fr}.photoThumb{width:86px;height:86px}.dialogActions button{grid-column:auto}.kmsLabelRow{align-items:flex-start}.copyBtn{flex:0 0 auto}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brandline">LiquidityBooster · Persönliche Arbeitsversion · Michael Rau</div>
+    <div class="lang" aria-label="Sprache">
+      <button type="button" data-lang="de" class="active">DE</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="eyebrow" data-i18n="eyebrow">Woche 1 · 12 Wochenprogramm für Club Leader</div>
+    <h1 data-i18n="title">Workshop Mitglieder-Portrait</h1>
+    <p class="lead" data-i18n="lead">Arbeite die Fragen in Ruhe durch. Deine Antworten werden direkt zu deinem persönlichen Mitglieder-Portrait zusammengeführt.</p>
+    <div class="quote" data-i18n="quote">„Du musst nicht perfekt sichtbar sein. Du musst anfangen, sichtbar zu werden.“</div>
+    <details class="goal">
+      <summary data-i18n="goalTitle">Das Ziel des Workshops</summary>
+      <div class="goalBody">
+        <p data-i18n="goal1">Am Ende dieses Workshops hast Du Dein Profil oder Dein Profil überarbeitet.</p>
+        <p data-i18n="goal2">Du hast etwas dass Du vorzeigen kannst und das zu DIR passt.</p>
+        <p data-i18n="goal3">Du hast den ersten Schritt getan um in die Sichtbarkeit zu kommen und das Fundament geschaffen für alle weiteren Möglichkeiten (Eigenes Angebot, Marktplatz-Präsenz, Auftritt in Social Media …</p>
+        <p><strong data-i18n="goal4">Dabei solltest Du Stift und Papier nutzen um den kreativen Prozess nicht zu blockieren.</strong></p>
+        <p><strong data-i18n="goal5">Nimm Dir etwas Zeit und einen ruhigen Rahmen.</strong></p>
+        <p data-i18n="goal6">Am Ende muss nicht alles beantwortet sein und manches wird sich noch Ent-Wickeln.</p>
+        <p data-i18n="goal7">Vertraue dem Prozess und wenn Du magst, wiederhole ihn von Zeit zu Zeit.</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="privacy">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 4.5 5.6v5.7c0 4.7 3 8.6 7.5 10.2 4.5-1.6 7.5-5.5 7.5-10.2V5.6L12 2.5Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.8 11.5 11 13.7l4.4-4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><strong data-i18n="privacyTitle">Alles bleibt lokal auf deinem Gerät.</strong><span data-i18n="privacyText">Profilbild, Antworten und Affiliate-Link werden nicht an LiquidityBooster, GitHub oder einen anderen Server übertragen. Erst du entscheidest, ob du die fertige PDF speicherst oder teilst.</span></div>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <div class="startBox">
+        <h2 data-i18n="startTitle">Dein persönliches Mitglieder-Portrait</h2>
+        <div class="formgrid">
+          <div class="field"><label for="firstName" data-i18n="firstName">Vorname</label><input id="firstName" autocomplete="given-name" maxlength="50" data-i18n-placeholder="firstNamePh" placeholder="Vorname"></div>
+          <div class="field"><label for="lastName" data-i18n="lastName">Nachname</label><input id="lastName" autocomplete="family-name" maxlength="60" data-i18n-placeholder="lastNamePh" placeholder="Nachname"></div>
+          <div class="field full"><label for="affiliateUrl" data-i18n="affiliate">Persönlicher Affiliate-Link</label><input id="affiliateUrl" inputmode="url" autocomplete="url" maxlength="1800" placeholder="https://..."><div class="hint" data-i18n="affiliateHint">Der Link wird nicht ausgeschrieben. Er wird ausschließlich als QR-Code in deine PDF übernommen.</div><div class="qrState" id="qrState" role="status" aria-live="polite"></div></div>
+        </div>
+        <div class="progressWrap">
+          <div class="progressText"><span data-i18n="progressLabel">Ausgefüllte Antwortfelder</span><span id="progressCount">0 / 0</span></div>
+          <div class="progressBar"><span id="progressBar"></span></div>
+        </div>
+      </div>
+
+      <details class="details" open>
+        <summary><span><span class="no">1</span><span data-i18n="sloganTitle">Dein Slogan</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro">
+            <p data-i18n="sloganIntro1">Wenn Du einen hast – prima … passt er zu Dir?</p>
+            <p data-i18n="sloganIntro2">Wenn Du keinen hast – fällt Dir spontan ein Spruch ein, der zu Dir passt?</p>
+            <p data-i18n="sloganIntro3">Wenn Du keinen hast – dann darf er sich gerne im Prozess entwickeln</p>
+            <p data-i18n="sloganIntro4">Nimm Dir eine Minute Zeit und höre in Dich hinein …</p>
+          </div>
+          <div class="question"><label for="slogan" data-i18n="sloganQ">Mein Slogan</label><textarea id="slogan" class="answer" maxlength="700" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">2</span><span data-i18n="dataTitle">Deine Daten</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro">
+            <p data-i18n="dataIntro1">Nimm Dir nun etwas Zeit und fülle Deine Daten möglichst komplett aus</p>
+            <p data-i18n="dataIntro2">Suche alle Links die Du hast heraus und notiere die Kanäle, auf denen Du noch nicht vertreten bist</p>
+          </div>
+          <div class="formgrid">
+            <div class="field"><label for="city" data-i18n="city">Ort</label><input id="city" class="answer" autocomplete="address-level2" maxlength="80" data-i18n-placeholder="answerShortPh" placeholder="Deine Antwort …"></div>
+            <div class="field"><label for="mobile" data-i18n="mobile">Mobil</label><input id="mobile" class="answer" autocomplete="tel" maxlength="50" data-i18n-placeholder="answerShortPh" placeholder="Deine Antwort …"></div>
+            <div class="field full"><label for="email" data-i18n="email">E-Mail</label><input id="email" class="answer" autocomplete="email" maxlength="120" data-i18n-placeholder="answerShortPh" placeholder="Deine Antwort …"></div>
+            <div class="field full"><label for="website" data-i18n="website">Website / persönliche Seite</label><input id="website" class="answer" inputmode="url" maxlength="500" data-i18n-placeholder="answerShortPh" placeholder="Deine Antwort …"></div>
+            <div class="field full"><label for="otherLinks" data-i18n="otherLinks">Meine vorhandenen Links / Kanäle</label><textarea id="otherLinks" class="answer" maxlength="1400" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+            <div class="field full"><label for="missingChannels" data-i18n="missingChannels">Kanäle, auf denen ich noch nicht vertreten bin</label><textarea id="missingChannels" class="answer" maxlength="1000" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">3</span><span data-i18n="photoTitle">Dein Profilfoto</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro">
+            <p data-i18n="photoIntro1">„Ein Bild sagt mehr wie 1000 Worte“ darum ist dieser Schritt nicht unwichtig 😉</p>
+            <p data-i18n="photoIntro2">Hast Du ein digitales Foto, dass Dir zwar gefällt aber der Hintergrund nicht passt?</p>
+            <p data-i18n="photoIntro3">Bist Du mit Deiner Frisur nicht 100% zufrieden oder ist die Belichtung falsch?</p>
+            <p data-i18n="photoIntro4">Dann gebe das Bild bei Chatgbt ein und beschreibe was geändert oder angepasst werden darf.</p>
+            <p data-i18n="photoIntro5">Achte darauf, dass es Dir trotzdem noch ähnlich sieht 🤭</p>
+          </div>
+          <div class="photoBox">
+            <div class="photoThumb" id="photoThumb"><span data-i18n="photoEmpty">Noch kein Profilbild</span></div>
+            <div>
+              <label for="profilePhoto" data-i18n="photoChoose">Profilbild lokal auswählen</label>
+              <input class="fileInput" id="profilePhoto" type="file" accept="image/*">
+              <div class="hint" data-i18n="photoHint">Das Bild wird nur lokal im Browser verarbeitet und für die PDF verwendet.</div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">4</span><span data-i18n="aboutTitle">Über Dich</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro">
+            <p data-i18n="aboutIntro1">Was magst Du über Dich erzählen ohne zu intim zu werden?</p>
+            <p data-i18n="aboutIntro2">Was ist Dir wichtig, dass andere Menschen von Dir wissen?</p>
+            <p data-i18n="aboutIntro3">Bitte denke daran was einmal im Netz steht, ist wie in Stein gemeisselt!</p>
+            <p data-i18n="aboutIntro4">Nimm Dir jetzt ein paar Minuten und denke mal darüber nach:</p>
+          </div>
+          <div class="question"><label for="aboutOrigin" data-i18n="aboutQ1">Wo kommst Du her?</label><textarea id="aboutOrigin" class="answer" maxlength="900" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="aboutFamily" data-i18n="aboutQ2">Familienstand?</label><textarea id="aboutFamily" class="answer" maxlength="900" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="aboutCalling" data-i18n="aboutQ3">Ist Dein Beruf deine Berufung?</label><textarea id="aboutCalling" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="aboutEducation" data-i18n="aboutQ4">Sollte man wissen welche Schul- und Bildung Du hast?</label><textarea id="aboutEducation" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="aboutHobbies" data-i18n="aboutQ5">Möchtest Du über Hobby‘s erzählen?</label><textarea id="aboutHobbies" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="aboutGoal" data-i18n="aboutQ6">Hast Du ein großes Ziel?</label><textarea id="aboutGoal" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="aboutWorld" data-i18n="aboutQ7">Was sollte Die Welt in jedem Fall von Dir wissen?</label><textarea id="aboutWorld" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">5</span><span data-i18n="wirTitle">Vom Ich zum Wir</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro">
+            <p data-i18n="wirIntro1">Hier geht es schon leicht in Deine Zukünftige Ausrichtung.</p>
+            <p data-i18n="wirIntro2">Nimm Dir jetzt ein paar Minuten und denke mal darüber nach:</p>
+          </div>
+          <div class="question"><label for="wirJoy" data-i18n="wirQ1">Was macht Dir besonders Freude?</label><textarea id="wirJoy" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="wirHelped" data-i18n="wirQ2">Mit was hast Du schon vielen Menschen helfen können?</label><textarea id="wirHelped" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="wirPart" data-i18n="wirQ3">Ist das heute schon Teil Deines Berufes oder teil Deines Ziel</label><textarea id="wirPart" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="wirUnique" data-i18n="wirQ4">Was macht Dich dabei Einzigartig?</label><textarea id="wirUnique" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="wirDaily" data-i18n="wirQ5">Was könntest Du jeden Tag immer wieder machen</label><textarea id="wirDaily" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">6</span><span data-i18n="successTitle">Mein größter Erfolg</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro">
+            <p data-i18n="successIntro1">Das kann – muss nicht – Deine zukünftige Ausrichtung unterstreichen</p>
+            <p data-i18n="successIntro2">Es kann aber auch zeigen was in Dir steckt und warum Du so einzigartig bist!</p>
+          </div>
+          <div class="question"><label for="successProud" data-i18n="successQ1">Worüber bist Du am meisten Stolz?</label><textarea id="successProud" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="successGrandchildren" data-i18n="successQ2">Was wirst Du als erstes Deinen Urenkel noch erzählen 😊</label><textarea id="successGrandchildren" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="successHappy" data-i18n="successQ3">Was hat Dich richtig glücklich gemacht?</label><textarea id="successHappy" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="successFamily" data-i18n="successQ4">Gerne auch mit Familie …</label><textarea id="successFamily" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">7</span><span data-i18n="joyTitle">Ich habe Freude an</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro"><p data-i18n="joyIntro">In diesem Punkt geht es mehr so um das was Dir ein Lachen ins Gesicht zaubert</p></div>
+          <div class="question"><label for="joyHobbies" data-i18n="joyQ1">Was würdest Du über Deine Hobby‘s erzählen?</label><textarea id="joyHobbies" class="answer" maxlength="1400" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="joyTravel" data-i18n="joyQ2">Bist Du gerne unterwegs oder was möchtest Du noch sehen?</label><textarea id="joyTravel" class="answer" maxlength="1400" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="joyPeople" data-i18n="joyQ3">Gibt es Menschen die Du gerne um Dich hast und wann?</label><textarea id="joyPeople" class="answer" maxlength="1400" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="joyInspiration" data-i18n="joyQ4">Was inspiriert Dich?</label><textarea id="joyInspiration" class="answer" maxlength="1400" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">8</span><span data-i18n="promiseTitle">Mein Versprechen An Dich</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro"><p data-i18n="promiseIntro">Nun gehst Du langsam auf andere Menschen zu …</p></div>
+          <div class="question"><label for="promiseHelp" data-i18n="promiseQ1">Womit kannst Du helfen?</label><textarea id="promiseHelp" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="promiseReliable" data-i18n="promiseQ2">Worauf können sich Menschen bei Dir verlassen?</label><textarea id="promiseReliable" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="promiseWhy" data-i18n="promiseQ3">Warum bist Du sicher, dass Du etwas bieten kannst?</label><textarea id="promiseWhy" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="promiseOffer" data-i18n="promiseQ4">Möglicherweise hast Du schon ein Angebot – beschreibe es in kurzen Worten</label><textarea id="promiseOffer" class="answer" maxlength="1800" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">9</span><span data-i18n="meetingTitle">Termin buchen</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro">
+            <p data-i18n="meetingIntro1">Dieser Punkt kann auch später erledigt werden.</p>
+            <p data-i18n="meetingIntro2">Die einfachste Möglichkeit ist Calendly in Verbindung mit Google.</p>
+            <p data-i18n="meetingIntro3">Jedoch überlege heute … wenn Du eine Möglichkeit hättest:</p>
+          </div>
+          <div class="question"><label for="meetingLength" data-i18n="meetingQ1">Wie lange würde ein Erstgespräch dauern?</label><textarea id="meetingLength" class="answer" maxlength="900" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="meetingKnowledge" data-i18n="meetingQ2">Gibt es Vorkenntnisse für Deinen Ansprechpartner?</label><textarea id="meetingKnowledge" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="meetingForms" data-i18n="meetingQ3">Gibt es Fragebögen zum ausfüllen?</label><textarea id="meetingForms" class="answer" maxlength="1200" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <details class="details">
+        <summary><span><span class="no">10</span><span data-i18n="networkTitle">Vernetzung innerhalb vom liquidity booster</span></span></summary>
+        <div class="detailsBody">
+          <div class="sectionIntro"><p data-i18n="networkIntro">Manchmal sieht ein anderer Partner Dein Profil und kommt auf die Idee „da könnte ich mal Nachfragen…“</p></div>
+          <div class="question"><label for="networkContacts" data-i18n="networkQ1">Welche Kontakte könnten das sein?</label><textarea id="networkContacts" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="networkNo" data-i18n="networkQ2">Gibt es Dienstleistungen / Arbeiten die Du nicht machen kannst/willst</label><textarea id="networkNo" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="networkCoop" data-i18n="networkQ3">Wo könnte eine Kooperation sinnvoll sein?</label><textarea id="networkCoop" class="answer" maxlength="1500" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="networkOfferCoop" data-i18n="networkQ4">Welche Möglichkeiten bietet Dein Angebot für eine Kooperation?</label><textarea id="networkOfferCoop" class="answer" maxlength="1600" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+          <div class="question"><label for="networkHelp" data-i18n="networkQ5">Wobei kann das Netzwerk aktuell helfen?</label><textarea id="networkHelp" class="answer" maxlength="1600" data-i18n-placeholder="answerPh" placeholder="Deine Antwort …"></textarea></div>
+        </div>
+      </details>
+
+      <section class="kmsBlock" aria-labelledby="kmsTitle">
+        <div class="kmsHead">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v13H4z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 9h10M7 12.5h10M7 16h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div>
+            <h3 id="kmsTitle" data-i18n="kmsTitle">11. Dein fertiges Mitgliederprofil für das KMS</h3>
+            <p data-i18n="kmsIntro">Formuliere hier aus deinen Workshop-Antworten die Endfassung für dein OnlyInside-KMS. Jedes Textfeld kannst du anschließend einzeln kopieren und im KMS einfügen.</p>
+          </div>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow"><span class="label" data-i18n="kmsPhoto">Bildmotiv</span></div>
+          <div class="kmsPhotoNote">
+            <div class="kmsPhotoThumb" id="kmsPhotoThumb"><span data-i18n="photoEmpty">Noch kein Profilbild</span></div>
+            <p data-i18n="kmsPhotoHint">Verwende im KMS dasselbe Bildmotiv, das du oben lokal für dein persönliches Backup ausgewählt hast.</p>
+          </div>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsSlogan" data-i18n="kmsSlogan">Dein Slogan</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsSlogan" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsSlogan" class="kmsInput" maxlength="1200" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsAbout" data-i18n="kmsAbout">*Über mich:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsAbout" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsAbout" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsHelp" data-i18n="kmsHelp">Ich helfe Menschen (ich helfe Dir) durch:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsHelp" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsHelp" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsSuccess" data-i18n="kmsSuccess">Mein größter Erfolg:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsSuccess" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsSuccess" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsJoy" data-i18n="kmsJoy">Ich habe Freude an:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsJoy" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsJoy" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsPromise" data-i18n="kmsPromise">Mein Versprechen an Dich:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsPromise" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsPromise" class="kmsInput" maxlength="5000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <span class="label" data-i18n="kmsCategory">*Unter welchem Bereich findest du dich wieder?</span>
+            <button type="button" class="copyBtn" id="copyKmsCategories" data-copy-target="kmsCategoriesText" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copySelection">Auswahl kopieren</span></button>
+          </div>
+          <div class="kmsCategories" id="kmsCategories">
+            <label><input type="checkbox" class="kmsCategory" value="Auto, Verkehr & Mobilität">Auto, Verkehr &amp; Mobilität</label>
+            <label><input type="checkbox" class="kmsCategory" value="Beauty, Wellness & Gesundheit">Beauty, Wellness &amp; Gesundheit</label>
+            <label><input type="checkbox" class="kmsCategory" value="Coaching & Consulting">Coaching &amp; Consulting</label>
+            <label><input type="checkbox" class="kmsCategory" value="Fachgeschäfte & Einzelhandel">Fachgeschäfte &amp; Einzelhandel</label>
+            <label><input type="checkbox" class="kmsCategory" value="Handwerk & Dienstleistungen">Handwerk &amp; Dienstleistungen</label>
+            <label><input type="checkbox" class="kmsCategory" value="Hotellerie & Gastronomie">Hotellerie &amp; Gastronomie</label>
+            <label><input type="checkbox" class="kmsCategory" value="Kinder, Familie & Freizeit">Kinder, Familie &amp; Freizeit</label>
+            <label><input type="checkbox" class="kmsCategory" value="Kunst, Kultur & Kreatives">Kunst, Kultur &amp; Kreatives</label>
+            <label><input type="checkbox" class="kmsCategory" value="Steuern & Finanzen">Steuern &amp; Finanzen</label>
+            <label><input type="checkbox" class="kmsCategory" value="Wohnen & Immobilien">Wohnen &amp; Immobilien</label>
+            <label><input type="checkbox" class="kmsCategory" value="Keines (Siehe alternativer Bereich)">Keines (Siehe alternativer Bereich)</label>
+          </div>
+          <input type="hidden" id="kmsCategoriesText" value="">
+          <div class="hint" data-i18n="kmsCategoryHint">Die Kategorien entsprechen den Auswahlfeldern im OnlyInside-KMS. Setze dort später dieselben Häkchen.</div>
+        </div>
+
+        <div class="kmsField">
+          <div class="kmsLabelRow">
+            <label for="kmsAlternative" data-i18n="kmsAlternative">Alternativer Bereich:</label>
+            <button type="button" class="copyBtn" data-copy-target="kmsAlternative" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span data-i18n="copy">Kopieren</span></button>
+          </div>
+          <textarea id="kmsAlternative" class="kmsInput" maxlength="2000" data-i18n-placeholder="kmsFinalPh" placeholder="Fertige Fassung für das KMS …"></textarea>
+        </div>
+
+        <div class="hint" data-i18n="kmsBackupHint">Die KMS-Endfassung wird zusammen mit allen 39 Workshop-Antworten in deiner persönlichen Backup-PDF gespeichert.</div>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="btn primary" id="makePdf" disabled data-i18n="makePdf">Mein Mitglieder-Portrait als PDF erstellen</button>
+        <button type="button" class="btn secondary" id="clearDraft" data-i18n="clearDraft">Lokale Eingaben zurücksetzen</button>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <div class="previewTop"><h2 data-i18n="previewTitle">PDF-Titelseite</h2><span class="badge">A4 · lokal erzeugt</span></div>
+      <div class="previewStage"><div class="previewCanvasWrap"><canvas id="preview" width="840" height="1188" aria-label="Vorschau Mitglieder-Portrait"></canvas><img class="previewLogoOriginal" src="./liquiditybooster-logo.png" alt="LiquidityBooster"></div></div>
+      <p class="previewNote" data-i18n="previewNote">Die Vorschau zeigt die Titelseite. Deine Antworten werden anschließend automatisch auf übersichtliche A4-Seiten verteilt.</p>
+    </section>
+  </div>
+</div>
+
+<div class="overlay" id="fileOverlay" hidden>
+  <div class="dialog">
+    <div class="eyebrow" data-i18n="doneEyebrow">Workshop Mitglieder-Portrait</div>
+    <h3 data-i18n="doneTitle">Deine PDF ist fertig</h3>
+    <div class="filebox"><strong id="fileName"></strong><span id="fileMeta"></span></div>
+    <div class="dialogActions">
+      <a id="saveFile" href="#" data-i18n="save">PDF speichern</a>
+      <button id="closeOverlay" type="button" data-i18n="close">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script src="../visitenkarten-generator/qrcode-local.js"></script>
+<script>
+(function(){
+'use strict';
+
+var DRAFT_KEY='lb-workshop-mitglieder-portrait-michael-rau-v1';
+var PROFILE_KEY='lb-club-partner-profile-v1';
+var LOCAL_DB='lb-workshop-mitglieder-portrait-michael-rau-local-v1';
+var FILE_DB='lb-member-portrait-file-handoff-v1';
+var STORE='files';
+var PHOTO_STORE='drafts';
+var state={lang:'de'};
+var photoBlob=null,photoImage=null,photoUrl='';
+var logoPngBytes=null,logoPngPromise=null;
+var preview=document.getElementById('preview'),pctx=preview.getContext('2d');
+
+var I18N={
+de:{
+eyebrow:'Woche 1 · 12 Wochenprogramm für Club Leader',
+title:'Workshop Mitglieder-Portrait',
+lead:'Arbeite die Fragen in Ruhe durch. Deine Antworten werden direkt zu deinem persönlichen Mitglieder-Portrait zusammengeführt.',
+quote:'„Du musst nicht perfekt sichtbar sein. Du musst anfangen, sichtbar zu werden.“',
+goalTitle:'Das Ziel des Workshops',
+goal1:'Am Ende dieses Workshops hast Du Dein Profil oder Dein Profil überarbeitet.',
+goal2:'Du hast etwas dass Du vorzeigen kannst und das zu DIR passt.',
+goal3:'Du hast den ersten Schritt getan um in die Sichtbarkeit zu kommen und das Fundament geschaffen für alle weiteren Möglichkeiten (Eigenes Angebot, Marktplatz-Präsenz, Auftritt in Social Media …',
+goal4:'Dabei solltest Du Stift und Papier nutzen um den kreativen Prozess nicht zu blockieren.',
+goal5:'Nimm Dir etwas Zeit und einen ruhigen Rahmen.',
+goal6:'Am Ende muss nicht alles beantwortet sein und manches wird sich noch Ent-Wickeln.',
+goal7:'Vertraue dem Prozess und wenn Du magst, wiederhole ihn von Zeit zu Zeit.',
+privacyTitle:'Alles bleibt lokal auf deinem Gerät.',
+privacyText:'Profilbild, Antworten, Affiliate-Link und deine KMS-Endfassung bleiben lokal auf deinem Gerät. Die PDF dient ausschließlich als persönliche Sicherung deiner Arbeit.',
+startTitle:'Dein persönliches Mitglieder-Portrait',firstName:'Vorname',lastName:'Nachname',firstNamePh:'Vorname',lastNamePh:'Nachname',
+affiliate:'Persönlicher Affiliate-Link',affiliateHint:'Der Link wird nicht ausgeschrieben. Er wird ausschließlich als QR-Code in deine PDF übernommen.',
+qrWaiting:'Affiliate-Link eintragen – der QR-Code entsteht automatisch.',qrOk:'QR-Code wurde aus deinem Affiliate-Link erstellt.',qrError:'Bitte einen gültigen Affiliate-Link eintragen.',
+progressLabel:'Ausgefüllte Antwortfelder',answerPh:'Deine Antwort …',answerShortPh:'Deine Antwort …',
+sloganTitle:'Dein Slogan',sloganIntro1:'Wenn Du einen hast – prima … passt er zu Dir?',sloganIntro2:'Wenn Du keinen hast – fällt Dir spontan ein Spruch ein, der zu Dir passt?',sloganIntro3:'Wenn Du keinen hast – dann darf er sich gerne im Prozess entwickeln',sloganIntro4:'Nimm Dir eine Minute Zeit und höre in Dich hinein …',sloganQ:'Mein Slogan',
+dataTitle:'Deine Daten',dataIntro1:'Nimm Dir nun etwas Zeit und fülle Deine Daten möglichst komplett aus',dataIntro2:'Suche alle Links die Du hast heraus und notiere die Kanäle, auf denen Du noch nicht vertreten bist',city:'Ort',mobile:'Mobil',email:'E-Mail',website:'Website / persönliche Seite',otherLinks:'Meine vorhandenen Links / Kanäle',missingChannels:'Kanäle, auf denen ich noch nicht vertreten bin',
+photoTitle:'Dein Profilfoto',photoIntro1:'„Ein Bild sagt mehr wie 1000 Worte“ darum ist dieser Schritt nicht unwichtig 😉',photoIntro2:'Hast Du ein digitales Foto, dass Dir zwar gefällt aber der Hintergrund nicht passt?',photoIntro3:'Bist Du mit Deiner Frisur nicht 100% zufrieden oder ist die Belichtung falsch?',photoIntro4:'Dann gebe das Bild bei Chatgbt ein und beschreibe was geändert oder angepasst werden darf.',photoIntro5:'Achte darauf, dass es Dir trotzdem noch ähnlich sieht 🤭',photoEmpty:'Noch kein Profilbild',photoChoose:'Profilbild lokal auswählen',photoHint:'Das Bild wird nur lokal im Browser verarbeitet und für die PDF verwendet.',
+aboutTitle:'Über Dich',aboutIntro1:'Was magst Du über Dich erzählen ohne zu intim zu werden?',aboutIntro2:'Was ist Dir wichtig, dass andere Menschen von Dir wissen?',aboutIntro3:'Bitte denke daran was einmal im Netz steht, ist wie in Stein gemeisselt!',aboutIntro4:'Nimm Dir jetzt ein paar Minuten und denke mal darüber nach:',aboutQ1:'Wo kommst Du her?',aboutQ2:'Familienstand?',aboutQ3:'Ist Dein Beruf deine Berufung?',aboutQ4:'Sollte man wissen welche Schul- und Bildung Du hast?',aboutQ5:'Möchtest Du über Hobby‘s erzählen?',aboutQ6:'Hast Du ein großes Ziel?',aboutQ7:'Was sollte Die Welt in jedem Fall von Dir wissen?',
+wirTitle:'Vom Ich zum Wir',wirIntro1:'Hier geht es schon leicht in Deine Zukünftige Ausrichtung.',wirIntro2:'Nimm Dir jetzt ein paar Minuten und denke mal darüber nach:',wirQ1:'Was macht Dir besonders Freude?',wirQ2:'Mit was hast Du schon vielen Menschen helfen können?',wirQ3:'Ist das heute schon Teil Deines Berufes oder teil Deines Ziel',wirQ4:'Was macht Dich dabei Einzigartig?',wirQ5:'Was könntest Du jeden Tag immer wieder machen',
+successTitle:'Mein größter Erfolg',successIntro1:'Das kann – muss nicht – Deine zukünftige Ausrichtung unterstreichen',successIntro2:'Es kann aber auch zeigen was in Dir steckt und warum Du so einzigartig bist!',successQ1:'Worüber bist Du am meisten Stolz?',successQ2:'Was wirst Du als erstes Deinen Urenkel noch erzählen 😊',successQ3:'Was hat Dich richtig glücklich gemacht?',successQ4:'Gerne auch mit Familie …',
+joyTitle:'Ich habe Freude an',joyIntro:'In diesem Punkt geht es mehr so um das was Dir ein Lachen ins Gesicht zaubert',joyQ1:'Was würdest Du über Deine Hobby‘s erzählen?',joyQ2:'Bist Du gerne unterwegs oder was möchtest Du noch sehen?',joyQ3:'Gibt es Menschen die Du gerne um Dich hast und wann?',joyQ4:'Was inspiriert Dich?',
+promiseTitle:'Mein Versprechen An Dich',promiseIntro:'Nun gehst Du langsam auf andere Menschen zu …',promiseQ1:'Womit kannst Du helfen?',promiseQ2:'Worauf können sich Menschen bei Dir verlassen?',promiseQ3:'Warum bist Du sicher, dass Du etwas bieten kannst?',promiseQ4:'Möglicherweise hast Du schon ein Angebot – beschreibe es in kurzen Worten',
+meetingTitle:'Termin buchen',meetingIntro1:'Dieser Punkt kann auch später erledigt werden.',meetingIntro2:'Die einfachste Möglichkeit ist Calendly in Verbindung mit Google.',meetingIntro3:'Jedoch überlege heute … wenn Du eine Möglichkeit hättest:',meetingQ1:'Wie lange würde ein Erstgespräch dauern?',meetingQ2:'Gibt es Vorkenntnisse für Deinen Ansprechpartner?',meetingQ3:'Gibt es Fragebögen zum ausfüllen?',
+networkTitle:'Vernetzung innerhalb vom liquidity booster',networkIntro:'Manchmal sieht ein anderer Partner Dein Profil und kommt auf die Idee „da könnte ich mal Nachfragen…“',networkQ1:'Welche Kontakte könnten das sein?',networkQ2:'Gibt es Dienstleistungen / Arbeiten die Du nicht machen kannst/willst',networkQ3:'Wo könnte eine Kooperation sinnvoll sein?',networkQ4:'Welche Möglichkeiten bietet Dein Angebot für eine Kooperation?',networkQ5:'Wobei kann das Netzwerk aktuell helfen?',
+kmsTitle:'11. Dein fertiges Mitgliederprofil für das KMS',kmsIntro:'Formuliere hier aus deinen Workshop-Antworten die Endfassung für dein OnlyInside-KMS. Jedes Textfeld kannst du anschließend einzeln kopieren und im KMS einfügen.',kmsPhoto:'Bildmotiv',kmsPhotoHint:'Verwende im KMS dasselbe Bildmotiv, das du oben lokal für dein persönliches Backup ausgewählt hast.',kmsSlogan:'Dein Slogan',kmsAbout:'*Über mich:',kmsHelp:'Ich helfe Menschen (ich helfe Dir) durch:',kmsSuccess:'Mein größter Erfolg:',kmsJoy:'Ich habe Freude an:',kmsPromise:'Mein Versprechen an Dich:',kmsCategory:'*Unter welchem Bereich findest du dich wieder?',kmsCategoryHint:'Die Kategorien entsprechen den Auswahlfeldern im OnlyInside-KMS. Setze dort später dieselben Häkchen.',kmsAlternative:'Alternativer Bereich:',kmsFinalPh:'Fertige Fassung für das KMS …',copy:'Kopieren',copySelection:'Auswahl kopieren',copied:'Kopiert ✓',copyError:'Kopieren nicht möglich',kmsBackupHint:'Die KMS-Endfassung wird zusammen mit allen 39 Workshop-Antworten in deiner persönlichen Backup-PDF gespeichert.',kmsPdfTitle:'KMS-Mitgliederprofil',kmsPdfIntro:'Endfassung zur Übertragung in das persönliche OnlyInside-KMS.',
+makePdf:'Persönliche Backup-PDF erstellen',clearDraft:'Lokale Eingaben zurücksetzen',previewTitle:'PDF-Titelseite',previewNote:'Die Vorschau zeigt die Titelseite. Die Backup-PDF enthält alle 39 Workshop-Antworten und zusätzlich deine KMS-Endfassung.',
+missing:'Für die PDF bitte Vorname, Nachname, Profilbild und einen gültigen Affiliate-Link eintragen.',ready:'Alles bereit – deine persönliche Backup-PDF kann erstellt werden.',working:'Backup-PDF wird lokal erstellt …',errorPhoto:'Das Profilbild konnte nicht gelesen werden.',tooLarge:'Bitte wähle ein Bild mit maximal 15 MB.',confirmClear:'Möchtest du wirklich alle lokalen Workshop- und KMS-Eingaben sowie das Profilbild zurücksetzen?',cleared:'Die lokalen Workshop- und KMS-Eingaben wurden zurückgesetzt.',
+doneEyebrow:'Persönliche Sicherung',doneTitle:'Deine Backup-PDF ist fertig',save:'PDF speichern',close:'Schließen',
+pdfSubtitle:'Woche 1 vom 12 Wochenprogramm für Club Leader',pdfQr:'Meine persönliche LiquidityBooster-Seite',pdfEmpty:'Noch offen',pdfPage:'Seite',pdfCreated:'Persönliches Mitglieder-Portrait'
+},
+en:{
+eyebrow:'Week 1 · 12-week programme for Club Leaders',
+title:'Workshop Member Portrait',
+lead:'Work through the questions at your own pace. Your answers are compiled directly into your personal member portrait.',
+quote:'“You do not have to be perfectly visible. You have to start becoming visible.”',
+goalTitle:'The goal of the workshop',
+goal1:'At the end of this workshop you have created or revised your profile.',
+goal2:'You have something you can show and that fits YOU.',
+goal3:'You have taken the first step towards visibility and created the foundation for further possibilities (your own offer, marketplace presence, social media presence …',
+goal4:'You should use pen and paper as well so the creative process is not blocked.',
+goal5:'Take some time and give yourself a calm setting.',
+goal6:'Not everything has to be answered at the end, and some things will continue to develop.',
+goal7:'Trust the process and, if you like, repeat it from time to time.',
+privacyTitle:'Everything stays local on your device.',
+privacyText:'Your profile photo, answers, affiliate link and final KMS text stay local on your device. The PDF is solely your personal backup of the work.',
+startTitle:'Your personal member portrait',firstName:'First name',lastName:'Last name',firstNamePh:'First name',lastNamePh:'Last name',
+affiliate:'Personal affiliate link',affiliateHint:'The link is not printed as text. It is included only as a QR code in your PDF.',
+qrWaiting:'Enter your affiliate link – the QR code is created automatically.',qrOk:'The QR code has been created from your affiliate link.',qrError:'Please enter a valid affiliate link.',
+progressLabel:'Completed answer fields',answerPh:'Your answer …',answerShortPh:'Your answer …',
+sloganTitle:'Your slogan',sloganIntro1:'If you already have one – great … does it still fit you?',sloganIntro2:'If you do not have one – does a phrase that fits you come to mind spontaneously?',sloganIntro3:'If you do not have one – it may develop during the process',sloganIntro4:'Take a minute and listen to yourself …',sloganQ:'My slogan',
+dataTitle:'Your details',dataIntro1:'Take some time and complete your details as fully as possible',dataIntro2:'Find all links you already have and note the channels where you are not yet present',city:'City',mobile:'Mobile',email:'Email',website:'Website / personal page',otherLinks:'My existing links / channels',missingChannels:'Channels where I am not yet present',
+photoTitle:'Your profile photo',photoIntro1:'“A picture says more than 1000 words” so this step is not unimportant 😉',photoIntro2:'Do you have a digital photo you like but the background does not fit?',photoIntro3:'Are you not 100% happy with your hairstyle or is the lighting wrong?',photoIntro4:'Then give the image to ChatGPT and describe what may be changed or adjusted.',photoIntro5:'Make sure it still looks like you 🤭',photoEmpty:'No profile photo yet',photoChoose:'Choose profile photo locally',photoHint:'The image is processed only locally in your browser and used for the PDF.',
+aboutTitle:'About you',aboutIntro1:'What would you like to tell about yourself without becoming too personal?',aboutIntro2:'What is important for other people to know about you?',aboutIntro3:'Remember that what is once on the internet can stay there for a very long time!',aboutIntro4:'Take a few minutes and think about:',aboutQ1:'Where are you from?',aboutQ2:'Marital / family status?',aboutQ3:'Is your profession also your calling?',aboutQ4:'Should people know about your school and education?',aboutQ5:'Would you like to talk about your hobbies?',aboutQ6:'Do you have a big goal?',aboutQ7:'What should the world definitely know about you?',
+wirTitle:'From Me to We',wirIntro1:'This already looks slightly towards your future direction.',wirIntro2:'Take a few minutes and think about:',wirQ1:'What gives you particular joy?',wirQ2:'What have you already been able to help many people with?',wirQ3:'Is that already part of your profession today or part of your goal?',wirQ4:'What makes you unique in this?',wirQ5:'What could you do every day again and again?',
+successTitle:'My greatest success',successIntro1:'This can – but does not have to – underline your future direction',successIntro2:'It can also show what is inside you and why you are unique!',successQ1:'What are you most proud of?',successQ2:'What will you one day tell your great-grandchildren first? 😊',successQ3:'What made you really happy?',successQ4:'This can also involve family …',
+joyTitle:'I enjoy',joyIntro:'This point is more about what puts a smile on your face',joyQ1:'What would you tell people about your hobbies?',joyQ2:'Do you like travelling or what would you still like to see?',joyQ3:'Are there people you particularly like around you, and when?',joyQ4:'What inspires you?',
+promiseTitle:'My promise to you',promiseIntro:'Now you are slowly turning towards other people …',promiseQ1:'What can you help with?',promiseQ2:'What can people rely on you for?',promiseQ3:'Why are you sure that you have something to offer?',promiseQ4:'You may already have an offer – describe it in a few words',
+meetingTitle:'Book an appointment',meetingIntro1:'This point can also be completed later.',meetingIntro2:'The simplest option is Calendly in connection with Google.',meetingIntro3:'But think about it today … if you had the option:',meetingQ1:'How long would an initial conversation take?',meetingQ2:'Is any prior knowledge needed for the person you speak with?',meetingQ3:'Are there questionnaires to complete?',
+networkTitle:'Networking within LiquidityBooster',networkIntro:'Sometimes another partner sees your profile and thinks: “I could ask them about that …”',networkQ1:'Which contacts could that be?',networkQ2:'Are there services / tasks you cannot or do not want to do?',networkQ3:'Where could cooperation make sense?',networkQ4:'What opportunities does your offer provide for cooperation?',networkQ5:'Where could the network currently help?',
+kmsTitle:'11. Your finished member profile for the KMS',kmsIntro:'Use your workshop answers to write the final version for your OnlyInside KMS. You can then copy each text field individually into the KMS.',kmsPhoto:'Image motif',kmsPhotoHint:'Use the same profile image in the KMS that you selected locally above for your personal backup.',kmsSlogan:'Your slogan',kmsAbout:'*About me:',kmsHelp:'I help people (I help you) through:',kmsSuccess:'My greatest success:',kmsJoy:'I enjoy:',kmsPromise:'My promise to you:',kmsCategory:'*Which area best describes you?',kmsCategoryHint:'The categories below match the selection fields in the OnlyInside KMS. Select the same boxes there later.',kmsAlternative:'Alternative area:',kmsFinalPh:'Final version for the KMS …',copy:'Copy',copySelection:'Copy selection',copied:'Copied ✓',copyError:'Could not copy',kmsBackupHint:'Your KMS final version is saved in your personal backup PDF together with all 39 workshop answers.',kmsPdfTitle:'KMS member profile',kmsPdfIntro:'Final version for transfer into your personal OnlyInside KMS.',
+makePdf:'Create personal backup PDF',clearDraft:'Reset local entries',previewTitle:'PDF cover page',previewNote:'The preview shows the cover page. The backup PDF contains all 39 workshop answers plus your final KMS text.',
+missing:'For the PDF, please enter first name, last name, a profile photo and a valid affiliate link.',ready:'Everything is ready – your personal backup PDF can be created.',working:'Creating the backup PDF locally …',errorPhoto:'The profile photo could not be read.',tooLarge:'Please choose an image no larger than 15 MB.',confirmClear:'Do you really want to reset all local workshop and KMS entries and the profile photo?',cleared:'The local workshop and KMS entries have been reset.',
+doneEyebrow:'Personal backup',doneTitle:'Your backup PDF is ready',save:'Save PDF',close:'Close',
+pdfSubtitle:'Week 1 of the 12-week Club Leader programme',pdfQr:'My personal LiquidityBooster page',pdfEmpty:'Still open',pdfPage:'Page',pdfCreated:'Personal member portrait'
+}
+};
+
+var sections=[
+ {title:'sloganTitle',intro:['sloganIntro1','sloganIntro2','sloganIntro3','sloganIntro4'],fields:[['sloganQ','slogan']]},
+ {title:'dataTitle',intro:['dataIntro1','dataIntro2'],fields:[['city','city'],['mobile','mobile'],['email','email'],['website','website'],['otherLinks','otherLinks'],['missingChannels','missingChannels']]},
+ {title:'aboutTitle',intro:['aboutIntro1','aboutIntro2','aboutIntro3','aboutIntro4'],fields:[['aboutQ1','aboutOrigin'],['aboutQ2','aboutFamily'],['aboutQ3','aboutCalling'],['aboutQ4','aboutEducation'],['aboutQ5','aboutHobbies'],['aboutQ6','aboutGoal'],['aboutQ7','aboutWorld']]},
+ {title:'wirTitle',intro:['wirIntro1','wirIntro2'],fields:[['wirQ1','wirJoy'],['wirQ2','wirHelped'],['wirQ3','wirPart'],['wirQ4','wirUnique'],['wirQ5','wirDaily']]},
+ {title:'successTitle',intro:['successIntro1','successIntro2'],fields:[['successQ1','successProud'],['successQ2','successGrandchildren'],['successQ3','successHappy'],['successQ4','successFamily']]},
+ {title:'joyTitle',intro:['joyIntro'],fields:[['joyQ1','joyHobbies'],['joyQ2','joyTravel'],['joyQ3','joyPeople'],['joyQ4','joyInspiration']]},
+ {title:'promiseTitle',intro:['promiseIntro'],fields:[['promiseQ1','promiseHelp'],['promiseQ2','promiseReliable'],['promiseQ3','promiseWhy'],['promiseQ4','promiseOffer']]},
+ {title:'meetingTitle',intro:['meetingIntro1','meetingIntro2','meetingIntro3'],fields:[['meetingQ1','meetingLength'],['meetingQ2','meetingKnowledge'],['meetingQ3','meetingForms']]},
+ {title:'networkTitle',intro:['networkIntro'],fields:[['networkQ1','networkContacts'],['networkQ2','networkNo'],['networkQ3','networkCoop'],['networkQ4','networkOfferCoop'],['networkQ5','networkHelp']]},
+ {title:'kmsPdfTitle',intro:['kmsPdfIntro'],fields:[['kmsSlogan','kmsSlogan'],['kmsAbout','kmsAbout'],['kmsHelp','kmsHelp'],['kmsSuccess','kmsSuccess'],['kmsJoy','kmsJoy'],['kmsPromise','kmsPromise'],['kmsCategory','kmsCategoriesText'],['kmsAlternative','kmsAlternative']]}
+];
+
+function $(id){return document.getElementById(id)}
+function t(key){return I18N[state.lang][key]||key}
+function font(size,weight){return (weight||400)+' '+size+'px Arial,Helvetica,sans-serif'}
+async function loadLogoPngBytes(){
+ if(logoPngBytes)return logoPngBytes;
+ if(logoPngPromise)return logoPngPromise;
+ logoPngPromise=fetch('./liquiditybooster-logo.png',{cache:'force-cache'}).then(function(res){
+  if(!res.ok)throw new Error('LiquidityBooster-Logo konnte nicht geladen werden.');
+  return res.arrayBuffer()
+ }).then(function(buf){logoPngBytes=new Uint8Array(buf);return logoPngBytes}).catch(function(err){logoPngPromise=null;throw err});
+ return logoPngPromise
+}
+function sanitize(s){return String(s||'Mitglieder-Portrait').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,90)||'Mitglieder-Portrait'}
+
+function applyI18n(){
+ document.documentElement.lang=state.lang;
+ document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(I18N[state.lang][k])el.textContent=I18N[state.lang][k]});
+ document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){var k=el.getAttribute('data-i18n-placeholder');if(I18N[state.lang][k])el.placeholder=I18N[state.lang][k]});
+ document.querySelectorAll('.lang button').forEach(function(btn){btn.classList.toggle('active',btn.getAttribute('data-lang')===state.lang)});
+ updateUi();renderPreview()
+}
+
+function normalizeUrl(raw){
+ var s=String(raw||'').trim();if(!s)return '';
+ if(!/^https?:\/\//i.test(s))s='https://'+s;
+ try{var u=new URL(s);return(u.protocol==='http:'||u.protocol==='https:')?u.href:''}catch(e){return ''}
+}
+function qrMatrix(text){
+ if(!text||typeof qrcode!=='function')return null;
+ var qr=qrcode(0,'M');qr.addData(text);qr.make();var rows=[],count=qr.getModuleCount();
+ for(var r=0;r<count;r++){var row=[];for(var c=0;c<count;c++)row.push(qr.isDark(r,c));rows.push(row)}
+ return rows
+}
+function roundRect(c,x,y,w,h,r){
+ c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()
+}
+function drawQr(c,matrix,x,y,size){
+ c.save();roundRect(c,x-10,y-10,size+20,size+20,16);c.fillStyle='#fff';c.fill();c.lineWidth=4;c.strokeStyle='#00a7ad';c.stroke();
+ if(!matrix){c.fillStyle='#eef4f5';c.fillRect(x,y,size,size);c.fillStyle='#607080';c.textAlign='center';c.textBaseline='middle';c.font=font(Math.round(size*.16),900);c.fillText('QR',x+size/2,y+size/2);c.restore();return}
+ var quiet=4,total=matrix.length+quiet*2,module=size/total;c.fillStyle='#fff';c.fillRect(x,y,size,size);c.fillStyle='#000';
+ for(var r=0;r<matrix.length;r++){for(var col=0;col<matrix.length;col++){if(matrix[r][col])c.fillRect(x+(col+quiet)*module,y+(r+quiet)*module,module+.35,module+.35)}}
+ c.restore()
+}
+function coverImage(c,img,x,y,w,h,r){
+ c.save();roundRect(c,x,y,w,h,r);c.clip();
+ if(!img){c.fillStyle='#eef4f5';c.fillRect(x,y,w,h);c.fillStyle='#607080';c.textAlign='center';c.textBaseline='middle';c.font=font(Math.round(w*.11),800);c.fillText(t('photoTitle'),x+w/2,y+h/2);c.restore();return}
+ var iw=img.naturalWidth||img.width,ih=img.naturalHeight||img.height,scale=Math.max(w/iw,h/ih),dw=iw*scale,dh=ih*scale;
+ c.drawImage(img,x+(w-dw)/2,y+(h-dh)/2,dw,dh);c.restore();
+ c.save();roundRect(c,x,y,w,h,r);c.lineWidth=4;c.strokeStyle='rgba(0,167,173,.35)';c.stroke();c.restore()
+}
+function wrap(c,text,maxWidth){
+ var raw=String(text||'').replace(/\r/g,'').split('\n'),out=[];
+ raw.forEach(function(par){
+   if(par===''){out.push('');return}
+   var words=par.split(/\s+/),line='';
+   words.forEach(function(word){
+     var test=line?line+' '+word:word;
+     if(c.measureText(test).width>maxWidth&&line){out.push(line);line=word}else line=test
+   });
+   if(line)out.push(line)
+ });
+ return out
+}
+function drawCover(c,w,h){
+ c.fillStyle='#fff';c.fillRect(0,0,w,h);
+ var grad=c.createLinearGradient(0,0,w,0);grad.addColorStop(0,'rgba(0,167,173,.12)');grad.addColorStop(.55,'rgba(255,255,255,0)');grad.addColorStop(1,'rgba(198,0,111,.10)');c.fillStyle=grad;c.fillRect(0,Math.round(h*.105),w,Math.round(h*.105));
+ c.fillStyle='#132238';c.font=font(Math.round(w*.053),900);c.fillText(t('title'),Math.round(w*.075),Math.round(h*.145));
+ c.fillStyle='#607080';c.font=font(Math.round(w*.022),650);c.fillText(t('pdfSubtitle'),Math.round(w*.075),Math.round(h*.182));
+ var photoX=Math.round(w*.075),photoY=Math.round(h*.245),photoW=Math.round(w*.37),photoH=Math.round(h*.35);
+ coverImage(c,photoImage,photoX,photoY,photoW,photoH,28);
+ var rightX=Math.round(w*.52),rightW=Math.round(w*.40),name=[$('firstName').value.trim(),$('lastName').value.trim()].filter(Boolean).join(' ');
+ c.fillStyle='#132238';c.font=font(Math.round(w*.042),900);var nameLines=wrap(c,name||t('pdfCreated'),rightW);nameLines.slice(0,2).forEach(function(line,i){c.fillText(line,rightX,Math.round(h*.28)+i*Math.round(w*.052))});
+ c.fillStyle='#c6006f';c.fillRect(rightX,Math.round(h*.385),Math.round(w*.12),5);
+ c.fillStyle='#344958';c.font=font(Math.round(w*.025),700);
+ var slogan=$('slogan').value.trim()||t('pdfEmpty'),sLines=wrap(c,slogan,rightW);sLines.slice(0,5).forEach(function(line,i){c.fillText(line,rightX,Math.round(h*.43)+i*Math.round(w*.035))});
+ var qrSize=Math.round(w*.20),qrX=rightX,qrY=Math.round(h*.635);drawQr(c,qrMatrix(normalizeUrl($('affiliateUrl').value)),qrX,qrY,qrSize);
+ c.fillStyle='#607080';c.font=font(Math.round(w*.018),700);var qLines=wrap(c,t('pdfQr'),rightW-qrSize-20);qLines.slice(0,4).forEach(function(line,i){c.fillText(line,qrX+qrSize+25,qrY+35+i*Math.round(w*.027))});
+ c.strokeStyle='#d8e4e8';c.lineWidth=2;c.beginPath();c.moveTo(Math.round(w*.075),Math.round(h*.885));c.lineTo(Math.round(w*.925),Math.round(h*.885));c.stroke();
+ c.fillStyle='#132238';c.font=font(Math.round(w*.022),850);var q=wrap(c,t('quote'),Math.round(w*.82));q.slice(0,3).forEach(function(line,i){c.fillText(line,Math.round(w*.09),Math.round(h*.925)+i*Math.round(w*.031))});
+}
+function renderPreview(){drawCover(pctx,preview.width,preview.height)}
+
+function openLocalDb(){
+ return new Promise(function(resolve,reject){
+  var req=indexedDB.open(LOCAL_DB,1);
+  req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(PHOTO_STORE))req.result.createObjectStore(PHOTO_STORE,{keyPath:'key'})};
+  req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('IndexedDB'))}
+ })
+}
+async function savePhoto(blob){
+ var db=await openLocalDb();return new Promise(function(resolve,reject){
+  var tx=db.transaction(PHOTO_STORE,'readwrite');tx.objectStore(PHOTO_STORE).put({key:'profilePhoto',blob:blob});
+  tx.oncomplete=resolve;tx.onerror=function(){reject(tx.error||new Error('Photo save'))}
+ })
+}
+async function loadStoredPhoto(){
+ try{
+  var db=await openLocalDb(),rec=await new Promise(function(resolve,reject){var tx=db.transaction(PHOTO_STORE,'readonly'),req=tx.objectStore(PHOTO_STORE).get('profilePhoto');req.onsuccess=function(){resolve(req.result||null)};req.onerror=function(){reject(req.error)}});
+  if(rec&&rec.blob)await setPhotoBlob(rec.blob,false)
+ }catch(e){}
+}
+async function clearStoredPhoto(){
+ try{var db=await openLocalDb();await new Promise(function(resolve,reject){var tx=db.transaction(PHOTO_STORE,'readwrite');tx.objectStore(PHOTO_STORE).delete('profilePhoto');tx.oncomplete=resolve;tx.onerror=function(){reject(tx.error)}})}catch(e){}
+}
+function loadImageFromBlob(blob){
+ return new Promise(function(resolve,reject){
+  var url=URL.createObjectURL(blob),img=new Image();
+  img.onload=function(){resolve({img:img,url:url})};img.onerror=function(){URL.revokeObjectURL(url);reject(new Error(t('errorPhoto')))};img.src=url
+ })
+}
+async function setPhotoBlob(blob,persist){
+ var loaded=await loadImageFromBlob(blob);if(photoUrl)URL.revokeObjectURL(photoUrl);photoUrl=loaded.url;photoBlob=blob;photoImage=loaded.img;
+ $('photoThumb').innerHTML='';var im=document.createElement('img');im.src=photoUrl;im.alt='';$('photoThumb').appendChild(im);
+ if($('kmsPhotoThumb')){$('kmsPhotoThumb').innerHTML='';var kim=document.createElement('img');kim.src=photoUrl;kim.alt='';$('kmsPhotoThumb').appendChild(kim)}
+ if(persist!==false)await savePhoto(blob);updateUi();renderPreview()
+}
+
+const MICHAEL_PROFILE={
+ firstName:'Michael',
+ lastName:'Rau',
+ affiliateUrl:'https://www.liquiditybooster.de/?oipid=265',
+
+ slogan:'Wissen verstehen. Möglichkeiten erkennen. Selbst entscheiden.',
+
+ city:'Siegen ist mein Herkunftsort. Meinen aktuellen Ort ergänze ich im KMS dort, wo er für das Profil sinnvoll ist.',
+ mobile:'Kontakt über LiquidityBooster; persönliche Mobilnummer im KMS ergänzen.',
+ email:'ceo@liquiditybooster.de',
+ website:'https://www.liquiditybooster.de',
+ otherLinks:'LiquidityBooster: https://www.liquiditybooster.de\nWerkzeuge: https://tools.liquiditybooster.de\nAkademie für finanzielle Souveränität / FSA\nPersönliches Manifest: „Architekt der Souveränität“',
+ missingChannels:'Ich setze bewusst nicht auf möglichst viele öffentliche Social-Media-Kanäle. Offizielle Kommunikation soll vor allem über die eigene Website, den Club und direkte Formate laufen.',
+
+ aboutOrigin:'Ich komme aus Siegen. Mein Weg ist stark von Selbstlernen, Vertriebspraxis, unternehmerischem Aufbau und der Frage geprägt, wie Menschen wieder mehr Klarheit und Eigenständigkeit gewinnen.',
+ aboutFamily:'Ich bin verheiratet. Familie ist für mich ein persönlicher Rückhalt, ohne dass sie im Mittelpunkt meiner öffentlichen Arbeit stehen muss.',
+ aboutCalling:'Ja. Meine Arbeit ist für mich weit mehr als ein Beruf. Ich entwickle Systeme, Werkzeuge und Bildungswege, die Menschen helfen sollen, Zusammenhänge zu verstehen und selbstständig zu handeln.',
+ aboutEducation:'Ich bin Autodidakt. Mein Wissen ist über Jahrzehnte aus Praxis, eigener Recherche, Entwicklung, Vertrieb und dem Aufbau realer Systeme entstanden.',
+ aboutHobbies:'Ich schreibe, entwickle neue Ideen und Werkzeuge und beschäftige mich gern mit Geschichten, Musik, Sprache und der Frage, wie aus komplexen Themen verständliche Wege werden.',
+ aboutGoal:'Mein großes Ziel ist eine Akademie- und Community-Welt, in der Menschen wieder sichtbar werden, ihr Wissen und ihre Talente einbringen und finanzielle Souveränität durch Bildung, Orientierung und Eigenverantwortung entwickeln.',
+ aboutWorld:'Man sollte von mir wissen, dass ich nicht an Bevormundung glaube. Ich möchte Wissen zugänglich machen, Zusammenhänge sichtbar machen und Menschen Werkzeuge geben, mit denen sie selbst entscheiden können.',
+
+ wirJoy:'Besonders Freude macht mir, wenn aus einer komplizierten Idee eine klare, nutzbare Lösung entsteht – und wenn Menschen dadurch plötzlich verstehen, was sie selbst tun können.',
+ wirHelped:'Ich habe Menschen vor allem durch Struktur, Vertriebserfahrung, verständliche Erklärungen, konkrete Werkzeuge, Lernwege und praktische Umsetzungshilfen geholfen.',
+ wirPart:'Ja. Genau das ist heute Kern meiner Arbeit als Entwickler der Akademie für finanzielle Souveränität und Mitentwickler des LiquidityBoosters.',
+ wirUnique:'Ich verbinde mehr als 35 Jahre Vertriebspraxis mit Systemdenken, Bildungsentwicklung und technischer Umsetzung. Ich denke nicht nur in Konzepten, sondern baue daraus konkrete Werkzeuge, Seiten, Programme und Abläufe.',
+ wirDaily:'Ich könnte jeden Tag Ideen sortieren, Zusammenhänge erkennen, Systeme verbessern und daraus etwas bauen, das für andere verständlicher und nutzbarer wird.',
+
+ successProud:'Am meisten bin ich darauf stolz, aus einer Idee eine vollständige Akademie mit Lernwegen, Werkzeugen, Programmen und einer wachsenden Community aufgebaut zu haben.',
+ successGrandchildren:'Ich würde erzählen, dass ich versucht habe, nicht einfach nur Produkte zu verkaufen, sondern etwas aufzubauen, das Menschen dabei hilft, selbst zu denken, selbst zu entscheiden und ihre eigene Souveränität zurückzugewinnen.',
+ successHappy:'Richtig glücklich macht mich, wenn etwas, das lange nur eine Idee war, plötzlich funktioniert – und wenn Menschen damit tatsächlich weiterkommen.',
+ successFamily:'Mich macht dankbar, dass ich meinen eigenen Weg gehen und gleichzeitig Familie, Verantwortung und eine Aufgabe miteinander verbinden kann, die für mich Sinn ergibt.',
+
+ joyHobbies:'Ich schreibe, entwickle neue Werkzeuge und Formate, arbeite gern an Geschichten und Sprache und nutze Musik als emotionalen Gegenpol zu analytischer Entwicklungsarbeit.',
+ joyTravel:'Für mich steht weniger das Reisen selbst im Mittelpunkt als das Entdecken neuer Perspektiven. Ich bin gern dort, wo neue Gedanken, Begegnungen und Möglichkeiten entstehen.',
+ joyPeople:'Ich habe gern Menschen um mich, die offen denken, Verantwortung übernehmen, Fragen stellen und bereit sind, gemeinsam etwas aufzubauen statt nur zuzusehen.',
+ joyInspiration:'Mich inspirieren echte Lebensgeschichten, kluge Fragen, technische Möglichkeiten, Veränderungen in Wirtschaft und Gesellschaft und Menschen, die aus eigener Kraft etwas Neues aufbauen.',
+
+ promiseHelp:'Ich kann helfen, komplexe Themen zu sortieren, Zusammenhänge sichtbar zu machen und daraus verständliche nächste Schritte, Werkzeuge und Strukturen zu entwickeln.',
+ promiseReliable:'Menschen können sich bei mir auf Klarheit, ehrliche Einordnung, nachvollziehbare Strukturen und darauf verlassen, dass ich nichts schöner darstelle, als es ist.',
+ promiseWhy:'Weil ich seit mehr als 35 Jahren in Vertrieb, Aufbau und Entwicklung arbeite und aus dieser Praxis Bücher, Akademie-Inhalte, Werkzeuge, Lernwege und komplette Systeme entwickelt habe.',
+ promiseOffer:'Ich unterstütze bei Orientierung, Systemanalyse, Bildungs- und Werkzeugentwicklung, Akademie- und Plattformkonzepten sowie bei der Frage, wie Wissen so aufbereitet wird, dass Menschen es verstehen und praktisch anwenden können.',
+
+ meetingLength:'Für ein erstes Orientierungsgespräch reichen in der Regel bis zu 30 Minuten.',
+ meetingKnowledge:'Nein. Vorkenntnisse sind nicht erforderlich. Wichtig sind eine konkrete Frage, Offenheit und die Bereitschaft, die eigene Situation ehrlich anzuschauen.',
+ meetingForms:'Je nach Thema nutze ich strukturierte Leitfragen, Checklisten und Arbeitsseiten. Vor einem ersten Gespräch ist aber kein umfangreicher Fragebogen zwingend erforderlich.',
+
+ networkContacts:'Spannend sind für mich Club Leader, Selbstständige, Unternehmer, Fachleute, Autoren, Gastredner, Entwickler und Menschen, die Wissen, praktische Erfahrung oder eigene Lösungen in die Community einbringen können.',
+ networkNo:'Ich biete keine Anlageberatung an und vermittle keine Finanzprodukte. Die Akademie steht für Bildung, Orientierung, Schutz und selbstständige Entscheidungen.',
+ networkCoop:'Kooperationen sind sinnvoll bei Bildungsformaten, Workshops, Fachbeiträgen, digitalen Werkzeugen, Community-Angeboten, Marktplatzlösungen und Projekten, die Menschen konkrete Perspektiven eröffnen.',
+ networkOfferCoop:'Ich kann Konzepte, Lernwege, digitale Werkzeuge, Inhalte, Struktur und Umsetzungslogik einbringen. Besonders spannend sind Kooperationen, bei denen vorhandenes Fachwissen in ein verständliches und nutzbares Format übersetzt werden soll.',
+ networkHelp:'Das Netzwerk kann mit Fachwissen, realen Praxisbeispielen, Gastbeiträgen, Kontakten, Projektideen und Kooperationen helfen. Entscheidend ist für mich, dass daraus ein konkreter Mehrwert für die Mitglieder entsteht.',
+
+ kmsSlogan:'Wissen verstehen. Möglichkeiten erkennen. Selbst entscheiden.',
+ kmsAbout:'Ich bin Michael Rau, CEO und Entwickler der Akademie für finanzielle Souveränität, Mitbegründer des LiquidityBoosters und Buchautor. Seit mehr als 35 Jahren arbeite ich im Vertrieb und in der Entwicklung von Strukturen, Werkzeugen und Bildungswegen. Ich bin Autodidakt und verbinde praktische Erfahrung mit Systemdenken und technischer Umsetzung. Mein Ziel ist nicht, Menschen Entscheidungen abzunehmen, sondern ihnen Wissen, Orientierung und Werkzeuge zu geben, damit sie Zusammenhänge verstehen, Möglichkeiten erkennen und selbst entscheiden können.',
+ kmsHelp:'Ich helfe Menschen dabei, komplexe Themen zu sortieren, Zusammenhänge zu verstehen und daraus konkrete nächste Schritte zu entwickeln. Dafür verbinde ich Erfahrung aus Vertrieb und Aufbau mit Bildungsentwicklung, digitalen Werkzeugen und klaren, praktisch nutzbaren Strukturen.',
+ kmsSuccess:'Mein größter Erfolg ist der Aufbau der Akademie für finanzielle Souveränität mit ihren Lernwegen, Werkzeugen, Programmen und der Verbindung zum LiquidityBooster. Aus Ideen sind konkrete Systeme entstanden, die Menschen Orientierung geben und sie zum eigenen Handeln befähigen.',
+ kmsJoy:'Ich habe Freude daran, aus komplexen Ideen verständliche Lösungen zu bauen, neue Werkzeuge zu entwickeln, zu schreiben, mit Sprache und Geschichten zu arbeiten und gemeinsam mit Menschen neue Perspektiven sichtbar zu machen.',
+ kmsPromise:'Mein Versprechen an Dich: Ich höre zu, sortiere und mache Zusammenhänge verständlich. Ich verspreche keine schnellen Wunder und nehme Dir keine Entscheidungen ab. Du bekommst von mir Klarheit, Struktur, ehrliche Einordnung und Werkzeuge, mit denen Du selbst weitergehen kannst.',
+ kmsAlternative:'Finanzielle Bildung, Akademie- & Systementwicklung, digitale Bildungswerkzeuge',
+ kmsCategories:['Keines (Siehe alternativer Bereich)']
+};
+
+function applyMichaelProfile(){
+ inputIds().forEach(function(id){if(Object.prototype.hasOwnProperty.call(MICHAEL_PROFILE,id))$(id).value=MICHAEL_PROFILE[id]});
+ document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=MICHAEL_PROFILE.kmsCategories.indexOf(cb.value)!==-1});
+ updateKmsCategories()
+}
+
+function inputIds(){
+ return ['firstName','lastName','affiliateUrl','slogan','city','mobile','email','website','otherLinks','missingChannels','aboutOrigin','aboutFamily','aboutCalling','aboutEducation','aboutHobbies','aboutGoal','aboutWorld','wirJoy','wirHelped','wirPart','wirUnique','wirDaily','successProud','successGrandchildren','successHappy','successFamily','joyHobbies','joyTravel','joyPeople','joyInspiration','promiseHelp','promiseReliable','promiseWhy','promiseOffer','meetingLength','meetingKnowledge','meetingForms','networkContacts','networkNo','networkCoop','networkOfferCoop','networkHelp','kmsSlogan','kmsAbout','kmsHelp','kmsSuccess','kmsJoy','kmsPromise','kmsAlternative']
+}
+function selectedKmsCategories(){
+ return Array.prototype.slice.call(document.querySelectorAll('.kmsCategory:checked')).map(function(el){return el.value})
+}
+function updateKmsCategories(){
+ var values=selectedKmsCategories();$('kmsCategoriesText').value=values.join(', ');updateCopyButtons()
+}
+function saveDraft(){
+ var data={version:2,updatedAt:Date.now(),lang:state.lang,kmsCategories:selectedKmsCategories()};inputIds().forEach(function(id){data[id]=$(id).value});try{localStorage.setItem(DRAFT_KEY,JSON.stringify(data))}catch(e){}
+}
+function loadDraft(){
+ try{
+  var raw=localStorage.getItem(DRAFT_KEY);
+  if(!raw){applyMichaelProfile();return}
+  var data=JSON.parse(raw)||{};
+  inputIds().forEach(function(id){if(data[id]!==undefined)$(id).value=data[id]});
+  if(Array.isArray(data.kmsCategories)){document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=data.kmsCategories.indexOf(cb.value)!==-1})}
+  updateKmsCategories();
+  if(data.lang==='en'||data.lang==='de')state.lang=data.lang
+ }catch(e){applyMichaelProfile()}
+}
+function loadClubProfile(){
+ try{
+  var raw=localStorage.getItem(PROFILE_KEY);if(!raw)return;var p=JSON.parse(raw)||{};
+  [['firstName','firstName'],['lastName','lastName'],['city','city'],['mobile','mobile'],['email','email'],['affiliateUrl','affiliateUrl']].forEach(function(pair){if(p[pair[1]]&&!$(pair[0]).value.trim())$(pair[0]).value=p[pair[1]]})
+ }catch(e){}
+}
+function updateProgress(){
+ var els=Array.prototype.slice.call(document.querySelectorAll('.answer')),done=els.filter(function(el){return el.value.trim()}).length,total=els.length,pct=total?Math.round(done/total*100):0;
+ $('progressCount').textContent=done+' / '+total;$('progressBar').style.width=pct+'%'
+}
+function updateCopyButtons(){
+ document.querySelectorAll('.copyBtn[data-copy-target]').forEach(function(btn){
+  var el=$(btn.getAttribute('data-copy-target')),v=el?String(el.value||'').trim():'';
+  btn.disabled=!v
+ })
+}
+function fallbackCopy(text){
+ var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,ta.value.length);
+ var ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();return ok
+}
+async function copyField(btn){
+ var el=$(btn.getAttribute('data-copy-target'));if(!el)return;
+ var value=String(el.value||'').trim();if(!value)return;
+ try{
+  if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(value);
+  else if(!fallbackCopy(value))throw new Error('copy');
+  var span=btn.querySelector('span'),old=span.textContent;btn.classList.add('copied');span.textContent=t('copied');
+  setTimeout(function(){btn.classList.remove('copied');span.textContent=old},1400)
+ }catch(e){
+  var span2=btn.querySelector('span'),old2=span2.textContent;span2.textContent=t('copyError');setTimeout(function(){span2.textContent=old2},1600)
+ }
+}
+function ready(){
+ return !!($('firstName').value.trim()&&$('lastName').value.trim()&&normalizeUrl($('affiliateUrl').value)&&photoImage)
+}
+function updateUi(){
+ var raw=$('affiliateUrl').value.trim(),u=normalizeUrl(raw),q=$('qrState');q.className='qrState';
+ if(!raw){q.textContent=t('qrWaiting')}else if(u){q.textContent=t('qrOk');q.classList.add('ok')}else{q.textContent=t('qrError');q.classList.add('error')}
+ updateProgress();updateCopyButtons();var ok=ready();$('makePdf').disabled=!ok;$('status').textContent=ok?t('ready'):t('missing');$('status').className='status '+(ok?'ok':'')
+}
+
+function drawPageHeader(c,w,h,title,pageNo){
+ c.fillStyle='#fff';c.fillRect(0,0,w,h);
+ var g=c.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,167,173,.11)');g.addColorStop(1,'rgba(198,0,111,.08)');c.fillStyle=g;c.fillRect(0,105,w,120);
+ c.fillStyle='#132238';c.font=font(46,900);var titleLines=wrap(c,title,w-176);titleLines.slice(0,2).forEach(function(line,i){c.fillText(line,88,170+i*54)});
+ c.strokeStyle='#d8e4e8';c.lineWidth=2;c.beginPath();c.moveTo(88,245);c.lineTo(w-88,245);c.stroke();
+ c.fillStyle='#607080';c.font=font(18,700);c.fillText(t('title')+' · '+t('pdfPage')+' '+pageNo,88,h-58)
+}
+function jpegBytes(canvas){
+ var dataUrl=canvas.toDataURL('image/jpeg',.92),b64=dataUrl.split(',')[1],bin=atob(b64),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return bytes
+}
+function coverPageBytes(){
+ var c=document.createElement('canvas');c.width=1240;c.height=1754;drawCover(c.getContext('2d'),c.width,c.height);var bytes=jpegBytes(c);c.width=1;c.height=1;return bytes
+}
+function sectionPageBytes(section,pageNo){
+ var W=1240,H=1754,canvas=document.createElement('canvas'),c=canvas.getContext('2d');canvas.width=W;canvas.height=H;drawPageHeader(c,W,H,t(section.title),pageNo);
+ var x=88,maxW=W-176,y=300,bottom=H-105;
+ c.fillStyle='#607080';c.font=font(23,500);
+ section.intro.forEach(function(key){var lines=wrap(c,t(key),maxW);lines.forEach(function(line){if(y+32>bottom){return}c.fillText(line,x,y);y+=31});y+=10});
+ y+=16;
+ var pages=[],currentCanvas=canvas,currentCtx=c,currentY=y,currentPageNo=pageNo;
+ function finish(){pages.push(jpegBytes(currentCanvas));currentCanvas.width=1;currentCanvas.height=1}
+ function newPage(){
+  finish();currentPageNo++;currentCanvas=document.createElement('canvas');currentCanvas.width=W;currentCanvas.height=H;currentCtx=currentCanvas.getContext('2d');drawPageHeader(currentCtx,W,H,t(section.title),currentPageNo);currentY=300
+ }
+ section.fields.forEach(function(pair){
+  var q=t(pair[0]),ans=$(pair[1]).value.trim()||t('pdfEmpty');
+  currentCtx.font=font(24,900);var qLines=wrap(currentCtx,q,maxW);
+  currentCtx.font=font(25,500);var aLines=wrap(currentCtx,ans,maxW);
+  var estimated=qLines.length*31+aLines.length*35+56;
+  if(currentY+Math.min(estimated,250)>bottom)newPage();
+  currentCtx.fillStyle='#c6006f';currentCtx.font=font(24,900);
+  qLines.forEach(function(line){
+   if(currentY+31>bottom)newPage();
+   currentCtx.fillStyle='#c6006f';currentCtx.font=font(24,900);currentCtx.fillText(line,x,currentY);currentY+=31
+  });
+  currentY+=8;
+  currentCtx.fillStyle='#132238';currentCtx.font=font(25,500);
+  aLines.forEach(function(line){
+   if(currentY+36>bottom)newPage();
+   currentCtx.fillStyle='#132238';currentCtx.font=font(25,500);currentCtx.fillText(line,x,currentY);currentY+=35
+  });
+  currentY+=28;
+ });
+ finish();return{pages:pages,lastPage:currentPageNo}
+}
+function asciiBytes(s){return new TextEncoder().encode(s)}
+function concatBytes(parts){var len=parts.reduce(function(a,b){return a+b.length},0),out=new Uint8Array(len),off=0;parts.forEach(function(p){out.set(p,off);off+=p.length});return out}
+function u32be(bytes,i){return((((bytes[i]<<24)>>>0)+(bytes[i+1]<<16)+(bytes[i+2]<<8)+bytes[i+3])>>>0)}
+function pngForPdf(bytes){
+ if(!bytes||bytes.length<33||bytes[0]!==137||bytes[1]!==80||bytes[2]!==78||bytes[3]!==71)throw new Error('Ungültige Logo-PNG.');
+ var off=8,width=0,height=0,bitDepth=0,colorType=-1,interlace=-1,idat=[];
+ while(off+12<=bytes.length){
+  var len=u32be(bytes,off),type=String.fromCharCode(bytes[off+4],bytes[off+5],bytes[off+6],bytes[off+7]),start=off+8,end=start+len;
+  if(end+4>bytes.length)throw new Error('Beschädigte Logo-PNG.');
+  if(type==='IHDR'){width=u32be(bytes,start);height=u32be(bytes,start+4);bitDepth=bytes[start+8];colorType=bytes[start+9];interlace=bytes[start+12]}
+  else if(type==='IDAT'){idat.push(bytes.slice(start,end))}
+  else if(type==='IEND'){break}
+  off=end+4
+ }
+ if(!width||!height||bitDepth!==8||colorType!==2||interlace!==0||!idat.length)throw new Error('Die Original-Logo-PNG hat ein für die direkte PDF-Einbettung nicht unterstütztes Format.');
+ return{width:width,height:height,data:concatBytes(idat)}
+}
+function multiPagePdfFromJpegs(jpegs,wmm,hmm,logoBytes){
+ var wptN=wmm*72/25.4,hptN=hmm*72/25.4,wpt=wptN.toFixed(2),hpt=hptN.toFixed(2),objects=[],kids=[],logo=pngForPdf(logoBytes);
+ objects[1]=asciiBytes('<< /Type /Catalog /Pages 2 0 R >>');
+ objects[3]=concatBytes([
+  asciiBytes('<< /Type /XObject /Subtype /Image /Width '+logo.width+' /Height '+logo.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /FlateDecode /DecodeParms << /Predictor 15 /Colors 3 /BitsPerComponent 8 /Columns '+logo.width+' >> /Length '+logo.data.length+' >>\nstream\n'),
+  logo.data,
+  asciiBytes('\nendstream')
+ ]);
+ jpegs.forEach(function(jpg,i){
+  var pageObj=4+i*3,imgObj=5+i*3,contentObj=6+i*3;kids.push(pageObj+' 0 R');
+  objects[pageObj]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Bg '+imgObj+' 0 R /Logo 3 0 R >> >> /Contents '+contentObj+' 0 R >>');
+  objects[imgObj]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width 1240 /Height 1754 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);
+
+  var logoH,logoW,logoX,logoTop,maxW,aspect=logo.width/logo.height;
+  if(i===0){
+   logoH=hptN*.070;maxW=wptN*.40;logoW=logoH*aspect;if(logoW>maxW){logoW=maxW;logoH=logoW/aspect}
+   logoX=wptN*.075;logoTop=hptN*.028
+  }else{
+   logoH=hptN*(86/1754);maxW=wptN*(330/1240);logoW=logoH*aspect;if(logoW>maxW){logoW=maxW;logoH=logoW/aspect}
+   logoX=wptN*(88/1240);logoTop=hptN*(16/1754)
+  }
+  var logoY=hptN-logoTop-logoH;
+  var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Bg Do Q\n' +
+              'q '+logoW.toFixed(2)+' 0 0 '+logoH.toFixed(2)+' '+logoX.toFixed(2)+' '+logoY.toFixed(2)+' cm /Logo Do Q\n';
+  objects[contentObj]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream')
+ });
+ objects[2]=asciiBytes('<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+jpegs.length+' >>');
+ var maxObj=3+jpegs.length*3,parts=[asciiBytes('%PDF-1.4\n%LB-MITGLIEDER-PORTRAIT\n')],offsets=[0],pos=parts[0].length;
+ for(var i=1;i<=maxObj;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}
+ var xref=pos,xs='xref\n0 '+(maxObj+1)+'\n0000000000 65535 f \n';for(var j=1;j<=maxObj;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';
+ xs+='trailer\n<< /Size '+(maxObj+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));return new Blob(parts,{type:'application/pdf'})
+}
+function openFileDb(){
+ return new Promise(function(resolve,reject){var req=indexedDB.open(FILE_DB,1);req.onupgradeneeded=function(){if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'token'})};req.onsuccess=function(){resolve(req.result)};req.onerror=function(){reject(req.error||new Error('Dateispeicher'))}})
+}
+async function storeFile(blob,filename,format){
+ var db=await openFileDb(),token='portrait-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+ return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:filename,format:format,mime:'application/pdf',created:new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-GB',{dateStyle:'medium',timeStyle:'short'}).format(new Date())});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error||new Error('Dateispeicher'))}})
+}
+function handoff(token,action){var u=new URL('./datei-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);u.searchParams.set('lang',state.lang);return u.href}
+
+async function createPdf(){
+ if(!ready()){updateUi();return}
+ $('status').textContent=t('working');$('status').className='status ok';$('makePdf').disabled=true;
+ try{
+  var logoBytes=await loadLogoPngBytes();
+  var jpegs=[coverPageBytes()],pageNo=2;
+  sections.forEach(function(section){var out=sectionPageBytes(section,pageNo);Array.prototype.push.apply(jpegs,out.pages);pageNo=out.lastPage+1});
+  var blob=multiPagePdfFromJpegs(jpegs,210,297,logoBytes),name=sanitize($('firstName').value+'-'+$('lastName').value),filename='Mitglieder-Portrait-'+name+'.pdf',format='PDF · A4 · '+jpegs.length+' '+(state.lang==='de'?(jpegs.length===1?'Seite':'Seiten'):(jpegs.length===1?'page':'pages'));
+  var token=await storeFile(blob,filename,format);$('fileName').textContent=filename;$('fileMeta').textContent=format;$('saveFile').href=handoff(token,'save');$('fileOverlay').hidden=false;$('status').textContent=t('ready');$('status').className='status ok'
+ }catch(e){$('status').textContent='Fehler: '+(e&&e.message?e.message:String(e));$('status').className='status error'}
+ $('makePdf').disabled=!ready()
+}
+
+async function resetAll(){
+ if(!confirm(t('confirmClear')))return;
+ try{localStorage.removeItem(DRAFT_KEY)}catch(e){}
+ inputIds().forEach(function(id){$(id).value=''});
+ await clearStoredPhoto();if(photoUrl)URL.revokeObjectURL(photoUrl);photoUrl='';photoBlob=null;photoImage=null;$('profilePhoto').value='';$('photoThumb').innerHTML='<span data-i18n="photoEmpty">'+t('photoEmpty')+'</span>';if($('kmsPhotoThumb'))$('kmsPhotoThumb').innerHTML='<span data-i18n="photoEmpty">'+t('photoEmpty')+'</span>';
+ document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=false});updateKmsCategories();
+ applyMichaelProfile();saveDraft();applyI18n();$('status').textContent=t('cleared')
+}
+
+inputIds().forEach(function(id){$(id).addEventListener('input',function(){saveDraft();updateUi();renderPreview()})});
+document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.addEventListener('change',function(){updateKmsCategories();saveDraft()})});
+document.querySelectorAll('.copyBtn[data-copy-target]').forEach(function(btn){btn.addEventListener('click',function(){copyField(btn)})});
+$('profilePhoto').addEventListener('change',async function(){
+ var f=this.files&&this.files[0];if(!f)return;if(f.size>15*1024*1024){$('status').textContent=t('tooLarge');$('status').className='status error';this.value='';return}
+ try{await setPhotoBlob(f,true);saveDraft()}catch(e){$('status').textContent=t('errorPhoto');$('status').className='status error'}
+});
+document.querySelectorAll('.lang button').forEach(function(btn){btn.addEventListener('click',function(){state.lang=btn.getAttribute('data-lang')||'de';saveDraft();applyI18n()})});
+$('makePdf').addEventListener('click',createPdf);
+$('clearDraft').addEventListener('click',resetAll);
+$('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});
+$('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
+
+loadDraft();loadClubProfile();loadStoredPhoto().then(function(){applyI18n();updateUi();renderPreview()});
+applyI18n();updateUi();renderPreview();
+})();
+</script>
+</body>
+</html>
