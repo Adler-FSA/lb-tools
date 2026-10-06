@@ -72,6 +72,31 @@
     .business-pillar b{display:block;color:var(--magenta);font-size:11px;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
     .business-pillar h3{font-size:19px;margin-bottom:8px}.business-pillar p{margin:0;color:var(--muted);font-size:14px}
     .big-quote{margin-top:20px;padding:22px 24px;border-left:5px solid var(--magenta);border-radius:0 19px 19px 0;background:var(--magenta-soft);color:var(--navy);font-size:20px;font-weight:900}
+    .price-sub{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18);color:#8fe5df;font-size:13px;font-weight:900}
+    .foundation-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:28px}
+    .foundation-card{padding:24px;border:1px solid var(--line);border-radius:21px;background:#fff}
+    .foundation-card:nth-child(1),.foundation-card:nth-child(3){background:linear-gradient(145deg,var(--mint-soft),#fff)}
+    .foundation-card:nth-child(2),.foundation-card:nth-child(4){background:linear-gradient(145deg,var(--magenta-soft),#fff)}
+    .foundation-card b{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--navy);color:#fff;font-size:12px;margin-bottom:12px}
+    .foundation-card h3{font-size:18px;margin:0 0 7px}.foundation-card p{margin:0;color:var(--muted);font-size:14px}
+    .foundation-line{margin-top:20px;padding:20px 22px;border-radius:18px;background:var(--navy);color:#fff;font-weight:850;text-align:center}
+    .foundation-line strong{color:#82e8eb}
+    .network-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+    .network-card{padding:30px;border:1px solid var(--line);border-radius:25px;background:#fff}
+    .network-card.private{background:linear-gradient(145deg,var(--mint-soft),#fff)}
+    .network-card.public{background:linear-gradient(145deg,var(--magenta-soft),#fff)}
+    .network-card .network-label{display:inline-flex;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:11px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;margin-bottom:13px}
+    .network-card h3{font-size:25px;margin-bottom:10px}.network-card p{color:var(--muted);margin:0}
+    .network-list{margin:16px 0 0;padding-left:20px;color:var(--muted)}
+    .network-list li+li{margin-top:7px}
+    .network-effect{margin-top:18px;padding:28px;border-radius:25px;background:linear-gradient(120deg,var(--navy),#17475a);color:#fff}
+    .network-effect h3{color:#fff;font-size:24px;margin-bottom:8px}.network-effect p{margin:0;color:#dce9ee}
+    .network-chain{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:19px}
+    .network-chain span{padding:10px 13px;border-radius:999px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.17);font-weight:850}
+    .network-chain b{color:#82e8eb;font-size:19px}
+    .network-claim{margin-top:19px;text-align:center;font-size:21px;font-weight:950;color:#fff}
+    .network-claim em{font-style:normal;color:#82e8eb}
+
     .portfolio-worlds{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
     .portfolio-world{padding:28px;border:1px solid var(--line);border-radius:24px;background:#fff}
     .portfolio-world.business{background:linear-gradient(145deg,var(--mint-soft),#fff)}
@@ -164,6 +189,7 @@
       .overview{grid-template-columns:repeat(2,1fr)}
       .business-pillars{grid-template-columns:1fr}
       .portfolio-worlds{grid-template-columns:1fr}
+      .foundation-grid{grid-template-columns:repeat(2,1fr)}
       .kms-grid,.apps{grid-template-columns:repeat(2,1fr)}
       .flow{grid-template-columns:repeat(3,1fr)}
       .flow-step:after{display:none}
@@ -175,7 +201,7 @@
       .top{min-height:64px}.brand span{font-size:14px}
       .hero{padding:42px 0 28px;gap:28px}.hero-card{min-height:300px;border-radius:25px}
       .section,.closing{padding:27px 20px;border-radius:24px}
-      .overview,.kms-grid,.apps,.market,.leader-grid,.logic,.tools,.data-box,.personal-list,.flow,.product-row,.marketplace-grid{grid-template-columns:1fr}
+      .overview,.kms-grid,.apps,.market,.leader-grid,.logic,.tools,.data-box,.personal-list,.flow,.product-row,.marketplace-grid,.foundation-grid,.network-wrap{grid-template-columns:1fr}
       .domain-card{padding:24px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -237,7 +263,8 @@
     <p class="intro" data-i18n data-de="Die 189 € sind nicht der Preis für ein Erfolgsversprechen. Sie sind die laufenden Kosten für Betrieb und Bereitstellung deiner ClubLeader-Infrastruktur: System, Werkzeuge, persönliche Präsenz, Vertriebswege, Ausbildung und Zugang zu einem wachsenden Produktportfolio." data-en="The €189 is not the price of a promise of success. It is the recurring cost for operating and providing your ClubLeader infrastructure: system, tools, personal presence, sales channels, training and access to a growing product portfolio.">Die 189 € sind nicht der Preis für ein Erfolgsversprechen. Sie sind die laufenden Kosten für Betrieb und Bereitstellung deiner ClubLeader-Infrastruktur: System, Werkzeuge, persönliche Präsenz, Vertriebswege, Ausbildung und Zugang zu einem wachsenden Produktportfolio.</p>
     <div class="business-kit">
       <div class="price-box">
-        <div class="price">189 €<small data-i18n data-de="netto je Halbjahr" data-en="net every six months">netto je Halbjahr</small></div>
+        <div class="price">31,50 €<small data-i18n data-de="rechnerisch netto pro Monat" data-en="calculated net per month">rechnerisch netto pro Monat</small></div>
+        <div class="price-sub" data-i18n data-de="Abgerechnet werden 189 € netto je Halbjahr." data-en="Billing is €189 net every six months.">Abgerechnet werden 189 € netto je Halbjahr.</div>
         <p data-i18n data-de="Für Betrieb und Bereitstellung der ClubLeader-Vollausstattung. Kein Umsatz-, Einkommens- oder Erfolgspreis." data-en="For operation and provision of the complete ClubLeader infrastructure. Not a price for revenue, income or success.">Für Betrieb und Bereitstellung der ClubLeader-Vollausstattung. Kein Umsatz-, Einkommens- oder Erfolgspreis.</p>
       </div>
       <div class="business-pillars">
@@ -247,6 +274,19 @@
       </div>
     </div>
     <div class="big-quote" data-i18n data-de="Du bekommst kein Versprechen auf ein Geschäft. Du bekommst die Ausstattung, um eines aufzubauen." data-en="You do not receive a promise of a business. You receive the infrastructure to build one.">Du bekommst kein Versprechen auf ein Geschäft. Du bekommst die Ausstattung, um eines aufzubauen.</div>
+  </section>
+
+  <section class="section">
+    <div class="eyebrow" data-i18n data-de="Was 31,50 € bewirken" data-en="What €31.50 provides">Was 31,50 € bewirken</div>
+    <h2 data-i18n data-de="Ein eigenes Geschäft braucht ein Fundament. Deins ist bereits vorbereitet." data-en="Every business needs a foundation. Yours is already prepared.">Ein eigenes Geschäft braucht ein Fundament. Deins ist bereits vorbereitet.</h2>
+    <p class="intro" data-i18n data-de="Rechnerisch 31,50 € netto pro Monat stellen nicht dein Einkommen her – sie halten die technische, organisatorische und vertriebliche Grundausstattung bereit. Dadurch musst du zentrale Bausteine nicht erst einzeln suchen, aufbauen und miteinander verbinden." data-en="A calculated €31.50 net per month does not create your income – it keeps the technical, organisational and sales foundation available. This means you do not first have to find, build and connect the central components yourself.">Rechnerisch 31,50 € netto pro Monat stellen nicht dein Einkommen her – sie halten die technische, organisatorische und vertriebliche Grundausstattung bereit. Dadurch musst du zentrale Bausteine nicht erst einzeln suchen, aufbauen und miteinander verbinden.</p>
+    <div class="foundation-grid">
+      <article class="foundation-card"><b>01</b><h3 data-i18n data-de="Du startest schneller" data-en="You start faster">Du startest schneller</h3><p data-i18n data-de="KMS, Webseite, Affiliate-Zuordnung, Kommunikations- und Akquise-Werkzeuge sind bereits als gemeinsame Infrastruktur vorhanden." data-en="KMS, website, affiliate attribution, communication and acquisition tools already exist as one connected infrastructure.">KMS, Webseite, Affiliate-Zuordnung, Kommunikations- und Akquise-Werkzeuge sind bereits als gemeinsame Infrastruktur vorhanden.</p></article>
+      <article class="foundation-card"><b>02</b><h3 data-i18n data-de="Du startest mit Produkten" data-en="You start with products">Du startest mit Produkten</h3><p data-i18n data-de="Sechs exklusive ClubLeader-Produkte und der freigegebene Marktplatz geben dir von Beginn an ein echtes Vertriebsportfolio." data-en="Six exclusive ClubLeader products and the approved marketplace give you a real sales portfolio from the start.">Sechs exklusive ClubLeader-Produkte und der freigegebene Marktplatz geben dir von Beginn an ein echtes Vertriebsportfolio.</p></article>
+      <article class="foundation-card"><b>03</b><h3 data-i18n data-de="Du kannst etwas Eigenes entwickeln" data-en="You can build something of your own">Du kannst etwas Eigenes entwickeln</h3><p data-i18n data-de="Deine eigene Kompetenz oder Dienstleistung kann als freigegebenes Angebot Teil deines persönlichen Geschäftsmodells werden." data-en="Your own expertise or service can become an approved offer within your personal business model.">Deine eigene Kompetenz oder Dienstleistung kann als freigegebenes Angebot Teil deines persönlichen Geschäftsmodells werden.</p></article>
+      <article class="foundation-card"><b>04</b><h3 data-i18n data-de="Du konzentrierst dich aufs Geschäft" data-en="You focus on the business">Du konzentrierst dich aufs Geschäft</h3><p data-i18n data-de="Kontakte, Kunden, Sichtbarkeit, Angebote und Umsetzung rücken in den Mittelpunkt – statt zuerst eine technische Grundausstattung zusammensetzen zu müssen." data-en="Contacts, customers, visibility, offers and execution move to the centre – instead of first having to assemble a technical foundation.">Kontakte, Kunden, Sichtbarkeit, Angebote und Umsetzung rücken in den Mittelpunkt – statt zuerst eine technische Grundausstattung zusammensetzen zu müssen.</p></article>
+    </div>
+    <div class="foundation-line" data-i18n data-de="Der Wert liegt nicht nur in den einzelnen Werkzeugen. Der eigentliche Mehrwert entsteht dadurch, dass sie als gemeinsames Fundament zusammenspielen." data-en="The value is not only in the individual tools. The real benefit comes from them working together as a shared foundation.">Der Wert liegt nicht nur in den einzelnen Werkzeugen. Der eigentliche Mehrwert entsteht dadurch, dass sie als <strong>gemeinsames Fundament</strong> zusammenspielen.</div>
   </section>
 
   <section class="section">
@@ -287,8 +327,8 @@
 
   <section class="section dark">
     <div class="eyebrow" data-i18n data-de="ONLY INSIDE KMS" data-en="ONLY INSIDE KMS">ONLY INSIDE KMS</div>
-    <h2 data-i18n data-de="Dein Arbeitswerkzeug für Kontakte, Kommunikation und digitale Organisation." data-en="Your working tool for contacts, communication and digital organisation.">Dein Arbeitswerkzeug für Kontakte, Kommunikation und digitale Organisation.</h2>
-    <p class="intro" data-i18n data-de="Das KMS ist die operative Arbeitsoberfläche hinter der Partnerschaft. Die aus der Hotel-Anwendung bekannte Logik gilt auch für ClubLeader: eigener Arbeitsbereich, eigene Kontaktorganisation, CRM, Newsletter, Auswertung und Webseitenfunktionen." data-en="The KMS is the operational workspace behind the partnership. The logic known from the hotel application also applies to ClubLeaders: your own workspace, contact organisation, CRM, newsletters, analytics and website functions.">Das KMS ist die operative Arbeitsoberfläche hinter der Partnerschaft. Die aus der Hotel-Anwendung bekannte Logik gilt auch für ClubLeader: eigener Arbeitsbereich, eigene Kontaktorganisation, CRM, Newsletter, Auswertung und Webseitenfunktionen.</p>
+    <h2 data-i18n data-de="Dein eigenes personalisiertes KMS – dein abgeschlossener Arbeitsbereich." data-en="Your own personalised KMS – your separate workspace.">Dein eigenes personalisiertes KMS – dein abgeschlossener Arbeitsbereich.</h2>
+    <p class="intro" data-i18n data-de="Du nutzt die ONLY INSIDE Software als technische Plattform, arbeitest darin aber in deinem eigenen personalisierten KMS-Bereich. Deine Kontakte, Gruppen, Tags, Notizen, Wiedervorlagen und Kommunikationsvorgänge bleiben deinem Arbeitsbereich zugeordnet und sind für andere Mitglieder nicht einsehbar." data-en="You use ONLY INSIDE software as the technical platform, while working in your own personalised KMS area. Your contacts, groups, tags, notes, follow-ups and communication processes remain assigned to your workspace and are not visible to other members.">Du nutzt die ONLY INSIDE Software als technische Plattform, arbeitest darin aber in deinem eigenen personalisierten KMS-Bereich. Deine Kontakte, Gruppen, Tags, Notizen, Wiedervorlagen und Kommunikationsvorgänge bleiben deinem Arbeitsbereich zugeordnet und sind für andere Mitglieder nicht einsehbar.</p>
     <div class="kms-grid">
       <article class="kms-card"><h3 data-i18n data-de="Kontakte & CRM" data-en="Contacts & CRM">Kontakte & CRM</h3><ul><li data-i18n data-de="Kontakte anlegen und importieren" data-en="Create and import contacts">Kontakte anlegen und importieren</li><li data-i18n data-de="suchen, filtern und sortieren" data-en="search, filter and sort">suchen, filtern und sortieren</li><li data-i18n data-de="Gruppen und Tags zuordnen" data-en="assign groups and tags">Gruppen und Tags zuordnen</li><li data-i18n data-de="Kontaktverläufe organisieren" data-en="organise contact histories">Kontaktverläufe organisieren</li></ul></article>
       <article class="kms-card"><h3 data-i18n data-de="Vorgänge & Wiedervorlagen" data-en="Processes & follow-ups">Vorgänge & Wiedervorlagen</h3><ul><li data-i18n data-de="Notizen hinterlegen" data-en="store notes">Notizen hinterlegen</li><li data-i18n data-de="nächste Schritte dokumentieren" data-en="document next steps">nächste Schritte dokumentieren</li><li data-i18n data-de="Wiedervorlagen setzen" data-en="set follow-ups">Wiedervorlagen setzen</li><li data-i18n data-de="offene Bearbeitungen erkennen" data-en="identify open tasks">offene Bearbeitungen erkennen</li></ul></article>
@@ -300,6 +340,7 @@
       <article class="kms-card"><h3 data-i18n data-de="Akademie im System" data-en="Academy in the system">Akademie im System</h3><ul><li data-i18n data-de="Videoanleitungen nutzen" data-en="use video guides">Videoanleitungen nutzen</li><li data-i18n data-de="PDF-Anleitungen aufrufen" data-en="open PDF guides">PDF-Anleitungen aufrufen</li><li data-i18n data-de="Funktionen Schritt für Schritt lernen" data-en="learn functions step by step">Funktionen Schritt für Schritt lernen</li><li data-i18n data-de="selbstständig weiterarbeiten" data-en="continue working independently">selbstständig weiterarbeiten</li></ul></article>
       <article class="kms-card"><h3 data-i18n data-de="Veranstaltungen & Organisation" data-en="Events & organisation">Veranstaltungen & Organisation</h3><ul><li data-i18n data-de="Veranstaltungen verwalten" data-en="manage events">Veranstaltungen verwalten</li><li data-i18n data-de="Kontakte und Termine verbinden" data-en="connect contacts and appointments">Kontakte und Termine verbinden</li><li data-i18n data-de="Einladungsprozesse organisieren" data-en="organise invitation processes">Einladungsprozesse organisieren</li><li data-i18n data-de="Teilnehmerbezüge bearbeiten" data-en="manage participant relationships">Teilnehmerbezüge bearbeiten</li></ul></article>
     </div>
+    <div class="note" data-i18n data-de="Dein KMS ist kein gemeinsamer Adresspool. Andere Mitglieder haben keinen Zugriff auf deine Kontakte und deine internen Arbeitsinformationen. Technische Betriebs-, Support- und Datenschutzregelungen des Plattformbetreibers bleiben davon unberührt." data-en="Your KMS is not a shared address pool. Other members do not have access to your contacts or internal working information. Technical operation, support and data-protection rules of the platform operator remain unaffected.">Dein KMS ist kein gemeinsamer Adresspool. Andere Mitglieder haben keinen Zugriff auf deine Kontakte und deine internen Arbeitsinformationen. Technische Betriebs-, Support- und Datenschutzregelungen des Plattformbetreibers bleiben davon unberührt.</div>
   </section>
 
   <section class="section">
@@ -377,6 +418,47 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="eyebrow" data-i18n data-de="Das LiquidityBooster Netzwerkprinzip" data-en="The LiquidityBooster network principle">Das LiquidityBooster Netzwerkprinzip</div>
+    <h2 data-i18n data-de="Innen eigenständig. Außen gemeinsam sichtbar." data-en="Independent on the inside. Visible together on the outside.">Innen eigenständig. Außen gemeinsam sichtbar.</h2>
+    <p class="intro" data-i18n data-de="Jeder ClubLeader baut seinen eigenen Arbeitsbereich, seine eigene Positionierung und sein eigenes Geschäft auf. Gleichzeitig entsteht nach außen ein gemeinsames Werbe- und Sichtbarkeitsnetzwerk, das mit jedem aktiven Mitglied, jedem Angebot und jedem neuen Inhalt größer wird." data-en="Every ClubLeader builds their own workspace, positioning and business. At the same time, a shared marketing and visibility network develops externally and grows with every active member, every offer and every new piece of content.">Jeder ClubLeader baut seinen eigenen Arbeitsbereich, seine eigene Positionierung und sein eigenes Geschäft auf. Gleichzeitig entsteht nach außen ein gemeinsames Werbe- und Sichtbarkeitsnetzwerk, das mit jedem aktiven Mitglied, jedem Angebot und jedem neuen Inhalt größer wird.</p>
+    <div class="network-wrap">
+      <article class="network-card private">
+        <span class="network-label" data-i18n data-de="Innen · dein Bereich" data-en="Inside · your area">Innen · dein Bereich</span>
+        <h3 data-i18n data-de="Deine Kontakte bleiben in deinem KMS." data-en="Your contacts stay in your KMS.">Deine Kontakte bleiben in deinem KMS.</h3>
+        <p data-i18n data-de="Du arbeitest eigenständig mit deinen Daten, Kontakten und Prozessen. Dein KMS ist personalisiert und von den Arbeitsbereichen anderer Mitglieder getrennt." data-en="You work independently with your data, contacts and processes. Your KMS is personalised and separate from the workspaces of other members.">Du arbeitest eigenständig mit deinen Daten, Kontakten und Prozessen. Dein KMS ist personalisiert und von den Arbeitsbereichen anderer Mitglieder getrennt.</p>
+        <ul class="network-list">
+          <li data-i18n data-de="eigene Kontakte und Kontaktverläufe" data-en="your own contacts and contact histories">eigene Kontakte und Kontaktverläufe</li>
+          <li data-i18n data-de="eigene Gruppen, Tags und Wiedervorlagen" data-en="your own groups, tags and follow-ups">eigene Gruppen, Tags und Wiedervorlagen</li>
+          <li data-i18n data-de="eigene Newsletter- und Kommunikationsarbeit" data-en="your own newsletter and communication work">eigene Newsletter- und Kommunikationsarbeit</li>
+          <li data-i18n data-de="kein Einblick anderer Mitglieder in deinen internen Arbeitsbereich" data-en="no access by other members to your internal workspace">kein Einblick anderer Mitglieder in deinen internen Arbeitsbereich</li>
+        </ul>
+      </article>
+      <article class="network-card public">
+        <span class="network-label" data-i18n data-de="Außen · gemeinsames Netzwerk" data-en="Outside · shared network">Außen · gemeinsames Netzwerk</span>
+        <h3 data-i18n data-de="Deine Sichtbarkeit steht nicht allein." data-en="Your visibility does not stand alone.">Deine Sichtbarkeit steht nicht allein.</h3>
+        <p data-i18n data-de="Deine persönliche Seite, deine Marktplatzpräsenz und deine Inhalte werden Teil einer größeren LiquidityBooster-Welt. Dadurch entsteht ein Netzwerk aus vielen eigenständigen Teilnehmern mit gemeinsamer öffentlicher Präsenz." data-en="Your personal page, marketplace presence and content become part of a larger LiquidityBooster world. This creates a network of many independent participants with a shared public presence.">Deine persönliche Seite, deine Marktplatzpräsenz und deine Inhalte werden Teil einer größeren LiquidityBooster-Welt. Dadurch entsteht ein Netzwerk aus vielen eigenständigen Teilnehmern mit gemeinsamer öffentlicher Präsenz.</p>
+        <ul class="network-list">
+          <li data-i18n data-de="persönliche LiquidityBooster-Seiten" data-en="personal LiquidityBooster pages">persönliche LiquidityBooster-Seiten</li>
+          <li data-i18n data-de="Club-Marktplatz und Angebote" data-en="Club Marketplace and offers">Club-Marktplatz und Angebote</li>
+          <li data-i18n data-de="Hörsäle, Inhalte und Veranstaltungen" data-en="lecture halls, content and events">Hörsäle, Inhalte und Veranstaltungen</li>
+          <li data-i18n data-de="gemeinsame Marke und zentrale LiquidityBooster-Sichtbarkeit" data-en="shared brand and central LiquidityBooster visibility">gemeinsame Marke und zentrale LiquidityBooster-Sichtbarkeit</li>
+        </ul>
+      </article>
+    </div>
+    <div class="network-effect">
+      <h3 data-i18n data-de="Der Netzwerk-Turbo entsteht durch Wachstum." data-en="The network effect grows with participation.">Der Netzwerk-Turbo entsteht durch Wachstum.</h3>
+      <p data-i18n data-de="Mehr aktive Mitglieder schaffen mehr Seiten, mehr Inhalte, mehr Angebote und mehr Verknüpfungen. Damit wächst die gemeinsame Sichtbarkeitsfläche des LiquidityBooster-Netzwerks – und jeder Einzelne steht nicht mehr nur mit seiner eigenen kleinen Präsenz im Netz." data-en="More active members create more pages, more content, more offers and more connections. This expands the shared visibility footprint of the LiquidityBooster network – so each individual is no longer represented only by their own small presence online.">Mehr aktive Mitglieder schaffen mehr Seiten, mehr Inhalte, mehr Angebote und mehr Verknüpfungen. Damit wächst die gemeinsame Sichtbarkeitsfläche des LiquidityBooster-Netzwerks – und jeder Einzelne steht nicht mehr nur mit seiner eigenen kleinen Präsenz im Netz.</p>
+      <div class="network-chain">
+        <span data-i18n data-de="mehr Mitglieder" data-en="more members">mehr Mitglieder</span><b>→</b>
+        <span data-i18n data-de="mehr Inhalte" data-en="more content">mehr Inhalte</span><b>→</b>
+        <span data-i18n data-de="mehr Angebote" data-en="more offers">mehr Angebote</span><b>→</b>
+        <span data-i18n data-de="größere gemeinsame Sichtbarkeit" data-en="greater shared visibility">größere gemeinsame Sichtbarkeit</span>
+      </div>
+      <div class="network-claim" data-i18n data-de="Individuell arbeiten. Gemeinsam Reichweite aufbauen." data-en="Work independently. Build reach together.">Individuell arbeiten. Gemeinsam Reichweite aufbauen.</div>
+    </div>
+  </section>
+
   <section class="section dark">
     <div class="eyebrow" data-i18n data-de="Neu mitgedacht" data-en="Built in as well">Neu mitgedacht</div>
     <h2 data-i18n data-de="Hörsäle sind nicht nur Lernräume. Freigegebene Hörsäle können auch vermarktet werden." data-en="Lecture halls are not only learning spaces. Approved lecture halls can also be marketed.">Hörsäle sind nicht nur Lernräume. Freigegebene Hörsäle können auch vermarktet werden.</h2>
@@ -448,7 +530,7 @@
     <div class="eyebrow" data-i18n data-de="Daten & Verantwortung" data-en="Data & responsibility">Daten & Verantwortung</div>
     <h2 data-i18n data-de="Dein Arbeitsbereich schafft Ordnung – die Verantwortung bleibt bei dir." data-en="Your workspace creates order – responsibility remains with you.">Dein Arbeitsbereich schafft Ordnung – die Verantwortung bleibt bei dir.</h2>
     <div class="data-box">
-      <article class="data-card"><h3 data-i18n data-de="Eigene Kontaktorganisation" data-en="Own contact organisation">Eigene Kontaktorganisation</h3><p data-i18n data-de="Kontakte werden in deinem KMS-Arbeitsbereich organisiert. Du kannst Gruppen, Tags, Notizen, Wiedervorlagen, Newsletter und Kommunikationswege strukturiert verwalten." data-en="Contacts are organised in your KMS workspace. You can manage groups, tags, notes, follow-ups, newsletters and communication channels in a structured way.">Kontakte werden in deinem KMS-Arbeitsbereich organisiert. Du kannst Gruppen, Tags, Notizen, Wiedervorlagen, Newsletter und Kommunikationswege strukturiert verwalten.</p></article>
+      <article class="data-card"><h3 data-i18n data-de="Eigener abgeschlossener KMS-Arbeitsbereich" data-en="Your own separate KMS workspace">Eigener abgeschlossener KMS-Arbeitsbereich</h3><p data-i18n data-de="Deine Kontakte und internen Arbeitsinformationen bleiben deinem persönlichen KMS zugeordnet. Andere Mitglieder können diese Daten nicht einsehen. Du nutzt die Software – dein Arbeitsbereich bleibt dein Arbeitsbereich." data-en="Your contacts and internal working information remain assigned to your personal KMS. Other members cannot view this data. You use the software – your workspace remains your workspace.">Deine Kontakte und internen Arbeitsinformationen bleiben deinem persönlichen KMS zugeordnet. Andere Mitglieder können diese Daten nicht einsehen. Du nutzt die Software – dein Arbeitsbereich bleibt dein Arbeitsbereich.</p></article>
       <article class="data-card"><h3 data-i18n data-de="Datenschutz bleibt Pflicht" data-en="Data protection remains mandatory">Datenschutz bleibt Pflicht</h3><p data-i18n data-de="Für Kontaktaufnahme, Datenspeicherung, Newsletter und Kampagnen dürfen nur rechtlich zulässige Daten und Kontaktwege verwendet werden. Erforderliche Einwilligungen oder andere Rechtsgrundlagen müssen vorliegen." data-en="Only legally permitted data and contact channels may be used for outreach, data storage, newsletters and campaigns. Required consent or other legal bases must be in place.">Für Kontaktaufnahme, Datenspeicherung, Newsletter und Kampagnen dürfen nur rechtlich zulässige Daten und Kontaktwege verwendet werden. Erforderliche Einwilligungen oder andere Rechtsgrundlagen müssen vorliegen.</p></article>
     </div>
   </section>
@@ -456,7 +538,7 @@
   <section class="closing">
     <div class="eyebrow" data-i18n data-de="Kurz gesagt" data-en="In short">Kurz gesagt</div>
     <h2 data-i18n data-de="Du buchst eine Geschäftsidee mit Vollausstattung." data-en="You are choosing a business idea with full infrastructure.">Du buchst eine Geschäftsidee mit Vollausstattung.</h2>
-    <p data-i18n data-de="Für 189 € netto je Halbjahr erhältst du die Infrastruktur, die Werkzeuge, die Vertriebswege und ein wachsendes Produktportfolio, um daraus Schritt für Schritt dein eigenes Geschäft zu entwickeln – mit eigenen Angeboten und mit bereits vorhandenen Produkten." data-en="For €189 net every six months, you receive the infrastructure, tools, sales channels and a growing product portfolio to develop your own business step by step – with your own offers and with existing products.">Für 189 € netto je Halbjahr erhältst du die Infrastruktur, die Werkzeuge, die Vertriebswege und ein wachsendes Produktportfolio, um daraus Schritt für Schritt dein eigenes Geschäft zu entwickeln – mit eigenen Angeboten und mit bereits vorhandenen Produkten.</p>
+    <p data-i18n data-de="Für 189 € netto je Halbjahr – rechnerisch 31,50 € netto pro Monat – erhältst du die Infrastruktur, die Werkzeuge, die Vertriebswege, deinen eigenen KMS-Arbeitsbereich und ein wachsendes Produktportfolio, um daraus Schritt für Schritt dein eigenes Geschäft zu entwickeln. Innen arbeitest du eigenständig. Außen wächst deine Sichtbarkeit mit einem gemeinsamen LiquidityBooster-Netzwerk." data-en="For €189 net every six months – calculated at €31.50 net per month – you receive the infrastructure, tools, sales channels, your own KMS workspace and a growing product portfolio to develop your own business step by step. Internally, you work independently. Externally, your visibility grows within a shared LiquidityBooster network.">Für 189 € netto je Halbjahr – rechnerisch 31,50 € netto pro Monat – erhältst du die Infrastruktur, die Werkzeuge, die Vertriebswege, deinen eigenen KMS-Arbeitsbereich und ein wachsendes Produktportfolio, um daraus Schritt für Schritt dein eigenes Geschäft zu entwickeln. Innen arbeitest du eigenständig. Außen wächst deine Sichtbarkeit mit einem gemeinsamen LiquidityBooster-Netzwerk.</p>
     <div class="formula">
       <span data-i18n data-de="KMS" data-en="KMS">KMS</span><b>+</b>
       <span data-i18n data-de="Webseite" data-en="website">Webseite</span><b>+</b>
