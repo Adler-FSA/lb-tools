@@ -368,6 +368,22 @@
       .bigpicture-panel summary{padding:22px 18px}.bigpicture-hint{display:none}.bigpicture-body{padding:0 13px 18px}
       .pdf-actions{display:grid}.pdf-dialog-actions{grid-template-columns:1fr}
     }
+
+    .universal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+    .universal-card{padding:26px;border:1px solid var(--line);border-radius:22px;background:#fff}
+    .universal-card:nth-child(1){background:linear-gradient(145deg,var(--mint-soft),#fff)}
+    .universal-card:nth-child(2){background:linear-gradient(145deg,var(--magenta-soft),#fff)}
+    .universal-card:nth-child(3){background:linear-gradient(145deg,#f3f7fb,#fff)}
+    .universal-card .u-no{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--navy);color:#fff;font-size:12px;font-weight:950;margin-bottom:12px}
+    .universal-card h3{font-size:20px;margin:0 0 8px}.universal-card p{margin:0;color:var(--muted);font-size:14px}
+    .universal-needs{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+    .universal-need{padding:17px;border:1px solid var(--line);border-radius:17px;background:#fff;text-align:center;color:var(--navy);font-weight:850;font-size:13px}
+    .universal-need:nth-child(odd){border-top:4px solid var(--mint)}.universal-need:nth-child(even){border-top:4px solid var(--magenta)}
+    .universal-claim{margin-top:20px;padding:24px 26px;border-radius:20px;background:linear-gradient(120deg,var(--navy),#17475a);color:#fff;font-size:20px;font-weight:900;text-align:center}
+    .universal-claim em{font-style:normal;color:#82e8eb}
+    .universal-note{margin-top:15px;color:var(--muted);font-size:13px;line-height:1.55}
+    @media(max-width:920px){.universal-grid{grid-template-columns:1fr}.universal-needs{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.universal-needs{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -428,6 +444,7 @@
     <div class="quick-nav-grid">
       <a class="quick-link" href="#preis"><span class="quick-check">✓</span><span data-i18n data-de="31,50 € rechnerisch pro Monat · 189 € netto je Halbjahr" data-en="€31.50 calculated per month · €189 net every six months">31,50 € rechnerisch pro Monat · 189 € netto je Halbjahr</span></a>
       <a class="quick-link" href="#fundament"><span class="quick-check">✓</span><span data-i18n data-de="Geschäftsidee mit kompletter digitaler Grundausstattung" data-en="Business concept with complete digital foundation">Geschäftsidee mit kompletter digitaler Grundausstattung</span></a>
+      <a class="quick-link" href="#universell"><span class="quick-check">✓</span><span data-i18n data-de="Universell einsetzbar – für Neugründung und bestehendes Geschäft" data-en="Universally usable – for new and existing businesses">Universell einsetzbar – für Neugründung und bestehendes Geschäft</span></a>
       <a class="quick-link" href="#kms"><span class="quick-check">✓</span><span data-i18n data-de="Eigener personalisierter und abgeschlossener KMS-Arbeitsbereich" data-en="Your own personalised and separate KMS workspace">Eigener personalisierter und abgeschlossener KMS-Arbeitsbereich</span></a>
       <a class="quick-link" href="#identitaet"><span class="quick-check">✓</span><span data-i18n data-de="Persönliche LiquidityBooster-Webseite & Affiliate-Zuordnung" data-en="Personal LiquidityBooster website & affiliate attribution">Persönliche LiquidityBooster-Webseite & Affiliate-Zuordnung</span></a>
       <a class="quick-link" href="#produktportfolio"><span class="quick-check">✓</span><span data-i18n data-de="3 BusinessBooster + 3 Unternehmer-Hörsaal-Produkte" data-en="3 BusinessBoosters + 3 Entrepreneur Lecture Hall products">3 BusinessBooster + 3 Unternehmer-Hörsaal-Produkte</span></a>
@@ -499,10 +516,46 @@
       <div class="section-jump"><a href="#quickview" data-i18n data-de="↑ Zur Schnellansicht" data-en="↑ Back to quick view">↑ Zur Schnellansicht</a></div>
   </section>
 
+  <section class="section" id="universell">
+    <div class="eyebrow" data-i18n data-de="Universell einsetzbar" data-en="Universally usable">Universell einsetzbar</div>
+    <h2 data-i18n data-de="Du musst dein bestehendes Geschäft nicht verändern. Du kannst die Infrastruktur dort einsetzen, wo sie dein Business sinnvoll ergänzt." data-en="You do not have to change your existing business. You can use the infrastructure wherever it meaningfully supports your business.">Du musst dein bestehendes Geschäft nicht verändern. Du kannst die Infrastruktur dort einsetzen, wo sie dein Business sinnvoll ergänzt.</h2>
+    <p class="intro" data-i18n data-de="ClubLeader ist die Rolle des Menschen, der handelt. Die ClubLeader-Mitgliedschaft stellt ihm dafür die technische, organisatorische und vertriebliche Infrastruktur zur Verfügung. Genau deshalb ist das Fundament nicht auf eine einzelne Branche zugeschnitten: Kunden gewinnen, Kontakte pflegen, sichtbar sein, Angebote vermarkten und Abläufe organisieren sind branchenübergreifende unternehmerische Aufgaben." data-en="ClubLeader is the role of the person who acts. The ClubLeader membership provides the technical, organisational and sales infrastructure for that role. This is why the foundation is not tied to one industry: acquiring customers, managing contacts, being visible, marketing offers and organising processes are business tasks across industries.">ClubLeader ist die Rolle des Menschen, der handelt. Die ClubLeader-Mitgliedschaft stellt ihm dafür die technische, organisatorische und vertriebliche Infrastruktur zur Verfügung. Genau deshalb ist das Fundament nicht auf eine einzelne Branche zugeschnitten: Kunden gewinnen, Kontakte pflegen, sichtbar sein, Angebote vermarkten und Abläufe organisieren sind branchenübergreifende unternehmerische Aufgaben.</p>
+
+    <div class="universal-grid">
+      <article class="universal-card">
+        <span class="u-no">01</span>
+        <h3 data-i18n data-de="Du hast noch kein eigenes Geschäft" data-en="You do not yet have your own business">Du hast noch kein eigenes Geschäft</h3>
+        <p data-i18n data-de="Du kannst mit vorhandener Infrastruktur, freigegebenen Produkten, Werkzeugen und Begleitung Schritt für Schritt ein eigenes Geschäft aufbauen." data-en="You can use existing infrastructure, approved products, tools and guidance to build your own business step by step.">Du kannst mit vorhandener Infrastruktur, freigegebenen Produkten, Werkzeugen und Begleitung Schritt für Schritt ein eigenes Geschäft aufbauen.</p>
+      </article>
+      <article class="universal-card">
+        <span class="u-no">02</span>
+        <h3 data-i18n data-de="Du hast dich gerade selbstständig gemacht" data-en="You have just become self-employed">Du hast dich gerade selbstständig gemacht</h3>
+        <p data-i18n data-de="Du musst zentrale Bausteine wie Kontaktorganisation, Sichtbarkeit, Kommunikation, Vertriebswege und digitale Werkzeuge nicht komplett neu zusammensetzen." data-en="You do not have to assemble key components such as contact management, visibility, communication, sales channels and digital tools entirely from scratch.">Du musst zentrale Bausteine wie Kontaktorganisation, Sichtbarkeit, Kommunikation, Vertriebswege und digitale Werkzeuge nicht komplett neu zusammensetzen.</p>
+      </article>
+      <article class="universal-card">
+        <span class="u-no">03</span>
+        <h3 data-i18n data-de="Du führst bereits ein bestehendes Business" data-en="You already run an existing business">Du führst bereits ein bestehendes Business</h3>
+        <p data-i18n data-de="Dein Kerngeschäft bleibt dein Kerngeschäft. Als ClubLeader kannst du die Leistungen deiner Mitgliedschaft ergänzend für Kundenpflege, Sichtbarkeit, zusätzliche Angebote, Kooperationen und neue Vertriebswege nutzen." data-en="Your core business remains your core business. As a ClubLeader, you can use the benefits of your membership to complement customer care, visibility, additional offers, cooperation and new sales channels.">Dein Kerngeschäft bleibt dein Kerngeschäft. Als ClubLeader kannst du die Leistungen deiner Mitgliedschaft ergänzend für Kundenpflege, Sichtbarkeit, zusätzliche Angebote, Kooperationen und neue Vertriebswege nutzen.</p>
+      </article>
+    </div>
+
+    <div class="universal-needs" aria-label="Universelle unternehmerische Bedürfnisse">
+      <div class="universal-need" data-i18n data-de="Kontakte & Kunden organisieren" data-en="Organise contacts & customers">Kontakte & Kunden organisieren</div>
+      <div class="universal-need" data-i18n data-de="Sichtbarkeit aufbauen" data-en="Build visibility">Sichtbarkeit aufbauen</div>
+      <div class="universal-need" data-i18n data-de="Kommunikation & Vertrieb" data-en="Communication & sales">Kommunikation & Vertrieb</div>
+      <div class="universal-need" data-i18n data-de="Angebote erweitern" data-en="Expand offers">Angebote erweitern</div>
+      <div class="universal-need" data-i18n data-de="Prozesse strukturieren" data-en="Structure processes">Prozesse strukturieren</div>
+    </div>
+
+    <div class="universal-claim" data-i18n data-de="Nicht dein Geschäft muss zu LiquidityBooster passen. Die Infrastruktur soll dort eingesetzt werden, wo sie <em>zu deinem Geschäft passt.</em>" data-en="Your business does not have to fit LiquidityBooster. The infrastructure should be used where it <em>fits your business.</em>">Nicht dein Geschäft muss zu LiquidityBooster passen. Die Infrastruktur soll dort eingesetzt werden, wo sie <em>zu deinem Geschäft passt.</em></div>
+    <p class="universal-note" data-i18n data-de="Ein wirtschaftlicher Mehrwert kann dort entstehen, wo die Mitgliedschaft bestehende Abläufe verbessert, zusätzliche Sichtbarkeit oder Vertriebswege eröffnet, neue Angebote erschließt oder das bestehende Geschäftsmodell sinnvoll ergänzt. Eine konkrete wirtschaftliche Wirkung hängt immer von der eigenen Nutzung, dem jeweiligen Geschäftsmodell und tatsächlich zustande kommenden Umsätzen ab." data-en="Economic value can arise where the membership improves existing processes, opens additional visibility or sales channels, provides access to new offers or meaningfully complements an existing business model. The actual economic effect always depends on individual use, the specific business model and sales that actually occur.">Ein wirtschaftlicher Mehrwert kann dort entstehen, wo die Mitgliedschaft bestehende Abläufe verbessert, zusätzliche Sichtbarkeit oder Vertriebswege eröffnet, neue Angebote erschließt oder das bestehende Geschäftsmodell sinnvoll ergänzt. Eine konkrete wirtschaftliche Wirkung hängt immer von der eigenen Nutzung, dem jeweiligen Geschäftsmodell und tatsächlich zustande kommenden Umsätzen ab.</p>
+    <div class="section-jump"><a href="#quickview" data-i18n data-de="↑ Zur Schnellansicht" data-en="↑ Back to quick view">↑ Zur Schnellansicht</a></div>
+  </section>
+
   <section class="section" id="aufbauprogramm">
     <div class="eyebrow" data-i18n data-de="12 Wochen begleitet aufbauen" data-en="12 weeks of guided development">12 Wochen begleitet aufbauen</div>
     <h2 data-i18n data-de="Die Vollausstattung kommt nicht allein. Du lernst, sie praktisch einzusetzen." data-en="The full infrastructure does not come alone. You learn how to use it in practice.">Die Vollausstattung kommt nicht allein. Du lernst, sie praktisch einzusetzen.</h2>
-    <p class="intro" data-i18n data-de="Zum ClubLeader gehört ein 12-Wochen-Aufbauprogramm des Headteams. Technik, Vertrieb, Präsentation, Austausch und praktische Umsetzung laufen dabei nicht nebeneinander her, sondern greifen Woche für Woche ineinander." data-en="ClubLeader includes a 12-week development program run by the Head Team. Technology, sales, presentation, exchange and practical implementation do not run separately; they work together week by week.">Zum ClubLeader gehört ein 12-Wochen-Aufbauprogramm des Headteams. Technik, Vertrieb, Präsentation, Austausch und praktische Umsetzung laufen dabei nicht nebeneinander her, sondern greifen Woche für Woche ineinander.</p>
+    <p class="intro" data-i18n data-de="Zur ClubLeader-Mitgliedschaft gehört ein 12-Wochen-Aufbauprogramm des Headteams. Technik, Vertrieb, Präsentation, Austausch und praktische Umsetzung laufen dabei nicht nebeneinander her, sondern greifen Woche für Woche ineinander." data-en="The ClubLeader membership includes a 12-week development program run by the Head Team. Technology, sales, presentation, exchange and practical implementation do not run separately; they work together week by week.">Zur ClubLeader-Mitgliedschaft gehört ein 12-Wochen-Aufbauprogramm des Headteams. Technik, Vertrieb, Präsentation, Austausch und praktische Umsetzung laufen dabei nicht nebeneinander her, sondern greifen Woche für Woche ineinander.</p>
 
     <div class="program-stats">
       <div class="program-stat"><b>12</b><strong data-i18n data-de="Wochen Aufbauprogramm" data-en="weeks of development">Wochen Aufbauprogramm</strong><span data-i18n data-de="klarer gemeinsamer Lern- und Umsetzungsrhythmus" data-en="a clear shared learning and implementation rhythm">klarer gemeinsamer Lern- und Umsetzungsrhythmus</span></div>
@@ -567,7 +620,7 @@
 
   <section class="section" id="vollausstattung">
     <div class="eyebrow" data-i18n data-de="Auf einen Blick" data-en="At a glance">Auf einen Blick</div>
-    <h2 data-i18n data-de="Das kaufst du als ClubLeader." data-en="This is what you receive as a ClubLeader.">Das kaufst du als ClubLeader.</h2>
+    <h2 data-i18n data-de="Das erhältst du mit deiner ClubLeader-Mitgliedschaft." data-en="This is what you receive with your ClubLeader membership.">Das erhältst du mit deiner ClubLeader-Mitgliedschaft.</h2>
     <p class="intro" data-i18n data-de="Die ClubLeader-Mitgliedschaft verbindet die vollständige digitale Arbeits- und Vertriebsinfrastruktur mit Ausbildung, persönlicher Sichtbarkeit und einem wachsenden Produktportfolio. Damit kannst du ein eigenes Geschäft entwickeln, ohne ausschließlich von einem einzigen eigenen Produkt abhängig zu sein." data-en="The ClubLeader membership combines a complete digital work and sales infrastructure with training, personal visibility and a growing product portfolio. This lets you build your own business without depending exclusively on a single product of your own.">Die ClubLeader-Mitgliedschaft verbindet die vollständige digitale Arbeits- und Vertriebsinfrastruktur mit Ausbildung, persönlicher Sichtbarkeit und einem wachsenden Produktportfolio. Damit kannst du ein eigenes Geschäft entwickeln, ohne ausschließlich von einem einzigen eigenen Produkt abhängig zu sein.</p>
     <div class="overview">
       <article class="overview-card"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="6" y="8" width="32" height="28" rx="5" fill="none" stroke="#00a7ad" stroke-width="2.5"/><path d="M12 15h20M12 21h13M12 27h17" stroke="#00a7ad" stroke-width="2.5" stroke-linecap="round"/></svg><h3 data-i18n data-de="ONLY INSIDE KMS" data-en="ONLY INSIDE KMS">ONLY INSIDE KMS</h3><p data-i18n data-de="Kontakte, CRM, Newsletter, Kampagnen, Auswertungen, Partnerstrukturen und Webseitenverwaltung." data-en="Contacts, CRM, newsletters, campaigns, analytics, partner structures and website management.">Kontakte, CRM, Newsletter, Kampagnen, Auswertungen, Partnerstrukturen und Webseitenverwaltung.</p><span class="badge included" data-i18n data-de="Systembasis" data-en="system base">Systembasis</span></article>
