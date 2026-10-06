@@ -94,7 +94,9 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 .previewTop h2{margin:0}
 .badge{font-size:12px;font-weight:850;background:#eefafa;color:#087c73;border:1px solid #cde7e8;border-radius:999px;padding:6px 9px}
 .previewStage{background:linear-gradient(135deg,#e7eff1,#f8fbfb);border-radius:18px;padding:clamp(12px,3vw,24px);display:grid;place-items:center}
-#preview{display:block;width:min(100%,720px);height:auto;aspect-ratio:210/297;background:#fff;box-shadow:0 24px 58px rgba(19,34,56,.18)}
+.previewCanvasWrap{position:relative;width:min(100%,720px)}
+#preview{display:block;width:100%;height:auto;aspect-ratio:210/297;background:#fff;box-shadow:0 24px 58px rgba(19,34,56,.18)}
+.previewLogoOriginal{position:absolute;left:7.5%;top:2.8%;width:29%;height:auto;display:block;z-index:2;pointer-events:none}
 .previewNote{font-size:12px;line-height:1.45;color:var(--muted);margin:11px 0 0}
 .overlay{position:fixed;inset:0;background:rgba(19,34,56,.62);display:grid;place-items:center;padding:18px;z-index:50}
 .overlay[hidden]{display:none}
@@ -321,7 +323,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 
     <section class="panel">
       <div class="previewTop"><h2 data-i18n="previewTitle">PDF-Titelseite</h2><span class="badge">A4 · lokal erzeugt</span></div>
-      <div class="previewStage"><canvas id="preview" width="840" height="1188" aria-label="Vorschau Mitglieder-Portrait"></canvas></div>
+      <div class="previewStage"><div class="previewCanvasWrap"><canvas id="preview" width="840" height="1188" aria-label="Vorschau Mitglieder-Portrait"></canvas><img class="previewLogoOriginal" src="./liquiditybooster-logo.png" alt="LiquidityBooster"></div></div>
       <p class="previewNote" data-i18n="previewNote">Die Vorschau zeigt die Titelseite. Deine Antworten werden anschließend automatisch auf übersichtliche A4-Seiten verteilt.</p>
     </section>
   </div>
@@ -353,7 +355,7 @@ var STORE='files';
 var PHOTO_STORE='drafts';
 var state={lang:'de'};
 var photoBlob=null,photoImage=null,photoUrl='';
-var logoImage=null,logoPromise=null;
+var logoPngBytes=null,logoPngPromise=null;
 var preview=document.getElementById('preview'),pctx=preview.getContext('2d');
 
 var I18N={
@@ -442,23 +444,14 @@ var sections=[
 function $(id){return document.getElementById(id)}
 function t(key){return I18N[state.lang][key]||key}
 function font(size,weight){return (weight||400)+' '+size+'px Arial,Helvetica,sans-serif'}
-function loadLogo(){
- if(logoImage&&logoImage.complete&&logoImage.naturalWidth)return Promise.resolve(logoImage);
- if(logoPromise)return logoPromise;
- logoPromise=new Promise(function(resolve,reject){
-  var img=new Image();
-  img.onload=function(){logoImage=img;renderPreview();resolve(img)};
-  img.onerror=function(){logoPromise=null;reject(new Error('LiquidityBooster-Logo konnte nicht geladen werden.'))};
-  img.src='./liquiditybooster-logo.png'
- });
- return logoPromise
-}
-function drawLogo(c,x,y,maxW,maxH){
- if(!(logoImage&&logoImage.complete&&logoImage.naturalWidth)){
-  c.fillStyle='#00a7ad';c.font=font(Math.max(18,Math.round(maxH*.28)),900);c.fillText('liquiditybooster.de',x,y+Math.round(maxH*.62));return
- }
- var iw=logoImage.naturalWidth,ih=logoImage.naturalHeight,scale=Math.min(maxW/iw,maxH/ih),w=iw*scale,h=ih*scale;
- c.drawImage(logoImage,x,y+(maxH-h)/2,w,h)
+async function loadLogoPngBytes(){
+ if(logoPngBytes)return logoPngBytes;
+ if(logoPngPromise)return logoPngPromise;
+ logoPngPromise=fetch('./liquiditybooster-logo.png',{cache:'force-cache'}).then(function(res){
+  if(!res.ok)throw new Error('LiquidityBooster-Logo konnte nicht geladen werden.');
+  return res.arrayBuffer()
+ }).then(function(buf){logoPngBytes=new Uint8Array(buf);return logoPngBytes}).catch(function(err){logoPngPromise=null;throw err});
+ return logoPngPromise
 }
 function sanitize(s){return String(s||'Mitglieder-Portrait').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/ß/g,'ss').replace(/[^A-Za-z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,90)||'Mitglieder-Portrait'}
 
@@ -513,8 +506,7 @@ function wrap(c,text,maxWidth){
 }
 function drawCover(c,w,h){
  c.fillStyle='#fff';c.fillRect(0,0,w,h);
- var grad=c.createLinearGradient(0,0,w,0);grad.addColorStop(0,'rgba(0,167,173,.12)');grad.addColorStop(.55,'rgba(255,255,255,0)');grad.addColorStop(1,'rgba(198,0,111,.10)');c.fillStyle=grad;c.fillRect(0,0,w,180);
- drawLogo(c,Math.round(w*.075),Math.round(h*.028),Math.round(w*.40),Math.round(h*.070));
+ var grad=c.createLinearGradient(0,0,w,0);grad.addColorStop(0,'rgba(0,167,173,.12)');grad.addColorStop(.55,'rgba(255,255,255,0)');grad.addColorStop(1,'rgba(198,0,111,.10)');c.fillStyle=grad;c.fillRect(0,Math.round(h*.105),w,Math.round(h*.105));
  c.fillStyle='#132238';c.font=font(Math.round(w*.053),900);c.fillText(t('title'),Math.round(w*.075),Math.round(h*.145));
  c.fillStyle='#607080';c.font=font(Math.round(w*.022),650);c.fillText(t('pdfSubtitle'),Math.round(w*.075),Math.round(h*.182));
  var photoX=Math.round(w*.075),photoY=Math.round(h*.245),photoW=Math.round(w*.37),photoH=Math.round(h*.35);
@@ -599,8 +591,7 @@ function updateUi(){
 
 function drawPageHeader(c,w,h,title,pageNo){
  c.fillStyle='#fff';c.fillRect(0,0,w,h);
- var g=c.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,167,173,.11)');g.addColorStop(1,'rgba(198,0,111,.08)');c.fillStyle=g;c.fillRect(0,0,w,120);
- drawLogo(c,88,16,330,86);
+ var g=c.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,167,173,.11)');g.addColorStop(1,'rgba(198,0,111,.08)');c.fillStyle=g;c.fillRect(0,105,w,120);
  c.fillStyle='#132238';c.font=font(46,900);var titleLines=wrap(c,title,w-176);titleLines.slice(0,2).forEach(function(line,i){c.fillText(line,88,170+i*54)});
  c.strokeStyle='#d8e4e8';c.lineWidth=2;c.beginPath();c.moveTo(88,245);c.lineTo(w-88,245);c.stroke();
  c.fillStyle='#607080';c.font=font(18,700);c.fillText(t('title')+' · '+t('pdfPage')+' '+pageNo,88,h-58)
@@ -645,17 +636,49 @@ function sectionPageBytes(section,pageNo){
 }
 function asciiBytes(s){return new TextEncoder().encode(s)}
 function concatBytes(parts){var len=parts.reduce(function(a,b){return a+b.length},0),out=new Uint8Array(len),off=0;parts.forEach(function(p){out.set(p,off);off+=p.length});return out}
-function multiPagePdfFromJpegs(jpegs,wmm,hmm){
- var wpt=(wmm*72/25.4).toFixed(2),hpt=(hmm*72/25.4).toFixed(2),objects=[],kids=[];
+function u32be(bytes,i){return((((bytes[i]<<24)>>>0)+(bytes[i+1]<<16)+(bytes[i+2]<<8)+bytes[i+3])>>>0)}
+function pngForPdf(bytes){
+ if(!bytes||bytes.length<33||bytes[0]!==137||bytes[1]!==80||bytes[2]!==78||bytes[3]!==71)throw new Error('Ungültige Logo-PNG.');
+ var off=8,width=0,height=0,bitDepth=0,colorType=-1,interlace=-1,idat=[];
+ while(off+12<=bytes.length){
+  var len=u32be(bytes,off),type=String.fromCharCode(bytes[off+4],bytes[off+5],bytes[off+6],bytes[off+7]),start=off+8,end=start+len;
+  if(end+4>bytes.length)throw new Error('Beschädigte Logo-PNG.');
+  if(type==='IHDR'){width=u32be(bytes,start);height=u32be(bytes,start+4);bitDepth=bytes[start+8];colorType=bytes[start+9];interlace=bytes[start+12]}
+  else if(type==='IDAT'){idat.push(bytes.slice(start,end))}
+  else if(type==='IEND'){break}
+  off=end+4
+ }
+ if(!width||!height||bitDepth!==8||colorType!==2||interlace!==0||!idat.length)throw new Error('Die Original-Logo-PNG hat ein für die direkte PDF-Einbettung nicht unterstütztes Format.');
+ return{width:width,height:height,data:concatBytes(idat)}
+}
+function multiPagePdfFromJpegs(jpegs,wmm,hmm,logoBytes){
+ var wptN=wmm*72/25.4,hptN=hmm*72/25.4,wpt=wptN.toFixed(2),hpt=hptN.toFixed(2),objects=[],kids=[],logo=pngForPdf(logoBytes);
  objects[1]=asciiBytes('<< /Type /Catalog /Pages 2 0 R >>');
+ objects[3]=concatBytes([
+  asciiBytes('<< /Type /XObject /Subtype /Image /Width '+logo.width+' /Height '+logo.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /FlateDecode /DecodeParms << /Predictor 15 /Colors 3 /BitsPerComponent 8 /Columns '+logo.width+' >> /Length '+logo.data.length+' >>\nstream\n'),
+  logo.data,
+  asciiBytes('\nendstream')
+ ]);
  jpegs.forEach(function(jpg,i){
-  var pageObj=3+i*3,imgObj=4+i*3,contentObj=5+i*3;kids.push(pageObj+' 0 R');
-  objects[pageObj]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Im0 '+imgObj+' 0 R >> >> /Contents '+contentObj+' 0 R >>');
+  var pageObj=4+i*3,imgObj=5+i*3,contentObj=6+i*3;kids.push(pageObj+' 0 R');
+  objects[pageObj]=asciiBytes('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 '+wpt+' '+hpt+'] /Resources << /XObject << /Bg '+imgObj+' 0 R /Logo 3 0 R >> >> /Contents '+contentObj+' 0 R >>');
   objects[imgObj]=concatBytes([asciiBytes('<< /Type /XObject /Subtype /Image /Width 1240 /Height 1754 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpg.length+' >>\nstream\n'),jpg,asciiBytes('\nendstream')]);
-  var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Im0 Do Q\n';objects[contentObj]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream')
+
+  var logoH,logoW,logoX,logoTop,maxW,aspect=logo.width/logo.height;
+  if(i===0){
+   logoH=hptN*.070;maxW=wptN*.40;logoW=logoH*aspect;if(logoW>maxW){logoW=maxW;logoH=logoW/aspect}
+   logoX=wptN*.075;logoTop=hptN*.028
+  }else{
+   logoH=hptN*(86/1754);maxW=wptN*(330/1240);logoW=logoH*aspect;if(logoW>maxW){logoW=maxW;logoH=logoW/aspect}
+   logoX=wptN*(88/1240);logoTop=hptN*(16/1754)
+  }
+  var logoY=hptN-logoTop-logoH;
+  var content='q '+wpt+' 0 0 '+hpt+' 0 0 cm /Bg Do Q\n' +
+              'q '+logoW.toFixed(2)+' 0 0 '+logoH.toFixed(2)+' '+logoX.toFixed(2)+' '+logoY.toFixed(2)+' cm /Logo Do Q\n';
+  objects[contentObj]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream')
  });
  objects[2]=asciiBytes('<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+jpegs.length+' >>');
- var maxObj=2+jpegs.length*3,parts=[asciiBytes('%PDF-1.4\n%LB-MITGLIEDER-PORTRAIT\n')],offsets=[0],pos=parts[0].length;
+ var maxObj=3+jpegs.length*3,parts=[asciiBytes('%PDF-1.4\n%LB-MITGLIEDER-PORTRAIT\n')],offsets=[0],pos=parts[0].length;
  for(var i=1;i<=maxObj;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}
  var xref=pos,xs='xref\n0 '+(maxObj+1)+'\n0000000000 65535 f \n';for(var j=1;j<=maxObj;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';
  xs+='trailer\n<< /Size '+(maxObj+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));return new Blob(parts,{type:'application/pdf'})
@@ -673,10 +696,10 @@ async function createPdf(){
  if(!ready()){updateUi();return}
  $('status').textContent=t('working');$('status').className='status ok';$('makePdf').disabled=true;
  try{
-  await loadLogo();
+  var logoBytes=await loadLogoPngBytes();
   var jpegs=[coverPageBytes()],pageNo=2;
   sections.forEach(function(section){var out=sectionPageBytes(section,pageNo);Array.prototype.push.apply(jpegs,out.pages);pageNo=out.lastPage+1});
-  var blob=multiPagePdfFromJpegs(jpegs,210,297),name=sanitize($('firstName').value+'-'+$('lastName').value),filename='Mitglieder-Portrait-'+name+'.pdf',format='PDF · A4 · '+jpegs.length+' '+(state.lang==='de'?(jpegs.length===1?'Seite':'Seiten'):(jpegs.length===1?'page':'pages'));
+  var blob=multiPagePdfFromJpegs(jpegs,210,297,logoBytes),name=sanitize($('firstName').value+'-'+$('lastName').value),filename='Mitglieder-Portrait-'+name+'.pdf',format='PDF · A4 · '+jpegs.length+' '+(state.lang==='de'?(jpegs.length===1?'Seite':'Seiten'):(jpegs.length===1?'page':'pages'));
   var token=await storeFile(blob,filename,format);$('fileName').textContent=filename;$('fileMeta').textContent=format;$('saveFile').href=handoff(token,'save');$('shareFile').href=handoff(token,'share');$('fileOverlay').hidden=false;$('status').textContent=t('ready');$('status').className='status ok'
  }catch(e){$('status').textContent='Fehler: '+(e&&e.message?e.message:String(e));$('status').className='status error'}
  $('makePdf').disabled=!ready()
@@ -702,7 +725,6 @@ $('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=tr
 $('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
 
 loadDraft();loadClubProfile();loadStoredPhoto().then(function(){applyI18n();updateUi();renderPreview()});
-loadLogo().catch(function(){});
 applyI18n();updateUi();renderPreview();
 })();
 </script>
