@@ -466,7 +466,7 @@ input:focus,textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,
 (function(){
 'use strict';
 
-var DRAFT_KEY='lb-workshop-mitglieder-portrait-michael-rau-v2';
+var DRAFT_KEY='lb-workshop-mitglieder-portrait-michael-rau-v3';
 var PROFILE_KEY='lb-club-partner-profile-v1';
 var LOCAL_DB='lb-workshop-mitglieder-portrait-michael-rau-local-v1';
 var FILE_DB='lb-member-portrait-file-handoff-v1';
@@ -763,11 +763,16 @@ function saveDraft(){
 }
 function loadDraft(){
  try{
+  applyMichaelProfile();
   var raw=localStorage.getItem(DRAFT_KEY);
-  if(!raw){applyMichaelProfile();saveDraft();return}
+  if(!raw){saveDraft();return}
   var data=JSON.parse(raw)||{};
-  inputIds().forEach(function(id){if(data[id]!==undefined)$(id).value=data[id]});
-  if(Array.isArray(data.kmsCategories)){document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=data.kmsCategories.indexOf(cb.value)!==-1})}
+  inputIds().forEach(function(id){
+    if(data[id]!==undefined && String(data[id]).trim()!=='')$(id).value=data[id]
+  });
+  if(Array.isArray(data.kmsCategories)&&data.kmsCategories.length){
+    document.querySelectorAll('.kmsCategory').forEach(function(cb){cb.checked=data.kmsCategories.indexOf(cb.value)!==-1})
+  }
   updateKmsCategories();
   if(data.lang==='en'||data.lang==='de')state.lang=data.lang
  }catch(e){applyMichaelProfile();saveDraft()}
@@ -951,6 +956,7 @@ $('clearDraft').addEventListener('click',resetAll);
 $('closeOverlay').addEventListener('click',function(){$('fileOverlay').hidden=true});
 $('fileOverlay').addEventListener('click',function(e){if(e.target===$('fileOverlay'))$('fileOverlay').hidden=true});
 
+applyMichaelProfile();
 loadDraft();loadClubProfile();loadStoredPhoto().then(function(){applyI18n();updateUi();renderPreview()});
 applyI18n();updateUi();renderPreview();
 })();
