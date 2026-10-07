@@ -1014,90 +1014,353 @@
 
   function newCanvas(){
     var c=document.createElement('canvas');c.width=PAGE_W;c.height=PAGE_H;
-    var x=c.getContext('2d');x.fillStyle='#ffffff';x.fillRect(0,0,PAGE_W,PAGE_H);
-    x.fillStyle='#00a7ad';x.fillRect(0,0,PAGE_W/2,10);x.fillStyle='#c6006f';x.fillRect(PAGE_W/2,0,PAGE_W/2,10);
+    var x=c.getContext('2d');
+    x.fillStyle='#ffffff';x.fillRect(0,0,PAGE_W,PAGE_H);
+    x.fillStyle='#00a7ad';x.fillRect(0,0,PAGE_W/2,11);
+    x.fillStyle='#c6006f';x.fillRect(PAGE_W/2,0,PAGE_W/2,11);
     return c
   }
   function font(ctx,size,weight){ctx.font=(weight||400)+' '+size+'px Arial,Helvetica,sans-serif'}
   function wrap(ctx,text,maxW){
     var words=String(text||'').replace(/\s+/g,' ').trim().split(' '),lines=[],line='';
-    words.forEach(function(w){var test=line?line+' '+w:w;if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=w}else line=test});
+    words.forEach(function(w){
+      var test=line?line+' '+w:w;
+      if(ctx.measureText(test).width>maxW&&line){lines.push(line);line=w}else line=test
+    });
     if(line)lines.push(line);return lines
   }
-  function drawBrand(ctx,pageNo){
-    ctx.textBaseline='top';
-    font(ctx,21,900);ctx.fillStyle='#132238';ctx.fillText('LiquidityBooster',MARGIN,34);
-    font(ctx,13,800);ctx.fillStyle='#00a7ad';ctx.fillText(currentLang()==='de'?'CLUBLEADER · LEISTUNGSWELT':'CLUBLEADER · SERVICE WORLD',MARGIN,61);
-    ctx.strokeStyle='#dce8ec';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(MARGIN,88);ctx.lineTo(PAGE_W-MARGIN,88);ctx.stroke();
-    font(ctx,12,700);ctx.fillStyle='#7a8895';ctx.fillText((currentLang()==='de'?'Seite ':'Page ')+pageNo,MARGIN,PAGE_H-49);
-    ctx.textAlign='right';ctx.fillText('liquiditybooster.de',PAGE_W-MARGIN,PAGE_H-49);ctx.textAlign='left'
+  function rr(ctx,x,y,w,h,r,fill,stroke){
+    r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();
+    if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.5;ctx.stroke()}
   }
-  function jpegBytes(canvas,quality){return dataUrlBytes(canvas.toDataURL('image/jpeg',quality||.88))}
+  function textLines(el){
+    if(!el)return[];
+    var arr=el.innerText.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean),out=[];
+    arr.forEach(function(x){if(out.indexOf(x)<0)out.push(x)});return out
+  }
+  function sec(id){return document.getElementById(id)}
+  function firstText(root,sel){var e=root&&root.querySelector(sel);return e?e.innerText.trim():''}
+  function allText(root,sel){return Array.from(root?root.querySelectorAll(sel):[]).map(function(e){return e.innerText.trim()}).filter(Boolean)}
+  function footerStamp(){
+    var e=document.querySelector('footer span');return e?e.innerText.trim():(currentLang()==='de'?'Leistungsübersicht für ClubLeader':'ClubLeader service overview')
+  }
+  function drawWrapped(ctx,text,x,y,w,size,weight,color,lineH,maxLines){
+    if(!text)return y;
+    font(ctx,size,weight);ctx.fillStyle=color||'#26374b';ctx.textAlign='left';ctx.textBaseline='top';
+    var ls=wrap(ctx,text,w);if(maxLines)ls=ls.slice(0,maxLines);
+    ls.forEach(function(line){ctx.fillText(line,x,y);y+=lineH||Math.round(size*1.35)});
+    return y
+  }
+  function drawBrand(ctx,pageNo){
+    ctx.textBaseline='top';ctx.textAlign='left';
+    font(ctx,22,900);ctx.fillStyle='#132238';ctx.fillText('LiquidityBooster',MARGIN,34);
+    font(ctx,12,900);ctx.fillStyle='#00a7ad';ctx.fillText(currentLang()==='de'?'CLUBLEADER · LEISTUNGSWELT':'CLUBLEADER · SERVICE WORLD',MARGIN,63);
+    ctx.strokeStyle='#dce8ec';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(MARGIN,91);ctx.lineTo(PAGE_W-MARGIN,91);ctx.stroke();
+    font(ctx,11,700);ctx.fillStyle='#7a8895';ctx.fillText((currentLang()==='de'?'Seite ':'Page ')+pageNo,MARGIN,PAGE_H-43);
+    ctx.textAlign='right';ctx.fillText('liquiditybooster.de',PAGE_W-MARGIN,PAGE_H-43);ctx.textAlign='left'
+  }
+  function jpegBytes(canvas,quality){return dataUrlBytes(canvas.toDataURL('image/jpeg',quality||.9))}
+  function beginPage(eyebrow,title,intro){
+    pageCounter++;var c=newCanvas(),ctx=c.getContext('2d');drawBrand(ctx,pageCounter);
+    var y=121;
+    if(eyebrow){font(ctx,14,900);ctx.fillStyle='#00a7ad';ctx.fillText(String(eyebrow).toUpperCase(),MARGIN,y);y+=31}
+    y=drawWrapped(ctx,title,MARGIN,y,CONTENT_W,38,900,'#132238',45,4)+10;
+    if(intro)y=drawWrapped(ctx,intro,MARGIN,y,CONTENT_W,17,450,'#687789',25,6)+18;
+    return{c:c,ctx:ctx,y:y}
+  }
+  function drawAccentBar(ctx,x,y,w,accent){
+    rr(ctx,x,y,w,5,3,accent||'#00a7ad')
+  }
+  function cardHeightNeed(ctx,data,w,titleSize,bodySize){
+    var title=data.title||'',body=data.body||'',items=data.items||[],need=28;
+    font(ctx,titleSize,900);need+=wrap(ctx,title,w-34).length*(titleSize+6)+8;
+    if(body){font(ctx,bodySize,450);need+=wrap(ctx,body,w-34).length*(bodySize+6)+8}
+    font(ctx,bodySize,600);items.forEach(function(t){need+=wrap(ctx,t,w-48).length*(bodySize+5)+5});
+    return need+18
+  }
+  function drawCard(ctx,x,y,w,h,data,accent,fill){
+    rr(ctx,x,y,w,h,20,fill||'#ffffff','#dce8ec');drawAccentBar(ctx,x+1,y+1,w-2,accent);
+    var ts=20,bs=15,need=cardHeightNeed(ctx,data,w,ts,bs);
+    while(need>h&&bs>11){ts--;bs--;need=cardHeightNeed(ctx,data,w,ts,bs)}
+    var yy=y+22;
+    if(data.kicker){font(ctx,11,900);ctx.fillStyle=accent;ctx.fillText(String(data.kicker).toUpperCase(),x+18,yy);yy+=22}
+    yy=drawWrapped(ctx,data.title||'',x+18,yy,w-36,ts,900,'#132238',ts+6,4)+7;
+    if(data.body)yy=drawWrapped(ctx,data.body,x+18,yy,w-36,bs,450,'#5f6f7d',bs+6,10)+5;
+    (data.items||[]).forEach(function(t){
+      font(ctx,bs,650);ctx.fillStyle=accent;ctx.fillText('•',x+20,yy+1);
+      yy=drawWrapped(ctx,t,x+38,yy,w-56,bs,600,'#26374b',bs+5,6)+3
+    });
+    if(data.badge){font(ctx,11,900);ctx.fillStyle=accent;ctx.fillText(String(data.badge).toUpperCase(),x+18,y+h-28)}
+  }
+  function elementCard(el){
+    if(!el)return{title:'',body:'',items:[]};
+    var titleEl=el.querySelector('h3,h4,strong,.kicker'),title=titleEl?titleEl.innerText.trim():'';
+    var bodyEl=el.querySelector('p'),body=bodyEl?bodyEl.innerText.trim():'';
+    var items=allText(el,'li');
+    if(!items.length){
+      var ls=textLines(el).filter(function(t){return t!==title&&t!==body});
+      items=ls
+    }
+    return{title:title,body:body,items:items}
+  }
+  function statBox(ctx,x,y,w,h,big,label,sub,accent){
+    rr(ctx,x,y,w,h,18,'#ffffff','#dce8ec');drawAccentBar(ctx,x+1,y+1,w-2,accent);
+    font(ctx,38,900);ctx.fillStyle='#132238';ctx.textAlign='center';ctx.fillText(big,x+w/2,y+22);
+    font(ctx,15,900);ctx.fillStyle=accent;ctx.fillText(label,x+w/2,y+69);
+    font(ctx,12,500);ctx.fillStyle='#687789';wrap(ctx,sub,w-26).slice(0,3).forEach(function(line,i){ctx.fillText(line,x+w/2,y+97+i*17)});
+    ctx.textAlign='left'
+  }
+  function pill(ctx,x,y,w,h,text,accent){
+    rr(ctx,x,y,w,h,h/2,'#ffffff',accent);font(ctx,13,850);ctx.fillStyle='#132238';ctx.textAlign='center';ctx.fillText(text,x+w/2,y+(h-13)/2-1);ctx.textAlign='left'
+  }
+  function callout(ctx,x,y,w,h,text,accent,dark){
+    rr(ctx,x,y,w,h,20,dark?'#132238':(accent==='#c6006f'?'#fff0f7':'#e9f9f9'),dark?null:'#dce8ec');
+    drawAccentBar(ctx,x+1,y+1,w-2,accent);
+    drawWrapped(ctx,text,x+24,y+24,w-48,dark?20:18,850,dark?'#ffffff':'#132238',dark?29:26,8)
+  }
 
   function coverPage(){
-    pageCounter++;var c=newCanvas(),ctx=c.getContext('2d');drawBrand(ctx,pageCounter);
-    var hero=document.querySelector('.hero'),title=hero&&hero.querySelector('h1')?hero.querySelector('h1').innerText:'ClubLeader',lead=hero&&hero.querySelector('.lead')?hero.querySelector('.lead').innerText:'';
-    ctx.fillStyle='#e9f9f9';ctx.fillRect(MARGIN,160,CONTENT_W,330);
-    ctx.fillStyle='#fff0f7';ctx.fillRect(MARGIN,490,CONTENT_W,115);
-    font(ctx,19,900);ctx.fillStyle='#00a7ad';ctx.fillText(currentLang()==='de'?'GESCHÄFTSIDEE MIT VOLLAUSSTATTUNG':'BUSINESS IDEA WITH FULL INFRASTRUCTURE',MARGIN+36,205);
-    font(ctx,52,900);ctx.fillStyle='#132238';var y=250;wrap(ctx,title,CONTENT_W-72).forEach(function(line){ctx.fillText(line,MARGIN+36,y);y+=62});
-    font(ctx,24,400);ctx.fillStyle='#5f6f7d';y+=20;wrap(ctx,lead,CONTENT_W-72).slice(0,6).forEach(function(line){ctx.fillText(line,MARGIN+36,y);y+=35});
-    font(ctx,39,900);ctx.fillStyle='#c6006f';ctx.fillText('31,50 €',MARGIN+36,515);
-    font(ctx,18,800);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'rechnerisch netto pro Monat · 189 € netto je Halbjahr':'calculated net per month · €189 net every six months',MARGIN+245,529);
-    var chips=Array.from(document.querySelectorAll('.hero-chips .chip')).map(function(x){return x.innerText}).filter(Boolean);
-    y=700;font(ctx,18,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'Das Fundament auf einen Blick':'The foundation at a glance',MARGIN,y);y+=42;
-    font(ctx,18,600);chips.forEach(function(t,i){var col=i%2,row=Math.floor(i/2),x=MARGIN+col*(CONTENT_W/2),yy=y+row*54;ctx.fillStyle=i%2?'#c6006f':'#00a7ad';ctx.beginPath();ctx.arc(x+8,yy+10,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#26374b';ctx.fillText(t,x+27,yy)});
-    font(ctx,18,700);ctx.fillStyle='#687789';ctx.fillText(currentLang()==='de'?'Stand 06.10.2026 · vollständige Leistungsübersicht':'As of 6 October 2026 · complete service overview',MARGIN,1185);
-    return jpegBytes(c,.9)
+    pageCounter++;var c=newCanvas(),ctx=c.getContext('2d');
+    ctx.fillStyle='#f7fbfc';ctx.fillRect(0,0,PAGE_W,PAGE_H);
+    ctx.fillStyle='#00a7ad';ctx.fillRect(0,0,PAGE_W/2,12);ctx.fillStyle='#c6006f';ctx.fillRect(PAGE_W/2,0,PAGE_W/2,12);
+    rr(ctx,70,80,1100,1330,32,'#ffffff','#dce8ec');
+    rr(ctx,95,110,1050,365,26,'#e9f9f9',null);
+    rr(ctx,95,475,1050,118,0,'#fff0f7',null);
+    var hero=document.querySelector('.hero'),title=firstText(hero,'h1'),lead=firstText(hero,'.lead');
+    font(ctx,15,900);ctx.fillStyle='#00a7ad';ctx.fillText(currentLang()==='de'?'GESCHÄFTSIDEE MIT VOLLAUSSTATTUNG':'BUSINESS IDEA WITH FULL INFRASTRUCTURE',132,160);
+    var yy=drawWrapped(ctx,title,132,203,975,53,900,'#132238',61,4)+20;
+    yy=drawWrapped(ctx,lead,132,yy,955,21,450,'#5f6f7d',31,5);
+    font(ctx,46,900);ctx.fillStyle='#c6006f';ctx.fillText('31,50 €',132,506);
+    font(ctx,17,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'rechnerisch netto pro Monat · 189 € netto je Halbjahr':'calculated net per month · €189 net every six months',350,526);
+    font(ctx,20,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'Das Fundament auf einen Blick':'The foundation at a glance',132,680);
+    var chips=allText(hero,'.hero-chips .chip'),cw=450,ch=64;
+    chips.forEach(function(t,i){
+      var col=i%2,row=Math.floor(i/2),x=132+col*505,y=730+row*83,accent=i%2?'#c6006f':'#00a7ad';
+      rr(ctx,x,y,cw,ch,18,'#ffffff','#dce8ec');ctx.fillStyle=accent;ctx.beginPath();ctx.arc(x+24,y+32,7,0,Math.PI*2);ctx.fill();
+      drawWrapped(ctx,t,x+45,y+20,cw-60,16,800,'#26374b',20,2)
+    });
+    callout(ctx,132,1050,975,150,currentLang()==='de'?'Die ClubLeader-Mitgliedschaft verbindet Infrastruktur, Produkte, Vertriebswege, Begleitung und die Möglichkeit, daraus Schritt für Schritt ein eigenes Geschäft oder eine sinnvolle Erweiterung des bestehenden Business zu entwickeln.':'The ClubLeader membership combines infrastructure, products, sales channels, guidance and the opportunity to build your own business step by step or meaningfully extend an existing business.','#00a7ad',true);
+    font(ctx,13,750);ctx.fillStyle='#687789';ctx.fillText(footerStamp(),132,1270);
+    font(ctx,13,800);ctx.fillStyle='#132238';ctx.fillText('liquiditybooster.de',132,1310);
+    return jpegBytes(c,.93)
   }
 
   function loadImage(src){return new Promise(function(resolve,reject){var img=new Image();img.onload=function(){resolve(img)};img.onerror=function(){reject(new Error('Bild konnte nicht geladen werden: '+src))};img.src=src})}
   async function bigPicturePage(){
     var img=await loadImage('./big-picture/clubleader-das-big-picture.png');
-    pageCounter++;var c=newCanvas(),ctx=c.getContext('2d');drawBrand(ctx,pageCounter);
-    font(ctx,34,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'Das Big Picture':'The Big Picture',MARGIN,115);
-    font(ctx,16,600);ctx.fillStyle='#687789';ctx.fillText(currentLang()==='de'?'Die gesamte ClubLeader-Leistungswelt auf einen Blick.':'The complete ClubLeader service world at a glance.',MARGIN,161);
-    var maxW=CONTENT_W,maxH=PAGE_H-275,scale=Math.min(maxW/img.width,maxH/img.height),w=img.width*scale,h=img.height*scale,x=MARGIN+(maxW-w)/2,y=210+(maxH-h)/2;
-    ctx.fillStyle='#f7fbfb';ctx.fillRect(MARGIN,198,CONTENT_W,maxH+20);ctx.drawImage(img,x,y,w,h);
-    return jpegBytes(c,.92)
+    var p=beginPage(currentLang()==='de'?'Das Gesamtbild':'The complete picture',currentLang()==='de'?'ClubLeader · Das Big Picture':'ClubLeader · The Big Picture',currentLang()==='de'?'Die gesamte ClubLeader-Leistungswelt auf einen Blick.':'The complete ClubLeader service world at a glance.');
+    var ctx=p.ctx,maxW=CONTENT_W,maxH=PAGE_H-p.y-95,scale=Math.min(maxW/img.width,maxH/img.height),w=img.width*scale,h=img.height*scale,x=MARGIN+(maxW-w)/2,y=p.y+(maxH-h)/2;
+    rr(ctx,MARGIN,p.y-4,CONTENT_W,maxH+8,20,'#f7fbfc','#dce8ec');ctx.drawImage(img,x,y,w,h);
+    return jpegBytes(p.c,.94)
   }
 
-  function sectionLines(section){
-    var eyebrow=section.querySelector(':scope > .eyebrow'),h2=section.querySelector(':scope > h2');
-    var eyebrowText=eyebrow?eyebrow.innerText.trim():'',title=h2?h2.innerText.trim():'';
-    var h3=new Set(Array.from(section.querySelectorAll('h3')).map(function(x){return x.innerText.trim()}).filter(Boolean));
-    var lis=new Set(Array.from(section.querySelectorAll('li')).map(function(x){return x.innerText.trim()}).filter(Boolean));
-    var lines=section.innerText.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean).filter(function(x){
-      return x!==eyebrowText&&x!==title&&!/^↑\s/.test(x)&&x!=='Zur Schnellansicht'&&x!=='Back to quick view'
-    });
-    var seen=[];
-    lines.forEach(function(t){if(!seen.length||seen[seen.length-1]!==t)seen.push(t)});
-    return {eyebrow:eyebrowText,title:title,h3:h3,lis:lis,lines:seen}
+  function economicPage(){
+    var s=sec('preis'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var price=firstText(s,'.price'),sub=firstText(s,'.price small'),priceText=price||'31,50 €';
+    rr(ctx,MARGIN,y,360,280,28,'#132238',null);font(ctx,58,900);ctx.fillStyle='#ffffff';ctx.fillText(priceText.split('\n')[0],MARGIN+34,y+45);
+    drawWrapped(ctx,sub||firstText(s,'.price-sub'),MARGIN+34,y+125,292,16,800,'#82e8eb',23,5);
+    var quote=firstText(s,'.big-quote');callout(ctx,MARGIN+390,y,CONTENT_W-390,280,quote,'#c6006f',false);
+    y+=315;
+    var cards=Array.from(s.querySelectorAll('.business-pillar')).map(elementCard),gap=16,w=(CONTENT_W-gap*2)/3;
+    cards.forEach(function(d,i){drawCard(ctx,MARGIN+i*(w+gap),y,w,350,d,i===1?'#c6006f':'#00a7ad',i===1?'#fff8fc':'#fbffff')});
+    return jpegBytes(p.c,.92)
   }
 
-  function renderSection(section){
-    var data=sectionLines(section),pages=[],c=null,ctx=null,y=0;
-    function begin(cont){
-      pageCounter++;c=newCanvas();ctx=c.getContext('2d');drawBrand(ctx,pageCounter);y=116;
-      if(data.eyebrow){font(ctx,15,900);ctx.fillStyle='#00a7ad';ctx.fillText(data.eyebrow.toUpperCase(),MARGIN,y);y+=33}
-      font(ctx,37,900);ctx.fillStyle='#132238';var title=cont?(data.title+(currentLang()==='de'?' · Fortsetzung':' · Continued')):data.title;
-      wrap(ctx,title,CONTENT_W).forEach(function(line){ctx.fillText(line,MARGIN,y);y+=45});y+=18
-    }
-    function finish(){pages.push(jpegBytes(c,.87))}
-    begin(false);
-    data.lines.forEach(function(t){
-      var type=data.h3.has(t)?'h3':data.lis.has(t)?'li':'body';
-      var size=type==='h3'?25:type==='li'?20:20,weight=type==='h3'?900:type==='li'?650:450,lineH=type==='h3'?34:29;
-      if((/^[€$]?\d[\d.,]*\s*€/.test(t)||/\b\d+\s*%/.test(t))&&t.length<55){size=27;weight=900}
-      font(ctx,size,weight);
-      var prefix=type==='li'?'✓  ':'',max=CONTENT_W-(type==='li'?22:0),wrapped=wrap(ctx,prefix+t,max);
-      var need=wrapped.length*lineH+(type==='h3'?15:10);
-      if(y+need>PAGE_H-105){finish();begin(true)}
-      ctx.fillStyle=type==='h3'?'#132238':type==='li'?'#26374b':'#4f6170';
-      wrapped.forEach(function(line){ctx.fillText(line,MARGIN+(type==='li'?12:0),y);y+=lineH});
-      y+=type==='h3'?15:10
+  function foundationPage(){
+    var s=sec('fundament'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var cards=Array.from(s.querySelectorAll('.foundation-card')).map(elementCard),gap=18,w=(CONTENT_W-gap)/2,h=360;
+    cards.forEach(function(d,i){var row=Math.floor(i/2),col=i%2;drawCard(ctx,MARGIN+col*(w+gap),y+row*(h+18),w,h,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    var line=firstText(s,'.foundation-line');callout(ctx,MARGIN,y+2*(h+18)+8,CONTENT_W,122,line,'#00a7ad',true);
+    return jpegBytes(p.c,.92)
+  }
+
+  function universalPage(){
+    var s=sec('universell'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var cards=Array.from(s.querySelectorAll('.universal-card')).map(elementCard),gap=14,w=(CONTENT_W-gap*2)/3;
+    cards.forEach(function(d,i){drawCard(ctx,MARGIN+i*(w+gap),y,w,410,d,i===1?'#c6006f':'#00a7ad',i===1?'#fff8fc':'#fbffff')});
+    y+=445;
+    font(ctx,17,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'Universelle unternehmerische Bedürfnisse':'Universal business needs',MARGIN,y);y+=38;
+    var needs=allText(s,'.universal-need'),pw=(CONTENT_W-4*10)/5;
+    needs.forEach(function(t,i){pill(ctx,MARGIN+i*(pw+10),y,pw,66,t,i%2?'#c6006f':'#00a7ad')});
+    y+=92;
+    callout(ctx,MARGIN,y,CONTENT_W,130,firstText(s,'.universal-claim'),'#c6006f',true);y+=150;
+    drawWrapped(ctx,firstText(s,'.universal-note'),MARGIN,y,CONTENT_W,13,500,'#687789',19,7);
+    return jpegBytes(p.c,.92)
+  }
+
+  function programPage(){
+    var s=sec('aufbauprogramm'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var stats=Array.from(s.querySelectorAll('.program-stat')),gap=12,w=(CONTENT_W-gap*3)/4;
+    stats.forEach(function(el,i){var ls=textLines(el);statBox(ctx,MARGIN+i*(w+gap),y,w,160,ls[0]||'',ls[1]||'',ls.slice(2).join(' '),i%2?'#c6006f':'#00a7ad')});
+    y+=190;
+    var days=Array.from(s.querySelectorAll('.week-day')),dw=(CONTENT_W-4*10)/5;
+    days.forEach(function(el,i){
+      var day=firstText(el,'.day'),time=firstText(el,'.time'),title=firstText(el,'h3'),body=firstText(el,'p'),x=MARGIN+i*(dw+10),accent=i%2?'#c6006f':'#00a7ad';
+      rr(ctx,x,y,dw,480,18,'#ffffff','#dce8ec');drawAccentBar(ctx,x+1,y+1,dw-2,accent);
+      font(ctx,12,900);ctx.fillStyle=accent;ctx.fillText(day.toUpperCase(),x+16,y+22);font(ctx,20,900);ctx.fillStyle='#132238';ctx.fillText(time,x+16,y+49);
+      var yy=drawWrapped(ctx,title,x+16,y+91,dw-32,17,900,'#132238',22,5)+10;drawWrapped(ctx,body,x+16,yy,dw-32,13,500,'#687789',18,10)
     });
-    finish();return pages
+    y+=505;var note=firstText(s,'.program-note');if(note)callout(ctx,MARGIN,y,CONTENT_W,118,note,'#00a7ad',true);
+    return jpegBytes(p.c,.92)
+  }
+
+  function marketValuePage(){
+    var s=sec('aufbauprogramm'),mv=s.querySelector('.market-value');
+    var title=firstText(mv,'h3'),intro=firstText(mv,':scope > p'),p=beginPage(currentLang()==='de'?'Gegenwert im Markt':'Market comparison',title,intro),ctx=p.ctx,y=p.y;
+    var cards=Array.from(mv.querySelectorAll('.market-value-card')).map(function(el){var ls=textLines(el),title=ls.shift()||'';return{title:title,items:ls}});
+    var gap=18,w=(CONTENT_W-gap)/2,h=335;
+    cards.forEach(function(d,i){drawCard(ctx,MARGIN+(i%2)*(w+gap),y+Math.floor(i/2)*(h+18),w,h,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    y+=2*(h+18)+2;
+    callout(ctx,MARGIN,y,CONTENT_W,145,firstText(mv,'.comparison-callout'),'#c6006f',false);y+=165;
+    drawWrapped(ctx,firstText(mv,'.source-note'),MARGIN,y,CONTENT_W,12,500,'#7a8895',18,8);
+    return jpegBytes(p.c,.92)
+  }
+
+  function overviewPage(){
+    var s=sec('vollausstattung'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var cards=Array.from(s.querySelectorAll('.overview-card')).map(function(el){var d=elementCard(el);d.badge=firstText(el,'.badge');return d}),gap=14,w=(CONTENT_W-gap)/2,h=255;
+    cards.forEach(function(d,i){drawCard(ctx,MARGIN+(i%2)*(w+gap),y+Math.floor(i/2)*(h+13),w,h,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    return jpegBytes(p.c,.92)
+  }
+
+  function identityPage(){
+    var s=sec('identitaet'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var domain=s.querySelector('.domain-card'),d=elementCard(domain);d.items=[firstText(domain,'.domain-box')].filter(Boolean);
+    drawCard(ctx,MARGIN,y,430,470,d,'#00a7ad','#fbffff');
+    var items=Array.from(s.querySelectorAll('.personal-item')).map(function(el){return{title:firstText(el,'strong'),body:firstText(el,'span'),items:[]}}),x=MARGIN+455,w=CONTENT_W-455,h=108;
+    items.forEach(function(d,i){drawCard(ctx,x,y+i*(h+12),w,h,d,i%2?'#c6006f':'#00a7ad','#ffffff')});
+    y+=515;
+    callout(ctx,MARGIN,y,CONTENT_W,140,currentLang()==='de'?'Persönliche Seite + Affiliate-Link + KMS-Arbeitsbereich greifen zusammen: sichtbar nach außen, eindeutig zugeordnet im System und organisiert im eigenen Arbeitsbereich.':'Personal page + affiliate link + KMS workspace work together: visible externally, clearly attributed in the system and organised in your own workspace.','#00a7ad',true);
+    return jpegBytes(p.c,.92)
+  }
+
+  function kmsPage(){
+    var s=sec('kms'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var cards=Array.from(s.querySelectorAll('.kms-card')).map(elementCard),gap=12,w=(CONTENT_W-gap*2)/3,h=310;
+    cards.forEach(function(d,i){drawCard(ctx,MARGIN+(i%3)*(w+gap),y+Math.floor(i/3)*(h+12),w,h,d,i%2?'#c6006f':'#00a7ad','#ffffff')});
+    y+=3*(h+12)+5;
+    callout(ctx,MARGIN,y,CONTENT_W,125,firstText(s,'.note'),'#00a7ad',true);
+    return jpegBytes(p.c,.92)
+  }
+
+  function processAppsPage(){
+    var s1=sec('zuordnung'),s2=sec('anwendungen'),p=beginPage(firstText(s1,':scope > .eyebrow'),firstText(s1,':scope > h2'),''),ctx=p.ctx,y=p.y;
+    var steps=Array.from(s1.querySelectorAll('.flow-step')).map(textLines),gap=10,sw=(CONTENT_W-gap*5)/6;
+    steps.forEach(function(ls,i){
+      var x=MARGIN+i*(sw+gap),accent=i%2?'#c6006f':'#00a7ad';rr(ctx,x,y,sw,118,18,'#ffffff',accent);
+      font(ctx,22,900);ctx.fillStyle=accent;ctx.fillText(ls[0]||String(i+1).padStart(2,'0'),x+15,y+17);
+      drawWrapped(ctx,ls.slice(1).join(' '),x+15,y+52,sw-30,14,850,'#132238',18,3)
+    });
+    y+=145;drawWrapped(ctx,firstText(s1,'.note'),MARGIN,y,CONTENT_W,12,500,'#687789',18,5);y+=105;
+    font(ctx,14,900);ctx.fillStyle='#00a7ad';ctx.fillText(firstText(s2,':scope > .eyebrow').toUpperCase(),MARGIN,y);y+=30;
+    y=drawWrapped(ctx,firstText(s2,':scope > h2'),MARGIN,y,CONTENT_W,30,900,'#132238',36,3)+8;
+    y=drawWrapped(ctx,firstText(s2,':scope > .intro'),MARGIN,y,CONTENT_W,15,450,'#687789',22,4)+16;
+    var apps=Array.from(s2.querySelectorAll('.app-card')).map(elementCard),w=(CONTENT_W-2*14)/3,h=225;
+    apps.forEach(function(d,i){drawCard(ctx,MARGIN+(i%3)*(w+14),y+Math.floor(i/3)*(h+12),w,h,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    return jpegBytes(p.c,.92)
+  }
+
+  function portfolioPage(){
+    var s=sec('produktportfolio'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var worlds=Array.from(s.querySelectorAll('.portfolio-world')),gap=18,w=(CONTENT_W-gap)/2,h=465;
+    worlds.forEach(function(el,i){
+      var products=Array.from(el.querySelectorAll('.product-card')).map(function(x){return textLines(x).join(' · ')});
+      var d={kicker:firstText(el,'.kicker'),title:firstText(el,'h3'),body:firstText(el,'p'),items:products};
+      drawCard(ctx,MARGIN+i*(w+gap),y,w,h,d,i?'#c6006f':'#00a7ad',i?'#fff9fc':'#fbffff')
+    });
+    y+=490;
+    var mp=s.querySelector('.marketplace-portfolio'),items=Array.from(mp.querySelectorAll('.marketplace-item')).map(function(el){return{title:firstText(el,'strong'),body:firstText(el,'span'),items:[]}}),iw=(CONTENT_W-14)/2;
+    items.forEach(function(d,i){drawCard(ctx,MARGIN+i*(iw+14),y,iw,210,d,i?'#c6006f':'#00a7ad','#ffffff')});
+    y+=232;
+    var slogan=allText(s,'.portfolio-slogan span').join('  ·  ');callout(ctx,MARGIN,y,CONTENT_W,95,slogan,'#c6006f',true);y+=110;
+    drawWrapped(ctx,firstText(s,'.note'),MARGIN,y,CONTENT_W,12,500,'#687789',18,6);
+    return jpegBytes(p.c,.92)
+  }
+
+  function marketplaceNetworkPage(){
+    var s1=sec('marktplatz'),s2=sec('netzwerk'),p=beginPage(firstText(s1,':scope > .eyebrow'),firstText(s1,':scope > h2'),''),ctx=p.ctx,y=p.y;
+    var mc=Array.from(s1.querySelectorAll('.market-card')).map(elementCard),gap=18,w=(CONTENT_W-gap)/2,h=360;
+    mc.forEach(function(d,i){drawCard(ctx,MARGIN+i*(w+gap),y,w,h,d,i?'#c6006f':'#00a7ad',i?'#fff9fc':'#fbffff')});
+    y+=390;font(ctx,14,900);ctx.fillStyle='#00a7ad';ctx.fillText(firstText(s2,':scope > .eyebrow').toUpperCase(),MARGIN,y);y+=28;
+    y=drawWrapped(ctx,firstText(s2,':scope > h2'),MARGIN,y,CONTENT_W,29,900,'#132238',35,3)+8;
+    var nets=Array.from(s2.querySelectorAll('.network-card')).map(elementCard),nh=245;
+    nets.forEach(function(d,i){drawCard(ctx,MARGIN+i*(w+gap),y,w,nh,d,i?'#c6006f':'#00a7ad',i?'#fff9fc':'#fbffff')});
+    y+=nh+22;
+    var chain=allText(s2,'.network-chain span').join('  →  '),claim=firstText(s2,'.network-claim');
+    callout(ctx,MARGIN,y,CONTENT_W,120,chain+'\n'+claim,'#00a7ad',true);
+    return jpegBytes(p.c,.92)
+  }
+
+  function hallsDevelopmentPage(){
+    var s1=sec('hoersaele'),s2=sec('entwicklung'),p=beginPage(firstText(s1,':scope > .eyebrow'),firstText(s1,':scope > h2'),firstText(s1,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var pts=Array.from(s1.querySelectorAll('.point')).map(function(el){return{title:firstText(el,'strong'),body:firstText(el,'span'),items:[]}}),gap=12,w=(CONTENT_W-gap*3)/4;
+    pts.forEach(function(d,i){drawCard(ctx,MARGIN+i*(w+gap),y,w,300,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    y+=330;font(ctx,14,900);ctx.fillStyle='#c6006f';ctx.fillText(firstText(s2,':scope > .eyebrow').toUpperCase(),MARGIN,y);y+=30;
+    y=drawWrapped(ctx,firstText(s2,':scope > h2'),MARGIN,y,CONTENT_W,29,900,'#132238',35,3)+8;
+    y=drawWrapped(ctx,firstText(s2,':scope > .intro'),MARGIN,y,CONTENT_W,15,450,'#687789',22,4)+14;
+    var cards=Array.from(s2.querySelectorAll('.leader-card')).map(elementCard),lw=(CONTENT_W-gap)/2,lh=245;
+    cards.forEach(function(d,i){drawCard(ctx,MARGIN+(i%2)*(lw+gap),y+Math.floor(i/2)*(lh+12),lw,lh,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    return jpegBytes(p.c,.92)
+  }
+
+  function incomePage(){
+    var s=sec('einkommensaufbau'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var principle=Array.from(s.querySelectorAll('.income-card')).map(elementCard),gap=10,w=(CONTENT_W-gap*3)/4;
+    principle.forEach(function(d,i){drawCard(ctx,MARGIN+i*(w+gap),y,w,255,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    y+=280;
+    var stages=Array.from(s.querySelectorAll('.income-stage')).map(function(el){var ls=textLines(el);return{title:(ls[0]||'')+' · '+(ls[1]||''),body:ls.slice(2).join(' '),items:[]}});
+    stages.forEach(function(d,i){drawCard(ctx,MARGIN+i*(w+gap),y,w,185,d,i%2?'#c6006f':'#00a7ad','#ffffff')});
+    y+=210;
+    callout(ctx,MARGIN,y,CONTENT_W,120,firstText(s,'.income-core'),'#00a7ad',true);y+=145;
+    var engines=Array.from(s.querySelectorAll('.income-engine')).map(function(el){return{kicker:firstText(el,'.eyebrow'),title:firstText(el,'h3'),body:firstText(el,'p'),items:[]}});
+    var ew=(CONTENT_W-16)/2;
+    engines.forEach(function(d,i){drawCard(ctx,MARGIN+i*(ew+16),y,ew,330,d,i?'#c6006f':'#00a7ad',i?'#fff9fc':'#fbffff')});
+    y+=350;
+    var dis=firstText(s,'.income-disclaimer');if(dis)drawWrapped(ctx,dis,MARGIN,y,CONTENT_W,11,500,'#7a8895',17,7);
+    return jpegBytes(p.c,.92)
+  }
+
+  function remunerationPage(){
+    var s=sec('verguetung'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var cards=Array.from(s.querySelectorAll('.logic-card')),gap=38,cw=(CONTENT_W-gap*2)/3;
+    cards.forEach(function(el,i){
+      var ls=textLines(el),x=MARGIN+i*(cw+gap),cx=x+cw/2,cy=y+245,accent=i===1?'#c6006f':'#00a7ad';
+      ctx.fillStyle=i===2?'#132238':accent;ctx.beginPath();ctx.arc(cx,cy,145,0,Math.PI*2);ctx.fill();
+      font(ctx,55,900);ctx.fillStyle='#ffffff';ctx.textAlign='center';ctx.fillText(ls[0]||'',cx,cy-55);
+      font(ctx,21,900);ctx.fillText(ls[1]||'',cx,cy+20);font(ctx,14,600);ctx.fillText(ls.slice(2).join(' '),cx,cy+62);ctx.textAlign='left'
+    });
+    y+=520;
+    callout(ctx,MARGIN,y,CONTENT_W,175,currentLang()==='de'?'Die 3-Ebenen-Logik gilt ausschließlich dort, wo ein Umsatz nach dem jeweils gültigen Vergütungsplan provisionsfähig freigegeben, eindeutig zugeordnet, angenommen und vollständig bezahlt ist. Mitgliedschaft, Kontakt, Klick oder Qualifikation allein erzeugen keine Provision.':'The 3-level logic applies only where a sale is approved as commissionable under the current remuneration plan, clearly attributed, accepted and fully paid. Membership, a contact, a click or a qualification alone do not generate commission.','#c6006f',true);
+    font(ctx,26,900);ctx.fillStyle='#132238';ctx.fillText(currentLang()==='de'?'Keine vierte Ebene.':'No fourth level.',MARGIN,y+220);
+    return jpegBytes(p.c,.92)
+  }
+
+  function toolsDataPage(){
+    var s1=sec('werkzeuge'),s2=sec('daten'),p=beginPage(firstText(s1,':scope > .eyebrow'),firstText(s1,':scope > h2'),''),ctx=p.ctx,y=p.y;
+    var tools=Array.from(s1.querySelectorAll('.tool')).map(function(el){return{title:firstText(el,'strong'),body:firstText(el,'span'),items:[]}}),gap=12,w=(CONTENT_W-gap*3)/4,h=185;
+    tools.forEach(function(d,i){drawCard(ctx,MARGIN+(i%4)*(w+gap),y+Math.floor(i/4)*(h+12),w,h,d,i%2?'#c6006f':'#00a7ad',i%2?'#fff9fc':'#fbffff')});
+    y+=2*(h+12)+25;font(ctx,14,900);ctx.fillStyle='#00a7ad';ctx.fillText(firstText(s2,':scope > .eyebrow').toUpperCase(),MARGIN,y);y+=30;
+    y=drawWrapped(ctx,firstText(s2,':scope > h2'),MARGIN,y,CONTENT_W,30,900,'#132238',36,3)+14;
+    var dc=Array.from(s2.querySelectorAll('.data-card')).map(elementCard),dw=(CONTENT_W-16)/2;
+    dc.forEach(function(d,i){drawCard(ctx,MARGIN+i*(dw+16),y,dw,300,d,i?'#c6006f':'#00a7ad',i?'#fff9fc':'#fbffff')});
+    return jpegBytes(p.c,.92)
+  }
+
+  function contractClosingPage(){
+    var s=sec('vertrag'),closing=document.querySelector('main.wrap > section.closing'),p=beginPage(firstText(s,':scope > .eyebrow'),firstText(s,':scope > h2'),firstText(s,':scope > .intro')),ctx=p.ctx,y=p.y;
+    var copy=s.querySelector('.contract-copy'),points=allText(copy,'.contract-point');
+    drawCard(ctx,MARGIN,y,CONTENT_W*0.62,430,{title:firstText(copy,'h3'),body:firstText(copy,'p'),items:points},'#00a7ad','#fbffff');
+    var act=s.querySelector('.contract-action');
+    drawCard(ctx,MARGIN+CONTENT_W*0.64,y,CONTENT_W*0.36,430,{title:firstText(act,'h3'),body:firstText(act,'p'),items:[firstText(act,'.contract-btn')]},'#c6006f','#fff9fc');
+    y+=465;
+    font(ctx,14,900);ctx.fillStyle='#c6006f';ctx.fillText(firstText(closing,':scope > .eyebrow').toUpperCase(),MARGIN,y);y+=30;
+    y=drawWrapped(ctx,firstText(closing,':scope > h2'),MARGIN,y,CONTENT_W,32,900,'#132238',39,3)+10;
+    y=drawWrapped(ctx,firstText(closing,':scope > p'),MARGIN,y,CONTENT_W,16,450,'#687789',23,6)+20;
+    var formula=allText(closing,'.formula span'),fw=(CONTENT_W-(formula.length-1)*7)/formula.length;
+    formula.forEach(function(t,i){pill(ctx,MARGIN+i*(fw+7),y,fw,58,t,i%2?'#c6006f':'#00a7ad')});
+    y+=85;
+    var note=firstText(closing,'.note');callout(ctx,MARGIN,y,CONTENT_W,175,note,'#c6006f',false);
+    return jpegBytes(p.c,.92)
   }
 
   function multiPagePdf(jpegs,wmm,hmm){
@@ -1111,7 +1374,7 @@
       objects[contentObj]=asciiBytes('<< /Length '+asciiBytes(content).length+' >>\nstream\n'+content+'endstream')
     });
     objects[2]=asciiBytes('<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+jpegs.length+' >>');
-    var maxObj=2+jpegs.length*3,parts=[asciiBytes('%PDF-1.4\n%LB-CLUBLEADER-LEISTUNGSWELT\n')],offsets=[0],pos=parts[0].length;
+    var maxObj=2+jpegs.length*3,parts=[asciiBytes('%PDF-1.4\n%LB-CLUBLEADER-BROSCHUERE\n')],offsets=[0],pos=parts[0].length;
     for(var i=1;i<=maxObj;i++){offsets[i]=pos;var hd=asciiBytes(i+' 0 obj\n'),tl=asciiBytes('\nendobj\n');parts.push(hd,objects[i],tl);pos+=hd.length+objects[i].length+tl.length}
     var xref=pos,xs='xref\n0 '+(maxObj+1)+'\n0000000000 65535 f \n';for(var j=1;j<=maxObj;j++)xs+=String(offsets[j]).padStart(10,'0')+' 00000 n \n';
     xs+='trailer\n<< /Size '+(maxObj+1)+' /Root 1 0 R >>\nstartxref\n'+xref+'\n%%EOF\n';parts.push(asciiBytes(xs));
@@ -1125,18 +1388,36 @@
   function handoff(token,action){var u=new URL('./datei-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);u.searchParams.set('lang',currentLang());return u.href}
 
   async function createFullPdf(){
-    var btn=$('makeFullPdf'),status=$('pdfStatus');btn.disabled=true;status.textContent=currentLang()==='de'?'PDF wird lokal erstellt …':'Creating PDF locally …';status.className='pdf-status';
+    var btn=$('makeFullPdf'),status=$('pdfStatus');btn.disabled=true;status.textContent=currentLang()==='de'?'Broschüren-PDF wird lokal erstellt …':'Creating brochure PDF locally …';status.className='pdf-status';
     try{
-      pageCounter=0;var pages=[coverPage(),await bigPicturePage()];
-      var sections=Array.from(document.querySelectorAll('main.wrap > section.section, main.wrap > section.closing')).filter(function(s){return s.id!=='bigpicture'});
-      sections.forEach(function(s){Array.prototype.push.apply(pages,renderSection(s))});
-      var blob=multiPagePdf(pages,210,297),filename=currentLang()==='de'?'LiquidityBooster-ClubLeader-Vollausstattung.pdf':'LiquidityBooster-ClubLeader-Full-Infrastructure.pdf',format='PDF · A4 · '+pages.length+' '+(currentLang()==='de'?(pages.length===1?'Seite':'Seiten'):(pages.length===1?'page':'pages'));
+      pageCounter=0;
+      var pages=[
+        coverPage(),
+        await bigPicturePage(),
+        economicPage(),
+        foundationPage(),
+        universalPage(),
+        programPage(),
+        marketValuePage(),
+        overviewPage(),
+        identityPage(),
+        kmsPage(),
+        processAppsPage(),
+        portfolioPage(),
+        marketplaceNetworkPage(),
+        hallsDevelopmentPage(),
+        incomePage(),
+        remunerationPage(),
+        toolsDataPage(),
+        contractClosingPage()
+      ];
+      var blob=multiPagePdf(pages,210,297),filename=currentLang()==='de'?'LiquidityBooster-ClubLeader-Vollausstattung.pdf':'LiquidityBooster-ClubLeader-Full-Infrastructure.pdf',format='PDF · A4 · '+pages.length+' '+(currentLang()==='de'?'Seiten':'pages')+' · Broschürenlayout';
       var token=await storePdf(blob,filename,format);
       $('pdfFilename').textContent=filename;$('pdfMeta').textContent=format;
       $('savePdf').href=handoff(token,'save');$('sharePdf').href=handoff(token,'share');
       $('savePdf').target=isEmbedded()?'_top':'_blank';$('sharePdf').target=isEmbedded()?'_top':'_blank';
-      $('pdfDialogStatus').textContent=currentLang()==='de'?'PDF ist fertig und kann gespeichert oder geteilt werden.':'PDF is ready to save or share.';
-      $('pdfOverlay').hidden=false;status.textContent=currentLang()==='de'?'PDF erfolgreich erstellt.':'PDF created successfully.';status.className='pdf-status ok'
+      $('pdfDialogStatus').textContent=currentLang()==='de'?'Die 18-seitige Broschüren-PDF ist fertig und kann gespeichert oder geteilt werden.':'The 18-page brochure PDF is ready to save or share.';
+      $('pdfOverlay').hidden=false;status.textContent=currentLang()==='de'?'Broschüren-PDF erfolgreich erstellt.':'Brochure PDF created successfully.';status.className='pdf-status ok'
     }catch(e){
       console.error(e);status.textContent=(currentLang()==='de'?'PDF-Fehler: ':'PDF error: ')+(e&&e.message?e.message:String(e));status.className='pdf-status error'
     }finally{btn.disabled=false}
