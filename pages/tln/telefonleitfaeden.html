@@ -55,7 +55,7 @@
 <div class="eventDate" id="eventDate">wird berechnet …</div>
 <p id="eventDescription">Technik, TLN-DApp, Rebound, Staking, Lending und Wallets.</p>
 <div class="eventMeta"><div><strong>Format:</strong> <span id="eventFormat">Zoom</span></div><div><strong>Zugang:</strong> <span id="eventAccess">über Kalender oder Ansprechpartner</span></div></div>
-<div class="eventActions"><a class="btn" id="eventLink" href="https://kalender.digital/tln-allgemein" target="_blank" rel="noopener">Termin im Kalender öffnen</a><button class="btn secondary" id="useEventBtn" type="button">Termin in Satz übernehmen</button></div>
+<div class="eventActions"><a class="btn" id="eventLink" href="https://kalender.digital/tln-allgemein" target="_blank" rel="noopener">Zugang öffnen</a><button class="btn secondary" id="useEventBtn" type="button">Termin in Satz übernehmen</button></div>
 </section>
 <section class="box tip"><strong>Gesprächsregel:</strong><p class="small">Nicht mehrere Termine anbieten. Einen passenden Termin nennen, Zustimmung abwarten und erst dann Zugang oder Einzeltermin vereinbaren.</p></section>
 </aside>
@@ -67,16 +67,14 @@
 "use strict";
 var calendarUrl="https://kalender.digital/tln-allgemein";
 var events={
-clubtreffen:{title:"LiquidityBooster – Club Treffen",weekday:1,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Offenes Clubtreffen für Gäste und Mitglieder mit Informationen aus der Akademie für finanzielle Souveränität, Austausch und Einblicken in aktuelle Entwicklungen.",format:"Zoom",access:"Direkter Zoom-Raum · mit Peter Bösing und Mike Rau",url:"https://zoom.us/j/98135658773"},
-tech:{title:"TLN Technik Call",weekday:1,hour:20,minute:0,duration:"20:00–21:30 Uhr",description:"TLN-DApp, Rebound, Staking, Lending, TLN-Gold-Optionen und Wallets.",format:"Zoom",access:"Zugang über den offiziellen Kalender oder Ansprechpartner",url:calendarUrl},
-communitytalk:{title:"TLN Community Talk",weekday:2,hour:19,minute:0,duration:"19:00–20:30 Uhr",description:"Offener Austausch aus der Community für die Community, mit wechselnden Moderatoren.",format:"Zoom",access:"Meeting-ID 627 745 0678 · Kenncode 124578",url:"https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1"},
+clubtreffen:{title:"LiquidityBooster Entdeckungsreise",weekday:1,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Offenes Clubtreffen für Gäste und Mitglieder mit Informationen aus der Akademie für finanzielle Souveränität, Austausch und Einblicken in aktuelle Entwicklungen.",format:"Zoom",access:"Direkter Zoom-Raum · mit Alexander, Mike, Oliver, Peter und Daniela",url:"https://zoom.us/j/98135658773"},
+tech:{title:"TLN Technik Call",weekday:1,hour:20,minute:0,duration:"20:00–21:30 Uhr",description:"TLN-DApp, Rebound, Staking, Lending, TLN-Gold-Optionen und Wallets.",format:"Zoom",access:"Meeting-ID 822 7500 4709 · Kenncode 423680",url:"https://us06web.zoom.us/j/82275004709?pwd=hvJutbMYKFDXiWbl5o4qn7rb737Jr5.1"},
+communitytalk:{title:"TLN Community Talk",weekday:2,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Offener Austausch aus der Community für die Community, mit wechselnden Moderatoren.",format:"Zoom",access:"Meeting-ID 880 7236 3233 · Kenncode 124578",url:"https://us06web.zoom.us/j/88072363233?pwd=HcrBJBqOpEpD86PlZYmi4LVK93vm0.1"},
+vault27:{title:"VAULT27 – Dezentrale Kryptokarte",weekday:2,hour:20,minute:0,duration:"20:00–21:00 Uhr",description:"Vorstellung der dezentralen Kryptokarte, des Dashboards und ihrer Nutzung mit VOW und v$. Mit Manuela.",format:"Zoom",access:"Meeting-ID 850 3947 5957",url:"https://us06web.zoom.us/j/85039475957"},
 breakfast:{title:"Unternehmer – Brainstorming – Frühstück – Stammtisch",weekday:3,hour:10,minute:0,duration:"10:00–12:30 Uhr",description:"Unternehmerischer Austausch, Brainstorming und Kennenlernen. Teilnahme nach Einladung durch den Ansprechpartner.",format:"Einladung",access:"Beitritt über den persönlichen Ansprechpartner",url:"https://t.me/c/3236099787/1/43"},
-stammtisch:{title:"LiquidityBooster Club-Stammtisch",weekday:3,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Gesellige Runde mit Gesprächsstoff, Austausch und Kennenlernen.",format:"Zoom",access:"Direkter Zoom-Raum",url:"https://zoom.us/j/94363254814"},
-ambassador:{title:"TLN Ambassador Call",weekday:3,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Regelmäßiger Austausch für TLN Ambassadors und aktive Partner im VOW Ecosystem.",format:"Zoom",access:"Meeting-ID 627 745 0678 · Kenncode 124578",url:"https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1"},
-roundtable:{title:"Special TLN Roundtable / TLN Interactive",weekday:4,hour:19,minute:0,duration:"19:00–20:30 Uhr",description:"Roundtable, Talkrunde und TLN Interactive für Austausch, Fragen, Tipps und Tools.",format:"Zoom",access:"Meeting-ID 627 745 0678 · Kenncode 124578",url:"https://us06web.zoom.us/j/6277450678?pwd=9pCCpavYgloDrwIQ2EAE9K80yBy1aN.1"},
+stammtisch:{title:"LiquidityBooster Club-Stammtisch",weekday:3,hour:19,minute:0,duration:"19:00–20:00 Uhr",description:"Gesellige Runde mit Gesprächsstoff, Austausch und Kennenlernen.",format:"Zoom",access:"Meeting-ID 970 8477 7066 · Kenncode 150079",url:"https://zoom.us/j/97084777066?pwd=BbgWQa0VXvlwck13jTq2v8qgndDxnQ.1"},
+roundtable:{title:"TLN Roundtable / TLN Interactive / TLN Ambassador Gathering",weekday:4,hour:19,minute:0,duration:"19:00–20:45 Uhr",description:"Roundtable, Talkrunde und TLN Interactive für Austausch, Fragen, Tipps und Tools.",format:"Zoom",access:"Aktuellen Zugang im offiziellen Kalender prüfen",url:calendarUrl},
 mastermind:{title:"TLN Mastermind",weekday:5,hour:11,minute:0,duration:"11:00–12:00 Uhr",description:"Für Mitglieder, die hinter der gemeinsamen Vision stehen und aktiv am Erfolg arbeiten.",format:"Zoom / Einladung",access:"Teilnahme nach Einladung durch den Ansprechpartner",url:"https://t.me/c/2289313102/1/6"},
-webinar:{title:"LIVE-Webinar: Das größte Cashback-Ökosystem der Welt",weekday:5,hour:18,minute:0,duration:"18:00–19:00 Uhr",description:"Geschäftspräsentation zum Cashback-Ökosystem. Referent laut Kalender: Alexander Finke.",format:"Zoom",access:"Direkter Zoom-Raum",url:"https://us02web.zoom.us/j/7899786501"},
-leader:{title:"Club Leader KMS-Schulung / Einarbeitung",weekday:6,hour:10,minute:0,duration:"10:00–12:00 Uhr",description:"Schulung und Einarbeitung mit Fokus auf Sicherheit, Struktur und sauberen Einstieg.",format:"Einladung",access:"Link über den Ansprechpartner",url:calendarUrl}
 };
 var commonObjections=[
 ["Keine Zeit","Verstehe ich. Dann machen wir es einfach: Soll ich dir einen konkreten Termin nennen, und du entscheidest in Ruhe, ob er passt?"],
@@ -87,14 +85,14 @@ var commonObjections=[
 ["Schick mir erst Informationen","Ich kann dir den offiziellen Termin und das Thema senden. Die eigentliche Einordnung erfolgt im Zoom oder in einem persönlichen Gespräch."]
 ];
 var guides={
-first:{title:"Erster Kontakt zum Thema",event:"webinar",steps:[
+first:{title:"Erster Kontakt zum Thema",event:"communitytalk",steps:[
 ["Natürlich eröffnen","Hallo {{name}}, ich wollte mich einfach einmal melden. Passt es gerade für zwei Minuten?","Zuerst Zustimmung abwarten. Noch nichts erklären."],
 ["Interesse erkennen","Beschäftigst du dich grundsätzlich mit digitalen Geschäftsmodellen, Cashback oder dezentralen Anwendungen?","Offen fragen und zuhören."],
 ["Thema kurz einordnen","Ich beschäftige mich aktuell mit {{project}}. Dabei geht es nicht um eine schnelle Entscheidung, sondern darum, das Modell und die Anwendung erst einmal zu verstehen.","Keine Versprechen und keine Fachbegriffe stapeln."],
 ["Termin anbieten","Dazu gibt es einen passenden Zoom-Termin: {{eventSentence}}","Nur diesen einen Termin nennen."],
 ["Ziel sichern","Soll ich dir den Zugang senden, oder wäre ein kurzer persönlicher Einzeltermin angenehmer?","Zoom oder Einzeltermin – nicht beides gleichzeitig erklären."]
 ]},
-warm:{title:"Alten Kontakt wieder aufwärmen",event:"webinar",steps:[
+warm:{title:"Alten Kontakt wieder aufwärmen",event:"communitytalk",steps:[
 ["Beziehung zuerst","Hallo {{name}}, wir haben länger nichts voneinander gehört. Wie geht es dir inzwischen?","Ehrlich zuhören."],
 ["Früheren Bezug aufnehmen","Ich musste an unser früheres Gespräch über digitale Projekte und neue Geschäftsmodelle denken.","Noch keine Bewertung abgeben."],
 ["Aktuellen Anlass nennen","Bei {{project}} gibt es inzwischen aktuelle Termine, in denen die heutige Entwicklung erklärt und Fragen beantwortet werden.","Nicht behaupten, dass jede alte Kritik erledigt sei."],
@@ -122,7 +120,7 @@ tech:{title:"Zum Technik-Call einladen",event:"tech",steps:[
 ["Erwartung setzen","Du kannst deine Frage mitbringen und einfach zuhören. Es gibt keine Aufzeichnung.","Auf Live-Charakter hinweisen."],
 ["Zugang klären","Soll ich dir den Kalenderzugang senden oder dich vorher mit deinem Ansprechpartner verbinden?","Einverständnis abwarten."]
 ]},
-event:{title:"Passendes Event anbieten",event:"webinar",steps:[
+event:{title:"Passendes Event anbieten",event:"communitytalk",steps:[
 ["Interesse zuordnen","Was interessiert dich stärker: Technik, das VOW-Cashback-Modell, Community-Austausch oder VTravel?","Antwort bestimmt den Termin."],
 ["Passenden Termin auswählen","Dafür passt aktuell am besten: {{eventSentence}}","Rechts kann ein anderer Termin gewählt werden."],
 ["Nutzen erklären","Dort bekommst du das Thema live erklärt und kannst konkrete Fragen stellen.","Keine Ergebnisversprechen."],
@@ -144,7 +142,7 @@ personal:{title:"Einzeltermin vereinbaren",event:"tech",steps:[
 ["Abschluss","Ich stimme den Termin mit dem Ansprechpartner ab und bestätige dir Datum, Uhrzeit und Zugang.","Keine Zusage ohne Bestätigung."]
 ]}
 };
-var currentGuide="first",stepIndex=0,currentEventKey="webinar";
+var currentGuide="first",stepIndex=0,currentEventKey="communitytalk";
 function el(id){return document.getElementById(id)}
 function pad(n){return n<10?"0"+n:String(n)}
 function formatDate(d){var days=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];return days[d.getDay()]+", "+pad(d.getDate())+"."+pad(d.getMonth()+1)+"."+d.getFullYear()}
@@ -167,8 +165,8 @@ function personalize(text){
 function chooseDefaultEvent(){
  var p=el("projectSelect").value,g=currentGuide;
  if(g==="staking"||g==="rebound"||g==="tech"||g==="follow")return "tech";
- if(p==="VOW")return "webinar";
- if(p==="VTravel")return "webinar";
+ if(p==="VOW")return "communitytalk";
+ if(p==="VTravel")return "communitytalk";
  return guides[g].event||"tech";
 }
 function renderEvent(){
