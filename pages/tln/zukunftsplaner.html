@@ -519,6 +519,15 @@ $('exportJson').addEventListener('click',backup);$('importJson').addEventListene
 $('solve').addEventListener('click',solveMonthly);
 $('chartMode').addEventListener('change',function(){chart(allResults())});
 $('de').addEventListener('click',function(){setLanguage('de')});$('en').addEventListener('click',function(){setLanguage('en')});
+$('method').addEventListener('change',function(){
+  // Keep the original scenario labels meaningful when changing the model.
+  // Custom names (e.g. a child's name) are never rewritten.
+  var name=$('scenarioName'),value=name.value.trim();
+  var generic=['Einmalanlage','Monatlicher Sparplan','Kombination','One lump sum','Monthly savings','Combination'];
+  if(generic.indexOf(value)<0)return;
+  var lookup=lang==='de'?{once:'Einmalanlage',monthly:'Monatlicher Sparplan',both:'Kombination'}:{once:'One lump sum',monthly:'Monthly savings',both:'Combination'};
+  name.value=lookup[$('method').value]||name.value;
+});
 for(var id of fields){$(id).addEventListener('input',refresh);$(id).addEventListener('change',refresh)}
 $('payments').addEventListener('change',function(e){if(!e.target.dataset.date)return;draft.checks[e.target.dataset.date]=e.target.checked;touched=true;layoutSlots()});
 $('initialCheck').addEventListener('change',function(e){draft.checks.initial=e.target.checked;touched=true;layoutSlots()});
