@@ -487,7 +487,7 @@ function generatePdf(results){
  text(label('Nicht gebunden: ','Not locked: ')+price(r.liquid+r.pending,r.asset),W-M,868,21,C.sub,false,'right');
  graph([r],{x:M,y:905,w:MAX,h:323},true);
  text(label('Durchgezogen: Modellwert. Die Einzahlungen sind gestrichelt dargestellt.','Solid: model value. Dashed: personal contributions.'),M,1256,17,C.sub);
- text(label('Erstes rechnerisches Wertziel: ','First model value target: ')+(r.firstValueGoal===null?label('nicht erreicht','not reached'):fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000))),M,1285,19,C.navy,true);
+ text(label('Erstes rechnerisches Wertziel: ','First model value target: ')+(r.firstValueGoal===null?label('nicht erreicht','not reached'):fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000))),M,1278,19,C.navy,true);
  boxTitle(label('Eigeninitiative und Vertragsannahmen','Personal effort and contract assumptions'),1315);
  function effortRow(y,title,count,minutes){text(title,M+12,y,19,C.sub);
  text(money(count,0)+' × '+money(minutes,1)+' '+label('Min.','min')+'  =  '+hmin(count*minutes),W-M-10,y,19,C.navy,true,'right');divide(y+10);return y+35}
