@@ -205,6 +205,7 @@ const currentExit=()=>document.querySelector('input[name="exit"]:checked').value
 function today(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
 function endDate(value){if(!/^\d{4}-\d{2}-\d{2}$/.test(value))return '–';const [y,m,d]=value.split('-').map(Number);const date=new Date(Date.UTC(y,m-1,d));if(date.getUTCFullYear()!==y||date.getUTCMonth()!==m-1||date.getUTCDate()!==d)return '–';date.setUTCDate(date.getUTCDate()+365);return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'}).format(date)}
 function render(){const option=currentExit(),unit=$('asset').value;const base=num('amount');const valid=Number.isFinite(base)&&base>0&&base<=1000000000;const P=valid?base:NaN;put('amountError',valid?'':T[lang].amountInvalid);
+ $('longTerm').hidden=option!=='yield';
  $('yieldFields').hidden=option!=='yield';$('vowFields').hidden=option!=='vow';$('yieldResults').hidden=option!=='yield';$('doubleResults').hidden=option!=='double';$('vowResults').hidden=option!=='vow';
  put('principal',fmt(P));put('principalUnit',unit);put('resultSubtitle',T[lang]['model'+(option==='yield'?'Yield':option==='double'?'Double':'Vow')]);
  put('secondLabel',T[lang][option==='yield'?'yieldLabel':option==='double'?'doubleLabel':'vowLabel']);
