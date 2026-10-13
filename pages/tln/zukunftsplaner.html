@@ -367,7 +367,6 @@ function generatePdf(results){
  }
  function price(v,cur){return money(v)+' '+(cur||'USDC')}
  function euro(v){return money(v)+' €'}
- function hmin(v){return money(v/60,1)+' '+label('Std.','h')}
  function methodName(r){return t(r.s.method==='once'?'once':r.s.method==='both'?'both':'monthly')}
  function goalName(r){return t('goal'+goalKey(r.s.goalType))}
  function targetName(r){return r.s.goalType==='child'?(r.s.childName?label('Für ','For ')+r.s.childName:goalName(r)):goalName(r)}
@@ -391,11 +390,11 @@ function generatePdf(results){
  function legend(x,y,r,i,showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(x,y-7);ctx.lineTo(x+32,y-7);ctx.stroke();lines(r.s.scenarioName,x+42,y,235,17,C.ink,true,20,3);if(showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=2;ctx.setLineDash([8,7]);ctx.beginPath();ctx.moveTo(x+42,y+16);ctx.lineTo(x+78,y+16);ctx.stroke();ctx.setLineDash([])}}
  function savePage(){var url=canv.toDataURL('image/jpeg',0.91),data=url.substring(url.indexOf(',')+1),bin=atob(data),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);jpegPages.push(bytes);searchPages.push(pageText.slice())}
  // Page 1: readable editorial overview, not a cluttered results table.
- base(1,label('Persönlicher Zukunftsbericht','Personal future report'),label('Mein persönlicher Zukunftsplan','My personal future plan'),label('Drei persönliche Wege zum Kapitalziel – mit Zeitaufwand, Eigenbeiträgen und Modellwerten.','Three funding paths – comparing contributions, personal effort and illustrative values.'));
+ base(1,label('Persönlicher Zukunftsbericht','Personal future report'),label('Mein persönlicher Zukunftsplan','My personal future plan'),label('Drei Wege zum Kapitalziel – mit Eigenbeiträgen, Kapitalentwicklung und Zielterminen.','Three ways to a capital goal – comparing contributions, growth and target dates.'));
  text(label('Erstellt am ','Created on ')+fmtDate(new Date()),M,314,22,C.sub);
  rr(M,359,MAX,205,21,C.pale);
  text(label('Deine Entscheidung wird sichtbar','Understand what your choices change'),M+29,411,29,C.navy,true);
- lines(label('Einmalanlage, selbst ausgelöste Monatsbeiträge und eine Kombination unterscheiden sich nicht nur im möglichen Ertrag. Auch Kapitaleinsatz, Laufzeit und persönlicher Aufwand verändern sich.','Lump-sum funding, self-initiated monthly contributions and a combination differ not only in potential returns, but also in starting capital, time and ongoing personal effort.'),M+29,459,MAX-60,22,C.sub,false,32,3);
+ lines(label('Einmalanlage, monatliche Eigenbeiträge und ihre Kombination ergeben unter gleichen Annahmen unterschiedliche Kapitalverläufe. Entscheidend sind Startbetrag, weitere Einzahlungen und Zieltermin.','Lump sums, monthly contributions and their combination can create different capital paths. What matters is the initial amount, later deposits and the target date.'),M+29,459,MAX-60,22,C.sub,false,32,3);
  boxTitle(label('Drei Szenarien im direkten Überblick','Three scenarios side by side'),630);
  for(var i=0;i<3;i++){var r=results[i],cx=M+i*366;rr(cx,671,352,507,18,C.white,C.line);rr(cx,671,352,12,6,colors[i]);lines((i+1)+'. '+r.s.scenarioName,cx+19,698,310,23,C.navy,true,26,3);
  text(short(methodName(r),305,20,false),cx+19,785,20,C.sub);
@@ -406,19 +405,19 @@ function generatePdf(results){
  text(short(price(r.paid,r.asset),317,28,true),cx+19,926,28,C.navy,true);
  text(label('Modellwert nach Annahmen','Model value after assumptions'),cx+19,972,19,C.sub);
  text(short(euro(r.netEur),315,30,true),cx+19,1009,30,colors[i],true);
- text(label('Eigeninitiative','Personal effort'),cx+19,1051,19,C.sub);
- text(money(r.deposits,0)+' '+label('Einzahlungen','deposits')+'  ·  '+hmin(r.workMin),cx+19,1085,19,C.ink,true);
+ text(label('Zielwert erstmals rechnerisch','First modelled target value'),cx+19,1051,18,C.sub);
+ text(r.firstValueGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000)),cx+19,1085,20,C.ink,true);
  badge(r.goalMet?label('Ziel rechnerisch erreicht','Target met in model'):label('Ziel nicht erreicht','Target not met'),cx+18,1153,r.goalMet?'#eaf8f2':'#fff0ec',r.goalMet?'#19654e':'#9c4038')}
  boxTitle(label('Was Dir dieser Bericht zeigt','What this report explains'),1265);
  var a=1298;
  a=lines(label('• Wie viel Kapital selbst eingezahlt wird und wie lange es eingesetzt bleibt.','• How much of your own money is contributed and for how long.'),M,a,MAX,21,C.ink,false,37);
  a=lines(label('• Wann ein rechnerisches Ziel erreicht wäre – und ob Mittel noch gebunden sind.','• When a modelled goal could be reached and whether funds are still locked.'),M,a,MAX,21,C.ink,false,37);
- a=lines(label('• Wie viele manuelle Einzahlungen, Kontrollen und weitere Vorgänge anfallen.','• How many manual deposits, reviews and further operations may be involved.'),M,a,MAX,21,C.ink,false,37);
+ a=lines(label('• Wie sich die drei Einzahlungswege bei gleichem Kapitalziel unterscheiden.','• How the three funding methods differ for the same capital goal.'),M,a,MAX,21,C.ink,false,37);
  rr(M,1454,MAX,132,14,C.orange);
  lines(label('Wichtig: Alle Werte sind Simulationen. Keine Wallet ist verbunden; keine Einzahlung wird automatisch vorgenommen. Verluste bis hin zum Totalverlust sind möglich.','Important: These are models only. No wallet is connected and no payment is automatic. The entire amount invested may be lost.'),M+20,1500,MAX-40,21,C.ink,true,31,3);
  savePage();
  // Page 2: chart ALWAYS on dedicated page, with funding-only baselines.
- base(2,label('Entwicklung und Kapitalvorsprung','Growth and funding head start'),label('Kapital, Zeit und Eigeninitiative','Capital, time and personal effort'),label('Durchgezogene Linien: modellierter Wert. Gestrichelte Linien: ausschließlich selbst eingezahltes Kapital.','Solid lines: illustrative value. Dashed lines: personal contributions only.'));
+ base(2,label('Entwicklung und Kapitalvorsprung','Growth and funding head start'),label('Kapitalentwicklung und Zielvergleich','Capital growth and target comparison'),label('Durchgezogene Linien: modellierter Wert. Gestrichelte Linien: ausschließlich selbst eingezahltes Kapital.','Solid lines: illustrative value. Dashed lines: personal contributions only.'));
  graph(results,{x:M,y:320,w:MAX,h:626},true);
  for(var i=0;i<3;i++){var r=results[i],ix=M+13+i*363;legend(ix,991,r,i,false);text(short(label('Kapital: ','Funding: ')+price(r.paid,r.asset),330,18,false),ix,1066,18,C.sub)}
  boxTitle(label('Ergebnisse am jeweiligen Zieltermin','Outcomes at each target date'),1106);
@@ -433,8 +432,8 @@ function generatePdf(results){
  y=cmpRow(y,label('Modellwert (€)','Model value (€)'),results.map(function(r){return euro(r.netEur)}),false);
  y=cmpRow(y,label('Erstes Wertziel','First value target'),results.map(function(r){return r.firstValueGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000))}),false);
  y=cmpRow(y,label('Verfügbares Ziel*','Accessible target*'),results.map(function(r){return r.s.goalAware==='no'?'–':r.firstGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstGoal*86400000))}),false);
- y=cmpRow(y,label('Arbeitszeit','Workload'),results.map(function(r){return hmin(r.workMin)}),false);
- y=cmpRow(y,label('Einzahlungsvorgänge','Deposit operations'),results.map(function(r){return money(r.deposits,0)}),false);
+ y=cmpRow(y,label('Kaufkraft in heutigen Euro','Purchasing power today'),results.map(function(r){return euro(r.purchasing)}),false);
+ y=cmpRow(y,label('Gewünschter Zieltermin','Requested target date'),results.map(function(r){return fmtDate(r.end)}),false);
  rr(M,1485,MAX,115,13,C.pale);
  lines(label('* „Verfügbar“ ist nur eine Modellannahme für bereits freigesetztes Kapital und angenommene Erträge. Kein Auszahlungsversprechen. Früherer Einsatz bedeutet auch längere Risikoexposition.','* “Accessible” is only a modelling assumption for unlocked funds and projected yield, not a payout guarantee. Earlier funding also involves longer risk exposure.'),M+18,1514,MAX-36,18,C.ink,false,27,3);
  savePage();
@@ -442,9 +441,7 @@ function generatePdf(results){
  for(var i=0;i<3;i++){var r=results[i],s=r.s,number=i+3;
  base(number,label('Szenario '+(i+1),'Scenario '+(i+1)),(i+1)+'. '+s.scenarioName,targetName(r)+'  ·  '+fmtDate(r.start)+' – '+fmtDate(r.end));
  badge(methodName(r),M,325,C.pale,C.purple);
- var status=i===slot?(touched?label('Aktueller Entwurf','Current unsaved edits'):label('Aktuell bearbeitet','Currently selected')):saved[i]?label('Lokal gespeichert','Saved locally'):label('Beispielszenario – nicht gespeichert','Sample – not saved');
- text(status,M+400,326,19,C.sub);
- boxTitle(label('Einzahlungen und Ziel','Contributions and target'),391);
+  boxTitle(label('Einzahlungen und Ziel','Contributions and target'),391);
  var gw=(MAX-32)/3;
  mini(M,420,gw,label('Startbetrag','Lump sum'),price(s.method==='monthly'?0:s.initial,r.asset),false);
  mini(M+gw+16,420,gw,label('Monatlicher Beitrag','Monthly contribution'),price(s.method==='once'?0:s.monthlyAmount,r.asset),false);
@@ -460,18 +457,15 @@ function generatePdf(results){
  text(label('Nicht gebunden: ','Not locked: ')+price(r.liquid+r.pending,r.asset),W-M,868,21,C.sub,false,'right');
  graph([r],{x:M,y:905,w:MAX,h:323},true);
  text(label('Durchgezogen: Modellwert. Die Einzahlungen sind gestrichelt dargestellt.','Solid: model value. Dashed: personal contributions.'),M,1256,17,C.sub);
- text(label('Erstes rechnerisches Wertziel: ','First model value target: ')+(r.firstValueGoal===null?label('nicht erreicht','not reached'):fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000))),M,1278,19,C.navy,true);
- boxTitle(label('Eigeninitiative und Vertragsannahmen','Personal effort and contract assumptions'),1315);
- function effortRow(y,title,count,minutes){text(title,M+12,y,19,C.sub);
- text(money(count,0)+' × '+money(minutes,1)+' '+label('Min.','min')+'  =  '+hmin(count*minutes),W-M-10,y,19,C.navy,true,'right');divide(y+10);return y+35}
- var ey=1351;
- ey=effortRow(ey,label('Manuelle Einzahlungen','Manual deposits'),r.deposits,s.depositMinutes);
- ey=effortRow(ey,label('Monatliche Kontrollen (Annahme)','Monthly checks (assumed)'),r.monitorCount,s.checkMinutes);
- ey=effortRow(ey,label('Modell-Wiederanlagen (Annahme)','Model reinvestments (assumed)'),r.reinvestCount,s.manageMinutes);
- ey=effortRow(ey,label('Modell-Verlängerungen (Annahme)','Model renewals (assumed)'),r.rollCount,s.manageMinutes);
- text(label('Gesamt: ','Total: ')+hmin(r.workMin)+'    ·    '+label('Gebühren: ','Fees: ')+money(r.fees)+' USD',M+12,1513,21,C.purple,true);
+ boxTitle(label('Zieltermine und Modellannahmen','Goal dates and model assumptions'),1315);
+ function modelRow(y,k,v){text(short(k,610,19,false),M+12,y,19,C.sub);text(short(v,380,19,true),W-M-10,y,19,C.navy,true,'right');divide(y+10);return y+39}
+ var iy=1355;
+ iy=modelRow(iy,label('Zielwert erstmals rechnerisch erreicht','First modelled target value'),r.firstValueGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000)));
+ iy=modelRow(iy,label('Zielbetrag modellhaft frei','Target amount modelled as unlocked'),r.s.goalAware==='no'?'–':r.firstGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstGoal*86400000)));
+ iy=modelRow(iy,label('Vertragslaufzeit / Ertragsannahme','Term / assumed return'),s.term+' '+label('Tage','days')+'  ·  '+money(s.rate,1)+' %');
+ iy=modelRow(iy,label('Geschätzte Modellgebühren','Estimated model fees'),money(r.fees)+' USD');
  rr(M,1546,MAX,84,11,C.orange);
- lines(label('Die Bearbeitungszeiten für Wiederanlagen und Verlängerungen sind frei gewählte Annahmen, keine bestätigten manuellen TLN-Vorgänge. Jede Monatszahlung muss eigenständig ausgelöst werden.','Reinvestment and renewal times are user assumptions, not verified manual TLN operations. Each monthly payment must be initiated by the user.'),M+16,1572,MAX-32,18,C.ink,false,25,3);
+ lines(label('Alle Werte sind unverbindliche Modellrechnungen. Monatliche Einzahlungen muss jeder selbst veranlassen. Weder Erträge noch Auszahlungen sind garantiert.','All values are illustrative only. Monthly contributions must be initiated independently. Neither yields nor payouts are guaranteed.'),M+16,1572,MAX-32,18,C.ink,false,25,3);
  savePage()}
  // Self-contained image-PDF with byte-correct XRef. Used by the tested
  // PDF handoff page (IndexedDB -> save/share), just like the card generator.
