@@ -24,6 +24,59 @@ svg{display:block}.shell{width:min(1180px,100% - 28px);margin:0 auto;padding:20p
 .btn:disabled{opacity:.45;cursor:not-allowed}.field{min-width:0;display:flex;flex-direction:column;gap:5px}
 .field>label{font-size:13px;font-weight:800;color:#303048}
 .field input,.field select{width:100%;height:45px;padding:9px 11px;border:1px solid #c8ccd9;border-radius:9px;background:white;color:var(--ink)}
+
+/* Einheitliche Feldhöhe für Safari auf iPad/iPhone sowie Desktop-Browser */
+.field input[type="date"]{
+  box-sizing:border-box;
+  display:block;
+  width:100%;
+  height:45px;
+  min-height:45px;
+  max-height:45px;
+  margin:0;
+  padding:0 11px;
+  border:1px solid #c8ccd9;
+  border-radius:9px;
+  background:#fff;
+  color:var(--ink);
+  font-size:16px;
+  line-height:43px;
+  text-align:left;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.field input[type="date"]::-webkit-date-and-time-value{
+  min-height:0;
+  height:auto;
+  line-height:normal;
+  text-align:left;
+}
+.field input[type="date"]::-webkit-datetime-edit{
+  padding:0;
+  line-height:normal;
+}
+.field input[type="date"]::-webkit-calendar-picker-indicator{
+  margin:0;
+  padding:0;
+  opacity:.7;
+}
+/* Berechnetes Datum als gleichhohes, nicht bearbeitbares Ergebnisfeld */
+.field #childTargetDate{
+  display:flex;
+  align-items:center;
+  width:100%;
+  height:45px;
+  min-height:45px;
+  padding:0 11px;
+  border:1px solid #d5d8e4;
+  border-radius:9px;
+  background:#f7f7fc;
+  color:var(--deep);
+  font-size:16px;
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+}
+
 .field small{font-size:12px;color:var(--muted)}.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0}
 .group{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}.group h3{color:var(--deep);font-size:16px;margin:0}
 .form-hint{border-radius:10px;padding:11px 13px;background:#f8f5ff;color:#47346e;border:1px solid #e5ddff;font-size:12px;margin:12px 0}
