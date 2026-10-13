@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light">
+<title>TLN Zukunftsplaner – PDF speichern und teilen</title>
+<style>
+:root{--purple:#6b4eff;--deep:#211b49;--muted:#626777;--line:#dfe1e8}*{box-sizing:border-box}
+body{min-height:100vh;margin:0;display:grid;place-items:center;padding:20px;background:#f6f7fb;color:#192033;font:16px/1.55 system-ui,-apple-system,Arial,sans-serif}
+.card{background:#fff;width:min(560px,100%);border:1px solid var(--line);border-radius:20px;padding:27px;box-shadow:0 20px 60px #211b491b}
+.eyebrow{font-size:12px;color:var(--purple);font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+h1{color:var(--deep);line-height:1.2;margin:8px 0 19px;font-size:clamp(24px,5vw,31px)}
+.file{background:#f4f1ff;border-left:5px solid var(--purple);border-radius:10px;padding:17px;overflow-wrap:anywhere}
+.file strong{display:block}.file small{color:var(--muted)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+button{border:0;border-radius:11px;background:#3b2b8d;color:#fff;padding:13px;font:inherit;font-weight:800;cursor:pointer}
+button.primary{background:var(--purple)}button:disabled{opacity:.4;cursor:not-allowed}
+button:focus-visible,a:focus-visible{outline:3px solid #a99afa;outline-offset:3px}
+#status{font-size:14px;color:#25615c;min-height:24px}.error{color:#a92f42!important}
+.back{display:inline-block;margin-top:12px;color:var(--deep);font-weight:750}
+.note{font-size:12px;color:var(--muted);margin:13px 0 0}
+@media(max-width:480px){.actions{grid-template-columns:1fr}.card{padding:21px}}
+</style></head>
+<body><main class="card">
+<div class="eyebrow" data-i18n="eyebrow">TLN-Hörsaal · Zukunftsplaner</div>
+<h1 data-i18n="title">PDF speichern oder teilen</h1>
+<div class="file"><strong id="filename" data-i18n="loadingFile">PDF wird geladen …</strong><small id="meta"></small></div>
+<div class="actions"><button type="button" class="primary" id="save" disabled data-i18n="save">PDF speichern</button><button type="button" id="share" disabled data-i18n="share">PDF teilen</button></div>
+<p id="status" role="status" aria-live="polite" data-i18n="loading">Fertige PDF wird aus dem Simulator übernommen …</p>
+<p class="note" data-i18n="note">Das Dokument wurde bereits erstellt. Diese Seite übergibt die Datei an die Speicher- oder Teilen-Funktion Deines Geräts.</p>
+<a class="back" href="./zukunftsplaner.html" data-i18n="back">Zurück zum Zukunftsplaner</a>
+</main>
+<script>
+(function(){'use strict';
+var DB='tln-zukunftsplaner-pdf-v1',STORE='files',file=null;
+var params=new URLSearchParams(location.search),token=params.get('token')||'',lang=params.get('lang')==='en'?'en':'de';
+var T={
+de:{eyebrow:'TLN-Hörsaal · Zukunftsplaner',title:'PDF speichern oder teilen',loadingFile:'PDF wird geladen …',save:'PDF speichern',share:'PDF teilen',loading:'Fertige PDF wird aus dem Simulator übernommen …',note:'Das Dokument wurde bereits erstellt. Diese Seite übergibt die Datei an die Speicher- oder Teilen-Funktion Deines Geräts.',back:'Zurück zum Zukunftsplaner',ready:'PDF erstellt – bereit zum Speichern oder Teilen.',missing:'Keine fertige PDF vorhanden. Bitte zurück zum Simulator gehen und die PDF neu erstellen.',shared:'Dateifreigabe geöffnet.',saved:'Datei wurde an die Speicherfunktion übergeben.',cancel:'Vorgang abgebrochen.',unsupported:'Das Teilen von PDF-Dateien wird auf diesem Gerät nicht unterstützt.'},
+en:{eyebrow:'TLN Lecture Hall · Future Planner',title:'Save or share PDF',loadingFile:'Loading PDF …',save:'Save PDF',share:'Share PDF',loading:'Loading the completed PDF from the simulator …',note:'The document has already been generated. This page hands it over to your device saving or sharing functions.',back:'Back to future planner',ready:'PDF created – ready to save or share.',missing:'No completed PDF is available. Return to the simulator and generate the PDF again.',shared:'Device share sheet opened.',saved:'File passed to the device save function.',cancel:'Cancelled.',unsupported:'This device does not support PDF file sharing.'}};
+function t(k){return T[lang][k]||k}
+document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(function(n){n.textContent=t(n.getAttribute('data-i18n'))});
+function $(id){return document.getElementById(id)}
+function msg(k,bad){$('status').textContent=t(k);$('status').classList.toggle('error',!!bad)}
+function canShare(){try{return !!(file&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]}))}catch(e){return false}}
+function openDB(){return new Promise(function(ok,no){var q=indexedDB.open(DB,1);q.onupgradeneeded=function(){if(!q.result.objectStoreNames.contains(STORE))q.result.createObjectStore(STORE,{keyPath:'token'})};q.onsuccess=function(){ok(q.result)};q.onerror=function(){no(q.error||Error('IndexedDB'))}})}
+async function load(){try{if(!token)throw Error('missing');var db=await openDB(),rec=await new Promise(function(ok,no){var tx=db.transaction(STORE,'readonly'),q=tx.objectStore(STORE).get(token);q.onsuccess=function(){ok(q.result)};q.onerror=function(){no(q.error||Error('Reading PDF'))}});if(!rec||!rec.blob||!rec.filename)throw Error('missing');
+file=new File([rec.blob],rec.filename,{type:'application/pdf'});$('filename').textContent=file.name;$('meta').textContent=[rec.format||'PDF · A4',rec.created||''].filter(Boolean).join(' · ');$('save').disabled=false;$('share').disabled=!canShare();msg('ready')}catch(e){msg('missing',true)}}
+async function save(){if(!file)return msg('missing',true);if(typeof window.showSaveFilePicker==='function'){try{var h=await window.showSaveFilePicker({suggestedName:file.name,types:[{description:'PDF',accept:{'application/pdf':['.pdf']}}]});var w=await h.createWritable();await w.write(file);await w.close();return msg('saved')}catch(e){if(e&&e.name==='AbortError')return msg('cancel')}}
+if(canShare()){try{await navigator.share({files:[file],title:file.name});return msg('saved')}catch(e){if(e&&e.name==='AbortError')return msg('cancel')}}var url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name;a.hidden=true;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},5000);msg('saved')}
+async function share(){if(!canShare())return msg('unsupported',true);try{await navigator.share({files:[file],title:file.name});msg('shared')}catch(e){if(e&&e.name==='AbortError')return msg('cancel');msg('unsupported',true)}}
+$('save').addEventListener('click',save);$('share').addEventListener('click',share);load();
+})();
+</script></body></html>
