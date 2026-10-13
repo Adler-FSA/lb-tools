@@ -371,22 +371,23 @@ function generatePdf(results){
  var colors=['#6b4eff','#149c87','#d28e24'];
  var canv=document.createElement('canvas');canv.width=W;canv.height=H;
  var ctx=canv.getContext('2d',{alpha:false});if(!ctx)throw Error('Canvas not supported');
- var jpegPages=[];
+ var jpegPages=[],searchPages=[],pageText=[];
  function tx(s){return String(s==null?'':s)}
  function label(de,en){return lang==='de'?de:en}
- function text(s,x,y,size,color,bold,align){ctx.save();ctx.fillStyle=color||C.ink;ctx.font=(bold?'700 ':'400 ')+size+'px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';ctx.textAlign=align||'left';ctx.textBaseline='alphabetic';ctx.fillText(tx(s),x,y);ctx.restore()}
+ function text(s,x,y,size,color,bold,align){ctx.save();ctx.fillStyle=color||C.ink;ctx.font=(bold?'700 ':'400 ')+size+'px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';ctx.textAlign=align||'left';ctx.textBaseline='alphabetic';ctx.fillText(tx(s),x,y);ctx.restore();pageText.push({value:tx(s),x:x,y:y,size:size,bold:!!bold,align:align||'left'})}
  function width(s,size,bold){ctx.font=(bold?'700 ':'400 ')+size+'px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';return ctx.measureText(tx(s)).width}
  function short(s,max,size,bold){s=tx(s);if(width(s,size,bold)<=max)return s;while(s.length>2&&width(s+'…',size,bold)>max)s=s.slice(0,-1);return s+'…'}
  function rr(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.8;ctx.stroke()}}
  function wrap(s,max,font,bold){s=tx(s);ctx.font=(bold?'700 ':'400 ')+font+'px -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif';var words=s.split(/\s+/),lines=[],line='';for(var word of words){if(ctx.measureText(word).width>max){if(line){lines.push(line);line=''}while(word.length>1&&ctx.measureText(word).width>max){var part='';while(word.length&&ctx.measureText(part+word[0]).width<=max){part+=word[0];word=word.slice(1)}if(!part){part=word[0];word=word.slice(1)}lines.push(part)}}var test=line?line+' '+word:word;if(line&&ctx.measureText(test).width>max){lines.push(line);line=word}else line=test}if(line)lines.push(line);return lines}
  function lines(s,x,y,max,size,color,bold,lineH,maxLines){var arr=wrap(s,max,size,bold);if(maxLines&&arr.length>maxLines)arr=arr.slice(0,maxLines);for(var a of arr){text(a,x,y,size,color,bold);y+=lineH||size*1.37}return y}
  function divide(y,x,w){ctx.strokeStyle=C.line;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x||M,y);ctx.lineTo((x||M)+(w||MAX),y);ctx.stroke()}
- function base(n,category,title,subtitle){ctx.fillStyle=C.white;ctx.fillRect(0,0,W,H);
+ function base(n,category,title,subtitle){pageText=[];ctx.fillStyle=C.white;ctx.fillRect(0,0,W,H);
  var grd=ctx.createLinearGradient(0,0,W,0);grd.addColorStop(0,C.navy);grd.addColorStop(1,'#49348e');ctx.fillStyle=grd;ctx.fillRect(0,0,W,108);
  rr(M,26,52,52,13,'#ffffff25');text('TLN',M+26,60,23,C.white,true,'center');
  text('TLN HÖRSAAL  |  '+label('AKADEMIE FÜR FINANZIELLE SOUVERÄNITÄT','ACADEMY FOR FINANCIAL SOVEREIGNTY'),M+67,60,21,C.white,true);
  text(category.toUpperCase(),M,151,17,C.purple,true);
- text(short(title,MAX,46,true),M,211,46,C.navy,true);
+ var titleSize=46;while(titleSize>17&&width(title,titleSize,true)>MAX)titleSize-=1;
+ text(title,M,211,titleSize,C.navy,true);
  if(subtitle)lines(subtitle,M,250,MAX,21,C.sub,false,29,2);
  divide(1655);text(label('TLN Zukunftsplaner  ·  Persönliche Modellrechnung, keine Anlageberatung','TLN Future Planner  ·  Illustrative calculation, not investment advice'),M,1691,18,C.sub);
  text(n+' / 5',W-M,1691,20,C.purple,true,'right');
@@ -415,7 +416,7 @@ function generatePdf(results){
  items.forEach(function(r,i){if(!r)return;if(withPaid)stroke(r,colors[i],'paid',true);stroke(r,colors[i],'value',false)});
  }
  function legend(x,y,r,i,showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(x,y-7);ctx.lineTo(x+32,y-7);ctx.stroke();text(short(r.s.scenarioName,220,17,true),x+42,y,17,C.ink,true);if(showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=2;ctx.setLineDash([8,7]);ctx.beginPath();ctx.moveTo(x+42,y+16);ctx.lineTo(x+78,y+16);ctx.stroke();ctx.setLineDash([])}}
- function savePage(){var url=canv.toDataURL('image/jpeg',0.91),data=url.substring(url.indexOf(',')+1),bin=atob(data),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);jpegPages.push(bytes)}
+ function savePage(){var url=canv.toDataURL('image/jpeg',0.91),data=url.substring(url.indexOf(',')+1),bin=atob(data),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);jpegPages.push(bytes);searchPages.push(pageText.slice())}
  // Page 1: readable editorial overview, not a cluttered results table.
  base(1,label('Persönlicher Zukunftsbericht','Personal future report'),label('Mein persönlicher Zukunftsplan','My personal future plan'),label('Drei persönliche Wege zum Kapitalziel – mit Zeitaufwand, Eigenbeiträgen und Modellwerten.','Three funding paths – comparing contributions, personal effort and illustrative values.'));
  text(label('Erstellt am ','Created on ')+fmtDate(new Date()),M,314,22,C.sub);
@@ -448,18 +449,25 @@ function generatePdf(results){
  graph(results,{x:M,y:320,w:MAX,h:626},true);
  for(var i=0;i<3;i++){var r=results[i],ix=M+13+i*363;legend(ix,991,r,i,false);text(short(label('Kapital: ','Funding: ')+price(r.paid,r.asset),330,18,false),ix,1023,18,C.sub)}
  boxTitle(label('Ergebnisse am jeweiligen Zieltermin','Outcomes at each target date'),1106);
- var y=1161;
- y=tableRow(y,label('Szenario','Scenario'),results.map(function(r,i){return (i+1)+'. '+short(r.s.scenarioName,16,19,true)}),true);
- y=tableRow(y,label('Einzahlungen','Contributions'),results.map(function(r){return short(price(r.paid,r.asset),165,19)}),false);
- y=tableRow(y,label('Modellwert (€)','Model value (€)'),results.map(function(r){return euro(r.netEur)}),false);
- y=tableRow(y,label('Arbeitszeit','Workload'),results.map(function(r){return hmin(r.workMin)}),false);
- y=tableRow(y,label('Vorgänge','Deposit actions'),results.map(function(r){return money(r.deposits,0)}),false);
+ function cmpRow(y,caption,vals,head){if(head)rr(M,y-27,MAX,41,7,C.pale);text(caption,M+11,y,18,head?C.navy:C.sub,head);
+ for(var k=0;k<3;k++){var value=tx(vals[k]),max=190,size=18;
+ while(size>11&&width(value,size,head)>max)size-=1;
+ text(value,M+455+k*205,y,size,head?C.navy:C.ink,head)}
+ if(!head)divide(y+10);return y+45}
+ var y=1154;
+ y=cmpRow(y,label('Szenario','Scenario'),results.map(function(r,i){return (i+1)+'. '+r.s.scenarioName}),true);
+ y=cmpRow(y,label('Einzahlungen','Contributions'),results.map(function(r){return short(price(r.paid,r.asset),170,18)}),false);
+ y=cmpRow(y,label('Modellwert (€)','Model value (€)'),results.map(function(r){return euro(r.netEur)}),false);
+ y=cmpRow(y,label('Erstes Wertziel','First value target'),results.map(function(r){return r.firstValueGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000))}),false);
+ y=cmpRow(y,label('Verfügbares Ziel*','Accessible target*'),results.map(function(r){return r.s.goalAware==='no'?'–':r.firstGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstGoal*86400000))}),false);
+ y=cmpRow(y,label('Arbeitszeit','Workload'),results.map(function(r){return hmin(r.workMin)}),false);
+ y=cmpRow(y,label('Einzahlungsvorgänge','Deposit operations'),results.map(function(r){return money(r.deposits,0)}),false);
  rr(M,1485,MAX,115,13,C.pale);
- lines(label('Der Einzahlungsvorsprung ist nicht identisch mit einem Renditevorsprung. Früh eingesetztes Kapital kann länger arbeiten, trägt aber auch von Beginn an das volle Risiko.','Funding earlier is not the same as earning a guaranteed higher return. Capital invested sooner has longer exposure to both potential returns and potential losses.'),M+18,1522,MAX-36,20,C.ink,false,28,3);
+ lines(label('* „Verfügbar“ ist nur eine Modellannahme für bereits freigesetztes Kapital und angenommene Erträge. Kein Auszahlungsversprechen. Früherer Einsatz bedeutet auch längere Risikoexposition.','* “Accessible” is only a modelling assumption for unlocked funds and projected yield, not a payout guarantee. Earlier funding also involves longer risk exposure.'),M+18,1514,MAX-36,18,C.ink,false,27,3);
  savePage();
  // Pages 3-5: consistent, detailed per-scenario portraits.
  for(var i=0;i<3;i++){var r=results[i],s=r.s,number=i+3;
- base(number,label('Szenario '+(i+1),'Scenario '+(i+1)),(i+1)+'. '+short(s.scenarioName,48,46,true),targetName(r)+'  ·  '+fmtDate(r.start)+' – '+fmtDate(r.end));
+ base(number,label('Szenario '+(i+1),'Scenario '+(i+1)),(i+1)+'. '+s.scenarioName,targetName(r)+'  ·  '+fmtDate(r.start)+' – '+fmtDate(r.end));
  badge(methodName(r),M,325,C.pale,C.purple);
  var status=i===slot?(touched?label('Aktueller Entwurf','Current unsaved edits'):label('Aktuell bearbeitet','Currently selected')):saved[i]?label('Lokal gespeichert','Saved locally'):label('Beispielszenario – nicht gespeichert','Sample – not saved');
  text(status,M+400,326,19,C.sub);
@@ -479,23 +487,41 @@ function generatePdf(results){
  text(label('Nicht gebunden: ','Not locked: ')+price(r.liquid+r.pending,r.asset),W-M,868,21,C.sub,false,'right');
  graph([r],{x:M,y:905,w:MAX,h:323},true);
  text(label('Durchgezogen: Modellwert. Die Einzahlungen sind gestrichelt dargestellt.','Solid: model value. Dashed: personal contributions.'),M,1256,17,C.sub);
+ text(label('Erstes rechnerisches Wertziel: ','First model value target: ')+(r.firstValueGoal===null?label('nicht erreicht','not reached'):fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000))),M,1285,19,C.navy,true);
  boxTitle(label('Eigeninitiative und Vertragsannahmen','Personal effort and contract assumptions'),1315);
- var line1=1349;
- line1=tableRow(line1,label('Eigenständige Einzahlungen','Manually initiated deposits'),[money(r.deposits,0),label('Kontrollen','Reviews')+': '+money(r.monitorCount,0),label('Arbeitszeit','Time')+': '+hmin(r.workMin)],false);
- line1=tableRow(line1,label('Wiederanlage / Verlängerung','Reinvestment / renewals'),[money(r.reinvestCount,0)+' / '+money(r.rollCount,0),s.term+' '+label('Tage','days'),s.rate+' %'],false);
- line1=tableRow(line1,label('Gebühren / Wechselkurs','Fees / assumed FX'),[money(r.fees)+' USD',money(s.fx,2)+' € / '+r.asset,s.inflation+' % '+label('Inflation','inflation')],false);
+ function effortRow(y,title,count,minutes){text(title,M+12,y,19,C.sub);
+ text(money(count,0)+' × '+money(minutes,1)+' '+label('Min.','min')+'  =  '+hmin(count*minutes),W-M-10,y,19,C.navy,true,'right');divide(y+10);return y+35}
+ var ey=1351;
+ ey=effortRow(ey,label('Manuelle Einzahlungen','Manual deposits'),r.deposits,s.depositMinutes);
+ ey=effortRow(ey,label('Monatliche Kontrollen (Annahme)','Monthly checks (assumed)'),r.monitorCount,s.checkMinutes);
+ ey=effortRow(ey,label('Modell-Wiederanlagen (Annahme)','Model reinvestments (assumed)'),r.reinvestCount,s.manageMinutes);
+ ey=effortRow(ey,label('Modell-Verlängerungen (Annahme)','Model renewals (assumed)'),r.rollCount,s.manageMinutes);
+ text(label('Gesamt: ','Total: ')+hmin(r.workMin)+'    ·    '+label('Gebühren: ','Fees: ')+money(r.fees)+' USD',M+12,1513,21,C.purple,true);
  rr(M,1546,MAX,84,11,C.orange);
- lines(label('Nur Lernrechnung: Monatszahlungen müssen persönlich ausgeführt werden. Erträge, Vertragsverlängerungen und verfügbare Auszahlungen sind nicht garantiert.','Learning example only: monthly payments must be made manually. Yields, renewals and withdrawals are not guaranteed.'),M+16,1576,MAX-32,18,C.ink,false,25,2);
+ lines(label('Die Bearbeitungszeiten für Wiederanlagen und Verlängerungen sind frei gewählte Annahmen, keine bestätigten manuellen TLN-Vorgänge. Jede Monatszahlung muss eigenständig ausgelöst werden.','Reinvestment and renewal times are user assumptions, not verified manual TLN operations. Each monthly payment must be initiated by the user.'),M+16,1572,MAX-32,18,C.ink,false,25,3);
  savePage()}
  // Self-contained image-PDF with byte-correct XRef. Used by the tested
  // PDF handoff page (IndexedDB -> save/share), just like the card generator.
  function ascii(s){return new TextEncoder().encode(s)}
- var objects=[null,'<< /Type /Catalog /Pages 2 0 R >>',null],kids=[];
- for(var i=0;i<jpegPages.length;i++){var p=3+i*3,im=p+1,stream=p+2;kids.push(p+' 0 R');
- objects[p]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im'+i+' '+im+' 0 R >> >> /Contents '+stream+' 0 R >>';
+ // Hybrid PDF: visually faithful chart/image layer + genuine searchable/selectable
+ // WinAnsi PDF text layer with German umlauts and euro symbols.
+ var fonts=['<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
+            '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'];
+ var objects=[null,'<< /Type /Catalog /Pages 2 0 R >>',null,fonts[0],fonts[1]],kids=[];
+ function textHex(s){var specials={8364:128,8216:145,8217:146,8220:147,8221:148,8226:149,8211:150,8212:151,8230:133,160:32};
+ var out='';for(var symbol of String(s)){var cp=symbol.codePointAt(0),v=specials[cp]!==undefined?specials[cp]:cp;if(v>255||v<32)v=63;out+=v.toString(16).padStart(2,'0')}return out}
+ for(var i=0;i<jpegPages.length;i++){var p=5+i*3,im=p+1,stream=p+2;kids.push(p+' 0 R');
+ objects[p]='<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im'+i+' '+im+' 0 R >> /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents '+stream+' 0 R >>';
  objects[im]={bytes:jpegPages[i],head:'<< /Type /XObject /Subtype /Image /Width '+W+' /Height '+H+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jpegPages[i].length+' >>'};
- var cmd=ascii('q\n595 0 0 842 0 0 cm\n/Im'+i+' Do\nQ\n');
- objects[stream]={bytes:cmd,head:'<< /Length '+cmd.length+' >>'}}
+ var cmd='q\n595 0 0 842 0 0 cm\n/Im'+i+' Do\nQ\n';
+ // Text is drawn invisibly (PDF text rendering mode 3) over matching image
+ // coordinates. Search/copy/select works without losing the Safari image design.
+ for(var info of searchPages[i]){if(!info.value)continue;
+ var xx=info.x,yy=info.y;if(info.align==='right')xx-=width(info.value,info.size,info.bold);else if(info.align==='center')xx-=width(info.value,info.size,info.bold)/2;
+ var px=(xx*595/W).toFixed(2),py=((H-yy)*842/H).toFixed(2),pt=(info.size*595/W).toFixed(2);
+ cmd+='BT /'+(info.bold?'F2':'F1')+' '+pt+' Tf 3 Tr 1 0 0 1 '+px+' '+py+' Tm <'+textHex(info.value)+'> Tj ET\n'
+ }
+ var cmdBytes=ascii(cmd);objects[stream]={bytes:cmdBytes,head:'<< /Length '+cmdBytes.length+' >>'}}
  objects[2]='<< /Type /Pages /Count 5 /Kids ['+kids.join(' ')+'] >>';
  var parts=[ascii('%PDF-1.4\n%TLN\n')],position=parts[0].length,offsets=[0];
  function add(bytes){parts.push(bytes);position+=bytes.length}
