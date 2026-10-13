@@ -415,7 +415,7 @@ function generatePdf(results){
  function stroke(r,col,key,dashed){var pts=r.yearly;if(!pts||pts.length<2)return;ctx.beginPath();for(var z=0;z<pts.length;z++){var p=pts[z],cx=left+cw*p.day/maxD,cy=bottom-ch*((key==='paid'?p.contributed:p.value)*r.s.fx)/maxV;if(z===0)ctx.moveTo(cx,cy);else ctx.lineTo(cx,cy)}ctx.strokeStyle=col;ctx.lineWidth=dashed?2.7:5;ctx.setLineDash(dashed?[11,9]:[]);ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();ctx.setLineDash([])}
  items.forEach(function(r,i){if(!r)return;if(withPaid)stroke(r,colors[i],'paid',true);stroke(r,colors[i],'value',false)});
  }
- function legend(x,y,r,i,showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(x,y-7);ctx.lineTo(x+32,y-7);ctx.stroke();text(short(r.s.scenarioName,220,17,true),x+42,y,17,C.ink,true);if(showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=2;ctx.setLineDash([8,7]);ctx.beginPath();ctx.moveTo(x+42,y+16);ctx.lineTo(x+78,y+16);ctx.stroke();ctx.setLineDash([])}}
+ function legend(x,y,r,i,showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(x,y-7);ctx.lineTo(x+32,y-7);ctx.stroke();lines(r.s.scenarioName,x+42,y,235,17,C.ink,true,20,3);if(showPaid){ctx.strokeStyle=colors[i];ctx.lineWidth=2;ctx.setLineDash([8,7]);ctx.beginPath();ctx.moveTo(x+42,y+16);ctx.lineTo(x+78,y+16);ctx.stroke();ctx.setLineDash([])}}
  function savePage(){var url=canv.toDataURL('image/jpeg',0.91),data=url.substring(url.indexOf(',')+1),bin=atob(data),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);jpegPages.push(bytes);searchPages.push(pageText.slice())}
  // Page 1: readable editorial overview, not a cluttered results table.
  base(1,label('Persönlicher Zukunftsbericht','Personal future report'),label('Mein persönlicher Zukunftsplan','My personal future plan'),label('Drei persönliche Wege zum Kapitalziel – mit Zeitaufwand, Eigenbeiträgen und Modellwerten.','Three funding paths – comparing contributions, personal effort and illustrative values.'));
@@ -424,11 +424,11 @@ function generatePdf(results){
  text(label('Deine Entscheidung wird sichtbar','Understand what your choices change'),M+29,411,29,C.navy,true);
  lines(label('Einmalanlage, selbst ausgelöste Monatsbeiträge und eine Kombination unterscheiden sich nicht nur im möglichen Ertrag. Auch Kapitaleinsatz, Laufzeit und persönlicher Aufwand verändern sich.','Lump-sum funding, self-initiated monthly contributions and a combination differ not only in potential returns, but also in starting capital, time and ongoing personal effort.'),M+29,459,MAX-60,22,C.sub,false,32,3);
  boxTitle(label('Drei Szenarien im direkten Überblick','Three scenarios side by side'),630);
- for(var i=0;i<3;i++){var r=results[i],cx=M+i*366;rr(cx,671,352,507,18,C.white,C.line);rr(cx,671,352,12,6,colors[i]);text((i+1)+'. '+short(r.s.scenarioName,300,25,true),cx+19,722,25,C.navy,true);
- text(short(methodName(r),305,20,false),cx+19,755,20,C.sub);
- text(short(targetName(r),307,20,false),cx+19,793,20,C.sub);
- text(fmtDate(r.end),cx+19,823,20,C.sub);
- divide(845,cx+18,316);
+ for(var i=0;i<3;i++){var r=results[i],cx=M+i*366;rr(cx,671,352,507,18,C.white,C.line);rr(cx,671,352,12,6,colors[i]);lines((i+1)+'. '+r.s.scenarioName,cx+19,698,310,23,C.navy,true,26,3);
+ text(short(methodName(r),305,20,false),cx+19,785,20,C.sub);
+ text(short(targetName(r),307,20,false),cx+19,810,20,C.sub);
+ text(fmtDate(r.end),cx+19,839,20,C.sub);
+ divide(858,cx+18,316);
  text(label('Eigenkapital','Contributions'),cx+19,889,19,C.sub);
  text(short(price(r.paid,r.asset),317,28,true),cx+19,926,28,C.navy,true);
  text(label('Modellwert nach Annahmen','Model value after assumptions'),cx+19,972,19,C.sub);
@@ -447,7 +447,7 @@ function generatePdf(results){
  // Page 2: chart ALWAYS on dedicated page, with funding-only baselines.
  base(2,label('Entwicklung und Kapitalvorsprung','Growth and funding head start'),label('Kapital, Zeit und Eigeninitiative','Capital, time and personal effort'),label('Durchgezogene Linien: modellierter Wert. Gestrichelte Linien: ausschließlich selbst eingezahltes Kapital.','Solid lines: illustrative value. Dashed lines: personal contributions only.'));
  graph(results,{x:M,y:320,w:MAX,h:626},true);
- for(var i=0;i<3;i++){var r=results[i],ix=M+13+i*363;legend(ix,991,r,i,false);text(short(label('Kapital: ','Funding: ')+price(r.paid,r.asset),330,18,false),ix,1023,18,C.sub)}
+ for(var i=0;i<3;i++){var r=results[i],ix=M+13+i*363;legend(ix,991,r,i,false);text(short(label('Kapital: ','Funding: ')+price(r.paid,r.asset),330,18,false),ix,1066,18,C.sub)}
  boxTitle(label('Ergebnisse am jeweiligen Zieltermin','Outcomes at each target date'),1106);
  function cmpRow(y,caption,vals,head){if(head)rr(M,y-27,MAX,41,7,C.pale);text(caption,M+11,y,18,head?C.navy:C.sub,head);
  for(var k=0;k<3;k++){var value=tx(vals[k]),max=190,size=18;
@@ -455,7 +455,7 @@ function generatePdf(results){
  text(value,M+455+k*205,y,size,head?C.navy:C.ink,head)}
  if(!head)divide(y+10);return y+45}
  var y=1154;
- y=cmpRow(y,label('Szenario','Scenario'),results.map(function(r,i){return (i+1)+'. '+r.s.scenarioName}),true);
+ y=cmpRow(y,label('Szenario','Scenario'),results.map(function(r,i){return label('Szenario ','Scenario ')+(i+1)}),true);
  y=cmpRow(y,label('Einzahlungen','Contributions'),results.map(function(r){return short(price(r.paid,r.asset),170,18)}),false);
  y=cmpRow(y,label('Modellwert (€)','Model value (€)'),results.map(function(r){return euro(r.netEur)}),false);
  y=cmpRow(y,label('Erstes Wertziel','First value target'),results.map(function(r){return r.firstValueGoal===null?'–':fmtDate(new Date(r.start.getTime()+r.firstValueGoal*86400000))}),false);
