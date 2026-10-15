@@ -2154,41 +2154,24 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     const number=(value)=>{const parsed=Number(String(value==null?"":value).replace(",","."));return Number.isFinite(parsed)?parsed:0};
     const escapeHtml=(value)=>String(value==null?"":value).replace(/[&<>"']/g,(character)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character]));
     const money=(value)=>new Intl.NumberFormat(language()==="de"?"de-DE":"en-IE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(number(value));
-    const parseDate=(value)=>{const parts=String(value||"").split("-").map(Number);return parts.length===3?new Date(parts[0],parts[1]-1,parts[2]):null};
-    const fullMonths=(value)=>{const start=parseDate(value),end=new Date();end.setHours(0,0,0,0);if(!start||start>end)return 0;let months=(end.getFullYear()-start.getFullYear())*12+end.getMonth()-start.getMonth();if(end.getDate()<start.getDate())months--;return Math.max(0,months)};
-    const currentValue=(item)=>number(item.purchasePrice)+number(item.purchasePrice)*(Math.min(10,Math.max(1,number(item.annualRate)||5))/12/100)*fullMonths(item.purchaseDate);
-    // Tagesgenaue Wertentwicklung des Portfolios ab Erfassung; der Einzelrechner bleibt unverändert.
-    const localDate=(value)=>{
-      const raw=String(value||"");
-      if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw;
-      const date=new Date(value||Date.now());
-      if(!Number.isFinite(date.getTime()))return null;
-      return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
+    // Identische lineare Tagesberechnung wie im Einzelrechner und im Dashboard-Banner.
+    const day=(value)=>{
+      const p=String(value||"").slice(0,10).split("-").map(Number);
+      if(p.length!==3||p.some((v)=>!Number.isFinite(v)))return NaN;
+      const time=Date.UTC(p[0],p[1]-1,p[2]);
+      const d=new Date(time);
+      return d.getUTCFullYear()===p[0]&&d.getUTCMonth()===p[1]-1&&d.getUTCDate()===p[2]?time/86400000:NaN;
     };
-    const daysAsNumber=(value)=>{
-      const d=localDate(value);
-      if(!d)return NaN;
-      const parts=d.split("-").map(Number);
-      const stamp=Date.UTC(parts[0],parts[1]-1,parts[2]);
-      return new Date(stamp).getUTCDate()===parts[2]?stamp/86400000:NaN;
+    const daysSincePurchase=(purchaseDate)=>{
+      const d=new Date(),today=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000;
+      const first=day(purchaseDate);
+      return Number.isFinite(first)?Math.max(0,today-first):0;
     };
-    const modelStartDate=(item)=>localDate(item.modelStartDate)||localDate(item.createdAt)||localDate(new Date());
-    const modelBaseValue=(item)=>{
-      if(number(item.modelStartValue)>0)return number(item.modelStartValue);
-      const start=localDate(item.purchaseDate),end=modelStartDate(item);
-      if(!start||!end)return number(item.purchasePrice);
-      const parts=start.split("-").map(Number),endParts=end.split("-").map(Number);
-      const months=daysAsNumber(start)>daysAsNumber(end)?0:Math.max(0,
-        (endParts[0]-parts[0])*12+endParts[1]-parts[1]-(endParts[2]<parts[2]?1:0));
-      const rate=Math.min(10,Math.max(1,number(item.annualRate)||5));
-      return number(item.purchasePrice)*(1+rate*months/1200);
+    const currentValue=(item)=>{
+      const price=number(item.purchasePrice),rate=Math.min(10,Math.max(1,number(item.annualRate)||5));
+      return price+price*rate/100*daysSincePurchase(item.purchaseDate)/365;
     };
-    const dailyValue=(item)=>{
-      const base=modelBaseValue(item);
-      const days=Math.max(0,daysAsNumber(new Date())-daysAsNumber(modelStartDate(item)));
-      const rate=Math.min(10,Math.max(1,number(item.annualRate)||5));
-      return base+base*rate/100*(Number.isFinite(days)?days:0)/365;
-    };
+    const dailyValue=currentValue;
     let state=read();
     let selectedId=localStorage.getItem(SELECTED_KEY)||state.selectedId||null;
 
@@ -2268,8 +2251,8 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
           annualRate:Math.min(10,Math.max(1,number(item.annualRate)||5)),
           createdAt:stamp,
           updatedAt:stamp,
-          modelStartDate:localDate(stamp),
-          modelStartValue:currentValue(item)
+          modelStartDate:String(item.purchaseDate),
+          modelStartValue:number(item.purchasePrice)
         });
         selectedId=id;
         persist();
@@ -2300,8 +2283,8 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         annualRate:Math.min(10,Math.max(1,number(item.annualRate)||5)),
         createdAt:existing&&existing.createdAt?existing.createdAt:stamp,
         updatedAt:stamp,
-        modelStartDate:existing?modelStartDate(existing):localDate(stamp),
-        modelStartValue:existing?modelBaseValue(existing):currentValue(item)
+        modelStartDate:String(item.purchaseDate),
+        modelStartValue:number(item.purchasePrice)
       };
       if(existing)state.properties[state.properties.indexOf(existing)]=record;else state.properties.push(record);
       selectedId=record.id;
@@ -2326,7 +2309,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         number(item.purchasePrice).toFixed(2).replace(".",","),
         number(item.annualRate).toFixed(1).replace(".",","),
         item.createdAt||"",item.updatedAt||"",
-        modelStartDate(item),modelBaseValue(item).toFixed(2).replace(".",",")
+        item.purchaseDate,number(item.purchasePrice).toFixed(2).replace(".",",")
       ]));
       const csv="﻿"+rows.map((row)=>row.map(csvCell).join(";")).join("\r\n");
       download(new Blob([csv],{type:"text/csv;charset=utf-8"}),"XXL-IMMO-Immobilienportfolio-"+new Date().toISOString().slice(0,10)+".csv");
@@ -2364,8 +2347,8 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
             annualRate:Math.min(10,Math.max(1,number(row[columns.annual_appreciation_percent])||5)),
             createdAt:row[columns.created_at]||now(),
             updatedAt:row[columns.updated_at]||now(),
-            modelStartDate:columns.model_start_date==null?localDate(row[columns.created_at]||now()):row[columns.model_start_date]||localDate(row[columns.created_at]||now()),
-            modelStartValue:columns.model_start_value_eur==null?0:number(row[columns.model_start_value_eur])
+            modelStartDate:row[columns.purchase_date]||"",
+            modelStartValue:number(row[columns.purchase_price_eur])
           })).filter((item)=>item.name&&item.purchaseDate&&item.purchasePrice>0);
           if(!properties.length)throw new Error("empty");
           if(state.properties.length&&!window.confirm(t("confirmImport")))return;
@@ -2458,7 +2441,14 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
   const num=(v)=>Number(v)||0;
   const de=()=>document.documentElement.lang!=="en";
   const months=(date)=>{const p=String(date||"").split("-").map(Number),a=p.length===3?new Date(p[0],p[1]-1,p[2]):null,b=new Date();b.setHours(0,0,0,0);if(!a||a>b)return 0;let m=(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth();if(b.getDate()<a.getDate())m--;return Math.max(0,m)};
-  const valueAt=(p,extra)=>num(p.purchasePrice)+num(p.purchasePrice)*(Math.min(10,Math.max(1,num(p.annualRate)||5))/12/100)*(months(p.purchaseDate)+(extra||0));
+  const day=(s)=>{const p=String(s||"").slice(0,10).split("-").map(Number),n=p.length===3?Date.UTC(p[0],p[1]-1,p[2]):NaN;return Number.isFinite(n)&&new Date(n).getUTCDate()===p[2]?n/86400000:NaN};
+  const valueAt=(p,extraMonths)=>{
+    const now=new Date(),future=new Date(now.getFullYear(),now.getMonth()+(extraMonths||0),1);
+    future.setDate(Math.min(now.getDate(),new Date(future.getFullYear(),future.getMonth()+1,0).getDate()));
+    const todayDay=Date.UTC(future.getFullYear(),future.getMonth(),future.getDate())/86400000;
+    const bought=day(p.purchaseDate),elapsed=Number.isFinite(bought)?Math.max(0,todayDay-bought):0;
+    return num(p.purchasePrice)*(1+(Math.min(10,Math.max(1,num(p.annualRate)||5))/100)*elapsed/365);
+  };
   const money=(v)=>new Intl.NumberFormat(de()?"de-DE":"en-IE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(v||0);
   const date=(v)=>{const p=String(v||"").slice(0,10).split("-").map(Number),d=p.length===3?new Date(p[0],p[1]-1,p[2]):null;return d&&!isNaN(d)?new Intl.DateTimeFormat(de()?"de-DE":"en-GB").format(d):"–"};
   const winHex=(s)=>{const map={"€":128,"‚":130,"ƒ":131,"„":132,"…":133,"†":134,"‡":135,"ˆ":136,"‰":137,"Š":138,"‹":139,"Œ":140,"Ž":142,"‘":145,"’":146,"“":147,"”":148,"•":149,"–":150,"—":151,"˜":152,"™":153,"š":154,"›":155,"œ":156,"ž":158,"Ÿ":159},extra={"Ä":196,"Ö":214,"Ü":220,"ä":228,"ö":246,"ü":252,"ß":223},out=[];for(const c of String(s)){let n=map[c]??extra[c]??c.charCodeAt(0);out.push((n>255?63:n).toString(16).padStart(2,"0"))}return out.join("").toUpperCase()};
@@ -2504,7 +2494,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     fields.forEach((f,i)=>{const x=i%2?311:40,y=600-Math.floor(i/2)*90;s=card(s,f[0],f[1],x,y)});
     s+=text(de()?"WERTENTWICKLUNG AB HEUTE":"VALUE DEVELOPMENT FROM TODAY",40,388,10,true,green);
     [5,10,15,20].forEach((yr,i)=>{const x=40+(i%2)*271,y=296-Math.floor(i/2)*76;s=card(s,(de()?"Wert in ":"Value in ")+yr+(de()?" Jahren":" years"),money(valueAt(p,yr*12)),x,y,244,60)});
-    wrap(de()?"Das Modell schreibt jeden Monat den eingestellten Jahresprozentsatz anteilig auf Basis des ursprünglichen Kaufpreises fort.":"The model progresses the annual percentage monthly using the original purchase price as its base.",92).forEach((v,i)=>s+=text(v,40,150-i*14,9,false,"0.37 0.45 0.50"));
+    wrap(de()?"Das Modell schreibt den Jahresprozentsatz täglich ab dem Kaufdatum auf Basis des ursprünglichen Kaufpreises fort.":"The model progresses daily from the purchase date using the original purchase price as its base.",92).forEach((v,i)=>s+=text(v,40,150-i*14,9,false,"0.37 0.45 0.50"));
     pages.push(s);
     s=base(de()?"Hinweise zur Modellrechnung":"Model calculation notes",p.name||"Immobilie",3,3)+text(de()?"WICHTIGE HINWEISE":"IMPORTANT NOTES",40,688,10,true,green);
     const notes=de()?["Die Berechnung stellt ausschließlich eine modellhafte Wertentwicklung dar und ersetzt keine individuelle Immobilienbewertung.","Eine zusätzliche steuerliche Betrachtung wird nicht abgebildet.","Eigene Zahlungen, Mieteinnahmen, Steuervorteile, Finanzierungskosten und nicht umlegbare Nebenkosten werden nicht miteinander verrechnet.","Eine mögliche Mietentwicklung ist nicht Bestandteil dieser Berechnung.","Bei weniger als zehn Jahren Haltedauer wird nur auf eine mögliche Besteuerung hingewiesen. Es werden weder Steuern noch Steuertabellen berechnet.","Steuerliche und rechtliche Fragen müssen für jedes Objekt individuell fachkundig geprüft werden."]:["This calculation is a simplified model and does not replace an individual property valuation.","Additional tax considerations are not included.","Owner contributions, rent, tax benefits, finance costs and non-recoverable expenses are not offset against each other.","Possible rent development is not part of this calculation.","For holding periods below ten years, only a possible tax liability is indicated. No taxes or tax tables are calculated.","Tax and legal questions must be reviewed individually for each property by qualified professionals."];
