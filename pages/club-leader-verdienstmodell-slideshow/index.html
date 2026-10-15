@@ -5,139 +5,149 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#132238">
 <title>ClubLeader · Teil 2 · Verdienstmodell & Tragfähigkeit | LiquidityBooster</title>
-<meta name="description" content="10-seitige HTML-Präsentation zum ClubLeader-Verdienstmodell, Bestandsaufbau, 3-Ebenen-Logik und zur Tragfähigkeit des Geschäftsmodells.">
+<meta name="description" content="ClubLeader-Präsentation mit umschaltbaren Beispielmixen Einstieg, Ausbau und Top für BusinessBooster und Unternehmer-Hörsaal.">
 <style>
-:root{--mint:#00a7ad;--mintD:#007d83;--mintS:#e9f9f9;--mag:#c6006f;--magS:#fff0f7;--navy:#132238;--ink:#26374b;--muted:#687789;--line:#dce8ec;--bg:#edf3f5;--gold:#b88717;--goldS:#fff8e6;--navH:80px;--shadow:0 24px 58px rgba(19,34,56,.16)}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}button,a{font:inherit}a{text-decoration:none;color:inherit}
-.app{width:100%;height:100vh;height:100dvh;display:grid;grid-template-rows:minmax(0,1fr) var(--navH);overflow:hidden}.stage{position:relative;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px;overflow:hidden;background:radial-gradient(circle at 10% 10%,rgba(0,167,173,.1),transparent 28%),radial-gradient(circle at 90% 90%,rgba(198,0,111,.08),transparent 28%),var(--bg)}
-.progress{position:absolute;inset:0 0 auto;height:4px;background:rgba(255,255,255,.7);z-index:50}.progress span{display:block;height:100%;width:10%;background:linear-gradient(90deg,var(--mint),var(--mag));transition:width .22s}.slide{position:absolute;inset:14px;display:none;align-items:center;justify-content:center;min-width:0;min-height:0}.slide.active{display:flex}.frame{position:relative;width:min(100%,calc((100dvh - var(--navH) - 28px)*1.7777778));max-height:100%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#fff;box-shadow:var(--shadow);border:1px solid rgba(220,232,236,.9)}.frame:before{content:"";position:absolute;inset:0 0 auto;height:7px;background:linear-gradient(90deg,var(--mint),var(--mag));z-index:4}.bg{position:absolute;inset:0;background:radial-gradient(circle at 88% 12%,rgba(198,0,111,.08),transparent 22%),radial-gradient(circle at 12% 88%,rgba(0,167,173,.08),transparent 25%),linear-gradient(135deg,#fff 0,#fbfefe 55%,#fff9fc 100%)}.bg.dark{background:radial-gradient(circle at 14% 12%,rgba(0,167,173,.28),transparent 26%),radial-gradient(circle at 88% 82%,rgba(198,0,111,.22),transparent 27%),linear-gradient(135deg,#102134,#17384e 62%,#174f58)}
-.content{position:relative;z-index:2;width:100%;height:100%;padding:clamp(27px,3.2vw,52px) clamp(34px,4.15vw,68px);display:flex;flex-direction:column}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:9px}.brand{display:flex;align-items:center;gap:11px;font-weight:900;color:var(--navy)}.mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--mint),var(--mag));display:grid;place-items:center;color:#fff;font-weight:950}.no{font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}.darkText .brand{color:#fff}.darkText .no{color:#b7cbd3}.eye{display:inline-flex;align-items:center;gap:9px;color:var(--mintD);font-size:clamp(10px,.86vw,13px);font-weight:950;letter-spacing:.13em;text-transform:uppercase}.eye:before{content:"";width:28px;height:3px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--mag))}.darkText .eye{color:#88e8e9}
-h1,h2,h3,h4{color:var(--navy);margin:0}h1{font-size:clamp(35px,4.45vw,69px);line-height:1.02;letter-spacing:-.045em}h2{font-size:clamp(28px,3.25vw,50px);line-height:1.08;letter-spacing:-.035em}h3{font-size:clamp(17px,1.45vw,24px);line-height:1.18}h4{font-size:clamp(14px,1.08vw,18px);line-height:1.2}.darkText h1,.darkText h2,.darkText h3,.darkText h4{color:#fff}.lead{margin:12px 0 0;color:var(--muted);font-size:clamp(15px,1.34vw,21px);line-height:1.42;max-width:1070px}.darkText .lead{color:#d7e7ec}.spacer{flex:1}.statement{margin-top:17px;padding:15px 19px;border-left:5px solid var(--mag);border-radius:0 18px 18px 0;background:var(--magS);font-size:clamp(14px,1.18vw,19px);font-weight:900;color:var(--navy)}.darkText .statement{background:rgba(255,255,255,.08);border-left-color:#ff73bd;color:#fff}.disclaimer{margin-top:9px;color:var(--muted);font-size:clamp(8px,.65vw,10px);line-height:1.32}.darkText .disclaimer{color:#a9c0ca}
-.grid{display:grid;gap:12px}.two{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(3,1fr)}.four{grid-template-columns:repeat(4,1fr)}.five{grid-template-columns:repeat(5,1fr)}.card{padding:clamp(13px,1.35vw,21px);border:1px solid var(--line);border-radius:20px;background:#fff;min-width:0}.card.mint{background:linear-gradient(145deg,var(--mintS),#fff)}.card.mag{background:linear-gradient(145deg,var(--magS),#fff)}.card.gold{background:linear-gradient(145deg,var(--goldS),#fff)}.card.navy{background:linear-gradient(145deg,var(--navy),#17475a);border-color:transparent}.card h3,.card h4{margin-bottom:7px}.card p{margin:0;color:var(--muted);font-size:clamp(10px,.9vw,14px);line-height:1.38}.card.navy h3,.card.navy h4{color:#fff}.card.navy p{color:#dce9ee}.kicker{display:block;font-size:clamp(9px,.7vw,11px);font-weight:950;letter-spacing:.1em;text-transform:uppercase;color:var(--mintD);margin-bottom:7px}.mag .kicker{color:var(--mag)}.gold .kicker{color:#8a6714}.number{font-size:clamp(31px,3.3vw,52px);font-weight:950;line-height:.95;color:var(--mint);letter-spacing:-.04em}.mag .number{color:var(--mag)}.gold .number{color:var(--gold)}.number small{display:block;font-size:10px;color:var(--muted);letter-spacing:0;margin-top:7px;font-weight:850}
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.pill{padding:8px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:clamp(10px,.82vw,13px);font-weight:850;color:var(--navy)}.heroNums{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:end;margin-top:24px}.heroNum{font-size:clamp(72px,9vw,130px);font-weight:950;line-height:.82;letter-spacing:-.06em;color:var(--navy)}.heroNum small{display:block;margin-top:15px;font-size:clamp(14px,1.15vw,18px);letter-spacing:0;color:var(--mintD)}.sideBox{padding:22px;border-radius:22px;background:linear-gradient(145deg,var(--mintS),#fff);border:1px solid var(--line)}.sideBox strong{display:block;color:var(--navy);font-size:clamp(21px,1.8vw,29px);line-height:1.12}.sideBox span{display:block;color:var(--muted);font-size:13px;line-height:1.4;margin-top:8px}.linkbtn{display:inline-flex;align-items:center;justify-content:center;margin-top:14px;padding:10px 14px;border-radius:999px;background:var(--navy);color:#fff;font-size:12px;font-weight:900}
-.monthFlow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.month{position:relative;padding:19px 16px;border:1px solid var(--line);border-radius:20px;background:#fff;text-align:center}.month:after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);font-size:22px;font-weight:950;color:var(--mint);z-index:3}.month:last-child:after{display:none}.month b{display:block;font-size:12px;letter-spacing:.08em;color:var(--muted)}.month strong{display:block;font-size:clamp(33px,3.2vw,50px);line-height:1;color:var(--navy);margin:8px 0 6px}.month span{font-size:11px;color:var(--muted)}
-.checkpoints{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:20px}.checkpoint{padding:19px;border-radius:21px;background:#fff;border:1px solid var(--line);text-align:center}.checkpoint:nth-child(1),.checkpoint:nth-child(3){background:linear-gradient(145deg,var(--mintS),#fff)}.checkpoint:nth-child(2),.checkpoint:nth-child(4){background:linear-gradient(145deg,var(--magS),#fff)}.checkpoint b{display:block;color:var(--muted);font-size:11px;letter-spacing:.09em}.checkpoint strong{display:block;color:var(--navy);font-size:clamp(31px,3vw,47px);margin:7px 0 5px}.checkpoint span{display:block;color:var(--muted);font-size:11px;line-height:1.3}.mix{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-top:18px}.mixCard{padding:16px 18px;border:1px solid var(--line);border-radius:19px;background:#fff}.mixCard.mint{background:linear-gradient(145deg,var(--mintS),#fff)}.mixCard.mag{background:linear-gradient(145deg,var(--magS),#fff)}.mixCard strong{display:block;color:var(--navy);font-size:18px}.mixCard span{display:block;color:var(--muted);font-size:11px;margin-top:4px}.plus{font-size:28px;font-weight:950;color:var(--navy)}
-.moneyStrip{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.moneyBox{padding:19px;border:1px solid var(--line);border-radius:21px;background:linear-gradient(145deg,var(--mintS),#fff)}.moneyBox:nth-child(2){background:linear-gradient(145deg,var(--magS),#fff)}.moneyBox b{display:block;color:var(--navy);font-size:clamp(29px,2.8vw,44px)}.moneyBox strong{display:block;color:var(--navy);font-size:15px;margin-top:4px}.moneyBox span{display:block;color:var(--muted);font-size:11px;margin-top:5px}.moneyGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.moneyPoint{padding:15px;border-radius:18px;background:#fff;border:1px solid var(--line);text-align:center}.moneyPoint b{display:block;color:var(--muted);font-size:10px;letter-spacing:.08em}.moneyPoint strong{display:block;color:var(--navy);font-size:clamp(23px,2.1vw,34px);margin:6px 0}.moneyPoint span{display:block;color:var(--muted);font-size:9px;line-height:1.3}
-.yearLayers{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:21px}.year{padding:20px;border-radius:22px;background:#fff;border:1px solid var(--line)}.year:nth-child(1){background:linear-gradient(145deg,var(--mintS),#fff)}.year:nth-child(2){background:linear-gradient(145deg,var(--magS),#fff)}.year:nth-child(3){background:linear-gradient(145deg,var(--goldS),#fff)}.year b{display:block;color:var(--muted);font-size:11px;letter-spacing:.09em}.year strong{display:block;color:var(--navy);font-size:clamp(34px,3.2vw,49px);margin:8px 0 5px}.year span{display:block;color:var(--muted);font-size:11px;line-height:1.35}.year em{display:block;margin-top:11px;padding-top:10px;border-top:1px solid var(--line);font-style:normal;font-weight:900;color:var(--navy);font-size:15px}
-.tree{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:stretch;margin-top:22px}.treeNode{position:relative;padding:17px 13px;border-radius:20px;background:#fff;border:1px solid var(--line);text-align:center}.treeNode:after{content:"→";position:absolute;right:-13px;top:50%;transform:translateY(-50%);font-size:24px;font-weight:950;color:var(--mint);z-index:3}.treeNode:last-child:after{display:none}.treeNode b{display:block;font-size:10px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase}.treeNode strong{display:block;color:var(--navy);font-size:19px;margin:6px 0 5px}.treeNode span{display:block;color:var(--muted);font-size:10px;line-height:1.3}.rate{display:inline-flex!important;margin:8px auto 0;padding:7px 10px;border-radius:999px;color:#fff!important;background:var(--mint);font-size:12px!important;font-weight:950}.treeNode:nth-child(3) .rate{background:var(--mag)}.treeNode:nth-child(4) .rate{background:var(--navy)}
-.levelMoney{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}.levelCard{padding:21px;border-radius:22px;border:1px solid var(--line);background:#fff}.levelCard:nth-child(1){background:linear-gradient(145deg,var(--mintS),#fff)}.levelCard:nth-child(2){background:linear-gradient(145deg,var(--magS),#fff)}.levelCard:nth-child(3){background:linear-gradient(145deg,var(--goldS),#fff)}.levelCard b{display:block;font-size:11px;letter-spacing:.09em;color:var(--muted)}.levelCard strong{display:block;color:var(--navy);font-size:clamp(28px,2.7vw,43px);margin:7px 0}.levelCard span{display:block;color:var(--muted);font-size:11px;line-height:1.35}.totalLine{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:16px;padding:17px 19px;border-radius:20px;background:var(--navy);color:#fff}.totalLine strong{font-size:clamp(24px,2.4vw,39px)}.totalLine span{font-size:13px;color:#dbe9ee}
-.hotelFlow{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:center;margin-top:18px}.hotelMain{padding:21px;border-radius:22px;background:linear-gradient(145deg,var(--magS),#fff);border:1px solid var(--line)}.hotelMain h3{font-size:27px}.guestRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.guest{padding:8px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:11px;font-weight:850;color:var(--navy)}.membership{display:grid;gap:10px}.mrow{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 14px;border-radius:17px;background:#fff;border:1px solid var(--line)}.mrow strong{display:block;color:var(--navy);font-size:14px}.mrow span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.mrow b{font-size:20px;color:var(--mintD);white-space:nowrap}.memberSplit{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.ms{padding:13px;border-radius:17px;background:#fff;border:1px solid var(--line);text-align:center}.ms b{display:block;color:var(--navy);font-size:22px}.ms span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
-.restart{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:center;flex:1;margin-top:12px}.hub{position:relative;height:100%;min-height:310px;display:grid;place-items:center}.hubCenter{width:180px;height:180px;border-radius:50%;display:grid;place-items:center;text-align:center;padding:22px;background:linear-gradient(145deg,var(--navy),#174f58);color:#fff;z-index:3}.hubCenter strong{font-size:28px}.hubCenter span{display:block;color:#bce8e9;font-size:11px;margin-top:5px}.hubNode{position:absolute;width:145px;padding:12px;border-radius:16px;background:#fff;border:1px solid var(--line);text-align:center}.hubNode strong{display:block;color:var(--navy);font-size:13px}.hubNode span{display:block;color:var(--muted);font-size:9px;margin-top:3px}.h1{top:2%;left:34%}.h2{top:35%;right:0}.h3{bottom:2%;left:34%}.h4{top:35%;left:0}.hub:before{content:"";position:absolute;width:70%;height:70%;border-radius:50%;border:1px dashed #c6dadd}.restartList{display:grid;gap:10px}.restartRow{padding:14px 15px;border-radius:18px;background:#fff;border:1px solid var(--line)}.restartRow b{display:block;color:var(--mintD);font-size:10px;letter-spacing:.09em}.restartRow strong{display:block;color:var(--navy);font-size:17px;margin:3px 0}.restartRow span{display:block;color:var(--muted);font-size:10px;line-height:1.3}
-.engines{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}.engine{padding:18px 15px;border-radius:20px;background:#fff;border:1px solid var(--line)}.engine b{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--mintS);color:var(--mintD);font-size:17px;margin-bottom:10px}.engine:nth-child(2) b{background:var(--magS);color:var(--mag)}.engine:nth-child(3) b{background:var(--goldS);color:#8a6714}.engine:nth-child(4) b{background:#eaf0f4;color:var(--navy)}.engine strong{display:block;color:var(--navy);font-size:16px;margin-bottom:5px}.engine span{display:block;color:var(--muted);font-size:10px;line-height:1.35}.darkText .engine{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15)}.darkText .engine strong{color:#fff}.darkText .engine span{color:#cbdde3}
-.tools{position:absolute;top:18px;right:20px;z-index:60;display:flex;gap:8px}.tool{width:42px;height:42px;border:1px solid rgba(255,255,255,.72);border-radius:50%;display:grid;place-items:center;background:rgba(19,34,56,.84);color:#fff;box-shadow:0 6px 20px rgba(19,34,56,.18);cursor:pointer}.tool svg{width:20px;height:20px}.hint{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:55;padding:7px 11px;border-radius:999px;background:rgba(19,34,56,.76);color:#fff;font-size:10px;opacity:0;pointer-events:none;transition:opacity .2s}.stage.showHint .hint{opacity:.82}
-.navbar{min-height:var(--navH);background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(19,34,56,.06);z-index:70;display:flex;align-items:center}.navin{width:min(1260px,calc(100% - 30px));margin:auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px}.navbtn{border:1px solid var(--line);background:#fff;color:var(--navy);min-height:54px;border-radius:15px;padding:8px 13px;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;font-weight:850}.navbtn.next{justify-self:end;text-align:right;flex-direction:row-reverse}.navbtn:disabled{opacity:.28;cursor:default}.arrow{width:31px;height:31px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--mintS);color:var(--mint);font-size:20px}.next .arrow{background:var(--magS);color:var(--mag)}.navcopy small{display:block;margin-bottom:2px;color:var(--muted);font-size:8px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}.navcopy span{display:block;max-width:310px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}.navcenter{text-align:center;color:var(--muted);font-size:9px;white-space:nowrap}.navcenter strong{display:block;color:var(--navy);font-size:17px}.navcenter .title{display:block;max-width:280px;overflow:hidden;text-overflow:ellipsis}.dots{display:flex;justify-content:center;gap:4px;margin-top:4px}.dot{width:5px;height:5px;border-radius:50%;background:#d4e0e3}.dot.active{background:var(--mint);transform:scale(1.45)}
-@media(max-width:760px){:root{--navH:72px}.stage{padding:8px}.slide{inset:8px}.frame{border-radius:13px}.content{padding:21px 25px}.tools{top:12px;right:12px}.tool{width:36px;height:36px}.navin{width:calc(100% - 16px);gap:7px}.navbtn{min-height:48px;padding:7px 8px}.arrow{width:27px;height:27px;font-size:17px}.navcopy small{font-size:7px}.navcopy span{font-size:9px;max-width:28vw}.navcenter strong{font-size:14px}.navcenter{font-size:8px}.navcenter .title{display:none}}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#edf3f5}
+iframe{display:block;width:100%;height:100%;border:0;background:#edf3f5}
 </style>
 </head>
 <body>
-<div class="app" id="app">
-<main class="stage" id="stage" aria-label="ClubLeader Verdienstmodell und Tragfähigkeit Präsentation">
-<div class="progress"><span id="progressFill"></span></div>
-
-<section class="slide active" data-title="Teil 2 · Verdienstmodell" data-short="Start"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>ClubLeader · Teil 2 von 2</div><div class="no">01 / 10</div></div><div class="spacer"></div>
-<div class="eye">Verdienstmodell & Tragfähigkeit</div><h1 style="max-width:1080px;margin-top:14px">Warum es sich lohnt,<br>jeden Monat aktiv zu bleiben.</h1>
-<p class="lead">Teil 1 erklärt die ClubLeader-Leistungswelt. Teil 2 zeigt, was aus regelmäßiger Aktivität entstehen kann: Kundenbestand, Verlängerungen, drei Ebenen und zusätzliche Mitglieder aus den Kundenwelten der Unternehmen.</p>
-<div class="heroNums"><div class="heroNum">4<small>neue Unternehmenskunden pro Monat · Ziel: 1 pro Woche</small></div><div class="sideBox"><strong>Aktivität wird zu Bestand.</strong><span>Der einzelne Abschluss ist der Anfang. Tragfähigkeit entsteht, wenn neue Kunden hinzukommen und bestehende Fullservice-Verträge weitergeführt werden.</span><a class="linkbtn" href="../club-leader-leistungswelt-slideshow/#1">Teil 1 · Leistungswelt öffnen →</a></div></div>
-<div class="statement">Ein Verkauf schafft Umsatz. Ein Kunde schafft Bestand. Ein aktiver ClubLeader kann einen weiteren Bestand entstehen lassen.</div><div class="spacer"></div>
-<div class="disclaimer">Modellpräsentation, keine Einkommenszusage. Feste Modellannahme: bestehende Fullservice-Verträge werden jährlich verlängert und vollständig bezahlt. Tatsächliche Provision entsteht nur aus wirksam zugeordneten, freigegebenen und provisionsfähigen Netto-Umsätzen.</div>
-</div></div></section>
-
-<section class="slide" data-title="Max beginnt mit einem Kunden" data-short="Max startet"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 1 · Persönlicher Aufbau</div><div class="no">02 / 10</div></div><div class="eye">Max Muster beginnt einfach</div><h2 style="margin-top:10px">Ein neuer Kunde pro Monat zeigt das Prinzip.</h2>
-<p class="lead">Max muss nicht mit großen Zahlen beginnen. Entscheidend ist, dass ein neuer Kunde nicht im nächsten Monat verschwindet, sondern bei jährlicher Verlängerung Teil des Bestands bleibt.</p>
-<div class="monthFlow"><div class="month"><b>MONAT 1</b><strong>1</strong><span>Kunde im Bestand</span></div><div class="month"><b>MONAT 2</b><strong>2</strong><span>1 bestehend + 1 neu</span></div><div class="month"><b>MONAT 3</b><strong>3</strong><span>2 bestehend + 1 neu</span></div><div class="month"><b>MONAT 4</b><strong>4</strong><span>3 bestehend + 1 neu</span></div></div>
-<div class="grid two" style="margin-top:20px"><div class="card mint"><span class="kicker">Der Denkfehler</span><h3>Jeden Monat wieder bei null anfangen.</h3><p>Wer nur auf den neuen Abschluss schaut, sieht den wirtschaftlichen Wert des aufgebauten Kundenbestands nicht.</p></div><div class="card mag"><span class="kicker">Die Bestandslogik</span><h3>Neugeschäft kommt zum vorhandenen Bestand hinzu.</h3><p>Damit wächst Monat für Monat die Basis, auf der laufende provisionsfähige Umsätze entstehen können.</p></div></div>
-<div class="statement">Der Job des ClubLeaders ist nicht: einmal verkaufen. Der Job ist: regelmäßig neue Kunden gewinnen und den Bestand wachsen lassen.</div>
-</div></div></section>
-
-<section class="slide" data-title="Das Ziel: ein Kunde pro Woche" data-short="4 pro Monat"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 1 · Aktivitätsziel</div><div class="no">03 / 10</div></div><div class="eye">1 Kunde pro Woche</div><h2 style="margin-top:10px">Vier neue Unternehmenskunden im Monat verändern die Geschwindigkeit.</h2>
-<div class="checkpoints"><div class="checkpoint"><b>NACH 3 MONATEN</b><strong>12</strong><span>laufende Kunden im Modell</span></div><div class="checkpoint"><b>NACH 6 MONATEN</b><strong>24</strong><span>laufende Kunden im Modell</span></div><div class="checkpoint"><b>NACH 9 MONATEN</b><strong>36</strong><span>laufende Kunden im Modell</span></div><div class="checkpoint"><b>NACH 12 MONATEN</b><strong>48</strong><span>laufende Kunden im Modell</span></div></div>
-<p class="lead" style="margin-top:18px">Für die Euro-Beispiele verwenden wir bewusst einen festen, transparenten Beispielmix aus den Einstiegsprodukten:</p>
-<div class="mix"><div class="mixCard mint"><strong>2 × BusinessBooster Small</strong><span>499 € netto / Monat · 499 € Setup</span></div><div class="plus">+</div><div class="mixCard mag"><strong>2 × Unternehmer-Hörsaal Basis</strong><span>399 € netto / Monat · 990 € Setup</span></div></div>
-<div class="statement">Dieser 2+2-Mix ist nur ein Rechenbeispiel – keine Verkaufsvorgabe. Entscheidend ist das Prinzip: vier neue Kunden kommen jeden Monat zum bestehenden Bestand hinzu.</div>
-<div class="disclaimer">Feste Modellannahme dieser Präsentation: alle bestehenden Fullservice-Verträge werden jährlich fortgeführt. Preise und Vergütungen gemäß dem dargestellten Modell; maßgeblich bleiben die jeweils aktuellen Leistungs- und Vertragsunterlagen.</div>
-</div></div></section>
-
-<section class="slide" data-title="Was vier Kunden monatlich bewirken" data-short="Euro-Effekt"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 1 · Eigene Vertriebsleistung</div><div class="no">04 / 10</div></div><div class="eye">Ebene 1 · 20 %</div><h2 style="margin-top:10px">Vier neue Kunden bauen jeden Monat eine neue Einkommensschicht auf.</h2>
-<div class="moneyStrip"><div class="moneyBox"><b>359,20 €</b><strong>neue laufende Monatsprovision</strong><span>2 × BusinessBooster Small + 2 × Hörsaal Basis · direkte Ebene 1 mit 20 %</span></div><div class="moneyBox"><b>595,60 €</b><strong>einmalige Setup-Provision</strong><span>aus denselben vier neuen Verträgen eines Monats · getrennt vom laufenden Bestand</span></div></div>
-<div class="moneyGrid"><div class="moneyPoint"><b>MONAT 3</b><strong>1.673,20 €</strong><span>1.077,60 € laufend + 595,60 € neue Setups</span></div><div class="moneyPoint"><b>MONAT 6</b><strong>2.750,80 €</strong><span>2.155,20 € laufend + 595,60 € neue Setups</span></div><div class="moneyPoint"><b>MONAT 9</b><strong>3.828,40 €</strong><span>3.232,80 € laufend + 595,60 € neue Setups</span></div><div class="moneyPoint"><b>MONAT 12</b><strong>4.906,00 €</strong><span>4.310,40 € laufend + 595,60 € neue Setups</span></div></div>
-<div class="statement">Die Setup-Provision kommt aus dem Neugeschäft. Die laufende Provision wächst mit dem Bestand. Beides wird bewusst getrennt gerechnet.</div>
-<div class="disclaimer">Beispielrechnung auf Basis von 2 × BusinessBooster Small und 2 × Hörsaal Basis je Monat. Keine Einkommenszusage; alle Werte setzen vollständig bezahlte, provisionsfähige und wirksam zugeordnete Umsätze voraus.</div>
-</div></div></section>
-
-<section class="slide" data-title="Jahr 2 beginnt nicht bei null" data-short="Jahr 2 & 3"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 2 · Tragfähigkeit über Jahre</div><div class="no">05 / 10</div></div><div class="eye">Der Bestand bleibt die Basis</div><h2 style="margin-top:10px">Jahr 2 beginnt mit dem Ergebnis aus Jahr 1.</h2>
-<p class="lead">Wenn der Fullservice jährlich verlängert wird, bleibt die erste Kundenschicht bestehen. Max baut im zweiten Jahr weitere 48 Kunden auf – und im dritten Jahr wieder.</p>
-<div class="yearLayers"><div class="year"><b>ENDE JAHR 1</b><strong>48 Kunden</strong><span>48 laufende Verträge aus dem ersten Aufbaujahr.</span><em>4.310,40 € laufende Monatsbasis</em></div><div class="year"><b>ENDE JAHR 2</b><strong>96 Kunden</strong><span>48 aus Jahr 1 + 48 neue aus Jahr 2.</span><em>8.620,80 € laufende Monatsbasis</em></div><div class="year"><b>ENDE JAHR 3</b><strong>144 Kunden</strong><span>Bestand Jahr 1 + Jahr 2 + 48 neue aus Jahr 3.</span><em>12.931,20 € laufende Monatsbasis</em></div></div>
-<div class="statement">Monat 13 ist der Wendepunkt: Max startet nicht wieder bei null, sondern mit 48 aufgebauten Kunden und 4.310,40 € rechnerischer laufender Monatsbasis.</div>
-<div class="disclaimer">Die Beträge zeigen ausschließlich die laufende Ebene-1-Provision des festen 2+2-Beispielmixes. Setup-Provisionen sind hier bewusst nicht enthalten. Die jährliche Verlängerung aller Verträge ist eine feste Modellannahme, keine Garantie über reales Kundenverhalten.</div>
-</div></div></section>
-
-<section class="slide" data-title="Die 3-Ebenen-Logik" data-short="20 · 15 · 10"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 3 · Strukturaufbau</div><div class="no">06 / 10</div></div><div class="eye">Die Ebene ist immer relativ</div><h2 style="margin-top:10px">20 % · 15 % · 10 % – aus der Sicht von Max.</h2>
-<p class="lead">Max gewinnt Anna. Anna gewinnt ein Hotel. Das Hotel bringt seine Gäste und Kunden in den Club. Dieselbe Person kann aus Sicht eines anderen ClubLeaders auf einer anderen Ebene liegen.</p>
-<div class="tree"><div class="treeNode"><b>Ausgangspunkt</b><strong>Max</strong><span>wir betrachten seine persönliche Struktur</span></div><div class="treeNode"><b>Ebene 1 zu Max</b><strong>Anna</strong><span>von Max direkt gewonnen</span><span class="rate">20 %</span></div><div class="treeNode"><b>Ebene 2 zu Max</b><strong>Hotel</strong><span>von Anna direkt gewonnen</span><span class="rate">15 %</span></div><div class="treeNode"><b>Ebene 3 zu Max</b><strong>Hotelgast</strong><span>vom Hotel direkt gewonnen</span><span class="rate">10 %</span></div></div>
-<div class="grid three" style="margin-top:18px"><div class="card mint"><span class="kicker">Aus Sicht des Hotels</span><h3>Der Gast ist Ebene 1.</h3><p>Das Hotel erhält auf den provisionsfähigen Umsatz seines direkt gewonnenen Gastes 20 %.</p></div><div class="card mag"><span class="kicker">Aus Sicht von Anna</span><h3>Der Gast ist Ebene 2.</h3><p>Anna liegt eine Ebene darüber und erhält auf denselben provisionsfähigen Umsatz 15 %.</p></div><div class="card gold"><span class="kicker">Aus Sicht von Max</span><h3>Der Gast ist Ebene 3.</h3><p>Max liegt zwei Ebenen über dem Hotel und erhält auf denselben provisionsfähigen Umsatz 10 %.</p></div></div>
-<div class="statement">Die Logik startet bei jeder Person neu. Es gibt weiterhin nur drei persönliche Vergütungsebenen – keine vierte persönliche Ebene.</div>
-</div></div></section>
-
-<section class="slide" data-title="Wenn drei Ebenen aktiv arbeiten" data-short="Struktur in Zahlen"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 3 · Struktur in Zahlen</div><div class="no">07 / 10</div></div><div class="eye">Sobald alle drei Ebenen parallel aktiv sind</div><h2 style="margin-top:10px">Mehrere ClubLeader bauen mehrere Kundenbestände gleichzeitig.</h2>
-<p class="lead">Vereinfachtes Parallelbeispiel: Max, Anna und das Hotel erzeugen auf ihrer jeweiligen direkten Ebene jeweils vier neue Firmenkunden pro Monat – immer mit demselben 2+2-Beispielmix.</p>
-<div class="levelMoney"><div class="levelCard"><b>MAX · DIREKTE KUNDEN · E1</b><strong>359,20 €</strong><span>20 % · neue laufende Monatsprovision, die Max selbst aufbaut</span></div><div class="levelCard"><b>ANNAS KUNDEN · E2 ZU MAX</b><strong>269,40 €</strong><span>15 % · neue laufende Monatsprovision für Max</span></div><div class="levelCard"><b>HOTEL-KUNDEN · E3 ZU MAX</b><strong>179,60 €</strong><span>10 % · neue laufende Monatsprovision für Max</span></div></div>
-<div class="totalLine"><span>Jeden Monat neu aufgebaute laufende Basis für Max, wenn alle drei Ebenen parallel arbeiten</span><strong>808,20 € / Monat</strong></div>
-<div class="grid two" style="margin-top:14px"><div class="card mint"><span class="kicker">Nach 12 parallelen Monaten</span><div class="number">9.698,40 €<small>rechnerische laufende Monatsbasis für Max</small></div><p>Bei 48 Kunden auf jeder der drei betrachteten Ebenen wären 144 laufende Firmenverträge innerhalb von Max' drei Ebenen aufgebaut.</p></div><div class="card mag"><span class="kicker">Neugeschäft desselben Monats</span><div class="number">1.340,10 €<small>Setup-Provision aus den drei Ebenen</small></div><p>595,60 € aus E1 + 446,70 € aus E2 + 297,80 € aus E3. Setup bleibt einmalig und wird nicht in den laufenden Bestand eingerechnet.</p></div></div>
-<div class="disclaimer">Vereinfachtes Parallelmodell, keine Prognose über tatsächlichen Strukturaufbau. Es setzt voraus, dass alle drei Ebenen bereits aktiv sind, denselben Beispielmix erzeugen und die Umsätze provisionsfähig sowie vollständig bezahlt sind.</div>
-</div></div></section>
-
-<section class="slide" data-title="Der Unternehmenskunde bringt seine Kunden mit" data-short="Hotel & Gäste"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 4 · Marktplatz- und Mitgliederwirkung</div><div class="no">08 / 10</div></div><div class="eye">Der Kunde bringt seine Kunden mit</div><h2 style="margin-top:10px">Ein Hotel ist nicht nur ein Vertrag – es bringt einen bestehenden Kundenkreis mit.</h2>
-<div class="hotelFlow"><div class="hotelMain"><span class="kicker" style="color:var(--mag)">Beispiel Hotel</span><h3>Exklusive Angebote auf dem Club-Marktplatz.</h3><p class="lead" style="font-size:15px">Hotelgäste können diese Angebote als Club-Mitglieder nutzen. Aus der bestehenden Kundenbeziehung des Hotels können dadurch zusätzliche jährliche Mitgliedschaften entstehen.</p><div class="guestRow"><span class="guest">Hotelgast</span><span class="guest">Stammgast</span><span class="guest">Firmenkunde</span><span class="guest">Eventgast</span><span class="guest">Restaurantgast</span></div></div>
-<div class="membership"><div class="mrow"><div><strong>Club Partner</strong><span>99 € netto pro Jahr</span></div><b>jährlich</b></div><div class="mrow"><div><strong>ClubLeader</strong><span>189 € netto je Halbjahr = 378 € pro Jahr</span></div><b>laufend</b></div><div class="mrow"><div><strong>Beispiel</strong><span>20 Hotelgäste werden Club Partner</span></div><b>1.980 €</b></div></div></div>
-<div class="memberSplit"><div class="ms"><b>396,00 €</b><span>Hotel · 20 % auf seine direkten Club Partner</span></div><div class="ms"><b>297,00 €</b><span>Anna · 15 % · Gäste liegen für sie auf Ebene 2</span></div><div class="ms"><b>198,00 €</b><span>Max · 10 % · Gäste liegen für ihn auf Ebene 3</span></div></div>
-<div class="statement">Der Marktplatz schafft damit einen zweiten Weg: ClubLeader gewinnen Unternehmen – Unternehmen können ihre bestehende Kundschaft in den Club führen.</div>
-<div class="disclaimer">Beispiel mit 20 vollständig bezahlten Club-Partner-Mitgliedschaften à 99 € netto/Jahr. Die vierte Einkommensquelle ist keine vierte persönliche Vergütungsebene; die persönliche Vergütung bleibt auf 20 % / 15 % / 10 % begrenzt.</div>
-</div></div></section>
-
-<section class="slide" data-title="Was für Max gilt, gilt auch für das Hotel" data-short="Hotel baut Struktur"><div class="frame"><div class="bg"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Kapitel 5 · Das Modell startet an jedem Knoten neu</div><div class="no">09 / 10</div></div><div class="eye">Zusatzgeschäft außerhalb des Kerngeschäfts</div><h2 style="margin-top:10px">Was für Max funktioniert, funktioniert auch für das Hotel.</h2>
-<div class="restart"><div class="hub"><div class="hubCenter"><div><strong>Hotel</strong><span>ClubLeader + Marktplatz-Anbieter + eigenes Kerngeschäft</span></div></div><div class="hubNode h1"><strong>eigene Gäste</strong><span>Club Partner · Ebene 1</span></div><div class="hubNode h2"><strong>neuer ClubLeader</strong><span>aus Gast, Partner oder Unternehmerkontakt</span></div><div class="hubNode h3"><strong>dessen Kunden</strong><span>Ebene 2 zum Hotel</span></div><div class="hubNode h4"><strong>weitere Struktur</strong><span>bis Ebene 3 zum Hotel</span></div></div>
-<div class="restartList"><div class="restartRow"><b>1 · KERNGESCHÄFT</b><strong>Zimmer · Gastronomie · Veranstaltungen</strong><span>Das Hotel verdient weiterhin mit seinem eigentlichen Geschäft.</span></div><div class="restartRow"><b>2 · CLUB-MITGLIEDER</b><strong>Eigene Gäste werden Mitglieder.</strong><span>Direkte Club-Partner- und ClubLeader-Mitgliedschaften liegen auf Ebene 1 des Hotels.</span></div><div class="restartRow"><b>3 · NEUE CLUBLEADER</b><strong>Geeignete Kontakte bauen ein eigenes Geschäft auf.</strong><span>Auf deren direkter Ebene entstehen für das Hotel Ebene-2-Umsätze; die nächste Ebene wird Ebene 3.</span></div><div class="restartRow"><b>4 · PRODUKTVERTRIEB</b><strong>BusinessBooster und Hörsaal laufen auch in dieser Struktur.</strong><span>Damit kann ein zusätzlicher provisionsfähiger Bestand außerhalb des klassischen Hotelumsatzes entstehen.</span></div></div></div>
-<div class="statement">Das Hotel kauft nicht nur Sichtbarkeit. Als ClubLeader kann es selbst eine zusätzliche unternehmerische Struktur aufbauen.</div>
-<div class="disclaimer">Auch hier gilt: wirtschaftlicher Nutzen und echte Leistung stehen vor der Provision. Wachstum entsteht nicht automatisch, sondern nur durch aktive Empfehlung, Verkauf, Zuordnung, Bezahlung und Fortführung.</div>
-</div></div></section>
-
-<section class="slide darkText" data-title="Warum Aktivität Tragfähigkeit schafft" data-short="Gesamtmodell"><div class="frame"><div class="bg dark"></div><div class="content">
-<div class="top"><div class="brand"><span class="mark">LB</span>Teil 2 · Das Gesamtmodell</div><div class="no">10 / 10</div></div><div class="eye">Vier Einkommensquellen · drei persönliche Ebenen</div><h1 style="margin-top:12px;max-width:1080px">Aktivität schafft Bestand.<br>Bestand schafft Tragfähigkeit.</h1>
-<p class="lead">Die Stärke liegt nicht in einer einzelnen Zahl. Sie liegt darin, dass mehrere wirtschaftliche Motoren aufeinander aufbauen können.</p>
-<div class="engines"><div class="engine"><b>1</b><strong>Eigene Produktverkäufe</strong><span>BusinessBooster und Unternehmer-Hörsaal erzeugen Setup und laufende provisionsfähige Monatsumsätze.</span></div><div class="engine"><b>2</b><strong>Verlängerter Kundenbestand</strong><span>Jährlich fortgeführte Fullservice-Verträge machen aus Neugeschäft eine wachsende Basis für Folgejahre.</span></div><div class="engine"><b>3</b><strong>3-Ebenen-Struktur</strong><span>Weitere aktive ClubLeader bauen eigene Kundenbestände. Die persönliche Logik bleibt 20 % / 15 % / 10 %.</span></div><div class="engine"><b>4</b><strong>Unternehmen bringen Mitglieder</strong><span>Hotels, Handel und andere Firmen können ihre bestehenden Kunden als Club Partner oder neue ClubLeader in den Marktplatz führen.</span></div></div>
-<div class="statement">Ein neuer Unternehmenskunde kann Umsatz bringen. Ein bestehender Kunde kann Bestand bilden. Ein aktiver ClubLeader kann einen weiteren Bestand aufbauen. Und ein Unternehmen kann seine eigene Kundschaft in diese Logik hineinführen.</div>
-<div class="pills"><span class="pill">1 Kunde pro Woche</span><span class="pill">48 neue Kunden pro Jahr</span><span class="pill">Jahr 2 startet mit Bestand</span><span class="pill">20 % · 15 % · 10 %</span><span class="pill">99 € Club Partner / Jahr</span><span class="pill">189 € ClubLeader / Halbjahr</span></div>
-<a class="linkbtn" style="align-self:flex-start;background:#fff;color:var(--navy);margin-top:14px" href="../club-leader-leistungswelt-slideshow/#1">← Teil 1 · ClubLeader-Leistungswelt</a>
-<div class="disclaimer">Alle Zahlen sind Lern- und Modellrechnungen, keine Umsatz- oder Einkommensgarantie. Feste Modellannahme: bestehende Fullservice-Verträge werden jährlich verlängert. Tatsächliche Vergütung entsteht ausschließlich aus gültig zugeordneten, freigegebenen, angenommenen und vollständig bezahlten provisionsfähigen Netto-Umsätzen nach dem jeweils gültigen Vergütungsplan.</div>
-</div></div></section>
-
-<div class="tools"><button class="tool" id="fullscreenBtn" type="button" aria-label="Vollbild" title="Vollbild"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></button></div><div class="hint">Wischen oder Pfeiltasten nutzen</div>
-</main>
-<nav class="navbar" aria-label="Präsentationsnavigation"><div class="navin"><button class="navbtn prev" id="prevBtn" type="button"><span class="arrow">←</span><span class="navcopy"><small>Vorher</small><span id="prevLabel">Start</span></span></button><div class="navcenter"><strong id="counter">1 / 10</strong><span class="title" id="currentTitle">Teil 2 · Verdienstmodell</span><div class="dots" id="dots"></div></div><button class="navbtn next" id="nextBtn" type="button"><span class="arrow">→</span><span class="navcopy"><small>Als Nächstes</small><span id="nextLabel">Max startet</span></span></button></div></nav>
-</div>
+<iframe id="deck" title="ClubLeader Verdienstmodell und Tragfähigkeit" allow="fullscreen"></iframe>
 <script>
 (function(){
-var slides=[].slice.call(document.querySelectorAll('.slide')),stage=document.getElementById('stage'),app=document.getElementById('app'),prev=document.getElementById('prevBtn'),next=document.getElementById('nextBtn'),prevLabel=document.getElementById('prevLabel'),nextLabel=document.getElementById('nextLabel'),nextSmall=next.querySelector('.navcopy small'),counter=document.getElementById('counter'),title=document.getElementById('currentTitle'),progress=document.getElementById('progressFill'),dots=document.getElementById('dots'),full=document.getElementById('fullscreenBtn'),current=0,sx=0,sy=0,timer=null;
-slides.forEach(function(_,i){var d=document.createElement('span');d.className='dot'+(i===0?' active':'');dots.appendChild(d)});
-function titleAt(i){return i<0||i>=slides.length?'':(slides[i].dataset.short||slides[i].dataset.title||'')}
-function render(){slides.forEach(function(s,i){s.classList.toggle('active',i===current)});counter.textContent=(current+1)+' / '+slides.length;title.textContent=slides[current].dataset.title||'';progress.style.width=((current+1)/slides.length*100)+'%';[].slice.call(dots.children).forEach(function(d,i){d.classList.toggle('active',i===current)});prev.disabled=current===0;prevLabel.textContent=current===0?'Start':titleAt(current-1);if(current===slides.length-1){nextSmall.textContent='Zurück';nextLabel.textContent='Wieder zurück zum Start'}else{nextSmall.textContent='Als Nächstes';nextLabel.textContent=titleAt(current+1)}history.replaceState(null,'','#'+(current+1))}
-function go(i){if(i<0||i>=slides.length||i===current)return;current=i;render()}function goNext(){current===slides.length-1?go(0):go(current+1)}
-prev.addEventListener('click',function(){go(current-1)});next.addEventListener('click',goNext);
-document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();goNext()}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(current-1)}if(e.key==='Home'){e.preventDefault();go(0)}if(e.key==='End'){e.preventDefault();go(slides.length-1)}});
-stage.addEventListener('touchstart',function(e){var t=e.changedTouches[0];sx=t.screenX;sy=t.screenY},{passive:true});stage.addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.screenX-sx,dy=t.screenY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.25){dx<0?goNext():go(current-1)}},{passive:true});
-stage.addEventListener('pointerup',function(e){if(e.target.closest('a,button'))return;if(e.pointerType==='mouse'){var r=stage.getBoundingClientRect(),x=e.clientX-r.left;if(x<r.width*.14)go(current-1);if(x>r.width*.86)goNext()}});
-function hint(){stage.classList.add('showHint');clearTimeout(timer);timer=setTimeout(function(){stage.classList.remove('showHint')},1800)}setTimeout(hint,500);
-full.addEventListener('click',async function(){try{if(!document.fullscreenElement){if(app.requestFullscreen)await app.requestFullscreen();else if(app.webkitRequestFullscreen)app.webkitRequestFullscreen()}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen()}}catch(_){}});
-if(!document.fullscreenEnabled&&!document.webkitFullscreenEnabled)full.style.display='none';var hash=parseInt(location.hash.slice(1),10);if(hash>=1&&hash<=slides.length)current=hash-1;render();
+  const deck=document.getElementById('deck');
+  const initialHash=location.hash||'#1';
+  deck.src='presentation-base.html'+initialHash;
+
+  const scenarios={
+    entry:{
+      label:'Einstieg',
+      bbName:'2 × BusinessBooster Small',bbInfo:'499 € netto / Monat · 499 € Setup',
+      hallName:'2 × Unternehmer-Hörsaal Basis',hallInfo:'399 € netto / Monat · 990 € Setup',
+      monthly:'359,20 €',setup:'595,60 €',
+      m3:'1.673,20 €',m3Run:'1.077,60 €',
+      m6:'2.750,80 €',m6Run:'2.155,20 €',
+      m9:'3.828,40 €',m9Run:'3.232,80 €',
+      m12:'4.906,00 €',m12Run:'4.310,40 €',
+      y1:'4.310,40 €',y2:'8.620,80 €',y3:'12.931,20 €',
+      e1:'359,20 €',e2:'269,40 €',e3:'179,60 €',levelsTotal:'808,20 €',levels12:'9.698,40 €',
+      setupLevels:'1.340,10 €',setupParts:'595,60 € aus E1 + 446,70 € aus E2 + 297,80 € aus E3'
+    },
+    growth:{
+      label:'Ausbau',
+      bbName:'2 × BusinessBooster Premium',bbInfo:'999 € netto / Monat · 999 € Setup',
+      hallName:'2 × Unternehmer-Hörsaal Plus',hallInfo:'649 € netto / Monat · 1.490 € Setup',
+      monthly:'659,20 €',setup:'995,60 €',
+      m3:'2.973,20 €',m3Run:'1.977,60 €',
+      m6:'4.950,80 €',m6Run:'3.955,20 €',
+      m9:'6.928,40 €',m9Run:'5.932,80 €',
+      m12:'8.906,00 €',m12Run:'7.910,40 €',
+      y1:'7.910,40 €',y2:'15.820,80 €',y3:'23.731,20 €',
+      e1:'659,20 €',e2:'494,40 €',e3:'329,60 €',levelsTotal:'1.483,20 €',levels12:'17.798,40 €',
+      setupLevels:'2.240,10 €',setupParts:'995,60 € aus E1 + 746,70 € aus E2 + 497,80 € aus E3'
+    },
+    top:{
+      label:'Top',
+      bbName:'2 × BusinessBooster Enterprise',bbInfo:'1.999 € netto / Monat · 1.999 € Setup',
+      hallName:'2 × Unternehmer-Hörsaal Pro',hallInfo:'899 € netto / Monat · 1.990 € Setup',
+      monthly:'1.159,20 €',setup:'1.595,60 €',
+      m3:'5.073,20 €',m3Run:'3.477,60 €',
+      m6:'8.550,80 €',m6Run:'6.955,20 €',
+      m9:'12.028,40 €',m9Run:'10.432,80 €',
+      m12:'15.506,00 €',m12Run:'13.910,40 €',
+      y1:'13.910,40 €',y2:'27.820,80 €',y3:'41.731,20 €',
+      e1:'1.159,20 €',e2:'869,40 €',e3:'579,60 €',levelsTotal:'2.608,20 €',levels12:'31.298,40 €',
+      setupLevels:'3.590,10 €',setupParts:'1.595,60 € aus E1 + 1.196,70 € aus E2 + 797,80 € aus E3'
+    }
+  };
+  let currentScenario='entry';
+
+  function qs(doc,title){return doc.querySelector('.slide[data-title="'+title+'"]')}
+  function setText(el,text){if(el)el.textContent=text}
+  function setHTML(el,html){if(el)el.innerHTML=html}
+
+  function inject(doc){
+    if(doc.getElementById('scenarioChooser')) return;
+    const style=doc.createElement('style');
+    style.textContent=`
+      .scenarioChooser{position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:75;display:none;align-items:center;gap:6px;padding:6px;background:rgba(255,255,255,.96);border:1px solid #dce8ec;border-radius:999px;box-shadow:0 8px 24px rgba(19,34,56,.12);backdrop-filter:blur(8px)}
+      .scenarioChooser .scLabel{padding:0 7px 0 9px;color:#687789;font-size:9px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+      .scenarioChooser button{border:1px solid transparent;background:#f4f8f9;color:#132238;border-radius:999px;padding:7px 11px;font-size:10px;font-weight:950;cursor:pointer;white-space:nowrap}
+      .scenarioChooser button.active{background:#132238;color:#fff;box-shadow:0 3px 10px rgba(19,34,56,.18)}
+      .scenarioChooser button[data-scenario="growth"].active{background:#00a7ad}
+      .scenarioChooser button[data-scenario="top"].active{background:#c6006f}
+      @media(max-width:760px){.scenarioChooser{top:11px;padding:4px;gap:3px}.scenarioChooser .scLabel{display:none}.scenarioChooser button{padding:6px 8px;font-size:8px}}
+    `;
+    doc.head.appendChild(style);
+    const chooser=doc.createElement('div');
+    chooser.id='scenarioChooser';chooser.className='scenarioChooser';
+    chooser.innerHTML='<span class="scLabel">Beispielmix</span><button type="button" data-scenario="entry">Einstieg</button><button type="button" data-scenario="growth">Ausbau</button><button type="button" data-scenario="top">Top</button>';
+    doc.getElementById('stage').appendChild(chooser);
+    chooser.addEventListener('click',e=>{const b=e.target.closest('button[data-scenario]');if(!b)return;currentScenario=b.dataset.scenario;applyScenario(doc)});
+
+    const slide3=qs(doc,'Das Ziel: ein Kunde pro Woche');
+    if(slide3){const lead=slide3.querySelector('.lead');setText(lead,'Für die Euro-Beispiele kannst du zwischen drei festen 2+2-Szenarien wechseln. Die Aktivität bleibt gleich – nur der Produktmix verändert sich.');}
+
+    function visibility(){
+      const active=doc.querySelector('.slide.active');
+      const relevant=active&&['Das Ziel: ein Kunde pro Woche','Was vier Kunden monatlich bewirken','Jahr 2 beginnt nicht bei null','Wenn drei Ebenen aktiv arbeiten'].includes(active.dataset.title);
+      chooser.style.display=relevant?'flex':'none';
+    }
+    new MutationObserver(visibility).observe(doc.getElementById('stage'),{subtree:true,attributes:true,attributeFilter:['class']});
+    visibility();applyScenario(doc);
+  }
+
+  function applyScenario(doc){
+    const d=scenarios[currentScenario];
+    doc.querySelectorAll('#scenarioChooser button').forEach(b=>{const active=b.dataset.scenario===currentScenario;b.classList.toggle('active',active);b.setAttribute('aria-pressed',active?'true':'false')});
+
+    const s3=qs(doc,'Das Ziel: ein Kunde pro Woche');
+    if(s3){
+      setText(s3.querySelector('.mixCard.mint strong'),d.bbName);setText(s3.querySelector('.mixCard.mint span'),d.bbInfo);
+      setText(s3.querySelector('.mixCard.mag strong'),d.hallName);setText(s3.querySelector('.mixCard.mag span'),d.hallInfo);
+      const dis=s3.querySelector('.disclaimer');setText(dis,'Gewähltes Szenario: '+d.label+'. Feste Modellannahme: vier neue Kunden pro Monat, alle bestehenden Fullservice-Verträge werden jährlich fortgeführt. Preise und Vergütungen gemäß dem dargestellten Modell; maßgeblich bleiben die jeweils aktuellen Leistungs- und Vertragsunterlagen.');
+    }
+
+    const s4=qs(doc,'Was vier Kunden monatlich bewirken');
+    if(s4){
+      const boxes=s4.querySelectorAll('.moneyBox');setText(boxes[0]?.querySelector('b'),d.monthly);setText(boxes[1]?.querySelector('b'),d.setup);
+      if(boxes[0])setText(boxes[0].querySelector('span'),d.bbName.replace('2 × ','')+' + '+d.hallName.replace('2 × ','')+' · direkte Ebene 1 mit 20 %');
+      const pts=s4.querySelectorAll('.moneyPoint');
+      const vals=[[d.m3,d.m3Run],[d.m6,d.m6Run],[d.m9,d.m9Run],[d.m12,d.m12Run]];
+      pts.forEach((p,i)=>{setText(p.querySelector('strong'),vals[i][0]);setText(p.querySelector('span'),vals[i][1]+' laufend + '+d.setup+' neue Setups')});
+      setText(s4.querySelector('.disclaimer'),'Beispielrechnung · Szenario '+d.label+'. Vier neue Kunden pro Monat im festen 2+2-Produktmix. Keine Einkommenszusage; alle Werte setzen vollständig bezahlte, provisionsfähige und wirksam zugeordnete Umsätze voraus.');
+    }
+
+    const s5=qs(doc,'Jahr 2 beginnt nicht bei null');
+    if(s5){
+      const years=s5.querySelectorAll('.year em');[d.y1,d.y2,d.y3].forEach((v,i)=>setText(years[i],v+' laufende Monatsbasis'));
+      setText(s5.querySelector('.statement'),'Monat 13 ist der Wendepunkt: Max startet nicht wieder bei null, sondern mit 48 aufgebauten Kunden und '+d.y1+' rechnerischer laufender Monatsbasis im Szenario '+d.label+'.');
+      setText(s5.querySelector('.disclaimer'),'Die Beträge zeigen ausschließlich die laufende Ebene-1-Provision des aktuell gewählten 2+2-Beispielmixes '+d.label+'. Setup-Provisionen sind hier bewusst nicht enthalten. Die jährliche Verlängerung aller Verträge ist eine feste Modellannahme, keine Garantie über reales Kundenverhalten.');
+    }
+
+    const s7=qs(doc,'Wenn drei Ebenen aktiv arbeiten');
+    if(s7){
+      const levels=s7.querySelectorAll('.levelCard strong');[d.e1,d.e2,d.e3].forEach((v,i)=>setText(levels[i],v));
+      setText(s7.querySelector('.totalLine strong'),d.levelsTotal+' / Monat');
+      const nums=s7.querySelectorAll('.number');
+      if(nums[0])setHTML(nums[0],d.levels12+'<small>rechnerische laufende Monatsbasis für Max</small>');
+      if(nums[1])setHTML(nums[1],d.setupLevels+'<small>Setup-Provision aus den drei Ebenen</small>');
+      const cards=s7.querySelectorAll('.grid.two .card');if(cards[1])setText(cards[1].querySelector('p'),d.setupParts+'. Setup bleibt einmalig und wird nicht in den laufenden Bestand eingerechnet.');
+      setText(s7.querySelector('.disclaimer'),'Vereinfachtes Parallelmodell · Szenario '+d.label+'. Es setzt voraus, dass alle drei Ebenen bereits aktiv sind, denselben 2+2-Beispielmix erzeugen und die Umsätze provisionsfähig sowie vollständig bezahlt sind. Keine Einkommensprognose.');
+    }
+  }
+
+  deck.addEventListener('load',()=>{
+    try{inject(deck.contentDocument);}catch(e){console.error(e)}
+  });
+
+  setInterval(()=>{
+    try{
+      const h=deck.contentWindow.location.hash||'#1';
+      if(h!==location.hash) history.replaceState(null,'',h);
+    }catch(_){ }
+  },250);
 })();
 </script>
-</body></html>
+</body>
+</html>
