@@ -188,7 +188,7 @@
       }else if(firstMax<=210){
         stockHeading(false,391);
         firstObjects.forEach(function(p,i){
-          objectCard(p,i,i===0?38:307,348,250);
+          objectCard(p,i,i===0?38:307,348,firstObjects.length===1?519:250);
           pIndex++;
         });
       }
@@ -197,7 +197,7 @@
       // Zusätzliche Immobilien in vollständigen 2er-Reihen; niemals eine Karte abschneiden.
       while(pIndex<state.properties.length){
         newPage();
-        stockHeading(true,746);
+        stockHeading(pIndex>0,746);
         add(tx(tr('Stand: ','As of: ')+asOf,38,724,9,false,M));
         var top=697,rowsOnPage=0;
         while(pIndex<state.properties.length){
