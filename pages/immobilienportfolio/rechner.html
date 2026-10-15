@@ -1039,7 +1039,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       </div>
 
       <div class="portfolio-toolbar">
-        <a class="btn secondary" href="./dashboard.html">
+        <a class="btn secondary" href="./banner.html">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>
           <span data-portfolio-i18n="openDashboard">Dashboard öffnen</span>
         </a>
@@ -2087,7 +2087,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         labelUsage:"Nutzung *",usageSelf:"Selbstnutzung",usageInvestment:"Kapitalanlage / vermietet",
         portfolioTitle:"Mein Immobilienportfolio",
         portfolioCopy:"Weitere Immobilien werden als eigenständige Objekte gespeichert. Der freigegebene Einzelrechner bleibt die Berechnungsgrundlage.",
-        newProperty:"Weiteres Objekt anlegen",openDashboard:"Dashboard öffnen",exportCsv:"Portfolio als CSV sichern",
+        newProperty:"Weiteres Objekt anlegen",openDashboard:"Dashboard-Banner ansehen",exportCsv:"Portfolio als CSV sichern",
         importCsv:"Portfolio aus CSV wiederherstellen",portfolioPdf:"Portfolio als PDF",
         portfolioNote:"CSV dient zur Sicherung und Wiederherstellung auf einem anderen Gerät. Rechner und Dashboard verwenden auf derselben Domain gemeinsam den lokalen Datenbestand.",
         empty:"Noch keine Immobilie im Portfolio gespeichert.",basis:"Basiswert",current:"Aktueller Wert",use:"Nutzung",
@@ -2101,7 +2101,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         labelUsage:"Type of use *",usageSelf:"Owner-occupied",usageInvestment:"Investment / rented",
         portfolioTitle:"My property portfolio",
         portfolioCopy:"Additional properties are stored as individual assets. The approved single-property calculator remains the calculation basis.",
-        newProperty:"Add another property",openDashboard:"Open dashboard",exportCsv:"Save portfolio as CSV",
+        newProperty:"Add another property",openDashboard:"View dashboard banner",exportCsv:"Save portfolio as CSV",
         importCsv:"Restore portfolio from CSV",portfolioPdf:"Portfolio as PDF",
         portfolioNote:"CSV backs up and restores the portfolio on another device. On the same domain, calculator and dashboard share the local data.",
         empty:"No property has been stored in the portfolio yet.",basis:"Base value",current:"Current value",use:"Use",
@@ -2121,6 +2121,38 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     const parseDate=(value)=>{const parts=String(value||"").split("-").map(Number);return parts.length===3?new Date(parts[0],parts[1]-1,parts[2]):null};
     const fullMonths=(value)=>{const start=parseDate(value),end=new Date();end.setHours(0,0,0,0);if(!start||start>end)return 0;let months=(end.getFullYear()-start.getFullYear())*12+end.getMonth()-start.getMonth();if(end.getDate()<start.getDate())months--;return Math.max(0,months)};
     const currentValue=(item)=>number(item.purchasePrice)+number(item.purchasePrice)*(Math.min(10,Math.max(1,number(item.annualRate)||5))/12/100)*fullMonths(item.purchaseDate);
+    // Tagesgenaue Wertentwicklung des Portfolios ab Erfassung; der Einzelrechner bleibt unverändert.
+    const localDate=(value)=>{
+      const raw=String(value||"");
+      if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw;
+      const date=new Date(value||Date.now());
+      if(!Number.isFinite(date.getTime()))return null;
+      return date.getFullYear()+"-"+String(date.getMonth()+1).padStart(2,"0")+"-"+String(date.getDate()).padStart(2,"0");
+    };
+    const daysAsNumber=(value)=>{
+      const d=localDate(value);
+      if(!d)return NaN;
+      const parts=d.split("-").map(Number);
+      const stamp=Date.UTC(parts[0],parts[1]-1,parts[2]);
+      return new Date(stamp).getUTCDate()===parts[2]?stamp/86400000:NaN;
+    };
+    const modelStartDate=(item)=>localDate(item.modelStartDate)||localDate(item.createdAt)||localDate(new Date());
+    const modelBaseValue=(item)=>{
+      if(number(item.modelStartValue)>0)return number(item.modelStartValue);
+      const start=localDate(item.purchaseDate),end=modelStartDate(item);
+      if(!start||!end)return number(item.purchasePrice);
+      const parts=start.split("-").map(Number),endParts=end.split("-").map(Number);
+      const months=daysAsNumber(start)>daysAsNumber(end)?0:Math.max(0,
+        (endParts[0]-parts[0])*12+endParts[1]-parts[1]-(endParts[2]<parts[2]?1:0));
+      const rate=Math.min(10,Math.max(1,number(item.annualRate)||5));
+      return number(item.purchasePrice)*(1+rate*months/1200);
+    };
+    const dailyValue=(item)=>{
+      const base=modelBaseValue(item);
+      const days=Math.max(0,daysAsNumber(new Date())-daysAsNumber(modelStartDate(item)));
+      const rate=Math.min(10,Math.max(1,number(item.annualRate)||5));
+      return base+base*rate/100*(Number.isFinite(days)?days:0)/365;
+    };
     let state=read();
     let selectedId=localStorage.getItem(SELECTED_KEY)||state.selectedId||null;
 
@@ -2178,7 +2210,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
           '<div class="portfolio-name"><strong>'+escapeHtml(item.name||"Immobilie")+'</strong><span>'+escapeHtml(item.address||item.purchaseDate)+'</span></div>'+
           '<div class="portfolio-value"><span>'+escapeHtml(t("use"))+'</span><strong>'+escapeHtml(use)+'</strong></div>'+
           '<div class="portfolio-value"><span>'+escapeHtml(t("basis"))+'</span><strong>'+escapeHtml(money(item.purchasePrice))+'</strong></div>'+
-          '<div class="portfolio-value"><span>'+escapeHtml(t("current"))+'</span><strong>'+escapeHtml(money(currentValue(item)))+'</strong></div>'+
+          '<div class="portfolio-value"><span>'+escapeHtml(t("current"))+'</span><strong>'+escapeHtml(money(dailyValue(item)))+'</strong></div>'+
           '<div class="portfolio-actions"><button class="btn secondary small" type="button" data-open-property="'+escapeHtml(item.id)+'">'+escapeHtml(t("select"))+"</button></div>"+
         "</article>";
       }).join("");
@@ -2199,7 +2231,9 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
           purchasePrice:number(item.purchasePrice),
           annualRate:Math.min(10,Math.max(1,number(item.annualRate)||5)),
           createdAt:stamp,
-          updatedAt:stamp
+          updatedAt:stamp,
+          modelStartDate:localDate(stamp),
+          modelStartValue:currentValue(item)
         });
         selectedId=id;
         persist();
@@ -2229,7 +2263,9 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         purchasePrice:number(item.purchasePrice),
         annualRate:Math.min(10,Math.max(1,number(item.annualRate)||5)),
         createdAt:existing&&existing.createdAt?existing.createdAt:stamp,
-        updatedAt:stamp
+        updatedAt:stamp,
+        modelStartDate:existing?modelStartDate(existing):localDate(stamp),
+        modelStartValue:existing?modelBaseValue(existing):currentValue(item)
       };
       if(existing)state.properties[state.properties.indexOf(existing)]=record;else state.properties.push(record);
       selectedId=record.id;
@@ -2248,12 +2284,13 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     }
     function exportCsv(){
       if(!state.properties.length){setStatus(t("nothing"),true);return}
-      const head=["schema_version","property_id","object_name","address_note","usage_type","purchase_date","purchase_price_eur","annual_appreciation_percent","created_at","updated_at"];
+      const head=["schema_version","property_id","object_name","address_note","usage_type","purchase_date","purchase_price_eur","annual_appreciation_percent","created_at","updated_at","model_start_date","model_start_value_eur"];
       const rows=[head].concat(state.properties.map((item)=>[
         1,item.id,item.name,item.address,item.usage,item.purchaseDate,
         number(item.purchasePrice).toFixed(2).replace(".",","),
         number(item.annualRate).toFixed(1).replace(".",","),
-        item.createdAt||"",item.updatedAt||""
+        item.createdAt||"",item.updatedAt||"",
+        modelStartDate(item),modelBaseValue(item).toFixed(2).replace(".",",")
       ]));
       const csv="﻿"+rows.map((row)=>row.map(csvCell).join(";")).join("\r\n");
       download(new Blob([csv],{type:"text/csv;charset=utf-8"}),"XXL-IMMO-Immobilienportfolio-"+new Date().toISOString().slice(0,10)+".csv");
@@ -2290,7 +2327,9 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
             purchasePrice:number(row[columns.purchase_price_eur]),
             annualRate:Math.min(10,Math.max(1,number(row[columns.annual_appreciation_percent])||5)),
             createdAt:row[columns.created_at]||now(),
-            updatedAt:row[columns.updated_at]||now()
+            updatedAt:row[columns.updated_at]||now(),
+            modelStartDate:columns.model_start_date==null?localDate(row[columns.created_at]||now()):row[columns.model_start_date]||localDate(row[columns.created_at]||now()),
+            modelStartValue:columns.model_start_value_eur==null?0:number(row[columns.model_start_value_eur])
           })).filter((item)=>item.name&&item.purchaseDate&&item.purchasePrice>0);
           if(!properties.length)throw new Error("empty");
           if(state.properties.length&&!window.confirm(t("confirmImport")))return;
