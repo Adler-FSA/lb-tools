@@ -728,6 +728,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       box-shadow:0 0 0 3px rgba(0,0,0,.08);
     }
     .portfolio-extension{margin-top:18px}
+    .portfolio-extension .portfolio-toolbar .btn{font-size:.84rem;white-space:normal}
+    @media(max-width:560px){.form-card .btn-row{display:flex;flex-direction:column;align-items:stretch}.form-card .btn-row .btn{width:100%;justify-content:center}}
     .portfolio-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
     .portfolio-status{min-height:20px;margin:10px 0 0;color:#5e5e5e;font-size:.82rem}
     .portfolio-status.error{color:#8b1a1a}
@@ -1008,11 +1010,6 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
                 <span data-i18n="saveButton">Immobilie speichern und berechnen</span>
               </button>
 
-              <button class="btn secondary" id="newPropertyButton" type="button" hidden>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-                <span data-portfolio-i18n="newProperty">Weiteres Objekt anlegen</span>
-              </button>
-
               <button class="btn danger" id="deleteButton" type="button" hidden>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4 7h16" />
@@ -1022,11 +1019,50 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
                 </svg>
                 <span data-i18n="deleteButton">Immobilie löschen</span>
               </button>
+
+              <button class="btn secondary" id="newPropertyButton" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                <span data-portfolio-i18n="newProperty">Weiteres Objekt anlegen</span>
+              </button>
             </div>
 
             <p class="microcopy" data-i18n="localStorageNote">Ihre Eingaben werden ausschließlich lokal in diesem Browser gespeichert.</p>
           </form>
         </section>
+
+        <section class="card portfolio-extension" aria-labelledby="portfolioTitle">
+      <div class="section-head">
+        <div>
+          <h2 id="portfolioTitle" data-portfolio-i18n="portfolioTitle">Mein Immobilienportfolio</h2>
+          <p data-portfolio-i18n="portfolioCopy">Weitere Immobilien werden als eigenständige Objekte gespeichert. Der freigegebene Einzelrechner bleibt die Berechnungsgrundlage.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-toolbar">
+        <a class="btn secondary" href="./dashboard.html">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>
+          <span data-portfolio-i18n="openDashboard">Dashboard öffnen</span>
+        </a>
+        <button class="btn secondary" id="exportPortfolioCsv" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>
+          <span data-portfolio-i18n="exportCsv">Portfolio als CSV sichern</span>
+        </button>
+        <button class="btn secondary" id="importPortfolioCsv" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9M7 14l5-5 5 5M4 3h16"/></svg>
+          <span data-portfolio-i18n="importCsv">Portfolio aus CSV wiederherstellen</span>
+        </button>
+        <a class="btn secondary" href="./dashboard.html?pdf=1">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v4h4M9 13h6M9 17h6"/></svg>
+          <span data-portfolio-i18n="portfolioPdf">Portfolio als PDF</span>
+        </a>
+        <input class="file-input" id="portfolioCsvFile" type="file" accept=".csv,text/csv" />
+      </div>
+
+      <div id="portfolioList" class="portfolio-list"></div>
+      <p id="portfolioStatus" class="portfolio-status" role="status" aria-live="polite"></p>
+      <p class="microcopy" data-portfolio-i18n="portfolioNote">CSV dient zur Sicherung und Wiederherstellung auf einem anderen Gerät. Rechner und Dashboard verwenden auf derselben Domain gemeinsam den lokalen Datenbestand.</p>
+        </section>
+
 
         <section class="card">
           <div class="section-head">
@@ -1080,39 +1116,6 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       </div>
     </div>
 
-
-    <section class="card portfolio-extension" aria-labelledby="portfolioTitle">
-      <div class="section-head">
-        <div>
-          <h2 id="portfolioTitle" data-portfolio-i18n="portfolioTitle">Mein Immobilienportfolio</h2>
-          <p data-portfolio-i18n="portfolioCopy">Weitere Immobilien werden als eigenständige Objekte gespeichert. Der freigegebene Einzelrechner bleibt die Berechnungsgrundlage.</p>
-        </div>
-      </div>
-
-      <div class="portfolio-toolbar">
-        <a class="btn secondary" href="./dashboard.html">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>
-          <span data-portfolio-i18n="openDashboard">Dashboard öffnen</span>
-        </a>
-        <button class="btn secondary" id="exportPortfolioCsv" type="button">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>
-          <span data-portfolio-i18n="exportCsv">Portfolio als CSV sichern</span>
-        </button>
-        <button class="btn secondary" id="importPortfolioCsv" type="button">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9M7 14l5-5 5 5M4 3h16"/></svg>
-          <span data-portfolio-i18n="importCsv">Portfolio aus CSV wiederherstellen</span>
-        </button>
-        <a class="btn secondary" href="./dashboard.html?pdf=1">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v4h4M9 13h6M9 17h6"/></svg>
-          <span data-portfolio-i18n="portfolioPdf">Portfolio als PDF</span>
-        </a>
-        <input class="file-input" id="portfolioCsvFile" type="file" accept=".csv,text/csv" />
-      </div>
-
-      <div id="portfolioList" class="portfolio-list"></div>
-      <p id="portfolioStatus" class="portfolio-status" role="status" aria-live="polite"></p>
-      <p class="microcopy" data-portfolio-i18n="portfolioNote">CSV dient zur Sicherung und Wiederherstellung auf einem anderen Gerät. Rechner und Dashboard verwenden auf derselben Domain gemeinsam den lokalen Datenbestand.</p>
-    </section>
 
     <section class="card notice-card">
       <div class="section-head">
@@ -1528,6 +1531,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       }
 
       function loadProperty(){
+        // Ein bewusst begonnenes neues Objekt darf nie aus alten Schlüsseln vorbefüllt werden.
+        if(sessionStorage.getItem("xxl-immo-new-property-v1")==="1")return null;
         try{
           const direct = normalizeProperty(JSON.parse(localStorage.getItem(STORAGE_KEY)));
 
@@ -2082,7 +2087,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         labelUsage:"Nutzung *",usageSelf:"Selbstnutzung",usageInvestment:"Kapitalanlage / vermietet",
         portfolioTitle:"Mein Immobilienportfolio",
         portfolioCopy:"Weitere Immobilien werden als eigenständige Objekte gespeichert. Der freigegebene Einzelrechner bleibt die Berechnungsgrundlage.",
-        newProperty:"Weitere Immobilie anlegen",openDashboard:"Dashboard öffnen",exportCsv:"Portfolio als CSV sichern",
+        newProperty:"Weiteres Objekt anlegen",openDashboard:"Dashboard öffnen",exportCsv:"Portfolio als CSV sichern",
         importCsv:"Portfolio aus CSV wiederherstellen",portfolioPdf:"Portfolio als PDF",
         portfolioNote:"CSV dient zur Sicherung und Wiederherstellung auf einem anderen Gerät. Rechner und Dashboard verwenden auf derselben Domain gemeinsam den lokalen Datenbestand.",
         empty:"Noch keine Immobilie im Portfolio gespeichert.",basis:"Basiswert",current:"Aktueller Wert",use:"Nutzung",
@@ -2206,7 +2211,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     function syncUsage(){
       const selected=state.properties.find((item)=>item.id===selectedId);
       $("propertyUsage").value=selected&&selected.usage==="investment"?"investment":"self";
-      $("newPropertyButton").hidden=!selected;
+      $("newPropertyButton").hidden=false;
     }
 
     function saveFromCalculator(){
@@ -2229,6 +2234,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
       if(existing)state.properties[state.properties.indexOf(existing)]=record;else state.properties.push(record);
       selectedId=record.id;
       persist();
+      sessionStorage.removeItem(NEW_KEY);
       $("newPropertyButton").hidden=false;
       render();
       setStatus(t("saved"),false);
@@ -2288,7 +2294,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
           })).filter((item)=>item.name&&item.purchaseDate&&item.purchasePrice>0);
           if(!properties.length)throw new Error("empty");
           if(state.properties.length&&!window.confirm(t("confirmImport")))return;
-          state.properties=properties;selectedId=properties[0].id;persist();
+          state.properties=properties;selectedId=properties[0].id;sessionStorage.removeItem(NEW_KEY);persist();
           localStorage.setItem(SINGLE_KEY,JSON.stringify(properties[0]));
           setStatus(t("csvImported"),false);
           window.setTimeout(()=>window.location.reload(),350);
@@ -2300,16 +2306,33 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
       reader.readAsText(file,"utf-8");
     }
 
-    sessionStorage.removeItem(NEW_KEY);
     migrateSingle();
     syncUsage();
     render();
 
     $("propertyForm").addEventListener("submit",()=>window.setTimeout(saveFromCalculator,0));
     $("newPropertyButton").addEventListener("click",()=>{
+      // Zuerst die sichtbaren Eingaben sichern, auch wenn sie noch nicht mit
+      // "Immobilie speichern und berechnen" bestätigt wurden.
+      const form=$("propertyForm");
+      const hasEntry=["propertyName","propertyAddress","purchasePrice","purchaseDate"]
+        .some((id)=>String($(id).value||"").trim()!=="");
+      if(hasEntry){
+        const dateValue=$("purchaseDate").value;
+        const purchaseDate=dateValue?new Date(dateValue+"T00:00:00"):null;
+        const today=new Date();today.setHours(0,0,0,0);
+        if(!$("propertyName").value.trim()||!dateValue||!Number.isFinite(Number($("purchasePrice").value))||
+           Number($("purchasePrice").value)<=0||purchaseDate>today){
+          form.requestSubmit(); // vorhandene Validierung und Fehlermeldung verwenden
+          return;
+        }
+        form.requestSubmit(); // der unveränderte Einzelrechner berechnet und speichert
+        saveFromCalculator(); // Portfolio-Eintrag sofort vor dem Seitenwechsel festschreiben
+      }
       sessionStorage.setItem(NEW_KEY,"1");
       selectedId=null;
-      localStorage.removeItem(SELECTED_KEY);
+      state.selectedId=null;
+      persist(); // Nur die Auswahl zurücksetzen, keinen Bestandsdatensatz löschen
       localStorage.removeItem(SINGLE_KEY);
       window.location.reload();
     });
@@ -2318,7 +2341,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
       if(!button)return;
       const item=state.properties.find((entry)=>entry.id===button.getAttribute("data-open-property"));
       if(!item)return;
-      selectedId=item.id;persist();
+      selectedId=item.id;sessionStorage.removeItem(NEW_KEY);persist();
       localStorage.setItem(SINGLE_KEY,JSON.stringify({
         name:item.name,address:item.address,purchasePrice:item.purchasePrice,purchaseDate:item.purchaseDate,
         annualRate:item.annualRate,lastUpdated:(item.updatedAt||now()).slice(0,10)
