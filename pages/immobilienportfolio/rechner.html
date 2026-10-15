@@ -1173,11 +1173,11 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           brandSubtitle: "Modellhafte Wertentwicklung",
           heroEyebrow: "Immobilienvermögensberatung",
           heroTitle: "Wie entwickelt sich der Wert Ihrer Immobilie?",
-          heroCopy: "Erfassen Sie eine Immobilie, aktualisieren Sie den rechnerischen Monatswert und betrachten Sie mögliche Entwicklungen für die kommenden Jahre. Als Standardwert sind 5 % Wertsteigerung pro Jahr hinterlegt. Für Vergleichsrechnungen kann die Jahresrate zwischen 1 % und 10 % angepasst werden.",
+          heroCopy: "Erfassen Sie eine Immobilie und sehen Sie die tägliche rechnerische Wertentwicklung ab dem Kaufdatum sowie mögliche Entwicklungen für die kommenden Jahre. Als Standardwert sind 5 % Wertsteigerung pro Jahr hinterlegt. Für Vergleichsrechnungen kann die Jahresrate zwischen 1 % und 10 % angepasst werden.",
           fact1Strong: "5 % Standardwert pro Jahr",
           fact1Text: "Monatlich 0,4167 % des ursprünglichen Basiswertes",
-          fact2Strong: "Monatliche Aktualisierung",
-          fact2Text: "Aktuellen Wert per Button neu ausweisen",
+          fact2Strong: "Tägliche Wertentwicklung",
+          fact2Text: "Automatisch ab dem Kaufdatum fortgeschrieben",
           fact3Strong: "Individuelles Immobilienportfolio",
           fact3Text: "Jede tatsächlich erfasste Immobilie mit ihren eigenen Werten berücksichtigen",
           formTitle: "Immobilie erfassen",
@@ -1191,7 +1191,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           labelRate: "Modellhafte Wertsteigerung pro Jahr",
           labelRateNumber: "Jahresrate in %",
           rateStandard: "Standard: 5 %",
-          rateNote: "Bei {rate} % pro Jahr entspricht die monatliche Fortschreibung {monthlyRate} % des ursprünglichen Kaufpreises. Der Standardwert aus der Bauanleitung beträgt 5 % pro Jahr.",
+          rateNote: "Bei {rate} % pro Jahr beträgt der rechnerische Monatsdurchschnitt {monthlyRate} % des ursprünglichen Kaufpreises. Die Wertentwicklung erfolgt täglich ab dem Kaufdatum.",
           saveButton: "Immobilie speichern und berechnen",
           deleteButton: "Immobilie löschen",
           localStorageNote: "Ihre Eingaben werden ausschließlich lokal in diesem Browser gespeichert.",
@@ -1202,7 +1202,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           resultTitle: "Ergebnis nach Aktualisierung",
           resultCopy: "Einzelberechnung auf Basis des gespeicherten Kaufpreises und der eingestellten Jahresrate.",
           chartTitle: "Wertentwicklung der Immobilie",
-          chartCopy: "Monatlich fortgeschriebene Modellrechnung vom Kaufdatum bis 20 Jahre ab heute.",
+          chartCopy: "Täglich fortgeschriebene Modellrechnung vom Kaufdatum bis 20 Jahre ab heute.",
           noticeTitle: "Wichtige Hinweise zur Modellrechnung",
           noticeCopy: "Die Ergebnisse dienen ausschließlich als vereinfachte Orientierung.",
           notice1: "Die Berechnung stellt ausschließlich eine modellhafte Wertentwicklung dar und ersetzt keine individuelle Immobilienbewertung.",
@@ -1220,9 +1220,9 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           gain: "Rechnerischer Wertzuwachs",
           annualRate: "Jahresrate",
           monthlyPercent: "Monatliche Rate",
-          monthlyEuro: "Monatlicher Wertzuwachs",
-          nextUpdate: "Nächster Monatszeitpunkt",
-          nextValue: "Wert am nächsten Monatszeitpunkt",
+          monthlyEuro: "Monatlicher Wertzuwachs (Durchschnitt)",
+          nextUpdate: "Nächste Tagesaktualisierung",
+          nextValue: "Rechnerischer Wert morgen",
           holding: "Aktuelle Haltedauer",
           tenYearDate: "Zehn-Jahres-Zeitpunkt",
           calculatedOn: "Berechnet am",
@@ -1257,11 +1257,11 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           brandSubtitle: "Model-based value development",
           heroEyebrow: "Real estate asset consulting",
           heroTitle: "How could the value of your property develop?",
-          heroCopy: "Enter one property, update its calculated monthly value and review potential developments for the coming years. The standard appreciation rate is 5% per year. For comparison calculations, the annual rate can be adjusted between 1% and 10%.",
+          heroCopy: "Enter a property and see its daily calculated appreciation from the purchase date, along with projections for the coming years. The standard appreciation rate is 5% per year and can be adjusted between 1% and 10%.",
           fact1Strong: "5% standard rate per year",
           fact1Text: "Monthly 0.4167% of the original base value",
-          fact2Strong: "Monthly update",
-          fact2Text: "Recalculate the current value by button",
+          fact2Strong: "Daily value development",
+          fact2Text: "Automatically calculated from the purchase date",
           fact3Strong: "Individual property portfolio",
           fact3Text: "Include every recorded property with its own individual values",
           formTitle: "Enter property",
@@ -1275,7 +1275,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           labelRate: "Model-based annual appreciation",
           labelRateNumber: "Annual rate in %",
           rateStandard: "Standard: 5%",
-          rateNote: "At {rate}% per year, the monthly progression is {monthlyRate}% of the original purchase price. The standard rate from the requirements is 5% per year.",
+          rateNote: "At {rate}% per year, the average monthly increase is {monthlyRate}% of the original purchase price. The model value is calculated daily from the purchase date.",
           saveButton: "Save and calculate property",
           deleteButton: "Delete property",
           localStorageNote: "Your entries are stored locally in this browser only.",
@@ -1286,7 +1286,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           resultTitle: "Result after update",
           resultCopy: "Single-property calculation based on the saved purchase price and the selected annual rate.",
           chartTitle: "Value development of the property",
-          chartCopy: "Monthly progression from the purchase date to 20 years from today.",
+          chartCopy: "Daily model progression from the purchase date to 20 years from today.",
           noticeTitle: "Important information about this model calculation",
           noticeCopy: "The results are intended as a simplified orientation only.",
           notice1: "The calculation shows a model-based value development only and does not replace an individual property valuation.",
@@ -1304,9 +1304,9 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           gain: "Calculated value increase",
           annualRate: "Annual rate",
           monthlyPercent: "Monthly rate",
-          monthlyEuro: "Monthly value increase",
-          nextUpdate: "Next monthly date",
-          nextValue: "Value at next monthly date",
+          monthlyEuro: "Monthly increase (average)",
+          nextUpdate: "Next daily update",
+          nextValue: "Calculated value tomorrow",
           holding: "Current holding period",
           tenYearDate: "Ten-year date",
           calculatedOn: "Calculated on",
@@ -1479,27 +1479,41 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       }
 
       function monthlyEuro(item){
+        // Gleichbleibender monatlicher Durchschnitt; die Wertanzeige selbst ist tagesgenau.
         return Number(item.purchasePrice) * (monthlyRate(item) / 100);
       }
 
-      function linearValueByMonths(item,months){
-        return Number(item.purchasePrice) + monthlyEuro(item) * months;
+      function elapsedDays(startValue,endValue = today()){
+        const start=typeof startValue==="string"?parseDate(startValue):startValue;
+        const end=typeof endValue==="string"?parseDate(endValue):endValue;
+        if(!(start instanceof Date)||!(end instanceof Date)||
+           !Number.isFinite(start.getTime())||!Number.isFinite(end.getTime()))return 0;
+        const utc=(date)=>Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/86400000;
+        return Math.max(0,utc(end)-utc(start));
+      }
+
+      function valueAtDate(item,dateValue){
+        const price=Number(item.purchasePrice);
+        const days=elapsedDays(item.purchaseDate,dateValue);
+        return price+price*(clampRate(item.annualRate)/100)*(days/365);
       }
 
       function currentValue(item){
-        return linearValueByMonths(item,fullMonthsBetween(item.purchaseDate));
+        return valueAtDate(item,today());
       }
 
       function futureValue(item,years){
-        return linearValueByMonths(item,fullMonthsBetween(item.purchaseDate) + years * 12);
+        return valueAtDate(item,addMonths(today(),years*12));
       }
 
-      function nextUpdateDate(item){
-        return isoDate(addMonths(item.purchaseDate,fullMonthsBetween(item.purchaseDate) + 1));
+      function nextUpdateDate(){
+        const tomorrow=today();
+        tomorrow.setDate(tomorrow.getDate()+1);
+        return isoDate(tomorrow);
       }
 
       function nextValue(item){
-        return linearValueByMonths(item,fullMonthsBetween(item.purchaseDate) + 1);
+        return valueAtDate(item,nextUpdateDate());
       }
 
       function holdingText(item){
@@ -1799,7 +1813,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
 
             <div class="detail-box">
               <span>${escapeHtml(t("calculatedOn"))}</span>
-              <strong>${formatDate(property.lastUpdated)}</strong>
+              <strong>${formatDate(isoDate(today()))}</strong>
             </div>
           </div>
 
@@ -1906,14 +1920,25 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           return;
         }
 
-        const elapsedMonths = fullMonthsBetween(property.purchaseDate);
-        const futureMonths = elapsedMonths + 240;
-        const maxValue = linearValueByMonths(property,futureMonths);
+        const elapsedDays=elapsedDaysBetweenPurchase();
+        const futureDays=Math.max(1,elapsedDaysBetweenFuture(20));
+        const maxValue=valueAtDate(property,addMonths(today(),240));
 
-        const x = (months) => pad.left + (months / futureMonths) * plotWidth;
+        function elapsedDaysBetweenPurchase(){
+          return elapsedDaysValue(property.purchaseDate,today());
+        }
+        function elapsedDaysBetweenFuture(years){
+          return elapsedDaysValue(property.purchaseDate,addMonths(today(),years*12));
+        }
+        function elapsedDaysValue(start,end){
+          const utc=(date)=>Date.UTC(date.getFullYear(),date.getMonth(),date.getDate())/86400000;
+          const a=typeof start==="string"?parseDate(start):start;
+          return Math.max(0,utc(end)-utc(a));
+        }
+
+        const x = (days) => pad.left + (days / futureDays) * plotWidth;
         const y = (value) => pad.top + plotHeight - (value / maxValue) * plotHeight;
-
-        const linePoints = Array.from({length:futureMonths + 1},(_,months) => `${x(months)},${y(linearValueByMonths(property,months))}`).join(" ");
+        const linePoints = `${x(0)},${y(property.purchasePrice)} ${x(futureDays)},${y(maxValue)}`;
 
         const grid = Array.from({length:5},(_,index) => {
           const ratio = index / 4;
@@ -1927,20 +1952,17 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
         }).join("");
 
         const tickData = [
-          {months:0,label:t("chartPurchase")},
-          {months:elapsedMonths,label:t("chartNow")},
-          {months:elapsedMonths + 60,label:"+5"},
-          {months:elapsedMonths + 120,label:"+10"},
-          {months:elapsedMonths + 180,label:"+15"},
-          {months:elapsedMonths + 240,label:"+20"}
+          {days:0,label:t("chartPurchase")},
+          {days:elapsedDays,label:t("chartNow")},
+          ...[5,10,15,20].map(years=>({days:elapsedDaysBetweenFuture(years),label:"+"+years}))
         ];
 
         const ticks = tickData.map((item) => `
-          <line x1="${x(item.months)}" y1="${pad.top + plotHeight}" x2="${x(item.months)}" y2="${pad.top + plotHeight + 6}" stroke="#000" stroke-width="1" />
-          <text x="${x(item.months)}" y="${height - 21}" text-anchor="middle" font-size="13" fill="#555">${escapeHtml(item.label)}</text>
+          <line x1="${x(item.days)}" y1="${pad.top + plotHeight}" x2="${x(item.days)}" y2="${pad.top + plotHeight + 6}" stroke="#000" stroke-width="1" />
+          <text x="${x(item.days)}" y="${height - 21}" text-anchor="middle" font-size="13" fill="#555">${escapeHtml(item.label)}</text>
         `).join("");
 
-        const currentX = x(elapsedMonths);
+        const currentX = x(elapsedDays);
         const currentY = y(currentValue(property));
 
         chart.innerHTML = `
@@ -2030,6 +2052,20 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       });
 
       window.addEventListener("xxlPortfolioChanged",renderMultiple);
+      // Bereits geöffnete Ansichten auch am nächsten Kalendertag fortschreiben.
+      let displayedDate=isoDate(today());
+      const refreshForDate=()=>{
+        const currentDate=isoDate(today());
+        if(currentDate!==displayedDate){
+          displayedDate=currentDate;
+          renderAll();
+        }
+      };
+      window.addEventListener("focus",refreshForDate);
+      document.addEventListener("visibilitychange",()=>{
+        if(!document.hidden)refreshForDate();
+      });
+      window.setInterval(refreshForDate,60000);
 
       fillForm();
       applyLanguage();
