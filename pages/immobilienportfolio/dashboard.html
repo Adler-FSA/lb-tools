@@ -197,9 +197,10 @@
       // Zusätzliche Immobilien in vollständigen 2er-Reihen; niemals eine Karte abschneiden.
       while(pIndex<state.properties.length){
         newPage();
-        stockHeading(pIndex>0,746);
-        add(tx(tr('Stand: ','As of: ')+asOf,38,724,9,false,M));
-        var top=697,rowsOnPage=0;
+        var continuation=pIndex>0;
+        stockHeading(continuation,746);
+        add(tx(tr('Stand: ','As of: ')+asOf,38,continuation?724:702,9,false,M));
+        var top=continuation?697:678,rowsOnPage=0;
         while(pIndex<state.properties.length){
           var row=state.properties.slice(pIndex,pIndex+2);
           var maxHeight=row.reduce(function(max,p){return Math.max(max,objectHeight(p))},0);
