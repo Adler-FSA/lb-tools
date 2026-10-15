@@ -2354,5 +2354,71 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
   })();
 </script>
 
+<script id="xxl-property-pdf-generator">(function propertyPdfGenerator(){
+  "use strict";
+  const DB="xxl-immo-portfolio-pdf-handoff-v1", STORE="files";
+  const num=(v)=>Number(v)||0;
+  const de=()=>document.documentElement.lang!=="en";
+  const months=(date)=>{const p=String(date||"").split("-").map(Number),a=p.length===3?new Date(p[0],p[1]-1,p[2]):null,b=new Date();b.setHours(0,0,0,0);if(!a||a>b)return 0;let m=(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth();if(b.getDate()<a.getDate())m--;return Math.max(0,m)};
+  const valueAt=(p,extra)=>num(p.purchasePrice)+num(p.purchasePrice)*(Math.min(10,Math.max(1,num(p.annualRate)||5))/12/100)*(months(p.purchaseDate)+(extra||0));
+  const money=(v)=>new Intl.NumberFormat(de()?"de-DE":"en-IE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(v||0);
+  const date=(v)=>{const p=String(v||"").slice(0,10).split("-").map(Number),d=p.length===3?new Date(p[0],p[1]-1,p[2]):null;return d&&!isNaN(d)?new Intl.DateTimeFormat(de()?"de-DE":"en-GB").format(d):"–"};
+  const winHex=(s)=>{const map={"€":128,"‚":130,"ƒ":131,"„":132,"…":133,"†":134,"‡":135,"ˆ":136,"‰":137,"Š":138,"‹":139,"Œ":140,"Ž":142,"‘":145,"’":146,"“":147,"”":148,"•":149,"–":150,"—":151,"˜":152,"™":153,"š":154,"›":155,"œ":156,"ž":158,"Ÿ":159},extra={"Ä":196,"Ö":214,"Ü":220,"ä":228,"ö":246,"ü":252,"ß":223},out=[];for(const c of String(s)){let n=map[c]??extra[c]??c.charCodeAt(0);out.push((n>255?63:n).toString(16).padStart(2,"0"))}return out.join("").toUpperCase()};
+  const text=(s,x,y,z=10,b=false,c="0.12 0.20 0.24")=>`BT 0 Tc 0 Tw /${b?"F2":"F1"} ${z} Tf ${c} rg 1 0 0 1 ${x} ${y} Tm <${winHex(s)}> Tj ET\n`;
+  const rect=(x,y,w,h,c)=>`${c} rg ${x} ${y} ${w} ${h} re f\n`;
+  const line=(x1,y1,x2,y2,c="0.83 0.88 0.90",w=1)=>`${c} RG ${w} w ${x1} ${y1} m ${x2} ${y2} l S\n`;
+  const wrap=(s,n)=>{const a=String(s||"").split(/\s+/),r=[];let l="";for(const x of a){const q=(l+" "+x).trim();if(q.length>n&&l){r.push(l);l=x}else l=q}if(l)r.push(l);return r};
+  function assemble(pages){
+    const o=[null],f1=o.push("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>")-1,f2=o.push("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>")-1,pids=[],cids=[];
+    pages.forEach((s)=>{cids.push(o.push(`<< /Length ${s.length} >>\nstream\n${s}endstream`)-1);pids.push(o.push("")-1)});
+    const ps=o.push("")-1,cat=o.push(`<< /Type /Catalog /Pages ${ps} 0 R >>`)-1;
+    pids.forEach((id,i)=>o[id]=`<< /Type /Page /Parent ${ps} 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 ${f1} 0 R /F2 ${f2} 0 R >> >> /Contents ${cids[i]} 0 R >>`);
+    o[ps]=`<< /Type /Pages /Kids [${pids.map(id=>id+" 0 R").join(" ")}] /Count ${pids.length} >>`;
+    let out="%PDF-1.4\n%XXLIMMO\n",off=[0];
+    for(let i=1;i<o.length;i++){off[i]=out.length;out+=`${i} 0 obj\n${o[i]}\nendobj\n`}
+    const x=out.length;out+=`xref\n0 ${o.length}\n0000000000 65535 f \n`;
+    for(let i=1;i<o.length;i++)out+=String(off[i]).padStart(10,"0")+" 00000 n \n";
+    out+=`trailer\n<< /Size ${o.length} /Root ${cat} 0 R >>\nstartxref\n${x}\n%%EOF`;
+    return new Blob([new TextEncoder().encode(out)],{type:"application/pdf"});
+  }
+  function build(p){
+    const blue="0.055 0.427 0.741",dark="0.12 0.20 0.24",soft="0.95 0.98 1",green="0.35 0.67 0.10",W=595,H=842,pages=[];
+    const now=new Date(), current=valueAt(p,0),gain=current-num(p.purchasePrice),held=months(p.purchaseDate),tax=held>=120;
+    const usage=document.getElementById("propertyUsage")?.value==="investment"?(de()?"Kapitalanlage / vermietet":"Investment / rented"):(de()?"Selbstnutzung":"Owner-occupied");
+    function base(title,sub,page,total){let s=rect(0,0,W,H,"1 1 1")+rect(0,724,W,118,blue)+text("XXL.IMMO",40,807,12,true,"1 1 1")+text(title,40,770,25,true,"1 1 1")+text(sub,40,744,10,false,"0.90 0.96 1")+line(40,48,555,48,"0.82 0.88 0.91");s+=text((de()?"Unverbindliche Modellrechnung":"Non-binding model calculation")+" · "+page+"/"+total,40,30,8,false,"0.42 0.48 0.52");return s}
+    function card(s,label,val,x,y,w=244,h=76){return s+rect(x,y,w,h,soft)+text(label,x+14,y+h-22,8,true,"0.37 0.45 0.50")+text(val,x+14,y+20,17,true,blue)}
+    let s=base(de()?"Immobilienberechnung":"Property calculation",p.name||"Immobilie",1,3);
+    s+=text(de()?"OBJEKTÜBERSICHT":"PROPERTY OVERVIEW",40,688,10,true,green)+text(p.name||"Immobilie",40,654,21,true,dark);
+    wrap(p.address||"–",78).slice(0,2).forEach((v,i)=>s+=text(v,40,632-i*15,10,false,"0.37 0.45 0.50"));
+    s=card(s,de()?"Kaufpreis / Basiswert":"Purchase price / base value",money(p.purchasePrice),40,520);
+    s=card(s,de()?"Aktueller Modellwert":"Current model value",money(current),311,520);
+    s=card(s,de()?"Rechnerischer Wertzuwachs":"Calculated value increase",money(gain),40,426);
+    s=card(s,de()?"Möglicher steuerfreier Gewinn":"Potential tax-free gain",tax?money(gain):(de()?"Noch nicht erreicht":"Not reached"),311,426);
+    s+=text(de()?"Nutzung":"Use",40,378,8,true,"0.37 0.45 0.50")+text(usage,40,357,12,true,dark);
+    s+=text(de()?"Kaufvertragsdatum":"Purchase contract date",311,378,8,true,"0.37 0.45 0.50")+text(date(p.purchaseDate),311,357,12,true,dark);
+    const note=tax?(de()?"Die rechnerische Haltedauer beträgt mindestens zehn Jahre. Ob ein Gewinn im konkreten Einzelfall tatsächlich steuerfrei ist, muss individuell geprüft werden.":"The calculated holding period is at least ten years. Individual tax treatment must be checked."):(de()?"Die rechnerische Haltedauer liegt unter zehn Jahren. Es wird keine Steuer berechnet; eine mögliche Besteuerung muss individuell geprüft werden.":"The calculated holding period is below ten years. No tax is calculated; individual tax treatment must be checked.");
+    s+=rect(40,230,515,86,"0.97 0.98 0.98")+rect(40,230,5,86,blue);
+    wrap(note,91).slice(0,4).forEach((v,i)=>s+=text(v,58,287-i*16,9,false,dark));
+    s+=text((de()?"Stand: ":"As of: ")+new Intl.DateTimeFormat(de()?"de-DE":"en-GB",{dateStyle:"long"}).format(now),40,190,9,false,"0.42 0.48 0.52");
+    pages.push(s);
+    s=base(de()?"Berechnung und Prognose":"Calculation and forecast",p.name||"Immobilie",2,3)+text(de()?"BERECHNUNGSGRUNDLAGE":"CALCULATION BASIS",40,688,10,true,green);
+    const fields=[[de()?"Jahresrate":"Annual rate",String(num(p.annualRate)||5).replace(".",de()?",":".")+" %"],[de()?"Monatliche Rate":"Monthly rate",(num(p.annualRate)/12).toFixed(4).replace(".",de()?",":".")+" %"],[de()?"Monatlicher Wertzuwachs":"Monthly value increase",money(num(p.purchasePrice)*(num(p.annualRate)||5)/1200)],[de()?"Rechnerische Haltedauer":"Calculated holding period",held+" "+(de()?"Monate":"months")]];
+    fields.forEach((f,i)=>{const x=i%2?311:40,y=600-Math.floor(i/2)*90;s=card(s,f[0],f[1],x,y)});
+    s+=text(de()?"WERTENTWICKLUNG AB HEUTE":"VALUE DEVELOPMENT FROM TODAY",40,388,10,true,green);
+    [5,10,15,20].forEach((yr,i)=>{const x=40+(i%2)*271,y=296-Math.floor(i/2)*76;s=card(s,(de()?"Wert in ":"Value in ")+yr+(de()?" Jahren":" years"),money(valueAt(p,yr*12)),x,y,244,60)});
+    wrap(de()?"Das Modell schreibt jeden Monat den eingestellten Jahresprozentsatz anteilig auf Basis des ursprünglichen Kaufpreises fort.":"The model progresses the annual percentage monthly using the original purchase price as its base.",92).forEach((v,i)=>s+=text(v,40,150-i*14,9,false,"0.37 0.45 0.50"));
+    pages.push(s);
+    s=base(de()?"Hinweise zur Modellrechnung":"Model calculation notes",p.name||"Immobilie",3,3)+text(de()?"WICHTIGE HINWEISE":"IMPORTANT NOTES",40,688,10,true,green);
+    const notes=de()?["Die Berechnung stellt ausschließlich eine modellhafte Wertentwicklung dar und ersetzt keine individuelle Immobilienbewertung.","Eine zusätzliche steuerliche Betrachtung wird nicht abgebildet.","Eigene Zahlungen, Mieteinnahmen, Steuervorteile, Finanzierungskosten und nicht umlegbare Nebenkosten werden nicht miteinander verrechnet.","Eine mögliche Mietentwicklung ist nicht Bestandteil dieser Berechnung.","Bei weniger als zehn Jahren Haltedauer wird nur auf eine mögliche Besteuerung hingewiesen. Es werden weder Steuern noch Steuertabellen berechnet.","Steuerliche und rechtliche Fragen müssen für jedes Objekt individuell fachkundig geprüft werden."]:["This calculation is a simplified model and does not replace an individual property valuation.","Additional tax considerations are not included.","Owner contributions, rent, tax benefits, finance costs and non-recoverable expenses are not offset against each other.","Possible rent development is not part of this calculation.","For holding periods below ten years, only a possible tax liability is indicated. No taxes or tax tables are calculated.","Tax and legal questions must be reviewed individually for each property by qualified professionals."];
+    let y=642;notes.forEach((n,i)=>{s+=text(String(i+1).padStart(2,"0"),40,y,10,true,blue);const lines=wrap(n,82).slice(0,4);lines.forEach((v,j)=>s+=text(v,72,y-j*15,9,false,dark));y-=Math.max(58,lines.length*15+18)});
+    pages.push(s);return assemble(pages);
+  }
+  function openDb(){return new Promise((resolve,reject)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE,{keyPath:"token"})};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+  async function storePdf(blob,name){const db=await openDb(),token=crypto.randomUUID?crypto.randomUUID():"pdf-"+Date.now();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,"readwrite");tx.objectStore(STORE).put({token,blob,filename:name,format:"A4 · 3 "+(de()?"Seiten":"pages"),created:new Intl.DateTimeFormat(de()?"de-DE":"en-GB",{dateStyle:"medium",timeStyle:"short"}).format(new Date()),createdAt:Date.now()});tx.oncomplete=()=>resolve(token);tx.onerror=()=>reject(tx.error)})}
+  const handoff=(token,action)=>{const u=new URL("./pdf-speichern.html",location.href);u.searchParams.set("token",token);u.searchParams.set("action",action);u.searchParams.set("lang",de()?"de":"en");return u.href};
+  window.addEventListener("xxlCreatePropertyPdf",async(e)=>{const p=e.detail&&e.detail.property;if(!p)return;try{const safe=String(p.name||"Immobilie").replace(/[^\wäöüÄÖÜß-]+/g,"-").replace(/^-|-$/g,""),name="XXL-IMMO-"+safe+"-"+new Date().toISOString().slice(0,10)+".pdf",token=await storePdf(build(p),name);document.getElementById("propertyPdfFilename").textContent=name;document.getElementById("propertyPdfMeta").textContent="A4 · 3 "+(de()?"Seiten":"pages");document.getElementById("propertyPdfSave").href=handoff(token,"save");document.getElementById("propertyPdfShare").href=handoff(token,"share");document.getElementById("propertyPdfOverlay").hidden=false}catch(error){console.error("Property PDF failed",error)}});
+  document.getElementById("propertyPdfClose")?.addEventListener("click",()=>document.getElementById("propertyPdfOverlay").hidden=true);
+  document.getElementById("propertyPdfOverlay")?.addEventListener("click",(e)=>{if(e.target===e.currentTarget)e.currentTarget.hidden=true});
+})();</script>
 </body>
 </html>
