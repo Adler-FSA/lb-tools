@@ -63,112 +63,170 @@
   return new Blob([new TextEncoder().encode(out)],{type:'application/pdf'})
 }
     function makePdf(){
-      // Die PDF enthält die vollständige Dashboard-Erzählung: Seitenkopf,
-      // Einleitung, alle KPI-Karten samt Erklärungen, den gesamten Bestand
-      // sowie die Hinweise. Die Objektkarten laufen über beliebig viele A4-Seiten.
-      var pages=[], B='0.055 0.427 0.741', G='0.35 0.83 0', I='0.20 0.20 0.20',
-          M='0.39 0.39 0.39', S='0.95 0.975 1', L='0.78 0.88 0.97', W='1 1 1';
-      function txt(v,x,y,size,bold,color){return pdfText(String(v==null?'':v),x,y,size||10,!!bold,color||I)}
-      function box(x,y,w,h,color){return pdfRect(x,y,w,h,color||S)}
+      // XXL.IMMO A4-Kundenbericht. Alle Werte stammen ausschließlich aus dem Portfolio.
+      // Übersicht und die ersten zwei Bestandsobjekte passen bei normaler Textlänge auf eine Seite.
+      var pages=[],B='0.055 0.427 0.741',G='0.36 0.79 0.06',I='0.19 0.24 0.29',
+          M='0.36 0.42 0.47',S='0.95 0.975 1',L='0.80 0.88 0.94',
+          W='1 1 1',C='0.985 0.991 1',de=state.lang==='de',pageNo=-1;
+      function tx(v,x,y,size,bold,color){
+        return pdfText(String(v==null?'':v),x,y,size||10,!!bold,color||I);
+      }
+      function fill(x,y,w,h,color){return pdfRect(x,y,w,h,color||S)}
+      function line(x1,y1,x2,y2,color,width){return pdfLine(x1,y1,x2,y2,color||L,width||1)}
+      function tr(german,english){return de?german:english}
       function split(v,max){
-        var words=String(v==null?'':v).trim().split(/\s+/),result=[],line='';
-        words.forEach(function(word){
-          // Sehr lange ungetrennte Zeichenfolgen nicht über den Rand laufen lassen.
-          while(word.length>max){if(line){result.push(line);line=''}result.push(word.slice(0,max));word=word.slice(max)}
-          var next=(line+' '+word).trim();
-          if(next.length>max&&line){result.push(line);line=word}else line=next;
+        var words=String(v==null?'':v).trim().split(/\s+/),out=[],current='';
+        words.forEach(function(raw){
+          var word=raw;
+          while(word.length>max){
+            if(current){out.push(current);current=''}
+            out.push(word.slice(0,max));word=word.slice(max);
+          }
+          var joined=(current+' '+word).trim();
+          if(joined.length>max&&current){out.push(current);current=word}else current=joined;
         });
-        if(line)result.push(line);
-        return result.length?result:['–']
+        if(current)out.push(current);
+        return out.length?out:['-'];
       }
-      function lines(v,x,y,max,font,dy,color,bold){
-        var arr=split(v,max);arr.forEach(function(line,i){add(txt(line,x,y-i*(dy||15),font||10,bold,color||I))});return arr.length
+      function add(content){pages[pageNo]+=content}
+      function wrapped(v,x,y,limit,size,step,color,bold){
+        var rows=split(v,limit);
+        rows.forEach(function(row,n){add(tx(row,x,y-n*step,size,bold,color))});
+        return rows.length;
       }
-      function page(){
-        var out=box(0,0,595,842,W)+box(0,826,595,16,B);
-        out+=txt('XXL.IMMO',38,792,17,true,B)+txt(t('brandSub'),169,795,9,false,M);
-        out+=pdfLine(38,780,557,780,L,1);
-        pages.push(out);return pages.length-1
+      function newPage(){
+        var content=fill(0,0,595,842,W)+fill(0,827,595,15,B);
+        content+=tx('XXL.IMMO',38,795,16,true,B);
+        content+=tx(tr('Immobilienportfolio · Kundenübersicht','Property portfolio · client report'),177,798,9,false,M);
+        content+=line(38,784,557,784,L,1);
+        pages.push(content);pageNo=pages.length-1;
       }
-      var pageNo=page(),y=738;
-      function add(s){pages[pageNo]+=s}
-      function pair(label,val,sub,x,top){
-        add(box(x,top-84,250,78,S)+box(x,top-84,3,78,B));
-        var a=split(label,33);
-        a.slice(0,2).forEach(function(w,i){add(txt(w,x+13,top-17-i*10,8.4,true,M))});
-        var size=String(val).length>26?12:String(val).length>18?14:18;
-        add(txt(val,x+13,top-47-(a.length>1?4:0),size,true,B));
-        add(txt(sub,x+13,top-68,8,false,M))
+      function metric(x,top,label,val,sub){
+        add(fill(x,top-66,250,66,S)+fill(x,top-66,3,66,B));
+        add(tx(label,x+13,top-16,8.4,true,M));
+        var sz=String(val).length>17?13.5:String(val).length>13?15:18;
+        add(tx(val,x+13,top-40,sz,true,B));
+        add(tx(sub,x+13,top-56,7.7,false,M));
       }
-      var todayText=new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-GB',{dateStyle:'long'}).format(new Date());
-      add(box(38,712,184,25,'0.77 0.90 1')+txt(t('eyebrow'),49,720,10,true,I));
-      add(txt(t('title'),38,683,25,true,B));
-      lines(t('intro'),38,653,89,10.5,17,I,false);
-      add(box(38,589,519,35,S));
-      add(txt(t('countLabel')+': '+state.properties.length,50,603,10,true,B));
-      add(txt(t('updatedLabel')+': '+todayText,255,603,10,false,M));
-      var a=totals();
-      var cards=[
-        ['mCount',String(state.properties.length),'mCountSub'],
-        ['mBasis',money(a.basis),'mBasisSub'],
-        ['mCurrent',money(a.current),'mCurrentSub'],
-        ['mGain',money(a.gain),'mGainSub'],
-        ['mSelf',money(a.self),'mUseSub'],
-        ['mInvestment',money(a.investment),'mUseSub']
-      ];
-      cards.forEach(function(entry,i){
-        pair(t(entry[0]),entry[1],t(entry[2]),38+(i%2)*269,568-Math.floor(i/2)*97)
-      });
-      add(txt(t('holdings'),38,255,17,true,B));
-      add(txt(t('holdingsCopy'),38,235,10,false,M));
-      add(txt(t('countLabel')+': '+state.properties.length,38,215,10,true,I));
-      add(box(38,102,519,94,'0.97 0.985 1')+box(38,102,5,94,G));
-      lines(t('disclaimer'),52,176,86,9.2,14,I,false);
+      function usageMetric(x,top,label,val){
+        add(fill(x,top-43,250,43,C)+line(x,top-43,x+250,top-43,L,.7));
+        add(tx(label,x+10,top-14,8.3,false,M));
+        add(tx(val,x+10,top-34,String(val).length>16?13:15,true,I));
+      }
+      function objectLines(p){
+        return {name:split(p.name||tr('Immobilie','Property'),29),
+                address:split(p.address||dateText(p.purchaseDate),36)};
+      }
+      function objectHeight(p){
+        var l=objectLines(p);
+        return 198+Math.max(0,l.name.length-1)*13+Math.max(0,l.address.length-1)*11;
+      }
+      function objectCard(p,index,x,top,width){
+        var h=objectHeight(p),info=objectLines(p),
+            offset=(info.name.length-1)*13+(info.address.length-1)*11,
+            val=value(p),gain=val-num(p.purchasePrice);
+        add(fill(x,top-h,width,h,C)+fill(x,top-h,4,h,G));
+        info.name.forEach(function(row,i){
+          add(tx((i===0?(index+1)+'. ':'')+row,x+14,top-22-i*13,12.5,true,B));
+        });
+        info.address.forEach(function(row,i){
+          add(tx(row,x+14,top-42-(info.name.length-1)*13-i*11,9.2,false,M));
+        });
+        add(tx(usage(p.usage),x+14,top-62-offset,8.8,true,I));
+        add(line(x+14,top-74-offset,x+width-14,top-74-offset,L,.75));
+        var right=x+Math.floor(width/2)+2;
+        function field(label,valueString,at,yLabel){
+          add(tx(label,at,yLabel,8,false,M));
+          var size=String(valueString).length>17?9.6:String(valueString).length>12?10.5:12;
+          add(tx(valueString,at,yLabel-20,size,true,B));
+        }
+        field(t('purchaseDate'),dateText(p.purchaseDate),x+14,top-92-offset);
+        field(t('basis'),money(num(p.purchasePrice)),right,top-92-offset);
+        field(t('current'),money(val),x+14,top-137-offset);
+        field(t('gain'),money(gain),right,top-137-offset);
+        add(tx(t('rate')+': '+String(p.annualRate).replace('.',de?',':'.')+' %',x+14,top-h+15,8.7,false,M));
+      }
+      function stockHeading(continuation,top){
+        var title=t('holdings')+(continuation?tr(' (Fortsetzung)',' (continued)'):'');
+        add(tx(title,38,top,18,true,B));
+        if(!continuation){
+          add(tx(tr('Jede Immobilie wird als eigenständiges Objekt ausgewiesen.',
+                    'Each property is shown as an individual asset.'),38,top-20,9.5,false,M));
+        }
+      }
+      function legalNote(){
+        add(fill(38,72,519,51,S)+fill(38,72,4,51,G));
+        wrapped(tr('Hinweis: Diese unverbindliche Modellrechnung basiert ausschließlich auf Ihren Eingaben. Sie ersetzt keine persönliche Immobilienbewertung, Finanzierungsprüfung oder steuerliche Beratung.',
+                   'Notice: This non-binding model calculation is based only on your inputs. It does not replace a property valuation, financing review or tax advice.'),
+                49,108,103,8.8,12,I,false);
+      }
+      var aggregate=totals();
+      var asOf=new Intl.DateTimeFormat(de?'de-DE':'en-GB',{dateStyle:'long'}).format(new Date());
+      newPage();
+      add(tx(tr('PERSÖNLICHER IMMOBILIENBERICHT','PERSONAL PROPERTY REPORT'),38,764,8.5,true,G));
+      add(tx(tr('Mein Immobilienportfolio','My property portfolio'),38,740,22,true,B));
+      wrapped(tr('Hier sehen Sie die erfassten Immobilien und ihre täglich ab dem Kaufdatum fortgeschriebenen Modellwerte. Grundlage sind Ihre persönlichen Eingaben.',
+                 'View your recorded properties and their daily model values calculated from the purchase date. Values are based on your entries.'),
+              38,715,104,9.7,14.5,I,false);
+      add(fill(38,653,519,35,S));
+      add(tx(t('countLabel')+': '+state.properties.length,51,667,10,true,B));
+      add(tx(tr('Stand: ','As of: ')+asOf,280,667,9.5,false,M));
+      add(tx(tr('PORTFOLIO AUF EINEN BLICK','PORTFOLIO AT A GLANCE'),38,630,8.5,true,M));
+      metric(38,618,t('mCount'),String(state.properties.length),t('mCountSub'));
+      metric(307,618,t('mBasis'),money(aggregate.basis),t('mBasisSub'));
+      metric(38,543,t('mCurrent'),money(aggregate.current),tr('täglich ab Kaufdatum','daily from purchase date'));
+      metric(307,543,t('mGain'),money(aggregate.gain),t('mGainSub'));
+      usageMetric(38,464,t('mSelf'),money(aggregate.self));
+      usageMetric(307,464,t('mInvestment'),money(aggregate.investment));
+
+      var pIndex=0;
+      var firstObjects=state.properties.slice(0,2);
+      var firstMax=firstObjects.reduce(function(max,p){return Math.max(max,objectHeight(p))},0);
       if(!state.properties.length){
-        add(txt(t('emptyTitle'),38,82,11,true,B));
-      }else{
-        pageNo=page();add(txt(t('holdings'),38,738,20,true,B));
-        add(txt(t('holdingsCopy'),38,715,10,false,M));
-        y=686;
-        state.properties.forEach(function(p,index){
-          var nameLines=split(p.name||'Immobilie',65);
-          var addressLines=split(p.address||dateText(p.purchaseDate),72);
-          var extra=Math.max(0,nameLines.length-1)*15+Math.max(0,addressLines.length-1)*14;
-          var height=246+extra;
-          if(y-height<85){
-            pageNo=page();add(txt(t('holdings')+' ('+(state.lang==='de'?'Fortsetzung':'continued')+')',38,738,20,true,B));
-            y=699;
-          }
-          var top=y,v=value(p),gain=v-num(p.purchasePrice),offset=0;
-          add(box(38,top-height,519,height,'0.983 0.990 1'));
-          add(box(38,top-height,4,height,G));
-          nameLines.forEach(function(w,j){add(txt((j===0?(index+1)+'. ':'')+w,53,top-27-j*15,j?12:15,true,B))});
-          offset+=(nameLines.length-1)*15;
-          addressLines.forEach(function(w,j){add(txt(w,53,top-48-offset-j*14,9.5,false,M))});
-          offset+=(addressLines.length-1)*14;
-          add(txt(usage(p.usage),53,top-70-offset,9,true,I));
-          function detail(label,valueString,x,topLine){
-            add(box(x,topLine-55,241,55,W));
-            add(txt(label,x+9,topLine-18,8.5,true,M));
-            var z=String(valueString).length>26?10.5:String(valueString).length>19?12:14;
-            add(txt(valueString,x+9,topLine-40,z,true,B))
-          }
-          var first=top-89-offset;
-          detail(t('purchaseDate'),dateText(p.purchaseDate),53,first);
-          detail(t('basis'),money(num(p.purchasePrice)),311,first);
-          detail(t('current'),money(v),53,first-65);
-          detail(t('gain'),money(gain),311,first-65);
-          var rate=String(p.annualRate).replace('.',state.lang==='de'?',':'.')+' %';
-          add(txt(t('rate')+': '+rate,53,top-height+19,9,false,M));
-          y-=height+14;
+        stockHeading(false,382);
+        add(tx(t('emptyTitle'),38,340,11,true,B));
+      }else if(firstMax<=210){
+        stockHeading(false,391);
+        firstObjects.forEach(function(p,i){
+          objectCard(p,i,i===0?38:307,348,250);
+          pIndex++;
         });
+      }
+      legalNote();
+
+      // Zusätzliche Immobilien in vollständigen 2er-Reihen; niemals eine Karte abschneiden.
+      while(pIndex<state.properties.length){
+        newPage();
+        stockHeading(true,746);
+        add(tx(tr('Stand: ','As of: ')+asOf,38,724,9,false,M));
+        var top=697,rowsOnPage=0;
+        while(pIndex<state.properties.length){
+          var row=state.properties.slice(pIndex,pIndex+2);
+          var maxHeight=row.reduce(function(max,p){return Math.max(max,objectHeight(p))},0);
+          if(rowsOnPage>0&&top-maxHeight<90)break;
+          // Bei ungewöhnlich langen Freitexten unterhalb der Papierhöhe bleibt die Karte lesbar:
+          // solche Objekte erhalten eine eigene Seite und einen kontrollierten Folgeblock.
+          if(top-maxHeight<80&&rowsOnPage===0){
+            row=row.slice(0,1);
+            maxHeight=objectHeight(row[0]);
+          }
+          row.forEach(function(p,col){
+            var cardWidth=row.length===1?519:250;
+            objectCard(p,pIndex+col,col===0?38:307,top,cardWidth);
+          });
+          pIndex+=row.length;
+          top-=maxHeight+14;
+          rowsOnPage++;
+          if(top<100)break;
+        }
       }
       pages=pages.map(function(content,i){
-        return content+pdfLine(38,58,557,58,L,1)+txt(
-          'XXL.IMMO · '+(state.lang==='de'?'Unverbindliche Modellrechnung':'Non-binding model calculation')+
-          ' · '+(i+1)+' / '+pages.length,38,40,8,false,M);
+        return content+line(38,58,557,58,L,1)+
+          tx(tr('XXL.IMMO · Unverbindliche Modellrechnung',
+                'XXL.IMMO · Non-binding model calculation'),38,41,8,false,M)+
+          tx((i+1)+' / '+pages.length,532,41,8,false,M);
       });
-      return {blob:assemblePdf(pages),pages:pages.length}
+      return {blob:assemblePdf(pages),pages:pages.length};
     }
     function openDb(){return new Promise(function(resolve,reject){var r=indexedDB.open(DB,1);r.onupgradeneeded=function(){if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE,{keyPath:'token'})};r.onsuccess=function(){resolve(r.result)};r.onerror=function(){reject(r.error)}})}async function store(blob,name,pageCount){var db=await openDb(),token=crypto.randomUUID?crypto.randomUUID():'pdf-'+Date.now();return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:name,format:'A4 · '+pageCount+' '+(state.lang==='de'?'Seiten':'pages'),created:new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-US',{dateStyle:'medium',timeStyle:'short'}).format(new Date()),createdAt:Date.now()});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error)}})}function handoff(token,action){var u=new URL('./pdf-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);u.searchParams.set('lang',state.lang);return u.href}async function createPdf(){if(!state.properties.length)return status(t('nothing'),true);status(t('pdfWorking'),false);try{var name='XXL-IMMO-Immobilienportfolio-'+new Date().toISOString().slice(0,10)+'.pdf',documentPdf=makePdf(),token=await store(documentPdf.blob,name,documentPdf.pages);$('pdfFilename').textContent=name;$('pdfMeta').textContent='A4 · '+documentPdf.pages+' '+(state.lang==='de'?'Seiten':'pages');$('savePdf').href=handoff(token,'save');$('sharePdf').href=handoff(token,'share');$('pdfOverlay').hidden=false;$('actionStatus').className='status'}catch(e){console.error(e);status(t('pdfError'),true)}}
     $('exportCsv').addEventListener('click',exportCsv);$('createPdf').addEventListener('click',createPdf);$('closeOverlay').addEventListener('click',function(){$('pdfOverlay').hidden=true});$('pdfOverlay').addEventListener('click',function(e){if(e.target===this)this.hidden=true});$('langDe').addEventListener('click',function(){state.lang='de';localStorage.setItem(KEY,JSON.stringify(state));language();render()});$('langEn').addEventListener('click',function(){state.lang='en';localStorage.setItem(KEY,JSON.stringify(state));language();render()});window.addEventListener('focus',read);window.addEventListener('pageshow',read);window.addEventListener('storage',function(e){if(e.key===KEY)read()});document.addEventListener('visibilitychange',function(){if(!document.hidden)read()});read();if(new URLSearchParams(location.search).get('pdf')==='1'){setTimeout(createPdf,250)}
