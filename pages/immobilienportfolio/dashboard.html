@@ -6,6 +6,25 @@
   <style>
     :root{--navy:#073b63;--navy2:#09557b;--blue:#0c7ca5;--green:#8fca3b;--ink:#17313f;--muted:#637783;--line:#dbe6ea;--soft:#f4f8f9;--white:#fff;--shadow:0 18px 50px rgba(7,59,99,.12)}*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,#f4f8f9,#fff 42%)}button,a{font:inherit}.shell{width:min(1180px,calc(100% - 32px));margin:auto}.top{background:#fff;border-bottom:1px solid var(--line)}.top .shell{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;color:var(--navy);text-decoration:none}.mark{width:46px;height:46px;border-radius:15px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:900;letter-spacing:.06em}.brand strong{display:block;font-size:20px}.brand span{display:block;color:var(--muted);font-size:12px}.lang{display:flex;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--soft)}.lang button{border:0;background:transparent;border-radius:999px;padding:8px 12px;font-weight:800;color:var(--muted);cursor:pointer}.lang button.active{background:var(--navy);color:#fff}.hero{position:relative;overflow:hidden;margin:28px auto 22px;padding:38px;border-radius:28px;color:#fff;background:linear-gradient(120deg,var(--navy),var(--navy2));box-shadow:var(--shadow)}.hero:after{content:"";position:absolute;width:330px;height:330px;border:52px solid rgba(143,202,59,.16);border-radius:50%;right:-145px;top:-180px}.hero>*{position:relative;z-index:1}.eyebrow{margin:0 0 8px;text-transform:uppercase;letter-spacing:.14em;color:#b9e77a;font-size:12px;font-weight:900}.hero h1{margin:0;font-size:clamp(34px,5vw,58px);line-height:1}.hero-copy{margin:14px 0 0;color:#dbe9ef;max-width:730px;font-size:17px;line-height:1.55}.hero-meta{margin-top:21px;display:flex;gap:12px;flex-wrap:wrap}.pill{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.09);padding:9px 13px;border-radius:999px;font-size:13px}.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}.btn{border:0;border-radius:13px;padding:12px 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:850;cursor:pointer;text-decoration:none}.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}.primary{background:var(--navy);color:#fff}.secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.metric{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 9px 26px rgba(7,59,99,.05)}.metric span{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:11px;font-weight:850}.metric strong{display:block;color:var(--navy);font-size:clamp(24px,3vw,34px);margin-top:8px}.metric small{display:block;color:var(--muted);margin-top:6px}.section{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px;margin-bottom:22px;box-shadow:0 10px 30px rgba(7,59,99,.05)}.head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:18px}.head h2{margin:0;color:var(--navy);font-size:27px}.head p{margin:5px 0 0;color:var(--muted)}.updated{color:var(--muted);font-size:13px}.list{display:grid;gap:13px}.property{border:1px solid var(--line);border-radius:18px;padding:18px;background:linear-gradient(135deg,#fff,#f8fbfc)}.property-top{display:flex;justify-content:space-between;gap:14px}.property-title strong{display:block;color:var(--navy);font-size:19px}.property-title span{display:block;color:var(--muted);margin-top:3px}.badge{align-self:start;background:#eaf5d8;color:#426b08;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:850}.values{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.values div{background:#fff;border:1px solid #e6eef1;border-radius:13px;padding:12px}.values span{display:block;color:var(--muted);font-size:11px}.values strong{display:block;margin-top:5px;color:var(--ink)}.empty{text-align:center;padding:42px 18px;color:var(--muted)}.empty h3{color:var(--navy);font-size:23px;margin:0 0 8px}.notice{border-left:5px solid var(--green);background:#fff;border-radius:14px;padding:16px 18px;color:var(--muted);font-size:13px;margin-bottom:36px}.status{display:none;margin-top:12px;padding:11px 13px;border-radius:12px}.status.open{display:block}.status.error{background:#fff0ed;color:#8b2b1d}.status.ok{background:#eef8df;color:#3b6505}.overlay{position:fixed;inset:0;z-index:50;background:rgba(5,33,52,.7);display:grid;place-items:center;padding:18px}.overlay[hidden]{display:none}.dialog{background:#fff;border-radius:24px;padding:27px;width:min(560px,100%);box-shadow:0 30px 90px rgba(0,0,0,.28)}.dialog h3{margin:0 0 16px;color:var(--navy);font-size:28px}.filebox{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:15px}.filebox strong,.filebox span{display:block;overflow-wrap:anywhere}.filebox span{color:var(--muted);font-size:13px;margin-top:5px}.actions{display:flex;flex-wrap:wrap;gap:9px}.blue{background:var(--blue);color:#fff}@media(max-width:850px){.metrics{grid-template-columns:repeat(2,1fr)}.values{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.shell{width:min(100% - 20px,1180px)}.hero{padding:28px 20px;border-radius:22px}.metrics{grid-template-columns:1fr}.section{padding:19px}.head,.property-top{align-items:start;flex-direction:column}.values{grid-template-columns:1fr 1fr}.toolbar .btn{flex:1 1 100%}}
   </style>
+
+  <style id="xxl-onlyinside-dashboard-theme">
+    :root{--navy:#0e6dbd;--navy2:#095d9f;--blue:#0e6dbd;--green:#59d400;--ink:#333333;--muted:#666666;--line:#d8e7f2;--soft:#f4f9ff;--shadow:0 12px 34px rgba(0,0,0,.065)}
+    body{background:#fff;font-family:Geologica,"Segoe UI",Arial,sans-serif}
+    .top{border-bottom-color:var(--line)}
+    .brand strong,.head h2,.metric strong,.property-title strong{font-family:Ubuntu,"Segoe UI",Arial,sans-serif}
+    .hero{background:#fff;color:var(--ink);border:0;box-shadow:none;text-align:center;margin-top:26px}
+    .hero:after{display:none}
+    .hero h1{color:var(--blue);font-family:Ubuntu,"Segoe UI",Arial,sans-serif}
+    .hero .eyebrow{display:inline-block;color:#333;background:#c4e5ff;padding:7px 16px;border-radius:999px;text-transform:none;letter-spacing:0;font-weight:600}
+    .hero-copy{color:#555;margin-left:auto;margin-right:auto}
+    .hero-meta{justify-content:center}
+    .pill{border:1px solid #d1d1cd;background:#f8fbff;color:var(--ink)}
+    .badge{background:#e7f8dd;color:#387500}
+    .primary{background:var(--blue)}
+    .secondary{color:var(--blue)}
+    .metric,.section,.property{border-color:#d1d1cd}
+    .notice{background:#eef6ff;border-left-color:var(--blue)}
+  </style>
 </head>
 <body>
   <header class="top"><div class="shell"><a class="brand" href="./dashboard.html"><span class="mark">XXL</span><span><strong>XXL.IMMO</strong><span data-i18n="brandSub">Immobilien-Dashboard</span></span></a><div class="lang" aria-label="Sprache"><button id="langDe" type="button">DE</button><button id="langEn" type="button">EN</button></div></div></header>
@@ -44,55 +63,114 @@
   return new Blob([new TextEncoder().encode(out)],{type:'application/pdf'})
 }
     function makePdf(){
-  var a=totals(),pages=[],W=595,H=842,totalPages=state.properties.length+2,blue='0.055 0.427 0.741',dark='0.12 0.20 0.24',soft='0.95 0.98 1',green='0.35 0.67 0.10';
-  function base(title,sub,page){var s=pdfRect(0,0,W,H,'1 1 1')+pdfRect(0,724,W,118,blue)+pdfText('XXL.IMMO',40,807,12,true,'1 1 1')+pdfText(title,40,770,25,true,'1 1 1')+pdfText(sub,40,744,10,false,'0.90 0.96 1')+pdfLine(40,48,555,48);return s+pdfText((state.lang==='de'?'Unverbindliche Modellrechnung':'Non-binding model calculation')+' · '+page+'/'+totalPages,40,30,8,false,'0.42 0.48 0.52')}
-  function card(s,label,val,x,y,w,h){w=w||244;h=h||76;return s+pdfRect(x,y,w,h,soft)+pdfText(label,x+14,y+h-22,8,true,'0.37 0.45 0.50')+pdfText(val,x+14,y+20,17,true,blue)}
-  var now=new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-US',{dateStyle:'long'}).format(new Date());
-  var s=base(state.lang==='de'?'Mein Immobilien-Dashboard':'My property dashboard',(state.lang==='de'?'Aktueller Stand: ':'Current as of: ')+now,1);
-  s+=pdfText(state.lang==='de'?'PORTFOLIOÜBERSICHT':'PORTFOLIO OVERVIEW',40,688,10,true,green);
-  var cards=[[t('mCount'),String(state.properties.length)],[t('mBasis'),money(a.basis)],[t('mCurrent'),money(a.current)],[t('mGain'),money(a.gain)],[t('mSelf'),money(a.self)],[t('mInvestment'),money(a.investment)]];
-  cards.forEach(function(x,i){var col=i%2,row=Math.floor(i/2),xx=40+col*271,y=588-row*94;s=card(s,x[0],x[1],xx,y)});
-  s+=pdfText(state.lang==='de'?'SO WIRD DAS PORTFOLIO BERECHNET':'HOW THE PORTFOLIO IS CALCULATED',40,284,10,true,green);
-  var intro=state.lang==='de'?'Jede Immobilie wird mit ihrem eigenen Kaufpreis, Kaufvertragsdatum, ihrer Nutzung und ihrer individuellen Jahresrate berechnet. Die Summen entstehen ausschließlich aus diesen tatsächlich erfassten Objekten.':'Each property is calculated using its own purchase price, purchase contract date, use and individual annual rate. Totals are based only on the properties actually entered.';
-  wrap(intro,92).forEach(function(v,i){s+=pdfText(v,40,257-i*15,9,false,dark)});
-  wrap(t('disclaimer'),92).forEach(function(v,i){s+=pdfText(v,40,184-i*15,9,false,'0.37 0.45 0.50')});
-  pages.push(s);
-  state.properties.forEach(function(p,index){
-    var v=value(p),gain=v-num(p.purchasePrice),held=months(p.purchaseDate),page=index+2;
-    s=base((index+1)+'. '+(p.name||'Immobilie'),usage(p.usage),page);
-    s+=pdfText(state.lang==='de'?'OBJEKTDETAILS':'PROPERTY DETAILS',40,688,10,true,green);
-    wrap(p.address||'–',82).slice(0,2).forEach(function(x,j){s+=pdfText(x,40,654-j*16,11,false,dark)});
-    s=card(s,t('purchaseDate'),dateText(p.purchaseDate),40,536);
-    s=card(s,t('basis'),money(p.purchasePrice),311,536);
-    s=card(s,t('current'),money(v),40,442);
-    s=card(s,t('gain'),money(gain),311,442);
-    s=card(s,t('rate'),String(p.annualRate).replace('.',state.lang==='de'?',':'.')+' %',40,348);
-    s=card(s,state.lang==='de'?'Rechnerische Haltedauer':'Calculated holding period',held+' '+(state.lang==='de'?'Monate':'months'),311,348);
-    s+=pdfText(state.lang==='de'?'PROGNOSE AB HEUTE':'FORECAST FROM TODAY',40,306,10,true,green);
-    [5,10,15,20].forEach(function(yr,i){var xx=40+(i%2)*271,y=226-Math.floor(i/2)*70,proj=num(p.purchasePrice)+num(p.purchasePrice)*(Math.min(10,Math.max(1,num(p.annualRate)||5))/12/100)*(held+yr*12);s=card(s,(state.lang==='de'?'In ':'In ')+yr+(state.lang==='de'?' Jahren':' years'),money(proj),xx,y,244,56)});
-    pages.push(s)
-  });
-  s=base(state.lang==='de'?'Hinweise und Datensicherung':'Notes and data backup',state.lang==='de'?'Vollständige Portfolio-Sicherung':'Complete portfolio backup',totalPages);
-  s+=pdfText(state.lang==='de'?'WICHTIGE HINWEISE':'IMPORTANT NOTES',40,688,10,true,green);
-  var notes=state.lang==='de'?[
-    'Diese PDF dokumentiert den aktuell im Browser gespeicherten Bestand und die daraus berechneten Modellwerte.',
-    'Die CSV-Datei ist die technische Sicherung zur vollständigen Wiederherstellung des Portfolios auf einem anderen Gerät oder Browser.',
-    'Die PDF ist die lesbare Sicherung. Sie ersetzt nicht die CSV-Datei und kann nicht in den Rechner importiert werden.',
-    'Die Wertentwicklung wird monatlich linear anhand der je Objekt eingestellten Jahresrate und des ursprünglichen Kaufpreises fortgeschrieben.',
-    'Baujahr, Finanzierung, Mieteinnahmen, Kosten und individuelle Steuern sind nicht Bestandteil dieser vereinfachten Berechnung.',
-    'Alle steuerlichen, rechtlichen und bewertungsbezogenen Aussagen müssen im Einzelfall fachkundig geprüft werden.'
-  ]:[
-    'This PDF documents the portfolio currently stored in the browser and the resulting model values.',
-    'The CSV file is the technical backup used to restore the complete portfolio in another device or browser.',
-    'The PDF is the readable backup. It does not replace the CSV file and cannot be imported into the calculator.',
-    'Value development is progressed monthly and linearly using each property’s annual rate and original purchase price.',
-    'Construction year, finance, rent, costs and individual taxes are outside this simplified calculation.',
-    'All tax, legal and valuation questions require individual professional review.'
-  ];
-  var y=644;notes.forEach(function(n,i){s+=pdfText(String(i+1).padStart(2,'0'),40,y,10,true,blue);var ls=wrap(n,82).slice(0,4);ls.forEach(function(x,j){s+=pdfText(x,72,y-j*15,9,false,dark)});y-=Math.max(58,ls.length*15+18)});
-  pages.push(s);return assemblePdf(pages)
-}
-    function openDb(){return new Promise(function(resolve,reject){var r=indexedDB.open(DB,1);r.onupgradeneeded=function(){if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE,{keyPath:'token'})};r.onsuccess=function(){resolve(r.result)};r.onerror=function(){reject(r.error)}})}async function store(blob,name){var db=await openDb(),token=crypto.randomUUID?crypto.randomUUID():'pdf-'+Date.now();return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:name,format:'A4 · '+(state.properties.length+2)+' '+(state.lang==='de'?'Seiten':'pages'),created:new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-US',{dateStyle:'medium',timeStyle:'short'}).format(new Date()),createdAt:Date.now()});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error)}})}function handoff(token,action){var u=new URL('./pdf-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);u.searchParams.set('lang',state.lang);return u.href}async function createPdf(){if(!state.properties.length)return status(t('nothing'),true);status(t('pdfWorking'),false);try{var name='XXL-IMMO-Immobilienportfolio-'+new Date().toISOString().slice(0,10)+'.pdf',blob=makePdf(),token=await store(blob,name);$('pdfFilename').textContent=name;$('pdfMeta').textContent='A4 · '+(state.properties.length+2)+' '+(state.lang==='de'?'Seiten':'pages');$('savePdf').href=handoff(token,'save');$('sharePdf').href=handoff(token,'share');$('pdfOverlay').hidden=false;$('actionStatus').className='status'}catch(e){console.error(e);status(t('pdfError'),true)}}
+      // Die PDF enthält die vollständige Dashboard-Erzählung: Seitenkopf,
+      // Einleitung, alle KPI-Karten samt Erklärungen, den gesamten Bestand
+      // sowie die Hinweise. Die Objektkarten laufen über beliebig viele A4-Seiten.
+      var pages=[], B='0.055 0.427 0.741', G='0.35 0.83 0', I='0.20 0.20 0.20',
+          M='0.39 0.39 0.39', S='0.95 0.975 1', L='0.78 0.88 0.97', W='1 1 1';
+      function txt(v,x,y,size,bold,color){return pdfText(String(v==null?'':v),x,y,size||10,!!bold,color||I)}
+      function box(x,y,w,h,color){return pdfRect(x,y,w,h,color||S)}
+      function split(v,max){
+        var words=String(v==null?'':v).trim().split(/\s+/),result=[],line='';
+        words.forEach(function(word){
+          // Sehr lange ungetrennte Zeichenfolgen nicht über den Rand laufen lassen.
+          while(word.length>max){if(line){result.push(line);line=''}result.push(word.slice(0,max));word=word.slice(max)}
+          var next=(line+' '+word).trim();
+          if(next.length>max&&line){result.push(line);line=word}else line=next;
+        });
+        if(line)result.push(line);
+        return result.length?result:['–']
+      }
+      function lines(v,x,y,max,font,dy,color,bold){
+        var arr=split(v,max);arr.forEach(function(line,i){add(txt(line,x,y-i*(dy||15),font||10,bold,color||I))});return arr.length
+      }
+      function page(){
+        var out=box(0,0,595,842,W)+box(0,826,595,16,B);
+        out+=txt('XXL.IMMO',38,792,17,true,B)+txt(t('brandSub'),169,795,9,false,M);
+        out+=pdfLine(38,780,557,780,L,1);
+        pages.push(out);return pages.length-1
+      }
+      var pageNo=page(),y=738;
+      function add(s){pages[pageNo]+=s}
+      function pair(label,val,sub,x,top){
+        add(box(x,top-84,250,78,S)+box(x,top-84,3,78,B));
+        var a=split(label,33);
+        a.slice(0,2).forEach(function(w,i){add(txt(w,x+13,top-17-i*10,8.4,true,M))});
+        var size=String(val).length>26?12:String(val).length>18?14:18;
+        add(txt(val,x+13,top-47-(a.length>1?4:0),size,true,B));
+        add(txt(sub,x+13,top-68,8,false,M))
+      }
+      var todayText=new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-GB',{dateStyle:'long'}).format(new Date());
+      add(box(38,712,184,25,'0.77 0.90 1')+txt(t('eyebrow'),49,720,10,true,I));
+      add(txt(t('title'),38,683,25,true,B));
+      lines(t('intro'),38,653,89,10.5,17,I,false);
+      add(box(38,589,519,35,S));
+      add(txt(t('countLabel')+': '+state.properties.length,50,603,10,true,B));
+      add(txt(t('updatedLabel')+': '+todayText,255,603,10,false,M));
+      var a=totals();
+      var cards=[
+        ['mCount',String(state.properties.length),'mCountSub'],
+        ['mBasis',money(a.basis),'mBasisSub'],
+        ['mCurrent',money(a.current),'mCurrentSub'],
+        ['mGain',money(a.gain),'mGainSub'],
+        ['mSelf',money(a.self),'mUseSub'],
+        ['mInvestment',money(a.investment),'mUseSub']
+      ];
+      cards.forEach(function(entry,i){
+        pair(t(entry[0]),entry[1],t(entry[2]),38+(i%2)*269,568-Math.floor(i/2)*97)
+      });
+      add(txt(t('holdings'),38,255,17,true,B));
+      add(txt(t('holdingsCopy'),38,235,10,false,M));
+      add(txt(t('countLabel')+': '+state.properties.length,38,215,10,true,I));
+      add(box(38,102,519,94,'0.97 0.985 1')+box(38,102,5,94,G));
+      lines(t('disclaimer'),52,176,86,9.2,14,I,false);
+      if(!state.properties.length){
+        add(txt(t('emptyTitle'),38,82,11,true,B));
+      }else{
+        pageNo=page();add(txt(t('holdings'),38,738,20,true,B));
+        add(txt(t('holdingsCopy'),38,715,10,false,M));
+        y=686;
+        state.properties.forEach(function(p,index){
+          var nameLines=split(p.name||'Immobilie',65);
+          var addressLines=split(p.address||dateText(p.purchaseDate),72);
+          var extra=Math.max(0,nameLines.length-1)*15+Math.max(0,addressLines.length-1)*14;
+          var height=246+extra;
+          if(y-height<85){
+            pageNo=page();add(txt(t('holdings')+' ('+(state.lang==='de'?'Fortsetzung':'continued')+')',38,738,20,true,B));
+            y=699;
+          }
+          var top=y,v=value(p),gain=v-num(p.purchasePrice),offset=0;
+          add(box(38,top-height,519,height,'0.983 0.990 1'));
+          add(box(38,top-height,4,height,G));
+          nameLines.forEach(function(w,j){add(txt((j===0?(index+1)+'. ':'')+w,53,top-27-j*15,j?12:15,true,B))});
+          offset+=(nameLines.length-1)*15;
+          addressLines.forEach(function(w,j){add(txt(w,53,top-48-offset-j*14,9.5,false,M))});
+          offset+=(addressLines.length-1)*14;
+          add(txt(usage(p.usage),53,top-70-offset,9,true,I));
+          function detail(label,valueString,x,topLine){
+            add(box(x,topLine-55,241,55,W));
+            add(txt(label,x+9,topLine-18,8.5,true,M));
+            var z=String(valueString).length>26?10.5:String(valueString).length>19?12:14;
+            add(txt(valueString,x+9,topLine-40,z,true,B))
+          }
+          var first=top-89-offset;
+          detail(t('purchaseDate'),dateText(p.purchaseDate),53,first);
+          detail(t('basis'),money(num(p.purchasePrice)),311,first);
+          detail(t('current'),money(v),53,first-65);
+          detail(t('gain'),money(gain),311,first-65);
+          var rate=String(p.annualRate).replace('.',state.lang==='de'?',':'.')+' %';
+          add(txt(t('rate')+': '+rate,53,top-height+19,9,false,M));
+          y-=height+14;
+        });
+      }
+      pages=pages.map(function(content,i){
+        return content+pdfLine(38,58,557,58,L,1)+txt(
+          'XXL.IMMO · '+(state.lang==='de'?'Unverbindliche Modellrechnung':'Non-binding model calculation')+
+          ' · '+(i+1)+' / '+pages.length,38,40,8,false,M);
+      });
+      return {blob:assemblePdf(pages),pages:pages.length}
+    }
+    function openDb(){return new Promise(function(resolve,reject){var r=indexedDB.open(DB,1);r.onupgradeneeded=function(){if(!r.result.objectStoreNames.contains(STORE))r.result.createObjectStore(STORE,{keyPath:'token'})};r.onsuccess=function(){resolve(r.result)};r.onerror=function(){reject(r.error)}})}async function store(blob,name,pageCount){var db=await openDb(),token=crypto.randomUUID?crypto.randomUUID():'pdf-'+Date.now();return new Promise(function(resolve,reject){var tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put({token:token,blob:blob,filename:name,format:'A4 · '+pageCount+' '+(state.lang==='de'?'Seiten':'pages'),created:new Intl.DateTimeFormat(state.lang==='de'?'de-DE':'en-US',{dateStyle:'medium',timeStyle:'short'}).format(new Date()),createdAt:Date.now()});tx.oncomplete=function(){resolve(token)};tx.onerror=function(){reject(tx.error)}})}function handoff(token,action){var u=new URL('./pdf-speichern.html',location.href);u.searchParams.set('token',token);u.searchParams.set('action',action);u.searchParams.set('lang',state.lang);return u.href}async function createPdf(){if(!state.properties.length)return status(t('nothing'),true);status(t('pdfWorking'),false);try{var name='XXL-IMMO-Immobilienportfolio-'+new Date().toISOString().slice(0,10)+'.pdf',documentPdf=makePdf(),token=await store(documentPdf.blob,name,documentPdf.pages);$('pdfFilename').textContent=name;$('pdfMeta').textContent='A4 · '+documentPdf.pages+' '+(state.lang==='de'?'Seiten':'pages');$('savePdf').href=handoff(token,'save');$('sharePdf').href=handoff(token,'share');$('pdfOverlay').hidden=false;$('actionStatus').className='status'}catch(e){console.error(e);status(t('pdfError'),true)}}
     $('exportCsv').addEventListener('click',exportCsv);$('createPdf').addEventListener('click',createPdf);$('closeOverlay').addEventListener('click',function(){$('pdfOverlay').hidden=true});$('pdfOverlay').addEventListener('click',function(e){if(e.target===this)this.hidden=true});$('langDe').addEventListener('click',function(){state.lang='de';localStorage.setItem(KEY,JSON.stringify(state));language();render()});$('langEn').addEventListener('click',function(){state.lang='en';localStorage.setItem(KEY,JSON.stringify(state));language();render()});window.addEventListener('focus',read);window.addEventListener('pageshow',read);window.addEventListener('storage',function(e){if(e.key===KEY)read()});document.addEventListener('visibilitychange',function(){if(!document.hidden)read()});read();if(new URLSearchParams(location.search).get('pdf')==='1'){setTimeout(createPdf,250)}
   })();
   </script>
