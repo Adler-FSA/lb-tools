@@ -42,7 +42,7 @@
             <div class="field"><label for="propertyName" data-i18n="labelName">Objektbezeichnung *</label><input id="propertyName" required maxlength="120" data-i18n-placeholder="phName" placeholder="z. B. Wohnung Nürnberg"></div>
             <div class="field"><label for="propertyAddress" data-i18n="labelAddress">Adresse oder Notiz</label><input id="propertyAddress" maxlength="180" data-i18n-placeholder="phAddress" placeholder="Straße, Ort oder interne Bezeichnung"></div>
             <div class="field"><label for="usage" data-i18n="labelUsage">Nutzungsart *</label><select id="usage"><option value="self" data-i18n="usageSelf">Selbstnutzung</option><option value="investment" data-i18n="usageInvestment">Kapitalanlage / vermietet</option></select></div>
-            <div class="field"><label for="purchasePrice" data-i18n="labelPrice">Kaufpreis / Basiswert in Euro *</label><input id="purchasePrice" type="number" min="1" step="100" inputmode="decimal" required></div>
+            <div class="field"><label for="purchasePrice" data-i18n="labelPrice">Kaufpreis / Basiswert in Euro *</label><input id="purchasePrice" type="number" min="1" step="1" inputmode="decimal" required></div>
             <div class="field"><label for="purchaseDate" data-i18n="labelDate">Kaufvertragsdatum *</label><input id="purchaseDate" type="date" required></div>
             <div class="field"><label for="annualRate" data-i18n="labelRate">Modellhafte Wertsteigerung pro Jahr</label><div class="range-row"><input id="annualRate" type="range" min="1" max="10" step="0.1" value="5"><input id="annualRateNumber" type="number" min="1" max="10" step="0.1" value="5" inputmode="decimal"></div><small id="rateNote"></small></div>
           </div>
