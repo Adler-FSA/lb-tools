@@ -914,7 +914,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
         <h2 class="hero-question" data-i18n="heroTitle">Wie entwickelt sich der Wert Ihrer Immobilie?</h2>
 
         <p class="hero-copy" data-i18n="heroCopy">
-          Erfassen Sie eine Immobilie, aktualisieren Sie den rechnerischen Monatswert und betrachten Sie mögliche Entwicklungen für die kommenden Jahre. Als Standardwert sind 5 % Wertsteigerung pro Jahr hinterlegt. Für Vergleichsrechnungen kann die Jahresrate zwischen 1 % und 10 % angepasst werden.
+          Erfassen Sie eine Immobilie und sehen Sie die tägliche rechnerische Wertentwicklung ab dem Kaufdatum sowie mögliche Entwicklungen für die kommenden Jahre. Als Standardwert sind 5 % Wertsteigerung pro Jahr hinterlegt. Für Vergleichsrechnungen kann die Jahresrate zwischen 1 % und 10 % angepasst werden.
         </p>
 
         <div class="facts">
@@ -924,8 +924,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           </div>
 
           <div class="fact">
-            <strong data-i18n="fact2Strong">Monatliche Aktualisierung</strong>
-            <span data-i18n="fact2Text">Aktuellen Wert per Button neu ausweisen</span>
+            <strong data-i18n="fact2Strong">Tägliche Wertentwicklung</strong>
+            <span data-i18n="fact2Text">Automatisch ab dem Kaufdatum fortgeschrieben</span>
           </div>
 
           <div class="fact">
@@ -1041,7 +1041,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       <div class="portfolio-toolbar">
         <a class="btn secondary" href="./banner.html">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>
-          <span data-portfolio-i18n="openDashboard">Dashboard öffnen</span>
+          <span data-portfolio-i18n="openDashboard">Dashboard-Banner ansehen</span>
         </a>
         <button class="btn secondary" id="exportPortfolioCsv" type="button">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>
@@ -1103,7 +1103,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           <div class="section-head">
             <div>
               <h2 data-i18n="chartTitle">Wertentwicklung der Immobilie</h2>
-              <p data-i18n="chartCopy">Monatlich fortgeschriebene Modellrechnung vom Kaufdatum bis 20 Jahre ab heute.</p>
+              <p data-i18n="chartCopy">Täglich fortgeschriebene Modellrechnung vom Kaufdatum bis 20 Jahre ab heute.</p>
             </div>
           </div>
 
@@ -1175,7 +1175,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           heroTitle: "Wie entwickelt sich der Wert Ihrer Immobilie?",
           heroCopy: "Erfassen Sie eine Immobilie und sehen Sie die tägliche rechnerische Wertentwicklung ab dem Kaufdatum sowie mögliche Entwicklungen für die kommenden Jahre. Als Standardwert sind 5 % Wertsteigerung pro Jahr hinterlegt. Für Vergleichsrechnungen kann die Jahresrate zwischen 1 % und 10 % angepasst werden.",
           fact1Strong: "5 % Standardwert pro Jahr",
-          fact1Text: "Monatlich 0,4167 % des ursprünglichen Basiswertes",
+          fact1Text: "Monatlicher Durchschnitt: 0,4167 % des ursprünglichen Basiswertes",
           fact2Strong: "Tägliche Wertentwicklung",
           fact2Text: "Automatisch ab dem Kaufdatum fortgeschrieben",
           fact3Strong: "Individuelles Immobilienportfolio",
@@ -1219,7 +1219,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           todayValue: "Ca. Verkaufserlös heute",
           gain: "Rechnerischer Wertzuwachs",
           annualRate: "Jahresrate",
-          monthlyPercent: "Monatliche Rate",
+          monthlyPercent: "Monatliche Rate (Durchschnitt)",
           monthlyEuro: "Monatlicher Wertzuwachs (Durchschnitt)",
           nextUpdate: "Nächste Tagesaktualisierung",
           nextValue: "Rechnerischer Wert morgen",
@@ -1259,7 +1259,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           heroTitle: "How could the value of your property develop?",
           heroCopy: "Enter a property and see its daily calculated appreciation from the purchase date, along with projections for the coming years. The standard appreciation rate is 5% per year and can be adjusted between 1% and 10%.",
           fact1Strong: "5% standard rate per year",
-          fact1Text: "Monthly 0.4167% of the original base value",
+          fact1Text: "Monthly average: 0.4167% of the original base value",
           fact2Strong: "Daily value development",
           fact2Text: "Automatically calculated from the purchase date",
           fact3Strong: "Individual property portfolio",
@@ -1303,7 +1303,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           todayValue: "Approx. sales proceeds today",
           gain: "Calculated value increase",
           annualRate: "Annual rate",
-          monthlyPercent: "Monthly rate",
+          monthlyPercent: "Monthly rate (average)",
           monthlyEuro: "Monthly increase (average)",
           nextUpdate: "Next daily update",
           nextValue: "Calculated value tomorrow",
@@ -2432,6 +2432,15 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
       this.value="";
     });
     document.querySelectorAll(".lang-btn").forEach((button)=>button.addEventListener("click",()=>window.setTimeout(render,0)));
+    // Geöffnete Bestandslisten am neuen Tag ebenfalls frisch anzeigen.
+    let listDay=daysSincePurchase("2000-01-01");
+    const refreshList=()=>{
+      const todayValue=daysSincePurchase("2000-01-01");
+      if(todayValue!==listDay){listDay=todayValue;render();}
+    };
+    window.addEventListener("pageshow",refreshList);
+    document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshList()});
+    window.setInterval(refreshList,60000);
   })();
 </script>
 
