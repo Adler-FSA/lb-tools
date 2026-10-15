@@ -10,7 +10,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>xxl.immo Immobilienrechner</title>
-  <meta name="description" content="Modellhafte Immobilienwertentwicklung mit Monatswert, Prognose, Mehrwohnungsmodell und Zehn-Jahres-Hinweis." />
+  <meta name="description" content="Modellhafte Immobilienwertentwicklung mit Monatswert, Prognose, Individuelles Immobilienportfolio und Zehn-Jahres-Hinweis." />
 
   <style>
     :root{
@@ -841,8 +841,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           </div>
 
           <div class="fact">
-            <strong data-i18n="fact3Strong">Mehrwohnungsmodell</strong>
-            <span data-i18n="fact3Text">Dieselbe Immobilie mit zwei, drei, vier oder weiteren Wohnungen betrachten</span>
+            <strong data-i18n="fact3Strong">Individuelles Immobilienportfolio</strong>
+            <span data-i18n="fact3Text">Jede tatsächlich erfasste Immobilie mit ihren eigenen Werten berücksichtigen</span>
           </div>
         </div>
       </div>
@@ -951,8 +951,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
         <section class="card">
           <div class="section-head">
             <div>
-              <h2 data-i18n="multipleTitle">Modell mit mehreren Wohnungen</h2>
-              <p data-i18n="multipleCopy">Betrachten Sie das Immobilienvermögensmodell mit zwei, drei, vier oder weiteren gleichwertigen Wohnungen.</p>
+              <h2 data-i18n="multipleTitle">Zusammenfassung des Immobilienportfolios</h2>
+              <p data-i18n="multipleCopy">Die Gesamtwerte werden aus den tatsächlich einzeln erfassten Immobilien berechnet.</p>
             </div>
           </div>
 
@@ -1073,8 +1073,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           fact1Text: "Monatlich 0,4167 % des ursprünglichen Basiswertes",
           fact2Strong: "Monatliche Aktualisierung",
           fact2Text: "Aktuellen Wert per Button neu ausweisen",
-          fact3Strong: "Mehrwohnungsmodell",
-          fact3Text: "Dieselbe Immobilie mit zwei, drei, vier oder weiteren Wohnungen betrachten",
+          fact3Strong: "Individuelles Immobilienportfolio",
+          fact3Text: "Jede tatsächlich erfasste Immobilie mit ihren eigenen Werten berücksichtigen",
           formTitle: "Immobilie erfassen",
           formCopy: "Die Einzelberechnung arbeitet mit einer gespeicherten Immobilie. Diese kann geändert oder gelöscht werden.",
           labelName: "Objektbezeichnung *",
@@ -1092,8 +1092,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           localStorageNote: "Ihre Eingaben werden ausschließlich lokal in diesem Browser gespeichert.",
           detailsTitle: "Objekt-Details",
           detailsCopy: "Die Berechnung zeigt den damaligen Kaufpreis, den ungefähr aktuellen Verkaufswert und die Haltedauer.",
-          multipleTitle: "Modell mit mehreren Wohnungen",
-          multipleCopy: "Betrachten Sie das Immobilienvermögensmodell mit zwei, drei, vier oder weiteren gleichwertigen Wohnungen.",
+          multipleTitle: "Zusammenfassung des Immobilienportfolios",
+          multipleCopy: "Die Gesamtwerte werden aus den tatsächlich einzeln erfassten Immobilien berechnet.",
           resultTitle: "Ergebnis nach Aktualisierung",
           resultCopy: "Einzelberechnung auf Basis des gespeicherten Kaufpreises und der eingestellten Jahresrate.",
           chartTitle: "Wertentwicklung der Immobilie",
@@ -1109,7 +1109,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           footerText: "xxl.immo Immobilienrechner · Modellhafte Berechnung ohne Gewähr",
           emptyResult: "Noch keine Immobilie gespeichert. Erfassen Sie links Ihre Immobilie und starten Sie die Berechnung.",
           emptyDetails: "Nach dem Speichern erscheinen hier die Detailwerte.",
-          emptyMultiple: "Nach dem Speichern einer Immobilie können Sie hier das Modell mit mehreren Wohnungen aufrufen.",
+          emptyMultiple: "Nach dem Speichern einer Immobilie können Sie hier das Zusammenfassung des Immobilienportfolios aufrufen.",
           paid: "Damals bezahlt",
           todayValue: "Ca. Verkaufserlös heute",
           gain: "Rechnerischer Wertzuwachs",
@@ -1157,8 +1157,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           fact1Text: "Monthly 0.4167% of the original base value",
           fact2Strong: "Monthly update",
           fact2Text: "Recalculate the current value by button",
-          fact3Strong: "Multiple-apartment model",
-          fact3Text: "Review the same property with two, three, four or more apartments",
+          fact3Strong: "Individual property portfolio",
+          fact3Text: "Include every recorded property with its own individual values",
           formTitle: "Enter property",
           formCopy: "The single-property calculation uses one saved property. It can be changed or deleted.",
           labelName: "Property name *",
@@ -1176,8 +1176,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           localStorageNote: "Your entries are stored locally in this browser only.",
           detailsTitle: "Property details",
           detailsCopy: "The calculation shows the original purchase price, the approximate current sales value and the holding period.",
-          multipleTitle: "Model with several apartments",
-          multipleCopy: "Review the real estate asset model with two, three, four or more equivalent apartments.",
+          multipleTitle: "Property portfolio summary",
+          multipleCopy: "The totals are calculated from the properties actually recorded individually.",
           resultTitle: "Result after update",
           resultCopy: "Single-property calculation based on the saved purchase price and the selected annual rate.",
           chartTitle: "Value development of the property",
@@ -1713,79 +1713,73 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       }
 
       function renderMultiple(){
-        if(!property){
-          multipleWrap.innerHTML = `<div class="empty">${escapeHtml(t("emptyMultiple"))}</div>`;
+        let portfolioProperties=[];
+
+        try{
+          const savedPortfolio=JSON.parse(localStorage.getItem("xxl-immo-portfolio-v1"));
+          if(savedPortfolio&&Array.isArray(savedPortfolio.properties)){
+            portfolioProperties=savedPortfolio.properties
+              .map(normalizeProperty)
+              .filter(Boolean);
+          }
+        }catch(error){
+          console.warn("Portfolio summary could not be read.",error);
+        }
+
+        if(!portfolioProperties.length&&property){
+          portfolioProperties=[property];
+        }
+
+        if(!portfolioProperties.length){
+          multipleWrap.innerHTML=`<div class="empty">${escapeHtml(lang==="de" ? "Noch keine Immobilie im Tatsachen-Portfolio gespeichert." : "No property has been stored in the actual portfolio yet.")}</div>`;
           return;
         }
 
-        multipleWrap.innerHTML = `
-          <div class="multiple-controls">
-            <div>
-              <label for="multipleCount">${escapeHtml(t("multipleLabel"))}</label>
-              <p class="microcopy" style="margin:0">${escapeHtml(t("multipleHint"))}</p>
+        const basis=portfolioProperties.reduce((sum,item)=>sum+Number(item.purchasePrice),0);
+        const valueToday=portfolioProperties.reduce((sum,item)=>sum+currentValue(item),0);
+        const gain=valueToday-basis;
+        const possibleTaxFree=portfolioProperties.reduce((sum,item)=>sum+(reachedTenYears(item)?currentValue(item)-Number(item.purchasePrice):0),0);
+        const labels=lang==="de" ? {
+          count:"Tatsächlich erfasste Immobilien",
+          basis:"Kaufpreise / Basiswerte gesamt",
+          today:"Aktueller Portfoliowert",
+          gain:"Rechnerischer Wertzuwachs gesamt",
+          taxFree:"Davon mögliche steuerfreie Gewinne",
+          future:(years)=>`Portfoliowert in ${years} Jahren`
+        } : {
+          count:"Actually recorded properties",
+          basis:"Total purchase prices / base values",
+          today:"Current portfolio value",
+          gain:"Total calculated value increase",
+          taxFree:"Of which potentially tax-free gains",
+          future:(years)=>`Portfolio value in ${years} years`
+        };
 
-              <div class="quick-buttons">
-                ${[1,2,3,4,5,10].map((count) => `
-                  <button class="quick-btn ${multipleCount === count ? "active" : ""}" type="button" data-count="${count}">${count}</button>
-                `).join("")}
-              </div>
-            </div>
-
-            <div>
-              <label for="multipleCount">${escapeHtml(t("multipleLabel"))}</label>
-              <input id="multipleCount" type="number" min="1" max="500" step="1" value="${multipleCount}" />
-            </div>
-          </div>
-
-          <div id="scenarioSummary" class="scenario-summary"></div>
-        `;
-
-        const countInput = document.getElementById("multipleCount");
-
-        countInput.addEventListener("change",() => {
-          multipleCount = clampCount(countInput.value);
-          localStorage.setItem(MULTIPLE_KEY,String(multipleCount));
-          renderMultiple();
-        });
-
-        multipleWrap.querySelectorAll("[data-count]").forEach((button) => {
-          button.addEventListener("click",() => {
-            multipleCount = clampCount(button.dataset.count);
-            localStorage.setItem(MULTIPLE_KEY,String(multipleCount));
-            renderMultiple();
-          });
-        });
-
-        updateScenarioSummary();
-      }
-
-      function updateScenarioSummary(){
-        const summary = document.getElementById("scenarioSummary");
-
-        if(!property || !summary){
-          return;
-        }
-
-        const count = multipleCount;
-        const paid = property.purchasePrice * count;
-        const valueToday = currentValue(property) * count;
-        const gain = valueToday - paid;
-        const taxFree = reachedTenYears(property);
-
-        const rows = [
-          [t("multiplePaid"),formatMoney(paid)],
-          [t("multipleToday"),formatMoney(valueToday)],
-          [t("multipleGain"),formatMoney(gain)],
-          [t("multipleTaxFree"),taxFree ? formatMoney(gain) : t("notTaxFree")],
-          ...[5,10,15,20].map((years) => [t("multipleFuture",{years}),formatMoney(futureValue(property,years) * count)])
+        const rows=[
+          [labels.count,String(portfolioProperties.length)],
+          [labels.basis,formatMoney(basis)],
+          [labels.today,formatMoney(valueToday)],
+          [labels.gain,formatMoney(gain)],
+          [labels.taxFree,formatMoney(possibleTaxFree)],
+          ...[5,10,15,20].map((years)=>[
+            labels.future(years),
+            formatMoney(portfolioProperties.reduce((sum,item)=>sum+futureValue(item,years),0))
+          ])
         ];
 
-        summary.innerHTML = rows.map(([label,value]) => `
-          <div class="scenario-row">
-            <span>${escapeHtml(label)}</span>
-            <strong>${escapeHtml(value)}</strong>
+        multipleWrap.innerHTML=`
+          <p class="microcopy" style="margin:0 0 14px">${escapeHtml(lang==="de"
+            ? "Jede Immobilie wird mit ihrem eigenen Kaufpreis, Kaufvertragsdatum und ihrer eigenen Wertsteigerung berechnet."
+            : "Each property is calculated using its own purchase price, purchase contract date and appreciation rate.")}</p>
+          <div class="scenario-summary">
+            ${rows.map(([label,value])=>`
+              <div class="scenario-row">
+                <span>${escapeHtml(label)}</span>
+                <strong>${escapeHtml(value)}</strong>
+              </div>
+            `).join("")}
           </div>
-        `).join("");
+        `;
       }
 
       function renderChart(){
@@ -1926,6 +1920,8 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
         });
       });
 
+      window.addEventListener("xxlPortfolioChanged",renderMultiple);
+
       fillForm();
       applyLanguage();
     })();
@@ -2041,6 +2037,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
       state.selectedId=selectedId;
       localStorage.setItem(PORTFOLIO_KEY,JSON.stringify(state));
       if(selectedId)localStorage.setItem(SELECTED_KEY,selectedId);else localStorage.removeItem(SELECTED_KEY);
+      window.dispatchEvent(new Event("xxlPortfolioChanged"));
     }
 
     function setStatus(message,isError){
