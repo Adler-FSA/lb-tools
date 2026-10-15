@@ -792,6 +792,91 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
     })();
   </script>
 
+
+  <style id="xxl-onlyinside-theme">
+    :root{
+      --xxl-blue:#0e6dbd;
+      --xxl-blue-dark:#095d9f;
+      --xxl-green:#59d400;
+      --xxl-text:#333333;
+      --xxl-light-blue:#c4e5ff;
+      --xxl-footer:#eef6ff;
+    }
+    body{background:#fff;color:var(--xxl-text);font-family:Geologica,"Segoe UI",Arial,sans-serif}
+    .topbar{display:none}
+    .shell{width:min(1348px,calc(100% - 32px))}
+    .hero{padding:68px 0 30px;text-align:center}
+    .hero-card{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+    .hero-card::after{display:none}
+    .eyebrow{
+      width:max-content;
+      margin:0 auto 18px;
+      padding:8px 18px;
+      border-radius:999px;
+      color:var(--xxl-text);
+      background:var(--xxl-light-blue);
+      font-size:.93rem;
+      font-weight:500;
+      letter-spacing:0;
+      text-transform:none;
+    }
+    .product-title{
+      margin:0 0 12px;
+      color:var(--xxl-blue);
+      font-family:Ubuntu,"Segoe UI",Arial,sans-serif;
+      font-size:clamp(2rem,4vw,2.75rem);
+      line-height:1.05;
+      letter-spacing:-.035em;
+    }
+    .hero-question{
+      margin:0 0 18px;
+      color:var(--xxl-text);
+      font-family:Ubuntu,"Segoe UI",Arial,sans-serif;
+      font-size:clamp(1.72rem,3.2vw,2.35rem);
+      line-height:1.12;
+      letter-spacing:-.025em;
+    }
+    .hero-copy{margin:0 auto;max-width:900px;color:#555;font-size:1rem}
+    .facts{display:none}
+    .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:18px}
+    .card{border-color:#d1d1cd;border-radius:18px;background:#fff;box-shadow:0 14px 36px rgba(0,0,0,.075)}
+    .section-head h2,.section-head h3,.detail-header h3{
+      color:var(--xxl-blue);
+      font-family:Ubuntu,"Segoe UI",Arial,sans-serif;
+    }
+    .section-head h2{font-size:1.55rem}
+    label{color:#333}
+    input,select{color:#333;background:#fff}
+    input:focus,select:focus{border-color:var(--xxl-blue);box-shadow:0 0 0 3px rgba(14,109,189,.12)}
+    input[type="range"]{accent-color:var(--xxl-blue)}
+    .btn{border-color:var(--xxl-blue);color:#fff;background:var(--xxl-blue)}
+    .btn:hover{background:var(--xxl-blue-dark)}
+    .btn.secondary{border-color:#111;color:#111;background:#fff}
+    .btn.secondary:hover{color:var(--xxl-blue);background:#fff}
+    .btn.danger{border:0;color:#111;background:transparent}
+    .quick-btn.active{border-color:var(--xxl-blue);background:var(--xxl-blue)}
+    .projection{border-left-color:var(--xxl-blue)}
+    .notice-card{border-color:#333}
+    footer{background:var(--xxl-footer);color:#737373}
+    .pdf-overlay[hidden]{display:none}
+    .pdf-overlay{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.58)}
+    .pdf-dialog{width:min(560px,100%);padding:26px;border-radius:18px;background:#fff;box-shadow:0 22px 70px rgba(0,0,0,.28)}
+    .pdf-dialog h3{margin:0 0 14px;color:var(--xxl-blue);font-family:Ubuntu,"Segoe UI",Arial,sans-serif;font-size:1.6rem}
+    .pdf-filebox{padding:14px;border:1px solid #d1d1cd;border-radius:11px;background:#f8fafb}
+    .pdf-filebox strong,.pdf-filebox span{display:block}
+    .pdf-filebox span{margin-top:5px;color:#666;font-size:.84rem}
+    @media(max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .hero{padding-top:40px}
+    }
+    @media(max-width:560px){
+      .shell{width:min(100% - 20px,1348px)}
+      .hero{padding:30px 0 18px}
+      .form-grid{grid-template-columns:1fr}
+      .btn-row .btn{width:100%}
+    }
+  </style>
+
 </head>
 
 <body>
@@ -822,8 +907,9 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
   <section class="hero">
     <div class="shell">
       <div class="hero-card">
-        <p class="eyebrow" data-i18n="heroEyebrow">Immobilienvermögensberatung · Modellrechnung</p>
-        <h1 data-i18n="heroTitle">Wie entwickelt sich der Wert Ihrer Immobilie?</h1>
+        <p class="eyebrow" data-i18n="heroEyebrow">Immobilienvermögensberatung</p>
+        <h1 class="product-title" data-portfolio-i18n="calculatorTitle">Immobilienrechner</h1>
+        <h2 class="hero-question" data-i18n="heroTitle">Wie entwickelt sich der Wert Ihrer Immobilie?</h2>
 
         <p class="hero-copy" data-i18n="heroCopy">
           Erfassen Sie eine Immobilie, aktualisieren Sie den rechnerischen Monatswert und betrachten Sie mögliche Entwicklungen für die kommenden Jahre. Als Standardwert sind 5 % Wertsteigerung pro Jahr hinterlegt. Für Vergleichsrechnungen kann die Jahresrate zwischen 1 % und 10 % angepasst werden.
@@ -922,6 +1008,11 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
                 <span data-i18n="saveButton">Immobilie speichern und berechnen</span>
               </button>
 
+              <button class="btn secondary" id="newPropertyButton" type="button" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                <span data-portfolio-i18n="newProperty">Weiteres Objekt anlegen</span>
+              </button>
+
               <button class="btn danger" id="deleteButton" type="button" hidden>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4 7h16" />
@@ -999,10 +1090,6 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       </div>
 
       <div class="portfolio-toolbar">
-        <button class="btn" id="newPortfolioProperty" type="button">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          <span data-portfolio-i18n="newProperty">Weitere Immobilie anlegen</span>
-        </button>
         <a class="btn secondary" href="./dashboard.html">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>
           <span data-portfolio-i18n="openDashboard">Dashboard öffnen</span>
@@ -1052,6 +1139,21 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+  <div class="pdf-overlay" id="propertyPdfOverlay" hidden>
+    <section class="pdf-dialog" role="dialog" aria-modal="true" aria-labelledby="propertyPdfTitle">
+      <p class="eyebrow" style="margin:0 0 12px" data-portfolio-i18n="pdfEyebrow">XXL.IMMO · fertige PDF</p>
+      <h3 id="propertyPdfTitle" data-portfolio-i18n="pdfReady">PDF fertig erstellt</h3>
+      <div class="pdf-filebox"><strong id="propertyPdfFilename"></strong><span id="propertyPdfMeta"></span></div>
+      <div class="btn-row">
+        <a class="btn" id="propertyPdfSave" target="_blank" href="#" data-portfolio-i18n="savePdf">PDF speichern</a>
+        <a class="btn secondary" id="propertyPdfShare" target="_blank" href="#" data-portfolio-i18n="sharePdf">PDF teilen</a>
+        <button class="btn danger" id="propertyPdfClose" type="button" data-portfolio-i18n="closePdf">Schließen</button>
+      </div>
+    </section>
+  </div>
+
+
+
   <script>
     (() => {
       "use strict";
@@ -1066,7 +1168,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
       const dictionary = {
         de: {
           brandSubtitle: "Modellhafte Wertentwicklung",
-          heroEyebrow: "Immobilienvermögensberatung · Modellrechnung",
+          heroEyebrow: "Immobilienvermögensberatung",
           heroTitle: "Wie entwickelt sich der Wert Ihrer Immobilie?",
           heroCopy: "Erfassen Sie eine Immobilie, aktualisieren Sie den rechnerischen Monatswert und betrachten Sie mögliche Entwicklungen für die kommenden Jahre. Als Standardwert sind 5 % Wertsteigerung pro Jahr hinterlegt. Für Vergleichsrechnungen kann die Jahresrate zwischen 1 % und 10 % angepasst werden.",
           fact1Strong: "5 % Standardwert pro Jahr",
@@ -1130,7 +1232,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           monthsShort: "Mon.",
           lastUpdate: "Letzte Aktualisierung:",
           refreshButton: "Immobilienwert aktualisieren",
-          printButton: "Drucken",
+          printButton: "Immobilie als PDF",
           multipleLabel: "Tatsächlich erfasste Immobilien",
           multipleHint: "Die Einzelimmobilie bleibt die Berechnungsgrundlage. Hier wird nur das mögliche Gesamtmodell vervielfacht.",
           multiplePaid: "Gemeinsamer Kaufpreis / Basiswert",
@@ -1150,7 +1252,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
         },
         en: {
           brandSubtitle: "Model-based value development",
-          heroEyebrow: "Real estate asset consulting · model calculation",
+          heroEyebrow: "Real estate asset consulting",
           heroTitle: "How could the value of your property develop?",
           heroCopy: "Enter one property, update its calculated monthly value and review potential developments for the coming years. The standard appreciation rate is 5% per year. For comparison calculations, the annual rate can be adjusted between 1% and 10%.",
           fact1Strong: "5% standard rate per year",
@@ -1214,7 +1316,7 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           monthsShort: "mos",
           lastUpdate: "Last update:",
           refreshButton: "Update property value",
-          printButton: "Print",
+          printButton: "Property as PDF",
           multipleLabel: "Number of equivalent apartments",
           multipleHint: "The single property remains the calculation basis. Only the possible total model is multiplied here.",
           multiplePaid: "Combined purchase price / base value",
@@ -1623,7 +1725,9 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
           showToast(t("toastUpdated"));
         });
 
-        document.getElementById("printButton").addEventListener("click",() => window.print());
+        document.getElementById("printButton").addEventListener("click",() => {
+          window.dispatchEvent(new CustomEvent("xxlCreatePropertyPdf",{detail:{property:{...property}}}));
+        });
       }
 
       function renderDetails(){
@@ -1974,6 +2078,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     const language=()=>document.documentElement.lang==="en"?"en":"de";
     const words={
       de:{
+        calculatorTitle:"Immobilienrechner",pdfEyebrow:"XXL.IMMO · fertige PDF",pdfReady:"PDF fertig erstellt",savePdf:"PDF speichern",sharePdf:"PDF teilen",closePdf:"Schließen",
         labelUsage:"Nutzung *",usageSelf:"Selbstnutzung",usageInvestment:"Kapitalanlage / vermietet",
         portfolioTitle:"Mein Immobilienportfolio",
         portfolioCopy:"Weitere Immobilien werden als eigenständige Objekte gespeichert. Der freigegebene Einzelrechner bleibt die Berechnungsgrundlage.",
@@ -1987,6 +2092,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         confirmImport:"Der vorhandene Bestand wird durch die CSV-Datei ersetzt. Fortfahren?",nothing:"Es ist noch kein Portfolio vorhanden."
       },
       en:{
+        calculatorTitle:"Property calculator",pdfEyebrow:"XXL.IMMO · finished PDF",pdfReady:"PDF created",savePdf:"Save PDF",sharePdf:"Share PDF",closePdf:"Close",
         labelUsage:"Type of use *",usageSelf:"Owner-occupied",usageInvestment:"Investment / rented",
         portfolioTitle:"My property portfolio",
         portfolioCopy:"Additional properties are stored as individual assets. The approved single-property calculator remains the calculation basis.",
@@ -2100,6 +2206,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     function syncUsage(){
       const selected=state.properties.find((item)=>item.id===selectedId);
       $("propertyUsage").value=selected&&selected.usage==="investment"?"investment":"self";
+      $("newPropertyButton").hidden=!selected;
     }
 
     function saveFromCalculator(){
@@ -2122,6 +2229,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
       if(existing)state.properties[state.properties.indexOf(existing)]=record;else state.properties.push(record);
       selectedId=record.id;
       persist();
+      $("newPropertyButton").hidden=false;
       render();
       setStatus(t("saved"),false);
     }
@@ -2198,7 +2306,7 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
     render();
 
     $("propertyForm").addEventListener("submit",()=>window.setTimeout(saveFromCalculator,0));
-    $("newPortfolioProperty").addEventListener("click",()=>{
+    $("newPropertyButton").addEventListener("click",()=>{
       sessionStorage.setItem(NEW_KEY,"1");
       selectedId=null;
       localStorage.removeItem(SELECTED_KEY);
