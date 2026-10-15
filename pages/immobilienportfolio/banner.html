@@ -2,7 +2,7 @@
 <!--
 GitHub-Pfad: pages/immobilienportfolio/banner.html
 Zweck: Kompaktes, iFrame-faehiges XXL.IMMO-Dashboard-Banner (DE/EN).
-Datenbasis: lokales Portfolio des Immobilienrechners, gleiche Origin und Browser.
+Datenbasis: Kaufpreis und Kaufdatum aus lokalem Rechner-Portfolio, gleiche Origin und Browser.
 Hinweis: Eine kontogebundene Einbindung bei XXL.immo erfordert eine authentifizierte Schnittstelle.
 -->
 <html lang="de">
@@ -41,9 +41,9 @@ html,body{margin:0;padding:0;background:transparent;font-family:Arial,Helvetica,
   </div>
   <div class="metrics" id="metrics">
     <div class="metric"><span class="label" data-i18n="count">Immobilien</span><strong id="countValue">0</strong></div>
-    <div class="metric"><span class="label" data-i18n="base">Startwert bei Erfassung</span><strong id="baseValue">0 €</strong></div>
+    <div class="metric"><span class="label" data-i18n="base">Kaufpreis / Startwert</span><strong id="baseValue">0 €</strong></div>
     <div class="metric"><span class="label" data-i18n="current">Aktueller Modellwert</span><strong id="currentValue">0 €</strong></div>
-    <div class="metric gain"><span class="label" data-i18n="gain">Wertzuwachs seit Erfassung</span><strong id="gainValue">+0 €</strong></div>
+    <div class="metric gain"><span class="label" data-i18n="gain">Wertzuwachs seit Kaufdatum</span><strong id="gainValue">+0 €</strong></div>
   </div>
   <div class="empty" id="emptyState" hidden>
     <span data-i18n="empty">Noch keine Immobilie erfasst.</span>
@@ -59,8 +59,8 @@ html,body{margin:0;padding:0;background:transparent;font-family:Arial,Helvetica,
   "use strict";
   var STORAGE_KEY="xxl-immo-portfolio-v1";
   var translations={
-    de:{title:"Mein Immobilienportfolio",asOf:"Stand",count:"Immobilien",base:"Startwert bei Erfassung",current:"Aktueller Modellwert",gain:"Wertzuwachs seit Erfassung",empty:"Noch keine Immobilie erfasst.",unavailable:"Der lokale Immobilienbestand ist in dieser Einbindung nicht zugänglich.",first:"Immobilienrechner öffnen",notice:"Tägliche Modellrechnung auf Grundlage Ihrer Angaben · keine Marktwertermittlung.",manage:"Immobilien bearbeiten"},
-    en:{title:"My property portfolio",asOf:"As of",count:"Properties",base:"Value when recorded",current:"Current model value",gain:"Growth since recorded",empty:"No properties recorded yet.",unavailable:"The local portfolio cannot be accessed from this embed.",first:"Open property calculator",notice:"Daily calculation based on your inputs · not a market valuation.",manage:"Edit properties"}
+    de:{title:"Mein Immobilienportfolio",asOf:"Stand",count:"Immobilien",base:"Kaufpreis / Startwert",current:"Aktueller Modellwert",gain:"Wertzuwachs seit Kaufdatum",empty:"Noch keine Immobilie erfasst.",unavailable:"Der lokale Immobilienbestand ist in dieser Einbindung nicht zugänglich.",first:"Immobilienrechner öffnen",notice:"Tägliche Modellrechnung auf Grundlage Ihrer Angaben · keine Marktwertermittlung.",manage:"Immobilien bearbeiten"},
+    en:{title:"My property portfolio",asOf:"As of",count:"Properties",base:"Purchase price / base value",current:"Current model value",gain:"Growth since purchase",empty:"No properties recorded yet.",unavailable:"The local portfolio cannot be accessed from this embed.",first:"Open property calculator",notice:"Daily calculation based on your inputs · not a market valuation.",manage:"Edit properties"}
   };
   var $=function(id){return document.getElementById(id)};
   function validNum(value){var n=Number(String(value==null?"":value).replace(",","."));return Number.isFinite(n)?n:0}
@@ -80,25 +80,15 @@ html,body{margin:0;padding:0;background:transparent;font-family:Arial,Helvetica,
     if(dt.getUTCFullYear()!==part[0]||dt.getUTCMonth()!==part[1]-1||dt.getUTCDate()!==part[2])return NaN;
     return dt.getTime()/86400000;
   }
-  function startDate(property){return dateOnly(property.modelStartDate)||dateOnly(property.createdAt)||dateOnly(new Date())}
-  function monthsUntil(purchase,until){
-    var a=dateOnly(purchase),b=dateOnly(until);
-    if(!a||!b||utcDay(a)>utcDay(b))return 0;
-    var pa=a.split("-").map(Number),pb=b.split("-").map(Number);
-    return Math.max(0,(pb[0]-pa[0])*12+pb[1]-pa[1]-(pb[2]<pa[2]?1:0));
-  }
-  function baseline(property){
-    var start=validNum(property.modelStartValue);
-    if(start>0)return start;
-    var price=validNum(property.purchasePrice);
-    return price+price*rate(property)/1200*monthsUntil(property.purchaseDate,startDate(property));
-  }
+  // Kaufdatum ist der einzige Startpunkt. Einfache lineare Tagesfortschreibung,
+  // identisch mit dem Einzelrechner; ohne Einfluss des Erfassungsdatums.
+  function baseline(property){return validNum(property.purchasePrice)}
   function localToday(){return dateOnly(new Date())}
   function value(property,today){
-    var base=baseline(property);
-    var days=Math.max(0,utcDay(today)-utcDay(startDate(property)));
+    var price=baseline(property);
+    var days=Math.max(0,utcDay(today)-utcDay(property.purchaseDate));
     if(!Number.isFinite(days))days=0;
-    return base+base*rate(property)/100*days/365;
+    return price+price*rate(property)/100*(days/365);
   }
   function money(amount,lang){
     return new Intl.NumberFormat(lang==="en"?"en-IE":"de-DE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(amount);
