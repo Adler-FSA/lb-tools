@@ -733,31 +733,73 @@ Interne Baugrundlage: xxl.immo Rechner - Anforderungen.pdf
     .portfolio-toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
     .portfolio-status{min-height:20px;margin:10px 0 0;color:#5e5e5e;font-size:.82rem}
     .portfolio-status.error{color:#8b1a1a}
-    .portfolio-list{display:grid;gap:10px}
+    /* Portfolio-Objektkarten: Kopfzeile und Werte sind bewusst getrennt. */
+    .portfolio-list{display:grid;gap:12px}
     .portfolio-item{
-      display:grid;
-      grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(120px,.65fr)) auto;
-      gap:10px;
-      align-items:center;
-      padding:14px;
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap:13px;
+      min-width:0;
+      padding:16px;
       border:1px solid #d8d8d3;
       border-radius:11px;
       background:#fafaf8;
     }
-    .portfolio-item.active{border:2px solid #000;background:#fff}
-    .portfolio-name strong,.portfolio-value strong{display:block}
-    .portfolio-name span,.portfolio-value span{display:block;color:#666;font-size:.75rem}
-    .portfolio-value strong{margin-top:4px;font-size:.94rem}
-    .portfolio-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
-    .file-input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-    @media(max-width:900px){
-      .portfolio-item{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .portfolio-name,.portfolio-actions{grid-column:1/-1}
-      .portfolio-actions{justify-content:flex-start}
+    .portfolio-item.active{border:2px solid var(--xxl-blue,#0e6dbd);background:#fff}
+    .portfolio-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      min-width:0;
     }
-    @media(max-width:560px){
-      .portfolio-item{grid-template-columns:1fr}
-      .portfolio-name,.portfolio-actions{grid-column:auto}
+    .portfolio-name{flex:1 1 auto;min-width:0}
+    .portfolio-name strong{
+      display:block;
+      color:var(--xxl-blue,#0e6dbd);
+      font-size:1.03rem;
+      line-height:1.35;
+      overflow-wrap:anywhere;
+    }
+    .portfolio-name span{
+      display:block;
+      margin-top:4px;
+      color:#626262;
+      font-size:.83rem;
+      line-height:1.4;
+      overflow-wrap:anywhere;
+    }
+    .portfolio-actions{display:flex;align-items:center;justify-content:flex-end;flex:0 0 auto}
+    .portfolio-actions .btn{white-space:nowrap;max-width:100%}
+    .portfolio-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;min-width:0}
+    .portfolio-value{
+      min-width:0;
+      padding:11px 12px;
+      border:1px solid #e0e5e7;
+      border-radius:9px;
+      background:#fff;
+    }
+    .portfolio-value span{
+      display:block;
+      color:#666;
+      font-size:.76rem;
+      line-height:1.35;
+    }
+    .portfolio-value strong{
+      display:block;
+      margin-top:6px;
+      font-size:.95rem;
+      line-height:1.35;
+      overflow-wrap:anywhere;
+      font-variant-numeric:tabular-nums;
+    }
+    .file-input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+    @media(max-width:700px){
+      .portfolio-head{align-items:stretch;flex-direction:column;gap:12px}
+      .portfolio-actions{justify-content:stretch}
+      .portfolio-actions .btn{width:100%}
+      .portfolio-values{grid-template-columns:1fr}
       .portfolio-toolbar .btn{width:100%}
     }
 
@@ -2226,11 +2268,15 @@ Testlink: https://adler-fsa.github.io/lp-anfang/pages/heinz-riedel.html?nocache=
         const active=item.id===selectedId?" active":"";
         const use=item.usage==="investment"?t("usageInvestment"):t("usageSelf");
         return '<article class="portfolio-item'+active+'">'+
-          '<div class="portfolio-name"><strong>'+escapeHtml(item.name||"Immobilie")+'</strong><span>'+escapeHtml(item.address||item.purchaseDate)+'</span></div>'+
-          '<div class="portfolio-value"><span>'+escapeHtml(t("use"))+'</span><strong>'+escapeHtml(use)+'</strong></div>'+
-          '<div class="portfolio-value"><span>'+escapeHtml(t("basis"))+'</span><strong>'+escapeHtml(money(item.purchasePrice))+'</strong></div>'+
-          '<div class="portfolio-value"><span>'+escapeHtml(t("current"))+'</span><strong>'+escapeHtml(money(dailyValue(item)))+'</strong></div>'+
-          '<div class="portfolio-actions"><button class="btn secondary small" type="button" data-open-property="'+escapeHtml(item.id)+'">'+escapeHtml(t("select"))+"</button></div>"+
+          '<div class="portfolio-head">'+
+            '<div class="portfolio-name"><strong>'+escapeHtml(item.name||"Immobilie")+'</strong><span>'+escapeHtml(item.address||item.purchaseDate)+'</span></div>'+
+            '<div class="portfolio-actions"><button class="btn secondary small" type="button" data-open-property="'+escapeHtml(item.id)+'">'+escapeHtml(t("select"))+"</button></div>"+
+          '</div>'+
+          '<div class="portfolio-values">'+
+            '<div class="portfolio-value"><span>'+escapeHtml(t("use"))+'</span><strong>'+escapeHtml(use)+'</strong></div>'+
+            '<div class="portfolio-value"><span>'+escapeHtml(t("basis"))+'</span><strong>'+escapeHtml(money(item.purchasePrice))+'</strong></div>'+
+            '<div class="portfolio-value"><span>'+escapeHtml(t("current"))+'</span><strong>'+escapeHtml(money(dailyValue(item)))+'</strong></div>'+
+          '</div>'+
         "</article>";
       }).join("");
     }
