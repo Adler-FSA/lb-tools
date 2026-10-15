@@ -12,31 +12,215 @@ Hinweis: Eine kontogebundene Einbindung bei XXL.immo erfordert eine authentifizi
 <meta name="color-scheme" content="light">
 <title>XXL.IMMO · Mein Immobilienportfolio</title>
 <style>
-:root{--blue:#166db7;--green:#63c900;--ink:#283a4b;--muted:#596d7b;--border:#d4e3ef;--soft:#eff6fd}
+:root{
+  --xxl-blue:#0d72c7;
+  --xxl-blue-deep:#0960b0;
+  --xxl-blue-bright:#0b88de;
+  --xxl-green:#a2ee59;
+  --xxl-white:#ffffff;
+}
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:transparent;font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
-.banner{border:1px solid var(--border);border-top:4px solid var(--blue);background:#fff;border-radius:12px;padding:15px 18px 12px;max-width:100%;overflow:hidden}
-.heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
-.heading h1{margin:0;color:var(--blue);font-size:20px;line-height:1.25}
-.date{font-size:12px;color:var(--muted);white-space:nowrap}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.metric{border:1px solid var(--border);border-radius:9px;background:var(--soft);padding:11px 12px;min-width:0}
-.label{display:block;color:var(--muted);font-size:12px;line-height:1.3;margin-bottom:7px}
-.metric strong{display:block;color:var(--blue);font-size:clamp(17px,2.1vw,25px);letter-spacing:-.025em;line-height:1.18;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
-.metric.gain strong{color:#347d07}
-.meta{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;margin-top:11px;font-size:11px;color:var(--muted);line-height:1.4}
-.meta a{color:var(--blue);font-weight:700;text-decoration:underline;text-underline-offset:2px}
-.empty{background:var(--soft);padding:19px 14px;border-radius:9px;text-align:center;color:var(--muted);font-size:14px;line-height:1.5}
-.empty a{color:var(--blue);font-weight:700}
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  background:transparent;
+  color:var(--xxl-white);
+  font-family:Arial,Helvetica,sans-serif;
+}
+.banner{
+  isolation:isolate;
+  position:relative;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+  padding:22px 24px 17px;
+  border:1px solid rgba(255,255,255,.17);
+  border-radius:21px;
+  background:linear-gradient(119deg,var(--xxl-blue-deep) 0%,var(--xxl-blue) 55%,var(--xxl-blue-bright) 100%);
+  box-shadow:0 14px 32px rgba(8,76,138,.15);
+}
+.banner::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:310px;
+  height:310px;
+  right:-155px;
+  top:-240px;
+  border:46px solid rgba(151,219,89,.12);
+  border-radius:50%;
+  pointer-events:none;
+}
+.banner::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:195px;
+  height:195px;
+  right:-116px;
+  top:-128px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:50%;
+  pointer-events:none;
+}
+.heading{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:16px;
+  margin:0 0 17px;
+}
+.heading-text{min-width:0}
+.eyebrow{
+  display:block;
+  margin:0 0 8px;
+  color:var(--xxl-green);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.heading h1{
+  margin:0;
+  color:#fff;
+  font-size:clamp(23px,3vw,34px);
+  font-weight:800;
+  letter-spacing:-.025em;
+  line-height:1.16;
+  overflow-wrap:anywhere;
+}
+.date{
+  flex:0 0 auto;
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.23);
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  color:#f0f8ff;
+  font-size:12px;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.metric{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-width:0;
+  min-height:100px;
+  padding:13px 15px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:14px;
+  background:rgba(255,255,255,.13);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
+}
+.label{
+  display:block;
+  margin-bottom:10px;
+  color:#d7eafa;
+  font-size:11px;
+  font-weight:700;
+  line-height:1.35;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+}
+.metric strong{
+  display:block;
+  color:#fff;
+  font-size:clamp(18px,2.1vw,27px);
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:-.025em;
+  overflow-wrap:anywhere;
+  font-variant-numeric:tabular-nums;
+}
+.metric.gain strong{color:#d6ffa4}
+.meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px 18px;
+  margin-top:15px;
+  color:#dbeaf8;
+  font-size:11px;
+  line-height:1.45;
+}
+.meta span{flex:1 1 350px;min-width:0}
+.meta a,
+.empty a{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  min-height:36px;
+  padding:8px 15px;
+  border:1px solid rgba(255,255,255,.84);
+  border-radius:999px;
+  background:#fff;
+  color:var(--xxl-blue-deep);
+  font-size:12px;
+  font-weight:800;
+  text-decoration:none;
+  transition:background .2s ease,color .2s ease;
+}
+.meta a:hover,.empty a:hover{background:#e9f5ff}
+.meta a:focus-visible,.empty a:focus-visible{
+  outline:3px solid var(--xxl-green);
+  outline-offset:3px;
+}
+.empty{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:14px;
+  padding:17px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:13px;
+  background:rgba(255,255,255,.13);
+  color:#fff;
+  font-size:13px;
+  line-height:1.5;
+}
 [hidden]{display:none!important}
-@media(max-width:650px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.banner{padding:13px}.heading h1{font-size:18px}.metric strong{font-size:clamp(17px,4vw,22px)}}
-@media(max-width:355px){.heading{align-items:flex-start;flex-direction:column}.metrics{gap:7px}.metric{padding:10px 8px}.metric strong{font-size:17px}}
+@media(max-width:900px){
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metric{min-height:91px}
+  .heading h1{font-size:clamp(22px,4vw,29px)}
+  .metric strong{font-size:clamp(19px,3.7vw,26px)}
+}
+@media(max-width:560px){
+  .banner{padding:17px 15px 15px;border-radius:17px}
+  .heading{align-items:flex-start;flex-direction:column;gap:11px;margin-bottom:14px}
+  .heading h1{font-size:24px}
+  .date{padding:6px 10px;font-size:11px}
+  .metrics{gap:9px}
+  .metric{min-height:90px;padding:11px 10px;border-radius:11px}
+  .label{font-size:10px;line-height:1.3;letter-spacing:.01em}
+  .metric strong{font-size:clamp(17px,4.6vw,23px)}
+  .meta{margin-top:13px}
+  .meta a{width:100%}
+}
+@media(max-width:340px){
+  .metric strong{font-size:16px}
+  .metric{padding:10px 8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .meta a,.empty a{transition:none}
+}
 </style>
 </head>
 <body>
 <section class="banner" aria-label="XXL.IMMO Immobilienportfolio">
   <div class="heading">
-    <h1 data-i18n="title">Mein Immobilienportfolio</h1>
+    <div class="heading-text">
+      <span class="eyebrow" data-i18n="eyebrow">Persönlicher Überblick</span>
+      <h1 data-i18n="title">Mein Immobilienportfolio</h1>
+    </div>
     <span class="date" id="dateText" aria-live="off">–</span>
   </div>
   <div class="metrics" id="metrics">
@@ -59,8 +243,8 @@ html,body{margin:0;padding:0;background:transparent;font-family:Arial,Helvetica,
   "use strict";
   var STORAGE_KEY="xxl-immo-portfolio-v1";
   var translations={
-    de:{title:"Mein Immobilienportfolio",asOf:"Stand",count:"Immobilien",base:"Kaufpreis / Startwert",current:"Aktueller Modellwert",gain:"Wertzuwachs seit Kaufdatum",empty:"Noch keine Immobilie erfasst.",unavailable:"Der lokale Immobilienbestand ist in dieser Einbindung nicht zugänglich.",first:"Immobilienrechner öffnen",notice:"Tägliche Modellrechnung auf Grundlage Ihrer Angaben · keine Marktwertermittlung.",manage:"Immobilien bearbeiten"},
-    en:{title:"My property portfolio",asOf:"As of",count:"Properties",base:"Purchase price / base value",current:"Current model value",gain:"Growth since purchase",empty:"No properties recorded yet.",unavailable:"The local portfolio cannot be accessed from this embed.",first:"Open property calculator",notice:"Daily calculation based on your inputs · not a market valuation.",manage:"Edit properties"}
+    de:{eyebrow:"Persönlicher Überblick",title:"Mein Immobilienportfolio",asOf:"Stand",count:"Immobilien",base:"Kaufpreis / Startwert",current:"Aktueller Modellwert",gain:"Wertzuwachs seit Kaufdatum",empty:"Noch keine Immobilie erfasst.",unavailable:"Der lokale Immobilienbestand ist in dieser Einbindung nicht zugänglich.",first:"Immobilienrechner öffnen",notice:"Tägliche Modellrechnung auf Grundlage Ihrer Angaben · keine Marktwertermittlung.",manage:"Immobilien bearbeiten"},
+    en:{eyebrow:"Personal overview",title:"My property portfolio",asOf:"As of",count:"Properties",base:"Purchase price / base value",current:"Current model value",gain:"Growth since purchase",empty:"No properties recorded yet.",unavailable:"The local portfolio cannot be accessed from this embed.",first:"Open property calculator",notice:"Daily calculation based on your inputs · not a market valuation.",manage:"Edit properties"}
   };
   var $=function(id){return document.getElementById(id)};
   function validNum(value){var n=Number(String(value==null?"":value).replace(",","."));return Number.isFinite(n)?n:0}
