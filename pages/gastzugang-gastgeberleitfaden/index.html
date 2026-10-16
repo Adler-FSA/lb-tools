@@ -20,7 +20,8 @@
     .guide-back svg{width:16px;height:16px;flex:none;stroke:currentColor}
     .guide-back-bottom{margin-top:19px;white-space:normal;border-color:#b8dede;color:var(--mint-dark)}
     @media(max-width:760px){.site-header .topbar{flex-wrap:wrap;gap:8px}.guide-back-top{order:3;width:100%;justify-content:center}.site-header .languages{margin-left:auto}html{scroll-padding-top:140px}.chapter{scroll-margin-top:146px}}
-      </style>
+        .guide-back-next{margin:17px 0 6px;background:var(--mint-dark);color:#fff;border-color:var(--mint-dark)}.guide-back-next:hover{background:var(--mint);color:#fff;border-color:var(--mint)}
+  </style>
 </head>
 <body>
   <div class="progress" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
@@ -123,14 +124,14 @@
         <div class="journey-card"><div class="j-n">5</div><div><strong data-i18n="j5t">Formular und PDF begleiten</strong><span data-i18n="j5s">Ausfüllen, erstellen und an die Akademie einsenden</span></div></div>
         <div class="journey-card"><div class="j-n">6</div><div><strong data-i18n="j6t">Persönlichen Weg fortsetzen</strong><span data-i18n="j6s">Akademie bearbeitet das Anliegen; Gastgeber bleibt ansprechbar</span></div></div>
       </div><p class="note-small" data-i18n="journeyNote">Die Schritte „Entdeckungsreise“ und „Tor wählen“ dürfen je nach Interesse des Gastes auch in anderer Reihenfolge stattfinden.</p></section>
-      <footer class="footer"><strong data-i18n="footerTitle">Der Leitgedanke</strong><div data-i18n="footerText">Wir verschenken den Zugang. Wir begleiten die Entdeckungsreise. Wir helfen Menschen, ihren eigenen Weg zu finden.</div><div class="footer-brand">LiquidityBooster · <span data-i18n="brandSub">Akademie für finanzielle Souveränität</span></div><a class="guide-back guide-back-bottom" href="../visitenkarten-generator/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 18-6-6 6-6"/><path d="M20 12H8"/></svg><span data-i18n="backGenerator">Zurück zum Visitenkarten-Generator</span></a></footer>
+      <footer class="footer"><strong data-i18n="footerTitle">Der Leitgedanke</strong><div data-i18n="footerText">Wir verschenken den Zugang. Wir begleiten die Entdeckungsreise. Wir helfen Menschen, ihren eigenen Weg zu finden.</div><a class="guide-back guide-back-next" href="../gastzugang-gastgeberleitfaden-teil2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg><span data-i18n="nextPart">Weiter zu Teil 2 · Mitgliedschaft auswählen</span></a><div class="footer-brand">LiquidityBooster · <span data-i18n="brandSub">Akademie für finanzielle Souveränität</span></div><a class="guide-back guide-back-bottom" href="../visitenkarten-generator/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 18-6-6 6-6"/><path d="M20 12H8"/></svg><span data-i18n="backGenerator">Zurück zum Visitenkarten-Generator</span></a></footer>
     </main>
   </div>
   <script>
     (() => {
       'use strict';
       const en = {
-        backTools:'Back to Club Partner tools',backGenerator:'Back to the business card generator',
+        backTools:'Back to Club Partner tools',backGenerator:'Back to the business card generator',nextPart:'Continue to Part 2 · Choosing a membership',
         brandSub:'Academy for Financial Sovereignty',eyebrow:'Practical guide for hosts',heroTitle:'How do I successfully guide someone through guest access?',
         heroLead:'Guest access is a gift: it can help people discover knowledge, perspectives, and possibilities for their own lives. As a host, you accompany that journey personally and without pressure.',
         heroQuote:'“We give access as a gift. We accompany the journey of discovery. We help people find their own path.”',tagGift:'A gift for people',tagMonday:'Monday · 7:00 p.m. · Discovery journey',tagGates:'Three gateways to orientation',
