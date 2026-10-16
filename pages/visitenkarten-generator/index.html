@@ -126,6 +126,16 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
   .mini{margin:0}
   .actions,.dialogActions{grid-template-columns:1fr}
 }
+
+/* Gastgeberwissen unter den vier bestehenden Werkzeugen */
+.hostGuide{margin-top:14px;padding:18px;border:1px solid #cce7e8;border-left:5px solid var(--mint);border-radius:14px;background:linear-gradient(110deg,#f2fbfb,#fff8fc)}
+.hostGuideLabel{color:#087c73;font-size:11px;font-weight:900;letter-spacing:.10em}
+.hostGuideTitle{font-size:clamp(18px,2.2vw,23px);line-height:1.25;font-weight:900;margin:7px 0;color:var(--navy)}
+.hostGuideText{font-size:13px;line-height:1.6;color:var(--muted);margin:0 0 14px;max-width:880px}
+.hostGuideBtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-size:13px;font-weight:900;background:var(--mint);color:#fff;border:1px solid var(--mint);border-radius:11px;padding:12px 16px;min-height:44px;box-shadow:0 7px 20px rgba(0,167,173,.13)}
+.hostGuideBtn:hover,.hostGuideBtn:focus-visible{background:#00878c;border-color:#00878c;color:#fff}
+.hostGuideBtn svg{width:17px;height:17px;flex:none;stroke:currentColor}
+@media(max-width:520px){.hostGuideBtn{width:100%}}
 </style>
 </head>
 <body>
@@ -162,6 +172,12 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
         <a class="toolHubCard" href="../gastredner-generator/"><strong>Gastredner</strong><span>Persönliche A5-Einladungen für einen Gastauftritt.</span><b>Gastredner einladen</b></a>
         <a class="toolHubCard" href="../webinar-generator/"><strong>Webinar</strong><span>Zielgruppengerechte A5-Einladungen für Gäste.</span><b>Webinar-Gast einladen</b></a>
       </div>
+      <aside class="hostGuide" aria-label="Gastgeber-Wissen">
+        <div class="hostGuideLabel">GASTGEBER-WISSEN</div>
+        <h2 class="hostGuideTitle">Verschenke mehr als einen Zugang.</h2>
+        <p class="hostGuideText">Erfahre, wie du Menschen persönlich einlädst, ihre Entdeckungsreise durch LiquidityBooster begleitest und sie bis zur Auswahl der drei Tore und der Einsendung ihrer PDF unterstützt.</p>
+        <a class="hostGuideBtn" href="../gastzugang-gastgeberleitfaden/"><span>Gastgeber-Leitfaden öffnen</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      </aside>
     </div>
     <div class="flow">
       <div class="flowStep"><span class="flowNo">1</span><div><strong data-i18n="flow1">Daten eingeben</strong><span data-i18n="flow1Sub">Vorschau aktualisiert sich sofort</span></div></div>
