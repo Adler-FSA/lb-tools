@@ -127,15 +127,25 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
   .actions,.dialogActions{grid-template-columns:1fr}
 }
 
-/* Gastgeberwissen unter den vier bestehenden Werkzeugen */
-.hostGuide{margin-top:14px;padding:18px;border:1px solid #cce7e8;border-left:5px solid var(--mint);border-radius:14px;background:linear-gradient(110deg,#f2fbfb,#fff8fc)}
-.hostGuideLabel{color:#087c73;font-size:11px;font-weight:900;letter-spacing:.10em}
-.hostGuideTitle{font-size:clamp(18px,2.2vw,23px);line-height:1.25;font-weight:900;margin:7px 0;color:var(--navy)}
-.hostGuideText{font-size:13px;line-height:1.6;color:var(--muted);margin:0 0 14px;max-width:880px}
-.hostGuideBtn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-size:13px;font-weight:900;background:var(--mint);color:#fff;border:1px solid var(--mint);border-radius:11px;padding:12px 16px;min-height:44px;box-shadow:0 7px 20px rgba(0,167,173,.13)}
-.hostGuideBtn:hover,.hostGuideBtn:focus-visible{background:#00878c;border-color:#00878c;color:#fff}
-.hostGuideBtn svg{width:17px;height:17px;flex:none;stroke:currentColor}
-@media(max-width:520px){.hostGuideBtn{width:100%}}
+/* Gastgeber-Wissen: dreiteilige Navigation, getrennt von den vier Werkzeugkarten */
+.hostGuide{margin-top:15px;padding:clamp(15px,2.5vw,22px);border:1px solid #d0e5e9;border-radius:16px;background:linear-gradient(115deg,#f3fbfb 0%,#fff 52%,#fff8fb 100%)}
+.hostGuideLabel{font-size:11px;font-weight:900;letter-spacing:.11em;color:#087c73;text-transform:uppercase}
+.hostGuideTitle{font-size:clamp(21px,2.6vw,27px);line-height:1.22;font-weight:900;letter-spacing:-.015em;margin:6px 0 7px;color:var(--navy)}
+.hostGuideText{font-size:13px;line-height:1.62;color:var(--muted);margin:0;max-width:860px}
+.hostGuideGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:17px}
+.hostGuideCard{display:flex;flex-direction:column;min-width:0;gap:10px;padding:16px;border:1px solid var(--line);border-radius:13px;background:#fff;box-shadow:0 6px 16px rgba(19,34,56,.035)}
+.hostGuideCardTop{display:flex;align-items:center;gap:10px}
+.hostGuideNo{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:10px;color:white;font-size:16px;font-weight:900;line-height:1}
+.hostGuideCard h3{margin:0;color:var(--navy);font-size:15px;font-weight:900;line-height:1.28}
+.hostGuideCard p{margin:0;color:var(--muted);font-size:12px;line-height:1.52;flex:1}
+.hostGuideBtn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:43px;padding:10px 12px;border-radius:10px;background:var(--mint);color:#fff;text-decoration:none;text-align:center;font-size:12px;font-weight:900;line-height:1.35;transition:filter .15s,transform .15s}
+.hostGuideBtn svg{width:16px;height:16px;flex:0 0 auto;stroke:currentColor}
+.hostGuideBtn:hover,.hostGuideBtn:focus-visible{color:#fff;filter:brightness(.91);transform:translateY(-1px)}
+.hostGuideNo.mint,.hostGuideBtn.mint{background:var(--mint)}
+.hostGuideNo.magenta,.hostGuideBtn.magenta{background:var(--mag)}
+.hostGuideNo.navy,.hostGuideBtn.navy{background:var(--navy)}
+@media(max-width:940px){.hostGuideGrid{grid-template-columns:1fr}.hostGuideCard{gap:9px}.hostGuideCard p{flex:none}.hostGuideBtn{align-self:stretch}}
+@media(max-width:520px){.hostGuide{padding:14px}.hostGuideGrid{gap:10px}.hostGuideCard{padding:14px}.hostGuideBtn{width:100%}}
 </style>
 </head>
 <body>
@@ -172,11 +182,36 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
         <a class="toolHubCard" href="../gastredner-generator/"><strong>Gastredner</strong><span>Persönliche A5-Einladungen für einen Gastauftritt.</span><b>Gastredner einladen</b></a>
         <a class="toolHubCard" href="../webinar-generator/"><strong>Webinar</strong><span>Zielgruppengerechte A5-Einladungen für Gäste.</span><b>Webinar-Gast einladen</b></a>
       </div>
-      <aside class="hostGuide" aria-label="Gastgeber-Wissen">
-        <div class="hostGuideLabel">GASTGEBER-WISSEN</div>
-        <h2 class="hostGuideTitle">Verschenke mehr als einen Zugang.</h2>
-        <p class="hostGuideText">Erfahre, wie du Menschen persönlich einlädst, ihre Entdeckungsreise durch LiquidityBooster begleitest und sie bis zur Auswahl der drei Tore und der Einsendung ihrer PDF unterstützt.</p>
-        <a class="hostGuideBtn" href="../gastzugang-gastgeberleitfaden/"><span>Gastgeber-Leitfaden öffnen</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+      <aside class="hostGuide" aria-label="Gastgeber-Wissen: drei Leitfäden">
+        <div class="hostGuideLabel">Gastgeber-Wissen · LiquidityBooster</div>
+        <h2 class="hostGuideTitle">Menschen begleiten. Möglichkeiten eröffnen.</h2>
+        <p class="hostGuideText">Drei Leitfäden begleiten dich von der ersten Einladung über die passende Mitgliedschaft bis zur aktiven Nutzung der Clubleistungen. Wähle direkt den Schritt, der für dich gerade wichtig ist.</p>
+        <div class="hostGuideGrid">
+          <article class="hostGuideCard">
+            <div class="hostGuideCardTop">
+              <span class="hostGuideNo mint" aria-hidden="true">1</span>
+              <h3>Gastzugang – das Geschenk</h3>
+            </div>
+            <p>Menschen einladen, die Entdeckungsreise begleiten, drei Tore erklären und bei der PDF-Einsendung unterstützen.</p>
+            <a class="hostGuideBtn mint" href="../gastzugang-gastgeberleitfaden/" aria-label="Gastgeber-Leitfaden Teil 1 öffnen: Gastzugang">Leitfaden Teil 1 öffnen <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+          </article>
+          <article class="hostGuideCard">
+            <div class="hostGuideCardTop">
+              <span class="hostGuideNo magenta" aria-hidden="true">2</span>
+              <h3>Den eigenen Weg finden</h3>
+            </div>
+            <p>Club Partner oder Club Leader? Die passende Mitgliedschaft erkennen, zur Buchung begleiten und das Mitgliederprofil einrichten.</p>
+            <a class="hostGuideBtn magenta" href="../gastzugang-gastgeberleitfaden-teil2/" aria-label="Gastgeber-Leitfaden Teil 2 öffnen: Mitgliedschaft und Profil">Leitfaden Teil 2 öffnen <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+          </article>
+          <article class="hostGuideCard">
+            <div class="hostGuideCardTop">
+              <span class="hostGuideNo navy" aria-hidden="true">3</span>
+              <h3>Aktiv im Club werden</h3>
+            </div>
+            <p>Webinare nutzen, sichtbar werden, den Marktplatz entdecken, bei Bedarf einen Mentor buchen und freiwillig selbst Gastgeber werden.</p>
+            <a class="hostGuideBtn navy" href="../gastzugang-gastgeberleitfaden-teil3/" aria-label="Gastgeber-Leitfaden Teil 3 öffnen: Im Club aktiv werden">Leitfaden Teil 3 öffnen <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+          </article>
+        </div>
       </aside>
     </div>
     <div class="flow">
