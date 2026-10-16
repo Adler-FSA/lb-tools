@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-16T10:08:13Z",
+  "generated_at": "2026-10-16T11:17:48Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-15T11:23:09Z",
-      "records": 3628,
+      "last_success": "2026-10-16T11:17:48Z",
+      "records": 3627,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "6fc1216e8e8352fe524feeb3eec51081534502fcba74fc2942365481c10c6191"
+      "response_sha256": "843440640db1c1274dc2f1394050dc07e897ffd7877cc5214c0a1f387ab3ec5f"
     }
   },
   "records": [
@@ -47932,6 +47932,40 @@
       ]
     },
     {
+      "id": "eba-credit-institutions-4a927ca71e25600968",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "BANQUE NOUVANT",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "FR_ACPR",
+      "country": "FR",
+      "date": "2013-11-20",
+      "last_status_date": "2013-11-20",
+      "authorization_history": [
+        "2013-11-20"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "969500R3EA0ADWQ2II38",
+      "lei": "969500R3EA0ADWQ2II38",
+      "national_reference": "30478",
+      "city": "PARIS 01",
+      "last_update": "20261009000000000",
+      "match_terms": [
+        "BANQUE NOUVANT",
+        "969500R3EA0ADWQ2II38",
+        "30478"
+      ]
+    },
+    {
       "id": "eba-credit-institutions-deb60abdf796ee605e",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -66482,8 +66516,8 @@
       "entity_code": "529900FIAMEJDQ8C9097",
       "lei": "529900FIAMEJDQ8C9097",
       "national_reference": "LUB00036",
-      "city": "LUXEMBOURG",
-      "last_update": "20250630000000000",
+      "city": "SENNINGERBERG",
+      "last_update": "20261015000000000",
       "match_terms": [
         "Deutsche Bank Luxembourg S.A.",
         "529900FIAMEJDQ8C9097",
@@ -85091,40 +85125,6 @@
         "Moneta Stavební Spořitelna, a.s.",
         "31570010000000006400",
         "47115289"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-4a927ca71e25600968",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Monte Paschi banque S.A.",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "FR_ACPR",
-      "country": "FR",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "969500R3EA0ADWQ2II38",
-      "lei": "969500R3EA0ADWQ2II38",
-      "national_reference": "30478",
-      "city": "PARIS 01",
-      "last_update": "20260902000000000",
-      "match_terms": [
-        "Monte Paschi banque S.A.",
-        "969500R3EA0ADWQ2II38",
-        "30478"
       ]
     },
     {
@@ -139803,40 +139803,6 @@
         "VR-Bank Landsberg-Ammersee eG",
         "529900O4UD74PVZ3UN92",
         "101467"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-45ac37f164f2f07073",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "VR-Bank Landshut eG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2015-04-29",
-      "last_status_date": "2015-04-29",
-      "authorization_history": [
-        "2015-04-29"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "5299002FKF8I278KC598",
-      "lei": "5299002FKF8I278KC598",
-      "national_reference": "101492",
-      "city": "Landshut",
-      "last_update": "20240930000000000",
-      "match_terms": [
-        "VR-Bank Landshut eG",
-        "5299002FKF8I278KC598",
-        "101492"
       ]
     },
     {
