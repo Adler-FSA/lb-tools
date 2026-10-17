@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-17T09:42:50Z",
+  "generated_at": "2026-10-17T10:38:03Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-16T11:17:48Z",
-      "records": 3627,
+      "last_success": "2026-10-17T10:38:03Z",
+      "records": 3626,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "843440640db1c1274dc2f1394050dc07e897ffd7877cc5214c0a1f387ab3ec5f"
+      "response_sha256": "a375dd0361693b915b11768bd452b95f776692fec9fadd560dfb7c90dd3a0c61"
     }
   },
   "records": [
@@ -22408,40 +22408,6 @@
         "Banca Cooperatistă Economcoop Bacău",
         "ROCCCO01040060",
         "ROCC-CO-01-04-0060"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-cc1abff29d21be4f64",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Banca Cooperatista Eurocoop Sfantu Gheorghe",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "RO_NBR",
-      "country": "RO",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "ROCCCO01140210",
-      "lei": "",
-      "national_reference": "ROCC-CO-01-14-0210",
-      "city": "Sfantu Gheorghe",
-      "last_update": "20190614000000000",
-      "match_terms": [
-        "Banca Cooperatista Eurocoop Sfantu Gheorghe",
-        "ROCCCO01140210",
-        "ROCC-CO-01-14-0210"
       ]
     },
     {
