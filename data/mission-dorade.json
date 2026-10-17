@@ -128,6 +128,14 @@
       "sponsorFirstName": "Oliver",
       "sponsorLastName": "Beyer",
       "createdAt": "2026-09-23T10:00:00.000Z"
+    },
+    {
+      "id": "324592aa-423c-4172-a52c-8343fb9cf500",
+      "firstName": "Gerd",
+      "lastName": "Koller",
+      "sponsorFirstName": "Daniela",
+      "sponsorLastName": "Karl",
+      "createdAt": "2026-10-17T10:00:00.000Z"
     }
   ],
   "winners": {
