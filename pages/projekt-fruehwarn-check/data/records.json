@@ -1,17 +1,17 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-17T08:48:53Z",
+  "generated_at": "2026-10-17T09:21:59Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
-      "last_success": "2026-10-16T09:50:10Z",
-      "records": 370,
+      "last_success": "2026-10-17T09:21:59Z",
+      "records": 378,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv"
     },
     "esma-non-compliant": {
       "status": "available",
-      "last_success": "2026-10-16T09:50:10Z",
-      "records": 173,
+      "last_success": "2026-10-17T09:21:59Z",
+      "records": 178,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv"
     },
     "bafin-warnings": {
@@ -389759,7 +389759,7 @@
       ]
     },
     {
-      "id": "esma-casp-138e0cd266317e-292",
+      "id": "esma-casp-138e0cd266317e-300",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389787,7 +389787,7 @@
       ]
     },
     {
-      "id": "esma-casp-e48365c8caffae-61",
+      "id": "esma-casp-e48365c8caffae-62",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389813,7 +389813,7 @@
       ]
     },
     {
-      "id": "esma-casp-ecb7f02f57f0cc-330",
+      "id": "esma-casp-ecb7f02f57f0cc-338",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389842,7 +389842,7 @@
       ]
     },
     {
-      "id": "esma-casp-3465636f466d2c-352",
+      "id": "esma-casp-3465636f466d2c-360",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389867,7 +389867,7 @@
       ]
     },
     {
-      "id": "esma-casp-c4b9d2a8023c02-14",
+      "id": "esma-casp-c4b9d2a8023c02-15",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389895,7 +389895,7 @@
       ]
     },
     {
-      "id": "esma-casp-8b22c2be87b6bb-215",
+      "id": "esma-casp-8b22c2be87b6bb-222",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389923,7 +389923,7 @@
       ]
     },
     {
-      "id": "esma-casp-8b66b25cc89f7d-304",
+      "id": "esma-casp-8b66b25cc89f7d-312",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389949,7 +389949,7 @@
       ]
     },
     {
-      "id": "esma-casp-ff0e4a74bd540e-16",
+      "id": "esma-casp-ff0e4a74bd540e-17",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389977,7 +389977,7 @@
       ]
     },
     {
-      "id": "esma-casp-dbec469a4f7f8b-54",
+      "id": "esma-casp-dbec469a4f7f8b-55",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390002,7 +390002,7 @@
       ]
     },
     {
-      "id": "esma-casp-f558e3f5f0e161-333",
+      "id": "esma-casp-f558e3f5f0e161-341",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390061,7 +390061,7 @@
       ]
     },
     {
-      "id": "esma-casp-9e84a7f4ab89f7-103",
+      "id": "esma-casp-9e84a7f4ab89f7-104",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390087,7 +390087,7 @@
       ]
     },
     {
-      "id": "esma-casp-d74b962714740c-217",
+      "id": "esma-casp-d74b962714740c-224",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390115,7 +390115,7 @@
       ]
     },
     {
-      "id": "esma-casp-7375cfa2648856-42",
+      "id": "esma-casp-7375cfa2648856-43",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390141,7 +390141,7 @@
       ]
     },
     {
-      "id": "esma-casp-7e4fbdc773b9df-167",
+      "id": "esma-casp-7e4fbdc773b9df-173",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390167,7 +390167,7 @@
       ]
     },
     {
-      "id": "esma-casp-c4bd966385fbe3-293",
+      "id": "esma-casp-c4bd966385fbe3-301",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390195,7 +390195,7 @@
       ]
     },
     {
-      "id": "esma-casp-94d67564464472-298",
+      "id": "esma-casp-94d67564464472-306",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390221,7 +390221,7 @@
       ]
     },
     {
-      "id": "esma-casp-05fec6536cbd8e-327",
+      "id": "esma-casp-05fec6536cbd8e-335",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390247,7 +390247,7 @@
       ]
     },
     {
-      "id": "esma-casp-cefd42d9634951-281",
+      "id": "esma-casp-cefd42d9634951-289",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390275,7 +390275,7 @@
       ]
     },
     {
-      "id": "esma-casp-122e41405a1da4-65",
+      "id": "esma-casp-122e41405a1da4-66",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390303,7 +390303,7 @@
       ]
     },
     {
-      "id": "esma-casp-b32071630e6632-67",
+      "id": "esma-casp-b32071630e6632-68",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390329,7 +390329,7 @@
       ]
     },
     {
-      "id": "esma-casp-ea02cbada5143b-252",
+      "id": "esma-casp-ea02cbada5143b-259",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390355,7 +390355,7 @@
       ]
     },
     {
-      "id": "esma-casp-9cbbfaf91f8c3b-169",
+      "id": "esma-casp-9cbbfaf91f8c3b-175",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390383,7 +390383,7 @@
       ]
     },
     {
-      "id": "esma-casp-b6ec20c62c02ba-259",
+      "id": "esma-casp-b6ec20c62c02ba-267",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390409,7 +390409,7 @@
       ]
     },
     {
-      "id": "esma-casp-1e086b9b60a34e-75",
+      "id": "esma-casp-1e086b9b60a34e-76",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390435,7 +390435,7 @@
       ]
     },
     {
-      "id": "esma-casp-f275fd8213adc0-279",
+      "id": "esma-casp-f275fd8213adc0-287",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390463,7 +390463,7 @@
       ]
     },
     {
-      "id": "esma-casp-481742b27fff65-198",
+      "id": "esma-casp-481742b27fff65-205",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390491,7 +390491,7 @@
       ]
     },
     {
-      "id": "esma-casp-d28eb3d9bd6deb-356",
+      "id": "esma-casp-d28eb3d9bd6deb-364",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390516,7 +390516,7 @@
       ]
     },
     {
-      "id": "esma-casp-73bd81094c05c6-182",
+      "id": "esma-casp-73bd81094c05c6-188",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390544,7 +390544,7 @@
       ]
     },
     {
-      "id": "esma-casp-5f2f792a8a19a4-225",
+      "id": "esma-casp-5f2f792a8a19a4-232",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390572,7 +390572,7 @@
       ]
     },
     {
-      "id": "esma-casp-1778f7c8b9ba96-15",
+      "id": "esma-casp-1778f7c8b9ba96-16",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390600,7 +390600,7 @@
       ]
     },
     {
-      "id": "esma-casp-ee6ae2ea6b4fe8-321",
+      "id": "esma-casp-ee6ae2ea6b4fe8-329",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390628,7 +390628,7 @@
       ]
     },
     {
-      "id": "esma-casp-41869b003f5df8-358",
+      "id": "esma-casp-41869b003f5df8-366",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390656,7 +390656,7 @@
       ]
     },
     {
-      "id": "esma-casp-0395248359b969-232",
+      "id": "esma-casp-0395248359b969-239",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390684,7 +390684,7 @@
       ]
     },
     {
-      "id": "esma-casp-bb005009c0ffec-264",
+      "id": "esma-casp-bb005009c0ffec-272",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390710,7 +390710,7 @@
       ]
     },
     {
-      "id": "esma-casp-558bc59d28552d-172",
+      "id": "esma-casp-558bc59d28552d-178",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390738,7 +390738,7 @@
       ]
     },
     {
-      "id": "esma-casp-f4a6be2f08bcc4-284",
+      "id": "esma-casp-f4a6be2f08bcc4-292",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390766,7 +390766,7 @@
       ]
     },
     {
-      "id": "esma-casp-85d5a20ca71e77-63",
+      "id": "esma-casp-85d5a20ca71e77-64",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390792,7 +390792,7 @@
       ]
     },
     {
-      "id": "esma-casp-1c03472f68d58a-341",
+      "id": "esma-casp-1c03472f68d58a-349",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390818,7 +390818,7 @@
       ]
     },
     {
-      "id": "esma-casp-444815b487ad6c-342",
+      "id": "esma-casp-444815b487ad6c-350",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390844,7 +390844,7 @@
       ]
     },
     {
-      "id": "esma-casp-7ad9ba1f116851-57",
+      "id": "esma-casp-7ad9ba1f116851-58",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390898,7 +390898,7 @@
       ]
     },
     {
-      "id": "esma-casp-369d97109e531f-351",
+      "id": "esma-casp-369d97109e531f-359",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390924,7 +390924,7 @@
       ]
     },
     {
-      "id": "esma-casp-bc0882f6d14fa5-192",
+      "id": "esma-casp-bc0882f6d14fa5-199",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390952,7 +390952,7 @@
       ]
     },
     {
-      "id": "esma-casp-a2e0fbacffdad1-324",
+      "id": "esma-casp-a2e0fbacffdad1-332",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390980,7 +390980,7 @@
       ]
     },
     {
-      "id": "esma-casp-87488450f6e8b0-276",
+      "id": "esma-casp-87488450f6e8b0-284",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391008,7 +391008,7 @@
       ]
     },
     {
-      "id": "esma-casp-73904d7bf0ee5b-186",
+      "id": "esma-casp-73904d7bf0ee5b-193",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391036,7 +391036,7 @@
       ]
     },
     {
-      "id": "esma-casp-afd78092034c45-332",
+      "id": "esma-casp-afd78092034c45-340",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391062,7 +391062,7 @@
       ]
     },
     {
-      "id": "esma-casp-3f42b9023bb576-296",
+      "id": "esma-casp-3f42b9023bb576-304",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391090,7 +391090,7 @@
       ]
     },
     {
-      "id": "esma-casp-bd26e5e9105be8-288",
+      "id": "esma-casp-bd26e5e9105be8-296",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391118,7 +391118,7 @@
       ]
     },
     {
-      "id": "esma-casp-823279417d0897-222",
+      "id": "esma-casp-823279417d0897-229",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391148,7 +391148,7 @@
       ]
     },
     {
-      "id": "esma-casp-84c2e07fc5e9fc-308",
+      "id": "esma-casp-84c2e07fc5e9fc-316",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391176,7 +391176,7 @@
       ]
     },
     {
-      "id": "esma-casp-3769aafd658492-202",
+      "id": "esma-casp-3769aafd658492-209",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391204,7 +391204,7 @@
       ]
     },
     {
-      "id": "esma-casp-ae0ae444b588a3-343",
+      "id": "esma-casp-ae0ae444b588a3-351",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391232,7 +391232,7 @@
       ]
     },
     {
-      "id": "esma-casp-1fa35c220b50d1-337",
+      "id": "esma-casp-1fa35c220b50d1-345",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391258,7 +391258,7 @@
       ]
     },
     {
-      "id": "esma-casp-451492f2c84306-13",
+      "id": "esma-casp-451492f2c84306-14",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391286,7 +391286,7 @@
       ]
     },
     {
-      "id": "esma-casp-3eb2221bc724fb-56",
+      "id": "esma-casp-3eb2221bc724fb-57",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391312,7 +391312,7 @@
       ]
     },
     {
-      "id": "esma-casp-5ea04d5bf362b3-301",
+      "id": "esma-casp-5ea04d5bf362b3-309",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391340,7 +391340,7 @@
       ]
     },
     {
-      "id": "esma-casp-d329f7bfb8b7e5-210",
+      "id": "esma-casp-d329f7bfb8b7e5-217",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391366,7 +391366,7 @@
       ]
     },
     {
-      "id": "esma-casp-6b343ee90e5a27-285",
+      "id": "esma-casp-6b343ee90e5a27-293",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391394,7 +391394,7 @@
       ]
     },
     {
-      "id": "esma-casp-0a32a0662c12bc-39",
+      "id": "esma-casp-0a32a0662c12bc-40",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391422,7 +391422,7 @@
       ]
     },
     {
-      "id": "esma-casp-c83d508b4e1a75-331",
+      "id": "esma-casp-c83d508b4e1a75-339",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391448,7 +391448,7 @@
       ]
     },
     {
-      "id": "esma-casp-35e12e7cc669d0-73",
+      "id": "esma-casp-35e12e7cc669d0-74",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391474,7 +391474,7 @@
       ]
     },
     {
-      "id": "esma-casp-5cfb48d22acbee-106",
+      "id": "esma-casp-5cfb48d22acbee-107",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391528,7 +391528,7 @@
       ]
     },
     {
-      "id": "esma-casp-89702fa7538fc2-191",
+      "id": "esma-casp-89702fa7538fc2-198",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391554,7 +391554,7 @@
       ]
     },
     {
-      "id": "esma-casp-b217c7e7a4ff4b-175",
+      "id": "esma-casp-b217c7e7a4ff4b-181",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391582,7 +391582,7 @@
       ]
     },
     {
-      "id": "esma-casp-59ab1c7ffe1281-312",
+      "id": "esma-casp-59ab1c7ffe1281-320",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391608,7 +391608,7 @@
       ]
     },
     {
-      "id": "esma-casp-7d83f5db0a72d7-25",
+      "id": "esma-casp-7d83f5db0a72d7-26",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391636,7 +391636,7 @@
       ]
     },
     {
-      "id": "esma-casp-d7bbd436b9ce94-227",
+      "id": "esma-casp-d7bbd436b9ce94-234",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391664,7 +391664,7 @@
       ]
     },
     {
-      "id": "esma-casp-8e4353b3feb8d1-171",
+      "id": "esma-casp-8e4353b3feb8d1-177",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391692,7 +391692,7 @@
       ]
     },
     {
-      "id": "esma-casp-7a7aa82349b021-261",
+      "id": "esma-casp-7a7aa82349b021-269",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391718,7 +391718,7 @@
       ]
     },
     {
-      "id": "esma-casp-2160125ff3f724-319",
+      "id": "esma-casp-2160125ff3f724-327",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391746,7 +391746,7 @@
       ]
     },
     {
-      "id": "esma-casp-b072e1e54f8e8e-348",
+      "id": "esma-casp-b072e1e54f8e8e-356",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391782,7 +391782,7 @@
       ]
     },
     {
-      "id": "esma-casp-2cb5a33366bcf0-248",
+      "id": "esma-casp-2cb5a33366bcf0-255",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391810,7 +391810,7 @@
       ]
     },
     {
-      "id": "esma-casp-0d65d4e06e0364-203",
+      "id": "esma-casp-0d65d4e06e0364-210",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391838,7 +391838,7 @@
       ]
     },
     {
-      "id": "esma-casp-6c4c7339d518b3-347",
+      "id": "esma-casp-6c4c7339d518b3-355",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391866,7 +391866,7 @@
       ]
     },
     {
-      "id": "esma-casp-58008a2ae34707-275",
+      "id": "esma-casp-58008a2ae34707-283",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391894,7 +391894,7 @@
       ]
     },
     {
-      "id": "esma-casp-7fc173c62b111c-43",
+      "id": "esma-casp-7fc173c62b111c-44",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391922,7 +391922,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a627664573a29-277",
+      "id": "esma-casp-5a627664573a29-285",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391978,7 +391978,7 @@
       ]
     },
     {
-      "id": "esma-casp-4bac8357e6e391-205",
+      "id": "esma-casp-4bac8357e6e391-212",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392006,7 +392006,7 @@
       ]
     },
     {
-      "id": "esma-casp-c57e4acef2c04c-163",
+      "id": "esma-casp-c57e4acef2c04c-169",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392034,7 +392034,7 @@
       ]
     },
     {
-      "id": "esma-casp-dee6303af82653-241",
+      "id": "esma-casp-dee6303af82653-248",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392062,7 +392062,7 @@
       ]
     },
     {
-      "id": "esma-casp-403dc7bab39788-48",
+      "id": "esma-casp-403dc7bab39788-49",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392087,7 +392087,7 @@
       ]
     },
     {
-      "id": "esma-casp-5b54c110fe41b0-340",
+      "id": "esma-casp-5b54c110fe41b0-348",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392115,7 +392115,7 @@
       ]
     },
     {
-      "id": "esma-casp-ea7861c48744d4-184",
+      "id": "esma-casp-ea7861c48744d4-191",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392143,7 +392143,7 @@
       ]
     },
     {
-      "id": "esma-casp-49b06dce1a6ed7-194",
+      "id": "esma-casp-49b06dce1a6ed7-201",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392169,7 +392169,7 @@
       ]
     },
     {
-      "id": "esma-casp-80e797bead8fff-20",
+      "id": "esma-casp-80e797bead8fff-21",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392195,7 +392195,7 @@
       ]
     },
     {
-      "id": "esma-casp-48d6f26da647f9-199",
+      "id": "esma-casp-48d6f26da647f9-206",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392223,7 +392223,7 @@
       ]
     },
     {
-      "id": "esma-casp-cd247f83f37255-66",
+      "id": "esma-casp-cd247f83f37255-67",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392246,7 +392246,7 @@
       ]
     },
     {
-      "id": "esma-casp-feab2ad102333b-38",
+      "id": "esma-casp-feab2ad102333b-39",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392271,7 +392271,7 @@
       ]
     },
     {
-      "id": "esma-casp-ece64fa95eeb99-107",
+      "id": "esma-casp-ece64fa95eeb99-108",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392297,7 +392297,7 @@
       ]
     },
     {
-      "id": "esma-casp-4f36486e634ae3-242",
+      "id": "esma-casp-4f36486e634ae3-249",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392323,7 +392323,7 @@
       ]
     },
     {
-      "id": "esma-casp-90f73fce965fdc-251",
+      "id": "esma-casp-90f73fce965fdc-258",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392351,7 +392351,7 @@
       ]
     },
     {
-      "id": "esma-casp-128ac4a3b0ef55-286",
+      "id": "esma-casp-128ac4a3b0ef55-294",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392379,7 +392379,7 @@
       ]
     },
     {
-      "id": "esma-casp-846ac836796f52-178",
+      "id": "esma-casp-846ac836796f52-184",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392407,7 +392407,7 @@
       ]
     },
     {
-      "id": "esma-casp-76fe103f54ba2d-177",
+      "id": "esma-casp-76fe103f54ba2d-183",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392435,7 +392435,7 @@
       ]
     },
     {
-      "id": "esma-casp-f09add3c845348-68",
+      "id": "esma-casp-f09add3c845348-69",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392489,7 +392489,7 @@
       ]
     },
     {
-      "id": "esma-casp-ce296b7a6e5c6a-253",
+      "id": "esma-casp-ce296b7a6e5c6a-260",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392517,7 +392517,7 @@
       ]
     },
     {
-      "id": "esma-casp-eb68e006218ff1-346",
+      "id": "esma-casp-eb68e006218ff1-354",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392573,7 +392573,7 @@
       ]
     },
     {
-      "id": "esma-casp-3705093d3c6654-310",
+      "id": "esma-casp-3705093d3c6654-318",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392601,7 +392601,7 @@
       ]
     },
     {
-      "id": "esma-casp-34e29e89c1db5e-189",
+      "id": "esma-casp-34e29e89c1db5e-196",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392629,7 +392629,7 @@
       ]
     },
     {
-      "id": "esma-casp-a856f83ad18a0d-335",
+      "id": "esma-casp-a856f83ad18a0d-343",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392657,7 +392657,7 @@
       ]
     },
     {
-      "id": "esma-casp-633c76d563f64a-83",
+      "id": "esma-casp-633c76d563f64a-84",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392683,7 +392683,7 @@
       ]
     },
     {
-      "id": "esma-casp-633c76d563f64a-113",
+      "id": "esma-casp-633c76d563f64a-114",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392709,7 +392709,7 @@
       ]
     },
     {
-      "id": "esma-casp-5866b1ddafb3e5-204",
+      "id": "esma-casp-5866b1ddafb3e5-211",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392737,7 +392737,7 @@
       ]
     },
     {
-      "id": "esma-casp-f94a13ceb510aa-146",
+      "id": "esma-casp-f94a13ceb510aa-147",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392763,7 +392763,7 @@
       ]
     },
     {
-      "id": "esma-casp-3d539a5f017b17-82",
+      "id": "esma-casp-3d539a5f017b17-83",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392791,7 +392791,7 @@
       ]
     },
     {
-      "id": "esma-casp-3d539a5f017b17-125",
+      "id": "esma-casp-3d539a5f017b17-126",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392817,7 +392817,7 @@
       ]
     },
     {
-      "id": "esma-casp-64d159c1bed860-72",
+      "id": "esma-casp-64d159c1bed860-73",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392843,7 +392843,7 @@
       ]
     },
     {
-      "id": "esma-casp-5b454586a287d6-231",
+      "id": "esma-casp-5b454586a287d6-238",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392871,7 +392871,7 @@
       ]
     },
     {
-      "id": "esma-casp-59615b4d1c7f05-17",
+      "id": "esma-casp-59615b4d1c7f05-18",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392899,7 +392899,7 @@
       ]
     },
     {
-      "id": "esma-casp-e99022d4b1c931-349",
+      "id": "esma-casp-e99022d4b1c931-357",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392928,7 +392928,7 @@
       ]
     },
     {
-      "id": "esma-casp-2aa280cd9394a4-108",
+      "id": "esma-casp-2aa280cd9394a4-109",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392954,7 +392954,7 @@
       ]
     },
     {
-      "id": "esma-casp-d887036049b419-114",
+      "id": "esma-casp-d887036049b419-115",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392980,7 +392980,7 @@
       ]
     },
     {
-      "id": "esma-casp-fa175ff64c49d3-77",
+      "id": "esma-casp-fa175ff64c49d3-78",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393006,7 +393006,7 @@
       ]
     },
     {
-      "id": "esma-casp-06a63bc835b128-176",
+      "id": "esma-casp-06a63bc835b128-182",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393034,7 +393034,7 @@
       ]
     },
     {
-      "id": "esma-casp-39ccf457857ca2-98",
+      "id": "esma-casp-39ccf457857ca2-99",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393060,7 +393060,7 @@
       ]
     },
     {
-      "id": "esma-casp-464c7a35a15c09-229",
+      "id": "esma-casp-464c7a35a15c09-236",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393088,7 +393088,7 @@
       ]
     },
     {
-      "id": "esma-casp-d656c32b2752a3-19",
+      "id": "esma-casp-d656c32b2752a3-20",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393116,7 +393116,7 @@
       ]
     },
     {
-      "id": "esma-casp-ba6bcdeebaa9e6-338",
+      "id": "esma-casp-ba6bcdeebaa9e6-346",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393150,7 +393150,7 @@
       ]
     },
     {
-      "id": "esma-casp-e260b2f2dcc167-59",
+      "id": "esma-casp-e260b2f2dcc167-60",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393176,7 +393176,7 @@
       ]
     },
     {
-      "id": "esma-casp-e260b2f2dcc167-84",
+      "id": "esma-casp-e260b2f2dcc167-85",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393202,7 +393202,7 @@
       ]
     },
     {
-      "id": "esma-casp-7421d0b4506e45-320",
+      "id": "esma-casp-7421d0b4506e45-328",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393230,7 +393230,7 @@
       ]
     },
     {
-      "id": "esma-casp-2aa44419e18e68-318",
+      "id": "esma-casp-2aa44419e18e68-326",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393258,7 +393258,7 @@
       ]
     },
     {
-      "id": "esma-casp-6c7733f3b30dfc-86",
+      "id": "esma-casp-6c7733f3b30dfc-87",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393284,7 +393284,7 @@
       ]
     },
     {
-      "id": "esma-casp-05f061324588ac-18",
+      "id": "esma-casp-05f061324588ac-19",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393312,7 +393312,7 @@
       ]
     },
     {
-      "id": "esma-casp-071c30c5b5d889-336",
+      "id": "esma-casp-071c30c5b5d889-344",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393338,7 +393338,7 @@
       ]
     },
     {
-      "id": "esma-casp-f30003e5a6f58b-97",
+      "id": "esma-casp-f30003e5a6f58b-98",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393364,7 +393364,7 @@
       ]
     },
     {
-      "id": "esma-casp-acb75ac8c0616a-220",
+      "id": "esma-casp-acb75ac8c0616a-227",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393392,7 +393392,7 @@
       ]
     },
     {
-      "id": "esma-casp-ef3eb34e826050-195",
+      "id": "esma-casp-ef3eb34e826050-202",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393420,7 +393420,7 @@
       ]
     },
     {
-      "id": "esma-casp-debb606012aa1c-334",
+      "id": "esma-casp-debb606012aa1c-342",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393446,7 +393446,7 @@
       ]
     },
     {
-      "id": "esma-casp-58666199ed7875-183",
+      "id": "esma-casp-58666199ed7875-189",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393474,7 +393474,7 @@
       ]
     },
     {
-      "id": "esma-casp-11ba355e4ac242-366",
+      "id": "esma-casp-11ba355e4ac242-374",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393502,7 +393502,7 @@
       ]
     },
     {
-      "id": "esma-casp-9cfd56e9a7e3ed-365",
+      "id": "esma-casp-9cfd56e9a7e3ed-373",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393560,7 +393560,7 @@
       ]
     },
     {
-      "id": "esma-casp-682cf1052ca0ee-200",
+      "id": "esma-casp-682cf1052ca0ee-207",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393588,7 +393588,7 @@
       ]
     },
     {
-      "id": "esma-casp-74c73a91361742-369",
+      "id": "esma-casp-74c73a91361742-377",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393616,7 +393616,7 @@
       ]
     },
     {
-      "id": "esma-casp-035bbe6ca03561-354",
+      "id": "esma-casp-035bbe6ca03561-362",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393641,7 +393641,7 @@
       ]
     },
     {
-      "id": "esma-casp-b277083070ccc0-60",
+      "id": "esma-casp-b277083070ccc0-61",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393667,7 +393667,7 @@
       ]
     },
     {
-      "id": "esma-casp-aca8ebadc9b930-263",
+      "id": "esma-casp-aca8ebadc9b930-271",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393693,7 +393693,7 @@
       ]
     },
     {
-      "id": "esma-casp-811c14ca159783-216",
+      "id": "esma-casp-811c14ca159783-223",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393721,7 +393721,7 @@
       ]
     },
     {
-      "id": "esma-casp-e73f01e89e8311-302",
+      "id": "esma-casp-e73f01e89e8311-310",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393749,7 +393749,7 @@
       ]
     },
     {
-      "id": "esma-casp-5ec16c0e9f0c0e-137",
+      "id": "esma-casp-5ec16c0e9f0c0e-138",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393775,7 +393775,7 @@
       ]
     },
     {
-      "id": "esma-casp-7b7bd73ec9678f-367",
+      "id": "esma-casp-7b7bd73ec9678f-375",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393803,7 +393803,7 @@
       ]
     },
     {
-      "id": "esma-casp-2a6c4905d4155a-307",
+      "id": "esma-casp-2a6c4905d4155a-315",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393831,7 +393831,7 @@
       ]
     },
     {
-      "id": "esma-casp-34d7c0ebd691e9-362",
+      "id": "esma-casp-34d7c0ebd691e9-370",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393859,7 +393859,7 @@
       ]
     },
     {
-      "id": "esma-casp-b5411dfb255ca4-161",
+      "id": "esma-casp-b5411dfb255ca4-167",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393888,7 +393888,7 @@
       ]
     },
     {
-      "id": "esma-casp-abe5645439b24d-305",
+      "id": "esma-casp-abe5645439b24d-313",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393916,7 +393916,7 @@
       ]
     },
     {
-      "id": "esma-casp-553045224e89b8-50",
+      "id": "esma-casp-553045224e89b8-51",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393941,7 +393941,7 @@
       ]
     },
     {
-      "id": "esma-casp-d353b5b0a45eb7-190",
+      "id": "esma-casp-d353b5b0a45eb7-197",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393969,7 +393969,7 @@
       ]
     },
     {
-      "id": "esma-casp-c62679735c5d7a-88",
+      "id": "esma-casp-c62679735c5d7a-89",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393995,7 +393995,7 @@
       ]
     },
     {
-      "id": "esma-casp-bd6b695baf06f7-85",
+      "id": "esma-casp-bd6b695baf06f7-86",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394021,7 +394021,7 @@
       ]
     },
     {
-      "id": "esma-casp-f093ab4229509e-256",
+      "id": "esma-casp-f093ab4229509e-263",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394049,7 +394049,7 @@
       ]
     },
     {
-      "id": "esma-casp-3048817ec66eb5-201",
+      "id": "esma-casp-3048817ec66eb5-208",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394077,7 +394077,7 @@
       ]
     },
     {
-      "id": "esma-casp-e031a968c88381-326",
+      "id": "esma-casp-e031a968c88381-334",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394103,7 +394103,7 @@
       ]
     },
     {
-      "id": "esma-casp-bbb56c8717e786-295",
+      "id": "esma-casp-bbb56c8717e786-303",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394131,7 +394131,7 @@
       ]
     },
     {
-      "id": "esma-casp-b4d9e7416c0ab2-255",
+      "id": "esma-casp-b4d9e7416c0ab2-262",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394159,7 +394159,7 @@
       ]
     },
     {
-      "id": "esma-casp-871eb52bd65e91-234",
+      "id": "esma-casp-871eb52bd65e91-241",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394187,7 +394187,7 @@
       ]
     },
     {
-      "id": "esma-casp-d1cbf30034c31e-79",
+      "id": "esma-casp-d1cbf30034c31e-80",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394213,7 +394213,7 @@
       ]
     },
     {
-      "id": "esma-casp-ed606928bebec4-81",
+      "id": "esma-casp-ed606928bebec4-82",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394239,7 +394239,7 @@
       ]
     },
     {
-      "id": "esma-casp-37ffb8a06c8b9a-218",
+      "id": "esma-casp-37ffb8a06c8b9a-225",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394267,7 +394267,7 @@
       ]
     },
     {
-      "id": "esma-casp-af7f6ed50ec074-363",
+      "id": "esma-casp-af7f6ed50ec074-371",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394295,7 +394295,7 @@
       ]
     },
     {
-      "id": "esma-casp-cb07c620eee071-91",
+      "id": "esma-casp-cb07c620eee071-92",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394321,7 +394321,7 @@
       ]
     },
     {
-      "id": "esma-casp-7af19e77d612c1-130",
+      "id": "esma-casp-7af19e77d612c1-131",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394347,7 +394347,7 @@
       ]
     },
     {
-      "id": "esma-casp-9e83184d88d62d-46",
+      "id": "esma-casp-9e83184d88d62d-47",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394372,7 +394372,7 @@
       ]
     },
     {
-      "id": "esma-casp-0faaa5354dfc67-359",
+      "id": "esma-casp-0faaa5354dfc67-367",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394400,7 +394400,7 @@
       ]
     },
     {
-      "id": "esma-casp-9390d9f6129eaf-233",
+      "id": "esma-casp-9390d9f6129eaf-240",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394428,7 +394428,7 @@
       ]
     },
     {
-      "id": "esma-casp-51cb8b697c8956-360",
+      "id": "esma-casp-51cb8b697c8956-368",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394456,7 +394456,7 @@
       ]
     },
     {
-      "id": "esma-casp-772bf91251a48d-245",
+      "id": "esma-casp-772bf91251a48d-252",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394482,7 +394482,7 @@
       ]
     },
     {
-      "id": "esma-casp-1ef6c0a837eeb0-44",
+      "id": "esma-casp-1ef6c0a837eeb0-45",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394507,7 +394507,7 @@
       ]
     },
     {
-      "id": "esma-casp-9429c916a4e35a-51",
+      "id": "esma-casp-9429c916a4e35a-52",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394532,7 +394532,7 @@
       ]
     },
     {
-      "id": "esma-casp-d84240fbb8e4b6-181",
+      "id": "esma-casp-d84240fbb8e4b6-187",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394558,7 +394558,7 @@
       ]
     },
     {
-      "id": "esma-casp-b2a2d9e8b41a9f-100",
+      "id": "esma-casp-b2a2d9e8b41a9f-101",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394584,7 +394584,7 @@
       ]
     },
     {
-      "id": "esma-casp-c2d23a5c8e8cc8-30",
+      "id": "esma-casp-c2d23a5c8e8cc8-31",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394609,7 +394609,7 @@
       ]
     },
     {
-      "id": "esma-casp-d8ad9a6d6d9af0-164",
+      "id": "esma-casp-d8ad9a6d6d9af0-170",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394637,7 +394637,7 @@
       ]
     },
     {
-      "id": "esma-casp-4fbffbf9f63a84-104",
+      "id": "esma-casp-4fbffbf9f63a84-105",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394663,7 +394663,7 @@
       ]
     },
     {
-      "id": "esma-casp-7ae84961ad7eb5-117",
+      "id": "esma-casp-7ae84961ad7eb5-118",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394691,7 +394691,7 @@
       ]
     },
     {
-      "id": "esma-casp-7e4d1dd26386cd-355",
+      "id": "esma-casp-7e4d1dd26386cd-363",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394716,7 +394716,7 @@
       ]
     },
     {
-      "id": "esma-casp-b0091e151292d9-267",
+      "id": "esma-casp-b0091e151292d9-275",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394744,7 +394744,7 @@
       ]
     },
     {
-      "id": "esma-casp-ff751ad8677ee1-12",
+      "id": "esma-casp-ff751ad8677ee1-13",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394772,7 +394772,7 @@
       ]
     },
     {
-      "id": "esma-casp-b429fe203b6a87-209",
+      "id": "esma-casp-b429fe203b6a87-216",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394800,7 +394800,7 @@
       ]
     },
     {
-      "id": "esma-casp-a3f4a3a591f47c-34",
+      "id": "esma-casp-a3f4a3a591f47c-35",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394825,6 +394825,32 @@
         "Krypto Knight Ltd",
         "KRYPTO KNIGHT",
         "krypto-knight.com"
+      ]
+    },
+    {
+      "id": "esma-casp-f4b0c91f82c025-161",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "KSW Vermögensverwaltung AG",
+      "aliases": [],
+      "domains": [
+        "ksw-vermoegen.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "KSW Vermögensverwaltung AG",
+        "KSW Vermögensverwaltung AG",
+        "ksw-vermoegen.de"
       ]
     },
     {
@@ -394856,7 +394882,7 @@
       ]
     },
     {
-      "id": "esma-casp-2236cfc5cf61f0-174",
+      "id": "esma-casp-2236cfc5cf61f0-180",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394884,7 +394910,7 @@
       ]
     },
     {
-      "id": "esma-casp-8fa3e7e38c6a03-188",
+      "id": "esma-casp-8fa3e7e38c6a03-195",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394912,7 +394938,7 @@
       ]
     },
     {
-      "id": "esma-casp-8146a2a95fd1cb-76",
+      "id": "esma-casp-8146a2a95fd1cb-77",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394938,7 +394964,7 @@
       ]
     },
     {
-      "id": "esma-casp-0458d44ae57a3b-237",
+      "id": "esma-casp-0458d44ae57a3b-244",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394966,7 +394992,7 @@
       ]
     },
     {
-      "id": "esma-casp-3c01c396c4f98a-317",
+      "id": "esma-casp-3c01c396c4f98a-325",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394994,7 +395020,7 @@
       ]
     },
     {
-      "id": "esma-casp-539e97c78ee0f9-213",
+      "id": "esma-casp-539e97c78ee0f9-220",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395022,7 +395048,7 @@
       ]
     },
     {
-      "id": "esma-casp-64ea19882f209b-258",
+      "id": "esma-casp-64ea19882f209b-266",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395048,7 +395074,7 @@
       ]
     },
     {
-      "id": "esma-casp-6b4c24cbf32681-168",
+      "id": "esma-casp-6b4c24cbf32681-174",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395074,7 +395100,7 @@
       ]
     },
     {
-      "id": "esma-casp-37b0684019e0ea-166",
+      "id": "esma-casp-37b0684019e0ea-172",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395100,7 +395126,7 @@
       ]
     },
     {
-      "id": "esma-casp-db48f2aba358f7-160",
+      "id": "esma-casp-db48f2aba358f7-166",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395128,7 +395154,7 @@
       ]
     },
     {
-      "id": "esma-casp-954b7eb28603f3-368",
+      "id": "esma-casp-954b7eb28603f3-376",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395159,7 +395185,35 @@
       ]
     },
     {
-      "id": "esma-casp-3616a1b368570a-219",
+      "id": "esma-casp-bc2e80b8de0936-12",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "MEGE zweite GmbH",
+      "aliases": [
+        "BingX EU"
+      ],
+      "domains": [
+        "bingx.eu"
+      ],
+      "authority": "Austrian Financial Market Authority (FMA)",
+      "country": "AT",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "MEGE zweite GmbH",
+        "BingX EU",
+        "bingx.eu"
+      ]
+    },
+    {
+      "id": "esma-casp-3616a1b368570a-226",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395187,7 +395241,7 @@
       ]
     },
     {
-      "id": "esma-casp-058857d3cff6b4-214",
+      "id": "esma-casp-058857d3cff6b4-221",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395215,7 +395269,7 @@
       ]
     },
     {
-      "id": "esma-casp-a1331c88d8c9a3-193",
+      "id": "esma-casp-a1331c88d8c9a3-200",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395243,7 +395297,7 @@
       ]
     },
     {
-      "id": "esma-casp-22eb1960fb43c3-179",
+      "id": "esma-casp-22eb1960fb43c3-185",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395271,7 +395325,7 @@
       ]
     },
     {
-      "id": "esma-casp-93edeb867f834d-49",
+      "id": "esma-casp-93edeb867f834d-50",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395296,7 +395350,7 @@
       ]
     },
     {
-      "id": "esma-casp-c847bc162aea63-105",
+      "id": "esma-casp-c847bc162aea63-106",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395322,7 +395376,7 @@
       ]
     },
     {
-      "id": "esma-casp-a0d24bf7bd0491-344",
+      "id": "esma-casp-a0d24bf7bd0491-352",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395350,7 +395404,7 @@
       ]
     },
     {
-      "id": "esma-casp-fe5c96e82923c7-323",
+      "id": "esma-casp-fe5c96e82923c7-331",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395376,7 +395430,7 @@
       ]
     },
     {
-      "id": "esma-casp-6baa3c82fb9ceb-45",
+      "id": "esma-casp-6baa3c82fb9ceb-46",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395403,7 +395457,7 @@
       ]
     },
     {
-      "id": "esma-casp-20e8b2771a0bc9-247",
+      "id": "esma-casp-20e8b2771a0bc9-254",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395433,7 +395487,7 @@
       ]
     },
     {
-      "id": "esma-casp-9ef8ef5b281639-153",
+      "id": "esma-casp-9ef8ef5b281639-154",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395459,7 +395513,7 @@
       ]
     },
     {
-      "id": "esma-casp-f41a26e4e674d2-64",
+      "id": "esma-casp-f41a26e4e674d2-65",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395482,7 +395536,7 @@
       ]
     },
     {
-      "id": "esma-casp-9f62f7550ddab5-32",
+      "id": "esma-casp-9f62f7550ddab5-33",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395507,7 +395561,7 @@
       ]
     },
     {
-      "id": "esma-casp-3a0d7b2b41340c-291",
+      "id": "esma-casp-3a0d7b2b41340c-299",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395535,7 +395589,7 @@
       ]
     },
     {
-      "id": "esma-casp-edefd578a91673-273",
+      "id": "esma-casp-edefd578a91673-281",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395563,7 +395617,7 @@
       ]
     },
     {
-      "id": "esma-casp-f3114312f23421-289",
+      "id": "esma-casp-f3114312f23421-297",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395591,7 +395645,7 @@
       ]
     },
     {
-      "id": "esma-casp-15125c7574b688-299",
+      "id": "esma-casp-15125c7574b688-307",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395619,7 +395673,7 @@
       ]
     },
     {
-      "id": "esma-casp-dc2bd118b5b0a7-297",
+      "id": "esma-casp-dc2bd118b5b0a7-305",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395647,7 +395701,7 @@
       ]
     },
     {
-      "id": "esma-casp-904b84594ea6ac-28",
+      "id": "esma-casp-904b84594ea6ac-29",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395672,7 +395726,7 @@
       ]
     },
     {
-      "id": "esma-casp-204617469e0fe3-36",
+      "id": "esma-casp-204617469e0fe3-37",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395697,7 +395751,7 @@
       ]
     },
     {
-      "id": "esma-casp-7dfed845dd9501-187",
+      "id": "esma-casp-7dfed845dd9501-194",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395725,7 +395779,7 @@
       ]
     },
     {
-      "id": "esma-casp-72a3fb4cb4b45e-162",
+      "id": "esma-casp-72a3fb4cb4b45e-168",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395753,7 +395807,7 @@
       ]
     },
     {
-      "id": "esma-casp-8760124120058c-357",
+      "id": "esma-casp-8760124120058c-365",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395781,7 +395835,7 @@
       ]
     },
     {
-      "id": "esma-casp-91fb8b92ba2602-271",
+      "id": "esma-casp-91fb8b92ba2602-279",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395809,7 +395863,7 @@
       ]
     },
     {
-      "id": "esma-casp-1281c48ef2081d-370",
+      "id": "esma-casp-1281c48ef2081d-378",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395837,7 +395891,7 @@
       ]
     },
     {
-      "id": "esma-casp-f446acf9548059-300",
+      "id": "esma-casp-f446acf9548059-308",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395865,7 +395919,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a871a1dc9cd73-249",
+      "id": "esma-casp-5a871a1dc9cd73-256",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395893,7 +395947,7 @@
       ]
     },
     {
-      "id": "esma-casp-324d13e649d7b5-313",
+      "id": "esma-casp-324d13e649d7b5-321",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395921,7 +395975,7 @@
       ]
     },
     {
-      "id": "esma-casp-f10ae29044d825-329",
+      "id": "esma-casp-f10ae29044d825-337",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395947,7 +396001,7 @@
       ]
     },
     {
-      "id": "esma-casp-ae0b3f322640ff-315",
+      "id": "esma-casp-ae0b3f322640ff-323",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395975,7 +396029,7 @@
       ]
     },
     {
-      "id": "esma-casp-2a5116a34442e4-170",
+      "id": "esma-casp-2a5116a34442e4-176",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396003,7 +396057,33 @@
       ]
     },
     {
-      "id": "esma-casp-d464c0b06091c6-361",
+      "id": "esma-casp-bd8088c800c136-160",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Openbank Deutschland AG",
+      "aliases": [],
+      "domains": [
+        "openbank.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "Openbank Deutschland AG",
+        "Openbank Deutschland AG",
+        "openbank.de"
+      ]
+    },
+    {
+      "id": "esma-casp-d464c0b06091c6-369",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396059,7 +396139,7 @@
       ]
     },
     {
-      "id": "esma-casp-7a81ae85bd6a14-55",
+      "id": "esma-casp-7a81ae85bd6a14-56",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396084,7 +396164,7 @@
       ]
     },
     {
-      "id": "esma-casp-d83ae3a5931650-309",
+      "id": "esma-casp-d83ae3a5931650-317",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396112,7 +396192,7 @@
       ]
     },
     {
-      "id": "esma-casp-e25bbae85b9442-212",
+      "id": "esma-casp-e25bbae85b9442-219",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396140,7 +396220,7 @@
       ]
     },
     {
-      "id": "esma-casp-a62512e08a27ca-268",
+      "id": "esma-casp-a62512e08a27ca-276",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396168,7 +396248,7 @@
       ]
     },
     {
-      "id": "esma-casp-d5b1d03a0ff2c4-240",
+      "id": "esma-casp-d5b1d03a0ff2c4-247",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396198,7 +396278,7 @@
       ]
     },
     {
-      "id": "esma-casp-29b684100b20c6-207",
+      "id": "esma-casp-29b684100b20c6-214",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396226,7 +396306,7 @@
       ]
     },
     {
-      "id": "esma-casp-6419ca45d97752-236",
+      "id": "esma-casp-6419ca45d97752-243",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396254,7 +396334,7 @@
       ]
     },
     {
-      "id": "esma-casp-0b65d547bb1f66-235",
+      "id": "esma-casp-0b65d547bb1f66-242",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396282,7 +396362,7 @@
       ]
     },
     {
-      "id": "esma-casp-4cb21719ab0219-26",
+      "id": "esma-casp-4cb21719ab0219-27",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396307,35 +396387,7 @@
       ]
     },
     {
-      "id": "esma-casp-8fe5660dbc6a30-159",
-      "source_id": "esma-casp",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Penning Financial Services ApS",
-      "aliases": [
-        "Penning"
-      ],
-      "domains": [
-        "penning.io"
-      ],
-      "authority": "Finanstilsynet",
-      "country": "DK",
-      "date": "",
-      "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
-      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
-      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
-      "match_terms": [
-        "Penning Financial Services ApS",
-        "Penning",
-        "penning.io"
-      ]
-    },
-    {
-      "id": "esma-casp-952893c524d21f-243",
+      "id": "esma-casp-952893c524d21f-250",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396363,7 +396415,7 @@
       ]
     },
     {
-      "id": "esma-casp-3fe8bec4164df5-228",
+      "id": "esma-casp-3fe8bec4164df5-235",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396388,7 +396440,7 @@
       ]
     },
     {
-      "id": "esma-casp-58fdc883c45ade-47",
+      "id": "esma-casp-58fdc883c45ade-48",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396413,7 +396465,7 @@
       ]
     },
     {
-      "id": "esma-casp-7fdc49804f5d25-101",
+      "id": "esma-casp-7fdc49804f5d25-102",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396439,7 +396491,7 @@
       ]
     },
     {
-      "id": "esma-casp-527f4e563de9fe-41",
+      "id": "esma-casp-527f4e563de9fe-42",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396467,7 +396519,35 @@
       ]
     },
     {
-      "id": "esma-casp-aa4c88336bbe7b-180",
+      "id": "esma-casp-b4a261e961c7d8-190",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "PRAKMA MARKETS S.L.",
+      "aliases": [
+        "GOIN CRYPTO"
+      ],
+      "domains": [
+        "goin.app"
+      ],
+      "authority": "Comision Nacional del Mercado de Valores (CNMV)",
+      "country": "ES",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "PRAKMA MARKETS S.L.",
+        "GOIN CRYPTO",
+        "goin.app"
+      ]
+    },
+    {
+      "id": "esma-casp-aa4c88336bbe7b-186",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396495,7 +396575,7 @@
       ]
     },
     {
-      "id": "esma-casp-adf06724f2cc6a-238",
+      "id": "esma-casp-adf06724f2cc6a-245",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396523,7 +396603,7 @@
       ]
     },
     {
-      "id": "esma-casp-ebedfab7d96077-206",
+      "id": "esma-casp-ebedfab7d96077-213",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396551,7 +396631,7 @@
       ]
     },
     {
-      "id": "esma-casp-28627725327c06-116",
+      "id": "esma-casp-28627725327c06-117",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396577,7 +396657,7 @@
       ]
     },
     {
-      "id": "esma-casp-3f1737f0a371c3-129",
+      "id": "esma-casp-3f1737f0a371c3-130",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396603,7 +396683,7 @@
       ]
     },
     {
-      "id": "esma-casp-c7089618efb7f4-120",
+      "id": "esma-casp-c7089618efb7f4-121",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396629,7 +396709,7 @@
       ]
     },
     {
-      "id": "esma-casp-af4c815e3ab1e8-147",
+      "id": "esma-casp-af4c815e3ab1e8-148",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396655,7 +396735,7 @@
       ]
     },
     {
-      "id": "esma-casp-10e055730ed009-155",
+      "id": "esma-casp-10e055730ed009-156",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396681,7 +396761,7 @@
       ]
     },
     {
-      "id": "esma-casp-8e7b40c0c8ca90-152",
+      "id": "esma-casp-8e7b40c0c8ca90-153",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396707,7 +396787,7 @@
       ]
     },
     {
-      "id": "esma-casp-8679fc3dd84f53-138",
+      "id": "esma-casp-8679fc3dd84f53-139",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396733,7 +396813,7 @@
       ]
     },
     {
-      "id": "esma-casp-c8a43253de34c5-112",
+      "id": "esma-casp-c8a43253de34c5-113",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396759,7 +396839,7 @@
       ]
     },
     {
-      "id": "esma-casp-ce2b29dd084d90-157",
+      "id": "esma-casp-ce2b29dd084d90-158",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396785,7 +396865,7 @@
       ]
     },
     {
-      "id": "esma-casp-6d59c13633c473-135",
+      "id": "esma-casp-6d59c13633c473-136",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396811,7 +396891,7 @@
       ]
     },
     {
-      "id": "esma-casp-50254e78bc726d-239",
+      "id": "esma-casp-50254e78bc726d-246",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396839,7 +396919,7 @@
       ]
     },
     {
-      "id": "esma-casp-8a43912f9fb44e-211",
+      "id": "esma-casp-8a43912f9fb44e-218",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396865,7 +396945,7 @@
       ]
     },
     {
-      "id": "esma-casp-23f7f629b329eb-224",
+      "id": "esma-casp-23f7f629b329eb-231",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396893,7 +396973,7 @@
       ]
     },
     {
-      "id": "esma-casp-3c6a9056c708a0-196",
+      "id": "esma-casp-3c6a9056c708a0-203",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396921,7 +397001,7 @@
       ]
     },
     {
-      "id": "esma-casp-47f6a089d4a151-173",
+      "id": "esma-casp-47f6a089d4a151-179",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396949,7 +397029,7 @@
       ]
     },
     {
-      "id": "esma-casp-a4357e40945790-23",
+      "id": "esma-casp-a4357e40945790-24",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396977,7 +397057,7 @@
       ]
     },
     {
-      "id": "esma-casp-d880b084bca669-287",
+      "id": "esma-casp-d880b084bca669-295",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397003,7 +397083,7 @@
       ]
     },
     {
-      "id": "esma-casp-978eaa94c20200-250",
+      "id": "esma-casp-978eaa94c20200-257",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397031,7 +397111,7 @@
       ]
     },
     {
-      "id": "esma-casp-7718d1593794c3-269",
+      "id": "esma-casp-7718d1593794c3-277",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397059,7 +397139,7 @@
       ]
     },
     {
-      "id": "esma-casp-a399e0bd1d0f23-33",
+      "id": "esma-casp-a399e0bd1d0f23-34",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397084,7 +397164,7 @@
       ]
     },
     {
-      "id": "esma-casp-82a167a3e5a1e5-208",
+      "id": "esma-casp-82a167a3e5a1e5-215",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397112,7 +397192,7 @@
       ]
     },
     {
-      "id": "esma-casp-233ab9b57bb379-262",
+      "id": "esma-casp-233ab9b57bb379-270",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397140,7 +397220,7 @@
       ]
     },
     {
-      "id": "esma-casp-8c0cea0ed66136-31",
+      "id": "esma-casp-8c0cea0ed66136-32",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397168,7 +397248,7 @@
       ]
     },
     {
-      "id": "esma-casp-b4bac49362d9d9-364",
+      "id": "esma-casp-b4bac49362d9d9-372",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397194,7 +397274,7 @@
       ]
     },
     {
-      "id": "esma-casp-4da3f23921559a-165",
+      "id": "esma-casp-4da3f23921559a-171",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397222,7 +397302,7 @@
       ]
     },
     {
-      "id": "esma-casp-9c713757899dcb-102",
+      "id": "esma-casp-9c713757899dcb-103",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397248,7 +397328,7 @@
       ]
     },
     {
-      "id": "esma-casp-e52963a00a093f-40",
+      "id": "esma-casp-e52963a00a093f-41",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397276,7 +397356,7 @@
       ]
     },
     {
-      "id": "esma-casp-663633d4cb4fef-223",
+      "id": "esma-casp-663633d4cb4fef-230",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397304,7 +397384,7 @@
       ]
     },
     {
-      "id": "esma-casp-98ee6b433668c5-290",
+      "id": "esma-casp-98ee6b433668c5-298",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397332,7 +397412,7 @@
       ]
     },
     {
-      "id": "esma-casp-f035baa0a79327-294",
+      "id": "esma-casp-f035baa0a79327-302",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397360,7 +397440,7 @@
       ]
     },
     {
-      "id": "esma-casp-14f53e1ac94c93-52",
+      "id": "esma-casp-14f53e1ac94c93-53",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397385,7 +397465,7 @@
       ]
     },
     {
-      "id": "esma-casp-5f21125f0c854a-80",
+      "id": "esma-casp-5f21125f0c854a-81",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397411,7 +397491,7 @@
       ]
     },
     {
-      "id": "esma-casp-24712866481341-266",
+      "id": "esma-casp-24712866481341-274",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397439,7 +397519,7 @@
       ]
     },
     {
-      "id": "esma-casp-8e25837b8d0155-71",
+      "id": "esma-casp-8e25837b8d0155-72",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397465,7 +397545,7 @@
       ]
     },
     {
-      "id": "esma-casp-c2c139b05f05b1-197",
+      "id": "esma-casp-c2c139b05f05b1-204",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397491,7 +397571,7 @@
       ]
     },
     {
-      "id": "esma-casp-669043a4361c52-306",
+      "id": "esma-casp-669043a4361c52-314",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397519,7 +397599,7 @@
       ]
     },
     {
-      "id": "esma-casp-957221954a49dd-118",
+      "id": "esma-casp-957221954a49dd-119",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397545,7 +397625,7 @@
       ]
     },
     {
-      "id": "esma-casp-b4767cad0df634-314",
+      "id": "esma-casp-b4767cad0df634-322",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397571,7 +397651,7 @@
       ]
     },
     {
-      "id": "esma-casp-d93f203f87064e-283",
+      "id": "esma-casp-d93f203f87064e-291",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397599,7 +397679,7 @@
       ]
     },
     {
-      "id": "esma-casp-6460d7b577cf8b-282",
+      "id": "esma-casp-6460d7b577cf8b-290",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397627,7 +397707,7 @@
       ]
     },
     {
-      "id": "esma-casp-9950c57185e938-244",
+      "id": "esma-casp-9950c57185e938-251",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397655,7 +397735,7 @@
       ]
     },
     {
-      "id": "esma-casp-3816f6cb3d9650-22",
+      "id": "esma-casp-3816f6cb3d9650-23",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397683,7 +397763,7 @@
       ]
     },
     {
-      "id": "esma-casp-554df2173cf6b8-95",
+      "id": "esma-casp-554df2173cf6b8-96",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397709,7 +397789,7 @@
       ]
     },
     {
-      "id": "esma-casp-e2977694fc6941-280",
+      "id": "esma-casp-e2977694fc6941-288",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397737,7 +397817,7 @@
       ]
     },
     {
-      "id": "esma-casp-9bf2ca62b5ba19-265",
+      "id": "esma-casp-9bf2ca62b5ba19-273",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397765,7 +397845,7 @@
       ]
     },
     {
-      "id": "esma-casp-aed788da3cfd71-311",
+      "id": "esma-casp-aed788da3cfd71-319",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397793,7 +397873,7 @@
       ]
     },
     {
-      "id": "esma-casp-750b4fb2ebe6a9-70",
+      "id": "esma-casp-750b4fb2ebe6a9-71",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397819,7 +397899,7 @@
       ]
     },
     {
-      "id": "esma-casp-3eb6ebf5d40036-24",
+      "id": "esma-casp-3eb6ebf5d40036-25",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397845,7 +397925,7 @@
       ]
     },
     {
-      "id": "esma-casp-064f20aca4070a-185",
+      "id": "esma-casp-064f20aca4070a-192",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397873,7 +397953,7 @@
       ]
     },
     {
-      "id": "esma-casp-4dbea46b77f3fa-62",
+      "id": "esma-casp-4dbea46b77f3fa-63",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397899,7 +397979,7 @@
       ]
     },
     {
-      "id": "esma-casp-81aff5e49b8c2b-69",
+      "id": "esma-casp-81aff5e49b8c2b-70",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397925,7 +398005,7 @@
       ]
     },
     {
-      "id": "esma-casp-ec182836082397-99",
+      "id": "esma-casp-ec182836082397-100",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397953,7 +398033,7 @@
       ]
     },
     {
-      "id": "esma-casp-4ef153bf9ede12-109",
+      "id": "esma-casp-4ef153bf9ede12-110",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397979,7 +398059,7 @@
       ]
     },
     {
-      "id": "esma-casp-8bf4e6c4c45247-58",
+      "id": "esma-casp-8bf4e6c4c45247-59",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398005,7 +398085,7 @@
       ]
     },
     {
-      "id": "esma-casp-f4e624b0e71615-21",
+      "id": "esma-casp-f4e624b0e71615-22",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398033,7 +398113,7 @@
       ]
     },
     {
-      "id": "esma-casp-fbf5f20f1b4418-29",
+      "id": "esma-casp-fbf5f20f1b4418-30",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398061,7 +398141,7 @@
       ]
     },
     {
-      "id": "esma-casp-0eb3a3e9520934-35",
+      "id": "esma-casp-0eb3a3e9520934-36",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398091,7 +398171,7 @@
       ]
     },
     {
-      "id": "esma-casp-699a4674d658c5-353",
+      "id": "esma-casp-699a4674d658c5-361",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398116,7 +398196,7 @@
       ]
     },
     {
-      "id": "esma-casp-13cbfccb465972-274",
+      "id": "esma-casp-13cbfccb465972-282",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398144,7 +398224,7 @@
       ]
     },
     {
-      "id": "esma-casp-d3781ddbab676a-270",
+      "id": "esma-casp-d3781ddbab676a-278",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398172,7 +398252,7 @@
       ]
     },
     {
-      "id": "esma-casp-318a64f16433ca-272",
+      "id": "esma-casp-318a64f16433ca-280",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398200,7 +398280,7 @@
       ]
     },
     {
-      "id": "esma-casp-169a50c472ae9d-37",
+      "id": "esma-casp-169a50c472ae9d-38",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398228,7 +398308,7 @@
       ]
     },
     {
-      "id": "esma-casp-783969d9dd34ad-74",
+      "id": "esma-casp-783969d9dd34ad-75",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398282,7 +398362,7 @@
       ]
     },
     {
-      "id": "esma-casp-71b0758d235522-126",
+      "id": "esma-casp-71b0758d235522-127",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398308,7 +398388,7 @@
       ]
     },
     {
-      "id": "esma-casp-e87546aa2b8a1d-149",
+      "id": "esma-casp-e87546aa2b8a1d-150",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398334,7 +398414,7 @@
       ]
     },
     {
-      "id": "esma-casp-61e878c318b279-148",
+      "id": "esma-casp-61e878c318b279-149",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398360,7 +398440,7 @@
       ]
     },
     {
-      "id": "esma-casp-b8085597f2efa8-110",
+      "id": "esma-casp-b8085597f2efa8-111",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398386,7 +398466,7 @@
       ]
     },
     {
-      "id": "esma-casp-5f060db17f60ac-246",
+      "id": "esma-casp-5f060db17f60ac-253",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398412,7 +398492,7 @@
       ]
     },
     {
-      "id": "esma-casp-5286f8b6f93ace-328",
+      "id": "esma-casp-5286f8b6f93ace-336",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398438,7 +398518,7 @@
       ]
     },
     {
-      "id": "esma-casp-cbcaf28c222d4d-139",
+      "id": "esma-casp-cbcaf28c222d4d-140",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398464,7 +398544,7 @@
       ]
     },
     {
-      "id": "esma-casp-b06264adb02f68-134",
+      "id": "esma-casp-b06264adb02f68-135",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398490,7 +398570,7 @@
       ]
     },
     {
-      "id": "esma-casp-437deae35114c3-144",
+      "id": "esma-casp-437deae35114c3-145",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398516,7 +398596,7 @@
       ]
     },
     {
-      "id": "esma-casp-0b7717331cb403-128",
+      "id": "esma-casp-0b7717331cb403-129",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398542,7 +398622,33 @@
       ]
     },
     {
-      "id": "esma-casp-a2873ad8b55aee-124",
+      "id": "esma-casp-3d782c1df43b4d-163",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Volksbank eG",
+      "aliases": [],
+      "domains": [
+        "vb-eg.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "Volksbank eG",
+        "Volksbank eG",
+        "vb-eg.de"
+      ]
+    },
+    {
+      "id": "esma-casp-a2873ad8b55aee-125",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398568,7 +398674,7 @@
       ]
     },
     {
-      "id": "esma-casp-3b8bf65c7d4226-132",
+      "id": "esma-casp-3b8bf65c7d4226-133",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398594,7 +398700,7 @@
       ]
     },
     {
-      "id": "esma-casp-6208a4c351642e-150",
+      "id": "esma-casp-6208a4c351642e-151",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398620,7 +398726,7 @@
       ]
     },
     {
-      "id": "esma-casp-cada975d7424d5-111",
+      "id": "esma-casp-cada975d7424d5-112",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398646,7 +398752,7 @@
       ]
     },
     {
-      "id": "esma-casp-14385cdd89777e-90",
+      "id": "esma-casp-14385cdd89777e-91",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398672,7 +398778,7 @@
       ]
     },
     {
-      "id": "esma-casp-c26d8140287d36-145",
+      "id": "esma-casp-c26d8140287d36-146",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398698,7 +398804,7 @@
       ]
     },
     {
-      "id": "esma-casp-d01bd17460255b-78",
+      "id": "esma-casp-d01bd17460255b-79",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398724,7 +398830,7 @@
       ]
     },
     {
-      "id": "esma-casp-08df80edaff4c7-140",
+      "id": "esma-casp-08df80edaff4c7-141",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398750,7 +398856,7 @@
       ]
     },
     {
-      "id": "esma-casp-c7225bae8379ad-121",
+      "id": "esma-casp-c7225bae8379ad-122",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398776,7 +398882,7 @@
       ]
     },
     {
-      "id": "esma-casp-086ab9e354cdf0-92",
+      "id": "esma-casp-086ab9e354cdf0-93",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398802,7 +398908,7 @@
       ]
     },
     {
-      "id": "esma-casp-90c76bc7f6bba4-141",
+      "id": "esma-casp-90c76bc7f6bba4-142",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398828,7 +398934,7 @@
       ]
     },
     {
-      "id": "esma-casp-6f1d47cac6af53-115",
+      "id": "esma-casp-6f1d47cac6af53-116",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398854,7 +398960,7 @@
       ]
     },
     {
-      "id": "esma-casp-6ae594182289a1-142",
+      "id": "esma-casp-6ae594182289a1-143",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398880,7 +398986,7 @@
       ]
     },
     {
-      "id": "esma-casp-98e863c793b40e-136",
+      "id": "esma-casp-98e863c793b40e-137",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398906,7 +399012,59 @@
       ]
     },
     {
-      "id": "esma-casp-0e2c1c165f942e-143",
+      "id": "esma-casp-e395a809c458ba-164",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "VR Bank im südlichen Franken eG",
+      "aliases": [],
+      "domains": [
+        "vr-sf.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "VR Bank im südlichen Franken eG",
+        "VR Bank im südlichen Franken eG",
+        "vr-sf.de"
+      ]
+    },
+    {
+      "id": "esma-casp-4d1e759b5249e0-165",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "VR Bank Lahn-Dill eG",
+      "aliases": [],
+      "domains": [
+        "vrbank-lahndill.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "VR Bank Lahn-Dill eG",
+        "VR Bank Lahn-Dill eG",
+        "vrbank-lahndill.de"
+      ]
+    },
+    {
+      "id": "esma-casp-0e2c1c165f942e-144",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398932,7 +399090,7 @@
       ]
     },
     {
-      "id": "esma-casp-56c34a84c59400-156",
+      "id": "esma-casp-56c34a84c59400-157",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398958,7 +399116,7 @@
       ]
     },
     {
-      "id": "esma-casp-54dc203900efbf-133",
+      "id": "esma-casp-54dc203900efbf-134",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398984,7 +399142,7 @@
       ]
     },
     {
-      "id": "esma-casp-2782e27ae72427-122",
+      "id": "esma-casp-2782e27ae72427-123",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399010,7 +399168,7 @@
       ]
     },
     {
-      "id": "esma-casp-c5540cce307457-94",
+      "id": "esma-casp-c5540cce307457-95",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399036,7 +399194,7 @@
       ]
     },
     {
-      "id": "esma-casp-5025b9faef79a5-154",
+      "id": "esma-casp-5025b9faef79a5-155",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399062,7 +399220,7 @@
       ]
     },
     {
-      "id": "esma-casp-fdf7af447bf8a8-158",
+      "id": "esma-casp-fdf7af447bf8a8-159",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399088,7 +399246,7 @@
       ]
     },
     {
-      "id": "esma-casp-a88a4ad556af97-89",
+      "id": "esma-casp-a88a4ad556af97-90",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399114,7 +399272,33 @@
       ]
     },
     {
-      "id": "esma-casp-efafbb8b563f77-119",
+      "id": "esma-casp-73988b8fa8a89a-162",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "VR-Bank Alb-Blau-Donau eG",
+      "aliases": [],
+      "domains": [
+        "vrbankabd.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "VR-Bank Alb-Blau-Donau eG",
+        "VR-Bank Alb-Blau-Donau eG",
+        "vrbankabd.de"
+      ]
+    },
+    {
+      "id": "esma-casp-efafbb8b563f77-120",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399140,7 +399324,7 @@
       ]
     },
     {
-      "id": "esma-casp-4d6bfc9975c517-127",
+      "id": "esma-casp-4d6bfc9975c517-128",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399166,7 +399350,7 @@
       ]
     },
     {
-      "id": "esma-casp-ae39b4368a1fd2-123",
+      "id": "esma-casp-ae39b4368a1fd2-124",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399192,7 +399376,7 @@
       ]
     },
     {
-      "id": "esma-casp-e02c06210bd782-131",
+      "id": "esma-casp-e02c06210bd782-132",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399218,7 +399402,7 @@
       ]
     },
     {
-      "id": "esma-casp-bbddd8bbec682e-93",
+      "id": "esma-casp-bbddd8bbec682e-94",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399244,7 +399428,7 @@
       ]
     },
     {
-      "id": "esma-casp-d0d6c9b7bee8d0-322",
+      "id": "esma-casp-d0d6c9b7bee8d0-330",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399300,7 +399484,7 @@
       ]
     },
     {
-      "id": "esma-casp-a816b904f5cbcb-53",
+      "id": "esma-casp-a816b904f5cbcb-54",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399325,7 +399509,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a59187ebb8c76-345",
+      "id": "esma-casp-5a59187ebb8c76-353",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399357,7 +399541,7 @@
       ]
     },
     {
-      "id": "esma-casp-7dad280e0f8589-350",
+      "id": "esma-casp-7dad280e0f8589-358",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399388,7 +399572,7 @@
       ]
     },
     {
-      "id": "esma-casp-347669e1f76b95-87",
+      "id": "esma-casp-347669e1f76b95-88",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399414,7 +399598,7 @@
       ]
     },
     {
-      "id": "esma-casp-fc74501df18f45-230",
+      "id": "esma-casp-fc74501df18f45-237",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399442,7 +399626,7 @@
       ]
     },
     {
-      "id": "esma-casp-93020fad7a27bb-151",
+      "id": "esma-casp-93020fad7a27bb-152",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399468,7 +399652,7 @@
       ]
     },
     {
-      "id": "esma-casp-4da5bae3f74049-221",
+      "id": "esma-casp-4da5bae3f74049-228",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399496,7 +399680,7 @@
       ]
     },
     {
-      "id": "esma-casp-beb9acb8ac75ca-96",
+      "id": "esma-casp-beb9acb8ac75ca-97",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399522,7 +399706,7 @@
       ]
     },
     {
-      "id": "esma-casp-d0d85e3beae925-260",
+      "id": "esma-casp-d0d85e3beae925-268",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399548,7 +399732,7 @@
       ]
     },
     {
-      "id": "esma-casp-85a74af0956b5f-226",
+      "id": "esma-casp-85a74af0956b5f-233",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399576,7 +399760,7 @@
       ]
     },
     {
-      "id": "esma-casp-32a4bdee7d4836-27",
+      "id": "esma-casp-32a4bdee7d4836-28",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399601,7 +399785,35 @@
       ]
     },
     {
-      "id": "esma-casp-9d9e9d1652c642-254",
+      "id": "esma-casp-3e7e05d16fca00-264",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "YOUHODLER ITALY S.R.L.",
+      "aliases": [
+        "YouHodler"
+      ],
+      "domains": [
+        "youhodler.eu"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "YOUHODLER ITALY S.R.L.",
+        "YouHodler",
+        "youhodler.eu"
+      ]
+    },
+    {
+      "id": "esma-casp-9d9e9d1652c642-261",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399629,7 +399841,7 @@
       ]
     },
     {
-      "id": "esma-casp-1bc7f56a95dcf5-316",
+      "id": "esma-casp-1bc7f56a95dcf5-324",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399657,7 +399869,7 @@
       ]
     },
     {
-      "id": "esma-casp-88db787812566d-325",
+      "id": "esma-casp-88db787812566d-333",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399683,7 +399895,7 @@
       ]
     },
     {
-      "id": "esma-casp-8bea6c2e7949de-339",
+      "id": "esma-casp-8bea6c2e7949de-347",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399711,7 +399923,7 @@
       ]
     },
     {
-      "id": "esma-casp-acde1775115fad-257",
+      "id": "esma-casp-acde1775115fad-265",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399737,7 +399949,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a5dbbccb810bf-303",
+      "id": "esma-casp-5a5dbbccb810bf-311",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399765,7 +399977,7 @@
       ]
     },
     {
-      "id": "esma-casp-633d11d4daccec-278",
+      "id": "esma-casp-633d11d4daccec-286",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400191,6 +400403,32 @@
       ]
     },
     {
+      "id": "esma-non-compliant-a144a42b155c7f-172",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "ASWD78",
+      "aliases": [],
+      "domains": [
+        "aswd78.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "14/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "ASWD78",
+        "ASWD78",
+        "aswd78.it"
+      ]
+    },
+    {
       "id": "esma-non-compliant-9a6ff72fcd5ef0-50",
       "source_id": "esma-non-compliant",
       "region": "EU",
@@ -400582,6 +400820,32 @@
         "Cdx818",
         "Cdx818",
         "cdx818.it"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-bf8a706c9b9044-173",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "CDZG36",
+      "aliases": [],
+      "domains": [
+        "cdzg36.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "14/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "CDZG36",
+        "CDZG36",
+        "cdzg36.it"
       ]
     },
     {
@@ -401559,6 +401823,32 @@
       ]
     },
     {
+      "id": "esma-non-compliant-7adc092f2dd564-174",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "EZWQ66",
+      "aliases": [],
+      "domains": [
+        "ezwq66.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "14/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "EZWQ66",
+        "EZWQ66",
+        "ezwq66.it"
+      ]
+    },
+    {
       "id": "esma-non-compliant-d28edee8679400-9",
       "source_id": "esma-non-compliant",
       "region": "EU",
@@ -402119,6 +402409,32 @@
       ]
     },
     {
+      "id": "esma-non-compliant-4c200bcb453057-175",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "HREE25",
+      "aliases": [],
+      "domains": [
+        "hree25.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "14/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "HREE25",
+        "HREE25",
+        "hree25.it"
+      ]
+    },
+    {
       "id": "esma-non-compliant-73f9661d84c99f-11",
       "source_id": "esma-non-compliant",
       "region": "EU",
@@ -402282,6 +402598,32 @@
         "jzmor-it33583.com",
         "jzmor-it99518.com",
         "jzmor-it52337.com"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-f7c62eee523a19-176",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "K9C3Y",
+      "aliases": [],
+      "domains": [
+        "k9c3y.fr"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "14/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "K9C3Y",
+        "K9C3Y",
+        "k9c3y.fr"
       ]
     },
     {
@@ -402477,7 +402819,7 @@
       ]
     },
     {
-      "id": "esma-non-compliant-fad29983ad5682-173",
+      "id": "esma-non-compliant-fad29983ad5682-178",
       "source_id": "esma-non-compliant",
       "region": "EU",
       "type": "warning",
@@ -402529,7 +402871,7 @@
       ]
     },
     {
-      "id": "esma-non-compliant-40d0bc0c5adbc2-172",
+      "id": "esma-non-compliant-40d0bc0c5adbc2-177",
       "source_id": "esma-non-compliant",
       "region": "EU",
       "type": "warning",
