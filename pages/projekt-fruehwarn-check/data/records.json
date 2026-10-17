@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-16T11:17:48Z",
+  "generated_at": "2026-10-17T08:48:53Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -26,7 +26,7 @@
     },
     "cftc-red-list": {
       "status": "available",
-      "last_success": "2026-10-16T09:18:16Z",
+      "last_success": "2026-10-17T08:48:53Z",
       "records": 284,
       "dataset": "https://www.cftc.gov/LearnAndProtect/Resources/Check/redlist.htm?combine=&items_per_page=All&order=field_date_registration_def&sort=desc"
     },
@@ -95233,40 +95233,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-9f533ee530d008dfdf",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Draßmarkt-Kobersdorf-St. Martin eGen",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "AT_FMA",
-      "country": "AT",
-      "date": "2014-11-19",
-      "last_status_date": "2014-11-19",
-      "authorization_history": [
-        "2014-11-19"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900BKH5J6E9QK3O80",
-      "lei": "529900BKH5J6E9QK3O80",
-      "national_reference": "257087",
-      "city": "Drassmarkt",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisenbank Draßmarkt-Kobersdorf-St. Martin eGen",
-        "529900BKH5J6E9QK3O80",
-        "257087"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-b0b1feee50c83ad21b",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -95298,6 +95264,40 @@
         "Raiffeisenbank Drautal registrierte Genossenschaft mit beschränkter Haftung",
         "529900I5VIERNMU0B764",
         "268658"
+      ]
+    },
+    {
+      "id": "eba-credit-institutions-9f533ee530d008dfdf",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Raiffeisenbank Draßmarkt-Kobersdorf-St. Martin eGen",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "AT_FMA",
+      "country": "AT",
+      "date": "2014-11-19",
+      "last_status_date": "2014-11-19",
+      "authorization_history": [
+        "2014-11-19"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "529900BKH5J6E9QK3O80",
+      "lei": "529900BKH5J6E9QK3O80",
+      "national_reference": "257087",
+      "city": "Drassmarkt",
+      "last_update": "20240928000000000",
+      "match_terms": [
+        "Raiffeisenbank Draßmarkt-Kobersdorf-St. Martin eGen",
+        "529900BKH5J6E9QK3O80",
+        "257087"
       ]
     },
     {
@@ -97341,6 +97341,40 @@
       ]
     },
     {
+      "id": "eba-credit-institutions-c4d57d327b246f89fa",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Raiffeisenbank Grossgmain eGen",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "AT_FMA",
+      "country": "AT",
+      "date": "2015-06-10",
+      "last_status_date": "2015-06-10",
+      "authorization_history": [
+        "2015-06-10"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "529900IN46275E6A7F39",
+      "lei": "529900IN46275E6A7F39",
+      "national_reference": "281638",
+      "city": "Grossgmain",
+      "last_update": "20240930000000000",
+      "match_terms": [
+        "Raiffeisenbank Grossgmain eGen",
+        "529900IN46275E6A7F39",
+        "281638"
+      ]
+    },
+    {
       "id": "eba-credit-institutions-e20b2b063db4094848",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -97406,40 +97440,6 @@
         "Raiffeisenbank Großglockner-Weissensee eG",
         "529900S9TROSI3DQS421",
         "269468"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-c4d57d327b246f89fa",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Grossgmain eGen",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "AT_FMA",
-      "country": "AT",
-      "date": "2015-06-10",
-      "last_status_date": "2015-06-10",
-      "authorization_history": [
-        "2015-06-10"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900IN46275E6A7F39",
-      "lei": "529900IN46275E6A7F39",
-      "national_reference": "281638",
-      "city": "Grossgmain",
-      "last_update": "20240930000000000",
-      "match_terms": [
-        "Raiffeisenbank Grossgmain eGen",
-        "529900IN46275E6A7F39",
-        "281638"
       ]
     },
     {
@@ -106419,40 +106419,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-ed7d5b8b07b799e57e",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Weißkirchen a.d. Traun eGen",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "AT_FMA",
-      "country": "AT",
-      "date": "2014-12-03",
-      "last_status_date": "2014-12-03",
-      "authorization_history": [
-        "2014-12-03"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900DUYNT6E3JH8B81",
-      "lei": "529900DUYNT6E3JH8B81",
-      "national_reference": "265063",
-      "city": "Weißkirchen an der Traun",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisenbank Weißkirchen a.d. Traun eGen",
-        "529900DUYNT6E3JH8B81",
-        "265063"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-8794541846ed6ee038",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -106484,6 +106450,40 @@
         "Raiffeisenbank Weiz-Anger eGen",
         "5299000OBYTT24O0ST84",
         "257672"
+      ]
+    },
+    {
+      "id": "eba-credit-institutions-ed7d5b8b07b799e57e",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Raiffeisenbank Weißkirchen a.d. Traun eGen",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "AT_FMA",
+      "country": "AT",
+      "date": "2014-12-03",
+      "last_status_date": "2014-12-03",
+      "authorization_history": [
+        "2014-12-03"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "529900DUYNT6E3JH8B81",
+      "lei": "529900DUYNT6E3JH8B81",
+      "national_reference": "265063",
+      "city": "Weißkirchen an der Traun",
+      "last_update": "20240928000000000",
+      "match_terms": [
+        "Raiffeisenbank Weißkirchen a.d. Traun eGen",
+        "529900DUYNT6E3JH8B81",
+        "265063"
       ]
     },
     {
@@ -348699,6 +348699,155 @@
       ]
     },
     {
+      "id": "eba-psd2-register-6d47c81e354a495dfe",
+      "source_id": "eba-psd2-register",
+      "region": "EU",
+      "type": "register",
+      "status": "excluded_scope",
+      "name": "STRASSENVERKEHRSGENOSSENSCHAFT SAAR (SVG) eG",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "DE_BAFIN",
+      "country": "DE",
+      "date": "2018-01-01",
+      "last_status_date": "2018-01-01",
+      "authorization_history": [
+        "2018-01-01"
+      ],
+      "title": "EBA PSD2 – vom PSD2-Anwendungsbereich ausgenommener Dienstleister",
+      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als vom PSD2-Anwendungsbereich ausgenommener Dienstleister. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
+      "summary_en": "Official entry in the EBA PSD2 central register as Service provider excluded from the scope of PSD2. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
+      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_EXC/DE_BAFIN!000582",
+      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
+      "entity_type": "PSD_EXC",
+      "entity_code": "DE_BAFIN!000582",
+      "national_reference": "582",
+      "address": "Metzer Straße 123 | 66117 Saarbrücken",
+      "city": "Saarbrücken",
+      "postal_code": "66117",
+      "home_services": [],
+      "service_country_count": 0,
+      "last_update": "20260108190647113",
+      "match_terms": [
+        "STRASSENVERKEHRSGENOSSENSCHAFT SAAR (SVG) eG"
+      ]
+    },
+    {
+      "id": "eba-psd2-register-227a4f8c84a0359b40",
+      "source_id": "eba-psd2-register",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Straumur greiðslumiðlun hf.",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "IS_CBI",
+      "country": "IS",
+      "date": "2023-03-30",
+      "last_status_date": "2023-03-30",
+      "authorization_history": [
+        "2023-03-30"
+      ],
+      "title": "EBA PSD2 – Zahlungsinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als Zahlungsinstitut. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
+      "summary_en": "Official entry in the EBA PSD2 central register as Payment institution. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
+      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_PI/636700DUNR2YSEKH8381",
+      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
+      "entity_type": "PSD_PI",
+      "entity_code": "636700DUNR2YSEKH8381",
+      "national_reference": "6209221020",
+      "address": "Katrínartúni 2",
+      "city": "Reykjavik",
+      "postal_code": "105",
+      "home_services": [
+        "PS_03A",
+        "PS_03B",
+        "PS_03C",
+        "PS_04A",
+        "PS_04B",
+        "PS_04C",
+        "PS_05A",
+        "PS_05B"
+      ],
+      "service_country_count": 1,
+      "last_update": "20251030221722563",
+      "match_terms": [
+        "Straumur greiðslumiðlun hf."
+      ]
+    },
+    {
+      "id": "eba-psd2-register-dcb60e377b9207c847",
+      "source_id": "eba-psd2-register",
+      "region": "EU",
+      "type": "register",
+      "status": "excluded_scope",
+      "name": "Strausberger Eisenbahn",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "DE_BAFIN",
+      "country": "DE",
+      "date": "2018-01-01",
+      "last_status_date": "2018-01-01",
+      "authorization_history": [
+        "2018-01-01"
+      ],
+      "title": "EBA PSD2 – vom PSD2-Anwendungsbereich ausgenommener Dienstleister",
+      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als vom PSD2-Anwendungsbereich ausgenommener Dienstleister. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
+      "summary_en": "Official entry in the EBA PSD2 central register as Service provider excluded from the scope of PSD2. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
+      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_EXC/DE_BAFIN!000086",
+      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
+      "entity_type": "PSD_EXC",
+      "entity_code": "DE_BAFIN!000086",
+      "national_reference": "86",
+      "address": "August-Bebel-Straße 1 | 15344 Strausberg",
+      "city": "Strausberg",
+      "postal_code": "15344",
+      "home_services": [],
+      "service_country_count": 0,
+      "last_update": "20260108190647113",
+      "match_terms": [
+        "Strausberger Eisenbahn"
+      ]
+    },
+    {
+      "id": "eba-psd2-register-d5d67a4d9386c16d54",
+      "source_id": "eba-psd2-register",
+      "region": "EU",
+      "type": "register",
+      "status": "excluded_scope",
+      "name": "Strauss GmbH & Co. KG",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "DE_BAFIN",
+      "country": "DE",
+      "date": "2018-01-01",
+      "last_status_date": "2018-01-01",
+      "authorization_history": [
+        "2018-01-01"
+      ],
+      "title": "EBA PSD2 – vom PSD2-Anwendungsbereich ausgenommener Dienstleister",
+      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als vom PSD2-Anwendungsbereich ausgenommener Dienstleister. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
+      "summary_en": "Official entry in the EBA PSD2 central register as Service provider excluded from the scope of PSD2. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
+      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_EXC/DE_BAFIN!000361",
+      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
+      "entity_type": "PSD_EXC",
+      "entity_code": "DE_BAFIN!000361",
+      "national_reference": "361",
+      "address": "Oberhofer Str. 6 | 88069 Tettnang",
+      "city": "Tettnang",
+      "postal_code": "88069",
+      "home_services": [],
+      "service_country_count": 0,
+      "last_update": "20251030194506605",
+      "match_terms": [
+        "Strauss GmbH & Co. KG"
+      ]
+    },
+    {
       "id": "eba-psd2-register-16dba5d2a0d956e413",
       "source_id": "eba-psd2-register",
       "region": "EU",
@@ -348874,41 +349023,6 @@
       ]
     },
     {
-      "id": "eba-psd2-register-6d47c81e354a495dfe",
-      "source_id": "eba-psd2-register",
-      "region": "EU",
-      "type": "register",
-      "status": "excluded_scope",
-      "name": "STRASSENVERKEHRSGENOSSENSCHAFT SAAR (SVG) eG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2018-01-01",
-      "last_status_date": "2018-01-01",
-      "authorization_history": [
-        "2018-01-01"
-      ],
-      "title": "EBA PSD2 – vom PSD2-Anwendungsbereich ausgenommener Dienstleister",
-      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als vom PSD2-Anwendungsbereich ausgenommener Dienstleister. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
-      "summary_en": "Official entry in the EBA PSD2 central register as Service provider excluded from the scope of PSD2. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
-      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_EXC/DE_BAFIN!000582",
-      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
-      "entity_type": "PSD_EXC",
-      "entity_code": "DE_BAFIN!000582",
-      "national_reference": "582",
-      "address": "Metzer Straße 123 | 66117 Saarbrücken",
-      "city": "Saarbrücken",
-      "postal_code": "66117",
-      "home_services": [],
-      "service_country_count": 0,
-      "last_update": "20260108190647113",
-      "match_terms": [
-        "STRASSENVERKEHRSGENOSSENSCHAFT SAAR (SVG) eG"
-      ]
-    },
-    {
       "id": "eba-psd2-register-f4b4f08b39081f845d",
       "source_id": "eba-psd2-register",
       "region": "EU",
@@ -348941,120 +349055,6 @@
       "last_update": "20260108190647113",
       "match_terms": [
         "Straßenverkehrsgenossenschaft-Bremen eG"
-      ]
-    },
-    {
-      "id": "eba-psd2-register-227a4f8c84a0359b40",
-      "source_id": "eba-psd2-register",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Straumur greiðslumiðlun hf.",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "IS_CBI",
-      "country": "IS",
-      "date": "2023-03-30",
-      "last_status_date": "2023-03-30",
-      "authorization_history": [
-        "2023-03-30"
-      ],
-      "title": "EBA PSD2 – Zahlungsinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als Zahlungsinstitut. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
-      "summary_en": "Official entry in the EBA PSD2 central register as Payment institution. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
-      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_PI/636700DUNR2YSEKH8381",
-      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
-      "entity_type": "PSD_PI",
-      "entity_code": "636700DUNR2YSEKH8381",
-      "national_reference": "6209221020",
-      "address": "Katrínartúni 2",
-      "city": "Reykjavik",
-      "postal_code": "105",
-      "home_services": [
-        "PS_03A",
-        "PS_03B",
-        "PS_03C",
-        "PS_04A",
-        "PS_04B",
-        "PS_04C",
-        "PS_05A",
-        "PS_05B"
-      ],
-      "service_country_count": 1,
-      "last_update": "20251030221722563",
-      "match_terms": [
-        "Straumur greiðslumiðlun hf."
-      ]
-    },
-    {
-      "id": "eba-psd2-register-dcb60e377b9207c847",
-      "source_id": "eba-psd2-register",
-      "region": "EU",
-      "type": "register",
-      "status": "excluded_scope",
-      "name": "Strausberger Eisenbahn",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2018-01-01",
-      "last_status_date": "2018-01-01",
-      "authorization_history": [
-        "2018-01-01"
-      ],
-      "title": "EBA PSD2 – vom PSD2-Anwendungsbereich ausgenommener Dienstleister",
-      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als vom PSD2-Anwendungsbereich ausgenommener Dienstleister. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
-      "summary_en": "Official entry in the EBA PSD2 central register as Service provider excluded from the scope of PSD2. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
-      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_EXC/DE_BAFIN!000086",
-      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
-      "entity_type": "PSD_EXC",
-      "entity_code": "DE_BAFIN!000086",
-      "national_reference": "86",
-      "address": "August-Bebel-Straße 1 | 15344 Strausberg",
-      "city": "Strausberg",
-      "postal_code": "15344",
-      "home_services": [],
-      "service_country_count": 0,
-      "last_update": "20260108190647113",
-      "match_terms": [
-        "Strausberger Eisenbahn"
-      ]
-    },
-    {
-      "id": "eba-psd2-register-d5d67a4d9386c16d54",
-      "source_id": "eba-psd2-register",
-      "region": "EU",
-      "type": "register",
-      "status": "excluded_scope",
-      "name": "Strauss GmbH & Co. KG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2018-01-01",
-      "last_status_date": "2018-01-01",
-      "authorization_history": [
-        "2018-01-01"
-      ],
-      "title": "EBA PSD2 – vom PSD2-Anwendungsbereich ausgenommener Dienstleister",
-      "summary_de": "Offizieller Eintrag im EBA-PSD2-Zentralregister als vom PSD2-Anwendungsbereich ausgenommener Dienstleister. Die im Datensatz gefuehrte Statushistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Zentralregister gibt die Meldungen nationaler Aufsichtsbehoerden wieder; rechtlich massgeblich bleibt das jeweilige nationale Register.",
-      "summary_en": "Official entry in the EBA PSD2 central register as Service provider excluded from the scope of PSD2. The status history in the dataset currently indicates an active entry. The EBA central register reproduces information supplied by national competent authorities; the relevant national register remains legally authoritative.",
-      "source_url": "https://euclid.eba.europa.eu/register/pir/view/PSD_EXC/DE_BAFIN!000361",
-      "source_dataset": "https://euclid.eba.europa.eu/register/downloads/PSDMD/20261016/download-PSDMD-202610160800.zip",
-      "entity_type": "PSD_EXC",
-      "entity_code": "DE_BAFIN!000361",
-      "national_reference": "361",
-      "address": "Oberhofer Str. 6 | 88069 Tettnang",
-      "city": "Tettnang",
-      "postal_code": "88069",
-      "home_services": [],
-      "service_country_count": 0,
-      "last_update": "20251030194506605",
-      "match_terms": [
-        "Strauss GmbH & Co. KG"
       ]
     },
     {
