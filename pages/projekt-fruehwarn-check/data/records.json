@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-18T09:55:25Z",
+  "generated_at": "2026-10-18T10:59:41Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-17T10:38:03Z",
-      "records": 3626,
+      "last_success": "2026-10-18T10:59:41Z",
+      "records": 3624,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "a375dd0361693b915b11768bd452b95f776692fec9fadd560dfb7c90dd3a0c61"
+      "response_sha256": "3ce50100404a991c8332e643fa40a7b26460472ff26ab3fa4b61a27067ce63fc"
     }
   },
   "records": [
@@ -95301,40 +95301,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-080520404bd3c743d8",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Eberndorf registrierte Genossenschaft mit beschränkter Haftung",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "AT_FMA",
-      "country": "AT",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900SB2SZS3VO8TA36",
-      "lei": "529900SB2SZS3VO8TA36",
-      "national_reference": "269220",
-      "city": "Eberndorf",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisenbank Eberndorf registrierte Genossenschaft mit beschränkter Haftung",
-        "529900SB2SZS3VO8TA36",
-        "269220"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-73223041cf2a80d645",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -105739,40 +105705,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-1278bb2aedfb6d711c",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Unteres Lavanttal eGen",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "AT_FMA",
-      "country": "AT",
-      "date": "2014-11-24",
-      "last_status_date": "2014-11-24",
-      "authorization_history": [
-        "2014-11-24"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900RXFRWBLUILY550",
-      "lei": "529900RXFRWBLUILY550",
-      "national_reference": "269239",
-      "city": "Lavamünd",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisenbank Unteres Lavanttal eGen",
-        "529900RXFRWBLUILY550",
-        "269239"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-fa1559d582b9e45308",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -107669,7 +107601,7 @@
       "lei": "529900GPOO9ISPD1EE83",
       "national_reference": "4930720",
       "city": "Wien",
-      "last_update": "20250630000000000",
+      "last_update": "20261015000000000",
       "match_terms": [
         "RAIFFEISENLANDESBANK NIEDERÖSTERREICH-WIEN AG",
         "529900GPOO9ISPD1EE83",
