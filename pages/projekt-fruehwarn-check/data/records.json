@@ -1,16 +1,16 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-18T09:05:27Z",
+  "generated_at": "2026-10-18T09:38:28Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
-      "last_success": "2026-10-17T09:21:59Z",
+      "last_success": "2026-10-18T09:38:28Z",
       "records": 378,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv"
     },
     "esma-non-compliant": {
       "status": "available",
-      "last_success": "2026-10-17T09:21:59Z",
+      "last_success": "2026-10-18T09:38:28Z",
       "records": 178,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv"
     },
