@@ -332,6 +332,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "a7a0b522-08ee-4036-a251-eacb1ef49530",
+      "title": "TLN Hörsaal Ergänzung",
+      "category": "hoersaele",
+      "type": "website",
+      "releaseDate": "2026-10-26",
+      "url": "https://tools.liquiditybooster.de/pages/tln/einweisung.html",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-10-19T06:50:47.332Z",
+      "updatedAt": "2026-10-19T06:50:47.332Z",
+      "history": [
+        {
+          "at": "2026-10-19T06:50:47.332Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
