@@ -312,6 +312,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "33fe20e4-503d-43e7-ad5e-ffa106b4186d",
+      "title": "",
+      "category": "",
+      "type": "",
+      "releaseDate": "",
+      "url": "",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-10-19T06:48:05.213Z",
+      "updatedAt": "2026-10-19T06:48:05.213Z",
+      "history": [
+        {
+          "at": "2026-10-19T06:48:05.213Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
