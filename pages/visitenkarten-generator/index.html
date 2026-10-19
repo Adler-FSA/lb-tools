@@ -146,11 +146,17 @@ input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.12)}
 .hostGuideNo.navy,.hostGuideBtn.navy{background:var(--navy)}
 @media(max-width:940px){.hostGuideGrid{grid-template-columns:1fr}.hostGuideCard{gap:9px}.hostGuideCard p{flex:none}.hostGuideBtn{align-self:stretch}}
 @media(max-width:520px){.hostGuide{padding:14px}.hostGuideGrid{gap:10px}.hostGuideCard{padding:14px}.hostGuideBtn{width:100%}}
+
+/* Rückweg zum Einladungs-Kompass */
+.backKompass{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:10px 15px;border-radius:12px;background:var(--mint);color:#fff;text-decoration:none;font-size:13px;font-weight:900;line-height:1.3}
+.backKompass svg{width:18px;height:18px;flex:0 0 auto}
+.backKompass:hover,.backKompass:focus-visible{background:#087f87;color:#fff}
+@media(max-width:560px){.topbar{flex-wrap:wrap}.backKompass{width:100%}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><div class="brandline">LiquidityBooster · Visitenkarten</div></div>
+  <div class="topbar"><div class="brandline">LiquidityBooster · Visitenkarten</div><a class="backKompass" href="../einladungs-kompass/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M5 12h14"/></svg>Zurück zum Einladungs-Kompass</a></div>
 
   <nav class="toolNav" aria-label="Club Partner Werkzeuge">
     <div class="toolNavHead">
