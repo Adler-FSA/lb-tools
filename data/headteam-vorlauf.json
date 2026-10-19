@@ -352,6 +352,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "f19b909a-791a-45c8-871d-992675c2f0f4",
+      "title": "TLN Verhaltenskompass  MICA Konform",
+      "category": "hoersaele",
+      "type": "website",
+      "releaseDate": "",
+      "url": "https://tools.liquiditybooster.de/pages/tln/webinar-verhaltenskompass.html",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-10-19T18:18:31.709Z",
+      "updatedAt": "2026-10-19T18:18:31.709Z",
+      "history": [
+        {
+          "at": "2026-10-19T18:18:31.709Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
