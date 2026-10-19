@@ -25,6 +25,14 @@ select,input{width:100%;min-height:58px;border:1px solid #ccd7e1;border-radius:1
 .hoersaal-box{margin:0 0 30px;padding:28px;border:1px solid #bfe9ec;border-radius:26px;background:linear-gradient(135deg,#f3fcfc 0%,#fff 52%,#fff4fa 100%);box-shadow:var(--shadow)}.hoersaal-box .kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:var(--navy);color:#fff;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}.hoersaal-box h2{margin:14px 0 10px;color:var(--navy);font-size:clamp(28px,3.2vw,42px);line-height:1.12}.hoersaal-box .intro{max-width:1080px;margin:0;color:#526174;font-size:18px}.hoersaal-note{margin-top:18px;padding:17px 18px;border-left:5px solid var(--pink);border-radius:16px;background:#fff;color:#39495c}.hoersaal-note strong{color:var(--navy)}.hoersaal-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:20px}.hoersaal-step{padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff;color:#526174;font-size:14px}.hoersaal-step b{display:block;margin-bottom:4px;color:var(--mint-dark);font-size:18px}.hoersaal-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}.hoersaal-choice{border:0;border-radius:14px;padding:13px 18px;font-weight:850;color:#fff;cursor:pointer;transition:.18s}.hoersaal-choice:hover{transform:translateY(-2px)}.hoersaal-choice.training{background:var(--mint)}.hoersaal-choice.interest{background:var(--pink)}
 @media(max-width:900px){.guide-grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.name-row{grid-template-columns:1fr}.random-box{grid-template-columns:1fr}.grid,.image-grid{grid-template-columns:1fr}.page{width:min(100% - 20px,1460px);padding-top:32px}.toolbar,.results{padding-left:18px;padding-right:18px}.random-box{margin-left:18px;margin-right:18px}.text{min-height:220px}.hoersaal-steps{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){body{font-size:16px}h1{font-size:37px}.toolbar h2{font-size:27px}.card{padding:17px}.actions .btn{flex:1;justify-content:center}.images summary{font-size:20px}.image-inner{padding-left:15px;padding-right:15px}.hoersaal-box{padding:21px}.hoersaal-steps{grid-template-columns:1fr}.hoersaal-actions{flex-direction:column}.hoersaal-choice{width:100%}}
+/* Ergänzung: Link zur persönlichen Werkstatt */
+.werkstatt-box{margin:0 0 30px;padding:28px;border:1px solid #bfe9ec;border-radius:26px;background:linear-gradient(135deg,#f3fcfc 0%,#fff 52%,#fff4fa 100%);box-shadow:var(--shadow)}
+.werkstatt-eyebrow{color:var(--mint-dark);font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.werkstatt-box h2{margin:12px 0;color:var(--navy);font-size:clamp(28px,3.2vw,42px);line-height:1.12}
+.werkstatt-box p{max-width:1060px;margin:0 0 12px;color:#526174;font-size:18px}
+.werkstatt-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;margin-top:10px;padding:12px 24px;border-radius:14px;background:var(--mint);color:#fff;text-decoration:none;font-weight:800}
+.werkstatt-btn:hover,.werkstatt-btn:focus-visible{background:var(--mint-dark)}
+@media(max-width:520px){.werkstatt-box{padding:21px}.werkstatt-btn{width:100%}}
 </style>
 </head>
 <body>
@@ -50,6 +58,14 @@ select,input{width:100%;min-height:58px;border:1px solid #ccd7e1;border-radius:1
     <button class="hoersaal-choice training" type="button" data-hoersaal-category="Hörsaal · Trainingsgast einladen">Als Trainingsgast einladen →</button>
     <button class="hoersaal-choice interest" type="button" data-hoersaal-category="Hörsaal · Bei echtem Interesse">Bei echtem Interesse einladen →</button>
   </div>
+</section>
+<section class="werkstatt-box" aria-labelledby="werkstatt-title">
+  <div class="werkstatt-eyebrow">LiquidityBooster · Werkzeuge &amp; Ausbildung</div>
+  <h2 id="werkstatt-title">Deine persönliche Werkstatt</h2>
+  <p>Hier findest du alles, was du brauchst, um Menschen persönlich einzuladen und auf ihrem Weg zu begleiten.</p>
+  <p>Gestalte eigene Visitenkarten, Geschenkkarten, Webinar- und Gastredner-Einladungen mit deinen persönlichen Daten und deinem QR-Code.</p>
+  <p>Zusätzlich stehen dir drei Gastgeber-Leitfäden zur Verfügung. Sie zeigen dir Schritt für Schritt, wie du Menschen vom ersten Gastzugang über die Mitgliedschaft bis zur aktiven Teilnahme im Club begleiten kannst.</p>
+  <a class="werkstatt-btn" href="https://tools.liquiditybooster.de/pages/visitenkarten-generator/">Zur Werkstadt</a>
 </section>
 <details class="link-guide">
   <summary>
