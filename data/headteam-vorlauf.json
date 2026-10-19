@@ -292,6 +292,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "0b947430-a39c-4a81-b57f-aeabbca00103",
+      "title": "MICA Leitartikel",
+      "category": "leitartikel",
+      "type": "website",
+      "releaseDate": "",
+      "url": "https://tools.liquiditybooster.de/pages/mica-leitartikel",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-10-19T06:48:02.869Z",
+      "updatedAt": "2026-10-19T06:48:02.869Z",
+      "history": [
+        {
+          "at": "2026-10-19T06:48:02.869Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
