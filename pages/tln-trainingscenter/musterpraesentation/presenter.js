@@ -20,13 +20,13 @@ de:{menu:"Inhalt",speaker:"Vortragendenansicht",guest:"Gastansicht",sources:"Que
 en:{menu:"Contents",speaker:"Presenter view",guest:"Audience view",sources:"Sources",start:"Start the discovery",back:"Back",next:"Next",again:"Start again",library:"Background knowledge",toStory:"Back to the main story",story:"Our shared discovery",knowledge:"Detailed background knowledge",coach:"Presentation speaker notes",tip:"Select to explore",insight:"What we take away",step:"Step",sourceLabel:"Evidence basis",modelInput:"Adjust sample booking",modelBase:"Booking amount (USDT/USDC)",modelOut:"Advertised v$ reward (20%)",modelNote:"Illustration from the vTravel provider's offer. Not cash back: future use depends on current offer, booking and acceptance terms.",sourceInfo:"The main story explains purpose, potential value and connections. Sources: VOW Whitepaper v6.7 (March 2026), public vTravel Phase 1 offer, TLN DApp descriptions and the academy's 18 Aug 2026 assessment (overall AMBER–RED). The optional library contains technical depth. Six source lecture pages informed the editorial work but are not linked.",legal:"Educational presentation, not investment, legal or tax advice. Provider statements aren't guarantees or independent proof of revenue. Verify live availability, acceptance, costs, incentives and risks. No wallet or sign-up required.",keys:"Arrow keys: next/back · M: menu · T: speaker view · L: detail library · swipe on mobile.",calendar:"See official TLN community calls",original:"Read the original whitepaper",knowledgeBtn:"Explore technical background",example:"Illustration · not a guarantee",listen:"Explore together",why:"Why does it matter?",not:"A useful distinction"}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let lang="de",mode="story",idx=0,speaker=false,selections={},examples={travel:500},menuTab="story";
+let lang="de",mode="story",idx=0,storyReturnIdx=0,speaker=false,selections={},examples={travel:500},menuTab="story";
 function T(pair){return Array.isArray(pair)?pair[lang==="de"?0:1]:(pair??"");}
 const fmt=x=>Number(x).toLocaleString(lang==="de"?"de-DE":"en-US",{maximumFractionDigits:2});
 function deck(){return mode==="story"?story:background;}
 function thisScene(){return deck()[idx];}
 function open(id){const el=$(id);if(el&&!el.open)el.showModal();}
-function toDeck(m,num=0){mode=m;idx=Math.max(0,Math.min(num,deck().length-1));renderNav();draw();}
+function toDeck(m,num=0){if(mode==="story"&&m==="library")storyReturnIdx=idx;mode=m;idx=Math.max(0,Math.min(num,deck().length-1));renderNav();draw();}
 function go(num){idx=Math.max(0,Math.min(num,deck().length-1));draw();}
 function rowCards(scene,options={}){
 const current=selections[mode+idx]??0;
@@ -67,7 +67,7 @@ switch(s.kind){
 }}
 function mainScene(s){
  const visual=specialVisual(s);
- return '<section class="scene active story-scene"><div class="scene-body"><div class="scene-head story-heading"><div class="chapter-label"><span class="phase-mark">'+esc(T(phases[s.phase]))+'</span><b>'+String(idx+1).padStart(2,"0")+' / '+story.length+'</b></div><h'+(idx===0?"1":"2")+'>'+esc(T(s.title))+'</h'+(idx===0?"1":"2")+'><p class="lead">'+esc(T(s.lead))+'</p><p class="story-explain">'+esc(T(s.body))+'</p></div><div class="story-visual">'+visual+'</div><div class="insight-bar"><strong>'+esc(w[lang].insight)+'</strong><span>'+esc(T(s.insight))+'</span></div><div class="story-tail">'+w[lang].sourceLabel+': '+esc(s.source)+' <button type="button" data-action="library" class="detail-access">'+esc(w[lang].knowledgeBtn)+' ↗</button></div></div></section>';
+ return '<section class="scene active story-scene"><div class="scene-body"><div class="scene-head story-heading"><div class="chapter-label"><span class="phase-mark">'+esc(T(phases[s.phase]))+'</span><b>'+String(idx+1).padStart(2,"0")+' / '+story.length+'</b></div><h'+(idx===0?"1":"2")+'>'+esc(T(s.title))+'</h'+(idx===0?"1":"2")+'><p class="lead">'+esc(T(s.lead))+'</p><p class="story-explain">'+esc(T(s.body))+'</p></div><div class="story-visual">'+visual+'</div><div class="insight-bar"><strong>'+esc(w[lang].insight)+'</strong><span>'+esc(T(s.insight))+'</span></div><div class="story-tail">'+w[lang].sourceLabel+': '+esc(s.source)+' <button type="button" data-action="context" class="detail-access">'+esc(w[lang].knowledgeBtn)+' ↗</button></div></div></section>';
 }
 function libraryScene(s){
  const selected=s.items?.[selections["library"+idx]||0]||s.items?.[0];
@@ -134,7 +134,8 @@ document.addEventListener("click",e=>{
  case "next":go(idx===deck().length-1?0:idx+1);break;
  case "back":go(idx-1);break;
  case "menu":menuTab=mode;renderNav();open("sceneMenu");break;
- case "library":toDeck(mode==="story"?"library":"story",0);break;
+ case "library":if(mode==="story")toDeck("library",0);else toDeck("story",storyReturnIdx);break;
+ case "context":if(mode==="story")toDeck("library",Math.max(0,Number(thisScene().detail?.[0]??0)));break;
  case "showStory":menuTab="story";renderNav();break;
  case "showLibrary":menuTab="library";renderNav();break;
  case "sources":open("sourceMenu");break;
@@ -158,7 +159,7 @@ document.addEventListener("keydown",e=>{
  else if(e.key==="Home")go(0);else if(e.key==="End")go(deck().length-1);
  else if(e.key.toLowerCase()==="m"){menuTab=mode;renderNav();open("sceneMenu");}
  else if(e.key.toLowerCase()==="t"){speaker=!speaker;draw();}
- else if(e.key.toLowerCase()==="l"){toDeck(mode==="story"?"library":"story",0);}
+ else if(e.key.toLowerCase()==="l"){if(mode==="story")toDeck("library",0);else toDeck("story",storyReturnIdx);}
 });
 let touch=null;
 $("stage").addEventListener("touchstart",e=>{if(e.target.closest("button,input")){touch=null;return}touch=[e.touches[0].clientX,e.touches[0].clientY]},{passive:true});
