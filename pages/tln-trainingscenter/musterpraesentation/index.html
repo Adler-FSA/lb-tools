@@ -2,8 +2,8 @@
 <html lang="de"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark"><meta name="robots" content="noindex,follow">
-<meta name="description" content="VOW und TLN verständlich von A bis Z: interaktive Präsentation aus dem VOW Whitepaper, den ursprünglichen sechs Quellseiten, TLN-DApp und Projektanalyse.">
-<title>VOW & TLN · Die interaktive Ökosystem-Präsentation</title>
+<meta name="description" content="VOW & TLN gemeinsam entdecken: interaktive Präsentation über praktische Vorteile beim Einkaufen und Reisen, digitale Rabattrechte, das VOW-Ökosystem, TLN und die Community. Mit optionaler Fachbibliothek.">
+<title>VOW & TLN · Unsere gemeinsame Entdeckungsreise</title>
 <link rel="stylesheet" href="./presenter.css">
 </head><body>
 <div class="shell" id="presentation">
@@ -12,27 +12,28 @@
 <div class="tools">
 <button type="button" class="ctrl" data-action="menu" id="menuBtn">☷ Szenen</button>
 <button type="button" class="ctrl" data-action="speaker" id="speakerToggle" aria-pressed="false">Gastansicht</button>
+<button type="button" class="ctrl" data-action="library" id="libraryBtn">◈ Hintergrundwissen</button>
 <button type="button" class="ctrl" data-action="sources" id="sourceBtn">ⓘ Quellen</button>
 <button type="button" class="ctrl" data-action="fullscreen" id="fullscreen" aria-label="Vollbild">⛶</button>
 <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="de" aria-pressed="true">DE</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
 </div></header>
 <nav class="chapters" id="chapters" aria-label="Themen der interaktiven Präsentation"></nav>
 <main class="stage" id="stage" aria-label="Interaktive VOW und TLN Präsentation"></main>
-<aside class="speaker" id="speakerPanel" hidden aria-live="polite"><b id="speakerLabel">Beispiel-Ich-Erzähltext</b><p id="speakerText"></p></aside>
+<aside class="speaker" id="speakerPanel" hidden aria-live="polite"><b id="speakerLabel">Begleittext unserer Entdeckungsreise</b><p id="speakerText"></p></aside>
 <footer class="bottom">
 <button type="button" data-action="back" id="back">← <span id="backLabel">Zurück</span></button>
 <div class="track" role="progressbar" aria-label="Fortschritt"><div id="trackFill"></div></div>
-<span class="counter" id="counter">1 / 37</span>
+<span class="counter" id="counter">1 / 17</span>
 <button type="button" data-action="next" id="forward" class="primary"><span id="forwardLabel">Weiter</span> →</button>
 </footer></div>
 <dialog id="sceneMenu" aria-label="Szenenübersicht"><div class="dialog-body">
 <div class="dialog-top"><h2 id="menuTitle">Szenen</h2><button type="button" data-action="closeScenes" aria-label="Schließen">✕</button></div>
-<div class="menu-grid" id="menuGrid"></div><p class="caption" id="menuKeys"></p>
+<div class="menu-tabs" role="group" aria-label="Inhalt wählen"><button type="button" data-action="showStory" id="showStory" class="menu-tab">Hauptgeschichte</button><button type="button" data-action="showLibrary" id="showLibrary" class="menu-tab">Hintergrundwissen</button></div><div class="menu-grid" id="menuGrid"></div><p class="caption" id="menuKeys"></p>
 </div></dialog>
 <dialog id="sourceMenu" aria-label="Quellen und Einordnung"><div class="dialog-body">
 <div class="dialog-top"><h2 id="sourceTitle">Quellen</h2><button type="button" data-action="closeSources" aria-label="Schließen">✕</button></div>
 <p class="caption" id="sourceInfo"></p><div class="source-links" id="sourceLinks"></div>
 <p class="legal" id="legal"></p>
 </div></dialog>
-<script src="./data-01.js"></script><script src="./data-02.js"></script><script src="./data-03.js"></script><script src="./data-04.js"></script><script src="./presenter.js"></script>
+<script src="./story.js"></script><script src="./data-01.js"></script><script src="./data-02.js"></script><script src="./data-03.js"></script><script src="./data-04.js"></script><script src="./presenter.js"></script>
 </body></html>
