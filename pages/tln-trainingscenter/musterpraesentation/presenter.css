@@ -632,3 +632,130 @@ dialog::backdrop{background:#1c405573;backdrop-filter:blur(3px)}
  .top .brand{display:none}
  .top{justify-content:flex-end}
 }
+
+
+/* ===============================================================
+   Presentation accessibility: contextual explanations, cash-flow
+   illustration, mobile-first visibility WITHOUT shrinking text.
+   =============================================================== */
+.story-visual{flex:0 1 auto;min-height:0;overflow:visible}
+.scene-body{overscroll-behavior:contain}
+.scene-body.allow-scene-scroll{overflow-y:auto;overflow-x:hidden;justify-content:flex-start;scrollbar-width:thin}
+.scene-how{
+ display:flex;gap:11px;align-items:center;flex:0 0 auto;
+ padding:9px 13px;border-radius:13px;
+ background:#eff8fc;border:1px solid #d3e7ef;
+ color:#18394a;line-height:1.3
+}
+.scene-how .how-symbol{
+ align-self:flex-start;display:grid;place-items:center;
+ min-width:29px;height:29px;border-radius:50%;
+ background:#d7efec;color:#07898c;font-size:20px;font-weight:800
+}
+.scene-how strong{display:block;font-size:11px;color:#0b6c78;letter-spacing:.015em}
+.scene-how p{font-size:clamp(12px,1.08vw,15px);margin:2px 0 0;line-height:1.35;color:#264655}
+.slide-explain-action{display:none;color:#0d6b7b;background:#f2f9fb;border:1px solid #c8e2e5;border-radius:10px;font-size:12px;font-weight:750;padding:7px 12px;margin-top:7px;min-height:36px;cursor:pointer}
+.slide-explain-action:hover,.slide-explain-action:focus-visible{background:#e2f4f5;border-color:#00a7ad}
+.explain-dialog{max-width:690px;margin:auto}
+.explain-dialog .dialog-top h2{font-size:clamp(22px,3vw,31px);line-height:1.14;margin:0}
+.explain-dialog-lead{font-size:clamp(15px,1.4vw,19px);line-height:1.35;font-weight:760;color:#087a80;margin:14px 0}
+.explain-dialog-body{font-size:clamp(15px,1.15vw,18px);line-height:1.58;color:#2a4755}
+.explain-dialog-how{background:#e9f8f5;border-left:4px solid #00a7ad;padding:14px 17px;border-radius:0 10px 10px 0}
+.explain-dialog-how strong{color:#087d83}
+.explain-dialog-how p{font-size:15px;line-height:1.5;color:#284957;margin:6px 0 0}
+.cash-showcase{
+ display:grid;grid-template-columns:.82fr 1.18fr;
+ gap:clamp(10px,1.3vw,18px);
+ padding:clamp(13px,1.45vw,21px);
+ border:1px solid #d3e8e8;border-radius:19px;
+ background:linear-gradient(123deg,#f1fbf8,#fff 55%,#fff8fc);
+ box-shadow:0 9px 26px #25566709;
+}
+.cash-controls{display:flex;flex-direction:column;gap:11px}
+.cash-kicker{font-size:clamp(12px,1.1vw,15px);font-weight:850;color:#0d7c82;margin:0}
+.cash-control{display:grid;grid-template-columns:1fr auto;gap:5px 7px;align-content:center}
+.cash-control span{color:#365865;font-size:clamp(12px,.99vw,15px)}
+.cash-control strong{color:#193d4d;font-size:clamp(13px,1.1vw,17px);white-space:nowrap}
+.cash-control input{grid-column:1/-1;width:100%;accent-color:#00a7ad;cursor:pointer;margin:0;min-height:20px}
+.cash-output{display:flex;flex-direction:column;gap:9px;min-width:0}
+.cash-summary{display:grid;grid-template-columns:.85fr 1.15fr;gap:7px}
+.cash-summary>div{
+ display:flex;flex-direction:column;justify-content:center;
+ gap:6px;padding:clamp(10px,1.2vw,16px);
+ border:1px solid #d1e7e3;background:white;border-radius:13px;
+}
+.cash-summary span{font-size:clamp(11px,.91vw,13px);color:#52717c;line-height:1.25}
+.cash-summary strong{color:#008b91;font-size:clamp(22px,2.2vw,32px);white-space:nowrap;font-variant-numeric:tabular-nums}
+.cash-summary .cash-grand{background:#fff0f8;border-color:#f0cfe0}
+.cash-summary .cash-grand strong{color:#bb0067}
+.cash-bars{
+ display:flex;align-items:end;justify-content:space-between;
+ gap:3px;height:clamp(85px,12vh,138px);
+ padding:10px 8px 0;
+ border-bottom:2px solid #c6d9df;
+ background:repeating-linear-gradient(to top,#d1e2e944 0 1px,transparent 1px 27px);
+ border-radius:7px 7px 0 0
+}
+.cash-bar-wrap{display:flex;flex:1 1 0;align-items:center;flex-direction:column;justify-content:end;height:100%;min-width:0;gap:3px}
+.cash-bar{width:min(90%,34px);height:var(--barheight);min-height:2px;border-radius:6px 6px 0 0;transition:height .25s,background .25s,opacity .25s;background:#d9e6e9;opacity:.45}
+.cash-bar.is-earned{background:linear-gradient(0deg,#009ca2,#6ed3ce);opacity:1}
+.cash-bar-wrap small{font-size:9px;color:#597684;line-height:1}
+.cash-math{text-align:right;font-size:clamp(11px,1vw,14px);font-weight:780;color:#1c6973;margin:0}
+.cash-disclaimer{
+ grid-column:1/-1;background:#fff;
+ border-left:3px solid #c6006f;border-radius:0 8px 8px 0;
+ padding:7px 10px;color:#536c77;
+ font-size:clamp(10px,.91vw,13px);line-height:1.38;margin:0
+}
+@media(max-width:900px){
+ .cash-showcase{grid-template-columns:1fr 1.1fr}
+ .cash-summary strong{font-size:clamp(19px,2.4vw,27px)}
+ .cash-controls{gap:7px}
+ .scene-how p{font-size:13px}
+}
+@media(max-width:680px){
+ /* Keep a real readable text size. Detailed explanation uses a dialog. */
+ .story-explain{display:none}
+ .slide-explain-action{display:inline-flex;align-items:center}
+ .story-heading h1,.story-heading h2{font-size:clamp(23px,5.6vw,33px)}
+ .story-heading .lead{font-size:clamp(13px,3.5vw,16px);line-height:1.3}
+ .story-heading .chapter-label{margin-bottom:4px}
+ .scene-how{padding:6px 8px;gap:7px;border-radius:9px}
+ .scene-how .how-symbol{min-width:22px;height:22px;font-size:16px}
+ .scene-how strong{font-size:10px}
+ .scene-how p{font-size:12px;line-height:1.24}
+ .insight-bar{gap:5px;min-height:0;padding:6px 9px}
+ .insight-bar strong{font-size:10px}
+ .insight-bar span{font-size:12px;line-height:1.25}
+ .story-tail{display:none}
+ .cash-showcase{grid-template-columns:1fr;gap:7px;padding:9px;border-radius:13px}
+ .cash-kicker{display:none}
+ .cash-controls{gap:3px}
+ .cash-control{grid-template-columns:1fr auto;gap:1px 5px}
+ .cash-control span{font-size:11px}
+ .cash-control strong{font-size:12px}
+ .cash-control input{min-height:13px;height:16px;accent-color:#009ca2}
+ .cash-output{gap:4px}
+ .cash-summary>div{padding:7px;gap:2px;border-radius:8px}
+ .cash-summary span{font-size:10px}
+ .cash-summary strong{font-size:clamp(18px,5.4vw,25px)}
+ .cash-bars{height:68px;padding:4px 4px 0;gap:2px}
+ .cash-bar-wrap{gap:1px}.cash-bar-wrap small{font-size:8px}
+ .cash-math{font-size:11px}
+ .cash-disclaimer{font-size:10px;line-height:1.22;padding:5px 7px}
+ .explain-dialog{padding:18px}
+ .explain-dialog-lead{font-size:15px}
+ .explain-dialog-body{font-size:15px}
+ dialog#explainMenu{max-height:85dvh}
+}
+@media(max-height:620px){
+ .scene-how{padding:5px 8px}
+ .slide-explain-action{padding:4px 8px;min-height:30px}
+ .cash-bars{height:52px}
+ .cash-disclaimer{line-height:1.18}
+ .cash-summary>div{padding:5px}
+ .cash-control{gap:0}
+}
+@media(prefers-reduced-motion:reduce){
+ .cash-bar{transition:none}
+}
