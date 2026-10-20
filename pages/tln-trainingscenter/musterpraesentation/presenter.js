@@ -1,118 +1,169 @@
 (()=>{
 "use strict";
-const deck=window.VOW_SCENES||[];
-const chapters=[["Ankommen","Welcome"],["Die Rabattidee","The discount idea"],["Das Ökosystem","The ecosystem"],["Voucher-Rechte","Voucher rights"],["VOW & Reserve","VOW & reserve"],["Alltag & Anwendungen","Everyday applications"],["Liquidität","Liquidity"],["TLN-DApp","TLN DApp"],["Wirtschaft","Economics"],["Sicherheit & MiCA","Safety & MiCA"],["Geschichte","History"],["Das Gesamtbild","The big picture"]];
-const refs=[
-["VOW Whitepaper v6.7","https://vowwhitepaper.com/"],
-["Voucher Currencies","https://vowwhitepaper.com/economics/voucher-currencies"],
-["Minting Vouchers","https://vowwhitepaper.com/economics/minting-vouchers"],
-["Single.id","https://vowwhitepaper.com/infrastructure/singleid"],
-["Voucher Ledger","https://vowwhitepaper.com/infrastructure/voucher-ledger"],
-["TLN Borrow / Booster","https://tlnprotocol.com/app/borrow/tlngold-booster"],
-["TLN Stablecoin Lending","https://tlnprotocol.com/app/lockandlend"],
-["vTravel","https://vtravel.info/"],
-["MiCA – EU-Verordnung 2023/1114","https://eur-lex.europa.eu/eli/reg/2023/1114/oj"]
+const story=window.VOW_STORY||[],background=window.VOW_SCENES||[];
+const phases=[["Welt 1 · Alltag & Nutzen","World 1 · Everyday benefits"],["Welt 1 · VOW verstehen","World 1 · Understanding VOW"],["Welt 2 · TLN entdecken","World 2 · Discovering TLN"],["Gemeinsam weiter","Continuing together"]];
+const oldChapters=[["Ankommen","Welcome"],["Die Rabattidee","The discount idea"],["Das Ökosystem","The ecosystem"],["Voucher-Rechte","Voucher rights"],["VOW & Reserve","VOW & reserve"],["Alltag & Anwendungen","Everyday applications"],["Liquidität","Liquidity"],["TLN-DApp","TLN DApp"],["Wirtschaft","Economics"],["Sicherheit & MiCA","Safety & MiCA"],["Geschichte","History"],["Das Gesamtbild","The big picture"]];
+const sourceLinks=[
+["VOW Whitepaper · März 2026","https://vowwhitepaper.com/"],
+["VOW · Voucher Currencies","https://vowwhitepaper.com/economics/voucher-currencies"],
+["VOW · Minting Vouchers","https://vowwhitepaper.com/economics/minting-vouchers"],
+["VOW · Single.id","https://vowwhitepaper.com/infrastructure/singleid"],
+["VOW · Voucher Ledger","https://vowwhitepaper.com/infrastructure/voucher-ledger"],
+["vTravel · Phase-1-Angebot","https://vtravel.info/"],
+["TLN Protocol · Lending","https://tlnprotocol.com/app/lockandlend"],
+["TLN Protocol · Borrowing","https://tlnprotocol.com/app/borrow/tlngold-booster"],
+["TLN Community · offizieller Kalender","https://kalender.digital/tln-allgemein"],
+["MiCA · EU-Verordnung 2023/1114","https://eur-lex.europa.eu/eli/reg/2023/1114/oj"]
 ];
-const words={
-de:{menu:"Szenen",speaker:"Vortragendenansicht",guest:"Gastansicht",sources:"Quellen",full:"Vollbild",start:"Entdeckungsreise starten",back:"Zurück",next:"Weiter",again:"Von vorne",label:"Begleittext für unsere Entdeckungsreise",tip:"Klicke auf die Bausteine, um ihre Funktion zu verstehen.",sourceLabel:"Quelle / Stand",modelInput:"Beispielbetrag",voucherBase:"Rabattrechte (Nennbetrag)",voucherResult:"Zugeordneter VOW-Marktwert bei 20%-Modellquote",travelBase:"Beispiel-Reisebuchung",travelResult:"Beworbene v$-Reward-Einheiten (20%)",lendBase:"Beispiel-Einzahlung",lendResult:"APY-Rechengröße bei 20%",voucherNote:"Eine illustrative Whitepaper-Rechnung. 20% sind kein dauerhafter Deckungsgrad und Voucher sind kein Bargeld.",travelNote:"Anbieterangabe zur Phase 1. v$ sind mögliche spätere Rabatte nach Bedingungen – kein auszahlbares Geld.",lendNote:"Nominale Hochrechnung des beworbenen Ziels, keine Auszahlungsgarantie und kein unabhängiger Ertragsnachweis.",sourceInfo:"Whitepaper v6.7 (März 2026), öffentliche TLN-DApp-Unterlagen, die ursprünglichen sechs Hörsaal-Quelltexte und Akademie-Projektanalyse vom 18.08.2026. Gesamturteil der damaligen Prüfung: GELB–ROT. Zu den Hörsaal-Seiten wird nicht verlinkt.",legal:"Bildungspräsentation, keine individuelle Anlage-, Rechts- oder Steuerberatung. Quellen und Bedingungen vor Nutzung erneut prüfen. Die gemeinsame Erzählperspektive ersetzt keine erforderliche Erlaubnis. Keine Wallet-Transaktionen in dieser Präsentation.",keys:"Tastatur: Pfeile für Szenen, M für Menü, T für Sprecheransicht. Auf Mobilgeräten nach links/rechts wischen."},
-en:{menu:"Scenes",speaker:"Presenter view",guest:"Audience view",sources:"Sources",full:"Fullscreen",start:"Start the discovery",back:"Back",next:"Next",again:"Restart",label:"Shared discovery narration",tip:"Click the components to explore their purpose.",sourceLabel:"Source / date",modelInput:"Illustrative amount",voucherBase:"Voucher face denomination",voucherResult:"VOW market value allocated at 20% example ratio",travelBase:"Illustrative travel booking",travelResult:"Advertised v$ reward units (20%)",lendBase:"Illustrative deposit",lendResult:"20% APY calculation",voucherNote:"Whitepaper illustration. 20% isn't permanent cash backing and vouchers aren't cash.",travelNote:"Provider's Phase 1 description. v$ represents possible future discounts subject to terms, not cash.",lendNote:"Annualised illustration of the advertised target, not guaranteed payment or independently verified revenue.",sourceInfo:"Sources: whitepaper v6.7 (March 2026), public TLN DApp documents, six original source lecture texts and the Academy's 18 Aug 2026 assessment. At that date, overall evaluation: AMBER–RED. There are no links to the lecture hall.",legal:"Educational presentation, not personalised investment, legal or tax advice. Recheck sources and terms. Shared wording doesn't replace required authorisation. This presentation involves no wallet transactions.",keys:"Keyboard: arrows to change scenes, M for menu, T for presenter view. Swipe left/right on mobile."}
-};
+const w={
+de:{menu:"Inhalt",speaker:"Vortragendenansicht",guest:"Gastansicht",sources:"Quellen",start:"Entdeckungsreise starten",back:"Zurück",next:"Weiter",again:"Von vorne",library:"Hintergrundwissen",toStory:"Zur Hauptgeschichte",story:"Die gemeinsame Entdeckungsreise",knowledge:"Vertiefendes Fachwissen",coach:"Begleittext für die Präsentation",tip:"Zum Entdecken anklicken",insight:"Was wir mitnehmen",step:"Schritt",sourceLabel:"Fachliche Grundlage",modelInput:"Beispielbuchung verändern",modelBase:"Buchungswert (USDT/USDC)",modelOut:"Beworbene v$-Rückvergütung (20 %)",modelNote:"Modell nach der vTravel-Anbieterbeschreibung. Kein Bargeld-Cashback; spätere Nutzung hängt von aktuellen Angebots-, Buchungs- und Annahmebedingungen ab.",sourceInfo:"Die Hauptgeschichte erklärt Nutzen, Motivation und das Zusammenspiel. Grundlage: VOW Whitepaper v6.7 (März 2026), öffentliches vTravel-Phase-1-Angebot, TLN-DApp-Beschreibungen und Projektanalyse der Akademie vom 18.08.2026 (Gesamtbewertung GELB–ROT). Die Fachbibliothek vertieft einzelne Mechaniken. Die sechs TLN-Hörsaal-Seiten wurden als redaktionelle Quellen verwendet, jedoch nicht verlinkt.",legal:"Bildungspräsentation: keine Anlage-, Rechts- oder Steuerberatung. Aus Anbieterangaben folgen weder Garantien noch unabhängige Ertragsnachweise. Konkrete Angebote, deren Verfügbarkeit, Akzeptanz, Gebühren, Vergütungsinteressen und Risiken stets prüfen. Keine Wallet oder Anmeldung erforderlich.",keys:"Pfeiltasten: weiter und zurück · M: Inhaltsübersicht · T: Vortragendenansicht · L: Vertiefungen · auf Mobilgeräten wischen.",calendar:"TLN Community-Termine ansehen",original:"Original-Whitepaper lesen",knowledgeBtn:"Technische Details vertiefen",example:"Anschauliches Beispiel · keine Zusage",listen:"Gemeinsam entdecken",why:"Warum ist das interessant?",not:"Wichtig zu unterscheiden"},
+en:{menu:"Contents",speaker:"Presenter view",guest:"Audience view",sources:"Sources",start:"Start the discovery",back:"Back",next:"Next",again:"Start again",library:"Background knowledge",toStory:"Back to the main story",story:"Our shared discovery",knowledge:"Detailed background knowledge",coach:"Presentation speaker notes",tip:"Select to explore",insight:"What we take away",step:"Step",sourceLabel:"Evidence basis",modelInput:"Adjust sample booking",modelBase:"Booking amount (USDT/USDC)",modelOut:"Advertised v$ reward (20%)",modelNote:"Illustration from the vTravel provider's offer. Not cash back: future use depends on current offer, booking and acceptance terms.",sourceInfo:"The main story explains purpose, potential value and connections. Sources: VOW Whitepaper v6.7 (March 2026), public vTravel Phase 1 offer, TLN DApp descriptions and the academy's 18 Aug 2026 assessment (overall AMBER–RED). The optional library contains technical depth. Six source lecture pages informed the editorial work but are not linked.",legal:"Educational presentation, not investment, legal or tax advice. Provider statements aren't guarantees or independent proof of revenue. Verify live availability, acceptance, costs, incentives and risks. No wallet or sign-up required.",keys:"Arrow keys: next/back · M: menu · T: speaker view · L: detail library · swipe on mobile.",calendar:"See official TLN community calls",original:"Read the original whitepaper",knowledgeBtn:"Explore technical background",example:"Illustration · not a guarantee",listen:"Explore together",why:"Why does it matter?",not:"A useful distinction"}};
 const $=id=>document.getElementById(id);
-const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let n=0,lang="de",speaker=false,choices={},models={voucher:1000,travel:500,lending:10000};
-const tr=v=>Array.isArray(v)?v[lang==="de"?0:1]:(v??"");
-function tile(item,i){
-return '<button type="button" class="tile" data-choice="'+i+'" aria-pressed="'+String((choices[n]||0)===i)+'" style="--i:'+i+'"><small>'+String(i+1).padStart(2,"0")+'</small><strong>'+safe(tr(item.name))+'</strong><span class="arrow" aria-hidden="true">↗</span></button>';
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let lang="de",mode="story",idx=0,speaker=false,selections={},examples={travel:500},menuTab="story";
+function T(pair){return Array.isArray(pair)?pair[lang==="de"?0:1]:(pair??"");}
+const fmt=x=>Number(x).toLocaleString(lang==="de"?"de-DE":"en-US",{maximumFractionDigits:2});
+function deck(){return mode==="story"?story:background;}
+function thisScene(){return deck()[idx];}
+function open(id){const el=$(id);if(el&&!el.open)el.showModal();}
+function toDeck(m,num=0){mode=m;idx=Math.max(0,Math.min(num,deck().length-1));renderNav();draw();}
+function go(num){idx=Math.max(0,Math.min(num,deck().length-1));draw();}
+function rowCards(scene,options={}){
+const current=selections[mode+idx]??0;
+const cards=scene.items||[];
+const count=cards.length;
+const klass=options.klass||(count===2?"two":count===4?"four":"");
+const list='<div class="experience-grid '+klass+'">'+cards.map((x,i)=>
+'<button type="button" class="experience-card" data-choice="'+i+'" aria-pressed="'+String(current===i)+'" style="--card-index:'+i+'"><span class="experience-mark">'+String(i+1).padStart(2,"0")+'</span><strong>'+esc(T(x.name))+'</strong><span class="experience-more" aria-hidden="true">↗</span></button>').join("")+'</div>';
+if(options.cardsOnly)return list;
+const active=cards[current]||cards[0];
+return list+'<div class="experience-detail" id="choiceFocus" aria-live="polite"><span class="experience-eye">'+esc(w[lang].why)+'</span><p>'+esc(T(active?.detail))+'</p></div>';
 }
-function displayCards(s){
-const count=s.items.length;
-const selected=s.items[Math.min(choices[n]||0,count-1)]||s.items[0];
-const gridClass=s.kind==="flow"?"flow":s.kind==="compare"?"compare":s.kind==="stack"?"stack":s.kind==="timeline"?"timeline":"grid"+(count===2?" two":count===4?" four":"");
-const style=s.kind==="flow"?' style="--cols:'+Math.min(4,count)+'"':"";
-const buttons=s.items.map(tile).join("");
-if(s.kind==="map")return '<div class="map"><div class="map-grid">'+buttons+'</div><div class="map-focus"><div class="map-glyph" aria-hidden="true">◎</div><h3 id="focusTitle">'+safe(tr(selected.name))+'</h3><p id="focusDetail">'+safe(tr(selected.detail))+'</p></div></div>';
-return '<div class="'+gridClass+'"'+style+'>'+buttons+'</div><div class="detail" id="focusDetail" aria-live="polite">'+safe(tr(selected.detail))+'</div>';
+function action(type,label,kind=""){return '<button type="button" class="journey-action '+kind+'" data-action="'+type+'">'+esc(label)+' <span aria-hidden="true">↗</span></button>';}
+function anchor(url,text){return '<a class="journey-action" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(text)+' <span aria-hidden="true">↗</span></a>';}
+function specialVisual(s){
+switch(s.kind){
+ case "hero":
+ return '<div class="hero-experience"><div class="hero-left"><p class="giant-words">'+(lang==="de"?"Aus dem Alltag.":"From everyday life.")+'<span>'+(lang==="de"?"In neue Möglichkeiten.":"Into new possibilities.")+'</span></p><div class="hero-actions">'+action("next",w[lang].start,"primary")+'</div><div class="hero-pills"><span>VOW</span><span>+</span><span>TLN</span></div></div><div class="hero-world" aria-hidden="true"><div class="world-ring outer"></div><div class="world-ring inner"></div><span class="world-dot dot-a">◎</span><span class="world-dot dot-b">✦</span><span class="world-dot dot-c">↗</span><div class="world-center"><small>'+(lang==="de"?"GEMEINSAM":"TOGETHER")+'</small><b>WIR</b></div></div></div>';
+ case "islands":
+ return '<div class="islands-demo"><div class="island-top"><span>'+(lang==="de"?"EINZELNE VORTEILE":"SEPARATE REWARDS")+'</span><span>'+(lang==="de"?"VOW-IDEE":"VOW CONCEPT")+'</span></div><div class="islands-split"><div class="isolated"><i>★</i><i>✈</i><i>◈</i></div><div class="connection-icon">→</div><div class="connected"><i>★</i><i>✈</i><i>◈</i><span>◎</span></div></div>'+rowCards(s)+'</div>';
+ case "journey":
+ return '<div class="journey-steps">'+s.items.map((q,i)=>'<button class="journey-step" type="button" data-choice="'+i+'" aria-pressed="'+String((selections[mode+idx]||0)===i)+'"><span class="step-number">'+(i+1)+'</span><strong>'+esc(T(q.name))+'</strong><span class="step-arrow">→</span></button>').join("")+'</div><div class="experience-detail" id="choiceFocus" aria-live="polite"><span class="experience-eye">'+w[lang].why+'</span><p>'+esc(T(s.items[selections[mode+idx]||0].detail))+'</p></div>';
+ case "travel":{
+ const n=examples.travel;
+ return '<div class="booking-showcase"><div class="booking-drawing"><div class="boarding-pass"><div class="boarding-head"><span>vTravel · '+(lang==="de"?"Beispielreise":"Example trip")+'</span><span>✈</span></div><div class="boarding-route"><b>START</b><span>──────── ✦ ────────</span><b>'+(lang==="de"?"ZIEL":"DESTINATION")+'</b></div><div class="boarding-bottom"><span>'+(lang==="de"?"Geplante Reise":"Planned journey")+'</span><strong>'+fmt(n)+' USDT/USDC</strong></div></div></div><div class="booking-controls"><label for="bookingRange">'+esc(w[lang].modelInput)+'</label><input id="bookingRange" type="range" min="100" max="3000" step="50" value="'+n+'"><div class="booking-metrics"><div><small>'+w[lang].modelBase+'</small><strong id="bookingBase">'+fmt(n)+'</strong></div><div><small>'+w[lang].modelOut+'</small><strong id="bookingReward">'+fmt(n*.2)+' v$</strong></div></div><p class="booking-warning">'+esc(w[lang].modelNote)+'</p></div></div>';
+ }
+ case "network":
+ return '<div class="ecosystem-map"><div class="map-ring" aria-hidden="true"><span class="map-orb" style="--orb:0">◉</span><span class="map-orb" style="--orb:1">◎</span><span class="map-orb" style="--orb:2">✦</span></div><div class="map-selects">'+rowCards(s,{cardsOnly:true})+'</div><div class="map-insight" id="choiceFocus"><small>'+esc(w[lang].why)+'</small><h3 id="choiceName">'+esc(T(s.items[selections[mode+idx]||0].name))+'</h3><p>'+esc(T(s.items[selections[mode+idx]||0].detail))+'</p></div></div>';
+ case "transition":
+ return '<div class="second-world"><div class="world-panel commerce"><small>'+(lang==="de"?"BISHER ENTDECKT":"WHAT WE KNOW")+'</small><span>♧</span><h3>'+esc(T(s.items[0].name))+'</h3><p>'+esc(T(s.items[0].detail))+'</p></div><div class="world-join" aria-hidden="true">➜</div><div class="world-panel defi"><small>'+(lang==="de"?"JETZT KOMMT HINZU":"NOW WE EXPLORE")+'</small><span>◈</span><h3>'+esc(T(s.items[2].name))+'</h3><p>'+esc(T(s.items[2].detail))+'</p></div></div>';
+ case "liquidity":
+ return '<div class="liquidity-visual"><div class="market-person"><span>↗</span><strong>'+(lang==="de"?"Tauschen":"Swap")+'</strong></div><div class="market-link"></div><div class="market-pool"><div class="pool-waves" aria-hidden="true"></div><strong>'+(lang==="de"?"Liquiditätspool":"Liquidity pool")+'</strong><span>VOW + '+(lang==="de"?"Partnerwert":"paired asset")+'</span></div><div class="market-link"></div><div class="market-person"><span>↔</span><strong>'+(lang==="de"?"Handeln":"Trade")+'</strong></div></div>'+rowCards(s);
+ case "community":
+ return '<div class="community-art"><div class="community-center"><span>◎</span><b>TLN COMMUNITY</b></div><span class="comm-node n1">?</span><span class="comm-node n2">✦</span><span class="comm-node n3">↗</span><span class="comm-node n4">○</span></div>'+rowCards(s);
+ case "closing":
+ return '<div class="ending-actions"><div class="ending-statement"><span>VOW <i>+</i> TLN</span><strong>'+(lang==="de"?"Jetzt kennen wir den Weg. Gemeinsam geht es weiter.":"Now we know the path. We can keep exploring together.")+'</strong></div><div class="ending-links">'+anchor("https://kalender.digital/tln-allgemein",w[lang].calendar)+anchor("https://vowwhitepaper.com/",w[lang].original)+action("library",w[lang].knowledgeBtn)+'</div></div>';
+ default:return rowCards(s);
+}}
+function mainScene(s){
+ const visual=specialVisual(s);
+ return '<section class="scene active story-scene"><div class="scene-body"><div class="scene-head story-heading"><div class="chapter-label"><span class="phase-mark">'+esc(T(phases[s.phase]))+'</span><b>'+String(idx+1).padStart(2,"0")+' / '+story.length+'</b></div><h'+(idx===0?"1":"2")+'>'+esc(T(s.title))+'</h'+(idx===0?"1":"2")+'><p class="lead">'+esc(T(s.lead))+'</p><p class="story-explain">'+esc(T(s.body))+'</p></div><div class="story-visual">'+visual+'</div><div class="insight-bar"><strong>'+esc(w[lang].insight)+'</strong><span>'+esc(T(s.insight))+'</span></div><div class="story-tail">'+w[lang].sourceLabel+': '+esc(s.source)+' <button type="button" data-action="library" class="detail-access">'+esc(w[lang].knowledgeBtn)+' ↗</button></div></div></section>';
 }
-function displayHero(s){
-return '<div class="hero-layout"><div><div class="hero-voice">'+safe(tr(s.narration))+'</div><div class="hero-actions"><button type="button" class="primary" data-action="next">'+words[lang].start+' →</button><button type="button" data-action="menu">'+words[lang].menu+' ☷</button></div></div><div class="orbit" aria-hidden="true"><div class="orbit-center">VOW + TLN</div></div></div>';
+function libraryScene(s){
+ const selected=s.items?.[selections["library"+idx]||0]||s.items?.[0];
+ const title=esc(T(s.title)), lead=esc(T(s.lead));let v="";
+ if(["voucher","travel","lending"].includes(s.kind)){
+  const isTravel=s.kind==="travel",isVoucher=s.kind==="voucher",v0=isVoucher?1000:isTravel?500:10000;
+  v='<div class="model"><div class="model-head"><span>'+w[lang].example+'</span><strong>'+fmt(v0)+' '+(isVoucher?"v$":"USDT")+'</strong></div><div class="model-results"><div class="model-result"><strong>'+fmt(v0)+'</strong><span>'+(isVoucher?"v$": "USDT / USDC")+'</span></div><div class="model-result"><strong>'+fmt(v0*.2)+'</strong><span>'+(isVoucher?"USD VOW":isTravel?"v$ Reward":"USDT Ziel-APY")+'</span></div></div><p class="model-note">'+(isTravel?w[lang].modelNote:isVoucher?(lang==="de"?"Nur die Whitepaper-Modellquote; keine Bargelddeckung.":"Whitepaper example only; not cash backing."):(lang==="de"?"Beworbenes APY-Ziel, nicht garantiert; 367 Tage und eigene Risiken.":"Advertised APY target, not guaranteed; 367 days and separate risks."))+'</p></div>';
+ }else if(s.kind==="hero"){v='<div class="hero-layout"><div class="hero-voice">'+esc(T(s.narration))+'</div><div class="orbit"><div class="orbit-center">VOW + TLN</div></div></div>';}
+ else {const grid=s.kind==="flow"?"flow":s.kind==="compare"?"compare":s.kind==="stack"?"stack":s.kind==="timeline"?"timeline":"grid"+(s.items.length===2?" two":s.items.length===4?" four":"");
+ const buttons=s.items.map((item,i)=>'<button type="button" data-choice="'+i+'" class="tile" aria-pressed="'+String((selections["library"+idx]||0)===i)+'" style="--i:'+i+'"><small>'+String(i+1).padStart(2,"0")+'</small><strong>'+esc(T(item.name))+'</strong><span class="arrow">↗</span></button>').join("");
+ v=s.kind==="map"?'<div class="map"><div class="map-grid">'+buttons+'</div><div class="map-focus"><div class="map-glyph">◎</div><h3 id="choiceName">'+esc(T(selected.name))+'</h3><p id="choiceFocus">'+esc(T(selected.detail))+'</p></div></div>':'<div class="'+grid+'">'+buttons+'</div><div class="detail" id="choiceFocus">'+esc(T(selected?.detail))+'</div>';
+ }
+ return '<section class="scene active"><div class="scene-body"><div class="scene-head"><div class="chapter-label">'+esc(T(oldChapters[s.ch]))+' <b>'+(idx+1)+' / '+background.length+'</b></div><h2>'+title+'</h2><p class="lead">'+lead+'</p></div>'+v+'<p class="source">'+esc(w[lang].sourceLabel)+': '+esc(s.source)+'</p></div></section>';
 }
-function displayModel(s){
-const spec={
-voucher:{min:100,max:5000,step:100,base:"v$",result:"USD",head:"voucherBase",out:"voucherResult",note:"voucherNote"},
-travel:{min:100,max:3000,step:100,base:"USDT",result:"v$",head:"travelBase",out:"travelResult",note:"travelNote"},
-lending:{min:10000,max:50000,step:1000,base:"USDT",result:"USDT",head:"lendBase",out:"lendResult",note:"lendNote"}
-}[s.kind];
-const amt=models[s.kind],fmt=v=>Number(v).toLocaleString(lang==="de"?"de-DE":"en-US");
-return '<div class="model"><div class="model-head"><span>'+words[lang].modelInput+'</span><strong id="modelAmount">'+fmt(amt)+' '+spec.base+'</strong></div><input id="modelSlider" type="range" min="'+spec.min+'" max="'+spec.max+'" step="'+spec.step+'" value="'+amt+'" aria-label="'+words[lang].modelInput+'"><div class="model-results"><div class="model-result"><strong id="modelBase">'+fmt(amt)+' '+spec.base+'</strong><span>'+words[lang][spec.head]+'</span></div><div class="model-result"><strong id="modelResult">'+fmt(amt*.2)+' '+spec.result+'</strong><span>'+words[lang][spec.out]+'</span></div></div><p class="model-note">'+words[lang][spec.note]+'</p></div>';
+function renderNav(){
+ const groups=mode==="story"?phases:oldChapters;
+ $("chapters").innerHTML=groups.map((pair,i)=>'<button type="button" class="chapter" data-chapter="'+i+'" aria-current="false">'+esc(T(pair))+'</button>').join("");
+ $("menuGrid").innerHTML=(menuTab==="story"?story:background).map((s,i)=>'<button type="button" data-menu-scene="'+i+'"><small>'+String(i+1).padStart(2,"0")+'</small>'+esc(T(s.title))+'</button>').join("");
+ $("menuTitle").textContent=menuTab==="story"?w[lang].story:w[lang].knowledge;
+ $("libraryBtn").textContent=mode==="story"?"◈ "+w[lang].library:"← "+w[lang].toStory;
 }
 function draw(){
-const s=deck[n];if(!s)return;
-const stage=$("stage"),title=safe(tr(s.title)),lead=safe(tr(s.lead));
-let middle=s.kind==="hero"?displayHero(s):["voucher","travel","lending"].includes(s.kind)?displayModel(s):displayCards(s);
-stage.innerHTML='<section class="scene active"><div class="scene-body"><div class="scene-head"><div class="chapter-label">'+String(s.ch+1).padStart(2,"0")+' / '+chapters.length+' · '+safe(tr(chapters[s.ch]))+' <b>'+String(n+1).padStart(2,"0")+' / '+deck.length+'</b></div><'+(n===0?"h1":"h2")+'>'+title+'</'+(n===0?"h1":"h2")+'><p class="lead">'+lead+'</p></div>'+middle+'<p class="source">'+words[lang].sourceLabel+': '+safe(s.source)+'</p></div></section>';
-$("back").disabled=n===0;$("forwardLabel").textContent=n===deck.length-1?words[lang].again:words[lang].next;
-$("trackFill").style.width=100*(n+1)/deck.length+"%";$("counter").textContent=(n+1)+" / "+deck.length;
-$("speakerLabel").textContent=words[lang].label+" · "+tr(chapters[s.ch]);
-$("speakerText").textContent=tr(s.narration);
-$("speakerPanel").hidden=!speaker;$("speakerToggle").setAttribute("aria-pressed",String(speaker));
-$("speakerToggle").textContent=speaker?words[lang].speaker:words[lang].guest;
-document.querySelectorAll("[data-chapter]").forEach(b=>b.setAttribute("aria-current",String(Number(b.dataset.chapter)===s.ch)));
-document.querySelectorAll("[data-slide]").forEach(b=>b.setAttribute("aria-current",String(Number(b.dataset.slide)===n)));
-document.title=tr(s.title)+" · VOW & TLN";
+ const s=thisScene();if(!s)return;
+ $("stage").innerHTML=mode==="story"?mainScene(s):libraryScene(s);
+ $("back").disabled=idx===0;
+ $("forwardLabel").textContent=idx===deck().length-1?w[lang].again:w[lang].next;
+ $("trackFill").style.width=(100*(idx+1)/deck().length)+"%";
+ $("counter").textContent=(idx+1)+" / "+deck().length;
+ $("speakerLabel").textContent=w[lang].coach+" · "+(mode==="story"?T(phases[s.phase]):T(oldChapters[s.ch]));
+ $("speakerText").textContent=T(mode==="story"?s.voice:s.narration);
+ $("speakerPanel").hidden=!speaker;
+ $("speakerToggle").setAttribute("aria-pressed",String(speaker));
+ $("speakerToggle").textContent=speaker?w[lang].speaker:w[lang].guest;
+ $("libraryBtn").textContent=mode==="story"?"◈ "+w[lang].library:"← "+w[lang].toStory;
+ document.querySelectorAll("[data-chapter]").forEach(el=>el.setAttribute("aria-current",String(Number(el.dataset.chapter)===(mode==="story"?s.phase:s.ch))));
+ document.querySelectorAll("[data-menu-scene]").forEach(el=>el.setAttribute("aria-current",String(mode===menuTab&&Number(el.dataset.menuScene)===idx)));
+ document.title=T(s.title)+" · VOW & TLN";
 }
-function go(i){n=Math.min(Math.max(0,i),deck.length-1);draw();}
-function selectTile(i){
-const item=deck[n].items[i];if(!item)return;
-choices[n]=i;document.querySelectorAll("[data-choice]").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.choice)===i)));
-$("focusDetail").textContent=tr(item.detail);if($("focusTitle"))$("focusTitle").textContent=tr(item.name);
+function switchLang(value){
+ if(!["de","en"].includes(value))return;lang=value;
+ document.documentElement.lang=lang;
+ $("menuBtn").textContent="☷ "+w[lang].menu;$("sourceBtn").textContent="ⓘ "+w[lang].sources;
+ $("backLabel").textContent=w[lang].back;$("sourceTitle").textContent=w[lang].sources;
+ $("sourceInfo").textContent=w[lang].sourceInfo;$("legal").textContent=w[lang].legal;$("menuKeys").textContent=w[lang].keys;
+ $("showStory").textContent=w[lang].story;$("showLibrary").textContent=w[lang].knowledge;
+ document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===lang)));
+ renderNav();draw();
 }
-function nav(){
-$("chapters").innerHTML=chapters.map((c,i)=>'<button type="button" class="chapter" data-chapter="'+i+'">'+String(i+1).padStart(2,"0")+' · '+safe(tr(c))+'</button>').join("");
-$("menuGrid").innerHTML=deck.map((s,i)=>'<button type="button" data-slide="'+i+'"><small>'+String(i+1).padStart(2,"0")+'</small>'+safe(tr(s.title))+'</button>').join("");
+function choice(i){
+ const s=thisScene(),active=s.items?.[i];if(!active)return;
+ selections[mode+idx]=i;
+ $("stage").querySelectorAll("[data-choice]").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.choice)===i)));
+ const d=$("choiceFocus"),name=$("choiceName");
+ if(d){if(mode==="story"&&d.classList.contains("map-insight")){const p=d.querySelector("p");if(p)p.textContent=T(active.detail);}else {const p=d.querySelector("p");if(p)p.textContent=T(active.detail);else d.textContent=T(active.detail);}}
+ if(name)name.textContent=T(active.name);
 }
-function renderWords(){
-$("menuBtn").textContent="☷ "+words[lang].menu;$("sourceBtn").textContent="ⓘ "+words[lang].sources;
-$("backLabel").textContent=words[lang].back;$("menuTitle").textContent=words[lang].menu;
-$("sourceTitle").textContent=words[lang].sources;$("sourceInfo").textContent=words[lang].sourceInfo;
-$("legal").textContent=words[lang].legal;$("menuKeys").textContent=words[lang].keys;
-document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===lang)));
-}
-function language(value){if(!["de","en"].includes(value))return;lang=value;document.documentElement.lang=value;nav();renderWords();draw();}
-function open(id){if(!$(id).open)$(id).showModal();}
 document.addEventListener("click",e=>{
-const b=e.target.closest("button");if(!b)return;
-if(b.dataset.choice!==undefined){selectTile(Number(b.dataset.choice));return;}
-if(b.dataset.chapter!==undefined){go(deck.findIndex(s=>s.ch===Number(b.dataset.chapter)));return;}
-if(b.dataset.slide!==undefined){go(Number(b.dataset.slide));$("sceneMenu").close();return;}
-if(b.dataset.lang){language(b.dataset.lang);return;}
-switch(b.dataset.action){
-case "next":go(n===deck.length-1?0:n+1);break;
-case "back":go(n-1);break;
-case "menu":open("sceneMenu");break;
-case "sources":open("sourceMenu");break;
-case "speaker":speaker=!speaker;draw();break;
-case "fullscreen":if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{});break;
-case "closeScenes":$("sceneMenu").close();break;
-case "closeSources":$("sourceMenu").close();break;
-}});
+ const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.choice!==undefined){choice(Number(b.dataset.choice));return;}
+ if(b.dataset.chapter!==undefined){let set=mode==="story"?story:background,phase=Number(b.dataset.chapter);go(Math.max(0,set.findIndex(s=>(mode==="story"?s.phase:s.ch)===phase)));return;}
+ if(b.dataset.menuScene!==undefined){toDeck(menuTab,Number(b.dataset.menuScene));$("sceneMenu").close();return;}
+ if(b.dataset.lang){switchLang(b.dataset.lang);return;}
+ switch(b.dataset.action){
+ case "next":go(idx===deck().length-1?0:idx+1);break;
+ case "back":go(idx-1);break;
+ case "menu":menuTab=mode;renderNav();open("sceneMenu");break;
+ case "library":toDeck(mode==="story"?"library":"story",0);break;
+ case "showStory":menuTab="story";renderNav();break;
+ case "showLibrary":menuTab="library";renderNav();break;
+ case "sources":open("sourceMenu");break;
+ case "speaker":speaker=!speaker;draw();break;
+ case "fullscreen":if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{});break;
+ case "closeScenes":$("sceneMenu").close();break;
+ case "closeSources":$("sourceMenu").close();break;
+ }
+});
 document.addEventListener("input",e=>{
-if(e.target.id!=="modelSlider")return;
-const type=deck[n].kind;models[type]=Number(e.target.value);const base=type==="voucher"?"v$":"USDT",other=type==="travel"?"v$":type==="voucher"?"USD":"USDT",fmt=v=>Number(v).toLocaleString(lang==="de"?"de-DE":"en-US");
-$("modelAmount").textContent=fmt(models[type])+" "+base;$("modelBase").textContent=$("modelAmount").textContent;
-$("modelResult").textContent=fmt(models[type]*.2)+" "+other;
+ if(e.target.id!=="bookingRange")return;
+ const value=Number(e.target.value);examples.travel=value;
+ $("bookingBase").textContent=fmt(value);
+ $("bookingReward").textContent=fmt(value*.2)+" v$";
+ const pass=$("stage").querySelector(".boarding-bottom strong");if(pass)pass.textContent=fmt(value)+" USDT/USDC";
 });
 document.addEventListener("keydown",e=>{
-if(e.target.closest("input,textarea,select")||$("sceneMenu").open||$("sourceMenu").open||e.altKey||e.ctrlKey||e.metaKey)return;
-if(["ArrowRight","PageDown"].includes(e.key)){e.preventDefault();go(n+1)}
-else if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();go(n-1)}
-else if(e.key==="Home")go(0);else if(e.key==="End")go(deck.length-1);
-else if(e.key.toLowerCase()==="m")open("sceneMenu");
-else if(e.key.toLowerCase()==="t"){speaker=!speaker;draw();}
+ if(e.target.closest("input,textarea,select")||$("sceneMenu").open||$("sourceMenu").open||e.altKey||e.ctrlKey||e.metaKey)return;
+ if(["ArrowRight","PageDown"].includes(e.key)){e.preventDefault();go(idx+1);}
+ else if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();go(idx-1);}
+ else if(e.key==="Home")go(0);else if(e.key==="End")go(deck().length-1);
+ else if(e.key.toLowerCase()==="m"){menuTab=mode;renderNav();open("sceneMenu");}
+ else if(e.key.toLowerCase()==="t"){speaker=!speaker;draw();}
+ else if(e.key.toLowerCase()==="l"){toDeck(mode==="story"?"library":"story",0);}
 });
 let touch=null;
-$("stage").addEventListener("touchstart",e=>{if(e.target.closest("button,input")){touch=null;return;}touch=[e.touches[0].clientX,e.touches[0].clientY]},{passive:true});
-$("stage").addEventListener("touchend",e=>{if(!touch)return;const dx=e.changedTouches[0].clientX-touch[0],dy=e.changedTouches[0].clientY-touch[1];if(Math.abs(dx)>90&&Math.abs(dx)>Math.abs(dy)*1.5)go(n+(dx<0?1:-1));touch=null;},{passive:true});
-$("sourceLinks").innerHTML=refs.map(([label,url])=>'<div><a href="'+safe(url)+'" target="_blank" rel="noopener noreferrer">'+safe(label)+' ↗</a></div>').join("");
-if(deck.length<30||deck.some(s=>!chapters[s.ch]||!s.title||!s.narration))throw Error("Presentation scene data is incomplete");
-language("de");
+$("stage").addEventListener("touchstart",e=>{if(e.target.closest("button,input")){touch=null;return}touch=[e.touches[0].clientX,e.touches[0].clientY]},{passive:true});
+$("stage").addEventListener("touchend",e=>{if(!touch)return;const dx=e.changedTouches[0].clientX-touch[0],dy=e.changedTouches[0].clientY-touch[1];if(Math.abs(dx)>92&&Math.abs(dx)>Math.abs(dy)*1.5)go(idx+(dx<0?1:-1));touch=null;},{passive:true});
+$("sourceLinks").innerHTML=sourceLinks.map(([title,url])=>'<div><a target="_blank" rel="noopener noreferrer" href="'+esc(url)+'">'+esc(title)+' ↗</a></div>').join("");
+if(story.length<12||background.length<30)throw Error("Presentation data incomplete");
+switchLang("de");
 })();
