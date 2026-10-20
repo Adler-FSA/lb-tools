@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Was bringt LiquidityBooster TLN-Nutzern und Empfehlenden? Finanzbildung, MiCA-Wording, Schutzschirm, Fallschirm, Hörsaal, Werkzeuge, Community und Club-Mitgliedschaften.">
+<title>TLN & LiquidityBooster – Mehrwert für Menschen, die weiterempfehlen</title>
+<style>
+:root{--navy:#132238;--navy-2:#1f3652;--mint:#00a7ad;--mintdark:#00767f;--magenta:#c6006f;--ink:#22354b;--muted:#607187;--line:#dce7eb;--paper:#fff;--mist:#f5f9fb;--pale:#eafbfa;--pink:#fff0f7;--round:18px;--shadow:0 18px 45px rgba(17,39,57,.065)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{margin:0;font:16px/1.68 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+a{color:var(--mintdark);text-underline-offset:3px}
+button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--magenta);outline-offset:4px}
+.wrap{width:min(1140px,calc(100% - 38px));margin:auto}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;padding:8px 14px;background:white;border:2px solid var(--mint)}
+.skip:focus{left:12px}
+.navbar{border-bottom:1px solid #e5ecef;background:rgba(255,255,255,.96)}
+.nav-inner{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--navy);text-decoration:none;font-weight:850;font-size:17px;letter-spacing:-.02em}
+.brand-mark{width:33px;height:33px;border-radius:11px;position:relative;background:linear-gradient(135deg,var(--mint),#0e7b87);display:grid;place-items:center;color:white;font-size:18px}
+.brand-mark:after{content:"";width:9px;height:33px;background:var(--magenta);position:absolute;right:-4px;top:0;border-radius:3px;opacity:.9}
+.navside{display:flex;align-items:center;gap:14px}
+.navside>a{font-size:12px;text-decoration:none;color:var(--navy);font-weight:780}
+.lang{display:flex;gap:6px;padding:4px;border-radius:12px;background:#f2f7f7}
+.lang button{border:0;padding:5px 10px;border-radius:8px;background:transparent;color:var(--navy);font-size:12px;font-weight:800}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--mintdark);box-shadow:0 2px 7px rgba(19,34,56,.1)}
+.hero{background:radial-gradient(ellipse at 87% 7%,rgba(198,0,111,.1),transparent 37%),radial-gradient(ellipse at 5% 58%,rgba(0,167,173,.12),transparent 42%),linear-gradient(115deg,#f2fbf9,#fff 62%);border-bottom:1px solid #e0eff0}
+.hero-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:55px;align-items:center;min-height:575px;padding:77px 0 76px}
+.overline,.kicker{display:inline-block;color:var(--magenta);font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:900}
+h1,h2,h3,p{overflow-wrap:break-word}h1,h2,h3{color:var(--navy);line-height:1.18}
+h1{font-size:clamp(36px,4.6vw,62px);letter-spacing:-.045em;margin:18px 0 22px;font-weight:850;text-wrap:balance}
+.hero-lead{color:#45566a;font-size:clamp(16px,1.7vw,19px);line-height:1.65;max-width:660px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:13px 21px;border-radius:10px;font-size:14px;font-weight:780;line-height:1.3;text-decoration:none;border:1px solid transparent;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.button:hover{transform:translateY(-2px)}
+.button--primary{background:var(--magenta);color:#fff}
+.button--primary:hover{color:#fff;background:#a7005f;box-shadow:0 9px 24px rgba(198,0,111,.2)}
+.button--secondary{color:var(--navy);background:#fff;border-color:#c9dfe0}
+.button--secondary:hover,.button--outline:hover{background:#eaf9f6;color:var(--mintdark);border-color:var(--mint)}
+.button--outline{background:#fff;border-color:#a9d5d0;color:var(--mintdark)}
+.button--white{background:white;color:var(--navy)}
+.button--ghost{background:transparent;color:white;border-color:rgba(255,255,255,.5)}
+.button--ghost:hover{background:rgba(255,255,255,.09);color:white}
+.arr{font-size:18px;line-height:1}
+.hero-truth{display:flex;align-items:flex-start;gap:11px;margin-top:30px;max-width:580px}
+.hero-truth-icon{display:grid;place-items:center;flex:none;width:21px;height:21px;background:#d8f8ef;border-radius:50%;color:#078473;font-weight:900}
+.hero-truth p{margin:0;font-size:12px;line-height:1.6;color:#4e6270}
+.hero-diagram{position:relative;min-height:405px;display:flex;justify-content:center;align-items:center;gap:25px;padding:20px 12px 110px}
+.orb{z-index:2;position:relative;width:183px;height:183px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-radius:50%;background:#fff;border:2px solid #d4e6e6;box-shadow:0 19px 45px rgba(19,34,56,.09);padding:20px}
+.orb::before{content:"";position:absolute;inset:9px;border-radius:50%;border:1px dashed #b4d6d3}
+.orb span,.orb strong{z-index:1}.orb strong{font-size:16px;line-height:1.25;color:var(--navy)}
+.orb span:not(.orb-icon){font-size:11px;color:var(--muted);margin-top:5px}
+.orb-icon{font-size:37px;color:var(--mint);line-height:1.3;margin-bottom:7px}
+.orb-lb{border-color:#efd6e4}.orb-lb .orb-icon{color:var(--magenta)}
+.hero-lines{position:absolute;width:80px;height:40px;top:47%;left:50%;transform:translate(-50%,-110%);display:grid;place-items:center;z-index:0}
+.hero-lines span{position:absolute;width:105px;height:2px;background:linear-gradient(90deg,var(--mint),var(--magenta));transform:rotate(21deg)}
+.hero-lines span+span{transform:rotate(-21deg)}
+.hero-result{z-index:3;position:absolute;bottom:15px;left:50%;transform:translateX(-50%);background:var(--navy);padding:17px 22px;min-width:305px;border-radius:14px;display:flex;gap:12px;align-items:center;color:#fff;box-shadow:0 18px 30px rgba(19,34,56,.2)}
+.hero-result strong{color:white;display:block;font-size:16px;white-space:nowrap}
+.hero-result small{color:#c9e0e3;font-size:11px}
+.result-star{font-size:28px;color:#64e2d6}
+.section{padding:87px 0;scroll-margin-top:30px}
+.section--light{background:var(--mist);border-top:1px solid #eef3f5;border-bottom:1px solid #eef3f5}
+.section-heading{text-align:center;max-width:780px;margin:0 auto 38px}
+.section-heading h2,.section-intro h2,.split h2,.experience-copy h2,.closing h2{font-size:clamp(29px,3.4vw,42px);line-height:1.2;letter-spacing:-.035em;margin:13px 0 17px}
+.section-heading p,.section-intro p,.split p,.experience-copy p,.closing p{margin:0;color:var(--muted);font-size:17px;line-height:1.73}
+.section-intro{max-width:860px;margin:0 auto;text-align:center}
+.idea-row{display:flex;align-items:center;gap:18px;max-width:900px;margin:36px auto 0}
+.idea-card{background:#f5fafb;border:1px solid #dce8ea;border-radius:14px;padding:23px 27px;flex:1}
+.idea-card--active{background:#ecfaf5;border-color:#b5e2d9}
+.idea-number{color:var(--navy);font-size:18px;font-weight:810;letter-spacing:-.02em}
+.idea-card p{color:#4e6276;margin:8px 0 0;font-size:14px}
+.idea-arrow{font-size:27px;color:var(--magenta);font-weight:900}
+.split{display:grid;grid-template-columns:1fr .85fr;gap:70px;align-items:center}
+.timeline-box{border-radius:17px;padding:26px 26px 27px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+.timeline-line{display:grid;grid-template-columns:65px 1fr;gap:19px;position:relative;padding:7px 0 19px}
+.timeline-line+.timeline-line{border-top:1px dashed var(--line);padding-top:19px}
+.timeline-line>span{display:grid;place-items:center;width:57px;height:57px;border-radius:50%;background:#e9f8f6;color:var(--mintdark);font-weight:850}
+.timeline-line:nth-child(2)>span{background:#fff0f7;color:var(--magenta)}
+.timeline-line div{padding-top:7px}.timeline-line strong{display:block;font-size:16px;color:var(--navy)}.timeline-line small{color:var(--muted);font-size:13px;line-height:1.4;display:block;margin-top:5px}
+.sayings-header{text-align:center;margin:50px auto 25px;max-width:780px}
+.sayings-header h3{font-size:23px;margin:0 0 7px;letter-spacing:-.025em}
+.sayings-header p{margin:0;color:var(--muted);font-size:13px}
+.wording-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.word-pair{overflow:hidden;border:1px solid var(--line);background:#fff;border-radius:14px;min-width:0}
+.word-old,.word-new{padding:18px 19px;min-height:138px}
+.word-old{background:#fff4f9;border-bottom:1px solid #eddae3}
+.word-new{background:#f0faf8}
+.word-label{font-size:10px;font-weight:900;letter-spacing:.075em}
+.word-label--old{color:#a9005f}.word-label--new{color:#087e77}
+.word-pair p{margin:12px 0 0;font-size:14px;line-height:1.5;font-weight:650;color:var(--navy)}
+.disclaimer{border-left:3px solid #c6dce0;padding:8px 18px;margin:22px 0 0;color:var(--muted);font-size:12px}
+.disclaimer p{margin:0}
+.benefit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.benefit{border:1px solid #dde9ea;background:#fff;padding:25px 22px 25px;border-radius:15px;box-shadow:0 8px 24px rgba(19,34,56,.025);transition:transform .2s ease,box-shadow .2s ease}
+.benefit:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.benefit-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.benefit-num{font-size:13px;color:#96a8b2;font-weight:850}
+.benefit-icon{width:37px;height:37px;stroke:var(--mint)}
+.benefit:nth-child(even) .benefit-icon{stroke:var(--magenta)}
+.benefit h3{font-size:18px;line-height:1.32;letter-spacing:-.025em;margin:0 0 14px}
+.benefit p{font-size:14px;line-height:1.65;color:var(--muted);margin:0}
+#gemeinschaft{background:linear-gradient(180deg,#f4f9fb,#fff)}
+.community-layout{display:grid;grid-template-columns:1fr 33px 1fr;gap:20px;align-items:center;max-width:960px;margin:0 auto}
+.comm-card{border:1px solid #cce6e3;border-radius:17px;padding:29px;background:#ecfaf8;min-height:208px}
+.comm-card--lb{background:#fff3f9;border-color:#f0dce6}
+.comm-head{display:flex;align-items:center;gap:13px}
+.comm-head h3{margin:0;font-size:22px}
+.comm-symbol{width:43px;height:43px;border-radius:12px;background:var(--mint);color:#fff;font-size:25px;display:grid;place-items:center}
+.comm-card--lb .comm-symbol{background:var(--magenta)}
+.comm-card p{margin:19px 0 0;color:#526579;font-size:15px}
+.plus-sign{font-size:33px;color:var(--navy);font-weight:700;text-align:center}
+.community-result{max-width:790px;margin:21px auto 0;background:var(--navy);color:#fff;display:flex;align-items:center;gap:18px;border-radius:14px;padding:22px 25px}
+.community-result strong{font-size:18px;color:#fff}.community-result p{margin:4px 0 0;color:#d4e2e6;font-size:14px}
+.result-dot{font-size:30px;color:#50ddd4}
+.shield-layout{display:grid;grid-template-columns:repeat(2,1fr);gap:21px}
+.shield-card{border-radius:17px;border:1px solid #d4eae7;background:#f4fbfa;padding:30px;display:grid;grid-template-columns:100px 1fr;gap:25px;align-items:center}
+.shield-card--second{background:#fff7fa;border-color:#efdfeb}
+.shield-pict svg{width:100px;height:100px}
+.shield-card h3{font-size:24px;margin:0 0 10px}
+.shield-card p{font-size:15px;color:var(--muted);line-height:1.65;margin:0}
+#alltag{padding-top:48px;padding-bottom:60px}
+.experience-box{display:grid;grid-template-columns:.9fr 1fr;gap:55px;align-items:center;border-radius:23px;background:linear-gradient(112deg,#e8fbf5,#f9fcff 52%,#fff3f9);padding:48px}
+.experience-steps{display:grid;gap:16px}
+.story-step{display:flex;align-items:center;gap:18px;padding:18px 22px;background:#fff;border:1px solid #dbe8e8;border-radius:12px}
+.story-step span{display:grid;place-items:center;flex:none;width:41px;height:41px;border-radius:50%;background:var(--navy);color:#fff;font-size:15px;font-weight:900}
+.story-step p{font-size:14px;margin:0;line-height:1.5;color:#44596a}
+#mitgliedschaft{background:var(--mist)}
+.members{display:grid;grid-template-columns:1fr 1fr;gap:23px;align-items:stretch}
+.membership{background:#fff;border:1px solid #d9e7e9;border-radius:17px;padding:35px;display:flex;flex-direction:column;min-width:0}
+.membership--leader{border-top:4px solid var(--magenta)}.membership--partner{border-top:4px solid var(--mint)}
+.membership-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.membership-tag{font-size:10px;letter-spacing:.08em;color:var(--mintdark);font-weight:850}
+.membership--leader .membership-tag{color:var(--magenta)}
+.membership h3{font-size:31px;margin:5px 0 0;letter-spacing:-.035em}
+.price{font-size:32px;font-weight:850;color:var(--navy);white-space:nowrap}
+.price span{display:block;font-size:11px;color:var(--muted);font-weight:550;text-align:right}
+.membership>p{font-size:15px;color:var(--muted);margin:23px 0 0}
+.membership ul{padding:0;list-style:none;display:grid;gap:16px;margin:26px 0 30px}
+.membership li{display:flex;gap:11px;align-items:start;font-size:14px;line-height:1.5;color:#41546a}
+.membership li:before{content:"✓";flex:none;display:grid;place-items:center;border-radius:50%;width:19px;height:19px;color:var(--mintdark);font-size:12px;font-weight:900;background:#dcf6ef}
+.membership--leader li:before{color:#a4005d;background:#ffe0f0}
+.membership-action{margin-top:auto}.member-note{margin:23px auto 0;max-width:980px;border-left:3px solid #accad0;padding:8px 19px;color:var(--muted);font-size:13px}.member-note p{margin:0}
+.resource-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.resource{display:flex;align-items:flex-start;gap:16px;padding:20px 22px;border:1px solid #dce8e9;border-radius:13px;background:#fff;text-decoration:none;transition:box-shadow .2s ease,border-color .2s ease}
+.resource:hover{box-shadow:var(--shadow);border-color:var(--mint)}
+.resource-index{color:var(--mintdark);font-size:12px;font-weight:800;padding-top:2px}
+.resource h3{font-size:16px;margin:0 0 7px}.resource p{font-size:13px;color:var(--muted);line-height:1.55;margin:0}
+.resource-arrow{margin-left:auto;color:var(--magenta);font-size:20px}
+#ausblick{background:linear-gradient(180deg,#f5fafb,#fff);border-top:1px solid #ecf1f2}
+.upcoming-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.upcoming{border:1px solid #d8e7e9;border-radius:18px;padding:32px;background:#fff;overflow:hidden}
+.upcoming-figure{height:113px;display:flex;align-items:center;gap:25px;color:var(--mintdark)}
+.upcoming-figure--two{color:var(--magenta)}
+.upcoming-figure>span{font-size:58px;color:#d5e8e5;font-weight:850;letter-spacing:-.04em}
+.upcoming-figure--two>span{color:#f2d6e6}
+.upcoming-figure svg{width:130px;height:85px}
+.soon{display:inline-block;background:#f1f5f6;border-radius:20px;padding:5px 10px;color:#697a88;font-size:10px;letter-spacing:.08em;font-weight:850;margin:5px 0 11px}
+.upcoming h3{font-size:23px;margin:0 0 12px}.upcoming p{font-size:14px;color:var(--muted);margin:0}
+#kontakt{padding-top:34px;padding-bottom:70px}
+.closing{background:var(--navy);border-radius:21px;padding:42px 49px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.closing .kicker{color:#6ce8db}.closing h2{color:#fff;margin:8px 0 12px}
+.closing p{font-size:14px;color:#bfd1de}
+.closing-actions{display:flex;gap:10px;flex-direction:column;align-items:stretch}
+.footer{border-top:1px solid #e2ebee;background:#f8fafb}
+.footer-inner{display:flex;justify-content:space-between;gap:32px;padding:34px 0 40px;align-items:flex-start}
+.footer-inner>div{max-width:790px}.footer-brand{font-size:16px;font-weight:850;color:var(--navy)}
+.footer p{font-size:12px;color:var(--muted);line-height:1.65;margin:10px 0 0}
+.footer a{font-size:12px;font-weight:800;white-space:nowrap}
+@media(max-width:1030px){.hero-wrap{gap:20px}.orb{width:155px;height:155px}.orb strong{font-size:14px}.benefit-grid{grid-template-columns:repeat(2,1fr)}.split{gap:30px}.membership-top{flex-wrap:wrap}.community-layout{gap:12px}.shield-card{padding:23px;gap:15px}.closing{grid-template-columns:1fr}.closing-actions{flex-direction:row;flex-wrap:wrap}}
+@media(max-width:760px){.wrap{width:calc(100% - 26px)}.nav-inner{min-height:60px}.navside>a{display:none}.brand{font-size:14px}.hero-wrap{grid-template-columns:1fr;min-height:unset;padding:50px 0}.hero-diagram{min-height:300px;max-width:440px;width:100%;margin:auto;padding-bottom:95px}.hero-result{min-width:250px;padding:13px}.orb{width:146px;height:146px}.section{padding:61px 0}.idea-row{flex-direction:column;gap:10px}.idea-card{width:100%}.idea-arrow{transform:rotate(90deg)}.split{grid-template-columns:1fr}.wording-grid{grid-template-columns:1fr}.word-old,.word-new{min-height:unset}.community-layout{grid-template-columns:1fr}.plus-sign{line-height:1}.shield-layout{grid-template-columns:1fr}.experience-box{grid-template-columns:1fr;gap:26px;padding:26px 19px}.members,.resource-grid,.upcoming-grid{grid-template-columns:1fr}.membership{padding:27px}.membership-top{flex-wrap:nowrap}.price{font-size:26px}.closing{padding:31px 23px}.footer-inner{flex-direction:column;gap:18px}}
+@media(max-width:400px){h1{font-size:35px}.orb{width:129px;height:129px;padding:14px}.orb strong{font-size:13px}.orb-icon{font-size:30px}.orb span:not(.orb-icon){font-size:10px}.hero-diagram{gap:10px}.membership-top{flex-direction:column;gap:8px}.price span{text-align:left}.section-heading h2,.section-intro h2,.split h2{font-size:28px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button,.benefit,.resource{transition:none}}
+</style></head><body>
+<a href="#hauptinhalt" class="skip"><span data-i18n="skip">Zum Inhalt springen</span></a>
+<div class="navbar"><div class="wrap nav-inner"><a class="brand" href="https://liquiditybooster.de/" target="_blank" rel="noopener noreferrer"><span class="brand-mark" aria-hidden="true">✳</span>LiquidityBooster</a><div class="navside"><a href="#vorteile"><span data-i18n="nav_benefits">Vorteile</span></a><a href="#mitgliedschaft"><span data-i18n="nav_member">Mitgliedschaft</span></a><a href="#ausblick"><span data-i18n="nav_future">Trainingswelt</span></a>
+<div class="lang" role="group" aria-label="Language"><button type="button" data-lang="de" aria-pressed="true">DE</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div></div></div></div>
+<header class="hero"><div class="wrap hero-wrap">
+<div class="hero-copy">
+<p class="overline" data-i18n="hero_over">WISSEN · COMMUNITY · EIGENE WEGE</p>
+<h1 data-i18n="hero_title">Du kennst TLN. Was bringt Dir LiquidityBooster?</h1>
+<p class="hero-lead" data-i18n="hero_lead">Deine Erfahrung mit einem Projekt ist wertvoll. Die Fähigkeit, verständlich, zeitgemäß und verantwortungsvoll darüber zu sprechen, ist ein Mehrwert, der Dir langfristig bleibt.</p>
+<div class="hero-actions"><a class="button button--primary" href="#vorteile"><span data-i18n="hero_btn1">Meine Vorteile entdecken</span> <span class="arr" aria-hidden="true">→</span></a><a class="button button--secondary" href="#mitgliedschaft"><span data-i18n="hero_btn2">Mitgliedschaften vergleichen</span> <span class="arr" aria-hidden="true">→</span></a></div>
+<div class="hero-truth"><span class="hero-truth-icon" aria-hidden="true">✓</span><p data-i18n="hero_no">Du benötigst keine LiquidityBooster-Mitgliedschaft, um TLN zu nutzen oder weiterzuempfehlen. Die Mitgliedschaft bietet Dir zusätzliche Bildung, Werkzeuge und persönliche Entwicklung.</p></div>
+</div>
+<div class="hero-diagram" role="img" aria-label="Verbindung von TLN-Erfahrung und LiquidityBooster-Finanzbildung">
+<div class="orb orb-tln"><span class="orb-icon" aria-hidden="true">◈</span><strong data-i18n="hero_orb1">TLN-Erfahrung</strong><span data-i18n="hero_orb1s">Projekt verstehen</span></div>
+<div class="hero-lines" aria-hidden="true"><span></span><span></span></div>
+<div class="orb orb-lb"><span class="orb-icon" aria-hidden="true">✧</span><strong data-i18n="hero_orb2">LiquidityBooster</strong><span data-i18n="hero_orb2s">Wissen anwenden</span></div>
+<div class="hero-result"><span class="result-star" aria-hidden="true">✳</span><div><strong data-i18n="hero_result">Mehr Handlungskompetenz</strong><small data-i18n="hero_resultsub">Erklären · Einordnen · Begleiten</small></div></div>
+</div>
+</div></header>
+<main id="hauptinhalt"><div class="wrap"><section class="section" id="perspektive">
+<div class="section-intro"><span class="kicker" data-i18n="intro_k">DIE EIGENTLICHE FRAGE</span>
+<h2 data-i18n="intro_h">Aus einem Nutzer kann ein souveräner Gastgeber werden.</h2>
+<p data-i18n="intro_p">Wer seit Jahren TLN kennt, hat oft sehr viel erlebt und gelernt. Neue Menschen erreichen zu wollen, ist nachvollziehbar. Doch zwischen eigener Begeisterung, fachlicher Einordnung und persönlichen finanziellen Empfehlungen liegen wichtige Unterschiede. Genau hier kann LiquidityBooster eine zusätzliche Stärke entfalten.</p></div>
+<div class="idea-row"><div class="idea-card"><div class="idea-number" data-i18n="intro_1n">Du kennst das Projekt.</div><p data-i18n="intro_1">Du weißt, was Dich interessiert, was Du ausprobiert hast und was Du erlebt hast.</p></div>
+<div class="idea-arrow" aria-hidden="true">→</div>
+<div class="idea-card idea-card--active"><div class="idea-number" data-i18n="intro_2n">Du entwickelst Dich weiter.</div><p data-i18n="intro_2">Du lernst, Wissen bewusst weiterzugeben, Fragen einzuordnen und Menschen eigenständig entscheiden zu lassen.</p></div></div>
+</section></div>
+<div class="section--light"><div class="wrap"><section class="section section--light" id="wording">
+<div class="split"><div>
+<span class="kicker" data-i18n="word_k">NEUE ZEIT · NEUE KOMMUNIKATION</span>
+<h2 data-i18n="word_h">Heute kommt es auch darauf an, wie Du etwas sagst.</h2>
+<p data-i18n="word_p1">Viele Projektpräsentationen waren 2022 und 2023 stärker von persönlichen Erfahrungen und Begeisterung geprägt. Inzwischen hat die europäische MiCA-Verordnung den Rechtsrahmen für bestimmte Kryptowerte, Dienstleistungen und Werbemitteilungen erweitert. Andere Finanz- und Werberegeln gab es bereits vorher.</p></div>
+<div class="timeline-box"><div class="timeline-line"><span>2023</span><div><strong data-i18n="law_2023">MiCA tritt in Kraft</strong><small data-i18n="law_2023s">Ein neuer europäischer Rechtsrahmen entsteht.</small></div></div>
+<div class="timeline-line"><span>2024</span><div><strong data-i18n="law_2024">Wesentliche Regeln werden anwendbar</strong><small data-i18n="law_2024s">Je nach Bereich ab Juni beziehungsweise Dezember.</small></div></div>
+<div class="timeline-line"><span>2026</span><div><strong data-i18n="law_2026">Bewusst und zeitgemäß präsentieren</strong><small data-i18n="law_2026s">Rolle, Transparenz, Grenzen und Risiken besser verstehen.</small></div></div></div></div>
+<div class="sayings-header"><h3 data-i18n="word_examples">Ein kleiner Unterschied in Worten. Ein großer Unterschied in der Wirkung.</h3><p data-i18n="word_examples_p">Die Beispiele sind keine Rechtsgarantie, sondern zeigen eine verantwortungsvollere Art zu kommunizieren.</p></div>
+<div class="wording-grid">
+<article class="word-pair"><div class="word-old"><span class="word-label word-label--old"><span data-i18n="word_oldlab_0">WENIG HILFREICH</span></span><p data-i18n="word_old_0">„Damit wirst Du gutes Geld verdienen.“</p></div><div class="word-new"><span class="word-label word-label--new"><span data-i18n="word_newlab_0">BEWUSSTER FORMULIERT</span></span><p data-i18n="word_new_0">„Ich sehe interessante Möglichkeiten, aber Ergebnisse sind nicht garantiert. Schau Dir auch die Risiken an.“</p></div></article><article class="word-pair"><div class="word-old"><span class="word-label word-label--old"><span data-i18n="word_oldlab_1">WENIG HILFREICH</span></span><p data-i18n="word_old_1">„Du solltest jetzt einsteigen.“</p></div><div class="word-new"><span class="word-label word-label--new"><span data-i18n="word_newlab_1">BEWUSSTER FORMULIERT</span></span><p data-i18n="word_new_1">„Ich erkläre Dir, warum ich mich damit beschäftige. Ob es für Dich infrage kommt, entscheidest Du selbst.“</p></div></article><article class="word-pair"><div class="word-old"><span class="word-label word-label--old"><span data-i18n="word_oldlab_2">WENIG HILFREICH</span></span><p data-i18n="word_old_2">„Das ist einfach sicher.“</p></div><div class="word-new"><span class="word-label word-label--new"><span data-i18n="word_newlab_2">BEWUSSTER FORMULIERT</span></span><p data-i18n="word_new_2">„Jede technische Anwendung kann Risiken haben. Lass uns prüfen, welche Informationen es dazu gibt.“</p></div></article>
+</div>
+<div class="disclaimer"><p data-i18n="word_law">Wichtig: Nicht jede MiCA-Vorschrift gilt automatisch für jeden privaten Zoom-Gastgeber. Entscheidend sind das konkrete Angebot, die Tätigkeit und die tatsächlichen Aussagen. Eine Mitgliedschaft oder ein Hinweistext ersetzt keine gegebenenfalls notwendige rechtliche Prüfung.</p></div>
+</section></div></div>
+<div class="wrap"><section class="section" id="vorteile"><div class="section-heading"><span class="kicker" data-i18n="benefits_k">8 GUTE GRÜNDE</span><h2 data-i18n="benefits_h">Was Du konkret dazugewinnst</h2><p data-i18n="benefits_p">Nicht mehr TLN. Sondern mehr Möglichkeiten für Dich als Mensch, Gastgeber und – wenn Du möchtest – als Unternehmer.</p></div><div class="benefit-grid"><article class="benefit"><div class="benefit-top"><span class="benefit-num">01</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14M3 5.5C6 4 9 4 12 5.5c3-1.5 6-1.5 9 0V18c-3-1.5-6-1.5-9 0-3-1.5-6-1.5-9 0z"/><path d="m15 10 1.4 1.4L19 8.8"/></svg></div><h3 data-i18n="benefit_h_0">Wissen, das Dir Sicherheit im Verständnis gibt</h3><p data-i18n="benefit_p_0">Akademie, Campus, Grundkurse und Fachinhalte helfen Dir, Kryptowährungen, Risiken und neue Entwicklungen nachvollziehbar einzuordnen.</p></article>
+<article class="benefit"><div class="benefit-top"><span class="benefit-num">02</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11v6a2 2 0 0 1-2 2H9l-5 3v-5a2 2 0 0 1-2-2V7a3 3 0 0 1 3-3h10"/><path d="M11 8h9V2"/><path d="m15 2 5 0"/></svg></div><h3 data-i18n="benefit_h_1">Wording bewusst erlernen</h3><p data-i18n="benefit_p_1">Du lernst, persönliche Erlebnisse von sachlicher Information, Werbung und individuellen Empfehlungen zu unterscheiden – auch in eigenen Zooms.</p></article>
+<article class="benefit"><div class="benefit-top"><span class="benefit-num">03</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 21 6v6c0 5-3.5 8.4-9 10-5.5-1.6-9-5-9-10V6z"/><path d="m8 12 2.6 2.5L16 9"/></svg></div><h3 data-i18n="benefit_h_2">Der Schutzschirm durch Wissen</h3><p data-i18n="benefit_p_2">Orientierung zu MiCA, Sicherheit und Eigenverantwortung stärkt Deine Fähigkeit, Fragen und Risiken rechtzeitig zu erkennen.</p></article>
+<article class="benefit"><div class="benefit-top"><span class="benefit-num">04</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24m0-14.14-4.24 4.24m-5.66 5.66-4.24 4.24"/></svg></div><h3 data-i18n="benefit_h_3">Der Fallschirm der Gemeinschaft</h3><p data-i18n="benefit_p_3">Menschen achten aufeinander, tauschen Warnhinweise aus und unterstützen sich bei verdächtigen Vorgängen. Gemeinsam erkennt man Probleme oft früher.</p></article>
+<article class="benefit"><div class="benefit-top"><span class="benefit-num">05</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v13H3zM12 16v5m-5 0h10M7 12l3-3 3 2 4-5"/></svg></div><h3 data-i18n="benefit_h_4">Ein Bildungsweg statt Einzelkämpfertum</h3><p data-i18n="benefit_p_4">Der TLN-Hörsaal schafft einen roten Faden. Du kannst Inhalte gemeinsam ansehen und musst komplexe Zusammenhänge nicht allein erklären.</p></article>
+<article class="benefit"><div class="benefit-top"><span class="benefit-num">06</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M6 16c.6-2.2 5.4-2.2 6 0m3-6h3m-3 4h3"/></svg></div><h3 data-i18n="benefit_h_5">Einladungen mit persönlichen Werkzeugen</h3><p data-i18n="benefit_p_5">Club-Partner-Werkzeuge unterstützen Dich mit Visitenkarten, QR-Codes, Geschenkideen und passenden Einladungsformaten.</p></article>
+<article class="benefit"><div class="benefit-top"><span class="benefit-num">07</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2zM17 4a3 3 0 0 1 0 6m1 4a5 5 0 0 1 3 5v1"/></svg></div><h3 data-i18n="benefit_h_6">Lernen durch Gemeinschaft</h3><p data-i18n="benefit_p_6">Workshops, Austausch und gemeinsames Nachfragen helfen auch erfahrenen Nutzern, frühere Präsentationsgewohnheiten weiterzuentwickeln.</p></article>
+<article class="benefit"><div class="benefit-top"><span class="benefit-num">08</span><svg class="benefit-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M2 13h20m-12 0v2h4v-2"/></svg></div><h3 data-i18n="benefit_h_7">Auf Wunsch: unternehmerisch wachsen</h3><p data-i18n="benefit_p_7">Club Leader ergänzt persönliche Webseite, KMS, CRM, Marktplatz und Ausbildung. Diese Infrastruktur ist vielseitig und nicht an TLN gebunden.</p></article></div></section></div>
+<div class="section--light"><div class="wrap"><section class="section" id="gemeinschaft"><div class="section-heading"><span class="kicker" data-i18n="comm_k">ZWEI WELTEN, DIE SICH ERGÄNZEN</span>
+<h2 data-i18n="comm_h">Projektwissen trifft Finanzbildung.</h2>
+<p data-i18n="comm_lead">Erfahrene TLN-Nutzer bringen ihre Projektkenntnisse mit. LiquidityBooster ergänzt Wissen, Kommunikation und ein Netzwerk, in dem Menschen aufeinander achten. Eine Mitgliedschaft in der einen Gemeinschaft setzt keine Mitgliedschaft in der anderen voraus.</p></div>
+<div class="community-layout"><article class="comm-card comm-card--tln"><div class="comm-head"><span class="comm-symbol">◈</span><h3 data-i18n="comm_tln_h">TLN-Community</h3></div><p data-i18n="comm_tln_p">Projekterfahrungen, technische Anwendungen, Austausch über Funktionen und Entwicklungen im TLN/VOW-Ökosystem.</p></article><div class="plus-sign" aria-hidden="true">+</div><article class="comm-card comm-card--lb"><div class="comm-head"><span class="comm-symbol">✳</span><h3 data-i18n="comm_lb_h">LiquidityBooster-Community</h3></div><p data-i18n="comm_lb_p">Unabhängige Finanzbildung, MiCA-Orientierung, verständliche Präsentation, Werkzeuge und gegenseitige Unterstützung.</p></article></div>
+<div class="community-result"><span class="result-dot">✦</span><div><strong data-i18n="comm_result_h">Ein gemeinsamer Gewinn: bewusstes Handeln</strong><p data-i18n="comm_result_p">Erfahrung wird nicht ersetzt, sondern durch neue Perspektiven ergänzt. Auch wer lange präsentiert, kann neue Spielregeln gemeinsam leichter verstehen und anwenden.</p></div></div></section></div></div>
+<div class="wrap"><section class="section" id="schutzschirm"><div class="section-heading"><span class="kicker" data-i18n="shield_k">SCHUTZSCHIRM &amp; FALLSCHIRM</span>
+<h2 data-i18n="shield_h">Wissen schützt vorher. Gemeinschaft hilft, wenn es darauf ankommt.</h2>
+<p data-i18n="shield_p">Beide Gedanken gehören zusammen – ohne falsche Versprechen von vollständiger Sicherheit oder garantierter Hilfe.</p></div>
+<div class="shield-layout"><article class="shield-card"><div class="shield-pict" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 9 86 23v27c0 22-14 34-36 42C28 84 14 72 14 50V23z" fill="#d7f5ee" stroke="#00a7ad" stroke-width="4"/><path d="m31 50 13 13 25-28" fill="none" stroke="#00a7ad" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3 data-i18n="shield_h1">Der Schutzschirm</h3><p data-i18n="shield_p1">Aufklärung, Prävention und eigenständiges Verstehen: Risiken erkennen, Aussagen einordnen, Quellen prüfen und Verantwortung für eigene Entscheidungen übernehmen.</p></div></article>
+<article class="shield-card shield-card--second"><div class="shield-pict" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M12 41q38-58 76 0H12Z" fill="#ffe5f2" stroke="#c6006f" stroke-width="4"/><path d="M50 12v62m-38-33 38 33 38-33M43 85h14" stroke="#c6006f" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M38 74q12 20 24 0" stroke="#c6006f" stroke-width="4" fill="none"/></svg></div><div><h3 data-i18n="shield_h2">Der Fallschirm</h3><p data-i18n="shield_p2">Aufeinander achten, Warnungen teilen, Fragen ernst nehmen und bei Betrugsverdacht gemeinsam die richtigen Anlaufstellen finden. Unterstützung statt Alleinsein.</p></div></article></div></section><section class="section" id="alltag"><div class="experience-box"><div class="experience-copy"><span class="kicker" data-i18n="story_k">EIN BEISPIEL AUS DEM ALLTAG</span>
+<h2 data-i18n="story_h">Du möchtest Deinen nächsten TLN-Zoom besser machen?</h2>
+<p data-i18n="story_p">Vielleicht hast Du schon viele Menschen eingeladen. Du kennst die Projektwelt, hast Fragen beantwortet und eigene Erfahrungen gemacht. Jetzt willst Du bewusster formulieren, keine falschen Erwartungen wecken und einen verständlichen Ablauf anbieten.</p></div>
+<div class="experience-steps"><div class="story-step"><span>1</span><p data-i18n="story_step_0">Du liest die Grundlagen zu MiCA und zum Unterschied zwischen Information und persönlicher Empfehlung.</p></div><div class="story-step"><span>2</span><p data-i18n="story_step_1">Du gehst den TLN-Hörsaal entlang eines roten Fadens durch und nutzt die Beispiele aus Seite 11.</p></div><div class="story-step"><span>3</span><p data-i18n="story_step_2">Du erklärst auch einen möglichen Empfehlungsnutzen offen und lässt Deinen Gästen Zeit für eigene Entscheidungen.</p></div></div></div></section></div>
+<div class="section--light"><div class="wrap"><section class="section" id="mitgliedschaft"><div class="section-heading"><span class="kicker" data-i18n="member_k">DEIN WEG · DEINE ENTSCHEIDUNG</span>
+<h2 data-i18n="member_h">Welche Mitgliedschaft passt zu Dir?</h2>
+<p data-i18n="member_p">Du brauchst nicht alles auf einmal. Entscheidend ist, welche Leistungen Du tatsächlich nutzen möchtest. Auch Wissen ohne Clubmitgliedschaft ist über den vorgesehenen Gast- und Bildungsweg möglich.</p></div>
+<div class="members">
+<article class="membership membership--partner"><div class="membership-top"><div><span class="membership-tag"><span data-i18n="member_partner_k">LERNEN &amp; WEITEREMPFEHLEN</span></span><h3 data-i18n="member_partner_h">Club Partner</h3></div><div class="price">99 €<span><span data-i18n="member_partner_period">netto / Jahr</span></span></div></div>
+<p data-i18n="member_partner_lead">Für Menschen, die Wissen vertiefen, Clubvorteile nutzen und die Idee auf Wunsch selbst weiterempfehlen möchten.</p><ul>
+<li><span data-i18n="partner_li_0">Akademie, virtueller Campus und Grundkurs mit Wissenstest</span></li><li><span data-i18n="partner_li_1">Mitgliedervorteile, Buchgeschenk und Vorteile bei weiteren Akademie-Angeboten</span></li><li><span data-i18n="partner_li_2">Persönliche Empfehlungsseite und Einladungswerkzeuge</span></li><li><span data-i18n="partner_li_3">Gemeinschaft, Veranstaltungen und fachlicher Austausch</span></li><li><span data-i18n="partner_li_4">Freigegebene LiquidityBooster-Empfehlungen nach gültigen Bedingungen</span></li></ul>
+<div class="membership-action"><a class="button button--outline" href="https://tools.liquiditybooster.de/pages/gastzugang-gastgeberleitfaden-teil2/" target="_blank" rel="noopener noreferrer"><span data-i18n="partner_button">Mitgliedschaft verstehen</span> <span class="arr" aria-hidden="true">↗</span></a></div></article>
+<article class="membership membership--leader"><div class="membership-top"><div><span class="membership-tag"><span data-i18n="member_leader_k">GESCHÄFT &amp; INFRASTRUKTUR</span></span><h3 data-i18n="member_leader_h">Club Leader</h3></div><div class="price">189 €<span><span data-i18n="member_leader_period">netto / Halbjahr</span></span></div></div>
+<p data-i18n="member_leader_lead">Für Menschen, die persönliche Kompetenzen und eigene Angebote zu einer strukturierten geschäftlichen Tätigkeit weiterentwickeln möchten.</p><ul>
+<li><span data-i18n="leader_li_0">Persönliche Club-Webseite und eigener KMS-/CRM-Arbeitsbereich</span></li><li><span data-i18n="leader_li_1">Kontaktorganisation, Kommunikation und Newsletter-Werkzeuge</span></li><li><span data-i18n="leader_li_2">Freigegebener Club-Marktplatz und Möglichkeiten für eigene Angebote</span></li><li><span data-i18n="leader_li_3">Drei BusinessBooster- und drei Unternehmer-Hörsaal-Angebote</span></li><li><span data-i18n="leader_li_4">12-Wochen-Aufbauprogramm mit praktischer Begleitung</span></li></ul>
+<div class="membership-action"><a class="button button--outline" href="https://tools.liquiditybooster.de/pages/club-leader-leistungswelt/" target="_blank" rel="noopener noreferrer"><span data-i18n="leader_button">Die Leistungswelt ansehen</span> <span class="arr" aria-hidden="true">↗</span></a></div></article></div>
+<div class="member-note"><p data-i18n="member_note">Die Mitgliedschaften sind voneinander unabhängig wählbar. Club Leader setzt keine vorherige Club-Partner-Mitgliedschaft voraus. Beide Angebote betreffen LiquidityBooster-Leistungen, nicht zusätzliche TLN-Erträge. Maßgeblich sind die jeweils aktuellen Leistungs- und Vertragsbedingungen; ein geschäftlicher Erfolg ist nicht garantiert.</p></div></section></div></div>
+<div class="wrap"><section class="section" id="vertiefen"><div class="section-heading"><span class="kicker" data-i18n="explore_k">WISSEN ANWENDEN</span>
+<h2 data-i18n="explore_h">Du kannst jetzt schon tiefer einsteigen.</h2>
+<p data-i18n="explore_p">Hier findest Du passende Bildungsinhalte und Werkzeuge, die bereits zur Verfügung stehen.</p></div>
+<div class="resource-grid">
+<a class="resource" href="https://tools.liquiditybooster.de/pages/mica-leitartikel/" target="_blank" rel="noopener noreferrer"><span class="resource-index">01</span><div><h3 data-i18n="resource_h_0">MiCA und finanzielle Souveränität</h3><p data-i18n="resource_p_0">Einordnung der Regeln, Schutzschirm und die Rolle verantwortungsvoller Empfehlungen.</p></div><span class="resource-arrow" aria-hidden="true">↗</span></a><a class="resource" href="https://tools.liquiditybooster.de/pages/tln/webinar-verhaltenskompass.html" target="_blank" rel="noopener noreferrer"><span class="resource-index">02</span><div><h3 data-i18n="resource_h_1">TLN-Hörsaal · Seite 11</h3><p data-i18n="resource_p_1">Echte Gesprächssituationen, Zoom-Ablauf, Wording und technische Vorbereitung.</p></div><span class="resource-arrow" aria-hidden="true">↗</span></a><a class="resource" href="https://tools.liquiditybooster.de/pages/tln/" target="_blank" rel="noopener noreferrer"><span class="resource-index">03</span><div><h3 data-i18n="resource_h_2">TLN-Hörsaal</h3><p data-i18n="resource_p_2">Die Projektzusammenhänge strukturiert kennenlernen und gemeinsam erklären.</p></div><span class="resource-arrow" aria-hidden="true">↗</span></a><a class="resource" href="https://tools.liquiditybooster.de/pages/visitenkarten-generator/" target="_blank" rel="noopener noreferrer"><span class="resource-index">04</span><div><h3 data-i18n="resource_h_3">Einladungs-Werkstatt</h3><p data-i18n="resource_p_3">Persönliche Einladungen, Karten, QR-Codes und weitere praktische Werkzeuge.</p></div><span class="resource-arrow" aria-hidden="true">↗</span></a>
+</div></section></div>
+<div class="section--light"><div class="wrap"><section class="section" id="ausblick"><div class="section-heading"><span class="kicker" data-i18n="growth_k">DEIN NÄCHSTER ENTWICKLUNGSSCHRITT</span>
+<h2 data-i18n="growth_h">Verstehen ist der Anfang. Üben bringt Sicherheit.</h2>
+<p data-i18n="growth_intro">Wer seine Präsentationsweise weiterentwickeln möchte, soll später auch praktisch trainieren und an einer beispielhaften Präsentation lernen können.</p></div>
+<div class="upcoming-grid">
+<article class="upcoming"><div class="upcoming-figure upcoming-figure--one" aria-hidden="true"><span>01</span><svg viewBox="0 0 120 80"><path d="M18 16h84v43H61l-18 13V59H18z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M31 31h57m-57 11h39" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></div>
+<span class="soon"><span data-i18n="growth_soon1">IN VORBEREITUNG</span></span>
+<h3 data-i18n="growth_h1">Wording- &amp; Verständnis-Training</h3>
+<p data-i18n="growth_p1">Ein eigenständig buchbares Training für TLN-Nutzer und Gastgeber: Aussagen bewerten, verständlicher präsentieren, mit Fragen umgehen und anhand realistischer Fälle üben. Auch ohne Clubmitgliedschaft nutzbar, sobald angeboten.</p></article>
+<article class="upcoming"><div class="upcoming-figure upcoming-figure--two" aria-hidden="true"><span>02</span><svg viewBox="0 0 120 80"><rect x="17" y="9" width="86" height="54" rx="5" fill="none" stroke="currentColor" stroke-width="4"/><path d="m51 27 27 11-27 11zM60 63v10m-18 0h36" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg></div>
+<span class="soon"><span data-i18n="growth_soon2">IN VORBEREITUNG</span></span>
+<h3 data-i18n="growth_h2">TLN-Hörsaal als Musterpräsentation</h3>
+<p data-i18n="growth_p2">Eine nachvollziehbare Demonstration, wie man den TLN-Hörsaal in einem eigenen Zoom strukturiert, transparent und ohne Entscheidungsdruck vorstellt. Als Vorbild zum Lernen, nicht als vorgefertigtes Gewinnversprechen.</p></article></div></section></div></div>
+<div class="wrap"><section class="section" id="kontakt"><div class="closing"><div class="closing-copy"><span class="kicker" data-i18n="close_k">DEIN NÄCHSTER SCHRITT</span>
+<h2 data-i18n="close_h">Du bringst Deine Erfahrungen mit. Wir eröffnen Dir neue Perspektiven.</h2>
+<p data-i18n="close_p">Ob Du erst lernen, im Club aktiv werden oder ein eigenes Geschäft aufbauen möchtest: Du entscheidest selbst, welcher Weg zu Dir passt.</p></div>
+<div class="closing-actions"><a class="button button--white" href="https://liquiditybooster.de/" target="_blank" rel="noopener noreferrer"><span data-i18n="close_btn1">LiquidityBooster kennenlernen</span> <span class="arr" aria-hidden="true">↗</span></a><a class="button button--ghost" href="#mitgliedschaft"><span data-i18n="close_btn2">Mitgliedschaften ansehen</span> <span class="arr" aria-hidden="true">→</span></a></div></div></section></div></main>
+<footer class="footer"><div class="wrap footer-inner"><div><span class="footer-brand">LiquidityBooster</span>
+<p data-i18n="footer_legal">Die Akademie für finanzielle Souveränität vermittelt Bildung und Orientierung; sie betreibt weder TLN noch VOW und bietet keine individuelle Anlage-, Rechts- oder Steuerberatung. LiquidityBooster-Mitgliedschaften bewirken keine behördliche Zulassung oder Haftungsbefreiung und garantieren weder Renditen noch Geschäftserfolg.</p></div>
+<a href="https://liquiditybooster.de/" target="_blank" rel="noopener noreferrer">liquiditybooster.de ↗</a></div></footer>
+<script>
+'use strict';
+const translations={"hero_over":"KNOWLEDGE · COMMUNITY · YOUR OWN PATH","hero_title":"You know TLN. What can LiquidityBooster offer you?","hero_lead":"Your project experience is valuable. Learning to talk about it clearly, responsibly and in today's regulatory environment gives you skills that last.","hero_btn1":"Explore the benefits","hero_btn2":"Compare memberships","hero_no":"You do not need a LiquidityBooster membership to use or recommend TLN. Membership offers additional education, tools and personal development.","hero_orb1":"TLN experience","hero_orb1s":"Understand the project","hero_orb2":"LiquidityBooster","hero_orb2s":"Put knowledge to work","hero_result":"Stronger practical skills","hero_resultsub":"Explain · Assess · Support","intro_k":"THE REAL QUESTION","intro_h":"A user can become a confident, responsible host.","intro_p":"People with years of TLN experience often have a great deal to share. Wanting to introduce others to it is understandable. But there are important distinctions between enthusiasm, factual explanation and personalised financial recommendations. This is where LiquidityBooster can add value.","intro_1n":"You know the project.","intro_1":"You know what interests you, what you have tried and what you have experienced.","intro_2n":"You develop further.","intro_2":"You learn to share knowledge responsibly, assess questions and let people decide independently.","word_k":"NEW TIMES · NEW COMMUNICATION","word_h":"How you say it matters, too.","word_p1":"In 2022 and 2023, many project presentations relied heavily on personal experience and enthusiasm. Since then, the European MiCA Regulation has expanded the regulatory framework for certain crypto-assets, services and marketing communications. Other financial and advertising rules existed before MiCA.","law_2023":"MiCA enters into force","law_2023s":"A new European regulatory framework emerges.","law_2024":"Major rules become applicable","law_2024s":"Depending on the area, from June or December.","law_2026":"Present clearly and responsibly","law_2026s":"Better understand roles, transparency, limits and risks.","word_examples":"Small changes in wording can make a big difference.","word_examples_p":"These examples do not guarantee legal compliance; they demonstrate a more responsible way of communicating.","word_oldlab_0":"LESS HELPFUL","word_old_0":"“You will make good money with this.”","word_newlab_0":"MORE RESPONSIBLE WORDING","word_new_0":"“I see interesting possibilities, but outcomes are not guaranteed. Please examine the risks too.”","word_oldlab_1":"LESS HELPFUL","word_old_1":"“You should join now.”","word_newlab_1":"MORE RESPONSIBLE WORDING","word_new_1":"“I can explain why I'm interested. Whether it's relevant for you is your own decision.”","word_oldlab_2":"LESS HELPFUL","word_old_2":"“This is completely safe.”","word_newlab_2":"MORE RESPONSIBLE WORDING","word_new_2":"“Any technical application can have risks. Let's review the available information.”","word_law":"Important: Not every MiCA rule automatically applies to every private Zoom host. The specific offering, activity and statements matter. Membership or a disclaimer does not replace any legal assessment that may be required.","benefit_h_0":"Knowledge that helps you understand","benefit_p_0":"Academy, campus, basic courses and specialist content help you make sense of crypto-assets, risks and new developments.","benefit_h_1":"Learn responsible wording","benefit_p_1":"Learn to distinguish personal experiences from factual information, advertising and personalised recommendations – including in your own Zoom meetings.","benefit_h_2":"A shield built on knowledge","benefit_p_2":"Education about MiCA, security and individual responsibility helps you recognise questions and risks early.","benefit_h_3":"Support from the community","benefit_p_3":"People look out for one another, share warnings and support each other when something seems wrong. Problems are often noticed sooner together.","benefit_h_4":"A learning path, not a solo effort","benefit_p_4":"The TLN lecture hall provides a clear learning path. Explore it together rather than explaining complex concepts on your own.","benefit_h_5":"Personal invitations with useful tools","benefit_p_5":"Club Partner tools support you with business cards, QR codes, gift invitations and other ways to invite people.","benefit_h_6":"Learn together","benefit_p_6":"Workshops, discussions and shared questions help even experienced users update their presentation habits.","benefit_h_7":"Optional: build a business","benefit_p_7":"Club Leader adds a personal website, KMS, CRM, marketplace and training. This infrastructure can serve many activities beyond TLN.","benefits_k":"8 GOOD REASONS","benefits_h":"What you gain in practice","benefits_p":"Not more TLN. More opportunities for you as a person, a host and, if you choose, an entrepreneur.","comm_k":"TWO COMMUNITIES THAT COMPLEMENT EACH OTHER","comm_h":"Project expertise meets financial education.","comm_lead":"Experienced TLN users bring project knowledge. LiquidityBooster adds education, communication skills and a network where people look out for one another. Membership in one community does not require membership in the other.","comm_tln_h":"TLN community","comm_tln_p":"Experience with the project, technical applications and discussions about TLN/VOW features and developments.","comm_lb_h":"LiquidityBooster community","comm_lb_p":"Independent financial education, MiCA orientation, clearer presentations, tools and mutual support.","comm_result_h":"The shared benefit: more informed action","comm_result_p":"Experience is not replaced; it is strengthened by new perspectives. Even long-time presenters can better understand and apply changing rules together.","shield_k":"SHIELD & SUPPORT","shield_h":"Knowledge helps you prepare. Community helps when it matters.","shield_p":"Both ideas belong together – without promises of complete protection or guaranteed recovery.","shield_h1":"The knowledge shield","shield_p1":"Education, prevention and independent understanding: recognise risks, assess claims, verify sources and take responsibility for your own choices.","shield_h2":"The community safety net","shield_p2":"Look out for one another, share warnings, take questions seriously and help find the right contacts if fraud is suspected. Support rather than isolation.","story_k":"A REALISTIC EXAMPLE","story_h":"Want to make your next TLN Zoom better?","story_p":"Perhaps you have already invited many people. You know the project, have answered questions and gained experience. Now you want to communicate more carefully, avoid false expectations and provide a clear structure.","story_step_0":"Read about MiCA and the difference between information and personalised recommendations.","story_step_1":"Use the TLN lecture hall as your roadmap and explore the examples on page 11.","story_step_2":"Clearly explain any potential referral benefit and allow your guests to make their own decisions.","member_k":"YOUR PATH · YOUR CHOICE","member_h":"Which membership suits you?","member_p":"You do not need everything at once. What matters is which services you intend to use. An introductory learning path is also available without club membership.","member_partner_k":"LEARN & RECOMMEND","member_partner_h":"Club Partner","member_partner_period":"net / year","member_partner_lead":"For people who want to deepen their knowledge, enjoy club benefits and recommend the club if they choose.","partner_li_0":"Academy, virtual campus and core course with knowledge check","partner_li_1":"Member benefits, a book gift and discounts on other academy offers","partner_li_2":"Personal referral page and invitation tools","partner_li_3":"Community, events and professional exchange","partner_li_4":"Eligible LiquidityBooster referrals subject to the applicable terms","partner_button":"Understand membership","member_leader_k":"BUSINESS & INFRASTRUCTURE","member_leader_h":"Club Leader","member_leader_period":"net / half-year","member_leader_lead":"For people who want to build a structured business around their own skills and services.","leader_li_0":"Personal club website and dedicated KMS/CRM workspace","leader_li_1":"Contact management, communications and newsletter tools","leader_li_2":"Approved club marketplace and opportunities to offer your own services","leader_li_3":"Three BusinessBooster and three entrepreneur lecture-hall offerings","leader_li_4":"12-week development programme with practical support","leader_button":"Explore full benefits","member_note":"Memberships can be selected independently. Club Leader does not require prior Club Partner membership. Both concern LiquidityBooster services, not additional TLN returns. Current service and contract terms apply; business results are not guaranteed.","explore_k":"PUT KNOWLEDGE TO WORK","explore_h":"You can explore further today.","explore_p":"These educational resources and tools are already available.","resource_h_0":"MiCA and financial sovereignty","resource_p_0":"Learn about regulation, the knowledge shield and responsible recommendations.","resource_h_1":"TLN lecture hall · page 11","resource_p_1":"Real conversation scenarios, Zoom agenda, wording and technical preparation.","resource_h_2":"TLN lecture hall","resource_p_2":"Explore the project in a structured format and explain it together.","resource_h_3":"Invitation workshop","resource_p_3":"Personal invitations, cards, QR codes and practical tools.","growth_k":"YOUR NEXT DEVELOPMENT STEP","growth_h":"Understanding comes first. Practice builds confidence.","growth_intro":"People who want to improve their presentations should also have opportunities to practise and learn from an example presentation.","growth_soon1":"IN PREPARATION","growth_h1":"Wording & understanding training","growth_p1":"A separately bookable training course for TLN users and hosts: assess statements, explain more clearly, handle questions and practise realistic scenarios. Open to non-members once available.","growth_soon2":"IN PREPARATION","growth_h2":"TLN lecture hall as a model presentation","growth_p2":"A demonstration of how to present the TLN lecture hall in your own Zoom meeting with structure, transparency and no pressure. A learning model, not a promise of profit.","close_k":"YOUR NEXT STEP","close_h":"You bring the experience. We offer new perspectives.","close_p":"Whether you want to learn, participate in the club or build your own business: you decide what fits.","close_btn1":"Explore LiquidityBooster","close_btn2":"View memberships","footer_legal":"The Academy for Financial Sovereignty provides education and guidance; it does not operate TLN or VOW and does not offer personalised investment, legal or tax advice. LiquidityBooster memberships do not provide regulatory approval or immunity from liability and do not guarantee returns or business success.","skip":"Skip to content","nav_benefits":"Benefits","nav_member":"Membership","nav_future":"Training"};
+function setLanguage(lang) {
+ if(lang!=='de'&&lang!=='en')return;
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{
+  if(!Object.prototype.hasOwnProperty.call(el.dataset,'de'))el.dataset.de=el.textContent;
+  const key=el.dataset.i18n;
+  el.textContent=lang==='en'&&Object.prototype.hasOwnProperty.call(translations,key)?translations[key]:el.dataset.de;
+ });
+ document.querySelectorAll('[data-lang]').forEach(button=>{
+  const current=button.dataset.lang===lang;
+  button.setAttribute('aria-pressed',current?'true':'false');
+ });
+ document.title=lang==='en'?'TLN & LiquidityBooster – Benefits for people who recommend':'TLN & LiquidityBooster – Mehrwert für Menschen, die weiterempfehlen';
+ const diagram=document.querySelector('.hero-diagram');
+ if(diagram)diagram.setAttribute('aria-label',lang==='en'?'Combining TLN experience and LiquidityBooster financial education':'Verbindung von TLN-Erfahrung und LiquidityBooster-Finanzbildung');
+}
+document.querySelectorAll('[data-lang]').forEach(button=>button.addEventListener('click',()=>setLanguage(button.dataset.lang)));
+</script></body></html>
