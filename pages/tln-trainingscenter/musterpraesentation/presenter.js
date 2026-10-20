@@ -19,7 +19,7 @@ de:{menu:"Inhalt",speaker:"Vortragendenansicht",guest:"Gastansicht",sources:"Que
 en:{menu:"Contents",speaker:"Presenter view",guest:"Audience view",sources:"Sources",start:"Start the discovery",back:"Back",next:"Next",again:"Start again",library:"Background knowledge",toStory:"Back to the main story",story:"Our shared discovery",knowledge:"Detailed background knowledge",coach:"Presentation speaker notes",tip:"Select to explore",insight:"What we take away",step:"Step",sourceLabel:"Evidence basis",modelInput:"Adjust sample booking",modelBase:"Booking amount (USDT/USDC)",modelOut:"Advertised v$ reward (20%)",modelNote:"Illustration from the vTravel provider's offer. Not cash back: future use depends on current offer, booking and acceptance terms.",sourceInfo:"The main story explains purpose, potential value and connections. Sources: VOW Whitepaper v6.7 (March 2026), public vTravel Phase 1 offer, TLN DApp descriptions and the academy's 18 Aug 2026 assessment (overall AMBER–RED). The optional library contains technical depth. Six source lecture pages informed the editorial work but are not linked.",legal:"Educational presentation, not investment, legal or tax advice. Provider statements aren't guarantees or independent proof of revenue. Verify live availability, acceptance, costs, incentives and risks. No wallet or sign-up required.",keys:"Arrow keys: next/back · M: menu · T: speaker view · L: detail library · swipe on mobile.",calendar:"See official TLN community calls",original:"Read the original whitepaper",knowledgeBtn:"Explore technical background",example:"Illustration · not a guarantee",listen:"Explore together",why:"Why does it matter?",not:"A useful distinction"}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let lang="de",mode="story",idx=0,storyReturnIdx=0,speaker=false,selections={},examples={travel:500,powerFirst:500,powerNext:600,powerAccepted:true},menuTab="story";
+let lang="de",mode="story",idx=0,storyReturnIdx=0,speaker=false,selections={},examples={travel:500,powerFirst:500,powerNext:600,powerAccepted:true,cashSpend:300,cashRate:5,cashMonths:6},menuTab="story";
 function T(pair){return Array.isArray(pair)?pair[lang==="de"?0:1]:(pair??"");}
 const fmt=x=>Number(x).toLocaleString(lang==="de"?"de-DE":"en-US",{maximumFractionDigits:2});
 function deck(){return mode==="story"?story:background;}
@@ -48,6 +48,21 @@ switch(s.kind){
  return '<div class="islands-demo"><div class="island-top"><span>'+(lang==="de"?"EINZELNE VORTEILE":"SEPARATE REWARDS")+'</span><span>'+(lang==="de"?"VOW-IDEE":"VOW CONCEPT")+'</span></div><div class="islands-split"><div class="isolated"><i>★</i><i>✈</i><i>◈</i></div><div class="connection-icon">→</div><div class="connected"><i>★</i><i>✈</i><i>◈</i><span>◎</span></div></div>'+rowCards(s)+'</div>';
  case "journey":
  return '<div class="journey-steps">'+s.items.map((q,i)=>'<button class="journey-step" type="button" data-choice="'+i+'" aria-pressed="'+String((selections[mode+idx]||0)===i)+'"><span class="step-number">'+(i+1)+'</span><strong>'+esc(T(q.name))+'</strong><span class="step-arrow">→</span></button>').join("")+'</div><div class="experience-detail" id="choiceFocus" aria-live="polite"><span class="experience-eye">'+w[lang].why+'</span><p>'+esc(T(s.items[selections[mode+idx]||0].detail))+'</p></div>';
+ case "cashback":{
+ const de=lang==="de",spend=examples.cashSpend,rate=examples.cashRate,months=examples.cashMonths;
+ const perMonth=spend*rate/100,total=perMonth*months,totalSpend=spend*months;
+ const range=(id,label,min,max,step,value,unit)=>
+  '<label class="cash-control"><span>'+label+'</span><strong id="'+id+'Label">'+fmt(value)+' '+unit+'</strong><input type="range" id="'+id+'" min="'+min+'" max="'+max+'" step="'+step+'" value="'+value+'" aria-label="'+label+'"></label>';
+ return '<div class="cash-showcase"><div class="cash-controls">'+
+ '<p class="cash-kicker">'+(de?"Wir probieren ein Cashback-Beispiel aus":"Try a hypothetical cashback programme")+'</p>'+
+ range("cashSpend",de?"Qualifizierte Einkäufe pro Monat":"Eligible spending per month",50,1500,50,spend,"€")+
+ range("cashRate",de?"Angenommene Cashback-Quote":"Assumed cashback rate",1,15,1,rate,"%")+
+ range("cashMonths",de?"So viele Monate kaufen wir ein":"Number of months",1,12,1,months,de?"Mon.":"mo.")+
+ '</div><div class="cash-output"><div class="cash-summary"><div><span>'+(de?"Mögliche Rückvergütung pro Monat":"Possible monthly cashback")+'</span><strong id="cashMonthly">'+fmt(perMonth)+' €</strong></div><div class="cash-grand"><span>'+(de?"Insgesamt nach "+months+" Monaten":"Total after "+months+" months")+'</span><strong id="cashTotal">'+fmt(total)+' €</strong></div></div>'+
+ '<div class="cash-bars" id="cashBars" aria-label="'+(de?"Balken: mögliche kumulierte Rückvergütung":"Bars: possible accumulated cashback")+'">'+Array.from({length:12},(_,i)=>'<div class="cash-bar-wrap" data-bar="'+(i+1)+'"><div class="cash-bar '+(i<months?"is-earned":"")+'" style="--barheight:'+((i+1)*100/12)+'%"></div><small>'+(i+1)+'</small></div>').join("")+'</div>'+
+ '<p class="cash-math" id="cashFormula">'+fmt(spend)+' € × '+fmt(rate)+' % × '+months+' = '+fmt(total)+' €</p></div>'+
+ '<p class="cash-disclaimer">'+(de?"Reines Rechenbeispiel eines allgemeinen Cashback-Programms, keine VOW-Kondition. Die Ersparnis setzt echte Teilnahme, erfüllte Bedingungen und tatsächlich gewährtes Cashback voraus.":"Generic cashback illustration, not VOW's live conditions. Savings require an eligible purchase and cashback actually granted by a provider.")+'</p></div>';
+ }
  case "travel":{
  const n=examples.travel;
  return '<div class="booking-showcase"><div class="booking-drawing"><div class="boarding-pass"><div class="boarding-head"><span>vTravel · '+(lang==="de"?"Beispielreise":"Example trip")+'</span><span>✈</span></div><div class="boarding-route"><b>START</b><span>──────── ✦ ────────</span><b>'+(lang==="de"?"ZIEL":"DESTINATION")+'</b></div><div class="boarding-bottom"><span>'+(lang==="de"?"Geplante Reise":"Planned journey")+'</span><strong>'+fmt(n)+' USDT/USDC</strong></div></div></div><div class="booking-controls"><label for="bookingRange">'+esc(w[lang].modelInput)+'</label><input id="bookingRange" type="range" min="100" max="3000" step="50" value="'+n+'"><div class="booking-metrics"><div><small>'+w[lang].modelBase+'</small><strong id="bookingBase">'+fmt(n)+'</strong></div><div><small>'+w[lang].modelOut+'</small><strong id="bookingReward">'+fmt(n*.2)+' v$</strong></div></div><p class="booking-warning">'+esc(w[lang].modelNote)+'</p></div></div>';
@@ -71,7 +86,10 @@ switch(s.kind){
 }}
 function mainScene(s){
  const visual=specialVisual(s);
- return '<section class="scene active story-scene"><div class="scene-body"><div class="scene-head story-heading"><div class="chapter-label"><span class="phase-mark">'+esc(T(phases[s.phase]))+'</span><b>'+String(idx+1).padStart(2,"0")+' / '+story.length+'</b></div><h'+(idx===0?"1":"2")+'>'+esc(T(s.title))+'</h'+(idx===0?"1":"2")+'><p class="lead">'+esc(T(s.lead))+'</p><p class="story-explain">'+esc(T(s.body))+'</p></div><div class="story-visual">'+visual+'</div><div class="insight-bar"><strong>'+esc(w[lang].insight)+'</strong><span>'+esc(T(s.insight))+'</span></div><div class="story-tail">'+w[lang].sourceLabel+': '+esc(s.source)+' <button type="button" data-action="context" class="detail-access">'+esc(w[lang].knowledgeBtn)+' ↗</button></div></div></section>';
+ const de=lang==="de";
+ const explanation='<div class="scene-how" aria-label="'+(de?"Grafik kurz erklärt":"Graphic explained")+'"><span class="how-symbol" aria-hidden="true">↳</span><div><strong>'+(de?"So funktioniert die Darstellung":"How this visual works")+'</strong><p>'+esc(T(s.how||s.voice))+'</p></div></div>';
+ const more='<button class="slide-explain-action" type="button" data-action="explain">ⓘ '+(de?"Ausführlich erklärt":"Full explanation")+'</button>';
+ return '<section class="scene active story-scene"><div class="scene-body"><div class="scene-head story-heading"><div class="chapter-label"><span class="phase-mark">'+esc(T(phases[s.phase]))+'</span><b>'+String(idx+1).padStart(2,"0")+' / '+story.length+'</b></div><h'+(idx===0?"1":"2")+'>'+esc(T(s.title))+'</h'+(idx===0?"1":"2")+'><p class="lead">'+esc(T(s.lead))+'</p><p class="story-explain">'+esc(T(s.body))+'</p>'+more+'</div><div class="story-visual">'+visual+'</div>'+explanation+'<div class="insight-bar"><strong>'+esc(w[lang].insight)+'</strong><span>'+esc(T(s.insight))+'</span></div><div class="story-tail">'+w[lang].sourceLabel+': '+esc(s.source)+' <button type="button" data-action="context" class="detail-access">'+esc(w[lang].knowledgeBtn)+' ↗</button></div></div></section>';
 }
 function libraryScene(s){
  const selected=s.items?.[selections["library"+idx]||0]||s.items?.[0];
@@ -113,7 +131,6 @@ function draw(){
  $("speakerPanel").hidden=!speaker;
  $("speakerToggle").setAttribute("aria-pressed",String(speaker));
  compactControls();
- compactControls();
  document.querySelectorAll("[data-chapter]").forEach(el=>el.setAttribute("aria-current",String(Number(el.dataset.chapter)===(mode==="story"?s.phase:s.ch))));
  document.querySelectorAll("[data-menu-scene]").forEach(el=>el.setAttribute("aria-current",String(mode===menuTab&&Number(el.dataset.menuScene)===idx)));
  document.title=T(s.title)+" · VOW & TLN";
@@ -124,13 +141,10 @@ function scheduleFit(){
  fitHandle=requestAnimationFrame(()=>{
   fitHandle=0;compactControls();const stage=$("stage"),body=stage?.querySelector(".scene-body");
   if(!body)return;
-  body.style.zoom="1";body.classList.remove("allow-scene-scroll");
-  const available=stage.clientHeight-8,needed=body.scrollHeight;
-  if(needed>available){
-    const ratio=Math.min(1,Math.max(.76,available/needed));
-    body.style.zoom=String(ratio);
-    if(needed*ratio>available+5)body.classList.add("allow-scene-scroll");
-  }
+  body.style.zoom="1";
+  body.classList.remove("allow-scene-scroll");
+  // Never shrink explanatory text on a phone; use scrolling only as a last resort.
+  if(body.scrollHeight>stage.clientHeight+8)body.classList.add("allow-scene-scroll");
  });
 }
 window.addEventListener("resize",scheduleFit,{passive:true});
@@ -162,6 +176,16 @@ document.addEventListener("click",e=>{
  case "next":go(idx===deck().length-1?0:idx+1);break;
  case "back":go(idx-1);break;
  case "menu":menuTab=mode;renderNav();open("sceneMenu");break;
+ case "explain":{
+  const p=thisScene();if(mode!=="story")break;
+  $("explainTitle").textContent=T(p.title);
+  $("explainLead").textContent=T(p.lead);
+  $("explainBody").textContent=T(p.body);
+  $("explainHowLabel").textContent=lang==="de"?"So funktioniert die Darstellung":"How this visual works";
+  $("explainHow").textContent=T(p.how||p.voice);
+  open("explainMenu");break;
+ }
+ case "closeExplain":$("explainMenu").close();break;
  case "acceptToggle":examples.powerAccepted=!examples.powerAccepted;draw();break;
  case "library":if(mode==="story")toDeck("library",0);else toDeck("story",storyReturnIdx);break;
  case "context":if(mode==="story")toDeck("library",Math.max(0,Number(thisScene().detail?.[0]??0)));break;
@@ -175,6 +199,19 @@ document.addEventListener("click",e=>{
  }
 });
 document.addEventListener("input",e=>{
+ if(["cashSpend","cashRate","cashMonths"].includes(e.target.id)){
+   examples[e.target.id]=Number(e.target.value);
+   const amt=examples.cashSpend,rate=examples.cashRate,months=examples.cashMonths,monthly=amt*rate/100,total=monthly*months;
+   for(const key of ["cashSpend","cashRate","cashMonths"]){
+     const suffix=key==="cashSpend"?" €":key==="cashRate"?" %":lang==="de"?" Mon.":" mo.";
+     $(key+"Label").textContent=fmt(examples[key])+suffix;
+   }
+   $("cashMonthly").textContent=fmt(monthly)+" €";
+   $("cashTotal").textContent=fmt(total)+" €";
+   $("cashFormula").textContent=fmt(amt)+" € × "+fmt(rate)+" % × "+months+" = "+fmt(total)+" €";
+   $("cashBars").querySelectorAll("[data-bar]").forEach(bar=>bar.querySelector(".cash-bar").classList.toggle("is-earned",Number(bar.dataset.bar)<=months));
+   return;
+ }
  if(e.target.id==="powerFirst"||e.target.id==="powerNext"){
    examples[e.target.id==="powerFirst"?"powerFirst":"powerNext"]=Number(e.target.value);
    const a=examples.powerFirst,b=examples.powerNext,v=Math.round(a*.2),discount=examples.powerAccepted?Math.min(v,b):0,due=b-discount;
@@ -191,7 +228,7 @@ document.addEventListener("input",e=>{
  const pass=$("stage").querySelector(".boarding-bottom strong");if(pass)pass.textContent=fmt(value)+" USDT/USDC";
 });
 document.addEventListener("keydown",e=>{
- if(e.target.closest("input,textarea,select")||$("sceneMenu").open||$("sourceMenu").open||e.altKey||e.ctrlKey||e.metaKey)return;
+ if(e.target.closest("input,textarea,select")||$("sceneMenu").open||$("sourceMenu").open||$("explainMenu").open||e.altKey||e.ctrlKey||e.metaKey)return;
  if(["ArrowRight","PageDown"].includes(e.key)){e.preventDefault();go(idx+1);}
  else if(["ArrowLeft","PageUp"].includes(e.key)){e.preventDefault();go(idx-1);}
  else if(e.key==="Home")go(0);else if(e.key==="End")go(deck().length-1);
