@@ -23,7 +23,7 @@
 <footer class="bottom">
 <button type="button" data-action="back" id="back">← <span id="backLabel">Zurück</span></button>
 <div class="track" role="progressbar" aria-label="Fortschritt"><div id="trackFill"></div></div>
-<span class="counter" id="counter">1 / 18</span>
+<span class="counter" id="counter">1 / 19</span>
 <button type="button" data-action="next" id="forward" class="primary"><span id="forwardLabel">Weiter</span> →</button>
 </footer></div>
 <dialog id="sceneMenu" aria-label="Szenenübersicht"><div class="dialog-body">
@@ -34,6 +34,12 @@
 <div class="dialog-top"><h2 id="sourceTitle">Quellen</h2><button type="button" data-action="closeSources" aria-label="Schließen">✕</button></div>
 <p class="caption" id="sourceInfo"></p><div class="source-links" id="sourceLinks"></div>
 <p class="legal" id="legal"></p>
+</div></dialog>
+<dialog id="explainMenu" aria-labelledby="explainTitle"><div class="dialog-body explain-dialog">
+<div class="dialog-top"><h2 id="explainTitle">Kurz erklärt</h2><button type="button" data-action="closeExplain" aria-label="Schließen">✕</button></div>
+<p class="explain-dialog-lead" id="explainLead"></p>
+<p class="explain-dialog-body" id="explainBody"></p>
+<div class="explain-dialog-how"><strong id="explainHowLabel">Was sehen wir?</strong><p id="explainHow"></p></div>
 </div></dialog>
 <script src="./story.js"></script><script src="./data-01.js"></script><script src="./data-02.js"></script><script src="./data-03.js"></script><script src="./data-04.js"></script><script src="./presenter.js"></script>
 </body></html>
