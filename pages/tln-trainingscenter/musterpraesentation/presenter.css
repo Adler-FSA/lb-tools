@@ -611,3 +611,24 @@ dialog::backdrop{background:#1c405573;backdrop-filter:blur(3px)}
 @media(prefers-reduced-motion:reduce){
  .experience-card,.boarding-pass,.world-dot,.world-ring,.comm-node,.pool-waves,.power-bars i{animation:none!important;transition:none!important}
 }
+
+/* Final phone-width toolbar and accessibility refinements */
+@media(max-width:680px){
+ .brand{font-size:0;white-space:nowrap;min-width:0}
+ .brand:after{content:"VOW · TLN";font-size:10px;color:#153747;letter-spacing:.02em;vertical-align:middle}
+ .brand:before{width:15px;height:6px;margin-right:5px}
+ .top{flex-wrap:nowrap}
+ .tools{flex-wrap:nowrap}
+ .tools .ctrl{white-space:nowrap}
+ .tools #fullscreen{padding:5px 7px}
+ .lang button{padding:5px 7px}
+}
+@media(max-width:380px){
+ .brand:after{font-size:9px}
+ .tools .ctrl{padding:4px 5px;font-size:9px}
+ .lang button{padding:4px 5px;font-size:9px}
+}
+@media(max-width:330px){
+ .top .brand{display:none}
+ .top{justify-content:flex-end}
+}
