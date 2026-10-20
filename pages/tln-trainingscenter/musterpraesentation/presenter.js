@@ -12,7 +12,6 @@ const sourceLinks=[
 ["vTravel · Phase-1-Angebot","https://vtravel.info/"],
 ["TLN Protocol · Lending","https://tlnprotocol.com/app/lockandlend"],
 ["TLN Protocol · Borrowing","https://tlnprotocol.com/app/borrow/tlngold-booster"],
-["TLN Community · offizieller Kalender","https://kalender.digital/tln-allgemein"],
 ["TLN Community · Termine","https://kalender.digital/tln-allgemein"]
 ];
 const w={
@@ -87,12 +86,19 @@ function libraryScene(s){
  }
  return '<section class="scene active"><div class="scene-body"><div class="scene-head"><div class="chapter-label">'+esc(T(oldChapters[s.ch]))+' <b>'+(idx+1)+' / '+background.length+'</b></div><h2>'+title+'</h2><p class="lead">'+lead+'</p></div>'+v+'<p class="source">'+esc(w[lang].sourceLabel)+': '+esc(s.source)+'</p></div></section>';
 }
+const isCompact=()=>window.matchMedia?.("(max-width:680px)")?.matches??false;
+function compactControls(){
+ const compact=isCompact();
+ $("menuBtn").textContent=compact?"☷":("☷ "+w[lang].menu);
+ $("speakerToggle").textContent=compact?(speaker?(lang==="de"?"Notizen":"Notes"):(lang==="de"?"Gast":"Guest")):(speaker?w[lang].speaker:w[lang].guest);
+ $("libraryBtn").textContent=compact?(mode==="story"?(lang==="de"?"◈ Wissen":"◈ Learn"):(lang==="de"?"← Story":"← Story")):(mode==="story"?"◈ "+w[lang].library:"← "+w[lang].toStory);
+}
 function renderNav(){
  const groups=mode==="story"?phases:oldChapters;
  $("chapters").innerHTML=groups.map((pair,i)=>'<button type="button" class="chapter" data-chapter="'+i+'" aria-current="false">'+esc(T(pair))+'</button>').join("");
  $("menuGrid").innerHTML=(menuTab==="story"?story:background).map((s,i)=>'<button type="button" data-menu-scene="'+i+'"><small>'+String(i+1).padStart(2,"0")+'</small>'+esc(T(s.title))+'</button>').join("");
  $("menuTitle").textContent=menuTab==="story"?w[lang].story:w[lang].knowledge;
- $("libraryBtn").textContent=mode==="story"?"◈ "+w[lang].library:"← "+w[lang].toStory;
+ compactControls();
 }
 function draw(){
  const s=thisScene();if(!s)return;
@@ -106,8 +112,8 @@ function draw(){
  $("speakerText").textContent=T(mode==="story"?s.voice:s.narration);
  $("speakerPanel").hidden=!speaker;
  $("speakerToggle").setAttribute("aria-pressed",String(speaker));
- $("speakerToggle").textContent=speaker?w[lang].speaker:w[lang].guest;
- $("libraryBtn").textContent=mode==="story"?"◈ "+w[lang].library:"← "+w[lang].toStory;
+ compactControls();
+ compactControls();
  document.querySelectorAll("[data-chapter]").forEach(el=>el.setAttribute("aria-current",String(Number(el.dataset.chapter)===(mode==="story"?s.phase:s.ch))));
  document.querySelectorAll("[data-menu-scene]").forEach(el=>el.setAttribute("aria-current",String(mode===menuTab&&Number(el.dataset.menuScene)===idx)));
  document.title=T(s.title)+" · VOW & TLN";
@@ -116,7 +122,7 @@ let fitHandle=0;
 function scheduleFit(){
  if(fitHandle)cancelAnimationFrame(fitHandle);
  fitHandle=requestAnimationFrame(()=>{
-  fitHandle=0;const stage=$("stage"),body=stage?.querySelector(".scene-body");
+  fitHandle=0;compactControls();const stage=$("stage"),body=stage?.querySelector(".scene-body");
   if(!body)return;
   body.style.zoom="1";body.classList.remove("allow-scene-scroll");
   const available=stage.clientHeight-8,needed=body.scrollHeight;
@@ -131,7 +137,7 @@ window.addEventListener("resize",scheduleFit,{passive:true});
 function switchLang(value){
  if(!["de","en"].includes(value))return;lang=value;
  document.documentElement.lang=lang;
- $("menuBtn").textContent="☷ "+w[lang].menu;$("sourceBtn").textContent="ⓘ "+w[lang].sources;
+ $("sourceBtn").textContent="ⓘ "+w[lang].sources;
  $("backLabel").textContent=w[lang].back;$("sourceTitle").textContent=w[lang].sources;
  $("sourceInfo").textContent=w[lang].sourceInfo;$("legal").textContent=w[lang].legal;$("menuKeys").textContent=w[lang].keys;
  $("showStory").textContent=w[lang].story;$("showLibrary").textContent=w[lang].knowledge;
