@@ -20,7 +20,7 @@ de:{menu:"Inhalt",speaker:"Vortragendenansicht",guest:"Gastansicht",sources:"Que
 en:{menu:"Contents",speaker:"Presenter view",guest:"Audience view",sources:"Sources",start:"Start the discovery",back:"Back",next:"Next",again:"Start again",library:"Background knowledge",toStory:"Back to the main story",story:"Our shared discovery",knowledge:"Detailed background knowledge",coach:"Presentation speaker notes",tip:"Select to explore",insight:"What we take away",step:"Step",sourceLabel:"Evidence basis",modelInput:"Adjust sample booking",modelBase:"Booking amount (USDT/USDC)",modelOut:"Advertised v$ reward (20%)",modelNote:"Illustration from the vTravel provider's offer. Not cash back: future use depends on current offer, booking and acceptance terms.",sourceInfo:"The main story explains purpose, potential value and connections. Sources: VOW Whitepaper v6.7 (March 2026), public vTravel Phase 1 offer, TLN DApp descriptions and the academy's 18 Aug 2026 assessment (overall AMBER–RED). The optional library contains technical depth. Six source lecture pages informed the editorial work but are not linked.",legal:"Educational presentation, not investment, legal or tax advice. Provider statements aren't guarantees or independent proof of revenue. Verify live availability, acceptance, costs, incentives and risks. No wallet or sign-up required.",keys:"Arrow keys: next/back · M: menu · T: speaker view · L: detail library · swipe on mobile.",calendar:"See official TLN community calls",original:"Read the original whitepaper",knowledgeBtn:"Explore technical background",example:"Illustration · not a guarantee",listen:"Explore together",why:"Why does it matter?",not:"A useful distinction"}};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let lang="de",mode="story",idx=0,storyReturnIdx=0,speaker=false,selections={},examples={travel:500},menuTab="story";
+let lang="de",mode="story",idx=0,storyReturnIdx=0,speaker=false,selections={},examples={travel:500,powerFirst:500,powerNext:600,powerAccepted:true},menuTab="story";
 function T(pair){return Array.isArray(pair)?pair[lang==="de"?0:1]:(pair??"");}
 const fmt=x=>Number(x).toLocaleString(lang==="de"?"de-DE":"en-US",{maximumFractionDigits:2});
 function deck(){return mode==="story"?story:background;}
@@ -52,6 +52,11 @@ switch(s.kind){
  case "travel":{
  const n=examples.travel;
  return '<div class="booking-showcase"><div class="booking-drawing"><div class="boarding-pass"><div class="boarding-head"><span>vTravel · '+(lang==="de"?"Beispielreise":"Example trip")+'</span><span>✈</span></div><div class="boarding-route"><b>START</b><span>──────── ✦ ────────</span><b>'+(lang==="de"?"ZIEL":"DESTINATION")+'</b></div><div class="boarding-bottom"><span>'+(lang==="de"?"Geplante Reise":"Planned journey")+'</span><strong>'+fmt(n)+' USDT/USDC</strong></div></div></div><div class="booking-controls"><label for="bookingRange">'+esc(w[lang].modelInput)+'</label><input id="bookingRange" type="range" min="100" max="3000" step="50" value="'+n+'"><div class="booking-metrics"><div><small>'+w[lang].modelBase+'</small><strong id="bookingBase">'+fmt(n)+'</strong></div><div><small>'+w[lang].modelOut+'</small><strong id="bookingReward">'+fmt(n*.2)+' v$</strong></div></div><p class="booking-warning">'+esc(w[lang].modelNote)+'</p></div></div>';
+ }
+ case "power":{
+ const a=examples.powerFirst,b=examples.powerNext,amount=Math.round(a*.2),saved=examples.powerAccepted?Math.min(amount,b):0,due=b-saved;
+ const de=lang==="de";
+ return '<div class="power-demo"><div class="power-inputs"><label><span>'+(de?"Erste Reise · Beispielbetrag":"First trip · example amount")+'</span><strong id="powerFirstValue">'+fmt(a)+' USDT</strong><input id="powerFirst" type="range" min="100" max="2500" step="50" value="'+a+'"></label><label><span>'+(de?"Spätere Reise · Beispielbetrag":"Later trip · example amount")+'</span><strong id="powerNextValue">'+fmt(b)+' USDT</strong><input id="powerNext" type="range" min="100" max="3000" step="50" value="'+b+'"></label><button class="power-accept" type="button" data-action="acceptToggle" aria-pressed="'+examples.powerAccepted+'"><span class="power-switch">✓</span><span>'+(de?(examples.powerAccepted?"Annahme im Beispiel: Ja":"Annahme im Beispiel: Nein"):(examples.powerAccepted?"Accepted in scenario: Yes":"Accepted in scenario: No"))+'</span></button></div><div class="power-results"><div class="power-stage"><small>'+(de?"Möglicher Reward aus erster Reise":"Potential reward from first trip")+'</small><strong id="powerVoucher">'+fmt(amount)+' v$</strong><small>'+(de?"Beispielquote 20 %":"Illustrative rate 20%")+'</small></div><div class="power-bars"><div><span>'+(de?"Folgereise ohne Nachlass":"Later booking without discount")+'</span><b id="powerFull">'+fmt(b)+' USDT</b><i style="--bar:100%;background:#dde7ee"></i></div><div><span>'+(de?"Folgereise mit angenommener Einlösung":"Later booking if redemption accepted")+'</span><b id="powerDue">'+fmt(due)+' USDT</b><i id="powerBar" style="--bar:'+(due/b*100)+'%"></i></div></div><div class="power-benefit"><span>'+(de?"Möglicher Kaufkraftvorteil":"Potential buying power benefit")+'</span><strong id="powerSaved">'+fmt(saved)+' USDT</strong></div></div><p class="power-notice" id="powerExplanation" aria-live="polite">'+(de?"Reines Rechenbeispiel: Nur bei tatsächlich verfügbarer und akzeptierter Einlösung verringert sich die Zahlung. v$ sind kein Bargeld.":"Illustration only: payment is reduced only where the v$ is genuinely accepted under an available offer. v$ is not cash.")+'</p></div>';
  }
  case "network":
  return '<div class="ecosystem-map"><div class="map-ring" aria-hidden="true"><span class="map-orb" style="--orb:0">◉</span><span class="map-orb" style="--orb:1">◎</span><span class="map-orb" style="--orb:2">✦</span></div><div class="map-selects">'+rowCards(s,{cardsOnly:true})+'</div><div class="map-insight" id="choiceFocus"><small>'+esc(w[lang].why)+'</small><h3 id="choiceName">'+esc(T(s.items[selections[mode+idx]||0].name))+'</h3><p>'+esc(T(s.items[selections[mode+idx]||0].detail))+'</p></div></div>';
@@ -92,6 +97,7 @@ function renderNav(){
 function draw(){
  const s=thisScene();if(!s)return;
  $("stage").innerHTML=mode==="story"?mainScene(s):libraryScene(s);
+ scheduleFit();
  $("back").disabled=idx===0;
  $("forwardLabel").textContent=idx===deck().length-1?w[lang].again:w[lang].next;
  $("trackFill").style.width=(100*(idx+1)/deck().length)+"%";
@@ -106,6 +112,22 @@ function draw(){
  document.querySelectorAll("[data-menu-scene]").forEach(el=>el.setAttribute("aria-current",String(mode===menuTab&&Number(el.dataset.menuScene)===idx)));
  document.title=T(s.title)+" · VOW & TLN";
 }
+let fitHandle=0;
+function scheduleFit(){
+ if(fitHandle)cancelAnimationFrame(fitHandle);
+ fitHandle=requestAnimationFrame(()=>{
+  fitHandle=0;const stage=$("stage"),body=stage?.querySelector(".scene-body");
+  if(!body)return;
+  body.style.zoom="1";body.classList.remove("allow-scene-scroll");
+  const available=stage.clientHeight-8,needed=body.scrollHeight;
+  if(needed>available){
+    const ratio=Math.min(1,Math.max(.76,available/needed));
+    body.style.zoom=String(ratio);
+    if(needed*ratio>available+5)body.classList.add("allow-scene-scroll");
+  }
+ });
+}
+window.addEventListener("resize",scheduleFit,{passive:true});
 function switchLang(value){
  if(!["de","en"].includes(value))return;lang=value;
  document.documentElement.lang=lang;
@@ -134,6 +156,7 @@ document.addEventListener("click",e=>{
  case "next":go(idx===deck().length-1?0:idx+1);break;
  case "back":go(idx-1);break;
  case "menu":menuTab=mode;renderNav();open("sceneMenu");break;
+ case "acceptToggle":examples.powerAccepted=!examples.powerAccepted;draw();break;
  case "library":if(mode==="story")toDeck("library",0);else toDeck("story",storyReturnIdx);break;
  case "context":if(mode==="story")toDeck("library",Math.max(0,Number(thisScene().detail?.[0]??0)));break;
  case "showStory":menuTab="story";renderNav();break;
@@ -146,6 +169,15 @@ document.addEventListener("click",e=>{
  }
 });
 document.addEventListener("input",e=>{
+ if(e.target.id==="powerFirst"||e.target.id==="powerNext"){
+   examples[e.target.id==="powerFirst"?"powerFirst":"powerNext"]=Number(e.target.value);
+   const a=examples.powerFirst,b=examples.powerNext,v=Math.round(a*.2),discount=examples.powerAccepted?Math.min(v,b):0,due=b-discount;
+   $("powerFirstValue").textContent=fmt(a)+" USDT";$("powerNextValue").textContent=fmt(b)+" USDT";
+   $("powerVoucher").textContent=fmt(v)+" v$";$("powerFull").textContent=fmt(b)+" USDT";
+   $("powerDue").textContent=fmt(due)+" USDT";$("powerSaved").textContent=fmt(discount)+" USDT";
+   $("powerBar").style.setProperty("--bar",(due/b*100)+"%");
+   return;
+ }
  if(e.target.id!=="bookingRange")return;
  const value=Number(e.target.value);examples.travel=value;
  $("bookingBase").textContent=fmt(value);
