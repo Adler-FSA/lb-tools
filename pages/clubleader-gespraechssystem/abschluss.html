@@ -54,7 +54,8 @@ function updateNav(){document.querySelectorAll('.progress a[data-nav]').forEach(
 
 function update(){refreshQuick();}
 if(!requireStage(4))throw new Error('Previous stage incomplete');const decisionOptions={new:[['','Bitte auswählen','Please select'],['buy','Ja, ich möchte die Vollausstattung erwerben','Yes, I want to acquire the package'],['later','Ich benötige Bedenkzeit','I need more time'],['questions','Ich habe weitere Fragen','I have further questions'],['no','Derzeit kein Interesse','Not interested at present']],partner:[['','Bitte auswählen','Please select'],['upgrade','Ja, ich möchte Club Leader werden','Yes, I want to become a Club Leader'],['later','Ich benötige Bedenkzeit','I need more time'],['questions','Ich habe weitere Fragen','I have further questions'],['no','Derzeit kein Interesse','Not interested at present']],leader:[['','Bitte auswählen','Please select'],['use','Ich möchte meine Ausstattung stärker selbst nutzen','I want to use my existing package more'],['offer','Ich möchte eigene Angebote entwickeln','I want to develop my own offers'],['refer','Ich möchte die Leistungswelt aktiv empfehlen','I want to recommend the service world'],['combine','Ich möchte mehrere Wege verbinden','I want to combine several paths'],['later','Noch keine konkrete Vereinbarung','No specific agreement yet']]};
-function update(){refreshQuick();setSummary('vParticipant',state.meta.participant);setSummary('vStatus',state.meta.clubStatus);setSummary('vGoal',state.s1.priority);setSummary('vServices',state.s2.relevant);setSummary('vBenefit',state.s2.benefit);setSummary('vModel',state.s3.model);setSummary('vGuess',state.s3.guess?state.s3.guess+' €':'–');setSummary('vReaction',state.s3.reaction);$('decisionHeading').textContent=status()==='leader'?(lang()==='de'?'Welche nächsten Schritte vereinbaren wir für deine vorhandene Leistungswelt?':'What next steps will you take with your existing service world?'):(lang()==='de'?'Möchtest du die ClubLeader-Vollausstattung erwerben?':'Would you like to acquire the ClubLeader package?');Array.from($('decision').options).forEach(o=>{o.textContent=o.getAttribute('data-'+lang())||o.textContent});}
+function showRelevantNextSteps(){const role=status();document.querySelectorAll('[data-quick-field="s4.nextStep"]').forEach(b=>{const key=b.dataset.quickKey;b.hidden=role==='leader'?(key==='order'||key==='contract'):(key==='offers'||key==='refer')})}
+function update(){refreshQuick();showRelevantNextSteps();setSummary('vParticipant',state.meta.participant);setSummary('vStatus',state.meta.clubStatus);setSummary('vGoal',mainGoal());setSummary('vServices',state.s2.relevant);setSummary('vBenefit',quickText('s2.benefit'));setSummary('vModel',state.s3.model);setSummary('vGuess',state.s3.guess?state.s3.guess+' €':'–');setSummary('vReaction',quickText('s3.reaction'));$('decisionHeading').textContent=status()==='leader'?(lang()==='de'?'Welche nächsten Schritte vereinbaren wir für deine vorhandene Leistungswelt?':'What next steps will you take with your existing service world?'):(lang()==='de'?'Möchtest du die ClubLeader-Vollausstattung erwerben?':'Would you like to acquire the ClubLeader package?');Array.from($('decision').options).forEach(o=>{o.textContent=o.getAttribute('data-'+lang())||o.textContent});}
 const dec=$('decision');decisionOptions[status()].forEach(([v,de,en])=>{let o=document.createElement('option');o.value=v;o.textContent=de;o.setAttribute('data-de',de);o.setAttribute('data-en',en);dec.appendChild(o)});dec.value=state.s4.decision;dec.onchange=()=>{state.s4.decision=dec.value;persist()};
 $('clear').onclick=()=>{if(confirm(lang()==='de'?'Hast du deine fertige PDF bereits gespeichert? Alle lokalen Angaben werden unwiderruflich gelöscht.':'Have you saved the PDF? All locally recorded answers will be deleted permanently.')){state=fresh();persist();go('index')}};
 
@@ -75,31 +76,31 @@ document.getElementById('pdf').addEventListener('click',async()=>{
  {heading:tr('1 · Persönliche Ausgangssituation','1 · Personal starting point'),blocks:[{type:'key_values',items:[
  pair(tr('Gesprächsteilnehmer','Participant'),state.meta.participant),pair(tr('Gesprächsführer','Conversation host'),state.meta.moderator),
  pair(tr('Datum','Date'),state.meta.date),pair(tr('Status','Status'),state.meta.clubStatus),
- pair(tr('Berufliche Situation','Work situation'),state.s1.profession),pair(tr('Berufliche Ergänzung','Work details'),state.s1.professionNote),
- pair(tr('Erfahrungen und Stärken','Experience and strengths'),state.s1.strengths),
+ pair(tr('Berufliche Situation','Work situation'),state.s1.profession),pair(tr('Berufliche Ergänzung','Work details'),quickText('s1.professionNote')),
+ pair(tr('Erfahrungen und Stärken','Experience and strengths'),quickText('s1.strengths')),
  pair(tr('Persönliche Ziele','Personal goals'),state.s1.goals),pair(tr('Weitere Ziele','Further goals'),state.s1.goalsNote),
  pair(tr('Herausforderungen','Challenges'),state.s1.challenges),pair(tr('Ergänzungen','Details'),state.s1.challengesNote),
  pair(tr('Gewünschte Unterstützung','Support of interest'),state.s1.supports),
- pair(tr('Hauptziel','Main goal'),state.s1.priority),pair(tr('Bedarf richtig erfasst','Needs correctly recorded'),state.s1.confirm),
+ pair(tr('Hauptziel','Main goal'),mainGoal()),pair(tr('Bedarf richtig erfasst','Needs correctly recorded'),state.s1.confirm),
  pair(tr('Interesse an der Leistungswelt','Interest in the service world'),state.s1.interest),
  pair(tr('Notizen','Notes'),state.s1.notes)
  ]}]},
  {heading:tr('2 · ClubLeader-Leistungswelt','2 · ClubLeader service world'),blocks:[{type:'key_values',items:[
  pair(tr('Interessante Leistungen','Relevant services'),state.s2.relevant),
  pair(tr('Erste Priorität','First priority'),state.s2.focus),
- pair(tr('Erkannter Nutzen','Recognised benefit'),state.s2.benefit),
+ pair(tr('Erkannter Nutzen','Recognised benefit'),quickText('s2.benefit')),
  pair(tr('Offene Fragen','Open questions'),state.s2.questions),
  pair(tr('Persönlichen Nutzen erkannt','Personal value recognised'),state.s2.confirm),
  pair(tr('Interesse an wirtschaftlicher Betrachtung','Interest in economic perspective'),state.s2.next)
  ]}]},
  {heading:tr('3 · Wirtschaftliche Perspektive','3 · Business perspective'),blocks:[{type:'key_values',items:[
  pair(tr('Gewählte Geschäftswege','Selected business paths'),state.s3.model),
- pair(tr('Geplante Nutzung','Intended use'),state.s3.plan),
- pair(tr('Fähigkeiten und Kontakte','Skills and contacts'),state.s3.strengths),
- pair(tr('Weitere Möglichkeiten','Further opportunities'),state.s3.extra),
+ pair(tr('Geplante Nutzung','Intended use'),quickText('s3.plan')),
+ pair(tr('Fähigkeiten und Kontakte','Skills and contacts'),quickText('s3.strengths')),
+ pair(tr('Weitere Möglichkeiten','Further opportunities'),quickText('s3.extra')),
  pair(tr('Persönliche Preisschätzung (netto/Monat)','Personal price estimate (net/month)'),state.s3.guess?state.s3.guess+' EUR':'–'),
  pair(tr('Tatsächlicher Preis','Actual price'),'189 EUR '+tr('netto / Halbjahr, rechnerisch 31,50 EUR netto / Monat','net / 6 months, calculated 31.50 EUR net / month')),
- pair(tr('Persönliche Preisbewertung','Personal price evaluation'),state.s3.reaction),
+ pair(tr('Persönliche Preisbewertung','Personal price evaluation'),quickText('s3.reaction')),
  pair(tr('Offene Fragen','Open questions'),state.s3.questions),
  pair(tr('Wirtschaftliche Einschätzung','Economic assessment'),state.s3.confirm),
  pair(tr('Bereitschaft zum nächsten Schritt','Readiness for next step'),state.s3.next)
@@ -108,7 +109,7 @@ document.getElementById('pdf').addEventListener('click',async()=>{
  pair(tr('Zusammenfassung bestätigt','Summary verified'),state.s4.summary),
  pair(tr('Wesentliche Fragen geklärt','Essential questions resolved'),state.s4.questions),
  pair(tr('Gesprächsergebnis','Conversation outcome'),state.s4.decision),
- pair(tr('Vereinbarter nächster Schritt','Agreed next step'),state.s4.nextStep),
+ pair(tr('Vereinbarter nächster Schritt','Agreed next step'),quickText('s4.nextStep')),
  pair(tr('Folgetermin','Follow-up date'),state.s4.followup),
  pair(tr('Abschließende Bemerkungen','Final remarks'),state.s4.remarks)
  ]},{type:'callout',text:tr('Diese PDF dokumentiert das Gespräch. Sie ist kein Vertrag und keine Bestätigung eines tatsächlich erfolgten Kaufs.','This PDF documents the conversation. It is not a contract or proof of a completed purchase.'),theme:'mint'}]}
