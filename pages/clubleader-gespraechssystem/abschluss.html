@@ -260,7 +260,7 @@ bindAll();initQuick();
 </script>
 <script src="../merchant-kompass/akademie-pdf-uebergabe.js"></script>
 <script type="module">
-import {generateAkademiePdf} from '../immobilien-premium/assets/js/pdf-master-core.js';
+import {generateAkademiePdf} from './assets/pdf-clubleader-core.js';
 const locale=()=>state.lang==='en'?'en':'de';
 const tr=(de,en)=>locale()==='de'?de:en;
 const pair=(label,value)=>({label,value:String(display(value)||'–')});
@@ -341,13 +341,16 @@ document.getElementById('pdf').addEventListener('click',async()=>{
   .map(([key])=>AUDIT_REPORT[key][0]);
  const goalLines=reportedGoals.map(x=>tr('Priorität ','Priority ')+x.rank+' · '+x.title);
  const recommended=[];
- reportedGoals.forEach(group=>{
-  const pairs=group.options.length?group.options.slice(0,2):
+ reportedGoals.forEach((group,index)=>{
+  // More detail for the two highest priorities; one practical starting step for the others.
+  const maxSteps=index<2?2:1;
+  const pairs=group.options.length?group.options.slice(0,maxSteps):
    [['Das individuelle Ziel in konkrete erste Schritte übersetzen','Turn the individual goal into concrete first steps']];
-  pairs.forEach((p,i)=>recommended.push(tr('Priorität ','Priority ')+group.rank+': '+p[locale()==='de'?0:1]));
+  pairs.forEach(p=>recommended.push(tr('Priorität ','Priority ')+group.rank+': '+p[locale()==='de'?0:1]));
  });
- const additionalMissing=Object.entries(audit).filter(([key,value])=>(value==='missing'||value==='part')&&TODO_MISSING[key]);
- additionalMissing.slice(0,4).forEach(([key])=>recommended.push(tr('Ergänzende Möglichkeit: ','Additional option: ')+TODO_MISSING[key][locale()==='de'?0:1]));
+ const missingOrder=['billing','protection','community','referral','crm','marketing','portfolio','training','website'];
+ const additionalMissing=missingOrder.filter(key=>(audit[key]==='missing'||audit[key]==='part')&&TODO_MISSING[key]);
+ additionalMissing.slice(0,3).forEach(key=>recommended.push(tr('Weitere Möglichkeit: ','Further option: ')+TODO_MISSING[key][locale()==='de'?0:1]));
  const businessStatus=businessText();
  const safeName=String(state.meta.participant||'').trim();
  const profileLine=tr('Im Mittelpunkt stehen deine eigenen Angaben und dein wichtigstes Ziel: ','This report is based on your answers and your top business goal: ')+mainGoal()+'.';
@@ -370,9 +373,8 @@ document.getElementById('pdf').addEventListener('click',async()=>{
    {type:'paragraph',text:tr('Diese Standortbestimmung gibt deine Antworten wieder. Sie ist keine unabhängige Prüfung deines Unternehmens.','This business assessment reflects your answers and is not an independent examination of your business.')}
   ]},
   {heading:tr('02 · Deine persönlichen Prioritäten','02 · Your business priorities'),blocks:[
-   {type:'paragraph',text:tr('Du hast diese Ziele im Gespräch nach Wichtigkeit geordnet. Die Reihenfolge bestimmt, welche Möglichkeiten wir zuerst betrachten.','You ranked these goals by importance. Their order determines which opportunities we explore first.')},
-   {type:'list',items:goalLines.length?goalLines:[tr('Noch keine Ziele priorisiert','No goals ranked yet')]},
-   {type:'callout',theme:'mag',text:tr('Zielpriorität und bevorzugter Leistungsbereich sind zwei verschiedene Angaben. Als Leistungsbereich hast du zuerst gewählt: ','Your business goal priority and preferred service area are different selections. Your first selected service area is: ')+display(state.s2.focus)}
+   {type:'paragraph',text:tr('Deine Ziele sind nach Wichtigkeit sortiert. Dein zuerst gewählter Leistungsbereich ist davon unabhängig: ','Your goals are ranked by importance. The service area you selected first is separate: ')+display(state.s2.focus)+'.'},
+   {type:'list',items:goalLines.length?goalLines:[tr('Noch keine Ziele priorisiert','No goals ranked yet')]}
   ]},
   {heading:tr('03 · Von deinen Lücken zu passenden Möglichkeiten','03 · From gaps to relevant opportunities'),blocks:[
    {type:'paragraph',text:tr('Hier stehen ausschließlich Bereiche, die du als fehlend oder teilweise vorhanden angegeben hast. Die genannten ClubLeader-Leistungen sind mögliche Ansatzpunkte – keine Erfolgsgarantie.','Only areas you marked as missing or partly available appear below. The ClubLeader services are potential options, not a success guarantee.')},
@@ -381,7 +383,7 @@ document.getElementById('pdf').addEventListener('click',async()=>{
    {type:'paragraph',text:tr('Die Vollausstattung umfasst darüber hinaus Ausbildung, die Club-Community, Schutzschirm und Fallschirm sowie ein optionales zusätzliches Geschäftsmodell.','The complete package also includes training, the club community, protection and emergency guidance, plus an optional additional business model.')}
   ]},
   {heading:tr('04 · Dein persönlicher Umsetzungsfahrplan','04 · Your personal action plan'),blocks:[
-   {type:'paragraph',text:tr('VORGESCHLAGENE SCHRITTE – noch nicht vereinbart. Sie wurden aus deinen Zielen und den erfassten Lücken abgeleitet und dienen als Gesprächsgrundlage.','SUGGESTED ACTIONS – not yet agreed. Derived from your goals and reported gaps, for discussion only.')},
+   {type:'paragraph',text:tr('AUSWAHL VORGESCHLAGENER SCHRITTE – noch nicht vereinbart. Die wichtigsten Ansatzpunkte folgen deinen Prioritäten; weitere Aufgaben können im Gespräch vereinbart werden.','SELECTED SUGGESTED ACTIONS – not yet agreed. Key next steps follow your priorities; additional actions can be agreed during the conversation.')},
    {type:'list',items:recommended.length?recommended:[tr('Ein erstes individuelles Vorgehen gemeinsam festlegen.','Agree on an initial individual approach.')]},
    {type:'callout',theme:acceptedTasks.length?'mint':'mag',text:acceptedTasks.length?
        tr('AUSDRÜCKLICH VEREINBARTE AUFGABEN: ','EXPLICITLY AGREED ACTIONS: ')+acceptedTasks.join(' · '):
@@ -399,11 +401,11 @@ document.getElementById('pdf').addEventListener('click',async()=>{
    {type:'callout',theme:'mint',text:tr('Bei betrieblicher Veranlassung kann der Mitgliedsbeitrag grundsätzlich eine Betriebsausgabe sein. Ob und wie das im Einzelfall gilt, ist steuerlich zu prüfen. Die Mitgliedschaft wird hier nicht gekauft.','Business-related membership costs may be tax deductible, depending on individual circumstances. This document does not complete a purchase.')},
    {type:'paragraph',text:tr('Die Ausbildung und ClubLeader-spezifischen Werkzeuge stehen erst nach tatsächlichem Erwerb und Freischaltung zur Verfügung. Einkommen und geschäftliche Erfolge sind nicht garantiert.','Training and ClubLeader tools become available after actual purchase and activation. Income or business success is not guaranteed.')}
   ]},
-  {heading:tr('ANHANG · Ausführliche Gesprächsdokumentation','APPENDIX · Detailed conversation record'),kicker:tr('ORIGINALANGABEN','ORIGINAL ANSWERS'),blocks:[
+  {heading:tr('ANHANG · Ausführliche Gesprächsdokumentation','APPENDIX · Detailed conversation record'),startOnNewPage:true,kicker:tr('ORIGINALANGABEN','ORIGINAL ANSWERS'),blocks:[
    {type:'paragraph',text:tr('Im Folgenden sind die erfassten Antworten aus den vier Stationen nachvollziehbar dokumentiert. Der individuelle Fahrplan oben ist eine Auswertung dieser Angaben.','The following pages record the answers from all four conversation stages. The action plan above is an interpretation of these answers.')}
   ]}
  ];
- const sections=[...frontSections,...detailedSections];
+ const sections=[...frontSections,...detailedSections.map(s=>({...s,blocks:(s.blocks||[]).map(b=>b.type==='key_values'?{...b,compact:true}:b)}))];
 
  const safe=(s)=>String(s||'Gespraech').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'-').slice(0,65);
  const filename='ClubLeader-Gespraech-'+safe(state.meta.participant)+'-'+state.meta.date+'.pdf';
