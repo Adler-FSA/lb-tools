@@ -192,9 +192,9 @@ const TODO_MISSING={
  protection:['Schutzschirm und Fallschirm kennenlernen','Explore protection and emergency guidance']
 };
 function planLabels(){
- const ordered=(state.s1.priorities||[]).filter(v=>(state.s1.goals||[]).includes(v));
+ const ordered=(state.s1.priorities||[]).filter(v=>(state.s1.goals||[]).includes(v)||(v==='custom'&&String(state.s1.goalsNote||'').trim()));
  const values=ordered.length?ordered:[...(state.s1.goals||[]),...(String(state.s1.goalsNote||'').trim()?['custom']:[])];
- return values.map((key,i)=>({key,rank:i+1,title:display(key),options:TODO_TEMPLATES[key]||[]})).slice(0,6)
+ return values.map((key,i)=>({key,rank:i+1,title:display(key),options:TODO_TEMPLATES[key]||[]})).slice(0,7)
 }
 function renderActionPlan(){
  state.s4.todos=Array.isArray(state.s4.todos)?state.s4.todos:[];
@@ -279,7 +279,7 @@ document.getElementById('pdf').addEventListener('click',async()=>{
  pair(tr('Herausforderungen','Challenges'),state.s1.challenges),pair(tr('Ergänzungen','Details'),state.s1.challengesNote),
  pair(tr('Gewünschte Unterstützung','Support of interest'),state.s1.supports),
  pair(tr('Hauptziel','Main goal'),mainGoal()),
- pair(tr('Prioritäten 1 bis 6','Priorities 1–6'),planLabels().map(x=>x.rank+'. '+x.title).join(' | ')),
+ pair(tr('Prioritäten 1 bis 7','Priorities 1–7'),planLabels().map(x=>x.rank+'. '+x.title).join(' | ')),
  pair(tr('Fehlende / teilweise Ausstattung','Missing / partly available tools'),gapsText()),
  pair(tr('Bisherige Hindernisse','Previous obstacles'),barrierDisplay()),
  pair(tr('Zusätzliches Geschäftsmodell','Additional business opportunity'),businessText()),pair(tr('Bedarf richtig erfasst','Needs correctly recorded'),state.s1.confirm),
