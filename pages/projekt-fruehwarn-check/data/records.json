@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-21T10:37:21Z",
+  "generated_at": "2026-10-21T11:43:14Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-20T11:30:49Z",
-      "records": 3624,
+      "last_success": "2026-10-21T11:43:14Z",
+      "records": 3623,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "477608747a6be2436917bc410ab3b6ccb76ebd4b0eb6b059e4b2338a1a7699e8"
+      "response_sha256": "de64b69e7d563927344b841bb4ec246a151bc66ae48b8c0747e2c4a71bb667cc"
     }
   },
   "records": [
@@ -77334,7 +77334,7 @@
       "lei": "984500ADEE3DE4F14F51",
       "national_reference": "38803611",
       "city": "Vedbæk",
-      "last_update": "20251231000000000",
+      "last_update": "20260101000000000",
       "match_terms": [
         "Kompasbank A/S",
         "984500ADEE3DE4F14F51",
@@ -93054,40 +93054,6 @@
         "Raiffeisen-Volksbank Fresena eG",
         "5299003PTBIXD4JWUL87",
         "102957"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-d8f4e0ae11680ff6b9",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisen-Volksbank Hassberge eG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900IVG1Z0C6PWC931",
-      "lei": "529900IVG1Z0C6PWC931",
-      "national_reference": "106795",
-      "city": "Hassfurt",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisen-Volksbank Hassberge eG",
-        "529900IVG1Z0C6PWC931",
-        "106795"
       ]
     },
     {
