@@ -241,7 +241,7 @@ function chosenTodoText(){
  const eligible=new Set(planLabels().map(x=>x.key));
  return (state.s4.todos||[]).map(id=>{
   if(id.startsWith('gap-')){const key=id.slice(4);if(!['missing','part'].includes(state.s1.audit?.[key]))return null;return TODO_MISSING[key]?.[lang()==='de'?0:1]||null}
-  const m=id.match(/^([a-z]+)-(\\d+)$/);
+  const m=id.match(/^([a-z]+)-(\d+)$/);
   if(!m||!eligible.has(m[1]))return null;
   const pair=TODO_TEMPLATES[m[1]]?.[Number(m[2])];return pair?pair[lang()==='de'?0:1]:null
  }).filter(Boolean).concat(state.s4.customTasks||[])
