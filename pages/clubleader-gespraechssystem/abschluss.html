@@ -269,8 +269,8 @@ document.getElementById('pdf').addEventListener('click',async()=>{
  const el=document.getElementById('pdfMessage');
  if(!state.s4.decision){showMissing('pdfMessage',[{de:'Gesprächsergebnis auswählen',en:'Select the conversation outcome',target:'#decision'}]);return}
 
- const sections=[
- {heading:tr('1 · Persönliche Ausgangssituation','1 · Personal starting point'),blocks:[{type:'key_values',items:[
+ const detailedSections=[
+ {heading:tr('Anhang A · Persönliche Ausgangssituation','Appendix A · Personal starting point'),blocks:[{type:'key_values',items:[
  pair(tr('Gesprächsteilnehmer','Participant'),state.meta.participant),pair(tr('Unternehmen','Company'),state.meta.company||'–'),pair(tr('Gesprächsführer','Conversation host'),state.meta.moderator),
  pair(tr('Datum','Date'),state.meta.date),pair(tr('Gesprächspartner','Conversation partner'),tr('Neuer selbstständiger Unternehmer','New self-employed entrepreneur')),pair(tr('Branche / Tätigkeit','Industry / activity'),industryName()),
  pair(tr('Berufliche Situation','Work situation'),state.s1.profession),pair(tr('Berufliche Ergänzung','Work details'),quickText('s1.professionNote')),
@@ -286,15 +286,15 @@ document.getElementById('pdf').addEventListener('click',async()=>{
  pair(tr('Interesse an der Leistungswelt','Interest in the service world'),state.s1.interest),
  pair(tr('Notizen','Notes'),state.s1.notes)
  ]}]},
- {heading:tr('2 · ClubLeader-Leistungswelt','2 · ClubLeader service world'),blocks:[{type:'key_values',items:[
+ {heading:tr('Anhang B · ClubLeader-Leistungswelt','Appendix B · ClubLeader service world'),blocks:[{type:'key_values',items:[
  pair(tr('Interessante Leistungen','Relevant services'),state.s2.relevant),
- pair(tr('Erste Priorität','First priority'),state.s2.focus),
+ pair(tr('Zuerst gewählter Leistungsbereich','First selected service area'),state.s2.focus),
  pair(tr('Erkannter Nutzen','Recognised benefit'),quickText('s2.benefit')),
  pair(tr('Offene Fragen','Open questions'),state.s2.questions),
  pair(tr('Persönlichen Nutzen erkannt','Personal value recognised'),state.s2.confirm),
  pair(tr('Interesse an wirtschaftlicher Betrachtung','Interest in economic perspective'),state.s2.next)
  ]}]},
- {heading:tr('3 · Wirtschaftliche Perspektive','3 · Business perspective'),blocks:[{type:'key_values',items:[
+ {heading:tr('Anhang C · Wirtschaftliche Perspektive','Appendix C · Business perspective'),blocks:[{type:'key_values',items:[
  pair(tr('Gewählte Geschäftswege','Selected business paths'),state.s3.model),
  pair(tr('Geplante Nutzung','Intended use'),quickText('s3.plan')),
  pair(tr('Fähigkeiten und Kontakte','Skills and contacts'),quickText('s3.strengths')),
@@ -306,7 +306,7 @@ document.getElementById('pdf').addEventListener('click',async()=>{
  pair(tr('Wirtschaftliche Einschätzung','Economic assessment'),state.s3.confirm),
  pair(tr('Bereitschaft zum nächsten Schritt','Readiness for next step'),state.s3.next)
  ]}]},
- {heading:tr('4 · Entscheidung und Vereinbarung','4 · Decision and agreement'),blocks:[{type:'key_values',items:[
+ {heading:tr('Anhang D · Entscheidung und Vereinbarung','Appendix D · Decision and agreement'),blocks:[{type:'key_values',items:[
  pair(tr('Zusammenfassung bestätigt','Summary verified'),state.s4.summary),
  pair(tr('Wesentliche Fragen geklärt','Essential questions resolved'),state.s4.questions),
  pair(tr('Gesprächsergebnis','Conversation outcome'),state.s4.decision),
@@ -317,11 +317,100 @@ document.getElementById('pdf').addEventListener('click',async()=>{
  pair(tr('Planungsstatus','Planning status'),tr('Aufgaben sind Vorschläge bis zur ausdrücklichen Auswahl. Umsetzung nach Erwerb.','Tasks are suggestions until chosen. Implementation after purchase.'))
  ]},{type:'callout',text:tr('Diese PDF dokumentiert das Gespräch. Sie ist kein Vertrag und keine Bestätigung eines tatsächlich erfolgten Kaufs.','This PDF documents the conversation. It is not a contract or proof of a completed purchase.'),theme:'mint'}]}
  ];
+
+ const reportedGoals=planLabels();
+ const acceptedTasks=chosenTodoText();
+ const audit=state.s1.audit||{};
+ const AUDIT_REPORT={
+  website:[tr('Webseite & Sichtbarkeit','Website & visibility'),tr('Persönliche Webseite, Profil und Marketingwerkzeuge','Personal site, profile and marketing tools')],
+  crm:[tr('KMS / CRM & Kontakte','KMS / CRM & contacts'),tr('Persönliches KMS mit Kontakten, Wiedervorlagen und Kommunikation','Personal KMS with contacts, follow-ups and communication')],
+  billing:[tr('Eigene Angebote & Abrechnung','Own offers & billing'),tr('Freigegebene Marktplatzangebote mit integrierter Abrechnungslogik','Approved marketplace offers with integrated billing logic')],
+  marketing:[tr('Marketing & Kampagnen','Marketing & campaigns'),tr('Generatoren, Einladungen, Newsletter und Kampagnen','Generators, invitations, newsletters and campaigns')],
+  referral:[tr('Empfehlungswege','Referral paths'),tr('Persönliche Empfehlungen, Einladungswerkzeuge und Zuordnung','Personal referrals, invitations and attribution')],
+  portfolio:[tr('Produktportfolio','Product portfolio'),tr('Drei BusinessBooster, drei Unternehmer-Hörsaal-Angebote und freigegebener Marktplatz','Three BusinessBoosters, three Entrepreneur Lecture Hall offers and approved marketplace')],
+  training:[tr('Ausbildung & Begleitung','Training & support'),tr('12-Wochen-Aufbauprogramm, KMS-Schulung und Workshops','12-week development programme, KMS training and workshops')],
+  community:[tr('Community & Kooperation','Community & cooperation'),tr('Club-Community, Austausch und gemeinsame Sichtbarkeit','Club community, exchange and shared visibility')],
+  protection:[tr('Schutzschirm & Fallschirm','Protection & emergency guidance'),tr('Aufklärung, Risikoorientierung und Hilfe zur Selbsthilfe','Education, risk awareness and self-help guidance')]
+ };
+ const missingRows=Object.entries(audit).filter(([key,status])=>AUDIT_REPORT[key]&&(status==='missing'||status==='part'))
+  .map(([key,status])=>[
+   AUDIT_REPORT[key][0]+(status==='part'?tr(' (teilweise)',' (partly)'):''),
+   AUDIT_REPORT[key][1]
+  ]);
+ const existingRows=Object.entries(audit).filter(([key,status])=>AUDIT_REPORT[key]&&status==='yes')
+  .map(([key])=>AUDIT_REPORT[key][0]);
+ const goalLines=reportedGoals.map(x=>tr('Priorität ','Priority ')+x.rank+' · '+x.title);
+ const recommended=[];
+ reportedGoals.forEach(group=>{
+  const pairs=group.options.length?group.options.slice(0,2):
+   [[tr('Das individuelle Ziel in konkrete erste Schritte übersetzen','Turn the individual goal into concrete first steps'),
+      tr('Turn the individual goal into concrete first steps','Das individuelle Ziel in konkrete erste Schritte übersetzen')]];
+  pairs.forEach((p,i)=>recommended.push(tr('Priorität ','Priority ')+group.rank+': '+p[locale()==='de'?0:1]));
+ });
+ const additionalMissing=Object.entries(audit).filter(([key,value])=>(value==='missing'||value==='part')&&TODO_MISSING[key]);
+ additionalMissing.slice(0,4).forEach(([key])=>recommended.push(tr('Ergänzende Möglichkeit: ','Additional option: ')+TODO_MISSING[key][locale()==='de'?0:1]));
+ const businessStatus=businessText();
+ const safeName=String(state.meta.participant||'').trim();
+ const profileLine=tr('Im Mittelpunkt stehen deine eigenen Angaben und dein wichtigstes Ziel: ','This report is based on your answers and your top business goal: ')+mainGoal()+'.';
+ const term=state.s3.revealed?
+   tr('189 EUR netto je Halbjahr (31,50 EUR netto/Monat rechnerisch; halbjährliche Abrechnung)',
+      'EUR 189 net per six months (EUR 31.50 calculated monthly equivalent; billed six-monthly)'):
+   tr('Im Gespräch noch nicht aufgedeckt','Not revealed in the conversation');
+ const resultStatus=state.s4.decision?display(state.s4.decision):tr('Noch offen','Still open');
+ const frontSections=[
+  {heading:tr('01 · Dein Unternehmerprofil','01 · Your business profile'),kicker:tr('PERSÖNLICHE AUSWERTUNG','PERSONAL ASSESSMENT'),blocks:[
+   {type:'callout',theme:'mint',text:profileLine},
+   {type:'key_values',items:[
+    pair(tr('Unternehmen','Company'),state.meta.company||safeName),
+    pair(tr('Tätigkeitsbereich','Industry / activity'),industryName()),
+    pair(tr('Erste Zielpriorität','Top business goal'),mainGoal()),
+    pair(tr('Zusätzliches Geschäftsfeld','Additional business field'),businessStatus),
+    pair(tr('Vorhandene Ausstattung laut Angaben','Already available, as reported'),existingRows.join(' · ')||tr('Nicht benannt','None specified')),
+    pair(tr('Erfahrungen und Stärken','Experience and strengths'),quickText('s1.strengths'))
+   ]},
+   {type:'paragraph',text:tr('Diese Standortbestimmung gibt deine Antworten wieder. Sie ist keine unabhängige Prüfung deines Unternehmens.','This business assessment reflects your answers and is not an independent examination of your business.')}
+  ]},
+  {heading:tr('02 · Deine persönlichen Prioritäten','02 · Your business priorities'),blocks:[
+   {type:'paragraph',text:tr('Du hast diese Ziele im Gespräch nach Wichtigkeit geordnet. Die Reihenfolge bestimmt, welche Möglichkeiten wir zuerst betrachten.','You ranked these goals by importance. Their order determines which opportunities we explore first.')},
+   {type:'list',items:goalLines.length?goalLines:[tr('Noch keine Ziele priorisiert','No goals ranked yet')]},
+   {type:'callout',theme:'mag',text:tr('Zielpriorität und bevorzugter Leistungsbereich sind zwei verschiedene Angaben. Als Leistungsbereich hast du zuerst gewählt: ','Your business goal priority and preferred service area are different selections. Your first selected service area is: ')+display(state.s2.focus)}
+  ]},
+  {heading:tr('03 · Von deinen Lücken zu passenden Möglichkeiten','03 · From gaps to relevant opportunities'),blocks:[
+   {type:'paragraph',text:tr('Hier stehen ausschließlich Bereiche, die du als fehlend oder teilweise vorhanden angegeben hast. Die genannten ClubLeader-Leistungen sind mögliche Ansatzpunkte – keine Erfolgsgarantie.','Only areas you marked as missing or partly available appear below. The ClubLeader services are potential options, not a success guarantee.')},
+   ...(missingRows.length?[{type:'table',headers:[tr('Bisher gefehlt / teilweise','Missing / partly available'),tr('Möglicher Leistungsbaustein','Possible ClubLeader solution')],rows:missingRows}]:
+      [{type:'callout',theme:'mint',text:tr('Du hast in der Bestandsaufnahme keine fehlenden oder teilweise vorhandenen Bereiche markiert.','No missing or partly available areas were marked in your assessment.')}]),
+   {type:'paragraph',text:tr('Die Vollausstattung umfasst darüber hinaus Ausbildung, die Club-Community, Schutzschirm und Fallschirm sowie ein optionales zusätzliches Geschäftsmodell.','The complete package also includes training, the club community, protection and emergency guidance, plus an optional additional business model.')}
+  ]},
+  {heading:tr('04 · Dein persönlicher Umsetzungsfahrplan','04 · Your personal action plan'),blocks:[
+   {type:'paragraph',text:tr('VORGESCHLAGENE SCHRITTE – noch nicht vereinbart. Sie wurden aus deinen Zielen und den erfassten Lücken abgeleitet und dienen als Gesprächsgrundlage.','SUGGESTED ACTIONS – not yet agreed. Derived from your goals and reported gaps, for discussion only.')},
+   {type:'list',items:recommended.length?recommended:[tr('Ein erstes individuelles Vorgehen gemeinsam festlegen.','Agree on an initial individual approach.')]},
+   {type:'callout',theme:acceptedTasks.length?'mint':'mag',text:acceptedTasks.length?
+       tr('AUSDRÜCKLICH VEREINBARTE AUFGABEN: ','EXPLICITLY AGREED ACTIONS: ')+acceptedTasks.join(' · '):
+       tr('Noch keine Aufgaben ausdrücklich ausgewählt. Die obigen Vorschläge sind damit nicht automatisch vereinbart.','No actions explicitly selected yet. The suggestions above are not automatically agreed.')}
+  ]},
+  {heading:tr('05 · Gesprächsergebnis und nächste Vereinbarungen','05 · Conversation outcome and next steps'),blocks:[
+   {type:'key_values',items:[
+    pair(tr('Gesprächsergebnis','Conversation outcome'),resultStatus),
+    pair(tr('Vereinbarte nächste Schritte','Agreed next steps'),quickText('s4.nextStep')),
+    pair(tr('Folgetermin','Follow-up date'),state.s4.followup||tr('Nicht festgelegt','Not set')),
+    pair(tr('Bisherige Preisschätzung netto/Monat','Own price estimate net/month'),state.s3.guess?state.s3.guess+' EUR':tr('Nicht angegeben','Not provided')),
+    pair(tr('Tatsächlicher Preis','Actual price'),term),
+    pair(tr('Preisbewertung','Price assessment'),quickText('s3.reaction'))
+   ]},
+   {type:'callout',theme:'mint',text:tr('Bei betrieblicher Veranlassung kann der Mitgliedsbeitrag grundsätzlich eine Betriebsausgabe sein. Ob und wie das im Einzelfall gilt, ist steuerlich zu prüfen. Die Mitgliedschaft wird hier nicht gekauft.','Business-related membership costs may be tax deductible, depending on individual circumstances. This document does not complete a purchase.')},
+   {type:'paragraph',text:tr('Die Ausbildung und ClubLeader-spezifischen Werkzeuge stehen erst nach tatsächlichem Erwerb und Freischaltung zur Verfügung. Einkommen und geschäftliche Erfolge sind nicht garantiert.','Training and ClubLeader tools become available after actual purchase and activation. Income or business success is not guaranteed.')}
+  ]},
+  {heading:tr('ANHANG · Ausführliche Gesprächsdokumentation','APPENDIX · Detailed conversation record'),kicker:tr('ORIGINALANGABEN','ORIGINAL ANSWERS'),blocks:[
+   {type:'paragraph',text:tr('Im Folgenden sind die erfassten Antworten aus den vier Stationen nachvollziehbar dokumentiert. Der individuelle Fahrplan oben ist eine Auswertung dieser Angaben.','The following pages record the answers from all four conversation stages. The action plan above is an interpretation of these answers.')}
+  ]}
+ ];
+ const sections=[...frontSections,...detailedSections];
+
  const safe=(s)=>String(s||'Gespraech').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'-').slice(0,65);
  const filename='ClubLeader-Gespraech-'+safe(state.meta.participant)+'-'+state.meta.date+'.pdf';
  try{
  el.hidden=false;el.className='msg';el.textContent=tr('Die Gesprächs-PDF wird lokal erzeugt …','Generating the conversation PDF locally …');
- const out=await generateAkademiePdf({filename,title:tr('Persönliches ClubLeader-Gespräch','Personal ClubLeader conversation'),subtitle:state.meta.participant+' · '+state.meta.date,sections,brand:'LiquidityBooster ClubLeader',brandLine:tr('Persönliches Perspektivengespräch','Personal perspective conversation'),footerText:tr('Vertrauliches Gesprächsprotokoll','Confidential conversation record'),pageWord:tr('Seite','Page')});
+ const out=await generateAkademiePdf({filename,title:tr('Dein persönlicher Unternehmer-Fahrplan','Your personal business action plan'),subtitle:state.meta.participant+' · '+state.meta.date,sections,brand:'LiquidityBooster ClubLeader',brandLine:tr('Persönliches Perspektivengespräch','Personal perspective conversation'),footerText:tr('ClubLeader · Unternehmer-Fahrplan & Protokoll','ClubLeader · Business action plan and record'),pageWord:tr('Seite','Page')});
  if(!window.AkademiePdfUebergabe)throw new Error('PDF-Zentrale nicht verfügbar');
  window.AkademiePdfUebergabe.setDocument({...out,origin:tr('ClubLeader-Gesprächsprotokoll','ClubLeader conversation record')});
  const again=document.getElementById('pdfAgain');again.hidden=false;again.onclick=()=>window.AkademiePdfUebergabe.show();
