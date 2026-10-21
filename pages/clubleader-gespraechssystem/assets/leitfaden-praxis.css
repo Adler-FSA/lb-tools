@@ -153,3 +153,7 @@ body{background:#fff}
 .guide-tabs button{flex:1}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Nur die drei Einstiegskarten des Anwendungsleitfadens: Buttons bündig unten. */
+#leitfaden-start .guide-points > .guide-point{display:flex;flex-direction:column}
+#leitfaden-start .guide-points > .guide-point > .actions{margin-top:auto;margin-bottom:0;padding-top:24px}
