@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-22T10:40:33Z",
+  "generated_at": "2026-10-22T11:46:07Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-21T11:43:14Z",
+      "last_success": "2026-10-22T11:46:07Z",
       "records": 3623,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "de64b69e7d563927344b841bb4ec246a151bc66ae48b8c0747e2c4a71bb667cc"
+      "response_sha256": "151d99172b9531dcce81b799728dc2a5b4131c7b47406d7e6722c95b090df3be"
     }
   },
   "records": [
@@ -126623,7 +126623,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Trive Bank Europe Zartkoruen Mukodo Reszvenytarsasag",
+      "name": "Trive Bank Europe Zartkoruen Mukodo Reszvenytarsasag \"vegelszamolas alatt\"",
       "aliases": [
         "Trive Bank Hungary Zártkörűen Működő Részvénytársaság"
       ],
@@ -126646,9 +126646,9 @@
       "lei": "529900UQUOJZZ3DCFS40",
       "national_reference": "12951659",
       "city": "Budapest",
-      "last_update": "20250916000000000",
+      "last_update": "20261021000000000",
       "match_terms": [
-        "Trive Bank Europe Zartkoruen Mukodo Reszvenytarsasag",
+        "Trive Bank Europe Zartkoruen Mukodo Reszvenytarsasag \"vegelszamolas alatt\"",
         "Trive Bank Hungary Zártkörűen Működő Részvénytársaság",
         "529900UQUOJZZ3DCFS40",
         "12951659"

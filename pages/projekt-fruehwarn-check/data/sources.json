@@ -251,10 +251,10 @@
       "url": "https://euclid.eba.europa.eu/register/cir/search",
       "note_de": "Automatisch aus dem offiziellen EBA-Kreditinstitutsregister aktualisiert. Gespiegelt werden die als CRD_CRE_INS geführten Kreditinstitute. Das EBA-Register bündelt Angaben nationaler Aufsichtsbehörden; rechtlich maßgeblich bleiben deren Register und Zuständigkeiten.",
       "note_en": "Automatically updated from the official EBA credit institutions register. The mirror contains entities classified as CRD_CRE_INS. The EBA register consolidates information from national competent authorities; their registers and competences remain legally authoritative.",
-      "last_success": "2026-10-21T11:43:14Z",
+      "last_success": "2026-10-22T11:46:07Z",
       "record_count": 3623,
       "dataset_url": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "de64b69e7d563927344b841bb4ec246a151bc66ae48b8c0747e2c4a71bb667cc"
+      "response_sha256": "151d99172b9531dcce81b799728dc2a5b4131c7b47406d7e6722c95b090df3be"
     }
   ]
 }
