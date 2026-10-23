@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-23T10:32:33Z",
+  "generated_at": "2026-10-23T11:33:18Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-22T11:46:07Z",
-      "records": 3623,
+      "last_success": "2026-10-23T11:33:18Z",
+      "records": 3622,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "151d99172b9531dcce81b799728dc2a5b4131c7b47406d7e6722c95b090df3be"
+      "response_sha256": "78284ca2b11fb91974e97ec11ba89eff69d13a1fdec93f82832b82447e0dc6c8"
     }
   },
   "records": [
@@ -19866,7 +19866,7 @@
       "lei": "95980020140005658381",
       "national_reference": "0136",
       "city": "Madrid",
-      "last_update": "20251231000000000",
+      "last_update": "20260930000000000",
       "match_terms": [
         "Aresbank, S.A.",
         "95980020140005658381",
@@ -126615,43 +126615,6 @@
         "Triodos Bank N.V.",
         "724500PMK2A2M1SQQ228",
         "30062415"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-6674ac5d4fbf9ab4b0",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Trive Bank Europe Zartkoruen Mukodo Reszvenytarsasag \"vegelszamolas alatt\"",
-      "aliases": [
-        "Trive Bank Hungary Zártkörűen Működő Részvénytársaság"
-      ],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "HU_CBH",
-      "country": "HU",
-      "date": "2019-04-23",
-      "last_status_date": "2019-04-23",
-      "authorization_history": [
-        "2019-04-23"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900UQUOJZZ3DCFS40",
-      "lei": "529900UQUOJZZ3DCFS40",
-      "national_reference": "12951659",
-      "city": "Budapest",
-      "last_update": "20261021000000000",
-      "match_terms": [
-        "Trive Bank Europe Zartkoruen Mukodo Reszvenytarsasag \"vegelszamolas alatt\"",
-        "Trive Bank Hungary Zártkörűen Működő Részvénytársaság",
-        "529900UQUOJZZ3DCFS40",
-        "12951659"
       ]
     },
     {
