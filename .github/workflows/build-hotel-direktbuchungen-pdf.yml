@@ -1,0 +1,68 @@
+name: Hotel-Telefonleitfaden PDF bereitstellen
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-hotel-direktbuchungen-pdf.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build-hotel-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+      - name: Pillow bereitstellen
+        run: python -m pip install --quiet pillow
+      - name: Original-Dokumentseiten als PDF bereitstellen
+        shell: bash
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import base64, io
+          from PIL import Image
+
+          source=Path('pages/hotel-telefonleitfaden/index.html')
+          target=Path('pages/akquise/Telefonleitfaden_Hotels.pdf')
+          if not source.exists():
+              raise SystemExit('Dokumentarchiv fehlt')
+
+          class PageReader(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.images=[]
+              def handle_starttag(self, tag, attrs):
+                  if tag!='img':
+                      return
+                  d=dict(attrs)
+                  src=d.get('src', '')
+                  if d.get('alt', '').startswith('Originalansicht Seite ') and src.startswith('data:image/webp;base64,'):
+                      self.images.append(base64.b64decode(src.split(',',1)[1]))
+
+          reader=PageReader()
+          reader.feed(source.read_text(encoding='utf-8'))
+          if len(reader.images)!=7:
+              raise SystemExit(f'Erwartete 7 Originalseiten, gefunden: {len(reader.images)}')
+          pages=[Image.open(io.BytesIO(blob)).convert('RGB') for blob in reader.images]
+          if any(page.size!=(1102,1558) for page in pages):
+              raise SystemExit('Unerwartete Seitenabmessungen')
+          target.parent.mkdir(parents=True,exist_ok=True)
+          pages[0].save(str(target),format='PDF',save_all=True,append_images=pages[1:],resolution=133.5,quality=85)
+          if not target.read_bytes().startswith(b'%PDF-'):
+              raise SystemExit('Ausgabe ist keine PDF')
+          print('PDF mit sieben Dokumentseiten erstellt:', target, target.stat().st_size,'Bytes')
+          PY
+      - name: PDF ins Repository übernehmen
+        shell: bash
+        run: |
+          git config user.name "Adler-FSA PDF Build"
+          git config user.email "actions@users.noreply.github.com"
+          git add pages/akquise/Telefonleitfaden_Hotels.pdf
+          if git diff --cached --quiet; then
+            echo "PDF bereits aktuell"
+            exit 0
+          fi
+          git commit -m "Hotel-Telefonleitfaden: vollständige siebenseitige PDF bereitstellen"
+          git push
