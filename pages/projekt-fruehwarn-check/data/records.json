@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-29T11:47:58Z",
+  "generated_at": "2026-10-29T12:54:56Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-28T12:46:45Z",
+      "last_success": "2026-10-29T12:54:56Z",
       "records": 3621,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "d1e3eb5fa0792992eb8b0a48c74577d2c9f14a640f38a98b2c95f0cee40c4b74"
+      "response_sha256": "608697d360d05036d78429ccc3e1a5cbc34483b0817aba17677b307f82b8244f"
     }
   },
   "records": [
@@ -107533,7 +107533,7 @@
       "lei": "529900GPOO9ISPD1EE83",
       "national_reference": "4930720",
       "city": "Wien",
-      "last_update": "20250630000000000",
+      "last_update": "20261015000000000",
       "match_terms": [
         "RAIFFEISENLANDESBANK NIEDERÖSTERREICH-WIEN AG",
         "529900GPOO9ISPD1EE83",
@@ -139148,8 +139148,8 @@
       "entity_code": "529900E35VZ5S83Z3F75",
       "lei": "529900E35VZ5S83Z3F75",
       "national_reference": "107546",
-      "city": "Berge",
-      "last_update": "20250721000000000",
+      "city": "Fürstenau",
+      "last_update": "20261027000000000",
       "match_terms": [
         "VR-Bank eG Osnabrücker Nordland",
         "529900E35VZ5S83Z3F75",
