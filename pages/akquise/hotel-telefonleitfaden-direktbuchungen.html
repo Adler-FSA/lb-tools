@@ -1,0 +1,215 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light">
+<title>Hotel-Telefonleitfaden · Experteneinladung & Direktbuchungen</title>
+<meta name="description" content="Eigenständiger Hotel-Telefonleitfaden auf Basis der siebenseitigen Vorlage: Rezeption, AIDA, Calendly und KMS.">
+<style>
+:root{--mint:#00a7ad;--mintSoft:#eaf9fa;--mag:#c6006f;--magSoft:#fff0f8;--navy:#132238;--text:#182230;--muted:#667085;--line:#dfe4ea;--soft:#f7f9fb;--green:#197a57;--greenSoft:#eaf7f1;--gold:#956600;--goldSoft:#fff7df;--shadow:0 8px 22px rgba(19,34,56,.08)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:auto;min-height:0;background:#fff;color:var(--text);font-family:Arial,Helvetica,sans-serif}body{overflow:hidden}button,input{font:inherit}button{cursor:pointer}.app{position:relative;width:100%;height:560px;max-height:560px;min-height:560px;display:grid;grid-template-rows:auto auto minmax(0,1fr);overflow:hidden;background:#fff}
+.top{display:grid;grid-template-columns:minmax(250px,1.15fr) minmax(250px,.95fr) minmax(205px,.72fr);align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line)}.title{min-width:0}.eyebrow{font-size:.68rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mint)}h1{margin:3px 0 0;font-size:clamp(1.18rem,1.65vw,1.5rem);line-height:1.08;color:var(--navy)}
+.counter{min-width:0;border:1px solid #b9e2df;background:#f4fbfa;border-radius:10px;padding:6px 9px}.counterTop,.counterBottom{display:flex;align-items:center;justify-content:space-between;gap:8px}.counterKicker{font-size:.64rem;font-weight:900;letter-spacing:.07em;text-transform:uppercase;color:var(--green)}.counterCount{font-size:1rem;font-weight:900;color:var(--navy);white-space:nowrap}.bar{height:6px;margin:5px 0;border-radius:999px;background:#dcece8;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--green);border-radius:999px;transition:width .18s}.counterStatus{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.67rem;font-weight:800;color:#3f665a}.counterBtn{height:26px;border:1px solid #a9d6cc;border-radius:7px;background:#fff;color:var(--green);padding:0 8px;font-size:.65rem;font-weight:900;white-space:nowrap}.counterBtn:disabled{opacity:.38;cursor:not-allowed}.counter.complete{background:var(--greenSoft);border-color:#8fcfbc}
+.goal{min-width:0;border-left:4px solid var(--mag);padding:6px 9px;background:var(--magSoft);font-size:.72rem;line-height:1.24}.goal strong{display:block;color:var(--mag);margin-bottom:2px}
+.controls{display:grid;grid-template-columns:minmax(190px,1fr) minmax(190px,1fr) auto;gap:7px;align-items:end;padding:6px 12px;border-bottom:1px solid var(--line);background:var(--soft)}.field{display:grid;gap:3px;min-width:0}.field label{font-size:.67rem;font-weight:800;color:var(--muted)}.field input{width:100%;height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 10px;color:var(--text);outline:none}.field input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(0,167,173,.09)}.modes{display:flex;gap:6px;height:32px}.mode{height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text);padding:0 12px;font-weight:800}.mode.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.workspace{min-height:0;height:100%;display:grid;grid-template-columns:minmax(0,1.72fr) minmax(275px,.78fr);gap:8px;padding:7px 12px 8px;overflow:hidden}.reader{position:relative;min-height:0;height:100%;display:grid;grid-template-rows:auto minmax(0,1fr);overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}.readerHead{padding:7px 9px 6px;border-bottom:1px solid var(--line)}.aida{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:6px}.aidaBtn{appearance:none;border:1px solid var(--line);border-radius:8px;background:#fff;padding:4px 6px;text-align:left;color:inherit;min-width:0}.aidaBtn span{display:block;font-size:.61rem;font-weight:900;color:var(--muted);letter-spacing:.05em}.aidaBtn strong{display:block;font-size:.76rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.aidaBtn em{display:block;margin-top:2px;font-size:.59rem;font-style:normal;font-weight:800;color:var(--mint)}.aidaBtn.active{border-color:var(--mint);background:var(--mintSoft)}.aidaBtn.done{border-color:#b8ded2;background:var(--greenSoft)}.aidaBtn.learn{box-shadow:0 0 0 2px rgba(0,167,173,.12)}.headRow{display:flex;align-items:center;justify-content:space-between;gap:10px}.stepTools{display:flex;align-items:center;gap:8px}.progress{font-size:.69rem;font-weight:800;color:var(--muted);white-space:nowrap}.headNav{display:flex;gap:5px}.headNav .navBtn{height:30px;padding:0 10px;font-size:.76rem}.badge{display:inline-block;border-radius:999px;background:var(--mintSoft);color:var(--mint);font-size:.63rem;font-weight:900;padding:4px 7px;margin-bottom:3px}.stepTitle{margin:0;color:var(--navy);font-size:1.03rem}
+.scriptArea{min-height:0;overflow:auto;padding:7px 9px;overscroll-behavior:contain}.scriptCard{min-height:100%;border:1px solid var(--line);border-radius:10px;background:var(--soft);padding:13px 15px}.scriptLabel{font-size:.63rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mint);margin-bottom:8px}.scriptText{font-size:clamp(1.02rem,1.4vw,1.24rem);line-height:1.38;color:#111827}.scriptText p{margin:0 0 11px}.scriptText p:last-child{margin-bottom:0}.coach{margin-top:9px;border-left:4px solid var(--mag);background:#fff;padding:8px 10px;color:var(--navy);line-height:1.32;font-size:.82rem;font-weight:800}.coach.green{border-left-color:var(--green);background:var(--greenSoft);color:#155b43}.coachLabel{display:block;font-size:.61rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mag);margin-bottom:3px}.coach.green .coachLabel{color:var(--green)}
+.navBtn{height:34px;border-radius:8px;border:1px solid var(--navy);background:var(--navy);color:#fff;padding:0 14px;font-size:.85rem;font-weight:900}.navBtn.secondary{background:#fff;color:var(--navy)}.navBtn:disabled{opacity:.35;cursor:not-allowed}.learnPanel{display:none;position:absolute;z-index:12;left:10px;right:10px;top:54px;bottom:8px;margin:0;border:1px solid #c9e7e8;border-radius:10px;background:#fbfefe;padding:16px 17px;overflow:auto;box-shadow:0 10px 28px rgba(19,34,56,.14)}.learnPanel.show{display:block}.learnTop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}.learnLabel{font-size:.65rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--mag)}.learnTitle{margin:2px 0 0;font-size:1rem;color:var(--navy)}.learnClose{height:28px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--muted);padding:0 8px;font-size:.66rem;font-weight:800}.learnText{font-size:.93rem;line-height:1.5;color:#3d4b5b;white-space:pre-wrap}
+.sidebar{min-height:0;height:100%;display:flex;flex-direction:column;gap:5px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-right:2px}.card{flex:0 0 auto;border:1px solid var(--line);border-radius:11px;background:#fff;overflow:hidden}.curiosity{border:2px solid #8dd2c8;background:linear-gradient(135deg,#e8f8f3,#f7fffc)}.curiosity button{width:100%;border:0;background:transparent;text-align:left;padding:7px 9px;color:#155b43}.kicker{font-size:.61rem;text-transform:uppercase;letter-spacing:.07em;font-weight:900}.curiosity strong{display:block;margin-top:3px;font-size:.85rem;line-height:1.22}.curiosity small{display:block;margin-top:4px;font-size:.69rem;line-height:1.22;color:#2c6b56;font-weight:700}.booking{border:2px solid #e4a6c9;background:#fff8fc}.bookingBody{padding:7px 9px}.bookingKicker{font-size:.61rem;text-transform:uppercase;letter-spacing:.07em;font-weight:900;color:var(--mag)}.bookingTitle{margin:2px 0 3px;color:var(--navy);font-size:.88rem}.bookingText{margin:0 0 5px;color:#5c4960;font-size:.69rem;line-height:1.25}.bookingBtn{display:block;width:100%;border-radius:8px;background:var(--mag);color:#fff;text-align:center;text-decoration:none;padding:6px 8px;font-size:.71rem;font-weight:900}.sideHead{padding:6px 9px 5px;border-bottom:1px solid var(--line)}.sideHead h2{margin:0;color:var(--navy);font-size:.89rem}.sideHead p{margin:2px 0 0;color:var(--muted);font-size:.67rem;line-height:1.3}.obBody{padding:6px 7px}.obGrid{display:grid;grid-template-columns:1fr 1fr;gap:5px}.ob{border:1px solid var(--line);border-radius:7px;background:#fff;text-align:left;padding:5px 6px;color:var(--text);font-size:.68rem;font-weight:800;line-height:1.22}.ob.active{border-color:var(--mag);background:var(--magSoft);color:var(--mag)}.answer{display:none;margin-top:6px;border-left:4px solid var(--green);background:var(--greenSoft);padding:8px 9px;font-size:.75rem;line-height:1.35;max-height:none;overflow:visible}.answer.show{display:block}.answerLabel{font-size:.59rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:4px}.answerText{white-space:pre-wrap;color:#183f34}.answerHint{margin-top:7px;padding-top:7px;border-top:1px solid #bddfd4;color:#155b43}.answerHint strong{display:block;font-size:.59rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}.memory{padding:6px 9px;background:var(--goldSoft);border-color:#ead9a6}.memory h3{margin:0 0 4px;color:#6b4c00;font-size:.81rem}.memory ol{margin:0;padding-left:15px;color:#664b09;font-size:.64rem;line-height:1.25}.memory li+li{margin-top:2px}.short .aida{display:none}.short .badge{background:var(--magSoft);color:var(--mag)}.short .scriptText{font-size:1.04rem;line-height:1.4}
+.bookingOverlay{display:none;position:absolute;inset:0;z-index:80;background:#fff;grid-template-rows:auto minmax(0,1fr)}.bookingOverlay.show{display:grid}.bookingOverlayHead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border-bottom:1px solid var(--line);background:#fff8fc}.bookingOverlayHead strong{display:block;color:var(--mag);font-size:.88rem}.bookingOverlayHead small{display:block;margin-top:2px;color:var(--muted);font-size:.67rem}.bookingOverlayClose{height:32px;border:1px solid var(--mag);border-radius:8px;background:#fff;color:var(--mag);padding:0 11px;font-size:.72rem;font-weight:900;white-space:nowrap}.bookingFrame{width:100%;height:100%;border:0;background:#fff}
+@media(max-width:760px){body{overflow:auto}.app{height:auto;max-height:none;min-height:0;overflow:visible;display:block}.top{grid-template-columns:1fr}.title,.goal,.counter{grid-column:1}.controls{grid-template-columns:1fr 1fr}.modes{grid-column:1/-1}.workspace{grid-template-columns:1fr;overflow:visible}.reader{height:520px}.sidebar{height:auto;overflow:visible;margin-top:8px}.headRow{align-items:flex-start}.stepTools{align-items:flex-end;flex-direction:column;gap:4px}}
+
+
+/* Neue Seite: Grundgestaltung und Platz sparendes Clubhaus-Layout aus der eingefrorenen HTML-Vorlage */
+html,body{height:auto}.app{height:560px;max-height:560px;min-height:560px;grid-template-rows:auto auto minmax(0,1fr)}
+.top{grid-template-columns:minmax(240px,1fr) minmax(245px,.93fr);padding:9px 13px}
+.goal{font-size:.74rem;padding:9px 12px;line-height:1.4}
+.controls{grid-template-columns:minmax(140px,.8fr) minmax(140px,.8fr) minmax(275px,1.3fr)}
+.modes{display:flex;align-items:center}.mode{flex:1;font-size:.76rem;padding:0 9px}
+.workspace{grid-template-columns:minmax(0,1.65fr) minmax(260px,.78fr)}
+.readerHead{padding:7px 10px}.aida{display:flex;overflow-x:auto;gap:5px;scrollbar-width:thin;margin-bottom:7px}
+.aidaBtn{min-width:88px;flex:0 0 auto;text-align:center;padding:6px 9px}
+.aidaBtn strong{font-size:.72rem}.aidaBtn span,.aidaBtn em{display:none}
+.scriptArea{overflow-y:auto;min-height:0;padding:9px}.scriptCard{min-height:100%;background:#fbfcfd}
+.scriptText{font-size:clamp(.98rem,1.32vw,1.17rem);line-height:1.5}.scriptText p{margin:0 0 14px}
+.speak-meta{display:flex;gap:8px;align-items:center;color:#006d70;font-weight:850;font-size:.69rem;letter-spacing:.05em;margin:0 0 9px}
+.sidebar{gap:8px}.sidePad{padding:13px}.sidePad h3{margin:0 0 7px;color:var(--navy);font-size:.88rem}
+.sidePad p,.sidePad li{font-size:.77rem;line-height:1.48;margin:0 0 7px}.sidePad ol{padding-left:17px;margin:0}
+.quickRow{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.quickRow button{border:1px solid #b7dee1;background:#effafa;border-radius:8px;padding:7px 10px;color:#08686c;font-weight:800;font-size:.74rem}
+.stepCounter{color:var(--muted);font-size:.69rem;font-weight:800}
+.toolBtn{background:#fff;color:var(--navy);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-weight:800;font-size:.7rem}
+.toolBtn.primary{background:var(--mint);border-color:var(--mint);color:#fff}
+.helpBullet{padding:9px 10px;background:#f2fafa;border-left:3px solid var(--mint);font-size:.76rem;line-height:1.45;margin-bottom:8px}
+.pdfTag{font-size:.62rem;color:#087b7f;letter-spacing:.06em;text-transform:uppercase;font-weight:900}
+.warn{background:#fff8e9;border:1px solid #f0dba9;color:#624c18;border-radius:9px;padding:10px;font-size:.72rem;line-height:1.55}
+.mock{border:1px solid #cddbe1;border-radius:11px;background:#fff;padding:12px;margin:10px 0;box-shadow:0 2px 10px #15283e0b}
+.mockLabel{font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;color:#6c7c89;font-weight:850;margin-bottom:8px}
+.mockCal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.mockCal span{display:grid;place-items:center;height:22px;border:1px solid #edf1f3;border-radius:4px;font-size:.65rem;color:#687987}
+.mockCal span.on{border-color:#1c92cc;background:#ddecf6;color:#03527d;font-weight:900}
+.mockTime{display:flex;gap:5px;margin-top:7px}.mockTime span{flex:1;background:#deedf7;text-align:center;border:1px solid #96c5e6;border-radius:5px;font-size:.7rem;padding:7px;font-weight:850;color:#155f8d}
+.mockTime .on{background:#1678b1;color:#fff}
+.mockField{border:1px solid #d7dfe6;border-radius:6px;padding:8px 9px;color:#516477;font-size:.72rem;margin-top:6px;background:#fafcfe}
+.mockAction{background:#1875b9;color:#fff;font-size:.72rem;font-weight:850;padding:8px 12px;border-radius:6px;margin-top:9px;text-align:center}
+.mockMail{background:#f5f8fa;padding:10px;border-radius:7px}.mockMail strong{color:#254057;display:block;font-size:.8rem}.mockMail small{display:block;color:#778896;margin:3px 0 8px;font-size:.65rem}
+.mockKms{border:1px solid #dae3e9;border-radius:6px;background:#fafcfd;padding:8px;font-size:.73rem;line-height:1.6}
+.mockChip{border:1px solid #b8d9e7;border-radius:5px;background:#edf7fc;display:inline-block;padding:3px 7px;margin:3px 4px 3px 0;font-size:.7rem}
+.mockArrow{text-align:center;color:var(--mag);font-weight:900;font-size:1.15rem}
+.bookingFrame{height:100%;width:100%}
+.bookingOverlay{z-index:70}.bookingOverlayHead{flex-wrap:wrap}
+.bookingOverlayHead a{color:#a5005c;font-size:.72rem;font-weight:800;white-space:nowrap}
+.bookingOverlayHead .toolBtn{height:33px}
+.sourceLine{font-size:.67rem;color:#738293;margin-top:7px}
+.sectionIntro{margin:0 0 7px;color:#4f6678;font-size:.78rem}
+.fullGuide{overflow:hidden}.miniSteps{margin:8px 0;padding-left:18px;font-size:.74rem}
+.navInfo{font-size:.67rem;color:#5c7182;font-weight:800}
+.utilityTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.mode.active{background:#133a45;border-color:#133a45;color:#fff}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:760px){
+ body{overflow:auto}.app{height:auto;max-height:none;min-height:0;display:block;overflow:visible}
+ .top{grid-template-columns:1fr;padding:13px}.goal{grid-column:1}
+ .controls{grid-template-columns:1fr 1fr;gap:8px;padding:10px}.modes{grid-column:1/-1}
+ .workspace{grid-template-columns:1fr;display:grid;overflow:visible;padding:10px}
+ .reader{height:auto;min-height:440px;max-height:none;grid-template-rows:auto minmax(290px,1fr)}
+ .scriptArea{max-height:360px}.sidebar{height:auto;max-height:none;overflow:visible;margin-top:9px}
+ .aidaBtn{min-width:76px}
+ .bookingOverlay{position:fixed;inset:0;z-index:100}
+ .bookingOverlayHead{padding:10px}.bookingFrame{min-height:0}
+}
+@media(max-width:420px){.controls{grid-template-columns:1fr}.modes{grid-column:1}.stepTools{align-items:flex-end}.headRow{gap:4px}.navBtn{padding:0 9px}.aidaBtn{min-width:71px}}
+@media print{html,body{height:auto!important;overflow:visible!important}.app{height:auto;max-height:none;display:block;overflow:visible}.top,.controls{display:none}.workspace{display:block}.reader,.sidebar,.scriptArea{height:auto!important;overflow:visible!important;max-height:none!important}.readerHead,.headNav,.aida,.bookingOverlay,.toolBtn{display:none!important}.scriptCard{background:#fff}.sidebar{margin-top:10px;page-break-inside:avoid}body{font:12pt/1.45 Arial}}
+</style></head><body>
+<div class="app" id="app">
+<header class="top">
+ <div class="title"><div class="eyebrow">LiquidityBooster · Hotel-Telefonleitfaden · PDF-Ausgabe</div><h1>Persönlich einladen. Experten verbinden.</h1></div>
+ <div class="goal"><strong>Ziel des Anrufs</strong>Eine persönliche Einladung zu einem 20-minütigen Expertengespräch aussprechen. Nicht verkaufen, nicht überreden, nicht alles erklären.</div>
+</header>
+<section class="controls" aria-label="Gesprächsdaten und Arbeitsbereich">
+ <div class="field"><label for="salutation">Ansprechpartner / Anrede</label><input id="salutation" type="text" placeholder="Frau/Herr [Name]" autocomplete="off" maxlength="120"></div>
+ <div class="field"><label for="caller">Mein Name</label><input id="caller" type="text" placeholder="[Dein Name]" autocomplete="name" maxlength="120"></div>
+ <div class="modes" role="tablist" aria-label="Arbeitsbereich">
+  <button class="mode active" id="phoneMode" role="tab" aria-selected="true" data-group="phone">Telefonat</button>
+  <button class="mode" id="calendlyMode" role="tab" aria-selected="false" data-group="calendly">Calendly</button>
+  <button class="mode" id="kmsMode" role="tab" aria-selected="false" data-group="kms">KMS</button>
+ </div>
+</section>
+<main class="workspace">
+<section class="reader" id="reader">
+ <div class="readerHead">
+   <div class="aida" id="stepTabs" aria-label="Gesprächsschritte"></div>
+   <div class="headRow"><div><span class="badge" id="stageBadge"></span><h2 class="stepTitle" id="stepTitle"></h2></div>
+   <div class="stepTools"><div class="progress" id="progressText"></div><div class="headNav">
+   <button class="navBtn secondary" id="prevBtn" type="button">Zurück</button><button class="navBtn" id="nextBtn" type="button">Weiter</button></div></div></div>
+ </div>
+ <div class="scriptArea" id="scriptArea"><div class="scriptCard">
+   <div class="scriptLabel" id="scriptLabel">Sprechtext · direkt ablesen</div>
+   <div class="scriptText" id="scriptText" aria-live="polite"></div>
+   <div class="coach" id="coachBox"><span class="coachLabel" id="coachLabel">Hinweis · nicht vorlesen</span><span id="coachNote"></span></div>
+   <div id="visualAid"></div>
+ </div></div>
+</section>
+<aside class="sidebar" id="sidebar">
+ <section class="card sidePad" id="sideIntro"></section>
+ <section class="card sidePad" id="sideTools"></section>
+ <section class="card booking" id="bookingCard"><div class="bookingBody">
+  <div class="bookingKicker">Termin gemeinsam vereinbaren</div><h3 class="bookingTitle">Hotelier hat zugestimmt?</h3>
+  <p class="bookingText">Öffne die Terminseite. Ein Aufruf bedeutet noch keine bestätigte Buchung.</p>
+  <button class="bookingBtn" id="bookingBtn" type="button">Terminseite öffnen</button>
+ </div></section>
+ <section class="card sidePad"><div class="pdfTag">Herkunft &amp; Orientierung</div>
+ <p class="sourceLine">Inhalte nach „Telefonleitfaden Hotels“, 7 Seiten. Calendly- und KMS-Grafiken sind schematische Lernansichten nach den gezeigten PDF-Schritten, keine aktuellen Produkt-Screenshots.</p></section>
+</aside>
+</main>
+<section class="bookingOverlay" id="bookingOverlay" aria-hidden="true" role="dialog" aria-label="Terminseite" aria-modal="true">
+ <div class="bookingOverlayHead">
+  <div><strong>Hoteltermin vereinbaren</strong><small>Bei Bedarf die Terminseite im neuen Tab öffnen.</small></div>
+  <a class="toolBtn" id="bookingExternal" href="https://www.liquiditybooster.de/hotels.html" target="_blank" rel="noopener noreferrer">Extern öffnen ↗</a>
+  <button class="bookingOverlayClose" id="bookingOverlayClose" type="button">Zurück zum Leitfaden</button>
+ </div>
+ <iframe class="bookingFrame" id="bookingFrame" title="Hotel-Terminseite" src="about:blank" loading="lazy"></iframe>
+</section>
+</div>
+<script>
+(function(){'use strict';
+const S=[{"group":"phone","key":"reception","stage":"EMP­FANG","title":"1 · Gespräch mit der Rezeption","badge":"REZEPTION","say":["Guten Tag Herr/Frau {{salutation}}. Mein Name ist {{caller}} von LiquidityBooster.","Ich möchte gerne eine persönliche Einladung aussprechen, an die Person in Ihrem Hotel, die Entscheidungskraft hat.","Bin ich denn da bei Ihnen richtig, oder macht das Herr/Frau [Inhaber/CEO]?"],"coach":"Wenn der Name nicht verstanden wurde, höflich nachfragen. Nur bei Nachfrage das Anliegen konkretisieren. Die Rezeption respektvoll behandeln.","onlyIf":["Es geht um die Einladung zu einem Expertengespräch.","Es geht um mehr provisionsfreie Direktbuchungen – insbesondere in belegungsschwachen Zeiten."]},{"group":"phone","key":"unavailable","stage":"EMPFANG","title":"2 · Entscheider nicht erreichbar","badge":"REZEPTION","say":["Kein Problem Herr/Frau {{salutation}}, ich danke Ihnen trotzdem für Ihre Zeit. Wann erreiche ich Frau/Herrn [Name] denn am besten persönlich?","Dürfen Sie mir auch die direkte Durchwahl von Herrn/Frau [Name] geben? Dann brauche ich Sie nicht bei Ihrer Arbeit stören.","Danke für Ihre freundliche Hilfe. Einen schönen Tag noch."],"coach":"Günstige Uhrzeit für den erneuten Anruf nur notieren, wenn sie genannt wird. Eine direkte Durchwahl nur erfragen, nicht verlangen."},{"group":"phone","key":"attention","stage":"A · ATTENTION","title":"3 · Persönliche Einladung","badge":"AIDA · ATTENTION","say":["Ich möchte eine persönliche Einladung aussprechen."],"coach":"Kurzer Einstieg. Interesse an einem Gespräch zeigen, nicht sofort alle Leistungen erklären."},{"group":"phone","key":"interest","stage":"I · INTEREST","title":"4 · Worum geht es?","badge":"AIDA · INTEREST","say":["Es geht um mehr Direktbuchungen – besonders in belegungsschwachen Zeiten und spürbar geringere Werbekosten."],"coach":"Das ist die Nutzenbeschreibung aus der PDF. Keine Garantie für Buchungszahlen oder Kostenersparnis ableiten."},{"group":"phone","key":"desire","stage":"D · DESIRE","title":"5 · Der mögliche Nutzen","badge":"AIDA · DESIRE","say":["Wir vermitteln mehr Gäste und Direktbuchungen provisionsfrei und mit hohem Umsatzvolumen, direkt über Ihre Homepage."],"coach":"Originalaussage der Vorlage. Wirkungs- und Provisionsangaben müssen vor der Nutzung mit dem tatsächlichen Angebot übereinstimmen."},{"group":"phone","key":"action","stage":"A · ACTION","title":"6 · Einladung zum Expertengespräch","badge":"AIDA · ACTION","say":["Wenn das für Sie interessant klingt, ist es meine Aufgabe, Sie zu einem persönlichen Gespräch mit unseren Experten einzuladen.","Schauen Sie bitte in Ihren Kalender. Haben Sie Ihren Kalender gerade griffbereit?","Wann haben Sie denn nächste Woche ein Zeitfenster von 20 Minuten für dieses Gespräch?"],"coach":"Nach der Frage eine Antwort abwarten. Kein Termin ohne ausdrückliche Zustimmung."},{"group":"phone","key":"questions","stage":"NACHFRAGEN","title":"7 · Bei Nachfragen","badge":"NUR BEI INTERESSE","say":["Wissen Sie, ich kann Ihnen gerne etwas zuschicken. Bei einem persönlichen Gespräch haben Sie aber die Möglichkeit, direkt Fragen zu stellen. Wäre ein Gespräch von etwa 20 Minuten für Sie interessant?","Wir haben dafür ein Gesamtkonzept im Fullservice entwickelt und vermitteln provisionsfreie Direktbuchungen für mehrtägige Aufenthalte, Tagungen und Seminare.","Also Buchungen mit hohem Umsatzvolumen direkt über Ihre Homepage.","Meine Aufgabe ist es, Sie zu diesem Marketingkonzept zu einem persönlichen Gespräch mit einem unserer Hotelexperten einzuladen.","Das dauert etwa 20 Minuten. Wenn Sie möchten, stimmen wir einen passenden Termin ab."],"coach":"Die PDF nennt das Konzept „sich selbst finanzierend“ und verspricht einen regionalen Wissensvorsprung. Diese Aussagen werden hier nicht als geprüfte Tatsachen übernommen. Wenn der Hotelier schriftliche Informationen wünscht, respektieren wir das."},{"group":"calendly","key":"choose","stage":"CALENDLY","title":"1 · Tag und Uhrzeit auswählen","badge":"PDF · SEITE 3","say":["Nach einer vereinbarten Zusage die Terminseite öffnen.","Im Calendly-Kalender zuerst den gewünschten Tag auswählen, dann die Uhrzeit.","Die Buchung erst fortsetzen, wenn der Hotelier den vorgeschlagenen Termin bestätigt hat."],"coach":"In der PDF steht dafür die Hotel-Landingpage https://www.liquiditybooster.de/hotels.html (im unteren Seitenbereich)."},{"group":"calendly","key":"hotelier","stage":"CALENDLY","title":"2 · Hoteldaten eintragen","badge":"PDF · SEITE 3","say":["Den ausgewählten Termin überprüfen.","Den Namen des Hoteliers eintragen.","Die E-Mail-Adresse des Hoteliers eintragen und die Angaben kontrollieren.","Anschließend im Formular weiter nach unten scrollen."],"coach":"Nur die Daten verwenden, die für die vereinbarte Einladung nötig sind."},{"group":"calendly","key":"host","stage":"CALENDLY","title":"3 · Einladender und Hotelbeschreibung","badge":"PDF · SEITE 4","say":["Eigene E-Mail-Adresse in das vorgesehene Feld eintragen.","Kurze Angaben zum Hotel ergänzen: Ort, Art des Hotels und gegebenenfalls die Hotel-Webseite.","Eigenen Namen als einladende Person eintragen.","Die Angaben überprüfen und erst dann den Button zur Buchungsbestätigung auswählen."],"coach":"Diese Informationen helfen den Hotelexperten bei der Vorbereitung."},{"group":"calendly","key":"confirm","stage":"CALENDLY","title":"4 · Bestätigung überprüfen","badge":"PDF · SEITEN 4–5","say":["Nach erfolgreicher Buchung erhalten die Beteiligten laut PDF eine Bestätigungs-E-Mail von Calendly.","Termin, Uhrzeit, Empfänger und Zugangsdaten kontrollieren.","Den Termin im eigenen Kalender eintragen.","Den Kontakt anschließend im KMS dokumentieren."],"coach":"Die PDF zeigt eine ältere Mustereinladung mit Test- und Konferenzdaten. Diese werden hier bewusst nicht veröffentlicht."},{"group":"kms","key":"capture","stage":"KMS","title":"1 · Kontakt im KMS erfassen","badge":"PDF · SEITE 5","say":["Spätestens nach der vereinbarten Terminbuchung den Kontakt im persönlichen KMS eintragen.","Die Angaben so dokumentieren, dass die weitere Bearbeitung nachvollziehbar bleibt.","Für die konkrete KMS-Bedienung verweist die PDF auf die gesonderte KMS-Beschreibung."],"coach":"Die PDF enthält an dieser Stelle keine vollständige KMS-Neuanlage-Anleitung. Deshalb werden keine erfundenen Klickwege hinzugefügt."},{"group":"kms","key":"situations","stage":"KMS","title":"2 · Besondere Anlässe – nicht einfach so!","badge":"PDF · SEITE 6","say":["Wenn ein Termin bereits über Calendly eingestellt wurde, ist laut PDF bis zu diesem Termin keine weitere Aktion erforderlich.","In einigen Sonderfällen ist ein zusätzliches Anschreiben vor dem nächsten Telefonat vorgesehen.","Solche Nachrichten nur verwenden, wenn sie zum konkreten Kontakt und zum vereinbarten Kommunikationsweg passen."],"coach":"Die PDF nennt pauschal eine Erfolgsquote von nur „0,1 %“ für E-Mails. Dafür enthält sie keine Belege; wir behandeln diese Zahl nicht als gesichert."},{"group":"kms","key":"template","stage":"KMS","title":"3 · Vorlage im KMS auswählen","badge":"PDF · SEITE 6","say":["Im Kontakt die Bearbeitung über das Stift-Symbol öffnen.","Unter „Vorgang“ die passende Vorlage auswählen.","Die PDF zeigt beispielhaft die Vorlage „1 – Einladung Hotel zur Online-Präsentation“.","Die Auswahl speichern und die daraufhin geöffnete Nachricht überprüfen."],"coach":"Die tatsächlichen Bezeichnungen können sich in der aktuellen KMS-Version unterscheiden. Hier folgen wir der PDF."},{"group":"kms","key":"preview","stage":"KMS","title":"4 · Nachricht anpassen und testen","badge":"PDF · SEITE 7","say":["Die Vorlage an das persönliche Gespräch anpassen, beispielsweise mit einer vereinbarten Bezugnahme auf den Kontakt.","Den Text und mögliche Anhänge überprüfen.","Vor einem zulässigen Versand unbedingt „Testversand“ verwenden und die E-Mail selbst kontrollieren.","Erst nach der Kontrolle und bei zulässigem Kommunikationsanlass „Senden“ auswählen."],"coach":"Die PDF erwähnt weitere Vorlagen für Erinnerungen, Terminbestätigungen, Dankesnachrichten und Einladungen. Nicht unbesehen einen Massenversand auslösen."},{"group":"kms","key":"practice","stage":"KMS","title":"5 · Vorlagen selbst kennenlernen","badge":"PDF · SEITE 7","say":["Zum Üben einen eigenen Testkontakt mit einer eigenen zweiten E-Mail-Adresse anlegen.","Die unterschiedlichen Vorlagen zunächst als Test an dich selbst senden.","So lässt sich erkennen, welche Texte und Anhänge bei welcher Vorlage verwendet werden.","Die PDF bezeichnet Vorlagen A, B und C als Vorlagen zur Bewerbung des eigenen Accounts."],"coach":"Nur mit eigenen Testdaten üben; keine fremden Kontaktdaten verwenden."}];
+const HOTEL_URL='https://www.liquiditybooster.de/hotels.html';
+let group='phone',position=0;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const parts=()=>S.filter(s=>s.group===group);
+const caller=$('caller'),salutation=$('salutation'),content=$('scriptText'),visual=$('visualAid');
+function values(){return{caller:caller.value.trim()||'[Dein Name]',salutation:salutation.value.trim()||'[Name]'}}
+function inject(x){const v=values();return String(x).replace(/{{caller}}/g,v.caller).replace(/{{salutation}}/g,v.salutation)}
+function para(x){return '<p>'+esc(inject(x)).replace(/\n/g,'<br>')+'</p>'}
+function titleButton(s,i){const short=s.stage==='A · ATTENTION'?'A':s.stage==='I · INTEREST'?'I':s.stage==='D · DESIRE'?'D':s.stage==='A · ACTION'?'A':String(i+1);return '<button class="aidaBtn '+(i===position?'active':'')+'" type="button" data-step="'+i+'" aria-current="'+(i===position?'step':'false')+'"><strong>'+esc(short)+'</strong></button>'}
+function makeVisual(step){
+ if(group==='phone')return '';
+ const labels={
+ choose:{type:'calendar',caption:'Calendly: Tag → Uhrzeit → weiter'},
+ hotelier:{type:'form',caption:'Calendly: Termin, Name und E-Mail des Hoteliers'},
+ host:{type:'host',caption:'Calendly: einladende Person und Hotelbeschreibung'},
+ confirm:{type:'mail',caption:'Calendly: Bestätigung an Beteiligte'},
+ capture:{type:'crm',caption:'KMS: Kontakt erfassen'},
+ situations:{type:'wait',caption:'KMS: Sonderfälle nur bei Anlass'},
+ template:{type:'template',caption:'KMS: Stift → Vorgang → Vorlage 1'},
+ preview:{type:'editor',caption:'KMS: Vorlage anpassen → Testversand → Senden'},
+ practice:{type:'test',caption:'KMS: eigener Testkontakt'}
+ };
+ const cfg=labels[step.key];if(!cfg)return '';
+ let inner='';
+ if(cfg.type==='calendar')inner='<div class="mockCal">'+Array.from({length:21},(_,i)=>'<span class="'+(i===9?'on':'')+'">'+(i+1)+'</span>').join('')+'</div><div class="mockTime"><span>15:30</span><span class="on">16:00 ✓</span></div><div class="mockAction">Weiter →</div>';
+ if(cfg.type==='form')inner='<div class="mockField">Termin · gewähltes Datum / Uhrzeit</div><div class="mockField">Name des Hoteliers</div><div class="mockField">E-Mail-Adresse des Hoteliers</div><div class="mockAction">Weiter ↓</div>';
+ if(cfg.type==='host')inner='<div class="mockField">Eigene E-Mail-Adresse</div><div class="mockField">Ort · Hoteltyp · ggf. Webseite</div><div class="mockField">Mein Name</div><div class="mockAction">Termin buchen ✓</div>';
+ if(cfg.type==='mail')inner='<div class="mockMail"><strong>Terminbestätigung</strong><small>Calendly · Beispiel ohne persönliche Zugangsdaten</small><div class="mockField">Wann · vereinbarte Uhrzeit</div><div class="mockField">Wo · Online-Termin</div><div class="mockField">Empfänger · eingeladene Personen</div></div>';
+ if(cfg.type==='crm')inner='<div class="mockKms"><strong>Kontakt im KMS</strong><br><span class="mockChip">Name</span><span class="mockChip">E-Mail</span><span class="mockChip">Hotel</span><br><span class="mockChip">Vereinbarung</span></div>';
+ if(cfg.type==='wait')inner='<div class="mockKms"><strong>Termin bereits bestätigt?</strong><p style="margin:7px 0">Ja → Bis zum Termin keine zusätzliche Nachricht erforderlich.</p><p style="margin:0">Sonderfall → Nur vereinbarte, zulässige Nachricht vorbereiten.</p></div>';
+ if(cfg.type==='template')inner='<div class="mockKms"><span class="mockChip">✎ Bearbeiten</span><div class="mockArrow">↓</div><div class="mockField">Vorgang auswählen</div><div class="mockField">1 – Einladung Hotel zur Online-Präsentation</div><div class="mockAction">Speichern</div></div>';
+ if(cfg.type==='editor')inner='<div class="mockKms"><div class="mockField">Betreff · individuell anpassen</div><div class="mockField" style="min-height:70px">Nachricht · Bezug zum Gespräch, sachlich und zutreffend</div><div class="mockTime"><span>Testversand</span><span class="on">Senden</span></div></div>';
+ if(cfg.type==='test')inner='<div class="mockKms"><strong>Eigenen Testkontakt anlegen</strong><div class="mockField">Eigene zweite E-Mail-Adresse</div><div class="mockField">Vorlage auswählen</div><div class="mockAction">Testversand an mich</div></div>';
+ return '<div class="mock" role="img" aria-label="'+esc(cfg.caption)+'"><div class="mockLabel">Schematische Schrittillustration · nach PDF</div>'+inner+'</div>';
+}
+function currentStep(){return parts()[position]}
+function renderTabs(){ $('stepTabs').innerHTML=parts().map(titleButton).join('') }
+function renderIntro(){
+ if(group==='phone'){
+ $('sideIntro').innerHTML='<h3>Dein Mindset vor dem Telefonieren</h3><div class="helpBullet">Du musst hier nichts verkaufen. Du musst nicht alles erklären. Du musst auch nicht der Experte sein.</div><p>Du bist Chancengeber und Türöffner: persönlich einladen, Vertrauen schaffen und dem Experten die Bühne überlassen.</p><p><strong>Sprich ruhig, freundlich und klar.</strong> Nicht drängen. Nicht überreden. Nicht zu viel erklären.</p><div class="pdfTag">PDF · Seite 1</div>';
+ $('sideTools').innerHTML='<h3>Schnell zum Gesprächsteil</h3><p>Wähle den passenden Schritt, ohne unnötig durch alle Stufen zu klicken.</p><div class="quickRow"><button data-jump="reception">Rezeption</button><button data-jump="attention">AIDA</button><button data-jump="questions">Nachfragen</button></div><div class="helpBullet"><strong>Bei Nachfrage an der Rezeption:</strong><br>„Es geht um die Einladung zu einem Expertengespräch“ und um Direktbuchungen in belegungsschwachen Zeiten.</div>';
+ }else if(group==='calendly'){
+ $('sideIntro').innerHTML='<h3>Termin vereinbaren</h3><p>Die PDF beschreibt den Weg über die Hotel-Landingpage. Verwende die Anleitung nur nach einer tatsächlich vereinbarten Einladung.</p><div class="quickRow"><button data-booking>Terminseite öffnen ↗</button></div><p class="pdfTag">PDF · Seiten 3–5</p>';
+ $('sideTools').innerHTML='<h3>Wichtige Angaben</h3><ol><li>Tag und Uhrzeit</li><li>Name und E-Mail des Hoteliers</li><li>Eigene E-Mail und eigener Name</li><li>Hotelort, Hotelart, ggf. Webseite</li><li>Bestätigung überprüfen</li></ol><div class="warn">Die eingebauten Bilder sind verständliche Nachzeichnungen der Arbeitsabläufe. Sie geben nicht vor, aktuelle Calendly-Screenshots zu sein.</div>';
+ }else{
+ $('sideIntro').innerHTML='<h3>Nachbereitung im KMS</h3><p>Kontakt dokumentieren; bei Sonderfällen eine passende Vorlage wählen und vor dem zulässigen Versand einen Testversand an die eigene Adresse durchführen.</p><div class="pdfTag">PDF · Seiten 5–7</div>';
+ $('sideTools').innerHTML='<h3>Vorlagen aus der PDF</h3><ol><li>Einladung Hotel zur Online-Präsentation</li><li>Erinnerung nach Online-Präsentation</li><li>Terminbestätigung</li><li>Danke nach Online-Präsentation mit / ohne Folgetermin</li><li>Danke mit Rechenbeispiel</li><li>A, B, C: weitere Einladungen</li></ol><div class="warn">Nur bei passendem Anlass und zulässigem Kommunikationsweg verwenden. Keine automatischen Werbe-E-Mails aus dem Leitfaden heraus.</div>';
+ }
+ $('bookingCard').style.display=group==='kms'?'none':'block';
+}
+function render(){
+ const all=parts();position=Math.max(0,Math.min(position,all.length-1));const s=all[position];
+ document.querySelectorAll('.mode').forEach(b=>{const is=b.dataset.group===group;b.classList.toggle('active',is);b.setAttribute('aria-selected',String(is))});
+ $('stageBadge').textContent=s.badge;$('stepTitle').textContent=s.title;
+ $('progressText').textContent='Schritt '+(position+1)+' von '+all.length;
+ $('scriptLabel').textContent=group==='phone'?'Sprechtext · direkt ablesen':'Anleitung · PDF-Arbeitsschritt';
+ content.innerHTML=s.say.map(para).join('')+(s.onlyIf?'<div class="helpBullet"><strong>Nur bei Nachfrage:</strong><br>'+s.onlyIf.map(esc).join('<br>')+'</div>':'');
+ $('coachNote').textContent=s.coach;$('coachBox').classList.toggle('green',group!=='phone');
+ $('coachLabel').textContent=group==='phone'?'Hinweis · nicht vorlesen':'Bedienhinweis';
+ visual.innerHTML=makeVisual(s);
+ $('prevBtn').disabled=position===0;$('nextBtn').disabled=position>=all.length-1;
+ renderTabs();renderIntro();$('scriptArea').scrollTop=0;
+}
+function switchGroup(next){if(!['phone','calendly','kms'].includes(next))return;group=next;position=0;render()}
+function openBooking(){const f=$('bookingFrame');f.src=HOTEL_URL;$('bookingOverlay').classList.add('show');$('bookingOverlay').setAttribute('aria-hidden','false');$('bookingOverlayClose').focus()}
+function closeBooking(){ $('bookingOverlay').classList.remove('show');$('bookingOverlay').setAttribute('aria-hidden','true');$('bookingFrame').src='about:blank';$('bookingBtn').focus()}
+document.querySelectorAll('.mode').forEach(b=>b.addEventListener('click',()=>switchGroup(b.dataset.group)));
+$('prevBtn').addEventListener('click',()=>{if(position>0){position--;render()}});
+$('nextBtn').addEventListener('click',()=>{if(position<parts().length-1){position++;render()}});
+$('stepTabs').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(!b)return;position=Number(b.dataset.step);render()});
+$('sideTools').addEventListener('click',e=>{const b=e.target.closest('[data-jump]');if(!b)return;const at=parts().findIndex(s=>s.key===b.dataset.jump);if(at>=0){position=at;render()}});
+$('sideIntro').addEventListener('click',e=>{if(e.target.closest('[data-booking]'))openBooking()});
+$('bookingBtn').addEventListener('click',openBooking);
+$('bookingOverlayClose').addEventListener('click',closeBooking);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('bookingOverlay').classList.contains('show'))closeBooking()});
+salutation.addEventListener('input',render);caller.addEventListener('input',render);
+try{caller.value=localStorage.getItem('hotelPdfGuideCaller')||''}catch(e){}
+caller.addEventListener('change',()=>{try{localStorage.setItem('hotelPdfGuideCaller',caller.value.trim())}catch(e){}});
+render();
+})();
+</script></body></html>
