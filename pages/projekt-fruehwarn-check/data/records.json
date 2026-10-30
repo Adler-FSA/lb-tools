@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-30T11:40:40Z",
+  "generated_at": "2026-10-30T12:48:30Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-29T12:54:56Z",
+      "last_success": "2026-10-30T12:48:30Z",
       "records": 3621,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "608697d360d05036d78429ccc3e1a5cbc34483b0817aba17677b307f82b8244f"
+      "response_sha256": "1208740772f259dceab4d80d70238cecbf32c52a084cd31d302f1ba1b7557346"
     }
   },
   "records": [
