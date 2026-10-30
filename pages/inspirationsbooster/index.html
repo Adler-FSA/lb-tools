@@ -69,11 +69,11 @@
 <div class="sectionhead"><div><div class="kicker">01 · <span data-i18n="p1k">Einstieg ohne Vertriebserfahrung</span></div><h2 class="section-mark" data-i18n="p1h">Teil 1 – Der Türöffner</h2><p data-i18n="p1lead">Du musst kein Experte sein. Deine Aufgabe ist es, neue Menschen kennenzulernen und bei Interesse einen qualifizierten Expertentermin zu ermöglichen.</p></div><a class="btn small" href="#pdf" data-i18n="toPDF">Zur PDF-Werkstatt</a></div>
 <div class="panel"><h3 data-i18n="flowh">Vom ersten Kontakt zum Expertengespräch</h3>
 <div class="process">
-<div class="process-item"><div class="process-icon"><svg><use href="#i-people"/></svg></div><strong data-i18n="f1">Kontakt entsteht</strong><small data-i18n="fd1">Menschen persönlich kennenlernen.</small></div>
-<div class="process-item"><div class="process-icon"><svg><use href="#i-chat"/></svg></div><strong data-i18n="f2">Interesse erkennen</strong><small data-i18n="fd2">Offene Fragen und echtes Zuhören.</small></div>
-<div class="process-item"><div class="process-icon"><svg><use href="#i-doc"/></svg></div><strong data-i18n="f3">Kontakt ins KMS</strong><small data-i18n="fd3">Daten mit Zustimmung im eigenen System anlegen.</small></div>
-<div class="process-item"><div class="process-icon"><svg><use href="#i-calendar"/></svg></div><strong data-i18n="f4">Termin vereinbaren</strong><small data-i18n="fd4">Bestehende KMS-Texte und Calendly nutzen.</small></div>
-<div class="process-item"><div class="process-icon"><svg><use href="#i-people"/></svg></div><strong data-i18n="f5">Expertengespräch</strong><small data-i18n="fd5">Der Experte übernimmt die Vertiefung.</small></div>
+<div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-people"/></svg></div><strong data-i18n="f1">Kontakt entsteht</strong><small data-i18n="fd1">Menschen persönlich kennenlernen.</small></div>
+<div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-chat"/></svg></div><strong data-i18n="f2">Interesse erkennen</strong><small data-i18n="fd2">Offene Fragen und echtes Zuhören.</small></div>
+<div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-doc"/></svg></div><strong data-i18n="f3">Kontakt ins KMS</strong><small data-i18n="fd3">Daten mit Zustimmung im eigenen System anlegen.</small></div>
+<div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-calendar"/></svg></div><strong data-i18n="f4">Termin vereinbaren</strong><small data-i18n="fd4">Bestehende KMS-Texte und Calendly nutzen.</small></div>
+<div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-people"/></svg></div><strong data-i18n="f5">Expertengespräch</strong><small data-i18n="fd5">Der Experte übernimmt die Vertiefung.</small></div>
 </div></div>
 <div class="split" style="margin-top:16px">
 <div class="panel"><h3 data-i18n="speakH">So könnte ein Gespräch beginnen</h3><p data-i18n="speakIntro">Beispiel bei einem persönlichen Besuch in einem Geschäft:</p><blockquote class="sentence" data-i18n="speakQuote">„Wie gewinnen Sie heute eigentlich neue Kunden? Vor allem über Empfehlungen – oder nutzen Sie auch andere Wege?“</blockquote><p style="margin-top:15px" data-i18n="speak2">Bei erkennbarem Interesse kannst du ein unverbindliches Gespräch mit einem Experten vorschlagen. Du musst nicht selbst die ganze ClubLeader-Leistungswelt erklären.</p><div class="note" data-i18n="speakNote">Wichtig: Kein Verkaufsdruck, keine ungefragte Produktpräsentation und keine ungeklärten Einkommensversprechen.</div></div>
@@ -223,7 +223,9 @@ return sections;
 async function withOriginalLogo(result){
  try{
   const source=document.querySelector('.brand img');
-  if(!source||!source.complete||!source.naturalWidth)return result;
+  if(!source)return result;
+  if(!source.complete||!source.naturalWidth){try{await source.decode()}catch{}}
+  if(!source.naturalWidth)return result;
   const cv=document.createElement('canvas');
   cv.width=950;cv.height=Math.max(1,Math.round(950*source.naturalHeight/source.naturalWidth));
   const ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);ctx.drawImage(source,0,0,cv.width,cv.height);
@@ -235,11 +237,42 @@ async function withOriginalLogo(result){
   if(objects.size!==last)return result;
   let w=164,h=w*cv.height/cv.width;if(h>29){h=29;w=29*cv.width/cv.height}
   const drawing='q 1 1 1 rg 38 807 182 34 re f Q\nq '+w.toFixed(2)+' 0 0 '+h.toFixed(2)+' 41 '+(809+(29-h)/2).toFixed(2)+' cm /LBLOGO Do Q\n';
+
+  const pdfHex=t=>[...t].map(c=>c.charCodeAt(0).toString(16).padStart(2,'0')).join('').toUpperCase();
+  const pdfWord=(t,x,y,z=11,color='0.09 0.15 0.22')=>'BT /F2 '+z+' Tf '+color+' rg '+x+' '+y+' Td <'+pdfHex(t)+'> Tj ET\n';
+  const mint='0 0.655 0.678',mag='0.776 0 0.435',navy='0.075 0.133 0.22';
+  let frontGraphic='q\n'+
+   pdfWord(lang==='de'?'DEIN WEG IN ZWEI SCHRITTEN':'YOUR TWO-STEP JOURNEY',43,450,12,navy)+
+   '0.905 0.976 0.965 rg 42 287 244 147 re f\n'+
+   '1 0.937 0.973 rg 307 287 244 147 re f\n'+
+   mint+' rg 42 287 5 147 re f\n'+
+   mag+' rg 307 287 5 147 re f\n'+
+   pdfWord('01',58,402,24,mint)+
+   pdfWord('02',324,402,24,mag)+
+   pdfWord(lang==='de'?'ICH OEFFNE TUEREN':'I OPEN DOORS',58,377,13,navy)+
+   pdfWord(lang==='de'?'ICH ENTWICKLE MEIN NETZWERK':'I DEVELOP MY NETWORK',324,377,11,navy)+
+   pdfWord(lang==='de'?'Neue Menschen kennenlernen':'Meet new people',58,347,9)+
+   pdfWord(lang==='de'?'Interesse erkennen':'Identify interest',58,330,9)+
+   pdfWord(lang==='de'?'KMS und Calendly nutzen':'Use KMS and Calendly',58,313,9)+
+   pdfWord(lang==='de'?'Bedarfe erkennen':'Understand needs',324,347,9)+
+   pdfWord(lang==='de'?'Kooperationen entwickeln':'Develop partnerships',324,330,9)+
+   pdfWord(lang==='de'?'Andere ClubLeader befaehigen':'Empower other ClubLeaders',324,313,9)+
+   pdfWord(lang==='de'?'VOM KONTAKT ZUM AKTIVEN NETZWERK':'FROM CONTACT TO AN ACTIVE NETWORK',43,253,11,navy);
+  const labels=lang==='de'?['KONTAKT','INTERESSE','TERMIN','NETZWERK']:['CONTACT','INTEREST','MEETING','NETWORK'];
+  const xs=[91,218,343,472];
+  frontGraphic+=mint+' RG 2 w 91 214 m 472 214 l S\n';
+  xs.forEach((x,i)=>{
+    const color=i===3?mag:mint;
+    frontGraphic+=color+' rg '+(x-17)+' 197 34 34 re f\n';
+    frontGraphic+=pdfWord(String(i+1),x-3,209,13,'1 1 1');
+    frontGraphic+=pdfWord(labels[i],x-24,178,8,navy);
+  });
+  frontGraphic+='Q\n';
   for(let i=0;i<result.pages;i++){
    const p=5+2*i,c=p+1,page=objects.get(p),body=objects.get(c);
    if(!page||!body||!page.includes('/F2 4 0 R >> >>'))return result;
    const m=body.match(/^<< \/Length \d+ >>\nstream\n([\s\S]*?)\nendstream$/);if(!m)return result;
-   const stream=m[1]+'\n'+drawing;
+   const stream=m[1]+'\n'+drawing+(i===0?frontGraphic:'');
    objects.set(p,page.replace('/F2 4 0 R >> >>','/F2 4 0 R >> /XObject << /LBLOGO '+imgId+' 0 R >> >>'));
    objects.set(c,'<< /Length '+new TextEncoder().encode(stream).length+' >>\nstream\n'+stream+'\nendstream');
   }
