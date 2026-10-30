@@ -193,7 +193,7 @@ fields.forEach(el=>{const k=el.dataset.save;if(Object.prototype.hasOwnProperty.c
 document.querySelectorAll('[data-case]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-case]').forEach(a=>{a.classList.toggle('active',a===b);a.setAttribute('aria-pressed',String(a===b))});renderCase()}));
 ['de','en'].forEach(k=>document.getElementById(k).addEventListener('click',()=>{lang=k;try{localStorage.setItem('inspirationsbooster-lang',lang)}catch{}applyLang()}));applyLang();
 const value=id=>(document.getElementById(id)?.value||'').trim();const human=id=>value(id)||tr[lang].empty;
-function qblock(label,id){return[{type:'paragraph',text:label},{type:'callout',text:human(id),theme:'mint'}]}
+function qblock(label,id){const v=human(id);return[{type:'paragraph',text:label},v.length<280?{type:'callout',text:v,theme:'mint'}:{type:'paragraph',text:v}]}
 function appendAnswers(blocks,keys){keys.forEach(k=>blocks.push(...qblock(tr[lang][k+'L']||tr[lang][k]||k,k)))}
 function makeSections(choice){
 const T=tr[lang],sections=[];
@@ -219,6 +219,45 @@ sections.push({heading:T.planH,blocks:planBlocks});
 sections.push({heading:lang==='de'?'Abschluss':'Closing',blocks:[{type:'callout',text:T.endP},{type:'paragraph',text:T.footer}]});
 return sections;
 }
+
+async function withOriginalLogo(result){
+ try{
+  const source=document.querySelector('.brand img');
+  if(!source||!source.complete||!source.naturalWidth)return result;
+  const cv=document.createElement('canvas');
+  cv.width=950;cv.height=Math.max(1,Math.round(950*source.naturalHeight/source.naturalWidth));
+  const ctx=cv.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,cv.width,cv.height);ctx.drawImage(source,0,0,cv.width,cv.height);
+  const jpeg=await new Promise((ok,fail)=>cv.toBlob(x=>x?ok(x):fail(Error('Logo JPEG')),'image/jpeg',.9));
+  const img=new Uint8Array(await jpeg.arrayBuffer()),original=await result.blob.text(),objects=new Map();
+  const re=/(\d+) 0 obj\n([\s\S]*?)\nendobj/g;
+  for(const m of original.matchAll(re))objects.set(Number(m[1]),m[2]);
+  const last=4+result.pages*2,imgId=last+1;
+  if(objects.size!==last)return result;
+  let w=164,h=w*cv.height/cv.width;if(h>29){h=29;w=29*cv.width/cv.height}
+  const drawing='q 1 1 1 rg 38 807 182 34 re f Q\nq '+w.toFixed(2)+' 0 0 '+h.toFixed(2)+' 41 '+(809+(29-h)/2).toFixed(2)+' cm /LBLOGO Do Q\n';
+  for(let i=0;i<result.pages;i++){
+   const p=5+2*i,c=p+1,page=objects.get(p),body=objects.get(c);
+   if(!page||!body||!page.includes('/F2 4 0 R >> >>'))return result;
+   const m=body.match(/^<< \/Length \d+ >>\nstream\n([\s\S]*?)\nendstream$/);if(!m)return result;
+   const stream=m[1]+'\n'+drawing;
+   objects.set(p,page.replace('/F2 4 0 R >> >>','/F2 4 0 R >> /XObject << /LBLOGO '+imgId+' 0 R >> >>'));
+   objects.set(c,'<< /Length '+new TextEncoder().encode(stream).length+' >>\nstream\n'+stream+'\nendstream');
+  }
+  const enc=new TextEncoder(),parts=[],offsets=[0];let size=0;
+  const add=b=>{parts.push(b);size+=b.length};
+  add(enc.encode('%PDF-1.4\n%AKADEMIE\n'));
+  for(let n=1;n<=last;n++){offsets[n]=size;add(enc.encode(n+' 0 obj\n'+objects.get(n)+'\nendobj\n'))}
+  offsets[imgId]=size;
+  add(enc.encode(imgId+' 0 obj\n<< /Type /XObject /Subtype /Image /Width '+cv.width+' /Height '+cv.height+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+img.length+' >>\nstream\n'));
+  add(img);add(enc.encode('\nendstream\nendobj\n'));
+  const start=size;let x='xref\n0 '+(imgId+1)+'\n0000000000 65535 f \n';
+  for(let n=1;n<=imgId;n++)x+=String(offsets[n]).padStart(10,'0')+' 00000 n \n';
+  x+='trailer\n<< /Size '+(imgId+1)+' /Root 1 0 R >>\nstartxref\n'+start+'\n%%EOF';
+  add(enc.encode(x));
+  return {...result,blob:new Blob(parts,{type:'application/pdf'}),bytes:size};
+ }catch(e){console.warn('Logo-PDF-Erweiterung nicht möglich',e);return result}
+}
+
 let pdf=null,url=null;
 const status=document.getElementById('status'),overlay=document.getElementById('overlay'),download=document.getElementById('downloadPDF');
 function say(s,error=false){status.textContent=s;status.classList.toggle('error',error)}
@@ -230,6 +269,7 @@ const name=value('owner')?'-'+safePdfFilePart(value('owner')):'';
 const date=new Date();const stamp=[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
 const filename='InspirationsBooster-'+(choice==='one'?'Teil-1':choice==='two'?'Teil-2':'Gesamt')+name+'-'+stamp+'.pdf';
 pdf=await generateAkademiePdf({filename,title:'InspirationsBooster',subtitle:tr[lang].slogan,brand:'LiquidityBooster',brandLine:lang==='de'?'Akademie für finanzielle Souveränität':'Academy for Financial Sovereignty',footerText:'LiquidityBooster · InspirationsBooster',pageWord:lang==='de'?'Seite':'Page',locale:lang==='de'?'de-DE':'en-US',sections:makeSections(choice)});
+pdf=await withOriginalLogo(pdf);
 if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(pdf.blob);download.href=url;download.download=pdf.filename;
 document.getElementById('pdfMeta').textContent=pdf.filename+' · '+pdf.pages+' '+(lang==='de'?'Seiten':'pages');
 document.getElementById('shareStatus').textContent='';overlay.classList.add('show');document.getElementById('closePDF').focus();say(tr[lang].created);
