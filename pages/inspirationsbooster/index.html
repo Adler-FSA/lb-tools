@@ -52,6 +52,59 @@
 @media(max-width:880px){.visual-pair{grid-template-columns:1fr 1fr}.case-detail{grid-template-columns:1fr}.network-graphics{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.visual-pair,.network-graphics{grid-template-columns:1fr}.visual-feature img{max-height:none}.visual-feature.poster img{object-fit:contain;max-height:none}.case-detail{gap:12px}.casegrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.case .scene{aspect-ratio:1.45}.case strong{font-size:14px}.case small{font-size:11px}.case-detail{padding:16px}}
+
+/* InspirationsBooster: alle 17 Originalbilder, einheitliche responsive Darstellung */
+.hero-panel{grid-template-columns:minmax(0,1fr) minmax(0,.98fr);align-items:stretch}
+.heroart{margin:0;align-self:stretch;min-height:300px;display:grid;place-items:center;padding:22px 22px 22px 0;overflow:hidden}
+.heroart img{display:block;width:100%;max-width:100%;max-height:420px;height:auto;object-fit:contain;border-radius:16px}
+.visual-pair{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.visual-feature{align-items:center;justify-content:center;padding:8px;min-height:230px}
+.visual-feature img,.visual-feature.poster img{display:block;width:100%;height:auto;max-height:none;object-fit:contain;border-radius:12px}
+.stage{grid-template-columns:minmax(0,1fr) minmax(0,190px);align-items:center;min-height:0}
+.stage>div{min-width:0}
+.stage-picture{margin:0;width:100%;min-height:0;align-self:center;overflow:hidden;border-radius:15px}
+.stage-picture img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:center center}
+.visual-conversation,.visual-industries,.visual-action{max-width:100%;margin:18px 0 22px}
+.visual-conversation img,.visual-industries img,.visual-action img{width:100%;height:auto;object-fit:contain}
+.casegrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.case{background:#fff;padding:10px;align-items:stretch;justify-content:flex-start;border:1.5px solid var(--line);border-radius:18px;overflow:hidden;min-width:0}
+.case .scene{width:100%;aspect-ratio:1.75;position:relative;overflow:hidden;flex:none;border-radius:12px}
+.case .scene img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.case strong{display:block;margin:12px 5px 3px;font-size:15px;line-height:1.35;color:var(--navy)}
+.case small{display:block;margin:0 5px 6px;font-size:12px;line-height:1.45;color:var(--muted)}
+.case:hover,.case:focus-visible{border-color:var(--mint);outline-offset:2px}
+.case-detail{grid-template-columns:minmax(0,.98fr) minmax(0,1.02fr);align-items:start}
+.network-graphics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;align-items:stretch}
+.network-graphics figure{margin:0;padding:7px;overflow:hidden;display:grid;place-items:center;min-width:0}
+.network-graphics img{width:100%;height:auto;max-height:none;object-fit:contain;border-radius:12px}
+@media(max-width:980px){
+ .stage{grid-template-columns:minmax(0,1fr) minmax(0,140px)}
+ .casegrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .network-graphics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .network-graphics figure:last-child{grid-column:1/-1;max-width:620px;width:100%;justify-self:center}
+ .case-detail{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+ .hero-panel{grid-template-columns:1fr}
+ .heroart{padding:6px 18px 20px;min-height:0}
+ .heroart img{max-width:520px;max-height:none}
+ .visual-pair{grid-template-columns:1fr}
+ .stage{grid-template-columns:minmax(0,1fr) minmax(0,130px)}
+ .network-graphics{grid-template-columns:1fr}
+ .network-graphics figure:last-child{grid-column:auto;max-width:none}
+ .case-detail{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+ .stage{grid-template-columns:1fr}
+ .stage-picture{width:100%;max-width:280px;justify-self:center}
+ .stage-picture img{aspect-ratio:1.6;object-fit:cover}
+ .casegrid{gap:10px}
+ .case .scene{aspect-ratio:1.55}
+ .case strong{font-size:14px}
+ .case small{font-size:11px}
+ .visual-feature{min-height:0}
+}
+
 </style>
 </head>
 <body>
@@ -71,36 +124,15 @@
 <main class="wrap" id="start">
 <section class="hero"><div class="hero-panel">
 <div class="hero-text"><div class="kicker" data-i18n="heroKicker">LiquidityBooster · Akademie für finanzielle Souveränität</div><h1>Inspirations<span class="magtext">Booster</span></h1><div class="tagline" data-i18n="slogan">Kontakte schaden nur dem, der keine hat!</div><div class="line"></div><p class="lead" data-i18n="heroLead">Neue Kontakte. Neue Gespräche. Neue Möglichkeiten. Vom ersten persönlichen Kontakt zum eigenen aktiven Unternehmernetzwerk.</p><div class="buttons"><a class="btn primary" href="#teil1" data-i18n="open1">Teil 1 entdecken</a><a class="btn mag" href="#teil2" data-i18n="open2">Teil 2 entdecken</a></div></div>
-<div class="heroart">
-<svg viewBox="0 0 600 465" role="img" aria-label="Drei Unternehmer sprechen miteinander und reichen sich die Hand">
-<defs><linearGradient id="herobg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ccf6ec"/><stop offset="1" stop-color="#ffe1f0"/></linearGradient><linearGradient id="coat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#183d58"/><stop offset="1" stop-color="#0d2337"/></linearGradient></defs>
-<ellipse cx="312" cy="397" rx="290" ry="52" fill="url(#herobg)"/><circle cx="325" cy="160" r="145" fill="#d3f5ef" opacity=".8"/><circle cx="470" cy="73" r="52" fill="#f4c5e0" opacity=".45"/>
-<g><rect x="115" y="112" width="350" height="250" rx="24" fill="#fff" opacity=".54"/><rect x="127" y="125" width="326" height="231" rx="16" fill="#fff" opacity=".34"/><path d="M165 125v230M417 125v230" stroke="#c2e3df" stroke-width="8" opacity=".5"/></g>
-<!-- person left -->
-<path d="M58 421 88 284q14-57 66-60 48 6 73 46l35 151Z" fill="url(#coat)"/><path d="M159 228 163 292l30 45-13-120" fill="#f7f7f5"/><ellipse cx="161" cy="167" rx="43" ry="57" fill="#e2ad88"/><path d="M116 168q-6-67 47-69 44-1 46 50l-12 2q-19-38-51-21l-20 31" fill="#596c70"/><path d="M148 220q14 17 34-6" fill="none" stroke="#ae765b" stroke-width="5" stroke-linecap="round"/>
-<!-- left arm -->
-<path d="M208 278q53 12 101 43l-16 30q-75-10-111-30" fill="#193e55"/><path d="M297 321q19-10 44 1l18 13-12 16-53-9" fill="#ddb08e"/>
-<!-- person right -->
-<path d="m362 420 28-139q11-49 65-54 53 0 77 65l29 128Z" fill="#294b60"/><path d="m459 227-17 86 34 25 2-106" fill="#f8f6f0"/><ellipse cx="464" cy="164" rx="43" ry="57" fill="#e4ad8d"/><path d="M426 161q-4-53 39-62 52-2 48 54l-10-2q-12-36-30-32-22 6-45 42" fill="#48575c"/><path d="M477 218q-18 16-29 0" stroke="#b97965" stroke-width="4" fill="none"/>
-<!-- right arm -->
-<path d="M390 279q-43 11-78 39l12 36q58-11 88-37" fill="#294b60"/><path d="M338 323q-26-7-43 5l-13 13 13 12 48-12" fill="#e4ae89"/>
-<!-- central colleague -->
-<path d="m256 329 2-89q13-46 52-45 49 0 63 46l12 88Z" fill="#00a7ad"/><path d="M307 202 301 252l21 23 12-73" fill="#fff"/><ellipse cx="316" cy="149" rx="38" ry="46" fill="#e4ab85"/><path d="M280 147q-2-52 37-49 47-7 43 53-11-23-21-31-25 17-58 15" fill="#49444b"/><path d="M301 179q14 12 28-1" stroke="#bc7a61" stroke-width="3" fill="none" stroke-linecap="round"/>
-<path d="M0 413Q153 376 298 426T600 396V465H0Z" fill="#00a7ad" opacity=".45"/><path d="M280 456Q440 395 600 419V465H280Z" fill="#c6006f" opacity=".72"/>
-</svg></div>
+<figure class="heroart"><img src="./assets/c1_01_titelseite_inspirationsbooster.png" width="540" height="350" alt="InspirationsBooster: Menschen verbinden Möglichkeiten – persönliche Begegnung von Unternehmern" fetchpriority="high" decoding="async"></figure>
 </div></section>
-<div class="photo-belt" aria-label="Branchen und Begegnungen">
-<figure><img src="../branchen-kompass/assets/autohaus.jpg" alt="Automobilbranche" loading="lazy" decoding="async"><figcaption data-i18n="autoH">Kfz-Werkstatt</figcaption></figure>
-<figure><img src="../branchen-kompass/assets/kuechen.jpg" alt="Küchenstudio" loading="lazy" decoding="async"><figcaption data-i18n="kitchenH">Küchenstudio</figcaption></figure>
-<figure><img src="../branchen-kompass/assets/garten.jpg" alt="Garten und Außenanlagen" loading="lazy" decoding="async"><figcaption data-i18n="gardenH">Landschaftsgärtner</figcaption></figure>
-</div>
 <section class="intro" aria-label="Zwei Ausbildungsbereiche">
-<article class="stage mintstage"><div><div class="stagelabel"><span class="number">1</span><span data-i18n="stage1Tag">Kontakt & Expertengespräch</span></div><h2 data-i18n="stage1Title">Ich öffne Türen</h2><p data-i18n="stage1Body">Menschen kennenlernen, Interesse erkennen, Kontakte im eigenen KMS anlegen und mit Calendly das Expertengespräch vereinbaren.</p><div class="goal" data-i18n="stage1Goal">Ziel: ein qualifizierter Expertentermin.</div></div><svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="77" cy="38" r="30" fill="#b0eae0"/><circle cx="77" cy="32" r="13" fill="#276c6e"/><path d="M40 81q4-28 37-28 31 0 36 28Z" fill="#276c6e"/><rect x="18" y="106" width="124" height="66" rx="12" fill="#fff" stroke="#a5e1da" stroke-width="3"/><path d="M30 123h70M30 139h56" stroke="#a5e1da" stroke-width="6" stroke-linecap="round"/><rect x="113" y="95" width="36" height="32" rx="11" fill="#c6006f"/><circle cx="124" cy="111" r="3" fill="#fff"/><circle cx="133" cy="111" r="3" fill="#fff"/><circle cx="142" cy="111" r="3" fill="#fff"/></svg></article>
-<article class="stage magstage"><div><div class="stagelabel"><span class="number">2</span><span data-i18n="stage2Tag">Selbstbefähigung & Netzwerk</span></div><h2 data-i18n="stage2Title">Ich entwickle mein Netzwerk</h2><p data-i18n="stage2Body">Bedarfsanalysen selbst führen, unternehmerische Möglichkeiten erkennen und weitere ClubLeader zur eigenständigen Arbeit befähigen.</p><div class="goal" data-i18n="stage2Goal">Ziel: selbst handeln und andere befähigen.</div></div><svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="29" r="15" fill="#c6006f"/><circle cx="30" cy="87" r="13" fill="#00a7ad"/><circle cx="129" cy="87" r="13" fill="#00a7ad"/><circle cx="28" cy="151" r="11" fill="#c6006f"/><circle cx="75" cy="151" r="11" fill="#00a7ad"/><circle cx="130" cy="151" r="11" fill="#c6006f"/><path d="M78 44 30 74M82 44l47 30M30 100l-2 40M36 98l35 44M129 100v40M123 97l-41 45" stroke="#db7fb0" stroke-width="4" stroke-linecap="round" fill="none"/><circle cx="80" cy="29" r="6" fill="#fff"/></svg></article>
+<article class="stage mintstage"><div><div class="stagelabel"><span class="number">1</span><span data-i18n="stage1Tag">Kontakt & Expertengespräch</span></div><h2 data-i18n="stage1Title">Ich öffne Türen</h2><p data-i18n="stage1Body">Menschen kennenlernen, Interesse erkennen, Kontakte im eigenen KMS anlegen und mit Calendly das Expertengespräch vereinbaren.</p><div class="goal" data-i18n="stage1Goal">Ziel: ein qualifizierter Expertentermin.</div></div><figure class="stage-picture"><img src="./assets/c2_02_teil1_ich_oeffne_tueren.png" alt="Teil 1: Neue Kontakte gewinnen, Interesse wecken und Expertentermine ermöglichen" loading="lazy" decoding="async"></figure></article>
+<article class="stage magstage"><div><div class="stagelabel"><span class="number">2</span><span data-i18n="stage2Tag">Selbstbefähigung & Netzwerk</span></div><h2 data-i18n="stage2Title">Ich entwickle mein Netzwerk</h2><p data-i18n="stage2Body">Bedarfsanalysen selbst führen, unternehmerische Möglichkeiten erkennen und weitere ClubLeader zur eigenständigen Arbeit befähigen.</p><div class="goal" data-i18n="stage2Goal">Ziel: selbst handeln und andere befähigen.</div></div><figure class="stage-picture"><img src="./assets/c2_03_teil2_ich_entwickle_mein_netzwerk.png" alt="Teil 2: Unternehmer kennenlernen, Gespräche führen und eigene ClubLeader-Netzwerke entwickeln" loading="lazy" decoding="async"></figure></article>
 </section>
-<div class="visual-pair" aria-label="InspirationsBooster – Bildmotive aus der Original-Collage">
- <figure class="visual-feature poster"><img src="./assets/01_titel_und_begegnung.png" alt="InspirationsBooster: Menschen verbinden Möglichkeiten, Geschäftspartner beim persönlichen Kennenlernen" loading="lazy" decoding="async"></figure>
- <figure class="visual-feature"><img src="./assets/02_zwei_wege.png" alt="Der Weg in zwei Schritten: Erst Kontakte gewinnen und Expertentermine ermöglichen, dann selbst ein aktives Netzwerk entwickeln" loading="lazy" decoding="async"></figure>
+<div class="visual-pair" aria-label="InspirationsBooster – Inspirationsmotive">
+ <figure class="visual-feature"><img src="./assets/c2_01_inspirationsbooster_kontakte.png" alt="Neue Kontakte und persönliche Begegnungen – InspirationsBooster" loading="lazy" decoding="async"></figure>
+ <figure class="visual-feature"><img src="./assets/c1_02_der_weg_in_zwei_schritten.png" alt="Der Weg in zwei Schritten: Vom Türöffner zum eigenständigen ClubLeader" loading="lazy" decoding="async"></figure>
 </div>
 <section id="teil1" class="block">
 <div class="sectionhead"><div><div class="kicker">01 · <span data-i18n="p1k">Einstieg ohne Vertriebserfahrung</span></div><h2 class="section-mark" data-i18n="p1h">Teil 1 – Der Türöffner</h2><p data-i18n="p1lead">Du musst kein Experte sein. Deine Aufgabe ist es, neue Menschen kennenzulernen und bei Interesse einen qualifizierten Expertentermin zu ermöglichen.</p></div><a class="btn small" href="#pdf" data-i18n="toPDF">Zur PDF-Werkstatt</a></div>
@@ -111,7 +143,7 @@
 <div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-doc"/></svg></div><strong data-i18n="f3">Kontakt ins KMS</strong><small data-i18n="fd3">Daten mit Zustimmung im eigenen System anlegen.</small></div>
 <div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-calendar"/></svg></div><strong data-i18n="f4">Termin vereinbaren</strong><small data-i18n="fd4">Bestehende KMS-Texte und Calendly nutzen.</small></div>
 <div class="process-item"><div class="process-icon"><svg viewBox="0 0 48 48"><use href="#i-people"/></svg></div><strong data-i18n="f5">Expertengespräch</strong><small data-i18n="fd5">Der Experte übernimmt die Vertiefung.</small></div>
-</div><figure class="visual-lesson"><img src="./assets/04_teil1_ablauf.png" alt="Teil 1: Fünf Schritte von Kontakt über KMS und Termin bis zum Expertengespräch" loading="lazy" decoding="async"></figure></div>
+</div><figure class="visual-lesson"><img src="./assets/c1_04_teil1_einfacher_ablauf.png" alt="Teil 1: Fünf Schritte von Kontakt über KMS und Termin bis zum Expertengespräch" loading="lazy" decoding="async"></figure></div>
 <div class="split" style="margin-top:16px">
 <div class="panel"><h3 data-i18n="speakH">So könnte ein Gespräch beginnen</h3><p data-i18n="speakIntro">Beispiel bei einem persönlichen Besuch in einem Geschäft:</p><blockquote class="sentence" data-i18n="speakQuote">„Wie gewinnen Sie heute eigentlich neue Kunden? Vor allem über Empfehlungen – oder nutzen Sie auch andere Wege?“</blockquote><p style="margin-top:15px" data-i18n="speak2">Bei erkennbarem Interesse kannst du ein unverbindliches Gespräch mit einem Experten vorschlagen. Du musst nicht selbst die ganze ClubLeader-Leistungswelt erklären.</p><div class="note" data-i18n="speakNote">Wichtig: Kein Verkaufsdruck, keine ungefragte Produktpräsentation und keine ungeklärten Einkommensversprechen.</div></div>
 <div class="panel work"><h3 data-i18n="myStart">Meine erste Kontaktwoche</h3><div class="two"><div><label for="owner" data-i18n="name">Mein Name / Kürzel</label><input id="owner" type="text" data-save="owner" maxlength="110" autocomplete="off" placeholder="Optional"></div><div><label for="goal" data-i18n="goalf">Mein Wochenziel (Gespräche)</label><input id="goal" type="number" data-save="goal" min="0" max="100" placeholder="5"></div></div><label for="where" data-i18n="where">Wo möchte ich neue Menschen kennenlernen?</label><textarea id="where" data-save="where" data-i18n-placeholder="wherePH" placeholder="Zum Beispiel Einzelhandel, Handwerksbetriebe, Wochenmarkt ..."></textarea><label for="opening" data-i18n="opening">Mein natürlicher Gesprächseinstieg</label><textarea id="opening" data-save="opening" data-i18n-placeholder="openingPH" placeholder="Formuliere deine eigene Frage ..."></textarea></div>
@@ -134,27 +166,30 @@
 <div class="aida-card"><div class="aida-letter">I</div><h3 data-i18n="ah2">Interest · Interesse</h3><p data-i18n="ap2">„Welche zusätzlichen Kunden oder Partner wären für Sie interessant?“</p></div>
 <div class="aida-card"><div class="aida-letter">D</div><h3 data-i18n="ah3">Desire · Wunsch</h3><p data-i18n="ap3">„Was würde sich für Sie verändern, wenn diese Kontakte regelmäßig entstehen?“</p></div>
 <div class="aida-card"><div class="aida-letter">A</div><h3 data-i18n="ah4">Action · Handlung</h3><p data-i18n="ap4">„Wollen wir gemeinsam prüfen, welche Möglichkeit wirklich zu Ihnen passt?“</p></div>
-</div><figure class="visual-lesson"><img src="./assets/05_teil2_entwicklungsweg.png" alt="Teil 2: Vom Kontakt über Beziehung, Bedarf und Möglichkeiten zum aktiven Netzwerk" loading="lazy" decoding="async"></figure></div>
+</div><figure class="visual-lesson"><img src="./assets/c1_05_teil2_entwicklungsweg.png" alt="Teil 2: Vom Kontakt über Beziehung, Bedarf und Möglichkeiten zum aktiven Netzwerk" loading="lazy" decoding="async"></figure></div>
 <div class="split" style="margin-top:16px">
 <div class="panel work"><h3 data-i18n="needsH">Meine Bedarfsanalyse – die richtigen Fragen</h3><p class="micro" data-i18n="needsIntro">Übung: Notiere deine Erkenntnisse, nicht die persönlichen Daten eines Interessenten.</p><label for="situation" data-i18n="situationL">1. Welche Ausgangssituation gilt es zu verstehen?</label><textarea data-save="situation" id="situation" data-i18n-placeholder="situationPH" placeholder="Wie gewinnt der Unternehmer bislang Kunden?"></textarea><label for="need" data-i18n="needL">2. Welche Wünsche und Ziele können dahinterstehen?</label><textarea data-save="need" id="need"></textarea><label for="future" data-i18n="futureL">3. Welche Sehnsuchtsfrage würde ich stellen?</label><textarea data-save="future" id="future"></textarea><label for="perspective" data-i18n="perspectiveL">4. Welche passende Perspektive könnte ich zeigen?</label><textarea data-save="perspective" id="perspective"></textarea></div>
 <div class="panel"><h3 data-i18n="doubleH">Die doppelte Bedarfsanalyse</h3><div class="note"><b data-i18n="double1">Perspektive A – Das Unternehmen</b><p style="margin:8px 0 0" data-i18n="double1d">Was möchte der Gewerbetreibende verbessern? Welche Kunden, Angebote und Ziele sind relevant?</p></div><div class="note mag-note" style="margin-top:12px"><b data-i18n="double2">Perspektive B – Sein Netzwerk</b><p style="margin:8px 0 0" data-i18n="double2d">Welche Branchen kennt er? Wo gibt es ergänzende Angebote, mögliche Kooperationen und Menschen, die selbst aktiv werden möchten?</p></div><div class="rule"></div><blockquote class="sentence" data-i18n="doubleQuote">„Wie viele Unternehmer kennen Sie, mit denen ein gegenseitiger Austausch neue Möglichkeiten eröffnen könnte?“</blockquote></div>
 </div>
+<figure class="visual-lesson visual-conversation"><img src="./assets/c1_08_unternehmergespraech.png" alt="Beispiel für ein Unternehmergespräch: Bedarf verstehen, Ziele erkennen und passende Möglichkeiten aufzeigen" loading="lazy" decoding="async"></figure>
 </section>
 <section id="praxis" class="block">
 <div class="sectionhead"><div><div class="kicker" data-i18n="casesK">Praxis · Vier Branchen</div><h2 data-i18n="casesH">Branchenbeispiele als Inspiration</h2><p data-i18n="casesLead">Jede Branche bietet andere Gesprächseinstiege, Bedürfnisse und mögliche Kooperationen. Wähle eine Branche und übe die passenden Fragen.</p></div></div>
+<figure class="visual-lesson visual-industries"><img src="./assets/c1_07_branchenbeispiele.png" alt="Vier Branchenbeispiele: Kfz-Werkstatt, Blumenladen, Küchenstudio und Landschaftsgärtner" loading="lazy" decoding="async"></figure>
 <div class="casegrid" id="cases">
-<button type="button" class="case active" data-case="auto" aria-pressed="true"><span class="scene"><img src="../branchen-kompass/assets/autohaus.jpg" alt="" loading="lazy" decoding="async"></span><strong data-i18n="autoH">Kfz-Werkstatt</strong><small data-i18n="autoSmall">Service, Spezialisten, Empfehlungen</small></button>
-<button type="button" class="case" data-case="florist" aria-pressed="false"><span class="scene"><img src="./assets/07_blumenladen.png" alt="" loading="lazy" decoding="async"></span><strong data-i18n="floristH">Blumenladen</strong><small data-i18n="floristSmall">Anlässe, Dekoration, Kooperationen</small></button>
-<button type="button" class="case" data-case="kitchen" aria-pressed="false"><span class="scene"><img src="../branchen-kompass/assets/kuechen.jpg" alt="" loading="lazy" decoding="async"></span><strong data-i18n="kitchenH">Küchenstudio</strong><small data-i18n="kitchenSmall">Einrichtung, Geräte, Handwerk</small></button>
-<button type="button" class="case" data-case="garden" aria-pressed="false"><span class="scene"><img src="./assets/08_garten_landschaftsbau.png" alt="" loading="lazy" decoding="async"></span><strong data-i18n="gardenH">Landschaftsgärtner</strong><small data-i18n="gardenSmall">Gestaltung, Pflege, Fachbetriebe</small></button>
+<button type="button" class="case active" data-case="auto" aria-pressed="true"><span class="scene"><img src="./assets/c2_05_kfz_werkstatt.png" alt="" loading="lazy" decoding="async"></span><strong data-i18n="autoH">Kfz-Werkstatt</strong><small data-i18n="autoSmall">Service, Spezialisten, Empfehlungen</small></button>
+<button type="button" class="case" data-case="florist" aria-pressed="false"><span class="scene"><img src="./assets/c2_07_blumenladen.png" alt="" loading="lazy" decoding="async"></span><strong data-i18n="floristH">Blumenladen</strong><small data-i18n="floristSmall">Anlässe, Dekoration, Kooperationen</small></button>
+<button type="button" class="case" data-case="kitchen" aria-pressed="false"><span class="scene"><img src="./assets/c2_06_kuechenstudio.png" alt="" loading="lazy" decoding="async"></span><strong data-i18n="kitchenH">Küchenstudio</strong><small data-i18n="kitchenSmall">Einrichtung, Geräte, Handwerk</small></button>
+<button type="button" class="case" data-case="garden" aria-pressed="false"><span class="scene"><img src="./assets/c2_08_garten_und_landschaftsbau.png" alt="" loading="lazy" decoding="async"></span><strong data-i18n="gardenH">Landschaftsgärtner</strong><small data-i18n="gardenSmall">Gestaltung, Pflege, Fachbetriebe</small></button>
 </div>
 <div class="case-detail" aria-live="polite"><div class="case-questions"><h3 id="caseTitle">Kfz-Werkstatt</h3><ul id="caseQuestions"></ul></div><div class="case-action"><div class="quote" id="caseWish"></div><div class="work"><label for="caseIdea" data-i18n="caseIdeaL">Meine Idee für einen natürlichen Gesprächseinstieg</label><textarea id="caseIdea" data-save="caseIdea"></textarea></div></div></div>
 </section>
 <section class="block" id="netzwerk">
 <div class="sectionhead"><div><div class="kicker magtext" data-i18n="networkK">Netzwerke statt Einzelkämpfer</div><h2 data-i18n="networkH">Gemeinsam mehr erreichen</h2><p data-i18n="networkLead">Ein tragfähiges Netzwerk entsteht, wenn nicht nur eine Person aktiv ist, sondern viele ClubLeader selbstständig Kontakte gewinnen, passende Angebote empfehlen und weitere Menschen befähigen.</p></div></div>
 <div class="network-graphics">
-<figure><img src="./assets/03_gemeinsam_mehr_erreichen.png" alt="Gemeinsam mehr erreichen: ClubLeader verbindet Unternehmer, Kunden, Kooperationen, Empfehlungen und neue ClubLeader" loading="lazy" decoding="async"></figure>
-<figure><img src="./assets/06_aktives_netzwerk.png" alt="Netzwerkaufbau in der Praxis: Vergleich Einzelkämpfer mit aktivem Netzwerk selbstständiger ClubLeader" loading="lazy" decoding="async"></figure>
+<figure><img src="./assets/c1_03_gemeinsam_mehr_erreichen.png" alt="Gemeinsam mehr erreichen: ClubLeader, Kunden, Kooperationen, Unternehmer und Empfehlungen" loading="lazy" decoding="async"></figure>
+<figure><img src="./assets/c2_04_gemeinsam_mehr_erreichen.png" alt="Ein lebendiges Unternehmernetzwerk schafft neue Möglichkeiten – Vom Ich zum Wir" loading="lazy" decoding="async"></figure>
+<figure><img src="./assets/c1_06_netzwerkaufbau_praxis.png" alt="Vom Einzelkämpfer zum aktiven Netzwerk selbstständiger ClubLeader" loading="lazy" decoding="async"></figure>
 </div>
 <div class="network">
 
@@ -164,6 +199,7 @@
 <div class="panel work"><h3 data-i18n="networkWorkH">Meine Netzwerkideen</h3><label for="branches" data-i18n="branchesL">Welche Branchen ergänzen sich in meinem Umfeld?</label><textarea id="branches" data-save="branches"></textarea><label for="partners" data-i18n="partnersL">Welche Kooperationen könnte ich anbahnen?</label><textarea id="partners" data-save="partners"></textarea><label for="teach" data-i18n="teachL">Wie möchte ich andere ClubLeader befähigen?</label><textarea id="teach" data-save="teach"></textarea></div></div>
 </section>
 <section class="block"><div class="sectionhead"><div><div class="kicker" data-i18n="planK">Mein persönlicher Aktionsplan</div><h2 data-i18n="planH">Was setze ich konkret um?</h2><p data-i18n="planLead">Nicht nur lesen – die nächsten Schritte selbst festlegen. Die Antworten erscheinen sauber gesetzt in deiner PDF.</p></div></div>
+<figure class="visual-lesson visual-action"><img src="./assets/c1_09_persoenlicher_aktionsplan.png" alt="Persönlicher Aktionsplan: Kontakte, Branchen, Ziele und Befähigung anderer Menschen" loading="lazy" decoding="async"></figure>
 <div class="panel work"><div class="two"><div><label for="plan1" data-i18n="plan1L">Welche Kontakte spreche ich als Erstes an?</label><textarea id="plan1" data-save="plan1"></textarea></div><div><label for="plan2" data-i18n="plan2L">Welche Branchen interessieren mich besonders?</label><textarea id="plan2" data-save="plan2"></textarea></div><div><label for="plan3" data-i18n="plan3L">Welchen Entwicklungsschritt möchte ich in den nächsten 30 Tagen erreichen?</label><textarea id="plan3" data-save="plan3"></textarea></div><div><label for="plan4" data-i18n="plan4L">Wie kann ich andere ClubLeader dabei unterstützen, selbst aktiv zu werden?</label><textarea id="plan4" data-save="plan4"></textarea></div></div></div>
 </section>
 <section id="pdf" class="block"><div class="pdfwork"><div><div class="kicker" data-i18n="pdfK">Akademie PDF-Werkstatt</div><h2 data-i18n="pdfH">Dein InspirationsBooster als PDF</h2><p data-i18n="pdfLead">Deine eigenen Eingaben werden im Browser in ein strukturiertes A4-Dokument gesetzt – keine überlagerten Formularfelder, keine leeren Platzhalterseiten. Das PDF wird lokal auf deinem Gerät erstellt.</p><p class="micro" data-i18n="pdfData">Der InspirationsBooster speichert nur deine Lernnotizen lokal in diesem Browser. Geschäftskontakte gehören ausschließlich ins persönliche KMS.</p>
