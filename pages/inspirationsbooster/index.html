@@ -143,7 +143,8 @@
 <section class="finalcall"><h2 data-i18n="endH">Menschen verbinden Möglichkeiten.</h2><p data-i18n="endP">Du musst nicht alles können, um anzufangen. Aber du kannst anfangen, um immer mehr zu können. Vom ersten persönlichen Gespräch bis zum eigenständigen Netzwerk: Jeder Schritt beginnt mit einem Kontakt.</p></section>
 </main>
 <footer class="wrap footer"><span>LiquidityBooster · InspirationsBooster</span><span data-i18n="footer">Bildung & Praxis · Keine Umsatz- oder Einkommensgarantie</span></footer>
-<div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="dialogTitle"><div class="dialog"><h3 id="dialogTitle" data-i18n="ready">Deine PDF ist fertig</h3><p id="pdfMeta"></p><div class="actions"><a class="btn primary" id="downloadPDF" href="#" download data-i18n="download">PDF speichern</a><button class="btn dark" type="button" id="sharePDF" data-i18n="share">PDF teilen</button><button class="btn" type="button" id="closePDF" data-i18n="close">Schließen</button></div><p id="shareStatus" class="micro"></p></div></div>
+<!-- Bewährte Akademie-PDF-Zentrale: benannte File-Übergabe statt Blob-Download. -->
+<script src="../merchant-kompass/akademie-pdf-uebergabe.js?v=1"></script>
 <script type="module">
 import {generateAkademiePdf,safePdfFilePart} from './inspirations-pdf-core.js';
 (function(){
@@ -271,8 +272,8 @@ async function pdfPhoto(key){
  photoCache.set(key,job);return job;
 }
 
-let pdf=null,url=null;
-const status=document.getElementById('status'),overlay=document.getElementById('overlay'),download=document.getElementById('downloadPDF');
+let pdf=null;
+const status=document.getElementById('status');
 function say(s,error=false){status.textContent=s;status.classList.toggle('error',error)}
 document.getElementById('makePDF').addEventListener('click',async()=>{
 const button=document.getElementById('makePDF');button.disabled=true;say(tr[lang].working);
@@ -286,20 +287,12 @@ const loaded=await Promise.all(wanted.map(k=>pdfPhoto(k)));
 const photos=Object.fromEntries(wanted.map((k,i)=>[k,loaded[i]]));
 if(!photos.auto&&!photos.kitchen&&!photos.garden)throw Error(lang==='de'?'Die Akademie-Bilder konnten nicht geladen werden.':'Academy images could not be loaded.');
 pdf=await generateAkademiePdf({filename,title:'InspirationsBooster',subtitle:tr[lang].slogan,brand:'LiquidityBooster',brandLine:lang==='de'?'Akademie für finanzielle Souveränität':'Academy for Financial Sovereignty',footerText:'LiquidityBooster · InspirationsBooster',pageWord:lang==='de'?'Seite':'Page',locale:lang==='de'?'de-DE':'en-US',brandImage:photos.logo,sections:makeSections(choice,photos)});
-if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(pdf.blob);download.href=url;download.download=pdf.filename;
-document.getElementById('pdfMeta').textContent=pdf.filename+' · '+pdf.pages+' '+(lang==='de'?'Seiten':'pages');
-document.getElementById('shareStatus').textContent='';overlay.classList.add('show');document.getElementById('closePDF').focus();say(tr[lang].created);
+if(typeof window.AkademiePdfUebergabe?.setDocument!=='function')throw Error(lang==='de'?'Die Akademie-PDF-Zentrale wurde nicht geladen.':'The Academy PDF handoff could not be loaded.');
+window.AkademiePdfUebergabe.setDocument({blob:pdf.blob,filename:pdf.filename,pages:pdf.pages,origin:'InspirationsBooster · tools.liquiditybooster.de'});
+say(tr[lang].created);
 }catch(e){console.error(e);say(tr[lang].failed+(e.message||String(e)),true)}finally{button.disabled=false}});
-document.getElementById('closePDF').addEventListener('click',()=>overlay.classList.remove('show'));
-overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('show')});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('show')});
-document.getElementById('sharePDF').addEventListener('click',async()=>{
-if(!pdf)return;const out=document.getElementById('shareStatus');const file=new File([pdf.blob],pdf.filename,{type:'application/pdf'});
-if(!navigator.share||!navigator.canShare||!navigator.canShare({files:[file]})){out.textContent=tr[lang].shareNo;return}
-try{await navigator.share({files:[file],title:pdf.filename})}catch(e){out.textContent=e.name==='AbortError'?tr[lang].shareAbort:tr[lang].shareError}
-});
 document.getElementById('clear').addEventListener('click',()=>{if(!confirm(tr[lang].clearAsk))return;fields.forEach(el=>{if(el.type==='checkbox')el.checked=false;else el.value=''});state={};try{localStorage.removeItem(store)}catch{}say(tr[lang].cleared)});
-window.addEventListener('pagehide',()=>{if(url)URL.revokeObjectURL(url)});
+
 })();
 </script>
 </body>
