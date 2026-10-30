@@ -32,7 +32,7 @@
 .visual-feature.poster img{max-height:430px;object-fit:cover}
 .visual-lesson{margin:20px auto 0;border:1px solid var(--line);border-radius:17px;overflow:hidden;background:#fff;max-width:940px}
 .visual-lesson img{width:100%;height:auto;display:block}
-.network-graphics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:stretch;margin-bottom:16px}
+.network{display:block}.network-text{padding:24px 30px}.network-graphics{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:stretch;margin-bottom:16px}
 .network-graphics figure{margin:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid;place-items:center}
 .network-graphics img{display:block;width:100%;height:auto;max-height:430px;object-fit:contain}
 .casegrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
@@ -157,10 +157,7 @@
 <figure><img src="./assets/06_aktives_netzwerk.png" alt="Netzwerkaufbau in der Praxis: Vergleich Einzelkämpfer mit aktivem Netzwerk selbstständiger ClubLeader" loading="lazy" decoding="async"></figure>
 </div>
 <div class="network">
-<div class="network-viz"><svg viewBox="0 0 500 320" aria-hidden="true" style="display:none">
-<g fill="none" stroke-width="3"><path d="M250 151 114 67M250 151l139-82M250 151 83 233M250 151l328 233M250 151 250 287" stroke="#80d5cc"/><path d="M114 67 48 38M114 67 173 25M389 69 456 27M389 69 457 131M83 233l-43 48M83 233l48 53M328 233l-52 56M328 233l69 50" stroke="#d88cba" stroke-width="2.5"/></g>
-<g fill="#00a7ad"><circle cx="114" cy="67" r="33"/><circle cx="389" cy="69" r="33"/><circle cx="83" cy="233" r="33"/><circle cx="328" cy="233" r="33"/></g><g fill="#c6006f"><circle cx="48" cy="38" r="14"/><circle cx="173" cy="25" r="14"/><circle cx="456" cy="27" r="14"/><circle cx="457" cy="131" r="14"/><circle cx="40" cy="281" r="14"/><circle cx="131" cy="286" r="14"/><circle cx="276" cy="289" r="14"/><circle cx="397" cy="283" r="14"/></g><circle cx="250" cy="151" r="56" fill="#132238"/><g fill="#fff" font-family="Arial,sans-serif" text-anchor="middle" font-weight="700"><text x="250" y="146" font-size="18">CL</text><text x="250" y="167" font-size="12">Aktiv</text><text x="114" y="72" font-size="17">CL</text><text x="389" y="74" font-size="17">CL</text><text x="83" y="238" font-size="17">CL</text><text x="328" y="238" font-size="17">CL</text></g>
-</svg></div>
+
 <div class="network-text"><h3 data-i18n="networkRightH">Breite entfaltet Möglichkeiten</h3><p data-i18n="networkRightP">Ein einzelner ClubLeader kann Gespräche führen. Ein Netzwerk aus eigenständig handelnden ClubLeadern eröffnet weitere Branchen, Kontakte und gegenseitige Empfehlungen.</p><div class="note mag-note" data-i18n="networkNote">Entscheidend ist nicht die bloße Anzahl neuer Mitgliedschaften, sondern die Aktivität, der echte Kundennutzen und die wirtschaftliche Leistung des Netzwerks. Es gibt keine garantierten Einnahmen.</div></div>
 </div>
 <div class="split" style="margin-top:16px"><div class="panel"><h3 data-i18n="mentorH">Wie befähige ich andere ClubLeader?</h3><div class="step-list"><div class="step"><b>1</b><span data-i18n="mentor1">Gemeinsam erste Kontakte ansprechen und den Weg zum Expertengespräch zeigen.</span></div><div class="step"><b>2</b><span data-i18n="mentor2">Die Nutzung des persönlichen KMS und des bestehenden Terminablaufs trainieren.</span></div><div class="step"><b>3</b><span data-i18n="mentor3">Bei Bedarfsanalysen zuhören, reflektieren und schrittweise eigenständig Gespräche führen.</span></div><div class="step"><b>4</b><span data-i18n="mentor4">Neue ClubLeader darin unterstützen, selbst wiederum andere Menschen zu befähigen.</span></div></div></div>
@@ -260,7 +257,7 @@ function qblock(label,id){
 function appendAnswers(blocks,keys){keys.forEach(k=>blocks.push(...qblock(tr[lang][k+'L']||tr[lang][k]||k,k)))}
 function makeSections(choice,photos={}){
 const T=tr[lang],sections=[];
-sections.push({heading:lang==='de'?'Deine persönliche Lernreise':'Your learning journey',kicker:'InspirationsBooster',blocks:[{type:'paragraph',text:T.slogan},{type:'paragraph',text:T.heroLead},{type:'gallery',pictures:[{image:photos.auto,label:T.autoH},{image:photos.kitchen,label:T.kitchenH},{image:photos.garden,label:T.gardenH}],options:{height:183}},{type:'key_values',items:[{label:T.name,value:value('owner')},{label:lang==='de'?'Ausgabe':'Edition',value:choice==='one'?T.pdf1:choice==='two'?T.pdf2:T.pdf3}]}]});
+sections.push({heading:lang==='de'?'Deine persönliche Lernreise':'Your learning journey',kicker:'InspirationsBooster',blocks:[{type:'paragraph',text:T.slogan},{type:'paragraph',text:T.heroLead},{type:'gallery',pictures:[{image:photos.auto,label:T.autoH},{image:photos.kitchen,label:T.kitchenH},{image:photos.garden,label:T.gardenH},{image:photos.florist,label:T.floristH},{image:photos.florist,label:T.floristH}],options:{height:183}},{type:'key_values',items:[{label:T.name,value:value('owner')},{label:lang==='de'?'Ausgabe':'Edition',value:choice==='one'?T.pdf1:choice==='two'?T.pdf2:T.pdf3}]}]});
 if(choice!=='two'){
 const b=[{type:'callout',text:T.p1lead},{type:'photo',image:photos.contact||photos.auto,options:{height:162,theme:'mint'}},{type:'list',items:[T.f1+' – '+T.fd1,T.f2+' – '+T.fd2,T.f3+' – '+T.fd3,T.f4+' – '+T.fd4,T.f5+' – '+T.fd5]},{type:'callout',text:T.speakQuote,theme:'mint'},{type:'key_values',items:[{label:T.goalf,value:value('goal')}]}];
 appendAnswers(b,['where','opening']);
@@ -292,7 +289,8 @@ const photoSources={
  contact:'../mission-dorade-tagesbegleiter/clubtreffen-01.jpg',
  auto:'../branchen-kompass/assets/autohaus.jpg',
  kitchen:'../branchen-kompass/assets/kuechen.jpg',
- garden:'../branchen-kompass/assets/garten.jpg'
+ garden:'./assets/08_garten_landschaftsbau.png',
+ florist:'./assets/07_blumenladen.png'
 };
 const photoCache=new Map();
 async function pdfPhoto(key){
@@ -326,7 +324,7 @@ const choice=document.querySelector('input[name="pdfType"]:checked').value;
 const name=value('owner')?'-'+safePdfFilePart(value('owner')):'';
 const date=new Date();const stamp=[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
 const filename='InspirationsBooster-'+(choice==='one'?'Teil-1':choice==='two'?'Teil-2':'Gesamt')+name+'-'+stamp+'.pdf';
-const wanted=['logo','contact','auto','kitchen','garden'];
+const wanted=['logo','contact','auto','kitchen','garden','florist'];
 const loaded=await Promise.all(wanted.map(k=>pdfPhoto(k)));
 const photos=Object.fromEntries(wanted.map((k,i)=>[k,loaded[i]]));
 if(!photos.auto&&!photos.kitchen&&!photos.garden)throw Error(lang==='de'?'Die Akademie-Bilder konnten nicht geladen werden.':'Academy images could not be loaded.');
