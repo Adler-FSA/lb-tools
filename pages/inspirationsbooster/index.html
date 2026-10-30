@@ -211,14 +211,22 @@ fields.filter(el=>el.type!=='checkbox').forEach(el=>{
 fields.forEach(el=>{const k=el.dataset.save;if(Object.prototype.hasOwnProperty.call(state,k)){if(el.type==='checkbox')el.checked=state[k]===true;else el.value=String(state[k]??'')}el.addEventListener(el.type==='checkbox'?'change':'input',()=>{state[k]=el.type==='checkbox'?el.checked:el.value;try{localStorage.setItem(store,JSON.stringify(state))}catch{}})});
 document.querySelectorAll('[data-case]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-case]').forEach(a=>{a.classList.toggle('active',a===b);a.setAttribute('aria-pressed',String(a===b))});renderCase()}));
 ['de','en'].forEach(k=>document.getElementById(k).addEventListener('click',()=>{lang=k;try{localStorage.setItem('inspirationsbooster-lang',lang)}catch{}applyLang()}));applyLang();
-const value=id=>(document.getElementById(id)?.value||'').trim();const human=id=>value(id)||tr[lang].empty;
-function qblock(label,id){const v=human(id);return[{type:'paragraph',text:label},v.length<280?{type:'callout',text:v,theme:'mint'}:{type:'paragraph',text:v}]}
+const value=id=>(document.getElementById(id)?.value||'').trim();
+function qblock(label,id){
+ const v=value(id);
+ if(!v){
+  const magenta=['situation','need','future','perspective','caseIdea','branches','partners','teach'].includes(id);
+  const longer=['where','opening','learn1','branches','partners','teach','plan1','plan2','plan3','plan4'].includes(id);
+  return[{type:'worksheet',label,lines:longer?4:3,theme:magenta?'mag':'mint'}];
+ }
+ return[{type:'paragraph',text:label},v.length<280?{type:'callout',text:v,theme:'mint'}:{type:'paragraph',text:v}];
+}
 function appendAnswers(blocks,keys){keys.forEach(k=>blocks.push(...qblock(tr[lang][k+'L']||tr[lang][k]||k,k)))}
 function makeSections(choice,photos={}){
 const T=tr[lang],sections=[];
-sections.push({heading:lang==='de'?'Deine persönliche Lernreise':'Your learning journey',kicker:'InspirationsBooster',blocks:[{type:'paragraph',text:T.slogan},{type:'paragraph',text:T.heroLead},{type:'gallery',pictures:[{image:photos.auto,label:T.autoH},{image:photos.kitchen,label:T.kitchenH},{image:photos.garden,label:T.gardenH}],options:{height:183}},{type:'key_values',items:[{label:T.name,value:human('owner')},{label:lang==='de'?'Ausgabe':'Edition',value:choice==='one'?T.pdf1:choice==='two'?T.pdf2:T.pdf3}]}]});
+sections.push({heading:lang==='de'?'Deine persönliche Lernreise':'Your learning journey',kicker:'InspirationsBooster',blocks:[{type:'paragraph',text:T.slogan},{type:'paragraph',text:T.heroLead},{type:'gallery',pictures:[{image:photos.auto,label:T.autoH},{image:photos.kitchen,label:T.kitchenH},{image:photos.garden,label:T.gardenH}],options:{height:183}},{type:'key_values',items:[{label:T.name,value:value('owner')},{label:lang==='de'?'Ausgabe':'Edition',value:choice==='one'?T.pdf1:choice==='two'?T.pdf2:T.pdf3}]}]});
 if(choice!=='two'){
-const b=[{type:'callout',text:T.p1lead},{type:'photo',image:photos.contact||photos.auto,options:{height:162,theme:'mint'}},{type:'list',items:[T.f1+' – '+T.fd1,T.f2+' – '+T.fd2,T.f3+' – '+T.fd3,T.f4+' – '+T.fd4,T.f5+' – '+T.fd5]},{type:'callout',text:T.speakQuote,theme:'mint'},{type:'key_values',items:[{label:T.goalf,value:human('goal')}]}];
+const b=[{type:'callout',text:T.p1lead},{type:'photo',image:photos.contact||photos.auto,options:{height:162,theme:'mint'}},{type:'list',items:[T.f1+' – '+T.fd1,T.f2+' – '+T.fd2,T.f3+' – '+T.fd3,T.f4+' – '+T.fd4,T.f5+' – '+T.fd5]},{type:'callout',text:T.speakQuote,theme:'mint'},{type:'key_values',items:[{label:T.goalf,value:value('goal')}]}];
 appendAnswers(b,['where','opening']);
 sections.push({heading:T.p1h,kicker:'01',blocks:b,startOnNewPage:true});
 sections.push({heading:T.kmsH,blocks:[{type:'table',headers:[lang==='de'?'Schritt':'Step',lang==='de'?'Status':'Status'],rows:['c1','c2','c3','c4','c5'].map((id,i)=>[T[id],document.getElementById('check'+(i+1)).checked?T.checked:T.notchecked])},{type:'paragraph',text:T.kmsLead}]});
