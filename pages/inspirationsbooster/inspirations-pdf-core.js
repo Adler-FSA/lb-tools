@@ -146,16 +146,37 @@ class PdfWriter{
     const minHeight=compact?43:55,between=compact?6:10;
     for(let i=0;i<clean.length;i+=2){
       const row=clean.slice(i,i+2);
-      const heights=row.map(it=>rowPad+split(it.label,cw-24,labelFont,true).length*labelStep+split(it.value??'–',cw-24,valueFont,true).length*valueStep);
+      const heights=row.map(it=>rowPad+split(it.label,cw-24,labelFont,true).length*labelStep+(raw(it.value)?split(it.value,cw-24,valueFont,true).length*valueStep:0));
       const h=Math.max(minHeight,...heights);this.ensure(h+between);const y=this.current.y;
       row.forEach((it,j)=>{
         const x=M+j*(cw+gap);this.rect(x,y-h,cw,h,'soft','line');let yy=y-(compact?12:14);
         for(const l of split(it.label,cw-24,labelFont,true)){this.text(l,x+12,yy,labelFont,true,'muted');yy-=labelStep;}
         yy-=compact?4:5;
-        for(const l of split(it.value??'–',cw-24,valueFont,true)){this.text(l,x+12,yy,valueFont,true,'navy');yy-=valueStep;}
+        if(raw(it.value)){
+          for(const l of split(it.value,cw-24,valueFont,true)){this.text(l,x+12,yy,valueFont,true,'navy');yy-=valueStep;}
+        }else{
+          this.line(x+12,yy-6,cw-24,'line');
+        }
       });
       this.current.y=y-h-between;
     }
+  }
+
+  worksheet(label,{lines=3,theme='mint'}={}){
+    const count=Math.max(2,Math.min(6,Math.round(Number(lines)||3)));
+    const head=split(label,W-7,9.5),height=count*28+14;
+    const needed=head.length*14+height+21;
+    this.ensure(needed);
+    for(const l of head){
+      this.text(l,M+3,this.current.y-10,9.5,false,'ink');
+      this.current.y-=14;
+    }
+    this.current.y-=8;
+    const y=this.current.y;
+    this.rect(M,y-height,W,height,'white','line');
+    this.rect(M,y-height,3,height,theme==='mag'?'mag':'mint');
+    for(let i=0;i<count;i++)this.line(M+16,y-26-i*28,W-32,'line');
+    this.current.y=y-height-13;
   }
   callout(text,theme='mint'){
     const lines=split(text,W-30,9.2),h=lines.length*13+24;this.ensure(h+9);const y=this.current.y;
@@ -234,6 +255,7 @@ export async function generateAkademiePdf({
       if(block.type==='paragraph')writer.paragraph(block.text||'');
       else if(block.type==='key_values')writer.keyValues(block.items||[],{compact:Boolean(block.compact)});
       else if(block.type==='callout')writer.callout(block.text||'',block.theme||'mint');
+      else if(block.type==='worksheet')writer.worksheet(block.label||'',{lines:block.lines||3,theme:block.theme||'mint'});
       else if(block.type==='list')writer.list(block.items||[]);
       else if(block.type==='photo')writer.photo(block.image,block.options||{});
       else if(block.type==='gallery')writer.gallery(block.pictures||[],block.options||{});
