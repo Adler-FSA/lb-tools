@@ -1,17 +1,17 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-31T10:36:53Z",
+  "generated_at": "2026-10-31T10:55:50Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
-      "last_success": "2026-10-30T11:24:14Z",
-      "records": 387,
+      "last_success": "2026-10-31T10:55:50Z",
+      "records": 392,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv"
     },
     "esma-non-compliant": {
       "status": "available",
-      "last_success": "2026-10-30T11:24:14Z",
-      "records": 178,
+      "last_success": "2026-10-31T10:55:50Z",
+      "records": 188,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv"
     },
     "bafin-warnings": {
@@ -389911,7 +389911,7 @@
       ]
     },
     {
-      "id": "esma-casp-138e0cd266317e-309",
+      "id": "esma-casp-138e0cd266317e-314",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389965,7 +389965,7 @@
       ]
     },
     {
-      "id": "esma-casp-ecb7f02f57f0cc-347",
+      "id": "esma-casp-ecb7f02f57f0cc-352",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -389994,7 +389994,7 @@
       ]
     },
     {
-      "id": "esma-casp-3465636f466d2c-369",
+      "id": "esma-casp-3465636f466d2c-374",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390047,11 +390047,11 @@
       ]
     },
     {
-      "id": "esma-casp-8b22c2be87b6bb-231",
+      "id": "esma-casp-8b22c2be87b6bb-236",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "ALPHACAP DIGITAL ASSETS SAS",
       "aliases": [
         "ALPHACAP"
@@ -390063,11 +390063,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "ALPHACAP DIGITAL ASSETS SAS",
         "ALPHACAP",
@@ -390075,7 +390075,7 @@
       ]
     },
     {
-      "id": "esma-casp-8b66b25cc89f7d-321",
+      "id": "esma-casp-8b66b25cc89f7d-326",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390154,7 +390154,7 @@
       ]
     },
     {
-      "id": "esma-casp-f558e3f5f0e161-350",
+      "id": "esma-casp-f558e3f5f0e161-355",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390239,11 +390239,11 @@
       ]
     },
     {
-      "id": "esma-casp-d74b962714740c-233",
+      "id": "esma-casp-d74b962714740c-238",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "APLO SAS",
       "aliases": [
         "APLO"
@@ -390255,11 +390255,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "APLO SAS",
         "APLO",
@@ -390293,7 +390293,7 @@
       ]
     },
     {
-      "id": "esma-casp-7e4fbdc773b9df-182",
+      "id": "esma-casp-7e4fbdc773b9df-187",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390319,7 +390319,7 @@
       ]
     },
     {
-      "id": "esma-casp-c4bd966385fbe3-310",
+      "id": "esma-casp-c4bd966385fbe3-315",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390347,7 +390347,7 @@
       ]
     },
     {
-      "id": "esma-casp-94d67564464472-315",
+      "id": "esma-casp-94d67564464472-320",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390373,7 +390373,7 @@
       ]
     },
     {
-      "id": "esma-casp-05fec6536cbd8e-344",
+      "id": "esma-casp-05fec6536cbd8e-349",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390399,7 +390399,7 @@
       ]
     },
     {
-      "id": "esma-casp-cefd42d9634951-298",
+      "id": "esma-casp-cefd42d9634951-303",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390481,7 +390481,7 @@
       ]
     },
     {
-      "id": "esma-casp-ea02cbada5143b-268",
+      "id": "esma-casp-ea02cbada5143b-273",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390507,7 +390507,7 @@
       ]
     },
     {
-      "id": "esma-casp-9cbbfaf91f8c3b-184",
+      "id": "esma-casp-9cbbfaf91f8c3b-189",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390535,7 +390535,7 @@
       ]
     },
     {
-      "id": "esma-casp-b6ec20c62c02ba-276",
+      "id": "esma-casp-b6ec20c62c02ba-281",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390587,7 +390587,7 @@
       ]
     },
     {
-      "id": "esma-casp-f275fd8213adc0-296",
+      "id": "esma-casp-f275fd8213adc0-301",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390615,11 +390615,11 @@
       ]
     },
     {
-      "id": "esma-casp-481742b27fff65-214",
+      "id": "esma-casp-481742b27fff65-219",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "BANQUE DELUBAC ET CIE",
       "aliases": [
         "BANQUE DELUBAC"
@@ -390631,11 +390631,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "BANQUE DELUBAC ET CIE",
         "BANQUE DELUBAC",
@@ -390643,7 +390643,7 @@
       ]
     },
     {
-      "id": "esma-casp-d28eb3d9bd6deb-373",
+      "id": "esma-casp-d28eb3d9bd6deb-378",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390668,7 +390668,7 @@
       ]
     },
     {
-      "id": "esma-casp-73bd81094c05c6-197",
+      "id": "esma-casp-73bd81094c05c6-202",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390696,7 +390696,7 @@
       ]
     },
     {
-      "id": "esma-casp-5f2f792a8a19a4-241",
+      "id": "esma-casp-5f2f792a8a19a4-246",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390752,7 +390752,7 @@
       ]
     },
     {
-      "id": "esma-casp-ee6ae2ea6b4fe8-338",
+      "id": "esma-casp-ee6ae2ea6b4fe8-343",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390780,7 +390780,7 @@
       ]
     },
     {
-      "id": "esma-casp-41869b003f5df8-375",
+      "id": "esma-casp-41869b003f5df8-380",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390808,7 +390808,7 @@
       ]
     },
     {
-      "id": "esma-casp-0395248359b969-248",
+      "id": "esma-casp-0395248359b969-253",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390836,7 +390836,7 @@
       ]
     },
     {
-      "id": "esma-casp-bb005009c0ffec-281",
+      "id": "esma-casp-bb005009c0ffec-286",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390862,7 +390862,7 @@
       ]
     },
     {
-      "id": "esma-casp-558bc59d28552d-187",
+      "id": "esma-casp-558bc59d28552d-192",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390890,7 +390890,7 @@
       ]
     },
     {
-      "id": "esma-casp-f4a6be2f08bcc4-301",
+      "id": "esma-casp-f4a6be2f08bcc4-306",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390944,7 +390944,7 @@
       ]
     },
     {
-      "id": "esma-casp-1c03472f68d58a-358",
+      "id": "esma-casp-1c03472f68d58a-363",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -390970,7 +390970,7 @@
       ]
     },
     {
-      "id": "esma-casp-444815b487ad6c-359",
+      "id": "esma-casp-444815b487ad6c-364",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391050,7 +391050,7 @@
       ]
     },
     {
-      "id": "esma-casp-369d97109e531f-368",
+      "id": "esma-casp-369d97109e531f-373",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391076,11 +391076,11 @@
       ]
     },
     {
-      "id": "esma-casp-bc0882f6d14fa5-208",
+      "id": "esma-casp-bc0882f6d14fa5-213",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "BITSTACK DIGITAL ASSETS SAS",
       "aliases": [
         "BITSTACK"
@@ -391092,11 +391092,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "BITSTACK DIGITAL ASSETS SAS",
         "BITSTACK",
@@ -391104,7 +391104,7 @@
       ]
     },
     {
-      "id": "esma-casp-a2e0fbacffdad1-341",
+      "id": "esma-casp-a2e0fbacffdad1-346",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391132,7 +391132,7 @@
       ]
     },
     {
-      "id": "esma-casp-87488450f6e8b0-293",
+      "id": "esma-casp-87488450f6e8b0-298",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391160,7 +391160,7 @@
       ]
     },
     {
-      "id": "esma-casp-73904d7bf0ee5b-202",
+      "id": "esma-casp-73904d7bf0ee5b-207",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391188,7 +391188,7 @@
       ]
     },
     {
-      "id": "esma-casp-afd78092034c45-349",
+      "id": "esma-casp-afd78092034c45-354",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391214,7 +391214,7 @@
       ]
     },
     {
-      "id": "esma-casp-3f42b9023bb576-313",
+      "id": "esma-casp-3f42b9023bb576-318",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391242,7 +391242,7 @@
       ]
     },
     {
-      "id": "esma-casp-bd26e5e9105be8-305",
+      "id": "esma-casp-bd26e5e9105be8-310",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391270,11 +391270,11 @@
       ]
     },
     {
-      "id": "esma-casp-823279417d0897-238",
+      "id": "esma-casp-823279417d0897-243",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "BLOCKCHAIN PROCESS SECURITY (B.P.S.) SAS",
       "aliases": [
         "FEEL MINING / WIGL ET OTHILA"
@@ -391287,11 +391287,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "BLOCKCHAIN PROCESS SECURITY (B.P.S.) SAS",
         "FEEL MINING / WIGL ET OTHILA",
@@ -391300,7 +391300,7 @@
       ]
     },
     {
-      "id": "esma-casp-84c2e07fc5e9fc-325",
+      "id": "esma-casp-84c2e07fc5e9fc-330",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391328,11 +391328,11 @@
       ]
     },
     {
-      "id": "esma-casp-3769aafd658492-218",
+      "id": "esma-casp-3769aafd658492-223",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "BLOCKNODES SAS",
       "aliases": [
         "SWISSBORG"
@@ -391344,11 +391344,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "BLOCKNODES SAS",
         "SWISSBORG",
@@ -391356,7 +391356,7 @@
       ]
     },
     {
-      "id": "esma-casp-ae0ae444b588a3-360",
+      "id": "esma-casp-ae0ae444b588a3-365",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391384,7 +391384,7 @@
       ]
     },
     {
-      "id": "esma-casp-1fa35c220b50d1-354",
+      "id": "esma-casp-1fa35c220b50d1-359",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391464,7 +391464,7 @@
       ]
     },
     {
-      "id": "esma-casp-5ea04d5bf362b3-318",
+      "id": "esma-casp-5ea04d5bf362b3-323",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391492,11 +391492,11 @@
       ]
     },
     {
-      "id": "esma-casp-d329f7bfb8b7e5-226",
+      "id": "esma-casp-d329f7bfb8b7e5-231",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "Bpifrance Investissement",
       "aliases": [],
       "domains": [
@@ -391506,11 +391506,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "Bpifrance Investissement",
         "Bpifrance Investissement",
@@ -391518,7 +391518,7 @@
       ]
     },
     {
-      "id": "esma-casp-6b343ee90e5a27-302",
+      "id": "esma-casp-6b343ee90e5a27-307",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391574,7 +391574,7 @@
       ]
     },
     {
-      "id": "esma-casp-c83d508b4e1a75-348",
+      "id": "esma-casp-c83d508b4e1a75-353",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391680,11 +391680,11 @@
       ]
     },
     {
-      "id": "esma-casp-89702fa7538fc2-207",
+      "id": "esma-casp-89702fa7538fc2-212",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "CACEIS BANK",
       "aliases": [],
       "domains": [
@@ -391694,11 +391694,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "CACEIS BANK",
         "CACEIS BANK",
@@ -391706,7 +391706,7 @@
       ]
     },
     {
-      "id": "esma-casp-b217c7e7a4ff4b-190",
+      "id": "esma-casp-b217c7e7a4ff4b-195",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391734,7 +391734,7 @@
       ]
     },
     {
-      "id": "esma-casp-59ab1c7ffe1281-329",
+      "id": "esma-casp-59ab1c7ffe1281-334",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391788,7 +391788,7 @@
       ]
     },
     {
-      "id": "esma-casp-d7bbd436b9ce94-243",
+      "id": "esma-casp-d7bbd436b9ce94-248",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391816,7 +391816,7 @@
       ]
     },
     {
-      "id": "esma-casp-8e4353b3feb8d1-186",
+      "id": "esma-casp-8e4353b3feb8d1-191",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391844,7 +391844,7 @@
       ]
     },
     {
-      "id": "esma-casp-7a7aa82349b021-278",
+      "id": "esma-casp-7a7aa82349b021-283",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391870,7 +391870,7 @@
       ]
     },
     {
-      "id": "esma-casp-2160125ff3f724-336",
+      "id": "esma-casp-2160125ff3f724-341",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391898,7 +391898,7 @@
       ]
     },
     {
-      "id": "esma-casp-b072e1e54f8e8e-365",
+      "id": "esma-casp-b072e1e54f8e8e-370",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391934,7 +391934,7 @@
       ]
     },
     {
-      "id": "esma-casp-2cb5a33366bcf0-264",
+      "id": "esma-casp-2cb5a33366bcf0-269",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -391962,11 +391962,11 @@
       ]
     },
     {
-      "id": "esma-casp-0d65d4e06e0364-219",
+      "id": "esma-casp-0d65d4e06e0364-224",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "CIRCLE INTERNET FINANCIAL EUROPE SAS",
       "aliases": [
         "CIRCLE"
@@ -391978,11 +391978,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "CIRCLE INTERNET FINANCIAL EUROPE SAS",
         "CIRCLE",
@@ -391990,7 +391990,7 @@
       ]
     },
     {
-      "id": "esma-casp-6c4c7339d518b3-364",
+      "id": "esma-casp-6c4c7339d518b3-369",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392018,7 +392018,7 @@
       ]
     },
     {
-      "id": "esma-casp-58008a2ae34707-292",
+      "id": "esma-casp-58008a2ae34707-297",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392074,7 +392074,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a627664573a29-294",
+      "id": "esma-casp-5a627664573a29-299",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392130,11 +392130,11 @@
       ]
     },
     {
-      "id": "esma-casp-4bac8357e6e391-221",
+      "id": "esma-casp-4bac8357e6e391-226",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "COINHOUSE SAS",
       "aliases": [
         "COINHOUSE"
@@ -392146,11 +392146,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "COINHOUSE SAS",
         "COINHOUSE",
@@ -392158,7 +392158,7 @@
       ]
     },
     {
-      "id": "esma-casp-c57e4acef2c04c-178",
+      "id": "esma-casp-c57e4acef2c04c-183",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392186,7 +392186,7 @@
       ]
     },
     {
-      "id": "esma-casp-dee6303af82653-257",
+      "id": "esma-casp-dee6303af82653-262",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392239,7 +392239,7 @@
       ]
     },
     {
-      "id": "esma-casp-5b54c110fe41b0-357",
+      "id": "esma-casp-5b54c110fe41b0-362",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392267,7 +392267,7 @@
       ]
     },
     {
-      "id": "esma-casp-ea7861c48744d4-200",
+      "id": "esma-casp-ea7861c48744d4-205",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392295,11 +392295,11 @@
       ]
     },
     {
-      "id": "esma-casp-49b06dce1a6ed7-210",
+      "id": "esma-casp-49b06dce1a6ed7-215",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "COINSHARES ASSET MANAGEMENT",
       "aliases": [],
       "domains": [
@@ -392309,11 +392309,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "COINSHARES ASSET MANAGEMENT",
         "COINSHARES ASSET MANAGEMENT",
@@ -392347,11 +392347,11 @@
       ]
     },
     {
-      "id": "esma-casp-48d6f26da647f9-215",
+      "id": "esma-casp-48d6f26da647f9-220",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "COMETH SAS",
       "aliases": [
         "COMETH"
@@ -392363,11 +392363,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "COMETH SAS",
         "COMETH",
@@ -392449,7 +392449,7 @@
       ]
     },
     {
-      "id": "esma-casp-4f36486e634ae3-258",
+      "id": "esma-casp-4f36486e634ae3-263",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392475,7 +392475,7 @@
       ]
     },
     {
-      "id": "esma-casp-90f73fce965fdc-267",
+      "id": "esma-casp-90f73fce965fdc-272",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392503,7 +392503,7 @@
       ]
     },
     {
-      "id": "esma-casp-128ac4a3b0ef55-303",
+      "id": "esma-casp-128ac4a3b0ef55-308",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392531,7 +392531,7 @@
       ]
     },
     {
-      "id": "esma-casp-846ac836796f52-193",
+      "id": "esma-casp-846ac836796f52-198",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392559,7 +392559,7 @@
       ]
     },
     {
-      "id": "esma-casp-76fe103f54ba2d-192",
+      "id": "esma-casp-76fe103f54ba2d-197",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392641,7 +392641,7 @@
       ]
     },
     {
-      "id": "esma-casp-ce296b7a6e5c6a-269",
+      "id": "esma-casp-ce296b7a6e5c6a-274",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392669,7 +392669,7 @@
       ]
     },
     {
-      "id": "esma-casp-eb68e006218ff1-363",
+      "id": "esma-casp-eb68e006218ff1-368",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392725,7 +392725,7 @@
       ]
     },
     {
-      "id": "esma-casp-3705093d3c6654-327",
+      "id": "esma-casp-3705093d3c6654-332",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392753,11 +392753,11 @@
       ]
     },
     {
-      "id": "esma-casp-34e29e89c1db5e-205",
+      "id": "esma-casp-34e29e89c1db5e-210",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "DEBLOCK SAS",
       "aliases": [
         "DEBLOCK"
@@ -392769,11 +392769,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "DEBLOCK SAS",
         "DEBLOCK",
@@ -392781,7 +392781,7 @@
       ]
     },
     {
-      "id": "esma-casp-a856f83ad18a0d-352",
+      "id": "esma-casp-a856f83ad18a0d-357",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -392861,11 +392861,11 @@
       ]
     },
     {
-      "id": "esma-casp-5866b1ddafb3e5-220",
+      "id": "esma-casp-5866b1ddafb3e5-225",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "DESKOIN SAS",
       "aliases": [
         "DESKOIN"
@@ -392877,11 +392877,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "DESKOIN SAS",
         "DESKOIN",
@@ -392995,7 +392995,7 @@
       ]
     },
     {
-      "id": "esma-casp-5b454586a287d6-247",
+      "id": "esma-casp-5b454586a287d6-252",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393051,7 +393051,7 @@
       ]
     },
     {
-      "id": "esma-casp-e99022d4b1c931-366",
+      "id": "esma-casp-e99022d4b1c931-371",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393158,7 +393158,7 @@
       ]
     },
     {
-      "id": "esma-casp-06a63bc835b128-191",
+      "id": "esma-casp-06a63bc835b128-196",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393212,7 +393212,7 @@
       ]
     },
     {
-      "id": "esma-casp-464c7a35a15c09-245",
+      "id": "esma-casp-464c7a35a15c09-250",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393268,7 +393268,7 @@
       ]
     },
     {
-      "id": "esma-casp-ba6bcdeebaa9e6-355",
+      "id": "esma-casp-ba6bcdeebaa9e6-360",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393354,7 +393354,7 @@
       ]
     },
     {
-      "id": "esma-casp-7421d0b4506e45-337",
+      "id": "esma-casp-7421d0b4506e45-342",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393382,7 +393382,7 @@
       ]
     },
     {
-      "id": "esma-casp-2aa44419e18e68-335",
+      "id": "esma-casp-2aa44419e18e68-340",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393464,7 +393464,7 @@
       ]
     },
     {
-      "id": "esma-casp-071c30c5b5d889-353",
+      "id": "esma-casp-071c30c5b5d889-358",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393516,11 +393516,11 @@
       ]
     },
     {
-      "id": "esma-casp-acb75ac8c0616a-236",
+      "id": "esma-casp-acb75ac8c0616a-241",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "FINARY SAS",
       "aliases": [
         "FINARY"
@@ -393532,11 +393532,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "FINARY SAS",
         "FINARY",
@@ -393544,11 +393544,11 @@
       ]
     },
     {
-      "id": "esma-casp-ef3eb34e826050-211",
+      "id": "esma-casp-ef3eb34e826050-216",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "FINCTEK UE SAS",
       "aliases": [
         "FINCTEK"
@@ -393560,11 +393560,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "FINCTEK UE SAS",
         "FINCTEK",
@@ -393572,7 +393572,7 @@
       ]
     },
     {
-      "id": "esma-casp-debb606012aa1c-351",
+      "id": "esma-casp-debb606012aa1c-356",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393598,7 +393598,7 @@
       ]
     },
     {
-      "id": "esma-casp-58666199ed7875-198",
+      "id": "esma-casp-58666199ed7875-203",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393626,7 +393626,7 @@
       ]
     },
     {
-      "id": "esma-casp-11ba355e4ac242-383",
+      "id": "esma-casp-11ba355e4ac242-388",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393654,7 +393654,7 @@
       ]
     },
     {
-      "id": "esma-casp-9cfd56e9a7e3ed-382",
+      "id": "esma-casp-9cfd56e9a7e3ed-387",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393712,11 +393712,11 @@
       ]
     },
     {
-      "id": "esma-casp-682cf1052ca0ee-216",
+      "id": "esma-casp-682cf1052ca0ee-221",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "FIPTO PI SAS",
       "aliases": [
         "FIPTO"
@@ -393728,11 +393728,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "FIPTO PI SAS",
         "FIPTO",
@@ -393740,7 +393740,7 @@
       ]
     },
     {
-      "id": "esma-casp-74c73a91361742-386",
+      "id": "esma-casp-74c73a91361742-391",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393768,7 +393768,7 @@
       ]
     },
     {
-      "id": "esma-casp-035bbe6ca03561-371",
+      "id": "esma-casp-035bbe6ca03561-376",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393819,7 +393819,7 @@
       ]
     },
     {
-      "id": "esma-casp-aca8ebadc9b930-280",
+      "id": "esma-casp-aca8ebadc9b930-285",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393845,11 +393845,11 @@
       ]
     },
     {
-      "id": "esma-casp-811c14ca159783-232",
+      "id": "esma-casp-811c14ca159783-237",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "FLOWDESK EUROPE SAS",
       "aliases": [
         "FLOWDESK EUROPE"
@@ -393861,11 +393861,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "FLOWDESK EUROPE SAS",
         "FLOWDESK EUROPE",
@@ -393873,7 +393873,7 @@
       ]
     },
     {
-      "id": "esma-casp-e73f01e89e8311-319",
+      "id": "esma-casp-e73f01e89e8311-324",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393927,7 +393927,7 @@
       ]
     },
     {
-      "id": "esma-casp-7b7bd73ec9678f-384",
+      "id": "esma-casp-7b7bd73ec9678f-389",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393955,7 +393955,7 @@
       ]
     },
     {
-      "id": "esma-casp-2a6c4905d4155a-324",
+      "id": "esma-casp-2a6c4905d4155a-329",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -393983,7 +393983,7 @@
       ]
     },
     {
-      "id": "esma-casp-34d7c0ebd691e9-379",
+      "id": "esma-casp-34d7c0ebd691e9-384",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394011,7 +394011,7 @@
       ]
     },
     {
-      "id": "esma-casp-b5411dfb255ca4-176",
+      "id": "esma-casp-b5411dfb255ca4-181",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394040,7 +394040,7 @@
       ]
     },
     {
-      "id": "esma-casp-abe5645439b24d-322",
+      "id": "esma-casp-abe5645439b24d-327",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394093,11 +394093,11 @@
       ]
     },
     {
-      "id": "esma-casp-d353b5b0a45eb7-206",
+      "id": "esma-casp-d353b5b0a45eb7-211",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "GOin SAS",
       "aliases": [
         "GOIN"
@@ -394109,11 +394109,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "GOin SAS",
         "GOIN",
@@ -394173,7 +394173,7 @@
       ]
     },
     {
-      "id": "esma-casp-f093ab4229509e-272",
+      "id": "esma-casp-f093ab4229509e-277",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394201,11 +394201,11 @@
       ]
     },
     {
-      "id": "esma-casp-3048817ec66eb5-217",
+      "id": "esma-casp-3048817ec66eb5-222",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "HEXARQ SAS",
       "aliases": [
         "HEXARQ"
@@ -394217,11 +394217,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "HEXARQ SAS",
         "HEXARQ",
@@ -394229,7 +394229,7 @@
       ]
     },
     {
-      "id": "esma-casp-e031a968c88381-343",
+      "id": "esma-casp-e031a968c88381-348",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394255,7 +394255,7 @@
       ]
     },
     {
-      "id": "esma-casp-bbb56c8717e786-312",
+      "id": "esma-casp-bbb56c8717e786-317",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394283,7 +394283,7 @@
       ]
     },
     {
-      "id": "esma-casp-b4d9e7416c0ab2-271",
+      "id": "esma-casp-b4d9e7416c0ab2-276",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394311,7 +394311,7 @@
       ]
     },
     {
-      "id": "esma-casp-871eb52bd65e91-250",
+      "id": "esma-casp-871eb52bd65e91-255",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394391,7 +394391,7 @@
       ]
     },
     {
-      "id": "esma-casp-37ffb8a06c8b9a-234",
+      "id": "esma-casp-37ffb8a06c8b9a-239",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394419,7 +394419,7 @@
       ]
     },
     {
-      "id": "esma-casp-af7f6ed50ec074-380",
+      "id": "esma-casp-af7f6ed50ec074-385",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394524,7 +394524,7 @@
       ]
     },
     {
-      "id": "esma-casp-0faaa5354dfc67-376",
+      "id": "esma-casp-0faaa5354dfc67-381",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394552,7 +394552,7 @@
       ]
     },
     {
-      "id": "esma-casp-9390d9f6129eaf-249",
+      "id": "esma-casp-9390d9f6129eaf-254",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394580,7 +394580,7 @@
       ]
     },
     {
-      "id": "esma-casp-51cb8b697c8956-377",
+      "id": "esma-casp-51cb8b697c8956-382",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394608,7 +394608,7 @@
       ]
     },
     {
-      "id": "esma-casp-772bf91251a48d-261",
+      "id": "esma-casp-772bf91251a48d-266",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394684,7 +394684,7 @@
       ]
     },
     {
-      "id": "esma-casp-d84240fbb8e4b6-196",
+      "id": "esma-casp-d84240fbb8e4b6-201",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394761,7 +394761,7 @@
       ]
     },
     {
-      "id": "esma-casp-d8ad9a6d6d9af0-179",
+      "id": "esma-casp-d8ad9a6d6d9af0-184",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394843,7 +394843,7 @@
       ]
     },
     {
-      "id": "esma-casp-7e4d1dd26386cd-372",
+      "id": "esma-casp-7e4d1dd26386cd-377",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394868,7 +394868,7 @@
       ]
     },
     {
-      "id": "esma-casp-b0091e151292d9-284",
+      "id": "esma-casp-b0091e151292d9-289",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394924,11 +394924,11 @@
       ]
     },
     {
-      "id": "esma-casp-b429fe203b6a87-225",
+      "id": "esma-casp-b429fe203b6a87-230",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "KEYROCK FR SAS",
       "aliases": [
         "KEYROCK"
@@ -394940,11 +394940,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "KEYROCK FR SAS",
         "KEYROCK",
@@ -395034,7 +395034,7 @@
       ]
     },
     {
-      "id": "esma-casp-2236cfc5cf61f0-189",
+      "id": "esma-casp-2236cfc5cf61f0-194",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395062,7 +395062,7 @@
       ]
     },
     {
-      "id": "esma-casp-8fa3e7e38c6a03-204",
+      "id": "esma-casp-8fa3e7e38c6a03-209",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395116,7 +395116,7 @@
       ]
     },
     {
-      "id": "esma-casp-0458d44ae57a3b-253",
+      "id": "esma-casp-0458d44ae57a3b-258",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395144,7 +395144,7 @@
       ]
     },
     {
-      "id": "esma-casp-3c01c396c4f98a-334",
+      "id": "esma-casp-3c01c396c4f98a-339",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395172,11 +395172,11 @@
       ]
     },
     {
-      "id": "esma-casp-539e97c78ee0f9-229",
+      "id": "esma-casp-539e97c78ee0f9-234",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "LEONOD SARL",
       "aliases": [
         "LEONOD"
@@ -395188,11 +395188,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "LEONOD SARL",
         "LEONOD",
@@ -395200,7 +395200,7 @@
       ]
     },
     {
-      "id": "esma-casp-64ea19882f209b-275",
+      "id": "esma-casp-64ea19882f209b-280",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395226,7 +395226,7 @@
       ]
     },
     {
-      "id": "esma-casp-6b4c24cbf32681-183",
+      "id": "esma-casp-6b4c24cbf32681-188",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395252,7 +395252,7 @@
       ]
     },
     {
-      "id": "esma-casp-37b0684019e0ea-181",
+      "id": "esma-casp-37b0684019e0ea-186",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395278,7 +395278,7 @@
       ]
     },
     {
-      "id": "esma-casp-db48f2aba358f7-175",
+      "id": "esma-casp-db48f2aba358f7-180",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395306,7 +395306,7 @@
       ]
     },
     {
-      "id": "esma-casp-954b7eb28603f3-385",
+      "id": "esma-casp-954b7eb28603f3-390",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395365,11 +395365,11 @@
       ]
     },
     {
-      "id": "esma-casp-3616a1b368570a-235",
+      "id": "esma-casp-3616a1b368570a-240",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "MEREAU FINANCE SAS",
       "aliases": [
         "CRYPTO-AM"
@@ -395381,11 +395381,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "MEREAU FINANCE SAS",
         "CRYPTO-AM",
@@ -395393,11 +395393,11 @@
       ]
     },
     {
-      "id": "esma-casp-058857d3cff6b4-230",
+      "id": "esma-casp-058857d3cff6b4-235",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "MERIA SAS",
       "aliases": [
         "MERIA"
@@ -395409,11 +395409,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "MERIA SAS",
         "MERIA",
@@ -395421,11 +395421,11 @@
       ]
     },
     {
-      "id": "esma-casp-a1331c88d8c9a3-209",
+      "id": "esma-casp-a1331c88d8c9a3-214",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "METAL GEAR SAS",
       "aliases": [
         "MEATAL GEAR"
@@ -395437,11 +395437,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "METAL GEAR SAS",
         "MEATAL GEAR",
@@ -395449,7 +395449,7 @@
       ]
     },
     {
-      "id": "esma-casp-22eb1960fb43c3-194",
+      "id": "esma-casp-22eb1960fb43c3-199",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395528,7 +395528,7 @@
       ]
     },
     {
-      "id": "esma-casp-a0d24bf7bd0491-361",
+      "id": "esma-casp-a0d24bf7bd0491-366",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395556,7 +395556,7 @@
       ]
     },
     {
-      "id": "esma-casp-fe5c96e82923c7-340",
+      "id": "esma-casp-fe5c96e82923c7-345",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395609,7 +395609,7 @@
       ]
     },
     {
-      "id": "esma-casp-20e8b2771a0bc9-263",
+      "id": "esma-casp-20e8b2771a0bc9-268",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395713,7 +395713,7 @@
       ]
     },
     {
-      "id": "esma-casp-3a0d7b2b41340c-308",
+      "id": "esma-casp-3a0d7b2b41340c-313",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395741,7 +395741,7 @@
       ]
     },
     {
-      "id": "esma-casp-edefd578a91673-290",
+      "id": "esma-casp-edefd578a91673-295",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395769,7 +395769,7 @@
       ]
     },
     {
-      "id": "esma-casp-f3114312f23421-306",
+      "id": "esma-casp-f3114312f23421-311",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395797,7 +395797,7 @@
       ]
     },
     {
-      "id": "esma-casp-15125c7574b688-316",
+      "id": "esma-casp-15125c7574b688-321",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395825,7 +395825,7 @@
       ]
     },
     {
-      "id": "esma-casp-dc2bd118b5b0a7-314",
+      "id": "esma-casp-dc2bd118b5b0a7-319",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395903,7 +395903,7 @@
       ]
     },
     {
-      "id": "esma-casp-7dfed845dd9501-203",
+      "id": "esma-casp-7dfed845dd9501-208",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395931,7 +395931,7 @@
       ]
     },
     {
-      "id": "esma-casp-72a3fb4cb4b45e-177",
+      "id": "esma-casp-72a3fb4cb4b45e-182",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395959,7 +395959,7 @@
       ]
     },
     {
-      "id": "esma-casp-8760124120058c-374",
+      "id": "esma-casp-8760124120058c-379",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -395987,7 +395987,7 @@
       ]
     },
     {
-      "id": "esma-casp-91fb8b92ba2602-288",
+      "id": "esma-casp-91fb8b92ba2602-293",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396015,7 +396015,7 @@
       ]
     },
     {
-      "id": "esma-casp-1281c48ef2081d-387",
+      "id": "esma-casp-1281c48ef2081d-392",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396043,7 +396043,7 @@
       ]
     },
     {
-      "id": "esma-casp-f446acf9548059-317",
+      "id": "esma-casp-f446acf9548059-322",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396071,7 +396071,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a871a1dc9cd73-265",
+      "id": "esma-casp-5a871a1dc9cd73-270",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396099,7 +396099,7 @@
       ]
     },
     {
-      "id": "esma-casp-324d13e649d7b5-330",
+      "id": "esma-casp-324d13e649d7b5-335",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396127,7 +396127,7 @@
       ]
     },
     {
-      "id": "esma-casp-f10ae29044d825-346",
+      "id": "esma-casp-f10ae29044d825-351",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396153,7 +396153,7 @@
       ]
     },
     {
-      "id": "esma-casp-ae0b3f322640ff-332",
+      "id": "esma-casp-ae0b3f322640ff-337",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396181,7 +396181,7 @@
       ]
     },
     {
-      "id": "esma-casp-2a5116a34442e4-185",
+      "id": "esma-casp-2a5116a34442e4-190",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396235,7 +396235,7 @@
       ]
     },
     {
-      "id": "esma-casp-d464c0b06091c6-378",
+      "id": "esma-casp-d464c0b06091c6-383",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396316,11 +396316,11 @@
       ]
     },
     {
-      "id": "esma-casp-d83ae3a5931650-326",
+      "id": "esma-casp-d83ae3a5931650-331",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "Payhound Limited",
       "aliases": [
         "Payhound"
@@ -396332,11 +396332,11 @@
       "country": "MT",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit Payhound Limited vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of Payhound Limited.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "Payhound Limited",
       "match_terms": [
         "Payhound Limited",
         "Payhound",
@@ -396344,11 +396344,11 @@
       ]
     },
     {
-      "id": "esma-casp-e25bbae85b9442-228",
+      "id": "esma-casp-e25bbae85b9442-233",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "PAYMIUM SAS",
       "aliases": [
         "PAYMIUM"
@@ -396360,11 +396360,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "PAYMIUM SAS",
         "PAYMIUM",
@@ -396372,7 +396372,7 @@
       ]
     },
     {
-      "id": "esma-casp-a62512e08a27ca-285",
+      "id": "esma-casp-a62512e08a27ca-290",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396400,7 +396400,7 @@
       ]
     },
     {
-      "id": "esma-casp-d5b1d03a0ff2c4-256",
+      "id": "esma-casp-d5b1d03a0ff2c4-261",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396430,11 +396430,11 @@
       ]
     },
     {
-      "id": "esma-casp-29b684100b20c6-223",
+      "id": "esma-casp-29b684100b20c6-228",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "PAYTOP SAS",
       "aliases": [
         "PAYTOP"
@@ -396446,11 +396446,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "PAYTOP SAS",
         "PAYTOP",
@@ -396458,7 +396458,7 @@
       ]
     },
     {
-      "id": "esma-casp-6419ca45d97752-252",
+      "id": "esma-casp-6419ca45d97752-257",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396486,7 +396486,7 @@
       ]
     },
     {
-      "id": "esma-casp-0b65d547bb1f66-251",
+      "id": "esma-casp-0b65d547bb1f66-256",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396539,7 +396539,7 @@
       ]
     },
     {
-      "id": "esma-casp-8fe5660dbc6a30-174",
+      "id": "esma-casp-8fe5660dbc6a30-179",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396567,7 +396567,7 @@
       ]
     },
     {
-      "id": "esma-casp-952893c524d21f-259",
+      "id": "esma-casp-952893c524d21f-264",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396595,7 +396595,7 @@
       ]
     },
     {
-      "id": "esma-casp-3fe8bec4164df5-244",
+      "id": "esma-casp-3fe8bec4164df5-249",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396699,7 +396699,7 @@
       ]
     },
     {
-      "id": "esma-casp-b4a261e961c7d8-199",
+      "id": "esma-casp-b4a261e961c7d8-204",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396727,7 +396727,7 @@
       ]
     },
     {
-      "id": "esma-casp-aa4c88336bbe7b-195",
+      "id": "esma-casp-aa4c88336bbe7b-200",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396755,7 +396755,7 @@
       ]
     },
     {
-      "id": "esma-casp-adf06724f2cc6a-254",
+      "id": "esma-casp-adf06724f2cc6a-259",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396783,11 +396783,11 @@
       ]
     },
     {
-      "id": "esma-casp-ebedfab7d96077-222",
+      "id": "esma-casp-ebedfab7d96077-227",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "QWARKS SAS",
       "aliases": [
         "QWARKS"
@@ -396799,11 +396799,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "QWARKS SAS",
         "QWARKS",
@@ -396834,6 +396834,32 @@
         "Raiffeisebank Auerbach-Freihung eG",
         "Raiffeisebank Auerbach-Freihung eG",
         "rb-af.de"
+      ]
+    },
+    {
+      "id": "esma-casp-ff8d3ff7aaf2d1-174",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Raiffeisen-Volksbank Ebersberg eG",
+      "aliases": [],
+      "domains": [
+        "rv-ebe.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "Raiffeisen-Volksbank Ebersberg eG",
+        "Raiffeisen-Volksbank Ebersberg eG",
+        "rv-ebe.de"
       ]
     },
     {
@@ -397019,6 +397045,32 @@
       ]
     },
     {
+      "id": "esma-casp-fed1176fc45dcf-177",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Raiffeisenbank Kirchweihtal eG",
+      "aliases": [],
+      "domains": [
+        "rb-kirchweihtal.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "Raiffeisenbank Kirchweihtal eG",
+        "Raiffeisenbank Kirchweihtal eG",
+        "rb-kirchweihtal.de"
+      ]
+    },
+    {
       "id": "esma-casp-c8a43253de34c5-113",
       "source_id": "esma-casp",
       "region": "EU",
@@ -397097,7 +397149,33 @@
       ]
     },
     {
-      "id": "esma-casp-50254e78bc726d-255",
+      "id": "esma-casp-d000524403ef86-176",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Raiffeisenbank Wittelsbacher Land eG",
+      "aliases": [],
+      "domains": [
+        "rb-wila.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "Raiffeisenbank Wittelsbacher Land eG",
+        "Raiffeisenbank Wittelsbacher Land eG",
+        "rb-wila.de"
+      ]
+    },
+    {
+      "id": "esma-casp-50254e78bc726d-260",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397125,11 +397203,11 @@
       ]
     },
     {
-      "id": "esma-casp-8a43912f9fb44e-227",
+      "id": "esma-casp-8a43912f9fb44e-232",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "RCUBE ASSET MANAGEMENT",
       "aliases": [],
       "domains": [
@@ -397139,11 +397217,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "RCUBE ASSET MANAGEMENT",
         "RCUBE ASSET MANAGEMENT",
@@ -397151,11 +397229,11 @@
       ]
     },
     {
-      "id": "esma-casp-23f7f629b329eb-240",
+      "id": "esma-casp-23f7f629b329eb-245",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "REGULAR FINANCE SAS",
       "aliases": [
         "REGULAR"
@@ -397167,11 +397245,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "REGULAR FINANCE SAS",
         "REGULAR",
@@ -397179,11 +397257,11 @@
       ]
     },
     {
-      "id": "esma-casp-3c6a9056c708a0-212",
+      "id": "esma-casp-3c6a9056c708a0-217",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "RELAI EU SASU",
       "aliases": [
         "RELAI"
@@ -397195,11 +397273,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "RELAI EU SASU",
         "RELAI",
@@ -397207,7 +397285,7 @@
       ]
     },
     {
-      "id": "esma-casp-47f6a089d4a151-188",
+      "id": "esma-casp-47f6a089d4a151-193",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397263,7 +397341,7 @@
       ]
     },
     {
-      "id": "esma-casp-d880b084bca669-304",
+      "id": "esma-casp-d880b084bca669-309",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397289,7 +397367,7 @@
       ]
     },
     {
-      "id": "esma-casp-978eaa94c20200-266",
+      "id": "esma-casp-978eaa94c20200-271",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397317,7 +397395,7 @@
       ]
     },
     {
-      "id": "esma-casp-7718d1593794c3-286",
+      "id": "esma-casp-7718d1593794c3-291",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397370,11 +397448,11 @@
       ]
     },
     {
-      "id": "esma-casp-82a167a3e5a1e5-224",
+      "id": "esma-casp-82a167a3e5a1e5-229",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "RUFIJI CAPITAL SAS",
       "aliases": [
         "RUFIJI"
@@ -397386,11 +397464,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "RUFIJI CAPITAL SAS",
         "RUFIJI",
@@ -397398,7 +397476,7 @@
       ]
     },
     {
-      "id": "esma-casp-233ab9b57bb379-279",
+      "id": "esma-casp-233ab9b57bb379-284",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397454,7 +397532,7 @@
       ]
     },
     {
-      "id": "esma-casp-b4bac49362d9d9-381",
+      "id": "esma-casp-b4bac49362d9d9-386",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397480,7 +397558,7 @@
       ]
     },
     {
-      "id": "esma-casp-4da3f23921559a-180",
+      "id": "esma-casp-4da3f23921559a-185",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397562,11 +397640,11 @@
       ]
     },
     {
-      "id": "esma-casp-663633d4cb4fef-239",
+      "id": "esma-casp-663633d4cb4fef-244",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "SHARES FINANCIAL ASSETS SAS",
       "aliases": [
         "SHARES"
@@ -397578,11 +397656,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "SHARES FINANCIAL ASSETS SAS",
         "SHARES",
@@ -397590,7 +397668,7 @@
       ]
     },
     {
-      "id": "esma-casp-98ee6b433668c5-307",
+      "id": "esma-casp-98ee6b433668c5-312",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397618,7 +397696,7 @@
       ]
     },
     {
-      "id": "esma-casp-f035baa0a79327-311",
+      "id": "esma-casp-f035baa0a79327-316",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397697,7 +397775,7 @@
       ]
     },
     {
-      "id": "esma-casp-24712866481341-283",
+      "id": "esma-casp-24712866481341-288",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397751,11 +397829,11 @@
       ]
     },
     {
-      "id": "esma-casp-c2c139b05f05b1-213",
+      "id": "esma-casp-c2c139b05f05b1-218",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "SOCIETE GENERALE - FORGE",
       "aliases": [],
       "domains": [
@@ -397765,11 +397843,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "SOCIETE GENERALE - FORGE",
         "SOCIETE GENERALE - FORGE",
@@ -397777,7 +397855,7 @@
       ]
     },
     {
-      "id": "esma-casp-669043a4361c52-323",
+      "id": "esma-casp-669043a4361c52-328",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397857,7 +397935,7 @@
       ]
     },
     {
-      "id": "esma-casp-b4767cad0df634-331",
+      "id": "esma-casp-b4767cad0df634-336",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397883,7 +397961,7 @@
       ]
     },
     {
-      "id": "esma-casp-d93f203f87064e-300",
+      "id": "esma-casp-d93f203f87064e-305",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397911,7 +397989,7 @@
       ]
     },
     {
-      "id": "esma-casp-6460d7b577cf8b-299",
+      "id": "esma-casp-6460d7b577cf8b-304",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -397939,7 +398017,7 @@
       ]
     },
     {
-      "id": "esma-casp-9950c57185e938-260",
+      "id": "esma-casp-9950c57185e938-265",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398021,7 +398099,7 @@
       ]
     },
     {
-      "id": "esma-casp-e2977694fc6941-297",
+      "id": "esma-casp-e2977694fc6941-302",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398049,7 +398127,7 @@
       ]
     },
     {
-      "id": "esma-casp-9bf2ca62b5ba19-282",
+      "id": "esma-casp-9bf2ca62b5ba19-287",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398077,7 +398155,7 @@
       ]
     },
     {
-      "id": "esma-casp-aed788da3cfd71-328",
+      "id": "esma-casp-aed788da3cfd71-333",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398157,7 +398235,7 @@
       ]
     },
     {
-      "id": "esma-casp-064f20aca4070a-201",
+      "id": "esma-casp-064f20aca4070a-206",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398403,7 +398481,7 @@
       ]
     },
     {
-      "id": "esma-casp-699a4674d658c5-370",
+      "id": "esma-casp-699a4674d658c5-375",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398428,7 +398506,7 @@
       ]
     },
     {
-      "id": "esma-casp-13cbfccb465972-291",
+      "id": "esma-casp-13cbfccb465972-296",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398456,7 +398534,7 @@
       ]
     },
     {
-      "id": "esma-casp-d3781ddbab676a-287",
+      "id": "esma-casp-d3781ddbab676a-292",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398484,7 +398562,7 @@
       ]
     },
     {
-      "id": "esma-casp-318a64f16433ca-289",
+      "id": "esma-casp-318a64f16433ca-294",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398698,7 +398776,7 @@
       ]
     },
     {
-      "id": "esma-casp-5f060db17f60ac-262",
+      "id": "esma-casp-5f060db17f60ac-267",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -398724,7 +398802,7 @@
       ]
     },
     {
-      "id": "esma-casp-5286f8b6f93ace-345",
+      "id": "esma-casp-5286f8b6f93ace-350",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399270,6 +399348,32 @@
       ]
     },
     {
+      "id": "esma-casp-d758090b0e1acc-175",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Volksbank Raiffeisenbank Regensburg-Schwandorf eG",
+      "aliases": [],
+      "domains": [
+        "vr-rs.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "Volksbank Raiffeisenbank Regensburg-Schwandorf eG",
+        "Volksbank Raiffeisenbank Regensburg-Schwandorf eG",
+        "vr-rs.de"
+      ]
+    },
+    {
       "id": "esma-casp-086ab9e354cdf0-93",
       "source_id": "esma-casp",
       "region": "EU",
@@ -399475,6 +399579,32 @@
         "VR Bank München Land eG",
         "VR Bank München Land eG",
         "vr-bank-muenchen-land.de"
+      ]
+    },
+    {
+      "id": "esma-casp-4bdddbd22395c8-178",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "VR Bank Neuburg-Rain eG",
+      "aliases": [],
+      "domains": [
+        "vr-neuburg-rain.de"
+      ],
+      "authority": "Federal Financial Supervisory Authority (BaFin)",
+      "country": "DE",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "VR Bank Neuburg-Rain eG",
+        "VR Bank Neuburg-Rain eG",
+        "vr-neuburg-rain.de"
       ]
     },
     {
@@ -399816,7 +399946,7 @@
       ]
     },
     {
-      "id": "esma-casp-d0d6c9b7bee8d0-339",
+      "id": "esma-casp-d0d6c9b7bee8d0-344",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399897,7 +400027,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a59187ebb8c76-362",
+      "id": "esma-casp-5a59187ebb8c76-367",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399929,7 +400059,7 @@
       ]
     },
     {
-      "id": "esma-casp-7dad280e0f8589-367",
+      "id": "esma-casp-7dad280e0f8589-372",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399986,7 +400116,7 @@
       ]
     },
     {
-      "id": "esma-casp-fc74501df18f45-246",
+      "id": "esma-casp-fc74501df18f45-251",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400040,11 +400170,11 @@
       ]
     },
     {
-      "id": "esma-casp-4da5bae3f74049-237",
+      "id": "esma-casp-4da5bae3f74049-242",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
-      "status": "authorized",
+      "status": "authorization_ended",
       "name": "WOORTON SAS",
       "aliases": [
         "WOORTON"
@@ -400056,11 +400186,11 @@
       "country": "FR",
       "date": "",
       "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider. Im Datensatz ist ein Ende/Widerruf der Zulassung mit 0 vermerkt.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers. The dataset records an authorisation end/withdrawal date of 0.",
       "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
       "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
+      "withdrawal_date": "0",
       "match_terms": [
         "WOORTON SAS",
         "WOORTON",
@@ -400094,7 +400224,7 @@
       ]
     },
     {
-      "id": "esma-casp-d0d85e3beae925-277",
+      "id": "esma-casp-d0d85e3beae925-282",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400120,7 +400250,7 @@
       ]
     },
     {
-      "id": "esma-casp-85a74af0956b5f-242",
+      "id": "esma-casp-85a74af0956b5f-247",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400173,7 +400303,7 @@
       ]
     },
     {
-      "id": "esma-casp-3e7e05d16fca00-273",
+      "id": "esma-casp-3e7e05d16fca00-278",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400201,7 +400331,7 @@
       ]
     },
     {
-      "id": "esma-casp-9d9e9d1652c642-270",
+      "id": "esma-casp-9d9e9d1652c642-275",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400229,7 +400359,7 @@
       ]
     },
     {
-      "id": "esma-casp-1bc7f56a95dcf5-333",
+      "id": "esma-casp-1bc7f56a95dcf5-338",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400257,7 +400387,7 @@
       ]
     },
     {
-      "id": "esma-casp-88db787812566d-342",
+      "id": "esma-casp-88db787812566d-347",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400283,7 +400413,7 @@
       ]
     },
     {
-      "id": "esma-casp-8bea6c2e7949de-356",
+      "id": "esma-casp-8bea6c2e7949de-361",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400311,7 +400441,7 @@
       ]
     },
     {
-      "id": "esma-casp-acde1775115fad-274",
+      "id": "esma-casp-acde1775115fad-279",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400337,7 +400467,7 @@
       ]
     },
     {
-      "id": "esma-casp-5a5dbbccb810bf-320",
+      "id": "esma-casp-5a5dbbccb810bf-325",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -400365,7 +400495,7 @@
       ]
     },
     {
-      "id": "esma-casp-633d11d4daccec-295",
+      "id": "esma-casp-633d11d4daccec-300",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -401107,6 +401237,32 @@
       ]
     },
     {
+      "id": "esma-non-compliant-f725d0c2f9da4d-177",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Brelliozo IA",
+      "aliases": [],
+      "domains": [
+        "brelliozoia-it.com"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "21/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Brelliozo IA",
+        "Brelliozo IA",
+        "brelliozoia-it.com"
+      ]
+    },
+    {
       "id": "esma-non-compliant-df392bb029efe7-27",
       "source_id": "esma-non-compliant",
       "region": "EU",
@@ -401182,6 +401338,32 @@
         "Caa871",
         "Caa871",
         "caa871.it"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-e8ae56b9df3513-185",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Cardinemodevo",
+      "aliases": [],
+      "domains": [
+        "cardinemodevo.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Cardinemodevo",
+        "Cardinemodevo",
+        "cardinemodevo.it"
       ]
     },
     {
@@ -401355,6 +401537,32 @@
       ]
     },
     {
+      "id": "esma-non-compliant-3650fcd7faae0b-184",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Chainexelonfin",
+      "aliases": [],
+      "domains": [
+        "chainexelonfin.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Chainexelonfin",
+        "Chainexelonfin",
+        "chainexelonfin.it"
+      ]
+    },
+    {
       "id": "esma-non-compliant-72a84030b95ff5-14",
       "source_id": "esma-non-compliant",
       "region": "EU",
@@ -401464,6 +401672,32 @@
         "cryptoin24.com",
         "clients.cryptoin24.com",
         "trading.cryptoin24.com"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-3f37cbe5c2fd2b-182",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Dashaxid400",
+      "aliases": [],
+      "domains": [
+        "dashaxid400.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Dashaxid400",
+        "Dashaxid400",
+        "dashaxid400.it"
       ]
     },
     {
@@ -402849,6 +403083,34 @@
       ]
     },
     {
+      "id": "esma-non-compliant-7f82ae2db75e6c-178",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "IncomeMax",
+      "aliases": [],
+      "domains": [
+        "iincome-max.com",
+        "web.iincomemax.com"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "21/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "IncomeMax",
+        "IncomeMax",
+        "iincome-max.com",
+        "web.iincomemax.com"
+      ]
+    },
+    {
       "id": "esma-non-compliant-61ad1e75ee6c79-29",
       "source_id": "esma-non-compliant",
       "region": "EU",
@@ -403207,7 +403469,7 @@
       ]
     },
     {
-      "id": "esma-non-compliant-fad29983ad5682-178",
+      "id": "esma-non-compliant-fad29983ad5682-188",
       "source_id": "esma-non-compliant",
       "region": "EU",
       "type": "warning",
@@ -403259,7 +403521,7 @@
       ]
     },
     {
-      "id": "esma-non-compliant-40d0bc0c5adbc2-177",
+      "id": "esma-non-compliant-40d0bc0c5adbc2-187",
       "source_id": "esma-non-compliant",
       "region": "EU",
       "type": "warning",
@@ -404157,6 +404419,84 @@
       ]
     },
     {
+      "id": "esma-non-compliant-da8ac3544bab9f-186",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Smartbitboost",
+      "aliases": [],
+      "domains": [
+        "smartbitboost.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Smartbitboost",
+        "Smartbitboost",
+        "smartbitboost.it"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-b1c8154916a157-180",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Solvexpulse53ai",
+      "aliases": [],
+      "domains": [
+        "solvexpulse53ai.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Solvexpulse53ai",
+        "Solvexpulse53ai",
+        "solvexpulse53ai.it"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-be8fae5e8f70b8-183",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Sovriapro",
+      "aliases": [],
+      "domains": [
+        "sovriapro.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Sovriapro",
+        "Sovriapro",
+        "sovriapro.it"
+      ]
+    },
+    {
       "id": "esma-non-compliant-47b8d8a7b8f1e3-10",
       "source_id": "esma-non-compliant",
       "region": "EU",
@@ -404338,6 +404678,32 @@
         "Syk755",
         "Syk755",
         "syk755.it"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-00c5e87592a9cf-179",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Tesorvenza",
+      "aliases": [],
+      "domains": [
+        "tesorvenza.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Tesorvenza",
+        "Tesorvenza",
+        "tesorvenza.it"
       ]
     },
     {
@@ -404631,6 +404997,32 @@
         "Valoranco",
         "valoranco.com",
         "valoranco.org"
+      ]
+    },
+    {
+      "id": "esma-non-compliant-ebe2902833f094-181",
+      "source_id": "esma-non-compliant",
+      "region": "EU",
+      "type": "warning",
+      "status": "non_compliant",
+      "name": "Valutixitalia",
+      "aliases": [],
+      "domains": [
+        "valutixitalia.it"
+      ],
+      "authority": "Commissione Nazionale per le Societa e la Borsa (CONSOB)",
+      "country": "IT",
+      "date": "28/10/2026",
+      "title": "ESMA MiCA – Non-Compliant Entity",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register nicht konformer Anbieter von Kryptowerte-Dienstleistungen. Behördlicher Grund: None",
+      "summary_en": "Entry in the official ESMA MiCA register of non-compliant entities providing crypto-asset services. Regulatory reason: None",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv",
+      "reason": "None",
+      "match_terms": [
+        "Valutixitalia",
+        "Valutixitalia",
+        "valutixitalia.it"
       ]
     },
     {
