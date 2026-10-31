@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-10-31T11:15:26Z",
+  "generated_at": "2026-10-31T12:20:01Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-10-30T12:48:30Z",
+      "last_success": "2026-10-31T12:20:01Z",
       "records": 3621,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "1208740772f259dceab4d80d70238cecbf32c52a084cd31d302f1ba1b7557346"
+      "response_sha256": "07901403c47c7d5da8a36bfdd6c13d4fcd93f52102ff2f8da4b60e98991bb483"
     }
   },
   "records": [
@@ -65077,7 +65077,7 @@
       "lei": "529900086UL2LKA05756",
       "national_reference": "32247795989",
       "city": "Zagreb",
-      "last_update": "20240928000000000",
+      "last_update": "20260916000000000",
       "match_terms": [
         "Croatia banka d.d.",
         "529900086UL2LKA05756",
@@ -73453,7 +73453,7 @@
       "lei": "529900D5G4V6THXC5P79",
       "national_reference": "87939104217",
       "city": "Zagreb",
-      "last_update": "20260331000000000",
+      "last_update": "20260916000000000",
       "match_terms": [
         "Hrvatska poštanska banka d.d.",
         "529900D5G4V6THXC5P79",
@@ -110172,7 +110172,7 @@
       "lei": "95980020140005419373",
       "national_reference": "1490",
       "city": "Madrid",
-      "last_update": "20251231000000000",
+      "last_update": "20260930000000000",
       "match_terms": [
         "Singular Bank, S.A.",
         "95980020140005419373",
