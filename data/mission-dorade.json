@@ -134,7 +134,7 @@
       "firstName": "Gerd",
       "lastName": "Koller",
       "sponsorFirstName": "Daniela",
-      "sponsorLastName": "Karl",
+      "sponsorLastName": "Koller",
       "createdAt": "2026-10-17T10:00:00.000Z"
     }
   ],
@@ -166,6 +166,17 @@
       "savedAt": "2026-10-01T16:42:43.168Z",
       "published": true,
       "publishedAt": "2026-10-01T16:42:43.168Z"
+    },
+    "2026-10": {
+      "place1": [],
+      "place2": [],
+      "firstCount": 0,
+      "secondCount": 0,
+      "jackpot": 10,
+      "noWinner": true,
+      "savedAt": "2026-11-01T07:50:23.883Z",
+      "published": true,
+      "publishedAt": "2026-11-01T07:50:23.883Z"
     }
   },
   "eligibleParticipants": [
