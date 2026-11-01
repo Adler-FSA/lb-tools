@@ -372,6 +372,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "f2c7334a-7592-48c1-9c2e-5fc01ebeb97c",
+      "title": "Die Zeit wartet nicht",
+      "category": "leitartikel",
+      "type": "website",
+      "releaseDate": "2026-11-11",
+      "url": "https://tools.liquiditybooster.de/pages/leitartikel/unbequeme-wahrheiten/",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-11-01T10:12:22.464Z",
+      "updatedAt": "2026-11-01T10:12:22.464Z",
+      "history": [
+        {
+          "at": "2026-11-01T10:12:22.464Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
