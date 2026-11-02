@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-02T13:52:11Z",
+  "generated_at": "2026-11-02T15:42:35Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-01T13:15:36Z",
+      "last_success": "2026-11-02T15:42:35Z",
       "records": 3621,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "07901403c47c7d5da8a36bfdd6c13d4fcd93f52102ff2f8da4b60e98991bb483"
+      "response_sha256": "6bded68f5d4e782b28d9d09403ef486c41c8090a36f3b1c05d80a75a1d5a1011"
     }
   },
   "records": [
@@ -109591,7 +109591,7 @@
       "lei": "549300GT93Z6MDO98B87",
       "national_reference": "5565746624",
       "city": "Stockholm",
-      "last_update": "20251231000000000",
+      "last_update": "20260930000000000",
       "match_terms": [
         "SEB Kort Bank AB",
         "549300GT93Z6MDO98B87",
