@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-03T13:01:57Z",
+  "generated_at": "2026-11-03T14:06:00Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-02T15:42:35Z",
-      "records": 3621,
+      "last_success": "2026-11-03T14:06:00Z",
+      "records": 3620,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "6bded68f5d4e782b28d9d09403ef486c41c8090a36f3b1c05d80a75a1d5a1011"
+      "response_sha256": "c57d0270a3da8a81a9fed9bc78a116a209c578c938dda0a6f5d554843baa3aef"
     }
   },
   "records": [
@@ -17303,40 +17303,6 @@
         "321CRÉDITO, INSTITUIÇÃO FINANCEIRA DE CRÉDITO S.A.",
         "213800IDTFN19XBEAA74",
         "0305"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-1bb3fbd2c3fc5ef1f8",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "365.bank, a.s.",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "SK_NBS",
-      "country": "SK",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "315700PLTAXHBHZP5J02",
-      "lei": "315700PLTAXHBHZP5J02",
-      "national_reference": "31340890",
-      "city": "Bratislava",
-      "last_update": "20260331000000000",
-      "match_terms": [
-        "365.bank, a.s.",
-        "315700PLTAXHBHZP5J02",
-        "31340890"
       ]
     },
     {
@@ -47252,40 +47218,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-07c821402bec1314a0",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Banque de Patrimoines Privés",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "LU_CSSF",
-      "country": "LU",
-      "date": "2019-04-26",
-      "last_status_date": "2019-04-26",
-      "authorization_history": [
-        "2019-04-26"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "549300Z6OB1D4ZUBD145",
-      "lei": "549300Z6OB1D4ZUBD145",
-      "national_reference": "LUB00361",
-      "city": "LUXEMBOURG",
-      "last_update": "20251231000000000",
-      "match_terms": [
-        "Banque de Patrimoines Privés",
-        "549300Z6OB1D4ZUBD145",
-        "LUB00361"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-b8276f0492e87ce6b6",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -64297,6 +64229,40 @@
         "CR CREDIT AGRICOLE MUTUEL LOIRE HTE LOIR",
         "969500KBBNBZ7MIZAX74",
         "14506"
+      ]
+    },
+    {
+      "id": "eba-credit-institutions-07c821402bec1314a0",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Creand Wealth & Securities S.A.",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "LU_CSSF",
+      "country": "LU",
+      "date": "2019-04-26",
+      "last_status_date": "2019-04-26",
+      "authorization_history": [
+        "2019-04-26"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "549300Z6OB1D4ZUBD145",
+      "lei": "549300Z6OB1D4ZUBD145",
+      "national_reference": "LUB00361",
+      "city": "LUXEMBOURG",
+      "last_update": "20261101000000000",
+      "match_terms": [
+        "Creand Wealth & Securities S.A.",
+        "549300Z6OB1D4ZUBD145",
+        "LUB00361"
       ]
     },
     {
@@ -110929,7 +110895,7 @@
       "lei": "96950038TRM0J14DBB66",
       "national_reference": "19000",
       "city": "PARIS CEDEX 15",
-      "last_update": "20240930000000000",
+      "last_update": "20260613000000000",
       "match_terms": [
         "Société auxiliaire d'études et d'investissements mobiliers - Investimo",
         "96950038TRM0J14DBB66",
