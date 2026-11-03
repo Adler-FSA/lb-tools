@@ -392,6 +392,26 @@
           "event": "created"
         }
       ]
+    },
+    {
+      "id": "c1ef9a0f-66cd-44a8-be74-11d1c79613f8",
+      "title": "Die Bequeme Falle",
+      "category": "leitartikel",
+      "type": "website",
+      "releaseDate": "",
+      "url": "https://tools.liquiditybooster.de/pages/leitartikel/die-bequeme-falle/",
+      "what": "",
+      "why": "",
+      "test": "",
+      "meeting": "",
+      "createdAt": "2026-11-03T10:19:00.853Z",
+      "updatedAt": "2026-11-03T10:19:00.853Z",
+      "history": [
+        {
+          "at": "2026-11-03T10:19:00.853Z",
+          "event": "created"
+        }
+      ]
     }
   ],
   "archive": [
