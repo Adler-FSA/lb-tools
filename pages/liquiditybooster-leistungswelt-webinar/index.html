@@ -429,6 +429,28 @@ button{font:inherit}button:focus-visible{outline:4px solid #145ccc;outline-offse
 .network-total span{max-width:196px;font-size:20px;line-height:1.25;color:#526678}
 .network-total strong{font-size:73px;color:#bb287b}
 .network-hint{border-left:5px solid #bd2b7c;background:#fff;color:#5d6f7b;border-radius:8px;font-size:17px;line-height:1.32;padding:14px 20px}
+/* Club membership revenues are separate from monthly product revenues.
+   Shows real payment intervals without exposing membership prices before slide 14. */
+.network-type{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:18px}
+.network-type button{background:#fff;border:1px solid #bddde3;border-radius:10px;padding:11px 8px;color:#396372;font-size:15px;line-height:1.22;font-weight:800;cursor:pointer}
+.network-type button[aria-pressed="true"]{background:#159eaf;border-color:#159eaf;color:#fff}
+.network-model{margin-top:16px;font-size:17px;line-height:1.31}
+.network-result{gap:10px}
+.network-wave{min-height:207px;padding:13px 13px 12px}
+.network-wave-head{gap:5px}
+.network-wave-head strong{min-height:45px;font-size:16.5px}
+.network-wave-count{font-size:55px;margin:4px 0 0}
+.network-wave-sub{font-size:14px}
+.network-wave-rate{font-weight:850;font-size:15px;color:#b72679;margin-top:9px}
+.network-total{min-height:97px;padding:10px 18px;gap:15px}
+.network-total strong{font-size:56px}
+.network-total span{font-size:16px;max-width:180px}
+.network-renewals{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.network-renewals>div{background:#f7fbfc;border:1px solid #dbe9ed;border-radius:12px;padding:11px 17px;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:72px}
+.network-renewals span{font-size:15px;line-height:1.21;font-weight:700;color:#536975;max-width:160px}
+.network-renewals strong{font-size:27px;color:#0b91a6;white-space:nowrap}
+.network-renewals>div:nth-child(2) strong{color:#bd2e7f}
+.network-hint{font-size:13.5px;line-height:1.25;padding:9px 13px;border-left-width:4px}
 /* Income mini simulator: preserve visual style of existing cumulative chart */
 .growth-chart{padding:16px 22px}
 .growth-chart-top strong{font-size:24px}
@@ -609,18 +631,26 @@ button{font:inherit}button:focus-visible{outline:4px solid #145ccc;outline-offse
 <button type="button" id="network-plus" aria-label="Wert erhöhen" data-aria-de="Wert erhöhen" data-aria-en="Increase value">+</button>
 </div>
 <div class="sim-presets"><button type="button" data-network-preset="1">1</button><button type="button" data-network-preset="3">3</button><button type="button" data-network-preset="20">20</button></div>
+<div class="network-type sim-interactive" role="group" aria-label="Club-Mitgliedschaft">
+  <button type="button" data-network-type="cl" aria-pressed="true"><span data-i18n data-de="ClubLeader · halbjährlich" data-en="ClubLeader · every 6 months">ClubLeader · halbjährlich</span></button>
+  <button type="button" data-network-type="cp" aria-pressed="false"><span data-i18n data-de="ClubPartner · jährlich" data-en="ClubPartner · annually">ClubPartner · jährlich</span></button>
+</div>
 <p class="network-model"><span data-i18n data-de="Nur eine Annahme: Alle sagen Ja. Jede neue Person kennt wiederum genau eine weitere." data-en="A simple assumption: Everyone says Yes. Each new person knows exactly one more.">Nur eine Annahme: Alle sagen Ja. Jede neue Person kennt wiederum genau eine weitere.</span></p>
 </div>
 <div class="network-result">
 <div class="network-waves"><div class="network-wave network-wave-1">
 <div class="network-wave-head"><span class="network-wave-n">01</span><strong><span data-i18n data-de="Du kennst jemanden" data-en="Someone you know">Du kennst jemanden</span></strong></div>
-<div class="network-wave-count" id="network-wave-1">3</div><span class="network-wave-sub"><span data-i18n data-de="Menschen sagen Ja" data-en="people say Yes">Menschen sagen Ja</span></span></div><div class="network-wave network-wave-2">
+<div class="network-wave-count" id="network-wave-1">3</div><span class="network-wave-sub"><span data-i18n data-de="Menschen sagen Ja" data-en="people say Yes">Menschen sagen Ja</span></span><div class="network-wave-rate"><span data-i18n data-de="Ebene 1 · 20 %" data-en="Level 1 · 20%">Ebene 1 · 20 %</span></div></div><div class="network-wave network-wave-2">
 <div class="network-wave-head"><span class="network-wave-n">02</span><strong><span data-i18n data-de="Diese Person kennt jemanden" data-en="That person knows someone">Diese Person kennt jemanden</span></strong></div>
-<div class="network-wave-count" id="network-wave-2">3</div><span class="network-wave-sub"><span data-i18n data-de="Menschen sagen Ja" data-en="people say Yes">Menschen sagen Ja</span></span></div><div class="network-wave network-wave-3">
+<div class="network-wave-count" id="network-wave-2">3</div><span class="network-wave-sub"><span data-i18n data-de="Menschen sagen Ja" data-en="people say Yes">Menschen sagen Ja</span></span><div class="network-wave-rate"><span data-i18n data-de="Ebene 2 · 15 %" data-en="Level 2 · 15%">Ebene 2 · 15 %</span></div></div><div class="network-wave network-wave-3">
 <div class="network-wave-head"><span class="network-wave-n">03</span><strong><span data-i18n data-de="Auch diese Person kennt jemanden" data-en="They know someone too">Auch diese Person kennt jemanden</span></strong></div>
-<div class="network-wave-count" id="network-wave-3">3</div><span class="network-wave-sub"><span data-i18n data-de="Menschen sagen Ja" data-en="people say Yes">Menschen sagen Ja</span></span></div></div>
-<div class="network-total"><span><span data-i18n data-de="In drei Etappen wären das" data-en="Across three stages that would be">In drei Etappen wären das</span></span><strong id="network-total">9</strong><span><span data-i18n data-de="eigenständige ClubLeader im Modell" data-en="independent ClubLeaders in this scenario">eigenständige ClubLeader im Modell</span></span></div>
-<div class="network-hint"><span data-i18n data-de="Das ist keine Abschlussprognose. Neue Mitgliedschaften allein erzeugen keinen laufenden Kundenumsatz; entscheidend sind nachfolgende reale Geschäftsaktivitäten." data-en="This is not a sales forecast. Memberships alone do not generate recurring customer revenue; actual business activity must follow.">Das ist keine Abschlussprognose. Neue Mitgliedschaften allein erzeugen keinen laufenden Kundenumsatz; entscheidend sind nachfolgende reale Geschäftsaktivitäten.</span></div>
+<div class="network-wave-count" id="network-wave-3">3</div><span class="network-wave-sub"><span data-i18n data-de="Menschen sagen Ja" data-en="people say Yes">Menschen sagen Ja</span></span><div class="network-wave-rate"><span data-i18n data-de="Ebene 3 · 10 %" data-en="Level 3 · 10%">Ebene 3 · 10 %</span></div></div></div>
+<div class="network-total"><span><span data-i18n data-de="In drei Etappen wären das" data-en="Across three stages that would be">In drei Etappen wären das</span></span><strong id="network-total">9</strong><span id="network-member-kind"><span data-i18n data-de="bezahlende ClubLeader im Modell" data-en="paying ClubLeaders in this scenario">bezahlende ClubLeader im Modell</span></span></div>
+<div class="network-renewals">
+  <div><span><span data-i18n data-de="Beitragszahlungen · Jahr 1" data-en="Membership payments · Year 1">Beitragszahlungen · Jahr 1</span></span><strong id="network-renewals-1">18</strong></div>
+  <div><span><span data-i18n data-de="Beitragszahlungen · 5 Jahre" data-en="Membership payments · 5 years">Beitragszahlungen · 5 Jahre</span></span><strong id="network-renewals-5">90</strong></div>
+</div>
+<div class="network-hint"><span data-i18n data-de="Bezahlte, provisionsfähige Clubbeiträge und Verlängerungen können erneut Vergütungen auslösen. Drei Ebenen: 20 % / 15 % / 10 %. Modell: alle bleiben fünf Jahre zahlend; keine Einkommenszusage." data-en="Paid, eligible club fees and renewals may generate further commissions. Three levels: 20% / 15% / 10%. Assumes all members keep paying for five years; not an income promise.">Bezahlte, provisionsfähige Clubbeiträge und Verlängerungen können erneut Vergütungen auslösen. Drei Ebenen: 20 % / 15 % / 10 %. Modell: alle bleiben fünf Jahre zahlend; keine Einkommenszusage.</span></div>
 </div></div></div><div class="page-index">11 / 15</div></section>
 <section class="slide regular growth-slide" data-index="12" aria-hidden="true"><div class="brand"><img src="liquiditybooster-logo.png" alt="LiquidityBooster – Mehr Geld. Mehr Freiheit. Mehr vom Leben." draggable="false"></div>
 <div class="slide-title"><div class="eyebrow"><span data-i18n data-de="KUMULATIVER KUNDENBESTAND" data-en="CUMULATIVE CUSTOMER BASE">KUMULATIVER KUNDENBESTAND</span></div><h2><span data-i18n data-de="Ein Kunde. Dann weitere. Bestand wächst." data-en="One customer. Then more. The customer base grows.">Ein Kunde. Dann weitere. Bestand wächst.</span></h2><div class="short-rule"></div><p><span data-i18n data-de="Gib deine eigene Zahl ein und sieh, wie bezahlte Kundenverträge über mehrere Jahre zur laufenden Provision beitragen könnten." data-en="Enter your own number and see how paying customer contracts could generate recurring commissions over several years.">Gib deine eigene Zahl ein und sieh, wie bezahlte Kundenverträge über mehrere Jahre zur laufenden Provision beitragen könnten.</span></p></div>
@@ -639,7 +669,7 @@ button{font:inherit}button:focus-visible{outline:4px solid #145ccc;outline-offse
 </div>
 <div class="growth-side"><div class="growth-metrics"><article class="growth-metric"><span class="growth-metric-label"><span data-i18n data-de="ENDE JAHR 1" data-en="END OF YEAR 1">ENDE JAHR 1</span></span><strong id="income-year-12">0,00 €</strong><span class="growth-metric-caption"><span data-i18n data-de="laufende Modellprovision im Monat" data-en="monthly recurring commission, scenario">laufende Modellprovision im Monat</span></span></article><article class="growth-metric"><span class="growth-metric-label"><span data-i18n data-de="ENDE JAHR 3" data-en="END OF YEAR 3">ENDE JAHR 3</span></span><strong id="income-year-36">0,00 €</strong><span class="growth-metric-caption"><span data-i18n data-de="laufende Modellprovision im Monat" data-en="monthly recurring commission, scenario">laufende Modellprovision im Monat</span></span></article><article class="growth-metric highlight"><span class="growth-metric-label"><span data-i18n data-de="ENDE JAHR 5" data-en="END OF YEAR 5">ENDE JAHR 5</span></span><strong id="income-year-60">0,00 €</strong><span class="growth-metric-caption"><span data-i18n data-de="laufende Modellprovision im Monat" data-en="monthly recurring commission, scenario">laufende Modellprovision im Monat</span></span></article></div>
 <div class="growth-caution"><strong><span data-i18n data-de="Tragfähigkeit ist kein Automatismus" data-en="Sustainability is not automatic">Tragfähigkeit ist kein Automatismus</span></strong>
-<p><span data-i18n data-de="Annahme: monatlich gleich viele neue Kunden, durchgehende Zahlung und jährliche Vertragsfortführung. Ohne Setup, Netzwerkvergütungen, Kosten, Steuern und Ausfälle." data-en="Assumes the same number of new customers each month, continuous payments and annual renewals. Excludes setup, network commissions, costs, taxes and cancellations.">Annahme: monatlich gleich viele neue Kunden, durchgehende Zahlung und jährliche Vertragsfortführung. Ohne Setup, Netzwerkvergütungen, Kosten, Steuern und Ausfälle.</span></p>
+<p><span data-i18n data-de="Annahme: monatlich gleich viele neue Produktkunden und fortlaufende Zahlungen. ClubPartner-/ClubLeader-Mitgliedschaftsprovisionen aus Folie 11 kommen zusätzlich infrage; hier nicht eingerechnet. Ohne Setup, Kosten, Steuern oder Ausfälle." data-en="Assumes the same number of new product customers each month and ongoing payments. ClubPartner/ClubLeader membership commissions shown on slide 11 may add to this and are not included here. Excludes setup, costs, taxes and cancellations.">Annahme: monatlich gleich viele neue Produktkunden und fortlaufende Zahlungen. ClubPartner-/ClubLeader-Mitgliedschaftsprovisionen aus Folie 11 kommen zusätzlich infrage; hier nicht eingerechnet. Ohne Setup, Kosten, Steuern oder Ausfälle.</span></p>
 <small><span data-i18n data-de="Modellprovision ist nicht Gewinn oder Kapitalaufbau. Keine Einkommenszusage." data-en="Illustrative commission is not profit or accumulated capital. No income promise.">Modellprovision ist nicht Gewinn oder Kapitalaufbau. Keine Einkommenszusage.</span></small>
 </div></div>
 </div></div><div class="page-index">12 / 15</div></section>
@@ -757,11 +787,22 @@ function updateNav(){counter.textContent=(idx+1)+" / "+total;prev.disabled=idx==
 /* Slide 11: three consecutive groups, each new participant knows exactly one further participant. */
 var networkInput=document.getElementById("network-count");
 function simNumber(el){var v=Math.floor(Number(el.value));if(!Number.isFinite(v))v=0;v=Math.max(0,Math.min(100,v));el.value=String(v);return v;}
-function updateNetwork(){var n=simNumber(networkInput);for(var i=1;i<=3;i++)document.getElementById("network-wave-"+i).textContent=String(n);document.getElementById("network-total").textContent=String(3*n);document.querySelectorAll("[data-network-preset]").forEach(function(b){b.classList.toggle("active",Number(b.dataset.networkPreset)===n);});}
+var networkType="cl";
+function updateNetwork(){
+ var n=simNumber(networkInput),paymentsPerYear=networkType==="cl"?2:1;
+ for(var i=1;i<=3;i++)document.getElementById("network-wave-"+i).textContent=String(n);
+ document.getElementById("network-total").textContent=String(3*n);
+ document.getElementById("network-renewals-1").textContent=String(3*n*paymentsPerYear);
+ document.getElementById("network-renewals-5").textContent=String(3*n*paymentsPerYear*5);
+ var kind=document.getElementById("network-member-kind");kind.textContent=networkType==="cl"?(lang==="de"?"bezahlende ClubLeader im Modell":"paying ClubLeaders in this scenario"):(lang==="de"?"bezahlende ClubPartner im Modell":"paying ClubPartners in this scenario");
+ document.querySelectorAll("[data-network-preset]").forEach(function(b){b.classList.toggle("active",Number(b.dataset.networkPreset)===n);});
+ document.querySelectorAll("[data-network-type]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.networkType===networkType));});
+}
 networkInput.addEventListener("input",updateNetwork);
 document.getElementById("network-minus").addEventListener("click",function(){networkInput.value=Math.max(0,simNumber(networkInput)-1);updateNetwork();});
 document.getElementById("network-plus").addEventListener("click",function(){networkInput.value=Math.min(100,simNumber(networkInput)+1);updateNetwork();});
 document.querySelectorAll("[data-network-preset]").forEach(function(b){b.addEventListener("click",function(){networkInput.value=b.dataset.networkPreset;updateNetwork();});});
+document.querySelectorAll("[data-network-type]").forEach(function(b){b.addEventListener("click",function(){networkType=b.dataset.networkType;updateNetwork();});});
 /* Slide 12: actual repository-model prices, individual 20% commission on paid net recurring revenue.
    Illustration deliberately excludes setup, team commissions, churn, taxes and costs. */
 var incomeInput=document.getElementById("income-count"),incomeProduct="mix";
@@ -787,7 +828,7 @@ document.getElementById("price-reveal-btn").addEventListener("click",function(){
 
 function closePopup(){pinned=false;activeArea=null;popup.classList.remove("visible","is-pink");popup.setAttribute("aria-hidden","true");document.querySelectorAll(".big-card").forEach(function(c){c.setAttribute("aria-expanded","false");});}
 function showSlide(n){idx=Math.max(0,Math.min(total-1,n));if(idx!==13)setPriceReveal(false);closePopup();slides.forEach(function(sl,i){var active=i===idx;sl.classList.toggle("active",active);sl.setAttribute("aria-hidden",active?"false":"true");});updateNav();history.replaceState(null,"","#"+(idx+1));}
-function translate(){document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(function(el){var v=el.getAttribute("data-"+lang);if(v!==null)el.textContent=v;});document.querySelectorAll("[data-aria-de]").forEach(function(el){el.setAttribute("aria-label",el.getAttribute("data-aria-"+lang));});document.getElementById("lang-toggle").textContent=lang==="de"?"EN":"DE";document.getElementById("lang-toggle").setAttribute("aria-label",lang==="de"?"Switch to English":"Auf Deutsch wechseln");document.getElementById("full").title=lang==="de"?"Vollbild":"Fullscreen";document.getElementById("previous").title=lang==="de"?"Zurück":"Previous";document.getElementById("next").title=lang==="de"?"Weiter":"Next";document.title=lang==="de"?"LiquidityBooster – Eine Leistungswelt. Viele Möglichkeiten.":"LiquidityBooster – One Service World. Many Opportunities.";updateNav();updateIncome();if(activeArea)openPopup(activeArea,pinned);}
+function translate(){document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(function(el){var v=el.getAttribute("data-"+lang);if(v!==null)el.textContent=v;});document.querySelectorAll("[data-aria-de]").forEach(function(el){el.setAttribute("aria-label",el.getAttribute("data-aria-"+lang));});document.getElementById("lang-toggle").textContent=lang==="de"?"EN":"DE";document.getElementById("lang-toggle").setAttribute("aria-label",lang==="de"?"Switch to English":"Auf Deutsch wechseln");document.getElementById("full").title=lang==="de"?"Vollbild":"Fullscreen";document.getElementById("previous").title=lang==="de"?"Zurück":"Previous";document.getElementById("next").title=lang==="de"?"Weiter":"Next";document.title=lang==="de"?"LiquidityBooster – Eine Leistungswelt. Viele Möglichkeiten.":"LiquidityBooster – One Service World. Many Opportunities.";updateNav();updateNetwork();updateIncome();if(activeArea)openPopup(activeArea,pinned);}
 function openPopup(num,shouldPin){if(idx!==12)return;var a=areas.find(function(x){return x.i===num;});if(!a)return;activeArea=num;pinned=!!shouldPin;popupTitle.textContent=lang==="de"?a.title[0]:a.title[1];popupItems.textContent="";popupQuestion.textContent=lang==="de"?a.question[0]:a.question[1];a.benefit.forEach(function(pair){var li=document.createElement("li"),s=document.createElementNS("http://www.w3.org/2000/svg","svg"),use=document.createElementNS("http://www.w3.org/2000/svg","use");use.setAttribute("href","#icon-check");s.appendChild(use);li.appendChild(s);li.appendChild(document.createTextNode(lang==="de"?pair[0]:pair[1]));popupItems.appendChild(li);});popup.classList.add("visible");popup.classList.toggle("is-pink",num===2||num===4||num===7);popup.setAttribute("aria-hidden","false");document.querySelectorAll(".big-card").forEach(function(c){c.setAttribute("aria-expanded",c.dataset.area===String(num)?"true":"false");});}
 document.querySelectorAll(".big-card").forEach(function(card){card.addEventListener("mouseenter",function(){if(!pinned)openPopup(Number(card.dataset.area),false);});card.addEventListener("mouseleave",function(){if(!pinned)closePopup();});card.addEventListener("focus",function(){if(!pinned)openPopup(Number(card.dataset.area),false);});card.addEventListener("blur",function(){if(!pinned)closePopup();});card.addEventListener("click",function(ev){ev.stopPropagation();var id=Number(card.dataset.area);if(pinned&&activeArea===id){closePopup();return;}openPopup(id,true);});});
 popup.addEventListener("mouseenter",function(){/* hover panel does not change selection */});
