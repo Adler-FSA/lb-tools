@@ -527,6 +527,60 @@ button{font:inherit}button:focus-visible{outline:4px solid #145ccc;outline-offse
 .bp1{--cue-delay:.10s}.bp2{--cue-delay:.20s}.bp3{--cue-delay:.30s}.bp4{--cue-delay:.40s}.bp5{--cue-delay:.50s}.bp6{--cue-delay:.60s}.bp7{--cue-delay:.70s}
 @keyframes bigCue{0%,100%{filter:brightness(1)}40%{filter:brightness(1.045);box-shadow:0 0 0 5px #15b4bf1c,0 11px 31px #21899d30}}
 @media(prefers-reduced-motion:reduce){.big-slide.active .big-card{animation:none}}
+
+/* Folie 6 – BusinessBooster-Impulsmarketing nach grafischer Jahresstrecke */
+.impulse-slide .slide-content{top:302px;height:567px}
+.impulse-top{display:grid;grid-template-columns:352px minmax(0,1fr) 402px;gap:17px;height:120px}
+.impulse-hotspot{position:relative;background:#fff;display:flex;align-items:flex-start;gap:15px;text-align:left;border:1.5px solid #cce3e8;border-radius:19px;padding:14px 20px 30px;color:#14293f;box-shadow:0 9px 22px #16557211;cursor:pointer;min-width:0;transition:box-shadow .16s,border-color .16s}
+.impulse-hotspot.monthly,.impulse-hotspot.strategy{background:#fff6fb;border-color:#eed3e1}
+.impulse-hotspot:hover,.impulse-hotspot:focus-visible,.impulse-hotspot[aria-expanded="true"]{border-color:#21aabb;box-shadow:0 10px 26px #148b9e27;outline:none}
+.impulse-hotspot.monthly:hover,.impulse-hotspot.monthly:focus-visible,.impulse-hotspot.monthly[aria-expanded="true"],.impulse-hotspot.strategy:hover,.impulse-hotspot.strategy:focus-visible,.impulse-hotspot.strategy[aria-expanded="true"]{border-color:#ca397f;box-shadow:0 10px 26px #b31a7628}
+.impulse-hotspot-symbol{width:53px;height:53px;display:flex;align-items:center;justify-content:center;flex:none;border-radius:15px;background:#e3f6f8;color:#0c94a7}
+.impulse-hotspot.monthly .impulse-hotspot-symbol,.impulse-hotspot.strategy .impulse-hotspot-symbol{background:#fbe2f1;color:#c32a80}
+.impulse-hotspot-symbol svg{width:35px;height:35px}
+.impulse-hotspot-copy{display:flex;flex-direction:column;gap:7px;min-width:0}
+.impulse-hotspot-copy strong{font-size:21px;line-height:1.14;color:#193248}
+.impulse-hotspot-copy small{font-size:15px;line-height:1.2;color:#637480}
+.impulse-read{position:absolute;right:15px;bottom:10px;display:flex;align-items:center;gap:6px;font-size:14px;font-weight:850;color:#098da0;background:#e9f8f9;border-radius:9px;padding:5px 8px}
+.impulse-hotspot.monthly .impulse-read,.impulse-hotspot.strategy .impulse-read{background:#fbe5f1;color:#b52174}
+.impulse-read b{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:currentColor;font-size:0}
+.impulse-read b::after{content:"+";font-size:15px;color:#fff;line-height:1}
+.impulse-journey{position:relative;height:277px;width:100%;margin-top:3px;background:linear-gradient(180deg,#fff 10%,#f6fcfd 100%);border-radius:19px}
+.impulse-curve{position:absolute;inset:0;width:100%;height:270px}
+.impulse-month{position:absolute;z-index:2;width:65px;height:87px}
+.impulse-month-label{display:block;position:absolute;top:-28px;left:10px;width:45px;height:23px;border-radius:12px;background:#d9f2f5;color:#0c8193;font-size:14px;font-weight:850;line-height:23px;text-align:center}
+.impulse-month.magenta .impulse-month-label{color:#b52178;background:#fbe1ef}
+.impulse-page{position:relative;height:86px;width:65px;background:#fff;border:2px solid #c9e5e9;box-shadow:0 5px 12px #0b5b741a;border-radius:8px;padding:7px 8px 8px}
+.impulse-month.magenta .impulse-page{border-color:#e8b6d1}
+.impulse-page-header{height:5px;display:flex;gap:3px;margin-bottom:6px}
+.impulse-page-header i{height:3px;width:8px;border-radius:2px;background:#b4d7db}
+.impulse-page-header i:first-child{width:18px;background:#8cbcc5}
+.impulse-page-image{height:32px;width:46px;display:block;border-radius:3px}
+.impulse-page-line{display:block;margin-top:5px;height:3px;background:#dde8ec;border-radius:5px}
+.impulse-page-line.a{width:44px}
+.impulse-page-line.b{width:32px;margin-top:3px}
+.impulse-page-cta{display:block;width:23px;height:6px;background:#c52880;border-radius:5px;margin:5px auto 0}
+.impulse-bottom{height:148px;margin-top:11px;display:grid;grid-template-columns:395px minmax(0,1fr) 395px;gap:18px;align-items:stretch}
+.impulse-bottom .impulse-hotspot{height:148px;padding:22px 18px 38px}
+.impulse-bottom .impulse-hotspot-copy strong{font-size:22px}
+.impulse-bottom .impulse-hotspot-copy small{font-size:16px;line-height:1.26}
+.impulse-summary{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-top:2px solid #a9d7de;border-bottom:2px solid #a9d7de;padding:10px 13px;gap:8px}
+.impulse-summary strong{font-size:27px;line-height:1.13;color:#132b42}
+.impulse-summary>span{color:#4c6574;line-height:1.31;font-size:19px}
+.impulse-summary small{font-size:14px;color:#7d8c96}
+.impulse-dim{position:absolute;inset:-10px 0 0;background:#f8fdfee3;z-index:20;border-radius:18px}
+.impulse-dim[hidden],.impulse-detail[hidden]{display:none}
+.impulse-detail{position:absolute;left:345px;top:103px;width:730px;max-height:435px;overflow-y:auto;z-index:21;background:#fff;border:2px solid #79c2ca;border-top:8px solid #21b0bb;border-radius:23px;padding:25px 29px 27px;box-shadow:0 23px 73px #143d5470}
+.impulse-detail-header{display:flex;justify-content:space-between;align-items:center}
+.impulse-detail-header>span{font-size:17px;letter-spacing:1.7px;font-weight:850;color:#0f8b9e}
+.impulse-close{border:0;background:#eaf8f9;color:#204153;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:33px;line-height:1;cursor:pointer}
+.impulse-close:hover,.impulse-close:focus-visible{background:#d2f0f3;outline:2px solid #21afba}
+.impulse-detail h3{font-size:32px;line-height:1.15;margin:12px 0 15px;color:#163148}
+.impulse-detail-value{margin:0;background:#f2fafb;border-left:5px solid #21afba;padding:18px 21px;border-radius:8px;color:#465967;font-size:22px;line-height:1.41}
+.impulse-detail-question{margin-top:21px;background:#fff0f7;border-left:5px solid #c62e82;padding:17px 20px;border-radius:8px}
+.impulse-detail-question strong{font-size:15px;font-weight:850;letter-spacing:1px;color:#b62575}
+.impulse-detail-question p{font-size:22px;font-weight:750;color:#1b364e;line-height:1.32;margin:9px 0 0}
+@media(prefers-reduced-motion:reduce){.impulse-hotspot{transition:none}}
 </style></head><body>
 <svg aria-hidden="true" class="sprite" xmlns="http://www.w3.org/2000/svg">
 <symbol id="icon-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="m6 12 4 4 8-9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -615,12 +669,183 @@ button{font:inherit}button:focus-visible{outline:4px solid #145ccc;outline-offse
 <div class="infra-points"><article class="info-card"><span class="icon-disc"><svg aria-hidden="true"><use href="#icon-people"></use></svg></span><h3><span data-i18n data-de="Persönliches KMS" data-en="Personal KMS">Persönliches KMS</span></h3><p><span data-i18n data-de="Kontakte pflegen, Interessenten strukturieren und Geschäftsbeziehungen betreuen." data-en="Manage contacts, organize prospects and maintain business relationships.">Kontakte pflegen, Interessenten strukturieren und Geschäftsbeziehungen betreuen.</span></p></article><article class="info-card"><span class="icon-disc"><svg aria-hidden="true"><use href="#icon-monitor"></use></svg></span><h3><span data-i18n data-de="Eigene Präsenz" data-en="Your own presence">Eigene Präsenz</span></h3><p><span data-i18n data-de="Persönliche Seite, Empfehlungswege und digitale Präsentationsmöglichkeiten." data-en="Personal page, referral links and digital presentation options.">Persönliche Seite, Empfehlungswege und digitale Präsentationsmöglichkeiten.</span></p></article><article class="info-card"><span class="icon-disc"><svg aria-hidden="true"><use href="#icon-chart"></use></svg></span><h3><span data-i18n data-de="Werkzeuge &amp; Begleitung" data-en="Tools &amp; support">Werkzeuge &amp; Begleitung</span></h3><p><span data-i18n data-de="Generatoren, Workshops und praktische Unterstützung beim Geschäftsaufbau." data-en="Generators, workshops and practical guidance for growing your business.">Generatoren, Workshops und praktische Unterstützung beim Geschäftsaufbau.</span></p></article></div></div></div><div class="page-index">05 / 15</div></section>
 
 
-<section class="slide regular " data-index="6" aria-hidden="true"><div class="brand"><img src="liquiditybooster-logo.png" alt="LiquidityBooster – Mehr Geld. Mehr Freiheit. Mehr vom Leben." draggable="false"></div><div class="slide-title"><div class="eyebrow"><span data-i18n data-de="BUSINESSBOOSTER" data-en="BUSINESSBOOSTER">BUSINESSBOOSTER</span></div><h2><span data-i18n data-de="Sichtbarkeit entsteht nicht durch Zufall." data-en="Visibility doesn't happen by chance.">Sichtbarkeit entsteht nicht durch Zufall.</span></h2><div class="short-rule"></div><p><span data-i18n data-de="Wer erstmals einen BusinessBooster bucht, erhält die ClubLeader-Leistungswelt automatisch inklusive." data-en="Anyone booking their first BusinessBooster automatically receives the ClubLeader service world.">Wer erstmals einen BusinessBooster bucht, erhält die ClubLeader-Leistungswelt automatisch inklusive.</span></p></div><div class="slide-content">
-<div class="booster-layout"><div class="booster-chart"><div class="booster-twelve"><span data-i18n data-de="12 Marketingimpulse über ein Jahr – schematisches Beispiel" data-en="12 marketing impulses over a year – illustrative example">12 Marketingimpulse über ein Jahr – schematisches Beispiel</span></div>
-<div class="months"><div class="month" style="--i:0"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Jan</small></div><div class="month" style="--i:1"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Feb</small></div><div class="month" style="--i:2"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small data-i18n data-de="Mrz" data-en="Mar">Mrz</small></div><div class="month" style="--i:3"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Apr</small></div><div class="month" style="--i:4"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small data-i18n data-de="Mai" data-en="May">Mai</small></div><div class="month" style="--i:5"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Jun</small></div><div class="month" style="--i:6"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Jul</small></div><div class="month" style="--i:7"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Aug</small></div><div class="month" style="--i:8"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Sep</small></div><div class="month" style="--i:9"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small data-i18n data-de="Okt" data-en="Oct">Okt</small></div><div class="month" style="--i:10"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small>Nov</small></div><div class="month" style="--i:11"><span class="month-poster"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg></span><small data-i18n data-de="Dez" data-en="Dec">Dez</small></div></div>
-<div class="growth-line"><svg viewBox="0 0 960 150" preserveAspectRatio="none" aria-hidden="true"><path d="M0 137C170 131 250 119 360 100S560 85 660 62 815 37 950 12" fill="none" stroke="#1eb0bb" stroke-width="6"/><path d="M0 137C170 131 250 119 360 100S560 85 660 62 815 37 950 12L950 150H0Z" fill="#b8e4e8" opacity=".4"/></svg></div>
-<div class="booster-bottom"><strong><span data-i18n data-de="Wiederholen. Veröffentlichen. Wahrgenommen werden." data-en="Repeat. Publish. Build recognition.">Wiederholen. Veröffentlichen. Wahrgenommen werden.</span></strong><p><span data-i18n data-de="Regelmäßige Impulse unterstützen Aufmerksamkeit und Wiedererkennung. Ergebnisse sind nicht garantiert." data-en="Regular impulses support awareness and recognition. Results are not guaranteed.">Regelmäßige Impulse unterstützen Aufmerksamkeit und Wiedererkennung. Ergebnisse sind nicht garantiert.</span></p></div></div>
-<div class="booster-takeaways"><div class="benefit-pill"><svg aria-hidden="true"><use href="#icon-megaphone"></use></svg><div><strong><span data-i18n data-de="Impulsmarketing" data-en="Impulse marketing">Impulsmarketing</span></strong><p><span data-i18n data-de="Regelmäßig auf das Unternehmen aufmerksam machen." data-en="Create regular awareness of a business.">Regelmäßig auf das Unternehmen aufmerksam machen.</span></p></div></div><div class="benefit-pill"><svg aria-hidden="true"><use href="#icon-network"></use></svg><div><strong><span data-i18n data-de="Medien-Ökosystem" data-en="Media ecosystem">Medien-Ökosystem</span></strong><p><span data-i18n data-de="Weitere passende Kanäle für Reichweite und Präsenz nutzen." data-en="Use additional suitable channels to build visibility.">Weitere passende Kanäle für Reichweite und Präsenz nutzen.</span></p></div></div><div class="benefit-pill pink-accent"><svg aria-hidden="true"><use href="#icon-handshake"></use></svg><div><strong><span data-i18n data-de="ClubLeader-Mehrwert" data-en="ClubLeader opportunity">ClubLeader-Mehrwert</span></strong><p><span data-i18n data-de="Bezahlte eigene Verträge können Setup- und laufende 20-%-Provisionen auf provisionsfähige Umsätze erzeugen." data-en="Paid own contracts can generate setup and recurring 20% commissions on eligible revenue.">Bezahlte eigene Verträge können Setup- und laufende 20-%-Provisionen auf provisionsfähige Umsätze erzeugen.</span></p></div></div></div></div></div><div class="page-index">06 / 15</div></section>
+<section class="slide regular impulse-slide" data-index="6" aria-hidden="true"><div class="brand"><img src="liquiditybooster-logo.png" alt="LiquidityBooster – Mehr Geld. Mehr Freiheit. Mehr vom Leben." draggable="false"></div>
+<div class="slide-title"><div class="eyebrow"><span data-i18n data-de="BUSINESSBOOSTER · IMPULSMARKETING" data-en="BUSINESSBOOSTER · IMPULSE MARKETING">BUSINESSBOOSTER · IMPULSMARKETING</span></div>
+<h2><span data-i18n data-de="Sichtbarkeit entsteht nicht durch Zufall." data-en="Visibility doesn't happen by chance.">Sichtbarkeit entsteht nicht durch Zufall.</span></h2><div class="short-rule"></div>
+<p><span data-i18n data-de="Wer erstmals einen BusinessBooster bucht, erhält die ClubLeader-Leistungswelt automatisch inklusive." data-en="Anyone booking their first BusinessBooster automatically receives the ClubLeader service world.">Wer erstmals einen BusinessBooster bucht, erhält die ClubLeader-Leistungswelt automatisch inklusive.</span></p></div>
+<div class="slide-content">
+ <div class="impulse-top"><button class="impulse-hotspot impulse-hotspot-1 sim-interactive memory" type="button" data-impulse="1" aria-controls="impulse-detail" aria-expanded="false">
+ <span class="impulse-hotspot-symbol"><svg aria-hidden="true"><use href="#icon-bulb"></use></svg></span>
+ <span class="impulse-hotspot-copy"><strong><span data-i18n data-de="Aufmerksamkeit &amp; Erinnerbarkeit" data-en="Awareness &amp; Recall">Aufmerksamkeit &amp; Erinnerbarkeit</span></strong><small><span data-i18n data-de="Im Gedächtnis bleiben" data-en="Stay top of mind">Im Gedächtnis bleiben</span></small></span>
+ <span class="impulse-read"><span data-i18n data-de="Mehr lesen" data-en="Read more">Mehr lesen</span> <b aria-hidden="true">+</b></span>
+ </button><button class="impulse-hotspot impulse-hotspot-2 sim-interactive monthly" type="button" data-impulse="2" aria-controls="impulse-detail" aria-expanded="false">
+ <span class="impulse-hotspot-symbol"><svg aria-hidden="true"><use href="#icon-heart"></use></svg></span>
+ <span class="impulse-hotspot-copy"><strong><span data-i18n data-de="Monat für Monat ein neuer Impuls" data-en="A new impulse every month">Monat für Monat ein neuer Impuls</span></strong><small><span data-i18n data-de="Eigene Impulsseite · verständlich &amp; emotional" data-en="Your own impulse page · clear and engaging">Eigene Impulsseite · verständlich &amp; emotional</span></small></span>
+ <span class="impulse-read"><span data-i18n data-de="Mehr lesen" data-en="Read more">Mehr lesen</span> <b aria-hidden="true">+</b></span>
+ </button><button class="impulse-hotspot impulse-hotspot-3 sim-interactive relevance" type="button" data-impulse="3" aria-controls="impulse-detail" aria-expanded="false">
+ <span class="impulse-hotspot-symbol"><svg aria-hidden="true"><use href="#icon-people"></use></svg></span>
+ <span class="impulse-hotspot-copy"><strong><span data-i18n data-de="Wiederholung &amp; Zielgruppenrelevanz" data-en="Repetition &amp; Audience Relevance">Wiederholung &amp; Zielgruppenrelevanz</span></strong><small><span data-i18n data-de="Wiederkehrend präsent sein" data-en="Stay visible over time">Wiederkehrend präsent sein</span></small></span>
+ <span class="impulse-read"><span data-i18n data-de="Mehr lesen" data-en="Read more">Mehr lesen</span> <b aria-hidden="true">+</b></span>
+ </button></div>
+ <div class="impulse-journey" role="img" aria-label="Schematischer Jahresverlauf mit zwölf Impulsseiten" data-aria-de="Schematischer Jahresverlauf mit zwölf Impulsseiten" data-aria-en="Illustrative annual progression of twelve impulse pages"><svg class="impulse-curve" viewBox="0 0 1420 270" preserveAspectRatio="none" aria-hidden="true">
+ <defs><linearGradient id="impulse-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fdae1" stop-opacity=".43"/><stop offset="1" stop-color="#9fdae1" stop-opacity=".04"/></linearGradient></defs>
+ <path d="M82 238.0 L193 228.2 L304 218.4 L415 208.6 L526 198.8 L637 189.0 L748 179.2 L859 169.4 L970 159.6 L1081 149.8 L1192 140.0 L1303 130.2 L1405 79 L1405 269 L82 269Z" fill="url(#impulse-fill)"/>
+ <path d="M82 238.0 L193 228.2 L304 218.4 L415 208.6 L526 198.8 L637 189.0 L748 179.2 L859 169.4 L970 159.6 L1081 149.8 L1192 140.0 L1303 130.2 L1405 79" fill="none" stroke="#25aebb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+ <path d="M1385 90L1405 79L1400 101" fill="none" stroke="#25aebb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="82" cy="238.0" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="193" cy="228.2" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="304" cy="218.4" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="415" cy="208.6" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="526" cy="198.8" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="637" cy="189.0" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="748" cy="179.2" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="859" cy="169.4" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="970" cy="159.6" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="1081" cy="149.8" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="1192" cy="140.0" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/><circle cx="1303" cy="130.2" r="7" fill="#fff" stroke="#bcdee3" stroke-width="2"/>
+ </svg><div class="impulse-month mint" style="left:50px;top:147px" aria-label="Jan">
+ <span class="impulse-month-label"><span data-i18n data-de="Jan" data-en="Jan">Jan</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month mint" style="left:161px;top:137px" aria-label="Feb">
+ <span class="impulse-month-label"><span data-i18n data-de="Feb" data-en="Feb">Feb</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month magenta" style="left:272px;top:127px" aria-label="Mrz">
+ <span class="impulse-month-label"><span data-i18n data-de="Mrz" data-en="Mar">Mrz</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month mint" style="left:383px;top:118px" aria-label="Apr">
+ <span class="impulse-month-label"><span data-i18n data-de="Apr" data-en="Apr">Apr</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month mint" style="left:494px;top:108px" aria-label="Mai">
+ <span class="impulse-month-label"><span data-i18n data-de="Mai" data-en="May">Mai</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month magenta" style="left:605px;top:98px" aria-label="Jun">
+ <span class="impulse-month-label"><span data-i18n data-de="Jun" data-en="Jun">Jun</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month mint" style="left:716px;top:88px" aria-label="Jul">
+ <span class="impulse-month-label"><span data-i18n data-de="Jul" data-en="Jul">Jul</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month mint" style="left:827px;top:78px" aria-label="Aug">
+ <span class="impulse-month-label"><span data-i18n data-de="Aug" data-en="Aug">Aug</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month magenta" style="left:938px;top:69px" aria-label="Sep">
+ <span class="impulse-month-label"><span data-i18n data-de="Sep" data-en="Sep">Sep</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month mint" style="left:1049px;top:59px" aria-label="Okt">
+ <span class="impulse-month-label"><span data-i18n data-de="Okt" data-en="Oct">Okt</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month mint" style="left:1160px;top:49px" aria-label="Nov">
+ <span class="impulse-month-label"><span data-i18n data-de="Nov" data-en="Nov">Nov</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div><div class="impulse-month magenta" style="left:1271px;top:39px" aria-label="Dez">
+ <span class="impulse-month-label"><span data-i18n data-de="Dez" data-en="Dec">Dez</span></span>
+ <div class="impulse-page">
+  <div class="impulse-page-header"><i></i><i></i><i></i></div>
+  <svg class="impulse-page-image" viewBox="0 0 60 34" aria-hidden="true">
+   <rect x="0" y="0" width="60" height="34" rx="2" fill="#d9eef1"/>
+   <circle cx="46" cy="9" r="5" fill="#b8dfe6"/>
+   <path d="M0 29 16 13 28 24 39 16 60 33H0Z" fill="#91c4ce"/>
+   <path d="m5 29 12-9 10 10" fill="none" stroke="#e3f7f8" stroke-width="2"/>
+  </svg>
+  <i class="impulse-page-line a"></i><i class="impulse-page-line b"></i><i class="impulse-page-cta"></i>
+ </div></div></div>
+ <div class="impulse-bottom"><button class="impulse-hotspot impulse-hotspot-4 sim-interactive how" type="button" data-impulse="4" aria-controls="impulse-detail" aria-expanded="false">
+ <span class="impulse-hotspot-symbol"><svg aria-hidden="true"><use href="#icon-monitor"></use></svg></span>
+ <span class="impulse-hotspot-copy"><strong><span data-i18n data-de="So funktioniert es" data-en="How it works">So funktioniert es</span></strong><small><span data-i18n data-de="Eine Impulsseite – passende Kommunikationskanäle" data-en="One impulse page – the right channels">Eine Impulsseite – passende Kommunikationskanäle</span></small></span>
+ <span class="impulse-read"><span data-i18n data-de="Mehr lesen" data-en="Read more">Mehr lesen</span> <b aria-hidden="true">+</b></span>
+ </button>
+ <div class="impulse-summary"><strong><span data-i18n data-de="Wiederholen. Veröffentlichen. Wirken." data-en="Repeat. Publish. Make an impact.">Wiederholen. Veröffentlichen. Wirken.</span></strong>
+ <span><span data-i18n data-de="Regelmäßige Impulse schaffen neue Berührungspunkte und unterstützen Wiedererkennung." data-en="Recurring impulses create new touchpoints and support recognition.">Regelmäßige Impulse schaffen neue Berührungspunkte und unterstützen Wiedererkennung.</span></span>
+ <small><span data-i18n data-de="Schematische Darstellung · Keine garantierten Marketing-Ergebnisse" data-en="Illustrative diagram · Marketing results are not guaranteed">Schematische Darstellung · Keine garantierten Marketing-Ergebnisse</span></small></div>
+ <button class="impulse-hotspot impulse-hotspot-5 sim-interactive strategy" type="button" data-impulse="5" aria-controls="impulse-detail" aria-expanded="false">
+ <span class="impulse-hotspot-symbol"><svg aria-hidden="true"><use href="#icon-chart"></use></svg></span>
+ <span class="impulse-hotspot-copy"><strong><span data-i18n data-de="Die Strategie dahinter" data-en="The strategy behind it">Die Strategie dahinter</span></strong><small><span data-i18n data-de="Zwölf geplante Impulse statt Einzelaktionen" data-en="Twelve planned impulses, not one-off campaigns">Zwölf geplante Impulse statt Einzelaktionen</span></small></span>
+ <span class="impulse-read"><span data-i18n data-de="Mehr lesen" data-en="Read more">Mehr lesen</span> <b aria-hidden="true">+</b></span>
+ </button></div>
+ <div class="impulse-dim sim-interactive" id="impulse-dim" hidden></div>
+ <div class="impulse-detail sim-interactive" id="impulse-detail" role="dialog" aria-modal="true" aria-labelledby="impulse-detail-title" hidden>
+ <div class="impulse-detail-header"><span><span data-i18n data-de="DEIN MEHRWERT" data-en="YOUR ADDED VALUE">DEIN MEHRWERT</span></span><button type="button" class="impulse-close sim-interactive" id="impulse-close" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">×</button></div>
+ <h3 id="impulse-detail-title"></h3><p id="impulse-detail-value"></p>
+ <div class="impulse-detail-question"><strong><span data-i18n data-de="REFLEXIONSFRAGE" data-en="REFLECTION QUESTION">REFLEXIONSFRAGE</span></strong><p id="impulse-detail-question-text"></p></div>
+ </div>
+</div><div class="page-index">06 / 15</div></section>
 
 
 <section class="slide regular " data-index="7" aria-hidden="true"><div class="brand"><img src="liquiditybooster-logo.png" alt="LiquidityBooster – Mehr Geld. Mehr Freiheit. Mehr vom Leben." draggable="false"></div><div class="slide-title"><div class="eyebrow"><span data-i18n data-de="UNTERNEHMER-HÖRSAAL" data-en="ENTREPRENEUR LECTURE HALL">UNTERNEHMER-HÖRSAAL</span></div><h2><span data-i18n data-de="Aus Fachwissen wird verständliche Orientierung." data-en="Turn expertise into clear information.">Aus Fachwissen wird verständliche Orientierung.</span></h2><div class="short-rule"></div><p><span data-i18n data-de="Wer erstmals einen Unternehmer-Hörsaal bucht, erhält ClubLeader automatisch inklusive; bestehende ClubLeader buchen nur den Hörsaal dazu." data-en="First-time Lecture Hall customers automatically receive ClubLeader; existing ClubLeaders simply add the Lecture Hall.">Wer erstmals einen Unternehmer-Hörsaal bucht, erhält ClubLeader automatisch inklusive; bestehende ClubLeader buchen nur den Hörsaal dazu.</span></p></div><div class="slide-content">
@@ -791,6 +1016,7 @@ button{font:inherit}button:focus-visible{outline:4px solid #145ccc;outline-offse
 <div class="center"><strong id="counter" aria-live="polite">1 / 13</strong><span class="title" id="currentTitle">Start</span><div class="dots" id="dots" aria-hidden="true"></div></div>
 <button class="navbtn next" id="next" type="button" aria-label="Nächste Folie"><span class="arrow" aria-hidden="true">→</span><span class="navcopy"><small id="nextSmall" data-i18n data-de="ALS NÄCHSTES" data-en="UP NEXT">ALS NÄCHSTES</small><span id="nextLabel">Herzlich willkommen</span></span></button>
 </div></nav></div>
+<script id="impulse-marketing-data" type="application/json">[{"i":1,"title":["Aufmerksamkeit & Erinnerbarkeit","Awareness & Recall"],"value":["Regelmäßige Impulse sorgen dafür, dass ein Unternehmen nicht nur einmal kurz sichtbar ist, sondern wiederholt wahrgenommen werden kann. Das stärkt die Chance, bei passenden Anlässen im Gedächtnis zu bleiben.","Recurring impulses help a business be seen more than once. Repeated exposure increases opportunities to remain memorable when a relevant need arises."],"question":["Wirst du aktuell regelmäßig in Erinnerung gerufen – oder nur dann, wenn du selbst aktiv Werbung machst?","Do people hear from you regularly, or only when you actively run advertising?"]},{"i":2,"title":["Monatlicher Impuls","Monthly Impulse"],"value":["Jeder einzelne Impuls schafft einen neuen Anlass, mit deinem Unternehmen in Berührung zu kommen. Die eigene Impulsseite verbindet eine klare Botschaft mit einem wiederkehrenden, leicht verständlichen Auftritt.","Each impulse creates another reason for someone to encounter your business. A dedicated impulse page combines a clear message with a repeatable, easy-to-understand presence."],"question":["Wie oft gibst du Interessenten heute überhaupt einen neuen Grund, an dein Unternehmen zu denken?","How often do you give potential customers a fresh reason to think about your business?"]},{"i":3,"title":["Wiederholung & Zielgruppenrelevanz","Repetition & Audience Relevance"],"value":["Wiederholung kann Vertrautheit und Vertrauen fördern. Wenn ein Impuls zur Zielgruppe passt, erhöht sich die Chance, gerade dann präsent zu sein, wenn eine Nachfrage entsteht.","Repetition can help build familiarity and trust. When an impulse is relevant to its audience, it creates a better opportunity to be visible when demand arises."],"question":["Was würde sich verändern, wenn dein Unternehmen über Monate hinweg regelmäßig sichtbar wäre?","What could change if your business remained visible month after month?"]},{"i":4,"title":["So funktioniert es","How It Works"],"value":["Ein klarer, emotional ansprechender Impuls auf einer eigenen Seite lässt sich über passende Kommunikationskanäle teilen. Das macht kontinuierliche Sichtbarkeit einfacher planbar und im Geschäftsalltag wiederholbar.","A clear, engaging impulse on its own page can be shared through suitable communication channels. This helps make ongoing visibility easier to plan and repeat in everyday business."],"question":["Hast du heute bereits ein System, mit dem du Sichtbarkeit einfach und regelmäßig umsetzen kannst?","Do you already have a system that helps you stay visible simply and regularly?"]},{"i":5,"title":["Die Strategie dahinter","The Strategy Behind It"],"value":["Nicht eine einzelne Werbeaktion, sondern eine geplante Abfolge von Impulsen schafft regelmäßige Anlässe für Aufmerksamkeit. So entsteht eine Marketingroutine, die dein Geschäft über längere Zeit begleiten kann.","Rather than relying on one-off campaigns, a planned sequence of impulses creates regular opportunities for attention. This can become a marketing routine that supports your business over time."],"question":["Arbeitest du bisher eher spontan – oder bereits mit einer verlässlichen Marketingroutine?","Is your marketing mostly spontaneous, or do you already have a reliable marketing routine?"]}]</script>
 <script id="big-benefits-data" type="application/json">[{"i":1,"title":["Digitale Infrastruktur","Digital Infrastructure"],"value":["Du gewinnst mehr Übersicht, sparst organisatorischen Aufwand und kannst Kundenbeziehungen systematisch aufbauen und pflegen. Statt mit einzelnen, unverbundenen Werkzeugen zu arbeiten, erhältst du ein gemeinsames Fundament für dein Geschäft.","You gain a clearer overview, reduce organizational work and can build and maintain customer relationships systematically. Rather than relying on disconnected tools, you have one shared foundation for your business."],"question":["Hast du bereits ein digitales System, mit dem du deine Kontakte, Kunden und geschäftlichen Aktivitäten zuverlässig organisierst?","Do you already have a digital system to reliably organize your contacts, customers and business activities?"]},{"i":2,"title":["Marketing & Sichtbarkeit","Marketing & Visibility"],"value":["Dein Unternehmen kann kontinuierlich Aufmerksamkeit aufbauen, statt nur bei einzelnen Werbeaktionen sichtbar zu werden. Wiederkehrende Impulse erhöhen die Möglichkeiten, im Gedächtnis potenzieller Kunden zu bleiben und neue Geschäftskontakte zu entwickeln.","Your business can build awareness continuously instead of appearing only during occasional campaigns. Recurring marketing impulses create more opportunities to stay in potential customers' minds and develop new business contacts."],"question":["Wirst du mit deinem Angebot heute schon regelmäßig sichtbar – oder musst du jedes Mal selbst dafür sorgen, dass man dich wahrnimmt?","Is your offer already regularly visible today – or do you have to make people notice you every single time?"]},{"i":3,"title":["Eigene Angebote & Marktplatz","Own Offers & Marketplace"],"value":["Deine Produkte und Dienstleistungen können nicht nur von dir selbst, sondern auch durch andere Menschen empfohlen werden. Dadurch entstehen zusätzliche Vertriebswege, neue Kontakte und Geschäftsmöglichkeiten über dein persönliches Umfeld hinaus.","Your products and services can be recommended not only by you but also by other people. This creates additional sales channels, new contacts and business opportunities beyond your immediate circle."],"question":["Können andere Menschen deine Produkte oder Dienstleistungen bereits einfach finden, weiterempfehlen und kaufen?","Can other people already find, recommend and buy your products or services easily?"]},{"i":4,"title":["Abrechnung & Vergütungslogik","Billing & Compensation"],"value":["Du kannst neben deinem eigenen Geschäft zusätzliche Vergütungsquellen entwickeln. Aus bezahlten Mitgliedschaften, berechtigten Empfehlungen und laufenden Produktverträgen können wiederkehrende Einnahmen entstehen, die sich mit einem wachsenden Kundenbestand ergänzen.","Alongside your own business, you can develop additional sources of compensation. Paid memberships, eligible referrals and ongoing product contracts can generate recurring income streams that complement a growing customer base."],"question":["Hast du bereits ein Geschäftsmodell, bei dem nicht nur deine eigenen Verkäufe, sondern auch qualifizierte Empfehlungen wirtschaftlich berücksichtigt werden können?","Do you already have a business model that can reward not only your own sales but also qualified referrals?"]},{"i":5,"title":["Produkte & Geschäftsmöglichkeiten","Products & Business Opportunities"],"value":["Du musst nicht erst eigene Produkte entwickeln, um unternehmerisch aktiv zu werden. Mit dem vorhandenen Vertriebsportfolio kannst du unterschiedliche Kundenbedürfnisse bedienen, weitere Geschäftsfelder erschließen und deine Einnahmemöglichkeiten breiter aufstellen.","You do not have to develop products from scratch to become commercially active. The existing sales portfolio lets you address different customer needs, explore new business fields and diversify your income opportunities."],"question":["Hast du neben deinem bisherigen Geschäft bereits weitere Produkte oder Dienstleistungen, die du anbieten oder vermitteln kannst?","Alongside your existing business, do you already have other products or services you can offer or refer?"]},{"i":6,"title":["Ausbildung & Entwicklung","Training & Development"],"value":["Du musst den Aufbau deines Geschäfts nicht ausschließlich durch eigene Versuche erlernen. Praktische Begleitung, Erfahrungsaustausch und gezielte Weiterbildung können dir helfen, typische Fehler zu vermeiden, Sicherheit zu gewinnen und deine unternehmerischen Fähigkeiten weiterzuentwickeln.","You do not have to learn how to build your business entirely by trial and error. Practical guidance, shared experience and focused training can help you avoid common mistakes, gain confidence and develop your entrepreneurial skills."],"question":["Hast du bereits Menschen an deiner Seite, die dich bei deiner unternehmerischen Entwicklung praktisch unterstützen?","Do you already have people by your side who provide practical support for your entrepreneurial development?"]},{"i":7,"title":["Schutzschirm, Fallschirm & Community","Guidance, Support & Community"],"value":["Du stehst mit wirtschaftlichen Fragen und unternehmerischen Herausforderungen nicht allein. Eine Gemeinschaft mit Wissen, Erfahrung und unterschiedlichen Kompetenzen kann dir neue Perspektiven eröffnen, Risiken besser erkennbar machen und dich bei eigenen Entscheidungen unterstützen.","You are not alone with business questions and entrepreneurial challenges. A community with diverse knowledge, experience and skills can offer fresh perspectives, help you identify risks and support your own decision-making."],"question":["Hast du bereits ein Netzwerk, in dem du Erfahrungen austauschen, Fragen stellen und neue Perspektiven entdecken kannst?","Do you already have a network where you can share experiences, ask questions and discover new perspectives?"]}]</script>
 
 <script>(function(){
@@ -879,8 +1105,32 @@ function closePopup(){
  document.querySelectorAll(".big-card").forEach(function(c){c.setAttribute("aria-expanded","false");});
  setConnectorState(-1,false);
 }
-function showSlide(n){idx=Math.max(0,Math.min(total-1,n));if(idx!==13)setPriceReveal(false);closePopup();slides.forEach(function(sl,i){var active=i===idx;sl.classList.toggle("active",active);sl.setAttribute("aria-hidden",active?"false":"true");});updateNav();history.replaceState(null,"","#"+(idx+1));}
-function translate(){document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(function(el){var v=el.getAttribute("data-"+lang);if(v!==null)el.textContent=v;});document.querySelectorAll("[data-aria-de]").forEach(function(el){el.setAttribute("aria-label",el.getAttribute("data-aria-"+lang));});document.getElementById("lang-toggle").textContent=lang==="de"?"EN":"DE";document.getElementById("lang-toggle").setAttribute("aria-label",lang==="de"?"Switch to English":"Auf Deutsch wechseln");document.getElementById("full").title=lang==="de"?"Vollbild":"Fullscreen";document.getElementById("previous").title=lang==="de"?"Zurück":"Previous";document.getElementById("next").title=lang==="de"?"Weiter":"Next";document.title=lang==="de"?"LiquidityBooster – Eine Leistungswelt. Viele Möglichkeiten.":"LiquidityBooster – One Service World. Many Opportunities.";updateNav();updateNetwork();updateIncome();if(activeArea)openPopup(activeArea,pinned);}
+
+/* Folie 6: die fünf Mehrwertfelder – unabhängig von den Big Picture-Overlays */
+var impulseAreas=JSON.parse(document.getElementById("impulse-marketing-data").textContent);
+var impulseModal=document.getElementById("impulse-detail"),impulseDim=document.getElementById("impulse-dim"),impulseSelected=null;
+function closeImpulse(){
+ impulseSelected=null;impulseModal.hidden=true;impulseDim.hidden=true;
+ document.querySelectorAll("[data-impulse]").forEach(function(btn){btn.setAttribute("aria-expanded","false");});
+}
+function openImpulse(num){
+ if(idx!==5)return;
+ var entry=impulseAreas.find(function(v){return v.i===num;});if(!entry)return;
+ impulseSelected=num;
+ document.getElementById("impulse-detail-title").textContent=entry.title[lang==="de"?0:1];
+ document.getElementById("impulse-detail-value").textContent=entry.value[lang==="de"?0:1];
+ document.getElementById("impulse-detail-question-text").textContent=entry.question[lang==="de"?0:1];
+ impulseDim.hidden=false;impulseModal.hidden=false;
+ document.querySelectorAll("[data-impulse]").forEach(function(btn){btn.setAttribute("aria-expanded",String(Number(btn.dataset.impulse)===num));});
+}
+document.querySelectorAll("[data-impulse]").forEach(function(btn){
+ btn.addEventListener("click",function(ev){ev.stopPropagation();openImpulse(Number(btn.dataset.impulse));});
+});
+document.getElementById("impulse-close").addEventListener("click",function(){closeImpulse();});
+impulseDim.addEventListener("click",function(){closeImpulse();});
+
+function showSlide(n){idx=Math.max(0,Math.min(total-1,n));if(idx!==13)setPriceReveal(false);closePopup();closeImpulse();slides.forEach(function(sl,i){var active=i===idx;sl.classList.toggle("active",active);sl.setAttribute("aria-hidden",active?"false":"true");});updateNav();history.replaceState(null,"","#"+(idx+1));}
+function translate(){document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(function(el){var v=el.getAttribute("data-"+lang);if(v!==null)el.textContent=v;});document.querySelectorAll("[data-aria-de]").forEach(function(el){el.setAttribute("aria-label",el.getAttribute("data-aria-"+lang));});document.getElementById("lang-toggle").textContent=lang==="de"?"EN":"DE";document.getElementById("lang-toggle").setAttribute("aria-label",lang==="de"?"Switch to English":"Auf Deutsch wechseln");document.getElementById("full").title=lang==="de"?"Vollbild":"Fullscreen";document.getElementById("previous").title=lang==="de"?"Zurück":"Previous";document.getElementById("next").title=lang==="de"?"Weiter":"Next";document.title=lang==="de"?"LiquidityBooster – Eine Leistungswelt. Viele Möglichkeiten.":"LiquidityBooster – One Service World. Many Opportunities.";updateNav();updateNetwork();updateIncome();if(activeArea)openPopup(activeArea,pinned);if(impulseSelected!==null)openImpulse(impulseSelected);}
 function openPopup(num,shouldPin){
  if(idx!==12)return;
  var a=areas.find(function(x){return x.i===num;});
@@ -914,7 +1164,7 @@ document.getElementById("previous").addEventListener("click",function(){showSlid
 document.getElementById("next").addEventListener("click",function(){showSlide(idx===total-1?0:idx+1);});
 document.getElementById("lang-toggle").addEventListener("click",function(){lang=lang==="de"?"en":"de";translate();});
 document.getElementById("full").addEventListener("click",function(){if(!document.fullscreenElement){document.getElementById("app").requestFullscreen&&document.getElementById("app").requestFullscreen().catch(function(){});}else if(document.exitFullscreen){document.exitFullscreen().catch(function(){});}});
-document.addEventListener("keydown",function(e){if(e.target&&e.target.closest(".sim-interactive, input, .price-question-state, .price-answer")&&e.key!=="Escape")return;if(e.key==="Escape"){if(popup.classList.contains("visible")){closePopup();e.preventDefault();}return;}if(e.key==="ArrowRight"||e.key==="PageDown"||e.key===" "){e.preventDefault();showSlide(idx===total-1?0:idx+1);}else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();showSlide(idx-1);}else if(e.key==="Home"){e.preventDefault();showSlide(0);}else if(e.key==="End"){e.preventDefault();showSlide(total-1);}else if(e.key.toLowerCase()==="f"&&!e.ctrlKey&&!e.metaKey){document.getElementById("full").click();}});
+document.addEventListener("keydown",function(e){if(e.target&&e.target.closest(".sim-interactive, input, .price-question-state, .price-answer")&&e.key!=="Escape")return;if(e.key==="Escape"){if(!impulseModal.hidden){closeImpulse();e.preventDefault();return;}if(popup.classList.contains("visible")){closePopup();e.preventDefault();}return;}if(e.key==="ArrowRight"||e.key==="PageDown"||e.key===" "){e.preventDefault();showSlide(idx===total-1?0:idx+1);}else if(e.key==="ArrowLeft"||e.key==="PageUp"){e.preventDefault();showSlide(idx-1);}else if(e.key==="Home"){e.preventDefault();showSlide(0);}else if(e.key==="End"){e.preventDefault();showSlide(total-1);}else if(e.key.toLowerCase()==="f"&&!e.ctrlKey&&!e.metaKey){document.getElementById("full").click();}});
 var sx=0,sy=0;document.addEventListener("touchstart",function(e){if(e.touches.length===1){sx=e.touches[0].clientX;sy=e.touches[0].clientY;}},{passive:true});
 document.addEventListener("touchend",function(e){if(e.changedTouches.length!==1||e.target.closest(".big-card")||e.target.closest(".navbar")||e.target.closest(".tools")||e.target.closest(".sim-interactive")||e.target.closest(".price-question-state")||e.target.closest(".price-answer"))return;var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.25)showSlide(dx<0?(idx===total-1?0:idx+1):idx-1);},{passive:true});
 window.addEventListener("resize",resize);
