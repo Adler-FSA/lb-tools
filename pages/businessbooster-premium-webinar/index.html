@@ -284,6 +284,38 @@ html[lang="en"] .cover-en{display:flex}
 .decision-btn svg{width:39px;height:39px}
 .decision-btn strong{font-size:45px;line-height:1.1}
 .decision-btn small{font-size:19px;line-height:1.25;color:#556b76;max-width:400px}
+
+/* Folie 10: zusätzliche freiwillige Informationskarte – keine dritte Ja/Nein-Entscheidung */
+.decision-area{max-width:1370px;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.decision-area .decision-btn{min-width:0;min-height:245px;padding:20px 19px}
+.decision-btn.cofinance{border-color:#e7b4d0;background:#fff4fa}
+.decision-btn.cofinance>span{background:#f7ddeb;color:#bd2879}
+.decision-btn.cofinance strong{font-size:30px;line-height:1.1;color:#a91c6f;letter-spacing:-.3px}
+.decision-btn.cofinance small{font-size:18px;max-width:365px}
+#cofinance-dim{z-index:52}
+.cofinance-dialog{width:1110px;max-height:805px;padding:24px 38px 26px;border-top-color:#c3287b}
+.cofinance-dialog .overlay-top{color:#bb2879}
+.cofinance-dialog h3{font-size:34px;line-height:1.17;max-width:980px;margin:12px 0}
+.cofinance-lead{font-size:19px;line-height:1.32;color:#506a77;margin:0 0 15px}
+.cofinance-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.cofinance-card{display:grid;grid-template-columns:39px minmax(0,1fr);gap:9px;border:1px solid #d1e6e9;border-radius:15px;background:#f8fcfc;padding:13px 15px;min-height:112px}
+.cofinance-card:nth-child(even){border-color:#edd3e1;background:#fff9fc}
+.cofinance-num{font-size:27px;font-weight:900;color:#0d98a6;line-height:1}
+.cofinance-card:nth-child(even) .cofinance-num{color:#b9277a}
+.cofinance-card strong{font-size:19px;line-height:1.12;display:block;margin-bottom:6px;color:#1b3746}
+.cofinance-card p{font-size:16px;line-height:1.28;color:#506775;margin:0}
+.cofinance-example{display:grid;grid-template-columns:1.45fr 1fr;gap:18px;align-items:center;background:#e9f8fa;border:1px solid #b6e1e8;border-radius:15px;padding:14px 17px;margin:13px 0 10px}
+.cofinance-example-copy>span{display:block;font-size:13px;font-weight:900;letter-spacing:.5px;color:#088b9d;margin-bottom:4px}
+.cofinance-example-copy>strong{display:block;font-size:35px;letter-spacing:-.5px;color:#183d50;line-height:1.12}
+.cofinance-example-copy p{font-size:15px;line-height:1.26;margin:6px 0 0;color:#506775}
+.cofinance-example-note{font-size:18px;line-height:1.35;color:#234454;font-weight:760;border-left:4px solid #bf277c;padding-left:17px}
+.cofinance-disclaimer{font-size:13px;line-height:1.3;color:#687e87;margin:0 0 14px}
+.cofinance-actions{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.cofinance-world-link{display:flex;align-items:center;justify-content:center;gap:11px;padding:12px 16px;background:#bd2879;color:#fff;border-radius:12px;font-size:17px;font-weight:800;text-decoration:none}
+.cofinance-world-link:hover{background:#a8216b}
+.cofinance-world-link svg{width:23px;height:23px;flex:none}
+.cofinance-back{border:1px solid #aacbd0;background:#fff;color:#3a626d;border-radius:12px;padding:12px 16px;font-size:16px;cursor:pointer;font-weight:750}
+.cofinance-back:hover{background:#f0fafb}
 .decision.has-result .decision-intro,.decision.has-result .decision-note{display:none}
 .decision-yes-panel[hidden],.decision-no-panel[hidden]{display:none!important}
 .decision-yes-panel{max-width:1370px;margin:13px auto 0}
@@ -488,7 +520,12 @@ html[lang="en"] .cover-en{display:flex}
 <h2><span data-i18n data-de="Sie kennen das Angebot." data-en="You know the offer.">Sie kennen das Angebot.</span><br><em><span data-i18n data-de="Jetzt entscheiden Sie." data-en="Now you decide.">Jetzt entscheiden Sie.</span></em></h2>
 <p><span data-i18n data-de="Sie haben die Herausforderungen, das Impulsmarketing, den Fullservice und die Konditionen kennengelernt. Passt BusinessBooster Premium zu Ihrem Unternehmen?" data-en="You have explored the challenges, impulse marketing, the full service and the terms. Is BusinessBooster Premium right for your business?">Sie haben die Herausforderungen, das Impulsmarketing, den Fullservice und die Konditionen kennengelernt. Passt BusinessBooster Premium zu Ihrem Unternehmen?</span></p></div>
 <div class="decision-area" id="decision-area"><button type="button" class="decision-btn yes" id="decide-yes"><span><svg class="" aria-hidden="true"><use href="#i-check"></use></svg></span><strong><span data-i18n data-de="JA" data-en="YES">JA</span></strong><small><span data-i18n data-de="Ich möchte BusinessBooster Premium für mein Unternehmen nutzen." data-en="I want to use BusinessBooster Premium for my business.">Ich möchte BusinessBooster Premium für mein Unternehmen nutzen.</span></small></button>
-<button type="button" class="decision-btn no" id="decide-no"><span class="no-glyph" aria-hidden="true">–</span><strong><span data-i18n data-de="NEIN" data-en="NO">NEIN</span></strong><small><span data-i18n data-de="Das Angebot passt derzeit nicht zu meinem Unternehmen." data-en="The offer is not the right fit for my business at this time.">Das Angebot passt derzeit nicht zu meinem Unternehmen.</span></small></button></div>
+<button type="button" class="decision-btn no" id="decide-no"><span class="no-glyph" aria-hidden="true">–</span><strong><span data-i18n data-de="NEIN" data-en="NO">NEIN</span></strong><small><span data-i18n data-de="Das Angebot passt derzeit nicht zu meinem Unternehmen." data-en="The offer is not the right fit for my business at this time.">Das Angebot passt derzeit nicht zu meinem Unternehmen.</span></small></button>
+<button type="button" class="decision-btn cofinance" id="open-cofinance" aria-haspopup="dialog" aria-controls="cofinance-dialog" aria-expanded="false">
+<span class="cofinance-glyph"><svg aria-hidden="true"><use href="#i-network"></use></svg></span>
+<strong><span data-i18n data-de="GEGENFINANZIERUNG?" data-en="OFFSET YOUR COSTS?">GEGENFINANZIERUNG?</span></strong>
+<small><span data-i18n data-de="Ist eine mögliche Gegenfinanzierung Ihrer BusinessBooster-Kosten für Sie interessant?" data-en="Would you like to explore ways to potentially offset your BusinessBooster costs?">Ist eine mögliche Gegenfinanzierung Ihrer BusinessBooster-Kosten für Sie interessant?</span></small>
+</button></div>
 
 <div class="decision-yes-panel" id="decision-yes-panel" aria-live="polite" hidden>
   <div class="decision-panel-head">
@@ -525,6 +562,22 @@ html[lang="en"] .cover-en{display:flex}
   <p><span data-i18n data-de="Dürfen wir Sie noch fragen, was für Ihr Nein ausschlaggebend war?" data-en="May we ask what was the deciding factor behind your no?">Dürfen wir Sie noch fragen, was für Ihr Nein ausschlaggebend war?</span></p>
   </div>
 <div class="decision-note"><span data-i18n data-de="Ihre Auswahl ist eine unverbindliche Gesprächsentscheidung und löst keine Bestellung aus." data-en="Your selection is a non-binding conversation decision and does not place an order.">Ihre Auswahl ist eine unverbindliche Gesprächsentscheidung und löst keine Bestellung aus.</span></div><span class="slide-no">10 <i></i> 10</span></section>
+<div id="cofinance-dim" class="overlay-dim" hidden>
+<div class="overlay cofinance-dialog" id="cofinance-dialog" role="dialog" aria-modal="true" aria-labelledby="cofinance-heading" aria-describedby="cofinance-lead">
+<div class="overlay-top"><span><span data-i18n data-de="OPTIONALE GEGENFINANZIERUNG" data-en="OPTIONAL COST OFFSET">OPTIONALE GEGENFINANZIERUNG</span></span><button type="button" class="overlay-close" id="close-cofinance" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">×</button></div>
+<h3 id="cofinance-heading"><span data-i18n data-de="Wie können Empfehlungen die Kosten Ihres BusinessBoosters gegenfinanzieren?" data-en="How can referrals help offset your BusinessBooster costs?">Wie können Empfehlungen die Kosten Ihres BusinessBoosters gegenfinanzieren?</span></h3>
+<p class="cofinance-lead" id="cofinance-lead"><span data-i18n data-de="BusinessBooster Premium bietet nicht nur Marketing-Fullservice. Beim Neueinstieg ist die ClubLeader-Leistungswelt bereits inklusive – damit können Sie passende Angebote auch selbst weiterempfehlen." data-en="BusinessBooster Premium offers more than marketing full service. New customers also receive ClubLeader capabilities, allowing them to recommend suitable offers themselves.">BusinessBooster Premium bietet nicht nur Marketing-Fullservice. Beim Neueinstieg ist die ClubLeader-Leistungswelt bereits inklusive – damit können Sie passende Angebote auch selbst weiterempfehlen.</span></p>
+<div class="cofinance-grid">
+<article class="cofinance-card"><span class="cofinance-num">01</span><div><strong><span data-i18n data-de="ClubLeader inklusive" data-en="ClubLeader included">ClubLeader inklusive</span></strong><p><span data-i18n data-de="Die ClubLeader-Ausstattung ist beim BusinessBooster-Neueinstieg enthalten. Es fällt kein zusätzlicher ClubLeader-Mitgliedsbeitrag an." data-en="New BusinessBooster customers receive ClubLeader capabilities without an additional ClubLeader membership fee.">Die ClubLeader-Ausstattung ist beim BusinessBooster-Neueinstieg enthalten. Es fällt kein zusätzlicher ClubLeader-Mitgliedsbeitrag an.</span></p></div></article>
+<article class="cofinance-card"><span class="cofinance-num">02</span><div><strong><span data-i18n data-de="Vier ClubPartner-Geschenke pro Monat" data-en="Four ClubPartner gifts each month">Vier ClubPartner-Geschenke pro Monat</span></strong><p><span data-i18n data-de="Sie können monatlich vier ClubPartner-Mitgliedschaften an Kunden oder Geschäftspartner verschenken – bis zu 48 im Jahr. So können persönliche Kontakte und Empfehlungswege entstehen." data-en="You can give four ClubPartner memberships per month to customers or business partners—up to 48 per year. This can help build relationships and referral paths.">Sie können monatlich vier ClubPartner-Mitgliedschaften an Kunden oder Geschäftspartner verschenken – bis zu 48 im Jahr. So können persönliche Kontakte und Empfehlungswege entstehen.</span></p></div></article>
+<article class="cofinance-card"><span class="cofinance-num">03</span><div><strong><span data-i18n data-de="Als Botschafter weiterempfehlen" data-en="Recommend as an ambassador">Als Botschafter weiterempfehlen</span></strong><p><span data-i18n data-de="Wenn Sie vom BusinessBooster überzeugt sind, können Sie ihn persönlich empfehlen. Auch Ihre Kontakte können passende Angebote weiterempfehlen." data-en="If BusinessBooster works well for you, you can recommend it personally. Your contacts can recommend suitable offers, too.">Wenn Sie vom BusinessBooster überzeugt sind, können Sie ihn persönlich empfehlen. Auch Ihre Kontakte können passende Angebote weiterempfehlen.</span></p></div></article>
+<article class="cofinance-card"><span class="cofinance-num">04</span><div><strong><span data-i18n data-de="Drei Ebenen, klare Regeln" data-en="Three levels, clear rules">Drei Ebenen, klare Regeln</span></strong><p><span data-i18n data-de="Bei freigegebenen und bezahlten Umsätzen sind 20 % auf Ebene 1, 15 % auf Ebene 2 und 10 % auf Ebene 3 vorgesehen – jeweils bei gültiger Zuordnung und Berechtigung." data-en="Eligible, paid transactions may generate 20% on level 1, 15% on level 2 and 10% on level 3—subject to valid attribution and eligibility.">Bei freigegebenen und bezahlten Umsätzen sind 20 % auf Ebene 1, 15 % auf Ebene 2 und 10 % auf Ebene 3 vorgesehen – jeweils bei gültiger Zuordnung und Berechtigung.</span></p></div></article>
+</div>
+<div class="cofinance-example"><div class="cofinance-example-copy"><span><span data-i18n data-de="EINFACHES RECHENBEISPIEL · EIGENE EMPFEHLUNGEN" data-en="SIMPLE EXAMPLE · YOUR OWN REFERRALS">EINFACHES RECHENBEISPIEL · EIGENE EMPFEHLUNGEN</span></span><strong>5 × 199,80 € = 999 €</strong><p><span data-i18n data-de="Fünf eigene, aktive und bezahlte Premium-Verträge à 999 € netto Monatsbeitrag würden bei 20 % je Vertrag rechnerisch 999 € Monatsprovision ergeben." data-en="Five personally referred, active and paid Premium subscriptions at €999 net per month would amount to €999 in monthly commission at 20% each.">Fünf eigene, aktive und bezahlte Premium-Verträge à 999 € netto Monatsbeitrag würden bei 20 % je Vertrag rechnerisch 999 € Monatsprovision ergeben.</span></p></div><div class="cofinance-example-note"><span data-i18n data-de="Rechnerisch in Höhe des monatlichen BusinessBooster-Beitrags – ohne Setup-Gebühr, Steuern oder weitere Kosten." data-en="Numerically equivalent to the monthly BusinessBooster fee—excluding setup, taxes and other costs.">Rechnerisch in Höhe des monatlichen BusinessBooster-Beitrags – ohne Setup-Gebühr, Steuern oder weitere Kosten.</span></div></div>
+<p class="cofinance-disclaimer"><span data-i18n data-de="Eine geschenkte Mitgliedschaft oder bloße Empfehlung löst keine Provision aus. Nur tatsächlich bezahlte, zugeordnete und provisionsfähige Umsätze können vergütet werden; für die Ebenen 2 und 3 gelten zusätzliche Voraussetzungen. Keine Garantie für Abschlüsse, Einnahmen oder Kostendeckung." data-en="A gifted membership or referral alone earns no commission. Only paid, validly attributed and eligible transactions may qualify; levels 2 and 3 have additional conditions. No guarantee of sales, income or cost coverage.">Eine geschenkte Mitgliedschaft oder bloße Empfehlung löst keine Provision aus. Nur tatsächlich bezahlte, zugeordnete und provisionsfähige Umsätze können vergütet werden; für die Ebenen 2 und 3 gelten zusätzliche Voraussetzungen. Keine Garantie für Abschlüsse, Einnahmen oder Kostendeckung.</span></p>
+<div class="cofinance-actions"><a class="cofinance-world-link" href="../liquiditybooster-leistungswelt-webinar/#10" target="_blank" rel="noopener noreferrer"><span data-i18n data-de="ClubLeader-Leistungswelt ansehen" data-en="Explore the ClubLeader benefits">ClubLeader-Leistungswelt ansehen</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h13m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></a>
+<button type="button" class="cofinance-back" id="back-cofinance"><span data-i18n data-de="Zurück zur Entscheidung" data-en="Back to your decision">Zurück zur Entscheidung</span></button></div>
+</div></div>
 <div id="more-dim" class="overlay-dim" hidden><div class="overlay" id="more-dialog" role="dialog" aria-modal="true" aria-labelledby="more-title"><div class="overlay-top"><span><span data-i18n data-de="MEHRWERT &amp; REFLEXIONSFRAGE" data-en="VALUE &amp; REFLECTION QUESTION">MEHRWERT &amp; REFLEXIONSFRAGE</span></span><button type="button" class="overlay-close" id="close-more" aria-label="Schließen" data-aria-de="Schließen" data-aria-en="Close">×</button></div><h3 id="more-title"></h3><div class="overlay-block"><strong><span data-i18n data-de="IHR MEHRWERT" data-en="YOUR VALUE">IHR MEHRWERT</span></strong><p id="more-value"></p></div><section class="magazine-gallery" id="magazine-gallery" aria-label="Online-Magazine" hidden>
 <div class="magazine-network-stats" aria-label="Das Mediennetzwerk" data-aria-de="Das Mediennetzwerk" data-aria-en="The media network">
   <div class="magazine-network-eyebrow"><span data-i18n data-de="DAS MEDIENNETZWERK" data-en="THE MEDIA NETWORK">DAS MEDIENNETZWERK</span></div>
@@ -567,6 +620,7 @@ var curr=Math.max(0,Math.min(slides.length-1,(parseInt(location.hash.substring(1
 var lang="de",detailIndex=null,choice=null;
 var stage=document.getElementById("stage"),deck=document.getElementById("deck");
 var dim=document.getElementById("more-dim"),modal=document.getElementById("more-dialog");
+var cofinanceDim=document.getElementById("cofinance-dim"),cofinanceDialog=document.getElementById("cofinance-dialog"),cofinanceTrigger=document.getElementById("open-cofinance");
 var data=JSON.parse(document.getElementById("detail-data").textContent);
 var names=[["Startseite","Cover"],["Die Realität","The reality"],["Der Wandel","The shift"],["12 Impulse","12 impulses"],["Die Lösung","The solution"],["Die Leistungen","The services"],["Ihr Mehrwert","Your value"],["Kosten & Nutzen","Costs & benefits"],["Der Preis","The price"],["Die Entscheidung","Your decision"]];
 function resize(){var scale=Math.min(Math.max(140,stage.clientWidth-20)/1600,Math.max(130,stage.clientHeight-20)/900);deck.style.setProperty("--scale",String(Math.min(scale,2)));}
@@ -589,7 +643,9 @@ var magazineView=key==="svc-press";modal.classList.toggle("is-magazines",magazin
 dim.hidden=false;
 document.querySelectorAll("[data-detail]").forEach(function(b){b.setAttribute("aria-expanded",String(b.dataset.detail===key));});
 document.getElementById("close-more").focus();}
-function show(n){closeDetail();curr=Math.max(0,Math.min(slides.length-1,n));slides.forEach(function(s,i){var active=i===curr;s.classList.toggle("active",active);s.setAttribute("aria-hidden",active?"false":"true");});
+function closeCofinance(){if(cofinanceDim.hidden)return;cofinanceDim.hidden=true;cofinanceTrigger.setAttribute("aria-expanded","false");if(curr===slides.length-1&&!choice)cofinanceTrigger.focus();}
+function openCofinance(){closeDetail();cofinanceDim.hidden=false;cofinanceTrigger.setAttribute("aria-expanded","true");cofinanceDialog.scrollTop=0;document.getElementById("close-cofinance").focus();}
+function show(n){closeCofinance();closeDetail();curr=Math.max(0,Math.min(slides.length-1,n));slides.forEach(function(s,i){var active=i===curr;s.classList.toggle("active",active);s.setAttribute("aria-hidden",active?"false":"true");});
 updateNav();history.replaceState(null,"","#"+(curr+1));}
 function priceFormat(n){return new Intl.NumberFormat(lang==="de"?"de-DE":"en-IE",{maximumFractionDigits:0}).format(n)+" €";}
 function priceReveal(){
@@ -624,6 +680,10 @@ updateNav();if(detailIndex)openDetail(detailIndex);if(!document.getElementById("
 }
 document.querySelectorAll("[data-detail]").forEach(function(b){b.addEventListener("click",function(){openDetail(b.dataset.detail);});});
 document.getElementById("close-more").addEventListener("click",closeDetail);
+cofinanceTrigger.addEventListener("click",openCofinance);
+document.getElementById("close-cofinance").addEventListener("click",closeCofinance);
+document.getElementById("back-cofinance").addEventListener("click",closeCofinance);
+cofinanceDim.addEventListener("click",function(ev){if(ev.target===cofinanceDim)closeCofinance();});
 dim.addEventListener("click",function(ev){if(ev.target===dim)closeDetail();});
 document.getElementById("prev").addEventListener("click",function(){show(curr-1);});
 document.getElementById("next").addEventListener("click",function(){show(curr===slides.length-1?0:curr+1);});
@@ -634,6 +694,7 @@ document.getElementById("decide-yes").addEventListener("click",function(){showCh
 document.getElementById("decide-no").addEventListener("click",function(){showChoice("no");});
 document.getElementById("reset-decision-yes").addEventListener("click",resetChoice);
 document.addEventListener("keydown",function(ev){
+if(!cofinanceDim.hidden){if(ev.key==="Escape"){closeCofinance();ev.preventDefault();}return;}
 if(ev.key==="Escape"){if(!dim.hidden){closeDetail();ev.preventDefault();return;}if(document.fullscreenElement){return;}}
 if(!dim.hidden)return;
 if(ev.target.closest("input,button")&&ev.key!=="PageDown"&&ev.key!=="PageUp")return;
@@ -641,7 +702,7 @@ if(["ArrowRight","PageDown"," "].includes(ev.key)){ev.preventDefault();show(curr
 else if(["ArrowLeft","PageUp"].includes(ev.key)){ev.preventDefault();show(curr-1);}
 });
 var sx=0,sy=0;stage.addEventListener("touchstart",function(ev){if(ev.touches.length===1){sx=ev.touches[0].clientX;sy=ev.touches[0].clientY;}},{passive:true});
-stage.addEventListener("touchend",function(ev){if(ev.changedTouches.length!==1||!dim.hidden||ev.target.closest("button,input"))return;var dx=ev.changedTouches[0].clientX-sx,dy=ev.changedTouches[0].clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.35)show(dx<0?(curr===slides.length-1?0:curr+1):curr-1);},{passive:true});
+stage.addEventListener("touchend",function(ev){if(ev.changedTouches.length!==1||!dim.hidden||!cofinanceDim.hidden||ev.target.closest("button,input"))return;var dx=ev.changedTouches[0].clientX-sx,dy=ev.changedTouches[0].clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.35)show(dx<0?(curr===slides.length-1?0:curr+1):curr-1);},{passive:true});
 window.addEventListener("resize",resize);window.addEventListener("hashchange",function(){var v=parseInt(location.hash.substring(1),10);if(v>=1&&v<=slides.length&&v!==curr+1)show(v-1);});
 var dots=document.getElementById("nav-dots");for(var i=0;i<slides.length;i++){var dot=document.createElement("span");dot.className="nav-dot";dots.appendChild(dot);}
 resize();show(curr);translate();
