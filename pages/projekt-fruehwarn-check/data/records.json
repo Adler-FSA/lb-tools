@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-06T13:16:16Z",
+  "generated_at": "2026-11-06T14:12:08Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-05T14:34:41Z",
-      "records": 3620,
+      "last_success": "2026-11-06T14:12:08Z",
+      "records": 3618,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "d77597ebb98a34e06f516d6ccd2acb391d5fabd3cc079a43b488a4d0c5f34cd1"
+      "response_sha256": "5a2264896c679aa0c1421641f12a24f03eac93d61de3c5cebed1e6056a600594"
     }
   },
   "records": [
@@ -30755,6 +30755,43 @@
       ]
     },
     {
+      "id": "eba-credit-institutions-79c0f79b44780e593c",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "BANK OF EPIRUS SA",
+      "aliases": [
+        "Τράπεζα Ηπείρου Ανώνυμη Τραπεζική Εταιρεία"
+      ],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "GR_BOG",
+      "country": "GR",
+      "date": "2019-04-23",
+      "last_status_date": "2019-04-23",
+      "authorization_history": [
+        "2019-04-23"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "213800AXQUILVAQS3374",
+      "lei": "213800AXQUILVAQS3374",
+      "national_reference": "096069060",
+      "city": "Ioannina",
+      "last_update": "20260915000000000",
+      "match_terms": [
+        "BANK OF EPIRUS SA",
+        "Τράπεζα Ηπείρου Ανώνυμη Τραπεζική Εταιρεία",
+        "213800AXQUILVAQS3374",
+        "096069060"
+      ]
+    },
+    {
       "id": "eba-credit-institutions-676a83c39da3c4b3ce",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -46501,40 +46538,6 @@
         "Bankhaus Rautenschlein AG",
         "529900JKIXFIA5LYZN73",
         "100401"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-925d9f4d91c38e5cf4",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Bankhaus RSA eG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900LG6H0NY5EF9I06",
-      "lei": "529900LG6H0NY5EF9I06",
-      "national_reference": "102741",
-      "city": "Rechtmehring",
-      "last_update": "20251205000000000",
-      "match_terms": [
-        "Bankhaus RSA eG",
-        "529900LG6H0NY5EF9I06",
-        "102741"
       ]
     },
     {
@@ -67591,8 +67594,8 @@
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "LU_CSSF",
-      "country": "LU",
+      "competent_authority_code": "DE_BAFIN",
+      "country": "DE",
       "date": "2019-04-26",
       "last_status_date": "2019-04-26",
       "authorization_history": [
@@ -67608,7 +67611,7 @@
       "lei": "SVY0KHTJZBP60K295346",
       "national_reference": "LUB00107",
       "city": "STRASSEN",
-      "last_update": "20240928000000000",
+      "last_update": "20260102000000000",
       "match_terms": [
         "DZ PRIVATBANK S.A.",
         "SVY0KHTJZBP60K295346",
@@ -68496,43 +68499,6 @@
         "Epargne crédit des militaires (E.C.M.)",
         "969500MPCSRZ8EHA7N14",
         "22970"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-79c0f79b44780e593c",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Epirus Bank SA",
-      "aliases": [
-        "Τράπεζα Ηπείρου Ανώνυμη Τραπεζική Εταιρεία"
-      ],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "GR_BOG",
-      "country": "GR",
-      "date": "2019-04-23",
-      "last_status_date": "2019-04-23",
-      "authorization_history": [
-        "2019-04-23"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "213800AXQUILVAQS3374",
-      "lei": "213800AXQUILVAQS3374",
-      "national_reference": "096069060",
-      "city": "Ioannina",
-      "last_update": "20260218000000000",
-      "match_terms": [
-        "Epirus Bank SA",
-        "Τράπεζα Ηπείρου Ανώνυμη Τραπεζική Εταιρεία",
-        "213800AXQUILVAQS3374",
-        "096069060"
       ]
     },
     {
@@ -94885,7 +94851,7 @@
       "lei": "529900Y7544GYFG3TK85",
       "national_reference": "102225",
       "city": "Vellberg",
-      "last_update": "20240928000000000",
+      "last_update": "20260930000000000",
       "match_terms": [
         "Raiffeisenbank Bühlertal eG",
         "529900Y7544GYFG3TK85",
@@ -100398,40 +100364,6 @@
         "Raiffeisenbank MEHR eG Mosel - Eifel - Hunsrück - Region",
         "5299008BSVA4NY593212",
         "103656"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-1a649e0a19c94c4b27",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Mehring-Leiwen eG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900K3OORSTIY6NH53",
-      "lei": "529900K3OORSTIY6NH53",
-      "national_reference": "103581",
-      "city": "Leiwen",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisenbank Mehring-Leiwen eG",
-        "529900K3OORSTIY6NH53",
-        "103581"
       ]
     },
     {
