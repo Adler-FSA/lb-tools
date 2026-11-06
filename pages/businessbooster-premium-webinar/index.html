@@ -34,6 +34,23 @@ h1 em,h2 em{font-style:normal;color:var(--magenta)}
 .read-more:hover,.read-more[aria-expanded=true]{background:#d3f1f4;border-color:#168f9d}
 .read-muted{background:#fff0f7;border-color:#ecc9dc;color:#b52373}
 .read-muted:hover{background:#f9e3ef}
+
+/* Standalone full-bleed start cover (DE: approved image; EN: translated copy) */
+.opening.cover-slide{padding:0;background:#fff;overflow:hidden}
+.cover-artwork{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.cover-slide .slide-no{z-index:4;right:30px;bottom:22px;background:#fffffff0;border-radius:11px;padding:7px 12px;color:#466371}
+.cover-en{display:none;position:absolute;left:0;top:153px;bottom:0;width:925px;padding:45px 115px 55px 74px;flex-direction:column;align-items:flex-start;background:linear-gradient(90deg,#ffffff 0%,#fffffffc 73%,#ffffffc5 87%,#ffffff00 100%);z-index:2}
+html[lang="en"] .cover-en{display:flex}
+.cover-en-kicker{color:#0e9bac;font-size:27px;font-weight:750;letter-spacing:.5px;display:flex;gap:13px;align-items:center;margin:0 0 27px;white-space:nowrap}
+.cover-en-kicker strong,.cover-en-dot{color:#c3247d}
+.cover-en h1{font-size:55px;line-height:1.07;letter-spacing:-1.5px;margin:0 0 20px;color:#242a37}
+.cover-en h2{font-size:42px;line-height:1.14;letter-spacing:-.7px;color:#bc257d;margin:0 0 27px}
+.cover-en p{font-size:25px;line-height:1.45;color:#586372;max-width:690px;margin:0}
+.cover-en-services{display:flex;align-items:center;gap:22px;margin-top:auto;padding:0 0 32px;font-size:19px;font-weight:720;color:#293744;white-space:nowrap}
+.cover-en-services span{display:flex;align-items:center;gap:8px}
+.cover-en-services b{height:37px;width:37px;display:grid;place-items:center;border-radius:12px;background:#0da6b7;color:#fff;font-size:23px;font-weight:700}
+.cover-en-services span:nth-child(2) b{background:#c1257a}
+.cover-en-slogan{font-size:24px;line-height:1.25;color:#525565;font-style:italic;white-space:nowrap}
 .opening{background:radial-gradient(ellipse at 87% 63%,#edf9fa 0,transparent 48%),linear-gradient(155deg,#fff 35%,#f7fbfc 95%)}
 .opening-grid{display:grid;grid-template-columns:850px 540px;gap:12px;height:740px;align-items:center}
 .opening-copy{padding-top:25px}
@@ -374,25 +391,22 @@ h1 em,h2 em{font-style:normal;color:var(--magenta)}
 <symbol id="i-people" viewBox="0 0 64 64"><circle cx="32" cy="19" r="9" fill="none" stroke="currentColor" stroke-width="4"/><path d="M15 52v-5c0-11 8-16 17-16s17 5 17 16v5z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M13 22a7 7 0 0 0-3 13M51 22a7 7 0 0 1 3 13" fill="none" stroke="currentColor" stroke-width="3"/></symbol>
 <symbol id="i-spark" viewBox="0 0 64 64"><path d="M32 5 38 25 59 32 38 39 32 59 25 39 5 32 25 25Z" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/></symbol>
 <symbol id="i-lightbulb" viewBox="0 0 64 64"><path d="M22 43c-1-7-12-10-12-24a22 22 0 0 1 44 0c0 14-11 17-12 24zM22 43h20M24 50h16M27 57h10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
-</svg><section class="slide opening" data-slide="1" aria-hidden="true" aria-label="Folie 1" data-aria-de="Folie 1" data-aria-en="Slide 1"><div class="brand"><img src="../liquiditybooster-leistungswelt-webinar/liquiditybooster-logo.png" alt="LiquidityBooster – Mehr Geld. Mehr Freiheit. Mehr vom Leben." draggable="false"></div><header class="slide-head"><div class="eyebrow"><span data-i18n data-de="AIDA · ATTENTION" data-en="AIDA · ATTENTION">AIDA · ATTENTION</span> <span class="microdot"></span> <span data-i18n data-de="AUFMERKSAMKEIT" data-en="AWARENESS">AUFMERKSAMKEIT</span></div></header>
-<div class="opening-grid">
-<div class="opening-copy">
-<div class="thinline"></div><h1><span data-i18n data-de="Sie können hervorragende Arbeit leisten." data-en="You can deliver outstanding work.">Sie können hervorragende Arbeit leisten.</span><br><em><span data-i18n data-de="Doch werden Sie auch wahrgenommen?" data-en="But are people noticing?">Doch werden Sie auch wahrgenommen?</span></em></h1>
-<p><span data-i18n data-de="Qualität, Erfahrung und Engagement machen Ihr Unternehmen stark. Doch Kunden können sich nur für Angebote entscheiden, die sie kennen – und an die sie im richtigen Moment denken." data-en="Quality, experience and dedication make your business strong. But customers can only choose offers they know about—and remember when it matters.">Qualität, Erfahrung und Engagement machen Ihr Unternehmen stark. Doch Kunden können sich nur für Angebote entscheiden, die sie kennen – und an die sie im richtigen Moment denken.</span></p>
-<div class="opening-question"><span><span data-i18n data-de="DIE ENTSCHEIDENDE FRAGE" data-en="THE KEY QUESTION">DIE ENTSCHEIDENDE FRAGE</span></span><strong><span data-i18n data-de="Wer sorgt dafür, dass man morgen wieder an Ihr Unternehmen denkt?" data-en="Who makes sure your business is remembered tomorrow?">Wer sorgt dafür, dass man morgen wieder an Ihr Unternehmen denkt?</span></strong></div>
-<button type="button" class="read-more " data-detail="opening" aria-haspopup="dialog" aria-controls="more-dialog" aria-expanded="false"><span data-i18n data-de="Mehrwert &amp; Reflexionsfrage" data-en="Value &amp; reflection question">Mehrwert &amp; Reflexionsfrage</span> <b aria-hidden="true">+</b></button>
+</svg><section class="slide opening cover-slide" data-slide="1" aria-hidden="true" aria-label="Folie 1" data-aria-de="Folie 1" data-aria-en="Slide 1">
+<img class="cover-artwork" src="businessbooster-cover.webp" width="1672" height="941" alt="Unternehmer-Forum BusinessBooster – Sichtbarkeit, Verbindungen, Wachstum" data-aria-de="Unternehmer-Forum BusinessBooster – Sichtbarkeit, Verbindungen, Wachstum" data-aria-en="BusinessBooster Entrepreneur Forum – Visibility, connections, growth" draggable="false" fetchpriority="high">
+<div class="cover-en" lang="en">
+  <div class="cover-en-kicker"><span data-i18n data-de="UNTERNEHMER-FORUM" data-en="ENTREPRENEUR FORUM">ENTREPRENEUR FORUM</span><span class="cover-en-dot">·</span><strong><span data-i18n data-de="BUSINESSBOOSTER" data-en="BUSINESSBOOSTER">BUSINESSBOOSTER</span></strong></div>
+  <h1><span data-i18n data-de="Sichtbarkeit. Verbindungen." data-en="Visibility. Connections.">Visibility. Connections.</span><br><span data-i18n data-de="Wachstum." data-en="Growth.">Growth.</span></h1>
+  <h2><span data-i18n data-de="Neue Impulse für Unternehmer." data-en="Fresh impulses for entrepreneurs.">Fresh impulses for entrepreneurs.</span></h2>
+  <p><span data-i18n data-de="Das Webinar für Unternehmer, die mehr Reichweite, mehr relevante Kontakte und ein professionell begleitetes Impulsmarketing suchen." data-en="The webinar for business owners looking for greater visibility, more relevant contacts and professionally managed impulse marketing.">The webinar for business owners looking for greater visibility, more relevant contacts and professionally managed impulse marketing.</span></p>
+  <div class="cover-en-services">
+    <span><b aria-hidden="true">✓</b> <span data-i18n data-de="Fullservice" data-en="Full service">Full service</span></span>
+    <span><b aria-hidden="true">●</b> <span data-i18n data-de="Impulsmarketing" data-en="Impulse marketing">Impulse marketing</span></span>
+    <span><b aria-hidden="true">↗</b> <span data-i18n data-de="Unternehmer-Netzwerk" data-en="Business network">Business network</span></span>
+  </div>
+  <div class="cover-en-slogan"><span data-i18n data-de="Mehr Geld. Mehr Freiheit. Mehr vom Leben." data-en="More money. More freedom. More from life.">More money. More freedom. More from life.</span></div>
 </div>
-<div class="opening-art"><div class="art-badge"><span data-i18n data-de="IM ENTSCHEIDENDEN MOMENT" data-en="AT THE DECISIVE MOMENT">IM ENTSCHEIDENDEN MOMENT</span></div>
-<svg viewBox="0 0 540 560" role="img" aria-label="Sichtbarkeit und Kundenentscheidung" data-aria-de="Sichtbarkeit und Kundenentscheidung" data-aria-en="Business visibility and customer decisions">
-<defs><linearGradient id="bloom" x1="0" x2="1"><stop stop-color="#eaf9fb"/><stop offset="1" stop-color="#faeaf4"/></linearGradient></defs>
-<circle cx="271" cy="274" r="227" fill="url(#bloom)"/><circle cx="270" cy="274" r="176" fill="none" stroke="#bfdfe4" stroke-width="2" stroke-dasharray="7 12"/><circle cx="270" cy="274" r="114" fill="white" stroke="#85cdd4" stroke-width="3"/>
-<path d="M173 176 99 100M366 179 455 107M270 389 270 475" stroke="#64b9c4" stroke-width="5" stroke-dasharray="8 10" fill="none"/>
-<circle cx="270" cy="272" r="63" fill="#e9f8fa"/><path d="M223 273c27-38 66-38 94 0-28 38-67 38-94 0Z" fill="none" stroke="#148ea2" stroke-width="8"/><circle cx="270" cy="273" r="16" fill="#be2777"/>
-<circle cx="95" cy="94" r="60" fill="white" stroke="#9fd2d9" stroke-width="3"/><path d="M70 92h50M70 77h50M70 107h35" stroke="#278a9d" stroke-width="7" stroke-linecap="round"/>
-<circle cx="451" cy="101" r="60" fill="white" stroke="#e2a8c8" stroke-width="3"/><path d="M429 85h44v30h-26l-13 9v-9h-5z" fill="none" stroke="#c32b7e" stroke-width="6" stroke-linejoin="round"/>
-<circle cx="270" cy="488" r="59" fill="white" stroke="#9fd2d9" stroke-width="3"/><path d="M247 478h46M247 493h46M247 508h27" stroke="#278a9d" stroke-width="7" stroke-linecap="round"/>
-</svg>
-<div class="art-foot"><span data-i18n data-de="Suchen · Begegnen · Erinnern" data-en="Find · Connect · Remember">Suchen · Begegnen · Erinnern</span></div></div></div><span class="slide-no">01 <i></i> 10</span></section>
+<span class="slide-no">01 <i></i> 10</span></section>
+
 <section class="slide problems" data-slide="2" aria-hidden="true" aria-label="Folie 2" data-aria-de="Folie 2" data-aria-en="Slide 2"><div class="brand"><img src="../liquiditybooster-leistungswelt-webinar/liquiditybooster-logo.png" alt="LiquidityBooster – Mehr Geld. Mehr Freiheit. Mehr vom Leben." draggable="false"></div><header class="slide-head"><div class="eyebrow"><span data-i18n data-de="AIDA · ATTENTION" data-en="AIDA · ATTENTION">AIDA · ATTENTION</span> <span class="microdot"></span> <span data-i18n data-de="DIE REALITÄT" data-en="THE REALITY">DIE REALITÄT</span></div></header>
 <div class="statement"><div><h2><span data-i18n data-de="Ihr Arbeitstag ist voll." data-en="Your working day is full.">Ihr Arbeitstag ist voll.</span><br><em><span data-i18n data-de="Ihr Marketingkalender auch?" data-en="Is your marketing calendar?">Ihr Marketingkalender auch?</span></em></h2><p><span data-i18n data-de="Kunden, Mitarbeiter, Angebote und die tägliche Organisation brauchen Ihre Aufmerksamkeit. Sichtbarkeit braucht sie ebenfalls – regelmäßig, nicht nur gelegentlich." data-en="Customers, employees, proposals and daily operations demand your attention. Visibility needs attention too—regularly, not just occasionally.">Kunden, Mitarbeiter, Angebote und die tägliche Organisation brauchen Ihre Aufmerksamkeit. Sichtbarkeit braucht sie ebenfalls – regelmäßig, nicht nur gelegentlich.</span></p></div>
 <div class="problem-clock"><svg class="" aria-hidden="true"><use href="#i-clock"></use></svg><strong><span data-i18n data-de="24 Stunden" data-en="24 hours">24 Stunden</span></strong><span><span data-i18n data-de="pro Tag" data-en="per day">pro Tag</span></span></div></div>
@@ -554,7 +568,7 @@ var lang="de",detailIndex=null,choice=null;
 var stage=document.getElementById("stage"),deck=document.getElementById("deck");
 var dim=document.getElementById("more-dim"),modal=document.getElementById("more-dialog");
 var data=JSON.parse(document.getElementById("detail-data").textContent);
-var names=[["Die Frage","The question"],["Die Realität","The reality"],["Der Wandel","The shift"],["12 Impulse","12 impulses"],["Die Lösung","The solution"],["Die Leistungen","The services"],["Ihr Mehrwert","Your value"],["Kosten & Nutzen","Costs & benefits"],["Der Preis","The price"],["Die Entscheidung","Your decision"]];
+var names=[["Startseite","Cover"],["Die Realität","The reality"],["Der Wandel","The shift"],["12 Impulse","12 impulses"],["Die Lösung","The solution"],["Die Leistungen","The services"],["Ihr Mehrwert","Your value"],["Kosten & Nutzen","Costs & benefits"],["Der Preis","The price"],["Die Entscheidung","Your decision"]];
 function resize(){var scale=Math.min(Math.max(140,stage.clientWidth-20)/1600,Math.max(130,stage.clientHeight-20)/900);deck.style.setProperty("--scale",String(Math.min(scale,2)));}
 function updateNav(){
 document.getElementById("slide-count").textContent=(curr+1)+" / "+slides.length;
