@@ -61,6 +61,13 @@
 @media(max-width:560px){.research>summary{padding:20px 17px}.research-content{padding:21px 15px}.research-grid{grid-template-columns:1fr;gap:14px}.research-grid .research-field:first-child{grid-column:auto}.research-branches{padding:16px 13px 20px}.research-industry-grid{grid-template-columns:1fr;gap:9px}.research-summary-title{font-size:21px}.research-copy{font-size:14px}}
 @media print{.research{display:none!important}}
 
+
+/* Regionale Suche: 16 Bundesländer und 401 Kreise, lokal eingebunden */
+.research-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.research-grid [hidden]{display:none!important}
+.research-center{grid-column:1/-1}
+@media(max-width:560px){.research-grid{grid-template-columns:1fr}.research-center{grid-column:auto}}
+
 </style>
 </head>
 <body>
@@ -112,22 +119,31 @@
       <p class="research-lead" data-i18n="researchLead">Du entscheidest, welche Unternehmen in deiner Region interessant sind. Die KI recherchiert passende Firmen und ausschließlich öffentlich belegbare Geschäftskontaktdaten. Die Recherche erfolgt in deinem KI-Chat, nicht auf dieser Seite.</p>
       <div class="research-grid">
         <div class="research-field">
-          <label for="researchRegion" data-i18n="regionLabel">Stadt oder Region</label>
-          <input type="text" id="researchRegion" maxlength="120" autocomplete="off" placeholder="z. B. Darmstadt-Dieburg" data-i18n-placeholder="regionPlaceholder">
+          <label for="researchState" data-i18n="stateLabel">Bundesland</label>
+          <select id="researchState" aria-required="true"><option value="" data-i18n="statePlaceholder">Bundesland auswählen</option></select>
+        </div>
+        <div class="research-field">
+          <label for="researchRegion" data-i18n="regionLabel">Landkreis oder kreisfreie Stadt</label>
+          <select id="researchRegion" aria-required="true" disabled><option value="" data-i18n="countyPlaceholder">Zuerst Bundesland auswählen</option></select>
         </div>
         <div class="research-field">
           <label for="researchArea" data-i18n="areaLabel">Suchgebiet</label>
           <select id="researchArea">
-            <option value="local" data-i18n="areaLocal">Nur gewählte Region</option>
-            <option value="20" data-i18n="area20">20 km Umkreis</option>
-            <option value="50" data-i18n="area50">50 km Umkreis</option>
+            <option value="local" data-i18n="areaLocal">Nur gewählter Kreis / Stadt</option>
+            <option value="20" data-i18n="area20">Zusätzlich 20 km Umkreis</option>
+            <option value="50" data-i18n="area50">Zusätzlich 50 km Umkreis</option>
           </select>
         </div>
         <div class="research-field">
           <label for="researchQuantity" data-i18n="quantityLabel">Firmenanzahl</label>
           <select id="researchQuantity"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select>
         </div>
+        <div class="research-field research-center" id="researchCenterWrap" hidden>
+          <label for="researchCenter" data-i18n="centerLabel">Mittelpunkt für den Umkreis</label>
+          <input id="researchCenter" type="text" maxlength="120" autocomplete="off" placeholder="z. B. Dieburg" data-i18n-placeholder="centerPlaceholder">
+        </div>
       </div>
+      <p class="research-note" data-i18n="districtSource">Gebietsstand 2026 · 16 Bundesländer · 401 Kreise und kreisfreie Städte (einschließlich Hanau).</p>
       <fieldset class="research-branches" id="researchBranches">
         <legend data-i18n="industryLegend">Branchen für die KI-Recherche auswählen</legend>
         <div class="research-branch-header"><span class="research-note" style="margin:0" data-i18n="industryHelp">Wähle die passenden Branchen individuell aus.</span><output id="researchCount" class="research-count" aria-live="polite">19 ausgewählt</output></div>
@@ -145,7 +161,7 @@
           <span data-i18n="researchCopy">KI-Recherche-Prompt kopieren</span>
         </button>
         <output id="researchFeedback" class="research-feedback" role="status" aria-live="polite"></output>
-        <details class="research-preview" id="researchPreviewDetails">
+        <details class="research-preview" id="researchPreviewDetails" open>
           <summary data-i18n="previewTitle">Vollständigen KI-Prompt anzeigen</summary>
           <textarea id="researchPrompt" readonly aria-label="KI-Recherche-Prompt" data-i18n-aria="previewAria" spellcheck="false"></textarea>
         </details>
@@ -164,6 +180,66 @@ const translations={
 function setLanguage(lang){if(!Object.prototype.hasOwnProperty.call(translations,lang))return;const t=translations[lang];document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(Object.prototype.hasOwnProperty.call(t,key))el.textContent=t[key]});document.querySelectorAll('[data-lang]').forEach(btn=>{const active=btn.dataset.lang===lang;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active))});document.getElementById('printButton').setAttribute('aria-label',t.printAria);document.title=lang==='de'?'ClubLeader · Einladungsleitfaden Unternehmerforum | LiquidityBooster':'ClubLeader · Entrepreneurs’ Forum Invitation Guide | LiquidityBooster'}
 document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
 document.getElementById('printButton').addEventListener('click',()=>window.print());
+
+
+/* Gebietsstand 2026. Kreiscodes: fünfstellig, führende Nullen als Text.
+   Ausgangsdaten: deutsche Verwaltungsgebiete (BKG), Änderungen 2016
+   (Osterode/Göttingen), 2021 (Eisenach/Wartburgkreis) und 2026 (Hanau).
+   Statische Auswahl, ohne externe Anfragen oder zusätzliche Dateien. */
+const researchStates=[
+  ['01','Schleswig-Holstein','Schleswig-Holstein'],
+  ['02','Hamburg','Hamburg'],
+  ['03','Niedersachsen','Lower Saxony'],
+  ['04','Bremen','Bremen'],
+  ['05','Nordrhein-Westfalen','North Rhine-Westphalia'],
+  ['06','Hessen','Hesse'],
+  ['07','Rheinland-Pfalz','Rhineland-Palatinate'],
+  ['08','Baden-Württemberg','Baden-Württemberg'],
+  ['09','Bayern','Bavaria'],
+  ['10','Saarland','Saarland'],
+  ['11','Berlin','Berlin'],
+  ['12','Brandenburg','Brandenburg'],
+  ['13','Mecklenburg-Vorpommern','Mecklenburg-Western Pomerania'],
+  ['14','Sachsen','Saxony'],
+  ['15','Sachsen-Anhalt','Saxony-Anhalt'],
+  ['16','Thüringen','Thuringia']
+];
+const researchCounties=[["01001","Flensburg","Kreisfreie Stadt"],["01002","Kiel","Kreisfreie Stadt"],["01003","Lübeck","Kreisfreie Stadt"],["01004","Neumünster","Kreisfreie Stadt"],["01051","Dithmarschen","Kreis"],["01053","Herzogtum Lauenburg","Kreis"],["01054","Nordfriesland","Kreis"],["01055","Ostholstein","Kreis"],["01056","Pinneberg","Kreis"],["01057","Plön","Kreis"],["01058","Rendsburg-Eckernförde","Kreis"],["01059","Schleswig-Flensburg","Kreis"],["01060","Segeberg","Kreis"],["01061","Steinburg","Kreis"],["01062","Stormarn","Kreis"],["02000","Hamburg","Kreisfreie Stadt"],["03101","Braunschweig","Kreisfreie Stadt"],["03102","Salzgitter","Kreisfreie Stadt"],["03103","Wolfsburg","Kreisfreie Stadt"],["03151","Gifhorn","Landkreis"],["03152","Göttingen","Landkreis"],["03153","Goslar","Landkreis"],["03154","Helmstedt","Landkreis"],["03155","Northeim","Landkreis"],["03157","Peine","Landkreis"],["03158","Wolfenbüttel","Landkreis"],["03241","Region Hannover","Landkreis"],["03251","Diepholz","Landkreis"],["03252","Hameln-Pyrmont","Landkreis"],["03254","Hildesheim","Landkreis"],["03255","Holzminden","Landkreis"],["03256","Nienburg (Weser)","Landkreis"],["03257","Schaumburg","Landkreis"],["03351","Celle","Landkreis"],["03352","Cuxhaven","Landkreis"],["03353","Harburg","Landkreis"],["03354","Lüchow-Dannenberg","Landkreis"],["03355","Lüneburg","Landkreis"],["03356","Osterholz","Landkreis"],["03357","Rotenburg (Wümme)","Landkreis"],["03358","Heidekreis","Landkreis"],["03359","Stade","Landkreis"],["03360","Uelzen","Landkreis"],["03361","Verden","Landkreis"],["03401","Delmenhorst","Kreisfreie Stadt"],["03402","Emden","Kreisfreie Stadt"],["03403","Oldenburg","Kreisfreie Stadt"],["03404","Osnabrück","Kreisfreie Stadt"],["03405","Wilhelmshaven","Kreisfreie Stadt"],["03451","Ammerland","Landkreis"],["03452","Aurich","Landkreis"],["03453","Cloppenburg","Landkreis"],["03454","Emsland","Landkreis"],["03455","Friesland","Landkreis"],["03456","Grafschaft Bentheim","Landkreis"],["03457","Leer","Landkreis"],["03458","Oldenburg","Landkreis"],["03459","Osnabrück","Landkreis"],["03460","Vechta","Landkreis"],["03461","Wesermarsch","Landkreis"],["03462","Wittmund","Landkreis"],["04011","Bremen","Kreisfreie Stadt"],["04012","Bremerhaven","Kreisfreie Stadt"],["05111","Düsseldorf","Kreisfreie Stadt"],["05112","Duisburg","Kreisfreie Stadt"],["05113","Essen","Kreisfreie Stadt"],["05114","Krefeld","Kreisfreie Stadt"],["05116","Mönchengladbach","Kreisfreie Stadt"],["05117","Mülheim an der Ruhr","Kreisfreie Stadt"],["05119","Oberhausen","Kreisfreie Stadt"],["05120","Remscheid","Kreisfreie Stadt"],["05122","Solingen","Kreisfreie Stadt"],["05124","Wuppertal","Kreisfreie Stadt"],["05154","Kleve","Kreis"],["05158","Mettmann","Kreis"],["05162","Rhein-Kreis Neuss","Kreis"],["05166","Viersen","Kreis"],["05170","Wesel","Kreis"],["05314","Bonn","Kreisfreie Stadt"],["05315","Köln","Kreisfreie Stadt"],["05316","Leverkusen","Kreisfreie Stadt"],["05334","Städteregion Aachen","Kreis"],["05358","Düren","Kreis"],["05362","Rhein-Erft-Kreis","Kreis"],["05366","Euskirchen","Kreis"],["05370","Heinsberg","Kreis"],["05374","Oberbergischer Kreis","Kreis"],["05378","Rheinisch-Bergischer Kreis","Kreis"],["05382","Rhein-Sieg-Kreis","Kreis"],["05512","Bottrop","Kreisfreie Stadt"],["05513","Gelsenkirchen","Kreisfreie Stadt"],["05515","Münster","Kreisfreie Stadt"],["05554","Borken","Kreis"],["05558","Coesfeld","Kreis"],["05562","Recklinghausen","Kreis"],["05566","Steinfurt","Kreis"],["05570","Warendorf","Kreis"],["05711","Bielefeld","Kreisfreie Stadt"],["05754","Gütersloh","Kreis"],["05758","Herford","Kreis"],["05762","Höxter","Kreis"],["05766","Lippe","Kreis"],["05770","Minden-Lübbecke","Kreis"],["05774","Paderborn","Kreis"],["05911","Bochum","Kreisfreie Stadt"],["05913","Dortmund","Kreisfreie Stadt"],["05914","Hagen","Kreisfreie Stadt"],["05915","Hamm","Kreisfreie Stadt"],["05916","Herne","Kreisfreie Stadt"],["05954","Ennepe-Ruhr-Kreis","Kreis"],["05958","Hochsauerlandkreis","Kreis"],["05962","Märkischer Kreis","Kreis"],["05966","Olpe","Kreis"],["05970","Siegen-Wittgenstein","Kreis"],["05974","Soest","Kreis"],["05978","Unna","Kreis"],["06411","Darmstadt","Kreisfreie Stadt"],["06412","Frankfurt am Main","Kreisfreie Stadt"],["06413","Offenbach am Main","Kreisfreie Stadt"],["06414","Wiesbaden","Kreisfreie Stadt"],["06415","Hanau","Kreisfreie Stadt"],["06431","Bergstraße","Landkreis"],["06432","Darmstadt-Dieburg","Landkreis"],["06433","Groß-Gerau","Landkreis"],["06434","Hochtaunuskreis","Landkreis"],["06435","Main-Kinzig-Kreis","Landkreis"],["06436","Main-Taunus-Kreis","Landkreis"],["06437","Odenwaldkreis","Landkreis"],["06438","Offenbach","Landkreis"],["06439","Rheingau-Taunus-Kreis","Landkreis"],["06440","Wetteraukreis","Landkreis"],["06531","Gießen","Landkreis"],["06532","Lahn-Dill-Kreis","Landkreis"],["06533","Limburg-Weilburg","Landkreis"],["06534","Marburg-Biedenkopf","Landkreis"],["06535","Vogelsbergkreis","Landkreis"],["06611","Kassel","Kreisfreie Stadt"],["06631","Fulda","Landkreis"],["06632","Hersfeld-Rotenburg","Landkreis"],["06633","Kassel","Landkreis"],["06634","Schwalm-Eder-Kreis","Landkreis"],["06635","Waldeck-Frankenberg","Landkreis"],["06636","Werra-Meißner-Kreis","Landkreis"],["07111","Koblenz","Kreisfreie Stadt"],["07131","Ahrweiler","Landkreis"],["07132","Altenkirchen (Westerwald)","Landkreis"],["07133","Bad Kreuznach","Landkreis"],["07134","Birkenfeld","Landkreis"],["07135","Cochem-Zell","Landkreis"],["07137","Mayen-Koblenz","Landkreis"],["07138","Neuwied","Landkreis"],["07140","Rhein-Hunsrück-Kreis","Landkreis"],["07141","Rhein-Lahn-Kreis","Landkreis"],["07143","Westerwaldkreis","Landkreis"],["07211","Trier","Kreisfreie Stadt"],["07231","Bernkastel-Wittlich","Landkreis"],["07232","Eifelkreis Bitburg-Prüm","Landkreis"],["07233","Vulkaneifel","Landkreis"],["07235","Trier-Saarburg","Landkreis"],["07311","Frankenthal (Pfalz)","Kreisfreie Stadt"],["07312","Kaiserslautern","Kreisfreie Stadt"],["07313","Landau in der Pfalz","Kreisfreie Stadt"],["07314","Ludwigshafen am Rhein","Kreisfreie Stadt"],["07315","Mainz","Kreisfreie Stadt"],["07316","Neustadt an der Weinstraße","Kreisfreie Stadt"],["07317","Pirmasens","Kreisfreie Stadt"],["07318","Speyer","Kreisfreie Stadt"],["07319","Worms","Kreisfreie Stadt"],["07320","Zweibrücken","Kreisfreie Stadt"],["07331","Alzey-Worms","Landkreis"],["07332","Bad Dürkheim","Landkreis"],["07333","Donnersbergkreis","Landkreis"],["07334","Germersheim","Landkreis"],["07335","Kaiserslautern","Landkreis"],["07336","Kusel","Landkreis"],["07337","Südliche Weinstraße","Landkreis"],["07338","Rhein-Pfalz-Kreis","Landkreis"],["07339","Mainz-Bingen","Landkreis"],["07340","Südwestpfalz","Landkreis"],["08111","Stuttgart","Stadtkreis"],["08115","Böblingen","Landkreis"],["08116","Esslingen","Landkreis"],["08117","Göppingen","Landkreis"],["08118","Ludwigsburg","Landkreis"],["08119","Rems-Murr-Kreis","Landkreis"],["08121","Heilbronn","Stadtkreis"],["08125","Heilbronn","Landkreis"],["08126","Hohenlohekreis","Landkreis"],["08127","Schwäbisch Hall","Landkreis"],["08128","Main-Tauber-Kreis","Landkreis"],["08135","Heidenheim","Landkreis"],["08136","Ostalbkreis","Landkreis"],["08211","Baden-Baden","Stadtkreis"],["08212","Karlsruhe","Stadtkreis"],["08215","Karlsruhe","Landkreis"],["08216","Rastatt","Landkreis"],["08221","Heidelberg","Stadtkreis"],["08222","Mannheim","Stadtkreis"],["08225","Neckar-Odenwald-Kreis","Landkreis"],["08226","Rhein-Neckar-Kreis","Landkreis"],["08231","Pforzheim","Stadtkreis"],["08235","Calw","Landkreis"],["08236","Enzkreis","Landkreis"],["08237","Freudenstadt","Landkreis"],["08311","Freiburg im Breisgau","Stadtkreis"],["08315","Breisgau-Hochschwarzwald","Landkreis"],["08316","Emmendingen","Landkreis"],["08317","Ortenaukreis","Landkreis"],["08325","Rottweil","Landkreis"],["08326","Schwarzwald-Baar-Kreis","Landkreis"],["08327","Tuttlingen","Landkreis"],["08335","Konstanz","Landkreis"],["08336","Lörrach","Landkreis"],["08337","Waldshut","Landkreis"],["08415","Reutlingen","Landkreis"],["08416","Tübingen","Landkreis"],["08417","Zollernalbkreis","Landkreis"],["08421","Ulm","Stadtkreis"],["08425","Alb-Donau-Kreis","Landkreis"],["08426","Biberach","Landkreis"],["08435","Bodenseekreis","Landkreis"],["08436","Ravensburg","Landkreis"],["08437","Sigmaringen","Landkreis"],["09161","Ingolstadt","Kreisfreie Stadt"],["09162","München","Kreisfreie Stadt"],["09163","Rosenheim","Kreisfreie Stadt"],["09171","Altötting","Landkreis"],["09172","Berchtesgadener Land","Landkreis"],["09173","Bad Tölz-Wolfratshausen","Landkreis"],["09174","Dachau","Landkreis"],["09175","Ebersberg","Landkreis"],["09176","Eichstätt","Landkreis"],["09177","Erding","Landkreis"],["09178","Freising","Landkreis"],["09179","Fürstenfeldbruck","Landkreis"],["09180","Garmisch-Partenkirchen","Landkreis"],["09181","Landsberg am Lech","Landkreis"],["09182","Miesbach","Landkreis"],["09183","Mühldorf am Inn","Landkreis"],["09184","München","Landkreis"],["09185","Neuburg-Schrobenhausen","Landkreis"],["09186","Pfaffenhofen an der Ilm","Landkreis"],["09187","Rosenheim","Landkreis"],["09188","Starnberg","Landkreis"],["09189","Traunstein","Landkreis"],["09190","Weilheim-Schongau","Landkreis"],["09261","Landshut","Kreisfreie Stadt"],["09262","Passau","Kreisfreie Stadt"],["09263","Straubing","Kreisfreie Stadt"],["09271","Deggendorf","Landkreis"],["09272","Freyung-Grafenau","Landkreis"],["09273","Kelheim","Landkreis"],["09274","Landshut","Landkreis"],["09275","Passau","Landkreis"],["09276","Regen","Landkreis"],["09277","Rottal-Inn","Landkreis"],["09278","Straubing-Bogen","Landkreis"],["09279","Dingolfing-Landau","Landkreis"],["09361","Amberg","Kreisfreie Stadt"],["09362","Regensburg","Kreisfreie Stadt"],["09363","Weiden in der Oberpfalz","Kreisfreie Stadt"],["09371","Amberg-Sulzbach","Landkreis"],["09372","Cham","Landkreis"],["09373","Neumarkt in der Oberpfalz","Landkreis"],["09374","Neustadt an der Waldnaab","Landkreis"],["09375","Regensburg","Landkreis"],["09376","Schwandorf","Landkreis"],["09377","Tirschenreuth","Landkreis"],["09461","Bamberg","Kreisfreie Stadt"],["09462","Bayreuth","Kreisfreie Stadt"],["09463","Coburg","Kreisfreie Stadt"],["09464","Hof","Kreisfreie Stadt"],["09471","Bamberg","Landkreis"],["09472","Bayreuth","Landkreis"],["09473","Coburg","Landkreis"],["09474","Forchheim","Landkreis"],["09475","Hof","Landkreis"],["09476","Kronach","Landkreis"],["09477","Kulmbach","Landkreis"],["09478","Lichtenfels","Landkreis"],["09479","Wunsiedel im Fichtelgebirge","Landkreis"],["09561","Ansbach","Kreisfreie Stadt"],["09562","Erlangen","Kreisfreie Stadt"],["09563","Fürth","Kreisfreie Stadt"],["09564","Nürnberg","Kreisfreie Stadt"],["09565","Schwabach","Kreisfreie Stadt"],["09571","Ansbach","Landkreis"],["09572","Erlangen-Höchstadt","Landkreis"],["09573","Fürth","Landkreis"],["09574","Nürnberger Land","Landkreis"],["09575","Neustadt an der Aisch-Bad Windsheim","Landkreis"],["09576","Roth","Landkreis"],["09577","Weißenburg-Gunzenhausen","Landkreis"],["09661","Aschaffenburg","Kreisfreie Stadt"],["09662","Schweinfurt","Kreisfreie Stadt"],["09663","Würzburg","Kreisfreie Stadt"],["09671","Aschaffenburg","Landkreis"],["09672","Bad Kissingen","Landkreis"],["09673","Rhön-Grabfeld","Landkreis"],["09674","Haßberge","Landkreis"],["09675","Kitzingen","Landkreis"],["09676","Miltenberg","Landkreis"],["09677","Main-Spessart","Landkreis"],["09678","Schweinfurt","Landkreis"],["09679","Würzburg","Landkreis"],["09761","Augsburg","Kreisfreie Stadt"],["09762","Kaufbeuren","Kreisfreie Stadt"],["09763","Kempten (Allgäu)","Kreisfreie Stadt"],["09764","Memmingen","Kreisfreie Stadt"],["09771","Aichach-Friedberg","Landkreis"],["09772","Augsburg","Landkreis"],["09773","Dillingen an der Donau","Landkreis"],["09774","Günzburg","Landkreis"],["09775","Neu-Ulm","Landkreis"],["09776","Lindau (Bodensee)","Landkreis"],["09777","Ostallgäu","Landkreis"],["09778","Unterallgäu","Landkreis"],["09779","Donau-Ries","Landkreis"],["09780","Oberallgäu","Landkreis"],["10041","Regionalverband Saarbrücken","Landkreis"],["10042","Merzig-Wadern","Landkreis"],["10043","Neunkirchen","Landkreis"],["10044","Saarlouis","Landkreis"],["10045","Saarpfalz-Kreis","Landkreis"],["10046","St. Wendel","Landkreis"],["11000","Berlin","Kreisfreie Stadt"],["12051","Brandenburg an der Havel","Kreisfreie Stadt"],["12052","Cottbus","Kreisfreie Stadt"],["12053","Frankfurt (Oder)","Kreisfreie Stadt"],["12054","Potsdam","Kreisfreie Stadt"],["12060","Barnim","Landkreis"],["12061","Dahme-Spreewald","Landkreis"],["12062","Elbe-Elster","Landkreis"],["12063","Havelland","Landkreis"],["12064","Märkisch-Oderland","Landkreis"],["12065","Oberhavel","Landkreis"],["12066","Oberspreewald-Lausitz","Landkreis"],["12067","Oder-Spree","Landkreis"],["12068","Ostprignitz-Ruppin","Landkreis"],["12069","Potsdam-Mittelmark","Landkreis"],["12070","Prignitz","Landkreis"],["12071","Spree-Neiße","Landkreis"],["12072","Teltow-Fläming","Landkreis"],["12073","Uckermark","Landkreis"],["13003","Rostock","Kreisfreie Stadt"],["13004","Schwerin","Kreisfreie Stadt"],["13071","Mecklenburgische Seenplatte","Landkreis"],["13072","Rostock","Landkreis"],["13073","Vorpommern-Rügen","Landkreis"],["13074","Nordwestmecklenburg","Landkreis"],["13075","Vorpommern-Greifswald","Landkreis"],["13076","Ludwigslust-Parchim","Landkreis"],["14511","Chemnitz","Kreisfreie Stadt"],["14521","Erzgebirgskreis","Landkreis"],["14522","Mittelsachsen","Landkreis"],["14523","Vogtlandkreis","Landkreis"],["14524","Zwickau","Landkreis"],["14612","Dresden","Kreisfreie Stadt"],["14625","Bautzen","Landkreis"],["14626","Görlitz","Landkreis"],["14627","Meißen","Landkreis"],["14628","Sächsische Schweiz-Osterzgebirge","Landkreis"],["14713","Leipzig","Kreisfreie Stadt"],["14729","Leipzig","Landkreis"],["14730","Nordsachsen","Landkreis"],["15001","Dessau-Roßlau","Kreisfreie Stadt"],["15002","Halle (Saale)","Kreisfreie Stadt"],["15003","Magdeburg","Kreisfreie Stadt"],["15081","Altmarkkreis Salzwedel","Landkreis"],["15082","Anhalt-Bitterfeld","Landkreis"],["15083","Börde","Landkreis"],["15084","Burgenlandkreis","Landkreis"],["15085","Harz","Landkreis"],["15086","Jerichower Land","Landkreis"],["15087","Mansfeld-Südharz","Landkreis"],["15088","Saalekreis","Landkreis"],["15089","Salzlandkreis","Landkreis"],["15090","Stendal","Landkreis"],["15091","Wittenberg","Landkreis"],["16051","Erfurt","Kreisfreie Stadt"],["16052","Gera","Kreisfreie Stadt"],["16053","Jena","Kreisfreie Stadt"],["16054","Suhl","Kreisfreie Stadt"],["16055","Weimar","Kreisfreie Stadt"],["16061","Eichsfeld","Landkreis"],["16062","Nordhausen","Landkreis"],["16063","Wartburgkreis","Landkreis"],["16064","Unstrut-Hainich-Kreis","Landkreis"],["16065","Kyffhäuserkreis","Landkreis"],["16066","Schmalkalden-Meiningen","Landkreis"],["16067","Gotha","Landkreis"],["16068","Sömmerda","Landkreis"],["16069","Hildburghausen","Landkreis"],["16070","Ilm-Kreis","Landkreis"],["16071","Weimarer Land","Landkreis"],["16072","Sonneberg","Landkreis"],["16073","Saalfeld-Rudolstadt","Landkreis"],["16074","Saale-Holzland-Kreis","Landkreis"],["16075","Saale-Orla-Kreis","Landkreis"],["16076","Greiz","Landkreis"],["16077","Altenburger Land","Landkreis"]];
+function researchCountyName(d,lang){
+  if(!d)return lang==='en'?'[SELECT DISTRICT OR INDEPENDENT CITY]':'[LANDKREIS ODER KREISFREIE STADT AUSWÄHLEN]';
+  if(d[0]==='11000'||d[0]==='02000')return d[1];
+  const type=d[2];
+  if(lang==='en')return (type==='Kreisfreie Stadt'||type==='Stadtkreis'?'Independent city ':'District ')+d[1];
+  if(type==='Kreisfreie Stadt')return 'Kreisfreie Stadt '+d[1];
+  if(type==='Stadtkreis')return 'Stadtkreis '+d[1];
+  if(/^Landkreis/i.test(d[1])||/^Kreis/i.test(d[1])||/kreis$/i.test(d[1])||/kreis/i.test(d[1])||/Städteregion|Region Hannover|Regionalverband/i.test(d[1]))return d[1];
+  return 'Landkreis '+d[1];
+}
+function researchSetSelectOptions(){
+  const lang=researchLang(),t=researchTrans[lang];
+  const prevState=researchState.value,prevCounty=researchRegion.value;
+  researchState.replaceChildren(new Option(t.statePlaceholder,''));
+  for(const state of [...researchStates].sort((a,b)=>a[lang==='en'?2:1].localeCompare(b[lang==='en'?2:1],lang))){
+    researchState.add(new Option(state[lang==='en'?2:1],state[0]));
+  }
+  researchState.value=researchStates.some(x=>x[0]===prevState)?prevState:'';
+  researchPopulateCounties(prevCounty);
+}
+function researchPopulateCounties(keepValue){
+  const lang=researchLang(),t=researchTrans[lang],state=researchState.value;
+  const items=researchCounties.filter(d=>d[0].startsWith(state)&&state)
+    .sort((a,b)=>researchCountyName(a,lang).localeCompare(researchCountyName(b,lang),lang));
+  researchRegion.replaceChildren(new Option(state?t.countySelect:t.countyPlaceholder,''));
+  for(const d of items)researchRegion.add(new Option(researchCountyName(d,lang),d[0]));
+  researchRegion.disabled=!state;
+  researchRegion.value=items.some(d=>d[0]===keepValue)?keepValue:'';
+}
+function researchRadiusChange(){
+  const needed=researchArea.value!=='local';
+  document.getElementById('researchCenterWrap').hidden=!needed;
+  researchCenter.required=needed;
+  researchUpdate();
+}
 
 /* KI-Recherche: keine API, keine externe Übertragung, keine Kontaktkartei */
 const researchGroups=[
@@ -190,6 +266,7 @@ const researchInitialExcluded=new Set(['health','food','other']);
 const researchChecked=new Set(researchGroups.flatMap(g=>g.items.map(i=>i[0])).filter(id=>!researchInitialExcluded.has(id)));
 const researchTrans={
   de:{
+    stateLabel:'Bundesland',statePlaceholder:'Bundesland auswählen',countyPlaceholder:'Zuerst Bundesland auswählen',countySelect:'Landkreis / kreisfreie Stadt auswählen',centerLabel:'Mittelpunkt für den Umkreis',centerPlaceholder:'z. B. Dieburg',districtSource:'Gebietsstand 2026 · 16 Bundesländer · 401 Kreise und kreisfreie Städte (einschließlich Hanau).',feedbackState:'Bitte zuerst ein Bundesland auswählen.',feedbackCounty:'Bitte einen Landkreis oder eine kreisfreie Stadt auswählen.',feedbackCenter:'Bitte einen Mittelpunkt (Ort) für den Umkreis eingeben.',
     researchTitle:'Deine regionale Firmenliste mit KI erstellen',
     researchSubtitle:'Region wählen, passende Branchen markieren und einen belegbaren Excel-Rechercheauftrag kopieren.',
     researchLead:'Du entscheidest, welche Unternehmen in deiner Region interessant sind. Die KI recherchiert passende Firmen und ausschließlich öffentlich belegbare Geschäftskontaktdaten. Die Recherche erfolgt in deinem KI-Chat, nicht auf dieser Seite.',
@@ -206,6 +283,7 @@ const researchTrans={
     feedbackFallback:'Kopieren nicht möglich. Bitte den Prompt unten öffnen und manuell kopieren.'
   },
   en:{
+    stateLabel:'Federal state',statePlaceholder:'Select federal state',countyPlaceholder:'Select a federal state first',countySelect:'Select district / independent city',centerLabel:'Centre of the search radius',centerPlaceholder:'e.g. Dieburg',districtSource:'Administrative divisions as of 2026 · 16 federal states · 401 districts and independent cities (including Hanau).',feedbackState:'Please select a federal state first.',feedbackCounty:'Please select a district or independent city.',feedbackCenter:'Please enter a city as the search radius centre.',
     researchTitle:'Create your regional company list with AI',
     researchSubtitle:'Choose a region, select industries and copy a source-verified Excel research prompt.',
     researchLead:'You choose which businesses in your region are relevant. AI researches suitable companies using only publicly verifiable business contact details. The research takes place in your AI chat, not on this page.',
@@ -232,7 +310,9 @@ for(const group of researchGroups){
 }
 Object.assign(translations.de,researchTrans.de);
 Object.assign(translations.en,researchTrans.en);
+const researchState=document.getElementById('researchState');
 const researchRegion=document.getElementById('researchRegion');
+const researchCenter=document.getElementById('researchCenter');
 const researchArea=document.getElementById('researchArea');
 const researchQuantity=document.getElementById('researchQuantity');
 const researchIndustryGroups=document.getElementById('researchIndustryGroups');
@@ -261,15 +341,24 @@ function researchMakeIndustries(){
   }
 }
 function researchGeneratePrompt(){
-  const region=researchRegion.value.trim();
-  if(!region||researchChecked.size===0)return '';
   const lang=researchLang();
-  const industries=researchSelectedIndustries(lang).map(s=>'• '+s).join('\n');
+  const state=researchStates.find(s=>s[0]===researchState.value);
+  const county=researchCounties.find(d=>d[0]===researchRegion.value);
+  const stateName=state?state[lang==='en'?2:1]:(lang==='en'?'[SELECT FEDERAL STATE]':'[BUNDESLAND AUSWÄHLEN]');
+  const countyName=researchCountyName(county,lang);
+  const region=county?countyName+' ('+county[0]+'), '+stateName:countyName+', '+stateName;
+  const industries=researchChecked.size?researchSelectedIndustries(lang).map(s=>'• '+s).join('\n'):
+    (lang==='en'?'[SELECT AT LEAST ONE INDUSTRY]':'[MINDESTENS EINE BRANCHE AUSWÄHLEN]');
   const area=researchArea.value;
-  const areaDesc=area==='local'?(lang==='en'?'Within the stated administrative region':'Innerhalb der angegebenen Stadt / Region'):
-    (lang==='en'?'Within '+area+' km of the selected location':'Im Umkreis von '+area+' km um den angegebenen Ort');
+  const center=researchCenter.value.trim()||(lang==='en'?'[ENTER CENTRE CITY]':'[MITTELPUNKT-ORT EINGEBEN]');
+  const areaDesc=area==='local'
+    ?(lang==='en'?'Only within '+countyName:'Ausschließlich innerhalb von '+countyName)
+    :(lang==='en'?'Selected district / independent city plus the area within '+area+' km of '+center:
+       'Gewählter Landkreis / kreisfreie Stadt sowie zusätzlich ein Umkreis von '+area+' km um '+center);
   if(lang==='en')return [
     'RESEARCH REQUEST: PUBLICLY VERIFIED REGIONAL BUSINESS LIST FOR AN ENTREPRENEURS’ FORUM',
+    'Federal state: '+stateName,
+    'District or independent city: '+countyName+(county?' (official code '+county[0]+')':''),
     'Location: '+region,
     'Search area: '+areaDesc,
     'Requested number of companies: '+researchQuantity.value,
@@ -292,6 +381,8 @@ function researchGeneratePrompt(){
   ].join('\n');
   return [
     'RECHERCHEAUFTRAG: ÖFFENTLICH BELEGTE REGIONALE FIRMENLISTE FÜR EIN UNTERNEHMERFORUM',
+    'Bundesland: '+stateName,
+    'Landkreis / kreisfreie Stadt: '+countyName+(county?' (amtlicher Kreisschlüssel '+county[0]+')':''),
     'Stadt / Region: '+region,
     'Suchgebiet: '+areaDesc,
     'Gewünschte Firmenanzahl: '+researchQuantity.value,
@@ -315,13 +406,14 @@ function researchGeneratePrompt(){
 }
 function researchUpdate(){
   researchCount.textContent=researchChecked.size+researchTrans[researchLang()].chosen;
-  researchCopy.disabled=!researchRegion.value.trim()||researchChecked.size===0;
+  researchCopy.disabled=!researchState.value||!researchRegion.value||researchChecked.size===0||(researchArea.value!=='local'&&!researchCenter.value.trim());
   researchPrompt.value=researchGeneratePrompt();
   researchFeedback.textContent='';
 }
 function researchRefreshLanguage(){
   const t=researchTrans[researchLang()];
-  researchRegion.placeholder=t.regionPlaceholder;
+  researchSetSelectOptions();
+  researchCenter.placeholder=t.centerPlaceholder;
   researchPrompt.setAttribute('aria-label',t.previewAria);
   researchCollapse.textContent=researchIsExpanded?t.collapse:t.expand;
   researchCount.textContent=researchChecked.size+t.chosen;
@@ -350,11 +442,17 @@ document.getElementById('researchClearAll').addEventListener('click',()=>{
   researchUpdate();
 });
 researchCollapse.addEventListener('click',()=>researchSetExpanded(!researchIsExpanded));
-[researchRegion,researchArea,researchQuantity].forEach(el=>el.addEventListener(el===researchRegion?'input':'change',researchUpdate));
+researchState.addEventListener('change',()=>{researchPopulateCounties('');researchUpdate()});
+researchRegion.addEventListener('change',researchUpdate);
+researchArea.addEventListener('change',researchRadiusChange);
+researchCenter.addEventListener('input',researchUpdate);
+researchQuantity.addEventListener('change',researchUpdate);
 document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',researchRefreshLanguage));
 async function researchCopyPrompt(){
   const t=researchTrans[researchLang()];
-  if(!researchRegion.value.trim()){researchFeedback.textContent=t.feedbackRegion;researchRegion.focus();return}
+  if(!researchState.value){researchFeedback.textContent=t.feedbackState;researchState.focus();return}
+  if(!researchRegion.value){researchFeedback.textContent=t.feedbackCounty;researchRegion.focus();return}
+  if(researchArea.value!=='local'&&!researchCenter.value.trim()){researchFeedback.textContent=t.feedbackCenter;researchCenter.focus();return}
   if(!researchChecked.size){researchFeedback.textContent=t.feedbackIndustry;return}
   const prompt=researchGeneratePrompt();
   let success=false;
@@ -371,7 +469,7 @@ async function researchCopyPrompt(){
 }
 researchCopy.addEventListener('click',researchCopyPrompt);
 researchRefreshLanguage();
-researchUpdate();
+researchRadiusChange();
 
 </script>
 </body>
