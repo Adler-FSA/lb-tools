@@ -17,6 +17,50 @@
 @media(max-width:800px){.responses{grid-template-columns:1fr}.steps{grid-template-columns:1fr;gap:17px}.hero{padding-top:37px}.section-hint{display:none}}
 @media(max-width:560px){.container{width:calc(100% - 28px)}.header-inner{min-height:68px}.brand svg{width:30px;height:35px}.brand-name{font-size:17px}.brand-sub{font-size:9px}.header-tools{gap:6px}.print-button{padding:8px}.print-button span{display:none}.hero{padding-top:35px}.hero h1{letter-spacing:-.03em}.script-step{grid-template-columns:59px minmax(0,1fr)}.stage{padding:19px 7px 12px 11px}.stage-letter{font-size:29px}.stage-name{font-size:9px;overflow-wrap:anywhere}.speech{padding:18px 14px;font-size:16px;line-height:1.55}.statement{font-size:14px}.kms{padding:20px 18px}}
 @media print{@page{size:A4;margin:12mm}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}body{font:11pt/1.43 Arial,Helvetica,sans-serif}.container{width:100%}.site-header{border-bottom:1px solid #bdcfd2}.header-inner{min-height:53px}.header-tools{display:none}.hero{padding:25px 0 18px}.hero h1{font-size:34px}.hero p{font-size:12pt}.statement{margin-top:12px}.section{margin:16px 0 17px}.section-heading h2{font-size:19px}.script{box-shadow:none}.script-step{break-inside:avoid;grid-template-columns:72px minmax(0,1fr)}.stage{padding:14px 10px}.stage-letter{font-size:29px}.stage-name{font-size:9px}.speech{font-size:12pt;padding:13px 17px}.speech p{margin-bottom:6px}.responses{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.response{padding:12px;break-inside:avoid}.response h3{font-size:11pt}.response p{font-size:10pt}.kms{padding:15px;break-inside:avoid}.kms h2{font-size:14pt}.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.step p{font-size:9pt}.footer{padding-top:10px}}
+
+/* KI-Firmenrecherche: eigenständiger Baustein, bestehender Leitfaden unverändert */
+.research{margin:0 0 58px;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.research>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:25px 28px;cursor:pointer;background:linear-gradient(110deg,#f3fcfc,#fff 63%,#fff6fb)}
+.research>summary::-webkit-details-marker,.research-preview>summary::-webkit-details-marker{display:none}
+.research-summary-title{display:block;font-size:clamp(20px,2.5vw,28px);font-weight:790;letter-spacing:-.025em;line-height:1.2;color:var(--navy)}
+.research-summary-sub{display:block;margin-top:6px;font-size:14px;line-height:1.45;color:var(--muted)}
+.research-chevron{width:26px;height:26px;flex:0 0 auto;color:var(--mint-dark);transition:transform .18s}
+.research[open]>.research-summary .research-chevron{transform:rotate(180deg)}
+.research-content{padding:26px 28px 30px;border-top:1px solid var(--line)}
+.research-lead{margin:0 0 22px;color:#4c5e70;font-size:15px;line-height:1.55}
+.research-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.9fr) minmax(0,1fr);gap:16px;margin-bottom:24px}
+.research-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.research-field>label,.research-legend{font-size:13px;font-weight:780;color:var(--navy)}
+.research-field input,.research-field select{width:100%;min-height:49px;border:1px solid #cfdde1;border-radius:10px;background:#fff;color:var(--navy);padding:10px 13px;font:inherit}
+.research-field input:focus,.research-field select:focus{outline:2px solid var(--mint);outline-offset:1px}
+.research-branches{margin:0;border:1px solid var(--line);border-radius:15px;padding:20px 20px 23px}
+.research-branches legend{padding:0 7px;font-size:17px;font-weight:780;color:var(--navy)}
+.research-branch-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:9px;margin:0 0 9px}
+.research-count{border-radius:999px;padding:5px 10px;color:var(--navy);background:#e8f5f5;font-size:12px;font-weight:750}
+.research-branch-actions{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px}
+.research-small-button{min-height:35px;border:1px solid var(--line);border-radius:8px;padding:6px 12px;background:#fff;color:var(--navy);font-size:13px;font-weight:730}
+.research-small-button:hover{border-color:var(--mint)}
+.research-small-button:focus-visible,.research-copy:focus-visible{outline:3px solid var(--mag);outline-offset:2px}
+.research-industry-group+.research-industry-group{margin-top:22px}
+.research-industry-title{margin:0 0 10px;color:var(--navy);font-size:15px;font-weight:790}
+.research-industry-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px}
+.research-checkbox{display:flex;align-items:flex-start;gap:9px;font-size:15px;line-height:1.45;color:var(--text);cursor:pointer;min-width:0}
+.research-checkbox input{width:19px;height:19px;flex:0 0 19px;margin:2px 0 0;accent-color:var(--navy);cursor:pointer}
+.research-checkbox span{overflow-wrap:anywhere}
+.research-actions{margin-top:23px}
+.research-copy{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:51px;padding:12px 17px;border:0;border-radius:11px;background:var(--navy);color:white;font:inherit;font-size:15px;font-weight:800}
+.research-copy:hover:not(:disabled){background:#213b56}
+.research-copy:disabled{opacity:.48;cursor:not-allowed}
+.research-copy svg{width:19px;height:19px;flex:0 0 19px}
+.research-feedback{display:block;min-height:23px;margin:8px 0 0;color:var(--mint-dark);font-size:13px;font-weight:730}
+.research-note{margin:0 0 15px;color:var(--muted);font-size:13px;line-height:1.55}
+.research-preview{margin-top:12px;border:1px solid var(--line);border-radius:11px;background:var(--soft)}
+.research-preview>summary{list-style:none;padding:12px 15px;color:var(--navy);font-size:13px;font-weight:770;cursor:pointer}
+.research-preview textarea{width:calc(100% - 28px);margin:0 14px 14px;min-height:250px;resize:vertical;border:1px solid var(--line);border-radius:8px;padding:12px;background:#fff;color:var(--text);font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace}
+@media(max-width:800px){.research-grid{grid-template-columns:1fr 1fr}.research-grid .research-field:first-child{grid-column:1/-1}}
+@media(max-width:560px){.research>summary{padding:20px 17px}.research-content{padding:21px 15px}.research-grid{grid-template-columns:1fr;gap:14px}.research-grid .research-field:first-child{grid-column:auto}.research-branches{padding:16px 13px 20px}.research-industry-grid{grid-template-columns:1fr;gap:9px}.research-summary-title{font-size:21px}.research-copy{font-size:14px}}
+@media print{.research{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -57,6 +101,58 @@
     </div>
   </section>
   <section class="kms" aria-labelledby="kms-title"><h2 id="kms-title" data-i18n="kmsTitle">Nach einer gewünschten Einladung</h2><div class="steps"><div class="step"><span class="step-n">1</span><p><strong data-i18n="kms1title">Im KMS erfassen</strong><span data-i18n="kms1">Den Kontakt im persönlichen ClubLeader-KMS anlegen.</span></p></div><div class="step"><span class="step-n">2</span><p><strong data-i18n="kms2title">Double-Opt-In</strong><span data-i18n="kms2">Der Unternehmer bestätigt die Bestätigungs-E-Mail.</span></p></div><div class="step"><span class="step-n">3</span><p><strong data-i18n="kms3title">Einladung erhalten</strong><span data-i18n="kms3">Erst nach der Bestätigung erhält er die Einladung mit dem Zugangslink.</span></p></div></div></section>
+
+  <!-- Eigenständige Ergänzung nach dem bestehenden KMS-Ablauf -->
+  <details class="research" id="researchModule">
+    <summary class="research-summary">
+      <span><span class="research-summary-title" data-i18n="researchTitle">Deine regionale Firmenliste mit KI erstellen</span><span class="research-summary-sub" data-i18n="researchSubtitle">Region wählen, passende Branchen markieren und einen belegbaren Excel-Rechercheauftrag kopieren.</span></span>
+      <svg class="research-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 9 7 7 7-7"/></svg>
+    </summary>
+    <div class="research-content">
+      <p class="research-lead" data-i18n="researchLead">Du entscheidest, welche Unternehmen in deiner Region interessant sind. Die KI recherchiert passende Firmen und ausschließlich öffentlich belegbare Geschäftskontaktdaten. Die Recherche erfolgt in deinem KI-Chat, nicht auf dieser Seite.</p>
+      <div class="research-grid">
+        <div class="research-field">
+          <label for="researchRegion" data-i18n="regionLabel">Stadt oder Region</label>
+          <input type="text" id="researchRegion" maxlength="120" autocomplete="off" placeholder="z. B. Darmstadt-Dieburg" data-i18n-placeholder="regionPlaceholder">
+        </div>
+        <div class="research-field">
+          <label for="researchArea" data-i18n="areaLabel">Suchgebiet</label>
+          <select id="researchArea">
+            <option value="local" data-i18n="areaLocal">Nur gewählte Region</option>
+            <option value="20" data-i18n="area20">20 km Umkreis</option>
+            <option value="50" data-i18n="area50">50 km Umkreis</option>
+          </select>
+        </div>
+        <div class="research-field">
+          <label for="researchQuantity" data-i18n="quantityLabel">Firmenanzahl</label>
+          <select id="researchQuantity"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select>
+        </div>
+      </div>
+      <fieldset class="research-branches" id="researchBranches">
+        <legend data-i18n="industryLegend">Branchen für die KI-Recherche auswählen</legend>
+        <div class="research-branch-header"><span class="research-note" style="margin:0" data-i18n="industryHelp">Wähle die passenden Branchen individuell aus.</span><output id="researchCount" class="research-count" aria-live="polite">19 ausgewählt</output></div>
+        <div class="research-branch-actions">
+          <button type="button" class="research-small-button" id="researchSelectAll" data-i18n="selectAll">Alle auswählen</button>
+          <button type="button" class="research-small-button" id="researchClearAll" data-i18n="clearAll">Auswahl löschen</button>
+          <button type="button" class="research-small-button" id="researchCollapse" aria-expanded="true" data-i18n="collapse">Einklappen</button>
+        </div>
+        <div id="researchIndustryGroups"></div>
+      </fieldset>
+      <div class="research-actions">
+        <p class="research-note" data-i18n="researchNote">Nur öffentlich nachprüfbare Firmendaten mit konkreten Quellenlinks. Keine erfundenen Namen, E-Mail-Adressen oder Telefonnummern. Fehlende Angaben bleiben leer.</p>
+        <button type="button" class="research-copy" id="researchCopy" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          <span data-i18n="researchCopy">KI-Recherche-Prompt kopieren</span>
+        </button>
+        <output id="researchFeedback" class="research-feedback" role="status" aria-live="polite"></output>
+        <details class="research-preview" id="researchPreviewDetails">
+          <summary data-i18n="previewTitle">Vollständigen KI-Prompt anzeigen</summary>
+          <textarea id="researchPrompt" readonly aria-label="KI-Recherche-Prompt" data-i18n-aria="previewAria" spellcheck="false"></textarea>
+        </details>
+      </div>
+    </div>
+  </details>
+
 </main>
 <footer class="footer"><div class="container"><span>LiquidityBooster · ClubLeader</span><span data-i18n="footer">Persönliche Einladung zum Unternehmerforum</span></div></footer>
 <script>
@@ -68,6 +164,215 @@ const translations={
 function setLanguage(lang){if(!Object.prototype.hasOwnProperty.call(translations,lang))return;const t=translations[lang];document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(Object.prototype.hasOwnProperty.call(t,key))el.textContent=t[key]});document.querySelectorAll('[data-lang]').forEach(btn=>{const active=btn.dataset.lang===lang;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active))});document.getElementById('printButton').setAttribute('aria-label',t.printAria);document.title=lang==='de'?'ClubLeader · Einladungsleitfaden Unternehmerforum | LiquidityBooster':'ClubLeader · Entrepreneurs’ Forum Invitation Guide | LiquidityBooster'}
 document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
 document.getElementById('printButton').addEventListener('click',()=>window.print());
+
+/* KI-Recherche: keine API, keine externe Übertragung, keine Kontaktkartei */
+const researchGroups=[
+  {key:'craft',de:'Bau, Handwerk & Technik',en:'Construction, trades & technology',items:[
+    ['construction','Bauhandwerk','Building trades'],['plumbing','Sanitär, Heizung & Klima','Plumbing, heating & air conditioning'],
+    ['electric','Elektro- & Energietechnik','Electrical & energy technology'],['interior','Innenausbau & Einrichtung','Interior fitting & furnishings'],
+    ['garden','Garten- & Landschaftsbau','Gardening & landscaping'],['auto','Kfz & Fahrzeugservice','Automotive & vehicle service'],
+    ['repair','Kundendienst & Reparaturen','Customer service & repairs']
+  ]},
+  {key:'b2b',de:'Unternehmensdienstleistungen',en:'Business services',items:[
+    ['it','IT & Telekommunikation','IT & telecommunications'],['cleaning','Gebäudereinigung & Facility','Building cleaning & facilities'],
+    ['media','Werbung & Medien','Advertising & media'],['office','Büro- & Unternehmensservice','Office & business services'],
+    ['transport','Transport & Logistik','Transport & logistics'],['industry','Industrie & Großhandel','Industry & wholesale']
+  ]},
+  {key:'services',de:'Handel, Gesundheit & Freizeit',en:'Retail, health & leisure',items:[
+    ['retail','Fach- & Einzelhandel','Specialist shops & retail'],['property','Immobilien','Real estate'],
+    ['education','Bildung & Schulung','Education & training'],['fitness','Fitness & Wellness','Fitness & wellness'],
+    ['health','Gesundheit & Therapie','Health & therapy'],['food','Gastronomie & Catering','Hospitality & catering'],
+    ['hotel','Hotellerie & Tourismus','Hotels & tourism'],['events','Veranstaltungen','Events'],
+    ['other','Weitere Gewerbebetriebe','Other businesses']
+  ]}
+];
+const researchInitialExcluded=new Set(['health','food','other']);
+const researchChecked=new Set(researchGroups.flatMap(g=>g.items.map(i=>i[0])).filter(id=>!researchInitialExcluded.has(id)));
+const researchTrans={
+  de:{
+    researchTitle:'Deine regionale Firmenliste mit KI erstellen',
+    researchSubtitle:'Region wählen, passende Branchen markieren und einen belegbaren Excel-Rechercheauftrag kopieren.',
+    researchLead:'Du entscheidest, welche Unternehmen in deiner Region interessant sind. Die KI recherchiert passende Firmen und ausschließlich öffentlich belegbare Geschäftskontaktdaten. Die Recherche erfolgt in deinem KI-Chat, nicht auf dieser Seite.',
+    regionLabel:'Stadt oder Region',regionPlaceholder:'z. B. Darmstadt-Dieburg',
+    areaLabel:'Suchgebiet',areaLocal:'Nur gewählte Region',area20:'20 km Umkreis',area50:'50 km Umkreis',
+    quantityLabel:'Firmenanzahl',industryLegend:'Branchen für die KI-Recherche auswählen',
+    industryHelp:'Wähle die passenden Branchen individuell aus.',
+    selectAll:'Alle auswählen',clearAll:'Auswahl löschen',collapse:'Einklappen',expand:'Aufklappen',
+    researchNote:'Nur öffentlich nachprüfbare Firmendaten mit konkreten Quellenlinks. Keine erfundenen Namen, E-Mail-Adressen oder Telefonnummern. Fehlende Angaben bleiben leer.',
+    researchCopy:'KI-Recherche-Prompt kopieren',previewTitle:'Vollständigen KI-Prompt anzeigen',previewAria:'KI-Recherche-Prompt',
+    chosen:' ausgewählt',feedbackRegion:'Bitte zuerst eine Stadt oder Region eingeben.',
+    feedbackIndustry:'Bitte mindestens eine Branche auswählen.',
+    feedbackSuccess:'Prompt kopiert. Jetzt in ChatGPT oder einer anderen KI einfügen.',
+    feedbackFallback:'Kopieren nicht möglich. Bitte den Prompt unten öffnen und manuell kopieren.'
+  },
+  en:{
+    researchTitle:'Create your regional company list with AI',
+    researchSubtitle:'Choose a region, select industries and copy a source-verified Excel research prompt.',
+    researchLead:'You choose which businesses in your region are relevant. AI researches suitable companies using only publicly verifiable business contact details. The research takes place in your AI chat, not on this page.',
+    regionLabel:'City or region',regionPlaceholder:'e.g. Darmstadt-Dieburg',
+    areaLabel:'Search area',areaLocal:'Selected region only',area20:'Within 20 km',area50:'Within 50 km',
+    quantityLabel:'Number of businesses',industryLegend:'Choose industries for AI research',
+    industryHelp:'Select the relevant industries individually.',
+    selectAll:'Select all',clearAll:'Clear selection',collapse:'Collapse',expand:'Expand',
+    researchNote:'Only publicly verifiable company information with direct source links. No invented names, email addresses or phone numbers. Leave unverifiable fields blank.',
+    researchCopy:'Copy AI research prompt',previewTitle:'Show full AI prompt',previewAria:'AI research prompt',
+    chosen:' selected',feedbackRegion:'Please enter a city or region first.',
+    feedbackIndustry:'Please select at least one industry.',
+    feedbackSuccess:'Prompt copied. Paste it into ChatGPT or another AI.',
+    feedbackFallback:'Could not copy. Open the prompt below and copy it manually.'
+  }
+};
+for(const group of researchGroups){
+  researchTrans.de['researchGroup_'+group.key]=group.de;
+  researchTrans.en['researchGroup_'+group.key]=group.en;
+  for(const item of group.items){
+    researchTrans.de['researchIndustry_'+item[0]]=item[1];
+    researchTrans.en['researchIndustry_'+item[0]]=item[2];
+  }
+}
+Object.assign(translations.de,researchTrans.de);
+Object.assign(translations.en,researchTrans.en);
+const researchRegion=document.getElementById('researchRegion');
+const researchArea=document.getElementById('researchArea');
+const researchQuantity=document.getElementById('researchQuantity');
+const researchIndustryGroups=document.getElementById('researchIndustryGroups');
+const researchCount=document.getElementById('researchCount');
+const researchPrompt=document.getElementById('researchPrompt');
+const researchCopy=document.getElementById('researchCopy');
+const researchFeedback=document.getElementById('researchFeedback');
+const researchCollapse=document.getElementById('researchCollapse');
+let researchIsExpanded=true;
+function researchLang(){return document.documentElement.lang==='en'?'en':'de'}
+function researchAllIndustries(){return researchGroups.flatMap(g=>g.items)}
+function researchSelectedIndustries(lang){return researchAllIndustries().filter(i=>researchChecked.has(i[0])).map(i=>lang==='en'?i[2]:i[1])}
+function researchMakeIndustries(){
+  for(const g of researchGroups){
+    const block=document.createElement('section');block.className='research-industry-group';
+    const heading=document.createElement('h3');heading.className='research-industry-title';heading.dataset.i18n='researchGroup_'+g.key;heading.textContent=g.de;
+    const grid=document.createElement('div');grid.className='research-industry-grid';
+    for(const item of g.items){
+      const label=document.createElement('label');label.className='research-checkbox';
+      const input=document.createElement('input');input.type='checkbox';input.value=item[0];input.checked=researchChecked.has(item[0]);input.setAttribute('aria-label',item[1]);
+      input.addEventListener('change',()=>{if(input.checked)researchChecked.add(item[0]);else researchChecked.delete(item[0]);researchUpdate()});
+      const caption=document.createElement('span');caption.dataset.i18n='researchIndustry_'+item[0];caption.textContent=item[1];
+      label.append(input,caption);grid.append(label);
+    }
+    block.append(heading,grid);researchIndustryGroups.append(block);
+  }
+}
+function researchGeneratePrompt(){
+  const region=researchRegion.value.trim();
+  if(!region||researchChecked.size===0)return '';
+  const lang=researchLang();
+  const industries=researchSelectedIndustries(lang).map(s=>'• '+s).join('\n');
+  const area=researchArea.value;
+  const areaDesc=area==='local'?(lang==='en'?'Within the stated administrative region':'Innerhalb der angegebenen Stadt / Region'):
+    (lang==='en'?'Within '+area+' km of the selected location':'Im Umkreis von '+area+' km um den angegebenen Ort');
+  if(lang==='en')return [
+    'RESEARCH REQUEST: PUBLICLY VERIFIED REGIONAL BUSINESS LIST FOR AN ENTREPRENEURS’ FORUM',
+    'Location: '+region,
+    'Search area: '+areaDesc,
+    'Requested number of companies: '+researchQuantity.value,
+    'Selected industries:\n'+industries,
+    '',
+    'OBJECTIVE: Identify real businesses for a personal invitation to an entrepreneurs’ forum about visibility, new customers and regional business connections. This request is for research only; do not send messages, invitations or make calls.',
+    '',
+    'SUITABILITY FILTER: Prefer companies where attracting additional customers, having a wider catchment area, selling higher-value products or services, servicing business customers, or offering bookable supplementary services could make additional visibility economically relevant. Deprioritize very small businesses dependent solely on local walk-in trade with no identifiable additional services. Do not categorically exclude small companies. Assess suitability only using evidence in public sources. Do not guess revenue, marketing budgets, free capacity, growth plans, or purchase interest. If uncertain, mark suitability as unverified.',
+    '',
+    'SOURCES: Research broadly across Google, Bing and other search engines, Google business listings, official company sites and imprint/legal-notice pages, Gelbe Seiten, Das Telefonbuch, meinestadt.de, other business directories, regional trade and business associations, chambers of commerce, chambers of trades, public registers and other suitable public sources. These are examples, not an exclusive list. Cross-check findings with authoritative company sources where possible.',
+    '',
+    'FOR EACH COMPANY COLLECT ONLY PUBLICLY VERIFIABLE BUSINESS INFORMATION:',
+    '1. Company name; 2. Industry; 3. First name of managing director / proprietor; 4. Last name of managing director / proprietor; 5. Publicly stated role; 6. Street and building number; 7. Postal code; 8. City; 9. Published business telephone number; 10. Published business mobile number (if any); 11. Published business email address; 12. Official website; 13. Suitability category (A = strong, B = conditional, or unverified); 14. Brief evidence-based explanation; 15. Direct URLs verifying company and managing director; 16. Direct URLs verifying contact details; 17. Research date.',
+    '',
+    'QUALITY RULES: No invented or inferred companies, names, phone numbers, mobile numbers, email addresses, or sources. Never synthesize an email from a name and domain. Do not use private contact details. Leave unverified fields blank. Include clickable URLs to actual sources for each record and distinguish the sources if details came from multiple sites. Check business location and remove duplicates. Only include records genuinely matching the selected industries and search area. If the search area is a radius around an ambiguous district or broad region rather than a single city, ask for a central location before applying the radius.',
+    '',
+    'OUTPUT: Generate a clean, filterable .xlsx workbook with a company list and a brief overview of the companies and industries found. Add a source/method note. If fewer verified companies can be found, return only the verified ones; never pad with fictitious records. If you cannot access live web sources, say so openly and do not claim to have researched current data. If generating .xlsx is not possible, provide Excel-compatible CSV instead.',
+    '',
+    'Public business contact details are not by themselves permission for unsolicited email or phone marketing.'
+  ].join('\n');
+  return [
+    'RECHERCHEAUFTRAG: ÖFFENTLICH BELEGTE REGIONALE FIRMENLISTE FÜR EIN UNTERNEHMERFORUM',
+    'Stadt / Region: '+region,
+    'Suchgebiet: '+areaDesc,
+    'Gewünschte Firmenanzahl: '+researchQuantity.value,
+    'Ausgewählte Branchen:\n'+industries,
+    '',
+    'ZIEL: Ermittle tatsächlich existierende Unternehmen für eine persönliche Einladung zu einem Unternehmerforum über mehr Sichtbarkeit, neue Kunden und regionale Geschäftsverbindungen. Es geht ausschließlich um Firmenrecherche. Versende selbst keine Einladungen, E-Mails oder Nachrichten und führe keine Anrufe durch.',
+    '',
+    'EIGNUNGSFILTER: Bevorzuge Unternehmen, bei denen zusätzliche Kunden, ein überörtlicher Einzugsbereich, höherwertige Produkte oder Dienstleistungen, B2B-Geschäft oder buchbare Zusatzangebote einen wirtschaftlich nachvollziehbaren Nutzen von mehr Sichtbarkeit ermöglichen könnten. Stelle sehr kleine Unternehmen zurück, die nur von unmittelbarer Laufkundschaft leben und keine erkennbaren Zusatzangebote besitzen. Kleine Betriebe nicht pauschal ausschließen. Begründe die vorläufige Eignung ausschließlich anhand belegter öffentlicher Merkmale. Erfinde keine Umsätze, Werbebudgets, freien Kapazitäten, Wachstumspläne oder Kaufabsichten. Ist die Eignung nicht belegbar, kennzeichne sie als offen.',
+    '',
+    'QUELLEN: Recherchiere breit über Google, Bing und weitere Suchmaschinen, öffentliche Google-Firmeneinträge, offizielle Firmenwebsites und Impressen, Gelbe Seiten, Das Telefonbuch, meinestadt.de, weitere Firmen- und Branchenverzeichnisse, regionale Gewerbevereine, Industrie- und Handelskammern, Handwerkskammern, öffentliche Register und sämtliche weiteren geeigneten öffentlich zugänglichen Quellen. Dies sind Beispiele und keine abschließende Liste. Prüfe Angaben nach Möglichkeit zusätzlich auf offiziellen Unternehmensseiten.',
+    '',
+    'FÜR JEDEN BETRIEB AUSSCHLIESSLICH ÖFFENTLICH BELEGBARE GESCHÄFTLICHE ANGABEN ERMITTELN:',
+    '1. Firmenname; 2. Branche; 3. Vorname Geschäftsführung / Inhaber; 4. Nachname Geschäftsführung / Inhaber; 5. öffentlich bezeichnete Funktion; 6. Straße / Hausnummer; 7. PLZ; 8. Ort; 9. veröffentlichte geschäftliche Telefonnummer; 10. veröffentlichte geschäftliche Mobilnummer (falls vorhanden); 11. veröffentlichte geschäftliche E-Mail-Adresse; 12. offizielle Website; 13. Eignung (A = hoch, B = bedingt, oder offen); 14. kurze, öffentlich belegte Begründung; 15. direkte Quellen-URLs für Unternehmen und Geschäftsleitung; 16. direkte Quellen-URLs für Kontaktdaten; 17. Recherche-Datum.',
+    '',
+    'VERBINDLICHE QUALITÄTSREGELN: Keine erfundenen oder vermuteten Firmennamen, Personennamen, Telefonnummern, Mobilnummern, E-Mail-Adressen oder Quellen. Keine E-Mail-Adressen aus Namen und Domains ableiten. Keine privaten Kontaktdaten verwenden. Fehlende oder nicht belegbare Angaben leer lassen. Zu jeder Firma überprüfbare direkte Webseiten-Links angeben und unterschiedliche Quellen für verschiedene Angaben kenntlich machen. Regionale Zugehörigkeit prüfen, Dubletten entfernen. Nur Firmen aus gewählten Branchen und Suchgebiet berücksichtigen. Bei einem Umkreis um einen Landkreis oder eine andere Region ohne eindeutigen Mittelpunkt zuerst nach einem konkreten Mittelpunkt fragen.',
+    '',
+    'ERGEBNIS: Erstelle eine saubere, filterbare XLSX-Datei mit Firmenliste sowie einer kurzen Übersicht über Orte und Branchen; dokumentiere Quellen und Rechercheverfahren. Wenn weniger Unternehmen belegbar sind, liefere nur die tatsächlich bestätigten Treffer und fülle nicht mit Fantasiedaten auf. Falls du keinen aktuellen Webzugriff hast, sage das ausdrücklich und behaupte keine aktuelle Recherche. Falls keine XLSX-Datei erstellt werden kann, liefere eine Excel-kompatible CSV.',
+    '',
+    'Öffentlich veröffentlichte Geschäftskontaktdaten sind nicht automatisch eine Einwilligung in unverlangte Telefon- oder E-Mail-Werbung.'
+  ].join('\n');
+}
+function researchUpdate(){
+  researchCount.textContent=researchChecked.size+researchTrans[researchLang()].chosen;
+  researchCopy.disabled=!researchRegion.value.trim()||researchChecked.size===0;
+  researchPrompt.value=researchGeneratePrompt();
+  researchFeedback.textContent='';
+}
+function researchRefreshLanguage(){
+  const t=researchTrans[researchLang()];
+  researchRegion.placeholder=t.regionPlaceholder;
+  researchPrompt.setAttribute('aria-label',t.previewAria);
+  researchCollapse.textContent=researchIsExpanded?t.collapse:t.expand;
+  researchCount.textContent=researchChecked.size+t.chosen;
+  researchIndustryGroups.querySelectorAll('label.research-checkbox').forEach(label=>{
+    const item=researchAllIndustries().find(i=>i[0]===label.firstChild.value);
+    if(item)label.firstChild.setAttribute('aria-label',researchLang()==='en'?item[2]:item[1]);
+  });
+  researchPrompt.value=researchGeneratePrompt();
+  researchFeedback.textContent='';
+}
+function researchSetExpanded(expanded){
+  researchIsExpanded=expanded;
+  researchIndustryGroups.hidden=!expanded;
+  researchCollapse.setAttribute('aria-expanded',String(expanded));
+  researchCollapse.textContent=expanded?researchTrans[researchLang()].collapse:researchTrans[researchLang()].expand;
+}
+researchMakeIndustries();
+document.getElementById('researchSelectAll').addEventListener('click',()=>{
+  for(const item of researchAllIndustries())researchChecked.add(item[0]);
+  researchIndustryGroups.querySelectorAll('input[type=checkbox]').forEach(input=>input.checked=true);
+  researchUpdate();
+});
+document.getElementById('researchClearAll').addEventListener('click',()=>{
+  researchChecked.clear();
+  researchIndustryGroups.querySelectorAll('input[type=checkbox]').forEach(input=>input.checked=false);
+  researchUpdate();
+});
+researchCollapse.addEventListener('click',()=>researchSetExpanded(!researchIsExpanded));
+[researchRegion,researchArea,researchQuantity].forEach(el=>el.addEventListener(el===researchRegion?'input':'change',researchUpdate));
+document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',researchRefreshLanguage));
+async function researchCopyPrompt(){
+  const t=researchTrans[researchLang()];
+  if(!researchRegion.value.trim()){researchFeedback.textContent=t.feedbackRegion;researchRegion.focus();return}
+  if(!researchChecked.size){researchFeedback.textContent=t.feedbackIndustry;return}
+  const prompt=researchGeneratePrompt();
+  let success=false;
+  if(navigator.clipboard&&window.isSecureContext){
+    try{await navigator.clipboard.writeText(prompt);success=true}catch(e){success=false}
+  }
+  if(!success){
+    researchPrompt.value=prompt;
+    const details=document.getElementById('researchPreviewDetails');
+    details.open=true;researchPrompt.focus();researchPrompt.select();
+    try{success=!!document.execCommand('copy')}catch(e){success=false}
+  }
+  researchFeedback.textContent=success?t.feedbackSuccess:t.feedbackFallback;
+}
+researchCopy.addEventListener('click',researchCopyPrompt);
+researchRefreshLanguage();
+researchUpdate();
+
 </script>
 </body>
 </html>
