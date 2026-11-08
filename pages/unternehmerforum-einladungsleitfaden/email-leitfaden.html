@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<title>ClubLeader · E-Mail-Leitfaden | Gemeinsam unsere regionale Wirtschaft stärken</title>
+<style>
+:root{--navy:#132238;--mint:#008e93;--mag:#c6006f;--text:#253345;--muted:#617082;--line:#dbe6e8;--pale:#effafa;--soft:#f7fafb;--shadow:0 11px 35px rgba(19,34,56,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}button,a{font:inherit}button{cursor:pointer}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--mag);outline-offset:3px}
+.wrap{width:min(980px,calc(100% - 36px));margin:0 auto}
+header{background:#fff;border-bottom:1px solid var(--line)}.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand svg{width:35px;height:40px;flex-shrink:0}
+.brand-name{font-weight:800;color:var(--navy);font-size:20px;letter-spacing:-.035em;line-height:1.2}.brand-name span{color:var(--mint)}.brand-sub{font-size:11px;letter-spacing:.045em;color:var(--muted);font-weight:720}
+.actions{display:flex;align-items:center;gap:9px}.languages{display:flex;gap:3px;border:1px solid var(--line);padding:3px;border-radius:10px}.lang{padding:7px 11px;border:0;border-radius:7px;background:transparent;color:var(--muted);font-size:12px;font-weight:830}.lang.active{background:var(--navy);color:#fff}
+.print{display:flex;align-items:center;gap:7px;padding:9px 13px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--navy);font-size:13px;font-weight:750}.print svg{width:18px;height:18px}
+.hero{padding:47px 0 28px}.kicker{color:var(--mint);font-weight:830;letter-spacing:.13em;font-size:12px;text-transform:uppercase;margin:0 0 9px}
+h1{color:var(--navy);font-size:clamp(30px,4.6vw,49px);line-height:1.1;letter-spacing:-.042em;margin:0 0 15px}.lead{max-width:830px;font-size:18px;color:var(--muted);margin:0}
+.steps{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:10px 0 31px}.step{border:1px solid var(--line);border-radius:15px;background:var(--soft);padding:18px 20px;min-height:118px}.step strong{display:block;color:var(--navy);line-height:1.25;margin-bottom:5px}.step p{font-size:14px;color:#556577;margin:0;line-height:1.48}.step-arrow{color:var(--mint);display:grid;place-items:center}.step-arrow svg{width:24px;height:24px}
+.notice{border-left:4px solid var(--mag);padding:12px 17px;background:#fff6fa;border-radius:0 10px 10px 0;margin:0 0 30px;color:#554052;font-size:14px}.notice strong{color:var(--navy)}
+.email-details{border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;background:white;margin-bottom:23px}.email-details>summary{list-style:none;padding:19px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(110deg,#f2fbfb,#fff 72%);cursor:pointer}.email-details>summary::-webkit-details-marker{display:none}
+.summary-label{color:var(--navy);font-size:20px;font-weight:800;line-height:1.3}.summary-sub{display:block;color:var(--muted);font-size:13px;font-weight:520;margin-top:4px}.chevron{width:22px;height:22px;flex:0 0 auto;color:var(--mint);transition:transform .16s}.email-details[open] .chevron{transform:rotate(180deg)}
+.details-inner{padding:22px 25px 29px;border-top:1px solid var(--line)}.context{margin:0 0 17px;color:#4e5d70;font-size:14px}.preview-note{border-radius:9px;background:#fff5fa;border:1px solid #f0c6dc;padding:12px 15px;font-size:13px;margin-bottom:19px}
+.mail{max-width:790px;border:1px solid #d5dfe3;border-radius:14px;overflow:hidden;background:white}.mail-meta{background:var(--soft);border-bottom:1px solid var(--line);padding:14px 20px}.mail-meta p{margin:0;font-size:14px;color:#495a6e}.mail-meta p+p{margin-top:5px}.mail-meta strong{color:var(--navy)}
+.mail-body{padding:27px 29px 33px;font-size:15.5px;line-height:1.75;color:#29384c}.mail-body p{margin:0 0 17px}.mail-body p:last-child{margin-bottom:0}.mail-body .heading{font-weight:800;color:var(--navy);font-size:18px}.mail-body ul{padding-left:21px;margin:5px 0 23px}.mail-body li{margin:0 0 11px}.mail-body li::marker{color:var(--mint)}.confirm-display{display:inline-block;margin:7px 0 22px;border-radius:9px;background:var(--navy);padding:11px 18px;color:#fff;font-weight:750;font-size:14px;cursor:default}
+.mail-body .invite-box{padding:15px 18px;border-left:4px solid var(--mint);background:#f3fbfa;margin:18px 0 23px}.invite-box p{margin:0 0 7px}.invite-box p:last-child{margin-bottom:0}
+.return{margin:31px 0 57px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.back{display:inline-flex;align-items:center;gap:10px;background:var(--navy);border-radius:11px;color:#fff;text-decoration:none;padding:11px 17px;font-weight:760;font-size:14px}.back:hover{background:#294762}.back svg{width:17px;height:17px}.return p{margin:0;color:var(--muted);font-size:13px}
+footer{border-top:1px solid var(--line);padding:18px 0 25px;color:var(--muted);font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:650px){.steps{grid-template-columns:1fr;gap:9px}.step{min-height:0}.step-arrow svg{transform:rotate(90deg)}.hero{padding-top:31px}.mail-body{padding:20px 18px;font-size:15px}.details-inner{padding:18px 13px 22px}.email-details>summary{padding:16px}.summary-label{font-size:18px}.print{padding:8px}.print span{display:none}.brand-name{font-size:17px}.brand-sub{font-size:10px}.brand svg{width:30px;height:35px}}
+@media print{@page{size:A4;margin:12mm}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}body{font:11pt/1.45 Arial,Helvetica,sans-serif}.wrap{width:100%}.actions,.return,footer{display:none!important}.header-inner{min-height:53px}.hero{padding:20px 0 14px}.hero h1{font-size:31px}.lead{font-size:12pt}.steps{grid-template-columns:1fr auto 1fr;gap:8px;margin-bottom:12px}.step{min-height:0;padding:10px}.step p{font-size:10pt}.notice{margin:0 0 12px}.email-details{border:0;box-shadow:none;overflow:visible;break-before:page;break-inside:auto;margin:0}.email-details>summary{padding:5px 0 12px;background:none}.chevron{display:none}.details-inner{padding:0;border:0}.mail{max-width:none;border-color:#ddd}.mail-body{font-size:10.5pt;padding:18px 22px}.mail-body p{margin-bottom:12px}.mail-body li{margin-bottom:6px}.email-details:not([open])>.details-inner{display:block!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap header-inner">
+  <div class="brand">
+    <svg viewBox="0 0 42 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 2C15 6 9 6 3 5v20c0 10 7 17 18 21 11-4 18-11 18-21V5C32 6 27 6 21 2Z" fill="white" stroke="#00a7ad" stroke-width="2.3"/><path d="M21 10C16 13 12 13 10 12v13c0 7 4 12 11 15 7-3 11-8 11-2Z" fill="#e9f9f9"/><path d="M21 17c-4 6-6 9-6 13a6 6 0 0 0 12 0c0-4-2-7-6-13Z" fill="#c6006f"/><path d="M21 25v9" stroke="white" stroke-width="2"/></svg>
+    <div><div class="brand-name">Liquidity<span>Booster</span></div><div class="brand-sub" data-i18n="brandSub">ClubLeader · E-Mail-Leitfaden</div></div>
+  </div>
+  <div class="actions">
+    <div class="languages" role="group" aria-label="Sprache / Language"><button type="button" class="lang active" data-lang="de" aria-pressed="true">DE</button><button type="button" class="lang" data-lang="en" aria-pressed="false">EN</button></div>
+    <button type="button" class="print" id="printButton" aria-label="Drucken"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1-2 2v-5a2 2 0 0 1 2-2h-2"/><path d="M6 14h12v7H6zM18 12h.01"/></svg><span data-i18n="print">Drucken</span></button>
+  </div>
+</div></header>
+<main class="wrap">
+  <section class="hero">
+    <p class="kicker" data-i18n="kicker">Die Einladung nach dem Telefonat</p>
+    <h1 data-i18n="title">Gemeinsam unsere regionale Wirtschaft stärken</h1>
+    <p class="lead" data-i18n="lead">Hier sehen ClubLeader, welche zwei Nachrichten im bestehenden KMS-Ablauf vorgesehen sind – von der Einwilligungsbestätigung bis zur persönlichen Einladung.</p>
+  </section>
+  <section class="steps" aria-label="E-Mail-Ablauf">
+    <div class="step"><strong data-i18n="step1Title">1. Einwilligung bestätigen</strong><p data-i18n="step1Text">Das KMS sendet die Double-Opt-in-E-Mail. Der Empfänger bestätigt seine Einwilligung über den enthaltenen Link.</p></div>
+    <div class="step-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></div>
+    <div class="step"><strong data-i18n="step2Title">2. Persönliche Einladung erhalten</strong><p data-i18n="step2Text">Erst nach bestätigtem Opt-in kann die Einladung mit Termin und Zugangslink versendet werden.</p></div>
+  </section>
+  <p class="notice"><strong data-i18n="noticeStrong">Wichtig:</strong> <span data-i18n="notice">Diese Seite zeigt E-Mail-Vorschauen zur Schulung. Sie versendet keine Nachrichten und ersetzt keine Funktionen des persönlichen KMS.</span></p>
+  <details class="email-details" open>
+    <summary><span><span class="summary-label" data-i18n="firstTitle">E-Mail 1 · Double-Opt-in</span><span class="summary-sub" data-i18n="firstSubtitle">Vor der Einladung: Einwilligung über das KMS bestätigen</span></span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 9 7 7 7-7"/></svg></summary>
+    <div class="details-inner">
+      <p class="preview-note" data-i18n="firstNote">Hinweis: Für E-Mail 1 ist hier eine verständliche Musteransicht dargestellt. Der tatsächliche Originalwortlaut wird vom bestehenden KMS festgelegt und kann abweichen. Bitte den dortigen Originaltext prüfen.</p>
+      <div class="mail" aria-label="Muster-E-Mail Double-Opt-in">
+        <div class="mail-meta"><p><strong data-i18n="subjectLabel">Betreff:</strong> <span data-i18n="firstSubject">Bitte bestätigen Sie Ihre E-Mail-Adresse</span></p></div>
+        <div class="mail-body">
+          <p data-i18n="firstGreeting">Guten Tag [Name],</p>
+          <p data-i18n="firstP1">vielen Dank für das freundliche Gespräch. Sie haben darum gebeten, eine persönliche Einladung zu unserer Online-Präsentation zu erhalten.</p>
+          <p data-i18n="firstP2">Bitte bestätigen Sie zunächst, dass wir Ihnen diese Einladung per E-Mail zusenden dürfen.</p>
+          <span class="confirm-display" data-i18n="confirmLabel">Einwilligung bestätigen</span>
+          <p data-i18n="firstP3">Nach Ihrer Bestätigung erhalten Sie die Einladung mit den Informationen zum Termin und Ihrem Zugangslink.</p>
+          <p data-i18n="firstP4">Falls Sie keine Einladung wünschen, können Sie diese E-Mail ignorieren.</p>
+        </div>
+      </div>
+    </div>
+  </details>
+  <details class="email-details" open>
+    <summary><span><span class="summary-label" data-i18n="secondTitle">E-Mail 2 · Persönliche Einladung</span><span class="summary-sub" data-i18n="secondSubtitle">Nach bestätigtem Opt-in: Die abgestimmte Einladung zur Online-Präsentation</span></span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 9 7 7 7-7"/></svg></summary>
+    <div class="details-inner">
+      <p class="context" data-i18n="secondContext">Diese Vorschau zeigt den abgestimmten Einladungstext. Termin, Zugang und Ansprechpartner werden beim tatsächlichen Versand ergänzt.</p>
+      <div class="mail" aria-label="Persönliche Einladungs-E-Mail">
+        <div class="mail-meta"><p><strong data-i18n="subjectLabel2">Betreff:</strong> <span data-i18n="secondSubject">Gemeinsam unsere regionale Wirtschaft stärken</span></p></div>
+        <div class="mail-body">
+          <p data-i18n="mailGreeting">Guten Tag [Name],</p>
+          <p data-i18n="mailThanks">vielen Dank für unser freundliches Telefonat.</p>
+          <p data-i18n="mailIntro">Wie angekündigt, möchte ich Sie zu einer besonderen Initiative einladen:</p>
+          <p class="heading" data-i18n="mailSlogan">„Gemeinsam unsere regionale Wirtschaft stärken“</p>
+          <p data-i18n="mailRegion">Unsere Region lebt von ihren Unternehmen, ihren Gewerbetreibenden und den Menschen, die täglich mit ihren Ideen, Leistungen und ihrem Engagement unsere Wirtschaft gestalten.</p>
+          <p data-i18n="mailUnused">Doch viele wirtschaftliche Möglichkeiten bleiben ungenutzt.</p>
+          <p data-i18n="mailMissing">Oft fehlt es nicht an guten Produkten, überzeugenden Dienstleistungen oder unternehmerischer Erfahrung, sondern an Sichtbarkeit, den richtigen Kontakten und neuen Möglichkeiten der Zusammenarbeit.</p>
+          <p><strong data-i18n="mailApproach">Genau hier setzt unsere Initiative an.</strong></p>
+          <p data-i18n="mailSupport">Wir möchten Unternehmen unterschiedlicher Branchen dabei unterstützen, neue wirtschaftliche Perspektiven zu erschließen.</p>
+          <p data-i18n="mailIncludes">Dazu gehören:</p>
+          <ul>
+            <li><strong data-i18n="benefit1Title">Mehr regionale Sichtbarkeit:</strong> <span data-i18n="benefit1Text">Damit Unternehmen und ihre Angebote besser wahrgenommen werden.</span></li>
+            <li><strong data-i18n="benefit2Title">Neue Geschäftskontakte:</strong> <span data-i18n="benefit2Text">Damit aus Begegnungen wertvolle geschäftliche Verbindungen entstehen können.</span></li>
+            <li><strong data-i18n="benefit3Title">Gegenseitige Empfehlungen:</strong> <span data-i18n="benefit3Text">Damit Unternehmen zusätzliche Möglichkeiten zur Kundengewinnung nutzen können.</span></li>
+            <li><strong data-i18n="benefit4Title">Branchenübergreifende Zusammenarbeit:</strong> <span data-i18n="benefit4Text">Damit aus einzelnen Unternehmen ein wirtschaftlich interessantes Netzwerk entstehen kann.</span></li>
+            <li><strong data-i18n="benefit5Title">Professionelle Unterstützung:</strong> <span data-i18n="benefit5Text">Damit Unternehmer neue Marketingmöglichkeiten nutzen können, ohne alles selbst organisieren zu müssen.</span></li>
+          </ul>
+          <p><strong data-i18n="mailQuestion">Was davon könnte auch für Ihr Unternehmen interessant sein?</strong></p>
+          <p data-i18n="mailWebinar">In einer rund 30-minütigen Online-Präsentation zeigen wir Ihnen, welches Konzept wir dafür entwickelt haben, wie die einzelnen Möglichkeiten zusammenwirken und welche Chancen sich daraus für Ihr Unternehmen ergeben können.</p>
+          <p data-i18n="mailDecision">Anschließend können Sie selbst entscheiden, ob Sie sich näher damit beschäftigen möchten.</p>
+          <div class="invite-box">
+            <p><strong data-i18n="inviteHeading">Ihre persönliche Einladung</strong></p>
+            <p data-i18n="inviteDate">Datum: [Datum]</p>
+            <p data-i18n="inviteTime">Uhrzeit: [Uhrzeit]</p>
+            <p data-i18n="inviteAccess">Teilnahme: [Persönlicher Zugangslink]</p>
+          </div>
+          <p data-i18n="mailLooking">Ich freue mich, wenn Sie dabei sind.</p>
+          <p data-i18n="mailRegards">Mit freundlichen Grüßen</p>
+          <p><span data-i18n="mailName">[Vorname Nachname]</span><br><span data-i18n="mailRole">Ihr persönlicher Ansprechpartner</span></p>
+        </div>
+      </div>
+    </div>
+  </details>
+  <div class="return"><a class="back" href="./"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h14"/></svg><span data-i18n="back">Zurück zum Telefonleitfaden</span></a><p data-i18n="noSend">Reine Leseansicht · Kein E-Mail-Versand</p></div>
+</main>
+<footer><div class="wrap footer-inner"><span>ClubLeader</span><span data-i18n="footer">E-Mail-Leitfaden · Regionale Wirtschaft stärken</span></div></footer>
+<script>
+'use strict';
+const translations={
+de:{
+brandSub:'ClubLeader · E-Mail-Leitfaden',print:'Drucken',kicker:'Die Einladung nach dem Telefonat',title:'Gemeinsam unsere regionale Wirtschaft stärken',lead:'Hier sehen ClubLeader, welche zwei Nachrichten im bestehenden KMS-Ablauf vorgesehen sind – von der Einwilligungsbestätigung bis zur persönlichen Einladung.',
+step1Title:'1. Einwilligung bestätigen',step1Text:'Das KMS sendet die Double-Opt-in-E-Mail. Der Empfänger bestätigt seine Einwilligung über den enthaltenen Link.',step2Title:'2. Persönliche Einladung erhalten',step2Text:'Erst nach bestätigtem Opt-in kann die Einladung mit Termin und Zugangslink versendet werden.',
+noticeStrong:'Wichtig:',notice:'Diese Seite zeigt E-Mail-Vorschauen zur Schulung. Sie versendet keine Nachrichten und ersetzt keine Funktionen des persönlichen KMS.',
+firstTitle:'E-Mail 1 · Double-Opt-in',firstSubtitle:'Vor der Einladung: Einwilligung über das KMS bestätigen',firstNote:'Hinweis: Für E-Mail 1 ist hier eine verständliche Musteransicht dargestellt. Der tatsächliche Originalwortlaut wird vom bestehenden KMS festgelegt und kann abweichen. Bitte den dortigen Originaltext prüfen.',
+subjectLabel:'Betreff:',firstSubject:'Bitte bestätigen Sie Ihre E-Mail-Adresse',firstGreeting:'Guten Tag [Name],',firstP1:'vielen Dank für das freundliche Gespräch. Sie haben darum gebeten, eine persönliche Einladung zu unserer Online-Präsentation zu erhalten.',firstP2:'Bitte bestätigen Sie zunächst, dass wir Ihnen diese Einladung per E-Mail zusenden dürfen.',confirmLabel:'Einwilligung bestätigen',firstP3:'Nach Ihrer Bestätigung erhalten Sie die Einladung mit den Informationen zum Termin und Ihrem Zugangslink.',firstP4:'Falls Sie keine Einladung wünschen, können Sie diese E-Mail ignorieren.',
+secondTitle:'E-Mail 2 · Persönliche Einladung',secondSubtitle:'Nach bestätigtem Opt-in: Die abgestimmte Einladung zur Online-Präsentation',secondContext:'Diese Vorschau zeigt den abgestimmten Einladungstext. Termin, Zugang und Ansprechpartner werden beim tatsächlichen Versand ergänzt.',
+subjectLabel2:'Betreff:',secondSubject:'Gemeinsam unsere regionale Wirtschaft stärken',mailGreeting:'Guten Tag [Name],',mailThanks:'vielen Dank für unser freundliches Telefonat.',mailIntro:'Wie angekündigt, möchte ich Sie zu einer besonderen Initiative einladen:',mailSlogan:'„Gemeinsam unsere regionale Wirtschaft stärken“',mailRegion:'Unsere Region lebt von ihren Unternehmen, ihren Gewerbetreibenden und den Menschen, die täglich mit ihren Ideen, Leistungen und ihrem Engagement unsere Wirtschaft gestalten.',mailUnused:'Doch viele wirtschaftliche Möglichkeiten bleiben ungenutzt.',mailMissing:'Oft fehlt es nicht an guten Produkten, überzeugenden Dienstleistungen oder unternehmerischer Erfahrung, sondern an Sichtbarkeit, den richtigen Kontakten und neuen Möglichkeiten der Zusammenarbeit.',mailApproach:'Genau hier setzt unsere Initiative an.',mailSupport:'Wir möchten Unternehmen unterschiedlicher Branchen dabei unterstützen, neue wirtschaftliche Perspektiven zu erschließen.',mailIncludes:'Dazu gehören:',
+benefit1Title:'Mehr regionale Sichtbarkeit:',benefit1Text:'Damit Unternehmen und ihre Angebote besser wahrgenommen werden.',benefit2Title:'Neue Geschäftskontakte:',benefit2Text:'Damit aus Begegnungen wertvolle geschäftliche Verbindungen entstehen können.',benefit3Title:'Gegenseitige Empfehlungen:',benefit3Text:'Damit Unternehmen zusätzliche Möglichkeiten zur Kundengewinnung nutzen können.',benefit4Title:'Branchenübergreifende Zusammenarbeit:',benefit4Text:'Damit aus einzelnen Unternehmen ein wirtschaftlich interessantes Netzwerk entstehen kann.',benefit5Title:'Professionelle Unterstützung:',benefit5Text:'Damit Unternehmer neue Marketingmöglichkeiten nutzen können, ohne alles selbst organisieren zu müssen.',
+mailQuestion:'Was davon könnte auch für Ihr Unternehmen interessant sein?',mailWebinar:'In einer rund 30-minütigen Online-Präsentation zeigen wir Ihnen, welches Konzept wir dafür entwickelt haben, wie die einzelnen Möglichkeiten zusammenwirken und welche Chancen sich daraus für Ihr Unternehmen ergeben können.',mailDecision:'Anschließend können Sie selbst entscheiden, ob Sie sich näher damit beschäftigen möchten.',
+inviteHeading:'Ihre persönliche Einladung',inviteDate:'Datum: [Datum]',inviteTime:'Uhrzeit: [Uhrzeit]',inviteAccess:'Teilnahme: [Persönlicher Zugangslink]',mailLooking:'Ich freue mich, wenn Sie dabei sind.',mailRegards:'Mit freundlichen Grüßen',mailName:'[Vorname Nachname]',mailRole:'Ihr persönlicher Ansprechpartner',back:'Zurück zum Telefonleitfaden',noSend:'Reine Leseansicht · Kein E-Mail-Versand',footer:'E-Mail-Leitfaden · Regionale Wirtschaft stärken'
+},
+en:{
+brandSub:'ClubLeader · Email guide',print:'Print',kicker:'The invitation after your phone call',title:'Strengthening our regional economy together',lead:'ClubLeaders can see the two messages provided for in the existing KMS process – from confirming consent to the personal invitation.',
+step1Title:'1. Confirm consent',step1Text:'The KMS sends the double opt-in email. The recipient confirms consent using the link in that message.',step2Title:'2. Receive a personal invitation',step2Text:'Only after the opt-in has been confirmed can the invitation with the date and access link be sent.',
+noticeStrong:'Important:',notice:'This page provides email previews for training. It does not send messages or replace functions of the personal KMS.',
+firstTitle:'Email 1 · Double opt-in',firstSubtitle:'Before the invitation: confirm consent through the KMS',firstNote:'Note: Email 1 is an illustrative sample. The actual wording is set by the existing KMS and may differ. Please check the original email in the KMS.',
+subjectLabel:'Subject:',firstSubject:'Please confirm your email address',firstGreeting:'Dear [Name],',firstP1:'thank you for the friendly conversation. You asked to receive a personal invitation to our online presentation.',firstP2:'Please first confirm that we may send this invitation to you by email.',confirmLabel:'Confirm consent',firstP3:'After confirmation, you will receive the invitation with the event details and your access link.',firstP4:'If you do not want an invitation, you can ignore this email.',
+secondTitle:'Email 2 · Personal invitation',secondSubtitle:'After confirmed opt-in: the agreed invitation to the online presentation',secondContext:'This preview shows the agreed invitation text. The date, access details and contact person will be added when the email is actually sent.',
+subjectLabel2:'Subject:',secondSubject:'Strengthening our regional economy together',mailGreeting:'Dear [Name],',mailThanks:'thank you for our friendly telephone conversation.',mailIntro:'As promised, I would like to invite you to a special initiative:',mailSlogan:'“Strengthening our regional economy together”',mailRegion:'Our region thrives on its companies, tradespeople and the people whose ideas, services and dedication contribute to our economy every day.',mailUnused:'Yet many economic opportunities remain untapped.',mailMissing:'Often, the problem is not a lack of good products, convincing services or business experience, but rather a lack of visibility, the right contacts and new opportunities to work together.',mailApproach:'This is exactly where our initiative comes in.',mailSupport:'We aim to help companies from different sectors explore new economic opportunities.',mailIncludes:'These include:',
+benefit1Title:'Greater regional visibility:',benefit1Text:'Helping businesses and their offers to be better noticed.',benefit2Title:'New business contacts:',benefit2Text:'Turning encounters into valuable business connections.',benefit3Title:'Mutual recommendations:',benefit3Text:'Helping businesses tap into additional ways to attract customers.',benefit4Title:'Cross-industry collaboration:',benefit4Text:'Turning individual businesses into an economically interesting network.',benefit5Title:'Professional support:',benefit5Text:'Helping entrepreneurs use new marketing opportunities without having to organise everything themselves.',
+mailQuestion:'Which of these opportunities might be of interest to your business?',mailWebinar:'In an online presentation lasting around 30 minutes, we will show you the concept we have developed, how the opportunities work together and what possibilities they could offer your business.',mailDecision:'Afterwards, you can decide for yourself whether you would like to explore the subject further.',
+inviteHeading:'Your personal invitation',inviteDate:'Date: [Date]',inviteTime:'Time: [Time]',inviteAccess:'Join: [Personal access link]',mailLooking:'I hope you can join us.',mailRegards:'Kind regards',mailName:'[First name Last name]',mailRole:'Your personal contact',back:'Back to the phone guide',noSend:'Read-only preview · No email sending',footer:'Email guide · Strengthening the regional economy'
+}
+};
+function setLanguage(lang){
+if(!Object.prototype.hasOwnProperty.call(translations,lang))return;
+document.documentElement.lang=lang;
+document.querySelectorAll('[data-i18n]').forEach(function(el){const key=el.getAttribute('data-i18n');if(Object.prototype.hasOwnProperty.call(translations[lang],key))el.textContent=translations[lang][key];});
+document.querySelectorAll('[data-lang]').forEach(function(btn){const active=btn.getAttribute('data-lang')===lang;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));});
+document.title=lang==='en'?'ClubLeader · Email guide | Strengthening our regional economy together':'ClubLeader · E-Mail-Leitfaden | Gemeinsam unsere regionale Wirtschaft stärken';
+try{localStorage.setItem('clubleader-email-guide-lang',lang)}catch(e){}
+}
+document.querySelectorAll('[data-lang]').forEach(function(btn){btn.addEventListener('click',function(){setLanguage(btn.getAttribute('data-lang'));});});
+document.getElementById('printButton').addEventListener('click',function(){document.querySelectorAll('.email-details').forEach(function(d){d.open=true;});window.print();});
+let initial='de';try{const stored=localStorage.getItem('clubleader-email-guide-lang');if(stored==='de'||stored==='en')initial=stored}catch(e){}
+setLanguage(initial);
+</script>
+</body>
+</html>
