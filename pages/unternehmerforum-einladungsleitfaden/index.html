@@ -430,6 +430,7 @@ function researchGeneratePrompt(){
     ?(lang==='en'?'Only within '+countyName:'Ausschließlich innerhalb von '+countyName)
     :(lang==='en'?'Selected district / independent city plus the area within '+area+' km of '+center:
        'Gewählter Landkreis / kreisfreie Stadt sowie zusätzlich ein Umkreis von '+area+' km um '+center);
+  if(researchModeValue()==='continue')return researchGenerateFollowUpPrompt();
   if(lang==='en')return [
     'RESEARCH REQUEST: PUBLICLY VERIFIED REGIONAL BUSINESS LIST FOR AN ENTREPRENEURS’ FORUM',
     'Federal state: '+stateName,
@@ -455,6 +456,8 @@ function researchGeneratePrompt(){
     'FINAL QUALITY CHECK: Before exporting, check each candidate for plausible identity, address and industry, working direct source links, source coverage for available contact details, named management where publicly available, and a non-generic suitability reason. Review obvious omissions on official websites. Record how many records have a verifiable managing director / proprietor, business phone, business email and official source; explain any major missing fields. Spread candidates sensibly across selected industries and places where enough suitable companies exist; do not artificially fill quotas.',
     '',
     'OUTPUT: Provide a clean, filterable .xlsx workbook with the company list, an overview by place and industry including A/B/unverified counts, and a methodology/source sheet with research date, source quality and coverage statistics. The requested company count is a CEILING, not an obligation: 60 thoroughly verified businesses are preferable to 100 superficial entries. Include only companies you could genuinely document, and never fill gaps with fictitious records. If live web browsing is unavailable, say so openly and do not pretend to have verified current sources. If .xlsx export is unavailable, supply Excel-compatible CSV.',
+    '',
+    'RUN AND POTENTIAL: Initial research is run 1. Include a permanent Research run column with value 1; use a subtle BLUE Excel row fill (#EFF6FF; accent #2563EB) for all companies in this run. Add a Postcode & industry potential worksheet: cite evidenced and deduplicated company counts by postal code, location and industry, keeping additional identified but unverified candidates SEPARATE. Postcodes do not establish administrative location on their own. If official regional company or establishment statistics exist, show them separately with direct source, reference year, geography and counting unit; NEVER call these figures suitable-company totals or open leads. Mark unknown potential UNKNOWN. Retain the workbook as the master list for subsequent runs.',
     '',
     'Public business contact details are not by themselves permission for unsolicited email or phone marketing.'
   ].join('\n');
@@ -484,9 +487,100 @@ function researchGeneratePrompt(){
     '',
     'ERGEBNIS: Erstelle eine sauber formatierte, filterbare XLSX-Datei mit Firmenliste, einer Übersicht über Orte, Branchen und A/B/offen-Einstufungen sowie einem Methoden-/Quellenblatt mit Recherchedatum, Quellenqualität und Vollständigkeitsstatistik. Die angegebene Firmenanzahl ist eine OBERGRENZE, keine Pflicht: Lieber 60 gründlich belegte Firmen als 100 nur oberflächlich recherchierte Einträge. Nur tatsächlich nachgeprüfte Firmen liefern und niemals mit Fantasiedaten auffüllen. Wenn kein aktueller Webzugriff vorhanden ist, dies offen sagen und keine aktuelle Prüfung behaupten. Falls keine XLSX-Datei erzeugt werden kann, Excel-kompatible CSV ausgeben.',
     '',
+    'LAUF UND POTENZIAL: Die Erstrecherche bildet Lauf 1. Füge eine dauerhafte Spalte „Recherchelauf“ mit Wert 1 hinzu; kennzeichne alle Firmenzeilen dieses Laufs dezent BLAU (Füllung #EFF6FF, Kennfarbe #2563EB). Eine „PLZ & Branchenpotenzial“-Übersicht zeigt belegte, deduplizierte Firmenzahlen je PLZ, Ort und Branche sowie zusätzlich identifizierte, noch nicht geprüfte Kandidaten SEPARAT. Postleitzahlen sind keine Garantie für die Verwaltungszugehörigkeit. Ggf. amtliche regionale Unternehmens- bzw. Betriebsstättenstatistik getrennt mit direkter Quelle, Bezugsjahr, Gebiet und Zähleinheit angeben; NICHT als Anzahl geeigneter Firmen oder offene Leads darstellen. Fehlende Potenzialzahlen als „unbekannt“ ausweisen. Datei für spätere Folgeläufe als Masterliste speichern.',
+    '',
     'Öffentlich veröffentlichte Geschäftskontaktdaten sind nicht automatisch eine Einwilligung in unverlangte Telefon- oder E-Mail-Werbung.'
   ].join('\n');
 }
+
+/* Follow-up: master attachment is required in the AI chat. No XLSX is read here. */
+function researchGenerateFollowUpPrompt(){
+  const lang=researchLang(),de=lang==='de';
+  const state=researchStates.find(x=>x[0]===researchState.value);
+  const district=researchCounties.find(x=>x[0]===researchRegion.value);
+  const stateName=state?state[de?1:2]:(de?'[BUNDESLAND AUSWÄHLEN]':'[SELECT FEDERAL STATE]');
+  const districtName=researchCountyName(district,lang);
+  const region=districtName+(district?' (AGS '+district[0]+')':'')+', '+stateName;
+  const center=researchCenter.value.trim()||(de?'[MITTELPUNKT-ORT EINGEBEN]':'[ENTER SEARCH CENTRE]');
+  const area=researchArea.value==='local'
+    ?(de?'Ausschließlich innerhalb von ':'Only within ')+districtName
+    :(de?'Ausgewählter Kreis plus ':'Selected district plus ')+researchArea.value+(de?' km Umkreis um ':' km radius around ')+center;
+  const industries=researchChecked.size?researchSelectedIndustries(lang).map(x=>'• '+x).join('\n'):
+    (de?'[MINDESTENS EINE BRANCHE AUSWÄHLEN]':'[SELECT AT LEAST ONE INDUSTRY]');
+  const n=researchRun.value.trim()||'[2]',col=researchRunColor(Number(n));
+  const palette=researchColors.map((c,i)=>(de?'Lauf ':'Run ')+(i+1)+': '+c[lang]+' '+c.fill+' / '+c.hex).join('; ');
+  if(de)return [
+    'BUSINESSBOOSTER – FOLLOW-UP-RECHERCHE FÜR EINE REGIONALE MASTER-EXCEL',
+    'Erforderliche Anlage: DIE NEUESTE MASTER-XLSX-DATEI ZUSAMMEN MIT DIESEM PROMPT IN CHATGPT HOCHLADEN.',
+    'Bundesland: '+stateName,
+    'Landkreis / kreisfreie Stadt: '+region,
+    'Suchgebiet: '+area,
+    'Gewünschte NEUE Firmen (nicht Gesamtbestand): '+researchQuantity.value,
+    'Nummer dieses Recherchelaufs: '+n,
+    'Farbe der neuen Zeilen: '+col.de+'; Hintergrund '+col.fill+'; Akzent '+col.hex,
+    'Branchen:\n'+industries,
+    '',
+    'AUFTRAG: Erweitere eine bestehende regionale Firmenliste um maximal die angegebene Anzahl zusätzlicher, bislang NICHT gelisteter Unternehmen. Es handelt sich ausschließlich um Recherche für ein Unternehmerforum; nicht anrufen, nichts versenden. Die KI soll die Master-XLSX aktualisieren und als Datei zurückgeben.',
+    '',
+    '1. MASTERLISTE ZUERST VOLLSTÄNDIG EINLESEN: Öffne ALLE Blätter und ALLE Firmenzeilen der beigefügten aktuellen XLSX. Übernimm sämtliche bisherigen Daten, Spalten, Notizen, Bearbeitungs-/Kontaktstatus, Quellen, Formatierungen, Laufnummern und Zeilenfarben. Keine vorhandene Firma ohne Begründung löschen und keine Bestandsdaten überschreiben. Ist die aktuelle Masterdatei nicht vorhanden, nicht vollständig lesbar oder zweifelhaft, STOPPE und fordere die Datei an. Nutze keine vermeintliche Erinnerung an frühere Chats als Ersatz für den vollständigen Dateiabgleich.',
+    '',
+    '2. PLZ-BASIERTE SUCHLÜCKEN ERMITTELN: Recherchiere die öffentlich belegbaren PLZ und Orte der angegebenen Verwaltungsregion. Erstelle eine Übersicht aus PLZ × Ort × gewählter Branche: Was ist in der Masterliste bereits erfasst, welche Kombinationen sind unterrepräsentiert und wo soll als Nächstes gesucht werden? Nutze die Matrix zur gezielten Recherche. Prüfe jeden neuen Betrieb auf einen tatsächlichen Standort im gewählten Gebiet. Eine PLZ allein beweist die Verwaltungszugehörigkeit NICHT; PLZ-Grenzen und Kreisgrenzen können voneinander abweichen. Unbekannte Suchabdeckung nicht als Null-Potenzial ausgeben.',
+    '',
+    '3. GEEIGNETE NEUE FIRMEN FINDEN: Recherchiere breit in Suchmaschinen (Google, Bing und weiteren), offiziellen Unternehmenswebsites (Impressum, Kontakt, Über uns, Team, Filialseiten), Branchenverzeichnissen, örtlichen Unternehmensvereinen, Kammern und öffentlichen Registern. Dies sind Beispiele, keine abschließende Liste. Zugriffsregeln respektieren. Bei Verzeichnistreffern weiter zu konkreten offiziellen Firmenquellen recherchieren. Jede Firma individuell prüfen, nicht nur die Branchenzugehörigkeit schätzen.',
+    '',
+    '4. VERBINDLICHE DUBLETTENPRÜFUNG: Vor jeder Neuaufnahme Firmennamen samt Schreibweisen/Rechtsformen normalisieren und gegen den GESAMTEN hochgeladenen Bestand abgleichen. Zusätzlich Straße, Hausnummer, PLZ, Ort, Website/Domain sowie belegte Registerdaten prüfen. Eine Firma mit verändertem Namen, anderer Schreibweise oder demselben Standort darf nicht als neues Unternehmen gezählt werden. Echte unterschiedliche Niederlassungen nur bei belegten separaten Betriebsstandorten getrennt führen. Zweifelhafte Treffer zur manuellen Prüfung markieren und NICHT automatisch hinzufügen. Nur nachweislich neue Unternehmen in die Neue-Firmen-Liste übernehmen. Abgelehnte Dubletten separat zählen.',
+    '',
+    '5. DETAILRECHERCHE JE NEUEM BETRIEB: Offizielle Website, Kontaktseite, Impressum, Team/Über-uns-Seite und ggf. Niederlassungsseite einzeln prüfen; fehlende Angaben in weiteren öffentlichen Quellen ergänzen. Erfasse Firmenname, tatsächliche Branche, Vorname/Nachname der belegten Geschäftsleitung oder des Inhabers, tatsächliche Funktion, Straße, Hausnummer, PLZ, Ort, veröffentlichte Geschäftstelefonnummer, geschäftliche Mobilnummer, geschäftliche E-Mail, offizielle Website, unabhängiger Betrieb/Filiale/Kette, Recherche-Datum, Quellenqualität und DIREKTE genaue URLs zu Firmenidentität, Geschäftsleitung und Kontaktdaten. Optional örtliche Filialleitung nur mit tatsächlicher Rolle erfassen, nicht als Geschäftsführung umdeuten. Fehlende Informationen leer lassen. Keine erfundenen Namen, Domains, E-Mails, Telefone oder Quellen, keine abgeleiteten Kontakte, keine privaten Daten.',
+    '',
+    '6. BUSINESSBOOSTER-EIGNUNG: Pro Firma individuell A (hoch), B (bedingt) oder offen anhand ihrer konkret belegten Leistungen und des möglichen Nutzens von zusätzlichen Kunden bewerten. Eine eigene, nicht austauschbare Begründung mit Firmenquellen angeben. Ketten und Filialen als solche kennzeichnen; lokale Marketing-Entscheidungsbefugnis nicht unterstellen. Keine pauschalen Branchenbewertungen und keine erfundenen Budgets, Umsätze, Kapazitäten oder Kaufabsichten.',
+    '',
+    '7. FARBEN DAUERHAFT BEIBEHALTEN: Lauf 1 Blau (#EFF6FF, #2563EB), Lauf 2 Grün (#F0FDF4, #16A34A), Lauf 3 Magenta (#FDF4FF, #C026D3), Lauf 4 Orange (#FFFBEB, #D97706), Lauf 5 Türkis (#ECFEFF, #0891B2), Lauf 6 Violett (#F5F3FF, #7C3AED); ab Lauf 7 Farbfolge wiederholen, aber laufende Nummer als eindeutige Identifikation nutzen. Alle BISHERIGEN Zeilen behalten ihre bisherige Laufnummer und ihre ursprüngliche Farbe. Weise AUSSCHLIESSLICH den in diesem neuen Durchgang gefundenen Firmen die Laufnummer '+n+' und Farbe '+col.de+' ('+col.fill+') zu. Bei alten Dateien ohne bekannte Laufnummer nur nachweisbare Laufzuordnungen ergänzen; gemischte Herkunft nicht erfinden. Bestehende Arbeitsergebnisse und andere Formatierungen erhalten.',
+    '',
+    '8. REGIONALES POTENZIAL MIT ZAHLEN SICHTBAR MACHEN: Separat ausweisen: (A) bisheriger Masterbestand vor diesem Lauf, (B) wirklich neue geprüfte Firmen, (C) neuer eindeutiger Gesamtbestand = A + B, (D) gefundene ausgeschlossene Dubletten, (E) zusätzlich identifizierte aber NICHT in die Masterliste übernommene und noch nicht abschließend geprüfte Kandidaten (mit eigener Quelle, eindeutig dedupliziert), (F) bisher nachgewiesener Recherchepool = C + E ohne Doppelzählung. Nach PLZ × Ort × Branche gliedern und Suchlücken zeigen. Die Anzahl ALLER Firmen oder tatsächlich geeigneter Firmen in der Region ist unbekannt, sofern nicht belegt. Amtliche Unternehmens-/Betriebsstättenstatistik nur SEPARAT angeben, mit offizieller Quelle, konkretem Bezugsjahr, Verwaltungsgebiet und statistischer Zähleinheit. Amtliche Gesamtzahl NICHT mit der Zahl geeigneter Firmen gleichsetzen und NICHT als direkten Restbestand berechnen. Für nicht belegte Potenzial- oder Kandidatenzahlen „unbekannt“ angeben, niemals Schätzungen als Fakten präsentieren.',
+    '',
+    '9. EXCEL-MASTERDATEI FORTSCHREIBEN: Erstelle eine formatierte, filterbare XLSX mit (1) GESAMTLISTE alter Bestand + geprüfte neue Firmen, inklusive ursprünglicher Spalten, Quellen, Laufnummern und Farbcodes; (2) NEUE FIRMEN dieses Durchgangs; (3) PLZ & BRANCHENPOTENZIAL mit erfassten Firmen, separat belegten Kandidaten und A/B/offen-Verteilung; (4) RECHERCHELÄUFE mit Farblegende, Zahl neuer Firmen je Lauf und kumulativem Bestand; (5) METHODIK & QUELLEN mit konkreten Links, Recherche-Datum, Datenlücken, statistischen Quellen und Vollständigkeit von Geschäftsleitungen, Telefonnummern, E-Mails und Firmenprimärquellen. Korrigiere einen bestehenden Eintrag nur, wenn die Korrektur nachgewiesen und dokumentiert ist; lösche keine Bearbeitungsvermerke. Falls kein XLSX-Export möglich ist, Excel-kompatible CSV samt Laufnummer und Hex-Farbcode liefern und darauf hinweisen, dass CSV keine Zellfarben unterstützt.',
+    '',
+    '10. ABSCHLUSSKONTROLLE: Vor der Ausgabe jeden NEUEN Datensatz auf reale Firma, Anschrift in der Region, passende Branche, funktionierende genaue Quellenlinks, ausreichend gesicherte Kontaktdaten und individuelle Eignungsbegründung überprüfen. Abschlussbericht mit Altbestand, Neuzugängen, neuem Gesamtbestand, ausgeschlossenen Dubletten, recherchierten PLZ, unterrepräsentierten PLZ-Branchen-Kombinationen, nachweislich weiteren Kandidaten und – nur soweit wirklich belegbar – amtlichem Gesamtbestand erstellen. Wenn weniger Firmen als gewünscht belegbar sind, entsprechend weniger liefern. Ohne aktuellen Webzugriff offen darauf hinweisen und keine Liveprüfung behaupten.',
+    '',
+    'Öffentliche Geschäftskontaktdaten sind keine automatische Zustimmung zu unaufgeforderter Telefon- oder E-Mail-Werbung.'
+  ].join('\n');
+  return [
+    'BUSINESSBOOSTER – FOLLOW-UP RESEARCH: EXPAND THE REGIONAL MASTER WORKBOOK',
+    'Required attachment: UPLOAD THE MOST RECENT MASTER XLSX WITH THIS PROMPT IN THE SAME AI CHAT.',
+    'Federal state: '+stateName,
+    'District / independent city: '+region,
+    'Search area: '+area,
+    'Requested ADDITIONAL companies, excluding existing rows: '+researchQuantity.value,
+    'Research run number: '+n,
+    'Colour for NEW company rows: '+col.en+'; fill '+col.fill+'; accent '+col.hex,
+    'Selected industries:\n'+industries,
+    '',
+    'OBJECTIVE: Continue an existing regional business research workbook for an entrepreneurs forum. Return only additional verified businesses NOT ALREADY in the uploaded master. Do not call anyone or send messages. Requested number is a MAXIMUM of newly found firms, never a total workbook row target.',
+    '',
+    '1. READ THE ENTIRE UPLOADED MASTER XLSX BEFORE ANY SEARCH: Inspect ALL worksheets and existing company rows. Preserve previous companies, notes, contact/processing status, source URLs, research runs, original row colours, columns and formatting. Never silently overwrite old data or delete rows. If the current master file is missing, damaged or unreadable, STOP and request it. Memories of prior chats are not a substitute for this attachment.',
+    '',
+    '2. POSTCODE SEARCH MATRIX: Identify publicly evidenced postcodes and localities in the selected administrative district. Build a postcode × locality × selected industry matrix. Use previous coverage to prioritise underresearched combinations. Verify each company is physically inside the target administrative area: postcodes may cross boundaries. Never label unsearched combinations as zero potential.',
+    '',
+    '3. DISCOVER AND CHECK NEW BUSINESSES: Search widely across Google, Bing, other engines, company websites and imprint/contact/team/branch pages, public directories, trade associations, chambers and registries; these examples are not exhaustive. Respect source access rules. Go beyond generic directory pages to specific primary sources. Individually check each business.',
+    '',
+    '4. DEDUPLICATE AGAINST THE WHOLE MASTER: Normalise names and legal forms; match address, street, house number, postcode, city, company domain and any supported register identifiers. Spelling variations must not produce duplicate firms. Different branch locations may be separate entries only when genuinely established and evidenced. Flag uncertain matches for manual review rather than adding them automatically. Previously listed companies count as ZERO new entries. Count and report excluded duplicates.',
+    '',
+    '5. VERIFY EACH NEW BUSINESS: Check official imprint, contact, team and branch pages, then use other public sources for missing details. Record actual activity, published director or owner first and last name and role, full business address, published business landline, business mobile, business email, official website, independent/branch/chain classification, research date, source quality and precise DIRECT URLs for identity, management and contacts. Do not call a branch manager a director or infer their purchasing authority. Do not invent companies, names, phone numbers, emails, domains or source URLs, infer emails or collect private contacts. Leave unverified fields blank.',
+    '',
+    '6. SUITABILITY: Rate each new company A (strong), B (conditional) or unverified based only on its own evidenced services and possible added-customer benefits, with unique evidence-linked reasons. No generic industry reasoning. Never guess marketing budget, revenue, capacity or interest. Distinguish independent firms from chains and branches.',
+    '',
+    '7. PERMANENT RUN COLOURS: Run 1 Blue (#EFF6FF fill, #2563EB accent), run 2 Green (#F0FDF4, #16A34A), run 3 Magenta (#FDF4FF, #C026D3), run 4 Amber (#FFFBEB, #D97706), run 5 Teal (#ECFEFF, #0891B2), run 6 Violet (#F5F3FF, #7C3AED); the six-colour palette repeats from run 7 onwards and unique run numbers distinguish repeats. ALL existing company rows retain their original run numbers and row colours. ONLY newly verified entries receive run number '+n+' and '+col.en+' ('+col.fill+'). If the origin of mixed untagged historical rows is unknown, do not invent it. Preserve unrelated formatting.',
+    '',
+    '8. REGIONAL POTENTIAL IN NUMBERS: Separately show (A) previous master count, (B) newly verified unique companies, (C) new master total = A + B, (D) duplicates identified and excluded, (E) additionally sourced, deduplicated candidates NOT YET verified or included, and (F) evidenced research pool = C + E without overlap. Break down by postcode × locality × industry and identify further research gaps. Official enterprise/establishment totals are optional and MUST be shown only with an authoritative publication, exact URL, reference year, geography and statistical counting unit, SEPARATE from the research pool. Never treat official total as count of suitable businesses or subtract it to assert remaining leads. If a potential value or candidate count lacks evidence, mark UNKNOWN, not a fabricated estimate.',
+    '',
+    '9. EXPORT UPDATED XLSX: Return a clean filterable workbook with (1) ALL COMPANIES = existing rows plus only verified additions, previous fields/colours preserved; (2) NEW COMPANIES in this run; (3) POSTCODE & INDUSTRY POTENTIAL with postcode/industry coverage, company counts, separately evidenced candidates and A/B/unverified classifications; (4) RESEARCH RUNS with run number, colour legend, additions and cumulative totals; (5) SOURCES & METHODS with direct individual links, source quality, official statistical sources if available, research date and completeness statistics for management, phone, email and primary company sources. Only correct previously recorded data if a correction is supported and documented. Keep old contact status fields unchanged. If XLSX export is unavailable, provide Excel CSV with run-number and HEX-colour columns and disclose that CSV cannot preserve cell colours.',
+    '',
+    '10. FINAL CHECK: Individually verify every new company, administrative location, industry, direct sources and non-generic suitability. Give an end-of-run report: old total, new unique verified entries, new total, duplicates rejected, postcodes searched, postcode/industry gaps, additionally evidenced candidate pool and separately sourced official statistical figures (if any). Do not pad the list. If live browsing is unavailable, say so; do not pretend to have checked current sources.',
+    '',
+    'Publicly published business contacts do not automatically authorise unsolicited marketing calls or emails.'
+  ].join('\n');
+}
+
 function researchUpdate(){
   researchCount.textContent=researchChecked.size+researchTrans[researchLang()].chosen;
   researchCopy.disabled=!researchState.value||!researchRegion.value||researchChecked.size===0||(researchArea.value!=='local'&&!researchCenter.value.trim())||!researchValidRun();
