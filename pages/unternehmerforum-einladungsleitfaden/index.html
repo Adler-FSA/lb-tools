@@ -85,19 +85,15 @@
 @media(max-width:600px){.research-mode-options{grid-template-columns:1fr}.research-mode{padding:16px 13px}}
 
 
-/* Baustein 3: Statusfarben ausschließlich für die Anzeige, nicht als Ersatz für Recherchelauf-Farben */
-.k3-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:0 0 18px}
-.k3-steps article{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:15px}
-.k3-steps strong{display:block;color:var(--navy);font-size:14px;line-height:1.4}
-.k3-steps p{margin:7px 0 0;font-size:13px;line-height:1.55;color:#56677a}
-.k3-statuses{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.k3-status{display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:790;border:1px solid}
-.k3-status.yes{background:#f0fdf4;color:#15803d;border-color:#b7e8c8}
-.k3-status.no{background:#fff1f2;color:#be123c;border-color:#fecdd3}
-.k3-status.callback{background:#fffbeb;color:#a16207;border-color:#f6dda3}
-.k3-status.neutral{background:#f4f6f8;color:#516070;border-color:#d8e1e7}
-.k3-note{margin:15px 0 0;padding:11px 14px;border-left:3px solid var(--mint-dark);border-radius:4px;background:#f5fbfb;color:#4b6571;font-size:13px;line-height:1.6}
-@media(max-width:760px){.k3-steps{grid-template-columns:1fr}.k3-steps article{padding:13px}}
+
+.phone-launch{background:#fff;border:1px solid var(--line);border-radius:18px;padding:25px 28px;margin:0 0 56px;box-shadow:var(--shadow)}
+.phone-launch-head{display:flex;align-items:center;gap:12px;color:var(--mint-dark);margin-bottom:12px}
+.phone-launch h2{font-size:22px;margin:0;line-height:1.25;color:var(--navy)}
+.phone-launch p{margin:0 0 17px;color:#526575;max-width:790px;line-height:1.6}
+.phone-launch-btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:47px;padding:10px 18px;border-radius:10px;background:var(--navy);text-decoration:none;color:white;font-weight:800}
+.phone-launch-btn:hover{background:#294762}
+.phone-launch-btn:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+@media(max-width:540px){.phone-launch{padding:19px 16px}.phone-launch h2{font-size:19px}.phone-launch-btn{width:100%}}
 
 /* Regionale Suche: 16 Bundesländer und 401 Kreise, lokal eingebunden */
 .research-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -226,44 +222,19 @@
     </div>
   </details>
 
-  <!-- Baustein 3: Telefonergebnisse in das persönliche ONLY-INSIDE-KMS -->
-  <details class="research kms-converter" id="kmsConverterModule">
-    <summary class="research-summary">
-      <span>
-        <span class="research-summary-title" data-i18n="k3Title">3. Telefonergebnisse &amp; KMS-Import</span>
-        <span class="research-summary-sub" data-i18n="k3Subtitle">JA-Kontakte getrennt aufbereiten – mit dem originalen ONLY-INSIDE-Importformat.</span>
-      </span>
-      <svg class="research-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 9 7 7 7-7"/></svg>
-    </summary>
-    <div class="research-content">
-      <p class="research-lead" data-i18n="k3Intro">Der dritte KI-Prompt ergänzt zunächst die Telefonstatus-Felder in der Masterliste. Sobald echte Gesprächsergebnisse eingetragen sind, erzeugt er eine separate KMS-Importliste ausschließlich aus bestätigten JA-Kontakten.</p>
-      <div class="k3-steps">
-        <article><strong data-i18n="k3S1Title">1 · Telefonliste vorbereiten</strong><p data-i18n="k3S1">Statusfelder ergänzen. Firmen, Quellen, Laufnummern und ursprüngliche Recherchefarben bleiben unverändert.</p></article>
-        <article><strong data-i18n="k3S2Title">2 · JA-Kontakte auswählen</strong><p data-i18n="k3S2">Nur dokumentierte JA-Gespräche mit Einladungsfreigabe und bestätigter E-Mail-Adresse gelangen in den Export.</p></article>
-        <article><strong data-i18n="k3S3Title">3 · Persönliches KMS</strong><p data-i18n="k3S3">Importdatei hochladen und anschließend im KMS eine bestehende Gruppe wählen, beispielsweise „Impulsversand“.</p></article>
-      </div>
-      <div class="k3-statuses">
-        <span class="k3-status yes" data-i18n="k3Yes">JA</span>
-        <span class="k3-status no" data-i18n="k3No">NEIN</span>
-        <span class="k3-status callback" data-i18n="k3Callback">Rückruf</span>
-        <span class="k3-status neutral" data-i18n="k3NotReached">Nicht erreicht</span>
-        <span class="k3-status neutral" data-i18n="k3Open">Offen</span>
-      </div>
-      <p class="research-note" data-i18n="k3Files">Im KI-Chat bitte die aktuelle BusinessBooster-Master-Excel und die Original-Excelvorlage für den ONLY-INSIDE-Adressimport hochladen. Auf dieser HTML-Seite werden keine Dateien oder Kontakte gespeichert.</p>
-      <div class="research-actions">
-        <button class="research-copy" type="button" id="k3Copy">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
-          <span data-i18n="k3CopyText">KMS-Konvertierungs-Prompt kopieren</span>
-        </button>
-        <output class="research-feedback" id="k3Feedback" role="status" aria-live="polite"></output>
-        <details class="research-preview" id="k3Preview" open>
-          <summary data-i18n="k3PreviewLabel">Vollständigen KMS-Prompt anzeigen</summary>
-          <textarea id="k3Prompt" readonly spellcheck="false" aria-label="KMS-Konvertierungs-Prompt"></textarea>
-        </details>
-        <p class="k3-note" data-i18n="k3Note">Die Gruppenzuordnung erfolgt beim Import im KMS. Eine exportierte Excel-Datei ist weder ein bestätigter KMS-Import noch eine Double-Opt-In-Bestätigung.</p>
-      </div>
+
+  <!-- Direkter Einstieg in den eigenständigen Telefonarbeitsplatz -->
+  <section class="phone-launch" aria-labelledby="phoneLaunchTitle">
+    <div class="phone-launch-head">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h5l2 4-3 2a15 15 0 0 0 5 5l2-3 4 2v5c-8 2-17-7-15-15Z"/></svg>
+      <h2 id="phoneLaunchTitle" data-i18n="phoneLaunchTitle">3. Telefonarbeitsplatz – ohne weiteren KI-Prompt</h2>
     </div>
-  </details>
+    <p data-i18n="phoneLaunchText">Nach der Recherche die Master-Excel im Telefonarbeitsplatz laden, Firma für Firma bearbeiten und die JA-Kontakte als fertige ONLY-INSIDE-Importdatei herunterladen. Gesprächsergebnisse und Recherchefarben bleiben in der aktualisierten Masterliste erhalten.</p>
+    <a class="phone-launch-btn" href="../unternehmerforum-telefonarbeitsplatz/">
+      <span data-i18n="phoneLaunchButton">Telefonarbeitsplatz öffnen</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+    </a>
+  </section>
 
 </main>
 <footer class="footer"><div class="container"><span>LiquidityBooster · ClubLeader</span><span data-i18n="footer">Persönliche Einladung zum Unternehmerforum</span></div></footer>
@@ -363,6 +334,19 @@ function researchModeRefresh(){
   researchRunIndicator.textContent=researchValidRun()?t.runPrefix+' '+n+' · '+c[lang]:t.runInvalid;
   researchUpdate();
 }
+
+
+/* Telefonarbeitsplatz statt drittem KI-Prompt */
+Object.assign(translations.de,{
+  phoneLaunchTitle:'3. Telefonarbeitsplatz – ohne weiteren KI-Prompt',
+  phoneLaunchText:'Nach der Recherche die Master-Excel im Telefonarbeitsplatz laden, Firma für Firma bearbeiten und die JA-Kontakte als fertige ONLY-INSIDE-Importdatei herunterladen. Gesprächsergebnisse und Recherchefarben bleiben in der aktualisierten Masterliste erhalten.',
+  phoneLaunchButton:'Telefonarbeitsplatz öffnen'
+});
+Object.assign(translations.en,{
+  phoneLaunchTitle:'3. Call workspace – no additional AI prompt',
+  phoneLaunchText:'After research, load your master Excel into the call workspace, work through the companies one by one and download eligible YES contacts in the ONLY INSIDE import format. Call results and research colours stay in the updated master workbook.',
+  phoneLaunchButton:'Open call workspace'
+});
 
 /* KI-Recherche: keine API, keine externe Übertragung, keine Kontaktkartei */
 const researchGroups=[
@@ -511,6 +495,8 @@ function researchGeneratePrompt(){
     '',
     'OUTPUT: Provide a clean, filterable .xlsx workbook with the company list, an overview by place and industry including A/B/unverified counts, and a methodology/source sheet with research date, source quality and coverage statistics. The requested company count is a CEILING, not an obligation: 60 thoroughly verified businesses are preferable to 100 superficial entries. Include only companies you could genuinely document, and never fill gaps with fictitious records. If live web browsing is unavailable, say so openly and do not pretend to have verified current sources. If .xlsx export is unavailable, supply Excel-compatible CSV.',
     '',
+    'PREPARE THE CALL WORKSPACE: The master company list must already include these eleven separate, editable columns with EXACT German headers: Telefonstatus | Gesprächsdatum | Anrede Gesprächspartner | Titel Gesprächspartner | Vorname Gesprächspartner | Nachname Gesprächspartner | Funktion Gesprächspartner | E-Mail bestätigt | Einladung erlaubt | KMS-Exportstatus | Bemerkung. For every untouched company set Telefonstatus = Offen, Einladung erlaubt = Offen, and KMS-Exportstatus = Nicht exportiert. Leave other call fields BLANK; never infer calls, consent, actual contacts or confirmed invitation emails from public research data. Keep original research-run row colours intact. Optionally use Excel dropdowns for call status (Offen, Nicht erreicht, Rückruf, JA, NEIN), permission (Offen, Ja, Nein) and export status (Nicht exportiert, Export vorbereitet, Import bestätigt). These columns enable the standalone local HTML call workspace with no third AI prompt.',
+    '',
     'RUN AND POTENTIAL: Initial research is run 1. Include a permanent Research run column with value 1; use a subtle BLUE Excel row fill (#EFF6FF; accent #2563EB) for all companies in this run. Add a Postcode & industry potential worksheet: cite evidenced and deduplicated company counts by postal code, location and industry, keeping additional identified but unverified candidates SEPARATE. Postcodes do not establish administrative location on their own. If official regional company or establishment statistics exist, show them separately with direct source, reference year, geography and counting unit; NEVER call these figures suitable-company totals or open leads. Mark unknown potential UNKNOWN. Retain the workbook as the master list for subsequent runs.',
     '',
     'Public business contact details are not by themselves permission for unsolicited email or phone marketing.'
@@ -540,6 +526,8 @@ function researchGeneratePrompt(){
     'ABSCHLIESSENDE QUALITÄTSKONTROLLE: Vor dem Export jeden Datensatz auf Firmenidentität, regionale Anschrift, tatsächliche Branche, funktionierende direkte Quellenlinks, verfügbare Kontaktangaben, öffentlich belegte Geschäftsleitung und eine individuelle, nicht austauschbare Eignungsbegründung prüfen. Offensichtliche Lücken auf offiziellen Firmenwebsites gezielt nachrecherchieren. Anzahl der Datensätze mit belegter Geschäftsleitung, Telefon, E-Mail und offizieller Primärquelle ausweisen; größere Lücken offen benennen. Geeignete Branchen und Orte bei ausreichender Trefferlage breit berücksichtigen, aber keine künstlichen Quoten erfüllen.',
     '',
     'ERGEBNIS: Erstelle eine sauber formatierte, filterbare XLSX-Datei mit Firmenliste, einer Übersicht über Orte, Branchen und A/B/offen-Einstufungen sowie einem Methoden-/Quellenblatt mit Recherchedatum, Quellenqualität und Vollständigkeitsstatistik. Die angegebene Firmenanzahl ist eine OBERGRENZE, keine Pflicht: Lieber 60 gründlich belegte Firmen als 100 nur oberflächlich recherchierte Einträge. Nur tatsächlich nachgeprüfte Firmen liefern und niemals mit Fantasiedaten auffüllen. Wenn kein aktueller Webzugriff vorhanden ist, dies offen sagen und keine aktuelle Prüfung behaupten. Falls keine XLSX-Datei erzeugt werden kann, Excel-kompatible CSV ausgeben.',
+    '',
+    'TELEFONARBEITSPLATZ VORBEREITEN: Ergänze in der Master-Firmenliste von Anfang an folgende elf getrennte, ausfüllbare Spalten in exakt dieser Schreibweise: Telefonstatus | Gesprächsdatum | Anrede Gesprächspartner | Titel Gesprächspartner | Vorname Gesprächspartner | Nachname Gesprächspartner | Funktion Gesprächspartner | E-Mail bestätigt | Einladung erlaubt | KMS-Exportstatus | Bemerkung. Für jede noch nicht angerufene Firma Telefonstatus = Offen, Einladung erlaubt = Offen und KMS-Exportstatus = Nicht exportiert setzen. Andere Felder für Gespräche LEER lassen; keine Telefonergebnisse, Zustimmungen, Ansprechpartner oder bestätigten E-Mail-Adressen aus den öffentlich recherchierten Firmendaten ableiten. Recherchelauf-Farben unverändert lassen. Optional eine Excel-Auswahlliste für Telefonstatus (Offen, Nicht erreicht, Rückruf, JA, NEIN), Einladungsfreigabe (Offen, Ja, Nein) und Exportstatus (Nicht exportiert, Export vorbereitet, Import bestätigt) hinzufügen. Diese Vorbereitung ermöglicht die spätere lokale Bearbeitung im HTML-Telefonarbeitsplatz ohne weiteren KI-Prompt.',
     '',
     'LAUF UND POTENZIAL: Die Erstrecherche bildet Lauf 1. Füge eine dauerhafte Spalte „Recherchelauf“ mit Wert 1 hinzu; kennzeichne alle Firmenzeilen dieses Laufs dezent BLAU (Füllung #EFF6FF, Kennfarbe #2563EB). Eine „PLZ & Branchenpotenzial“-Übersicht zeigt belegte, deduplizierte Firmenzahlen je PLZ, Ort und Branche sowie zusätzlich identifizierte, noch nicht geprüfte Kandidaten SEPARAT. Postleitzahlen sind keine Garantie für die Verwaltungszugehörigkeit. Ggf. amtliche regionale Unternehmens- bzw. Betriebsstättenstatistik getrennt mit direkter Quelle, Bezugsjahr, Gebiet und Zähleinheit angeben; NICHT als Anzahl geeigneter Firmen oder offene Leads darstellen. Fehlende Potenzialzahlen als „unbekannt“ ausweisen. Datei für spätere Folgeläufe als Masterliste speichern.',
     '',
@@ -576,6 +564,8 @@ function researchGenerateFollowUpPrompt(){
     '',
     'AUFTRAG: Erweitere eine bestehende regionale Firmenliste um maximal die angegebene Anzahl zusätzlicher, bislang NICHT gelisteter Unternehmen. Es handelt sich ausschließlich um Recherche für ein Unternehmerforum; nicht anrufen, nichts versenden. Die KI soll die Master-XLSX aktualisieren und als Datei zurückgeben.',
     '',
+    'TELEFONSTATUS BEI FOLGELÄUFEN: In der Master-Firmenliste müssen die elf Spalten Telefonstatus | Gesprächsdatum | Anrede Gesprächspartner | Titel Gesprächspartner | Vorname Gesprächspartner | Nachname Gesprächspartner | Funktion Gesprächspartner | E-Mail bestätigt | Einladung erlaubt | KMS-Exportstatus | Bemerkung vorhanden bleiben. Sind sie noch nicht vorhanden, ergänze sie; bereits vom ClubLeader erfasste Telefonergebnisse, E-Mail-Freigaben, KMS-Exportstatus, Anmerkungen und ursprüngliche Recherchelauf-Farben niemals überschreiben. Bei tatsächlich NEU recherchierten Firmen Telefonstatus = Offen, Einladung erlaubt = Offen und KMS-Exportstatus = Nicht exportiert, alle weiteren Gesprächsfelder leer. Der HTML-Telefonarbeitsplatz verarbeitet diese Spalten anschließend direkt und erstellt den KMS-Export – kein dritter KI-Prompt erforderlich.',
+    '',
     '1. MASTERLISTE ZUERST VOLLSTÄNDIG EINLESEN: Öffne ALLE Blätter und ALLE Firmenzeilen der beigefügten aktuellen XLSX. Übernimm sämtliche bisherigen Daten, Spalten, Notizen, Bearbeitungs-/Kontaktstatus, Quellen, Formatierungen, Laufnummern und Zeilenfarben. Keine vorhandene Firma ohne Begründung löschen und keine Bestandsdaten überschreiben. Ist die aktuelle Masterdatei nicht vorhanden, nicht vollständig lesbar oder zweifelhaft, STOPPE und fordere die Datei an. Nutze keine vermeintliche Erinnerung an frühere Chats als Ersatz für den vollständigen Dateiabgleich.',
     '',
     '2. PLZ-BASIERTE SUCHLÜCKEN ERMITTELN: Recherchiere die öffentlich belegbaren PLZ und Orte der angegebenen Verwaltungsregion. Erstelle eine Übersicht aus PLZ × Ort × gewählter Branche: Was ist in der Masterliste bereits erfasst, welche Kombinationen sind unterrepräsentiert und wo soll als Nächstes gesucht werden? Nutze die Matrix zur gezielten Recherche. Prüfe jeden neuen Betrieb auf einen tatsächlichen Standort im gewählten Gebiet. Eine PLZ allein beweist die Verwaltungszugehörigkeit NICHT; PLZ-Grenzen und Kreisgrenzen können voneinander abweichen. Unbekannte Suchabdeckung nicht als Null-Potenzial ausgeben.',
@@ -610,6 +600,8 @@ function researchGenerateFollowUpPrompt(){
     'Selected industries:\n'+industries,
     '',
     'OBJECTIVE: Continue an existing regional business research workbook for an entrepreneurs forum. Return only additional verified businesses NOT ALREADY in the uploaded master. Do not call anyone or send messages. Requested number is a MAXIMUM of newly found firms, never a total workbook row target.',
+    '',
+    'KEEP CALL STATUS FIELDS THROUGH EVERY RESEARCH RUN: Preserve the exact eleven editable columns Telefonstatus | Gesprächsdatum | Anrede Gesprächspartner | Titel Gesprächspartner | Vorname Gesprächspartner | Nachname Gesprächspartner | Funktion Gesprächspartner | E-Mail bestätigt | Einladung erlaubt | KMS-Exportstatus | Bemerkung. Add missing columns but never overwrite existing actual call outcomes, permission, confirmed email, KMS-export status, notes or original research-run colours. Newly researched firms must have Telefonstatus = Offen, Einladung erlaubt = Offen, KMS-Exportstatus = Nicht exportiert, with all other call-specific fields blank. The standalone HTML call workspace then handles status recording and KMS export locally, without a third AI prompt.',
     '',
     '1. READ THE ENTIRE UPLOADED MASTER XLSX BEFORE ANY SEARCH: Inspect ALL worksheets and existing company rows. Preserve previous companies, notes, contact/processing status, source URLs, research runs, original row colours, columns and formatting. Never silently overwrite old data or delete rows. If the current master file is missing, damaged or unreadable, STOP and request it. Memories of prior chats are not a substitute for this attachment.',
     '',
@@ -704,132 +696,6 @@ async function researchCopyPrompt(){
 researchCopy.addEventListener('click',researchCopyPrompt);
 researchRefreshLanguage();
 researchRadiusChange();
-
-/* Dritter Recherche-Baustein: ausschließlich Prompt-Erzeugung, kein Dateizugriff */
-const k3Trans={
-  de:{
-    k3Title:'3. Telefonergebnisse & KMS-Import',
-    k3Subtitle:'JA-Kontakte getrennt aufbereiten – mit dem originalen ONLY-INSIDE-Importformat.',
-    k3Intro:'Der dritte KI-Prompt ergänzt zunächst die Telefonstatus-Felder in der Masterliste. Sobald echte Gesprächsergebnisse eingetragen sind, erzeugt er eine separate KMS-Importliste ausschließlich aus bestätigten JA-Kontakten.',
-    k3S1Title:'1 · Telefonliste vorbereiten',
-    k3S1:'Statusfelder ergänzen. Firmen, Quellen, Laufnummern und ursprüngliche Recherchefarben bleiben unverändert.',
-    k3S2Title:'2 · JA-Kontakte auswählen',
-    k3S2:'Nur dokumentierte JA-Gespräche mit Einladungsfreigabe und bestätigter E-Mail-Adresse gelangen in den Export.',
-    k3S3Title:'3 · Persönliches KMS',
-    k3S3:'Importdatei hochladen und anschließend im KMS eine bestehende Gruppe wählen, beispielsweise „Impulsversand“.',
-    k3Yes:'JA',k3No:'NEIN',k3Callback:'Rückruf',k3NotReached:'Nicht erreicht',k3Open:'Offen',
-    k3Files:'Im KI-Chat bitte die aktuelle BusinessBooster-Master-Excel und die Original-Excelvorlage für den ONLY-INSIDE-Adressimport hochladen. Auf dieser HTML-Seite werden keine Dateien oder Kontakte gespeichert.',
-    k3CopyText:'KMS-Konvertierungs-Prompt kopieren',k3PreviewLabel:'Vollständigen KMS-Prompt anzeigen',
-    k3Note:'Die Gruppenzuordnung erfolgt beim Import im KMS. Eine exportierte Excel-Datei ist weder ein bestätigter KMS-Import noch eine Double-Opt-In-Bestätigung.',
-    k3Copied:'KMS-Prompt kopiert. Bitte mit beiden Excel-Dateien in den KI-Chat einfügen.',
-    k3CopyError:'Bitte den unten angezeigten Prompt markieren und manuell kopieren.',
-    k3Aria:'ONLY-INSIDE-KMS-Konvertierungs-Prompt'
-  },
-  en:{
-    k3Title:'3. Call results & KMS import',
-    k3Subtitle:'Prepare YES contacts separately using the original ONLY INSIDE import format.',
-    k3Intro:'The third AI prompt first adds call-status columns to the master workbook. Once real call outcomes are recorded, it creates a separate KMS import file containing only confirmed YES contacts.',
-    k3S1Title:'1 · Prepare call list',
-    k3S1:'Add status columns. Keep companies, sources, research-run numbers and original row colours unchanged.',
-    k3S2Title:'2 · Select YES contacts',
-    k3S2:'Only documented YES conversations with explicit invitation permission and confirmed email address qualify for export.',
-    k3S3Title:'3 · Personal KMS',
-    k3S3:'Upload the import file and select an existing KMS group during import, e.g. “Impulsversand”.',
-    k3Yes:'YES',k3No:'NO',k3Callback:'Call back',k3NotReached:'Not reached',k3Open:'Open',
-    k3Files:'Attach the latest BusinessBooster master XLSX and the original ONLY INSIDE address-import Excel template in the AI chat. This HTML page does not store or upload any contacts or files.',
-    k3CopyText:'Copy KMS conversion prompt',k3PreviewLabel:'Show complete KMS prompt',
-    k3Note:'Assign groups inside KMS during import. Exporting an Excel file proves neither a successful KMS import nor completed double opt-in.',
-    k3Copied:'KMS prompt copied. Paste it into the AI chat together with both Excel files.',
-    k3CopyError:'Select and copy the prompt below manually.',
-    k3Aria:'ONLY INSIDE KMS conversion prompt'
-  }
-};
-Object.assign(translations.de,k3Trans.de);
-Object.assign(translations.en,k3Trans.en);
-function k3MakePrompt(lang){
-  if(lang==='en')return [
-    'BUSINESSBOOSTER – PROMPT 3: CALL OUTCOMES AND ONLY INSIDE KMS IMPORT',
-    'ATTACH TWO FILES IN THIS AI CHAT: (1) the latest regional BusinessBooster MASTER XLSX, and (2) the ORIGINAL ONLY INSIDE CRM address-import Excel template. Read all sheets. If either file is unavailable or unreadable, STOP and ask for it. Do not guess the template format.',
-    '',
-    'PURPOSE: Prepare an editable call-tracking master and, AFTER REAL CALLS, export only explicitly approved email-invitation contacts for import into the ClubLeader’s personal KMS. Do not make calls, send emails or send invitations.',
-    '',
-    '1. PRESERVE MASTER DATA: Keep every existing company, sheet, source, note, research-run number, original blue/green/magenta etc. row colour and processing field. Never overwrite existing data or existing colour assignments. Save an updated copy. A published director is NOT necessarily the person who answered the phone.',
-    '',
-    '2. ADD CALL TRACKING IF MISSING: Provide editable fields with dropdowns where possible: Call status (Open / Not reached / Call back / YES / NO), Actual call date, Salutation of person reached, First name of person reached, Last name of person reached, Actual role, Invitation EMAIL ADDRESS CONFIRMED DURING CALL, Express permission to send email invitation (Yes / No / Open), KMS export status (Not exported / Export prepared / Import confirmed), Notes. Leave existing field values intact. Default untouched records to Open, permission Open and KMS status Not exported; NEVER default anything to YES. Show call status as text; colour only the status cell if useful, never replace the permanent research-run row colour.',
-    '',
-    '3. TWO PASSES WITH THE SAME PROMPT: If there are no documented call results yet, FIRST return only the updated master XLSX ready for the ClubLeader to enter call outcomes. Do not invent consent, export YES contacts or create a fictitious KMS file. On a LATER run of this same prompt, read the master file containing actually entered call results and perform the KMS conversion. A publicly listed email does not imply permission.',
-    '',
-    '4. STRICT YES FILTER: Export only if ALL apply: Call status = YES; express permission for the email invitation = Yes; the email address has been confirmed during the call in the separate confirmation field; KMS status is NOT Import confirmed. Exclude NO, Open, Not reached, Call back, no/unclear permission and already imported contacts. An incomplete YES record belongs on a manual-review list, not in the import. Never automatically put a researched director’s name in conversation partner fields.',
-    '',
-    '5. DEDUPLICATION: Before export, check normalised confirmed email, actual contact person and company. Do not export the same person twice. Put ambiguous matches on the manual-review list. Do not re-export Import confirmed contacts without explicit instruction.',
-    '',
-    '6. EXACT ORIGINAL ONLY INSIDE FORMAT: Use the Privatpersonen worksheet from the attached original template, not the Hotels sample. The original headers in A–P are EXACTLY: Anrede | Titel | Vorname | Nachname | E-Mail | Strasse | PLZ | Ort | Land | Telefon | Mobiltelefon | Internet | Du | Kontakquelle | Firma | Firma Funktion. Preserve spelling, order, and template-required structure. Do NOT add call-status, research-run, consent or group columns to the KMS import. Original column Q is a note about custom global fields: use those only if they have already been created and explicitly mapped in this personal KMS. Remove ALL template example contacts, sample hotel data, and explanatory rows from the actual import. Do not accidentally import the Hotels sample.',
-    '',
-    '7. MAP FIELDS: Anrede = documented salutation of actual conversation partner; Titel = known title or blank; Vorname/Nachname = actual partner, not assumed director; E-Mail = email confirmed during the call; Strasse/PLZ/Ort/Land = documented company address (keep postcode as TEXT, retaining leading zeros); Telefon/Mobiltelefon = published business numbers; Internet = official business website; Du = blank unless preferred address form is established; Kontakquelle = Unternehmerforum – persönliches Telefonat; Firma = company name; Firma Funktion = actual role of person reached. Leave unknown values blank. The original template notes that missing salutation/name data may trigger the generic “Lieber Leser” greeting. Do not infer missing names, titles or email addresses.',
-    '',
-    '8. OUTPUT: File A = updated MASTER XLSX with original companies, styles and run colours, call-status fields and totals for companies / contacted / YES / NO / Not reached / Call back / Open / eligible / export prepared / review needed. File B = ONLY-INSIDE-KMS-Import.xlsx containing only eligible, unique confirmed YES contacts in the exact template format. Mark these rows Export prepared in the master, NEVER Import confirmed. If none are eligible, report zero and return only the updated master and review list, without a fictitious populated import file.',
-    '',
-    '9. KMS GROUP: The ClubLeader imports File B into their OWN personal ONLY INSIDE KMS and selects an existing group THERE during import, e.g. Impulsversand. Do not invent a group column, group assignment or KMS API. Only after actual successful import is verified may the master be marked Import confirmed. Double opt-in and subsequent invitation delivery are handled within the EXISTING KMS process, not by this conversion.',
-    '',
-    '10. FINAL CHECK: Verify original A–P headers/order, no sample rows, only eligible consent-backed contacts, no duplicate emails, preserved master run colours and clear output counts. No invented persons, emails, consent or import success. If XLSX is unavailable, clearly explain this and provide ordered CSV without claiming to have tested compatibility.',
-    '',
-    'Public business details do not themselves authorise unsolicited marketing calls or emails.'
-  ].join('\n');
-  return [
-    'BUSINESSBOOSTER – PROMPT 3: TELEFONERGEBNISSE UND ONLY-INSIDE-KMS-IMPORT',
-    'ZWEI DATEIEN IM KI-CHAT HOCHLADEN: (1) die aktuelle regionale BusinessBooster-MASTER-XLSX, (2) die ORIGINALE Excel-Adressimportvorlage aus ONLY INSIDE. ALLE Tabellenblätter beider Dateien einlesen. Fehlt eine Datei oder ist sie nicht lesbar, STOPPEN und die Datei anfordern. Kein Importformat erraten.',
-    '',
-    'ZIEL: Eine ausfüllbare Telefonbearbeitung in der Masterliste vorbereiten und NACH TATSÄCHLICHEN TELEFONATEN ausschließlich ausdrücklich genehmigte E-Mail-Einladungen in das Format des persönlichen KMS umwandeln. Keine Anrufe, Nachrichten oder Einladungen eigenständig versenden.',
-    '',
-    '1. MASTERLISTE UNVERÄNDERT ERHALTEN: Alle bisherigen Firmen, Tabellenblätter, Quellen, Notizen, Recherchelaufnummern, ursprünglich blau/grün/magenta usw. eingefärbte Firmenzeilen und Bearbeitungsdaten übernehmen. Keine Firmen löschen, keine Bestandsdaten stillschweigend überschreiben und keine Lauf-Farben ändern. Eine bearbeitete Dateikopie ausgeben. Ein öffentlich gefundener Geschäftsführer ist NICHT automatisch der tatsächliche Gesprächspartner.',
-    '',
-    '2. TELEFONSTATUS-SPALTEN ERGÄNZEN: Falls nicht vorhanden, folgende editierbaren Felder und nach Möglichkeit Excel-Auswahllisten einrichten: Telefonstatus (Offen / Nicht erreicht / Rückruf / JA / NEIN); tatsächliches Gesprächsdatum; Anrede des erreichten Gesprächspartners; Vorname des erreichten Gesprächspartners; Nachname des erreichten Gesprächspartners; tatsächliche Funktion; IM TELEFONAT BESTÄTIGTE Einladungs-E-Mail-Adresse; ausdrückliche Erlaubnis für E-Mail-Einladung (Ja / Nein / Offen); KMS-Exportstatus (Nicht exportiert / Export vorbereitet / Import bestätigt); Bemerkung. Vorhandene Werte erhalten; unberührte Kontakte auf Offen, Einladungsfreigabe Offen, KMS-Status Nicht exportiert setzen, NIEMALS automatisch auf JA. Telefonstatus als Text in eigener Spalte; ggf. nur Statuszelle farbig gestalten, nicht die Recherchelauf-Zeilenfarbe überschreiben.',
-    '',
-    '3. ZWEI ARBEITSPHASEN: Hat die Masterdatei noch KEINE echten dokumentierten Telefonergebnisse, zunächst NUR eine aktualisierte, ausfüllbare MASTER-XLSX mit den neuen Statusspalten ausgeben. KEINE JA-Zustimmungen, KEINE künstlichen Kontakte und KEINE fiktive KMS-Datei erzeugen. NACH den tatsächlichen Gesprächen denselben Prompt mit der inzwischen ausgefüllten, neuesten Masterdatei erneut verwenden. Eine öffentlich recherchierte E-Mail-Adresse ist keine Einwilligung.',
-    '',
-    '4. STRIKTER JA-FILTER: Nur wenn ALLE Voraussetzungen erfüllt sind, exportieren: (a) Telefonstatus ausdrücklich JA, (b) Einladungserlaubnis ausdrücklich Ja, (c) die E-Mail-Adresse wurde IM GESPRÄCH für die Einladung bestätigt und in der entsprechenden separaten Spalte erfasst, (d) KMS-Exportstatus nicht Import bestätigt. NEIN, Offen, Nicht erreicht, Rückruf, ungeklärte Zustimmung und bereits importierte Kontakte NICHT exportieren. Unvollständige JA-Datensätze separat als Prüffälle ausweisen, NICHT in die KMS-Importdatei aufnehmen. Als Gesprächspartner die tatsächlich erreichte Person übernehmen, nicht automatisch die recherchierte Geschäftsleitung.',
-    '',
-    '5. DUBLETTEN UND FRÜHERE IMPORTE: Unter exportfähigen JA-Kontakten bestätigte E-Mail-Adresse (normalisiert), tatsächlichen Ansprechpartner und zugehörige Firma vergleichen. Dieselbe Person nicht zweimal exportieren. Unklare Dubletten zur manuellen Prüfung separieren. Kontakte mit Import bestätigt nicht ohne ausdrücklichen Auftrag erneut exportieren.',
-    '',
-    '6. EXAKTES ONLY-INSIDE-IMPORTFORMAT: Das Tabellenblatt „Privatpersonen“ der beigefügten ORIGINALVORLAGE verwenden, NICHT das Musterblatt „Hotels“. Die originalen Spalten A–P lauten EXAKT und in dieser REIHENFOLGE: Anrede | Titel | Vorname | Nachname | E-Mail | Strasse | PLZ | Ort | Land | Telefon | Mobiltelefon | Internet | Du | Kontakquelle | Firma | Firma Funktion. Schreibweisen, Reihenfolge und erforderliche Vorlagenstruktur beibehalten. KEINE zusätzlichen Status-, Recherche-, Einwilligungs- oder Gruppenspalten in die Importdatei einfügen. Spalte Q der Mustervorlage weist auf global selbst definierte Datenfelder hin: Solche Felder nur dann verwenden, wenn sie im persönlichen KMS bereits eingerichtet und ausdrücklich zugeordnet sind. ALLE Musterkontakte, Musterhotels und Hinweistexte aus der fertigen Importdatei entfernen; keine Beispieldaten aus „Hotels“ versehentlich mitimportieren.',
-    '',
-    '7. FELDER ZUORDNEN: Anrede = dokumentierte Anrede des tatsächlichen Gesprächspartners; Titel = belegter Titel oder leer; Vorname/Nachname = erreichte Person, nicht vermuteter Geschäftsführer; E-Mail = im Gespräch bestätigte Einladungsadresse; Strasse/PLZ/Ort/Land = belegte Geschäftsanschrift (PLZ als TEXT, führende Nullen erhalten); Telefon/Mobiltelefon = veröffentlichte geschäftliche Nummern; Internet = offizielle Firmenwebsite; Du = leer, sofern Anredeform nicht ausdrücklich feststeht; Kontakquelle = Unternehmerforum – persönliches Telefonat; Firma = Firmenname; Firma Funktion = tatsächliche Funktion der erreichten Person. Unbekannte Angaben leer lassen. Die Originalvorlage weist bei fehlenden Anrededaten auf „Lieber Leser“ hin. KEINE Namen, Anreden, Titel oder E-Mails erfinden.',
-    '',
-    '8. AUSGABEN: DATEI A = aktualisierte MASTER-XLSX mit sämtlichen bisherigen Firmen, ursprünglichen Recherchefarben und Laufnummern, Telefonstatus-Spalten und Übersicht zu Firmen insgesamt / angerufen / JA / NEIN / Nicht erreicht / Rückruf / Offen / exportfähig / Export vorbereitet / Prüffällen. DATEI B = ONLY-INSIDE-KMS-Import.xlsx mit AUSSCHLIESSLICH ausdrücklich freigegebenen, eindeutig deduplizierten JA-Kontakten im exakt geprüften Vorlagenformat. Diese Datensätze in der Masterliste auf Export vorbereitet setzen, NIEMALS auf Import bestätigt. Gibt es null exportfähige JA-Kontakte, offen melden und NUR aktualisierte Masterliste plus Prüffälle zurückgeben, keine fingierte gefüllte KMS-Datei.',
-    '',
-    '9. GRUPPENZUORDNUNG IM PERSÖNLICHEN KMS: Der ClubLeader lädt DATEI B in sein EIGENES ONLY-INSIDE-KMS hoch und wählt BEIM IMPORT eine bereits bestehende Gruppe, beispielsweise „Impulsversand“. KEINE erfundene Gruppenspalte, automatische Gruppenzuordnung oder zusätzliche KMS-Schnittstelle einrichten. Erst NACH kontrolliertem, erfolgreichem Import darf Import bestätigt in der Masterliste eingetragen werden. Double-Opt-In-Bestätigung und Einladungsversand bleiben im VORHANDENEN KMS-Prozess und werden nicht durch den Excel-Export ersetzt.',
-    '',
-    '10. ABSCHLUSSKONTROLLE: Vor Export Originalüberschriften A–P und ihre Reihenfolge, Musterzeilenfreiheit, ausdrückliche JA-Zustimmungen, fehlende Dubletten, unveränderte Master-Farben und korrekte Zahlen prüfen. Keine unbekannten Gesprächspartner, E-Mails, Zustimmungen oder erfolgreichen KMS-Importe behaupten. Falls XLSX-Ausgabe nicht möglich ist, dies offen erklären und geordnete CSV ausgeben, ohne geprüfte Importkompatibilität vorzutäuschen.',
-    '',
-    'Öffentlich zugängliche geschäftliche Kontaktdaten sind keine automatische Einwilligung in unaufgeforderte Telefon- oder E-Mail-Werbung.'
-  ].join('\n');
-}
-const k3PromptField=document.getElementById('k3Prompt');
-const k3Feedback=document.getElementById('k3Feedback');
-function k3Refresh(){
-  const lang=document.documentElement.lang==='en'?'en':'de';
-  k3PromptField.value=k3MakePrompt(lang);
-  k3PromptField.setAttribute('aria-label',k3Trans[lang].k3Aria);
-  k3Feedback.textContent='';
-}
-async function k3CopyPrompt(){
-  const lang=document.documentElement.lang==='en'?'en':'de',value=k3MakePrompt(lang);
-  let success=false;
-  if(navigator.clipboard&&window.isSecureContext){
-    try{await navigator.clipboard.writeText(value);success=true}catch(e){success=false}
-  }
-  if(!success){
-    document.getElementById('k3Preview').open=true;
-    k3PromptField.value=value;
-    k3PromptField.focus();
-    k3PromptField.select();
-    try{success=!!document.execCommand('copy')}catch(e){success=false}
-  }
-  k3Feedback.textContent=success?k3Trans[lang].k3Copied:k3Trans[lang].k3CopyError;
-}
-document.getElementById('k3Copy').addEventListener('click',k3CopyPrompt);
-document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',k3Refresh));
-k3Refresh();
 
 </script>
 </body>
