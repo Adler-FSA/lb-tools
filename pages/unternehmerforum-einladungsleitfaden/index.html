@@ -62,6 +62,28 @@
 @media print{.research{display:none!important}}
 
 
+
+.research-mode{margin:0 0 24px;padding:20px;border:1px solid var(--line);border-radius:15px;background:var(--soft)}
+.research-mode legend{padding:0 7px;font-size:17px;font-weight:780;color:var(--navy)}
+.research-mode-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.research-mode-option{display:flex;gap:10px;align-items:flex-start;padding:13px;border-radius:10px;background:#fff;border:1px solid #cedce0;font-size:14px;font-weight:740;color:var(--navy);cursor:pointer}
+.research-mode-option:has(input:checked){border-color:#16a085;background:#f3fffc}
+.research-mode-option input{width:18px;height:18px;flex:0 0 18px;margin:1px 0 0;accent-color:var(--navy)}
+.research-mode-help{margin:0 0 13px;line-height:1.5;font-size:14px;color:#536478}
+.research-follow-fields{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:12px 0}
+.research-follow-fields[hidden]{display:none!important}
+.research-follow-fields .research-field{flex:0 1 210px}
+.research-follow-fields .research-note{flex:1;min-width:220px;margin:0}
+.research-run-indicator{display:inline-flex;align-items:center;gap:8px;background:var(--current-bg,#eff6ff);border:1px solid #cbd8e4;color:var(--navy);font-size:13px;font-weight:790;border-radius:8px;padding:7px 11px;margin-bottom:13px}
+.research-run-indicator:before{content:"";width:11px;height:11px;display:block;border-radius:3px;background:var(--current-color,#2563eb)}
+.research-palette{display:flex;gap:7px;flex-wrap:wrap}
+.research-swatch{font-size:12px;font-weight:760;padding:7px 10px;border:1px solid;border-radius:7px}
+.research-swatch.blue{background:#eff6ff;border-color:#c5d5f6;color:#1d4ed8}
+.research-swatch.green{background:#f0fdf4;border-color:#bae6c5;color:#15803d}
+.research-swatch.magenta{background:#fdf4ff;border-color:#eed0f5;color:#a21caf}
+.research-swatch.amber{background:#fffbeb;border-color:#f6dfaa;color:#a16207}
+@media(max-width:600px){.research-mode-options{grid-template-columns:1fr}.research-mode{padding:16px 13px}}
+
 /* Regionale Suche: 16 Bundesländer und 401 Kreise, lokal eingebunden */
 .research-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .research-grid [hidden]{display:none!important}
@@ -117,6 +139,26 @@
     </summary>
     <div class="research-content">
       <p class="research-lead" data-i18n="researchLead">Du entscheidest, welche Unternehmen in deiner Region interessant sind. Die KI recherchiert passende Firmen und ausschließlich öffentlich belegbare Geschäftskontaktdaten. Die Recherche erfolgt in deinem KI-Chat, nicht auf dieser Seite.</p>
+
+      <fieldset class="research-mode" id="researchModeBlock">
+        <legend data-i18n="modeLegend">Art der Firmenrecherche</legend>
+        <div class="research-mode-options" role="radiogroup" aria-label="Art der Firmenrecherche">
+          <label class="research-mode-option"><input type="radio" name="researchMode" value="new" checked><span data-i18n="modeNew">Erstrecherche – Masterliste erstellen</span></label>
+          <label class="research-mode-option"><input type="radio" name="researchMode" value="continue"><span data-i18n="modeContinue">Folgerecherche – Masterliste erweitern</span></label>
+        </div>
+        <p id="researchModeHelp" class="research-mode-help" data-i18n="modeNewHelp">Der erste Lauf wird in der Excel-Masterliste blau markiert.</p>
+        <div id="researchFollowFields" class="research-follow-fields" hidden>
+          <div class="research-field"><label for="researchRun" data-i18n="runLabel">Nummer des nächsten Recherche­laufs</label><input type="number" id="researchRun" inputmode="numeric" min="2" max="999" step="1" value="2"></div>
+          <p class="research-note" data-i18n="uploadNote">Die aktuelle Master-Excel-Datei zusammen mit dem Folge-Prompt in ChatGPT hochladen. Ohne die Datei ist kein sicherer Dublettenabgleich möglich.</p>
+        </div>
+        <output class="research-run-indicator" id="researchRunIndicator" aria-live="polite"></output>
+        <div class="research-palette">
+          <span class="research-swatch blue" data-i18n="color1">1 · Blau</span>
+          <span class="research-swatch green" data-i18n="color2">2 · Grün</span>
+          <span class="research-swatch magenta" data-i18n="color3">3 · Magenta</span>
+          <span class="research-swatch amber" data-i18n="color4">4 · Orange</span>
+        </div>
+      </fieldset>
       <div class="research-grid">
         <div class="research-field">
           <label for="researchState" data-i18n="stateLabel">Bundesland</label>
@@ -135,7 +177,7 @@
           </select>
         </div>
         <div class="research-field">
-          <label for="researchQuantity" data-i18n="quantityLabel">Firmenanzahl</label>
+          <label for="researchQuantity" id="researchQuantityLabel" data-i18n="quantityLabel">Firmenanzahl</label>
           <select id="researchQuantity"><option value="25">25</option><option value="50" selected>50</option><option value="100">100</option></select>
         </div>
         <div class="research-field research-center" id="researchCenterWrap" hidden>
@@ -158,7 +200,7 @@
         <p class="research-note" data-i18n="researchNote">Nur öffentlich nachprüfbare Firmendaten mit konkreten Quellenlinks. Keine erfundenen Namen, E-Mail-Adressen oder Telefonnummern. Fehlende Angaben bleiben leer.</p>
         <button type="button" class="research-copy" id="researchCopy" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
-          <span data-i18n="researchCopy">KI-Recherche-Prompt kopieren</span>
+          <span data-i18n="researchCopy" id="researchCopyLabel">KI-Recherche-Prompt kopieren</span>
         </button>
         <output id="researchFeedback" class="research-feedback" role="status" aria-live="polite"></output>
         <details class="research-preview" id="researchPreviewDetails" open>
@@ -241,6 +283,33 @@ function researchRadiusChange(){
   researchUpdate();
 }
 
+
+const researchColors=[
+  {de:'Blau',en:'Blue',fill:'#EFF6FF',hex:'#2563EB'},
+  {de:'Grün',en:'Green',fill:'#F0FDF4',hex:'#16A34A'},
+  {de:'Magenta',en:'Magenta',fill:'#FDF4FF',hex:'#C026D3'},
+  {de:'Orange',en:'Amber',fill:'#FFFBEB',hex:'#D97706'},
+  {de:'Türkis',en:'Teal',fill:'#ECFEFF',hex:'#0891B2'},
+  {de:'Violett',en:'Violet',fill:'#F5F3FF',hex:'#7C3AED'}
+];
+function researchModeValue(){return document.querySelector('input[name="researchMode"]:checked')?.value||'new'}
+function researchRunNumber(){return researchModeValue()==='new'?1:Number(researchRun.value)}
+function researchValidRun(){return researchModeValue()==='new'||(researchRun.value.trim()!==''&&Number.isInteger(Number(researchRun.value))&&Number(researchRun.value)>=2&&Number(researchRun.value)<=999)}
+function researchRunColor(n){return researchColors[(Math.max(1,Number.isInteger(n)?n:1)-1)%researchColors.length]}
+function researchModeRefresh(){
+  const lang=researchLang(),t=researchTrans[lang],follow=researchModeValue()==='continue',n=researchRunNumber(),c=researchRunColor(n);
+  researchFollowFields.hidden=!follow;
+  researchModeHelp.textContent=follow?t.modeContinueHelp:t.modeNewHelp;
+  researchQuantityLabel.textContent=follow?t.quantityFollow:t.quantityLabel;
+  researchQuantityLabel.dataset.i18n=follow?'quantityFollow':'quantityLabel';
+  researchCopyLabel.textContent=follow?t.copyFollow:t.researchCopy;
+  researchCopyLabel.dataset.i18n=follow?'copyFollow':'researchCopy';
+  researchRunIndicator.style.setProperty('--current-bg',c.fill);
+  researchRunIndicator.style.setProperty('--current-color',c.hex);
+  researchRunIndicator.textContent=researchValidRun()?t.runPrefix+' '+n+' · '+c[lang]:t.runInvalid;
+  researchUpdate();
+}
+
 /* KI-Recherche: keine API, keine externe Übertragung, keine Kontaktkartei */
 const researchGroups=[
   {key:'craft',de:'Bau, Handwerk & Technik',en:'Construction, trades & technology',items:[
@@ -267,7 +336,7 @@ const researchChecked=new Set(researchGroups.flatMap(g=>g.items.map(i=>i[0])).fi
 const researchTrans={
   de:{
     stateLabel:'Bundesland',statePlaceholder:'Bundesland auswählen',countyPlaceholder:'Zuerst Bundesland auswählen',countySelect:'Landkreis / kreisfreie Stadt auswählen',centerLabel:'Mittelpunkt für den Umkreis',centerPlaceholder:'z. B. Dieburg',districtSource:'Gebietsstand 2026 · 16 Bundesländer · 401 Kreise und kreisfreie Städte (einschließlich Hanau).',feedbackState:'Bitte zuerst ein Bundesland auswählen.',feedbackCounty:'Bitte einen Landkreis oder eine kreisfreie Stadt auswählen.',feedbackCenter:'Bitte einen Mittelpunkt (Ort) für den Umkreis eingeben.',
-    researchTitle:'Deine regionale Firmenliste mit KI erstellen',
+    modeLegend:'Art der Firmenrecherche',modeNew:'Erstrecherche – Masterliste erstellen',modeContinue:'Folgerecherche – Masterliste erweitern',modeNewHelp:'Der erste Lauf wird in der Excel-Masterliste blau markiert.',modeContinueHelp:'Mit der neuesten Master-Excel-Datei weitere Unternehmen finden und frühere Treffer ausschließen.',runLabel:'Nummer des nächsten Recherchelaufs',uploadNote:'Die aktuelle Master-Excel-Datei zusammen mit dem Folge-Prompt in ChatGPT hochladen. Ohne die Datei ist kein sicherer Dublettenabgleich möglich.',color1:'1 · Blau',color2:'2 · Grün',color3:'3 · Magenta',color4:'4 · Orange',runPrefix:'Recherchelauf',runInvalid:'Ungültige Laufnummer (2–999)',quantityFollow:'Anzahl neuer Firmen',copyFollow:'Follow-up-Prompt kopieren',researchTitle:'Deine regionale Firmenliste mit KI erstellen',
     researchSubtitle:'Region wählen, passende Branchen markieren und einen belegbaren Excel-Rechercheauftrag kopieren.',
     researchLead:'Du entscheidest, welche Unternehmen in deiner Region interessant sind. Die KI recherchiert passende Firmen und ausschließlich öffentlich belegbare Geschäftskontaktdaten. Die Recherche erfolgt in deinem KI-Chat, nicht auf dieser Seite.',
     regionLabel:'Stadt oder Region',regionPlaceholder:'z. B. Darmstadt-Dieburg',
@@ -284,7 +353,7 @@ const researchTrans={
   },
   en:{
     stateLabel:'Federal state',statePlaceholder:'Select federal state',countyPlaceholder:'Select a federal state first',countySelect:'Select district / independent city',centerLabel:'Centre of the search radius',centerPlaceholder:'e.g. Dieburg',districtSource:'Administrative divisions as of 2026 · 16 federal states · 401 districts and independent cities (including Hanau).',feedbackState:'Please select a federal state first.',feedbackCounty:'Please select a district or independent city.',feedbackCenter:'Please enter a city as the search radius centre.',
-    researchTitle:'Create your regional company list with AI',
+    modeLegend:'Type of company research',modeNew:'Initial research – create master list',modeContinue:'Follow-up research – expand master list',modeNewHelp:'The first run is highlighted blue in the Excel master workbook.',modeContinueHelp:'Use the latest master Excel workbook to find additional companies without repeating previous entries.',runLabel:'Number of next research run',uploadNote:'Upload the latest master XLSX together with this follow-up prompt to ChatGPT. Without it, deduplication cannot be verified.',color1:'1 · Blue',color2:'2 · Green',color3:'3 · Magenta',color4:'4 · Amber',runPrefix:'Research run',runInvalid:'Invalid run number (2–999)',quantityFollow:'Number of new companies',copyFollow:'Copy follow-up prompt',researchTitle:'Create your regional company list with AI',
     researchSubtitle:'Choose a region, select industries and copy a source-verified Excel research prompt.',
     researchLead:'You choose which businesses in your region are relevant. AI researches suitable companies using only publicly verifiable business contact details. The research takes place in your AI chat, not on this page.',
     regionLabel:'City or region',regionPlaceholder:'e.g. Darmstadt-Dieburg',
@@ -310,6 +379,12 @@ for(const group of researchGroups){
 }
 Object.assign(translations.de,researchTrans.de);
 Object.assign(translations.en,researchTrans.en);
+const researchRun=document.getElementById('researchRun');
+const researchFollowFields=document.getElementById('researchFollowFields');
+const researchModeHelp=document.getElementById('researchModeHelp');
+const researchQuantityLabel=document.getElementById('researchQuantityLabel');
+const researchCopyLabel=document.getElementById('researchCopyLabel');
+const researchRunIndicator=document.getElementById('researchRunIndicator');
 const researchState=document.getElementById('researchState');
 const researchRegion=document.getElementById('researchRegion');
 const researchCenter=document.getElementById('researchCenter');
@@ -414,7 +489,7 @@ function researchGeneratePrompt(){
 }
 function researchUpdate(){
   researchCount.textContent=researchChecked.size+researchTrans[researchLang()].chosen;
-  researchCopy.disabled=!researchState.value||!researchRegion.value||researchChecked.size===0||(researchArea.value!=='local'&&!researchCenter.value.trim());
+  researchCopy.disabled=!researchState.value||!researchRegion.value||researchChecked.size===0||(researchArea.value!=='local'&&!researchCenter.value.trim())||!researchValidRun();
   researchPrompt.value=researchGeneratePrompt();
   researchFeedback.textContent='';
 }
@@ -429,7 +504,7 @@ function researchRefreshLanguage(){
     const item=researchAllIndustries().find(i=>i[0]===label.firstChild.value);
     if(item)label.firstChild.setAttribute('aria-label',researchLang()==='en'?item[2]:item[1]);
   });
-  researchPrompt.value=researchGeneratePrompt();
+  researchModeRefresh();
   researchFeedback.textContent='';
 }
 function researchSetExpanded(expanded){
@@ -455,6 +530,8 @@ researchRegion.addEventListener('change',researchUpdate);
 researchArea.addEventListener('change',researchRadiusChange);
 researchCenter.addEventListener('input',researchUpdate);
 researchQuantity.addEventListener('change',researchUpdate);
+document.querySelectorAll('input[name="researchMode"]').forEach(el=>el.addEventListener('change',researchModeRefresh));
+researchRun.addEventListener('input',researchModeRefresh);
 document.querySelectorAll('[data-lang]').forEach(btn=>btn.addEventListener('click',researchRefreshLanguage));
 async function researchCopyPrompt(){
   const t=researchTrans[researchLang()];
@@ -462,6 +539,7 @@ async function researchCopyPrompt(){
   if(!researchRegion.value){researchFeedback.textContent=t.feedbackCounty;researchRegion.focus();return}
   if(researchArea.value!=='local'&&!researchCenter.value.trim()){researchFeedback.textContent=t.feedbackCenter;researchCenter.focus();return}
   if(!researchChecked.size){researchFeedback.textContent=t.feedbackIndustry;return}
+  if(!researchValidRun()){researchFeedback.textContent=t.runInvalid;researchRun.focus();return}
   const prompt=researchGeneratePrompt();
   let success=false;
   if(navigator.clipboard&&window.isSecureContext){
