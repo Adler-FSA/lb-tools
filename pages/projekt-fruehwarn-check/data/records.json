@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-08T12:14:02Z",
+  "generated_at": "2026-11-08T13:17:15Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-07T12:54:50Z",
-      "records": 3618,
+      "last_success": "2026-11-08T13:17:15Z",
+      "records": 3617,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "5a2264896c679aa0c1421641f12a24f03eac93d61de3c5cebed1e6056a600594"
+      "response_sha256": "94f42f31d39bd33439eaa0cb8b3dfb71df51c255f0432c89e5b96c659f7bfa9f"
     }
   },
   "records": [
@@ -20415,40 +20415,6 @@
         "AS INDEXO Banka",
         "875500LY35QI0UMK4S27",
         "40203448611"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-7d7a5176168bd4c17f",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "AS LHV Pank",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "EE_FI",
-      "country": "EE",
-      "date": "2017-04-03",
-      "last_status_date": "2017-04-03",
-      "authorization_history": [
-        "2017-04-03"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900GJOSVHI055QR67",
-      "lei": "529900GJOSVHI055QR67",
-      "national_reference": "10539549",
-      "city": "Tallinn",
-      "last_update": "20260331000000000",
-      "match_terms": [
-        "AS LHV Pank",
-        "529900GJOSVHI055QR67",
-        "10539549"
       ]
     },
     {
@@ -67590,7 +67556,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "DZ PRIVATBANK S.A.",
+      "name": "DZ PRIVATBANK AG",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -67609,13 +67575,13 @@
       "entity_type": "CRD_CRE_INS",
       "entity_code": "SVY0KHTJZBP60K295346",
       "lei": "SVY0KHTJZBP60K295346",
-      "national_reference": "LUB00107",
-      "city": "STRASSEN",
+      "national_reference": "162906",
+      "city": "Frankfurt am Main",
       "last_update": "20260102000000000",
       "match_terms": [
-        "DZ PRIVATBANK S.A.",
+        "DZ PRIVATBANK AG",
         "SVY0KHTJZBP60K295346",
-        "LUB00107"
+        "162906"
       ]
     },
     {
@@ -75794,40 +75760,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-e92ba4303ccbdeccc2",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Jokiläänin Osuuspankki",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "FI_FIN-FSA",
-      "country": "FI",
-      "date": "2013-12-05",
-      "last_status_date": "2013-12-05",
-      "authorization_history": [
-        "2013-12-05"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "743700YIQDI229VCF807",
-      "lei": "743700YIQDI229VCF807",
-      "national_reference": "0147662-5",
-      "city": "JOKIOINEN",
-      "last_update": "20251231000000000",
-      "match_terms": [
-        "Jokiläänin Osuuspankki",
-        "743700YIQDI229VCF807",
-        "0147662-5"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-f3ec823a6e39bed42a",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -78336,7 +78268,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Kreissparkasse Gross-Gerau",
+      "name": "Kreissparkasse Groß-Gerau",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -78356,10 +78288,10 @@
       "entity_code": "529900RJT960CY3TAK43",
       "lei": "529900RJT960CY3TAK43",
       "national_reference": "100677",
-      "city": "Gross-Gerau",
+      "city": "Groß-Gerau",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Kreissparkasse Gross-Gerau",
+        "Kreissparkasse Groß-Gerau",
         "529900RJT960CY3TAK43",
         "100677"
       ]
@@ -81434,6 +81366,40 @@
         "LGT Bank AG",
         "7KDSOB6Z0X4S67TMX170",
         "107358"
+      ]
+    },
+    {
+      "id": "eba-credit-institutions-7d7a5176168bd4c17f",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "LHV Bank AS",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "EE_FI",
+      "country": "EE",
+      "date": "2017-04-03",
+      "last_status_date": "2017-04-03",
+      "authorization_history": [
+        "2017-04-03"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "529900GJOSVHI055QR67",
+      "lei": "529900GJOSVHI055QR67",
+      "national_reference": "10539549",
+      "city": "Tallinn",
+      "last_update": "20261106000000000",
+      "match_terms": [
+        "LHV Bank AS",
+        "529900GJOSVHI055QR67",
+        "10539549"
       ]
     },
     {
@@ -95122,7 +95088,7 @@
       "entity_code": "529900BKH5J6E9QK3O80",
       "lei": "529900BKH5J6E9QK3O80",
       "national_reference": "257087",
-      "city": "Drassmarkt",
+      "city": "Draßmarkt",
       "last_update": "20240928000000000",
       "match_terms": [
         "Raiffeisenbank Draßmarkt-Kobersdorf-St. Martin eGen",
@@ -95802,7 +95768,7 @@
       "entity_code": "529900I5A2T01KLWV917",
       "lei": "529900I5A2T01KLWV917",
       "national_reference": "107347",
-      "city": "Klein Berssen",
+      "city": "Klein Berßen",
       "last_update": "20260331000000000",
       "match_terms": [
         "Raiffeisenbank Ems-Vechte eG",
@@ -96156,7 +96122,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Raiffeisenbank Floss eG",
+      "name": "Raiffeisenbank Floß eG",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -96176,10 +96142,10 @@
       "entity_code": "529900V2A0LYV789YG97",
       "lei": "529900V2A0LYV789YG97",
       "national_reference": "102351",
-      "city": "Floss",
+      "city": "Floß",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Raiffeisenbank Floss eG",
+        "Raiffeisenbank Floß eG",
         "529900V2A0LYV789YG97",
         "102351"
       ]
@@ -97006,7 +96972,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Raiffeisenbank Graz-Strassgang eGen",
+      "name": "Raiffeisenbank Graz-Straßgang eGen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -97029,7 +96995,7 @@
       "city": "Graz",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Raiffeisenbank Graz-Strassgang eGen",
+        "Raiffeisenbank Graz-Straßgang eGen",
         "52990002L2FUVOJEWS11",
         "259195"
       ]
@@ -97162,7 +97128,7 @@
       "entity_code": "529900YQLHW3085F3J71",
       "lei": "529900YQLHW3085F3J71",
       "national_reference": "259888",
-      "city": "Gross Gerungs",
+      "city": "Groß Gerungs",
       "last_update": "20240928000000000",
       "match_terms": [
         "Raiffeisenbank Gross Gerungs eGen",
@@ -97196,7 +97162,7 @@
       "entity_code": "5299000DS6PEAJA28H06",
       "lei": "5299000DS6PEAJA28H06",
       "national_reference": "280160",
-      "city": "Grossarl",
+      "city": "Großarl",
       "last_update": "20240930000000000",
       "match_terms": [
         "Raiffeisenbank Großarl-Hüttschlag eGen",
@@ -97244,7 +97210,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Raiffeisenbank Grossgmain eGen",
+      "name": "Raiffeisenbank Großgmain eGen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -97264,10 +97230,10 @@
       "entity_code": "529900IN46275E6A7F39",
       "lei": "529900IN46275E6A7F39",
       "national_reference": "281638",
-      "city": "Grossgmain",
+      "city": "Großgmain",
       "last_update": "20240930000000000",
       "match_terms": [
-        "Raiffeisenbank Grossgmain eGen",
+        "Raiffeisenbank Großgmain eGen",
         "529900IN46275E6A7F39",
         "281638"
       ]
@@ -98094,7 +98060,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Raiffeisenbank Ilz-Grosssteinbach-Riegersburg eGen",
+      "name": "Raiffeisenbank Ilz-Großsteinbach-Riegersburg eGen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -98117,7 +98083,7 @@
       "city": "Ilz",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Raiffeisenbank Ilz-Grosssteinbach-Riegersburg eGen",
+        "Raiffeisenbank Ilz-Großsteinbach-Riegersburg eGen",
         "529900PPVG3BDSDC4D89",
         "257575"
       ]
@@ -100834,7 +100800,7 @@
       "entity_code": "529900338TU1OQMM8562",
       "lei": "529900338TU1OQMM8562",
       "national_reference": "102416",
-      "city": "Unterschleissheim",
+      "city": "Unterschleißheim",
       "last_update": "20260331000000000",
       "match_terms": [
         "Raiffeisenbank München-Nord eG",
@@ -104792,7 +104758,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Raiffeisenbank Strass-Spielfeld eGen",
+      "name": "Raiffeisenbank Straß-Spielfeld eGen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -104815,7 +104781,7 @@
       "city": "Straß",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Raiffeisenbank Strass-Spielfeld eGen",
+        "Raiffeisenbank Straß-Spielfeld eGen",
         "5299000ZVON1HSFMRU07",
         "259098"
       ]
@@ -104826,7 +104792,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Raiffeisenbank Strasswalchen eGen",
+      "name": "Raiffeisenbank Straßwalchen eGen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -104846,10 +104812,10 @@
       "entity_code": "529900KELJW0X5IGKS48",
       "lei": "529900KELJW0X5IGKS48",
       "national_reference": "280372",
-      "city": "Strasswalchen",
+      "city": "Straßwalchen",
       "last_update": "20240930000000000",
       "match_terms": [
-        "Raiffeisenbank Strasswalchen eGen",
+        "Raiffeisenbank Straßwalchen eGen",
         "529900KELJW0X5IGKS48",
         "280372"
       ]
@@ -107274,7 +107240,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Raiffeisenkasse Schlitters, Bruck und Straß registrierte Genossenschaft mit beschränkter Haftung",
+      "name": "Raiffeisenkasse Schlitters, Bruck und Strass registrierte Genossenschaft mit beschränkter Haftung",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -107297,7 +107263,7 @@
       "city": "Schlitters",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Raiffeisenkasse Schlitters, Bruck und Straß registrierte Genossenschaft mit beschränkter Haftung",
+        "Raiffeisenkasse Schlitters, Bruck und Strass registrierte Genossenschaft mit beschränkter Haftung",
         "529900LX5BCXIMF39933",
         "260134"
       ]
@@ -108842,7 +108808,7 @@
       "entity_code": "529900WRZWJ739DBZ203",
       "lei": "529900WRZWJ739DBZ203",
       "national_reference": "101145",
-      "city": "Stassfurt",
+      "city": "Staßfurt",
       "last_update": "20240928000000000",
       "match_terms": [
         "Salzlandsparkasse",
@@ -116588,7 +116554,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Giessen",
+      "name": "Sparkasse Gießen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -116608,10 +116574,10 @@
       "entity_code": "52990037IU0Q6VO1PN63",
       "lei": "52990037IU0Q6VO1PN63",
       "national_reference": "100675",
-      "city": "Giessen, Lahn",
+      "city": "Gießen, Lahn",
       "last_update": "20260331000000000",
       "match_terms": [
-        "Sparkasse Giessen",
+        "Sparkasse Gießen",
         "52990037IU0Q6VO1PN63",
         "100675"
       ]
@@ -118118,7 +118084,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Landsberg-Diessen",
+      "name": "Sparkasse Landsberg-Dießen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -118141,7 +118107,7 @@
       "city": "Landsberg am Lech",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Sparkasse Landsberg-Diessen",
+        "Sparkasse Landsberg-Dießen",
         "5299004IB85Q1YRX3B03",
         "100594"
       ]
@@ -118730,7 +118696,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Meissen",
+      "name": "Sparkasse Meißen",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -118753,7 +118719,7 @@
       "city": "Riesa",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Sparkasse Meissen",
+        "Sparkasse Meißen",
         "529900TYDYSH5ELZME80",
         "101206"
       ]
@@ -120328,7 +120294,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Pfullendorf-Messkirch",
+      "name": "Sparkasse Pfullendorf-Meßkirch",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -120351,7 +120317,7 @@
       "city": "Pfullendorf",
       "last_update": "20260630000000000",
       "match_terms": [
-        "Sparkasse Pfullendorf-Messkirch",
+        "Sparkasse Pfullendorf-Meßkirch",
         "5299006OIW9QJSRKHQ34",
         "100488"
       ]
@@ -120396,7 +120362,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Pregarten - Unterweissenbach AG",
+      "name": "Sparkasse Pregarten - Unterweißenbach AG",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -120419,7 +120385,7 @@
       "city": "Pregarten",
       "last_update": "20250331000000000",
       "match_terms": [
-        "Sparkasse Pregarten - Unterweissenbach AG",
+        "Sparkasse Pregarten - Unterweißenbach AG",
         "529900A3V7234Q3DNK66",
         "241954"
       ]
@@ -121076,7 +121042,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Scheessel - Zweckverbandssparkasse -",
+      "name": "Sparkasse Scheeßel - Zweckverbandssparkasse -",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -121096,10 +121062,10 @@
       "entity_code": "529900G6TZXG6I9R5I04",
       "lei": "529900G6TZXG6I9R5I04",
       "national_reference": "100769",
-      "city": "Scheessel",
+      "city": "Scheeßel",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Sparkasse Scheessel - Zweckverbandssparkasse -",
+        "Sparkasse Scheeßel - Zweckverbandssparkasse -",
         "529900G6TZXG6I9R5I04",
         "100769"
       ]
@@ -121212,7 +121178,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Schweinfurt-Hassberge",
+      "name": "Sparkasse Schweinfurt-Haßberge",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -121235,7 +121201,7 @@
       "city": "Schweinfurt",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Sparkasse Schweinfurt-Hassberge",
+        "Sparkasse Schweinfurt-Haßberge",
         "529900FD6V055NBG4N83",
         "100633"
       ]
@@ -121382,7 +121348,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Spree-Neisse",
+      "name": "Sparkasse Spree-Neiße",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -121405,7 +121371,7 @@
       "city": "Cottbus",
       "last_update": "20241231000000000",
       "match_terms": [
-        "Sparkasse Spree-Neisse",
+        "Sparkasse Spree-Neiße",
         "5299008OPB5IT38HB189",
         "101123"
       ]
@@ -122096,7 +122062,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Sparkasse Werra-Meissner",
+      "name": "Sparkasse Werra-Meißner",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -122119,7 +122085,7 @@
       "city": "Eschwege",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Sparkasse Werra-Meissner",
+        "Sparkasse Werra-Meißner",
         "529900AONE10IZH5SS46",
         "100666"
       ]
@@ -134640,7 +134606,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Volksbank Raiffeisenbank Meissen Grossenhain eG",
+      "name": "Volksbank Raiffeisenbank Meißen Großenhain eG",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -134663,7 +134629,7 @@
       "city": "Meißen, Sachsen",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Volksbank Raiffeisenbank Meissen Grossenhain eG",
+        "Volksbank Raiffeisenbank Meißen Großenhain eG",
         "529900OO71C11UV6IX64",
         "103951"
       ]
@@ -135660,7 +135626,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Volksbank Spree-Neisse eG",
+      "name": "Volksbank Spree-Neiße eG",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -135683,7 +135649,7 @@
       "city": "Forst (Lausitz)",
       "last_update": "20240930000000000",
       "match_terms": [
-        "Volksbank Spree-Neisse eG",
+        "Volksbank Spree-Neiße eG",
         "529900QT5EC38D0LX010",
         "101907"
       ]
@@ -136714,7 +136680,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Volksbank Wissmar eG",
+      "name": "Volksbank Wißmar eG",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -136737,7 +136703,7 @@
       "city": "Wettenberg",
       "last_update": "20240928000000000",
       "match_terms": [
-        "Volksbank Wissmar eG",
+        "Volksbank Wißmar eG",
         "529900TMVLQDNAOQAJ40",
         "107269"
       ]
