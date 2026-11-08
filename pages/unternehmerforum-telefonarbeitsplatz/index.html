@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>ClubLeader · Telefonarbeitsplatz | LiquidityBooster</title>
+<style>
+:root{--navy:#142b43;--ink:#26394b;--muted:#637488;--line:#dbe5e9;--mint:#1cae9b;--magenta:#be2f9b;--bg:#f5f8fa;--white:#fff;--soft:#f3f7f9}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}a{color:#116e86}.wrap{max-width:1150px;margin:0 auto;padding:0 22px}.top{background:white;border-bottom:1px solid var(--line)}.topline{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:78px;flex-wrap:wrap}.brand{font-weight:850;letter-spacing:-.03em;font-size:19px;color:var(--navy)}.brand small{display:block;color:var(--muted);font-size:12px;font-weight:650;letter-spacing:0}.toptools{display:flex;gap:9px;align-items:center}.langbtn{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);padding:6px 10px;font-weight:750}.langbtn[aria-pressed=true]{border-color:var(--mint);background:#e8fbf6}.link{border:1px solid var(--line);border-radius:8px;padding:7px 12px;text-decoration:none;font-weight:700;font-size:13px;white-space:nowrap}.hero{padding:31px 0 25px}h1,h2,h3{color:var(--navy);line-height:1.2;letter-spacing:-.02em}h1{font-size:clamp(27px,4vw,40px);margin:0 0 9px}h2{font-size:21px;margin:0}p{margin:0}.hero p{max-width:850px;color:#596d7d}.card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px;box-shadow:0 12px 30px rgba(17,43,62,.035);margin:0 0 19px}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}.step{background:var(--navy);color:white;display:inline-grid;place-items:center;width:31px;height:31px;border-radius:9px;font-size:14px;font-weight:850}.cardhead h2{display:flex;gap:10px;align-items:center}.small{font-size:13px;color:var(--muted)}.notice{font-size:13px;color:#52677b;background:#eef8f8;border-left:3px solid var(--mint);padding:11px 14px;border-radius:6px;margin:13px 0}.upload{display:block;width:100%;min-height:100px;padding:23px;border:2px dashed #a7c4ca;background:#f7fcfc;border-radius:13px;text-align:center;font-weight:730;color:#145b69;cursor:pointer}.upload svg{display:block;margin:auto auto 7px;width:27px;height:27px}.upload input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}.upload:focus-within{outline:3px solid var(--mint)}.fileline{margin-top:11px;color:#286c58;font-weight:740;font-size:13px}.statgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.stat{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:13px 10px;min-width:0}.stat strong{display:block;font-size:25px;color:var(--navy);line-height:1.2}.stat span{font-size:12px;color:#536b7e}.stat.y strong{color:#148049}.stat.n strong{color:#bb2545}.stat.c strong{color:#99610e}.progress{height:11px;margin:16px 0 4px;border-radius:999px;background:#dce7ec;overflow:hidden}.progress>div{height:100%;width:0;background:var(--mint);transition:width .2s}.workhead{display:flex;align-items:start;justify-content:space-between;gap:15px;flex-wrap:wrap}.workhead h2{margin-top:6px;font-size:25px}.run{padding:6px 11px;border-radius:999px;font-size:12px;font-weight:780;border:1px solid #cbdaea;color:var(--navy);background:#eff6ff}.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;margin:20px 0 18px}.detail{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fcfdfd;min-width:0}.detail span{display:block;font-size:11px;color:var(--muted);font-weight:740;text-transform:uppercase;letter-spacing:.035em}.detail strong{display:block;font-size:14px;font-weight:690;overflow-wrap:anywhere}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field label{font-size:13px;font-weight:780;color:var(--navy)}.field input,.field select,.field textarea,.search{width:100%;min-height:43px;border:1px solid #cbd9dd;border-radius:8px;padding:9px 12px;background:white;color:#17344b}.field textarea{min-height:70px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.search:focus{outline:2px solid var(--mint);outline-offset:1px}.statusgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}.statusbtn{border:1px solid #d0dade;border-radius:10px;background:#f7f9fb;padding:14px 7px;font-weight:800;color:var(--navy);font-size:13px}.statusbtn[aria-pressed=true]{border-width:2px;border-color:#536b80;background:#e6eff3}.statusbtn[data-value=JA][aria-pressed=true]{border-color:#16a34a;background:#f0fdf4;color:#15803d}.statusbtn[data-value=NEIN][aria-pressed=true]{border-color:#e11d48;background:#fff1f2;color:#be123c}.statusbtn[data-value="Rückruf"][aria-pressed=true]{border-color:#d97706;background:#fffbeb;color:#a16207}.yesbox{border:1px solid #bce5cd;background:#f5fdf7;border-radius:12px;padding:17px;margin:16px 0}.yesbox h3{font-size:17px;margin:0 0 13px}.yesbox .field input{background:#fff}.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:730;margin:12px 0}.check input{width:19px;height:19px;flex:0 0 19px;accent-color:#15803d;margin:2px 0}.warning{color:#92500a;background:#fff9eb;border:1px solid #f4dbab;padding:9px 12px;border-radius:8px;margin:10px 0;font-size:13px}.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px}.primary,.secondary{border:1px solid var(--navy);border-radius:10px;padding:11px 18px;font-weight:770;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px}.primary{background:var(--navy);color:white}.secondary{background:#fff;color:var(--navy)}.primary:hover:not(:disabled){background:#284761}.secondary:hover:not(:disabled){background:#eff6f8}.buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.downloadbox{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dlcard{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}.dlcard h3{font-size:17px;margin:0 0 8px}.dlcard p{font-size:13px;color:var(--muted);min-height:60px}.dlcard button{width:100%;margin-top:12px}.error{color:#ae243a;font-size:13px;font-weight:710;margin-top:10px}.good{color:#14774b;font-size:13px;font-weight:710;margin-top:10px}.footer{margin-top:25px;border-top:1px solid var(--line);background:white;padding:20px 0 35px;font-size:12px;color:var(--muted)}.hidden,[hidden]{display:none!important}.icon{width:18px;height:18px;flex:0 0 18px}.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.toolbar .search{max-width:330px}.counter{font-size:13px;color:var(--muted);font-weight:710}.flag{color:#ad1d45}.run-1{background:#eff6ff;border-color:#a9c9fa;color:#1d4ed8}.run-2{background:#f0fdf4;border-color:#b7eac6;color:#15803d}.run-3{background:#fdf4ff;border-color:#edc3f4;color:#a21caf}.run-4{background:#fffbeb;border-color:#f8db98;color:#a16207}.run-5{background:#ecfeff;border-color:#b8ecf1;color:#0e7490}.run-6{background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9}@media(max-width:900px){.statgrid{grid-template-columns:repeat(3,1fr)}.statusgrid{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.wrap{padding:0 14px}.topline{min-height:68px}.card{padding:16px}.statgrid{grid-template-columns:repeat(2,1fr)}.details,.downloadbox,.controls{grid-template-columns:1fr}.statusgrid{grid-template-columns:repeat(2,1fr)}.workhead h2{font-size:21px}.toptools{flex-wrap:wrap}.nav .primary,.nav .secondary{padding:10px 12px}.dlcard p{min-height:0}}@media print{.toptools,.upload,.nav,.buttons,.downloadbox{display:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topline">
+  <div class="brand">LiquidityBooster<small data-i18n="brandSub">ClubLeader · Telefonarbeitsplatz</small></div>
+  <div class="toptools">
+    <a class="link" href="../unternehmerforum-einladungsleitfaden/" data-i18n="guide">AIDA-Leitfaden</a>
+    <button type="button" class="langbtn" data-lang="de" aria-pressed="true">DE</button>
+    <button type="button" class="langbtn" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+<main class="wrap">
+<section class="hero"><h1 data-i18n="title">BusinessBooster · Telefonarbeitsplatz</h1><p data-i18n="intro">Masterliste laden, Firma für Firma bearbeiten und bestätigte JA-Kontakte als Excel-Datei für dein persönliches ONLY-INSIDE-KMS ausgeben. Alles lokal im Browser, ohne Übertragung an einen Server.</p></section>
+<section class="card" aria-labelledby="importTitle">
+  <div class="cardhead"><h2 id="importTitle"><span class="step">1</span><span data-i18n="importTitle">Master-Excel einlesen</span></h2></div>
+  <label class="upload" for="masterInput">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V3m0 0-5 5m5-5 5 5M4 16v4h16v-4"/></svg>
+    <span data-i18n="uploadText">BusinessBooster-Masterliste (.xlsx) auswählen</span>
+    <input id="masterInput" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+  </label>
+  <div id="fileInfo" class="fileline" aria-live="polite"></div>
+  <p class="notice" data-i18n="uploadNote">Die Datei wird nur auf diesem Gerät geöffnet. Ein lokaler Zwischenstand wird zusätzlich im Browser gespeichert. Für eine verlässliche Sicherung bitte regelmäßig die aktualisierte Master-Excel herunterladen.</p>
+  <div id="loadError" class="error" role="alert"></div>
+</section>
+<div id="workspace" hidden>
+  <section class="card" aria-labelledby="progressTitle">
+    <div class="cardhead"><h2 id="progressTitle"><span class="step">2</span><span data-i18n="progressTitle">Telefonbearbeitung</span></h2><span class="small" id="savedAt"></span></div>
+    <div class="statgrid">
+      <div class="stat"><strong id="statTotal">0</strong><span data-i18n="statTotal">Firmen</span></div>
+      <div class="stat y"><strong id="statYes">0</strong><span data-i18n="statYes">JA</span></div>
+      <div class="stat n"><strong id="statNo">0</strong><span data-i18n="statNo">NEIN</span></div>
+      <div class="stat c"><strong id="statCallback">0</strong><span data-i18n="statCallback">Rückruf</span></div>
+      <div class="stat"><strong id="statMissed">0</strong><span data-i18n="statMissed">Nicht erreicht</span></div>
+      <div class="stat"><strong id="statOpen">0</strong><span data-i18n="statOpen">Offen</span></div>
+    </div>
+    <div class="progress"><div id="progressFill"></div></div>
+    <div class="toolbar"><span id="progressLabel" class="counter"></span><span id="eligibleLabel" class="counter"></span></div>
+    <div class="toolbar" style="margin-top:12px">
+      <input id="companySearch" class="search" type="search" data-i18n-placeholder="search" placeholder="Firma, PLZ oder Ort suchen">
+      <select id="companyFilter" class="search" style="width:auto">
+        <option value="all" data-i18n="filterAll">Alle Firmen</option>
+        <option value="Offen" data-i18n="filterOpen">Nur offene Firmen</option>
+        <option value="JA" data-i18n="filterYes">Nur JA</option>
+        <option value="Rückruf" data-i18n="filterCallback">Nur Rückruf</option>
+        <option value="NEIN" data-i18n="filterNo">Nur NEIN</option>
+      </select>
+    </div>
+  </section>
+  <section class="card" id="companyCard" aria-labelledby="companyName">
+    <div class="workhead"><div><span id="companyPosition" class="counter"></span><h2 id="companyName"></h2></div><span id="companyRun" class="run"></span></div>
+    <div class="details">
+      <div class="detail"><span data-i18n="detailContact">Recherche-Ansprechpartner</span><strong id="companyContact"></strong></div>
+      <div class="detail"><span data-i18n="detailPhone">Telefon</span><strong id="companyPhone"></strong></div>
+      <div class="detail"><span data-i18n="detailAddress">Anschrift</span><strong id="companyAddress"></strong></div>
+      <div class="detail"><span data-i18n="detailWebsite">Website / öffentliche E-Mail</span><strong id="companyWebsite"></strong></div>
+    </div>
+    <h3 data-i18n="statusTitle" style="margin:0;font-size:17px">Gesprächsergebnis</h3>
+    <div class="statusgrid" id="statusButtons">
+      <button type="button" class="statusbtn" data-value="JA" aria-pressed="false" data-i18n="yes">JA</button>
+      <button type="button" class="statusbtn" data-value="NEIN" aria-pressed="false" data-i18n="no">NEIN</button>
+      <button type="button" class="statusbtn" data-value="Rückruf" aria-pressed="false" data-i18n="callback">Rückruf</button>
+      <button type="button" class="statusbtn" data-value="Nicht erreicht" aria-pressed="false" data-i18n="notReached">Nicht erreicht</button>
+      <button type="button" class="statusbtn" data-value="Offen" aria-pressed="false" data-i18n="open">Offen</button>
+    </div>
+    <div id="yesFields" class="yesbox" hidden>
+      <h3 data-i18n="yesFieldsTitle">JA-Kontakt für KMS vorbereiten</h3>
+      <div class="controls">
+        <div class="field"><label for="callSalutation" data-i18n="salutation">Anrede</label><select id="callSalutation"><option value="" data-i18n="select">Bitte wählen</option><option value="Herr" data-i18n="mr">Herr</option><option value="Frau" data-i18n="ms">Frau</option></select></div>
+        <div class="field"><label for="callTitle" data-i18n="callTitle">Titel (optional)</label><input id="callTitle" autocomplete="off"></div>
+        <div class="field"><label for="callFirst" data-i18n="firstName">Vorname Gesprächspartner</label><input id="callFirst" autocomplete="off"></div>
+        <div class="field"><label for="callLast" data-i18n="lastName">Nachname Gesprächspartner</label><input id="callLast" autocomplete="off"></div>
+        <div class="field"><label for="callRole" data-i18n="role">Funktion Gesprächspartner</label><input id="callRole" autocomplete="off"></div>
+        <div class="field"><label for="confirmedEmail" data-i18n="emailConfirmed">Im Gespräch bestätigte E-Mail-Adresse</label><input id="confirmedEmail" inputmode="email" type="email" autocomplete="off"></div>
+      </div>
+      <label class="check"><input id="callConsent" type="checkbox"><span data-i18n="consent">Der Gesprächspartner hat den Versand einer persönlichen E-Mail-Einladung ausdrücklich erlaubt.</span></label>
+      <p id="yesWarning" class="warning" aria-live="polite"></p>
+    </div>
+    <div class="controls">
+      <div class="field"><label for="callDate" data-i18n="date">Gesprächsdatum</label><input type="date" id="callDate"></div>
+      <div class="field"><label for="callNote" data-i18n="note">Bemerkung</label><textarea id="callNote" rows="2"></textarea></div>
+    </div>
+    <p id="companyStatus" class="small"></p>
+    <div class="nav"><button type="button" id="prevCompany" class="secondary" data-i18n="previous">Vorherige Firma</button><span id="navPosition" class="counter"></span><button type="button" id="nextCompany" class="primary" data-i18n="next">Nächste Firma</button></div>
+  </section>
+  <section class="card" aria-labelledby="exportTitle">
+    <div class="cardhead"><h2 id="exportTitle"><span class="step">3</span><span data-i18n="exportTitle">Excel-Dateien ausgeben</span></h2></div>
+    <div class="downloadbox">
+      <div class="dlcard"><h3 data-i18n="masterTitle">Aktualisierte Masterliste</h3><p data-i18n="masterDesc">Alle Firmen, Recherchefarben und Gesprächsergebnisse. Für weitere Telefonate und Rechercheläufe.</p><button type="button" id="masterExport" class="secondary" data-i18n="masterExport">Master-Excel herunterladen</button></div>
+      <div class="dlcard"><h3 data-i18n="kmsTitle">ONLY-INSIDE-KMS-Import</h3><p data-i18n="kmsDesc">Nur bestätigte JA-Kontakte im originalen Feldformat. Die KMS-Gruppe wird beim Import zugewiesen.</p><button type="button" id="kmsExport" class="primary" data-i18n="kmsExport">KMS-Excel herunterladen</button></div>
+    </div>
+    <label class="check"><input type="checkbox" id="repeatExport"><span data-i18n="repeat">Bereits als „Export vorbereitet“ markierte JA-Kontakte erneut ausgeben (nur wenn erforderlich).</span></label>
+    <p id="exportInfo" class="small"></p>
+    <p id="exportError" class="error" role="alert"></p>
+    <p class="notice" data-i18n="exportNote">„Export vorbereitet“ bedeutet nicht „im KMS importiert“. Den erfolgreichen Import im persönlichen ONLY-INSIDE-KMS selbst bestätigen und beim Import die passende Gruppe wählen, z. B. „Impulsversand“. Die KMS-Einwilligungsbestätigung bleibt unverändert.</p>
+  </section>
+</div>
+</main>
+<footer class="footer"><div class="wrap"><span>LiquidityBooster · ClubLeader</span><span data-i18n="footer">Lokal verarbeitete Excel-Dateien · kein Server-Upload</span></div></footer>
+<script>
+'use strict';
+const T={
+de:{brandSub:'ClubLeader · Telefonarbeitsplatz',guide:'AIDA-Leitfaden',title:'BusinessBooster · Telefonarbeitsplatz',intro:'Masterliste laden, Firma für Firma bearbeiten und bestätigte JA-Kontakte als Excel-Datei für dein persönliches ONLY-INSIDE-KMS ausgeben. Alles lokal im Browser, ohne Übertragung an einen Server.',importTitle:'Master-Excel einlesen',uploadText:'BusinessBooster-Masterliste (.xlsx) auswählen',uploadNote:'Die Datei wird nur auf diesem Gerät geöffnet. Ein lokaler Zwischenstand wird zusätzlich im Browser gespeichert. Für eine verlässliche Sicherung bitte regelmäßig die aktualisierte Master-Excel herunterladen.',progressTitle:'Telefonbearbeitung',statTotal:'Firmen',statYes:'JA',statNo:'NEIN',statCallback:'Rückruf',statMissed:'Nicht erreicht',statOpen:'Offen',search:'Firma, PLZ oder Ort suchen',filterAll:'Alle Firmen',filterOpen:'Nur offene Firmen',filterYes:'Nur JA',filterCallback:'Nur Rückruf',filterNo:'Nur NEIN',detailContact:'Recherche-Ansprechpartner',detailPhone:'Telefon',detailAddress:'Anschrift',detailWebsite:'Website / öffentliche E-Mail',statusTitle:'Gesprächsergebnis',yes:'JA',no:'NEIN',callback:'Rückruf',notReached:'Nicht erreicht',open:'Offen',yesFieldsTitle:'JA-Kontakt für KMS vorbereiten',salutation:'Anrede',select:'Bitte wählen',mr:'Herr',ms:'Frau',callTitle:'Titel (optional)',firstName:'Vorname Gesprächspartner',lastName:'Nachname Gesprächspartner',role:'Funktion Gesprächspartner',emailConfirmed:'Im Gespräch bestätigte E-Mail-Adresse',consent:'Der Gesprächspartner hat den Versand einer persönlichen E-Mail-Einladung ausdrücklich erlaubt.',date:'Gesprächsdatum',note:'Bemerkung',previous:'Vorherige Firma',next:'Nächste Firma',exportTitle:'Excel-Dateien ausgeben',masterTitle:'Aktualisierte Masterliste',masterDesc:'Alle Firmen, Recherchefarben und Gesprächsergebnisse. Für weitere Telefonate und Rechercheläufe.',masterExport:'Master-Excel herunterladen',kmsTitle:'ONLY-INSIDE-KMS-Import',kmsDesc:'Nur bestätigte JA-Kontakte im originalen Feldformat. Die KMS-Gruppe wird beim Import zugewiesen.',kmsExport:'KMS-Excel herunterladen',repeat:'Bereits als „Export vorbereitet“ markierte JA-Kontakte erneut ausgeben (nur wenn erforderlich).',exportNote:'„Export vorbereitet“ bedeutet nicht „im KMS importiert“. Den erfolgreichen Import im persönlichen ONLY-INSIDE-KMS selbst bestätigen und beim Import die passende Gruppe wählen, z. B. „Impulsversand“. Die KMS-Einwilligungsbestätigung bleibt unverändert.',footer:'Lokal verarbeitete Excel-Dateien · kein Server-Upload',missing:'Nicht vorhanden',position:'Firma',of:'von',processed:'bearbeitet',eligible:'JA-Kontakte exportfähig',saved:'Lokal gesichert',noMatch:'Keine Firma entspricht der Suche.',notConfirmed:'Für den KMS-Export fehlt eine ausdrücklich erlaubte Einladung oder die im Gespräch bestätigte E-Mail-Adresse.',ready:'Kontakt ist für den KMS-Export bereit.',importConfirmed:'Dieser Kontakt ist bereits als „Import bestätigt“ gekennzeichnet.',exportPrepared:'Dieser Kontakt wurde bereits als „Export vorbereitet“ gekennzeichnet.',loadFailed:'Die Excel-Datei konnte nicht vollständig gelesen werden.',wrongWorkbook:'Keine unterstützte Firmenliste erkannt. Erwartet wird eine Excel-Tabelle mit einer Spalte „Firmenname“.',zipUnsupported:'Dieses Gerät unterstützt das Entpacken der Excel-Datei nicht.',saveFailed:'Die lokale Sicherung ist eingeschränkt. Bitte Masterliste herunterladen.',noneEligible:'Es gibt keine neuen exportfähigen JA-Kontakte.',exported:'KMS-Datei erstellt. Bitte anschließend die aktualisierte Masterliste speichern.',masterSaved:'Aktualisierte Master-Excel erzeugt.',noFound:'Es wurden keine Firmenzeilen gefunden.',alreadyLocal:'Gesicherter Zwischenstand auf diesem Gerät wiederhergestellt.',errorGeneric:'Verarbeitung fehlgeschlagen. Die Originaldatei wurde nicht verändert.',reexportNote:'Bereits vorbereitete Kontakte sind normalerweise vom erneuten Export ausgeschlossen.',groupNote:'Die Gruppe „Impulsversand“ wird erst beim Import im persönlichen KMS ausgewählt.'},
+en:{brandSub:'ClubLeader · Call workspace',guide:'AIDA invitation guide',title:'BusinessBooster · Call workspace',intro:'Load the master workbook, work through companies one by one and download eligible YES contacts as an Excel file for your personal ONLY INSIDE KMS. All processing stays on your device.',importTitle:'Read master Excel',uploadText:'Choose BusinessBooster master workbook (.xlsx)',uploadNote:'The file is opened only on this device. An interim status is also stored locally in your browser. Regularly download the updated workbook for a reliable backup.',progressTitle:'Call processing',statTotal:'Companies',statYes:'YES',statNo:'NO',statCallback:'Callback',statMissed:'Not reached',statOpen:'Open',search:'Search company, postcode or city',filterAll:'All companies',filterOpen:'Open only',filterYes:'YES only',filterCallback:'Callbacks only',filterNo:'NO only',detailContact:'Research contact',detailPhone:'Telephone',detailAddress:'Address',detailWebsite:'Website / public email',statusTitle:'Call outcome',yes:'YES',no:'NO',callback:'Callback',notReached:'Not reached',open:'Open',yesFieldsTitle:'Prepare YES contact for KMS',salutation:'Salutation',select:'Select',mr:'Mr',ms:'Ms',callTitle:'Title (optional)',firstName:'Actual contact first name',lastName:'Actual contact last name',role:'Actual contact role',emailConfirmed:'Email address confirmed during call',consent:'The person explicitly agreed to receive a personal invitation by email.',date:'Date of call',note:'Notes',previous:'Previous company',next:'Next company',exportTitle:'Download Excel files',masterTitle:'Updated master workbook',masterDesc:'All companies, research colours and call results, for later calls and research runs.',masterExport:'Download master Excel',kmsTitle:'ONLY INSIDE KMS import',kmsDesc:'Only confirmed YES contacts in original field order. Select the KMS group during import.',kmsExport:'Download KMS Excel',repeat:'Re-export YES contacts already marked “Export prepared” (only if necessary).',exportNote:'“Export prepared” does not mean “import confirmed”. Confirm the actual import in your own ONLY INSIDE KMS and select a group such as “Impulsversand” during import. The existing KMS confirmation process is unchanged.',footer:'Excel files processed locally · no server upload',missing:'Not available',position:'Company',of:'of',processed:'processed',eligible:'YES contacts ready for export',saved:'Saved locally',noMatch:'No companies match the search.',notConfirmed:'Explicit invitation permission or the confirmed email address is missing.',ready:'This contact is eligible for KMS export.',importConfirmed:'This contact is already marked import confirmed.',exportPrepared:'This contact has already been marked export prepared.',loadFailed:'Could not read the complete Excel workbook.',wrongWorkbook:'No supported company list found. The Excel sheet must have a “Firmenname” column.',zipUnsupported:'This device does not support decompressing the Excel file.',saveFailed:'Local backup is limited. Please download the updated master.',noneEligible:'No new eligible YES contacts are available.',exported:'KMS file generated. Please also download the updated master workbook.',masterSaved:'Updated master Excel generated.',noFound:'No company rows found.',alreadyLocal:'Restored a locally saved interim status.',errorGeneric:'Processing failed. The original file is unchanged.',reexportNote:'Prepared contacts are normally excluded from repeated exports.',groupNote:'Assign “Impulsversand” only during import into your personal KMS.'}
+};
+let lang='de', app=null, visible=[],pointer=0,persistKey='',persistError=false;
+const $=id=>document.getElementById(id);
+const statusNames=['Offen','Nicht erreicht','Rückruf','JA','NEIN'];
+const callHeaders=['Telefonstatus','Gesprächsdatum','Anrede Gesprächspartner','Titel Gesprächspartner','Vorname Gesprächspartner','Nachname Gesprächspartner','Funktion Gesprächspartner','E-Mail bestätigt','Einladung erlaubt','KMS-Exportstatus','Bemerkung'];
+const callProps=['status','date','salutation','title','first','last','role','email','consent','exportStatus','note'];
+const kmsHeaders=['Anrede','Titel','Vorname','Nachname','E-Mail','Strasse','PLZ','Ort','Land','Telefon','Mobiltelefon','Internet','Du','Kontakquelle','Firma','Firma Funktion'];
+const NS='http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+const RT='http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+const enc=new TextEncoder(),dec=new TextDecoder();
+const n= (obj,id)=>Number(obj[id]||0);
+function strings(value){return value==null?'':String(value).trim()}
+function xmlEscape(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;')}
+function colNumber(s){let x=0;for(const c of s.toUpperCase())x=x*26+c.charCodeAt(0)-64;return x}
+function colName(c){let a='';while(c>0){c--;a=String.fromCharCode(65+(c%26))+a;c=Math.floor(c/26)}return a}
+function xmlDoc(bytes){const d=new DOMParser().parseFromString(typeof bytes==='string'?bytes:dec.decode(bytes),'application/xml');if(d.getElementsByTagName('parsererror').length)throw Error('Ungültiges Excel-XML');return d}
+function xmldocBytes(d){return enc.encode('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+new XMLSerializer().serializeToString(d).replace(/^<\?xml[^>]+\?>/,''))}
+function all(el,name){return el?Array.from(el.getElementsByTagNameNS(NS,name)):[]}
+function children(el,name){return el?Array.from(el.children).filter(e=>e.localName===name):[]}
+function child(el,name){return children(el,name)[0]||null}
+function read32(bytes,p){return(bytes[p]|bytes[p+1]<<8|bytes[p+2]<<16|bytes[p+3]<<24)>>>0}
+function read16(bytes,p){return bytes[p]|bytes[p+1]<<8}
+function write16(bytes,p,v){bytes[p]=v&255;bytes[p+1]=(v>>>8)&255}
+function write32(bytes,p,v){write16(bytes,p,v);write16(bytes,p+2,v>>>16)}
+const crcTable=new Uint32Array(256);for(let i=0;i<256;i++){let x=i;for(let k=0;k<8;k++)x=x&1?0xedb88320^(x>>>1):x>>>1;crcTable[i]=x>>>0}
+function crc32(bytes){let x=0xffffffff;for(const c of bytes)x=crcTable[(x^c)&255]^(x>>>8);return(x^0xffffffff)>>>0}
+async function inflateRaw(bytes){if(typeof DecompressionStream==='undefined')throw Error(T[lang].zipUnsupported);const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'));return new Uint8Array(await new Response(stream).arrayBuffer())}
+async function unzip(input){
+  const data=new Uint8Array(input),files={};let footer=-1;
+  for(let p=data.length-22;p>=Math.max(0,data.length-65557);p--){if(read32(data,p)===0x06054b50){footer=p;break}}
+  if(footer<0)throw Error('Ungültiges XLSX-ZIP');
+  const count=read16(data,footer+10);let p=read32(data,footer+16);
+  if(count>3000)throw Error('Zu viele Excel-Dateieinträge');
+  for(let i=0;i<count;i++){
+    if(read32(data,p)!==0x02014b50)throw Error('Ungültiges Excel-Zentralverzeichnis');
+    const flags=read16(data,p+8),method=read16(data,p+10),crc=read32(data,p+16),compressed=read32(data,p+20),uncompressed=read32(data,p+24);
+    const a=read16(data,p+28),b=read16(data,p+30),c=read16(data,p+32),off=read32(data,p+42);
+    const filename=dec.decode(data.slice(p+46,p+46+a));p+=46+a+b+c;
+    if(filename.endsWith('/'))continue;
+    if(filename.includes('..')||filename.startsWith('/')||uncompressed>40000000)throw Error('Ungültiger Excel-Eintrag');
+    if(flags&1)throw Error('Verschlüsselte XLSX-Dateien werden nicht unterstützt');
+    if(read32(data,off)!==0x04034b50)throw Error('Fehlerhafter Excel-Dateieintrag');
+    const start=off+30+read16(data,off+26)+read16(data,off+28);
+    const packed=data.subarray(start,start+compressed);
+    const raw=method===0?packed.slice():method===8?await inflateRaw(packed):null;
+    if(!raw||raw.length!==uncompressed||crc32(raw)!==crc)throw Error('Excel-Dateieintrag ist beschädigt: '+filename);
+    files[filename]=raw;
+  }
+  return files;
+}
+function packZip(files){
+  const local=[],central=[];let cursor=0,centralSize=0,entryCount=0;
+  for(const [name,data0] of Object.entries(files)){
+    const data=typeof data0==='string'?enc.encode(data0):data0;
+    if(!data||name.endsWith('/'))continue;
+    const nameBytes=enc.encode(name),crc=crc32(data),lh=new Uint8Array(30+nameBytes.length),ch=new Uint8Array(46+nameBytes.length);
+    write32(lh,0,0x04034b50);write16(lh,4,20);write16(lh,6,0x0800);write16(lh,8,0);write32(lh,14,crc);write32(lh,18,data.length);write32(lh,22,data.length);write16(lh,26,nameBytes.length);lh.set(nameBytes,30);
+    write32(ch,0,0x02014b50);write16(ch,4,20);write16(ch,6,20);write16(ch,8,0x0800);write16(ch,10,0);write32(ch,16,crc);write32(ch,20,data.length);write32(ch,24,data.length);write16(ch,28,nameBytes.length);write32(ch,42,cursor);ch.set(nameBytes,46);
+    local.push(lh,data);central.push(ch);cursor+=lh.length+data.length;centralSize+=ch.length;entryCount++;
+  }
+  const foot=new Uint8Array(22);write32(foot,0,0x06054b50);write16(foot,8,entryCount);write16(foot,10,entryCount);write32(foot,12,centralSize);write32(foot,16,cursor);
+  const out=new Uint8Array(cursor+centralSize+22);let p=0;for(const b of local){out.set(b,p);p+=b.length}for(const b of central){out.set(b,p);p+=b.length}out.set(foot,p);return out;
+}
+function namedSheetPath(files){
+  const book=xmlDoc(files['xl/workbook.xml']);const rel=xmlDoc(files['xl/_rels/workbook.xml.rels']);
+  const sheets=Array.from(book.getElementsByTagNameNS(NS,'sheet')),rels=Array.from(rel.documentElement.children);
+  const chosen=sheets.find(x=>/^(Firmenliste|Masterliste)$/i.test(x.getAttribute('name')||''))||sheets[0];
+  if(!chosen)throw Error(T[lang].wrongWorkbook);
+  const id=chosen.getAttributeNS(RT,'id')||chosen.getAttribute('r:id');
+  const target=rels.find(x=>x.getAttribute('Id')===id)?.getAttribute('Target');
+  if(!target)throw Error(T[lang].wrongWorkbook);
+  const path=target.startsWith('/')?target.slice(1):'xl/'+target.replace(/^\.\//,'');
+  if(!files[path])throw Error(T[lang].wrongWorkbook);
+  return path;
+}
+function sharedStrings(files){
+  const x=files['xl/sharedStrings.xml'];
+  if(!x)return[];
+  const d=xmlDoc(x);
+  return all(d,'si').map(si=>all(si,'t').map(t=>t.textContent||'').join(''));
+}
+function cellValue(c,stringsList){
+  if(!c)return '';
+  const type=c.getAttribute('t'),v=child(c,'v');
+  if(type==='inlineStr')return all(c,'t').map(x=>x.textContent||'').join('');
+  if(type==='s')return stringsList[Number(v?.textContent||0)]||'';
+  return v?.textContent||'';
+}
+function cellByColumn(row,col){return children(row,'c').find(c=>colNumber((c.getAttribute('r')||'').match(/^[A-Z]+/)?.[0]||'')===col)||null}
+function getHeaderRow(doc,ss){
+  const rows=all(doc,'row');for(const row of rows.slice(0,30)){
+    const names=children(row,'c').map(c=>cellValue(c,ss));
+    if(names.includes('Firmenname'))return row;
+  }
+  throw Error(T[lang].wrongWorkbook);
+}
+function rowValue(row,index,ss){return cellValue(cellByColumn(row,index),ss)}
+function rowCompanyKey(v){
+  return [v.company,v.address,v.plz,v.city].map(x=>strings(x).toLowerCase().replace(/\s+/g,' ')).join('|');
+}
+function allRowsFromSheet(sheet,ss){
+  const header=getHeaderRow(sheet,ss),index=Number(header.getAttribute('r'));
+  const cols={};for(const c of children(header,'c')){const k=cellValue(c,ss);if(k)cols[k]=colNumber((c.getAttribute('r')||'').match(/^[A-Z]+/)[0])}
+  const col=alias=>{for(const x of alias)if(cols[x])return cols[x];return 0};
+  const field={
+    company:col(['Firmenname','Firma','Unternehmen']),industry:col(['Tatsächliche Branche','Branche']),
+    first:col(['Vorname GL / Inhaber']),last:col(['Nachname GL / Inhaber']),position:col(['Funktion / Rolle']),
+    address:col(['Straße / Hausnummer','Strasse / Hausnummer','Straße']),plz:col(['PLZ']),city:col(['Ort']),
+    phone:col(['Geschäftliche Telefonnummer','Telefon']),mobile:col(['Geschäftliche Mobilnummer','Mobiltelefon']),
+    publicEmail:col(['Geschäftliche E-Mail','E-Mail']),web:col(['Offizielle Firmenwebsite','Internet']),
+    run:col(['Recherchelauf']),colour:col(['Lauffarbe / Kennfarbe'])
+  };
+  const callCols={};for(let i=0;i<callHeaders.length;i++)callCols[callProps[i]]=cols[callHeaders[i]]||0;
+  const result=[];
+  for(const row of all(sheet,'row')){
+    const num=Number(row.getAttribute('r'));if(num<=index)continue;
+    const get=k=>field[k]?strings(rowValue(row,field[k],ss)):'';
+    const company=get('company');if(!company)continue;
+    const v={row:num,company,industry:get('industry'),firstResearch:get('first'),lastResearch:get('last'),positionResearch:get('position'),address:get('address'),plz:get('plz'),city:get('city'),phone:get('phone'),mobile:get('mobile'),publicEmail:get('publicEmail'),web:get('web'),run:parseInt(get('run'),10)||1,colour:get('colour')};
+    for(const prop of callProps)v[prop]=callCols[prop]?strings(rowValue(row,callCols[prop],ss)):'';
+    v.status=statusNames.includes(v.status)?v.status:'Offen';v.consent=v.consent==='Ja'?'Ja':v.consent==='Nein'?'Nein':'Offen';v.exportStatus=['Nicht exportiert','Export vorbereitet','Import bestätigt'].includes(v.exportStatus)?v.exportStatus:'Nicht exportiert';
+    v.id=rowCompanyKey(v);result.push(v);
+  }
+  return {rows:result,headerRow:index,headers:cols,callCols,field};
+}
+function hashText(str){let h=2166136261>>>0;for(let i=0;i<str.length;i++)h=Math.imul(h^str.charCodeAt(i),16777619)>>>0;return h.toString(16)}
+function persist(){
+  if(!app)return;
+  const out={};for(const v of app.rows)out[v.id]=Object.fromEntries(callProps.map(prop=>[prop,v[prop]]));
+  try{localStorage.setItem(persistKey,JSON.stringify(out));persistError=false;$('savedAt').textContent=T[lang].saved+' · '+new Date().toLocaleTimeString(lang==='de'?'de-DE':'en-GB',{hour:'2-digit',minute:'2-digit'})}catch(e){if(!persistError)$('exportError').textContent=T[lang].saveFailed;persistError=true}
+}
+function restoreLocal(){
+  let cache;try{cache=JSON.parse(localStorage.getItem(persistKey)||'null')}catch(e){}
+  if(!cache)return false;
+  let used=false;for(const v of app.rows){const old=cache[v.id];if(!old)continue;for(const key of callProps)if(Object.prototype.hasOwnProperty.call(old,key))v[key]=old[key];used=true}
+  return used;
+}
+function eligible(v,reexport=false){
+  return v.status==='JA'&&v.consent==='Ja'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(strings(v.email))&&v.exportStatus!=='Import bestätigt'&&(reexport||v.exportStatus!=='Export vorbereitet');
+}
+function uniqueEligible(){
+  const reexport=$('repeatExport').checked,seen=new Set(),result=[];
+  for(const v of app.rows){if(!eligible(v,reexport))continue;const key=v.email.trim().toLowerCase();if(seen.has(key))continue;seen.add(key);result.push(v)}
+  return result;
+}
+function statusSummary(){
+  const counts={total:app.rows.length,JA:0,NEIN:0,'Rückruf':0,'Nicht erreicht':0,Offen:0};
+  for(const v of app.rows)counts[v.status]=(counts[v.status]||0)+1;
+  return counts;
+}
+function renderStats(){
+  const c=statusSummary();$('statTotal').textContent=c.total;$('statYes').textContent=c.JA;$('statNo').textContent=c.NEIN;$('statCallback').textContent=c['Rückruf'];$('statMissed').textContent=c['Nicht erreicht'];$('statOpen').textContent=c.Offen;
+  const done=c.total-c.Offen;$('progressFill').style.width=c.total?Math.round(done/c.total*100)+'%':'0%';
+  $('progressLabel').textContent=done+' / '+c.total+' '+T[lang].processed;
+  $('eligibleLabel').textContent=uniqueEligible().length+' '+T[lang].eligible;
+  $('exportInfo').textContent=T[lang].groupNote;
+  $('kmsExport').disabled=uniqueEligible().length===0;
+}
+function filtering(){
+  if(!app)return;
+  const query=$('companySearch').value.trim().toLowerCase(),status=$('companyFilter').value;
+  const current=visible[pointer];
+  visible=app.rows.filter(x=>(status==='all'||x.status===status)&&[x.company,x.city,x.plz,x.industry].some(v=>strings(v).toLowerCase().includes(query)));
+  const idx=visible.indexOf(current);pointer=idx>=0?idx:0;
+  renderCompany();renderStats();
+}
+function runClass(n){return 'run-'+((Math.max(1,n)-1)%6+1)}
+function show(node,value){node.textContent=value||T[lang].missing}
+function namePair(a,b){return [a,b].filter(Boolean).join(' ')}
+function renderCompany(){
+  const v=visible[pointer];$('companyCard').hidden=!v;
+  if(!v){$('companyPosition').textContent=T[lang].noMatch;return}
+  $('companyPosition').textContent=T[lang].position+' '+(pointer+1)+' '+T[lang].of+' '+visible.length;
+  $('navPosition').textContent=(pointer+1)+' / '+visible.length;
+  show($('companyName'),v.company);show($('companyContact'),namePair(v.firstResearch,v.lastResearch)+ (v.positionResearch?' · '+v.positionResearch:''));
+  const tel= [v.phone,v.mobile].filter(Boolean);
+  $('companyPhone').replaceChildren();
+  if(tel.length){for(const [i,t] of tel.entries()){if(i)$('companyPhone').append(document.createTextNode(' · '));const a=document.createElement('a');a.href='tel:'+t.replace(/[^+\d]/g,'');a.textContent=t;$('companyPhone').append(a)}}else show($('companyPhone'),'');
+  show($('companyAddress'),[v.address,v.plz,v.city].filter(Boolean).join(', '));
+  $('companyWebsite').replaceChildren();let linkAdded=false;
+  if(/^https?:\/\//i.test(v.web)){const a=document.createElement('a');a.href=v.web;a.target='_blank';a.rel='noopener noreferrer';a.textContent=v.web;$('companyWebsite').append(a);linkAdded=true}
+  if(v.publicEmail){if(linkAdded)$('companyWebsite').append(document.createTextNode(' · '));$('companyWebsite').append(document.createTextNode(v.publicEmail));linkAdded=true}
+  if(!linkAdded)show($('companyWebsite'),'');
+  $('companyRun').textContent=(lang==='de'?'Recherchelauf ':'Research run ')+v.run;
+  $('companyRun').className='run '+runClass(v.run);
+  document.querySelectorAll('#statusButtons .statusbtn').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===v.status)));
+  $('yesFields').hidden=v.status!=='JA';$('callDate').value=/^\d{4}-\d{2}-\d{2}$/.test(v.date)?v.date:'';
+  $('callNote').value=v.note||'';$('callSalutation').value=v.salutation||'';$('callTitle').value=v.title||'';$('callFirst').value=v.first||'';$('callLast').value=v.last||'';$('callRole').value=v.role||'';$('confirmedEmail').value=v.email||'';$('callConsent').checked=v.consent==='Ja';
+  $('yesWarning').hidden=v.status!=='JA'||eligible(v,true);
+  if(v.status==='JA')$('yesWarning').textContent=T[lang].notConfirmed;
+  $('companyStatus').textContent=v.exportStatus==='Import bestätigt'?T[lang].importConfirmed:v.exportStatus==='Export vorbereitet'?T[lang].exportPrepared:eligible(v)?T[lang].ready:'';
+  $('prevCompany').disabled=pointer===0;$('nextCompany').disabled=pointer>=visible.length-1;
+}
+function selected(){return visible[pointer]||null}
+function updateValue(key,value){const v=selected();if(!v)return;v[key]=value;persist();renderStats();if(key==='status'){filtering()}else renderCompany()}
+function translate(next){
+  lang=next;document.documentElement.lang=lang;
+  for(const e of document.querySelectorAll('[data-i18n]'))if(T[lang][e.dataset.i18n])e.textContent=T[lang][e.dataset.i18n];
+  for(const e of document.querySelectorAll('[data-i18n-placeholder]'))e.placeholder=T[lang][e.dataset.i18nPlaceholder]||'';
+  for(const b of document.querySelectorAll('[data-lang]'))b.setAttribute('aria-pressed',String(b.dataset.lang===lang));
+  document.title=lang==='de'?'ClubLeader · Telefonarbeitsplatz | LiquidityBooster':'ClubLeader · Call workspace | LiquidityBooster';
+  if(app){renderCompany();renderStats()}
+}
+function findCell(row,col){return cellByColumn(row,col)}
+function makeXCell(doc,col,row,value,style){
+  const p=doc.documentElement.prefix||'x';
+  const c=doc.createElementNS(NS,p+':c');c.setAttribute('r',colName(col)+row);if(style)c.setAttribute('s',style);
+  c.setAttribute('t','inlineStr');const is=doc.createElementNS(NS,p+':is'),t=doc.createElementNS(NS,p+':t');t.textContent=value==null?'':String(value);
+  if(/^\s|\s$/.test(t.textContent))t.setAttribute('xml:space','preserve');is.appendChild(t);c.appendChild(is);return c;
+}
+function setXCell(doc,row,col,value,style){
+  const existing=findCell(row,col),fresh=makeXCell(doc,col,Number(row.getAttribute('r')),value,style);
+  if(existing)row.replaceChild(fresh,existing);
+  else{
+    const firstGreater=children(row,'c').find(c=>colNumber((c.getAttribute('r')||'').match(/^[A-Z]+/)?.[0]||'')>col);
+    if(firstGreater)row.insertBefore(fresh,firstGreater);else row.appendChild(fresh);
+  }
+}
+function updateTableMeta(files,startCol,endCol,headerRow,lastRow,headerNames){
+  const paths=Object.keys(files).filter(k=>/^xl\/tables\/table\d+\.xml$/.test(k));let winner=null,best=0;
+  for(const path of paths){const d=xmlDoc(files[path]),table=d.documentElement,ref=table.getAttribute('ref')||'',m=ref.match(/^([A-Z]+)(\d+):([A-Z]+)(\d+)$/);
+    if(!m||Number(m[2])!==headerRow||colNumber(m[1])!==1)continue;
+    const n=Number(m[4]);if(n>=lastRow&&colNumber(m[3])>=best){winner={path,doc:d,table,oldEnd:colNumber(m[3])};best=colNumber(m[3])}
+  }
+  if(!winner)return;
+  winner.table.setAttribute('ref','A'+headerRow+':'+colName(endCol)+lastRow);
+  const autof=child(winner.table,'autoFilter');if(autof)autof.setAttribute('ref','A'+headerRow+':'+colName(endCol)+lastRow);
+  let c=child(winner.table,'tableColumns');if(!c){c=winner.doc.createElementNS(NS,(winner.table.prefix||'x')+':tableColumns');winner.table.appendChild(c)}
+  for(let i=children(c,'tableColumn').length;i<endCol;i++){const el=winner.doc.createElementNS(NS,(winner.table.prefix||'x')+':tableColumn');el.setAttribute('id',String(i+1));el.setAttribute('name',headerNames[i]||('Spalte '+(i+1)));c.appendChild(el)}
+  c.setAttribute('count',String(children(c,'tableColumn').length));
+  files[winner.path]=xmldocBytes(winner.doc);
+}
+function buildMaster(){
+  if(!app)throw Error('No master');
+  const files={...app.files},d=xmlDoc(files[app.sheetPath]),ss=sharedStrings(files),header=getHeaderRow(d,ss);
+  const headers=children(header,'c').map(c=>({col:colNumber((c.getAttribute('r')||'').match(/^[A-Z]+/)[0]),name:cellValue(c,ss)}));
+  let end=Math.max(...headers.map(x=>x.col)),colMap={};for(const h of headers)if(h.name)colMap[h.name]=h.col;
+  for(const title of callHeaders)if(!colMap[title]){end++;colMap[title]=end;const template=findCell(header,Math.min(2,end))||children(header,'c')[0];setXCell(d,header,end,title,template?.getAttribute('s')||'')}
+  const rows=all(d,'row');const rowByNum=new Map(rows.map(r=>[Number(r.getAttribute('r')),r]));
+  for(const item of app.rows){const row=rowByNum.get(item.row);if(!row)continue;const st=findCell(row,2)?.getAttribute('s')||'';for(let i=0;i<callHeaders.length;i++)setXCell(d,row,colMap[callHeaders[i]],item[callProps[i]]||'',st)}
+  const sheetCols=child(d.documentElement,'cols');if(sheetCols){for(const title of callHeaders){const c=colMap[title];if(children(sheetCols,'col').some(x=>Number(x.getAttribute('min'))<=c&&Number(x.getAttribute('max'))>=c))continue;
+      const x=d.createElementNS(NS,(d.documentElement.prefix||'x')+':col');x.setAttribute('min',String(c));x.setAttribute('max',String(c));x.setAttribute('width',title==='Bemerkung'?'34':'20');x.setAttribute('customWidth','1');sheetCols.appendChild(x)}}
+  const dataEnd=Math.max(...app.rows.map(v=>v.row));
+  const dimension=child(d.documentElement,'dimension');if(dimension)dimension.setAttribute('ref','A1:'+colName(end)+dataEnd);
+  files[app.sheetPath]=xmldocBytes(d);
+  const sortedNames=Array.from({length:end},(_,i)=>headers.find(x=>x.col===i+1)?.name||callHeaders.find(x=>colMap[x]===i+1)||'');
+  updateTableMeta(files,1,end,Number(header.getAttribute('r')),dataEnd,sortedNames);
+  return packZip(files);
+}
+function kmsXlsx(records){
+  const packageEntries={};
+  packageEntries['[Content_Types].xml']='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>';
+  packageEntries['_rels/.rels']='<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>';
+  packageEntries['xl/workbook.xml']='<?xml version="1.0" encoding="UTF-8"?><workbook xmlns="'+NS+'" xmlns:r="'+RT+'"><sheets><sheet name="Privatpersonen" sheetId="1" r:id="rId1"/></sheets></workbook>';
+  packageEntries['xl/_rels/workbook.xml.rels']='<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="'+RT+'/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="'+RT+'/styles" Target="styles.xml"/></Relationships>';
+  packageEntries['xl/styles.xml']='<?xml version="1.0" encoding="UTF-8"?><styleSheet xmlns="'+NS+'"><fonts count="2"><font><sz val="11"/><name val="Arial"/></font><font><b/><color rgb="FFFFFFFF"/><sz val="11"/><name val="Arial"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF142B43"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFill="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>';
+  const rowXml=(values,r,head)=>'<row r="'+r+'">'+values.map((v,i)=>'<c r="'+colName(i+1)+r+'" s="'+(head?'1':'0')+'" t="inlineStr"><is><t>'+xmlEscape(v)+'</t></is></c>').join('')+'</row>';
+  const headings=rowXml(kmsHeaders,1,true);
+  const rows=records.map((v,i)=>rowXml([v.salutation,v.title,v.first,v.last,v.email,v.address,v.plz,v.city,'Deutschland',v.phone,v.mobile,v.web,'','Unternehmerforum – persönliches Telefonat',v.company,v.role],i+2,false)).join('');
+  const cols=[13,12,19,20,33,27,12,20,18,19,19,29,10,34,31,25].map((width,i)=>'<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+width+'" customWidth="1"/>').join('');
+  packageEntries['xl/worksheets/sheet1.xml']='<?xml version="1.0" encoding="UTF-8"?><worksheet xmlns="'+NS+'"><dimension ref="A1:P'+(records.length+1)+'"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>'+cols+'</cols><sheetData>'+headings+rows+'</sheetData><autoFilter ref="A1:P'+(records.length+1)+'"/></worksheet>';
+  return packZip(packageEntries);
+}
+function saveBlob(bytes,name){const blob=new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
+function shortBase(){return (app?.name||'BusinessBooster_Master').replace(/\.xlsx$/i,'').replace(/[^a-z0-9A-ZäöüÄÖÜß_-]/g,'_').slice(0,75)}
+async function loadMaster(file){
+  $('loadError').textContent='';$('exportError').textContent='';$('workspace').hidden=true;
+  try{
+    if(!/\.xlsx$/i.test(file.name)||file.size>20000000)throw Error(T[lang].wrongWorkbook);
+    const files=await unzip(await file.arrayBuffer());
+    const path=namedSheetPath(files),sheet=xmlDoc(files[path]),ss=sharedStrings(files),parsed=allRowsFromSheet(sheet,ss);
+    if(!parsed.rows.length)throw Error(T[lang].noFound);
+    app={files,sheetPath:path,rows:parsed.rows,name:file.name,headerRow:parsed.headerRow,headers:parsed.headers};
+    persistKey='bb_call_v1_'+hashText(app.rows.map(v=>v.id).sort().join('||'));
+    const restored=restoreLocal();
+    visible=app.rows.slice();pointer=0;$('workspace').hidden=false;$('fileInfo').textContent=file.name+' · '+app.rows.length+' '+T[lang].statTotal+(restored?' · '+T[lang].alreadyLocal:'');
+    renderStats();renderCompany();persist();
+  }catch(e){app=null;$('loadError').textContent=T[lang].loadFailed+' '+(e?.message||'')}
+}
+$('masterInput').addEventListener('change',e=>{if(e.target.files?.[0])loadMaster(e.target.files[0])});
+document.querySelectorAll('[data-lang]').forEach(el=>el.addEventListener('click',()=>translate(el.dataset.lang)));
+document.querySelectorAll('#statusButtons .statusbtn').forEach(b=>b.addEventListener('click',()=>{const v=selected();if(!v)return;v.status=b.dataset.value;if(v.status!=='Offen'&&!v.date)v.date=new Date().toLocaleDateString('sv-SE');persist();filtering()}));
+for(const [id,prop] of [['callDate','date'],['callNote','note'],['callSalutation','salutation'],['callTitle','title'],['callFirst','first'],['callLast','last'],['callRole','role'],['confirmedEmail','email']]){
+  $(id).addEventListener('change',()=>updateValue(prop,$(id).value));
+  if(['callNote','confirmedEmail'].includes(id))$(id).addEventListener('input',()=>{const v=selected();if(v){v[prop]=$(id).value;persist();renderStats()}});
+}
+$('callConsent').addEventListener('change',()=>updateValue('consent',$('callConsent').checked?'Ja':'Nein'));
+$('companySearch').addEventListener('input',filtering);$('companyFilter').addEventListener('change',filtering);
+$('prevCompany').addEventListener('click',()=>{if(pointer>0){pointer--;renderCompany()}});
+$('nextCompany').addEventListener('click',()=>{if(pointer<visible.length-1){pointer++;renderCompany()}});
+$('repeatExport').addEventListener('change',renderStats);
+$('masterExport').addEventListener('click',()=>{try{saveBlob(buildMaster(),shortBase()+'_Telefonstand.xlsx');$('exportError').textContent='';$('exportInfo').textContent=T[lang].masterSaved}catch(e){$('exportError').textContent=T[lang].errorGeneric+' '+e.message}});
+$('kmsExport').addEventListener('click',()=>{if(!app)return;const rows=uniqueEligible();if(!rows.length){$('exportError').textContent=T[lang].noneEligible;return}
+  try{const bytes=kmsXlsx(rows);saveBlob(bytes,'ONLY_INSIDE_KMS_Import_'+new Date().toISOString().slice(0,10)+'.xlsx');for(const v of rows)v.exportStatus='Export vorbereitet';persist();renderStats();renderCompany();$('exportError').textContent='';$('exportInfo').textContent=T[lang].exported}catch(e){$('exportError').textContent=T[lang].errorGeneric+' '+e.message}
+});
+translate('de');
+</script>
+</body>
+</html>
