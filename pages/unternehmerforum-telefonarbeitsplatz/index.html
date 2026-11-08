@@ -307,7 +307,7 @@ function renderCompany(){
   document.querySelectorAll('#statusButtons .statusbtn').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===v.status)));
   $('yesFields').hidden=v.status!=='JA';$('callDate').value=/^\d{4}-\d{2}-\d{2}$/.test(v.date)?v.date:'';
   $('callNote').value=v.note||'';$('kmsImportState').value=v.exportStatus;$('callSalutation').value=v.salutation||'';$('callTitle').value=v.title||'';$('callFirst').value=v.first||'';$('callLast').value=v.last||'';$('callRole').value=v.role||'';$('confirmedEmail').value=v.email||'';$('callConsent').checked=v.consent==='Ja';
-  $('yesWarning').hidden=v.status!=='JA'||eligible(v,true);
+  $('yesWarning').hidden=v.status!=='JA'||v.exportStatus==='Import bestätigt'||(v.consent==='Ja'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(strings(v.email)));
   if(v.status==='JA')$('yesWarning').textContent=T[lang].notConfirmed;
   $('companyStatus').textContent=v.exportStatus==='Import bestätigt'?T[lang].importConfirmed:v.exportStatus==='Export vorbereitet'?T[lang].exportPrepared:eligible(v)?T[lang].ready:'';
   $('prevCompany').disabled=pointer===0;$('nextCompany').disabled=pointer>=visible.length-1;
