@@ -29,6 +29,7 @@
     <input id="masterInput" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
   </label>
   <div id="fileInfo" class="fileline" aria-live="polite"></div>
+  <button type="button" id="forgetWorkbook" class="secondary" hidden style="margin-top:10px;min-height:37px;padding:6px 12px;font-size:13px" data-i18n="forgetWorkbook">Gespeicherte Liste entfernen</button>
   <p class="notice" data-i18n="uploadNote">Die Datei wird nur auf diesem Gerät geöffnet. Ein lokaler Zwischenstand wird zusätzlich im Browser gespeichert. Für eine verlässliche Sicherung bitte regelmäßig die aktualisierte Master-Excel herunterladen.</p>
   <div id="loadError" class="error" role="alert"></div>
 </section>
@@ -117,8 +118,8 @@
 <script>
 'use strict';
 const T={
-de:{brandSub:'ClubLeader · Telefonarbeitsplatz',guide:'AIDA-Leitfaden',title:'BusinessBooster · Telefonarbeitsplatz',intro:'Masterliste laden, Firma für Firma bearbeiten und bestätigte JA-Kontakte als Excel-Datei für dein persönliches ONLY-INSIDE-KMS ausgeben. Alles lokal im Browser, ohne Übertragung an einen Server.',importTitle:'Master-Excel einlesen',uploadText:'BusinessBooster-Masterliste (.xlsx) auswählen',uploadNote:'Die Datei wird nur auf diesem Gerät geöffnet. Ein lokaler Zwischenstand wird zusätzlich im Browser gespeichert. Für eine verlässliche Sicherung bitte regelmäßig die aktualisierte Master-Excel herunterladen.',progressTitle:'Telefonbearbeitung',statTotal:'Firmen',statYes:'JA',statNo:'NEIN',statCallback:'Rückruf',statMissed:'Nicht erreicht',statOpen:'Offen',search:'Firma, PLZ oder Ort suchen',filterAll:'Alle Firmen',filterOpen:'Nur offene Firmen',filterYes:'Nur JA',filterCallback:'Nur Rückruf',filterNo:'Nur NEIN',detailContact:'Recherche-Ansprechpartner',detailPhone:'Telefon',detailAddress:'Anschrift',detailWebsite:'Website / öffentliche E-Mail',statusTitle:'Gesprächsergebnis',yes:'JA',no:'NEIN',callback:'Rückruf',notReached:'Nicht erreicht',open:'Offen',yesFieldsTitle:'JA-Kontakt für KMS vorbereiten',salutation:'Anrede',select:'Bitte wählen',mr:'Herr',ms:'Frau',callTitle:'Titel (optional)',firstName:'Vorname Gesprächspartner',lastName:'Nachname Gesprächspartner',role:'Funktion Gesprächspartner',emailConfirmed:'E-Mail-Adresse für die Einladung',prefillNote:'Kontaktdaten aus der Masterliste sind vorausgefüllt. Bitte im Gespräch prüfen und bei Bedarf korrigieren. Die Recherche allein gilt nicht als Bestätigung.',personVerified:'Die eingetragenen Personendaten wurden im Gespräch überprüft.',emailVerified:'Diese E-Mail-Adresse wurde im Gespräch für die Einladung bestätigt.',consent:'Der Gesprächspartner hat den Versand einer persönlichen E-Mail-Einladung ausdrücklich erlaubt.',date:'Gesprächsdatum',note:'Bemerkung',previous:'Vorherige Firma',next:'Nächste Firma',exportTitle:'Excel-Dateien ausgeben',masterTitle:'Aktualisierte Masterliste',masterDesc:'Alle Firmen, Recherchefarben und Gesprächsergebnisse. Für weitere Telefonate und Rechercheläufe.',masterExport:'Master-Excel herunterladen',kmsTitle:'ONLY-INSIDE-KMS-Import',kmsDesc:'Nur bestätigte JA-Kontakte im originalen Feldformat. Die KMS-Gruppe wird beim Import zugewiesen.',kmsExport:'KMS-Excel herunterladen',repeat:'Bereits als „Export vorbereitet“ markierte JA-Kontakte erneut ausgeben (nur wenn erforderlich).',exportNote:'„Export vorbereitet“ bedeutet nicht „im KMS importiert“. Den erfolgreichen Import im persönlichen ONLY-INSIDE-KMS selbst bestätigen und beim Import die passende Gruppe wählen, z. B. „Impulsversand“. Die KMS-Einwilligungsbestätigung bleibt unverändert.',footer:'Lokal verarbeitete Excel-Dateien · kein Server-Upload',missing:'Nicht vorhanden',position:'Firma',of:'von',processed:'bearbeitet',eligible:'JA-Kontakte exportfähig',saved:'Lokal gesichert',noMatch:'Keine Firma entspricht der Suche.',notConfirmed:'KMS-Export noch gesperrt: Gesprächspartnerdaten prüfen, E-Mail-Adresse im Gespräch bestätigen und Einladung ausdrücklich erlauben.',ready:'Kontakt ist für den KMS-Export bereit.',importConfirmed:'Dieser Kontakt ist bereits als „Import bestätigt“ gekennzeichnet.',exportPrepared:'Dieser Kontakt wurde bereits als „Export vorbereitet“ gekennzeichnet.',loadFailed:'Die Excel-Datei konnte nicht vollständig gelesen werden.',wrongWorkbook:'Keine unterstützte Firmenliste erkannt. Erwartet wird eine Excel-Tabelle mit einer Spalte „Firmenname“.',zipUnsupported:'Dieses Gerät unterstützt das Entpacken der Excel-Datei nicht.',saveFailed:'Die lokale Sicherung ist eingeschränkt. Bitte Masterliste herunterladen.',noneEligible:'Es gibt keine neuen exportfähigen JA-Kontakte.',exported:'KMS-Datei erstellt. Bitte anschließend die aktualisierte Masterliste speichern.',masterSaved:'Aktualisierte Master-Excel erzeugt.',noFound:'Es wurden keine Firmenzeilen gefunden.',alreadyLocal:'Gesicherter Zwischenstand auf diesem Gerät wiederhergestellt.',errorGeneric:'Verarbeitung fehlgeschlagen. Die Originaldatei wurde nicht verändert.',reexportNote:'Bereits vorbereitete Kontakte sind normalerweise vom erneuten Export ausgeschlossen.',kmsImportState:'KMS-Importstatus',notExported:'Nicht exportiert',exportPreparedOption:'Export vorbereitet',importConfirmedOption:'Import bestätigt',confirmImportNote:'„Import bestätigt“ erst nach erfolgreicher Übernahme im persönlichen KMS einstellen.',verifyImport:'Nur bestätigen, wenn der Kontakt tatsächlich erfolgreich in dein persönliches KMS importiert wurde.',groupNote:'Die Gruppe „Impulsversand“ wird erst beim Import im persönlichen KMS ausgewählt.'},
-en:{brandSub:'ClubLeader · Call workspace',guide:'AIDA invitation guide',title:'BusinessBooster · Call workspace',intro:'Load the master workbook, work through companies one by one and download eligible YES contacts as an Excel file for your personal ONLY INSIDE KMS. All processing stays on your device.',importTitle:'Read master Excel',uploadText:'Choose BusinessBooster master workbook (.xlsx)',uploadNote:'The file is opened only on this device. An interim status is also stored locally in your browser. Regularly download the updated workbook for a reliable backup.',progressTitle:'Call processing',statTotal:'Companies',statYes:'YES',statNo:'NO',statCallback:'Callback',statMissed:'Not reached',statOpen:'Open',search:'Search company, postcode or city',filterAll:'All companies',filterOpen:'Open only',filterYes:'YES only',filterCallback:'Callbacks only',filterNo:'NO only',detailContact:'Research contact',detailPhone:'Telephone',detailAddress:'Address',detailWebsite:'Website / public email',statusTitle:'Call outcome',yes:'YES',no:'NO',callback:'Callback',notReached:'Not reached',open:'Open',yesFieldsTitle:'Prepare YES contact for KMS',salutation:'Salutation',select:'Select',mr:'Mr',ms:'Ms',callTitle:'Title (optional)',firstName:'Actual contact first name',lastName:'Actual contact last name',role:'Actual contact role',emailConfirmed:'Email address for the invitation',prefillNote:'Contact details from the master workbook have been pre-filled. Verify them during the call and correct as needed. Public research is not confirmation.',personVerified:'I verified that the entered contact details identify the person actually reached.',emailVerified:'This email address was confirmed during the call for the invitation.',consent:'The person explicitly agreed to receive a personal invitation by email.',date:'Date of call',note:'Notes',previous:'Previous company',next:'Next company',exportTitle:'Download Excel files',masterTitle:'Updated master workbook',masterDesc:'All companies, research colours and call results, for later calls and research runs.',masterExport:'Download master Excel',kmsTitle:'ONLY INSIDE KMS import',kmsDesc:'Only confirmed YES contacts in original field order. Select the KMS group during import.',kmsExport:'Download KMS Excel',repeat:'Re-export YES contacts already marked “Export prepared” (only if necessary).',exportNote:'“Export prepared” does not mean “import confirmed”. Confirm the actual import in your own ONLY INSIDE KMS and select a group such as “Impulsversand” during import. The existing KMS confirmation process is unchanged.',footer:'Excel files processed locally · no server upload',missing:'Not available',position:'Company',of:'of',processed:'processed',eligible:'YES contacts ready for export',saved:'Saved locally',noMatch:'No companies match the search.',notConfirmed:'KMS export is still blocked: verify the actual contact, confirm the email during the call, and record express permission for the invitation.',ready:'This contact is eligible for KMS export.',importConfirmed:'This contact is already marked import confirmed.',exportPrepared:'This contact has already been marked export prepared.',loadFailed:'Could not read the complete Excel workbook.',wrongWorkbook:'No supported company list found. The Excel sheet must have a “Firmenname” column.',zipUnsupported:'This device does not support decompressing the Excel file.',saveFailed:'Local backup is limited. Please download the updated master.',noneEligible:'No new eligible YES contacts are available.',exported:'KMS file generated. Please also download the updated master workbook.',masterSaved:'Updated master Excel generated.',noFound:'No company rows found.',alreadyLocal:'Restored a locally saved interim status.',errorGeneric:'Processing failed. The original file is unchanged.',reexportNote:'Prepared contacts are normally excluded from repeated exports.',kmsImportState:'KMS import status',notExported:'Not exported',exportPreparedOption:'Export prepared',importConfirmedOption:'Import confirmed',confirmImportNote:'Select “Import confirmed” only after a successful import into your personal KMS.',verifyImport:'Confirm only after this contact was actually imported successfully into your personal KMS.',groupNote:'Assign “Impulsversand” only during import into your personal KMS.'}
+de:{brandSub:'ClubLeader · Telefonarbeitsplatz',guide:'AIDA-Leitfaden',title:'BusinessBooster · Telefonarbeitsplatz',intro:'Masterliste laden, Firma für Firma bearbeiten und bestätigte JA-Kontakte als Excel-Datei für dein persönliches ONLY-INSIDE-KMS ausgeben. Alles lokal im Browser, ohne Übertragung an einen Server.',importTitle:'Master-Excel einlesen',uploadText:'BusinessBooster-Masterliste (.xlsx) auswählen',uploadNote:'Die Master-Excel wird auf diesem Gerät für das nächste Öffnen gespeichert und automatisch wieder geladen. Gesprächsergebnisse bleiben lokal erhalten. Zur Sicherheit bitte regelmäßig die aktualisierte Master-Excel herunterladen: Browserdaten können gelöscht werden.',forgetWorkbook:'Gespeicherte Liste entfernen',autoLoaded:'Masterliste nach dem Neuladen automatisch wiederhergestellt',autoSaved:'Masterliste auf diesem Gerät für das nächste Öffnen gespeichert',browserSaveUnavailable:'Automatisches Wiederöffnen ist auf diesem Gerät nicht möglich. Bitte die Excel-Datei als Sicherung behalten.',forgetConfirm:'Masterliste und ihren lokalen Telefonstand auf diesem Gerät wirklich entfernen? Bereits heruntergeladene Excel-Dateien bleiben erhalten.',forgetDone:'Gespeicherte Liste entfernt. Du kannst eine neue Master-Excel auswählen.',progressTitle:'Telefonbearbeitung',statTotal:'Firmen',statYes:'JA',statNo:'NEIN',statCallback:'Rückruf',statMissed:'Nicht erreicht',statOpen:'Offen',search:'Firma, PLZ oder Ort suchen',filterAll:'Alle Firmen',filterOpen:'Nur offene Firmen',filterYes:'Nur JA',filterCallback:'Nur Rückruf',filterNo:'Nur NEIN',detailContact:'Recherche-Ansprechpartner',detailPhone:'Telefon',detailAddress:'Anschrift',detailWebsite:'Website / öffentliche E-Mail',statusTitle:'Gesprächsergebnis',yes:'JA',no:'NEIN',callback:'Rückruf',notReached:'Nicht erreicht',open:'Offen',yesFieldsTitle:'JA-Kontakt für KMS vorbereiten',salutation:'Anrede',select:'Bitte wählen',mr:'Herr',ms:'Frau',callTitle:'Titel (optional)',firstName:'Vorname Gesprächspartner',lastName:'Nachname Gesprächspartner',role:'Funktion Gesprächspartner',emailConfirmed:'E-Mail-Adresse für die Einladung',prefillNote:'Kontaktdaten aus der Masterliste sind vorausgefüllt. Bitte im Gespräch prüfen und bei Bedarf korrigieren. Die Recherche allein gilt nicht als Bestätigung.',personVerified:'Die eingetragenen Personendaten wurden im Gespräch überprüft.',emailVerified:'Diese E-Mail-Adresse wurde im Gespräch für die Einladung bestätigt.',consent:'Der Gesprächspartner hat den Versand einer persönlichen E-Mail-Einladung ausdrücklich erlaubt.',date:'Gesprächsdatum',note:'Bemerkung',previous:'Vorherige Firma',next:'Nächste Firma',exportTitle:'Excel-Dateien ausgeben',masterTitle:'Aktualisierte Masterliste',masterDesc:'Alle Firmen, Recherchefarben und Gesprächsergebnisse. Für weitere Telefonate und Rechercheläufe.',masterExport:'Master-Excel herunterladen',kmsTitle:'ONLY-INSIDE-KMS-Import',kmsDesc:'Nur bestätigte JA-Kontakte im originalen Feldformat. Die KMS-Gruppe wird beim Import zugewiesen.',kmsExport:'KMS-Excel herunterladen',repeat:'Bereits als „Export vorbereitet“ markierte JA-Kontakte erneut ausgeben (nur wenn erforderlich).',exportNote:'„Export vorbereitet“ bedeutet nicht „im KMS importiert“. Den erfolgreichen Import im persönlichen ONLY-INSIDE-KMS selbst bestätigen und beim Import die passende Gruppe wählen, z. B. „Impulsversand“. Die KMS-Einwilligungsbestätigung bleibt unverändert.',footer:'Lokal verarbeitete Excel-Dateien · kein Server-Upload',missing:'Nicht vorhanden',position:'Firma',of:'von',processed:'bearbeitet',eligible:'JA-Kontakte exportfähig',saved:'Lokal gesichert',noMatch:'Keine Firma entspricht der Suche.',notConfirmed:'KMS-Export noch gesperrt: Gesprächspartnerdaten prüfen, E-Mail-Adresse im Gespräch bestätigen und Einladung ausdrücklich erlauben.',ready:'Kontakt ist für den KMS-Export bereit.',importConfirmed:'Dieser Kontakt ist bereits als „Import bestätigt“ gekennzeichnet.',exportPrepared:'Dieser Kontakt wurde bereits als „Export vorbereitet“ gekennzeichnet.',loadFailed:'Die Excel-Datei konnte nicht vollständig gelesen werden.',wrongWorkbook:'Keine unterstützte Firmenliste erkannt. Erwartet wird eine Excel-Tabelle mit einer Spalte „Firmenname“.',zipUnsupported:'Dieses Gerät unterstützt das Entpacken der Excel-Datei nicht.',saveFailed:'Die lokale Sicherung ist eingeschränkt. Bitte Masterliste herunterladen.',noneEligible:'Es gibt keine neuen exportfähigen JA-Kontakte.',exported:'KMS-Datei erstellt. Bitte anschließend die aktualisierte Masterliste speichern.',masterSaved:'Aktualisierte Master-Excel erzeugt.',noFound:'Es wurden keine Firmenzeilen gefunden.',alreadyLocal:'Gesicherter Zwischenstand auf diesem Gerät wiederhergestellt.',errorGeneric:'Verarbeitung fehlgeschlagen. Die Originaldatei wurde nicht verändert.',reexportNote:'Bereits vorbereitete Kontakte sind normalerweise vom erneuten Export ausgeschlossen.',kmsImportState:'KMS-Importstatus',notExported:'Nicht exportiert',exportPreparedOption:'Export vorbereitet',importConfirmedOption:'Import bestätigt',confirmImportNote:'„Import bestätigt“ erst nach erfolgreicher Übernahme im persönlichen KMS einstellen.',verifyImport:'Nur bestätigen, wenn der Kontakt tatsächlich erfolgreich in dein persönliches KMS importiert wurde.',groupNote:'Die Gruppe „Impulsversand“ wird erst beim Import im persönlichen KMS ausgewählt.'},
+en:{brandSub:'ClubLeader · Call workspace',guide:'AIDA invitation guide',title:'BusinessBooster · Call workspace',intro:'Load the master workbook, work through companies one by one and download eligible YES contacts as an Excel file for your personal ONLY INSIDE KMS. All processing stays on your device.',importTitle:'Read master Excel',uploadText:'Choose BusinessBooster master workbook (.xlsx)',uploadNote:'The master workbook is saved on this device and automatically reloaded next time. Call results remain locally available. Please also download the updated master regularly: browser data can be cleared.',forgetWorkbook:'Remove saved workbook',autoLoaded:'Master workbook automatically restored after reloading the page',autoSaved:'Master workbook saved on this device for the next visit',browserSaveUnavailable:'Automatic restoration is unavailable on this device. Keep a downloaded workbook as a backup.',forgetConfirm:'Remove this saved master workbook and its local call results from this device? Downloaded Excel files will remain.',forgetDone:'Saved workbook removed. You can select another master Excel file.',progressTitle:'Call processing',statTotal:'Companies',statYes:'YES',statNo:'NO',statCallback:'Callback',statMissed:'Not reached',statOpen:'Open',search:'Search company, postcode or city',filterAll:'All companies',filterOpen:'Open only',filterYes:'YES only',filterCallback:'Callbacks only',filterNo:'NO only',detailContact:'Research contact',detailPhone:'Telephone',detailAddress:'Address',detailWebsite:'Website / public email',statusTitle:'Call outcome',yes:'YES',no:'NO',callback:'Callback',notReached:'Not reached',open:'Open',yesFieldsTitle:'Prepare YES contact for KMS',salutation:'Salutation',select:'Select',mr:'Mr',ms:'Ms',callTitle:'Title (optional)',firstName:'Actual contact first name',lastName:'Actual contact last name',role:'Actual contact role',emailConfirmed:'Email address for the invitation',prefillNote:'Contact details from the master workbook have been pre-filled. Verify them during the call and correct as needed. Public research is not confirmation.',personVerified:'I verified that the entered contact details identify the person actually reached.',emailVerified:'This email address was confirmed during the call for the invitation.',consent:'The person explicitly agreed to receive a personal invitation by email.',date:'Date of call',note:'Notes',previous:'Previous company',next:'Next company',exportTitle:'Download Excel files',masterTitle:'Updated master workbook',masterDesc:'All companies, research colours and call results, for later calls and research runs.',masterExport:'Download master Excel',kmsTitle:'ONLY INSIDE KMS import',kmsDesc:'Only confirmed YES contacts in original field order. Select the KMS group during import.',kmsExport:'Download KMS Excel',repeat:'Re-export YES contacts already marked “Export prepared” (only if necessary).',exportNote:'“Export prepared” does not mean “import confirmed”. Confirm the actual import in your own ONLY INSIDE KMS and select a group such as “Impulsversand” during import. The existing KMS confirmation process is unchanged.',footer:'Excel files processed locally · no server upload',missing:'Not available',position:'Company',of:'of',processed:'processed',eligible:'YES contacts ready for export',saved:'Saved locally',noMatch:'No companies match the search.',notConfirmed:'KMS export is still blocked: verify the actual contact, confirm the email during the call, and record express permission for the invitation.',ready:'This contact is eligible for KMS export.',importConfirmed:'This contact is already marked import confirmed.',exportPrepared:'This contact has already been marked export prepared.',loadFailed:'Could not read the complete Excel workbook.',wrongWorkbook:'No supported company list found. The Excel sheet must have a “Firmenname” column.',zipUnsupported:'This device does not support decompressing the Excel file.',saveFailed:'Local backup is limited. Please download the updated master.',noneEligible:'No new eligible YES contacts are available.',exported:'KMS file generated. Please also download the updated master workbook.',masterSaved:'Updated master Excel generated.',noFound:'No company rows found.',alreadyLocal:'Restored a locally saved interim status.',errorGeneric:'Processing failed. The original file is unchanged.',reexportNote:'Prepared contacts are normally excluded from repeated exports.',kmsImportState:'KMS import status',notExported:'Not exported',exportPreparedOption:'Export prepared',importConfirmedOption:'Import confirmed',confirmImportNote:'Select “Import confirmed” only after a successful import into your personal KMS.',verifyImport:'Confirm only after this contact was actually imported successfully into your personal KMS.',groupNote:'Assign “Impulsversand” only during import into your personal KMS.'}
 };
 let lang='de', app=null, visible=[],pointer=0,persistKey='',persistError=false;
 const $=id=>document.getElementById(id);
@@ -247,16 +248,21 @@ function allRowsFromSheet(sheet,ss){
 function hashText(str){let h=2166136261>>>0;for(let i=0;i<str.length;i++)h=Math.imul(h^str.charCodeAt(i),16777619)>>>0;return h.toString(16)}
 function persist(){
   if(!app)return;
-  const out={};for(const v of app.rows)out[v.id]=Object.fromEntries(callProps.map(prop=>[prop,v[prop]]));
+  const out={};for(const v of app.rows)out[v.id]={...Object.fromEntries(callProps.map(prop=>[prop,v[prop]])),__prefillApplied:v.prefillApplied===true};
   try{localStorage.setItem(persistKey,JSON.stringify(out));persistError=false;$('savedAt').textContent=T[lang].saved+' · '+new Date().toLocaleTimeString(lang==='de'?'de-DE':'en-GB',{hour:'2-digit',minute:'2-digit'})}catch(e){if(!persistError)$('exportError').textContent=T[lang].saveFailed;persistError=true}
 }
 function restoreLocal(){
-  // A newly imported master file with actual call/CRM results is authoritative.
-  // Never let an older browser backup overwrite confirmed import status.
-  if(app.rows.some(v=>v.status!=='Offen'||v.exportStatus!=='Nicht exportiert'||v.consent==='Ja'||v.consent==='Nein'))return false;
+  // Fingerabdruck enthält die XLSX-Dateibytes. Nur EXAKT für diese Version
+  // gespeicherte Telefonstände dürfen zurückgelesen werden.
   let cache;try{cache=JSON.parse(localStorage.getItem(persistKey)||'null')}catch(e){}
   if(!cache)return false;
-  let used=false;for(const v of app.rows){const old=cache[v.id];if(!old)continue;for(const key of callProps)if(Object.prototype.hasOwnProperty.call(old,key))v[key]=old[key];used=true}
+  let used=false;
+  for(const v of app.rows){
+    const old=cache[v.id];if(!old)continue;
+    for(const key of callProps)if(Object.prototype.hasOwnProperty.call(old,key))v[key]=old[key];
+    v.prefillApplied=old.__prefillApplied===true;
+    used=true;
+  }
   return used;
 }
 function eligible(v,reexport=false){
@@ -267,7 +273,7 @@ function eligible(v,reexport=false){
 }
 /* Recherchewerte nur als Vorschlag vorbelegen, niemals als bestätigte Kontaktangaben. */
 function prefillResearchContact(v){
-  if(!v)return false;
+  if(!v||v.prefillApplied)return false;
   let modified=false;
   if(!v.first&&!v.last&&!v.role){
     for(const [to,from] of [['first','firstResearch'],['last','lastResearch'],['role','positionResearch']]){
@@ -278,6 +284,9 @@ function prefillResearchContact(v){
     v.email=strings(v.publicEmail);modified=true;
   }
   // Die Zustimmung und die zwei Prüfmerkmale bleiben stets unbearbeitet.
+  // Einmalige Übernahme verhindert das erneute Einsetzen absichtlich
+  // gelöschter Vorschläge nach dem Weiterblättern oder Neuladen.
+  v.prefillApplied=true;
   return modified;
 }
 function uniqueEligible(){
@@ -413,13 +422,15 @@ function kmsXlsx(records){
 }
 function saveBlob(bytes,name){const blob=new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 function shortBase(){return (app?.name||'BusinessBooster_Master').replace(/\.xlsx$/i,'').replace(/[^a-z0-9A-ZäöüÄÖÜß_-]/g,'_').slice(0,75)}
-async function loadMaster(file){
+async function loadMaster(file,fromSaved=false){
+  const epoch=++loadEpoch;
   $('loadError').textContent='';$('exportError').textContent='';$('workspace').hidden=true;
   try{
     if(!/\.xlsx$/i.test(file.name)||file.size>20000000)throw Error(T[lang].wrongWorkbook);
     const sourceBytes=await file.arrayBuffer();
     const files=await unzip(sourceBytes);
     const path=namedSheetPath(files),sheet=xmlDoc(files[path]),ss=sharedStrings(files),parsed=allRowsFromSheet(sheet,ss);
+    if(epoch!==loadEpoch)return;
     if(!parsed.rows.length)throw Error(T[lang].noFound);
     app={files,sheetPath:path,rows:parsed.rows,name:file.name,headerRow:parsed.headerRow,headers:parsed.headers};
     // Aus Sicherheitsgründen an die exakte hochgeladene XLSX-Version
@@ -427,11 +438,118 @@ async function loadMaster(file){
     // Browser-Zwischenständen überschrieben werden.
     persistKey='bb_call_v2_'+hashText(app.rows.map(v=>v.id).sort().join('||'))+'_'+sourceBytes.byteLength+'_'+crc32(new Uint8Array(sourceBytes)).toString(16);
     const restored=restoreLocal();
-    visible=app.rows.slice();pointer=0;$('workspace').hidden=false;$('fileInfo').textContent=file.name+' · '+app.rows.length+' '+T[lang].statTotal+(restored?' · '+T[lang].alreadyLocal:'');
+    // In einer früheren Fassung gespeicherte JA-Entscheidungen mit leeren
+    // Kontaktfeldern erhalten jetzt die Recherchevorschläge nachträglich.
+    // Manuell eingetragene Personendaten werden nicht überschrieben.
+    let prefilled=0;
+    for(const row of app.rows){
+      if(row.status==='JA'&&!row.prefillApplied){
+        if(prefillResearchContact(row))prefilled++;
+      }
+    }
+    visible=app.rows.slice();pointer=0;$('workspace').hidden=false;
+    $('forgetWorkbook').hidden=false;
+    $('fileInfo').textContent=file.name+' · '+app.rows.length+' '+T[lang].statTotal+
+      (fromSaved?' · '+T[lang].autoLoaded:restored?' · '+T[lang].alreadyLocal:'');
     renderStats();renderCompany();persist();
-  }catch(e){app=null;$('loadError').textContent=T[lang].loadFailed+' '+(e?.message||'')}
+    if(!fromSaved){
+      try{
+        await storedWorkbook('save',{name:file.name,bytes:sourceBytes});
+        if(epoch===loadEpoch)$('fileInfo').textContent=file.name+' · '+app.rows.length+' '+T[lang].statTotal+' · '+T[lang].autoSaved;
+      }catch(err){
+        if(epoch===loadEpoch)$('fileInfo').textContent+=' · '+T[lang].browserSaveUnavailable;
+      }
+    }
+  }catch(e){
+    if(epoch!==loadEpoch)return;
+    app=null;$('workspace').hidden=true;
+    $('loadError').textContent=T[lang].loadFailed+' '+(e?.message||'');
+  }
 }
-$('masterInput').addEventListener('change',e=>{if(e.target.files?.[0])loadMaster(e.target.files[0])});
+
+/* Masterdatei sicher nur im lokalen Browser hinterlegen.
+   Statusänderungen liegen separat unter einem exakten Dateifingerabdruck.
+   Kein Netzwerkzugriff, keine Cloud-Speicherung. */
+const WORK_DB_NAME='bb-telefonarbeitsplatz';
+const WORK_DB_STORE='workbooks';
+let loadEpoch=0;
+function openWorkbookDB(){
+  return new Promise((resolve,reject)=>{
+    if(typeof indexedDB==='undefined'){reject(Error('IndexedDB unavailable'));return}
+    let request;
+    try{request=indexedDB.open(WORK_DB_NAME,1)}catch(err){reject(err);return}
+    request.onupgradeneeded=()=>{
+      if(!request.result.objectStoreNames.contains(WORK_DB_STORE))
+        request.result.createObjectStore(WORK_DB_STORE);
+    };
+    request.onsuccess=()=>resolve(request.result);
+    request.onerror=()=>reject(request.error||Error('IndexedDB open failed'));
+    request.onblocked=()=>reject(Error('IndexedDB blocked'));
+  });
+}
+async function storedWorkbook(action,entry){
+  const db=await openWorkbookDB();
+  try{
+    return await new Promise((resolve,reject)=>{
+      let request;
+      const tx=db.transaction(WORK_DB_STORE,action==='read'?'readonly':'readwrite');
+      tx.onabort=()=>reject(tx.error||Error('Local database aborted'));
+      tx.onerror=()=>reject(tx.error||Error('Local database failed'));
+      if(action==='read'){
+        request=tx.objectStore(WORK_DB_STORE).get('last');
+        request.onsuccess=()=>resolve(request.result||null);
+        request.onerror=()=>reject(request.error||Error('Could not restore workbook'));
+      }else if(action==='save'){
+        tx.objectStore(WORK_DB_STORE).put({
+          name:entry.name,
+          bytes:entry.bytes,
+          savedAt:Date.now()
+        },'last');
+        tx.oncomplete=()=>resolve(true);
+      }else if(action==='delete'){
+        tx.objectStore(WORK_DB_STORE).delete('last');
+        tx.oncomplete=()=>resolve(true);
+      }else reject(Error('Unknown storage operation'));
+    });
+  }finally{db.close()}
+}
+async function restoreSavedWorkbook(){
+  const startedAt=loadEpoch;
+  try{
+    const saved=await storedWorkbook('read');
+    if(!saved||startedAt!==loadEpoch)return;
+    const raw=saved.bytes;
+    if(!(raw instanceof ArrayBuffer)||!/\.xlsx$/i.test(saved.name||'')||raw.byteLength===0)
+      throw Error('Invalid saved workbook');
+    await loadMaster({
+      name:saved.name,
+      size:raw.byteLength,
+      arrayBuffer:async()=>raw.slice(0)
+    },true);
+  }catch(err){
+    if(startedAt!==loadEpoch)return;
+    $('fileInfo').textContent=T[lang].browserSaveUnavailable;
+  }
+}
+async function forgetSavedWorkbook(){
+  if(!window.confirm(T[lang].forgetConfirm))return;
+  ++loadEpoch;
+  const key=persistKey;
+  try{await storedWorkbook('delete')}catch(err){
+    $('loadError').textContent=T[lang].browserSaveUnavailable;return;
+  }
+  if(key){try{localStorage.removeItem(key)}catch(err){}}
+  app=null;visible=[];pointer=0;persistKey='';
+  $('masterInput').value='';
+  $('workspace').hidden=true;
+  $('fileInfo').textContent=T[lang].forgetDone;
+  $('forgetWorkbook').hidden=true;
+  $('loadError').textContent='';
+  $('exportError').textContent='';
+}
+
+$('masterInput').addEventListener('change',e=>{if(e.target.files?.[0])void loadMaster(e.target.files[0])});
+$('forgetWorkbook').addEventListener('click',()=>{void forgetSavedWorkbook()});
 document.querySelectorAll('[data-lang]').forEach(el=>el.addEventListener('click',()=>translate(el.dataset.lang)));
 document.querySelectorAll('#statusButtons .statusbtn').forEach(b=>b.addEventListener('click',()=>{
   const v=selected();if(!v)return;
@@ -471,6 +589,7 @@ $('kmsExport').addEventListener('click',()=>{if(!app)return;const rows=uniqueEli
   try{const bytes=kmsXlsx(rows);saveBlob(bytes,'ONLY_INSIDE_KMS_Import_'+new Date().toISOString().slice(0,10)+'.xlsx');for(const v of rows)v.exportStatus='Export vorbereitet';persist();renderStats();renderCompany();$('exportError').textContent='';$('exportInfo').textContent=T[lang].exported}catch(e){$('exportError').textContent=T[lang].errorGeneric+' '+e.message}
 });
 translate('de');
+void restoreSavedWorkbook();
 </script>
 </body>
 </html>
