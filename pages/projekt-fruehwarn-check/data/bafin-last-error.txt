@@ -5,7 +5,7 @@ Artikel-Links auf dieser Seite: 0
 Traceback (most recent call last):
   File "/home/runner/work/lb-tools/lb-tools/pages/projekt-fruehwarn-check/scripts/diagnose_bafin_links.py", line 14, in <module>
     r.raise_for_status()
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/requests/models.py", line 1167, in raise_for_status
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/requests/models.py", line 1167, in raise_for_status
     raise HTTPError(http_error_msg, response=self)
 requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://www.bafin.de/SiteGlobals/Forms/Suche/Expertensuche/Servicesuche_Formular.html?pageLocale=de&cl2Categories_Format=meldung&sortOrder=searchDate_dt%20desc
 
