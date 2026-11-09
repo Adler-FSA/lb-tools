@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ffffff">
+<title>ClubLeader · RegioBooster AIDA-Telefonleitfaden</title>
+<style>
+:root{--navy:#132238;--mint:#00a7ad;--mint-dark:#007d83;--mag:#c6006f;--text:#253345;--muted:#617082;--line:#dbe6e8;--soft:#f7fafb;--pale:#effafa;--shadow:0 11px 35px rgba(19,34,56,.06)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--text);font:16px/1.58 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+button,a{font:inherit}
+button{cursor:pointer}
+a:focus-visible,button:focus-visible{outline:3px solid var(--mag);outline-offset:3px}
+h1,h2,h3,p{margin-top:0}
+.container{width:min(1060px,calc(100% - 40px));margin-inline:auto}
+.site-header{border-bottom:1px solid var(--line);background:#fff}
+.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand svg{width:35px;height:40px;flex-shrink:0}
+.brand-name{display:block;color:var(--navy);font-size:20px;font-weight:760;letter-spacing:-.04em;line-height:1.12}
+.brand-name span{color:var(--mint-dark)}
+.brand-sub{display:block;color:var(--muted);font-size:11px;font-weight:650;letter-spacing:.055em;margin-top:3px}
+.header-tools{display:flex;align-items:center;gap:12px}
+.languages{display:flex;gap:3px;border:1px solid var(--line);padding:3px;border-radius:10px}
+.lang-button{padding:7px 10px;border:0;border-radius:7px;background:transparent;color:var(--muted);font-size:12px;font-weight:850}
+.lang-button.active{background:var(--navy);color:#fff}
+.print-button{border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 14px;color:var(--navy);font-size:13px;font-weight:760;display:inline-flex;align-items:center;gap:8px}
+.print-button svg{width:17px;height:17px}
+.hero{padding:50px 0 28px}
+.eyebrow{color:var(--mint-dark);font-size:12px;font-weight:850;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.hero h1{font-size:clamp(35px,5.1vw,57px);line-height:1.08;letter-spacing:-.045em;font-weight:730;color:var(--navy);margin:0 0 12px}
+.mission{font-size:clamp(18px,2.1vw,24px);font-weight:740;color:var(--navy);margin:0 0 12px}
+.lead{font-size:clamp(16px,2vw,18px);line-height:1.54;color:var(--muted);max-width:820px;margin:0}
+.statement{display:inline-flex;max-width:100%;align-items:center;gap:10px;border-left:4px solid var(--mag);background:#fff5fa;padding:11px 15px;margin-top:22px;font-weight:760;color:var(--navy)}
+.section{margin:21px 0 31px}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:15px}
+.section-heading h2{margin:0;color:var(--navy);font-size:clamp(23px,2.7vw,30px);letter-spacing:-.03em;line-height:1.2}
+.section-hint{font-size:12px;color:var(--muted);font-weight:740}
+.script{overflow:hidden;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:var(--shadow)}
+.script-step{display:grid;grid-template-columns:96px minmax(0,1fr);border-bottom:1px solid var(--line)}
+.script-step:last-child{border-bottom:0}
+.stage{padding:23px 12px 20px 24px;background:#f7fbfc;border-right:1px solid var(--line)}
+.stage-letter{font-size:37px;font-weight:800;line-height:1;color:var(--mint-dark);letter-spacing:-.045em}
+.stage-name{margin-top:8px;color:var(--muted);font-size:11px;line-height:1.25;font-weight:750;overflow-wrap:anywhere}
+.script-step:last-child .stage-letter{color:var(--mag)}
+.script-step:last-child .stage{background:#fff9fc}
+.speech{padding:23px 26px;font-size:clamp(17px,1.8vw,20px);line-height:1.58;color:#223248}
+.speech p{margin:0 0 12px}
+.speech p:last-child{margin:0}
+.speech strong{color:var(--navy);font-weight:780}
+.script-step:last-child .speech strong{color:var(--mag)}
+.responses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.response{border:1px solid var(--line);border-radius:16px;padding:21px 21px 23px;background:#fff;min-width:0}
+.response h3{font-size:16px;color:var(--navy);margin:0 0 12px;line-height:1.35}
+.response p{font-size:15px;line-height:1.64;margin:0}
+.response .indicator{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin-right:8px;border-radius:50%;background:var(--navy);color:white;vertical-align:middle}
+.kms{margin:24px 0 29px;border:1px solid var(--line);border-radius:17px;padding:24px 27px;background:var(--soft)}
+.kms h2{font-size:20px;color:var(--navy);margin:0 0 14px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:12px}
+.step{display:flex;align-items:flex-start;gap:11px;min-width:0}
+.step-n{flex:0 0 30px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--mint-dark);color:#fff;font-size:13px;font-weight:800}
+.step p{margin:1px 0 0;color:#46576a;font-size:14px;line-height:1.5}
+.step strong{display:block;color:var(--navy);font-weight:780}
+.mail-launch{display:flex;align-items:center;justify-content:space-between;gap:17px;flex-wrap:wrap;padding:24px 27px;margin:0 0 32px;border-radius:17px;border:1px solid #bfe1df;background:linear-gradient(110deg,#f0fbfa,#fff 75%);box-shadow:var(--shadow)}
+.mail-copy{flex:1 1 320px;min-width:0}
+.mail-copy h2{font-size:21px;line-height:1.25;color:var(--navy);margin:0 0 7px}
+.mail-copy p{font-size:14px;line-height:1.58;margin:0;color:#536478;max-width:610px}
+.link-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:49px;padding:11px 17px;border-radius:10px;background:var(--navy);color:#fff;text-decoration:none;font-weight:800;font-size:14px}
+.link-button:hover{background:#294762}
+.link-button svg{width:18px;height:18px;flex-shrink:0}
+.return{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.return a{display:inline-flex;gap:9px;align-items:center;text-decoration:none;color:var(--navy);font-size:14px;font-weight:780}
+.return a:hover{text-decoration:underline}
+.return svg{width:19px;height:19px}
+.footer{border-top:1px solid var(--line);padding:19px 0 26px;color:var(--muted);font-size:12px}
+.footer .container{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:800px){.responses{grid-template-columns:1fr}.steps{grid-template-columns:1fr;gap:17px}.section-hint{display:none}}
+@media(max-width:560px){.container{width:calc(100% - 28px)}.header-inner{min-height:68px}.brand svg{width:30px;height:35px}.brand-name{font-size:17px}.brand-sub{font-size:9px}.header-tools{gap:6px}.print-button{padding:8px}.print-button span{display:none}.hero{padding-top:35px}.script-step{grid-template-columns:59px minmax(0,1fr)}.stage{padding:19px 7px 12px 11px}.stage-letter{font-size:29px}.stage-name{font-size:9px}.speech{padding:18px 14px;font-size:16px;line-height:1.55}.statement{font-size:14px}.kms,.mail-launch{padding:20px 18px}.link-button{width:100%}}
+@media print{@page{size:A4;margin:12mm}*{print-color-adjust:exact;-webkit-print-color-adjust:exact}body{font:11pt/1.43 Arial,Helvetica,sans-serif}.container{width:100%}.site-header{border-bottom:1px solid #bdcfd2}.header-inner{min-height:53px}.header-tools,.mail-launch,.return{display:none!important}.hero{padding:25px 0 18px}.hero h1{font-size:34px}.lead{font-size:12pt}.statement{margin-top:12px}.section{margin:16px 0 17px}.section-heading h2{font-size:19px}.script{box-shadow:none}.script-step{break-inside:avoid;grid-template-columns:72px minmax(0,1fr)}.stage{padding:14px 10px}.stage-letter{font-size:29px}.stage-name{font-size:9px}.speech{font-size:12pt;padding:13px 17px}.speech p{margin-bottom:6px}.responses{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.response{padding:12px;break-inside:avoid}.response h3{font-size:11pt}.response p{font-size:10pt}.kms{padding:15px;break-inside:avoid}.kms h2{font-size:14pt}.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.step p{font-size:9pt}.footer{padding-top:10px}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand" aria-label="LiquidityBooster">
+      <svg viewBox="0 0 42 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 2C15 6 9 6 3 5v20c0 10 7 17 18 21 11-4 18-11 18-21V5C32 6 27 6 21 2Z" fill="white" stroke="#00a7ad" stroke-width="2.3"/><path d="M21 10C16 13 12 13 10 12v13c0 7 4 12 11 15 7-3 11-8 11-15V12c-4 1-8 1-11-2Z" fill="#e9f9f9"/><path d="M21 17c-4 6-6 9-6 13a6 6 0 0 0 12 0c0-4-2-7-6-13Z" fill="#c6006f"/><path d="M21 25v9" stroke="white" stroke-width="2"/></svg>
+      <div><span class="brand-name">Liquidity<span>Booster</span></span><span class="brand-sub" data-i18n="brandSub">ClubLeader · Telefonleitfaden 2</span></div>
+    </div>
+    <div class="header-tools">
+      <div class="languages" role="group" aria-label="Sprache / Language">
+        <button class="lang-button active" type="button" data-lang="de" aria-pressed="true">DE</button>
+        <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="print-button" type="button" id="printButton" aria-label="Drucken">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6zM18 12h.01"/></svg>
+        <span data-i18n="print">Drucken</span>
+      </button>
+    </div>
+  </div>
+</header>
+<main class="container">
+  <section class="hero" aria-labelledby="page-title">
+    <div class="eyebrow" data-i18n="eyebrow">Gesprächsvariante 2 · AIDA</div>
+    <h1 id="page-title" data-i18n="title">RegioBooster</h1>
+    <p class="mission" data-i18n="mission">Gemeinsam unsere regionale Wirtschaft stärken.</p>
+    <p class="lead" data-i18n="lead">Ein alternativer Gesprächseinstieg für ClubLeader: wirtschaftliche Möglichkeiten durch Zusammenarbeit aufzeigen und zur persönlichen Online-Präsentation einladen.</p>
+    <div class="statement" data-i18n="goal">Nur Interesse wecken. Die Erlaubnis zur Einladung einholen. Nicht am Telefon verkaufen.</div>
+  </section>
+  <section class="section" aria-labelledby="script-title">
+    <div class="section-heading"><h2 id="script-title" data-i18n="scriptTitle">Der AIDA-Gesprächsleitfaden</h2><span class="section-hint" data-i18n="scriptHint">Ein Gespräch · Vier Schritte</span></div>
+    <div class="script">
+      <div class="script-step">
+        <div class="stage"><div class="stage-letter">A</div><div class="stage-name">Attention</div></div>
+        <div class="speech">
+          <p data-i18n="attention1">„Guten Tag, Herr/Frau …, mein Name ist … . Darf ich Ihnen kurz eine Frage stellen?</p>
+          <p data-i18n="attention2">Was wäre, wenn Sie nicht nur mit Ihren eigenen Produkten und Dienstleistungen wirtschaftliche Möglichkeiten entwickeln könnten, sondern zusätzlich von der Zusammenarbeit, den Angeboten und den Empfehlungen einer Unternehmergemeinschaft profitieren könnten?“</p>
+        </div>
+      </div>
+      <div class="script-step">
+        <div class="stage"><div class="stage-letter">I</div><div class="stage-name">Interest</div></div>
+        <div class="speech">
+          <p data-i18n="interest1">„Genau um diesen Gedanken geht es bei unserer regionalen Unternehmerinitiative RegioBooster.</p>
+          <p data-i18n="interest2">Wir verbinden Unternehmen, ihre Angebote, Geschäftskontakte und gegenseitige Empfehlungen. Es geht also nicht um einen weiteren Firmeneintrag, sondern um neue Möglichkeiten der wirtschaftlichen Zusammenarbeit.“</p>
+        </div>
+      </div>
+      <div class="script-step">
+        <div class="stage"><div class="stage-letter">D</div><div class="stage-name">Desire</div></div>
+        <div class="speech">
+          <p data-i18n="desire1">„Das Interessante daran: Sie können Ihr eigenes Unternehmen stärken und zugleich passende Angebote anderer Unternehmer empfehlen oder neue Geschäftsbeziehungen entwickeln.</p>
+          <p data-i18n="desire2">Dafür stehen eine Unternehmergemeinschaft und konkrete Werkzeuge zur Verfügung. Welche Möglichkeiten für Ihren Betrieb sinnvoll sind, können Sie selbst beurteilen.“</p>
+        </div>
+      </div>
+      <div class="script-step">
+        <div class="stage"><div class="stage-letter">A</div><div class="stage-name">Action</div></div>
+        <div class="speech">
+          <p data-i18n="action1">„Wie das Zusammenspiel funktioniert, zeigen wir in einer rund 30-minütigen Online-Präsentation.</p>
+          <p><strong data-i18n="action2">Darf ich Ihnen dazu eine persönliche Einladung per E-Mail schicken?“</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="questions-title">
+    <div class="section-heading"><h2 id="questions-title" data-i18n="questionsTitle">Kurze Antworten auf typische Rückfragen</h2></div>
+    <div class="responses">
+      <article class="response">
+        <h3><span class="indicator" aria-hidden="true">?</span><span data-i18n="questionBenefitTitle">Was habe ich davon?</span></h3>
+        <p data-i18n="questionBenefitText">„Sie können Ihr eigenes Geschäft weiterentwickeln und zugleich neue geschäftliche Verbindungen erschließen. Auch die Empfehlung passender Angebote anderer Unternehmer kann interessant sein. Welche Möglichkeiten zu Ihrem Betrieb passen, zeigen wir in der Präsentation.“</p>
+      </article>
+      <article class="response">
+        <h3><span class="indicator" aria-hidden="true">?</span><span data-i18n="questionOtherTitle">So etwas gibt es doch schon.</span></h3>
+        <p data-i18n="questionOtherText">„Es gibt bereits gute Werbeplattformen und Unternehmernetzwerke. Unser Konzept verbindet Kontakte, Angebote, Empfehlungen und die aktive Zusammenarbeit mit passenden Werkzeugen. Diesen Unterschied möchten wir Ihnen zeigen.“</p>
+      </article>
+      <article class="response">
+        <h3><span class="indicator" aria-hidden="true">€</span><span data-i18n="questionPriceTitle">Was kostet das?</span></h3>
+        <p data-i18n="questionPriceText">„Die Online-Präsentation ist unverbindlich. Einzelne Leistungen sind kostenpflichtig; die konkreten Angebote, Preise und Bedingungen werden dort erläutert. Wenn Sie nach dem Preis eines bestimmten Angebots fragen, nenne ich Ihnen diesen selbstverständlich direkt.“</p>
+      </article>
+    </div>
+  </section>
+  <section class="kms" aria-labelledby="kms-title">
+    <h2 id="kms-title" data-i18n="kmsTitle">Wenn die Einladung gewünscht ist</h2>
+    <div class="steps">
+      <div class="step"><span class="step-n">1</span><p><strong data-i18n="kms1title">E-Mail erfragen</strong><span data-i18n="kms1">Die Erlaubnis erfragen und die E-Mail-Adresse im persönlichen ClubLeader-KMS erfassen.</span></p></div>
+      <div class="step"><span class="step-n">2</span><p><strong data-i18n="kms2title">Double-Opt-in</strong><span data-i18n="kms2">Der Kontakt erhält die vorhandene KMS-Bestätigungsmail und bestätigt seine Einwilligung.</span></p></div>
+      <div class="step"><span class="step-n">3</span><p><strong data-i18n="kms3title">Persönliche Einladung</strong><span data-i18n="kms3">Erst nach erfolgreicher Bestätigung erhält er die Einladung mit den Veranstaltungsdaten und dem Zugangslink.</span></p></div>
+    </div>
+  </section>
+  <section class="mail-launch" aria-labelledby="mail-title">
+    <div class="mail-copy">
+      <h2 id="mail-title" data-i18n="mailTitle">Diese E-Mails erhält Ihr Gesprächspartner</h2>
+      <p data-i18n="mailDescription">Beide E-Mails vollständig ansehen: die Double-Opt-in-Vorschau und die persönliche Einladung „Gemeinsam unsere regionale Wirtschaft stärken“.</p>
+    </div>
+    <a class="link-button" href="./email-leitfaden.html">
+      <span data-i18n="mailButton">E-Mails vollständig ansehen</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+    </a>
+  </section>
+  <div class="return">
+    <a href="./">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 5-7 7 7 7M7 12h14"/></svg>
+      <span data-i18n="back">Zurück zum ersten Telefonleitfaden</span>
+    </a>
+  </div>
+</main>
+<footer class="footer"><div class="container"><span>ClubLeader</span><span data-i18n="footer">RegioBooster · AIDA-Telefonleitfaden</span></div></footer>
+<script>
+(function(){
+'use strict';
+const translations={
+  de:{
+    brandSub:'ClubLeader · Telefonleitfaden 2',print:'Drucken',eyebrow:'Gesprächsvariante 2 · AIDA',title:'RegioBooster',mission:'Gemeinsam unsere regionale Wirtschaft stärken.',
+    lead:'Ein alternativer Gesprächseinstieg für ClubLeader: wirtschaftliche Möglichkeiten durch Zusammenarbeit aufzeigen und zur persönlichen Online-Präsentation einladen.',
+    goal:'Nur Interesse wecken. Die Erlaubnis zur Einladung einholen. Nicht am Telefon verkaufen.',
+    scriptTitle:'Der AIDA-Gesprächsleitfaden',scriptHint:'Ein Gespräch · Vier Schritte',
+    attention1:'„Guten Tag, Herr/Frau …, mein Name ist … . Darf ich Ihnen kurz eine Frage stellen?',
+    attention2:'Was wäre, wenn Sie nicht nur mit Ihren eigenen Produkten und Dienstleistungen wirtschaftliche Möglichkeiten entwickeln könnten, sondern zusätzlich von der Zusammenarbeit, den Angeboten und den Empfehlungen einer Unternehmergemeinschaft profitieren könnten?“',
+    interest1:'„Genau um diesen Gedanken geht es bei unserer regionalen Unternehmerinitiative RegioBooster.',
+    interest2:'Wir verbinden Unternehmen, ihre Angebote, Geschäftskontakte und gegenseitige Empfehlungen. Es geht also nicht um einen weiteren Firmeneintrag, sondern um neue Möglichkeiten der wirtschaftlichen Zusammenarbeit.“',
+    desire1:'„Das Interessante daran: Sie können Ihr eigenes Unternehmen stärken und zugleich passende Angebote anderer Unternehmer empfehlen oder neue Geschäftsbeziehungen entwickeln.',
+    desire2:'Dafür stehen eine Unternehmergemeinschaft und konkrete Werkzeuge zur Verfügung. Welche Möglichkeiten für Ihren Betrieb sinnvoll sind, können Sie selbst beurteilen.“',
+    action1:'„Wie das Zusammenspiel funktioniert, zeigen wir in einer rund 30-minütigen Online-Präsentation.',
+    action2:'Darf ich Ihnen dazu eine persönliche Einladung per E-Mail schicken?“',
+    questionsTitle:'Kurze Antworten auf typische Rückfragen',
+    questionBenefitTitle:'Was habe ich davon?',
+    questionBenefitText:'„Sie können Ihr eigenes Geschäft weiterentwickeln und zugleich neue geschäftliche Verbindungen erschließen. Auch die Empfehlung passender Angebote anderer Unternehmer kann interessant sein. Welche Möglichkeiten zu Ihrem Betrieb passen, zeigen wir in der Präsentation.“',
+    questionOtherTitle:'So etwas gibt es doch schon.',
+    questionOtherText:'„Es gibt bereits gute Werbeplattformen und Unternehmernetzwerke. Unser Konzept verbindet Kontakte, Angebote, Empfehlungen und die aktive Zusammenarbeit mit passenden Werkzeugen. Diesen Unterschied möchten wir Ihnen zeigen.“',
+    questionPriceTitle:'Was kostet das?',
+    questionPriceText:'„Die Online-Präsentation ist unverbindlich. Einzelne Leistungen sind kostenpflichtig; die konkreten Angebote, Preise und Bedingungen werden dort erläutert. Wenn Sie nach dem Preis eines bestimmten Angebots fragen, nenne ich Ihnen diesen selbstverständlich direkt.“',
+    kmsTitle:'Wenn die Einladung gewünscht ist',kms1title:'E-Mail erfragen',kms1:'Die Erlaubnis erfragen und die E-Mail-Adresse im persönlichen ClubLeader-KMS erfassen.',
+    kms2title:'Double-Opt-in',kms2:'Der Kontakt erhält die vorhandene KMS-Bestätigungsmail und bestätigt seine Einwilligung.',
+    kms3title:'Persönliche Einladung',kms3:'Erst nach erfolgreicher Bestätigung erhält er die Einladung mit den Veranstaltungsdaten und dem Zugangslink.',
+    mailTitle:'Diese E-Mails erhält Ihr Gesprächspartner',mailDescription:'Beide E-Mails vollständig ansehen: die Double-Opt-in-Vorschau und die persönliche Einladung „Gemeinsam unsere regionale Wirtschaft stärken“.',
+    mailButton:'E-Mails vollständig ansehen',back:'Zurück zum ersten Telefonleitfaden',footer:'RegioBooster · AIDA-Telefonleitfaden'
+  },
+  en:{
+    brandSub:'ClubLeader · Phone guide 2',print:'Print',eyebrow:'Conversation option 2 · AIDA',title:'RegioBooster',mission:'Strengthening our regional economy together.',
+    lead:'An alternative opening for ClubLeaders: highlight economic opportunities through collaboration and invite business owners to a personal online presentation.',
+    goal:'Spark interest. Obtain permission to send an invitation. Do not sell over the phone.',
+    scriptTitle:'The AIDA phone guide',scriptHint:'One conversation · Four steps',
+    attention1:'“Good day, Mr/Ms …, my name is … . May I ask you a quick question?',
+    attention2:'What if your business could discover economic opportunities not only through its own products and services, but also through collaboration, offers and recommendations within a community of entrepreneurs?”',
+    interest1:'“That is exactly the idea behind our regional business initiative, RegioBooster.',
+    interest2:'We bring together businesses, their offers, business contacts and mutual referrals. It is not another business directory; it is about new opportunities for economic collaboration.”',
+    desire1:'“The interesting part is that you can strengthen your own business while recommending suitable offers from other businesses or developing new business relationships.',
+    desire2:'A business community and practical tools are available for this purpose. You can decide for yourself which opportunities make sense for your business.”',
+    action1:'“We explain how this works together in an online presentation lasting around 30 minutes.',
+    action2:'May I send you a personal invitation by email?”',
+    questionsTitle:'Short answers to common questions',
+    questionBenefitTitle:'What is in it for me?',
+    questionBenefitText:'“You can develop your own business and explore new business connections. Recommending relevant offers from other businesses may also be of interest. We will show you how this might fit your business in the presentation.”',
+    questionOtherTitle:'Does something like this not already exist?',
+    questionOtherText:'“There are already useful advertising platforms and business networks. Our approach brings together contacts, offers, referrals and active collaboration with suitable tools. We would like to show you how that works.”',
+    questionPriceTitle:'What does it cost?',
+    questionPriceText:'“The online presentation is without obligation. Some services are paid; the specific offers, prices and terms will be explained there. If you ask about the price of a particular offer, I will of course tell you directly.”',
+    kmsTitle:'When the person requests an invitation',kms1title:'Ask for their email',kms1:'Ask permission and record the email address in the personal ClubLeader KMS.',
+    kms2title:'Double opt-in',kms2:'The contact receives the existing KMS confirmation email and confirms their consent.',
+    kms3title:'Personal invitation',kms3:'Only after successful confirmation will they receive the invitation with event details and the access link.',
+    mailTitle:'These are the emails your contact receives',mailDescription:'Review both messages in full: the double opt-in preview and the personal “Strengthening our regional economy together” invitation.',
+    mailButton:'View both emails in full',back:'Back to the first phone guide',footer:'RegioBooster · AIDA phone guide'
+  }
+};
+const i18nNodes=Array.from(document.querySelectorAll('[data-i18n]'));
+for(const node of i18nNodes){
+  const key=node.getAttribute('data-i18n');
+  if(!(key in translations.de)||!(key in translations.en))console.warn('Missing translation',key);
+}
+function setLanguage(lang){
+  if(!translations[lang])return;
+  document.documentElement.lang=lang;
+  const t=translations[lang];
+  i18nNodes.forEach(function(el){const key=el.getAttribute('data-i18n');if(Object.prototype.hasOwnProperty.call(t,key))el.textContent=t[key];});
+  document.querySelectorAll('[data-lang]').forEach(function(button){
+    const active=button.getAttribute('data-lang')===lang;
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-pressed',String(active));
+  });
+  document.getElementById('printButton').setAttribute('aria-label',t.print);
+  document.title=lang==='de'?'ClubLeader · RegioBooster AIDA-Telefonleitfaden':'ClubLeader · RegioBooster AIDA phone guide';
+  try{localStorage.setItem('regiobooster-aida-lang',lang)}catch(e){}
+}
+document.querySelectorAll('[data-lang]').forEach(function(button){button.addEventListener('click',function(){setLanguage(button.getAttribute('data-lang'));});});
+document.getElementById('printButton').addEventListener('click',function(){window.print();});
+let initial='de';try{const stored=localStorage.getItem('regiobooster-aida-lang');if(stored==='de'||stored==='en')initial=stored}catch(e){}
+setLanguage(initial);
+})();
+</script>
+</body>
+</html>
