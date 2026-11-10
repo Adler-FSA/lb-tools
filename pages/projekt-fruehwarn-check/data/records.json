@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-10T13:47:48Z",
+  "generated_at": "2026-11-10T14:48:37Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-09T16:09:28Z",
+      "last_success": "2026-11-10T14:48:37Z",
       "records": 3617,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "94f42f31d39bd33439eaa0cb8b3dfb71df51c255f0432c89e5b96c659f7bfa9f"
+      "response_sha256": "26fb9a4cc406e75b6420a6691a834ed46d44607c8e365753593450f00f757d26"
     }
   },
   "records": [
@@ -28324,7 +28324,7 @@
       "lei": "815600B5C61A10BBB451",
       "national_reference": "3158",
       "city": "MILANO",
-      "last_update": "20260306000000000",
+      "last_update": "20261107000000000",
       "match_terms": [
         "BANCA SISTEMA S.P.A.",
         "815600B5C61A10BBB451",
@@ -86853,7 +86853,7 @@
       "lei": "B64D6Y3LBJS4ANNPCU93",
       "national_reference": "27032036",
       "city": "'S-GRAVENHAGE",
-      "last_update": "20260801000000000",
+      "last_update": "20260901000000000",
       "match_terms": [
         "NIBC Bank N.V.",
         "B64D6Y3LBJS4ANNPCU93",
