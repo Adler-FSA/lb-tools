@@ -9,6 +9,21 @@
 @media(max-width:850px){.cards,.cards.three{grid-template-columns:1fr 1fr}.slide{min-height:700px}.inside{padding:32px}.card{padding:17px}.calc{padding:13px}.cards{gap:12px}}
 @media(max-width:560px){.cards,.cards.three{grid-template-columns:1fr}.slide{min-height:calc(100dvh - 173px)}.inside{padding:23px 18px}.slide h1{margin:13px 0;font-size:30px}.card{padding:15px}.card h2{margin:6px 0}.cards{margin-top:18px}.note{padding-top:16px}.nav{padding:8px}.navin{gap:5px}.navbtn{padding:7px;min-height:49px;gap:5px;font-size:11px}.navbtn svg{width:18px;height:18px}.navbtn .name{max-width:22vw}.center strong{font-size:15px}.center span{font-size:10px}.calcrow{font-size:13px}.calcrow.total strong{font-size:19px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+.slide.fin-result .inside{padding:25px clamp(22px,4.3vw,60px) 15px}.slide.fin-result h1{font-size:clamp(30px,3.3vw,46px);margin:15px 0 8px;line-height:1.12}.slide.fin-result .lead{font-size:clamp(14px,1.4vw,18px);line-height:1.35}
+.fin-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(270px,.9fr);gap:18px;margin-top:20px}
+.fin-table{border:1px solid #d7e5e9;border-radius:17px;background:#fff;overflow:hidden;min-width:0}
+.fin-head{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#e9f6f9;padding:9px 14px}
+.fin-head.pink{background:#fcecf5}.fin-head strong{font-size:13px;color:#1b4051}.fin-head small{font-size:11px;color:#64818b;white-space:nowrap}
+.fin-income{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-height:46px;padding:8px 14px;border-bottom:1px solid #e8eef0}
+.fin-income div{display:flex;flex-direction:column;gap:3px;min-width:0}.fin-income strong{font-size:14px;line-height:1.15}.fin-income small{font-size:11px;line-height:1.26;color:#72858f}.fin-income b{font-size:17px;white-space:nowrap}
+.fin-subtotal{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 14px;background:#f0f9fa;color:#177787;font-size:13px;font-weight:800}.fin-subtotal.pink{background:#fcf2f8;color:#af2976}.fin-subtotal b{font-size:20px}
+.fin-aside{background:#fff7fb;border:1px solid #eccbdf;border-radius:17px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.fin-aside-unit{padding-bottom:12px;border-bottom:1px solid #efdae6}.fin-aside-unit small{font-size:12px;letter-spacing:.05em;font-weight:850;color:#a74a7c}.fin-aside-unit strong{display:block;font-size:clamp(23px,2.6vw,36px);line-height:1.1;color:#16394e;margin:7px 0 5px}.fin-aside-unit.emphasis strong{color:#b92b78}.fin-aside-unit p{font-size:11px;line-height:1.35;color:#73858e;margin:0}
+.fin-highlight{background:#e6f6f8;border-radius:12px;padding:12px;color:#17768a}.fin-highlight strong{font-size:14px;line-height:1.28;display:block}.fin-highlight small{font-size:11px;line-height:1.35;display:block;color:#5b7982;margin-top:4px}
+.fin-note{font-size:10px;line-height:1.38;color:#72858f;margin:11px 0 0}.fin-bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}.fin-bottom strong{font-size:14px;color:#173748;line-height:1.3;max-width:740px}.fin-back{flex:none;border-radius:11px;background:#bd287a;color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:13px 17px}.fin-back:hover{background:#9e1e68}
+@media(max-width:970px){.fin-grid{grid-template-columns:minmax(0,1.45fr) minmax(230px,.75fr);gap:11px}.fin-aside{padding:12px}.fin-income{padding:8px 10px;gap:7px}.fin-income strong{font-size:12px}.fin-income small{font-size:10px}.fin-income b{font-size:14px}.fin-bottom strong{font-size:12px}}
+@media(max-width:700px){.fin-grid{grid-template-columns:1fr}.fin-aside{display:grid;grid-template-columns:1fr 1fr;gap:9px}.fin-aside-unit{border:0;padding:6px}.fin-aside-unit strong{font-size:24px}.fin-highlight{grid-column:1/-1}.fin-bottom{flex-direction:column;align-items:stretch}.fin-back{text-align:center}.slide.fin-result .inside{padding:22px 17px}.fin-head strong{font-size:12px}}
 </style></head>
 <body><div id="app"><header class="top"><div class="brand">liquidity<span>booster</span>.de<small id="brandSub"></small></div><button id="lang" class="lang" type="button" aria-label="Sprache wechseln">EN</button></header>
 <main class="viewer"><article class="slide"><div class="inside" id="content"></div></article></main>
@@ -25,21 +40,68 @@ pages:[
 {tag:'GEGENFINANZIERUNG · DAS PRINZIP',title:'Zwei Geschäftsbereiche. Viele Möglichkeiten.',lead:'Als Regio-Botschafter können Sie ein eigenes Mediengeschäft betreiben und zugleich die vollständige ClubLeader-Leistungswelt nutzen.',cards:[['01','Eigenes Mediengeschäft','Anzeigen, Unternehmensdarstellungen, Medienpartnerschaften und weitere vertraglich zugelassene Medienleistungen können eigene Umsätze schaffen.'],['02','ClubLeader-Leistungswelt','Freigegebene Produkte wie BusinessBooster, Unternehmer-Hörsäle, Mitgliedschaften und Marktplatz können zusätzliche Empfehlungsvergütungen ermöglichen.']],note:'Beides sind getrennte Erlösquellen. Umsatz und Provision sind kein Gewinn. Abschlüsse oder Einkünfte werden nicht zugesichert.'},
 {tag:'GEGENFINANZIERUNG · MEDIENGESCHÄFT',title:'Ein eigenes Magazin kann Einnahmen ermöglichen.',lead:'Als selbstständiger Herausgeber entscheiden Sie, welche Medienangebote zur Region und Ihrer Zielgruppe passen – im Rahmen der vereinbarten Nutzungs- und Vermarktungsrechte.',cards:[['01','Unternehmensporträts','Bezahlte Präsentationsleistungen für Betriebe und Dienstleister – gekennzeichnet, soweit rechtlich erforderlich.'],['02','Anzeigen & Banner','Werbeplätze und zeitlich definierte Kampagnen für regionale Unternehmen.'],['03','Medienpartnerschaften','Individuelle Vereinbarungen mit Vereinen, Verbänden, Veranstaltern und Sponsoren.']],note:'Eigene redaktionelle Arbeit, Kundenakquise, Gestaltung und laufende Betriebskosten bleiben zu berücksichtigen.'},
 {tag:'GEGENFINANZIERUNG · CLUBLEADER',title:'Das Magazin ist nicht Ihre einzige geschäftliche Möglichkeit.',lead:'Die enthaltene ClubLeader-Leistungswelt eröffnet zusätzliche Empfehlungen auf Basis freigegebener, bezahlter und richtig zugeordneter Umsätze.',cards:[['01','BusinessBooster','Beispiel: Ein provisionsfähiger Premium-Vertrag zu 999 € netto Monatsbeitrag könnte auf Ebene 1 rechnerisch 199,80 € monatliche Provision auslösen.'],['02','Mitgliedschaften & Hörsäle','Freigegebene bezahlte Club-Mitgliedschaften und Hörsaal-Angebote können ebenfalls provisionsfähig sein.'],['03','Drei Ebenen','Die allgemeinen Quoten betragen 20 % / 15 % / 10 %, abhängig vom Produkt, Zuordnung und gültigen Vergütungsbedingungen.']],note:'Keine Vergütung ohne tatsächlich provisionsfähigen Umsatz. Eigenes Mediengeschäft und ClubLeader-Provisionen sind getrennt zu kalkulieren.'},
-{tag:'GEGENFINANZIERUNG · BEISPIEL',title:'Was könnte zu einer möglichen Gegenfinanzierung beitragen?',lead:'Eine bewusst einfache Modellrechnung für einen einzelnen Monat – keine Einnahmeprognose und keine Zusage:',rows:[['Vier eigene Anzeigenvereinbarungen à 250 €','1.000,00 €'],['Eine freigegebene BusinessBooster-Provision (20 % von 999 €)','199,80 €'],['Zusammen: Medienumsatz plus Provision','1.199,80 €']],note:'Dem stehen 999 € geplanter Monatsbeitrag sowie weitere Betriebskosten, Aufwand und Steuern gegenüber. Die 1.000 € Medienumsatz sind kein Gewinn. Verträge und wiederkehrende Vergütungen sind nicht garantiert.'}
+{tag:'GEGENFINANZIERUNG · BEISPIEL',title:'Mehrere Wege. Ein gemeinsames Ziel.',lead:'So können Medienumsätze und ClubLeader-Provisionen in einem beispielhaften Monat zusammenwirken.',finance:{
+mediaLabel:'EIGENES MAGAZIN · BEISPIELUMSÄTZE',mediaUnit:'Umsatz · Modellannahmen',media:[
+['2 × monatliche Banneranzeigen','2 × 200 € Werbeerlöse · laufend vereinbart','400,00 €'],
+['1 × bezahltes Unternehmensporträt','1 × 300 € Medienleistung · einmalig','300,00 €'],
+['1 × Mediensponsoring','1 × 250 € im Beispielmonat vereinbart','250,00 €']],
+mediaSumLabel:'Medienumsatz im Beispielmonat',mediaSum:'950,00 €',
+clubLabel:'CLUBLEADER · EMPFEHLUNGEN EBENE 1',clubUnit:'Provisionen · Modellrechnung',club:[
+['2 × BusinessBooster Premium','2 × 999 € × 20 % · laufende Monatsbeiträge','399,60 €'],
+['2 × Unternehmer-Hörsaal Plus','2 × 649 € × 20 % · laufende Monatsbeiträge','259,60 €'],
+['5 × bezahlte ClubPartner','5 × 99 € Jahresbeitrag × 20 % · einmalig','99,00 €'],
+['7 × Marktplatz-Verkäufe','7 × 1.000 € × 20 % LB-Anteil × 20 % Ebene 1','280,00 €']],
+clubSumLabel:'Provisionen im Beispielmonat',clubSum:'1.038,20 €',
+feeLabel:'REGIO-BOTSCHAFTER',fee:'999 €',feeNote:'Geplanter Monatspreis · weitere Kosten nicht enthalten',
+totalLabel:'UMSATZ + PROVISIONEN IM BEISPIELMONAT',total:'1.988,20 €',totalNote:'Zusammengefasst vor Kosten und Steuern',
+highlight:'Der geplante Monatsbeitrag könnte in diesem Beispiel rechnerisch übertroffen werden.',highlightNote:'Medienumsatz ist kein Gewinn. Eigener Zeitaufwand und zusätzliche Kosten bleiben zu berücksichtigen.',
+disclaimer:'Nur Modellannahmen; keine Zusage für Umsatz, Provisionen oder Kostendeckung. Medienleistungen müssen verkauft und erbracht werden. Einmalige Umsätze müssen neu entstehen, laufende Vergütungen setzen fortgeführte, bezahlte, korrekt zugeordnete Verträge und die jeweiligen Produktfreigaben voraus. Steuern und Betriebskosten nicht einbezogen.',
+bottom:'Eine Gegenfinanzierung bleibt eine zusätzliche Möglichkeit – nicht die Voraussetzung für den Nutzen Ihrer Medienwelt.'
+}}
 ]},
 en:{sub:'Regional Ambassador · Ways to offset costs',back:'BACK',next:'NEXT',return:'Back to the decision',names:['Two business areas','Your media revenue','ClubLeader commissions','Illustrative example'],
 pages:[
 {tag:'POTENTIAL COST OFFSET · OVERVIEW',title:'Two business areas. Many possibilities.',lead:'As a regional magazine publisher, you can operate an independent media business while also using the full ClubLeader service world.',cards:[['01','Your media business','Advertisements, paid business profiles, media partnerships and other contractually permitted media services may generate revenue.'],['02','ClubLeader services','Approved products such as BusinessBooster, business lecture halls, memberships and the marketplace can offer additional referral commissions.']],note:'These are separate revenue streams. Revenue and commissions are not profit, and income is never guaranteed.'},
 {tag:'POTENTIAL COST OFFSET · MEDIA',title:'Your own magazine can create revenue opportunities.',lead:'As an independent publisher, you choose suitable media products for your region and audience, subject to your contractual rights.',cards:[['01','Business features','Paid business profiles or presentations, labeled as advertising where legally required.'],['02','Ads & banners','Advertising space and time-limited campaigns for relevant businesses.'],['03','Media partnerships','Individual partnerships with clubs, associations, event organizers or sponsors.']],note:'Editorial work, sales, production and ongoing operating costs must all be considered.'},
 {tag:'POTENTIAL COST OFFSET · CLUBLEADER',title:'Your magazine is not your only business opportunity.',lead:'The included ClubLeader services also support approved referrals from paid, correctly attributed and commissionable revenue.',cards:[['01','BusinessBooster','Example: One eligible Premium contract at €999 net per month could yield €199.80 in monthly first-level commission at 20%.'],['02','Memberships & education','Approved paid club memberships and lecture hall products may also qualify for commission.'],['03','Three commission levels','The general rates are 20% / 15% / 10%, subject to the product and applicable commission rules.']],note:'No eligible paid sale means no commission. Media turnover and ClubLeader commissions must be accounted for separately.'},
-{tag:'POTENTIAL COST OFFSET · EXAMPLE',title:'How might you offset your monthly costs?',lead:'A simple hypothetical monthly example – neither an income forecast nor a promise:',rows:[['Four media advertising agreements at €250','€1,000.00'],['One eligible BusinessBooster commission (20% of €999)','€199.80'],['Combined media revenue and commission','€1,199.80']],note:'Compare this with the planned €999 monthly fee plus operating expenses, time and taxes. €1,000 media revenue is not profit. Neither contracts nor recurring commissions are guaranteed.'}
+{tag:'POTENTIAL COST OFFSET · EXAMPLE',title:'Different avenues. One common goal.',lead:'How media turnover and eligible ClubLeader commissions might combine in one hypothetical month.',finance:{
+mediaLabel:'YOUR MAGAZINE · SAMPLE TURNOVER',mediaUnit:'Revenue · assumptions',media:[
+['2 × monthly banner ads','2 × €200 advertising fees · ongoing agreement','€400.00'],
+['1 × paid business feature','1 × €300 · one-off media service','€300.00'],
+['1 × media sponsorship','1 × €250 agreed for the example month','€250.00']],
+mediaSumLabel:'Media turnover in sample month',mediaSum:'€950.00',
+clubLabel:'CLUBLEADER · FIRST-LEVEL REFERRALS',clubUnit:'Commissions · illustrative',club:[
+['2 × BusinessBooster Premium','2 × €999 × 20% · recurring monthly fees','€399.60'],
+['2 × Entrepreneur Lecture Hall Plus','2 × €649 × 20% · recurring monthly fees','€259.60'],
+['5 × paid ClubPartner memberships','5 × €99 annual fee × 20% · one-off','€99.00'],
+['7 × marketplace sales','7 × €1,000 × 20% LB share × 20% level 1','€280.00']],
+clubSumLabel:'Commissions in sample month',clubSum:'€1,038.20',
+feeLabel:'REGIONAL AMBASSADOR',fee:'€999',feeNote:'Planned monthly fee · other expenses excluded',
+totalLabel:'TURNOVER + COMMISSIONS IN SAMPLE MONTH',total:'€1,988.20',totalNote:'Combined receipts, before expenses and taxes',
+highlight:'The illustrative receipts could exceed the planned monthly fee.',highlightNote:'Media turnover is not profit. Your own time and additional operating costs must be considered.',
+disclaimer:'Hypothetical assumptions only; no guarantee of revenue, commissions or cost coverage. Media services require actual sales and fulfillment. One-off revenue must be earned again; recurring commissions require ongoing, paid, correctly attributed contracts and eligible products. Taxes and operating expenses are excluded.',
+bottom:'Possible cost offsets are an additional opportunity – not a prerequisite for the value of your media world.'
+}}
 ]}};
 let lang='de',idx=0;
 const $=id=>document.getElementById(id);
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function card(items){return '<div class="cards'+(items.length===3?' three':'')+'">'+items.map(([num,title,body],i)=>'<div class="card'+(i===1?' pink':'')+'"><span class="num">'+escape(num)+'</span><h2>'+escape(title)+'</h2><p>'+escape(body)+'</p></div>').join('')+'</div>'}
-function render(){const t=src[lang],p=t.pages[idx];document.documentElement.lang=lang;document.title=(lang==='de'?'Regio-Botschafter · Gegenfinanzierung':'Regional Ambassador · Cost offsets')+' | LiquidityBooster';$('lang').textContent=lang==='de'?'EN':'DE';$('brandSub').textContent=t.sub;
-$('content').innerHTML='<span class="eyebrow">'+escape(p.tag)+'</span><h1>'+escape(p.title)+'</h1><p class="lead">'+escape(p.lead)+'</p>'+(p.cards?card(p.cards):'')+(p.rows?'<div class="calc">'+p.rows.map((r,i)=>'<div class="calcrow'+(i===p.rows.length-1?' total':'')+'"><span>'+escape(r[0])+'</span><strong>'+escape(r[1])+'</strong></div>').join('')+'</div>':'')+'<p class="note">'+escape(p.note)+'</p>'+(idx===3?'<a href="../regio-botschafter/#9" class="backlink" id="returnLink">'+escape(t.return)+'</a>':'');
+
+function finRows(rows){return rows.map(([label,formula,amount])=>'<div class="fin-income"><div><strong>'+escape(label)+'</strong><small>'+escape(formula)+'</small></div><b>'+escape(amount)+'</b></div>').join('')}
+function financeView(x,t){return '<div class="fin-grid"><div class="fin-table">'+
+'<div class="fin-head"><strong>'+escape(x.mediaLabel)+'</strong><small>'+escape(x.mediaUnit)+'</small></div>'+finRows(x.media)+
+'<div class="fin-subtotal"><span>'+escape(x.mediaSumLabel)+'</span><b>'+escape(x.mediaSum)+'</b></div>'+
+'<div class="fin-head pink"><strong>'+escape(x.clubLabel)+'</strong><small>'+escape(x.clubUnit)+'</small></div>'+finRows(x.club)+
+'<div class="fin-subtotal pink"><span>'+escape(x.clubSumLabel)+'</span><b>'+escape(x.clubSum)+'</b></div></div>'+
+'<aside class="fin-aside"><div class="fin-aside-unit"><small>'+escape(x.feeLabel)+'</small><strong>'+escape(x.fee)+'</strong><p>'+escape(x.feeNote)+'</p></div>'+
+'<div class="fin-aside-unit emphasis"><small>'+escape(x.totalLabel)+'</small><strong>'+escape(x.total)+'</strong><p>'+escape(x.totalNote)+'</p></div>'+
+'<div class="fin-highlight"><strong>'+escape(x.highlight)+'</strong><small>'+escape(x.highlightNote)+'</small></div></aside></div>'+
+'<p class="fin-note">'+escape(x.disclaimer)+'</p><div class="fin-bottom"><strong>'+escape(x.bottom)+'</strong><a href="../regio-botschafter/#9" class="fin-back" id="returnLink">'+escape(t.return)+' →</a></div>'}
+
+function render(){const t=src[lang],p=t.pages[idx];document.querySelector('.slide').classList.toggle('fin-result',Boolean(p.finance));document.documentElement.lang=lang;document.title=(lang==='de'?'Regio-Botschafter · Gegenfinanzierung':'Regional Ambassador · Cost offsets')+' | LiquidityBooster';$('lang').textContent=lang==='de'?'EN':'DE';$('brandSub').textContent=t.sub;
+$('content').innerHTML='<span class="eyebrow">'+escape(p.tag)+'</span><h1>'+escape(p.title)+'</h1><p class="lead">'+escape(p.lead)+'</p>'+(p.finance?financeView(p.finance,t):((p.cards?card(p.cards):'')+(p.rows?'<div class="calc">'+p.rows.map((r,i)=>'<div class="calcrow'+(i===p.rows.length-1?' total':'')+'"><span>'+escape(r[0])+'</span><strong>'+escape(r[1])+'</strong></div>').join('')+'</div>':'')+'<p class="note">'+escape(p.note)+'</p>'));
+
 $('counter').textContent=(idx+1)+' / 4';$('heading').textContent=t.names[idx];$('prevSmall').textContent=t.back;$('nextSmall').textContent=idx===3?t.back:t.next;$('prevName').textContent=idx===0?t.return:t.names[idx-1];$('nextName').textContent=idx===3?t.return:t.names[idx+1];
 $('dots').innerHTML=t.names.map((_,i)=>'<span class="dot'+(i===idx?' active':'')+'"></span>').join('');
 const a=$('returnLink');if(a)a.addEventListener('click',e=>{if(document.referrer.includes('/pages/regio-botschafter/')){e.preventDefault();history.back()}});
