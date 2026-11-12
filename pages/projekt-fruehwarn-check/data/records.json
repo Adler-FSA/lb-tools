@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-12T14:00:10Z",
+  "generated_at": "2026-11-12T15:06:20Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-11T14:13:49Z",
-      "records": 3617,
+      "last_success": "2026-11-12T15:06:20Z",
+      "records": 3616,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "bbd3d53a089013f4e37b64f08719c456f29e7e8666fb7c58a84ede99b50a7e56"
+      "response_sha256": "91aeec2202d0f62b10d4a17d7af3df96271fadba26b04ee39b867b29a53936a8"
     }
   },
   "records": [
@@ -28936,7 +28936,7 @@
       "lei": "549300LYFYVPUCG6SY25",
       "national_reference": "0198",
       "city": "Madrid",
-      "last_update": "20260331000000000",
+      "last_update": "20260630000000000",
       "match_terms": [
         "Banco Cooperativo Español, S.A.",
         "549300LYFYVPUCG6SY25",
@@ -81461,13 +81461,13 @@
       "entity_type": "CRD_CRE_INS",
       "entity_code": "213800BJFRCI88UOLL93",
       "lei": "213800BJFRCI88UOLL93",
-      "national_reference": "C 57067",
+      "national_reference": "C57067",
       "city": "BIRKIRKARA",
       "last_update": "20251231000000000",
       "match_terms": [
         "LIDION BANK PLC",
         "213800BJFRCI88UOLL93",
-        "C 57067"
+        "C57067"
       ]
     },
     {
@@ -105433,40 +105433,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-88759e3c82d022e78c",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Uehlfeld-Dachsbach eG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900B1PFHL9HHKS119",
-      "lei": "529900B1PFHL9HHKS119",
-      "national_reference": "106482",
-      "city": "Dachsbach",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisenbank Uehlfeld-Dachsbach eG",
-        "529900B1PFHL9HHKS119",
-        "106482"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-31ead6a8ef098fc6bb",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -113513,7 +113479,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "SPAREBANKEN NARVIK",
+      "name": "SPAREBANKEN NORDAFOR",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -113534,9 +113500,9 @@
       "lei": "5967007LIEEXZX4WIG90",
       "national_reference": "937903979",
       "city": "NARVIK",
-      "last_update": "20240928000000000",
+      "last_update": "20261112000000000",
       "match_terms": [
-        "SPAREBANKEN NARVIK",
+        "SPAREBANKEN NORDAFOR",
         "5967007LIEEXZX4WIG90",
         "937903979"
       ]
