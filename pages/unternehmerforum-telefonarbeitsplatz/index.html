@@ -412,7 +412,7 @@ function allRowsFromSheet(sheet,ss){
     const legacyReady=legacyConsent&&legacyEmail&&strings(rowValue(row,legacyConsent,ss))==='Ja'&&
       strings(rowValue(row,legacyEmail,ss))==='Ja'&&
       (!legacyPerson||strings(rowValue(row,legacyPerson,ss))==='Ja'||!(v.first||v.last||v.role));
-    v.contactSaved=v.contactSaved===true||v.contactSaved==='Ja'||v.contactSaved==='true'||!!legacyReady;
+    v.contactSaved=v.contactSaved===true||v.contactSaved==='Ja'||v.contactSaved==='true'||(!callCols.contactSaved&&!!legacyReady);
     v.id=rowCompanyKey(v);
     v.uid=String(num)+'|'+rowCompanyKey(v); // Per Excel row, unlike previous duplicate-prone key.
     result.push(v);
