@@ -285,11 +285,11 @@ en:{excelHandoffTitle:'Excel file ready',excelHandoffSubtitle:'The file was gene
 };
 Object.assign(T.de, {"intro":"Masterliste laden, Firmen anrufen und JA-Kontakte für die Excel-Importliste des persönlichen ONLY-INSIDE-KMS erfassen. Keine Wiedervorlagen.","uploadText":"Firmen-Masterliste (.xlsx) auswählen","progressTitle":"Firmen abtelefonieren","filterMissed":"Nur nicht erreicht","filterIncompleteYes":"JA – E-Mail ergänzen","eligible":"JA-Kontakte für Excel bereit","incompleteYes":"JA-Kontakte ohne vollständige Daten","yesFieldsTitle":"JA-Kontakt für die Excel-Liste","prefillNote":"Daten aus der Masterliste sind vorausgefüllt. Bitte die E-Mail-Adresse im Gespräch erfragen oder bestätigen und den Ansprechpartner bei Bedarf korrigieren.","yesConfirmNote":"Der Kontakt wird für die Excel-Importliste gespeichert. Der Double-Opt-in-Versand erfolgt später im persönlichen KMS.","saveYes":"Kontakt speichern & nächste Firma","saveYesEmail":"Bitte eine gültige E-Mail-Adresse für die Einladung eintragen.","notConfirmed":"JA erfasst · E-Mail-Adresse bitte noch speichern.","ready":"JA erfasst · Kontakt für Excel bereit.","kmsSimpleNote":"Die Import-Excel enthält ausschließlich vollständig erfasste JA-Kontakte. Import, Double-Opt-in und Einladung erfolgen anschließend über das persönliche KMS.","kmsDesc":"Nur JA-Kontakte mit erfassten Kontaktdaten im bestehenden ONLY-INSIDE-Feldformat.","note":"Bemerkung (optional)","uploadNote":"Die Masterliste und Gesprächsergebnisse werden lokal gespeichert. Zur Sicherung regelmäßig die aktualisierte Master-Excel herunterladen.","forgetWorkbook":"Gespeicherte Firmenliste entfernen","forgetDone":"Firmenliste und lokaler Bearbeitungsstand entfernt.","noMatch":"Keine Firma entspricht dieser Auswahl.","groupNote":"Erstelle die Excel-Importliste für die erfassten JA-Kontakte.","editContact":"JA-Kontakt bearbeiten","resetCompany":"Ergebnis zurücksetzen","dialogClose":"Schließen","cancel":"Abbrechen","undo":"Rückgängig","dialogYesTitle":"JA erhalten","dialogYesMessage":"{company} möchte eine Einladung erhalten. Dieses JA erfassen und die Kontaktdaten für die Excel-Liste übernehmen?","dialogYesButton":"JA übernehmen","dialogDeleteTitle":"Firmenliste entfernen?","dialogDeleteMessage":"Die gespeicherte Firmenliste und lokalen Gesprächsergebnisse werden von diesem Gerät entfernt. Bereits heruntergeladene Excel-Dateien bleiben erhalten.","dialogDeleteButton":"Liste entfernen","dialogResetTitle":"Ergebnis zurücksetzen?","dialogResetMessage":"Das bisherige Gesprächsergebnis für {company} wird auf Offen gesetzt.","dialogResetButton":"Zurücksetzen","dialogChangeTitle":"Ergebnis korrigieren?","dialogChangeMessage":"Das bisherige JA für {company} wird durch {status} ersetzt. Der Kontakt entfällt dann aus der Excel-Importliste.","dialogChangeButton":"Änderung übernehmen","toastYes":"JA für {company} erfasst. Kontaktdaten ergänzen.","toastSaved":"{company} für die Excel-Liste gespeichert.","toastIncomplete":"JA bleibt gespeichert. Die Kontaktdaten können später ergänzt werden.","toastNo":"NEIN für {company} gespeichert.","toastMissed":"Nicht erreicht: {company}.","toastReset":"Ergebnis zurückgesetzt: {company}.","toastUndone":"Letzte Änderung rückgängig gemacht.","toastNext":"Nächste Firma: {company}","toastLast":"Keine weiteren offenen Firmen in dieser Auswahl.","toastLoaded":"{count} Firmen geladen. Bearbeitung kann beginnen.","toastDeleted":"Gespeicherte Firmenliste entfernt.","toastGuideB":"Unternehmerforum-Leitfaden ausgewählt.","toastGuideR":"RegioBooster-Leitfaden ausgewählt.","dataSaveError":"Speichern auf diesem Gerät fehlgeschlagen. Bitte die Master-Excel als Sicherung ausgeben."});
 Object.assign(T.en, {"intro":"Load a master workbook, call businesses and collect YES contacts for the ONLY INSIDE KMS import Excel. No follow-up scheduling.","uploadText":"Choose company master workbook (.xlsx)","progressTitle":"Call through companies","filterMissed":"Not reached only","filterIncompleteYes":"YES – add email","eligible":"YES contacts ready for Excel","incompleteYes":"YES contacts requiring details","yesFieldsTitle":"YES contact for the Excel list","prefillNote":"Research details are pre-filled. Ask for or confirm the email address during the call and correct the contact if needed.","yesConfirmNote":"The contact is saved for the Excel import list. Double opt-in emails are later handled by the personal KMS.","saveYes":"Save contact & next company","saveYesEmail":"Please enter a valid email address for the invitation.","notConfirmed":"YES recorded · Please save the email address.","ready":"YES recorded · Contact ready for Excel.","kmsSimpleNote":"The import Excel includes only complete YES contacts. Import, double opt-in and invitations are subsequently handled by the personal KMS.","kmsDesc":"Only YES contacts with recorded details in the existing ONLY INSIDE field format.","note":"Notes (optional)","uploadNote":"The master list and call results are saved locally. For backup, regularly download the updated master Excel.","forgetWorkbook":"Remove saved company list","forgetDone":"Company list and local call results removed.","noMatch":"No company matches this selection.","groupNote":"Create an Excel import list of recorded YES contacts.","editContact":"Edit YES contact","resetCompany":"Reset result","dialogClose":"Close","cancel":"Cancel","undo":"Undo","dialogYesTitle":"YES received","dialogYesMessage":"{company} would like an invitation. Record YES and enter their details for the Excel list?","dialogYesButton":"Record YES","dialogDeleteTitle":"Remove company list?","dialogDeleteMessage":"The saved company list and local call results will be removed from this device. Previously downloaded Excel files remain.","dialogDeleteButton":"Remove list","dialogResetTitle":"Reset result?","dialogResetMessage":"The call result for {company} will be reset to Open.","dialogResetButton":"Reset","dialogChangeTitle":"Correct result?","dialogChangeMessage":"The previous YES for {company} will be changed to {status}. This contact will no longer be in the Excel list.","dialogChangeButton":"Apply change","toastYes":"YES recorded for {company}. Add contact details.","toastSaved":"{company} saved for the Excel list.","toastIncomplete":"YES remains saved. Contact details can be completed later.","toastNo":"NO saved for {company}.","toastMissed":"Not reached: {company}.","toastReset":"Result reset: {company}.","toastUndone":"Last change undone.","toastNext":"Next company: {company}","toastLast":"No more open companies in this selection.","toastLoaded":"{count} companies loaded. You can start calling.","toastDeleted":"Saved company list removed.","toastGuideB":"Entrepreneurs' Forum guide selected.","toastGuideR":"RegioBooster guide selected.","dataSaveError":"Local saving failed on this device. Export the master Excel as a backup."});
-let lang='de', app=null, visible=[],pointer=0,persistKey='',persistError=false;
+let lang='de', app=null, visible=[],pointer=0,persistKey='',legacyPersistKey='',persistError=false;
 const $=id=>document.getElementById(id);
-const statusNames=['Offen','Nicht erreicht','Rückruf','JA','NEIN'];
-const callHeaders=['Telefonstatus','Gesprächsdatum','Anrede Gesprächspartner','Titel Gesprächspartner','Vorname Gesprächspartner','Nachname Gesprächspartner','Funktion Gesprächspartner','E-Mail bestätigt','Einladung erlaubt','KMS-Exportstatus','Bemerkung','Gesprächspartner geprüft','E-Mail-Adresse im Gespräch bestätigt'];
-const callProps=['status','date','salutation','title','first','last','role','email','consent','exportStatus','note','personVerified','emailVerified'];
+const statusNames=['Offen','Nicht erreicht','JA','NEIN'];
+const callHeaders=['Telefonstatus','Gesprächsdatum','Anrede Gesprächspartner','Titel Gesprächspartner','Vorname Gesprächspartner','Nachname Gesprächspartner','Funktion Gesprächspartner','E-Mail für Einladung','Bemerkung','Kontaktdaten erfasst'];
+const callProps=['status','date','salutation','title','first','last','role','email','note','contactSaved'];
 const kmsHeaders=['Anrede','Titel','Vorname','Nachname','E-Mail','Strasse','PLZ','Ort','Land','Telefon','Mobiltelefon','Internet','Du','Kontakquelle','Firma','Firma Funktion'];
 const NS='http://schemas.openxmlformats.org/spreadsheetml/2006/main';
 const RT='http://schemas.openxmlformats.org/officeDocument/2006/relationships';
@@ -386,8 +386,9 @@ function rowCompanyKey(v){
 }
 function allRowsFromSheet(sheet,ss){
   const header=getHeaderRow(sheet,ss),index=Number(header.getAttribute('r'));
-  const cols={};for(const c of children(header,'c')){const k=cellValue(c,ss);if(k)cols[k]=colNumber((c.getAttribute('r')||'').match(/^[A-Z]+/)[0])}
-  const col=alias=>{for(const x of alias)if(cols[x])return cols[x];return 0};
+  const cols={};
+  for(const c of children(header,'c')){const key=cellValue(c,ss);if(key)cols[key]=colNumber((c.getAttribute('r')||'').match(/^[A-Z]+/)[0])}
+  const col=aliases=>{for(const name of aliases)if(cols[name])return cols[name];return 0};
   const field={
     company:col(['Firmenname','Firma','Unternehmen']),industry:col(['Tatsächliche Branche','Branche']),
     first:col(['Vorname GL / Inhaber']),last:col(['Nachname GL / Inhaber']),position:col(['Funktion / Rolle']),
@@ -397,6 +398,9 @@ function allRowsFromSheet(sheet,ss){
     run:col(['Recherchelauf']),colour:col(['Lauffarbe / Kennfarbe'])
   };
   const callCols={};for(let i=0;i<callHeaders.length;i++)callCols[callProps[i]]=cols[callHeaders[i]]||0;
+  if(!callCols.email)callCols.email=cols['E-Mail bestätigt']||0;
+  const legacyConsent=cols['Einladung erlaubt']||0,legacyEmail=cols['E-Mail-Adresse im Gespräch bestätigt']||0;
+  const legacyPerson=cols['Gesprächspartner geprüft']||0;
   const result=[];
   for(const row of all(sheet,'row')){
     const num=Number(row.getAttribute('r'));if(num<=index)continue;
@@ -404,36 +408,56 @@ function allRowsFromSheet(sheet,ss){
     const company=get('company');if(!company)continue;
     const v={row:num,company,industry:get('industry'),firstResearch:get('first'),lastResearch:get('last'),positionResearch:get('position'),address:get('address'),plz:get('plz'),city:get('city'),phone:get('phone'),mobile:get('mobile'),publicEmail:get('publicEmail'),web:get('web'),run:parseInt(get('run'),10)||1,colour:get('colour')};
     for(const prop of callProps)v[prop]=callCols[prop]?strings(rowValue(row,callCols[prop],ss)):'';
-    v.status=statusNames.includes(v.status)?v.status:'Offen';v.consent=v.consent==='Ja'?'Ja':v.consent==='Nein'?'Nein':'Offen';v.exportStatus=['Nicht exportiert','Export vorbereitet','Import bestätigt'].includes(v.exportStatus)?v.exportStatus:'Nicht exportiert';v.personVerified=v.personVerified==='Ja'?'Ja':'Offen';v.emailVerified=v.emailVerified==='Ja'?'Ja':'Offen';
-    v.id=rowCompanyKey(v);result.push(v);
+    v.status=v.status==='Rückruf'?'Nicht erreicht':statusNames.includes(v.status)?v.status:'Offen';
+    const legacyReady=legacyConsent&&legacyEmail&&strings(rowValue(row,legacyConsent,ss))==='Ja'&&
+      strings(rowValue(row,legacyEmail,ss))==='Ja'&&
+      (!legacyPerson||strings(rowValue(row,legacyPerson,ss))==='Ja'||!(v.first||v.last||v.role));
+    v.contactSaved=v.contactSaved===true||v.contactSaved==='Ja'||v.contactSaved==='true'||!!legacyReady;
+    v.id=rowCompanyKey(v);
+    v.uid=String(num)+'|'+rowCompanyKey(v); // Per Excel row, unlike previous duplicate-prone key.
+    result.push(v);
   }
   return {rows:result,headerRow:index,headers:cols,callCols,field};
 }
 function hashText(str){let h=2166136261>>>0;for(let i=0;i<str.length;i++)h=Math.imul(h^str.charCodeAt(i),16777619)>>>0;return h.toString(16)}
+function contactComplete(v){
+  return v.status==='JA'&&v.contactSaved===true&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(strings(v.email));
+}
+function eligible(v){return contactComplete(v)}
 function persist(){
-  if(!app)return;
-  const out={};for(const v of app.rows)out[v.id]={...Object.fromEntries(callProps.map(prop=>[prop,v[prop]])),__prefillApplied:v.prefillApplied===true};
-  try{localStorage.setItem(persistKey,JSON.stringify(out));persistError=false;$('savedAt').textContent=T[lang].saved+' · '+new Date().toLocaleTimeString(lang==='de'?'de-DE':'en-GB',{hour:'2-digit',minute:'2-digit'})}catch(e){if(!persistError)$('exportError').textContent=T[lang].saveFailed;persistError=true}
+  if(!app)return false;
+  const data={};for(const v of app.rows)data[v.uid]=Object.fromEntries(callProps.map(prop=>[prop,v[prop]]));
+  try{
+    localStorage.setItem(persistKey,JSON.stringify(data));
+    persistError=false;
+    $('savedAt').textContent=T[lang].saved+' · '+new Date().toLocaleTimeString(lang==='de'?'de-DE':'en-GB',{hour:'2-digit',minute:'2-digit'});
+    return true;
+  }catch(err){
+    persistError=true;$('exportError').textContent=T[lang].dataSaveError;
+    return false;
+  }
 }
 function restoreLocal(){
-  // Fingerabdruck enthält die XLSX-Dateibytes. Nur EXAKT für diese Version
-  // gespeicherte Telefonstände dürfen zurückgelesen werden.
-  let cache;try{cache=JSON.parse(localStorage.getItem(persistKey)||'null')}catch(e){}
-  if(!cache)return false;
-  let used=false;
+  let cache=null,legacy=null;
+  try{cache=JSON.parse(localStorage.getItem(persistKey)||'null')}catch(err){}
+  if(!cache&&legacyPersistKey){try{legacy=JSON.parse(localStorage.getItem(legacyPersistKey)||'null')}catch(err){}}
+  let restored=false;
+  const idCounts=new Map();
+  for(const v of app.rows)idCounts.set(v.id,(idCounts.get(v.id)||0)+1);
   for(const v of app.rows){
-    const old=cache[v.id];if(!old)continue;
+    const old=cache?cache[v.uid]:legacy&&idCounts.get(v.id)===1?legacy[v.id]:null;
+    if(!old)continue;
     for(const key of callProps)if(Object.prototype.hasOwnProperty.call(old,key))v[key]=old[key];
-    v.prefillApplied=old.__prefillApplied===true;
-    used=true;
+    if(!cache){
+      v.contactSaved=v.status==='JA'&&old.consent==='Ja'&&old.emailVerified==='Ja'&&
+        (!(strings(v.first)||strings(v.last)||strings(v.role))||old.personVerified==='Ja');
+      v.prefillApplied=old.__prefillApplied===true;
+    }
+    v.status=v.status==='Rückruf'?'Nicht erreicht':statusNames.includes(v.status)?v.status:'Offen';
+    v.contactSaved=v.contactSaved===true||v.contactSaved==='Ja'||v.contactSaved==='true';
+    restored=true;
   }
-  return used;
-}
-function eligible(v){
-  const emailOk=v.emailVerified==='Ja'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(strings(v.email));
-  const hasPersonDetails=!!(strings(v.first)||strings(v.last)||strings(v.role));
-  const personOk=!hasPersonDetails||v.personVerified==='Ja';
-  return v.status==='JA'&&v.consent==='Ja'&&emailOk&&personOk;
+  return restored;
 }
 /* Recherchewerte nur als Vorschlag vorbelegen, niemals als bestätigte Kontaktangaben. */
 function prefillResearchContact(v){
@@ -453,33 +477,36 @@ function prefillResearchContact(v){
   v.prefillApplied=true;
   return modified;
 }
-function uniqueEligible(){
-  const seen=new Set(),result=[];
-  for(const v of app.rows){if(!eligible(v))continue;const key=v.email.trim().toLowerCase();if(seen.has(key))continue;seen.add(key);result.push(v)}
-  return result;
-}
+function uniqueEligible(){return app?app.rows.filter(contactComplete):[]}
 function statusSummary(){
-  const counts={total:app.rows.length,JA:0,NEIN:0,'Rückruf':0,'Nicht erreicht':0,Offen:0};
-  for(const v of app.rows)counts[v.status]=(counts[v.status]||0)+1;
+  const counts={total:app.rows.length,JA:0,NEIN:0,'Nicht erreicht':0,Offen:0};
+  for(const row of app.rows)counts[row.status]=(counts[row.status]||0)+1;
   return counts;
 }
+function rowMatchesFilter(v){
+  const filter=$('companyFilter').value,query=$('companySearch').value.trim().toLowerCase();
+  const match=filter==='all'||(filter==='JA_ergänzen'?v.status==='JA'&&!contactComplete(v):v.status===filter);
+  return match&&[v.company,v.city,v.plz,v.industry].some(val=>strings(val).toLowerCase().includes(query));
+}
 function renderStats(){
-  const c=statusSummary();$('statTotal').textContent=c.total;$('statYes').textContent=c.JA;$('statNo').textContent=c.NEIN;$('statCallback').textContent=c['Rückruf'];$('statMissed').textContent=c['Nicht erreicht'];$('statOpen').textContent=c.Offen;
-  const done=c.total-c.Offen;$('progressFill').style.width=c.total?Math.round(done/c.total*100)+'%':'0%';
+  if(!app)return;
+  const c=statusSummary();
+  $('statTotal').textContent=c.total;$('statYes').textContent=c.JA;$('statNo').textContent=c.NEIN;
+  $('statMissed').textContent=c['Nicht erreicht'];$('statOpen').textContent=c.Offen;
+  const done=c.total-c.Offen;
+  $('progressFill').style.width=c.total?Math.round(done/c.total*100)+'%':'0%';
   $('progressLabel').textContent=done+' / '+c.total+' '+T[lang].processed;
-  const ready=uniqueEligible().length;
-  const missing=app.rows.filter(v=>v.status==='JA'&&!eligible(v)).length;
+  const ready=uniqueEligible().length,missing=c.JA-ready;
   $('eligibleLabel').textContent=ready+' '+T[lang].eligible;
   $('incompleteYesLabel').textContent=missing+' '+T[lang].incompleteYes;
   $('incompleteYesLabel').disabled=missing===0;
-  $('exportInfo').textContent=T[lang].groupNote;
   $('kmsExport').disabled=ready===0;
+  $('exportInfo').textContent=T[lang].groupNote;
 }
 function filtering(){
   if(!app)return;
-  const query=$('companySearch').value.trim().toLowerCase(),status=$('companyFilter').value;
   const current=visible[pointer];
-  visible=app.rows.filter(x=>(status==='all'||(status==='JA_ergänzen'?x.status==='JA'&&!eligible(x):x.status===status))&&[x.company,x.city,x.plz,x.industry].some(v=>strings(v).toLowerCase().includes(query)));
+  visible=app.rows.filter(rowMatchesFilter);
   const idx=visible.indexOf(current);pointer=idx>=0?idx:0;
   renderCompany();renderStats();
 }
@@ -566,7 +593,7 @@ function buildMaster(){
   let end=Math.max(...headers.map(x=>x.col)),colMap={};for(const h of headers)if(h.name)colMap[h.name]=h.col;
   for(const title of callHeaders)if(!colMap[title]){end++;colMap[title]=end;const template=findCell(header,Math.min(2,end))||children(header,'c')[0];setXCell(d,header,end,title,template?.getAttribute('s')||'')}
   const rows=all(d,'row');const rowByNum=new Map(rows.map(r=>[Number(r.getAttribute('r')),r]));
-  for(const item of app.rows){const row=rowByNum.get(item.row);if(!row)continue;const st=findCell(row,2)?.getAttribute('s')||'';for(let i=0;i<callHeaders.length;i++)setXCell(d,row,colMap[callHeaders[i]],item[callProps[i]]||'',st)}
+  for(const item of app.rows){const row=rowByNum.get(item.row);if(!row)continue;const st=findCell(row,2)?.getAttribute('s')||'';for(let i=0;i<callHeaders.length;i++)setXCell(d,row,colMap[callHeaders[i]],callProps[i]==='contactSaved'?(item.contactSaved?'Ja':'Nein'):(item[callProps[i]]||''),st)}
   const sheetCols=child(d.documentElement,'cols');if(sheetCols){for(const title of callHeaders){const c=colMap[title];if(children(sheetCols,'col').some(x=>Number(x.getAttribute('min'))<=c&&Number(x.getAttribute('max'))>=c))continue;
       const x=d.createElementNS(NS,(d.documentElement.prefix||'x')+':col');x.setAttribute('min',String(c));x.setAttribute('max',String(c));x.setAttribute('width',title==='Bemerkung'?'34':'20');x.setAttribute('customWidth','1');sheetCols.appendChild(x)}}
   const dataEnd=Math.max(...app.rows.map(v=>v.row));
@@ -616,7 +643,7 @@ function exportDateStamp(date=new Date()){
     '_'+part(date.getHours())+part(date.getMinutes())+part(date.getSeconds());
 }
 function excelExportFilename(kind,date=new Date()){
-  return ['BusinessBooster',workbookRegion(),kind==='kms'?'KMS-JA-Kontakte':'Masterliste-Telefonstand',exportDateStamp(date)].join('_')+'.xlsx';
+  return ['Unternehmerforum',workbookRegion(),kind==='kms'?'KMS-JA-Kontakte':'Masterliste-Telefonstand',exportDateStamp(date)].join('_')+'.xlsx';
 }
 const XLSX_MIME='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 let excelReadyFile=null,excelFocusBefore=null,excelFallbackUrl='';
@@ -710,25 +737,19 @@ async function loadMaster(file,fromSaved=false){
     if(epoch!==loadEpoch)return;
     if(!parsed.rows.length)throw Error(T[lang].noFound);
     app={files,sheetPath:path,rows:parsed.rows,name:file.name,headerRow:parsed.headerRow,headers:parsed.headers};
-    // Aus Sicherheitsgründen an die exakte hochgeladene XLSX-Version
-    // binden: neu exportierte Masterdateien dürfen nicht mit älteren
-    // Browser-Zwischenständen überschrieben werden.
-    persistKey='bb_call_v2_'+hashText(app.rows.map(v=>v.id).sort().join('||'))+'_'+sourceBytes.byteLength+'_'+crc32(new Uint8Array(sourceBytes)).toString(16);
+    legacyPersistKey='bb_call_v2_'+hashText(app.rows.map(v=>v.id).sort().join('||'))+'_'+sourceBytes.byteLength+'_'+crc32(new Uint8Array(sourceBytes)).toString(16);
+    persistKey='lb_simple_call_v1_'+hashText(app.rows.map(v=>v.uid).join('||'));
     const restored=restoreLocal();
-    // In einer früheren Fassung gespeicherte JA-Entscheidungen mit leeren
-    // Kontaktfeldern erhalten jetzt die Recherchevorschläge nachträglich.
-    // Manuell eingetragene Personendaten werden nicht überschrieben.
-    let prefilled=0;
-    for(const row of app.rows){
-      if(row.status==='JA'&&!row.prefillApplied){
-        if(prefillResearchContact(row))prefilled++;
-      }
-    }
-    visible=app.rows.slice();pointer=0;$('workspace').hidden=false;
-    $('forgetWorkbook').hidden=false;
+    for(const row of app.rows)if(row.status==='JA'&&!row.prefillApplied)prefillResearchContact(row);
+    visible=app.rows.slice();
+    const firstOpen=visible.findIndex(v=>v.status==='Offen');
+    pointer=firstOpen>=0?firstOpen:0;
+    $('companySearch').value='';$('companyFilter').value='all';
+    $('workspace').hidden=false;$('forgetWorkbook').hidden=false;
     $('fileInfo').textContent=file.name+' · '+app.rows.length+' '+T[lang].statTotal+
       (fromSaved?' · '+T[lang].autoLoaded:restored?' · '+T[lang].alreadyLocal:'');
     renderStats();renderCompany();persist();
+    showToast(formatMsg(T[lang].toastLoaded,{count:app.rows.length}));
     if(!fromSaved){
       try{
         await storedWorkbook('save',{name:file.name,bytes:sourceBytes});
@@ -809,20 +830,20 @@ async function restoreSavedWorkbook(){
   }
 }
 async function forgetSavedWorkbook(){
-  if(!window.confirm(T[lang].forgetConfirm))return;
   ++loadEpoch;
-  const key=persistKey;
+  const currentKey=persistKey,oldKey=legacyPersistKey;
   try{await storedWorkbook('delete')}catch(err){
-    $('loadError').textContent=T[lang].browserSaveUnavailable;return;
+    $('loadError').textContent=T[lang].browserSaveUnavailable;return false;
   }
-  if(key){try{localStorage.removeItem(key)}catch(err){}}
-  app=null;visible=[];pointer=0;persistKey='';
+  for(const key of [currentKey,oldKey])if(key)try{localStorage.removeItem(key)}catch(err){}
+  app=null;visible=[];pointer=0;persistKey='';legacyPersistKey='';
   $('masterInput').value='';
   $('workspace').hidden=true;
   $('fileInfo').textContent=T[lang].forgetDone;
   $('forgetWorkbook').hidden=true;
-  $('loadError').textContent='';
-  $('exportError').textContent='';
+  $('loadError').textContent='';$('exportError').textContent='';
+  showToast(T[lang].toastDeleted);
+  return true;
 }
 
 $('masterInput').addEventListener('change',e=>{if(e.target.files?.[0])void loadMaster(e.target.files[0])});
