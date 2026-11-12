@@ -514,48 +514,47 @@ function runClass(n){return 'run-'+((Math.max(1,n)-1)%6+1)}
 function show(node,value){node.textContent=value||T[lang].missing}
 function namePair(a,b){return [a,b].filter(Boolean).join(' ')}
 function renderCompany(){
-  const v=visible[pointer];$('companyCard').hidden=!v;
+  const v=visible[pointer];
+  $('companyCard').hidden=!v;
   if(!v){$('companyPosition').textContent=T[lang].noMatch;return}
   $('companyPosition').textContent=T[lang].position+' '+(pointer+1)+' '+T[lang].of+' '+visible.length;
   $('navPosition').textContent=(pointer+1)+' / '+visible.length;
-  show($('companyName'),v.company);show($('companyContact'),namePair(v.firstResearch,v.lastResearch)+ (v.positionResearch?' · '+v.positionResearch:''));
-  const tel= [v.phone,v.mobile].filter(Boolean);
+  show($('companyName'),v.company);
+  show($('companyContact'),namePair(v.firstResearch,v.lastResearch)+(v.positionResearch?' · '+v.positionResearch:''));
+  const tel=[v.phone,v.mobile].filter(Boolean);
   $('companyPhone').replaceChildren();
-  if(tel.length){for(const [i,t] of tel.entries()){if(i)$('companyPhone').append(document.createTextNode(' · '));const a=document.createElement('a');a.href='tel:'+t.replace(/[^+\d]/g,'');a.textContent=t;$('companyPhone').append(a)}}else show($('companyPhone'),'');
+  if(tel.length){for(const [i,t] of tel.entries()){
+    if(i)$('companyPhone').append(document.createTextNode(' · '));
+    const a=document.createElement('a');a.href='tel:'+t.replace(/[^+\d]/g,'');a.textContent=t;$('companyPhone').append(a);
+  }}else show($('companyPhone'),'');
   show($('companyAddress'),[v.address,v.plz,v.city].filter(Boolean).join(', '));
-  $('companyWebsite').replaceChildren();let linkAdded=false;
-  if(/^https?:\/\//i.test(v.web)){const a=document.createElement('a');a.href=v.web;a.target='_blank';a.rel='noopener noreferrer';a.textContent=v.web;$('companyWebsite').append(a);linkAdded=true}
-  if(v.publicEmail){if(linkAdded)$('companyWebsite').append(document.createTextNode(' · '));$('companyWebsite').append(document.createTextNode(v.publicEmail));linkAdded=true}
-  if(!linkAdded)show($('companyWebsite'),'');
+  $('companyWebsite').replaceChildren();let added=false;
+  if(/^https?:\/\//i.test(v.web)){
+    const a=document.createElement('a');a.href=v.web;a.target='_blank';a.rel='noopener noreferrer';a.textContent=v.web;
+    $('companyWebsite').append(a);added=true;
+  }
+  if(v.publicEmail){if(added)$('companyWebsite').append(document.createTextNode(' · '));$('companyWebsite').append(document.createTextNode(v.publicEmail));added=true}
+  if(!added)show($('companyWebsite'),'');
   $('companyRun').textContent=(lang==='de'?'Recherchelauf ':'Research run ')+v.run;
   $('companyRun').className='run '+runClass(v.run);
   document.querySelectorAll('#statusButtons .statusbtn').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.value===v.status)));
-  $('yesFields').hidden=v.status!=='JA';$('callDate').value=/^\d{4}-\d{2}-\d{2}$/.test(v.date)?v.date:'';
-  $('callNote').value=v.note||'';$('callSalutation').value=v.salutation||'';$('callTitle').value=v.title||'';$('callFirst').value=v.first||'';$('callLast').value=v.last||'';$('callRole').value=v.role||'';$('confirmedEmail').value=v.email||'';
-  $('yesStatusInfo').hidden=v.status!=='JA'||eligible(v);
-  $('saveYes').hidden=v.status!=='JA';
-  $('yesWarning').hidden=v.status!=='JA'||eligible(v);
-  if(v.status==='JA')$('yesWarning').textContent=T[lang].notConfirmed;
-  $('companyStatus').textContent=v.status==='JA'?(eligible(v)?T[lang].ready:T[lang].notConfirmed):'';
-  $('companyStatus').className='small'+(v.status==='JA'?' ja-state'+(eligible(v)?' ja-done':''):'');
+  $('companyStatus').textContent=v.status==='JA'?(contactComplete(v)?T[lang].ready:T[lang].notConfirmed):
+    v.status==='NEIN'?T[lang].no:v.status==='Nicht erreicht'?T[lang].notReached:'';
+  $('companyStatus').className='simple-feedback '+(v.status==='JA'?(contactComplete(v)?'ok':'pending'):'');
+  $('editContact').hidden=v.status!=='JA';
+  $('resetCompany').hidden=v.status==='Offen';
   $('prevCompany').disabled=pointer===0;$('nextCompany').disabled=pointer>=visible.length-1;
 }
 function selected(){return visible[pointer]||null}
-function updateValue(key,value){
-  const v=selected();if(!v)return;
-  const old=v[key];v[key]=value;
-  // Eine nachträglich geänderte Adresse bzw. Person muss erneut bestätigt werden.
-  if(old!==value&&key==='email'){v.emailVerified='Offen';v.consent='Offen'}
-  if(old!==value&&['first','last','role'].includes(key)){v.personVerified='Offen';v.consent='Offen'}
-  persist();renderStats();if(key==='status'){filtering()}else renderCompany();
-}
 function translate(next){
+  if(!T[next])return;
   lang=next;document.documentElement.lang=lang;
   for(const e of document.querySelectorAll('[data-i18n]'))if(T[lang][e.dataset.i18n])e.textContent=T[lang][e.dataset.i18n];
   for(const e of document.querySelectorAll('[data-i18n-placeholder]'))e.placeholder=T[lang][e.dataset.i18nPlaceholder]||'';
   for(const b of document.querySelectorAll('[data-lang]'))b.setAttribute('aria-pressed',String(b.dataset.lang===lang));
   document.title=lang==='de'?'ClubLeader · Telefonarbeitsplatz | LiquidityBooster':'ClubLeader · Call workspace | LiquidityBooster';
   if(app){renderCompany();renderStats()}
+  if(!$('decisionOverlay').hidden)refreshDialog();
 }
 function findCell(row,col){return cellByColumn(row,col)}
 function makeXCell(doc,col,row,value,style){
