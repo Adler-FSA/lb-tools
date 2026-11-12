@@ -846,73 +846,186 @@ async function forgetSavedWorkbook(){
 }
 
 $('masterInput').addEventListener('change',e=>{if(e.target.files?.[0])void loadMaster(e.target.files[0])});
-$('forgetWorkbook').addEventListener('click',()=>{void forgetSavedWorkbook()});
+$('forgetWorkbook').addEventListener('click',()=>openDialog('delete'));
 document.querySelectorAll('[data-lang]').forEach(el=>el.addEventListener('click',()=>translate(el.dataset.lang)));
-/* Bei JA ist die Kontaktbestätigung erforderlich. Andere Gesprächsergebnisse
-   werden sofort gespeichert; danach folgt automatisch die nächste Firma. */
+/* Ein JA wird erfasst; die Kontaktdaten werden separat übernommen.
+   Kein Rückruf, keine Wiedervorlage und keine KMS-Importkontrolle. */
+let modalMode='',modalUid='',modalNextStatus='',modalFocus=null;
+let toastTimer=null,lastUndo=null;
+function formatMsg(template,params={}){
+  return String(template||'').replace(/\{(\w+)\}/g,(_,key)=>params[key]??'');
+}
+function showToast(message,offerUndo=false){
+  clearTimeout(toastTimer);
+  $('toastText').textContent=message;
+  $('toastUndo').hidden=!offerUndo;
+  $('toastbar').hidden=false;
+  toastTimer=setTimeout(()=>{$('toastbar').hidden=true;lastUndo=null},offerUndo?8000:4200);
+}
+function hideToast(){clearTimeout(toastTimer);$('toastbar').hidden=true}
+function saveSnapshot(v){return Object.fromEntries(callProps.map(key=>[key,v[key]]))}
+function rememberUndo(v){lastUndo={uid:v.uid,snapshot:saveSnapshot(v)}}
+function undoLast(){
+  if(!lastUndo||!app)return;
+  const row=app.rows.find(x=>x.uid===lastUndo.uid);
+  if(!row)return;
+  Object.assign(row,lastUndo.snapshot);lastUndo=null;
+  persist();renderStats();
+  $('companySearch').value='';$('companyFilter').value='all';
+  visible=app.rows.slice();pointer=visible.indexOf(row);
+  renderCompany();showToast(T[lang].toastUndone);
+}
 function advanceAfterResult(current){
-  const oldIndex=visible.indexOf(current);
-  const query=$('companySearch').value.trim().toLowerCase();
-  const filter=$('companyFilter').value;
-  const next=app.rows.filter(v=>(filter==='all'||(filter==='JA_ergänzen'?v.status==='JA'&&!eligible(v):v.status===filter))&&
-    [v.company,v.city,v.plz,v.industry].some(x=>strings(x).toLowerCase().includes(query)));
-  const still=next.indexOf(current);
-  visible=next;
-  if(!next.length)pointer=0;
-  else if(still>=0)pointer=Math.min(still+1,next.length-1);
-  else pointer=Math.min(Math.max(oldIndex,0),next.length-1);
+  if(!app)return;
+  const from=app.rows.indexOf(current),filter=$('companyFilter').value;
+  visible=app.rows.filter(rowMatchesFilter);
+  if(!visible.length){
+    $('companyFilter').value='all';$('companySearch').value='';
+    visible=app.rows.slice();pointer=Math.max(0,from);
+    renderCompany();renderStats();
+    return;
+  }
+  let target=null;
+  if(filter==='all'||filter==='Offen'){
+    const open=visible.filter(v=>v.status==='Offen');
+    if(open.length)target=open.find(v=>app.rows.indexOf(v)>from)||open[0];
+  }else{
+    target=visible.find(v=>app.rows.indexOf(v)>from)||visible[0];
+  }
+  if(target&&target!==current)pointer=visible.indexOf(target);
+  else{
+    const index=visible.indexOf(current);
+    pointer=index>=0?index:Math.min(pointer,visible.length-1);
+  }
   renderCompany();renderStats();
 }
-document.querySelectorAll('#statusButtons .statusbtn').forEach(b=>b.addEventListener('click',()=>{
-  const v=selected();if(!v)return;
-  const was=v.status;v.status=b.dataset.value;
-  if(v.status==='JA'){
-    if(was!=='JA')prefillResearchContact(v);
-    if(!v.date)v.date=new Date().toLocaleDateString('sv-SE');
-    persist();renderStats();renderCompany();return;
+function openDialog(kind,v=null,next=''){
+  hideToast();
+  modalMode=kind;modalUid=v?.uid||'';modalNextStatus=next;
+  modalFocus=document.activeElement;
+  $('decisionOverlay').hidden=false;
+  $('dialogConfirm').hidden=false;$('yesFields').hidden=true;$('yesWarning').hidden=true;
+  refreshDialog();$('dialogCancel').focus();
+}
+function refreshDialog(){
+  const row=app?.rows.find(v=>v.uid===modalUid);
+  const k=modalMode==='yes'?'Yes':modalMode==='delete'?'Delete':modalMode==='reset'?'Reset':'Change';
+  if(modalMode==='contact'){
+    $('dialogTitle').textContent=T[lang].yesFieldsTitle;
+    $('dialogMessage').textContent=row?.company||'';
+  }else{
+    $('dialogTitle').textContent=T[lang]['dialog'+k+'Title'];
+    $('dialogMessage').textContent=formatMsg(T[lang]['dialog'+k+'Message'],{
+      company:row?.company||'',status:T[lang][modalNextStatus==='NEIN'?'no':'notReached']
+    });
+    $('dialogConfirmButton').textContent=T[lang]['dialog'+k+'Button'];
   }
-  if(was==='JA'){v.consent='Offen';v.personVerified='Offen';v.emailVerified='Offen'}
-  if(v.status!=='Offen'&&!v.date)v.date=new Date().toLocaleDateString('sv-SE');
-  persist();advanceAfterResult(v);
-}));
+}
+function closeDecision(showIncomplete=true){
+  const incomplete=showIncomplete&&modalMode==='contact'&&
+    app?.rows.find(v=>v.uid===modalUid&&v.status==='JA'&&!contactComplete(v));
+  $('decisionOverlay').hidden=true;modalMode='';modalUid='';modalNextStatus='';
+  if(modalFocus?.focus)modalFocus.focus();
+  if(incomplete)showToast(T[lang].toastIncomplete);
+}
+function showContact(v){
+  if(!v)return;
+  modalMode='contact';modalUid=v.uid;
+  $('decisionOverlay').hidden=false;
+  $('dialogConfirm').hidden=true;$('yesFields').hidden=false;
+  $('callSalutation').value=v.salutation||'';
+  $('callTitle').value=v.title||'';
+  $('callFirst').value=v.first||'';
+  $('callLast').value=v.last||'';
+  $('callRole').value=v.role||'';
+  $('confirmedEmail').value=v.email||'';
+  $('callNote').value=v.note||'';
+  $('yesWarning').hidden=true;
+  refreshDialog();$('confirmedEmail').focus();
+}
+function applyResult(v,result){
+  rememberUndo(v);
+  v.status=result;v.date=new Date().toLocaleDateString('sv-SE');
+  if(result!=='JA')v.contactSaved=false;
+  const saved=persist();
+  renderStats();advanceAfterResult(v);
+  showToast(saved?formatMsg(result==='NEIN'?T[lang].toastNo:T[lang].toastMissed,{company:v.company}):T[lang].dataSaveError,saved);
+}
+async function confirmDialog(){
+  const kind=modalMode;
+  if(kind==='delete'){closeDecision(false);await forgetSavedWorkbook();return}
+  const v=app?.rows.find(x=>x.uid===modalUid);
+  if(!v){closeDecision(false);return}
+  if(kind==='yes'){
+    rememberUndo(v);
+    v.status='JA';v.date=new Date().toLocaleDateString('sv-SE');
+    v.contactSaved=false;
+    prefillResearchContact(v);
+    const saved=persist();
+    renderStats();renderCompany();
+    showContact(v);
+    if(!saved){$('yesWarning').textContent=T[lang].dataSaveError;$('yesWarning').hidden=false}
+    return;
+  }
+  if(kind==='reset'){
+    rememberUndo(v);
+    v.status='Offen';v.contactSaved=false;
+    const saved=persist();
+    closeDecision(false);advanceAfterResult(v);
+    showToast(saved?formatMsg(T[lang].toastReset,{company:v.company}):T[lang].dataSaveError,saved);
+    return;
+  }
+  if(kind==='change'){
+    const next=modalNextStatus;
+    closeDecision(false);applyResult(v,next);
+  }
+}
 function saveYesContact(){
-  const v=selected();if(!v||v.status!=='JA')return;
+  const v=app?.rows.find(x=>x.uid===modalUid);
+  if(!v||v.status!=='JA')return;
   const email=strings($('confirmedEmail').value);
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    $('yesWarning').hidden=false;
     $('yesWarning').textContent=T[lang].saveYesEmail;
-    $('confirmedEmail').focus();return;
+    $('yesWarning').hidden=false;$('confirmedEmail').focus();return;
   }
-  // Dieser bewusste Speichervorgang dokumentiert die bestätigte Adresse,
-  // die erreichte Person (sofern eingetragen) und die Einladungserlaubnis.
+  rememberUndo(v);
   v.salutation=$('callSalutation').value;
   v.title=strings($('callTitle').value);
   v.first=strings($('callFirst').value);
   v.last=strings($('callLast').value);
   v.role=strings($('callRole').value);
-  v.email=email;
-  v.note=$('callNote').value;
-  v.date=$('callDate').value||new Date().toLocaleDateString('sv-SE');
-  v.personVerified='Ja';v.emailVerified='Ja';v.consent='Ja';
-  persist();advanceAfterResult(v);
+  v.email=email;v.note=$('callNote').value;
+  v.date=v.date||new Date().toLocaleDateString('sv-SE');
+  v.contactSaved=true;
+  const saved=persist();
+  closeDecision(false);advanceAfterResult(v);
+  showToast(saved?formatMsg(T[lang].toastSaved,{company:v.company}):T[lang].dataSaveError,saved);
 }
+document.querySelectorAll('#statusButtons .statusbtn').forEach(button=>button.addEventListener('click',()=>{
+  const v=selected();if(!v)return;
+  const status=button.dataset.value;
+  if(status==='JA'){
+    if(v.status==='JA'){modalFocus=button;showContact(v)}
+    else openDialog('yes',v);
+    return;
+  }
+  if(v.status==='JA'&&status!==v.status)openDialog('change',v,status);
+  else applyResult(v,status);
+}));
+$('editContact').addEventListener('click',()=>{const v=selected();if(v&&v.status==='JA'){modalFocus=document.activeElement;showContact(v)}});
+$('resetCompany').addEventListener('click',()=>{const v=selected();if(v&&v.status!=='Offen')openDialog('reset',v)});
+$('dialogConfirmButton').addEventListener('click',()=>{void confirmDialog()});
+$('dialogCancel').addEventListener('click',()=>closeDecision());
+$('dialogClose').addEventListener('click',()=>closeDecision());
+$('decisionOverlay').addEventListener('click',e=>{if(e.target===$('decisionOverlay'))closeDecision()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('decisionOverlay').hidden)closeDecision()});
 $('saveYes').addEventListener('click',saveYesContact);
-for(const [id,prop] of [['callDate','date'],['callNote','note'],['callSalutation','salutation'],['callTitle','title'],['callFirst','first'],['callLast','last'],['callRole','role'],['confirmedEmail','email']]){
-  $(id).addEventListener('change',()=>updateValue(prop,$(id).value));
-  if(['callNote','confirmedEmail'].includes(id))$(id).addEventListener('input',()=>{
-    const v=selected();if(!v)return;
-    const changed=v[prop]!==$(id).value;
-    v[prop]=$(id).value;
-    if(changed&&prop==='email'){v.emailVerified='Offen';v.consent='Offen'}
-    persist();renderStats();if(prop==='email')$('yesWarning').hidden=eligible(v,true);
-  });
-}
-// Es wird kein KMS-Importstatus mehr abgefragt.
-$('companySearch').addEventListener('input',filtering);$('companyFilter').addEventListener('change',filtering);
+$('toastUndo').addEventListener('click',undoLast);
+$('companySearch').addEventListener('input',filtering);
+$('companyFilter').addEventListener('change',filtering);
 $('incompleteYesLabel').addEventListener('click',()=>{
-  if(!app||!app.rows.some(v=>v.status==='JA'&&!eligible(v)))return;
-  $('companySearch').value='';
-  $('companyFilter').value='JA_ergänzen';
+  if(!app||!app.rows.some(v=>v.status==='JA'&&!contactComplete(v)))return;
+  $('companySearch').value='';$('companyFilter').value='JA_ergänzen';
   filtering();
   if(visible.length)$('companyCard').scrollIntoView({behavior:'smooth',block:'start'});
 });
@@ -920,14 +1033,14 @@ $('prevCompany').addEventListener('click',()=>{if(pointer>0){pointer--;renderCom
 $('nextCompany').addEventListener('click',()=>{if(pointer<visible.length-1){pointer++;renderCompany()}});
 $('masterExport').addEventListener('click',()=>{
   try{excelOpen(buildMaster(),'master');$('exportError').textContent=''}
-  catch(e){$('exportError').textContent=T[lang].errorGeneric+' '+e.message}
+  catch(err){$('exportError').textContent=T[lang].errorGeneric+' '+err.message;showToast($('exportError').textContent)}
 });
 $('kmsExport').addEventListener('click',()=>{
   if(!app)return;
   const rows=uniqueEligible();
-  if(!rows.length){$('exportError').textContent=T[lang].noneEligible;return}
+  if(!rows.length){$('exportError').textContent=T[lang].noneEligible;showToast(T[lang].noneEligible);return}
   try{excelOpen(kmsXlsx(rows),'kms',rows);$('exportError').textContent=''}
-  catch(e){$('exportError').textContent=T[lang].errorGeneric+' '+e.message}
+  catch(err){$('exportError').textContent=T[lang].errorGeneric+' '+err.message;showToast($('exportError').textContent)}
 });
 
 /* Die Leitfaden-Auswahl ist nur eine lokale Ansichtseinstellung, kein Masterlistenfeld. */
@@ -941,7 +1054,7 @@ function chooseCallGuide(next,remember=true){
     button.setAttribute('aria-pressed',String(button.dataset.guideChoice===next));
   for(const panel of document.querySelectorAll('[data-guide-panel]'))
     panel.hidden=panel.dataset.guidePanel!==next;
-  if(remember){try{localStorage.setItem(callGuideStorageKey,next)}catch(err){}}
+  if(remember){try{localStorage.setItem(callGuideStorageKey,next)}catch(err){};showToast(T[lang][next==='b'?'toastGuideB':'toastGuideR'])}
 }
 for(const button of document.querySelectorAll('[data-guide-choice]'))
   button.addEventListener('click',()=>chooseCallGuide(button.dataset.guideChoice));
