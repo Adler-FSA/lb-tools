@@ -70,7 +70,7 @@
 @media(max-width:500px){.cg-result .controls{grid-template-columns:1fr}.cg-choices{grid-template-columns:1fr}.cg-stage{grid-template-columns:55px minmax(0,1fr)}.cg-guide{padding:12px}}
 @media print{.cg-cockpit{display:block}.cg-guide{position:static;max-height:none;overflow:visible}.cg-choices{display:none}.cg-result{margin-top:18px}}
 
-.ja-progress{display:flex;gap:9px 17px;flex-wrap:wrap;font-size:13px;font-weight:730;margin-top:7px;color:#21654e}.ja-progress .ja-incomplete{color:#a36614}.ja-guide-note{font-size:13px;color:#395a67;background:#eef8f7;border-left:3px solid var(--mint);padding:10px 12px;border-radius:8px;margin:10px 0}.ja-state{font-weight:740;color:#956016}.ja-done{color:#14804d}
+.ja-progress{display:flex;gap:9px 17px;flex-wrap:wrap;font-size:13px;font-weight:730;margin-top:7px;color:#21654e}.ja-progress .ja-incomplete{color:#a36614}.ja-jump{border:0;background:transparent;padding:0;text-align:left;text-decoration:underline;text-underline-offset:3px;cursor:pointer;font:inherit}.ja-jump:disabled{opacity:.65;text-decoration:none;cursor:default}.ja-jump:focus-visible{outline:3px solid var(--magenta);outline-offset:3px;border-radius:3px}.ja-guide-note{font-size:13px;color:#395a67;background:#eef8f7;border-left:3px solid var(--mint);padding:10px 12px;border-radius:8px;margin:10px 0}.ja-state{font-weight:740;color:#956016}.ja-done{color:#14804d}
 </style>
 </head>
 <body>
@@ -108,7 +108,7 @@
       <div class="stat"><strong id="statOpen">0</strong><span data-i18n="statOpen">Offen</span></div>
     </div>
     <div class="progress"><div id="progressFill"></div></div>
-    <div class="toolbar"><span id="progressLabel" class="counter"></span></div><div class="ja-progress" aria-live="polite"><span id="eligibleLabel"></span><span id="incompleteYesLabel" class="ja-incomplete"></span></div>
+    <div class="toolbar"><span id="progressLabel" class="counter"></span></div><div class="ja-progress" aria-live="polite"><span id="eligibleLabel"></span><button id="incompleteYesLabel" type="button" class="ja-incomplete ja-jump" disabled></button></div>
     <div class="toolbar" style="margin-top:12px">
       <input id="companySearch" class="search" type="search" data-i18n-placeholder="search" placeholder="Firma, PLZ oder Ort suchen">
       <select id="companyFilter" class="search" style="width:auto">
@@ -421,6 +421,7 @@ function renderStats(){
   const missing=app.rows.filter(v=>v.status==='JA'&&!eligible(v)).length;
   $('eligibleLabel').textContent=ready+' '+T[lang].eligible;
   $('incompleteYesLabel').textContent=missing+' '+T[lang].incompleteYes;
+  $('incompleteYesLabel').disabled=missing===0;
   $('exportInfo').textContent=T[lang].groupNote;
   $('kmsExport').disabled=ready===0;
 }
@@ -838,6 +839,13 @@ for(const [id,prop] of [['callDate','date'],['callNote','note'],['callSalutation
 }
 // Es wird kein KMS-Importstatus mehr abgefragt.
 $('companySearch').addEventListener('input',filtering);$('companyFilter').addEventListener('change',filtering);
+$('incompleteYesLabel').addEventListener('click',()=>{
+  if(!app||!app.rows.some(v=>v.status==='JA'&&!eligible(v)))return;
+  $('companySearch').value='';
+  $('companyFilter').value='JA_ergänzen';
+  filtering();
+  if(visible.length)$('companyCard').scrollIntoView({behavior:'smooth',block:'start'});
+});
 $('prevCompany').addEventListener('click',()=>{if(pointer>0){pointer--;renderCompany()}});
 $('nextCompany').addEventListener('click',()=>{if(pointer<visible.length-1){pointer++;renderCompany()}});
 $('masterExport').addEventListener('click',()=>{
