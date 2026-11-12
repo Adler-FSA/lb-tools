@@ -24,6 +24,74 @@
 .fin-note{font-size:10px;line-height:1.38;color:#72858f;margin:11px 0 0}.fin-bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}.fin-bottom strong{font-size:14px;color:#173748;line-height:1.3;max-width:740px}.fin-back{flex:none;border-radius:11px;background:#bd287a;color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:13px 17px}.fin-back:hover{background:#9e1e68}
 @media(max-width:970px){.fin-grid{grid-template-columns:minmax(0,1.45fr) minmax(230px,.75fr);gap:11px}.fin-aside{padding:12px}.fin-income{padding:8px 10px;gap:7px}.fin-income strong{font-size:12px}.fin-income small{font-size:10px}.fin-income b{font-size:14px}.fin-bottom strong{font-size:12px}}
 @media(max-width:700px){.fin-grid{grid-template-columns:1fr}.fin-aside{display:grid;grid-template-columns:1fr 1fr;gap:9px}.fin-aside-unit{border:0;padding:6px}.fin-aside-unit strong{font-size:24px}.fin-highlight{grid-column:1/-1}.fin-bottom{flex-direction:column;align-items:stretch}.fin-back{text-align:center}.slide.fin-result .inside{padding:22px 17px}.fin-head strong{font-size:12px}}
+
+/* Regio-Botschafter Gegenfinanzierung: iPad-Querformat, alle vier Folien ohne Seiten-Scrollen. */
+@media (min-width:701px) and (min-height:570px){
+  html,body{height:100%;overflow:hidden}
+  #app{height:100vh;height:100dvh;min-height:0;overflow:hidden}
+  .top{height:59px;flex:0 0 59px;padding-top:6px;padding-bottom:6px}
+  .viewer{flex:1 1 0%;min-height:0;overflow:hidden;padding:7px clamp(10px,2vw,28px)}
+  .slide{height:100%;min-height:0;max-height:100%;margin:0 auto}
+  .inside{min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;padding:clamp(15px,2.6vh,25px) clamp(26px,5.4vw,75px) 15px}
+  .nav{height:69px;min-height:69px;flex:0 0 69px;padding:6px 18px}
+  .navbtn{min-height:48px;padding:7px 13px}
+  .center{gap:2px}
+  .center strong{font-size:17px}
+  .dots{margin:2px}
+  .slide h1{font-size:clamp(30px,3.5vw,49px);line-height:1.1;margin:11px 0 8px}
+  .lead{font-size:clamp(14px,1.5vw,18px);line-height:1.34}
+  .cards{margin-top:17px;gap:14px}
+  .card{padding:17px 19px}
+  .card h2{font-size:clamp(18px,1.8vw,24px);margin:9px 0}
+  .card p{font-size:14px;line-height:1.42}
+  .note{padding-top:14px}
+  .slide.fin-result .inside{padding:14px clamp(22px,4.3vw,60px) 12px}
+  .slide.fin-result h1{font-size:clamp(28px,3vw,41px);margin:9px 0 6px}
+  .slide.fin-result .lead{font-size:clamp(13px,1.25vw,16px);line-height:1.3}
+  .fin-grid{margin-top:12px;gap:12px}
+  .fin-head{padding:6px 11px}
+  .fin-head strong{font-size:12px}
+  .fin-income{min-height:34px;padding:5px 11px;gap:7px}
+  .fin-income div{gap:2px}
+  .fin-income strong{font-size:13px}
+  .fin-income small{font-size:10px;line-height:1.2}
+  .fin-income b{font-size:15px}
+  .fin-subtotal{padding:6px 11px}
+  .fin-subtotal b{font-size:18px}
+  .fin-aside{padding:12px;gap:8px}
+  .fin-aside-unit{padding-bottom:8px}
+  .fin-aside-unit strong{font-size:clamp(21px,2.2vw,30px);margin:4px 0}
+  .fin-highlight{padding:9px}
+  .fin-note{margin:7px 0 0;font-size:10px;line-height:1.3}
+  .fin-bottom{margin-top:8px}
+  .fin-back{padding:9px 13px}
+}
+@media (min-width:701px) and (min-height:570px) and (max-height:740px){
+  .top{height:54px;flex-basis:54px}
+  .nav{height:62px;min-height:62px;flex-basis:62px}
+  .navbtn{min-height:43px}
+  .inside{padding-top:13px;padding-bottom:10px}
+  .slide h1{font-size:clamp(27px,3.1vw,43px);margin:8px 0 6px}
+  .lead{font-size:14px}
+  .cards{margin-top:12px}
+  .card{padding:12px 15px}
+  .card h2{margin:6px 0}
+  .note{padding-top:8px}
+  .slide.fin-result .inside{padding-top:10px;padding-bottom:9px}
+  .slide.fin-result h1{font-size:clamp(25px,2.7vw,36px);margin:6px 0 4px}
+  .slide.fin-result .lead{font-size:13px;line-height:1.25}
+  .fin-grid{margin-top:8px}
+  .fin-head{padding:4px 9px}
+  .fin-income{min-height:30px;padding:4px 9px}
+  .fin-income strong{font-size:12px}
+  .fin-income small{font-size:9px}
+  .fin-income b{font-size:14px}
+  .fin-subtotal{padding:4px 9px}
+  .fin-aside{padding:9px}
+  .fin-aside-unit strong{font-size:23px}
+  .fin-note{margin-top:5px}
+  .fin-bottom{margin-top:5px}
+}
 </style></head>
 <body><div id="app"><header class="top"><div class="brand">liquidity<span>booster</span>.de<small id="brandSub"></small></div><button id="lang" class="lang" type="button" aria-label="Sprache wechseln">EN</button></header>
 <main class="viewer"><article class="slide"><div class="inside" id="content"></div></article></main>
