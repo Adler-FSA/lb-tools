@@ -225,7 +225,7 @@
 <!-- Einheitliches Bestätigungs- und Kontakt-Overlay -->
 <div class="call-overlay" id="decisionOverlay" hidden>
   <section class="call-dialog" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
-    <button class="call-dialog-close" id="dialogClose" type="button" data-i18n="dialogClose" aria-label="Schließen">Schließen</button>
+    <button class="call-dialog-close" id="dialogClose" type="button" data-i18n="dialogClose">Schließen</button>
     <h2 id="dialogTitle"></h2>
     <p id="dialogMessage"></p>
     <div id="dialogConfirm">
@@ -431,6 +431,7 @@ function persist(){
   try{
     localStorage.setItem(persistKey,JSON.stringify(data));
     persistError=false;
+    if($('exportError').textContent===T[lang].dataSaveError)$('exportError').textContent='';
     $('savedAt').textContent=T[lang].saved+' · '+new Date().toLocaleTimeString(lang==='de'?'de-DE':'en-GB',{hour:'2-digit',minute:'2-digit'});
     return true;
   }catch(err){
