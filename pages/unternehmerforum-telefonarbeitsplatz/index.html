@@ -95,6 +95,7 @@
 .call-dialog #yesFields .field{margin-top:8px}
 .call-dialog #yesFields .yes-save-button{width:100%}
 .call-dialog .yes-confirm-note{background:#f0f7f5;color:#375e52}
+.call-dialog #confirmedEmail[aria-invalid="true"]{border-color:#c62d54;box-shadow:0 0 0 2px #ffeaf0}
 .call-dialog-close{float:right;margin:-7px -7px 8px 12px;border:0;background:transparent;color:#516875;padding:9px;cursor:pointer;font:inherit}
 .toastbar{position:fixed;bottom:18px;right:18px;z-index:2200;display:flex;align-items:center;gap:12px;max-width:min(480px,calc(100vw - 28px));padding:13px 17px;background:#142b43;color:#fff;border-radius:12px;box-shadow:0 15px 40px #0c233355;font-size:14px;font-weight:740}
 .toastbar button{border:1px solid #a6c3c9;border-radius:8px;color:#fff;background:transparent;font-weight:790;padding:7px 10px;cursor:pointer;white-space:nowrap}
@@ -151,7 +152,7 @@
     </div>
   </section>
   <section class="card" id="companyCard" aria-labelledby="companyName">
-    <div class="workhead"><div><span id="companyPosition" class="counter"></span><h2 id="companyName"></h2></div><span id="companyRun" class="run"></span></div>
+    <div class="workhead"><div><span id="companyPosition" class="counter"></span><h2 id="companyName" tabindex="-1"></h2></div><span id="companyRun" class="run"></span></div>
     <div class="details">
       <div class="detail"><span data-i18n="detailContact">Recherche-Ansprechpartner</span><strong id="companyContact"></strong></div>
       <div class="detail"><span data-i18n="detailPhone">Telefon</span><strong id="companyPhone"></strong></div>
@@ -656,6 +657,7 @@ function excelClose(){
 }
 function excelOpen(bytes,kind,records=[]){
   if(!(bytes instanceof Uint8Array)||bytes.length===0)throw Error('No valid XLSX bytes');
+  hideToast();
   if(excelFallbackUrl){URL.revokeObjectURL(excelFallbackUrl);excelFallbackUrl=''}
   excelReadyFile=new File([bytes],excelExportFilename(kind),{type:XLSX_MIME});
   excelFocusBefore=document.activeElement;
@@ -940,7 +942,7 @@ function showContact(v){
   $('callRole').value=v.role||'';
   $('confirmedEmail').value=v.email||'';
   $('callNote').value=v.note||'';
-  $('yesWarning').hidden=true;
+  $('yesWarning').hidden=true;$('confirmedEmail').setAttribute('aria-invalid','false');
   refreshDialog();$('confirmedEmail').focus();
 }
 function applyResult(v,result){
@@ -948,8 +950,9 @@ function applyResult(v,result){
   v.status=result;v.date=new Date().toLocaleDateString('sv-SE');
   if(result!=='JA')v.contactSaved=false;
   const saved=persist();
-  renderStats();advanceAfterResult(v);
-  showToast(saved?formatMsg(result==='NEIN'?T[lang].toastNo:T[lang].toastMissed,{company:v.company}):T[lang].dataSaveError,saved);
+  if(!saved){Object.assign(v,lastUndo.snapshot);lastUndo=null;renderStats();renderCompany();showToast(T[lang].dataSaveError);return}
+  renderStats();advanceAfterResult(v);$('companyName').focus();
+  showToast(formatMsg(result==='NEIN'?T[lang].toastNo:T[lang].toastMissed,{company:v.company}),true);
 }
 async function confirmDialog(){
   const kind=modalMode;
@@ -962,17 +965,21 @@ async function confirmDialog(){
     v.contactSaved=false;
     prefillResearchContact(v);
     const saved=persist();
-    renderStats();renderCompany();
-    showContact(v);
-    if(!saved){$('yesWarning').textContent=T[lang].dataSaveError;$('yesWarning').hidden=false}
+    if(!saved){
+      Object.assign(v,lastUndo.snapshot);lastUndo=null;
+      renderStats();renderCompany();$('dialogMessage').textContent=T[lang].dataSaveError;
+      return;
+    }
+    renderStats();renderCompany();showContact(v);
     return;
   }
   if(kind==='reset'){
     rememberUndo(v);
     v.status='Offen';v.contactSaved=false;
     const saved=persist();
-    closeDecision(false);advanceAfterResult(v);
-    showToast(saved?formatMsg(T[lang].toastReset,{company:v.company}):T[lang].dataSaveError,saved);
+    if(!saved){Object.assign(v,lastUndo.snapshot);lastUndo=null;renderStats();renderCompany();$('dialogMessage').textContent=T[lang].dataSaveError;return}
+    closeDecision(false);advanceAfterResult(v);$('companyName').focus();
+    showToast(formatMsg(T[lang].toastReset,{company:v.company}),true);
     return;
   }
   if(kind==='change'){
@@ -986,7 +993,8 @@ function saveYesContact(){
   const email=strings($('confirmedEmail').value);
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
     $('yesWarning').textContent=T[lang].saveYesEmail;
-    $('yesWarning').hidden=false;$('confirmedEmail').focus();return;
+    $('yesWarning').hidden=false;$('confirmedEmail').setAttribute('aria-invalid','true');
+    $('confirmedEmail').focus();return;
   }
   rememberUndo(v);
   v.salutation=$('callSalutation').value;
@@ -998,8 +1006,13 @@ function saveYesContact(){
   v.date=v.date||new Date().toLocaleDateString('sv-SE');
   v.contactSaved=true;
   const saved=persist();
-  closeDecision(false);advanceAfterResult(v);
-  showToast(saved?formatMsg(T[lang].toastSaved,{company:v.company}):T[lang].dataSaveError,saved);
+  if(!saved){
+    Object.assign(v,lastUndo.snapshot);lastUndo=null;
+    $('yesWarning').textContent=T[lang].dataSaveError;$('yesWarning').hidden=false;
+    return;
+  }
+  closeDecision(false);advanceAfterResult(v);$('companyName').focus();
+  showToast(formatMsg(T[lang].toastSaved,{company:v.company}),true);
 }
 document.querySelectorAll('#statusButtons .statusbtn').forEach(button=>button.addEventListener('click',()=>{
   const v=selected();if(!v)return;
@@ -1020,6 +1033,9 @@ $('dialogClose').addEventListener('click',()=>closeDecision());
 $('decisionOverlay').addEventListener('click',e=>{if(e.target===$('decisionOverlay'))closeDecision()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('decisionOverlay').hidden)closeDecision()});
 $('saveYes').addEventListener('click',saveYesContact);
+$('confirmedEmail').addEventListener('input',()=>{
+  $('confirmedEmail').setAttribute('aria-invalid','false');$('yesWarning').hidden=true;
+});
 $('toastUndo').addEventListener('click',undoLast);
 $('companySearch').addEventListener('input',filtering);
 $('companyFilter').addEventListener('change',filtering);
