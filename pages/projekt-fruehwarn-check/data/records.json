@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-14T12:31:38Z",
+  "generated_at": "2026-11-14T13:27:08Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-13T14:29:54Z",
+      "last_success": "2026-11-14T13:27:08Z",
       "records": 3616,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "3da05a0437ef926ecfb7093304f384c2667608848f778a1a3082a5a5a8283a25"
+      "response_sha256": "a76357d9d4be847ab53cea0c4edc7388523abf5681151c881acc95cc13b7a416"
     }
   },
   "records": [
@@ -119677,6 +119677,40 @@
       ]
     },
     {
+      "id": "eba-credit-institutions-88ef7de2b16f8aab1b",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Sparkasse Nördliche Oberpfalz",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "DE_BAFIN",
+      "country": "DE",
+      "date": "2013-11-20",
+      "last_status_date": "2013-11-20",
+      "authorization_history": [
+        "2013-11-20"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "529900OJUMG5RXV5MM55",
+      "lei": "529900OJUMG5RXV5MM55",
+      "national_reference": "100642",
+      "city": "Weiden i.d.OPf.",
+      "last_update": "20260814000000000",
+      "match_terms": [
+        "Sparkasse Nördliche Oberpfalz",
+        "529900OJUMG5RXV5MM55",
+        "100642"
+      ]
+    },
+    {
       "id": "eba-credit-institutions-7fe8dd764e5db5273d",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -119810,40 +119844,6 @@
         "Sparkasse Oberlausitz-Niederschlesien",
         "529900CNHJP2Y9F6Z240",
         "101199"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-88ef7de2b16f8aab1b",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Sparkasse Oberpfalz Nord",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900OJUMG5RXV5MM55",
-      "lei": "529900OJUMG5RXV5MM55",
-      "national_reference": "100642",
-      "city": "Weiden i.d.OPf.",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Sparkasse Oberpfalz Nord",
-        "529900OJUMG5RXV5MM55",
-        "100642"
       ]
     },
     {
