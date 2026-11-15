@@ -1,0 +1,59 @@
+{
+  "basisbild": "bilder/panoramen/etappe-02.png",
+  "image_width": 1671,
+  "image_height": 941,
+  "start_date": "2026-12-07",
+  "end_date": "2026-12-13",
+  "timezone": "Europe/Berlin",
+  "status": "TEST / Positionen anhand des freigegebenen Bildes angenaehert",
+  "stations": [
+    {
+      "day": 9,
+      "type": "laterne",
+      "x": 180,
+      "y": 210
+    },
+    {
+      "day": 10,
+      "type": "laterne",
+      "x": 434,
+      "y": 375
+    },
+    {
+      "day": 11,
+      "type": "laterne",
+      "x": 671,
+      "y": 472
+    },
+    {
+      "day": 12,
+      "type": "laterne",
+      "x": 854,
+      "y": 521
+    },
+    {
+      "day": 13,
+      "type": "laterne",
+      "x": 1007,
+      "y": 538
+    },
+    {
+      "day": 14,
+      "type": "laterne",
+      "x": 1130,
+      "y": 522
+    },
+    {
+      "day": 15,
+      "type": "haus",
+      "x": 1271,
+      "y": 502
+    }
+  ],
+  "hinweise": [
+    "Die sechs Laternen und der Hauslichtpunkt werden per Inline-SVG in der HTML-Seite gesteuert.",
+    "Die Tagesbotschaften 9 bis 15 sind in der aktuellen Testfassung lediglich Platzhalter.",
+    "Das freigegebene Original-PNG muss separat in GitHub in den Bilderordner geladen werden.",
+    "Die Bildquelle selbst enthaelt keine aktiv leuchtenden Vordergrundlaternen oder Hausfenster."
+  ]
+}
