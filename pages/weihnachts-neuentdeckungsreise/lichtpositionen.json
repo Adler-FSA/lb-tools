@@ -1,0 +1,88 @@
+{
+  "basisbild": "etappe-01.png",
+  "image_width": 1672,
+  "image_height": 941,
+  "start_date": "2026-11-29",
+  "end_date": "2026-12-06",
+  "timezone": "Europe/Berlin",
+  "hinweis": "Positionen sind erste manuelle Annäherung. Sie müssen bei späterer SVG-Lichtsimulation anhand des finalen Layouts geprüft werden.",
+  "stations": [
+    {
+      "day": 1,
+      "type": "laterne",
+      "x": 280,
+      "y": 194,
+      "label": "Laterne 1 – Vordergrund",
+      "x_percent": 16.746,
+      "y_percent": 20.616
+    },
+    {
+      "day": 2,
+      "type": "laterne",
+      "x": 520,
+      "y": 394,
+      "label": "Laterne 2",
+      "x_percent": 31.1,
+      "y_percent": 41.87
+    },
+    {
+      "day": 3,
+      "type": "laterne",
+      "x": 683,
+      "y": 470,
+      "label": "Laterne 3",
+      "x_percent": 40.849,
+      "y_percent": 49.947
+    },
+    {
+      "day": 4,
+      "type": "laterne",
+      "x": 733,
+      "y": 508,
+      "label": "Laterne 4",
+      "x_percent": 43.84,
+      "y_percent": 53.985
+    },
+    {
+      "day": 5,
+      "type": "laterne",
+      "x": 783,
+      "y": 530,
+      "label": "Laterne 5",
+      "x_percent": 46.83,
+      "y_percent": 56.323
+    },
+    {
+      "day": 6,
+      "type": "laterne",
+      "x": 830,
+      "y": 546,
+      "label": "Laterne 6",
+      "x_percent": 49.641,
+      "y_percent": 58.023
+    },
+    {
+      "day": 7,
+      "type": "laterne",
+      "x": 868,
+      "y": 558,
+      "label": "Laterne 7",
+      "x_percent": 51.914,
+      "y_percent": 59.299
+    },
+    {
+      "day": 8,
+      "type": "lichtpunkt-ferne",
+      "x": 1045,
+      "y": 524,
+      "label": "Nikolaus-Sonderlicht in der Ferne – konzeptionelle Position",
+      "x_percent": 62.5,
+      "y_percent": 55.685
+    }
+  ],
+  "notes": [
+    "Das Original enthält 7 erkennbare Weglaternen; Tag 8 als Nikolaus-Sonderlicht über entferntem Siedlungsbereich vorgesehen.",
+    "Originalbild niemals mit eingebrannter Leuchtmarkierung überschreiben.",
+    "SVG viewBox 0 0 1672 941; beim responsiven Layout dieselbe Abbildungstransformation für Bild und Licht-Overlay nutzen."
+  ]
+}
