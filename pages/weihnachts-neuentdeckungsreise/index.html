@@ -132,6 +132,7 @@ TRANSLATIONS.de.missingImage='Das Panorama für Etappe 2 fehlt noch im GitHub-Or
 TRANSLATIONS.en.missingImage='The stage 2 panorama is not yet in the GitHub folder.';
 const $=id=>document.getElementById(id),ns='http://www.w3.org/2000/svg';
 let lang='de',mode='simulation',day=1,selectedDay=1,viewStage=1,timer=null,simMinutes=960,serverAnchor=null;
+let renderedStage=0;
 function activeStations(){return viewStage===2?STAGE2_STATIONS:STATIONS}
 function stageStart(){return viewStage===2?9:1}
 function stageEnd(){return viewStage===2?15:8}
@@ -217,7 +218,7 @@ function draw(){let curr=current(),t=TRANSLATIONS[lang],base=viewStage===2?8:0,u
  $('testHeading').textContent=t.simulation;
  $('testHeading').parentElement.querySelector('.testFlag').hidden=mode==='realtime';applyAmbient();
 }
-function render(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(e=>{let k=e.dataset.i18n;if(TRANSLATIONS[lang][k])e.textContent=TRANSLATIONS[lang][k]});$('de').classList.toggle('active',lang==='de');$('en').classList.toggle('active',lang==='en');changeScene();buildLights();buildStageTabs();buildRoute();draw()}
+function render(){document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(e=>{let k=e.dataset.i18n;if(TRANSLATIONS[lang][k])e.textContent=TRANSLATIONS[lang][k]});$('de').classList.toggle('active',lang==='de');$('en').classList.toggle('active',lang==='en');if(renderedStage!==viewStage){changeScene();buildLights();renderedStage=viewStage}buildStageTabs();buildRoute();draw()}
 function setSimulation(n){stopAuto();mode='simulation';day=Math.max(1,Math.min(MAX,n));selectedDay=day;viewStage=stageOf(day);render()}
 $('de').addEventListener('click',()=>{lang='de';render()});$('en').addEventListener('click',()=>{lang='en';render()});
 $('prev').addEventListener('click',()=>setSimulation(day-1));$('next').addEventListener('click',()=>setSimulation(day+1));$('reset').addEventListener('click',()=>setSimulation(1));
