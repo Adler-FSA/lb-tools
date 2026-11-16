@@ -5,43 +5,67 @@
   "start_date": "2026-12-07",
   "end_date": "2026-12-13",
   "timezone": "Europe/Berlin",
-  "status": "TEST / Positionen anhand des freigegebenen Bildes angenaehert",
+  "status": "TEST / Glühbirnenpositionen und enger Lichtschein in Etappe 2 angepasst (16.11.2026)",
   "stations": [
     {
       "day": 9,
       "type": "laterne",
-      "x": 180,
-      "y": 210
+      "x": 177,
+      "y": 212,
+      "halo_rx": 22,
+      "halo_ry": 27,
+      "bulb_rx": 9,
+      "bulb_ry": 15
     },
     {
       "day": 10,
       "type": "laterne",
-      "x": 434,
-      "y": 375
+      "x": 440,
+      "y": 379,
+      "halo_rx": 15,
+      "halo_ry": 19,
+      "bulb_rx": 6,
+      "bulb_ry": 10
     },
     {
       "day": 11,
       "type": "laterne",
-      "x": 671,
-      "y": 472
+      "x": 678,
+      "y": 473,
+      "halo_rx": 11,
+      "halo_ry": 14,
+      "bulb_rx": 4.5,
+      "bulb_ry": 7
     },
     {
       "day": 12,
       "type": "laterne",
-      "x": 854,
-      "y": 521
+      "x": 861,
+      "y": 525,
+      "halo_rx": 9,
+      "halo_ry": 11,
+      "bulb_rx": 3.5,
+      "bulb_ry": 5.5
     },
     {
       "day": 13,
       "type": "laterne",
-      "x": 1007,
-      "y": 538
+      "x": 1010,
+      "y": 540,
+      "halo_rx": 8,
+      "halo_ry": 10,
+      "bulb_rx": 3,
+      "bulb_ry": 5
     },
     {
       "day": 14,
       "type": "laterne",
-      "x": 1130,
-      "y": 522
+      "x": 1145,
+      "y": 525,
+      "halo_rx": 8,
+      "halo_ry": 10,
+      "bulb_rx": 3,
+      "bulb_ry": 5
     },
     {
       "day": 15,
