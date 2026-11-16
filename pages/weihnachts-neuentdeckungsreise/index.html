@@ -90,12 +90,14 @@ const STATIONS=[
  {x:1045,y:524,sx:1060,sy:548,rx:160,ry:60,halo:67,glow:12,village:true}
 ];
 const STAGE2_STATIONS=[
- {x:180,y:210,sx:180,sy:715,rx:190,ry:100,halo:116,glow:45},
- {x:434,y:375,sx:434,sy:670,rx:115,ry:71,halo:78,glow:30},
- {x:671,y:472,sx:671,sy:644,rx:83,ry:48,halo:57,glow:22},
- {x:854,y:521,sx:854,sy:644,rx:66,ry:34,halo:45,glow:18},
- {x:1007,y:538,sx:1007,sy:639,rx:57,ry:31,halo:42,glow:16},
- {x:1130,y:522,sx:1130,sy:628,rx:55,ry:30,halo:41,glow:16},
+ // Licht 9–14: Mittelpunkte der sichtbaren Glühbirnen im freigegebenen Panorama (SVG 1672 × 941).
+ {x:177,y:212,sx:177,sy:730,rx:65,ry:24,haloRx:22,haloRy:27,bulbRx:9,bulbRy:15,glow:45},
+ {x:440,y:379,sx:440,sy:689,rx:48,ry:18,haloRx:15,haloRy:19,bulbRx:6,bulbRy:10,glow:30},
+ {x:678,y:473,sx:678,sy:668,rx:37,ry:14,haloRx:11,haloRy:14,bulbRx:4.5,bulbRy:7,glow:22},
+ {x:861,y:525,sx:861,sy:659,rx:31,ry:12,haloRx:9,haloRy:11,bulbRx:3.5,bulbRy:5.5,glow:18},
+ {x:1010,y:540,sx:1010,sy:650,rx:27,ry:10,haloRx:8,haloRy:10,bulbRx:3,bulbRy:5,glow:16},
+ {x:1145,y:525,sx:1145,sy:636,rx:27,ry:10,haloRx:8,haloRy:10,bulbRx:3,bulbRy:5,glow:16},
+ // Licht 15: Hausbesuch, unverändertes Hauslicht.
  {x:1271,y:502,sx:1270,sy:638,rx:165,ry:77,halo:205,glow:44,house:true}
 ];
 const DAYS=[
@@ -150,8 +152,18 @@ function berlinDay(now){const parts=new Intl.DateTimeFormat('en-GB',{timeZone:ZO
 function current(){return mode==='simulation'?day:Math.max(0,Math.min(MAX,berlinDay(now())))}
 function dateText(n){return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{timeZone:'UTC',weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(dateFromDay(Math.max(1,n)))}
 function timeText(){if(mode==='simulation')return dateText(day)+' · '+String(Math.floor(simMinutes/60)).padStart(2,'0')+':'+String(simMinutes%60).padStart(2,'0');return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{timeZone:ZONE,weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(now())}
+// Nur Etappe 2: sanftes Leuchten der sichtbaren Glühbirne, ohne großflächige Aura.
+function drawStageTwoBulb(g,s){
+ el('ellipse',{class:'light-spot',cx:s.sx,cy:s.sy,rx:s.rx,ry:s.ry,fill:'url(#snowLight)',opacity:.26},g);
+ el('ellipse',{cx:s.x,cy:s.y,rx:s.haloRx,ry:s.haloRy,fill:'url(#lampWarm)',opacity:.31},g);
+ el('ellipse',{cx:s.x,cy:s.y,rx:s.bulbRx,ry:s.bulbRy,fill:'#ffdd85',opacity:.73},g);
+ el('ellipse',{cx:s.x,cy:s.y,rx:s.bulbRx*.52,ry:s.bulbRy*.77,fill:'#fff8d9',opacity:.9},g);
+}
 function buildLights(){const layer=$('lighting'),buttons=$('lampButtons');layer.replaceChildren();buttons.replaceChildren();activeStations().forEach((s,i)=>{
  const g=el('g',{class:s.house?'light house-light':'light',id:'light-'+(i+1)},layer);
+ if(viewStage===2 && !s.house){
+   drawStageTwoBulb(g,s);
+ }else{
  el('ellipse',{class:'light-spot',cx:s.sx,cy:s.sy,rx:s.rx,ry:s.ry,fill:'url(#snowLight)'},g);
  el('circle',{cx:s.x,cy:s.y,r:s.halo,fill:s.village?'url(#villageLight)':'url(#lampWarm)',opacity:s.village?.7:.66},g);
  if(s.house){
@@ -164,6 +176,7 @@ function buildLights(){const layer=$('lighting'),buttons=$('lampButtons');layer.
    el('ellipse',{cx:1275,cy:625,rx:125,ry:40,fill:'url(#snowLight)',opacity:.65},g);
  } else if(s.village){for(let j=0;j<8;j++)el('circle',{cx:s.x+(j-3.5)*19,cy:s.y+(j%3-1)*7,r:12,fill:'url(#lampWarm)'},g)}
  else {el('circle',{cx:s.x,cy:s.y,r:s.glow,fill:'url(#lampWarm)'},g);el('ellipse',{cx:s.x,cy:s.y,rx:Math.max(2,s.glow*.15),ry:Math.max(4,s.glow*.29),fill:'#fff2aa',opacity:.95},g)}
+ }
  const dayNumber=stageStart()+i;
  const b=el('g',{class:'lamp-target'},buttons);let c=el('circle',{cx:s.x,cy:s.y,r:s.house?95:i===0?38:Math.max(18,s.glow*.85),class:'lamp-hit',tabindex:'0',role:'button','aria-label':(lang==='de'?'Licht ':'Light ')+dayNumber},b);
  c.addEventListener('click',()=>openDay(dayNumber));c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openDay(dayNumber)}});
