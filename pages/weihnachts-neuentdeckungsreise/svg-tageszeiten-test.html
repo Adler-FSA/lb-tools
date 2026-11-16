@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102538">
+<title>Weihnachtsreise – SVG-Tageszeiten-Labor (separater Test)</title>
+<style>
+:root{--navy:#112b3e;--ink:#203646;--mint:#068e91;--gold:#f0c878;--line:#d8e4e6;--paper:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;background:#eef3f4;color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #03aaa6;outline-offset:3px}
+.page{width:min(1280px,calc(100% - 24px));margin:18px auto 48px}
+header{background:linear-gradient(122deg,#102538,#234c5f);color:#fff;border-radius:20px 20px 0 0;padding:22px 28px 19px}
+.headline{display:flex;gap:20px;justify-content:space-between;align-items:flex-start}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:2px;color:#a6e4dc;font-weight:850}
+h1{font-size:clamp(23px,3.3vw,37px);line-height:1.13;margin:9px 0 7px}
+.lead{margin:0;color:#d7e7ed;font-size:14px;max-width:780px}
+.lang{display:flex;gap:7px;flex-shrink:0}
+.lang button{padding:7px 11px;background:transparent;border:1px solid #bcd4d8;color:#e5f4f4;border-radius:9px}
+.lang button.active{background:#08a0a4;color:#fff;border-color:#08a0a4;font-weight:750}
+.testnote{margin-top:14px;padding:9px 12px;background:#e7f8f321;border:1px solid #ffffff25;border-radius:9px;font-size:13px;color:#d9f4f1}
+.scene-frame{position:relative;overflow:hidden;background:#0a2241}
+#world{width:100%;height:auto;display:block;aspect-ratio:16/9}
+#world .snow-layer{pointer-events:none}
+#world .snow-dot{fill:white;animation:fall var(--speed,16s) linear var(--delay,0s) infinite;transform-box:fill-box}
+@keyframes fall{from{transform:translate(0,-70px)}to{transform:translate(var(--drift,30px),900px)}}
+#world #sunGroup,#world #moonGroup,#world #skyStars,#world #clouds,#world #villageLight{transition:opacity .45s ease}
+#world #moonGroup{pointer-events:none}
+.scene-overlay{position:absolute;bottom:16px;left:18px;color:#fff;background:#0a233bc9;border:1px solid #d3eefb29;padding:8px 12px;border-radius:10px;font-size:12px;max-width:calc(100% - 36px)}
+.scene-overlay strong{color:#f7d791}
+.details{background:#fff;padding:19px 24px 24px;border-radius:0 0 20px 20px;box-shadow:0 6px 23px #15384912}
+.rowhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.rowhead h2{font-size:20px;margin:0}
+.small{font-size:12px;color:#66808d}
+.grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.9fr);gap:18px}
+.panel{border:1px solid var(--line);border-radius:13px;background:#f8fbfb;padding:15px}
+.panel h3{font-size:15px;margin:0 0 11px}
+.flex{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.slider{width:100%;accent-color:var(--mint);cursor:pointer;margin:7px 0 12px}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chips button,.actions button{border:1px solid #c9dfe1;color:#1c3c4c;background:#fff;padding:8px 11px;border-radius:9px;font-size:13px;font-weight:700}
+.chips button.selected,.actions button.primary{color:#fff;background:#087e80;border-color:#087e80}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions button{padding:9px 13px}
+.value{font-size:24px;color:#153c4b;font-weight:800;letter-spacing:.3px;font-variant-numeric:tabular-nums}
+.between{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+label{font-weight:700;font-size:13px}
+label.check{display:flex;align-items:center;gap:8px;cursor:pointer}
+input[type=checkbox]{accent-color:var(--mint);width:18px;height:18px}
+input[type=date]{width:100%;border:1px solid #c1d4d7;background:#fff;color:#163545;padding:9px 11px;border-radius:9px;margin-top:6px}
+.period{margin-top:10px;color:#637984;font-size:12px}
+.swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.swatch{border-radius:9px;background:#e8f2f2;color:#245360;padding:5px 8px;font-size:12px}
+.info{margin:13px 0 0;border-top:1px solid #dfe7e8;padding-top:11px;color:#586d77;font-size:13px;line-height:1.55}
+footer{text-align:center;color:#617882;font-size:12px;padding:18px}
+.mono{font-variant-numeric:tabular-nums}
+@media(max-width:750px){.grid{grid-template-columns:1fr}header{padding:19px}.details{padding:16px}.scene-overlay{bottom:9px;left:9px;padding:5px 8px;font-size:11px}.headline{align-items:flex-start}#world{min-height:220px;object-fit:cover}}
+@media(prefers-reduced-motion:reduce){#world .snow-dot{animation:none;opacity:0}#world #sunGroup,#world #moonGroup,#world #skyStars,#world #clouds,#world #villageLight{transition:none}}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+ <div class="headline">
+  <div><div class="kicker" data-i18n="kicker">Weihnachten 2026 · Experiment</div>
+   <h1 data-i18n="headline">Eine Winterlandschaft, ein lebendiger Himmel</h1>
+   <p class="lead" data-i18n="lead">Vollständig aus HTML, CSS und Inline-SVG. Ohne PNG, Bilddateien, Icons oder externe Ressourcen.</p>
+  </div>
+  <div class="lang"><button id="de" type="button" class="active">DE</button><button id="en" type="button">EN</button></div>
+ </div>
+ <div class="testnote" data-i18n="testnote">Separater Technikversuch für Etappe 1. Die bestehende Weihnachtsreise wird nicht verändert. Die Landschaft ist eine SVG-Illustration, keine fotorealistische Kopie.</div>
+</header>
+
+<div class="scene-frame">
+<svg id="world" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="SVG-Winterlandschaft: Berge, See, Dorf, ein Weg, acht Laternen sowie dynamische Sonne und Mond">
+ <defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop id="skyTop" offset="0%" stop-color="#142e54"/><stop id="skyMid" offset="56%" stop-color="#5b7b9a"/><stop id="skyBottom" offset="100%" stop-color="#efb6a3"/></linearGradient>
+  <radialGradient id="sunGlow"><stop offset="0" stop-color="#fff8c5" stop-opacity=".85"/><stop offset=".25" stop-color="#fce0a0" stop-opacity=".48"/><stop offset="1" stop-color="#ffb36e" stop-opacity="0"/></radialGradient>
+  <radialGradient id="moonGlow"><stop offset="0" stop-color="#eef7ff" stop-opacity=".45"/><stop offset=".33" stop-color="#b0cfff" stop-opacity=".14"/><stop offset="1" stop-color="#a7cbff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="lampAura"><stop offset="0" stop-color="#fffbe4" stop-opacity="1"/><stop offset=".18" stop-color="#ffdf81" stop-opacity=".87"/><stop offset=".48" stop-color="#ffe5aa" stop-opacity=".39"/><stop offset="1" stop-color="#ffe5a9" stop-opacity="0"/></radialGradient>
+  <radialGradient id="snowAura"><stop offset="0" stop-color="#ffe7a5" stop-opacity=".75"/><stop offset=".45" stop-color="#ffeac0" stop-opacity=".3"/><stop offset="1" stop-color="#ffebb3" stop-opacity="0"/></radialGradient>
+  <linearGradient id="farMountain" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c5d8e8"/><stop offset=".5" stop-color="#8aa8bf"/><stop offset="1" stop-color="#315276"/></linearGradient>
+  <linearGradient id="midMountain" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#859eb8"/><stop offset=".5" stop-color="#355a7e"/><stop offset="1" stop-color="#163450"/></linearGradient>
+  <linearGradient id="leftSlope" x1="0" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="#f1f8fd"/><stop offset=".45" stop-color="#c5d8e9"/><stop offset="1" stop-color="#7796b7"/></linearGradient>
+  <linearGradient id="rightSlope" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#dceaf4"/><stop offset="1" stop-color="#54749c"/></linearGradient>
+  <linearGradient id="pathSnow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fcfcff"/><stop offset=".5" stop-color="#c9daea"/><stop offset="1" stop-color="#89a9c5"/></linearGradient>
+  <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1"><stop id="lakeTop" offset="0" stop-color="#688cab"/><stop id="lakeBottom" offset="1" stop-color="#273f69"/></linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#afc4d1"/><stop offset=".6" stop-color="#426680"/><stop offset="1" stop-color="#a9bfcb"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#77543b"/><stop offset="1" stop-color="#342b2e"/></linearGradient>
+  <filter id="softBlur"><feGaussianBlur stdDeviation="9"/></filter>
+  <clipPath id="lakeClip"><path d="M777 499 C900 492 966 509 1072 512 C1228 518 1370 505 1600 498 L1600 641 C1445 609 1343 600 1240 565 C1103 528 1005 552 912 548 C842 537 806 531 777 499Z"/></clipPath>
+ </defs>
+ <!-- All atmospheric objects are vectors. Sun and moon are behind the mountains. -->
+ <rect width="1600" height="900" fill="url(#sky)"/>
+ <g id="skyStars" opacity=".9"></g>
+ <g id="moonGroup" opacity="0"><circle r="88" fill="url(#moonGlow)"/><circle r="24" fill="#dce5ee"/><circle cx="-6" cy="-7" r="6" fill="#a2b6c9" opacity=".38"/><circle cx="8" cy="7" r="4" fill="#99aabe" opacity=".35"/><circle cx="9" cy="-9" r="3.2" fill="#9db1c5" opacity=".4"/><circle id="moonShadow" cx="0" cy="0" r="23" fill="#092440" opacity=".66"/></g>
+ <g id="sunGroup" opacity="0"><circle r="150" fill="url(#sunGlow)"/><circle r="25" fill="#fff7cd"/><circle r="18" fill="#ffedaa"/></g>
+ <g id="clouds" opacity=".4" fill="#dbe5f3">
+  <path d="M175 185 Q248 145 333 178 Q413 143 511 170 Q450 178 355 180 Q255 197 175 185Z" opacity=".23"/>
+  <path d="M835 190 Q900 172 973 182 Q1056 149 1183 187 Q1085 193 983 194 Q904 207 835 190Z" opacity=".2"/>
+  <path d="M1109 264 Q1213 242 1300 255 Q1410 231 1531 264 Q1423 275 1319 267 Q1200 276 1109 264Z" opacity=".18"/>
+ </g>
+ <!-- Jagged Alpine peaks with the distant town and lake kept visible -->
+ <path d="M0 429 L77 396 143 410 217 369 263 390 321 330 369 364 435 301 471 326 543 287 603 349 670 325 730 348 785 276 846 333 901 291 955 339 1007 310 1080 359 1126 344 1185 368 1263 328 1320 362 1382 337 1441 376 1510 349 1600 390 1600 520 0 520Z" fill="url(#farMountain)"/>
+ <g fill="#f8fbff" opacity=".73">
+  <path d="M280 395 L321 330 350 358 337 349 329 373 319 355 310 388Z"/>
+  <path d="M400 337 L435 301 464 324 450 318 441 346 430 328 422 348Z"/>
+  <path d="M504 327 L543 287 585 329 559 319 548 341 535 311 524 342Z"/>
+  <path d="M749 331 L785 276 826 321 799 307 790 337 776 303 768 323Z"/>
+  <path d="M868 323 L901 291 944 335 917 319 905 333 895 310 882 327Z"/>
+  <path d="M1243 357 L1263 328 1295 350 1270 341 1261 358Z"/>
+ </g>
+ <path d="M0 505 Q171 419 331 449 Q461 409 601 467 Q742 433 860 493 Q1026 432 1179 470 Q1345 424 1600 463 L1600 603 0 625Z" fill="url(#midMountain)" opacity=".92"/>
+ <path d="M0 507 Q160 451 306 480 Q500 443 623 502 Q744 470 884 520 Q1074 463 1192 501 Q1418 469 1600 505 L1600 585 Q1370 559 1193 542 Q984 549 841 554 Q601 542 350 575 Q195 565 0 586Z" fill="#244964" opacity=".53"/>
+ <path d="M777 499 C900 492 966 509 1072 512 C1228 518 1370 505 1600 498 L1600 641 C1445 609 1343 600 1240 565 C1103 528 1005 552 912 548 C842 537 806 531 777 499Z" fill="url(#lake)"/>
+ <g id="lakeReflections" clip-path="url(#lakeClip)"><path d="M850 509 C1080 535 1380 523 1590 521" stroke="#f4bb86" stroke-opacity=".25" stroke-width="3" fill="none"/><path d="M945 532 C1113 554 1370 554 1584 565" stroke="#c8dfff" stroke-opacity=".29" stroke-width="2" fill="none"/><g id="sunReflection" opacity=".2"><path d="M1140 496 L1170 660" stroke="#fce6a2" stroke-width="19" opacity=".23"/><path d="M1120 503 L1159 640" stroke="#fff4c4" stroke-width="6" opacity=".47"/></g><g id="moonReflection" opacity="0"><path d="M1354 496 L1322 660" stroke="#d5e6fb" stroke-width="15" opacity=".23"/></g></g>
+ <!-- Far village sits visibly along the lakeshore -->
+ <path d="M815 554 Q904 540 961 566 Q1051 548 1120 565 Q1202 544 1295 585 L1274 621 Q1140 580 1064 596 Q934 589 852 589Z" fill="#718da6"/>
+ <g id="villageGround"></g>
+ <g id="distantTrees"></g>
+ <g id="villageBuildings"></g>
+ <!-- Foreground one continuous snowy hiking route, not forked -->
+ <path d="M0 310 Q116 327 221 419 Q345 473 479 522 Q601 571 736 610 Q823 639 892 623 Q960 609 1023 590 L1165 625 Q1014 684 910 710 Q784 776 755 900 L0 900Z" fill="url(#leftSlope)"/>
+ <path d="M1600 470 Q1492 477 1412 514 Q1301 542 1198 579 Q1083 613 1008 615 Q973 624 951 651 Q1035 700 1123 752 Q1262 796 1600 814Z" fill="url(#rightSlope)"/>
+ <path d="M305 900 C419 759 542 685 654 655 C742 625 843 625 923 609 C967 602 1018 591 1060 579 C1032 587 1005 608 987 622 C932 653 852 663 769 705 C677 752 633 804 617 900Z" fill="url(#pathSnow)" stroke="#dbe8f3" stroke-width="11" stroke-linejoin="round"/>
+ <path d="M360 900 C440 783 566 712 672 671 C772 637 887 633 1030 588" fill="none" stroke="#7190ac" stroke-opacity=".24" stroke-width="14" stroke-linecap="round" stroke-dasharray="2 17"/>
+ <path d="M380 900 C467 785 568 723 670 684 C792 645 880 631 1026 592" fill="none" stroke="#ffffff" stroke-opacity=".31" stroke-width="6" stroke-dasharray="7 26"/>
+ <path d="M299 900 C410 758 548 687 653 653 C762 622 845 627 920 611" stroke="#fffdf7" stroke-opacity=".67" stroke-width="6" fill="none"/>
+ <path d="M620 900 C673 772 776 716 869 673 C916 650 978 639 1003 627" stroke="#edf5fb" stroke-opacity=".55" stroke-width="7" fill="none"/>
+ <!-- Snowbanks and foreground trees -->
+ <g id="backPines"></g>
+ <g id="frontPines"></g>
+ <g stroke="#344454" stroke-linecap="round" stroke-width="8" fill="none" opacity=".88">
+  <path d="M65 672 L315 720" /><path d="M64 684 L314 735" />
+  <path d="M65 654 L65 723 M148 677 L148 743 M228 693 L228 756 M306 710 L306 772"/>
+  <path d="M1314 803 L1565 816 M1314 818 L1565 833 M1326 786 L1326 862 M1418 800 L1418 867 M1537 802 L1537 878"/>
+ </g>
+ <g stroke="#eef7ff" stroke-width="6" opacity=".8" stroke-linecap="round"><path d="M65 652 L315 707 M1314 797 L1565 808"/></g>
+ <g id="snowMounds"></g>
+ <!-- Lamplight is behind each lamp body, made from SVG (no image sprites). -->
+ <g id="lampSystem"></g>
+ <g class="snow-layer" id="snowLayer"></g>
+</svg>
+<div class="scene-overlay" id="sceneStatus">SVG · Testlandschaft · 12:00</div>
+</div>
+<div class="details">
+ <div class="rowhead">
+  <h2 data-i18n="testControls">Tageslauf testen</h2>
+  <span class="small" data-i18n="zeroImages">0 PNG-Dateien · 0 externe Bibliotheken · 100 % Inline-SVG</span>
+ </div>
+ <div class="grid">
+  <section class="panel">
+   <div class="between"><label for="timeRange" data-i18n="time">Simulierte Uhrzeit</label><span id="timeValue" class="value mono">16:00</span></div>
+   <input id="timeRange" class="slider" type="range" min="0" max="1439" value="960" step="1" aria-label="Uhrzeit">
+   <div class="chips" id="shortcuts">
+    <button type="button" data-minute="180">03:00</button>
+    <button type="button" data-minute="420">07:00</button>
+    <button type="button" data-minute="720">12:00</button>
+    <button type="button" data-minute="960">16:00</button>
+    <button type="button" data-minute="1200">20:00</button>
+   </div>
+   <div class="actions">
+    <button id="play" type="button" class="primary" data-i18n="play">24-Stunden-Lauf starten</button>
+    <button id="real" type="button" data-i18n="real">Echtzeit verwenden</button>
+   </div>
+   <div class="period" id="sunTimes">Sonnenaufgang ca. 08:05 · Sonnenuntergang ca. 16:20</div>
+  </section>
+  <section class="panel">
+   <h3 data-i18n="settings">Landschaftssteuerung</h3>
+   <label for="testDate" data-i18n="date">Datum für Winterlicht und Mondphase</label>
+   <input id="testDate" type="date" min="2026-11-29" max="2027-01-01" value="2026-12-06">
+   <div class="between" style="margin-top:15px"><label for="lampRange" data-i18n="lamps">Freigeschaltete Laternen</label><strong class="mono" id="lampValue">8 / 8</strong></div>
+   <input class="slider" id="lampRange" type="range" min="0" max="8" step="1" value="8">
+   <label class="check"><input type="checkbox" id="snowToggle" checked><span data-i18n="snow">Leichter, leiser Schneefall</span></label>
+   <div class="swatches"><span class="swatch" id="phaseLabel">Abenddämmerung</span><span class="swatch" id="moonLabel">Mondphase: Simulation</span></div>
+  </section>
+ </div>
+ <p class="info" data-i18n="info">Das ist eine eigenständige SVG-Illustration – keine identische Kopie unseres freigegebenen Fotopanoramas. Sonne und Mond wandern als echte Vektorelemente; Himmel, Dorfbeleuchtung, Laternen und Schnee reagieren auf die Uhrzeit. Sonnenzeiten und Mondphase sind für diesen Gestaltungstest nur näherungsweise modelliert. Die Weihnachtsreise bleibt unverändert.</p>
+</div>
+<footer data-i18n="footer">SVG-Tageszeiten-Labor · Nur Testseite · Keine Änderung an Etappe 1 oder Etappe 2</footer>
+</div>
+<script>
+(function(){
+'use strict';
+const NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+function svg(tag,a,parent){
+ const e=document.createElementNS(NS,tag);
+ Object.keys(a||{}).forEach(k=>e.setAttribute(k,String(a[k])));
+ if(parent)parent.appendChild(e);
+ return e;
+}
+function rand(seed){let a=(seed+0x6D2B79F5)>>>0;return function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296}}
+const R=rand(20261129);
+const text={
+ de:{kicker:'Weihnachten 2026 · Experiment',headline:'Eine Winterlandschaft, ein lebendiger Himmel',lead:'Vollständig aus HTML, CSS und Inline-SVG. Ohne PNG, Bilddateien, Icons oder externe Ressourcen.',testnote:'Separater Technikversuch für Etappe 1. Die bestehende Weihnachtsreise wird nicht verändert. Die Landschaft ist eine SVG-Illustration, keine fotorealistische Kopie.',testControls:'Tageslauf testen',zeroImages:'0 PNG-Dateien · 0 externe Bibliotheken · 100 % Inline-SVG',time:'Simulierte Uhrzeit',play:'24-Stunden-Lauf starten',pause:'Tageslauf anhalten',real:'Echtzeit verwenden',settings:'Landschaftssteuerung',date:'Datum für Winterlicht und Mondphase',lamps:'Freigeschaltete Laternen',snow:'Leichter, leiser Schneefall',info:'Das ist eine eigenständige SVG-Illustration – keine identische Kopie unseres freigegebenen Fotopanoramas. Sonne und Mond wandern als Vektorelemente; Himmel, Dorfbeleuchtung, Laternen und Schnee reagieren auf die Uhrzeit. Sonnenzeiten und Mondphase sind für diesen Gestaltungstest nur näherungsweise modelliert. Die Weihnachtsreise bleibt unverändert.',footer:'SVG-Tageszeiten-Labor · Nur Testseite · Keine Änderung an Etappe 1 oder Etappe 2',rise:'Sonnenaufgang ca.',set:'Sonnenuntergang ca.',moon:'Mondphase (vereinfacht)',moonNew:'Neumond',moonWax:'zunehmend',moonFull:'Vollmond',moonWane:'abnehmend',phaseNight:'Nacht',phaseDawn:'Morgengrauen',phaseMorning:'Morgen',phaseNoon:'Tageslicht',phaseDusk:'Dämmerung',phaseEvening:'Abend',status:'Eigenständige SVG-Landschaft',realStatus:'Echtzeit (Berlin)'},
+ en:{kicker:'Christmas 2026 · Experiment',headline:'One winter landscape, a living sky',lead:'Entirely HTML, CSS and inline SVG. No PNGs, image files, icons or external resources.',testnote:'Independent technical test for Stage 1. The existing Christmas journey is untouched. This landscape is an SVG illustration, not a photorealistic replica.',testControls:'Try the daily cycle',zeroImages:'0 PNG files · 0 external libraries · 100% inline SVG',time:'Simulated time',play:'Play 24-hour cycle',pause:'Pause the cycle',real:'Use real time',settings:'Landscape controls',date:'Date for winter light and moon phase',lamps:'Unlocked streetlamps',snow:'Gentle, quiet snowfall',info:'This is a separate SVG illustration, not a pixel-identical copy of the approved panorama. Sun and moon move as vector objects; sky, village windows, lamps and snow react to time. Sunrise, sunset and lunar phases are approximate artistic simulations. The existing journey is unchanged.',footer:'SVG daylight lab · Test page only · No changes to stages 1 or 2',rise:'Sunrise approx.',set:'Sunset approx.',moon:'Moon phase (simplified)',moonNew:'New moon',moonWax:'Waxing',moonFull:'Full moon',moonWane:'Waning',phaseNight:'Night',phaseDawn:'Predawn',phaseMorning:'Morning',phaseNoon:'Daylight',phaseDusk:'Twilight',phaseEvening:'Evening',status:'Separate SVG landscape',realStatus:'Real time (Berlin)'}
+};
+let lang='de',simTime=960,mode='simulation',runTimer=null,unlocked=8;
+let date='2026-12-06';
+const lampData=[
+ [265,834,400,1],[540,689,208,.72],[681,649,135,.53],[760,623,103,.43],
+ [814,610,81,.36],[859,603,66,.31],[906,593,54,.27],[966,579,43,.23]
+];
+const lampGlows=[];
+const litWindows=[];
+function pine(layer,x,y,s,tint){
+ const g=svg('g',{transform:'translate('+x+' '+y+') scale('+s+')',opacity:tint==='far'?.66:1},layer);
+ svg('path',{d:'M-4 0 L4 0 L3 -39 L-3 -39Z',fill:tint==='far'?'#1a4561':'#17364d'},g);
+ for(let i=0;i<4;i++){
+  const top=-130+i*25,w=30+i*8;
+  svg('path',{d:'M0 '+top+' L'+(-w)+' '+(top+58)+' Q0 '+(top+48)+' '+w+' '+(top+58)+'Z',fill:tint==='far'?'#1f506a':'#163e55'},g);
+  svg('path',{d:'M0 '+(top+4)+' L'+(-w+8)+' '+(top+48)+' Q0 '+(top+37)+' '+(w-8)+' '+(top+48),fill:'none',stroke:'#e6f0f5','stroke-width':2.5,'stroke-linecap':'round',opacity:'.8'},g);
+ }
+ return g;
+}
+function scenery(){
+ const stars=$('skyStars');
+ for(let i=0;i<170;i++){
+  const x=20+R()*1560,y=15+R()*360;
+  svg('circle',{cx:x,cy:y,r:(.5+R()*1.5).toFixed(2),fill:'#fff',opacity:(.27+R()*.65).toFixed(2)},stars);
+ }
+ const back=$('backPines'),far=$('distantTrees'),front=$('frontPines');
+ for(let i=0;i<55;i++){
+  const x=R()*1620,y=465+R()*95;
+  pine(far,x,y,.18+R()*.31,'far');
+ }
+ for(let i=0;i<58;i++){
+  const x=(i<35?R()*490:1120+R()*500),y=(i<35?440+R()*210:500+R()*200);
+  pine(back,x,y,.5+R()*.66,'back');
+ }
+ for(let i=0;i<24;i++){
+  const x=(i<12?R()*175:1400+R()*200),y=470+R()*270;
+  pine(front,x,y,.6+R()*1.25,'front');
+ }
+ const mound=$('snowMounds');
+ for(let i=0;i<75;i++){
+  const left=i%2===0;
+  const x=left?R()*420:1100+R()*500;
+  const y=580+R()*350;
+  svg('ellipse',{cx:x,cy:y,rx:14+R()*36,ry:4+R()*14,fill:R()>.5?'#f2f8fb':'#bed5e6',opacity:'.49'},mound);
+ }
+ const ground=$('villageGround'),v=$('villageBuildings');
+ svg('path',{d:'M885 560 Q930 540 992 553 Q1070 533 1128 548 Q1220 528 1300 565 L1280 589 Q1144 557 1040 581 Q938 582 885 560Z',fill:'#d5e4e9',opacity:'.88'},ground);
+ for(let i=0;i<35;i++){
+  const x=930+R()*348,y=513+R()*57,scale=.34+R()*.48;
+  const g=svg('g',{transform:'translate('+x+' '+y+') scale('+scale+')'},v);
+  const w=42+R()*23,h=26+R()*17;
+  svg('rect',{x:-w/2,y:-h,width:w,height:h,fill:'#324758',stroke:'#8fa6b6','stroke-width':2},g);
+  svg('path',{d:'M'+(-w/2-7)+' '+(-h)+' L0 '+(-h-24)+' L'+(w/2+7)+' '+(-h)+'Z',fill:'#eef6fc',stroke:'#688398','stroke-width':2},g);
+  [-w*.2,w*.2].forEach(z=>{
+   const win=svg('rect',{x:z-5,y:-h+7,width:10,height:11,fill:'#ffdb85',opacity:'.8'},g);
+   litWindows.push(win);
+  });
+ }
+ // Four larger central lakeside village landmarks.
+ const center=svg('g',{},v);
+ svg('rect',{x:1104,y:504,width:56,height:53,fill:'#536471'},center);
+ svg('path',{d:'M1095 505 L1132 477 L1169 505Z',fill:'#f6faff'},center);
+ [1117,1142].forEach(x=>litWindows.push(svg('rect',{x,y:520,width:9,height:13,fill:'#ffe09e'},center)));
+ svg('rect',{x:1193,y:476,width:21,height:87,fill:'#65717d'},center);
+ svg('path',{d:'M1185 476 L1204 423 L1222 476Z',fill:'#ecf3fa'},center);
+ svg('circle',{cx:1204,cy:460,r:7,fill:'#fbe29f'},center);
+ for(let i=0;i<8;i++){
+  const x=950+i*32,y=586-i*2;
+  svg('circle',{cx:x,cy:y,r:2.5,fill:'#d6e5fa'},v);
+ }
+}
+function createLamps(){
+ const layer=$('lampSystem');
+ lampData.forEach((p,i)=>{
+  const [x,base,height,scale]=p;
+  const g=svg('g',{transform:'translate('+x+' '+base+')'},layer);
+  const light=svg('g',{class:'lampLight',opacity:'0'},g);
+  svg('ellipse',{cx:0,cy:0,rx:75*scale+30,ry:31*scale+13,fill:'url(#snowAura)'},light);
+  svg('circle',{cx:0,cy:-height-6*scale,r:70*scale+21,fill:'url(#lampAura)'},light);
+  svg('ellipse',{cx:0,cy:-height-3*scale,rx:18*scale,ry:21*scale,fill:'#fff0bb',opacity:'.88'},light);
+  const body=svg('g',{transform:'translate(0,'+(-height)+') scale('+scale+')'},g);
+  svg('rect',{x:-6,y:2,width:12,height:height/scale-8,rx:2,fill:'#152f42',stroke:'#385268','stroke-width':2},body);
+  svg('path',{d:'M-15 -12 L15 -12 L13 0 L-13 0Z',fill:'#162e40'},body);
+  svg('path',{d:'M-22 -66 L22 -66 L18 -16 L-18 -16Z',fill:'url(#glass)',opacity:'.96'},body);
+  svg('path',{d:'M-23 -66 L23 -66 L14 -17 L-14 -17Z',fill:'none',stroke:'#0c2638','stroke-width':5,'stroke-linejoin':'round'},body);
+  svg('path',{d:'M0 -65 L0 -17',stroke:'#142e41','stroke-width':2.4},body);
+  svg('path',{d:'M-29 -66 Q0 -91 29 -66 L31 -61 L-31 -61Z',fill:'#122e42'},body);
+  svg('path',{d:'M-30 -67 Q0 -90 30 -67',stroke:'#f5fcff','stroke-width':5,'stroke-linecap':'round',fill:'none'},body);
+  svg('circle',{cx:0,cy:-83,r:5,fill:'#142e42'},body);
+  svg('rect',{x:-27,y:-17,width:54,height:7,rx:2,fill:'#183344'},body);
+  svg('path',{d:'M-14 -13 L14 -13',stroke:'#e9f4f8','stroke-width':3,opacity:'.52'},body);
+  lampGlows.push(light);
+ });
+}
+function snow(){
+ const group=$('snowLayer');
+ for(let i=0;i<66;i++){
+  const dot=svg('circle',{class:'snow-dot',cx:Math.round(R()*1600),cy:Math.round(-R()*900),r:(1.1+R()*2.6).toFixed(2),opacity:(.16+R()*.56).toFixed(2)},group);
+  dot.style.setProperty('--speed',(12+R()*21).toFixed(2)+'s');
+  dot.style.setProperty('--delay',(-R()*32).toFixed(2)+'s');
+  dot.style.setProperty('--drift',Math.round(-45+R()*90)+'px');
+ }
+}
+function clamp(v,a=0,b=1){return Math.max(a,Math.min(b,v))}
+function lerp(a,b,t){return a+(b-a)*t}
+function smooth(a,b,x){let t=clamp((x-a)/(b-a));return t*t*(3-2*t)}
+function rgb(hex){return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16))}
+function mixHex(a,b,t){t=clamp(t);const x=rgb(a),y=rgb(b);return '#'+x.map((v,i)=>Math.round(lerp(v,y[i],t)).toString(16).padStart(2,'0')).join('')}
+function timeString(m){return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')}
+function berlinParts(){
+ const f=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+ const p=Object.fromEntries(f.formatToParts(new Date()).filter(o=>o.type!=='literal').map(o=>[o.type,o.value]));
+ return {minute:Number(p.hour)*60+Number(p.minute),date:p.year+'-'+p.month+'-'+p.day};
+}
+function sunTimes(d){
+ const stamp=Date.parse(d+'T12:00:00Z');
+ const n=(stamp-Date.parse('2026-11-29T12:00:00Z'))/86400000;
+ // Deliberately approximate winter reference, NOT exact astronomy.
+ return {rise:Math.round(483+20*Math.sin(Math.PI*clamp(n/34)*.85)),set:Math.round(982-7*Math.sin(Math.PI*clamp(n/34)))};
+}
+function sunPalette(t){
+ // Representative sky colors: winter night, predawn, dawn, day, sunset and evening.
+ const points=[
+ [0,['#071a35','#142e55','#23456a']],
+ [340,['#0a1e3e','#24426b','#4b6688']],
+ [420,['#173660','#6480a2','#bd99ac']],
+ [490,['#315c86','#9ebad1','#f8c9b3']],
+ [590,['#3179ad','#7cb9e6','#d0eaff']],
+ [780,['#1165a0','#4d9bd5','#a5d4ed']],
+ [900,['#285b92','#7da7cf','#ecb9a6']],
+ [990,['#142e5c','#915e85','#f3a56b']],
+ [1050,['#0e284e','#45557b','#a76d82']],
+ [1140,['#091d3a','#1d365b','#36577b']],
+ [1440,['#071a35','#142e55','#23456a']]
+ ];
+ for(let i=1;i<points.length;i++){
+  if(t<=points[i][0]){
+   const a=points[i-1],b=points[i],f=smooth(a[0],b[0],t);
+   return a[1].map((c,j)=>mixHex(c,b[1][j],f));
+  }
+ }
+ return points[0][1];
+}
+function approximateMoonAge(d){
+ // Reference near the new moon 9 Dec 2026; demonstrative only.
+ const days=(Date.parse(d+'T12:00:00Z')-Date.parse('2026-12-09T12:00:00Z'))/86400000;
+ return ((days%29.53)+29.53)%29.53;
+}
+function phaseName(t,rise,set){
+ const s=text[lang];
+ if(t<rise-70||t>set+105)return s.phaseNight;
+ if(t<rise+10)return s.phaseDawn;
+ if(t<rise+120)return s.phaseMorning;
+ if(t>set+36)return s.phaseEvening;
+ if(t>set-70)return s.phaseDusk;
+ return s.phaseNoon;
+}
+function render(){
+ const now=mode==='realtime'?berlinParts():{minute:simTime,date};
+ const m=now.minute,d=now.date;
+ const sun=sunTimes(d),rise=sun.rise,set=sun.set;
+ const daylight=smooth(rise-50,rise+45,m)*(1-smooth(set-30,set+67,m));
+ const darkness=1-daylight;
+ const p=sunPalette(m);
+ $('skyTop').setAttribute('stop-color',p[0]);$('skyMid').setAttribute('stop-color',p[1]);$('skyBottom').setAttribute('stop-color',p[2]);
+ $('lakeTop').setAttribute('stop-color',mixHex('#223a66','#6aaad0',daylight));
+ $('lakeBottom').setAttribute('stop-color',mixHex('#102744','#345f8c',daylight));
+ $('skyStars').style.opacity=(Math.pow(darkness,2)*.96).toFixed(3);
+ $('clouds').style.opacity=(.22+.35*daylight).toFixed(3);
+ const sunF=clamp((m-(rise-30))/(set-rise+60));
+ const sunX=90+1415*sunF,sunY=365-242*Math.sin(Math.PI*sunF);
+ $('sunGroup').setAttribute('transform','translate('+sunX.toFixed(1)+' '+sunY.toFixed(1)+')');
+ const sunOn=m>=rise-35 && m<=set+40;
+ $('sunGroup').style.opacity=sunOn?(.35+.65*daylight).toFixed(2):'0';
+ const age=approximateMoonAge(d),illum=Math.abs(1-2*Math.abs(age/29.53-.5));
+ const nightStart=set+50,nightEnd=rise+1440-50;
+ const nightM=m<rise?m+1440:m;
+ const mf=clamp((nightM-nightStart)/(nightEnd-nightStart));
+ const moonUp=m>set+35||m<rise-35;
+ const moonX=1470-1320*mf,moonY=310-180*Math.sin(Math.PI*mf);
+ $('moonGroup').setAttribute('transform','translate('+moonX.toFixed(1)+' '+moonY.toFixed(1)+')');
+ $('moonGroup').style.opacity=moonUp?(darkness*.92).toFixed(2):'0';
+ // Moving shadow approximates a changing crescent; independent from background panorama.
+ const shadowShift=age<14.765?lerp(-1,1,age/14.765):lerp(1,-1,(age-14.765)/14.765);
+ $('moonShadow').setAttribute('cx',(shadowShift*42).toFixed(1));
+ $('moonShadow').setAttribute('opacity',(1-illum*.92).toFixed(2));
+ $('sunReflection').style.opacity=(daylight*Math.max(0,1-Math.abs(sunF-.82)*2.3)).toFixed(2);
+ $('moonReflection').style.opacity=(moonUp?darkness*.62:0).toFixed(2);
+ $('villageLight').style.opacity=(darkness*.92).toFixed(2);
+ litWindows.forEach(w=>w.setAttribute('opacity',(.05+.92*darkness).toFixed(3)));
+ lampGlows.forEach((g,i)=>g.setAttribute('opacity',(i<unlocked?.22+.78*Math.pow(darkness,.9):0).toFixed(3)));
+ $('timeValue').textContent=timeString(m);
+ $('timeRange').value=String(m);
+ $('timeRange').disabled=mode==='realtime';
+ $('testDate').disabled=mode==='realtime';
+ if(mode==='realtime')$('testDate').value=(d<'2026-11-29'||d>'2027-01-01')?'2026-12-06':d;
+ else $('testDate').value=date;
+ $('sunTimes').textContent=text[lang].rise+' '+timeString(rise)+' · '+text[lang].set+' '+timeString(set);
+ $('phaseLabel').textContent=phaseName(m,rise,set);
+ let phase=age<2||age>27?text[lang].moonNew:age<13?text[lang].moonWax:age<17?text[lang].moonFull:text[lang].moonWane;
+ $('moonLabel').textContent=text[lang].moon+': '+phase;
+ $('sceneStatus').innerHTML='<strong>'+timeString(m)+'</strong> · '+phaseName(m,rise,set)+' · '+text[lang][mode==='realtime'?'realStatus':'status'];
+ $('lampValue').textContent=unlocked+' / 8';
+ $('play').textContent=runTimer!==null?text[lang].pause:text[lang].play;
+ document.querySelectorAll('[data-minute]').forEach(b=>b.classList.toggle('selected',mode==='simulation'&&m===Number(b.dataset.minute)));
+ $('snowLayer').style.display=$('snowToggle').checked?'':'none';
+}
+function applyLanguage(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.dataset.i18n;if(text[lang][k])e.textContent=text[lang][k]});
+ $('de').classList.toggle('active',lang==='de');$('en').classList.toggle('active',lang==='en');
+ render();
+}
+function stop(){if(runTimer!==null){clearInterval(runTimer);runTimer=null}}
+$('de').addEventListener('click',()=>{lang='de';applyLanguage()});
+$('en').addEventListener('click',()=>{lang='en';applyLanguage()});
+$('timeRange').addEventListener('input',e=>{stop();mode='simulation';simTime=Number(e.target.value);render()});
+document.querySelectorAll('[data-minute]').forEach(b=>b.addEventListener('click',()=>{stop();mode='simulation';simTime=Number(b.dataset.minute);render()}));
+$('lampRange').addEventListener('input',e=>{unlocked=Number(e.target.value);render()});
+$('snowToggle').addEventListener('change',render);
+$('testDate').addEventListener('change',e=>{if(e.target.value>='2026-11-29'&&e.target.value<='2027-01-01')date=e.target.value;render()});
+$('play').addEventListener('click',()=>{
+ if(runTimer!==null){stop();render();return}
+ mode='simulation';
+ runTimer=setInterval(()=>{simTime=(simTime+7)%1440;render()},90);
+ render();
+});
+$('real').addEventListener('click',()=>{stop();mode='realtime';render()});
+setInterval(()=>{if(mode==='realtime')render()},60000);
+scenery();createLamps();snow();applyLanguage();
+})();
+</script>
+</body>
+</html>
