@@ -5,7 +5,7 @@
   "start_date": "2026-12-07",
   "end_date": "2026-12-13",
   "timezone": "Europe/Berlin",
-  "status": "TEST / Korrektur 16.11.2026: Glühbirnenzentren im Originalbild und kräftige Schneereflexionen",
+  "status": "TEST / 16.11.2026: Leuchtmittel 3–6 anhand des freigegebenen PNG neu zentriert. Lampen 1–2 und Schneereflexionen unverändert.",
   "stations": [
     {
       "day": 9,
@@ -38,8 +38,8 @@
     {
       "day": 11,
       "type": "laterne",
-      "x": 674,
-      "y": 508,
+      "x": 681,
+      "y": 494,
       "halo_rx": 19,
       "halo_ry": 26,
       "bulb_rx": 5,
@@ -52,8 +52,8 @@
     {
       "day": 12,
       "type": "laterne",
-      "x": 855,
-      "y": 547,
+      "x": 868,
+      "y": 542,
       "halo_rx": 15,
       "halo_ry": 20,
       "bulb_rx": 4,
@@ -66,8 +66,8 @@
     {
       "day": 13,
       "type": "laterne",
-      "x": 1007,
-      "y": 559,
+      "x": 1020,
+      "y": 552,
       "halo_rx": 14,
       "halo_ry": 17,
       "bulb_rx": 3.5,
@@ -80,8 +80,8 @@
     {
       "day": 14,
       "type": "laterne",
-      "x": 1133,
-      "y": 541,
+      "x": 1149,
+      "y": 536,
       "halo_rx": 13,
       "halo_ry": 17,
       "bulb_rx": 3.5,
