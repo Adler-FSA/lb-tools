@@ -90,14 +90,15 @@ const STATIONS=[
  {x:1045,y:524,sx:1060,sy:548,rx:160,ry:60,halo:67,glow:12,village:true}
 ];
 const STAGE2_STATIONS=[
- // Licht 9–14: Mittelpunkte der sichtbaren Glühbirnen im freigegebenen Panorama (SVG 1672 × 941).
- {x:177,y:212,sx:177,sy:730,rx:65,ry:24,haloRx:22,haloRy:27,bulbRx:9,bulbRy:15,glow:45},
- {x:440,y:379,sx:440,sy:689,rx:48,ry:18,haloRx:15,haloRy:19,bulbRx:6,bulbRy:10,glow:30},
- {x:678,y:473,sx:678,sy:668,rx:37,ry:14,haloRx:11,haloRy:14,bulbRx:4.5,bulbRy:7,glow:22},
- {x:861,y:525,sx:861,sy:659,rx:31,ry:12,haloRx:9,haloRy:11,bulbRx:3.5,bulbRy:5.5,glow:18},
- {x:1010,y:540,sx:1010,sy:650,rx:27,ry:10,haloRx:8,haloRy:10,bulbRx:3,bulbRy:5,glow:16},
- {x:1145,y:525,sx:1145,sy:636,rx:27,ry:10,haloRx:8,haloRy:10,bulbRx:3,bulbRy:5,glow:16},
- // Licht 15: Hausbesuch, unverändertes Hauslicht.
+ // Etappe 2: genaue Glühbirnenzentren im freigegebenen Originalpanorama (1671 × 941).
+ // Die Positionen der Lichtreflexionen folgen jeweils dem EINEN Wanderweg.
+ {x:182,y:263,sx:245,sy:785,rx:220,ry:118,haloRx:43,haloRy:58,bulbRx:11,bulbRy:19,glow:45},
+ {x:436,y:416,sx:470,sy:716,rx:132,ry:78,haloRx:27,haloRy:36,bulbRx:7,bulbRy:11,glow:30},
+ {x:674,y:508,sx:702,sy:674,rx:94,ry:52,haloRx:19,haloRy:26,bulbRx:5,bulbRy:9,glow:22},
+ {x:855,y:547,sx:884,sy:652,rx:74,ry:42,haloRx:15,haloRy:20,bulbRx:4,bulbRy:7,glow:18},
+ {x:1007,y:559,sx:1024,sy:649,rx:59,ry:36,haloRx:14,haloRy:17,bulbRx:3.5,bulbRy:6,glow:16},
+ {x:1133,y:541,sx:1144,sy:625,rx:64,ry:36,haloRx:13,haloRy:17,bulbRx:3.5,bulbRy:6,glow:16},
+ // Siebtes Licht: unverändertes Haus.
  {x:1271,y:502,sx:1270,sy:638,rx:165,ry:77,halo:205,glow:44,house:true}
 ];
 const DAYS=[
@@ -152,12 +153,17 @@ function berlinDay(now){const parts=new Intl.DateTimeFormat('en-GB',{timeZone:ZO
 function current(){return mode==='simulation'?day:Math.max(0,Math.min(MAX,berlinDay(now())))}
 function dateText(n){return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{timeZone:'UTC',weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(dateFromDay(Math.max(1,n)))}
 function timeText(){if(mode==='simulation')return dateText(day)+' · '+String(Math.floor(simMinutes/60)).padStart(2,'0')+':'+String(simMinutes%60).padStart(2,'0');return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{timeZone:ZONE,weekday:'long',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(now())}
-// Nur Etappe 2: sanftes Leuchten der sichtbaren Glühbirne, ohne großflächige Aura.
+// Etappe 2: sichtbare Glühbirne exakt im Glas + starker warmer Lichtteppich auf dem Schnee.
 function drawStageTwoBulb(g,s){
- el('ellipse',{class:'light-spot',cx:s.sx,cy:s.sy,rx:s.rx,ry:s.ry,fill:'url(#snowLight)',opacity:.26},g);
- el('ellipse',{cx:s.x,cy:s.y,rx:s.haloRx,ry:s.haloRy,fill:'url(#lampWarm)',opacity:.31},g);
- el('ellipse',{cx:s.x,cy:s.y,rx:s.bulbRx,ry:s.bulbRy,fill:'#ffdd85',opacity:.73},g);
- el('ellipse',{cx:s.x,cy:s.y,rx:s.bulbRx*.52,ry:s.bulbRy*.77,fill:'#fff8d9',opacity:.9},g);
+ // Breite, weiche Schneereflexion: wirkt wie in Etappe 1, bleibt am Weg.
+ el('ellipse',{class:'light-spot',cx:s.sx,cy:s.sy,rx:s.rx,ry:s.ry,fill:'url(#snowLight)',opacity:1},g);
+ el('ellipse',{class:'light-spot',cx:s.sx,cy:s.sy,rx:s.rx*.55,ry:s.ry*.5,fill:'url(#snowLight)',opacity:.42},g);
+ // Nur eine sehr schwache Aura außerhalb des Lampenglases, kein abgesetzter Leuchtpunkt.
+ el('ellipse',{cx:s.x,cy:s.y,rx:s.haloRx*2.05,ry:s.haloRy*1.7,fill:'url(#lampWarm)',opacity:.16},g);
+ // Warmer Glasschein, direkt um die tatsächlich sichtbare Glühbirne zentriert.
+ el('ellipse',{cx:s.x,cy:s.y,rx:s.haloRx,ry:s.haloRy,fill:'url(#lampWarm)',opacity:.84},g);
+ el('ellipse',{cx:s.x,cy:s.y,rx:s.bulbRx,ry:s.bulbRy,fill:'#ffe6a0',opacity:.96},g);
+ el('ellipse',{cx:s.x,cy:s.y,rx:s.bulbRx*.48,ry:s.bulbRy*.72,fill:'#fff9df',opacity:1},g);
 }
 function buildLights(){const layer=$('lighting'),buttons=$('lampButtons');layer.replaceChildren();buttons.replaceChildren();activeStations().forEach((s,i)=>{
  const g=el('g',{class:s.house?'light house-light':'light',id:'light-'+(i+1)},layer);
