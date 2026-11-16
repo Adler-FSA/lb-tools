@@ -120,6 +120,10 @@ footer{text-align:center;color:#617882;font-size:12px;padding:18px}
  <path d="M815 554 Q904 540 961 566 Q1051 548 1120 565 Q1202 544 1295 585 L1274 621 Q1140 580 1064 596 Q934 589 852 589Z" fill="#718da6"/>
  <g id="villageGround"></g>
  <g id="distantTrees"></g>
+ <g id="villageLight" opacity="0">
+  <ellipse cx="1064" cy="568" rx="190" ry="78" fill="url(#lampAura)" opacity=".32"/>
+  <ellipse cx="1204" cy="550" rx="99" ry="52" fill="url(#lampAura)" opacity=".24"/>
+ </g>
  <g id="villageBuildings"></g>
  <!-- Foreground one continuous snowy hiking route, not forked -->
  <path d="M0 310 Q116 327 221 419 Q345 473 479 522 Q601 571 736 610 Q823 639 892 623 Q960 609 1023 590 L1165 625 Q1014 684 910 710 Q784 776 755 900 L0 900Z" fill="url(#leftSlope)"/>
@@ -275,8 +279,8 @@ function createLamps(){
   const g=svg('g',{transform:'translate('+x+' '+base+')'},layer);
   const light=svg('g',{class:'lampLight',opacity:'0'},g);
   svg('ellipse',{cx:0,cy:0,rx:75*scale+30,ry:31*scale+13,fill:'url(#snowAura)'},light);
-  svg('circle',{cx:0,cy:-height-6*scale,r:70*scale+21,fill:'url(#lampAura)'},light);
-  svg('ellipse',{cx:0,cy:-height-3*scale,rx:18*scale,ry:21*scale,fill:'#fff0bb',opacity:'.88'},light);
+  svg('circle',{cx:0,cy:-height-40*scale,r:70*scale+21,fill:'url(#lampAura)'},light);
+  svg('ellipse',{cx:0,cy:-height-40*scale,rx:18*scale,ry:21*scale,fill:'#fff0bb',opacity:'.88'},light);
   const body=svg('g',{transform:'translate(0,'+(-height)+') scale('+scale+')'},g);
   svg('rect',{x:-6,y:2,width:12,height:height/scale-8,rx:2,fill:'#152f42',stroke:'#385268','stroke-width':2},body);
   svg('path',{d:'M-15 -12 L15 -12 L13 0 L-13 0Z',fill:'#162e40'},body);
