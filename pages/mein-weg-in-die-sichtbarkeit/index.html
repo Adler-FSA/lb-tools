@@ -138,7 +138,30 @@
     .profiles-card p{margin-bottom:16px}
     .final-line{font-size:18px;font-weight:800;color:var(--ink);margin-top:16px}
     @media(max-width:640px){.foreword{padding:50px 0}.foreword p:not(.eyebrow){font-size:16px}.foreword .foreword-quote{font-size:19px!important}}
-  </style>
+  
+/* Gemeinsame Reisenavigation – alle Etappen */
+.travel{background:#fff;border-block:1px solid var(--line);padding:26px 0}
+.travel-head{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:15px}
+.travel-name{margin:0;color:var(--ink);font-size:17px;font-weight:820;letter-spacing:-.3px}
+.travel-description{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.travel-route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.travel-link{min-width:0;border:1px solid #d1e4e0;background:#f7fbfa;color:var(--ink);display:flex;gap:11px;align-items:center;text-decoration:none;border-radius:13px;padding:14px;transition:background .2s,border-color .2s}
+.travel-link:hover{background:#eaf7f5;border-color:#70bdb6}
+.travel-link[aria-current="step"]{border:2px solid var(--mint-dark);background:var(--mint-soft);padding:13px}
+.travel-number{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:white;border:1px solid #cee3de;display:grid;place-items:center;font-size:14px;color:var(--mint-dark);font-weight:850}
+.travel-link[aria-current="step"] .travel-number{background:var(--mint-dark);color:#fff;border-color:var(--mint-dark)}
+.travel-link.done .travel-number{background:#cfece5;color:#0c6863}
+.travel-info{min-width:0;display:flex;flex-direction:column;gap:3px}
+.travel-stepname{font-size:12px;font-weight:850;line-height:1.2;color:var(--muted)}
+.travel-title{font-size:14px;font-weight:800;line-height:1.35}
+.travel-status{font-size:11px;color:var(--mint-dark);font-weight:700}
+.travel-controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:17px}
+.travel-control{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;border:1px solid #bbd9d4;padding:12px 17px;color:var(--ink);background:#fff;text-decoration:none;font-size:13px;font-weight:800}
+.travel-control.next{background:var(--mint-dark);color:#fff;border-color:var(--mint-dark)}
+.travel-control:hover{filter:brightness(.97)}
+@media(max-width:700px){.travel{padding:18px 0}.travel-route{grid-template-columns:1fr;gap:8px}.travel-link,.travel-link[aria-current="step"]{padding:10px 12px}.travel-number{width:33px;height:33px;flex-basis:33px}.travel-info{gap:1px}.travel-title{font-size:13px}.travel-controls{flex-direction:column}.travel-control{width:100%}}
+@media print{.travel{display:none!important}}
+</style>
 </head>
 <body>
 <header class="header">
@@ -158,6 +181,7 @@
     </div>
   </div>
 </header>
+<section class="travel" aria-label="Deine Reise – drei Etappen" data-travel-current="1"><div class="wrap"><div class="travel-head"><div><h2 class="travel-name" data-travel-key="heading">Dein Weg in die Sichtbarkeit</h2><p class="travel-description" data-travel-key="description">Entdecke deine Reiseziele und gehe in deinem Tempo weiter.</p></div></div><nav class="travel-route" aria-label="Reise-Etappen"><a class="travel-link" href="./" aria-current="step" data-travel-step="1"><span class="travel-number">1</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="1">Etappe 1</span><span class="travel-title" data-travel-title="1">Vom Ich zum Wir</span><span class="travel-status" data-travel-status="1">0 / 8</span></span></a><a class="travel-link" href="etappe-2.html"  data-travel-step="2"><span class="travel-number">2</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="2">Etappe 2</span><span class="travel-title" data-travel-title="2">Aus Sichtbarkeit wird Begegnung</span><span class="travel-status" data-travel-status="2">0 / 8</span></span></a><a class="travel-link" href="etappe-3.html"  data-travel-step="3"><span class="travel-number">3</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="3">Etappe 3</span><span class="travel-title" data-travel-title="3">Aus deiner Expertise wird ein Angebot</span><span class="travel-status" data-travel-status="3">0 / 8</span></span></a></nav></div></section>
 <main>
 <section class="hero" id="start">
   <div class="wrap hero-grid">
@@ -301,6 +325,7 @@
     <aside class="progress-card"><div class="eyebrow" data-i18n="progressTag">Dein Fortschritt</div><div class="progress-number" id="progressNumber">0 / 8</div><div class="progress-bar" role="progressbar" id="progressBar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" aria-label="Abgeschlossene Schritte"><div class="progress-fill" id="progressFill"></div></div><p data-i18n="progressText">Das Ziel ist nicht, alles sofort zu beherrschen. Das Ziel ist, einen eigenen Anfang zu machen – und ab jetzt selbst handeln zu können.</p><button type="button" class="small-btn" id="resetBtn" data-i18n="reset">Checkliste zurücksetzen</button></aside>
   </div>
 </section>
+<section class="travel" aria-label="Deine Reise – drei Etappen" data-travel-current="1"><div class="wrap"><div class="travel-head"><div><h2 class="travel-name" data-travel-key="heading">Dein Weg in die Sichtbarkeit</h2><p class="travel-description" data-travel-key="description">Entdecke deine Reiseziele und gehe in deinem Tempo weiter.</p></div></div><nav class="travel-route" aria-label="Reise-Etappen"><a class="travel-link" href="./" aria-current="step" data-travel-step="1"><span class="travel-number">1</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="1">Etappe 1</span><span class="travel-title" data-travel-title="1">Vom Ich zum Wir</span><span class="travel-status" data-travel-status="1">0 / 8</span></span></a><a class="travel-link" href="etappe-2.html"  data-travel-step="2"><span class="travel-number">2</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="2">Etappe 2</span><span class="travel-title" data-travel-title="2">Aus Sichtbarkeit wird Begegnung</span><span class="travel-status" data-travel-status="2">0 / 8</span></span></a><a class="travel-link" href="etappe-3.html"  data-travel-step="3"><span class="travel-number">3</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="3">Etappe 3</span><span class="travel-title" data-travel-title="3">Aus deiner Expertise wird ein Angebot</span><span class="travel-status" data-travel-status="3">0 / 8</span></span></a></nav><div class="travel-controls"><span></span><a class="travel-control next" href="etappe-2.html" data-travel-key="next">Nächste Etappe</a></div></div></section>
 </main>
 <footer class="footer"><div class="wrap footer-inner"><div><strong data-i18n="footerTitle">Dein Weg. Deine Entscheidung. Deine Sichtbarkeit.</strong><p data-i18n="footerBody">Dieser Leitfaden begleitet deinen ersten selbstständigen Schritt mit LiquidityBooster. Weitere Werkzeuge – etwa KMS-Kontaktarbeit, Webinarraum und Online-Terminbuchung – kannst du später in deinem Tempo entdecken.</p><p data-i18n="footerLegal">Diese Seite ist eine Orientierungshilfe, kein Ersatz für die Regeln und Freigabeprozesse der Plattform. Keine Einkommens- oder Erfolgsgarantie.</p></div><a href="#start" data-i18n="backTop">Nach oben ↑</a></div></footer>
 <script>
@@ -360,5 +385,30 @@
   updateProgress();renderText();
 })();
 </script>
-</body>
+<script>
+(function(){"use strict";
+const words={
+de:{heading:"Dein Weg in die Sichtbarkeit",description:"Entdecke deine Reiseziele und gehe in deinem Tempo weiter.",stage:"Etappe",previous:"Vorherige Etappe",next:"Nächste Etappe",done:"Abgeschlossen",progress:"erledigt",ready:"Noch offen"},
+en:{heading:"Your path to visibility",description:"Explore your journey and move forward at your own pace.",stage:"Stage",previous:"Previous stage",next:"Next stage",done:"Completed",progress:"completed",ready:"Not started"}
+};
+const titles=[["Vom Ich zum Wir","From I to We"],["Aus Sichtbarkeit wird Begegnung","From visibility to connection"],["Aus deiner Expertise wird ein Angebot","Turn expertise into an offer"]];
+const keys=["lb-onboarding-checks","lb-visible-journey-stage2-checks","lb-visible-journey-stage3-checks"];
+function read(key){try{return JSON.parse(localStorage.getItem(key)||"{}")}catch(e){return {}}}
+function renderJourney(){
+const lang=document.documentElement.lang==="en"?"en":"de",w=words[lang];
+document.querySelectorAll("[data-travel-key]").forEach(el=>{const key=el.dataset.travelKey;el.textContent=key==="stage"?w.stage+" "+el.dataset.stageIndex:w[key]||""});
+document.querySelectorAll("[data-travel-title]").forEach(el=>{const i=Number(el.dataset.travelTitle)-1;el.textContent=titles[i][lang==="de"?0:1]});
+document.querySelectorAll("[data-travel-step]").forEach(el=>{
+const i=Number(el.dataset.travelStep)-1,s=read(keys[i]),count=Object.values(s).filter(Boolean).length;
+const complete=count>=8, number=el.querySelector(".travel-number"),status=el.querySelector("[data-travel-status]");
+el.classList.toggle("done",complete);number.textContent=complete?"✓":String(i+1);
+status.textContent=complete?w.done:(count>0?count+" / 8 "+w.progress:w.ready);
+});
+}
+new MutationObserver(m=>{if(m.some(x=>x.attributeName==="lang"))renderJourney()}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+document.addEventListener("change",e=>{if(e.target?.matches?.("input[data-check]"))queueMicrotask(renderJourney)});
+document.addEventListener("click",e=>{if(e.target?.closest?.("#resetBtn,#langDe,#langEn"))queueMicrotask(renderJourney)});
+renderJourney();
+})();
+</script></body>
 </html>
