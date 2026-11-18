@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f9f8">
+  <meta name="description" content="Mein Weg in die Sichtbarkeit: Etappe 1 – Vom Ich zum Wir. Dein Warum entdecken, Community erleben, dich positionieren und deinen ersten persönlichen Link weitergeben.">
+  <title>Mein Weg in die Sichtbarkeit – Etappe 1: Vom Ich zum Wir | LiquidityBooster</title>
+  <style>
+    :root { color-scheme:light; --paper:#f7f9f8; --white:#fff; --ink:#14252a; --muted:#576970; --line:#dde8e7; --mint:#149e9f; --mint-dark:#087f83; --mint-soft:#e8f7f5; --magenta:#a9286a; --magenta-soft:#f9edf3; --shadow:0 20px 55px rgba(14,49,54,.08); --radius:20px; }
+    * {box-sizing:border-box}
+    html {scroll-behavior:smooth;scroll-padding-top:84px}
+    body {margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.58;-webkit-font-smoothing:antialiased}
+    a{color:var(--mint-dark)}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    :focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+    .wrap{width:min(1140px,calc(100% - 44px));margin:auto}
+    .header{background:#fffefef0;border-bottom:1px solid var(--line);position:sticky;z-index:100;top:0;backdrop-filter:blur(14px)}
+    .header-inner{height:76px;display:flex;gap:22px;justify-content:space-between;align-items:center}
+    .brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);min-width:0}
+    .brand-mark{width:34px;height:34px;flex-shrink:0}
+    .brand-main{font-size:17px;font-weight:800;letter-spacing:-.7px;white-space:nowrap}
+    .brand-main span{color:var(--mint-dark)}
+    .brand-main b{color:var(--magenta);font-weight:800}
+    .brand-small{display:block;font-size:10px;font-weight:700;letter-spacing:1.55px;color:#65777a;text-transform:uppercase;line-height:1.3}
+    .nav{display:flex;gap:23px;align-items:center}
+    .nav a{font-size:13px;text-decoration:none;color:var(--ink);font-weight:650}
+    .nav a:hover{color:var(--mint-dark)}
+    .lang{display:flex;align-items:center;gap:3px;padding:3px;border:1px solid var(--line);border-radius:100px;background:var(--paper)}
+    .lang button{border:0;background:transparent;border-radius:100px;font-size:12px;font-weight:800;padding:7px 9px;color:#6a757a}
+    .lang button[aria-pressed="true"]{background:var(--ink);color:white}
+    .hero{padding:82px 0 70px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 30%,rgba(23,171,164,.12),transparent 42%),linear-gradient(180deg,#fff 0%,#f4faf8 100%)}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:65px;align-items:center}
+    .eyebrow{font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:2px;color:var(--mint-dark);margin:0 0 17px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(40px,5.3vw,70px);font-weight:850;line-height:1.075;letter-spacing:-2.7px;margin-bottom:23px}
+    h1 em{color:var(--magenta);font-style:normal}
+    .lead{font-size:clamp(17px,2vw,21px);max-width:630px;line-height:1.6;color:#33484c;margin-bottom:26px}
+    .hero-aside{font-size:14px;color:#506166;max-width:640px;margin:0 0 30px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;text-align:center;padding:13px 20px;min-height:48px;border-radius:10px;background:var(--mint-dark);border:1px solid var(--mint-dark);color:white;text-decoration:none;font-size:14px;font-weight:750;transition:transform .18s,background .18s,border-color .18s}
+    .btn:hover{transform:translateY(-1px);background:#056d72;border-color:#056d72}
+    .btn svg{width:17px;height:17px;flex-shrink:0}
+    .btn-outline{color:var(--ink);background:white;border-color:#c4d8d6}
+    .btn-outline:hover{background:#f0f9f7;border-color:var(--mint-dark)}
+    .btn-magenta{background:var(--magenta);border-color:var(--magenta)}
+    .btn-magenta:hover{background:#8e2059;border-color:#8e2059}
+    .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .graphic{width:100%;min-height:405px;border-radius:24px;background:linear-gradient(155deg,#14353b 10%,#153e42 60%,#0b6568 100%);color:white;position:relative;box-shadow:0 26px 65px rgba(17,65,68,.2);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:35px}
+    .graphic:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #ffffff24;border-radius:50%;right:-100px;bottom:-85px;box-shadow:0 0 0 42px #ffffff0a,0 0 0 92px #ffffff08}
+    .graphic-label{font-size:11px;letter-spacing:2.4px;font-weight:800;color:#a1e7d9;text-transform:uppercase;position:relative;z-index:1}
+    .circle{height:155px;width:155px;border:1px solid #8be7dc87;border-radius:50%;display:grid;place-items:center;position:relative;z-index:1;margin:18px auto 6px}
+    .circle svg{width:86px;height:86px}
+    .pathline{text-align:center;font-size:22px;font-weight:780;line-height:1.4;position:relative;z-index:1;letter-spacing:-.7px}
+    .pathline span{color:#94e2d8}
+    .graphic-bottom{position:relative;z-index:1;border-top:1px solid #ffffff40;display:flex;justify-content:space-between;gap:15px;padding-top:20px;font-size:12px;color:#d6ece9}
+    section{padding:78px 0}
+    .sectionhead{max-width:785px;margin-bottom:35px}
+    h2{font-size:clamp(29px,3.5vw,44px);letter-spacing:-1.2px;line-height:1.18;margin-bottom:15px;font-weight:820}
+    .sectionhead p:last-child{color:var(--muted);font-size:17px;max-width:740px;margin-bottom:0}
+    .cards-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:27px;box-shadow:0 5px 19px rgba(15,54,54,.025)}
+    .card h3{font-size:21px;line-height:1.3;margin:0 0 10px;letter-spacing:-.35px}
+    .card p{color:var(--muted);margin-bottom:13px}
+    .card p:last-child{margin-bottom:0}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:17px}
+    .number{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;width:44px;height:44px;font-weight:850;background:var(--mint-soft);color:var(--mint-dark)}
+    .micro{color:var(--muted);font-size:12px}
+    .textlink{text-decoration:underline;text-underline-offset:3px;font-weight:700}
+    .note{background:var(--mint-soft);border-left:3px solid var(--mint-dark);border-radius:0 12px 12px 0;padding:17px 20px;color:#255157;font-size:14px}
+    .note strong{color:var(--ink)}
+    .story{background:#fff;border-block:1px solid var(--line)}
+    .story .intro{display:flex;gap:25px;align-items:center}
+    .story .initial{width:90px;height:90px;display:grid;place-items:center;background:var(--magenta-soft);color:var(--magenta);font-size:40px;font-weight:800;border-radius:50%;flex-shrink:0}
+    .story .intro p{margin:0;color:var(--muted);max-width:800px;font-size:18px}
+    .steps{position:relative;display:grid;gap:18px}
+    .step{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:27px 29px;display:grid;grid-template-columns:66px 1fr;gap:22px;box-shadow:0 6px 16px rgba(0,0,0,.02)}
+    .step-num{font-size:31px;color:var(--mint-dark);font-weight:850;letter-spacing:-1px;line-height:1.2}
+    .step h3{font-size:22px;margin-bottom:9px;line-height:1.3}
+    .step p{color:var(--muted);margin-bottom:12px}
+    .step p:last-child{margin-bottom:0}
+    .path{background:var(--mint-soft);padding:12px 15px;border-radius:9px;font-size:14px;font-weight:800;color:#145d63;display:inline-flex;gap:10px;flex-wrap:wrap;margin:3px 0 14px}
+    .tag{display:inline-block;padding:4px 9px;background:var(--magenta-soft);color:#963166;border-radius:100px;font-size:12px;font-weight:750;vertical-align:middle}
+    .reflect{border:1px solid var(--line);background:linear-gradient(135deg,#f0fafa,#fff);border-radius:var(--radius);padding:29px;margin:22px 0}
+    .reflect-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    label.field-label{display:block;font-size:14px;font-weight:750;margin-bottom:8px}
+    textarea,.url-input{width:100%;border:1px solid #c9d9d8;border-radius:9px;background:#fff;padding:12px 13px;color:var(--ink)}
+    textarea{resize:vertical;min-height:98px;font-size:14px}
+    .subline{font-size:13px;color:var(--muted);margin-top:12px}
+    .share{background:linear-gradient(140deg,#12343b,#0c575a);color:white}
+    .share .eyebrow{color:#a7eee3}
+    .share h2{color:white}
+    .share .sectionhead p{color:#d4e9e6}
+    .share-panel{background:#fff;color:var(--ink);padding:32px;border-radius:22px;box-shadow:var(--shadow);max-width:950px}
+    .switchrow{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+    .switchrow button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 14px;border-radius:100px;font-size:13px;font-weight:750}
+    .switchrow button[aria-pressed="true"]{border-color:var(--mint-dark);background:var(--mint-soft);color:var(--mint-dark)}
+    .share-panel .url-input{font-size:15px}
+    .urlrow{display:flex;gap:11px;align-items:flex-end}
+    .urlfield{flex:1}
+    .urlfield label{font-size:13px;font-weight:800;display:block;margin-bottom:7px}
+    .share-panel .actions{margin-top:18px}
+    .share-panel .micro{margin-top:10px}
+    .status{font-size:13px;font-weight:700;min-height:24px;margin:11px 0 0;color:#126f64}
+    .message-preview{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+    .message-preview .micro{margin-top:0}
+    .msg{margin-top:7px;background:#f4f8f8;color:#345259;border-radius:10px;padding:14px 16px;font-size:14px;overflow-wrap:anywhere}
+    .progress-section{background:#fff}
+    .progress-wrap{display:grid;grid-template-columns:1fr 360px;gap:35px;align-items:start}
+    .checks{display:grid;gap:12px}
+    .checklabel{display:flex;align-items:flex-start;gap:12px;background:#f8fbfa;padding:16px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:15px}
+    .checklabel input{width:20px;height:20px;accent-color:var(--mint-dark);flex-shrink:0;margin:2px 0 0}
+    .progress-card{border:1px solid var(--line);border-radius:var(--radius);padding:27px;position:sticky;top:100px}
+    .progress-number{font-size:46px;line-height:1.2;font-weight:850;letter-spacing:-2px;color:var(--mint-dark)}
+    .progress-bar{height:10px;background:#e7eeec;border-radius:100px;overflow:hidden;margin:16px 0 18px}
+    .progress-fill{background:var(--mint-dark);height:100%;width:0;transition:width .25s}
+    .progress-card p{font-size:14px;color:var(--muted);margin-bottom:12px}
+    .small-btn{border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);padding:8px 12px;font-size:13px}
+    .footer{background:#112c31;color:#d4e6e4;padding:39px 0}
+    .footer-inner{display:flex;justify-content:space-between;gap:28px;align-items:start}
+    .footer p{font-size:13px;max-width:750px;color:#c7dcda;margin:8px 0 0}
+    .footer strong{color:white}
+    .footer a{color:#b9f0e6}
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px}.graphic{min-height:300px}.circle{width:110px;height:110px}.circle svg{width:70px;height:70px}.nav a{display:none}.progress-wrap{grid-template-columns:1fr}.progress-card{position:static}.reflect-grid{grid-template-columns:1fr}.hero{padding:64px 0 55px}}
+    @media(max-width:640px){.wrap{width:min(100% - 28px,1140px)}.header-inner{height:68px}.brand-main{font-size:15px}.brand-small{font-size:8px;letter-spacing:1px}.brand-mark{width:28px;height:28px}.hero{padding:45px 0}.hero h1{font-size:clamp(36px,10vw,56px);letter-spacing:-1.6px}.graphic{padding:22px;min-height:280px}.graphic-bottom{flex-direction:column;gap:2px}.cards-2{grid-template-columns:1fr}.step{grid-template-columns:1fr;gap:4px;padding:22px}.step-num{font-size:22px}.story .intro{align-items:start;gap:15px}.story .initial{height:56px;width:56px;font-size:26px}.story .intro p{font-size:16px}.share-panel{padding:20px}.urlrow{display:block}.share-panel .btn{width:100%}.footer-inner{flex-direction:column}section{padding:56px 0}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.progress-fill{transition:none}}
+    @media print{.header,.actions,.lang,.share-panel .actions,.small-btn{display:none!important}.hero,.share,.story,.progress-section{background:white;color:black}.graphic{background:#ebf5f4;color:#14252a;box-shadow:none}.graphic-label,.graphic-bottom,.pathline span{color:#145a60}.card,.step,.share-panel{box-shadow:none}section{padding:24px 0}.progress-card{position:static}.share h2,.share .sectionhead p{color:black}}
+  
+    .foreword{padding:76px 0;border-block:1px solid var(--line)}
+    .foreword .wrap{max-width:1000px}
+    .foreword h2{max-width:800px}
+    .foreword p:not(.eyebrow){font-size:17px;line-height:1.78;color:#354a50;max-width:900px;margin-bottom:18px}
+    .foreword .foreword-quote{font-size:21px!important;font-weight:800;color:var(--ink)!important;border-left:4px solid var(--magenta);padding:10px 0 10px 20px;margin:24px 0!important}
+    .community-card{background:#f2faf8;border-color:#bfe2de}
+    .community-card .slot{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;color:#075f63;text-transform:uppercase;margin-bottom:10px}
+    .profiles-card{border:1px solid #c6deda;background:linear-gradient(120deg,#f0faf8,#fff);border-radius:16px;padding:22px;margin:17px 0}
+    .profiles-card p{margin-bottom:16px}
+    .final-line{font-size:18px;font-weight:800;color:var(--ink);margin-top:16px}
+    @media(max-width:640px){.foreword{padding:50px 0}.foreword p:not(.eyebrow){font-size:16px}.foreword .foreword-quote{font-size:19px!important}}
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="wrap header-inner">
+    <a href="#start" class="brand" aria-label="LiquidityBooster – zum Anfang">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="#0c8f93" stroke-width="1.8"/><path d="M12 25L20 9L28 25L20 22L12 25Z" fill="#a9286a"/><circle cx="20" cy="28" r="3" fill="#0c8f93"/></svg>
+      <span><span class="brand-main">liquidity<span>booster</span><b>.de</b></span><span class="brand-small" data-i18n="brandSub">Dein persönlicher Start</span></span>
+    </a>
+    <nav class="nav" aria-label="Seitennavigation">
+      <a href="#weg" data-i18n="navWay">Der Weg</a>
+      <a href="#teilen" data-i18n="navShare">Sichtbar werden</a>
+      <a href="#checkliste" data-i18n="navCheck">Mein Fortschritt</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button type="button" id="langDe" aria-pressed="true">DE</button>
+      <button type="button" id="langEn" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="hero" id="start">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow" data-i18n="heroEyebrow">Deine erste Etappe · Das Fundament im Marketing</p>
+      <h1 data-i18n="heroTitle">Deine Reise beginnt <em>bei dir.</em></h1>
+      <p class="lead" data-i18n="heroLead">Entdecke, wofür du stehst. Gib deinem persönlichen Auftritt ein Gesicht. Und werde mit LiquidityBooster von Anfang an selbst sichtbar.</p>
+      <p class="hero-aside" data-i18n="heroAside">Du musst nicht erst alles können. Dieser erste Schritt soll dich handlungsfähig machen – in deinem Tempo, auf deinem eigenen Weg.</p>
+      <div class="actions">
+        <a class="btn" href="#weg"><span data-i18n="startBtn">Meine ersten Schritte</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+        <a class="btn btn-outline" href="#teilen" data-i18n="shareBtnTop">Meine Seite weiterempfehlen</a>
+      </div>
+    </div>
+    <div class="graphic" aria-label="Vom Ich zur Sichtbarkeit">
+      <div class="graphic-label" data-i18n="graphTag">Die erste Etappe</div>
+      <div class="circle"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="50" cy="26" r="13" stroke="#b1eee3" stroke-width="3"/><path d="M22 77c2-21 13-30 28-30s26 9 28 30" stroke="#b1eee3" stroke-width="3" stroke-linecap="round"/><path d="m70 18 12-6M78 32l13 3M21 25l-10 4" stroke="#e9b2d0" stroke-width="3" stroke-linecap="round"/></svg></div>
+      <div class="pathline" data-i18n="graphMain">Vom <span>ICH</span> zum <span>WIR</span>.<br>Mein Weg. Meine Sichtbarkeit.</div>
+      <div class="graphic-bottom"><span data-i18n="graphLeft">Dich selbst kennenlernen</span><span data-i18n="graphRight">In Gemeinschaft sichtbar werden</span></div>
+    </div>
+  </div>
+</section>
+<section class="story foreword" id="vorwort">
+  <div class="wrap">
+    <p class="eyebrow" data-i18n="forewordTag">Etappe 1 · Dein Fundament im Marketing</p>
+    <h2 data-i18n="forewordTitle">Deine Reise beginnt bei dir – und führt in die Sichtbarkeit.</h2>
+    <p data-i18n="foreword1">Jeder Mensch hat seine eigene Geschichte, seine Erfahrungen, seine Fähigkeiten und seine ganz persönlichen Vorstellungen vom Leben.</p>
+    <p data-i18n="foreword2">Doch wie nehmen andere Menschen dich wahr? Wissen sie, wofür du stehst, was dich begeistert und welchen Mehrwert du ihnen bieten kannst? Viele wertvolle Erfahrungen bleiben unsichtbar, weil wir sie noch nie bewusst nach außen gezeigt haben.</p>
+    <p data-i18n="foreword3">Bevor du andere Menschen für deine Ideen begeistern kannst, lohnt es sich, dir über dich selbst klar zu werden: Was macht dich aus? Was möchtest du erreichen? Wofür stehst du?</p>
+    <p class="foreword-quote" data-i18n="forewordQuote">Gute Sichtbarkeit beginnt nicht mit Werbung. Sie beginnt mit Klarheit über dich selbst.</p>
+    <p data-i18n="foreword4">LiquidityBooster bietet dir dafür eine persönliche Infrastruktur: deinen eigenen Internetauftritt, eine Gemeinschaft und Werkzeuge, mit denen du deine Ideen und Aktivitäten schrittweise entwickeln kannst. Du musst dafür kein Marketingexperte sein und nicht sofort sämtliche Funktionen beherrschen.</p>
+    <p data-i18n="foreword5">Es reicht, wenn du beginnst. Du lernst in deinem Tempo, gibst deinem Auftritt ein Gesicht und kannst deinen eigenen Link schon früh weitergeben.</p>
+    <p class="final-line" data-i18n="forewordEnd">So entsteht dein Fundament im Marketing – und deine erste eigene Handlungsfähigkeit.</p>
+  </div>
+</section>
+<section id="weg">
+  <div class="wrap">
+    <div class="sectionhead"><p class="eyebrow" data-i18n="wayTag">Mein Weg · Schritt für Schritt</p><h2 data-i18n="wayTitle">Aus dem Zugang wird dein eigener Auftritt.</h2><p data-i18n="wayLead">Alles beginnt mit wenigen konkreten Handlungen. Du legst dein Fundament und kannst es später Stück für Stück ausbauen.</p></div>
+    <div class="steps">
+  <article class="step">
+    <div class="step-num">01</div><div>
+      <h3 data-i18n="s1title">Willkommen in deiner persönlichen Arbeitswelt</h3>
+      <p data-i18n="s1p1">Mit deiner ClubLeader-Mitgliedschaft erhältst du zwei E-Mails mit unterschiedlichen Zugangsdaten. Eine führt dich ins Clubhaus, die andere in dein persönliches KMS. Melde dich einmal in beiden Systemen an und erkunde in Ruhe, was du dort findest.</p>
+      <div class="cards-2" style="margin:17px 0 16px">
+        <div class="card"><div class="card-top"><span class="number">A</span><span class="micro" data-i18n="systemOne">Mitgliederwelt</span></div><h3 data-i18n="clubTitle">Clubhaus</h3><p data-i18n="clubText">Gemeinschaft, Akademie, Angebote und dein eigenes Mitgliederprofil.</p><a class="textlink" href="https://club.liquiditybooster.de/" target="_blank" rel="noopener noreferrer" data-i18n="clubLink">Clubhaus öffnen</a></div>
+        <div class="card"><div class="card-top"><span class="number">B</span><span class="micro" data-i18n="systemTwo">Arbeitswerkzeug</span></div><h3>KMS</h3><p data-i18n="kmsText">Dein Werkzeug zur Pflege deiner persönlichen Angaben und zur weiteren Organisation deiner Aktivitäten.</p><p class="micro" data-i18n="kmsLink">Nutze den persönlichen Zugangslink aus deiner KMS-E-Mail.</p></div>
+      </div>
+      <p class="note" data-i18n="s1note"><strong>Direkt erledigen:</strong> Speichere Clubhaus und KMS als Favoriten oder Home-Buttons auf deinen bevorzugten Geräten. Bewahre deine Zugangsdaten sicher auf.</p>
+    </div>
+  </article>
+  <article class="step">
+    <div class="step-num">02</div><div>
+      <h3 data-i18n="communityTitle">Werde Teil unserer lebendigen Gemeinschaft</h3>
+      <p data-i18n="communityIntro">Sichtbarkeit entsteht nicht nur durch Internetseiten. Sie entsteht auch durch Begegnungen. In unserer Gemeinschaft kannst du zuhören, Fragen stellen, Menschen kennenlernen, Erfahrungen teilen und nach und nach selbst mitgestalten.</p>
+      <div class="cards-2" style="margin:17px 0 16px">
+        <div class="card community-card"><span class="slot" data-i18n="mondaySlot">Jeden Montag · 19:00 Uhr</span><h3 data-i18n="mondayName">Unsere Entdeckungsreise</h3><p data-i18n="mondayText">Entdecke neue Möglichkeiten und Themen, stelle Fragen und lerne die Gemeinschaft zu Beginn jeder Woche besser kennen.</p></div>
+        <div class="card community-card"><span class="slot" data-i18n="wednesdaySlot">Jeden Mittwoch · 19:00 Uhr</span><h3 data-i18n="wednesdayName">Gemeinsam Neues entdecken</h3><p data-i18n="wednesdayText">Lass dich von neuen Impulsen inspirieren, komme mit anderen ins Gespräch und zeig dich mit deinen Ideen und Erfahrungen.</p></div>
+      </div>
+      <p data-i18n="communityOutro">Du musst keinen Vortrag halten. Sei zunächst einfach dabei. Menschen empfehlen eher Menschen, die sie kennen, denen sie vertrauen und die sie regelmäßig erleben. Mach Montag und Mittwoch, wenn es für dich passt, zu festen Stationen deiner Entdeckungsreise.</p>
+    </div>
+  </article>
+  <article class="step">
+    <div class="step-num">03</div><div>
+      <h3 data-i18n="profilesTitle">Entdecke die Gesichter unserer Gemeinschaft</h3>
+      <p data-i18n="profilesText">Bevor du dich selbst vorstellst, schau dir an, wie unterschiedlich andere Mitglieder sich präsentieren. Manche zeigen berufliche Erfahrungen, andere ihre Interessen, ihre Geschichte oder das, was sie für andere Menschen tun.</p>
+      <div class="profiles-card"><p data-i18n="profilesReason">Lass dich inspirieren, ohne jemanden zu kopieren. Welche Vorstellungen sprechen dich an? Welche Formulierungen passen zu deiner Persönlichkeit?</p><a class="btn" href="https://www.liquiditybooster.de/mitglieder/mitgliederprofile.html" target="_blank" rel="noopener noreferrer"><span data-i18n="profilesBtn">Alle Mitgliederprofile entdecken</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
+    </div>
+  </article>
+  <article class="step">
+    <div class="step-num">04</div><div>
+      <h3 data-i18n="positionTitle">Finde deine eigene Positionierung</h3>
+      <p data-i18n="positionText">Jetzt geht es um dich. Du brauchst keine perfekte Werbebotschaft. Überlege, wer du bist, wofür du stehst und welchen Beitrag du anderen Menschen anbieten kannst. Deine Antworten dürfen sich mit dir weiterentwickeln.</p>
+      <div class="reflect"><div class="reflect-grid">
+        <div><label class="field-label" for="thought1" data-i18n="q1">Wofür stehe ich?</label><textarea id="thought1" data-i18n-placeholder="q1ph" placeholder="Meine Stärken, Erfahrungen, Interessen …"></textarea></div>
+        <div><label class="field-label" for="thought2" data-i18n="q2">Wem möchte ich helfen?</label><textarea id="thought2" data-i18n-placeholder="q2ph" placeholder="Menschen, Themen, Herausforderungen …"></textarea></div>
+        <div><label class="field-label" for="thought3" data-i18n="q3">Was sollen andere über mich wissen?</label><textarea id="thought3" data-i18n-placeholder="q3ph" placeholder="Das möchte ich über mich erzählen …"></textarea></div>
+      </div><p class="subline" data-i18n="localNote">Deine Gedanken bleiben ausschließlich in diesem Browser auf diesem Gerät gespeichert und werden nicht an LiquidityBooster übermittelt.</p></div>
+    </div>
+  </article>
+  <article class="step">
+    <div class="step-num">05</div><div>
+      <h3 data-i18n="stepLandingTitle">Gestalte deine persönliche Landingpage</h3>
+      <p data-i18n="stepLandingText">Deine persönliche Internetseite ist bereits für dich eingerichtet. Öffne dein KMS und ergänze dort – soweit die Felder dafür vorgesehen sind – deinen Namen, dein Profilbild, deinen Slogan, dein Grußwort und deine Kontaktmöglichkeiten. Speichere deine Eingaben und kontrolliere anschließend, wie du von außen wahrgenommen wirst.</p>
+      <div class="path"><span>KMS</span><span aria-hidden="true">→</span><span>SETUP</span><span aria-hidden="true">→</span><span>MEINE DATEN</span></div>
+      <p class="note" data-i18n="stepLandingNote">Dein erster Erfolg: Du kannst deine persönliche Internetseite jetzt öffnen, zeigen und ihren öffentlichen Link weitergeben. Ein Webinarraum oder eine Online-Terminbuchung ist dafür noch nicht erforderlich.</p>
+    </div>
+  </article>
+  <article class="step">
+    <div class="step-num">06</div><div>
+      <h3 data-i18n="stepMemberTitle">Erstelle dein Mitgliederprofil</h3>
+      <p data-i18n="stepMemberText">Im Clubhaus kannst du dich zusätzlich der Gemeinschaft vorstellen: mit Bildmotiv, Slogan, Informationen über dich, deinen Erfahrungen, Stärken, Interessen, deinem persönlichen Versprechen und einem passenden Tätigkeitsbereich.</p>
+      <div class="path"><span>CLUBHAUS</span><span aria-hidden="true">→</span><span>MITGLIEDER</span><span aria-hidden="true">→</span><span>PROFIL HOCHLADEN</span></div>
+      <p data-i18n="stepMemberReview">Nach dem Absenden prüft unser Team dein Mitgliederprofil persönlich auf die Einhaltung der LiquidityBooster-Compliance-Vorgaben. Erst nach Freigabe wird es veröffentlicht. Das kann einige Tage dauern.</p>
+      <p class="note" data-i18n="stepMemberNote">Die Wartezeit hält dich nicht auf: Während dein Mitgliederprofil geprüft wird, kannst du deine persönliche Landingpage bereits nutzen.</p>
+    </div>
+  </article>
+  <article class="step">
+    <div class="step-num">07</div><div>
+      <h3 data-i18n="stepShareTitle">Jetzt beginnt deine Sichtbarkeit</h3>
+      <p data-i18n="stepShareText">Du hast dich positioniert, deine persönliche Seite gestaltet und deine Gemeinschaft kennengelernt. Jetzt kannst du deinen eigenen öffentlichen Link an Menschen weitergeben, die dich kennenlernen möchten. Du brauchst keine große Kampagne – eine ehrliche, persönliche Einladung genügt. Sobald dein Mitgliederprofil freigegeben ist, kannst du auch dieses teilen.</p>
+      <a class="btn btn-magenta" href="#teilen"><span data-i18n="gotoShare">Meine persönliche Seite teilen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      <p class="final-line" data-i18n="stepShareFinish">Dein Weg. Dein Tempo. Deine Sichtbarkeit.</p>
+    </div>
+  </article>
+    </div>
+  </div>
+</section>
+<section class="share" id="teilen">
+  <div class="wrap">
+    <div class="sectionhead"><p class="eyebrow" data-i18n="shareTag">Erste Sichtbarkeit · Sofort handlungsfähig</p><h2 data-i18n="shareTitle">Dein erster Schritt nach draußen.</h2><p data-i18n="shareLead">Du bist nicht darauf angewiesen, dass andere dich zuerst vorstellen. Nimm deinen eigenen öffentlichen Link und empfehle dich selbst weiter – persönlich und ohne Druck.</p></div>
+    <div class="share-panel">
+      <div class="switchrow" role="group" aria-label="Welche Seite möchtest du teilen?">
+        <button type="button" id="choiceLanding" aria-pressed="true" data-i18n="chooseLanding">Meine Landingpage</button>
+        <button type="button" id="choiceMember" aria-pressed="false" data-i18n="chooseMember">Mein freigegebenes Mitgliederprofil</button>
+      </div>
+      <div class="urlrow"><div class="urlfield"><label for="pageUrl" data-i18n="urlLabel">Link zu deiner eigenen öffentlichen Seite</label><input class="url-input" type="url" id="pageUrl" autocomplete="off" spellcheck="false" inputmode="url" placeholder="https://…" aria-describedby="urlHint"></div></div>
+      <p class="micro" id="urlHint" data-i18n="urlHint">Bitte deine eigene URL einfügen – nicht die Beispielseite eines anderen Mitglieds. Vertrauliche Zugangslinks gehören hier nicht hinein.</p>
+      <div class="actions">
+        <button class="btn" id="copyBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span data-i18n="copyLink">Link kopieren</span></button>
+        <button class="btn btn-outline" id="nativeShareBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 14v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></svg><span data-i18n="nativeShare">Teilen</span></button>
+        <button class="btn btn-outline" id="mailBtn" type="button" data-i18n="emailShare">Per E-Mail</button>
+        <button class="btn btn-outline" id="whatsappBtn" type="button" data-i18n="waShare">Per WhatsApp</button>
+      </div>
+      <div class="status" id="shareStatus" role="status" aria-live="polite"></div>
+      <div class="message-preview"><strong data-i18n="messageLabel">Eine einfache, persönliche Begleitnachricht</strong><p class="micro" data-i18n="messageNote">Du kannst diese Nachricht vor dem Versenden jederzeit ändern.</p><div class="msg" id="messagePreview"></div></div>
+    </div>
+  </div>
+</section>
+<section class="progress-section" id="checkliste">
+  <div class="wrap progress-wrap">
+    <div><div class="sectionhead"><p class="eyebrow" data-i18n="checkTag">Mein persönlicher Startcheck</p><h2 data-i18n="checkTitle">Das Fundament steht. Schritt für Schritt.</h2><p data-i18n="checkLead">Markiere nur, was du wirklich erledigt hast. Die Häkchen bleiben auf diesem Gerät gespeichert. Es gibt keine Frist und keine Bewertung.</p></div>
+    <div class="checks" id="checks">
+      <label class="checklabel"><input type="checkbox" data-check="a"><span data-i18n="check1">Ich kann Clubhaus und KMS öffnen.</span></label>
+      <label class="checklabel"><input type="checkbox" data-check="b"><span data-i18n="check2">Ich habe beide Zugänge auf meinen Geräten gespeichert.</span></label>
+      <label class="checklabel"><input type="checkbox" data-check="c"><span data-i18n="check3">Ich habe die regelmäßigen Community-Treffen kennengelernt und plane meine Teilnahme.</span></label>
+      <label class="checklabel"><input type="checkbox" data-check="d"><span data-i18n="check4">Ich habe mich von verschiedenen Mitgliederprofilen inspirieren lassen.</span></label>
+      <label class="checklabel"><input type="checkbox" data-check="e"><span data-i18n="check5">Ich habe meine persönlichen Stärken und meine Positionierung beschrieben.</span></label>
+      <label class="checklabel"><input type="checkbox" data-check="f"><span data-i18n="check6">Ich habe meine Landingpage ergänzt und öffentlich geprüft.</span></label>
+      <label class="checklabel"><input type="checkbox" data-check="g"><span data-i18n="check7">Ich habe mein Mitgliederprofil zur menschlichen Prüfung eingereicht.</span></label>
+      <label class="checklabel"><input type="checkbox" data-check="h"><span data-i18n="check8">Ich habe meinen persönlichen öffentlichen Link zum ersten Mal weitergegeben.</span></label>
+    </div></div></div>
+    <aside class="progress-card"><div class="eyebrow" data-i18n="progressTag">Dein Fortschritt</div><div class="progress-number" id="progressNumber">0 / 8</div><div class="progress-bar" role="progressbar" id="progressBar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" aria-label="Abgeschlossene Schritte"><div class="progress-fill" id="progressFill"></div></div><p data-i18n="progressText">Das Ziel ist nicht, alles sofort zu beherrschen. Das Ziel ist, einen eigenen Anfang zu machen – und ab jetzt selbst handeln zu können.</p><button type="button" class="small-btn" id="resetBtn" data-i18n="reset">Checkliste zurücksetzen</button></aside>
+  </div>
+</section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div><strong data-i18n="footerTitle">Dein Weg. Deine Entscheidung. Deine Sichtbarkeit.</strong><p data-i18n="footerBody">Dieser Leitfaden begleitet deinen ersten selbstständigen Schritt mit LiquidityBooster. Weitere Werkzeuge – etwa KMS-Kontaktarbeit, Webinarraum und Online-Terminbuchung – kannst du später in deinem Tempo entdecken.</p><p data-i18n="footerLegal">Diese Seite ist eine Orientierungshilfe, kein Ersatz für die Regeln und Freigabeprozesse der Plattform. Keine Einkommens- oder Erfolgsgarantie.</p></div><a href="#start" data-i18n="backTop">Nach oben ↑</a></div></footer>
+<script>
+(() => {
+  'use strict';
+  const i18n = {
+    de: {
+      brandSub:'Dein persönlicher Start',navWay:'Der Weg',navShare:'Sichtbar werden',navCheck:'Mein Fortschritt',heroEyebrow:'Deine erste Etappe · Das Fundament im Marketing',heroTitle:'Deine Reise beginnt <em>bei dir.</em>',heroLead:'Entdecke, wofür du stehst. Gib deinem persönlichen Auftritt ein Gesicht. Und werde mit LiquidityBooster von Anfang an selbst sichtbar.',heroAside:'Du musst nicht erst alles können. Dieser erste Schritt soll dich handlungsfähig machen – in deinem Tempo, auf deinem eigenen Weg.',startBtn:'Meine ersten Schritte',shareBtnTop:'Meine Seite weiterempfehlen',graphTag:'Die erste Etappe',graphMain:'Vom <span>ICH</span> ins Außen.<br>Mein Weg. Meine Sichtbarkeit.',graphLeft:'Klarheit über dich gewinnen',graphRight:'Deinen ersten Link teilen',storyTag:'Wir begleiten du',storyText:'du hat LiquidityBooster kennengelernt und sich für seine Mitgliedschaft entschieden. Als ClubLeader erhält er seine persönliche Landingpage sowie zwei getrennte Zugänge: einen zum Clubhaus und einen zum KMS. Jetzt beginnt seine eigene Reise. Er will nicht zuerst Technik studieren – er will sich positionieren und ins Handeln kommen.',wayTag:'Mein Weg · Schritt für Schritt',wayTitle:'Aus dem Zugang wird dein eigener Auftritt.',wayLead:'Alles beginnt mit wenigen konkreten Handlungen. Du legst dein Fundament und kannst es später Stück für Stück ausbauen.',s1title:'Ankommen: zwei E-Mails, zwei Systeme',s1p1:'du erhält die Zugangsdaten für das Clubhaus und – als ClubLeader – für sein KMS. Er meldet sich in beiden Systemen an und erkennt: Das Clubhaus ist seine Mitgliederwelt; das KMS ist sein persönliches Arbeitswerkzeug.',systemOne:'Mitgliederwelt',systemTwo:'Arbeitswerkzeug',clubTitle:'Clubhaus',clubText:'Akademie, Mitgliederbereich und eigenes Mitgliederprofil.',clubLink:'Clubhaus öffnen',kmsText:'Persönliche Daten für den eigenen Auftritt pflegen und die Funktionen nach und nach kennenlernen.',kmsLink:'Den individuellen Zugangslink aus deiner KMS-E-Mail verwenden.',s1note:'<strong>Direkt erledigen:</strong> Beide Seiten als Favorit oder Home-Button auf PC, Laptop, iPad oder Smartphone ablegen. Zugangsdaten sicher in einem Passwortmanager aufbewahren.',s2title:'Zuerst die wichtigste Frage: Wer bin ich?',s2p:'Bevor du andere auf sich aufmerksam macht, findet er seine eigene Botschaft. Wofür stehe ich? Was kann ich anderen geben? Wie möchte ich wahrgenommen werden? Er muss dafür keine perfekte Marketingformel kennen – er braucht einen ehrlichen Anfang.',q1:'Wofür stehe ich?',q2:'Wem möchte ich helfen?',q3:'Was sollen andere über mich wissen?',q1ph:'Meine Stärken, Erfahrungen, Interessen …',q2ph:'Menschen, Themen, Herausforderungen …',q3ph:'Das möchte ich über mich erzählen …',localNote:'Diese Gedanken sind nur für dich. Sie werden ausschließlich in diesem Browser gespeichert, nicht an LiquidityBooster übertragen.',s3title:'Die persönliche Landingpage mit Leben füllen',s3p:'du hat bereits eine eigene Landingpage erhalten. Jetzt öffnet er sein KMS und vervollständigt dort die Angaben für seinen öffentlichen Auftritt: Name, Profilbild, Slogan, Grußwort und passende Kontaktmöglichkeiten. Er speichert alles und kontrolliert anschließend seine öffentliche Seite.',s3note:'<strong>Erster Erfolg:</strong> du kann seine eigene Seite öffnen, vorzeigen und ihren persönlichen Link weitergeben. Webinarraum oder Online-Terminbuchung braucht er dafür noch nicht.',example:'So kann das aussehen:',landingExample:'Beispiel einer persönlichen Landingpage ansehen',s4title:'Auch im Clubhaus persönlich sichtbar werden',s4p:'Unabhängig von seiner Landingpage erstellt du sein eigenes Mitgliederprofil im Clubhaus. Dort kann er sein Bildmotiv, seinen Slogan, seine Vorstellung, seine Stärken, Erfolge, Interessen, sein persönliches Versprechen und seinen Tätigkeitsbereich angeben.',s4p2:'Nach dem Absenden prüft das LiquidityBooster-Team das Profil persönlich auf Compliance. Erst nach Freigabe wird es veröffentlicht; das kann einige Tage dauern.',s4note:'<strong>Wichtig:</strong> du muss nicht untätig auf diese Freigabe warten. Seine bereits verfügbare Landingpage kann er in der Zwischenzeit nutzen und weiterempfehlen.',memberExample:'Beispiel eines ausgebauten Mitgliederprofils ansehen',exampleTag:'Beispiel, keine Pflichtausstattung',s5title:'Jetzt kann du sich selbst weiterempfehlen',s5p:'Der erste praktische Marketingschritt ist ganz einfach: du teilt seine eigene öffentliche Seite mit Menschen, die ihn kennenlernen möchten. Er muss nicht warten, bis jedes Werkzeug eingerichtet ist. Seine Persönlichkeit, seine Botschaft und ein erreichbarer Link bilden bereits das Fundament.',gotoShare:'Meine persönliche Seite teilen',shareTag:'Erste Sichtbarkeit · Sofort handlungsfähig',shareTitle:'Dein erster Schritt nach draußen.',shareLead:'Du bist nicht darauf angewiesen, dass andere dich zuerst vorstellen. Nimm deinen eigenen öffentlichen Link und empfehle dich selbst weiter – persönlich und ohne Druck.',chooseLanding:'Meine Landingpage',chooseMember:'Mein freigegebenes Mitgliederprofil',urlLabel:'Link zu deiner eigenen öffentlichen Seite',urlHint:'Bitte deine eigene URL einfügen – nicht die Beispielseite eines anderen Mitglieds. Vertrauliche Zugangslinks gehören hier nicht hinein.',copyLink:'Link kopieren',nativeShare:'Teilen',emailShare:'Per E-Mail',waShare:'Per WhatsApp',messageLabel:'Eine einfache, persönliche Begleitnachricht',messageNote:'Du kannst diese Nachricht vor dem Versenden jederzeit ändern.',msgDefault:'Ich habe jetzt meine persönliche Seite bei LiquidityBooster. Wenn du möchtest, kannst du hier mehr über mich erfahren:',statusMissing:'Bitte zuerst deinen persönlichen öffentlichen Link eingeben.',statusInvalid:'Bitte eine gültige öffentliche HTTPS-Adresse eingeben.',statusCopied:'Dein persönlicher Link wurde kopiert.',statusCopyError:'Kopieren war nicht möglich. Bitte den Link im Eingabefeld auswählen und selbst kopieren.',statusUnavailable:'Die Teilen-Funktion ist hier nicht verfügbar. Du kannst den Link kopieren.',checkTag:'Mein persönlicher Startcheck',checkTitle:'Das Fundament steht. Schritt für Schritt.',checkLead:'Markiere nur, was du wirklich erledigt hast. Die Häkchen bleiben auf diesem Gerät gespeichert. Es gibt keine Frist und keine Bewertung.',check1:'Ich habe beide Zugangsmails erhalten und kann Clubhaus und KMS öffnen.',check2:'Ich habe meine beiden Zugänge als Favorit oder Home-Button gespeichert.',check3:'Ich habe erste Antworten auf die Frage gefunden, wofür ich stehe.',check4:'Ich habe meine Landingpage eingerichtet und öffentlich geprüft.',check5:'Ich habe mein Mitgliederprofil im Clubhaus zur Prüfung eingereicht.',check6:'Ich habe meinen persönlichen öffentlichen Link zum ersten Mal weitergegeben.',progressTag:'Dein Fortschritt',progressText:'Das Ziel ist nicht, alles sofort zu beherrschen. Das Ziel ist, einen eigenen Anfang zu machen – und ab jetzt selbst handeln zu können.',reset:'Checkliste zurücksetzen',resetConfirm:'Wirklich alle Häkchen zurücksetzen?',footerTitle:'Dein Weg. Deine Entscheidung. Deine Sichtbarkeit.',footerBody:'Dieser Leitfaden begleitet deinen ersten selbstständigen Schritt mit LiquidityBooster. Weitere Werkzeuge – etwa KMS-Kontaktarbeit, Webinarraum und Online-Terminbuchung – kannst du später in deinem Tempo entdecken.',footerLegal:'Diese Seite ist eine Orientierungshilfe, kein Ersatz für die Regeln und Freigabeprozesse der Plattform. Keine Einkommens- oder Erfolgsgarantie.',backTop:'Nach oben ↑',emailSubject:'Meine persönliche Seite bei LiquidityBooster'
+    },
+    en: {
+      brandSub:'Your personal start',navWay:'Your journey',navShare:'Get visible',navCheck:'My progress',heroEyebrow:'Your first stage · The foundation of marketing',heroTitle:'Your journey starts <em>with you.</em>',heroLead:'Discover what you stand for. Give your personal presence a face. And start making yourself visible with LiquidityBooster from day one.',heroAside:'You do not have to master everything first. This first step helps you take action – at your own pace, on your own path.',startBtn:'My first steps',shareBtnTop:'Recommend my page',graphTag:'The first stage',graphMain:'From <span>ME</span> to the world.<br>My path. My visibility.',graphLeft:'Gain clarity about yourself',graphRight:'Share your first link',storyTag:'Meet du',storyText:'du has discovered LiquidityBooster and chosen his membership. As a ClubLeader, he receives his personal landing page and two separate logins: one for the Clubhouse and one for his KMS. Now his own journey begins. He does not want to study all the technology first – he wants to position himself and get started.',wayTag:'My journey · Step by step',wayTitle:'Turn access into your own presence.',wayLead:'It all starts with a few concrete actions. Build your foundation now and expand it step by step later.',s1title:'Getting started: two emails, two systems',s1p1:'du receives login details for the Clubhouse and – as a ClubLeader – his KMS. He signs in to both and understands: the Clubhouse is his membership world; the KMS is his personal work tool.',systemOne:'Member environment',systemTwo:'Work tool',clubTitle:'Clubhouse',clubText:'Academy, membership area and personal member profile.',clubLink:'Open Clubhouse',kmsText:'Manage the personal details used for your public presence and explore the features gradually.',kmsLink:'Use the individual login link in your KMS email.',s1note:'<strong>Do it now:</strong> Save both pages as bookmarks or home-screen shortcuts on your PC, laptop, iPad or smartphone. Keep your login credentials safe in a password manager.',s2title:'First, the most important question: Who am I?',s2p:'Before introducing himself to others, du discovers his own message. What do I stand for? What can I offer other people? How do I want to be seen? He does not need a perfect marketing formula – just an authentic beginning.',q1:'What do I stand for?',q2:'Who do I want to help?',q3:'What should others know about me?',q1ph:'My strengths, experience, interests …',q2ph:'People, topics, challenges …',q3ph:'This is what I want to share about myself …',localNote:'These thoughts are just for you. They are saved only in this browser and are not sent to LiquidityBooster.',s3title:'Bring your personal landing page to life',s3p:'du has already received his landing page. He now opens his KMS and completes the details for his public presence: name, profile picture, slogan, welcome message and suitable contact options. He saves everything and checks his public page.',s3note:'<strong>First success:</strong> du can open his own page, show it to others and share its personal link. He does not need a webinar room or online booking system yet.',example:'Here is an example:',landingExample:'View a personal landing page example',s4title:'Become visible in the Clubhouse too',s4p:'Separate from his landing page, du creates his member profile in the Clubhouse. He can add an image, slogan, personal introduction, strengths, achievements, interests, personal promise and area of activity.',s4p2:'After submission, the LiquidityBooster team performs a human compliance review. The profile is published only after approval; this can take several days.',s4note:'<strong>Important:</strong> du does not have to wait idly for approval. He can already use and recommend his available landing page.',memberExample:'View an expanded member profile example',exampleTag:'Example, not a requirement',s5title:'Now du can recommend himself',s5p:'The first practical marketing action is simple: du shares his own public page with people interested in getting to know him. He does not have to wait until every tool is set up. His personality, message and a working link already form the foundation.',gotoShare:'Share my personal page',shareTag:'First visibility · Ready to take action',shareTitle:'Your first step into the world.',shareLead:'You do not need others to introduce you first. Take your own public link and share it with others – personally and without pressure.',chooseLanding:'My landing page',chooseMember:'My approved member profile',urlLabel:'Link to your own public page',urlHint:'Enter your own URL – not another member’s example page. Never enter private login links here.',copyLink:'Copy link',nativeShare:'Share',emailShare:'By email',waShare:'Via WhatsApp',messageLabel:'A simple personal introduction',messageNote:'You can edit this message before sending it.',msgDefault:'I now have my personal page at LiquidityBooster. If you would like to learn more about me, take a look:',statusMissing:'Please enter your own public link first.',statusInvalid:'Please enter a valid public HTTPS address.',statusCopied:'Your personal link has been copied.',statusCopyError:'Copying was not possible. Please select the link in the input field and copy it manually.',statusUnavailable:'Sharing is not available here. You can copy the link instead.',checkTag:'My personal start checklist',checkTitle:'The foundation is in place. Step by step.',checkLead:'Only tick what you have actually completed. Your checks stay saved on this device. There is no deadline or grading.',check1:'I received both login emails and can access the Clubhouse and KMS.',check2:'I saved both pages as bookmarks or home-screen shortcuts.',check3:'I have begun to discover what I stand for.',check4:'I have set up and checked my public landing page.',check5:'I submitted my member profile to the Clubhouse for review.',check6:'I shared my personal public link for the first time.',progressTag:'Your progress',progressText:'The goal is not to master everything immediately. The goal is to make your own beginning – and be able to take action from now on.',reset:'Reset checklist',resetConfirm:'Really clear all checkmarks?',footerTitle:'Your path. Your decision. Your visibility.',footerBody:'This guide supports your first independent step with LiquidityBooster. You can explore other tools – such as KMS contact work, your webinar room and online booking – later at your own pace.',footerLegal:'This page is a guide, not a replacement for platform rules and approval processes. No income or success guarantee.',backTop:'Back to top ↑',emailSubject:'My personal page at LiquidityBooster'
+    }
+  };
+
+  Object.assign(i18n.de, {"brandSub":"Mein Weg in die Sichtbarkeit","heroEyebrow":"Mein Weg in die Sichtbarkeit · Etappe 1","heroTitle":"Deine Reise beginnt <em>bei dir.</em>","heroLead":"Entdecke, wer du bist und wofür du stehst. Werde Teil unserer Gemeinschaft und mach deine Persönlichkeit Schritt für Schritt sichtbar.","heroAside":"Du musst nicht erst alles können. Dieser erste Schritt macht dich handlungsfähig – in deinem Tempo, auf deinem Weg.","graphTag":"Etappe 1 · Vom Ich zum Wir","graphMain":"Vom <span>ICH</span> zum <span>WIR</span>.<br>Mein Weg. Meine Sichtbarkeit.","graphLeft":"Dich selbst kennenlernen","graphRight":"In Gemeinschaft sichtbar werden","forewordTag":"Etappe 1 · Dein Fundament im Marketing","forewordTitle":"Deine Reise beginnt bei dir – und führt in die Sichtbarkeit.","foreword1":"Jeder Mensch hat seine eigene Geschichte, seine Erfahrungen, seine Fähigkeiten und seine ganz persönlichen Vorstellungen vom Leben.","foreword2":"Doch wie nehmen andere Menschen dich wahr? Wissen sie, wofür du stehst, was dich begeistert und welchen Mehrwert du ihnen bieten kannst? Viele wertvolle Erfahrungen bleiben unsichtbar, weil wir sie noch nie bewusst nach außen gezeigt haben.","foreword3":"Bevor du andere Menschen für deine Ideen begeistern kannst, lohnt es sich, dir über dich selbst klar zu werden: Was macht dich aus? Was möchtest du erreichen? Wofür stehst du?","forewordQuote":"Gute Sichtbarkeit beginnt nicht mit Werbung. Sie beginnt mit Klarheit über dich selbst.","foreword4":"LiquidityBooster bietet dir dafür eine persönliche Infrastruktur: deinen eigenen Internetauftritt, eine Gemeinschaft und Werkzeuge, mit denen du deine Ideen und Aktivitäten schrittweise entwickeln kannst. Du musst dafür kein Marketingexperte sein und nicht sofort sämtliche Funktionen beherrschen.","foreword5":"Es reicht, wenn du beginnst. Du lernst in deinem Tempo, gibst deinem Auftritt ein Gesicht und kannst deinen eigenen Link schon früh weitergeben.","forewordEnd":"So entsteht dein Fundament im Marketing – und deine erste eigene Handlungsfähigkeit.","wayTag":"Etappe 1 · Dein Weg, Schritt für Schritt","wayTitle":"Vom Ankommen zum eigenen Auftritt.","wayLead":"Erst dich und die Gemeinschaft entdecken, dann deinen eigenen Auftritt gestalten und deine ersten Kontakte darauf aufmerksam machen.","s1title":"Willkommen in deiner persönlichen Arbeitswelt","s1p1":"Mit deiner ClubLeader-Mitgliedschaft erhältst du zwei E-Mails mit unterschiedlichen Zugangsdaten. Eine führt dich ins Clubhaus, die andere in dein persönliches KMS. Melde dich einmal in beiden Systemen an und erkunde in Ruhe, was du dort findest.","clubText":"Gemeinschaft, Akademie, Angebote und dein eigenes Mitgliederprofil.","kmsText":"Dein Werkzeug zur Pflege deiner persönlichen Angaben und zur weiteren Organisation deiner Aktivitäten.","kmsLink":"Nutze den persönlichen Zugangslink aus deiner KMS-E-Mail.","s1note":"<strong>Direkt erledigen:</strong> Speichere Clubhaus und KMS als Favoriten oder Home-Buttons auf deinen bevorzugten Geräten. Bewahre deine Zugangsdaten sicher auf.","communityTitle":"Werde Teil unserer lebendigen Gemeinschaft","communityIntro":"Sichtbarkeit entsteht nicht nur durch Internetseiten. Sie entsteht auch durch Begegnungen. In unserer Gemeinschaft kannst du zuhören, Fragen stellen, Menschen kennenlernen, Erfahrungen teilen und nach und nach selbst mitgestalten.","mondaySlot":"Jeden Montag · 19:00 Uhr","mondayName":"Unsere Entdeckungsreise","mondayText":"Entdecke neue Möglichkeiten und Themen, stelle Fragen und lerne die Gemeinschaft zu Beginn jeder Woche besser kennen.","wednesdaySlot":"Jeden Mittwoch · 19:00 Uhr","wednesdayName":"Gemeinsam Neues entdecken","wednesdayText":"Lass dich von neuen Impulsen inspirieren, komme mit anderen ins Gespräch und zeig dich mit deinen Ideen und Erfahrungen.","communityOutro":"Du musst keinen Vortrag halten. Sei zunächst einfach dabei. Menschen empfehlen eher Menschen, die sie kennen, denen sie vertrauen und die sie regelmäßig erleben. Mach Montag und Mittwoch, wenn es für dich passt, zu festen Stationen deiner Entdeckungsreise.","profilesTitle":"Entdecke die Gesichter unserer Gemeinschaft","profilesText":"Bevor du dich selbst vorstellst, schau dir an, wie unterschiedlich andere Mitglieder sich präsentieren. Manche zeigen berufliche Erfahrungen, andere ihre Interessen, ihre Geschichte oder das, was sie für andere Menschen tun.","profilesReason":"Lass dich inspirieren, ohne jemanden zu kopieren. Welche Vorstellungen sprechen dich an? Welche Formulierungen passen zu deiner Persönlichkeit?","profilesBtn":"Alle Mitgliederprofile entdecken","positionTitle":"Finde deine eigene Positionierung","positionText":"Jetzt geht es um dich. Du brauchst keine perfekte Werbebotschaft. Überlege, wer du bist, wofür du stehst und welchen Beitrag du anderen Menschen anbieten kannst. Deine Antworten dürfen sich mit dir weiterentwickeln.","stepLandingTitle":"Gestalte deine persönliche Landingpage","stepLandingText":"Deine persönliche Internetseite ist bereits für dich eingerichtet. Öffne dein KMS und ergänze dort – soweit die Felder dafür vorgesehen sind – deinen Namen, dein Profilbild, deinen Slogan, dein Grußwort und deine Kontaktmöglichkeiten. Speichere deine Eingaben und kontrolliere anschließend, wie du von außen wahrgenommen wirst.","stepLandingNote":"Dein erster Erfolg: Du kannst deine persönliche Internetseite jetzt öffnen, zeigen und ihren öffentlichen Link weitergeben. Ein Webinarraum oder eine Online-Terminbuchung ist dafür noch nicht erforderlich.","stepMemberTitle":"Erstelle dein Mitgliederprofil","stepMemberText":"Im Clubhaus kannst du dich zusätzlich der Gemeinschaft vorstellen: mit Bildmotiv, Slogan, Informationen über dich, deinen Erfahrungen, Stärken, Interessen, deinem persönlichen Versprechen und einem passenden Tätigkeitsbereich.","stepMemberReview":"Nach dem Absenden prüft unser Team dein Mitgliederprofil persönlich auf die Einhaltung der LiquidityBooster-Compliance-Vorgaben. Erst nach Freigabe wird es veröffentlicht. Das kann einige Tage dauern.","stepMemberNote":"Die Wartezeit hält dich nicht auf: Während dein Mitgliederprofil geprüft wird, kannst du deine persönliche Landingpage bereits nutzen.","stepShareTitle":"Jetzt beginnt deine Sichtbarkeit","stepShareText":"Du hast dich positioniert, deine persönliche Seite gestaltet und deine Gemeinschaft kennengelernt. Jetzt kannst du deinen eigenen öffentlichen Link an Menschen weitergeben, die dich kennenlernen möchten. Du brauchst keine große Kampagne – eine ehrliche, persönliche Einladung genügt. Sobald dein Mitgliederprofil freigegeben ist, kannst du auch dieses teilen.","stepShareFinish":"Dein Weg. Dein Tempo. Deine Sichtbarkeit.","check1":"Ich kann Clubhaus und KMS öffnen.","check2":"Ich habe beide Zugänge auf meinen Geräten gespeichert.","check3":"Ich habe die regelmäßigen Community-Treffen kennengelernt und plane meine Teilnahme.","check4":"Ich habe mich von verschiedenen Mitgliederprofilen inspirieren lassen.","check5":"Ich habe meine persönlichen Stärken und meine Positionierung beschrieben.","check6":"Ich habe meine Landingpage ergänzt und öffentlich geprüft.","check7":"Ich habe mein Mitgliederprofil zur menschlichen Prüfung eingereicht.","check8":"Ich habe meinen persönlichen öffentlichen Link zum ersten Mal weitergegeben.","footerTitle":"Mein Weg in die Sichtbarkeit – vom Ich zum Wir.","footerBody":"Dies ist die erste Etappe deiner persönlichen Reise. Weitere Themen wie Zeitmanagement, Webinarraum, Calendly und die Organisation deiner Online-Präsenz folgen in späteren Etappen.","checkLead":"Markiere, was du tatsächlich erledigt hast. Die Häkchen bleiben auf diesem Gerät gespeichert. Du bestimmst selbst dein Tempo."});
+  Object.assign(i18n.en, {"brandSub":"My path to visibility","heroEyebrow":"My path to visibility · Stage 1","heroTitle":"Your journey begins <em>with you.</em>","heroLead":"Discover who you are and what you stand for. Become part of our community and make yourself visible one step at a time.","heroAside":"You do not have to master everything first. This stage helps you get started and take action at your own pace.","graphTag":"Stage 1 · From I to We","graphMain":"From <span>I</span> to <span>WE</span>.<br>My path. My visibility.","graphLeft":"Get to know yourself","graphRight":"Become visible in the community","forewordTag":"Stage 1 · Your marketing foundation","forewordTitle":"Your journey starts with you – and leads to visibility.","foreword1":"Everyone has their own story, experiences, abilities and personal ideas about life.","foreword2":"But how do others see you? Do they know what you stand for, what inspires you and what value you can offer? Many valuable experiences remain unseen because we have not yet shared them with others.","foreword3":"Before you can inspire people with your ideas, it is worth gaining clarity about yourself: What makes you who you are? What do you want to achieve? What do you stand for?","forewordQuote":"Good visibility does not start with advertising. It starts with knowing yourself.","foreword4":"LiquidityBooster provides a personal foundation: your own website, a community and tools to develop your ideas and activities step by step. You do not need to be a marketing expert or master every feature immediately.","foreword5":"All you need is to begin. Learn at your own pace, make your page your own and share your public link early on.","forewordEnd":"This is how you build your marketing foundation – and the ability to take action from the start.","wayTag":"Stage 1 · Your journey, step by step","wayTitle":"From your first login to your own presence.","wayLead":"Explore yourself and the community first, then shape your personal page and start sharing it with others.","s1title":"Welcome to your personal workspace","s1p1":"As a ClubLeader, you receive two emails with different login details. One gives you access to the Clubhouse and the other to your personal KMS. Log in to both systems and take time to explore them.","clubText":"Community, Academy, offers and your own member profile.","kmsText":"Your tool for managing your personal details and organising further activities.","kmsLink":"Use the personal login link in your KMS email.","s1note":"<strong>Do it now:</strong> Save the Clubhouse and KMS as bookmarks or home-screen shortcuts on your preferred devices. Keep your login details secure.","communityTitle":"Become part of our active community","communityIntro":"Visibility does not come from websites alone. It also comes from meeting people. In our community you can listen, ask questions, get to know others, share experiences and gradually become an active contributor.","mondaySlot":"Every Monday · 7:00 pm","mondayName":"Our discovery journey","mondayText":"Discover new opportunities and topics, ask questions and get to know the community better at the start of each week.","wednesdaySlot":"Every Wednesday · 7:00 pm","wednesdayName":"Discover something new together","wednesdayText":"Find inspiration in fresh ideas, start conversations and share your interests and experience.","communityOutro":"You do not need to give a presentation. Simply join in. People are more likely to recommend someone they know, trust and see regularly. Make Mondays and Wednesdays regular stops on your journey whenever you can.","profilesTitle":"Discover the people in our community","profilesText":"Before introducing yourself, explore how differently other members present themselves. Some focus on professional experience; others highlight interests, their story or what they offer other people.","profilesReason":"Get inspired without copying anyone. Which introductions appeal to you? What kind of wording feels right for you?","profilesBtn":"Explore all member profiles","positionTitle":"Find your personal positioning","positionText":"Now it is about you. You do not need a perfect marketing message. Consider who you are, what you stand for and what you can offer other people. Your answers can grow and change with you.","stepLandingTitle":"Make your personal landing page your own","stepLandingText":"Your personal website has already been prepared. Open your KMS and complete the relevant fields for your name, profile photo, slogan, welcome message and contact options. Save your details and then view your public page as a visitor would.","stepLandingNote":"Your first success: You can open your personal website, show it to others and share its public link. You do not need a webinar room or online booking tool for this yet.","stepMemberTitle":"Create your member profile","stepMemberText":"In the Clubhouse you can introduce yourself to the community with an image, slogan, personal story, experience, strengths, interests, a personal promise and a relevant area of activity.","stepMemberReview":"After you submit the form, our team personally reviews your member profile for compliance with LiquidityBooster requirements. It is published only after approval, which can take several days.","stepMemberNote":"You do not have to wait: while your member profile is being reviewed, you can already use your personal landing page.","stepShareTitle":"Now your visibility begins","stepShareText":"You have reflected on your position, shaped your personal page and discovered your community. Now you can share your public link with people who would like to get to know you. You do not need a large campaign – an authentic personal invitation is enough. Once your member profile is approved, you can share that too.","stepShareFinish":"Your path. Your pace. Your visibility.","check1":"I can access the Clubhouse and KMS.","check2":"I saved both logins on my devices.","check3":"I know about our regular community meetings and plan to attend.","check4":"I explored different member profiles for inspiration.","check5":"I reflected on my strengths and personal positioning.","check6":"I completed and checked my public landing page.","check7":"I submitted my member profile for personal review.","check8":"I shared my public personal link for the first time.","footerTitle":"My path to visibility – from I to We.","footerBody":"This is the first stage of your personal journey. Time management, webinar rooms, Calendly and organising your online presence will be covered in later stages.","checkLead":"Tick only the steps you have actually completed. Your checks are stored on this device. You set your own pace."});
+  const store = (key,value) => {try {localStorage.setItem(key,JSON.stringify(value));} catch(e) { /* private session */ }};
+  const load = (key,fallback) => {try {const v=localStorage.getItem(key);return v===null?fallback:JSON.parse(v);}catch(e){return fallback;}};
+  let lang=load('lb-onboarding-language','de');if(!i18n[lang])lang='de';
+  let choice=load('lb-onboarding-choice','landing');if(!['landing','member'].includes(choice))choice='landing';
+  const urls=load('lb-onboarding-public-urls',{});
+  const urlInput=document.getElementById('pageUrl');
+  const status=document.getElementById('shareStatus');
+  const checks=[...document.querySelectorAll('input[data-check]')];
+  const checked=load('lb-onboarding-checks',{});
+  const esc=(s)=>String(s).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function renderText(){
+    document.documentElement.lang=lang;
+    document.title=lang==='de'?'Mein Weg in die Sichtbarkeit – Etappe 1: Vom Ich zum Wir | LiquidityBooster':'My path to visibility – Stage 1: From I to We | LiquidityBooster';
+    document.querySelectorAll('[data-i18n]').forEach(el=>{const value=i18n[lang][el.dataset.i18n];if(value!==undefined){if(['heroTitle','graphMain','s1note','s3note','s4note'].includes(el.dataset.i18n)){el.innerHTML=value;}else{el.textContent=value;}}});
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=i18n[lang][el.dataset.i18nPlaceholder] || '';});
+    document.getElementById('langDe').setAttribute('aria-pressed',String(lang==='de'));
+    document.getElementById('langEn').setAttribute('aria-pressed',String(lang==='en'));
+    status.textContent='';renderMessage();
+  }
+  document.getElementById('langDe').addEventListener('click',()=>{lang='de';store('lb-onboarding-language',lang);renderText();});
+  document.getElementById('langEn').addEventListener('click',()=>{lang='en';store('lb-onboarding-language',lang);renderText();});
+  ['thought1','thought2','thought3'].forEach(id=>{const e=document.getElementById(id);e.value=load('lb-onboarding-'+id,'');e.addEventListener('input',()=>store('lb-onboarding-'+id,e.value));});
+  checks.forEach(el=>{el.checked=!!checked[el.dataset.check];el.addEventListener('change',()=>{checked[el.dataset.check]=el.checked;store('lb-onboarding-checks',checked);updateProgress();});});
+  function updateProgress(){const done=checks.filter(el=>el.checked).length;document.getElementById('progressNumber').textContent=`${done} / ${checks.length}`;document.getElementById('progressBar').setAttribute('aria-valuenow',String(done));document.getElementById('progressFill').style.width=(done/checks.length*100)+'%';}
+  document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm(i18n[lang].resetConfirm)){checks.forEach(el=>{el.checked=false;checked[el.dataset.check]=false;});store('lb-onboarding-checks',checked);updateProgress();}});
+  function switchChoice(next){urls[choice]=urlInput.value.trim();choice=next;store('lb-onboarding-choice',choice);urlInput.value=typeof urls[choice]==='string'?urls[choice]:'';document.getElementById('choiceLanding').setAttribute('aria-pressed',String(choice==='landing'));document.getElementById('choiceMember').setAttribute('aria-pressed',String(choice==='member'));status.textContent='';renderMessage();}
+  document.getElementById('choiceLanding').addEventListener('click',()=>switchChoice('landing'));
+  document.getElementById('choiceMember').addEventListener('click',()=>switchChoice('member'));
+  urlInput.addEventListener('input',()=>{urls[choice]=urlInput.value.trim();store('lb-onboarding-public-urls',urls);status.textContent='';renderMessage();});
+  function getPublicUrl(){const raw=urlInput.value.trim();if(!raw){status.textContent=i18n[lang].statusMissing;urlInput.focus();return null;}try{const u=new URL(raw);if(u.protocol!=='https:' || !u.hostname || u.username || u.password || /(?:^|\.)only-inside-s2\.de$/i.test(u.hostname) || /(?:^|\.)club\.liquiditybooster\.de$/i.test(u.hostname)){throw new Error('not public');}return u.href;}catch(e){status.textContent=i18n[lang].statusInvalid;urlInput.focus();return null;}}
+  function renderMessage(){const url=urlInput.value.trim();const msg=i18n[lang].msgDefault;document.getElementById('messagePreview').textContent=msg+(url?'\n'+url:'');document.getElementById('messagePreview').style.whiteSpace='pre-wrap';}
+  function shareMessage(url){return i18n[lang].msgDefault+'\n'+url;}
+  async function copyText(text){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return;}const box=document.createElement('textarea');box.value=text;box.setAttribute('readonly','');box.style.cssText='position:fixed;left:-9999px;top:0';document.body.appendChild(box);box.select();const ok=document.execCommand('copy');box.remove();if(!ok)throw new Error('clipboard');}
+  document.getElementById('copyBtn').addEventListener('click',async()=>{const url=getPublicUrl();if(!url)return;try{await copyText(url);status.textContent=i18n[lang].statusCopied;}catch(e){status.textContent=i18n[lang].statusCopyError;}});
+  document.getElementById('nativeShareBtn').addEventListener('click',async()=>{const url=getPublicUrl();if(!url)return;if(navigator.share){try{await navigator.share({title:document.title,text:i18n[lang].msgDefault,url});}catch(e){if(e.name!=='AbortError')status.textContent=i18n[lang].statusUnavailable;}}else{try{await copyText(url);status.textContent=i18n[lang].statusCopied;}catch(e){status.textContent=i18n[lang].statusUnavailable;}}});
+  document.getElementById('mailBtn').addEventListener('click',()=>{const url=getPublicUrl();if(!url)return;location.href='mailto:?subject='+encodeURIComponent(i18n[lang].emailSubject)+'&body='+encodeURIComponent(shareMessage(url));});
+  document.getElementById('whatsappBtn').addEventListener('click',()=>{const url=getPublicUrl();if(!url)return;window.open('https://wa.me/?text='+encodeURIComponent(shareMessage(url)),'_blank','noopener,noreferrer');});
+  urlInput.value=typeof urls[choice]==='string'?urls[choice]:'';
+  document.getElementById('choiceLanding').setAttribute('aria-pressed',String(choice==='landing'));
+  document.getElementById('choiceMember').setAttribute('aria-pressed',String(choice==='member'));
+  updateProgress();renderText();
+})();
+</script>
+</body>
+</html>
