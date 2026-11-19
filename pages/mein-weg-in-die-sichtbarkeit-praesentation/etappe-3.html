@@ -1,0 +1,589 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f9f8"><meta name="description" content="Etappe 3 – Aus deiner Expertise wird ein Angebot. Club-Marktplatz, Rubriken und interaktiver Angebotsentwickler.">
+<title>Mein Weg in die Sichtbarkeit – Etappe 3 | LiquidityBooster</title><style>
+    :root { color-scheme:light; --paper:#f7f9f8; --white:#fff; --ink:#14252a; --muted:#576970; --line:#dde8e7; --mint:#149e9f; --mint-dark:#087f83; --mint-soft:#e8f7f5; --magenta:#a9286a; --magenta-soft:#f9edf3; --shadow:0 20px 55px rgba(14,49,54,.08); --radius:20px; }
+    * {box-sizing:border-box}
+    html {scroll-behavior:smooth;scroll-padding-top:84px}
+    body {margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.58;-webkit-font-smoothing:antialiased}
+    a{color:var(--mint-dark)}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    :focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+    .wrap{width:min(1140px,calc(100% - 44px));margin:auto}
+    .header{background:#fffefef0;border-bottom:1px solid var(--line);position:sticky;z-index:100;top:0;backdrop-filter:blur(14px)}
+    .header-inner{height:76px;display:flex;gap:22px;justify-content:space-between;align-items:center}
+    .brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);min-width:0}
+    .brand-mark{width:34px;height:34px;flex-shrink:0}
+    .brand-main{font-size:17px;font-weight:800;letter-spacing:-.7px;white-space:nowrap}
+    .brand-main span{color:var(--mint-dark)}
+    .brand-main b{color:var(--magenta);font-weight:800}
+    .brand-small{display:block;font-size:10px;font-weight:700;letter-spacing:1.55px;color:#65777a;text-transform:uppercase;line-height:1.3}
+    .nav{display:flex;gap:23px;align-items:center}
+    .nav a{font-size:13px;text-decoration:none;color:var(--ink);font-weight:650}
+    .nav a:hover{color:var(--mint-dark)}
+    .lang{display:flex;align-items:center;gap:3px;padding:3px;border:1px solid var(--line);border-radius:100px;background:var(--paper)}
+    .lang button{border:0;background:transparent;border-radius:100px;font-size:12px;font-weight:800;padding:7px 9px;color:#6a757a}
+    .lang button[aria-pressed="true"]{background:var(--ink);color:white}
+    .hero{padding:82px 0 70px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 30%,rgba(23,171,164,.12),transparent 42%),linear-gradient(180deg,#fff 0%,#f4faf8 100%)}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:65px;align-items:center}
+    .eyebrow{font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:2px;color:var(--mint-dark);margin:0 0 17px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(40px,5.3vw,70px);font-weight:850;line-height:1.075;letter-spacing:-2.7px;margin-bottom:23px}
+    h1 em{color:var(--magenta);font-style:normal}
+    .lead{font-size:clamp(17px,2vw,21px);max-width:630px;line-height:1.6;color:#33484c;margin-bottom:26px}
+    .hero-aside{font-size:14px;color:#506166;max-width:640px;margin:0 0 30px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;text-align:center;padding:13px 20px;min-height:48px;border-radius:10px;background:var(--mint-dark);border:1px solid var(--mint-dark);color:white;text-decoration:none;font-size:14px;font-weight:750;transition:transform .18s,background .18s,border-color .18s}
+    .btn:hover{transform:translateY(-1px);background:#056d72;border-color:#056d72}
+    .btn svg{width:17px;height:17px;flex-shrink:0}
+    .btn-outline{color:var(--ink);background:white;border-color:#c4d8d6}
+    .btn-outline:hover{background:#f0f9f7;border-color:var(--mint-dark)}
+    .btn-magenta{background:var(--magenta);border-color:var(--magenta)}
+    .btn-magenta:hover{background:#8e2059;border-color:#8e2059}
+    .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .graphic{width:100%;min-height:405px;border-radius:24px;background:linear-gradient(155deg,#14353b 10%,#153e42 60%,#0b6568 100%);color:white;position:relative;box-shadow:0 26px 65px rgba(17,65,68,.2);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:35px}
+    .graphic:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #ffffff24;border-radius:50%;right:-100px;bottom:-85px;box-shadow:0 0 0 42px #ffffff0a,0 0 0 92px #ffffff08}
+    .graphic-label{font-size:11px;letter-spacing:2.4px;font-weight:800;color:#a1e7d9;text-transform:uppercase;position:relative;z-index:1}
+    .circle{height:155px;width:155px;border:1px solid #8be7dc87;border-radius:50%;display:grid;place-items:center;position:relative;z-index:1;margin:18px auto 6px}
+    .circle svg{width:86px;height:86px}
+    .pathline{text-align:center;font-size:22px;font-weight:780;line-height:1.4;position:relative;z-index:1;letter-spacing:-.7px}
+    .pathline span{color:#94e2d8}
+    .graphic-bottom{position:relative;z-index:1;border-top:1px solid #ffffff40;display:flex;justify-content:space-between;gap:15px;padding-top:20px;font-size:12px;color:#d6ece9}
+    section{padding:78px 0}
+    .sectionhead{max-width:785px;margin-bottom:35px}
+    h2{font-size:clamp(29px,3.5vw,44px);letter-spacing:-1.2px;line-height:1.18;margin-bottom:15px;font-weight:820}
+    .sectionhead p:last-child{color:var(--muted);font-size:17px;max-width:740px;margin-bottom:0}
+    .cards-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:27px;box-shadow:0 5px 19px rgba(15,54,54,.025)}
+    .card h3{font-size:21px;line-height:1.3;margin:0 0 10px;letter-spacing:-.35px}
+    .card p{color:var(--muted);margin-bottom:13px}
+    .card p:last-child{margin-bottom:0}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:17px}
+    .number{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;width:44px;height:44px;font-weight:850;background:var(--mint-soft);color:var(--mint-dark)}
+    .micro{color:var(--muted);font-size:12px}
+    .textlink{text-decoration:underline;text-underline-offset:3px;font-weight:700}
+    .note{background:var(--mint-soft);border-left:3px solid var(--mint-dark);border-radius:0 12px 12px 0;padding:17px 20px;color:#255157;font-size:14px}
+    .note strong{color:var(--ink)}
+    .story{background:#fff;border-block:1px solid var(--line)}
+    .story .intro{display:flex;gap:25px;align-items:center}
+    .story .initial{width:90px;height:90px;display:grid;place-items:center;background:var(--magenta-soft);color:var(--magenta);font-size:40px;font-weight:800;border-radius:50%;flex-shrink:0}
+    .story .intro p{margin:0;color:var(--muted);max-width:800px;font-size:18px}
+    .steps{position:relative;display:grid;gap:18px}
+    .step{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:27px 29px;display:grid;grid-template-columns:66px 1fr;gap:22px;box-shadow:0 6px 16px rgba(0,0,0,.02)}
+    .step-num{font-size:31px;color:var(--mint-dark);font-weight:850;letter-spacing:-1px;line-height:1.2}
+    .step h3{font-size:22px;margin-bottom:9px;line-height:1.3}
+    .step p{color:var(--muted);margin-bottom:12px}
+    .step p:last-child{margin-bottom:0}
+    .path{background:var(--mint-soft);padding:12px 15px;border-radius:9px;font-size:14px;font-weight:800;color:#145d63;display:inline-flex;gap:10px;flex-wrap:wrap;margin:3px 0 14px}
+    .tag{display:inline-block;padding:4px 9px;background:var(--magenta-soft);color:#963166;border-radius:100px;font-size:12px;font-weight:750;vertical-align:middle}
+    .reflect{border:1px solid var(--line);background:linear-gradient(135deg,#f0fafa,#fff);border-radius:var(--radius);padding:29px;margin:22px 0}
+    .reflect-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    label.field-label{display:block;font-size:14px;font-weight:750;margin-bottom:8px}
+    textarea,.url-input{width:100%;border:1px solid #c9d9d8;border-radius:9px;background:#fff;padding:12px 13px;color:var(--ink)}
+    textarea{resize:vertical;min-height:98px;font-size:14px}
+    .subline{font-size:13px;color:var(--muted);margin-top:12px}
+    .share{background:linear-gradient(140deg,#12343b,#0c575a);color:white}
+    .share .eyebrow{color:#a7eee3}
+    .share h2{color:white}
+    .share .sectionhead p{color:#d4e9e6}
+    .share-panel{background:#fff;color:var(--ink);padding:32px;border-radius:22px;box-shadow:var(--shadow);max-width:950px}
+    .switchrow{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+    .switchrow button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 14px;border-radius:100px;font-size:13px;font-weight:750}
+    .switchrow button[aria-pressed="true"]{border-color:var(--mint-dark);background:var(--mint-soft);color:var(--mint-dark)}
+    .share-panel .url-input{font-size:15px}
+    .urlrow{display:flex;gap:11px;align-items:flex-end}
+    .urlfield{flex:1}
+    .urlfield label{font-size:13px;font-weight:800;display:block;margin-bottom:7px}
+    .share-panel .actions{margin-top:18px}
+    .share-panel .micro{margin-top:10px}
+    .status{font-size:13px;font-weight:700;min-height:24px;margin:11px 0 0;color:#126f64}
+    .message-preview{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+    .message-preview .micro{margin-top:0}
+    .msg{margin-top:7px;background:#f4f8f8;color:#345259;border-radius:10px;padding:14px 16px;font-size:14px;overflow-wrap:anywhere}
+    .progress-section{background:#fff}
+    .progress-wrap{display:grid;grid-template-columns:1fr 360px;gap:35px;align-items:start}
+    .checks{display:grid;gap:12px}
+    .checklabel{display:flex;align-items:flex-start;gap:12px;background:#f8fbfa;padding:16px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:15px}
+    .checklabel input{width:20px;height:20px;accent-color:var(--mint-dark);flex-shrink:0;margin:2px 0 0}
+    .progress-card{border:1px solid var(--line);border-radius:var(--radius);padding:27px;position:sticky;top:100px}
+    .progress-number{font-size:46px;line-height:1.2;font-weight:850;letter-spacing:-2px;color:var(--mint-dark)}
+    .progress-bar{height:10px;background:#e7eeec;border-radius:100px;overflow:hidden;margin:16px 0 18px}
+    .progress-fill{background:var(--mint-dark);height:100%;width:0;transition:width .25s}
+    .progress-card p{font-size:14px;color:var(--muted);margin-bottom:12px}
+    .small-btn{border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);padding:8px 12px;font-size:13px}
+    .footer{background:#112c31;color:#d4e6e4;padding:39px 0}
+    .footer-inner{display:flex;justify-content:space-between;gap:28px;align-items:start}
+    .footer p{font-size:13px;max-width:750px;color:#c7dcda;margin:8px 0 0}
+    .footer strong{color:white}
+    .footer a{color:#b9f0e6}
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px}.graphic{min-height:300px}.circle{width:110px;height:110px}.circle svg{width:70px;height:70px}.nav a{display:none}.progress-wrap{grid-template-columns:1fr}.progress-card{position:static}.reflect-grid{grid-template-columns:1fr}.hero{padding:64px 0 55px}}
+    @media(max-width:640px){.wrap{width:min(100% - 28px,1140px)}.header-inner{height:68px}.brand-main{font-size:15px}.brand-small{font-size:8px;letter-spacing:1px}.brand-mark{width:28px;height:28px}.hero{padding:45px 0}.hero h1{font-size:clamp(36px,10vw,56px);letter-spacing:-1.6px}.graphic{padding:22px;min-height:280px}.graphic-bottom{flex-direction:column;gap:2px}.cards-2{grid-template-columns:1fr}.step{grid-template-columns:1fr;gap:4px;padding:22px}.step-num{font-size:22px}.story .intro{align-items:start;gap:15px}.story .initial{height:56px;width:56px;font-size:26px}.story .intro p{font-size:16px}.share-panel{padding:20px}.urlrow{display:block}.share-panel .btn{width:100%}.footer-inner{flex-direction:column}section{padding:56px 0}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.progress-fill{transition:none}}
+    @media print{.header,.actions,.lang,.share-panel .actions,.small-btn{display:none!important}.hero,.share,.story,.progress-section{background:white;color:black}.graphic{background:#ebf5f4;color:#14252a;box-shadow:none}.graphic-label,.graphic-bottom,.pathline span{color:#145a60}.card,.step,.share-panel{box-shadow:none}section{padding:24px 0}.progress-card{position:static}.share h2,.share .sectionhead p{color:black}}
+  
+    .foreword{padding:76px 0;border-block:1px solid var(--line)}
+    .foreword .wrap{max-width:1000px}
+    .foreword h2{max-width:800px}
+    .foreword p:not(.eyebrow){font-size:17px;line-height:1.78;color:#354a50;max-width:900px;margin-bottom:18px}
+    .foreword .foreword-quote{font-size:21px!important;font-weight:800;color:var(--ink)!important;border-left:4px solid var(--magenta);padding:10px 0 10px 20px;margin:24px 0!important}
+    .community-card{background:#f2faf8;border-color:#bfe2de}
+    .community-card .slot{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;color:#075f63;text-transform:uppercase;margin-bottom:10px}
+    .profiles-card{border:1px solid #c6deda;background:linear-gradient(120deg,#f0faf8,#fff);border-radius:16px;padding:22px;margin:17px 0}
+    .profiles-card p{margin-bottom:16px}
+    .final-line{font-size:18px;font-weight:800;color:var(--ink);margin-top:16px}
+    @media(max-width:640px){.foreword{padding:50px 0}.foreword p:not(.eyebrow){font-size:16px}.foreword .foreword-quote{font-size:19px!important}}
+  
+
+    .foreword{background:#fff;border-block:1px solid var(--line)}
+    .foreword .wrap{max-width:980px}
+    .foreword p:not(.eyebrow){font-size:17px;line-height:1.77;color:#3d5156;margin-bottom:17px}
+    .foreword .foreword-quote{font-size:22px!important;font-weight:850!important;color:var(--ink)!important;border-left:4px solid var(--magenta);padding:6px 0 6px 20px;margin:26px 0!important}
+    .foreword .final-line{font-size:20px!important;font-weight:800;color:var(--ink)!important}
+    .journey-step{scroll-margin-top:94px}
+    .journey-step .step-body{min-width:0}
+    .journey-step h4{font-size:16px;line-height:1.35;margin:0 0 7px}
+    .journey-step p{line-height:1.7}
+    .small-card{padding:20px;box-shadow:none;margin-bottom:14px}
+    .small-card p{font-size:14px}
+    .action-list{margin:16px 0 18px;counter-reset:num;list-style:none;padding:0;display:grid;gap:10px}
+    .action-list li{counter-increment:num;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;font-size:15px;line-height:1.6;color:#465b60}
+    .action-list li:before{content:counter(num);display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--mint-soft);color:var(--mint-dark);font-weight:800;font-size:13px}
+    .idea{background:#faf7fa;border:1px solid #efd6e3;border-radius:14px;padding:20px;margin:18px 0}
+    .idea p{margin:7px 0 0}
+    .resource-box{padding:20px;border:1px solid var(--line);border-radius:15px;background:#f2faf8;margin:18px 0}
+    .resource-box h4{color:#155e65;margin-bottom:15px}
+    .guide-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid #c9dfdc;font-size:14px;color:#31555b}
+    .guide-link a,.option-link a{display:inline-flex;align-items:center;gap:7px;font-weight:750;color:var(--mint-dark);font-size:13px;white-space:nowrap}
+    .guide-link svg,.option-link svg{height:14px;width:14px}
+    .options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+    .option-card{display:flex;flex-direction:column;padding:21px;min-height:190px}
+    .option-link{margin-top:auto}
+    .warning{background:#fff5f8;border-left:3px solid var(--magenta);padding:16px 20px;margin:19px 0;border-radius:0 12px 12px 0;color:#6d284a}
+    .warning p{color:#763b57}
+    .table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:13px;margin:18px 0}
+    .connection-table{width:100%;min-width:510px;border-collapse:collapse;font-size:14px;line-height:1.6}
+    .connection-table th,.connection-table td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line)}
+    .connection-table thead th{background:var(--mint-soft);color:#135c62}
+    .connection-table tbody th{width:35%;background:#fafdfc;color:#25494d}
+    .connection-table tr:last-child>*{border-bottom:0}
+    .related{background:#e8f6f4;border:1px solid #cde8e4;border-radius:18px;padding:22px;margin-top:26px}
+    .related .btn{margin-top:7px}
+    .progress-section{padding-top:68px}
+    .smallnote{color:var(--muted);font-size:13px}
+    .action-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .skiptext{font-size:13px;color:#586970}
+    @media(max-width:640px){.options-grid{grid-template-columns:1fr}.guide-link{align-items:flex-start;flex-direction:column}.foreword .foreword-quote{font-size:19px!important}.action-list li{font-size:14px}.related{padding:16px}.journey-step{scroll-margin-top:75px}}
+  
+
+.foreword{background:#fff;border-block:1px solid var(--line)}.foreword .wrap{max-width:960px}.foreword p:not(.eyebrow){font-size:17px;line-height:1.76;color:#3e5357}
+.foreword .quote{border-left:4px solid var(--magenta);padding:10px 22px;font-size:22px!important;color:var(--ink)!important;font-weight:800}
+.journey-step{scroll-margin-top:112px}.step-body{min-width:0}.step-body p{line-height:1.7}.step-body h4{font-size:17px;margin:0 0 9px}
+.small-card{padding:21px;box-shadow:none}.small-card p{font-size:14px}.category-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.category-item{background:#f4faf9;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;gap:12px;padding:15px}.category-item strong{font-size:14px}.category-index{font-size:13px;font-weight:800;color:var(--mint-dark)}
+.idea{background:#faf7fa;border:1px solid #efd6e3;border-radius:14px;padding:20px;margin:18px 0}.idea p{margin-bottom:0}
+.action-list{counter-reset:num;list-style:none;padding:0;margin:18px 0;display:grid;gap:12px}.action-list li{counter-increment:num;display:grid;grid-template-columns:28px 1fr;gap:12px;color:#455b60;font-size:15px;line-height:1.6}.action-list li:before{content:counter(num);display:grid;place-items:center;width:28px;height:28px;background:var(--mint-soft);color:var(--mint-dark);font-weight:800;border-radius:8px}
+.showcase{background:linear-gradient(130deg,#123c40,#0b6568);color:#fff;display:flex;align-items:center;gap:24px;padding:23px;border-radius:16px;margin:18px 0}.showcase svg{width:125px;min-width:125px}.showcase h4{color:#fff}.showcase p{color:#d5ebe7}
+.action-row{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.builder-panel{background:#f1faf8;border:1px solid #c6e3dc;padding:24px;border-radius:17px;margin:16px 0}.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.builder-field{min-width:0}.builder-field.span-2{grid-column:1/-1}.builder-field label{display:block;font-size:13px;font-weight:750;margin-bottom:6px}
+.builder-field input,.builder-field select,.builder-field textarea{width:100%;border:1px solid #c8dcd6;border-radius:9px;padding:12px;background:#fff;color:var(--ink);font-size:14px;font:inherit}.builder-field textarea{min-height:93px;resize:vertical}
+.builder-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px}.builder-status{min-height:22px;font-size:13px;color:#14716d;font-weight:800}
+.preview-panel{margin-top:18px;padding-top:15px;border-top:1px solid #c5ddd9}
+.offer-preview{white-space:pre-wrap;overflow-wrap:anywhere;background:#fff;border:1px solid var(--line);border-radius:12px;min-height:120px;padding:16px;font:inherit;font-size:14px;line-height:1.7}
+.smallnote{color:var(--muted)!important;font-size:12px!important}.warning{background:#fff5f8;border-left:4px solid var(--magenta);padding:16px;border-radius:0 12px 12px 0}
+.related{border:1px solid #c6e4de;background:#f0faf8;padding:23px;border-radius:16px;margin-top:26px}
+@media(max-width:680px){.category-grid,.builder-grid{grid-template-columns:1fr}.builder-field.span-2{grid-column:1}.showcase{display:block}.showcase svg{display:block;margin-bottom:10px;width:110px;min-width:0}.builder-panel{padding:16px}.builder-actions .btn{width:100%}}
+
+/* Gemeinsame Reisenavigation – alle Etappen */
+.travel{background:#fff;border-block:1px solid var(--line);padding:26px 0}
+.travel-head{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:15px}
+.travel-name{margin:0;color:var(--ink);font-size:17px;font-weight:820;letter-spacing:-.3px}
+.travel-description{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.travel-route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.travel-link{min-width:0;border:1px solid #d1e4e0;background:#f7fbfa;color:var(--ink);display:flex;gap:11px;align-items:center;text-decoration:none;border-radius:13px;padding:14px;transition:background .2s,border-color .2s}
+.travel-link:hover{background:#eaf7f5;border-color:#70bdb6}
+.travel-link[aria-current="step"]{border:2px solid var(--mint-dark);background:var(--mint-soft);padding:13px}
+.travel-number{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:white;border:1px solid #cee3de;display:grid;place-items:center;font-size:14px;color:var(--mint-dark);font-weight:850}
+.travel-link[aria-current="step"] .travel-number{background:var(--mint-dark);color:#fff;border-color:var(--mint-dark)}
+.travel-link.done .travel-number{background:#cfece5;color:#0c6863}
+.travel-info{min-width:0;display:flex;flex-direction:column;gap:3px}
+.travel-stepname{font-size:12px;font-weight:850;line-height:1.2;color:var(--muted)}
+.travel-title{font-size:14px;font-weight:800;line-height:1.35}
+.travel-status{font-size:11px;color:var(--mint-dark);font-weight:700}
+.travel-controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:17px}
+.travel-control{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;border:1px solid #bbd9d4;padding:12px 17px;color:var(--ink);background:#fff;text-decoration:none;font-size:13px;font-weight:800}
+.travel-control.next{background:var(--mint-dark);color:#fff;border-color:var(--mint-dark)}
+.travel-control:hover{filter:brightness(.97)}
+@media(max-width:700px){.travel{padding:18px 0}.travel-route{grid-template-columns:1fr;gap:8px}.travel-link,.travel-link[aria-current="step"]{padding:10px 12px}.travel-number{width:33px;height:33px;flex-basis:33px}.travel-info{gap:1px}.travel-title{font-size:13px}.travel-controls{flex-direction:column}.travel-control{width:100%}}
+@media print{.travel{display:none!important}}
+
+/* Vierte Reisestation: Reflexionspause nach Etappe 3 */
+.travel-route{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.travel-link,.travel-link[aria-current="step"]{gap:10px;padding:12px}
+.travel-link .travel-number{width:34px;height:34px;flex-basis:34px;font-size:13px}
+.travel-link .travel-title{font-size:13px;overflow-wrap:anywhere}
+.travel-link .travel-stepname,.travel-link .travel-status{font-size:11px}
+.travel-link.travel-reflection{background:#fff8fb;border-color:#e8c8da}
+.travel-link.travel-reflection .travel-number{background:#fce7f1;border-color:#e8b4cc;color:#ac286e}
+.travel-link.travel-reflection[aria-current="location"]{border:2px solid var(--magenta);background:#fdf0f6;padding:11px}
+.travel-link.travel-reflection[aria-current="location"] .travel-number{background:var(--magenta);color:white;border-color:var(--magenta)}
+.travel-reflection .travel-number svg{width:19px;height:19px;display:block}
+.travel-reflection .travel-status{color:#ae3271}
+@media(max-width:960px){.travel-route{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.travel-route{grid-template-columns:1fr}}
+</style><style id="fsa-deck-presentation-css">
+/* FSA Präsentations-Navigation | nur in den neuen Kopien */
+html.fsa-deck-html{overflow:hidden!important;scroll-behavior:auto!important}
+body.fsa-deck{height:100dvh!important;min-height:0!important;overflow:hidden!important}
+body:not(.fsa-deck-ready) main{visibility:hidden}
+body.fsa-deck .header{position:fixed!important;left:0;right:0;top:0;z-index:1100!important}
+body.fsa-deck .header .nav{display:none!important}
+body.fsa-deck .travel,body.fsa-deck .footer{display:none!important}
+body.fsa-deck main{position:fixed!important;inset:calc(var(--fsa-deck-head,72px) + 57px) 0 75px!important;width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;scroll-behavior:auto!important;margin:0!important;padding:0!important;background:var(--paper,#f7f9f8)}
+body.fsa-deck main>section{margin:0!important;min-height:0!important;height:auto!important;padding-top:clamp(14px,2.3vh,28px)!important;padding-bottom:26px!important}
+body.fsa-deck main>section.fsa-deck-off,body.fsa-deck article.fsa-deck-off{display:none!important}
+body.fsa-deck #weg.fsa-deck-step .sectionhead,body.fsa-deck #schritte.fsa-deck-step .sectionhead{display:none!important}
+body.fsa-deck #weg.fsa-deck-overview .steps,body.fsa-deck #schritte.fsa-deck-overview .steps{display:none!important}
+body.fsa-deck .steps{max-width:1120px;margin-left:auto;margin-right:auto}
+body.fsa-deck .steps>.step{max-width:100%;margin:0 auto}
+body.fsa-deck .hero,body.fsa-deck .pause-hero{min-height:0!important}
+.fsa-deck-top,.fsa-deck-bottom{position:fixed;z-index:1150;left:0;right:0;background:#fff;color:#14252a;font-family:inherit;box-sizing:border-box}
+.fsa-deck-top *,.fsa-deck-bottom *,.fsa-deck-popup *{box-sizing:border-box}
+.fsa-deck-top{top:var(--fsa-deck-head,72px);height:57px;border-bottom:1px solid #dce9e8;display:flex;align-items:center;gap:12px;padding:5px clamp(12px,3vw,36px);box-shadow:0 3px 12px rgba(15,47,51,.04)}
+.fsa-deck-stages{display:flex;align-items:center;gap:5px;min-width:0;flex:1;overflow-x:auto;scrollbar-width:none}
+.fsa-deck-stages::-webkit-scrollbar{display:none}
+.fsa-deck-stages a{display:inline-flex;align-items:center;justify-content:center;flex:none;padding:9px 13px;border-radius:9px;font-size:13px;font-weight:650;text-decoration:none!important;color:#4a6369;white-space:nowrap;line-height:1.25;border:1px solid transparent}
+.fsa-deck-stages a[aria-current=page]{background:#e4f7f5;color:#087f83;border-color:#aedcd9}
+.fsa-deck-stages a:focus-visible,.fsa-deck-button:focus-visible,.fsa-deck-chapter:focus-visible{outline:3px solid #aa2a75;outline-offset:2px}
+.fsa-deck-button{appearance:none;border:1px solid #c7dcdb;background:#fff;color:#17383b;border-radius:10px;padding:10px 13px;cursor:pointer;font:600 14px/1.15 inherit;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
+.fsa-deck-button:hover{background:#eff9f8}
+.fsa-deck-button svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fsa-deck-button[disabled]{opacity:.3;cursor:not-allowed}
+.fsa-deck-button.fsa-deck-primary{background:#087f83;color:#fff;border-color:#087f83}
+.fsa-deck-button.fsa-deck-primary:hover{background:#086e71}
+.fsa-deck-top-count{color:#60757b;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:46px;text-align:right}
+.fsa-deck-bottom{bottom:0;height:75px;border-top:1px solid #dce9e8;display:flex;align-items:center;gap:12px;padding:10px clamp(12px,3vw,36px);box-shadow:0 -3px 12px rgba(15,47,51,.04)}
+.fsa-deck-middle{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.fsa-deck-chapter-title{font-size:14px;font-weight:650;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;max-width:740px;line-height:1.2}
+.fsa-deck-progress{height:5px;width:min(420px,90%);background:#dcebe9;border-radius:999px;overflow:hidden}
+.fsa-deck-progress>i{display:block;width:0;height:100%;background:#129f9a;border-radius:inherit;transition:width .2s}
+.fsa-deck-popup[hidden]{display:none!important}
+.fsa-deck-popup{position:fixed;z-index:1190;inset:calc(var(--fsa-deck-head,72px) + 57px) 0 75px;display:grid;place-items:start center;padding:12px;background:rgba(13,40,43,.32);overflow:auto}
+.fsa-deck-panel{width:min(700px,100%);max-height:100%;display:flex;flex-direction:column;background:#fff;border-radius:15px;box-shadow:0 24px 75px rgba(10,37,45,.25);overflow:hidden}
+.fsa-deck-panelhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 20px;border-bottom:1px solid #e0e9e8}
+.fsa-deck-panelhead strong{font-size:17px}
+.fsa-deck-chapters{overflow-y:auto;padding:10px 14px 14px}
+.fsa-deck-chapter{width:100%;display:flex;text-align:left;align-items:center;gap:15px;border:0;border-radius:10px;padding:11px 13px;background:#fff;color:#1b3339;cursor:pointer;font:inherit}
+.fsa-deck-chapter:hover{background:#f0f7f6}
+.fsa-deck-chapter[aria-current=true]{background:#e4f7f5;color:#087f83}
+.fsa-deck-num{display:inline-grid;place-items:center;min-width:35px;height:31px;border-radius:8px;background:#eff4f3;color:#4f686e;font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.fsa-deck-chapter-label{min-width:0;flex:1;font-size:14px;line-height:1.4}
+@media(max-width:680px){.fsa-deck-top{gap:5px;padding:4px 8px}.fsa-deck-stages a{padding:9px 8px;font-size:12px}.fsa-deck-button{padding:9px 10px;font-size:12px}.fsa-deck-top-count{display:none}.fsa-deck-bottom{padding:7px 9px;height:68px;gap:7px}body.fsa-deck main{bottom:68px!important}.fsa-deck-popup{bottom:68px}.fsa-deck-chapter-title{font-size:12px}.fsa-deck-progress{height:4px}.fsa-deck-button .fsa-deck-hide-mobile{display:none}}
+@media(prefers-reduced-motion:reduce){.fsa-deck-progress>i{transition:none}}
+</style>
+</head><body data-fsa-deck-stage="3">
+<header class="header"><div class="wrap header-inner"><a class="brand" href="./"><svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="18" stroke="#0c8f93" stroke-width="1.8"/><path d="M12 25L20 9L28 25L20 22L12 25Z" fill="#a9286a"/><circle cx="20" cy="28" r="3" fill="#0c8f93"/></svg><span><span class="brand-main">liquidity<span>booster</span><b>.de</b></span><span class="brand-small"><span data-i18n="tr101">Mein Weg in die Sichtbarkeit</span></span></span></a>
+<nav class="nav" aria-label="Seitennavigation"><a href="#vorwort"><span data-i18n="tr102">Vorwort</span></a><a href="#schritte"><span data-i18n="tr103">Reiseziele</span></a><a href="#entwickler"><span data-i18n="tr104">Angebotsentwickler</span></a><a href="#meilenstein"><span data-i18n="tr105">Meilenstein</span></a></nav>
+<div class="lang"><button type="button" id="langDe" aria-pressed="true">DE</button><button type="button" id="langEn" aria-pressed="false">EN</button></div></div></header>
+<section class="travel" data-travel-current="3" aria-label="Deine Reise – drei Etappen und Reflexionspause"><div class="wrap"><div class="travel-head"><div><h2 class="travel-name" data-travel-key="heading">Dein Weg in die Sichtbarkeit</h2><p class="travel-description" data-travel-key="description">Drei Etappen und eine Reflexionspause – in deinem Tempo.</p></div></div><nav class="travel-route" aria-label="Reiseziele"><a class="travel-link" href="./" data-travel-step="1"><span class="travel-number">1</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="1">Etappe 1</span><span class="travel-title" data-travel-title="1">Vom Ich zum Wir</span><span class="travel-status" data-travel-status="1">0 / 8</span></span></a><a class="travel-link" href="etappe-2.html" data-travel-step="2"><span class="travel-number">2</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="2">Etappe 2</span><span class="travel-title" data-travel-title="2">Aus Sichtbarkeit wird Begegnung</span><span class="travel-status" data-travel-status="2">0 / 8</span></span></a><a class="travel-link" href="etappe-3.html" data-travel-step="3" aria-current="step"><span class="travel-number">3</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="3">Etappe 3</span><span class="travel-title" data-travel-title="3">Aus deiner Expertise wird ein Angebot</span><span class="travel-status" data-travel-status="3">0 / 8</span></span></a><a class="travel-link travel-reflection" href="reflexionspause.html" data-travel-step="4"><span class="travel-number"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.5" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.5" fill="currentColor"/></svg></span><span class="travel-info"><span class="travel-stepname" data-travel-key="reflection">Reflexionspause</span><span class="travel-title" data-travel-title="4">Schau, was du geschaffen hast</span><span class="travel-status" data-travel-status="4">0 / 5 Gedanken</span></span></a></nav></div></section>
+<main id="start"><section class="hero"><div class="wrap hero-grid"><div>
+<p class="eyebrow" data-i18n="tr106">Mein Weg in die Sichtbarkeit · Etappe 3</p>
+<h1 class="html-i18n" data-i18n="tr107">Aus deiner Expertise wird ein <em>Angebot.</em></h1>
+<p class="lead" data-i18n="tr108">Mein Wissen. Meine Erfahrung. Mein Mehrwert für andere.</p>
+<p class="hero-aside" data-i18n="tr109">Finde deine persönliche Stärke, wähle die passende Rubrik und entwickle dein erstes Angebot für den Club-Marktplatz.</p>
+<div class="actions"><a class="btn" href="#vorwort"><span data-i18n="tr110">Entdeckungsreise starten</span></a><a class="btn btn-outline" href="#entwickler"><span data-i18n="tr111">Mein Angebot entwickeln</span></a></div>
+</div><div class="graphic"><div class="graphic-label"><span data-i18n="tr112">Etappe 3 · Mein Schaufenster</span></div><div class="circle"><svg viewBox="0 0 100 100" fill="none" stroke-width="2.5" aria-hidden="true"><rect x="12" y="16" width="76" height="73" rx="8" stroke="#a2e6d9"/><path d="M12 42h76M39 16v73M62 16v73" stroke="#a2e6d9"/><circle cx="50" cy="65" r="12" stroke="#f4b2d6"/></svg></div><div class="pathline"><span class="html-i18n" data-i18n="tr113">Meine Expertise.<br>Mein Angebot.</span></div><div class="graphic-bottom"><span><span data-i18n="tr114">Echten Nutzen schaffen</span></span><span><span data-i18n="tr115">Gemeinsam sichtbar werden</span></span></div></div></div></section>
+<section class="foreword" id="vorwort"><div class="wrap">
+<p class="eyebrow" data-i18n="tr116">Vorwort – Was du kannst, ist vielleicht für andere wertvoll</p>
+<h2 data-i18n="tr117">Dein persönlicher Schatz wird sichtbar.</h2>
+<p data-i18n="tr118">Jeder Mensch besitzt Fähigkeiten, Wissen und Erfahrungen. Manches haben wir beruflich gelernt, anderes durch besondere Interessen oder persönliche Herausforderungen. Oft nehmen wir gar nicht wahr, wie wertvoll das für andere Menschen sein kann.</p>
+<p data-i18n="tr119">In Etappe 1 hast du dich mit deiner Persönlichkeit beschäftigt und begonnen, dich sichtbar zu machen. In Etappe 2 hast du deine Erreichbarkeit und deine Zeit selbst organisiert. Jetzt folgt die nächste Frage: Was kann ich konkret anbieten?</p>
+<p class="quote" data-i18n="tr120">Du musst nicht alles können. Aber das, was du wirklich kannst, könnte für andere genau das Richtige sein.</p>
+<p data-i18n="tr121">Vielleicht kannst du ein persönliches Orientierungsgespräch führen. Vielleicht bereitest du ein Live-Webinar vor. Vielleicht bietest du ein handwerkliches Produkt, Kunst oder eine Dienstleistung an.</p>
+<p data-i18n="tr122">Der Club-Marktplatz bietet dir ein gemeinsames Schaufenster. Du kannst eine passende Rubrik wählen und dein Angebot mit eigener Darstellung sichtbar machen. Menschen, die dich kennenlernen und verstehen, können dein Angebot weiterempfehlen.</p>
+<p data-i18n="tr123">Beginne mit einem klar verständlichen Angebot, das zu deinen Fähigkeiten passt und einen ehrlichen Mehrwert bietet. Dein persönliches Schaufenster darf später mit dir wachsen.</p></div></section>
+<section id="schritte"><div class="wrap"><div class="sectionhead">
+<p class="eyebrow" data-i18n="tr124">Deine dritte Etappe</p>
+<h2 data-i18n="tr125">Von deinen Fähigkeiten zum eigenen Schaufenster.</h2>
+<p data-i18n="tr126">Entdecke deine Expertise, finde deine passende Rubrik und entwickle dein erstes persönliches Angebot.</p></div>
+<div class="steps"><article class="step journey-step" id="staerken"><div class="step-num">01</div><div class="step-body"><h3 data-i18n="tr10">Entdecke deine persönlichen Stärken</h3><p data-i18n="tr11">Was für dich leicht und selbstverständlich ist, kann für andere wertvoll sein. Erkenne deine Kenntnisse, Erfahrungen und Interessen, bevor du an ein Angebot denkst.</p><div class="cards-2"><div class="card small-card"><h4 data-i18n="tr1">Was kann ich besonders gut?</h4><p data-i18n="tr2">Erfahrungen aus Beruf, Alltag, Hobby oder eigener Lebensgeschichte.</p></div><div class="card small-card"><h4 data-i18n="tr3">Was macht mir Freude?</h4><p data-i18n="tr4">Worüber erzähle ich gern? Was kann ich verständlich zeigen?</p></div><div class="card small-card"><h4 data-i18n="tr5">Wofür werde ich gefragt?</h4><p data-i18n="tr6">Welche Themen oder Probleme bringen Menschen bereits zu mir?</p></div><div class="card small-card"><h4 data-i18n="tr7">Wo liegen meine Grenzen?</h4><p data-i18n="tr8">Für welche Leistungen fehlen mir Kenntnisse oder eine notwendige Zulassung?</p></div></div><div class="note"><p data-i18n="tr9">Du musst nicht alles können. Du solltest aber genau wissen, was du tatsächlich leisten kannst – und was nicht.</p></div></div></article>
+<article class="step journey-step" id="zielgruppe"><div class="step-num">02</div><div class="step-body"><h3 data-i18n="tr17">Finde heraus, wem du helfen kannst</h3><p data-i18n="tr18">Eine Fähigkeit allein ist noch kein Angebot. Erst wenn du einem bestimmten Menschen bei einer konkreten Frage oder Herausforderung helfen kannst, entsteht ein klar erkennbarer Nutzen.</p><div class="idea"><h4 data-i18n="tr12">Deine persönliche Formulierungshilfe</h4><p data-i18n="tr13">„Ich unterstütze [wen?] dabei, [welches Anliegen?] besser zu verstehen oder zu bearbeiten – mit meiner Erfahrung aus [welchem Bereich?].“</p></div>
+<ol class="action-list"><li><span data-i18n="tr14">Wähle eine klar beschreibbare Zielgruppe.</span></li><li><span data-i18n="tr15">Benenne das Anliegen in einfachen Worten.</span></li><li><span data-i18n="tr16">Beschreibe, welchen realistischen Nutzen deine Leistung bietet.</span></li></ol></div></article>
+<article class="step journey-step" id="rubriken"><div class="step-num">03</div><div class="step-body"><h3 data-i18n="tr28">Entdecke die Rubriken im Club-Marktplatz</h3><p data-i18n="tr29">Im Club-Marktplatz werden Angebote thematisch sortiert. So können Menschen Leistungen und Produkte in der Rubrik entdecken, die sie interessiert.</p><div class="category-grid"><div class="category-item"><span class="category-index">01</span><strong data-i18n="tr19">Webinar & Wissenswert</strong></div><div class="category-item"><span class="category-index">02</span><strong data-i18n="tr20">Persönlichkeit, Familie & Partnerschaft</strong></div><div class="category-item"><span class="category-index">03</span><strong data-i18n="tr21">Marketing, Business & Finanzen</strong></div><div class="category-item"><span class="category-index">04</span><strong data-i18n="tr22">Handwerk, Kunst & Kreatives</strong></div><div class="category-item"><span class="category-index">05</span><strong data-i18n="tr23">Gesundheit, Spiritualität & Lebensfreude</strong></div><div class="category-item"><span class="category-index">06</span><strong data-i18n="tr24">Freizeit, Natur & Erlebenswert</strong></div></div><div class="note"><p data-i18n="tr25">Wichtig: Die Rubriken des Marktplatzes sind nicht identisch mit den Kategorien des Mitgliederverzeichnisses. Entscheidend ist der tatsächliche Inhalt deines Angebots.</p></div><div class="action-row"><a class="btn btn-outline" href="https://www.liquiditybooster.de/mitglied/alexander-finke.html" target="_blank" rel="noopener noreferrer"><span data-i18n="tr26">Angebote in einem Mitgliederprofil ansehen</span></a><a class="btn btn-outline" href="https://www.liquiditybooster.de/mitglieder/mitgliederprofile.html" target="_blank" rel="noopener noreferrer"><span data-i18n="tr27">Alle Mitgliederprofile entdecken</span></a></div></div></article>
+<article class="step journey-step" id="angebotsarten"><div class="step-num">04</div><div class="step-body"><h3 data-i18n="tr39">Entscheide, welche Angebotsform zu dir passt</h3><p data-i18n="tr40">Du bist nicht auf Gespräche und Webinare beschränkt. Auch Dienstleistungen, Kunst oder handgefertigte Gegenstände gehören zu den möglichen Angeboten.</p><div class="cards-2"><div class="card small-card"><h4 data-i18n="tr30">Persönliches Gespräch</h4><p data-i18n="tr31">Kennenlernen, Orientierung, zuhören, Fragen besser einordnen.</p></div><div class="card small-card"><h4 data-i18n="tr32">Eigenes Live-Webinar</h4><p data-i18n="tr33">Wissen erklären, Beispiele zeigen, Fragen mehrerer Menschen beantworten.</p></div><div class="card small-card"><h4 data-i18n="tr34">Dienstleistung</h4><p data-i18n="tr35">Eine klar umrissene Leistung mit vereinbartem Umfang erbringen.</p></div><div class="card small-card"><h4 data-i18n="tr36">Physisches Produkt</h4><p data-i18n="tr37">Kunst, Handwerk oder andere zulässige Gegenstände anbieten.</p></div></div><div class="note"><p data-i18n="tr38">Für den Start reicht ein einziges Angebot. Ein kostenloses Kennenlernen kann über Calendly organisiert werden; eine bezahlte Leistung benötigt klare Angaben über Umfang, Preis und Bedingungen.</p></div></div></article>
+<article class="step journey-step" id="schaufenster"><div class="step-num">05</div><div class="step-body"><h3 data-i18n="tr44">Hänge dein bestes Angebot ins Schaufenster</h3><p data-i18n="tr45">Stell dir ein Geschäft mit einem besonderen Schaufenster vor. Ein klar präsentiertes Hauptangebot kann Menschen neugierig machen. Es soll das Beste zeigen, was du tatsächlich anbieten kannst.</p><div class="showcase"><svg viewBox="0 0 150 130" aria-hidden="true" fill="none" stroke-width="3"><rect x="17" y="8" width="116" height="108" rx="11" stroke="#9de4d9"/><path d="M17 41h116M55 8v108M95 8v108" stroke="#9de4d9"/><circle cx="75" cy="66" r="12" stroke="#e9afce"/><path d="M61 92l14-15 14 15" stroke="#e9afce"/></svg><div><h4 data-i18n="tr41">Dein persönlicher Topseller</h4><p data-i18n="tr42">Ein Topseller ist hier zunächst dein bewusst gewähltes Hauptangebot, keine Behauptung über bereits erzielte Verkaufszahlen. Entscheidend sind echter Nutzen, eine verständliche Darstellung und deine Verlässlichkeit.</p></div></div>
+<div class="idea"><p data-i18n="tr43">Dein Angebot kann in der passenden Rubrik, in deinem persönlichen Mitgliederprofil und über eine eigene Angebotsdetailseite sichtbar werden. Beim Kaufen oder Buchen führt die Strecke über das zentrale Shopsystem; persönliche Weiterempfehlungen können zusätzliche Aufmerksamkeit schaffen.</p></div></div></article>
+<article class="step journey-step" id="aufbau"><div class="step-num">06</div><div class="step-body"><h3 data-i18n="tr53">So wird dein Angebot verständlich</h3><p data-i18n="tr54">Interessierte sollen auf einen Blick erfassen können, worum es geht, was sie erhalten und für wen dein Angebot geeignet ist. Orientiere dich am Aufbau der vorhandenen Angebotsdetailseiten.</p><ol class="action-list"><li><span data-i18n="tr46">Titel und kurze Einführung – was bietest du an?</span></li><li><span data-i18n="tr47">Zielgruppe – für wen ist es geeignet?</span></li><li><span data-i18n="tr48">Nutzen – was kann jemand realistisch erwarten?</span></li><li><span data-i18n="tr49">Leistungsumfang – was ist enthalten und was nicht?</span></li><li><span data-i18n="tr50">Ablauf, Dauer oder Lieferung – wie funktioniert es?</span></li><li><span data-i18n="tr51">Preis, Steuerangaben und geltende Bedingungen</span></li><li><span data-i18n="tr52">Buchung, Kauf und Weiterempfehlung</span></li></ol></div></article>
+<article class="step journey-step" id="entwickler"><div class="step-num">07</div><div class="step-body"><h3 data-i18n="tr80">Entwickle jetzt dein eigenes Angebot</h3><p data-i18n="tr81">Hier kannst du die wesentlichen Angaben zu deiner Expertise und deinem Angebot erfassen. Aus deinen Eingaben wird ein strukturierter Entwurf, den du weiterbearbeiten und für die spätere Einreichung nutzen kannst.</p><div class="builder-panel">
+<div class="builder-grid"><div class="builder-field"><label for="offerType"><span data-i18n="tr55">Art meines Angebots</span></label><select id="offerType"><option value="conversation">Kennenlern- oder Orientierungsgespräch</option><option value="webinar">Eigenes Live-Webinar</option><option value="service">Dienstleistung oder Betreuung</option><option value="goods">Kunst, Handwerk oder physisches Produkt</option></select></div>
+<div class="builder-field"><label for="offerCategory"><span data-i18n="tr56">Marktplatz-Rubrik</span></label><select id="offerCategory"><option value="0">Webinar & Wissenswert</option><option value="1">Persönlichkeit, Familie & Partnerschaft</option><option value="2">Marketing, Business & Finanzen</option><option value="3">Handwerk, Kunst & Kreatives</option><option value="4">Gesundheit, Spiritualität & Lebensfreude</option><option value="5">Freizeit, Natur & Erlebenswert</option></select></div>
+<div class="builder-field span-2"><label for="f-title"><span data-i18n="tr57">Angebotstitel</span></label><input type="text" id="f-title" maxlength="450" data-field="title" data-i18n-placeholder="ph58" placeholder="Ein kurzer verständlicher Titel …"></div><div class="builder-field "><label for="f-expertise"><span data-i18n="tr59">Meine Expertise</span></label><textarea rows="3" id="f-expertise" data-field="expertise" data-i18n-placeholder="ph60" placeholder="Das bringe ich an Erfahrung mit …"></textarea></div><div class="builder-field "><label for="f-audience"><span data-i18n="tr61">Meine Zielgruppe</span></label><textarea rows="3" id="f-audience" data-field="audience" data-i18n-placeholder="ph62" placeholder="Für wen ist mein Angebot gedacht?"></textarea></div><div class="builder-field "><label for="f-need"><span data-i18n="tr63">Das Anliegen</span></label><textarea rows="3" id="f-need" data-field="need" data-i18n-placeholder="ph64" placeholder="Welche Frage oder Herausforderung?"></textarea></div><div class="builder-field "><label for="f-benefit"><span data-i18n="tr65">Konkreter Nutzen</span></label><textarea rows="3" id="f-benefit" data-field="benefit" data-i18n-placeholder="ph66" placeholder="Was kann der Teilnehmer oder Käufer mitnehmen?"></textarea></div><div class="builder-field span-2"><label for="f-scope"><span data-i18n="tr67">Leistungsbeschreibung</span></label><textarea rows="3" id="f-scope" data-field="scope" data-i18n-placeholder="ph68" placeholder="Ablauf, Inhalte, Materialien …"></textarea></div><div class="builder-field "><label for="f-format"><span data-i18n="tr69">Dauer / Durchführung / Lieferung</span></label><input type="text" id="f-format" maxlength="450" data-field="format" data-i18n-placeholder="ph70" placeholder="z. B. 30 Minuten online"></div><div class="builder-field "><label for="f-price"><span data-i18n="tr71">Preis oder kostenlos (optional)</span></label><input type="text" id="f-price" maxlength="450" data-field="price" data-i18n-placeholder="ph72" placeholder="Preis mit erforderlicher Steuerangabe …"></div><div class="builder-field span-2"><label for="f-terms"><span data-i18n="tr73">Wichtige Bedingungen (optional)</span></label><textarea rows="3" id="f-terms" data-field="terms" data-i18n-placeholder="ph74" placeholder="Voraussetzungen, Absage, Versand …"></textarea></div></div>
+<div class="builder-actions"><button type="button" class="btn" id="previewBtn"><span data-i18n="tr75">Angebotsentwurf anzeigen</span></button><button type="button" class="btn btn-outline" id="copyBtn"><span data-i18n="tr76">Entwurf kopieren</span></button><button type="button" class="btn btn-outline" id="saveBtn"><span data-i18n="tr77">Als Textdatei speichern</span></button></div>
+<p id="builderStatus" class="builder-status" role="status" aria-live="polite"></p><div id="previewPanel" class="preview-panel"><h4 data-i18n="tr78">Mein Angebotsentwurf</h4><pre class="offer-preview" id="previewText"></pre></div>
+<p class="smallnote" data-i18n="tr79">Deine Eingaben bleiben ausschließlich auf diesem Gerät gespeichert. Keine Übertragung an den Club-Marktplatz. Gib keine vertraulichen Kundendaten ein.</p></div></div></article>
+<article class="step journey-step" id="kosten"><div class="step-num">08</div><div class="step-body"><h3 data-i18n="tr87">Preis, Verantwortung und faire Weiterempfehlung</h3><p data-i18n="tr88">Wenn du eine bezahlte Leistung anbietest, gehören Vorbereitung, Zeit, Material und mögliche technische Infrastruktur zu deiner Kalkulation. Deine Leistung muss transparent beschrieben sein.</p><div class="cards-2"><div class="card small-card"><h4 data-i18n="tr82">Deine Verantwortung als Anbieter</h4><p data-i18n="tr83">Du bist für die eigene Leistung, die erforderlichen Voraussetzungen, Preisangaben und Bedingungen verantwortlich. Bei regulierten Themen sind die jeweiligen fachlichen und rechtlichen Grenzen zu beachten.</p></div>
+<div class="card small-card"><h4 data-i18n="tr84">Die Regel im Club-Marktplatz</h4><p data-i18n="tr85">Für entsprechende Club-Marktplatz-Angebote gilt: 80 % für den Angebotsersteller und 20 % für die direkt empfehlende Person. Keine Drei-Ebenen-Vergütung im Club-Marktplatz.</p></div></div><div class="note"><p data-i18n="tr86">Empfehlungen können Aufmerksamkeit schaffen, garantieren aber keine Buchungen oder Verkäufe. Stelle keine unbelegten Erfolgsversprechen in Aussicht.</p></div></div></article>
+<article class="step journey-step" id="freigabe"><div class="step-num">09</div><div class="step-body"><h3 data-i18n="tr95">Vom fertigen Entwurf zum veröffentlichten Angebot</h3><p data-i18n="tr96">Dein Textentwurf allein ist noch kein Shopartikel. Er bereitet dich darauf vor, dein Angebot über den vorgesehenen Einreichungsweg an den zentralen Marktplatz zu übergeben.</p><ol class="action-list"><li><span data-i18n="tr89">Beschreibung, Zielgruppe, Leistung und Preis sorgfältig prüfen.</span></li><li><span data-i18n="tr90">Passendes Bildmaterial hinzufügen – bei Gegenständen echte Produktfotos.</span></li><li><span data-i18n="tr91">Rubrik, Teilnahme-, Kauf- oder Lieferbedingungen ergänzen.</span></li><li><span data-i18n="tr92">Angebot über den dafür vorgesehenen Club-Marktplatz-Prozess zur Prüfung und Veröffentlichung einreichen.</span></li><li><span data-i18n="tr93">Nach Veröffentlichung Profil, Rubrik, Detailseite, Warenkorb und Empfehlungsweg testen.</span></li></ol>
+<div class="warning"><p data-i18n="tr94">Der Angebotsentwickler dieser Lernseite lädt keine Produkte hoch, erstellt keinen echten Warenkorb und veröffentlicht nicht direkt im Shopsystem. Der konkrete Einreichungsweg erfolgt über den zuständigen Marktplatzprozess.</p></div></div></article>
+<article class="step journey-step" id="sichtbarkeit"><div class="step-num">10</div><div class="step-body"><h3 data-i18n="tr99">Dein Angebot wird Teil deiner Sichtbarkeit</h3><p data-i18n="tr100">Ein veröffentlichtes Angebot kann in deinem Mitgliederprofil, im passenden Rubrikbereich und über persönliche Weiterempfehlungen entdeckt werden. Du musst dafür nicht laut auftreten – nur klar und verlässlich.</p><div class="idea"><h4 data-i18n="tr97">Beginne klein. Höre zu. Entwickle dich weiter.</h4><p data-i18n="tr98">Erzähle bei passenden Begegnungen in der Community, was du anbietest. Sammle Fragen und Rückmeldungen. Vielleicht wird aus deinem ersten Schaufenster-Angebot im Laufe der Zeit etwas Größeres.</p></div></div></article></div></div></section>
+<section id="meilenstein" class="progress-section"><div class="wrap"><div class="sectionhead">
+<p class="eyebrow" data-i18n="tr127">Dein dritter Meilenstein</p>
+<h2 data-i18n="tr128">Ich weiß, was ich anbieten kann.</h2>
+<p data-i18n="tr129">Du hast dich für ein konkretes Angebot entschieden und kannst deine Leistung verständlich beschreiben. Du bestimmst, wie schnell du weitergehst.</p></div>
+<div class="progress-wrap"><div class="checks"><label class="checklabel"><input type="checkbox" data-check="1"><span data-i18n="tr130">Ich habe meine Stärken und Grenzen erkannt.</span></label><label class="checklabel"><input type="checkbox" data-check="2"><span data-i18n="tr131">Ich kenne meine Zielgruppe und ihren Nutzen.</span></label><label class="checklabel"><input type="checkbox" data-check="3"><span data-i18n="tr132">Ich habe eine passende Rubrik ausgewählt.</span></label><label class="checklabel"><input type="checkbox" data-check="4"><span data-i18n="tr133">Ich weiß, welche Angebotsform zu mir passt.</span></label><label class="checklabel"><input type="checkbox" data-check="5"><span data-i18n="tr134">Ich habe mein persönliches Hauptangebot festgelegt.</span></label><label class="checklabel"><input type="checkbox" data-check="6"><span data-i18n="tr135">Mein Angebotsentwurf ist erstellt.</span></label><label class="checklabel"><input type="checkbox" data-check="7"><span data-i18n="tr136">Ich habe Preis, Bedingungen und Verantwortung geprüft.</span></label><label class="checklabel"><input type="checkbox" data-check="8"><span data-i18n="tr137">Ich kenne den Weg zur Freigabe und Weiterempfehlung.</span></label></div><aside class="progress-card">
+<p class="eyebrow" data-i18n="tr138">Mein Fortschritt</p><div id="progressNumber" class="progress-number">0 / 8</div>
+<div id="progressBar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+<p data-i18n="tr139">Die Häkchen bleiben auf diesem Gerät gespeichert.</p>
+<button type="button" id="resetBtn" class="small-btn"><span data-i18n="tr140">Auswahl zurücksetzen</span></button></aside></div>
+<div class="related"><h4 data-i18n="tr141">Dein Angebot darf mit dir wachsen.</h4><p data-i18n="tr142">Nach Prüfung und Veröffentlichung kann dein Angebot über die Marktplatzrubrik, dein Mitgliederprofil und persönliche Empfehlungen gefunden werden. Der Angebotsentwickler bereitet deine Einreichung vor – er veröffentlicht nicht selbst.</p>
+<div class="actions"><a class="btn btn-outline" href="etappe-2.html"><span data-i18n="tr143">Zurück zu Etappe 2</span></a><a class="btn btn-outline" href="./"><span data-i18n="tr144">Etappe 1 ansehen</span></a></div></div></div></section>
+<section class="travel" data-travel-current="3" aria-label="Deine Reise – drei Etappen und Reflexionspause"><div class="wrap"><div class="travel-head"><div><h2 class="travel-name" data-travel-key="heading">Dein Weg in die Sichtbarkeit</h2><p class="travel-description" data-travel-key="description">Drei Etappen und eine Reflexionspause – in deinem Tempo.</p></div></div><nav class="travel-route" aria-label="Reiseziele"><a class="travel-link" href="./" data-travel-step="1"><span class="travel-number">1</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="1">Etappe 1</span><span class="travel-title" data-travel-title="1">Vom Ich zum Wir</span><span class="travel-status" data-travel-status="1">0 / 8</span></span></a><a class="travel-link" href="etappe-2.html" data-travel-step="2"><span class="travel-number">2</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="2">Etappe 2</span><span class="travel-title" data-travel-title="2">Aus Sichtbarkeit wird Begegnung</span><span class="travel-status" data-travel-status="2">0 / 8</span></span></a><a class="travel-link" href="etappe-3.html" data-travel-step="3" aria-current="step"><span class="travel-number">3</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="3">Etappe 3</span><span class="travel-title" data-travel-title="3">Aus deiner Expertise wird ein Angebot</span><span class="travel-status" data-travel-status="3">0 / 8</span></span></a><a class="travel-link travel-reflection" href="reflexionspause.html" data-travel-step="4"><span class="travel-number"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.5" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.5" fill="currentColor"/></svg></span><span class="travel-info"><span class="travel-stepname" data-travel-key="reflection">Reflexionspause</span><span class="travel-title" data-travel-title="4">Schau, was du geschaffen hast</span><span class="travel-status" data-travel-status="4">0 / 5 Gedanken</span></span></a></nav><div class="travel-controls"><a class="travel-control" href="etappe-2.html" data-travel-key="previous">Vorherige Etappe</a><a class="travel-control next" href="reflexionspause.html" data-travel-key="nextPause">Zur Reflexionspause</a></div></div></section>
+</main><footer class="footer"><div class="wrap footer-inner"><div><strong>LiquidityBooster · Mein Weg in die Sichtbarkeit</strong>
+<p data-i18n="tr145">Etappe 3 – Aus deiner Expertise wird ein Angebot.</p></div></div></footer>
+<script>(function(){"use strict";
+const translations={"de":{"tr1":"Was kann ich besonders gut?","tr2":"Erfahrungen aus Beruf, Alltag, Hobby oder eigener Lebensgeschichte.","tr3":"Was macht mir Freude?","tr4":"Worüber erzähle ich gern? Was kann ich verständlich zeigen?","tr5":"Wofür werde ich gefragt?","tr6":"Welche Themen oder Probleme bringen Menschen bereits zu mir?","tr7":"Wo liegen meine Grenzen?","tr8":"Für welche Leistungen fehlen mir Kenntnisse oder eine notwendige Zulassung?","tr9":"Du musst nicht alles können. Du solltest aber genau wissen, was du tatsächlich leisten kannst – und was nicht.","tr10":"Entdecke deine persönlichen Stärken","tr11":"Was für dich leicht und selbstverständlich ist, kann für andere wertvoll sein. Erkenne deine Kenntnisse, Erfahrungen und Interessen, bevor du an ein Angebot denkst.","tr12":"Deine persönliche Formulierungshilfe","tr13":"„Ich unterstütze [wen?] dabei, [welches Anliegen?] besser zu verstehen oder zu bearbeiten – mit meiner Erfahrung aus [welchem Bereich?].“","tr14":"Wähle eine klar beschreibbare Zielgruppe.","tr15":"Benenne das Anliegen in einfachen Worten.","tr16":"Beschreibe, welchen realistischen Nutzen deine Leistung bietet.","tr17":"Finde heraus, wem du helfen kannst","tr18":"Eine Fähigkeit allein ist noch kein Angebot. Erst wenn du einem bestimmten Menschen bei einer konkreten Frage oder Herausforderung helfen kannst, entsteht ein klar erkennbarer Nutzen.","tr19":"Webinar & Wissenswert","tr20":"Persönlichkeit, Familie & Partnerschaft","tr21":"Marketing, Business & Finanzen","tr22":"Handwerk, Kunst & Kreatives","tr23":"Gesundheit, Spiritualität & Lebensfreude","tr24":"Freizeit, Natur & Erlebenswert","tr25":"Wichtig: Die Rubriken des Marktplatzes sind nicht identisch mit den Kategorien des Mitgliederverzeichnisses. Entscheidend ist der tatsächliche Inhalt deines Angebots.","tr26":"Angebote in einem Mitgliederprofil ansehen","tr27":"Alle Mitgliederprofile entdecken","tr28":"Entdecke die Rubriken im Club-Marktplatz","tr29":"Im Club-Marktplatz werden Angebote thematisch sortiert. So können Menschen Leistungen und Produkte in der Rubrik entdecken, die sie interessiert.","tr30":"Persönliches Gespräch","tr31":"Kennenlernen, Orientierung, zuhören, Fragen besser einordnen.","tr32":"Eigenes Live-Webinar","tr33":"Wissen erklären, Beispiele zeigen, Fragen mehrerer Menschen beantworten.","tr34":"Dienstleistung","tr35":"Eine klar umrissene Leistung mit vereinbartem Umfang erbringen.","tr36":"Physisches Produkt","tr37":"Kunst, Handwerk oder andere zulässige Gegenstände anbieten.","tr38":"Für den Start reicht ein einziges Angebot. Ein kostenloses Kennenlernen kann über Calendly organisiert werden; eine bezahlte Leistung benötigt klare Angaben über Umfang, Preis und Bedingungen.","tr39":"Entscheide, welche Angebotsform zu dir passt","tr40":"Du bist nicht auf Gespräche und Webinare beschränkt. Auch Dienstleistungen, Kunst oder handgefertigte Gegenstände gehören zu den möglichen Angeboten.","tr41":"Dein persönlicher Topseller","tr42":"Ein Topseller ist hier zunächst dein bewusst gewähltes Hauptangebot, keine Behauptung über bereits erzielte Verkaufszahlen. Entscheidend sind echter Nutzen, eine verständliche Darstellung und deine Verlässlichkeit.","tr43":"Dein Angebot kann in der passenden Rubrik, in deinem persönlichen Mitgliederprofil und über eine eigene Angebotsdetailseite sichtbar werden. Beim Kaufen oder Buchen führt die Strecke über das zentrale Shopsystem; persönliche Weiterempfehlungen können zusätzliche Aufmerksamkeit schaffen.","tr44":"Hänge dein bestes Angebot ins Schaufenster","tr45":"Stell dir ein Geschäft mit einem besonderen Schaufenster vor. Ein klar präsentiertes Hauptangebot kann Menschen neugierig machen. Es soll das Beste zeigen, was du tatsächlich anbieten kannst.","tr46":"Titel und kurze Einführung – was bietest du an?","tr47":"Zielgruppe – für wen ist es geeignet?","tr48":"Nutzen – was kann jemand realistisch erwarten?","tr49":"Leistungsumfang – was ist enthalten und was nicht?","tr50":"Ablauf, Dauer oder Lieferung – wie funktioniert es?","tr51":"Preis, Steuerangaben und geltende Bedingungen","tr52":"Buchung, Kauf und Weiterempfehlung","tr53":"So wird dein Angebot verständlich","tr54":"Interessierte sollen auf einen Blick erfassen können, worum es geht, was sie erhalten und für wen dein Angebot geeignet ist. Orientiere dich am Aufbau der vorhandenen Angebotsdetailseiten.","tr55":"Art meines Angebots","tr56":"Marktplatz-Rubrik","tr57":"Angebotstitel","tr59":"Meine Expertise","tr61":"Meine Zielgruppe","tr63":"Das Anliegen","tr65":"Konkreter Nutzen","tr67":"Leistungsbeschreibung","tr69":"Dauer / Durchführung / Lieferung","tr71":"Preis oder kostenlos (optional)","tr73":"Wichtige Bedingungen (optional)","tr75":"Angebotsentwurf anzeigen","tr76":"Entwurf kopieren","tr77":"Als Textdatei speichern","tr78":"Mein Angebotsentwurf","tr79":"Deine Eingaben bleiben ausschließlich auf diesem Gerät gespeichert. Keine Übertragung an den Club-Marktplatz. Gib keine vertraulichen Kundendaten ein.","ph58":"Ein kurzer verständlicher Titel …","ph60":"Das bringe ich an Erfahrung mit …","ph62":"Für wen ist mein Angebot gedacht?","ph64":"Welche Frage oder Herausforderung?","ph66":"Was kann der Teilnehmer oder Käufer mitnehmen?","ph68":"Ablauf, Inhalte, Materialien …","ph70":"z. B. 30 Minuten online","ph72":"Preis mit erforderlicher Steuerangabe …","ph74":"Voraussetzungen, Absage, Versand …","tr80":"Entwickle jetzt dein eigenes Angebot","tr81":"Hier kannst du die wesentlichen Angaben zu deiner Expertise und deinem Angebot erfassen. Aus deinen Eingaben wird ein strukturierter Entwurf, den du weiterbearbeiten und für die spätere Einreichung nutzen kannst.","tr82":"Deine Verantwortung als Anbieter","tr83":"Du bist für die eigene Leistung, die erforderlichen Voraussetzungen, Preisangaben und Bedingungen verantwortlich. Bei regulierten Themen sind die jeweiligen fachlichen und rechtlichen Grenzen zu beachten.","tr84":"Die Regel im Club-Marktplatz","tr85":"Für entsprechende Club-Marktplatz-Angebote gilt: 80 % für den Angebotsersteller und 20 % für die direkt empfehlende Person. Keine Drei-Ebenen-Vergütung im Club-Marktplatz.","tr86":"Empfehlungen können Aufmerksamkeit schaffen, garantieren aber keine Buchungen oder Verkäufe. Stelle keine unbelegten Erfolgsversprechen in Aussicht.","tr87":"Preis, Verantwortung und faire Weiterempfehlung","tr88":"Wenn du eine bezahlte Leistung anbietest, gehören Vorbereitung, Zeit, Material und mögliche technische Infrastruktur zu deiner Kalkulation. Deine Leistung muss transparent beschrieben sein.","tr89":"Beschreibung, Zielgruppe, Leistung und Preis sorgfältig prüfen.","tr90":"Passendes Bildmaterial hinzufügen – bei Gegenständen echte Produktfotos.","tr91":"Rubrik, Teilnahme-, Kauf- oder Lieferbedingungen ergänzen.","tr92":"Angebot über den dafür vorgesehenen Club-Marktplatz-Prozess zur Prüfung und Veröffentlichung einreichen.","tr93":"Nach Veröffentlichung Profil, Rubrik, Detailseite, Warenkorb und Empfehlungsweg testen.","tr94":"Der Angebotsentwickler dieser Lernseite lädt keine Produkte hoch, erstellt keinen echten Warenkorb und veröffentlicht nicht direkt im Shopsystem. Der konkrete Einreichungsweg erfolgt über den zuständigen Marktplatzprozess.","tr95":"Vom fertigen Entwurf zum veröffentlichten Angebot","tr96":"Dein Textentwurf allein ist noch kein Shopartikel. Er bereitet dich darauf vor, dein Angebot über den vorgesehenen Einreichungsweg an den zentralen Marktplatz zu übergeben.","tr97":"Beginne klein. Höre zu. Entwickle dich weiter.","tr98":"Erzähle bei passenden Begegnungen in der Community, was du anbietest. Sammle Fragen und Rückmeldungen. Vielleicht wird aus deinem ersten Schaufenster-Angebot im Laufe der Zeit etwas Größeres.","tr99":"Dein Angebot wird Teil deiner Sichtbarkeit","tr100":"Ein veröffentlichtes Angebot kann in deinem Mitgliederprofil, im passenden Rubrikbereich und über persönliche Weiterempfehlungen entdeckt werden. Du musst dafür nicht laut auftreten – nur klar und verlässlich.","tr101":"Mein Weg in die Sichtbarkeit","tr102":"Vorwort","tr103":"Reiseziele","tr104":"Angebotsentwickler","tr105":"Meilenstein","tr106":"Mein Weg in die Sichtbarkeit · Etappe 3","tr107":"Aus deiner Expertise wird ein <em>Angebot.</em>","tr108":"Mein Wissen. Meine Erfahrung. Mein Mehrwert für andere.","tr109":"Finde deine persönliche Stärke, wähle die passende Rubrik und entwickle dein erstes Angebot für den Club-Marktplatz.","tr110":"Entdeckungsreise starten","tr111":"Mein Angebot entwickeln","tr112":"Etappe 3 · Mein Schaufenster","tr113":"Meine Expertise.<br>Mein Angebot.","tr114":"Echten Nutzen schaffen","tr115":"Gemeinsam sichtbar werden","tr116":"Vorwort – Was du kannst, ist vielleicht für andere wertvoll","tr117":"Dein persönlicher Schatz wird sichtbar.","tr118":"Jeder Mensch besitzt Fähigkeiten, Wissen und Erfahrungen. Manches haben wir beruflich gelernt, anderes durch besondere Interessen oder persönliche Herausforderungen. Oft nehmen wir gar nicht wahr, wie wertvoll das für andere Menschen sein kann.","tr119":"In Etappe 1 hast du dich mit deiner Persönlichkeit beschäftigt und begonnen, dich sichtbar zu machen. In Etappe 2 hast du deine Erreichbarkeit und deine Zeit selbst organisiert. Jetzt folgt die nächste Frage: Was kann ich konkret anbieten?","tr120":"Du musst nicht alles können. Aber das, was du wirklich kannst, könnte für andere genau das Richtige sein.","tr121":"Vielleicht kannst du ein persönliches Orientierungsgespräch führen. Vielleicht bereitest du ein Live-Webinar vor. Vielleicht bietest du ein handwerkliches Produkt, Kunst oder eine Dienstleistung an.","tr122":"Der Club-Marktplatz bietet dir ein gemeinsames Schaufenster. Du kannst eine passende Rubrik wählen und dein Angebot mit eigener Darstellung sichtbar machen. Menschen, die dich kennenlernen und verstehen, können dein Angebot weiterempfehlen.","tr123":"Beginne mit einem klar verständlichen Angebot, das zu deinen Fähigkeiten passt und einen ehrlichen Mehrwert bietet. Dein persönliches Schaufenster darf später mit dir wachsen.","tr124":"Deine dritte Etappe","tr125":"Von deinen Fähigkeiten zum eigenen Schaufenster.","tr126":"Entdecke deine Expertise, finde deine passende Rubrik und entwickle dein erstes persönliches Angebot.","tr127":"Dein dritter Meilenstein","tr128":"Ich weiß, was ich anbieten kann.","tr129":"Du hast dich für ein konkretes Angebot entschieden und kannst deine Leistung verständlich beschreiben. Du bestimmst, wie schnell du weitergehst.","tr130":"Ich habe meine Stärken und Grenzen erkannt.","tr131":"Ich kenne meine Zielgruppe und ihren Nutzen.","tr132":"Ich habe eine passende Rubrik ausgewählt.","tr133":"Ich weiß, welche Angebotsform zu mir passt.","tr134":"Ich habe mein persönliches Hauptangebot festgelegt.","tr135":"Mein Angebotsentwurf ist erstellt.","tr136":"Ich habe Preis, Bedingungen und Verantwortung geprüft.","tr137":"Ich kenne den Weg zur Freigabe und Weiterempfehlung.","tr138":"Mein Fortschritt","tr139":"Die Häkchen bleiben auf diesem Gerät gespeichert.","tr140":"Auswahl zurücksetzen","tr141":"Dein Angebot darf mit dir wachsen.","tr142":"Nach Prüfung und Veröffentlichung kann dein Angebot über die Marktplatzrubrik, dein Mitgliederprofil und persönliche Empfehlungen gefunden werden. Der Angebotsentwickler bereitet deine Einreichung vor – er veröffentlicht nicht selbst.","tr143":"Zurück zu Etappe 2","tr144":"Etappe 1 ansehen","tr145":"Etappe 3 – Aus deiner Expertise wird ein Angebot."},"en":{"tr1":"What can I do well?","tr2":"Experience from work, daily life, hobbies or life itself.","tr3":"What do I enjoy?","tr4":"What do I enjoy talking about or showing others?","tr5":"What do others ask me about?","tr6":"What questions or issues do people already ask me about?","tr7":"Where are my limits?","tr8":"What requires skills or qualifications I do not have?","tr9":"You do not need to know everything, but you should know what you can genuinely deliver – and what you cannot.","tr10":"Discover your strengths","tr11":"What feels natural to you might be valuable to someone else. Discover your knowledge, experience and interests before thinking about an offer.","tr12":"Your personal starting sentence","tr13":"“I help [who?] understand or work on [what need?] – using my experience in [which field?].”","tr14":"Choose a clearly defined audience.","tr15":"Explain the need in everyday words.","tr16":"Describe the realistic benefit of your offer.","tr17":"Find the right audience","tr18":"A skill alone is not an offer. A clear benefit emerges when you help someone with a specific need or question.","tr19":"Webinars & Knowledge","tr20":"Personality, Family & Relationships","tr21":"Marketing, Business & Finance","tr22":"Crafts, Art & Creativity","tr23":"Health, Spirituality & Joy of Life","tr24":"Leisure, Nature & Experiences","tr25":"Important: marketplace categories differ from the categories in the members directory. Choose based on what you actually offer.","tr26":"See offers in a member profile","tr27":"Explore member profiles","tr28":"Discover the marketplace categories","tr29":"The Club Marketplace sorts offers by topic, making it easier to discover relevant services and products.","tr30":"Personal conversation","tr31":"Get acquainted, provide orientation, listen and clarify questions.","tr32":"Your own live webinar","tr33":"Explain knowledge, show examples and answer group questions.","tr34":"Service","tr35":"Provide a clearly defined service.","tr36":"Physical product","tr37":"Offer art, crafts or other permitted physical goods.","tr38":"One offer is enough to start. A free introductory call can be arranged with Calendly; a paid service needs clear scope, pricing and terms.","tr39":"Choose your first offer format","tr40":"You are not limited to conversations and webinars. Services, art and handmade products can also be offered.","tr41":"Your signature offer","tr42":"Here, “top seller” means your chosen flagship offer, not a claim of proven sales. What matters is genuine benefit, a clear description and reliability.","tr43":"Your offer can appear in the relevant category, your member profile and its own detail page. Purchasing or booking follows the central shop flow; personal referrals may bring additional attention.","tr44":"Put your signature offer in the showcase","tr45":"Imagine a store with a distinctive shop window. One well-presented signature offer can spark curiosity. It should show what you can genuinely provide.","tr46":"Title and introduction – what do you offer?","tr47":"Audience – who is it for?","tr48":"Benefit – what can someone realistically expect?","tr49":"Scope – what is included and what is excluded?","tr50":"Format, duration or delivery – how does it work?","tr51":"Price, tax information and applicable terms","tr52":"Booking, purchasing and referring","tr53":"Build a clear offer description","tr54":"Visitors should quickly understand what your offer is, what they receive and whether it suits them. Use existing offer detail pages as a reference.","tr55":"Offer format","tr56":"Marketplace category","tr57":"Offer title","tr59":"My expertise","tr61":"My audience","tr63":"The need","tr65":"Specific benefit","tr67":"What is included","tr69":"Duration / format / delivery","tr71":"Price or free (optional)","tr73":"Important terms (optional)","tr75":"Show offer draft","tr76":"Copy draft","tr77":"Save as text","tr78":"My offer draft","tr79":"Your entries stay on this device only. Nothing is sent to the Club Marketplace. Do not enter confidential customer data.","ph58":"A clear title …","ph60":"My relevant experience …","ph62":"Who is this for?","ph64":"What question or challenge?","ph66":"What will the participant or buyer gain?","ph68":"Scope, contents, materials …","ph70":"e.g. 30 minutes online","ph72":"Price with applicable tax information …","ph74":"Requirements, cancellations, shipping …","tr80":"Create your own offer draft","tr81":"Here you can describe your expertise and offer. Your answers become a structured draft that you can refine for later submission.","tr82":"Your responsibility as provider","tr83":"You are responsible for your service, any required qualifications, price information and terms. Regulated topics have specific professional and legal boundaries.","tr84":"The Club Marketplace rule","tr85":"For relevant Club Marketplace offers, the provider receives 80% and the direct referrer 20%. No three-level commission applies in the Club Marketplace.","tr86":"Referrals can create awareness but cannot guarantee bookings or sales. Do not make unsupported success claims.","tr87":"Consider price and responsibility","tr88":"If you charge for a service, consider preparation, time, materials and possible technical costs. Describe your offer transparently.","tr89":"Review description, audience, scope and price.","tr90":"Provide suitable images – real product photos for physical goods.","tr91":"Add category and applicable booking, purchase or delivery terms.","tr92":"Submit your offer through the Club Marketplace process for any required review and publication.","tr93":"After publication, test profile, category, detail page, checkout and referral links.","tr94":"This learning page does not upload items, create a live checkout or publish directly to the shop. The actual submission follows the established marketplace process.","tr95":"From draft to marketplace publication","tr96":"Your text draft is not yet a shop item. It prepares you to submit your offer through the established marketplace procedure.","tr97":"Start small. Listen. Keep improving.","tr98":"Share what you offer in relevant community conversations. Listen to questions and feedback. Your first signature offer may grow over time.","tr99":"Share your offer and grow","tr100":"Once published, people can discover your offer in your profile, its category and through referrals. You do not need to be loud – just clear and reliable.","tr101":"My path to visibility","tr102":"Foreword","tr103":"Stages","tr104":"Offer builder","tr105":"Milestone","tr106":"My path to visibility · Stage 3","tr107":"Turn your expertise into an <em>offer.</em>","tr108":"My knowledge. My experience. My value to others.","tr109":"Find your strength, choose the right category and develop your first Club Marketplace offer.","tr110":"Start exploring","tr111":"Build my offer","tr112":"Stage 3 · My showcase","tr113":"My expertise.<br>My offer.","tr114":"Create genuine value","tr115":"Become visible together","tr116":"Foreword – Your experience may be valuable to others","tr117":"Make your personal expertise visible.","tr118":"Everyone has skills, knowledge and experiences. Some come from work, others from interests or life challenges. We often overlook how valuable these can be to others.","tr119":"In Stage 1 you explored your identity and began to become visible. In Stage 2 you organised your time and availability. Now comes the next question: what can I offer?","tr120":"You do not need to know everything. What you genuinely know might be exactly right for someone else.","tr121":"Perhaps you can provide a personal orientation conversation, prepare a live webinar, offer a craft product, artwork or a service.","tr122":"The Club Marketplace gives you a shared showcase. You can select a relevant category and make your offer visible on its own detail page. People who get to know you can recommend it.","tr123":"Start with one clear offer that fits your skills and delivers genuine value. Your personal showcase can grow later.","tr124":"Your third stage","tr125":"From your abilities to your own showcase.","tr126":"Discover your expertise, find the right category and develop your first personal offer.","tr127":"Your third milestone","tr128":"I know what I can offer.","tr130":"I identified my strengths and limits.","tr131":"I know my audience and their benefit.","tr132":"I selected a suitable category.","tr133":"I know which offer format suits me.","tr134":"I selected my signature offer.","tr135":"I created my offer draft.","tr136":"I reviewed pricing, terms and responsibilities.","tr137":"I understand approval and referral processes.","tr138":"My progress","tr139":"Your checkmarks stay on this device.","tr140":"Clear checkmarks","tr141":"Your offer can grow with you.","tr142":"After review and publication, people can find your offer through its category, your member profile and personal referrals. The offer builder prepares your submission; it does not publish directly.","tr143":"Back to Stage 2","tr144":"View Stage 1","tr145":"Stage 3 – Turn your expertise into an offer.","tr129":"You have chosen a specific offer and can explain your service clearly. You decide how quickly to continue."}};
+const kinds=[["conversation","Kennenlern- oder Orientierungsgespräch","Introductory or orientation conversation"],["webinar","Eigenes Live-Webinar","Your own live webinar"],["service","Dienstleistung oder Betreuung","Service or personal support"],["goods","Kunst, Handwerk oder physisches Produkt","Art, craft or physical product"]],cats=[["Webinar & Wissenswert","Webinars & Knowledge"],["Persönlichkeit, Familie & Partnerschaft","Personality, Family & Relationships"],["Marketing, Business & Finanzen","Marketing, Business & Finance"],["Handwerk, Kunst & Kreatives","Crafts, Art & Creativity"],["Gesundheit, Spiritualität & Lebensfreude","Health, Spirituality & Joy of Life"],["Freizeit, Natur & Erlebenswert","Leisure, Nature & Experiences"]],fields=["title","expertise","audience","need","benefit","scope","format","price","terms"];
+const fieldLabels={"title":{"de":"Angebotstitel","en":"Offer title"},"expertise":{"de":"Meine Expertise","en":"My expertise"},"audience":{"de":"Meine Zielgruppe","en":"My audience"},"need":{"de":"Das Anliegen","en":"The need"},"benefit":{"de":"Konkreter Nutzen","en":"Specific benefit"},"scope":{"de":"Leistungsbeschreibung","en":"What is included"},"format":{"de":"Dauer / Durchführung / Lieferung","en":"Duration / format / delivery"},"price":{"de":"Preis oder kostenlos (optional)","en":"Price or free (optional)"},"terms":{"de":"Wichtige Bedingungen (optional)","en":"Important terms (optional)"}};
+const languageKey="lb-praesentation-visible-journey-lang",formKey="lb-praesentation-visible-journey-stage3-form",checkKey="lb-praesentation-visible-journey-stage3-checks";
+const messages={de:{saved:"Angaben lokal gespeichert.",updated:"Entwurf aktualisiert.",copied:"Entwurf kopiert.",failed:"Bitte Text im Entwurf markieren und kopieren.",downloaded:"Textdatei zum Speichern bereitgestellt.",empty:"Noch offen",title:"Mein Angebotsentwurf",type:"Art meines Angebots",category:"Marktplatz-Rubrik",hint:"Entwurf zur Weiterbearbeitung. Keine automatische Shop-Veröffentlichung.",reset:"Häkchen für Etappe 3 zurücksetzen?"},en:{saved:"Saved on this device.",updated:"Draft updated.",copied:"Draft copied.",failed:"Please select and copy the draft manually.",downloaded:"Text file is ready to save.",empty:"Not yet filled in",title:"My offer draft",type:"Offer format",category:"Marketplace category",hint:"Draft for editing. This does not publish anything in the shop.",reset:"Clear Stage 3 checkmarks?"}};
+function read(k,f){try{const v=localStorage.getItem(k);return v===null?f:JSON.parse(v)}catch(e){return f}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let lang=read(languageKey,"de");if(!translations[lang])lang="de";
+const controls=Object.fromEntries(fields.map(k=>[k,document.querySelector('[data-field="'+k+'"]')]));
+const typesEl=document.getElementById("offerType"),catEl=document.getElementById("offerCategory"),output=document.getElementById("previewText"),status=document.getElementById("builderStatus");
+const stored=read(formKey,{});for(const k of fields){if(typeof stored[k]==="string")controls[k].value=stored[k]}
+if(typeof stored.type==="string")typesEl.value=stored.type;if(typeof stored.category==="string")catEl.value=stored.category;
+function data(){const o={type:typesEl.value,category:catEl.value};fields.forEach(k=>o[k]=controls[k].value);return o}
+function persist(){save(formKey,data());status.textContent=messages[lang].saved}
+for(const el of [...Object.values(controls),typesEl,catEl]){el.addEventListener("input",persist);el.addEventListener("change",persist)}
+function draft(){const m=messages[lang],v=data(),local=lang==="de"?1:2,ci=Math.max(0,Math.min(cats.length-1,Number(v.category)||0)),kind=kinds.find(t=>t[0]===v.type);
+const lines=[m.title,"",fieldLabels.title[lang]+": "+(v.title.trim()||m.empty),m.type+": "+(kind?kind[local]:m.empty),m.category+": "+cats[ci][lang==="de"?0:1],""];
+for(const k of fields.filter(x=>x!=="title"))lines.push(fieldLabels[k][lang]+":",v[k].trim()||m.empty,"");lines.push(m.hint);return lines.join("\n")}
+function preview(say){output.textContent=draft();if(say)status.textContent=messages[lang].updated}
+function updateLanguage(){document.documentElement.lang=lang;document.querySelectorAll("[data-i18n]").forEach(el=>{const val=translations[lang][el.dataset.i18n];if(val===undefined)return;if(el.classList.contains("html-i18n"))el.innerHTML=val;else el.textContent=val});
+document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{el.placeholder=translations[lang][el.dataset.i18nPlaceholder]||""});
+typesEl.querySelectorAll("option").forEach((el,i)=>el.textContent=kinds[i][lang==="de"?1:2]);catEl.querySelectorAll("option").forEach((el,i)=>el.textContent=cats[i][lang==="de"?0:1]);document.getElementById("langDe").setAttribute("aria-pressed",String(lang==="de"));document.getElementById("langEn").setAttribute("aria-pressed",String(lang==="en"));preview(false)}
+for(const code of ["De","En"])document.getElementById("lang"+code).addEventListener("click",()=>{lang=code.toLowerCase();save(languageKey,lang);updateLanguage()});
+document.getElementById("previewBtn").addEventListener("click",()=>{persist();preview(true);document.getElementById("previewPanel").scrollIntoView({block:"nearest",behavior:"smooth"})});
+async function copy(s){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(s);return}const el=document.createElement("textarea");el.value=s;el.style="position:fixed;left:-9999px";document.body.appendChild(el);el.select();const ok=document.execCommand("copy");el.remove();if(!ok)throw Error("copy")}
+document.getElementById("copyBtn").addEventListener("click",async()=>{try{await copy(draft());status.textContent=messages[lang].copied}catch(e){status.textContent=messages[lang].failed}});
+document.getElementById("saveBtn").addEventListener("click",()=>{const blob=new Blob([draft()],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=lang==="de"?"Mein_Club_Marktplatz_Angebot.txt":"My_Club_Marketplace_Offer.txt";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);status.textContent=messages[lang].downloaded});
+const checks=[...document.querySelectorAll("input[data-check]")], done=read(checkKey,{});
+function progress(){const n=checks.filter(x=>x.checked).length;document.getElementById("progressNumber").textContent=n+" / "+checks.length;document.getElementById("progressBar").setAttribute("aria-valuenow",n);document.getElementById("progressFill").style.width=(100*n/checks.length)+"%"}
+checks.forEach(el=>{el.checked=!!done[el.dataset.check];el.addEventListener("change",()=>{done[el.dataset.check]=el.checked;save(checkKey,done);progress()})});
+document.getElementById("resetBtn").addEventListener("click",()=>{if(confirm(messages[lang].reset)){checks.forEach(el=>{el.checked=false;done[el.dataset.check]=false});save(checkKey,done);progress()}});
+progress();updateLanguage()})();
+</script><script>
+(function(){"use strict";
+const locale={de:{heading:"Dein Weg in die Sichtbarkeit",description:"Drei Etappen und eine Reflexionspause – in deinem Tempo.",stage:"Etappe",reflection:"Reflexionspause",previous:"Vorherige Etappe",next:"Nächste Etappe",nextPause:"Zur Reflexionspause",done:"Abgeschlossen",progress:"erledigt",ready:"Noch offen",thoughts:"Gedanken"},en:{heading:"Your path to visibility",description:"Three stages and a reflection pause – at your own pace.",stage:"Stage",reflection:"Reflection pause",previous:"Previous stage",next:"Next stage",nextPause:"Go to reflection pause",done:"Completed",progress:"completed",ready:"Not started",thoughts:"thoughts"}};
+const titles=[["Vom Ich zum Wir","From I to We"],["Aus Sichtbarkeit wird Begegnung","From visibility to connection"],["Aus deiner Expertise wird ein Angebot","Turn expertise into an offer"],["Schau, was du geschaffen hast","Look at what you have achieved"]];
+const storeKeys=["lb-praesentation-onboarding-checks","lb-praesentation-visible-journey-stage2-checks","lb-praesentation-visible-journey-stage3-checks"],notesKey="lb-praesentation-visible-journey-reflection-notes",pauseIcon="<svg viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><rect x=\"6\" y=\"4\" width=\"4\" height=\"16\" rx=\"1.5\" fill=\"currentColor\"/><rect x=\"14\" y=\"4\" width=\"4\" height=\"16\" rx=\"1.5\" fill=\"currentColor\"/></svg>";
+function read(k){try{const v=localStorage.getItem(k);return v===null?{}:JSON.parse(v)}catch(e){return {}}}
+function refreshJourney(){
+const lang=document.documentElement.lang==="en"?"en":"de",w=locale[lang];
+document.querySelectorAll("[data-travel-key]").forEach(el=>{const k=el.dataset.travelKey;el.textContent=k==="stage"?w.stage+" "+el.dataset.stageIndex:w[k]||""});
+document.querySelectorAll("[data-travel-title]").forEach(el=>{const i=Number(el.dataset.travelTitle)-1;el.textContent=titles[i][lang==="de"?0:1]});
+document.querySelectorAll("[data-travel-step]").forEach(el=>{
+const i=Number(el.dataset.travelStep)-1,num=el.querySelector(".travel-number"),status=el.querySelector(".travel-status");
+if(i===3){const cnt=Object.values(read(notesKey)).filter(v=>typeof v==="string"&&v.trim()).length;num.innerHTML=pauseIcon;status.textContent=cnt+" / 5 "+w.thoughts;return}
+const cnt=Object.values(read(storeKeys[i])).filter(v=>v===true).length,complete=cnt>=8;
+el.classList.toggle("done",complete);num.textContent=complete?"✓":String(i+1);
+status.textContent=complete?w.done:(cnt?cnt+" / 8 "+w.progress:w.ready);
+});
+}
+new MutationObserver(m=>{if(m.some(c=>c.attributeName==="lang"))refreshJourney()}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+document.addEventListener("change",e=>{if(e.target?.matches?.("input[data-check]"))queueMicrotask(refreshJourney)});
+document.addEventListener("click",e=>{if(e.target?.closest?.("#resetBtn,#langDe,#langEn,#clearAnswers"))queueMicrotask(refreshJourney)});
+document.addEventListener("journey-reflection-update",refreshJourney);
+refreshJourney();
+})();
+</script><script id="fsa-deck-presentation-js">
+(function(){
+  "use strict";
+  var stage=Number(document.body.getAttribute("data-fsa-deck-stage"))||1;
+  var config=[
+    {file:"./",de:"Etappe 1",en:"Stage 1"},
+    {file:"etappe-2.html",de:"Etappe 2",en:"Stage 2"},
+    {file:"etappe-3.html",de:"Etappe 3",en:"Stage 3"},
+    {file:"reflexionspause.html",de:"Reflexion",en:"Reflection"}
+  ];
+  var words={
+    de:{chapter:"Kapitel",back:"Zurück",next:"Weiter",close:"Schließen",overview:"Überblick",start:"Start",foreword:"Vorwort",count:"von",menu:"Kapitelauswahl",end:"Abschluss"},
+    en:{chapter:"Chapters",back:"Back",next:"Next",close:"Close",overview:"Overview",start:"Start",foreword:"Foreword",count:"of",menu:"Choose chapter",end:"Closing"}
+  };
+  var svgLeft='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>';
+  var svgRight='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>';
+  var svgList='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>';
+  var svgClose='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+  var main=document.querySelector("main"),header=document.querySelector(".header");
+  if(!main||!header)return;
+  var parent=stage===1?document.querySelector("#weg"):document.querySelector("#schritte");
+  var steps=parent?Array.from(parent.querySelectorAll(".steps > article.step")):[];
+  var slideDefs=[];
+  function add(key,node,section,kind){
+    if(node&&section)slideDefs.push({key:key,node:node,section:section,kind:kind||"normal"});
+  }
+  var cover=main.querySelector(stage===4?".pause-hero":".hero");
+  add("start",cover,cover,"cover");
+  var foreword=document.getElementById("vorwort");
+  add("vorwort",foreword,foreword,"foreword");
+  if(parent){
+    add(stage===1?"weg":"schritte",parent,parent,"overview");
+    steps.forEach(function(node,i){
+      if(!node.id)node.id="schritt-"+String(i+1).padStart(2,"0");
+      add(node.id,node,parent,"step");
+    });
+    if(stage===1){
+      var share=document.getElementById("teilen"),check=document.getElementById("checkliste");
+      add("teilen",share,share);
+      add("checkliste",check,check);
+    }else{
+      var milestone=document.getElementById("meilenstein");
+      add("meilenstein",milestone,milestone);
+    }
+  }else{
+    ["rueckblick","warum","reflexion","deine-marke"].forEach(function(id){
+      var el=document.getElementById(id);add(id,el,el);
+    });
+    var ending=main.querySelector(".pause-final");add("abschluss",ending,ending,"end");
+  }
+  if(!slideDefs.length)return;
+  var top=document.createElement("div");
+  top.className="fsa-deck-top";
+  top.setAttribute("role","navigation");
+  top.setAttribute("aria-label","Etappen und Kapitel / Stages and chapters");
+  top.innerHTML='<nav class="fsa-deck-stages" aria-label="Etappen / Stages"></nav>'+
+    '<button id="fsa-deck-menu" class="fsa-deck-button" type="button" aria-expanded="false" aria-controls="fsa-deck-popup">'+svgList+'<span data-i18n="deckMenu" data-fsa-translate="chapter"></span></button>'+
+    '<span class="fsa-deck-top-count" id="fsa-deck-count" aria-live="polite"></span>';
+  var bottom=document.createElement("div");
+  bottom.className="fsa-deck-bottom";
+  bottom.innerHTML='<button id="fsa-deck-prev" class="fsa-deck-button" type="button">'+svgLeft+'<span class="fsa-deck-hide-mobile" data-i18n="deckPrev" data-fsa-translate="back"></span></button>'+
+    '<div class="fsa-deck-middle"><span id="fsa-deck-title" class="fsa-deck-chapter-title"></span><div class="fsa-deck-progress" aria-hidden="true"><i id="fsa-deck-progress"></i></div></div>'+
+    '<button id="fsa-deck-next" class="fsa-deck-button fsa-deck-primary" type="button"><span class="fsa-deck-hide-mobile" data-i18n="deckNext" data-fsa-translate="next"></span>'+svgRight+'</button>';
+  var popup=document.createElement("div");
+  popup.id="fsa-deck-popup";
+  popup.className="fsa-deck-popup";
+  popup.hidden=true;
+  popup.innerHTML='<div class="fsa-deck-panel" role="dialog" aria-modal="true" aria-labelledby="fsa-deck-menu-title">'+
+    '<div class="fsa-deck-panelhead"><strong id="fsa-deck-menu-title" data-i18n="deckChoose" data-fsa-translate="menu"></strong>'+
+    '<button id="fsa-deck-close" class="fsa-deck-button" type="button" aria-label="Schließen / Close">'+svgClose+'</button></div>'+
+    '<div id="fsa-deck-chapters" class="fsa-deck-chapters"></div></div>';
+  document.body.append(top,bottom,popup);
+  var stageNav=top.querySelector(".fsa-deck-stages");
+  config.forEach(function(item,i){
+    var link=document.createElement("a");link.href=item.file;
+    link.setAttribute("data-fsa-stage",String(i+1));
+    if(i+1===stage)link.setAttribute("aria-current","page");
+    stageNav.appendChild(link);
+  });
+  var idx=0,prev=document.getElementById("fsa-deck-prev"),next=document.getElementById("fsa-deck-next");
+  var menu=document.getElementById("fsa-deck-menu"),close=document.getElementById("fsa-deck-close");
+  var chapters=document.getElementById("fsa-deck-chapters");
+  var title=document.getElementById("fsa-deck-title"),count=document.getElementById("fsa-deck-count");
+  var bar=document.getElementById("fsa-deck-progress");
+  var sectionList=Array.from(main.children).filter(function(n){return n.tagName==="SECTION"});
+  function lang(){return document.documentElement.lang==="en"?"en":"de";}
+  function slideTitle(s){
+    var heading=s.kind==="step"?s.node.querySelector("h3"):s.kind==="cover"?s.node.querySelector("h1"):s.node.querySelector("h2,h3,h1");
+    if(heading)return heading.textContent.replace(/\s+/g," ").trim();
+    return words[lang()][s.kind==="overview"?"overview":s.kind==="end"?"end":"start"];
+  }
+  function slideNum(s,i){
+    if(s.kind==="step"){
+      var num=s.node.querySelector(".step-num");
+      return num?num.textContent.trim():String(i+1).padStart(2,"0");
+    }
+    return String(i+1).padStart(2,"0");
+  }
+  function syncSize(){
+    document.documentElement.style.setProperty("--fsa-deck-head",Math.ceil(header.getBoundingClientRect().height)+"px");
+  }
+  function drawText(){
+    var tr=words[lang()];
+    document.querySelectorAll("[data-fsa-translate]").forEach(function(el){el.textContent=tr[el.getAttribute("data-fsa-translate")]||"";});
+    stageNav.querySelectorAll("a").forEach(function(el,i){el.textContent=config[i][lang()];});
+    title.textContent=slideTitle(slideDefs[idx]);
+    count.textContent=(idx+1)+" / "+slideDefs.length;
+    chapters.innerHTML="";
+    slideDefs.forEach(function(s,i){
+      var btn=document.createElement("button");btn.type="button";btn.className="fsa-deck-chapter";
+      btn.setAttribute("aria-current",i===idx?"true":"false");
+      var num=document.createElement("span");num.className="fsa-deck-num";num.textContent=slideNum(s,i);
+      var label=document.createElement("span");label.className="fsa-deck-chapter-label";label.textContent=slideTitle(s);
+      btn.append(num,label);
+      btn.addEventListener("click",function(){show(i,true);setMenu(false);});
+      chapters.appendChild(btn);
+    });
+    document.title=document.title.replace(/ · (Präsentation|Presentation)$/,"")+" · "+(lang()==="de"?"Präsentation":"Presentation");
+  }
+  function setMenu(open){
+    popup.hidden=!open;
+    menu.setAttribute("aria-expanded",open?"true":"false");
+    if(open){drawText();close.focus();}
+    else menu.focus();
+  }
+  function show(n,updateUrl){
+    if(n<0||n>=slideDefs.length)return;
+    idx=n;
+    var active=slideDefs[n];
+    sectionList.forEach(function(el){el.classList.toggle("fsa-deck-off",el!==active.section);});
+    if(parent){
+      parent.classList.toggle("fsa-deck-step",active.kind==="step");
+      parent.classList.toggle("fsa-deck-overview",active.kind==="overview");
+      steps.forEach(function(el){el.classList.toggle("fsa-deck-off",el!==active.node);});
+    }
+    prev.disabled=stage===1&&n===0;
+    next.disabled=stage===4&&n===slideDefs.length-1;
+    bar.style.width=((n+1)/slideDefs.length*100).toFixed(2)+"%";
+    drawText();
+    main.scrollTop=0;
+    if(updateUrl&&location.hash!=="#"+active.key)history.pushState(null,"","#"+active.key);
+  }
+  function hashIndex(){
+    var key="";
+    try{key=decodeURIComponent(location.hash.slice(1));}catch(e){key=location.hash.slice(1);}
+    if(!key)return 0;
+    var direct=slideDefs.findIndex(function(s){return s.key===key;});
+    if(direct>=0)return direct;
+    var node=document.getElementById(key);
+    if(!node)return -1;
+    return slideDefs.findIndex(function(s){return s.node===node||s.node.contains(node);});
+  }
+  function move(delta){
+    var n=idx+delta;
+    if(n>=0&&n<slideDefs.length){show(n,true);return;}
+    if(n<0&&stage>1){
+      var last=["","checkliste","meilenstein","meilenstein"];
+      location.href=config[stage-2].file+"#"+last[stage-1];
+    }
+    if(n>=slideDefs.length&&stage<4)location.href=config[stage].file+"#start";
+  }
+  prev.addEventListener("click",function(){move(-1);});
+  next.addEventListener("click",function(){move(1);});
+  menu.addEventListener("click",function(){setMenu(popup.hidden);});
+  close.addEventListener("click",function(){setMenu(false);});
+  popup.addEventListener("click",function(e){if(e.target===popup)setMenu(false);});
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&!popup.hidden){setMenu(false);return;}
+    if(!popup.hidden||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.target.closest("input,textarea,select,button,[contenteditable]"))return;
+    if(e.key==="ArrowRight"){e.preventDefault();move(1);}
+    if(e.key==="ArrowLeft"){e.preventDefault();move(-1);}
+  });
+  window.addEventListener("hashchange",function(){var n=hashIndex();if(n>=0)show(n,false);});
+  window.addEventListener("popstate",function(){var n=hashIndex();if(n>=0)show(n,false);});
+  document.querySelectorAll("#langDe,#langEn").forEach(function(el){
+    el.addEventListener("click",function(){setTimeout(drawText,0);});
+  });
+  if(typeof MutationObserver!=="undefined"){
+    new MutationObserver(function(){drawText();}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+  }
+  window.addEventListener("resize",syncSize);
+  document.documentElement.classList.add("fsa-deck-html");
+  document.body.classList.add("fsa-deck");
+  syncSize();
+  var initial=hashIndex();
+  show(initial>=0?initial:0,false);
+  document.body.classList.add("fsa-deck-ready");
+})();
+</script>
+</body></html>
