@@ -177,6 +177,30 @@
 @media(max-width:960px){.travel-route{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.travel-route{grid-template-columns:1fr}}
 </style>
+<style id="fsa-quick-css">
+
+/* Kapitel-Schnellnavigation – ausschließlich im Kopfbereich */
+.header .header-inner{min-width:0}
+.fsa-quick-nav{flex:1 1 0;min-width:0;max-width:580px;display:flex;flex-direction:column;gap:3px}
+.fsa-quick-label{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted,#576970);line-height:1.2}
+.fsa-quick-control{position:relative;min-width:0}
+.fsa-quick-select{display:block;width:100%;min-width:0;max-width:100%;height:40px;padding:0 41px 0 13px;border:1px solid #a9d5ce;border-radius:10px;background:#f3fbf9;color:var(--ink,#14252a);font-family:inherit;font-size:13px;font-weight:700;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;appearance:none;-webkit-appearance:none;cursor:pointer}
+.fsa-quick-select:hover{border-color:var(--mint-dark,#087f83);background:#ebf8f5}
+.fsa-quick-select:focus-visible{outline:3px solid var(--magenta,#a9286a);outline-offset:2px}
+.fsa-quick-control svg{pointer-events:none;position:absolute;right:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--mint-dark,#087f83);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+html{scroll-padding-top:var(--fsa-quick-head,96px)}
+#vorwort,#teilen,#checkliste,#meilenstein,#rueckblick,#warum,#reflexion,#deine-marke,#start,
+#weg>.wrap .steps>article.step,#schritte .steps>article.step{scroll-margin-top:var(--fsa-quick-head,96px)}
+@media(max-width:640px){
+  .header .header-inner{height:auto;min-height:68px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;gap:7px 10px;padding:7px 0}
+  .header .brand{grid-column:1;grid-row:1}
+  .header .lang{grid-column:2;grid-row:1;justify-self:end}
+  .header .fsa-quick-nav{grid-column:1 / -1;grid-row:2;width:100%;max-width:none}
+  .fsa-quick-select{height:40px}
+}
+@media print{.fsa-quick-nav{display:none!important}}
+
+</style>
 </head>
 <body>
 <header class="header">
@@ -185,11 +209,10 @@
       <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="#0c8f93" stroke-width="1.8"/><path d="M12 25L20 9L28 25L20 22L12 25Z" fill="#a9286a"/><circle cx="20" cy="28" r="3" fill="#0c8f93"/></svg>
       <span><span class="brand-main">liquidity<span>booster</span><b>.de</b></span><span class="brand-small" data-i18n="brandSub">Dein persönlicher Start</span></span>
     </a>
-    <nav class="nav" aria-label="Seitennavigation">
-      <a href="#weg" data-i18n="navWay">Der Weg</a>
-      <a href="#teilen" data-i18n="navShare">Sichtbar werden</a>
-      <a href="#checkliste" data-i18n="navCheck">Mein Fortschritt</a>
-    </nav>
+    <div class="fsa-quick-nav" role="navigation" aria-label="Kapitel-Schnellnavigation / Quick chapter navigation">
+<label class="fsa-quick-label" for="fsaQuickChapter" data-i18n="fsaQuickLabel">Kapitel-Schnellauswahl</label>
+<div class="fsa-quick-control"><select id="fsaQuickChapter" class="fsa-quick-select" data-stage="1" aria-label="Kapitel-Schnellauswahl"></select>
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></div></div>
     <div class="lang" role="group" aria-label="Sprache / Language">
       <button type="button" id="langDe" aria-pressed="true">DE</button>
       <button type="button" id="langEn" aria-pressed="false">EN</button>
@@ -235,7 +258,7 @@
   <div class="wrap">
     <div class="sectionhead"><p class="eyebrow" data-i18n="wayTag">Mein Weg · Schritt für Schritt</p><h2 data-i18n="wayTitle">Aus dem Zugang wird dein eigener Auftritt.</h2><p data-i18n="wayLead">Alles beginnt mit wenigen konkreten Handlungen. Du legst dein Fundament und kannst es später Stück für Stück ausbauen.</p></div>
     <div class="steps">
-  <article class="step">
+  <article class="step" id="schritt-01">
     <div class="step-num">01</div><div>
       <h3 data-i18n="s1title">Willkommen in deiner persönlichen Arbeitswelt</h3>
       <p data-i18n="s1p1">Mit deiner ClubLeader-Mitgliedschaft erhältst du zwei E-Mails mit unterschiedlichen Zugangsdaten. Eine führt dich ins Clubhaus, die andere in dein persönliches KMS. Melde dich einmal in beiden Systemen an und erkunde in Ruhe, was du dort findest.</p>
@@ -246,7 +269,7 @@
       <p class="note" data-i18n="s1note"><strong>Direkt erledigen:</strong> Speichere Clubhaus und KMS als Favoriten oder Home-Buttons auf deinen bevorzugten Geräten. Bewahre deine Zugangsdaten sicher auf.</p>
     </div>
   </article>
-  <article class="step">
+  <article class="step" id="schritt-02">
     <div class="step-num">02</div><div>
       <h3 data-i18n="communityTitle">Werde Teil unserer lebendigen Gemeinschaft</h3>
       <p data-i18n="communityIntro">Sichtbarkeit entsteht nicht nur durch Internetseiten. Sie entsteht auch durch Begegnungen. In unserer Gemeinschaft kannst du zuhören, Fragen stellen, Menschen kennenlernen, Erfahrungen teilen und nach und nach selbst mitgestalten.</p>
@@ -257,14 +280,14 @@
       <p data-i18n="communityOutro">Du musst keinen Vortrag halten. Sei zunächst einfach dabei. Menschen empfehlen eher Menschen, die sie kennen, denen sie vertrauen und die sie regelmäßig erleben. Mach Montag und Mittwoch, wenn es für dich passt, zu festen Stationen deiner Entdeckungsreise.</p>
     </div>
   </article>
-  <article class="step">
+  <article class="step" id="schritt-03">
     <div class="step-num">03</div><div>
       <h3 data-i18n="profilesTitle">Entdecke die Gesichter unserer Gemeinschaft</h3>
       <p data-i18n="profilesText">Bevor du dich selbst vorstellst, schau dir an, wie unterschiedlich andere Mitglieder sich präsentieren. Manche zeigen berufliche Erfahrungen, andere ihre Interessen, ihre Geschichte oder das, was sie für andere Menschen tun.</p>
       <div class="profiles-card"><p data-i18n="profilesReason">Lass dich inspirieren, ohne jemanden zu kopieren. Welche Vorstellungen sprechen dich an? Welche Formulierungen passen zu deiner Persönlichkeit?</p><a class="btn" href="https://www.liquiditybooster.de/mitglieder/mitgliederprofile.html" target="_blank" rel="noopener noreferrer"><span data-i18n="profilesBtn">Alle Mitgliederprofile entdecken</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div>
     </div>
   </article>
-  <article class="step">
+  <article class="step" id="schritt-04">
     <div class="step-num">04</div><div>
       <h3 data-i18n="positionTitle">Finde deine eigene Positionierung</h3>
       <p data-i18n="positionText">Jetzt geht es um dich. Du brauchst keine perfekte Werbebotschaft. Überlege, wer du bist, wofür du stehst und welchen Beitrag du anderen Menschen anbieten kannst. Deine Antworten dürfen sich mit dir weiterentwickeln.</p>
@@ -275,7 +298,7 @@
       </div><p class="subline" data-i18n="localNote">Deine Gedanken bleiben ausschließlich in diesem Browser auf diesem Gerät gespeichert und werden nicht an LiquidityBooster übermittelt.</p></div>
     </div>
   </article>
-  <article class="step">
+  <article class="step" id="schritt-05">
     <div class="step-num">05</div><div>
       <h3 data-i18n="stepLandingTitle">Gestalte deine persönliche Landingpage</h3>
       <p data-i18n="stepLandingText">Deine persönliche Internetseite ist bereits für dich eingerichtet. Öffne dein KMS und ergänze dort – soweit die Felder dafür vorgesehen sind – deinen Namen, dein Profilbild, deinen Slogan, dein Grußwort und deine Kontaktmöglichkeiten. Speichere deine Eingaben und kontrolliere anschließend, wie du von außen wahrgenommen wirst.</p>
@@ -283,7 +306,7 @@
       <p class="note" data-i18n="stepLandingNote">Dein erster Erfolg: Du kannst deine persönliche Internetseite jetzt öffnen, zeigen und ihren öffentlichen Link weitergeben. Ein Webinarraum oder eine Online-Terminbuchung ist dafür noch nicht erforderlich.</p>
     </div>
   </article>
-  <article class="step">
+  <article class="step" id="schritt-06">
     <div class="step-num">06</div><div>
       <h3 data-i18n="stepMemberTitle">Erstelle dein Mitgliederprofil</h3>
       <p data-i18n="stepMemberText">Im Clubhaus kannst du dich zusätzlich der Gemeinschaft vorstellen: mit Bildmotiv, Slogan, Informationen über dich, deinen Erfahrungen, Stärken, Interessen, deinem persönlichen Versprechen und einem passenden Tätigkeitsbereich.</p>
@@ -292,7 +315,7 @@
       <p class="note" data-i18n="stepMemberNote">Die Wartezeit hält dich nicht auf: Während dein Mitgliederprofil geprüft wird, kannst du deine persönliche Landingpage bereits nutzen.</p>
     </div>
   </article>
-  <article class="step">
+  <article class="step" id="schritt-07">
     <div class="step-num">07</div><div>
       <h3 data-i18n="stepShareTitle">Jetzt beginnt deine Sichtbarkeit</h3>
       <p data-i18n="stepShareText">Du hast dich positioniert, deine persönliche Seite gestaltet und deine Gemeinschaft kennengelernt. Jetzt kannst du deinen eigenen öffentlichen Link an Menschen weitergeben, die dich kennenlernen möchten. Du brauchst keine große Kampagne – eine ehrliche, persönliche Einladung genügt. Sobald dein Mitgliederprofil freigegeben ist, kannst du auch dieses teilen.</p>
@@ -424,5 +447,118 @@ document.addEventListener("click",e=>{if(e.target?.closest?.("#resetBtn,#langDe,
 document.addEventListener("journey-reflection-update",refreshJourney);
 refreshJourney();
 })();
-</script></body>
+</script><script id="fsa-quick-js">
+
+(function(){
+  "use strict";
+  const select=document.getElementById("fsaQuickChapter");
+  const header=document.querySelector(".header");
+  const visibleLabel=document.querySelector(".fsa-quick-label");
+  if(!select||!header||!visibleLabel)return;
+  const stage=Number(select.dataset.stage);
+  const items=[];
+  const put=(id,de,en,number)=>{
+    const el=document.getElementById(id);
+    if(el)items.push({id,el,de,en,number:number||""});
+  };
+  put("start","Start","Start");
+  put("vorwort","Vorwort","Foreword");
+  if(stage>=1&&stage<=3){
+    const container=document.getElementById(stage===1?"weg":"schritte");
+    if(container){
+      const steps=Array.from(container.querySelectorAll(".steps > article.step"));
+      steps.forEach((el,index)=>{
+        const num=(el.querySelector(".step-num")?.textContent||String(index+1).padStart(2,"0")).trim();
+        if(el.id)items.push({id:el.id,el,number:num});
+      });
+    }
+    if(stage===1){
+      put("teilen","Sichtbar werden","Become visible");
+      put("checkliste","Mein Fortschritt","My progress");
+    }else{
+      put("meilenstein","Mein Meilenstein","My milestone");
+    }
+  }else if(stage===4){
+    put("rueckblick","Rückblick","Looking back");
+    put("warum","Warum","Why it matters");
+    put("reflexion","Meine Gedanken","My reflections");
+    put("deine-marke","Meine Marke","My brand");
+  }
+  if(!items.length)return;
+  let current="start";
+  let scrollFrame=0;
+  const language=()=>document.documentElement.lang==="en"?"en":"de";
+  const caption=(item)=>{
+    if(item.number){
+      const title=item.el.querySelector("h3")?.textContent.replace(/\s+/g," ").trim()||"";
+      return item.number+" · "+title;
+    }
+    return item[language()]||item.de;
+  };
+  function measureHeader(){
+    document.documentElement.style.setProperty("--fsa-quick-head",(Math.ceil(header.getBoundingClientRect().height)+14)+"px");
+  }
+  function rebuild(){
+    const lang=language(),selected=current;
+    visibleLabel.textContent=lang==="de"?"Kapitel-Schnellauswahl":"Quick chapter navigation";
+    select.setAttribute("aria-label",visibleLabel.textContent);
+    const frag=document.createDocumentFragment();
+    items.forEach(item=>{
+      const option=document.createElement("option");
+      option.value=item.id;
+      option.textContent=caption(item);
+      frag.appendChild(option);
+    });
+    select.replaceChildren(frag);
+    select.value=selected;
+  }
+  function refreshActive(){
+    scrollFrame=0;
+    const top=header.getBoundingClientRect().height+24;
+    let active=items[0].id;
+    for(const item of items){
+      if(item.el.getBoundingClientRect().top<=top)active=item.id;
+    }
+    if(active!==current){
+      current=active;
+      select.value=current;
+    }
+  }
+  function queueActive(){
+    if(!scrollFrame)scrollFrame=requestAnimationFrame(refreshActive);
+  }
+  select.addEventListener("change",()=>{
+    const target=document.getElementById(select.value);
+    if(!target)return;
+    current=target.id;
+    const hash="#"+encodeURIComponent(target.id);
+    if(location.hash!==hash)history.pushState(null,"",hash);
+    target.scrollIntoView({
+      behavior:window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",
+      block:"start"
+    });
+  });
+  window.addEventListener("scroll",queueActive,{passive:true});
+  window.addEventListener("resize",()=>{measureHeader();queueActive()},{passive:true});
+  window.addEventListener("hashchange",queueActive);
+  window.addEventListener("popstate",queueActive);
+  if("ResizeObserver" in window)new ResizeObserver(measureHeader).observe(header);
+  if("MutationObserver" in window){
+    new MutationObserver(()=>{rebuild();queueActive()}).observe(document.documentElement,{
+      attributes:true,attributeFilter:["lang"]
+    });
+  }
+  measureHeader();
+  rebuild();
+  if(location.hash){
+    try{
+      const id=decodeURIComponent(location.hash.slice(1));
+      if(items.some(item=>item.id===id)){current=id;select.value=id}
+    }catch(e){}
+  }
+  requestAnimationFrame(refreshActive);
+})();
+
+</script>
+</body>
 </html>
