@@ -432,10 +432,13 @@ refreshJourney();
     current=target.id;
     const hash="#"+encodeURIComponent(target.id);
     if(location.hash!==hash)history.pushState(null,"",hash);
-    target.scrollIntoView({
-      behavior:window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",
-      block:"start"
-    });
+    // Sofortiger Kapitelsprung statt animiertem Durchscrollen.
+    const root=document.documentElement;
+    const oldBehavior=root.style.scrollBehavior;
+    root.style.scrollBehavior="auto";
+    target.scrollIntoView({behavior:"auto",block:"start"});
+    root.style.scrollBehavior=oldBehavior;
+    queueActive();
   });
   window.addEventListener("scroll",queueActive,{passive:true});
   window.addEventListener("resize",()=>{measureHeader();queueActive()},{passive:true});
