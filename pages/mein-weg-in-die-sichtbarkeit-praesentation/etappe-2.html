@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="de"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f9f8">
+<meta name="description" content="Etappe 2 – Aus Sichtbarkeit wird Begegnung: Erreichbarkeit, Zeitmanagement, Calendly, WhatsApp, Telegram, Zoom und die Verbindung mit deinem LiquidityBooster-KMS.">
+<title>Mein Weg in die Sichtbarkeit – Etappe 2: Aus Sichtbarkeit wird Begegnung | LiquidityBooster</title>
+<style>
+    :root { color-scheme:light; --paper:#f7f9f8; --white:#fff; --ink:#14252a; --muted:#576970; --line:#dde8e7; --mint:#149e9f; --mint-dark:#087f83; --mint-soft:#e8f7f5; --magenta:#a9286a; --magenta-soft:#f9edf3; --shadow:0 20px 55px rgba(14,49,54,.08); --radius:20px; }
+    * {box-sizing:border-box}
+    html {scroll-behavior:smooth;scroll-padding-top:84px}
+    body {margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.58;-webkit-font-smoothing:antialiased}
+    a{color:var(--mint-dark)}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    :focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+    .wrap{width:min(1140px,calc(100% - 44px));margin:auto}
+    .header{background:#fffefef0;border-bottom:1px solid var(--line);position:sticky;z-index:100;top:0;backdrop-filter:blur(14px)}
+    .header-inner{height:76px;display:flex;gap:22px;justify-content:space-between;align-items:center}
+    .brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);min-width:0}
+    .brand-mark{width:34px;height:34px;flex-shrink:0}
+    .brand-main{font-size:17px;font-weight:800;letter-spacing:-.7px;white-space:nowrap}
+    .brand-main span{color:var(--mint-dark)}
+    .brand-main b{color:var(--magenta);font-weight:800}
+    .brand-small{display:block;font-size:10px;font-weight:700;letter-spacing:1.55px;color:#65777a;text-transform:uppercase;line-height:1.3}
+    .nav{display:flex;gap:23px;align-items:center}
+    .nav a{font-size:13px;text-decoration:none;color:var(--ink);font-weight:650}
+    .nav a:hover{color:var(--mint-dark)}
+    .lang{display:flex;align-items:center;gap:3px;padding:3px;border:1px solid var(--line);border-radius:100px;background:var(--paper)}
+    .lang button{border:0;background:transparent;border-radius:100px;font-size:12px;font-weight:800;padding:7px 9px;color:#6a757a}
+    .lang button[aria-pressed="true"]{background:var(--ink);color:white}
+    .hero{padding:82px 0 70px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 30%,rgba(23,171,164,.12),transparent 42%),linear-gradient(180deg,#fff 0%,#f4faf8 100%)}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:65px;align-items:center}
+    .eyebrow{font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:2px;color:var(--mint-dark);margin:0 0 17px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font-size:clamp(40px,5.3vw,70px);font-weight:850;line-height:1.075;letter-spacing:-2.7px;margin-bottom:23px}
+    h1 em{color:var(--magenta);font-style:normal}
+    .lead{font-size:clamp(17px,2vw,21px);max-width:630px;line-height:1.6;color:#33484c;margin-bottom:26px}
+    .hero-aside{font-size:14px;color:#506166;max-width:640px;margin:0 0 30px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;text-align:center;padding:13px 20px;min-height:48px;border-radius:10px;background:var(--mint-dark);border:1px solid var(--mint-dark);color:white;text-decoration:none;font-size:14px;font-weight:750;transition:transform .18s,background .18s,border-color .18s}
+    .btn:hover{transform:translateY(-1px);background:#056d72;border-color:#056d72}
+    .btn svg{width:17px;height:17px;flex-shrink:0}
+    .btn-outline{color:var(--ink);background:white;border-color:#c4d8d6}
+    .btn-outline:hover{background:#f0f9f7;border-color:var(--mint-dark)}
+    .btn-magenta{background:var(--magenta);border-color:var(--magenta)}
+    .btn-magenta:hover{background:#8e2059;border-color:#8e2059}
+    .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .graphic{width:100%;min-height:405px;border-radius:24px;background:linear-gradient(155deg,#14353b 10%,#153e42 60%,#0b6568 100%);color:white;position:relative;box-shadow:0 26px 65px rgba(17,65,68,.2);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:35px}
+    .graphic:after{content:"";position:absolute;width:330px;height:330px;border:1px solid #ffffff24;border-radius:50%;right:-100px;bottom:-85px;box-shadow:0 0 0 42px #ffffff0a,0 0 0 92px #ffffff08}
+    .graphic-label{font-size:11px;letter-spacing:2.4px;font-weight:800;color:#a1e7d9;text-transform:uppercase;position:relative;z-index:1}
+    .circle{height:155px;width:155px;border:1px solid #8be7dc87;border-radius:50%;display:grid;place-items:center;position:relative;z-index:1;margin:18px auto 6px}
+    .circle svg{width:86px;height:86px}
+    .pathline{text-align:center;font-size:22px;font-weight:780;line-height:1.4;position:relative;z-index:1;letter-spacing:-.7px}
+    .pathline span{color:#94e2d8}
+    .graphic-bottom{position:relative;z-index:1;border-top:1px solid #ffffff40;display:flex;justify-content:space-between;gap:15px;padding-top:20px;font-size:12px;color:#d6ece9}
+    section{padding:78px 0}
+    .sectionhead{max-width:785px;margin-bottom:35px}
+    h2{font-size:clamp(29px,3.5vw,44px);letter-spacing:-1.2px;line-height:1.18;margin-bottom:15px;font-weight:820}
+    .sectionhead p:last-child{color:var(--muted);font-size:17px;max-width:740px;margin-bottom:0}
+    .cards-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:27px;box-shadow:0 5px 19px rgba(15,54,54,.025)}
+    .card h3{font-size:21px;line-height:1.3;margin:0 0 10px;letter-spacing:-.35px}
+    .card p{color:var(--muted);margin-bottom:13px}
+    .card p:last-child{margin-bottom:0}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:17px}
+    .number{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;width:44px;height:44px;font-weight:850;background:var(--mint-soft);color:var(--mint-dark)}
+    .micro{color:var(--muted);font-size:12px}
+    .textlink{text-decoration:underline;text-underline-offset:3px;font-weight:700}
+    .note{background:var(--mint-soft);border-left:3px solid var(--mint-dark);border-radius:0 12px 12px 0;padding:17px 20px;color:#255157;font-size:14px}
+    .note strong{color:var(--ink)}
+    .story{background:#fff;border-block:1px solid var(--line)}
+    .story .intro{display:flex;gap:25px;align-items:center}
+    .story .initial{width:90px;height:90px;display:grid;place-items:center;background:var(--magenta-soft);color:var(--magenta);font-size:40px;font-weight:800;border-radius:50%;flex-shrink:0}
+    .story .intro p{margin:0;color:var(--muted);max-width:800px;font-size:18px}
+    .steps{position:relative;display:grid;gap:18px}
+    .step{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:27px 29px;display:grid;grid-template-columns:66px 1fr;gap:22px;box-shadow:0 6px 16px rgba(0,0,0,.02)}
+    .step-num{font-size:31px;color:var(--mint-dark);font-weight:850;letter-spacing:-1px;line-height:1.2}
+    .step h3{font-size:22px;margin-bottom:9px;line-height:1.3}
+    .step p{color:var(--muted);margin-bottom:12px}
+    .step p:last-child{margin-bottom:0}
+    .path{background:var(--mint-soft);padding:12px 15px;border-radius:9px;font-size:14px;font-weight:800;color:#145d63;display:inline-flex;gap:10px;flex-wrap:wrap;margin:3px 0 14px}
+    .tag{display:inline-block;padding:4px 9px;background:var(--magenta-soft);color:#963166;border-radius:100px;font-size:12px;font-weight:750;vertical-align:middle}
+    .reflect{border:1px solid var(--line);background:linear-gradient(135deg,#f0fafa,#fff);border-radius:var(--radius);padding:29px;margin:22px 0}
+    .reflect-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    label.field-label{display:block;font-size:14px;font-weight:750;margin-bottom:8px}
+    textarea,.url-input{width:100%;border:1px solid #c9d9d8;border-radius:9px;background:#fff;padding:12px 13px;color:var(--ink)}
+    textarea{resize:vertical;min-height:98px;font-size:14px}
+    .subline{font-size:13px;color:var(--muted);margin-top:12px}
+    .share{background:linear-gradient(140deg,#12343b,#0c575a);color:white}
+    .share .eyebrow{color:#a7eee3}
+    .share h2{color:white}
+    .share .sectionhead p{color:#d4e9e6}
+    .share-panel{background:#fff;color:var(--ink);padding:32px;border-radius:22px;box-shadow:var(--shadow);max-width:950px}
+    .switchrow{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+    .switchrow button{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 14px;border-radius:100px;font-size:13px;font-weight:750}
+    .switchrow button[aria-pressed="true"]{border-color:var(--mint-dark);background:var(--mint-soft);color:var(--mint-dark)}
+    .share-panel .url-input{font-size:15px}
+    .urlrow{display:flex;gap:11px;align-items:flex-end}
+    .urlfield{flex:1}
+    .urlfield label{font-size:13px;font-weight:800;display:block;margin-bottom:7px}
+    .share-panel .actions{margin-top:18px}
+    .share-panel .micro{margin-top:10px}
+    .status{font-size:13px;font-weight:700;min-height:24px;margin:11px 0 0;color:#126f64}
+    .message-preview{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+    .message-preview .micro{margin-top:0}
+    .msg{margin-top:7px;background:#f4f8f8;color:#345259;border-radius:10px;padding:14px 16px;font-size:14px;overflow-wrap:anywhere}
+    .progress-section{background:#fff}
+    .progress-wrap{display:grid;grid-template-columns:1fr 360px;gap:35px;align-items:start}
+    .checks{display:grid;gap:12px}
+    .checklabel{display:flex;align-items:flex-start;gap:12px;background:#f8fbfa;padding:16px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:15px}
+    .checklabel input{width:20px;height:20px;accent-color:var(--mint-dark);flex-shrink:0;margin:2px 0 0}
+    .progress-card{border:1px solid var(--line);border-radius:var(--radius);padding:27px;position:sticky;top:100px}
+    .progress-number{font-size:46px;line-height:1.2;font-weight:850;letter-spacing:-2px;color:var(--mint-dark)}
+    .progress-bar{height:10px;background:#e7eeec;border-radius:100px;overflow:hidden;margin:16px 0 18px}
+    .progress-fill{background:var(--mint-dark);height:100%;width:0;transition:width .25s}
+    .progress-card p{font-size:14px;color:var(--muted);margin-bottom:12px}
+    .small-btn{border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);padding:8px 12px;font-size:13px}
+    .footer{background:#112c31;color:#d4e6e4;padding:39px 0}
+    .footer-inner{display:flex;justify-content:space-between;gap:28px;align-items:start}
+    .footer p{font-size:13px;max-width:750px;color:#c7dcda;margin:8px 0 0}
+    .footer strong{color:white}
+    .footer a{color:#b9f0e6}
+    @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:32px}.graphic{min-height:300px}.circle{width:110px;height:110px}.circle svg{width:70px;height:70px}.nav a{display:none}.progress-wrap{grid-template-columns:1fr}.progress-card{position:static}.reflect-grid{grid-template-columns:1fr}.hero{padding:64px 0 55px}}
+    @media(max-width:640px){.wrap{width:min(100% - 28px,1140px)}.header-inner{height:68px}.brand-main{font-size:15px}.brand-small{font-size:8px;letter-spacing:1px}.brand-mark{width:28px;height:28px}.hero{padding:45px 0}.hero h1{font-size:clamp(36px,10vw,56px);letter-spacing:-1.6px}.graphic{padding:22px;min-height:280px}.graphic-bottom{flex-direction:column;gap:2px}.cards-2{grid-template-columns:1fr}.step{grid-template-columns:1fr;gap:4px;padding:22px}.step-num{font-size:22px}.story .intro{align-items:start;gap:15px}.story .initial{height:56px;width:56px;font-size:26px}.story .intro p{font-size:16px}.share-panel{padding:20px}.urlrow{display:block}.share-panel .btn{width:100%}.footer-inner{flex-direction:column}section{padding:56px 0}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.progress-fill{transition:none}}
+    @media print{.header,.actions,.lang,.share-panel .actions,.small-btn{display:none!important}.hero,.share,.story,.progress-section{background:white;color:black}.graphic{background:#ebf5f4;color:#14252a;box-shadow:none}.graphic-label,.graphic-bottom,.pathline span{color:#145a60}.card,.step,.share-panel{box-shadow:none}section{padding:24px 0}.progress-card{position:static}.share h2,.share .sectionhead p{color:black}}
+  
+    .foreword{padding:76px 0;border-block:1px solid var(--line)}
+    .foreword .wrap{max-width:1000px}
+    .foreword h2{max-width:800px}
+    .foreword p:not(.eyebrow){font-size:17px;line-height:1.78;color:#354a50;max-width:900px;margin-bottom:18px}
+    .foreword .foreword-quote{font-size:21px!important;font-weight:800;color:var(--ink)!important;border-left:4px solid var(--magenta);padding:10px 0 10px 20px;margin:24px 0!important}
+    .community-card{background:#f2faf8;border-color:#bfe2de}
+    .community-card .slot{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;color:#075f63;text-transform:uppercase;margin-bottom:10px}
+    .profiles-card{border:1px solid #c6deda;background:linear-gradient(120deg,#f0faf8,#fff);border-radius:16px;padding:22px;margin:17px 0}
+    .profiles-card p{margin-bottom:16px}
+    .final-line{font-size:18px;font-weight:800;color:var(--ink);margin-top:16px}
+    @media(max-width:640px){.foreword{padding:50px 0}.foreword p:not(.eyebrow){font-size:16px}.foreword .foreword-quote{font-size:19px!important}}
+  
+
+    .foreword{background:#fff;border-block:1px solid var(--line)}
+    .foreword .wrap{max-width:980px}
+    .foreword p:not(.eyebrow){font-size:17px;line-height:1.77;color:#3d5156;margin-bottom:17px}
+    .foreword .foreword-quote{font-size:22px!important;font-weight:850!important;color:var(--ink)!important;border-left:4px solid var(--magenta);padding:6px 0 6px 20px;margin:26px 0!important}
+    .foreword .final-line{font-size:20px!important;font-weight:800;color:var(--ink)!important}
+    .journey-step{scroll-margin-top:94px}
+    .journey-step .step-body{min-width:0}
+    .journey-step h4{font-size:16px;line-height:1.35;margin:0 0 7px}
+    .journey-step p{line-height:1.7}
+    .small-card{padding:20px;box-shadow:none;margin-bottom:14px}
+    .small-card p{font-size:14px}
+    .action-list{margin:16px 0 18px;counter-reset:num;list-style:none;padding:0;display:grid;gap:10px}
+    .action-list li{counter-increment:num;display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start;font-size:15px;line-height:1.6;color:#465b60}
+    .action-list li:before{content:counter(num);display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--mint-soft);color:var(--mint-dark);font-weight:800;font-size:13px}
+    .idea{background:#faf7fa;border:1px solid #efd6e3;border-radius:14px;padding:20px;margin:18px 0}
+    .idea p{margin:7px 0 0}
+    .resource-box{padding:20px;border:1px solid var(--line);border-radius:15px;background:#f2faf8;margin:18px 0}
+    .resource-box h4{color:#155e65;margin-bottom:15px}
+    .guide-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid #c9dfdc;font-size:14px;color:#31555b}
+    .guide-link a,.option-link a{display:inline-flex;align-items:center;gap:7px;font-weight:750;color:var(--mint-dark);font-size:13px;white-space:nowrap}
+    .guide-link svg,.option-link svg{height:14px;width:14px}
+    .options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+    .option-card{display:flex;flex-direction:column;padding:21px;min-height:190px}
+    .option-link{margin-top:auto}
+    .warning{background:#fff5f8;border-left:3px solid var(--magenta);padding:16px 20px;margin:19px 0;border-radius:0 12px 12px 0;color:#6d284a}
+    .warning p{color:#763b57}
+    .table-scroll{overflow:auto;max-width:100%;border:1px solid var(--line);border-radius:13px;margin:18px 0}
+    .connection-table{width:100%;min-width:510px;border-collapse:collapse;font-size:14px;line-height:1.6}
+    .connection-table th,.connection-table td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line)}
+    .connection-table thead th{background:var(--mint-soft);color:#135c62}
+    .connection-table tbody th{width:35%;background:#fafdfc;color:#25494d}
+    .connection-table tr:last-child>*{border-bottom:0}
+    .related{background:#e8f6f4;border:1px solid #cde8e4;border-radius:18px;padding:22px;margin-top:26px}
+    .related .btn{margin-top:7px}
+    .progress-section{padding-top:68px}
+    .smallnote{color:var(--muted);font-size:13px}
+    .action-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .skiptext{font-size:13px;color:#586970}
+    @media(max-width:640px){.options-grid{grid-template-columns:1fr}.guide-link{align-items:flex-start;flex-direction:column}.foreword .foreword-quote{font-size:19px!important}.action-list li{font-size:14px}.related{padding:16px}.journey-step{scroll-margin-top:75px}}
+  
+/* Gemeinsame Reisenavigation – alle Etappen */
+.travel{background:#fff;border-block:1px solid var(--line);padding:26px 0}
+.travel-head{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:15px}
+.travel-name{margin:0;color:var(--ink);font-size:17px;font-weight:820;letter-spacing:-.3px}
+.travel-description{margin:4px 0 0;font-size:13px;color:var(--muted)}
+.travel-route{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.travel-link{min-width:0;border:1px solid #d1e4e0;background:#f7fbfa;color:var(--ink);display:flex;gap:11px;align-items:center;text-decoration:none;border-radius:13px;padding:14px;transition:background .2s,border-color .2s}
+.travel-link:hover{background:#eaf7f5;border-color:#70bdb6}
+.travel-link[aria-current="step"]{border:2px solid var(--mint-dark);background:var(--mint-soft);padding:13px}
+.travel-number{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:white;border:1px solid #cee3de;display:grid;place-items:center;font-size:14px;color:var(--mint-dark);font-weight:850}
+.travel-link[aria-current="step"] .travel-number{background:var(--mint-dark);color:#fff;border-color:var(--mint-dark)}
+.travel-link.done .travel-number{background:#cfece5;color:#0c6863}
+.travel-info{min-width:0;display:flex;flex-direction:column;gap:3px}
+.travel-stepname{font-size:12px;font-weight:850;line-height:1.2;color:var(--muted)}
+.travel-title{font-size:14px;font-weight:800;line-height:1.35}
+.travel-status{font-size:11px;color:var(--mint-dark);font-weight:700}
+.travel-controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:17px}
+.travel-control{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;border:1px solid #bbd9d4;padding:12px 17px;color:var(--ink);background:#fff;text-decoration:none;font-size:13px;font-weight:800}
+.travel-control.next{background:var(--mint-dark);color:#fff;border-color:var(--mint-dark)}
+.travel-control:hover{filter:brightness(.97)}
+@media(max-width:700px){.travel{padding:18px 0}.travel-route{grid-template-columns:1fr;gap:8px}.travel-link,.travel-link[aria-current="step"]{padding:10px 12px}.travel-number{width:33px;height:33px;flex-basis:33px}.travel-info{gap:1px}.travel-title{font-size:13px}.travel-controls{flex-direction:column}.travel-control{width:100%}}
+@media print{.travel{display:none!important}}
+
+/* Vierte Reisestation: Reflexionspause nach Etappe 3 */
+.travel-route{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.travel-link,.travel-link[aria-current="step"]{gap:10px;padding:12px}
+.travel-link .travel-number{width:34px;height:34px;flex-basis:34px;font-size:13px}
+.travel-link .travel-title{font-size:13px;overflow-wrap:anywhere}
+.travel-link .travel-stepname,.travel-link .travel-status{font-size:11px}
+.travel-link.travel-reflection{background:#fff8fb;border-color:#e8c8da}
+.travel-link.travel-reflection .travel-number{background:#fce7f1;border-color:#e8b4cc;color:#ac286e}
+.travel-link.travel-reflection[aria-current="location"]{border:2px solid var(--magenta);background:#fdf0f6;padding:11px}
+.travel-link.travel-reflection[aria-current="location"] .travel-number{background:var(--magenta);color:white;border-color:var(--magenta)}
+.travel-reflection .travel-number svg{width:19px;height:19px;display:block}
+.travel-reflection .travel-status{color:#ae3271}
+@media(max-width:960px){.travel-route{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.travel-route{grid-template-columns:1fr}}
+</style><style id="fsa-deck-presentation-css">
+/* FSA Präsentations-Navigation | nur in den neuen Kopien */
+html.fsa-deck-html{overflow:hidden!important;scroll-behavior:auto!important}
+body.fsa-deck{height:100dvh!important;min-height:0!important;overflow:hidden!important}
+body:not(.fsa-deck-ready) main{visibility:hidden}
+body.fsa-deck .header{position:fixed!important;left:0;right:0;top:0;z-index:1100!important}
+body.fsa-deck .header .nav{display:none!important}
+body.fsa-deck .travel,body.fsa-deck .footer{display:none!important}
+body.fsa-deck main{position:fixed!important;inset:calc(var(--fsa-deck-head,72px) + 57px) 0 75px!important;width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;scroll-behavior:auto!important;margin:0!important;padding:0!important;background:var(--paper,#f7f9f8)}
+body.fsa-deck main>section{margin:0!important;min-height:0!important;height:auto!important;padding-top:clamp(14px,2.3vh,28px)!important;padding-bottom:26px!important}
+body.fsa-deck main>section.fsa-deck-off,body.fsa-deck article.fsa-deck-off{display:none!important}
+body.fsa-deck #weg.fsa-deck-step .sectionhead,body.fsa-deck #schritte.fsa-deck-step .sectionhead{display:none!important}
+body.fsa-deck #weg.fsa-deck-overview .steps,body.fsa-deck #schritte.fsa-deck-overview .steps{display:none!important}
+body.fsa-deck .steps{max-width:1120px;margin-left:auto;margin-right:auto}
+body.fsa-deck .steps>.step{max-width:100%;margin:0 auto}
+body.fsa-deck .hero,body.fsa-deck .pause-hero{min-height:0!important}
+.fsa-deck-top,.fsa-deck-bottom{position:fixed;z-index:1150;left:0;right:0;background:#fff;color:#14252a;font-family:inherit;box-sizing:border-box}
+.fsa-deck-top *,.fsa-deck-bottom *,.fsa-deck-popup *{box-sizing:border-box}
+.fsa-deck-top{top:var(--fsa-deck-head,72px);height:57px;border-bottom:1px solid #dce9e8;display:flex;align-items:center;gap:12px;padding:5px clamp(12px,3vw,36px);box-shadow:0 3px 12px rgba(15,47,51,.04)}
+.fsa-deck-stages{display:flex;align-items:center;gap:5px;min-width:0;flex:1;overflow-x:auto;scrollbar-width:none}
+.fsa-deck-stages::-webkit-scrollbar{display:none}
+.fsa-deck-stages a{display:inline-flex;align-items:center;justify-content:center;flex:none;padding:9px 13px;border-radius:9px;font-size:13px;font-weight:650;text-decoration:none!important;color:#4a6369;white-space:nowrap;line-height:1.25;border:1px solid transparent}
+.fsa-deck-stages a[aria-current=page]{background:#e4f7f5;color:#087f83;border-color:#aedcd9}
+.fsa-deck-stages a:focus-visible,.fsa-deck-button:focus-visible,.fsa-deck-chapter:focus-visible{outline:3px solid #aa2a75;outline-offset:2px}
+.fsa-deck-button{appearance:none;border:1px solid #c7dcdb;background:#fff;color:#17383b;border-radius:10px;padding:10px 13px;cursor:pointer;font:600 14px/1.15 inherit;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
+.fsa-deck-button:hover{background:#eff9f8}
+.fsa-deck-button svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fsa-deck-button[disabled]{opacity:.3;cursor:not-allowed}
+.fsa-deck-button.fsa-deck-primary{background:#087f83;color:#fff;border-color:#087f83}
+.fsa-deck-button.fsa-deck-primary:hover{background:#086e71}
+.fsa-deck-top-count{color:#60757b;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:46px;text-align:right}
+.fsa-deck-bottom{bottom:0;height:75px;border-top:1px solid #dce9e8;display:flex;align-items:center;gap:12px;padding:10px clamp(12px,3vw,36px);box-shadow:0 -3px 12px rgba(15,47,51,.04)}
+.fsa-deck-middle{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.fsa-deck-chapter-title{font-size:14px;font-weight:650;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;max-width:740px;line-height:1.2}
+.fsa-deck-progress{height:5px;width:min(420px,90%);background:#dcebe9;border-radius:999px;overflow:hidden}
+.fsa-deck-progress>i{display:block;width:0;height:100%;background:#129f9a;border-radius:inherit;transition:width .2s}
+.fsa-deck-popup[hidden]{display:none!important}
+.fsa-deck-popup{position:fixed;z-index:1190;inset:calc(var(--fsa-deck-head,72px) + 57px) 0 75px;display:grid;place-items:start center;padding:12px;background:rgba(13,40,43,.32);overflow:auto}
+.fsa-deck-panel{width:min(700px,100%);max-height:100%;display:flex;flex-direction:column;background:#fff;border-radius:15px;box-shadow:0 24px 75px rgba(10,37,45,.25);overflow:hidden}
+.fsa-deck-panelhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 20px;border-bottom:1px solid #e0e9e8}
+.fsa-deck-panelhead strong{font-size:17px}
+.fsa-deck-chapters{overflow-y:auto;padding:10px 14px 14px}
+.fsa-deck-chapter{width:100%;display:flex;text-align:left;align-items:center;gap:15px;border:0;border-radius:10px;padding:11px 13px;background:#fff;color:#1b3339;cursor:pointer;font:inherit}
+.fsa-deck-chapter:hover{background:#f0f7f6}
+.fsa-deck-chapter[aria-current=true]{background:#e4f7f5;color:#087f83}
+.fsa-deck-num{display:inline-grid;place-items:center;min-width:35px;height:31px;border-radius:8px;background:#eff4f3;color:#4f686e;font-size:12px;font-weight:750;font-variant-numeric:tabular-nums}
+.fsa-deck-chapter-label{min-width:0;flex:1;font-size:14px;line-height:1.4}
+@media(max-width:680px){.fsa-deck-top{gap:5px;padding:4px 8px}.fsa-deck-stages a{padding:9px 8px;font-size:12px}.fsa-deck-button{padding:9px 10px;font-size:12px}.fsa-deck-top-count{display:none}.fsa-deck-bottom{padding:7px 9px;height:68px;gap:7px}body.fsa-deck main{bottom:68px!important}.fsa-deck-popup{bottom:68px}.fsa-deck-chapter-title{font-size:12px}.fsa-deck-progress{height:4px}.fsa-deck-button .fsa-deck-hide-mobile{display:none}}
+@media(prefers-reduced-motion:reduce){.fsa-deck-progress>i{transition:none}}
+</style>
+</head>
+<body data-fsa-deck-stage="2">
+<header class="header"><div class="wrap header-inner">
+<a class="brand" href="./" aria-label="Etappe 1 öffnen"><svg viewBox="0 0 40 40" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" class="brand-mark"><circle cx="20" cy="20" r="18" stroke="#0c8f93" stroke-width="1.8"/><path d="M12 25L20 9L28 25L20 22L12 25Z" fill="#a9286a"/><circle cx="20" cy="28" r="3" fill="#0c8f93"/></svg><span><span class="brand-main">liquidity<span>booster</span><b>.de</b></span><span class="brand-small" data-i18n="brandSub">Mein Weg in die Sichtbarkeit</span></span></a>
+<nav class="nav" aria-label="Seitennavigation">
+<a href="#vorwort" data-i18n="navWhy">Warum</a><a href="#schritte" data-i18n="navSteps">Deine Schritte</a><a href="#meilenstein" data-i18n="navGoal">Dein Meilenstein</a></nav>
+<div class="lang" aria-label="Sprachauswahl"><button type="button" id="langDe" aria-pressed="true">DE</button><button type="button" id="langEn" aria-pressed="false">EN</button></div></div></header>
+<section class="travel" data-travel-current="2" aria-label="Deine Reise – drei Etappen und Reflexionspause"><div class="wrap"><div class="travel-head"><div><h2 class="travel-name" data-travel-key="heading">Dein Weg in die Sichtbarkeit</h2><p class="travel-description" data-travel-key="description">Drei Etappen und eine Reflexionspause – in deinem Tempo.</p></div></div><nav class="travel-route" aria-label="Reiseziele"><a class="travel-link" href="./" data-travel-step="1"><span class="travel-number">1</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="1">Etappe 1</span><span class="travel-title" data-travel-title="1">Vom Ich zum Wir</span><span class="travel-status" data-travel-status="1">0 / 8</span></span></a><a class="travel-link" href="etappe-2.html" data-travel-step="2" aria-current="step"><span class="travel-number">2</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="2">Etappe 2</span><span class="travel-title" data-travel-title="2">Aus Sichtbarkeit wird Begegnung</span><span class="travel-status" data-travel-status="2">0 / 8</span></span></a><a class="travel-link" href="etappe-3.html" data-travel-step="3"><span class="travel-number">3</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="3">Etappe 3</span><span class="travel-title" data-travel-title="3">Aus deiner Expertise wird ein Angebot</span><span class="travel-status" data-travel-status="3">0 / 8</span></span></a><a class="travel-link travel-reflection" href="reflexionspause.html" data-travel-step="4"><span class="travel-number"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.5" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.5" fill="currentColor"/></svg></span><span class="travel-info"><span class="travel-stepname" data-travel-key="reflection">Reflexionspause</span><span class="travel-title" data-travel-title="4">Schau, was du geschaffen hast</span><span class="travel-status" data-travel-status="4">0 / 5 Gedanken</span></span></a></nav></div></section>
+<main id="start">
+<section class="hero"><div class="wrap hero-grid"><div>
+<p class="eyebrow" data-i18n="heroTag">Mein Weg in die Sichtbarkeit · Etappe 2</p>
+<h1 data-i18n="heroTitle">Aus Sichtbarkeit wird <em>Begegnung.</em></h1>
+<p class="lead" data-i18n="heroLead">Meine Zeit. Meine Erreichbarkeit. Meine Organisation.</p>
+<p class="hero-aside" data-i18n="heroExtra">Lerne, wie du deine Zeit schützt, echte Begegnungen planbar machst und die passenden Werkzeuge mit deiner persönlichen Präsenz verbindest.</p>
+<div class="actions"><a class="btn" href="#vorwort"><span data-i18n="readWhy">Warum das wichtig ist</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></a><a class="btn btn-outline" href="./"><span data-i18n="back">Zurück zu Etappe 1</span></a></div>
+</div><div class="graphic"><div class="graphic-label" data-i18n="graphicTag">Etappe 2 · Aus Sichtbarkeit wird Begegnung</div><div class="circle"><svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="11" y="20" width="78" height="66" rx="9" stroke="#95e6db"/><path d="M11 41h78M30 12v16M70 12v16" stroke="#95e6db" stroke-linecap="round"/><rect x="28" y="54" width="23" height="19" rx="4" stroke="#eeb2cd"/><path d="M51 60l16-7v22l-16-7" stroke="#eeb2cd"/></svg></div><div class="pathline" data-i18n="graphicLine">Meine <span>Zeit.</span><br>Meine <span>Organisation.</span></div><div class="graphic-bottom"><span data-i18n="graphicLeft">Selbstbestimmt erreichbar</span><span data-i18n="graphicRight">Verlässlich begegnen</span></div></div></div></section>
+<section class="foreword" id="vorwort"><div class="wrap">
+<p class="eyebrow" data-i18n="forewordTag">Vorwort – Warum deine Zeit ein wertvolles Gut ist</p>
+<h2 data-i18n="forewordTitle">Professionell erreichbar. Und trotzdem frei.</h2>
+<p data-i18n="f1">Du hast in der ersten Etappe begonnen, dich selbst zu positionieren. Deine persönliche Landingpage macht dich sichtbar. Du lernst die Menschen unserer Gemeinschaft kennen und zeigst, wofür du stehst.</p><p data-i18n="f2">Aber was passiert, wenn jemand dich kennenlernen möchte? Eine Nachricht kommt an, dein Telefon klingelt, jemand bittet um einen Termin. Wenn du darauf nicht vorbereitet bist, kann aus einer schönen Gelegenheit schnell hektische Organisation werden.</p><p data-i18n="f3">Du musst deshalb nicht rund um die Uhr erreichbar sein. Du brauchst nur verlässliche Wege, auf denen echte Menschen dich zu Zeiten erreichen können, die du selbst bestimmst.</p><p class="foreword-quote" data-i18n="fquote">Die Technik soll sich deinem Leben anpassen – nicht dein Leben der Technik.</p><p data-i18n="f4">Ein Kalender, eine persönliche Terminbuchung und ein passender Gesprächsraum sind keine komplizierte Geschäftsausstattung. Sie helfen dir, deine Zeit zu schützen, verbindliche Gespräche zu führen und aus digitaler Sichtbarkeit persönliche Begegnungen werden zu lassen.</p><p data-i18n="f5">Du richtest nur das ein, was du wirklich brauchst. Für erste Gespräche reichen häufig bereits Telefon, WhatsApp, Telegram oder Messenger. Calendly macht geplante Termine einfacher. Für vorbereitete Videogespräche kannst du zusätzlich Zoom oder andere Meetingdienste einsetzen.</p><p class="final-line" data-i18n="fend">Dein Ziel in Etappe 2: selbstbestimmt erreichbar sein, passende Termine ermöglichen und dich zuverlässig mit Menschen austauschen.</p></div></section>
+<section id="schritte"><div class="wrap">
+<div class="sectionhead"><p class="eyebrow" data-i18n="stepsTag">Etappe 2 · Dein praktischer Weg</p>
+<h2 data-i18n="stepsTitle">Schritt für Schritt zu deiner eigenen Organisation.</h2>
+<p data-i18n="stepsLead">Du bestimmst den Umfang. Nicht jeder Dienst ist verpflichtend. Wichtig ist, dass deine persönlichen Wege funktionieren.</p></div>
+<div class="steps"><article class="step journey-step" id="erreichbarkeit"><div class="step-num">01</div><div class="step-body"><h3 data-i18n="s1title">Entscheide, wie Menschen dich erreichen</h3><p data-i18n="s1intro">Du bestimmst, welche Kontaktwege zu deinem Leben passen. Entscheidend ist nicht die Zahl der Kanäle, sondern dass die gewählten Wege funktionieren und du sie regelmäßig prüfst.</p><div class="cards-2"><div class="card small-card"><h4 data-i18n="s1c0t">Eine E-Mail-Adresse für deine Aktivitäten</h4><p data-i18n="s1c0p">Ein klarer Kontaktweg, den du zuverlässig abrufst.</p></div><div class="card small-card"><h4 data-i18n="s1c1t">Telefon oder Mobilfunknummer</h4><p data-i18n="s1c1p">Öffentlich nur, wenn du darüber kontaktiert werden möchtest.</p></div><div class="card small-card"><h4 data-i18n="s1c2t">Kontaktformular</h4><p data-i18n="s1c2p">Besucher können sich melden, ohne deine privaten Daten zu kennen.</p></div><div class="card small-card"><h4 data-i18n="s1c3t">Terminbuchung</h4><p data-i18n="s1c3p">Menschen wählen aus deinen zuvor freigegebenen Zeiten.</p></div></div><div class="note"><p data-i18n="s1note">Öffne dein KMS unter <strong>SETUP → MEINE DATEN</strong>. Dort findest du den Bereich Kommunikation. Ergänze nur die Kontaktdaten, die du tatsächlich nutzen möchtest.</p></div></div></article>
+<article class="step journey-step" id="zeitmanagement"><div class="step-num">02</div><div class="step-body"><h3 data-i18n="s2title">Deine Zeit ist ein Teil deiner Freiheit</h3><p data-i18n="s2intro">Auch wenn du neue Kontakte gewinnen möchtest: Privatleben, Arbeit, Familie, Erholung und unsere Gemeinschaft haben Platz in deinem Kalender. Organisiere die Zeiten so, dass du dich darauf verlassen kannst.</p><div class="idea"><div><strong data-i18n="s2q">Frage dich: Wann möchte ich Gespräche führen – und wann ausdrücklich nicht?</strong></div><p data-i18n="s2tip">Beginne zum Beispiel mit zwei festen Zeitfenstern pro Woche. Plane außerdem Puffer vor und nach Gesprächen ein. Lieber wenige verlässliche Zeiten als viele, die du nicht einhalten kannst.</p></div><div class="cards-2"><div class="card small-card"><h4 data-i18n="s2m">Montag · 19:00 Uhr</h4><p data-i18n="s2mt">Entdeckungsreise: lernen, Menschen begegnen, Fragen stellen.</p></div><div class="card small-card"><h4 data-i18n="s2w">Mittwoch · 19:00 Uhr</h4><p data-i18n="s2wt">Gemeinsam Neues entdecken und sich persönlich einbringen.</p></div></div></div></article>
+<article class="step journey-step" id="kalender"><div class="step-num">03</div><div class="step-body"><h3 data-i18n="s3title">Dein Kalender bringt Ordnung in deinen Alltag</h3><p data-i18n="s3intro">Ein gepflegter digitaler Kalender ist die Basis für zuverlässige Terminbuchungen. Du kannst deinen bisherigen Kalender verwenden, wenn er von deiner Buchungslösung unterstützt wird.</p><ol class="action-list"><li><span data-i18n="s3a">Wähle einen digitalen Kalender, den du wirklich nutzt, zum Beispiel Google Kalender oder Outlook.</span></li><li><span data-i18n="s3b">Trage bereits belegte Zeiten ein – auch private Termine, soweit sie für die Terminplanung wichtig sind.</span></li><li><span data-i18n="s3c">Prüfe die Zeitzone und stelle sicher, dass neue Termine auf deinen Geräten erscheinen.</span></li><li><span data-i18n="s3d">Markiere feste Verpflichtungen wie die Community-Abende, damit sie nicht versehentlich buchbar sind.</span></li></ol><div class="note"><p data-i18n="s3note">Ein Kalender ist dein privates Planungswerkzeug. Andere Menschen sollen später nur deine freien Buchungszeiten sehen – nicht die Details deiner privaten Termine.</p></div></div></article>
+<article class="step journey-step" id="calendly"><div class="step-num">04</div><div class="step-body"><h3 data-i18n="s4title">Calendly einrichten – von der Frage zum Termin</h3><p data-i18n="s4intro">Calendly ist eine Möglichkeit, freie Gesprächszeiten online anzubieten. Du legst vorher die Regeln fest; dein Gegenüber wählt einen passenden freien Termin. Damit entfällt viel Hin und Her bei der Terminabstimmung.</p><ol class="action-list"><li><span data-i18n="s4a">Erstelle dein Konto bei Calendly. Nutze eine E-Mail-Adresse, die du regelmäßig überprüfst, und prüfe Name und Zeitzone.</span></li><li><span data-i18n="s4b">Verbinde deinen unterstützten Kalender, damit belegte Zeiten berücksichtigt und Buchungen eingetragen werden können.</span></li><li><span data-i18n="s4c">Lege die Tage, Uhrzeiten, Pausen, Vorlaufzeiten und gegebenenfalls Gesprächspuffer fest.</span></li><li><span data-i18n="s4d">Richte einen ersten Ereignistyp ein, etwa „Persönliches Kennenlerngespräch – 20 Minuten“. Lege die Gesprächsdauer und die Art der Begegnung fest.</span></li><li><span data-i18n="s4e">Kopiere deinen öffentlichen Buchungslink. Öffne ihn wie ein Besucher und führe eine Testbuchung durch.</span></li></ol><div class="resource-box"><h4 data-i18n="s4links">Offizielle Calendly-Anleitungen</h4><div class="guide-link"><span data-i18n="s4l1">Kalender verbinden</span><a href="https://calendly.com/de/help/connect-your-calendar-to-calendly" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div><div class="guide-link"><span data-i18n="s4l2">Verfügbarkeit einstellen</span><a href="https://calendly.com/de/help/how-to-set-your-availability" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div><div class="guide-link"><span data-i18n="s4l3">Gesprächsart einrichten</span><a href="https://calendly.com/de/help/how-to-set-up-an-event-type" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div><div class="guide-link"><span data-i18n="s4l4">Buchungslink teilen</span><a href="https://calendly.com/de/help/how-to-share-your-scheduling-link" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div><div class="note"><p data-i18n="s4note">Beginne möglichst einfach: Ein kurzer Kennenlerntermin ist für den Einstieg oft genug. Prüfe die Funktionen und Bedingungen des aktuellen Tarifs, bevor du kostenpflichtige Optionen auswählst.</p></div></div></article>
+<article class="step journey-step" id="videotelefonie"><div class="step-num">05</div><div class="step-body"><h3 data-i18n="s5title">Fürs Kennenlernen reicht oft schon ein Videoanruf</h3><p data-i18n="s5intro">Du musst für ein erstes Gespräch keinen eigenen Webinarbetrieb aufbauen. Entscheide gemeinsam mit deinem Gesprächspartner, welcher vertraute Kommunikationsweg am besten passt.</p><div class="options-grid"><div class="card option-card"><h4 data-i18n="s5wat">WhatsApp</h4><p data-i18n="s5wap">Für kurze persönliche Videoanrufe mit Kontakten, die WhatsApp verwenden. Deine Mobilfunknummer spielt dabei eine Rolle.</p><div class="option-link"><a href="https://faq.whatsapp.com/1862285217468140/" target="_blank" rel="noopener noreferrer"><span data-i18n="visitService">Zum Dienst</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div><div class="card option-card"><h4 data-i18n="s5tgt">Telegram</h4><p data-i18n="s5tgp">Geeignet für Videoanrufe mit Menschen, die bereits Telegram nutzen. Prüfe die passenden Datenschutz- und Kontakteinstellungen.</p><div class="option-link"><a href="https://telegram.org/faq" target="_blank" rel="noopener noreferrer"><span data-i18n="visitService">Zum Dienst</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div><div class="card option-card"><h4 data-i18n="s5met">Facebook Messenger</h4><p data-i18n="s5mep">Eine weitere Möglichkeit zum Kennenlernen, wenn beide Seiten Messenger verwenden. Nicht jeder möchte dafür ein Social-Media-Konto nutzen.</p><div class="option-link"><a href="https://www.messenger.com/" target="_blank" rel="noopener noreferrer"><span data-i18n="visitService">Zum Dienst</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div><div class="card option-card"><h4 data-i18n="s5gmt">Google Meet</h4><p data-i18n="s5gmp">Für geplante Gespräche mit Meeting-Link im Browser oder per App, je nach verwendetem Konto und Gerät.</p><div class="option-link"><a href="https://meet.google.com/" target="_blank" rel="noopener noreferrer"><span data-i18n="visitService">Zum Dienst</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div></div><div class="note"><p data-i18n="s5note">Nicht jedes System lässt sich direkt mit Calendly oder dem KMS verbinden. Ein spontan geführter Videoanruf ist etwas anderes als ein automatisch gebuchtes Meeting. Entscheidend sind Verlässlichkeit, Einverständnis und ein passender Kommunikationskanal.</p></div></div></article>
+<article class="step journey-step" id="zoom"><div class="step-num">06</div><div class="step-body"><h3 data-i18n="s6title">Zoom – ein eigener Raum für geplante Online-Gespräche</h3><p data-i18n="s6intro">Wenn du häufiger Gespräche per Video führen oder Inhalte am Bildschirm zeigen möchtest, ist ein eigener Zoom-Zugang eine sinnvolle Option. Für spätere eigene Webinare ist Zoom unser bevorzugter Ausgangspunkt – die konkrete Veranstaltung planen wir erst in Etappe 3.</p><ol class="action-list"><li><span data-i18n="s6a">Erstelle ein Konto bei Zoom und bestätige deine E-Mail-Adresse.</span></li><li><span data-i18n="s6b">Öffne Zoom auf dem Gerät, das du hauptsächlich verwenden möchtest. Teste Kamera, Mikrofon und Lautsprecher.</span></li><li><span data-i18n="s6c">Plane ein Testmeeting mit einem aussagekräftigen Titel. Prüfe Warteraum und Zugangsschutz.</span></li><li><span data-i18n="s6d">Lade eine vertraute Person ein, teste den Link und probiere die Bildschirmfreigabe.</span></li></ol><div class="resource-box"><h4 data-i18n="s6links">Offizielle Zoom-Hilfen</h4><div class="guide-link"><span data-i18n="s6l1">Zoom-Konto und Einstieg</span><a href="https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061316" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div><div class="guide-link"><span data-i18n="s6l2">Meeting planen und absichern</span><a href="https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060700" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div><div class="guide-link"><span data-i18n="s6l3">Meeting-Zeitbegrenzungen</span><a href="https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067966" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div><div class="note"><p data-i18n="s6note">Zoom Meetings und Zoom Webinars sind unterschiedliche Produkte. Ein kostenloses Basic-Meeting ist in der Regel auf 40 Minuten begrenzt. Ob du später eine kostenpflichtige Lizenz oder echte Webinar-Funktionen brauchst, hängt von deinen Zielen ab.</p></div></div></article>
+<article class="step journey-step" id="verknuepfen"><div class="step-num">07</div><div class="step-body"><h3 data-i18n="s7title">Optional: Calendly und Zoom verbinden</h3><p data-i18n="s7intro">Wenn du Calendly und Zoom miteinander verbindest, kann für eine passende Buchung automatisch ein individueller Zoom-Meeting-Link erstellt werden. Das ist hilfreich für feste Einzelgespräche; für einen spontanen WhatsApp- oder Telegram-Anruf ist es nicht erforderlich.</p><ol class="action-list"><li><span data-i18n="s7a">Öffne in Calendly den Bereich für Apps beziehungsweise Integrationen und wähle Zoom aus.</span></li><li><span data-i18n="s7b">Verbinde dein Zoom-Konto und bestätige die erforderlichen Berechtigungen.</span></li><li><span data-i18n="s7c">Öffne deine Calendly-Gesprächsart und wähle Zoom als Ort der Begegnung.</span></li><li><span data-i18n="s7d">Führe eine neue Testbuchung aus und prüfe Buchungsbestätigung, Kalender und Meeting-Link.</span></li></ol><div class="resource-box"><h4 data-i18n="s7links">Offizielle Integrationsanleitung</h4><div class="guide-link"><span data-i18n="s7l1">Calendly mit Zoom verbinden</span><a href="https://calendly.com/de/help/calendly-zoom" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div></div></article>
+<article class="step journey-step" id="kms"><div class="step-num">08</div><div class="step-body"><h3 data-i18n="s8title">Deine Erreichbarkeit im LiquidityBooster-KMS hinterlegen</h3><p data-i18n="s8intro">Du hast bereits im ersten Teil deine persönlichen Daten im KMS gepflegt. Jetzt ergänzt du die tatsächlich eingerichteten Kontakt- und Buchungswege. Du musst nicht alle Felder sofort ausfüllen.</p><div class="path"><span>KMS</span><span aria-hidden="true">→</span><span>SETUP</span><span aria-hidden="true">→</span><span>MEINE DATEN</span></div><div class="table-scroll"><table class="connection-table"><thead><tr><th data-i18n="s8th1">Feld im KMS</th><th data-i18n="s8th2">Was gehört hinein?</th></tr></thead><tbody><tr><th data-i18n="s8r0f">E-Mail-Adresse und Telefonnummer</th><td data-i18n="s8r0d">Die Kontaktangaben, unter denen du wirklich erreichbar sein möchtest.</td></tr><tr><th data-i18n="s8r1f">WhatsApp (URL)</th><td data-i18n="s8r1d">Dein bewusst freigegebener WhatsApp-Kontaktlink, falls du WhatsApp öffentlich anbietest.</td></tr><tr><th data-i18n="s8r2f">Kalender (URL)</th><td data-i18n="s8r2d">Dein öffentlicher Calendly-Buchungslink, nachdem du ihn getestet hast.</td></tr><tr><th data-i18n="s8r3f">Webinarraum (URL)</th><td data-i18n="s8r3d">Nur ein ausdrücklich für die öffentliche Verwendung geeigneter Veranstaltungs- oder Raumlink – falls du einen solchen verwendest.</td></tr></tbody></table></div><div class="warning"><p data-i18n="s8safe"><strong>Wichtig:</strong> Ein persönlicher Zoom-Link aus einer einzelnen Calendly-Buchung ist kein öffentlicher Webinarraum-Link. Veröffentliche weder vertrauliche Meeting-Links noch Passcodes. Für erste private Videoanrufe musst du das Webinarraum-Feld nicht ausfüllen.</p></div><div class="note"><p data-i18n="s8display">Prüfe anschließend deine persönliche Landingpage und – sofern freigegeben – dein öffentliches Mitgliederprofil. Die Eingabefelder im KMS sind vorhanden; welche Angaben auf welcher Seite automatisch erscheinen, muss im eigenen Zugang überprüft werden. Dein Mitgliederprofil ist eine getrennt gepflegte und geprüfte Darstellung.</p></div></div></article>
+<article class="step journey-step" id="kosten"><div class="step-num">09</div><div class="step-body"><h3 data-i18n="s9title">Kosten bewusst betrachten: Werkzeuge sind Infrastruktur</h3><p data-i18n="s9intro">Du brauchst für den Anfang nicht automatisch kostenpflichtige Software. Nutze zunächst die Möglichkeiten, die zu deinem Bedarf passen. Erst wenn Umfang, Dauer oder Funktionen wachsen, prüfst du, ob sich ein Tarif lohnt.</p><div class="cards-2"><div class="card small-card"><h4 data-i18n="s9a">Für die ersten Begegnungen</h4><p data-i18n="s9ap">Telefon und verbreitete Messenger eignen sich häufig für persönliche Gespräche. Eventuelle Mobilfunk- und Datenkosten bleiben zu berücksichtigen.</p></div><div class="card small-card"><h4 data-i18n="s9b">Für geplante Gespräche</h4><p data-i18n="s9bp">Calendly, Zoom und ähnliche Dienste haben je nach Tarif unterschiedliche Grenzen. Prüfe die aktuellen Konditionen, bevor du etwas kostenpflichtig abonnierst.</p></div></div><div class="idea"><p data-i18n="s9principle">Wenn du dich später entscheidest, eigene kostenpflichtige Veranstaltungen anzubieten, gehören geeignete Technik und laufende Kosten zu deiner Infrastrukturplanung. Das Geschäftsmodell und die Angebote selbst sind Thema von Etappe 3.</p></div><div class="resource-box"><h4 data-i18n="s9plans">Tarife vor der Entscheidung prüfen</h4><div class="guide-link"><span data-i18n="s9cal">Calendly – aktuelle Tarife</span><a href="https://calendly.com/pricing" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div><div class="guide-link"><span data-i18n="s9zoom">Zoom – aktuelle Tarife</span><a href="https://zoom.us/pricing" target="_blank" rel="noopener noreferrer"><span data-i18n="openGuide">Anleitung öffnen</span><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></div></div></div></article>
+<article class="step journey-step" id="test"><div class="step-num">10</div><div class="step-body"><h3 data-i18n="s10title">Der wichtigste Schritt: einmal alles selbst ausprobieren</h3><p data-i18n="s10intro">Ein eingerichteter Dienst ist erst dann wirklich hilfreich, wenn er im Alltag funktioniert. Teste den Weg aus Sicht eines Menschen, der dich noch nicht kennt.</p><ol class="action-list"><li><span data-i18n="s10a">Öffne deine öffentliche Landingpage auf einem zweiten Gerät oder im privaten Browserfenster.</span></li><li><span data-i18n="s10b">Prüfe die veröffentlichten Kontaktmöglichkeiten und deinen Buchungslink.</span></li><li><span data-i18n="s10c">Buche einen Testtermin und kontrolliere Bestätigung sowie Kalender.</span></li><li><span data-i18n="s10d">Falls du Zoom verbunden hast, prüfe, ob der richtige Meeting-Link nur an die beteiligten Personen geht.</span></li><li><span data-i18n="s10e">Führe ein kurzes Probe-Gespräch per deinem bevorzugten Dienst und überprüfe Ton, Bild und Pünktlichkeit.</span></li></ol><div class="note"><p data-i18n="s10result">Dein Ziel: Ein interessierter Mensch kann dich erreichen oder einen Termin vereinbaren – und du kannst den Kontakt persönlich, zuverlässig und in deinem eigenen Tempo gestalten.</p></div></div></article></div>
+</div></section>
+<section class="progress-section" id="meilenstein"><div class="wrap">
+<div class="sectionhead"><p class="eyebrow" data-i18n="goalTag">Dein zweiter Meilenstein</p>
+<h2 data-i18n="goalTitle">Aus einer Internetseite wird ein verlässlicher Weg zu dir.</h2>
+<p data-i18n="goalLead">Es zählt nicht, wie viele Werkzeuge du eingerichtet hast. Entscheidend ist, dass Menschen dich erreichen und du einen persönlichen Kontakt gut organisieren kannst.</p></div>
+<div class="progress-wrap"><div class="checks" id="checks"><label class="checklabel"><input type="checkbox" data-check="1"><span data-i18n="check1">Ich habe festgelegt, wie Menschen mich erreichen dürfen.</span></label><label class="checklabel"><input type="checkbox" data-check="2"><span data-i18n="check2">Ich habe meine Gesprächszeiten bewusst geplant.</span></label><label class="checklabel"><input type="checkbox" data-check="3"><span data-i18n="check3">Mein digitaler Kalender ist eingerichtet und aktuell.</span></label><label class="checklabel"><input type="checkbox" data-check="4"><span data-i18n="check4">Ich habe einen Calendly-Buchungslink eingerichtet oder bewusst darauf verzichtet.</span></label><label class="checklabel"><input type="checkbox" data-check="5"><span data-i18n="check5">Ich habe einen passenden Weg für persönliche Videogespräche gewählt und getestet.</span></label><label class="checklabel"><input type="checkbox" data-check="6"><span data-i18n="check6">Ich habe – falls benötigt – Zoom eingerichtet und erprobt.</span></label><label class="checklabel"><input type="checkbox" data-check="7"><span data-i18n="check7">Ich habe meine nutzbaren Kontakt- und Buchungslinks im KMS ergänzt.</span></label><label class="checklabel"><input type="checkbox" data-check="8"><span data-i18n="check8">Ich habe meine öffentliche Seite und den Weg zur persönlichen Begegnung getestet.</span></label></div><aside class="progress-card">
+<p class="eyebrow" data-i18n="progressTag">Dein Fortschritt</p>
+<div class="progress-number" id="progressNumber">0 / 8</div><div class="progress-bar" role="progressbar" id="progressBar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+<p data-i18n="progressNote">Hake nur ab, was du tatsächlich erledigt hast. Deine Auswahl bleibt ausschließlich in diesem Browser gespeichert.</p>
+<button type="button" class="small-btn" id="resetBtn" data-i18n="reset">Auswahl zurücksetzen</button>
+</aside></div>
+<div class="related"><p class="eyebrow" data-i18n="nextTag">Ausblick – Etappe 3</p>
+<h3 data-i18n="nextTitle">Deine eigenen Angebote sichtbar machen</h3>
+<p data-i18n="nextText">Wenn du später ein eigenes Angebot oder kostenpflichtige Webinare entwickeln möchtest, geht es um Inhalte, Zielgruppen, passende Veranstaltungsformate und die bewusste Planung deiner Infrastrukturkosten. Das ist der nächste Reiseabschnitt – heute konzentrierst du dich auf persönliche Begegnungen.</p>
+<a class="btn btn-outline" href="./"><span data-i18n="backBtn">Etappe 1 noch einmal ansehen</span></a>
+</div></div></section>
+<section class="travel" data-travel-current="2" aria-label="Deine Reise – drei Etappen und Reflexionspause"><div class="wrap"><div class="travel-head"><div><h2 class="travel-name" data-travel-key="heading">Dein Weg in die Sichtbarkeit</h2><p class="travel-description" data-travel-key="description">Drei Etappen und eine Reflexionspause – in deinem Tempo.</p></div></div><nav class="travel-route" aria-label="Reiseziele"><a class="travel-link" href="./" data-travel-step="1"><span class="travel-number">1</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="1">Etappe 1</span><span class="travel-title" data-travel-title="1">Vom Ich zum Wir</span><span class="travel-status" data-travel-status="1">0 / 8</span></span></a><a class="travel-link" href="etappe-2.html" data-travel-step="2" aria-current="step"><span class="travel-number">2</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="2">Etappe 2</span><span class="travel-title" data-travel-title="2">Aus Sichtbarkeit wird Begegnung</span><span class="travel-status" data-travel-status="2">0 / 8</span></span></a><a class="travel-link" href="etappe-3.html" data-travel-step="3"><span class="travel-number">3</span><span class="travel-info"><span class="travel-stepname" data-travel-key="stage" data-stage-index="3">Etappe 3</span><span class="travel-title" data-travel-title="3">Aus deiner Expertise wird ein Angebot</span><span class="travel-status" data-travel-status="3">0 / 8</span></span></a><a class="travel-link travel-reflection" href="reflexionspause.html" data-travel-step="4"><span class="travel-number"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1.5" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.5" fill="currentColor"/></svg></span><span class="travel-info"><span class="travel-stepname" data-travel-key="reflection">Reflexionspause</span><span class="travel-title" data-travel-title="4">Schau, was du geschaffen hast</span><span class="travel-status" data-travel-status="4">0 / 5 Gedanken</span></span></a></nav><div class="travel-controls"><a class="travel-control" href="./" data-travel-key="previous">Vorherige Etappe</a><a class="travel-control next" href="etappe-3.html" data-travel-key="next">Nächste Etappe</a></div></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div><strong>LiquidityBooster · Mein Weg in die Sichtbarkeit</strong>
+<p data-i18n="foot">Etappe 2 – Aus Sichtbarkeit wird Begegnung. Dein Weg. Dein Tempo. Deine Organisation.</p></div><a href="./" data-i18n="backFoot">Etappe 1 · Vom Ich zum Wir</a></div></footer>
+<script>
+(function(){
+'use strict';
+const translations={"de":{"f1":"Du hast in der ersten Etappe begonnen, dich selbst zu positionieren. Deine persönliche Landingpage macht dich sichtbar. Du lernst die Menschen unserer Gemeinschaft kennen und zeigst, wofür du stehst.","f2":"Aber was passiert, wenn jemand dich kennenlernen möchte? Eine Nachricht kommt an, dein Telefon klingelt, jemand bittet um einen Termin. Wenn du darauf nicht vorbereitet bist, kann aus einer schönen Gelegenheit schnell hektische Organisation werden.","f3":"Du musst deshalb nicht rund um die Uhr erreichbar sein. Du brauchst nur verlässliche Wege, auf denen echte Menschen dich zu Zeiten erreichen können, die du selbst bestimmst.","fquote":"Die Technik soll sich deinem Leben anpassen – nicht dein Leben der Technik.","f4":"Ein Kalender, eine persönliche Terminbuchung und ein passender Gesprächsraum sind keine komplizierte Geschäftsausstattung. Sie helfen dir, deine Zeit zu schützen, verbindliche Gespräche zu führen und aus digitaler Sichtbarkeit persönliche Begegnungen werden zu lassen.","f5":"Du richtest nur das ein, was du wirklich brauchst. Für erste Gespräche reichen häufig bereits Telefon, WhatsApp, Telegram oder Messenger. Calendly macht geplante Termine einfacher. Für vorbereitete Videogespräche kannst du zusätzlich Zoom oder andere Meetingdienste einsetzen.","fend":"Dein Ziel in Etappe 2: selbstbestimmt erreichbar sein, passende Termine ermöglichen und dich zuverlässig mit Menschen austauschen.","s1c0t":"Eine E-Mail-Adresse für deine Aktivitäten","s1c0p":"Ein klarer Kontaktweg, den du zuverlässig abrufst.","s1c1t":"Telefon oder Mobilfunknummer","s1c1p":"Öffentlich nur, wenn du darüber kontaktiert werden möchtest.","s1c2t":"Kontaktformular","s1c2p":"Besucher können sich melden, ohne deine privaten Daten zu kennen.","s1c3t":"Terminbuchung","s1c3p":"Menschen wählen aus deinen zuvor freigegebenen Zeiten.","s1note":"Öffne dein KMS unter <strong>SETUP → MEINE DATEN</strong>. Dort findest du den Bereich Kommunikation. Ergänze nur die Kontaktdaten, die du tatsächlich nutzen möchtest.","s1title":"Entscheide, wie Menschen dich erreichen","s1intro":"Du bestimmst, welche Kontaktwege zu deinem Leben passen. Entscheidend ist nicht die Zahl der Kanäle, sondern dass die gewählten Wege funktionieren und du sie regelmäßig prüfst.","s2q":"Frage dich: Wann möchte ich Gespräche führen – und wann ausdrücklich nicht?","s2tip":"Beginne zum Beispiel mit zwei festen Zeitfenstern pro Woche. Plane außerdem Puffer vor und nach Gesprächen ein. Lieber wenige verlässliche Zeiten als viele, die du nicht einhalten kannst.","s2m":"Montag · 19:00 Uhr","s2mt":"Entdeckungsreise: lernen, Menschen begegnen, Fragen stellen.","s2w":"Mittwoch · 19:00 Uhr","s2wt":"Gemeinsam Neues entdecken und sich persönlich einbringen.","s2title":"Deine Zeit ist ein Teil deiner Freiheit","s2intro":"Auch wenn du neue Kontakte gewinnen möchtest: Privatleben, Arbeit, Familie, Erholung und unsere Gemeinschaft haben Platz in deinem Kalender. Organisiere die Zeiten so, dass du dich darauf verlassen kannst.","s3a":"Wähle einen digitalen Kalender, den du wirklich nutzt, zum Beispiel Google Kalender oder Outlook.","s3b":"Trage bereits belegte Zeiten ein – auch private Termine, soweit sie für die Terminplanung wichtig sind.","s3c":"Prüfe die Zeitzone und stelle sicher, dass neue Termine auf deinen Geräten erscheinen.","s3d":"Markiere feste Verpflichtungen wie die Community-Abende, damit sie nicht versehentlich buchbar sind.","s3note":"Ein Kalender ist dein privates Planungswerkzeug. Andere Menschen sollen später nur deine freien Buchungszeiten sehen – nicht die Details deiner privaten Termine.","s3title":"Dein Kalender bringt Ordnung in deinen Alltag","s3intro":"Ein gepflegter digitaler Kalender ist die Basis für zuverlässige Terminbuchungen. Du kannst deinen bisherigen Kalender verwenden, wenn er von deiner Buchungslösung unterstützt wird.","s4a":"Erstelle dein Konto bei Calendly. Nutze eine E-Mail-Adresse, die du regelmäßig überprüfst, und prüfe Name und Zeitzone.","s4b":"Verbinde deinen unterstützten Kalender, damit belegte Zeiten berücksichtigt und Buchungen eingetragen werden können.","s4c":"Lege die Tage, Uhrzeiten, Pausen, Vorlaufzeiten und gegebenenfalls Gesprächspuffer fest.","s4d":"Richte einen ersten Ereignistyp ein, etwa „Persönliches Kennenlerngespräch – 20 Minuten“. Lege die Gesprächsdauer und die Art der Begegnung fest.","s4e":"Kopiere deinen öffentlichen Buchungslink. Öffne ihn wie ein Besucher und führe eine Testbuchung durch.","s4links":"Offizielle Calendly-Anleitungen","s4l1":"Kalender verbinden","s4l2":"Verfügbarkeit einstellen","s4l3":"Gesprächsart einrichten","s4l4":"Buchungslink teilen","s4note":"Beginne möglichst einfach: Ein kurzer Kennenlerntermin ist für den Einstieg oft genug. Prüfe die Funktionen und Bedingungen des aktuellen Tarifs, bevor du kostenpflichtige Optionen auswählst.","s4title":"Calendly einrichten – von der Frage zum Termin","s4intro":"Calendly ist eine Möglichkeit, freie Gesprächszeiten online anzubieten. Du legst vorher die Regeln fest; dein Gegenüber wählt einen passenden freien Termin. Damit entfällt viel Hin und Her bei der Terminabstimmung.","s5wat":"WhatsApp","s5wap":"Für kurze persönliche Videoanrufe mit Kontakten, die WhatsApp verwenden. Deine Mobilfunknummer spielt dabei eine Rolle.","s5tgt":"Telegram","s5tgp":"Geeignet für Videoanrufe mit Menschen, die bereits Telegram nutzen. Prüfe die passenden Datenschutz- und Kontakteinstellungen.","s5met":"Facebook Messenger","s5mep":"Eine weitere Möglichkeit zum Kennenlernen, wenn beide Seiten Messenger verwenden. Nicht jeder möchte dafür ein Social-Media-Konto nutzen.","s5gmt":"Google Meet","s5gmp":"Für geplante Gespräche mit Meeting-Link im Browser oder per App, je nach verwendetem Konto und Gerät.","s5note":"Nicht jedes System lässt sich direkt mit Calendly oder dem KMS verbinden. Ein spontan geführter Videoanruf ist etwas anderes als ein automatisch gebuchtes Meeting. Entscheidend sind Verlässlichkeit, Einverständnis und ein passender Kommunikationskanal.","s5title":"Fürs Kennenlernen reicht oft schon ein Videoanruf","s5intro":"Du musst für ein erstes Gespräch keinen eigenen Webinarbetrieb aufbauen. Entscheide gemeinsam mit deinem Gesprächspartner, welcher vertraute Kommunikationsweg am besten passt.","s6a":"Erstelle ein Konto bei Zoom und bestätige deine E-Mail-Adresse.","s6b":"Öffne Zoom auf dem Gerät, das du hauptsächlich verwenden möchtest. Teste Kamera, Mikrofon und Lautsprecher.","s6c":"Plane ein Testmeeting mit einem aussagekräftigen Titel. Prüfe Warteraum und Zugangsschutz.","s6d":"Lade eine vertraute Person ein, teste den Link und probiere die Bildschirmfreigabe.","s6links":"Offizielle Zoom-Hilfen","s6l1":"Zoom-Konto und Einstieg","s6l2":"Meeting planen und absichern","s6l3":"Meeting-Zeitbegrenzungen","s6note":"Zoom Meetings und Zoom Webinars sind unterschiedliche Produkte. Ein kostenloses Basic-Meeting ist in der Regel auf 40 Minuten begrenzt. Ob du später eine kostenpflichtige Lizenz oder echte Webinar-Funktionen brauchst, hängt von deinen Zielen ab.","s6title":"Zoom – ein eigener Raum für geplante Online-Gespräche","s6intro":"Wenn du häufiger Gespräche per Video führen oder Inhalte am Bildschirm zeigen möchtest, ist ein eigener Zoom-Zugang eine sinnvolle Option. Für spätere eigene Webinare ist Zoom unser bevorzugter Ausgangspunkt – die konkrete Veranstaltung planen wir erst in Etappe 3.","s7a":"Öffne in Calendly den Bereich für Apps beziehungsweise Integrationen und wähle Zoom aus.","s7b":"Verbinde dein Zoom-Konto und bestätige die erforderlichen Berechtigungen.","s7c":"Öffne deine Calendly-Gesprächsart und wähle Zoom als Ort der Begegnung.","s7d":"Führe eine neue Testbuchung aus und prüfe Buchungsbestätigung, Kalender und Meeting-Link.","s7links":"Offizielle Integrationsanleitung","s7l1":"Calendly mit Zoom verbinden","s7title":"Optional: Calendly und Zoom verbinden","s7intro":"Wenn du Calendly und Zoom miteinander verbindest, kann für eine passende Buchung automatisch ein individueller Zoom-Meeting-Link erstellt werden. Das ist hilfreich für feste Einzelgespräche; für einen spontanen WhatsApp- oder Telegram-Anruf ist es nicht erforderlich.","s8th1":"Feld im KMS","s8th2":"Was gehört hinein?","s8r0f":"E-Mail-Adresse und Telefonnummer","s8r0d":"Die Kontaktangaben, unter denen du wirklich erreichbar sein möchtest.","s8r1f":"WhatsApp (URL)","s8r1d":"Dein bewusst freigegebener WhatsApp-Kontaktlink, falls du WhatsApp öffentlich anbietest.","s8r2f":"Kalender (URL)","s8r2d":"Dein öffentlicher Calendly-Buchungslink, nachdem du ihn getestet hast.","s8r3f":"Webinarraum (URL)","s8r3d":"Nur ein ausdrücklich für die öffentliche Verwendung geeigneter Veranstaltungs- oder Raumlink – falls du einen solchen verwendest.","s8safe":"<strong>Wichtig:</strong> Ein persönlicher Zoom-Link aus einer einzelnen Calendly-Buchung ist kein öffentlicher Webinarraum-Link. Veröffentliche weder vertrauliche Meeting-Links noch Passcodes. Für erste private Videoanrufe musst du das Webinarraum-Feld nicht ausfüllen.","s8display":"Prüfe anschließend deine persönliche Landingpage und – sofern freigegeben – dein öffentliches Mitgliederprofil. Die Eingabefelder im KMS sind vorhanden; welche Angaben auf welcher Seite automatisch erscheinen, muss im eigenen Zugang überprüft werden. Dein Mitgliederprofil ist eine getrennt gepflegte und geprüfte Darstellung.","s8title":"Deine Erreichbarkeit im LiquidityBooster-KMS hinterlegen","s8intro":"Du hast bereits im ersten Teil deine persönlichen Daten im KMS gepflegt. Jetzt ergänzt du die tatsächlich eingerichteten Kontakt- und Buchungswege. Du musst nicht alle Felder sofort ausfüllen.","s9a":"Für die ersten Begegnungen","s9ap":"Telefon und verbreitete Messenger eignen sich häufig für persönliche Gespräche. Eventuelle Mobilfunk- und Datenkosten bleiben zu berücksichtigen.","s9b":"Für geplante Gespräche","s9bp":"Calendly, Zoom und ähnliche Dienste haben je nach Tarif unterschiedliche Grenzen. Prüfe die aktuellen Konditionen, bevor du etwas kostenpflichtig abonnierst.","s9principle":"Wenn du dich später entscheidest, eigene kostenpflichtige Veranstaltungen anzubieten, gehören geeignete Technik und laufende Kosten zu deiner Infrastrukturplanung. Das Geschäftsmodell und die Angebote selbst sind Thema von Etappe 3.","s9plans":"Tarife vor der Entscheidung prüfen","s9cal":"Calendly – aktuelle Tarife","s9zoom":"Zoom – aktuelle Tarife","s9title":"Kosten bewusst betrachten: Werkzeuge sind Infrastruktur","s9intro":"Du brauchst für den Anfang nicht automatisch kostenpflichtige Software. Nutze zunächst die Möglichkeiten, die zu deinem Bedarf passen. Erst wenn Umfang, Dauer oder Funktionen wachsen, prüfst du, ob sich ein Tarif lohnt.","s10a":"Öffne deine öffentliche Landingpage auf einem zweiten Gerät oder im privaten Browserfenster.","s10b":"Prüfe die veröffentlichten Kontaktmöglichkeiten und deinen Buchungslink.","s10c":"Buche einen Testtermin und kontrolliere Bestätigung sowie Kalender.","s10d":"Falls du Zoom verbunden hast, prüfe, ob der richtige Meeting-Link nur an die beteiligten Personen geht.","s10e":"Führe ein kurzes Probe-Gespräch per deinem bevorzugten Dienst und überprüfe Ton, Bild und Pünktlichkeit.","s10result":"Dein Ziel: Ein interessierter Mensch kann dich erreichen oder einen Termin vereinbaren – und du kannst den Kontakt persönlich, zuverlässig und in deinem eigenen Tempo gestalten.","s10title":"Der wichtigste Schritt: einmal alles selbst ausprobieren","s10intro":"Ein eingerichteter Dienst ist erst dann wirklich hilfreich, wenn er im Alltag funktioniert. Teste den Weg aus Sicht eines Menschen, der dich noch nicht kennt.","check1":"Ich habe festgelegt, wie Menschen mich erreichen dürfen.","check2":"Ich habe meine Gesprächszeiten bewusst geplant.","check3":"Mein digitaler Kalender ist eingerichtet und aktuell.","check4":"Ich habe einen Calendly-Buchungslink eingerichtet oder bewusst darauf verzichtet.","check5":"Ich habe einen passenden Weg für persönliche Videogespräche gewählt und getestet.","check6":"Ich habe – falls benötigt – Zoom eingerichtet und erprobt.","check7":"Ich habe meine nutzbaren Kontakt- und Buchungslinks im KMS ergänzt.","check8":"Ich habe meine öffentliche Seite und den Weg zur persönlichen Begegnung getestet.","heroTag":"Mein Weg in die Sichtbarkeit · Etappe 2","heroTitle":"Aus Sichtbarkeit wird <em>Begegnung.</em>","heroLead":"Meine Zeit. Meine Erreichbarkeit. Meine Organisation.","heroExtra":"Lerne, wie du deine Zeit schützt, echte Begegnungen planbar machst und die passenden Werkzeuge mit deiner persönlichen Präsenz verbindest.","forewordTag":"Vorwort – Warum deine Zeit ein wertvolles Gut ist","forewordTitle":"Professionell erreichbar. Und trotzdem frei.","stepsTag":"Etappe 2 · Dein praktischer Weg","stepsTitle":"Schritt für Schritt zu deiner eigenen Organisation.","stepsLead":"Du bestimmst den Umfang. Nicht jeder Dienst ist verpflichtend. Wichtig ist, dass deine persönlichen Wege funktionieren.","goalTag":"Dein zweiter Meilenstein","goalTitle":"Aus einer Internetseite wird ein verlässlicher Weg zu dir.","goalLead":"Es zählt nicht, wie viele Werkzeuge du eingerichtet hast. Entscheidend ist, dass Menschen dich erreichen und du einen persönlichen Kontakt gut organisieren kannst.","progressTag":"Dein Fortschritt","progressNote":"Hake nur ab, was du tatsächlich erledigt hast. Deine Auswahl bleibt ausschließlich in diesem Browser gespeichert.","nextTag":"Ausblick – Etappe 3","nextTitle":"Deine eigenen Angebote sichtbar machen","nextText":"Wenn du später ein eigenes Angebot oder kostenpflichtige Webinare entwickeln möchtest, geht es um Inhalte, Zielgruppen, passende Veranstaltungsformate und die bewusste Planung deiner Infrastrukturkosten. Das ist der nächste Reiseabschnitt – heute konzentrierst du dich auf persönliche Begegnungen.","foot":"Etappe 2 – Aus Sichtbarkeit wird Begegnung. Dein Weg. Dein Tempo. Deine Organisation."},"en":{"f1":"In the first stage, you began to position yourself. Your personal landing page makes you visible. You are meeting people in our community and showing what matters to you.","f2":"But what happens when someone wants to meet you? A message arrives, your phone rings or someone asks for an appointment. Without a plan, a promising opportunity can quickly become hectic.","f3":"You do not need to be available around the clock. You simply need reliable ways for real people to reach you at times you choose.","fquote":"Technology should fit your life – not the other way around.","f4":"A calendar, personal appointment booking and a suitable place to meet are not complicated business equipment. They help you protect your time, hold reliable conversations and turn online visibility into genuine connections.","f5":"Set up only what you actually need. For first conversations, a phone, WhatsApp, Telegram or Messenger can be enough. Calendly makes scheduled appointments easier. For planned video meetings, you can also use Zoom or other meeting services.","fend":"Your goal in Stage 2: be reachable on your terms, offer suitable appointments and connect reliably with others.","s1c0t":"An email address for your activities","s1c0p":"A clear way to reach you that you check reliably.","s1c1t":"Phone or mobile number","s1c1p":"Only publish it if you want to be contacted that way.","s1c2t":"Contact form","s1c2p":"Visitors can get in touch without knowing your private details.","s1c3t":"Appointment booking","s1c3p":"People choose from times you have made available.","s1note":"Open your KMS at <strong>SETUP → MEINE DATEN</strong>. You will find the communication settings there. Only provide contact details you actually want to use.","s1title":"Decide how people can reach you","s1intro":"You decide which contact methods suit your life. What matters is not the number of channels but whether they work and you check them regularly.","s2q":"Ask yourself: When do I want to hold conversations – and when do I not?","s2tip":"Start with two fixed time slots a week, for example. Allow a buffer before and after calls. A few reliable times are better than lots of appointments you cannot keep.","s2m":"Monday · 7:00 pm","s2mt":"Discovery journey: learn, meet people and ask questions.","s2w":"Wednesday · 7:00 pm","s2wt":"Explore new topics together and contribute personally.","s2title":"Your time is part of your freedom","s2intro":"Even as you meet new people, there is room in your calendar for work, family, rest and our community. Organise your time so that it remains reliable.","s3a":"Choose a digital calendar you actually use, such as Google Calendar or Outlook.","s3b":"Enter times when you are already busy, including personal commitments relevant to your availability.","s3c":"Check your time zone and make sure new appointments appear on your devices.","s3d":"Block regular commitments such as community evenings so they are not accidentally offered for booking.","s3note":"Your calendar is your personal planning tool. Later, other people should see only available booking times, not the details of your private appointments.","s3title":"Your calendar brings order to your routine","s3intro":"An up-to-date digital calendar is the basis for reliable bookings. You may be able to keep using your existing calendar if your booking tool supports it.","s4a":"Create a Calendly account. Use an email address you check regularly and verify your name and time zone.","s4b":"Connect a supported calendar so busy times can be respected and new bookings added.","s4c":"Set your days, hours, breaks, minimum notice and any buffers between appointments.","s4d":"Create your first event type, such as “Personal introduction – 20 minutes”. Set the duration and meeting format.","s4e":"Copy your public booking link. Open it as a visitor and complete a test booking.","s4links":"Official Calendly guides","s4l1":"Connect your calendar","s4l2":"Set your availability","s4l3":"Create an event type","s4l4":"Share a scheduling link","s4note":"Keep it simple: one short introductory meeting type is often enough to start. Check the features and conditions of your current plan before selecting paid options.","s4title":"Set up Calendly – from asking to booking","s4intro":"Calendly lets you offer available appointment times online. You set the rules in advance and visitors choose a suitable opening, reducing the back-and-forth of scheduling.","s5wat":"WhatsApp","s5wap":"For short personal video calls with people who use WhatsApp. Your phone number is part of this channel.","s5tgt":"Telegram","s5tgp":"Suitable for video calls with people who already use Telegram. Check privacy and contact settings.","s5met":"Facebook Messenger","s5mep":"Another way to connect if both parties use Messenger. Not everyone wants to use a social-media account for calls.","s5gmt":"Google Meet","s5gmp":"For scheduled calls using a meeting link in a browser or app, depending on your account and device.","s5note":"Not every service can be integrated directly with Calendly or the KMS. A spontaneous video call is not the same as an automatically booked meeting. Reliability, consent and a suitable channel matter most.","s5title":"A video call can be enough for a first introduction","s5intro":"You do not need a webinar infrastructure for your first conversation. Agree on whichever familiar communication method works best for you and the other person.","s6a":"Create a Zoom account and confirm your email address.","s6b":"Open Zoom on the device you plan to use most. Test your camera, microphone and speakers.","s6c":"Schedule a test meeting with a clear title. Review the waiting room and access protection.","s6d":"Invite someone you trust, test the meeting link and try sharing your screen.","s6links":"Official Zoom guides","s6l1":"Get started with Zoom","s6l2":"Schedule and secure a meeting","s6l3":"Meeting time limits","s6note":"Zoom Meetings and Zoom Webinars are different products. Free Basic meetings are normally limited to 40 minutes. Whether you later need a paid licence or webinar features depends on your goals.","s6title":"Zoom – your own space for planned online meetings","s6intro":"If you often meet over video or want to share your screen, a Zoom account is a useful option. For future webinars, Zoom is our preferred starting point – we will plan actual events in Stage 3.","s7a":"In Calendly, open Apps or Integrations and select Zoom.","s7b":"Connect your Zoom account and approve the required permissions.","s7c":"Edit your Calendly event type and select Zoom as the meeting location.","s7d":"Make a new test booking and check the confirmation, calendar and meeting link.","s7links":"Official integration guide","s7l1":"Connect Calendly with Zoom","s7title":"Optional: connect Calendly and Zoom","s7intro":"If you connect Calendly and Zoom, an individual Zoom meeting link can be created automatically for a booking. This is helpful for scheduled one-to-one meetings, but unnecessary for spontaneous WhatsApp or Telegram calls.","s8th1":"KMS field","s8th2":"What to enter","s8r0f":"Email address and phone number","s8r0d":"The contact details you actually want people to use.","s8r1f":"WhatsApp (URL)","s8r1d":"Your intentionally published WhatsApp contact link, if you want to offer WhatsApp publicly.","s8r2f":"Calendar (URL)","s8r2d":"Your public Calendly booking link after testing it.","s8r3f":"Webinar room (URL)","s8r3d":"Only a room or event link expressly suitable for public sharing, if you use one.","s8safe":"<strong>Important:</strong> A personal Zoom link from one Calendly booking is not a public webinar-room link. Do not publish confidential meeting links or passcodes. You do not need to fill in the webinar-room field for initial private video calls.","s8display":"Then check your personal landing page and – once approved – your public member profile. The KMS fields exist, but you should check in your own account which information appears on which page. Your member profile is maintained and reviewed separately.","s8title":"Add your contact options to the LiquidityBooster KMS","s8intro":"You already updated your personal data in the KMS during Stage 1. Now add the contact and booking options you have actually set up. You do not need to fill every field immediately.","s9a":"For your first conversations","s9ap":"Phone calls and common messengers are often enough for personal conversations. Mobile and data charges may still apply.","s9b":"For scheduled appointments","s9bp":"Calendly, Zoom and similar services have different limits depending on the plan. Check current terms before subscribing to a paid service.","s9principle":"If you later decide to host your own paid events, suitable technology and recurring costs become part of your infrastructure planning. The offers and business model themselves are topics for Stage 3.","s9plans":"Review plans before deciding","s9cal":"Calendly current plans","s9zoom":"Zoom current plans","s9title":"Consider costs consciously: tools are infrastructure","s9intro":"You do not automatically need paid software at the start. Begin with the options that suit your needs. When your requirements grow, consider whether a paid plan is worthwhile.","s10a":"Open your public landing page on another device or in a private browser window.","s10b":"Check the published contact options and your booking link.","s10c":"Book a test appointment and check the confirmation and calendar.","s10d":"If Zoom is connected, make sure the correct meeting link goes only to the intended people.","s10e":"Hold a short test call using your chosen service, and check sound, video and punctuality.","s10result":"Your goal: an interested person can contact you or book an appointment, and you can make that connection personally, reliably and at your own pace.","s10title":"Most important: test the whole journey yourself","s10intro":"A set-up service only becomes useful when it works in real life. Test the process from the perspective of someone who does not yet know you.","check1":"I decided how people may contact me.","check2":"I planned my available meeting times.","check3":"My digital calendar is set up and current.","check4":"I set up a Calendly booking link or deliberately chose not to.","check5":"I selected and tested a suitable way to hold personal video calls.","check6":"If needed, I set up and tested Zoom.","check7":"I added my usable contact and booking links to the KMS.","check8":"I tested my public page and the path to a personal meeting.","heroTag":"My path to visibility · Stage 2","heroTitle":"From visibility to <em>connection.</em>","heroLead":"My time. My availability. My organisation.","heroExtra":"Learn how to protect your time, arrange genuine meetings and connect the right tools with your personal online presence.","forewordTag":"Foreword – Why your time matters","forewordTitle":"Reachable professionally. Still free.","stepsTag":"Stage 2 · Your practical journey","stepsTitle":"Step by step to your own organisation.","stepsLead":"You decide how much to set up. No single service is mandatory. What matters is that your chosen contact methods work.","goalTag":"Your second milestone","goalTitle":"Your website becomes a reliable way to reach you.","goalLead":"It is not about how many tools you have set up. What matters is that people can reach you and you can organise a personal connection well.","progressTag":"Your progress","progressNote":"Tick only what you have actually done. Your choices are stored only in this browser.","nextTag":"Looking ahead – Stage 3","nextTitle":"Make your own offers visible","nextText":"If you later want to develop your own offer or paid webinars, the next stage will cover content, audiences, formats and deliberate planning for infrastructure costs. For now, focus on personal connections.","foot":"Stage 2 – From visibility to connection. Your path. Your pace. Your organisation."}};
+translations.de.brandSub="Mein Weg in die Sichtbarkeit";translations.en.brandSub="My path to visibility";translations.de.openGuide="Anleitung öffnen";translations.en.openGuide="Open guide";translations.de.visitService="Zum Dienst";translations.en.visitService="Visit service";
+Object.assign(translations.de,{"navWhy":"Warum","navSteps":"Deine Schritte","navGoal":"Dein Meilenstein","readWhy":"Warum das wichtig ist","back":"Zurück zu Etappe 1","backBtn":"Etappe 1 noch einmal ansehen","backFoot":"Etappe 1 · Vom Ich zum Wir","graphicTag":"Etappe 2 · Aus Sichtbarkeit wird Begegnung","graphicLine":"Meine <span>Zeit.</span><br>Meine <span>Organisation.</span>","graphicLeft":"Selbstbestimmt erreichbar","graphicRight":"Verlässlich begegnen","reset":"Auswahl zurücksetzen","resetConfirm":"Möchtest du deine Häkchen für Etappe 2 zurücksetzen?"});
+Object.assign(translations.en,{"navWhy":"Why","navSteps":"Your steps","navGoal":"Your milestone","readWhy":"Why it matters","back":"Back to Stage 1","backBtn":"Review Stage 1","backFoot":"Stage 1 · From I to We","graphicTag":"Stage 2 · From visibility to connection","graphicLine":"My <span>time.</span><br>My <span>organisation.</span>","graphicLeft":"Reachable on my terms","graphicRight":"Reliable personal connections","reset":"Clear checklist","resetConfirm":"Do you want to clear your Stage 2 checklist?"});
+const STORE_LANG="lb-praesentation-visible-journey-lang", STORE_CHECKS="lb-praesentation-visible-journey-stage2-checks";
+function read(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:JSON.parse(v)}catch(e){return fallback}}
+function write(key,v){try{localStorage.setItem(key,JSON.stringify(v))}catch(e){}}
+let current=read(STORE_LANG,"de");if(!translations[current])current="de";
+const checks=[...document.querySelectorAll("input[data-check]")], saved=read(STORE_CHECKS,{});
+function progress(){const count=checks.filter(x=>x.checked).length;document.getElementById("progressNumber").textContent=count+" / "+checks.length;document.getElementById("progressBar").setAttribute("aria-valuenow",String(count));document.getElementById("progressFill").style.width=(100*count/checks.length)+"%";}
+checks.forEach(ch=>{ch.checked=!!saved[ch.dataset.check];ch.addEventListener("change",()=>{saved[ch.dataset.check]=ch.checked;write(STORE_CHECKS,saved);progress()})});
+function render(){
+document.documentElement.lang=current;
+document.title=current==="de"?"Mein Weg in die Sichtbarkeit – Etappe 2: Aus Sichtbarkeit wird Begegnung | LiquidityBooster":"My path to visibility – Stage 2: From visibility to connection | LiquidityBooster";
+document.querySelectorAll("[data-i18n]").forEach(el=>{const v=translations[current][el.dataset.i18n];if(v!==undefined){if(["heroTitle","graphicLine","fquote","s1note","s6note","s8safe"].includes(el.dataset.i18n)){el.innerHTML=v}else{el.textContent=v}}});
+document.getElementById("langDe").setAttribute("aria-pressed",String(current==="de"));document.getElementById("langEn").setAttribute("aria-pressed",String(current==="en"));
+}
+document.getElementById("langDe").addEventListener("click",()=>{current="de";write(STORE_LANG,current);render()});
+document.getElementById("langEn").addEventListener("click",()=>{current="en";write(STORE_LANG,current);render()});
+document.getElementById("resetBtn").addEventListener("click",()=>{if(window.confirm(translations[current].resetConfirm)){checks.forEach(x=>{x.checked=false;saved[x.dataset.check]=false});write(STORE_CHECKS,saved);progress()}});
+progress();render();
+})();
+</script>
+<script>
+(function(){"use strict";
+const locale={de:{heading:"Dein Weg in die Sichtbarkeit",description:"Drei Etappen und eine Reflexionspause – in deinem Tempo.",stage:"Etappe",reflection:"Reflexionspause",previous:"Vorherige Etappe",next:"Nächste Etappe",nextPause:"Zur Reflexionspause",done:"Abgeschlossen",progress:"erledigt",ready:"Noch offen",thoughts:"Gedanken"},en:{heading:"Your path to visibility",description:"Three stages and a reflection pause – at your own pace.",stage:"Stage",reflection:"Reflection pause",previous:"Previous stage",next:"Next stage",nextPause:"Go to reflection pause",done:"Completed",progress:"completed",ready:"Not started",thoughts:"thoughts"}};
+const titles=[["Vom Ich zum Wir","From I to We"],["Aus Sichtbarkeit wird Begegnung","From visibility to connection"],["Aus deiner Expertise wird ein Angebot","Turn expertise into an offer"],["Schau, was du geschaffen hast","Look at what you have achieved"]];
+const storeKeys=["lb-praesentation-onboarding-checks","lb-praesentation-visible-journey-stage2-checks","lb-praesentation-visible-journey-stage3-checks"],notesKey="lb-praesentation-visible-journey-reflection-notes",pauseIcon="<svg viewBox=\"0 0 24 24\" fill=\"none\" aria-hidden=\"true\"><rect x=\"6\" y=\"4\" width=\"4\" height=\"16\" rx=\"1.5\" fill=\"currentColor\"/><rect x=\"14\" y=\"4\" width=\"4\" height=\"16\" rx=\"1.5\" fill=\"currentColor\"/></svg>";
+function read(k){try{const v=localStorage.getItem(k);return v===null?{}:JSON.parse(v)}catch(e){return {}}}
+function refreshJourney(){
+const lang=document.documentElement.lang==="en"?"en":"de",w=locale[lang];
+document.querySelectorAll("[data-travel-key]").forEach(el=>{const k=el.dataset.travelKey;el.textContent=k==="stage"?w.stage+" "+el.dataset.stageIndex:w[k]||""});
+document.querySelectorAll("[data-travel-title]").forEach(el=>{const i=Number(el.dataset.travelTitle)-1;el.textContent=titles[i][lang==="de"?0:1]});
+document.querySelectorAll("[data-travel-step]").forEach(el=>{
+const i=Number(el.dataset.travelStep)-1,num=el.querySelector(".travel-number"),status=el.querySelector(".travel-status");
+if(i===3){const cnt=Object.values(read(notesKey)).filter(v=>typeof v==="string"&&v.trim()).length;num.innerHTML=pauseIcon;status.textContent=cnt+" / 5 "+w.thoughts;return}
+const cnt=Object.values(read(storeKeys[i])).filter(v=>v===true).length,complete=cnt>=8;
+el.classList.toggle("done",complete);num.textContent=complete?"✓":String(i+1);
+status.textContent=complete?w.done:(cnt?cnt+" / 8 "+w.progress:w.ready);
+});
+}
+new MutationObserver(m=>{if(m.some(c=>c.attributeName==="lang"))refreshJourney()}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+document.addEventListener("change",e=>{if(e.target?.matches?.("input[data-check]"))queueMicrotask(refreshJourney)});
+document.addEventListener("click",e=>{if(e.target?.closest?.("#resetBtn,#langDe,#langEn,#clearAnswers"))queueMicrotask(refreshJourney)});
+document.addEventListener("journey-reflection-update",refreshJourney);
+refreshJourney();
+})();
+</script><script id="fsa-deck-presentation-js">
+(function(){
+  "use strict";
+  var stage=Number(document.body.getAttribute("data-fsa-deck-stage"))||1;
+  var config=[
+    {file:"./",de:"Etappe 1",en:"Stage 1"},
+    {file:"etappe-2.html",de:"Etappe 2",en:"Stage 2"},
+    {file:"etappe-3.html",de:"Etappe 3",en:"Stage 3"},
+    {file:"reflexionspause.html",de:"Reflexion",en:"Reflection"}
+  ];
+  var words={
+    de:{chapter:"Kapitel",back:"Zurück",next:"Weiter",close:"Schließen",overview:"Überblick",start:"Start",foreword:"Vorwort",count:"von",menu:"Kapitelauswahl",end:"Abschluss"},
+    en:{chapter:"Chapters",back:"Back",next:"Next",close:"Close",overview:"Overview",start:"Start",foreword:"Foreword",count:"of",menu:"Choose chapter",end:"Closing"}
+  };
+  var svgLeft='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>';
+  var svgRight='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>';
+  var svgList='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>';
+  var svgClose='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+  var main=document.querySelector("main"),header=document.querySelector(".header");
+  if(!main||!header)return;
+  var parent=stage===1?document.querySelector("#weg"):document.querySelector("#schritte");
+  var steps=parent?Array.from(parent.querySelectorAll(".steps > article.step")):[];
+  var slideDefs=[];
+  function add(key,node,section,kind){
+    if(node&&section)slideDefs.push({key:key,node:node,section:section,kind:kind||"normal"});
+  }
+  var cover=main.querySelector(stage===4?".pause-hero":".hero");
+  add("start",cover,cover,"cover");
+  var foreword=document.getElementById("vorwort");
+  add("vorwort",foreword,foreword,"foreword");
+  if(parent){
+    add(stage===1?"weg":"schritte",parent,parent,"overview");
+    steps.forEach(function(node,i){
+      if(!node.id)node.id="schritt-"+String(i+1).padStart(2,"0");
+      add(node.id,node,parent,"step");
+    });
+    if(stage===1){
+      var share=document.getElementById("teilen"),check=document.getElementById("checkliste");
+      add("teilen",share,share);
+      add("checkliste",check,check);
+    }else{
+      var milestone=document.getElementById("meilenstein");
+      add("meilenstein",milestone,milestone);
+    }
+  }else{
+    ["rueckblick","warum","reflexion","deine-marke"].forEach(function(id){
+      var el=document.getElementById(id);add(id,el,el);
+    });
+    var ending=main.querySelector(".pause-final");add("abschluss",ending,ending,"end");
+  }
+  if(!slideDefs.length)return;
+  var top=document.createElement("div");
+  top.className="fsa-deck-top";
+  top.setAttribute("role","navigation");
+  top.setAttribute("aria-label","Etappen und Kapitel / Stages and chapters");
+  top.innerHTML='<nav class="fsa-deck-stages" aria-label="Etappen / Stages"></nav>'+
+    '<button id="fsa-deck-menu" class="fsa-deck-button" type="button" aria-expanded="false" aria-controls="fsa-deck-popup">'+svgList+'<span data-i18n="deckMenu" data-fsa-translate="chapter"></span></button>'+
+    '<span class="fsa-deck-top-count" id="fsa-deck-count" aria-live="polite"></span>';
+  var bottom=document.createElement("div");
+  bottom.className="fsa-deck-bottom";
+  bottom.innerHTML='<button id="fsa-deck-prev" class="fsa-deck-button" type="button">'+svgLeft+'<span class="fsa-deck-hide-mobile" data-i18n="deckPrev" data-fsa-translate="back"></span></button>'+
+    '<div class="fsa-deck-middle"><span id="fsa-deck-title" class="fsa-deck-chapter-title"></span><div class="fsa-deck-progress" aria-hidden="true"><i id="fsa-deck-progress"></i></div></div>'+
+    '<button id="fsa-deck-next" class="fsa-deck-button fsa-deck-primary" type="button"><span class="fsa-deck-hide-mobile" data-i18n="deckNext" data-fsa-translate="next"></span>'+svgRight+'</button>';
+  var popup=document.createElement("div");
+  popup.id="fsa-deck-popup";
+  popup.className="fsa-deck-popup";
+  popup.hidden=true;
+  popup.innerHTML='<div class="fsa-deck-panel" role="dialog" aria-modal="true" aria-labelledby="fsa-deck-menu-title">'+
+    '<div class="fsa-deck-panelhead"><strong id="fsa-deck-menu-title" data-i18n="deckChoose" data-fsa-translate="menu"></strong>'+
+    '<button id="fsa-deck-close" class="fsa-deck-button" type="button" aria-label="Schließen / Close">'+svgClose+'</button></div>'+
+    '<div id="fsa-deck-chapters" class="fsa-deck-chapters"></div></div>';
+  document.body.append(top,bottom,popup);
+  var stageNav=top.querySelector(".fsa-deck-stages");
+  config.forEach(function(item,i){
+    var link=document.createElement("a");link.href=item.file;
+    link.setAttribute("data-fsa-stage",String(i+1));
+    if(i+1===stage)link.setAttribute("aria-current","page");
+    stageNav.appendChild(link);
+  });
+  var idx=0,prev=document.getElementById("fsa-deck-prev"),next=document.getElementById("fsa-deck-next");
+  var menu=document.getElementById("fsa-deck-menu"),close=document.getElementById("fsa-deck-close");
+  var chapters=document.getElementById("fsa-deck-chapters");
+  var title=document.getElementById("fsa-deck-title"),count=document.getElementById("fsa-deck-count");
+  var bar=document.getElementById("fsa-deck-progress");
+  var sectionList=Array.from(main.children).filter(function(n){return n.tagName==="SECTION"});
+  function lang(){return document.documentElement.lang==="en"?"en":"de";}
+  function slideTitle(s){
+    var heading=s.kind==="step"?s.node.querySelector("h3"):s.kind==="cover"?s.node.querySelector("h1"):s.node.querySelector("h2,h3,h1");
+    if(heading)return heading.textContent.replace(/\s+/g," ").trim();
+    return words[lang()][s.kind==="overview"?"overview":s.kind==="end"?"end":"start"];
+  }
+  function slideNum(s,i){
+    if(s.kind==="step"){
+      var num=s.node.querySelector(".step-num");
+      return num?num.textContent.trim():String(i+1).padStart(2,"0");
+    }
+    return String(i+1).padStart(2,"0");
+  }
+  function syncSize(){
+    document.documentElement.style.setProperty("--fsa-deck-head",Math.ceil(header.getBoundingClientRect().height)+"px");
+  }
+  function drawText(){
+    var tr=words[lang()];
+    document.querySelectorAll("[data-fsa-translate]").forEach(function(el){el.textContent=tr[el.getAttribute("data-fsa-translate")]||"";});
+    stageNav.querySelectorAll("a").forEach(function(el,i){el.textContent=config[i][lang()];});
+    title.textContent=slideTitle(slideDefs[idx]);
+    count.textContent=(idx+1)+" / "+slideDefs.length;
+    chapters.innerHTML="";
+    slideDefs.forEach(function(s,i){
+      var btn=document.createElement("button");btn.type="button";btn.className="fsa-deck-chapter";
+      btn.setAttribute("aria-current",i===idx?"true":"false");
+      var num=document.createElement("span");num.className="fsa-deck-num";num.textContent=slideNum(s,i);
+      var label=document.createElement("span");label.className="fsa-deck-chapter-label";label.textContent=slideTitle(s);
+      btn.append(num,label);
+      btn.addEventListener("click",function(){show(i,true);setMenu(false);});
+      chapters.appendChild(btn);
+    });
+    document.title=document.title.replace(/ · (Präsentation|Presentation)$/,"")+" · "+(lang()==="de"?"Präsentation":"Presentation");
+  }
+  function setMenu(open){
+    popup.hidden=!open;
+    menu.setAttribute("aria-expanded",open?"true":"false");
+    if(open){drawText();close.focus();}
+    else menu.focus();
+  }
+  function show(n,updateUrl){
+    if(n<0||n>=slideDefs.length)return;
+    idx=n;
+    var active=slideDefs[n];
+    sectionList.forEach(function(el){el.classList.toggle("fsa-deck-off",el!==active.section);});
+    if(parent){
+      parent.classList.toggle("fsa-deck-step",active.kind==="step");
+      parent.classList.toggle("fsa-deck-overview",active.kind==="overview");
+      steps.forEach(function(el){el.classList.toggle("fsa-deck-off",el!==active.node);});
+    }
+    prev.disabled=stage===1&&n===0;
+    next.disabled=stage===4&&n===slideDefs.length-1;
+    bar.style.width=((n+1)/slideDefs.length*100).toFixed(2)+"%";
+    drawText();
+    main.scrollTop=0;
+    if(updateUrl&&location.hash!=="#"+active.key)history.pushState(null,"","#"+active.key);
+  }
+  function hashIndex(){
+    var key="";
+    try{key=decodeURIComponent(location.hash.slice(1));}catch(e){key=location.hash.slice(1);}
+    if(!key)return 0;
+    var direct=slideDefs.findIndex(function(s){return s.key===key;});
+    if(direct>=0)return direct;
+    var node=document.getElementById(key);
+    if(!node)return -1;
+    return slideDefs.findIndex(function(s){return s.node===node||s.node.contains(node);});
+  }
+  function move(delta){
+    var n=idx+delta;
+    if(n>=0&&n<slideDefs.length){show(n,true);return;}
+    if(n<0&&stage>1){
+      var last=["","checkliste","meilenstein","meilenstein"];
+      location.href=config[stage-2].file+"#"+last[stage-1];
+    }
+    if(n>=slideDefs.length&&stage<4)location.href=config[stage].file+"#start";
+  }
+  prev.addEventListener("click",function(){move(-1);});
+  next.addEventListener("click",function(){move(1);});
+  menu.addEventListener("click",function(){setMenu(popup.hidden);});
+  close.addEventListener("click",function(){setMenu(false);});
+  popup.addEventListener("click",function(e){if(e.target===popup)setMenu(false);});
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&!popup.hidden){setMenu(false);return;}
+    if(!popup.hidden||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.target.closest("input,textarea,select,button,[contenteditable]"))return;
+    if(e.key==="ArrowRight"){e.preventDefault();move(1);}
+    if(e.key==="ArrowLeft"){e.preventDefault();move(-1);}
+  });
+  window.addEventListener("hashchange",function(){var n=hashIndex();if(n>=0)show(n,false);});
+  window.addEventListener("popstate",function(){var n=hashIndex();if(n>=0)show(n,false);});
+  document.querySelectorAll("#langDe,#langEn").forEach(function(el){
+    el.addEventListener("click",function(){setTimeout(drawText,0);});
+  });
+  if(typeof MutationObserver!=="undefined"){
+    new MutationObserver(function(){drawText();}).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});
+  }
+  window.addEventListener("resize",syncSize);
+  document.documentElement.classList.add("fsa-deck-html");
+  document.body.classList.add("fsa-deck");
+  syncSize();
+  var initial=hashIndex();
+  show(initial>=0?initial:0,false);
+  document.body.classList.add("fsa-deck-ready");
+})();
+</script>
+</body></html>
