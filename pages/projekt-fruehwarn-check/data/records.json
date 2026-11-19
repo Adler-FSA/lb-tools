@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-19T14:42:39Z",
+  "generated_at": "2026-11-19T15:40:34Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-18T15:34:34Z",
-      "records": 3616,
+      "last_success": "2026-11-19T15:40:34Z",
+      "records": 3615,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "382f4d1c3de99ac96f3079e83fcdacd200cdf7dabd7e94c4133897d1ac4ff5bc"
+      "response_sha256": "21e3efdf2ad6a78de5b3e4c7210cb83b80f18a0dcf3ce074e1cf529a108011a2"
     }
   },
   "records": [
@@ -84019,40 +84019,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-16cbb0b2d4c278540b",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "MERKANTI BANK LTD",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "MT_MFSA",
-      "country": "MT",
-      "date": "2016-02-05",
-      "last_status_date": "2016-02-05",
-      "authorization_history": [
-        "2016-02-05"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "5299000F1CGJQ8NAXQ58",
-      "lei": "5299000F1CGJQ8NAXQ58",
-      "national_reference": "C31608",
-      "city": "BIRKIRKARA",
-      "last_update": "20251231000000000",
-      "match_terms": [
-        "MERKANTI BANK LTD",
-        "5299000F1CGJQ8NAXQ58",
-        "C31608"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-d748c8aba5a72edfc7",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -105017,7 +104983,7 @@
       "lei": "5299001THP8063ERVG26",
       "national_reference": "102611",
       "city": "Seeg",
-      "last_update": "20240928000000000",
+      "last_update": "20260930000000000",
       "match_terms": [
         "Raiffeisenbank Südliches Ostallgäu eG",
         "5299001THP8063ERVG26",
@@ -111816,7 +111782,7 @@
       "lei": "529900793U3P5C6YYC70",
       "national_reference": "102113",
       "city": "Rheinstetten",
-      "last_update": "20240928000000000",
+      "last_update": "20260630000000000",
       "match_terms": [
         "Spar- und Kreditbank Rheinstetten eG",
         "529900793U3P5C6YYC70",
@@ -138639,7 +138605,7 @@
       "lei": "529900G0Q60XG5UANA05",
       "national_reference": "102896",
       "city": "Fulda",
-      "last_update": "20260910000000000",
+      "last_update": "20261031000000000",
       "match_terms": [
         "VR RegionalBank eG",
         "529900G0Q60XG5UANA05",
@@ -138707,7 +138673,7 @@
       "lei": "391200RLP67P1PLUIL60",
       "national_reference": "102652",
       "city": "Lindau (Bodensee)",
-      "last_update": "20251231000000000",
+      "last_update": "20260930000000000",
       "match_terms": [
         "VR SüdBank eG",
         "391200RLP67P1PLUIL60",
