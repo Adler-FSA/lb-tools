@@ -1,5 +1,5 @@
 {
-  "version": "1.0-vermessen",
+  "version": "1.1-lichtreflexion-20261120",
   "imageDimensions": {
     "width": 1672,
     "height": 941
@@ -8,7 +8,7 @@
   "startDate": "2026-11-29",
   "endDate": "2027-01-01",
   "status": "manually-measured-first-pass",
-  "measurementAccuracy": "Positions approximate; approved reference PNGs verified against GitHub by Git blob SHA. Verify overlay preview on iPad before final release.",
+  "measurementAccuracy": "Glühlampenpositionen stammen aus der freigegebenen iPad-Kalibrierung; Lichtreflexionen sind manuell auf die Schneeflächen abgestimmt und können auf der Testseite weiter beurteilt werden.",
   "stages": [
     {
       "stage": 1,
@@ -27,7 +27,13 @@
           "xPct": 11.6627,
           "yPct": 22.7418,
           "glowRadius": 47,
-          "clickRadius": 63
+          "clickRadius": 63,
+          "reflection": {
+            "dx": 23,
+            "dy": 468,
+            "rx": 183,
+            "ry": 83
+          }
         },
         {
           "day": 2,
@@ -38,7 +44,13 @@
           "xPct": 21.6507,
           "yPct": 35.6004,
           "glowRadius": 27,
-          "clickRadius": 36
+          "clickRadius": 36,
+          "reflection": {
+            "dx": 7,
+            "dy": 301,
+            "rx": 104,
+            "ry": 53
+          }
         },
         {
           "day": 3,
@@ -49,7 +61,13 @@
           "xPct": 29.0072,
           "yPct": 43.8895,
           "glowRadius": 17,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 7,
+            "dy": 157,
+            "rx": 61,
+            "ry": 32
+          }
         },
         {
           "day": 4,
@@ -60,7 +78,13 @@
           "xPct": 33.7919,
           "yPct": 46.3337,
           "glowRadius": 13,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 12,
+            "dy": 99,
+            "rx": 46,
+            "ry": 25
+          }
         }
       ],
       "notesDe": []
@@ -82,7 +106,13 @@
           "xPct": 12.9785,
           "yPct": 30.3932,
           "glowRadius": 52,
-          "clickRadius": 70
+          "clickRadius": 70,
+          "reflection": {
+            "dx": 5,
+            "dy": 552,
+            "rx": 195,
+            "ry": 91
+          }
         },
         {
           "day": 6,
@@ -93,7 +123,13 @@
           "xPct": 36.4833,
           "yPct": 46.9713,
           "glowRadius": 30,
-          "clickRadius": 40
+          "clickRadius": 40,
+          "reflection": {
+            "dx": 25,
+            "dy": 315,
+            "rx": 121,
+            "ry": 61
+          }
         },
         {
           "day": 7,
@@ -104,7 +140,13 @@
           "xPct": 48.3254,
           "yPct": 57.067,
           "glowRadius": 19,
-          "clickRadius": 26
+          "clickRadius": 26,
+          "reflection": {
+            "dx": 18,
+            "dy": 145,
+            "rx": 68,
+            "ry": 34
+          }
         },
         {
           "day": 8,
@@ -115,7 +157,13 @@
           "xPct": 61.244,
           "yPct": 62.2742,
           "glowRadius": 16,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 7,
+            "dy": 103,
+            "rx": 57,
+            "ry": 31
+          }
         }
       ],
       "notesDe": []
@@ -137,7 +185,13 @@
           "xPct": 17.7033,
           "yPct": 32.0935,
           "glowRadius": 50,
-          "clickRadius": 68
+          "clickRadius": 68,
+          "reflection": {
+            "dx": 58,
+            "dy": 539,
+            "rx": 202,
+            "ry": 85
+          }
         },
         {
           "day": 10,
@@ -148,7 +202,13 @@
           "xPct": 28.5885,
           "yPct": 49.5218,
           "glowRadius": 29,
-          "clickRadius": 39
+          "clickRadius": 39,
+          "reflection": {
+            "dx": 52,
+            "dy": 339,
+            "rx": 129,
+            "ry": 59
+          }
         },
         {
           "day": 11,
@@ -159,7 +219,13 @@
           "xPct": 39.5933,
           "yPct": 56.7481,
           "glowRadius": 17,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 18,
+            "dy": 175,
+            "rx": 65,
+            "ry": 32
+          }
         },
         {
           "day": 12,
@@ -170,7 +236,13 @@
           "xPct": 49.5215,
           "yPct": 60.3613,
           "glowRadius": 11,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 15,
+            "dy": 90,
+            "rx": 46,
+            "ry": 25
+          }
         }
       ],
       "notesDe": []
@@ -192,46 +264,70 @@
           "xPct": 10.5861,
           "yPct": 22.9543,
           "glowRadius": 48,
-          "clickRadius": 65
+          "clickRadius": 65,
+          "reflection": {
+            "dx": 79,
+            "dy": 580,
+            "rx": 171,
+            "ry": 79
+          }
         },
         {
           "day": 14,
           "date": "2026-12-12",
-          "kind": "lantern",
-          "x": 720,
-          "y": 383,
-          "xPct": 43.0622,
-          "yPct": 40.7014,
-          "glowRadius": 28,
-          "clickRadius": 38
-        },
-        {
-          "day": 15,
-          "date": "2026-12-13",
-          "kind": "lantern",
-          "x": 859,
-          "y": 463,
-          "xPct": 51.3756,
-          "yPct": 49.203,
-          "glowRadius": 15,
-          "clickRadius": 24
-        },
-        {
-          "day": 16,
-          "date": "2026-12-14",
           "kind": "house",
           "x": 531,
           "y": 471,
           "xPct": 31.7584,
           "yPct": 50.0531,
           "glowRadius": 34,
-          "clickRadius": 46
+          "clickRadius": 46,
+          "reflection": {
+            "dx": -21,
+            "dy": 292,
+            "rx": 183,
+            "ry": 78
+          }
+        },
+        {
+          "day": 15,
+          "date": "2026-12-13",
+          "kind": "lantern",
+          "x": 720,
+          "y": 383,
+          "xPct": 43.0622,
+          "yPct": 40.7014,
+          "glowRadius": 28,
+          "clickRadius": 38,
+          "reflection": {
+            "dx": 21,
+            "dy": 367,
+            "rx": 112,
+            "ry": 59
+          }
+        },
+        {
+          "day": 16,
+          "date": "2026-12-14",
+          "kind": "lantern",
+          "x": 859,
+          "y": 463,
+          "xPct": 51.3756,
+          "yPct": 49.203,
+          "glowRadius": 15,
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 16,
+            "dy": 187,
+            "rx": 62,
+            "ry": 32
+          }
         }
       ],
       "notesDe": [
-        "The third mapped streetlamp is the third of the three agreed lamps.",
-        "The house is the 4th light station (day 16), with its main window cluster as focal glow.",
-        "An additional street lamp is visible around (1003, 491), deliberately not mapped because Bauplan prescribes 3 lamps + house."
+        "Laufreihenfolge verbindlich: Laterne (Tag 13), ganzes Berghaus (Tag 14), Laterne (Tag 15), Laterne (Tag 16).",
+        "Das Berghaus wird über drei Fenster mit warmem Innenlicht und mehreren Reflexionen beleuchtet.",
+        "Eine zusätzliche Laterne im PNG ist nicht als tägliche Station erfasst; es bleibt bei drei Laternen plus Haus."
       ]
     },
     {
@@ -251,7 +347,13 @@
           "xPct": 12.3804,
           "yPct": 43.0393,
           "glowRadius": 45,
-          "clickRadius": 61
+          "clickRadius": 61,
+          "reflection": {
+            "dx": 61,
+            "dy": 403,
+            "rx": 175,
+            "ry": 85
+          }
         },
         {
           "day": 18,
@@ -262,7 +364,13 @@
           "xPct": 18.1818,
           "yPct": 53.2412,
           "glowRadius": 24,
-          "clickRadius": 32
+          "clickRadius": 32,
+          "reflection": {
+            "dx": 30,
+            "dy": 257,
+            "rx": 108,
+            "ry": 58
+          }
         },
         {
           "day": 19,
@@ -273,7 +381,13 @@
           "xPct": 40.2512,
           "yPct": 59.7237,
           "glowRadius": 17,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 14,
+            "dy": 149,
+            "rx": 68,
+            "ry": 36
+          }
         },
         {
           "day": 20,
@@ -284,7 +398,13 @@
           "xPct": 27.6914,
           "yPct": 59.6174,
           "glowRadius": 20,
-          "clickRadius": 27
+          "clickRadius": 27,
+          "reflection": {
+            "dx": 25,
+            "dy": 157,
+            "rx": 78,
+            "ry": 39
+          }
         }
       ],
       "notesDe": []
@@ -306,7 +426,13 @@
           "xPct": 13.3373,
           "yPct": 26.6738,
           "glowRadius": 49,
-          "clickRadius": 66
+          "clickRadius": 66,
+          "reflection": {
+            "dx": 53,
+            "dy": 578,
+            "rx": 175,
+            "ry": 80
+          }
         },
         {
           "day": 22,
@@ -317,7 +443,13 @@
           "xPct": 24.4019,
           "yPct": 43.0393,
           "glowRadius": 28,
-          "clickRadius": 38
+          "clickRadius": 38,
+          "reflection": {
+            "dx": 53,
+            "dy": 343,
+            "rx": 126,
+            "ry": 63
+          }
         },
         {
           "day": 23,
@@ -328,7 +460,13 @@
           "xPct": 31.7584,
           "yPct": 50.6908,
           "glowRadius": 18,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 27,
+            "dy": 196,
+            "rx": 72,
+            "ry": 37
+          }
         },
         {
           "day": 24,
@@ -339,7 +477,13 @@
           "xPct": 37.6794,
           "yPct": 53.0287,
           "glowRadius": 15,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 12,
+            "dy": 136,
+            "rx": 51,
+            "ry": 26
+          }
         },
         {
           "day": 25,
@@ -350,7 +494,13 @@
           "xPct": 42.6435,
           "yPct": 55.3666,
           "glowRadius": 11,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 7,
+            "dy": 72,
+            "rx": 39,
+            "ry": 24
+          }
         }
       ],
       "notesDe": []
@@ -372,7 +522,13 @@
           "xPct": 46.1124,
           "yPct": 26.9926,
           "glowRadius": 47,
-          "clickRadius": 63
+          "clickRadius": 63,
+          "reflection": {
+            "dx": 48,
+            "dy": 520,
+            "rx": 165,
+            "ry": 77
+          }
         },
         {
           "day": 27,
@@ -383,7 +539,13 @@
           "xPct": 50.3589,
           "yPct": 39.9575,
           "glowRadius": 28,
-          "clickRadius": 38
+          "clickRadius": 38,
+          "reflection": {
+            "dx": 42,
+            "dy": 321,
+            "rx": 112,
+            "ry": 61
+          }
         },
         {
           "day": 28,
@@ -394,7 +556,13 @@
           "xPct": 54.067,
           "yPct": 45.6961,
           "glowRadius": 19,
-          "clickRadius": 26
+          "clickRadius": 26,
+          "reflection": {
+            "dx": 26,
+            "dy": 219,
+            "rx": 72,
+            "ry": 35
+          }
         },
         {
           "day": 29,
@@ -405,7 +573,13 @@
           "xPct": 56.5191,
           "yPct": 49.4155,
           "glowRadius": 14,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 24,
+            "dy": 141,
+            "rx": 54,
+            "ry": 29
+          }
         },
         {
           "day": 30,
@@ -416,7 +590,13 @@
           "xPct": 57.5957,
           "yPct": 51.7535,
           "glowRadius": 11,
-          "clickRadius": 24
+          "clickRadius": 24,
+          "reflection": {
+            "dx": 24,
+            "dy": 85,
+            "rx": 43,
+            "ry": 24
+          }
         }
       ],
       "notesDe": [
@@ -441,7 +621,13 @@
           "xPct": 26.3756,
           "yPct": 33.6876,
           "glowRadius": 46,
-          "clickRadius": 62
+          "clickRadius": 62,
+          "reflection": {
+            "dx": 41,
+            "dy": 491,
+            "rx": 178,
+            "ry": 81
+          }
         },
         {
           "day": 32,
@@ -452,7 +638,13 @@
           "xPct": 42.0455,
           "yPct": 44.7396,
           "glowRadius": 31,
-          "clickRadius": 42
+          "clickRadius": 42,
+          "reflection": {
+            "dx": 54,
+            "dy": 331,
+            "rx": 118,
+            "ry": 58
+          }
         },
         {
           "day": 33,
@@ -463,7 +655,13 @@
           "xPct": 75.7177,
           "yPct": 46.44,
           "glowRadius": 31,
-          "clickRadius": 42
+          "clickRadius": 42,
+          "reflection": {
+            "dx": -8,
+            "dy": 338,
+            "rx": 126,
+            "ry": 63
+          }
         },
         {
           "day": 34,
@@ -474,7 +672,13 @@
           "xPct": 88.1579,
           "yPct": 38.7885,
           "glowRadius": 37,
-          "clickRadius": 50
+          "clickRadius": 50,
+          "reflection": {
+            "dx": -39,
+            "dy": 451,
+            "rx": 151,
+            "ry": 68
+          }
         }
       ],
       "notesDe": []
