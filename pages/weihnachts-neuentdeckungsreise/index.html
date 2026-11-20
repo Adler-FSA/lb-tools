@@ -76,26 +76,90 @@ function enterSpecial(now){if(!DATA)return '';
 }
 function showDialog(day){const now=simulated(),max=todayIndex(now.date);if(day>max){$('dialogTitle').textContent=translator('day')+' '+day;$('dialogMessage').textContent=translator('future');}else{$('dialogTitle').textContent=translator('day')+' '+day+' · '+friendlyDate(DATA.stages.flatMap(x=>x.lights).find(x=>x.day===day).date);$('dialogMessage').textContent=translator('daypreview');}
  const d=$('dayDialog');if(!d.open)d.showModal();}
-function lightSvg(stage,maxDay){const s=$('lights');s.replaceChildren();if(showSpecial)return;
- for(const light of stage.lights){const x=light.x,y=light.y,active=light.day===maxDay,old=light.day<maxDay,unlocked=light.day<=maxDay;const g=svgNode('g',{'data-light':light.day},s);
-  const r=light.glowRadius*(active?1.22:.9);
-  if(unlocked){const color=active?'#ffe3a3':colors[(light.day-1)%colors.length];const defs=svgNode('defs',{},g);const grad=svgNode('radialGradient',{id:'glow-'+light.day,cx:'50%',cy:'50%',r:'50%'},defs);
-   svgNode('stop',{offset:'0%', 'stop-color':active?'#fffceb':color,'stop-opacity':active?'.96':'.86'},grad);
-   svgNode('stop',{offset:'21%','stop-color':color,'stop-opacity':'.75'},grad);
-   svgNode('stop',{offset:'100%','stop-color':color,'stop-opacity':'0'},grad);
-   svgNode('circle',{cx:x,cy:y,r:Math.round(r*2.2),fill:`url(#glow-${light.day})`,opacity:active?'1':'.76','pointer-events':'none'},g);
-   svgNode('circle',{cx:x,cy:y,r:Math.max(2.7,Math.round(light.glowRadius*.17)),fill:active?'#fff8d2':color,opacity:'.89','pointer-events':'none'},g);
+// Light rendering: inner glass, atmospheric halo, soft shaft, and a perspective snow reflection.
+// Ground reflections use dx/dy relative to each calibrated bulb so moving it also moves its light.
+function lightGradient(defs,id,stops,attrs={}){
+ const grad=svgNode('radialGradient',{id,...attrs},defs);
+ for(const [offset,color,opacity] of stops)svgNode('stop',{offset,'stop-color':color,'stop-opacity':opacity},grad);
+ return `url(#${id})`;
+}
+function lightPolygon(parent,points,fill,opacity){
+ return svgNode('polygon',{points,fill,opacity,'pointer-events':'none'},parent);
+}
+function addLampLight(g,light,color,active,darkness){
+ const x=light.x,y=light.y,r=light.glowRadius;
+ const strength=(.54+.55*darkness)*(active?1:.77);
+ const defs=svgNode('defs',{},g);
+ const outer=lightGradient(defs,'lantern-halo-'+light.day,[['0%','#fffbea','.83'],['12%',color,'.74'],['37%',color,'.28'],['75%',color,'.08'],['100%',color,'0']]);
+ const glass=lightGradient(defs,'glass-'+light.day,[['0%','#fffef0','1'],['35%','#fff1ba','.9'],['75%',color,'.49'],['100%',color,'0']]);
+ const pool=lightGradient(defs,'snow-pool-'+light.day,[['0%','#fff7e0','.96'],['18%',color,'.86'],['48%',color,'.64'],['78%',color,'.27'],['100%',color,'0']]);
+ const air=svgNode('linearGradient',{id:'shaft-'+light.day,x1:'0%',y1:'0%',x2:'0%',y2:'100%'},defs);
+ [['0%',color,'.28'],['35%',color,'.17'],['78%',color,'.075'],['100%',color,'0']].forEach(([offset,c,o])=>svgNode('stop',{offset,'stop-color':c,'stop-opacity':o},air));
+ const reflection=light.reflection||{dx:0,dy:r*5,rx:r*3.5,ry:r*1.5};
+ const gx=x+reflection.dx, gy=y+reflection.dy,rx=reflection.rx,ry=reflection.ry;
+ // These areas use the original landscape; their low-opacity blending follows the ground surface.
+ const floor=svgNode('g',{'pointer-events':'none',style:'mix-blend-mode:screen'},g);
+ const shaftHalf=Math.min(rx*.57,r*2.1);
+ svgNode('path',{d:`M ${x-5} ${y+8} Q ${x-shaftHalf*.45} ${(y+gy)/2} ${gx-rx*.74} ${gy} Q ${gx} ${gy+ry*.24} ${gx+rx*.74} ${gy} Q ${x+shaftHalf*.45} ${(y+gy)/2} ${x+5} ${y+8} Z`,fill:`url(#shaft-${light.day})`,opacity:(.44*strength).toFixed(3),'pointer-events':'none'},floor);
+ svgNode('ellipse',{cx:gx,cy:gy,rx,ry,fill:pool,opacity:Math.min(1,.83*strength).toFixed(3)},floor);
+ svgNode('ellipse',{cx:gx,cy:gy+ry*.05,rx:rx*.55,ry:ry*.51,fill:pool,opacity:Math.min(1,.38*strength).toFixed(3)},floor);
+ // Soft radiance is larger than the bulb, so the glass itself illuminates nearby snowy surfaces.
+ svgNode('ellipse',{cx:x,cy:y,rx:r*2.8,ry:r*3.15,fill:outer,opacity:Math.min(1,.85*strength).toFixed(3),'pointer-events':'none'},g);
+ svgNode('ellipse',{cx:x,cy:y,rx:r*.45,ry:r*.68,fill:glass,opacity:Math.min(1,.91*strength).toFixed(3),'pointer-events':'none'},g);
+ svgNode('circle',{cx:x,cy:y,r:Math.max(2.8,r*.095),fill:active?'#fffbeb':'#fff4d4',opacity:Math.min(1,.82*strength).toFixed(3),'pointer-events':'none'},g);
+}
+function addHouseLight(g,light,darkness){
+ // Three complete windows and their panes, rather than a lone dot in one window.
+ // Offsets follow the house calibration mark at x=531,y=471 in stage 4.
+ const house=svgNode('g',{transform:`translate(${light.x-531} ${light.y-471})`,'pointer-events':'none'},g);
+ const strength=.65+.45*darkness;
+ const defs=svgNode('defs',{},house);
+ const windowFill=lightGradient(defs,'window-interior-'+light.day,[['0%','#fff6c9','1'],['45%','#f9c777','.98'],['78%','#e6a04b','.75'],['100%','#c67222','.39']]);
+ const windowAura=lightGradient(defs,'house-warmth-'+light.day,[['0%','#ffe9b0','.78'],['38%','#ffc478','.34'],['85%','#ffc478','.09'],['100%','#ffc478','0']]);
+ const snow=lightGradient(defs,'house-snow-'+light.day,[['0%','#fff6d7','.85'],['33%','#ffc984','.58'],['75%','#ffbb68','.16'],['100%','#ffbb68','0']]);
+ const blend=svgNode('g',{'pointer-events':'none',style:'mix-blend-mode:screen'},house);
+ for(const [x,y,rx,ry] of [[379,149,84,109],[534,189,77,92],[531,471,123,143]]){
+  svgNode('ellipse',{cx:x,cy:y,rx,ry,fill:windowAura,opacity:(.70*strength).toFixed(3)},blend);
+ }
+ // Restrict bright window light to individual glass panes; window muntins remain visible.
+ const panes=[
+  [[349,99],[373,102],[373,147],[348,143]],[[381,104],[399,107],[399,149],[381,147]],
+  [[349,153],[373,155],[373,193],[349,189]],[[381,156],[399,158],[399,193],[381,193]],
+  [[513,155],[531,156],[531,185],[513,182]],[[536,158],[553,160],[553,187],[536,186]],
+  [[513,190],[531,191],[531,223],[513,221]],[[536,191],[553,193],[553,224],[536,223]],
+  [[495,428],[526,430],[526,473],[495,472]],[[543,430],[571,431],[571,473],[543,473]],
+  [[495,483],[526,482],[526,534],[495,532]],[[543,483],[571,483],[571,533],[543,533]]
+ ];
+ panes.forEach(pts=>{const shape=pts.map(p=>p.join(',')).join(' ');lightPolygon(blend,shape,'#f0b36f',(.34*strength).toFixed(3));lightPolygon(blend,shape,windowFill,(.67*strength).toFixed(3));});
+ // Broad warm pools on the front wall and on the snowy steps by the house.
+ svgNode('ellipse',{cx:472,cy:562,rx:192,ry:161,fill:windowAura,opacity:(.45*strength).toFixed(3)},blend);
+ svgNode('ellipse',{cx:490,cy:771,rx:195,ry:83,fill:snow,opacity:(.78*strength).toFixed(3)},blend);
+ svgNode('ellipse',{cx:350,cy:812,rx:112,ry:54,fill:snow,opacity:(.57*strength).toFixed(3)},blend);
+}
+function lightSvg(stage,maxDay,darkness){
+ const s=$('lights');s.replaceChildren();if(showSpecial)return;
+ for(const light of stage.lights){
+  const x=light.x,y=light.y,active=light.day===maxDay,unlocked=light.day<=maxDay;
+  const g=svgNode('g',{'data-light':light.day},s);
+  if(unlocked){
+   if(light.kind==='house')addHouseLight(g,light,darkness);
+   else addLampLight(g,light,active?'#ffd08c':colors[(light.day-1)%colors.length],active,darkness);
   }
-  if(TEST&&$('showPoints').checked){svgNode('circle',{cx:x,cy:y,r:light.glowRadius,fill:'none',stroke:light.kind==='house'?'#ff52a2':'#16e3c7','stroke-width':4,'pointer-events':'none'},g);svgNode('path',{d:`M${x-11},${y} H${x+11} M${x},${y-11} V${y+11}`,stroke:light.kind==='house'?'#ff52a2':'#16e3c7','stroke-width':3,'pointer-events':'none'},g);const t=svgNode('text',{x:x+light.glowRadius+7,y:y-light.glowRadius+2,fill:'#ffffff','font-size':25,'font-weight':'bold',stroke:'#0e253c','stroke-width':3,'paint-order':'stroke','pointer-events':'none'},g);t.textContent=light.day;}
+  if(TEST&&$('showPoints').checked){
+   svgNode('circle',{cx:x,cy:y,r:light.glowRadius,fill:'none',stroke:light.kind==='house'?'#ff52a2':'#16e3c7','stroke-width':4,'pointer-events':'none'},g);
+   svgNode('path',{d:`M${x-11},${y} H${x+11} M${x},${y-11} V${y+11}`,stroke:light.kind==='house'?'#ff52a2':'#16e3c7','stroke-width':3,'pointer-events':'none'},g);
+   const t=svgNode('text',{x:x+light.glowRadius+7,y:y-light.glowRadius+2,fill:'#ffffff','font-size':25,'font-weight':'bold',stroke:'#0e253c','stroke-width':3,'paint-order':'stroke','pointer-events':'none'},g);t.textContent=light.day;
+  }
   const target=svgNode('circle',{cx:x,cy:y,r:Math.max(light.clickRadius,TEST?26:22),class:'light-target'+(unlocked?'':' locked'),tabindex:'0',role:'button','aria-label':`${translator('day')} ${light.day}`, 'data-day':light.day},g);
-  target.addEventListener('click',()=>{if(Date.now()>suppressClickUntil)showDialog(light.day);});target.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();showDialog(light.day);}});
-  if(TEST){target.addEventListener('pointerdown',ev=>startDrag(ev,light));}
+  target.addEventListener('click',()=>{if(Date.now()>suppressClickUntil)showDialog(light.day);});
+  target.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();showDialog(light.day);}});
+  if(TEST)target.addEventListener('pointerdown',ev=>startDrag(ev,light));
  }
 }
 function startDrag(ev,light){if(!$('calibration').checked)return;ev.preventDefault();drag={pointer:ev.pointerId,day:light.day,moved:false,startX:light.x,startY:light.y};ev.target.setPointerCapture(ev.pointerId);}
 function pointFromPointer(ev){const svg=$('lights');const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(svg.getScreenCTM().inverse());}
 $('lights').addEventListener('pointermove',ev=>{if(!drag||ev.pointerId!==drag.pointer)return;const st=DATA.stages[stageIndex];const light=st.lights.find(x=>x.day===drag.day);if(!light)return;const p=pointFromPointer(ev);light.x=Math.max(0,Math.min(1672,Math.round(p.x)));light.y=Math.max(0,Math.min(941,Math.round(p.y)));light.xPct=+(100*light.x/1672).toFixed(4);light.yPct=+(100*light.y/941).toFixed(4);drag.moved=true;const svg=$('lights');const g=svg.querySelector('g[data-light="'+drag.day+'"]');if(g)g.setAttribute('transform',`translate(${light.x-drag.startX} ${light.y-drag.startY})`);});
-$('lights').addEventListener('pointerup',ev=>{if(drag&&ev.pointerId===drag.pointer){const moved=drag.moved;drag=null;if(moved){suppressClickUntil=Date.now()+600;localStorage.setItem('weihnachtsreise-calibration-v2',JSON.stringify(DATA));render();}}});$('lights').addEventListener('pointercancel',()=>{drag=null;});
+$('lights').addEventListener('pointerup',ev=>{if(drag&&ev.pointerId===drag.pointer){const moved=drag.moved;drag=null;if(moved){suppressClickUntil=Date.now()+600;localStorage.setItem('weihnachtsreise-calibration-v3',JSON.stringify(DATA));render();}}});$('lights').addEventListener('pointercancel',()=>{drag=null;});
 function render(){if(!DATA)return;const now=simulated(),max=todayIndex(now.date);if(autoStage)stageIndex=stageByDay(Math.max(1,max));const stage=DATA.stages[stageIndex],hour=Number(now.time.substring(0,2))+Number(now.time.substring(3,5))/60;
  showSpecial=enterSpecial(now);$('toggleNewYear').style.display=(now.date==='2027-01-01'&&now.time>='06:00')?'inline-block':'none';const p=$('panorama');const file=showSpecial==='silvester'?'bilder/sondertage/silvester-ohne-feuerwerk.png':showSpecial==='newyear'?'bilder/sondertage/winterlicher_sonnenaufgang_in_den_alpen.png':stage.image;
  if(p.getAttribute('src')!==file)p.src=file;
@@ -106,7 +170,7 @@ function render(){if(!DATA)return;const now=simulated(),max=todayIndex(now.date)
  $('progressInfo').textContent=stage.lights.filter(x=>x.day<=max).length+' / '+stage.lights.length+' '+translator('lights');
  $('timeInfo').textContent=(hour<7||hour>=19)?translator('night'):hour<9||hour>=16?translator('dusk'):translator('daylight');
  const opa=lightingOpacity(hour);$('darkener').style.opacity=showSpecial?(showSpecial==='silvester'?'0':'.0'):String(opa);$('stars').style.opacity=(hour<7||hour>=20)&&!showSpecial?'0.25':'0';
- lightSvg(stage,max);
+ lightSvg(stage,max,opa);
  const buttons=$('steps');buttons.replaceChildren();DATA.stages.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.textContent=(lang==='de'?'Etappe ':'Stage ')+s.stage;b.setAttribute('aria-current',i===stageIndex?'step':'false');b.disabled=!TEST&&s.startDay>max;b.addEventListener('click',()=>{autoStage=false;stageIndex=i;manualFireworkUntil=0;if(now.date==='2027-01-01')newYearOverride=false;render();});buttons.append(b);});
  $('prevStage').disabled=stageIndex===0;$('nextStage').disabled=stageIndex===7||(!TEST&&DATA.stages[stageIndex+1].startDay>max);
  $('lights').classList.toggle('calibrating',TEST&&$('calibration').checked);
@@ -116,14 +180,14 @@ function render(){if(!DATA)return;const now=simulated(),max=todayIndex(now.date)
 function navigate(d){const now=simulated(),max=todayIndex(now.date);const i=stageIndex+d;if(i<0||i>7||(!TEST&&DATA.stages[i].startDay>max))return;stageIndex=i;autoStage=false;manualFireworkUntil=0;render();}
 $('toggleNewYear').addEventListener('click',()=>{newYearOverride=showSpecial==='newyear'?false:true;render();});$('prevStage').addEventListener('click',()=>navigate(-1));$('nextStage').addEventListener('click',()=>navigate(1));
 $('langDe').addEventListener('click',()=>setLanguage('de'));$('langEn').addEventListener('click',()=>setLanguage('en'));$('closeDialog').addEventListener('click',()=>$('dayDialog').close());
-if(TEST){$('simdate').addEventListener('change',()=>{autoStage=true;manualFireworkUntil=0;render()});$('simtime').addEventListener('change',()=>{manualFireworkUntil=0;render()});$('realClock').addEventListener('click',()=>{const t=berlinParts();$('simdate').value=t.date;$('simtime').value=t.time;autoStage=true;render()});$('testReset').addEventListener('click',()=>{$('simdate').value='2026-11-29';$('simtime').value='17:00';autoStage=true;manualFireworkUntil=0;render()});$('showPoints').addEventListener('change',render);$('calibration').addEventListener('change',render);$('testFireworks').addEventListener('click',()=>{manualFireworkUntil=Date.now()+180000;render()});$('exportPoints').addEventListener('click',()=>{const b=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download='lichtpunkte-34-korrigiert.json';a.click();URL.revokeObjectURL(url);});$('restorePoints').addEventListener('click',()=>{localStorage.removeItem('weihnachtsreise-calibration-v2');location.reload()});}
+if(TEST){$('simdate').addEventListener('change',()=>{autoStage=true;manualFireworkUntil=0;render()});$('simtime').addEventListener('change',()=>{manualFireworkUntil=0;render()});$('realClock').addEventListener('click',()=>{const t=berlinParts();$('simdate').value=t.date;$('simtime').value=t.time;autoStage=true;render()});$('testReset').addEventListener('click',()=>{$('simdate').value='2026-11-29';$('simtime').value='17:00';autoStage=true;manualFireworkUntil=0;render()});$('showPoints').addEventListener('change',render);$('calibration').addEventListener('change',render);$('testFireworks').addEventListener('click',()=>{manualFireworkUntil=Date.now()+180000;render()});$('exportPoints').addEventListener('click',()=>{const b=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download='lichtpunkte-34-korrigiert.json';a.click();URL.revokeObjectURL(url);});$('restorePoints').addEventListener('click',()=>{localStorage.removeItem('weihnachtsreise-calibration-v3');location.reload()});}
 let burstTime=0;const fx=$('fireworkLayer');
 function launchBurst(now){const cx=350+Math.random()*970,cy=70+Math.random()*320;const cols=['#ffd772','#7eece0','#f785cd','#9cc2ff','#ffffff'];const color=cols[Math.floor(Math.random()*cols.length)];for(let i=0;i<36;i++){let a=(i/36)*Math.PI*2;let speed=1.6+Math.random()*2.4;const c=svgNode('circle',{cx,cy,r:3.1,fill:color,opacity:1},fx);fwParticles.push({el:c,x:cx,y:cy,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,life:70+Math.random()*40,initial:105});}}
 function fwTick(now){if(fx.getAttribute('aria-hidden')!=='false')return;if(now-burstTime>650){launchBurst(now);burstTime=now;}for(let i=fwParticles.length-1;i>=0;i--){const p=fwParticles[i];p.x+=p.vx*1.5;p.y+=p.vy*1.5;p.vy+=.048;p.life-=1;p.el.setAttribute('cx',p.x);p.el.setAttribute('cy',p.y);p.el.setAttribute('opacity',Math.max(0,p.life/p.initial));if(p.life<=0){p.el.remove();fwParticles.splice(i,1);}}raf=requestAnimationFrame(fwTick);}
 function startFireworks(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;if(fx.getAttribute('aria-hidden')==='false')return;fx.setAttribute('aria-hidden','false');burstTime=0;raf=requestAnimationFrame(fwTick);}
 function stopFireworks(){if(fx.getAttribute('aria-hidden')==='true')return;fx.setAttribute('aria-hidden','true');cancelAnimationFrame(raf);raf=0;fwParticles=[];fx.replaceChildren();}
-async function init(){try{const r=await fetch('./lichtpunkte-34.json?v=20261120b',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);DATA=await r.json();if(DATA.stages.length!==8||DATA.stages.reduce((a,s)=>a+s.lights.length,0)!==34)throw new Error('Invalid number of stages / lights');
- if(TEST){try{const alt=JSON.parse(localStorage.getItem('weihnachtsreise-calibration-v2'));if(alt&&alt.stages&&alt.stages.length===8)DATA=alt;}catch{}}
+async function init(){try{const r=await fetch('./lichtpunkte-34.json?v=20261120-lichtschein',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);DATA=await r.json();if(DATA.stages.length!==8||DATA.stages.reduce((a,s)=>a+s.lights.length,0)!==34)throw new Error('Invalid number of stages / lights');
+ if(TEST){try{const alt=JSON.parse(localStorage.getItem('weihnachtsreise-calibration-v3'));if(alt&&alt.stages&&alt.stages.length===8)DATA=alt;}catch{}}
  if(!TEST){const day=todayIndex(berlinParts().date);stageIndex=stageByDay(Math.max(1,day));}
  setLanguage('de');setInterval(()=>{if(!DATA)return;if(!TEST)render();else if(manualFireworkUntil&&Date.now()>manualFireworkUntil){manualFireworkUntil=0;render();}},1000);
  }catch(err){$('stageName').textContent=translator('unavailable');console.error(err);}}
