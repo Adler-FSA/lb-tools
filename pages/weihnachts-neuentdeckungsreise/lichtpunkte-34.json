@@ -1,0 +1,483 @@
+{
+  "version": "1.0-vermessen",
+  "imageDimensions": {
+    "width": 1672,
+    "height": 941
+  },
+  "timezone": "Europe/Berlin",
+  "startDate": "2026-11-29",
+  "endDate": "2027-01-01",
+  "status": "manually-measured-first-pass",
+  "measurementAccuracy": "Positions approximate; approved reference PNGs verified against GitHub by Git blob SHA. Verify overlay preview on iPad before final release.",
+  "stages": [
+    {
+      "stage": 1,
+      "titleDe": "Berghang – Aufbruch",
+      "titleEn": "Mountain start",
+      "image": "bilder/panoramen/etappe-01.png",
+      "startDay": 1,
+      "endDay": 4,
+      "lights": [
+        {
+          "day": 1,
+          "date": "2026-11-29",
+          "kind": "lantern",
+          "x": 195,
+          "y": 214,
+          "xPct": 11.6627,
+          "yPct": 22.7418,
+          "glowRadius": 47,
+          "clickRadius": 63
+        },
+        {
+          "day": 2,
+          "date": "2026-11-30",
+          "kind": "lantern",
+          "x": 360,
+          "y": 335,
+          "xPct": 21.5311,
+          "yPct": 35.6004,
+          "glowRadius": 27,
+          "clickRadius": 36
+        },
+        {
+          "day": 3,
+          "date": "2026-12-01",
+          "kind": "lantern",
+          "x": 477,
+          "y": 407,
+          "xPct": 28.5287,
+          "yPct": 43.2519,
+          "glowRadius": 17,
+          "clickRadius": 24
+        },
+        {
+          "day": 4,
+          "date": "2026-12-02",
+          "kind": "lantern",
+          "x": 561,
+          "y": 433,
+          "xPct": 33.5526,
+          "yPct": 46.0149,
+          "glowRadius": 13,
+          "clickRadius": 24
+        }
+      ],
+      "notesDe": []
+    },
+    {
+      "stage": 2,
+      "titleDe": "Verschneiter Waldweg",
+      "titleEn": "Snowy forest path",
+      "image": "bilder/panoramen/etappe-02.png",
+      "startDay": 5,
+      "endDay": 8,
+      "lights": [
+        {
+          "day": 5,
+          "date": "2026-12-03",
+          "kind": "lantern",
+          "x": 210,
+          "y": 289,
+          "xPct": 12.5598,
+          "yPct": 30.712,
+          "glowRadius": 52,
+          "clickRadius": 70
+        },
+        {
+          "day": 6,
+          "date": "2026-12-04",
+          "kind": "lantern",
+          "x": 600,
+          "y": 440,
+          "xPct": 35.8852,
+          "yPct": 46.7588,
+          "glowRadius": 30,
+          "clickRadius": 40
+        },
+        {
+          "day": 7,
+          "date": "2026-12-05",
+          "kind": "lantern",
+          "x": 799,
+          "y": 548,
+          "xPct": 47.7871,
+          "yPct": 58.2359,
+          "glowRadius": 19,
+          "clickRadius": 26
+        },
+        {
+          "day": 8,
+          "date": "2026-12-06",
+          "kind": "lantern",
+          "x": 1007,
+          "y": 581,
+          "xPct": 60.2273,
+          "yPct": 61.7428,
+          "glowRadius": 16,
+          "clickRadius": 24
+        }
+      ],
+      "notesDe": []
+    },
+    {
+      "stage": 3,
+      "titleDe": "Offener Hang – Berghaus in der Ferne",
+      "titleEn": "Open slope – distant chalet",
+      "image": "bilder/panoramen/etappe-03.png",
+      "startDay": 9,
+      "endDay": 12,
+      "lights": [
+        {
+          "day": 9,
+          "date": "2026-12-07",
+          "kind": "lantern",
+          "x": 290,
+          "y": 310,
+          "xPct": 17.3445,
+          "yPct": 32.9437,
+          "glowRadius": 50,
+          "clickRadius": 68
+        },
+        {
+          "day": 10,
+          "date": "2026-12-08",
+          "kind": "lantern",
+          "x": 471,
+          "y": 471,
+          "xPct": 28.1699,
+          "yPct": 50.0531,
+          "glowRadius": 29,
+          "clickRadius": 39
+        },
+        {
+          "day": 11,
+          "date": "2026-12-09",
+          "kind": "lantern",
+          "x": 657,
+          "y": 537,
+          "xPct": 39.2943,
+          "yPct": 57.067,
+          "glowRadius": 17,
+          "clickRadius": 24
+        },
+        {
+          "day": 12,
+          "date": "2026-12-10",
+          "kind": "lantern",
+          "x": 820,
+          "y": 566,
+          "xPct": 49.0431,
+          "yPct": 60.1488,
+          "glowRadius": 11,
+          "clickRadius": 24
+        }
+      ],
+      "notesDe": []
+    },
+    {
+      "stage": 4,
+      "titleDe": "Am Berghaus",
+      "titleEn": "At the chalet",
+      "image": "bilder/panoramen/etappe-04.png",
+      "startDay": 13,
+      "endDay": 16,
+      "lights": [
+        {
+          "day": 13,
+          "date": "2026-12-11",
+          "kind": "lantern",
+          "x": 177,
+          "y": 216,
+          "xPct": 10.5861,
+          "yPct": 22.9543,
+          "glowRadius": 48,
+          "clickRadius": 65
+        },
+        {
+          "day": 14,
+          "date": "2026-12-12",
+          "kind": "lantern",
+          "x": 706,
+          "y": 378,
+          "xPct": 42.2249,
+          "yPct": 40.17,
+          "glowRadius": 28,
+          "clickRadius": 38
+        },
+        {
+          "day": 15,
+          "date": "2026-12-13",
+          "kind": "lantern",
+          "x": 849,
+          "y": 461,
+          "xPct": 50.7775,
+          "yPct": 48.9904,
+          "glowRadius": 15,
+          "clickRadius": 24
+        },
+        {
+          "day": 16,
+          "date": "2026-12-14",
+          "kind": "house",
+          "x": 531,
+          "y": 471,
+          "xPct": 31.7584,
+          "yPct": 50.0531,
+          "glowRadius": 34,
+          "clickRadius": 46
+        }
+      ],
+      "notesDe": [
+        "The third mapped streetlamp is the third of the three agreed lamps.",
+        "The house is the 4th light station (day 16), with its main window cluster as focal glow.",
+        "An additional street lamp is visible around (1003, 491), deliberately not mapped because Bauplan prescribes 3 lamps + house."
+      ]
+    },
+    {
+      "stage": 5,
+      "titleDe": "Blick auf den See",
+      "titleEn": "Lake panorama",
+      "image": "bilder/panoramen/etappe-05.png",
+      "startDay": 17,
+      "endDay": 20,
+      "lights": [
+        {
+          "day": 17,
+          "date": "2026-12-15",
+          "kind": "lantern",
+          "x": 203,
+          "y": 410,
+          "xPct": 12.1411,
+          "yPct": 43.5707,
+          "glowRadius": 45,
+          "clickRadius": 61
+        },
+        {
+          "day": 18,
+          "date": "2026-12-16",
+          "kind": "lantern",
+          "x": 301,
+          "y": 513,
+          "xPct": 18.0024,
+          "yPct": 54.5165,
+          "glowRadius": 24,
+          "clickRadius": 32
+        },
+        {
+          "day": 19,
+          "date": "2026-12-17",
+          "kind": "lantern",
+          "x": 461,
+          "y": 552,
+          "xPct": 27.5718,
+          "yPct": 58.661,
+          "glowRadius": 17,
+          "clickRadius": 24
+        },
+        {
+          "day": 20,
+          "date": "2026-12-18",
+          "kind": "lantern",
+          "x": 667,
+          "y": 555,
+          "xPct": 39.8923,
+          "yPct": 58.9798,
+          "glowRadius": 20,
+          "clickRadius": 27
+        }
+      ],
+      "notesDe": []
+    },
+    {
+      "stage": 6,
+      "titleDe": "Seeufer Richtung Dorf",
+      "titleEn": "Lakeside approach",
+      "image": "bilder/panoramen/etappe-06.png",
+      "startDay": 21,
+      "endDay": 25,
+      "lights": [
+        {
+          "day": 21,
+          "date": "2026-12-19",
+          "kind": "lantern",
+          "x": 223,
+          "y": 251,
+          "xPct": 13.3373,
+          "yPct": 26.6738,
+          "glowRadius": 49,
+          "clickRadius": 66
+        },
+        {
+          "day": 22,
+          "date": "2026-12-20",
+          "kind": "lantern",
+          "x": 398,
+          "y": 408,
+          "xPct": 23.8038,
+          "yPct": 43.3581,
+          "glowRadius": 28,
+          "clickRadius": 38
+        },
+        {
+          "day": 23,
+          "date": "2026-12-21",
+          "kind": "lantern",
+          "x": 525,
+          "y": 469,
+          "xPct": 31.3995,
+          "yPct": 49.8406,
+          "glowRadius": 18,
+          "clickRadius": 24
+        },
+        {
+          "day": 24,
+          "date": "2026-12-22",
+          "kind": "lantern",
+          "x": 623,
+          "y": 505,
+          "xPct": 37.2608,
+          "yPct": 53.6663,
+          "glowRadius": 15,
+          "clickRadius": 24
+        },
+        {
+          "day": 25,
+          "date": "2026-12-23",
+          "kind": "lantern",
+          "x": 703,
+          "y": 523,
+          "xPct": 42.0455,
+          "yPct": 55.5792,
+          "glowRadius": 11,
+          "clickRadius": 24
+        }
+      ],
+      "notesDe": []
+    },
+    {
+      "stage": 7,
+      "titleDe": "Dorfeingang Community",
+      "titleEn": "Community entrance",
+      "image": "bilder/panoramen/etappe-07.png",
+      "startDay": 26,
+      "endDay": 30,
+      "lights": [
+        {
+          "day": 26,
+          "date": "2026-12-24",
+          "kind": "lantern",
+          "x": 754,
+          "y": 240,
+          "xPct": 45.0957,
+          "yPct": 25.5048,
+          "glowRadius": 47,
+          "clickRadius": 63
+        },
+        {
+          "day": 27,
+          "date": "2026-12-25",
+          "kind": "lantern",
+          "x": 833,
+          "y": 382,
+          "xPct": 49.8206,
+          "yPct": 40.5951,
+          "glowRadius": 28,
+          "clickRadius": 38
+        },
+        {
+          "day": 28,
+          "date": "2026-12-26",
+          "kind": "lantern",
+          "x": 890,
+          "y": 431,
+          "xPct": 53.2297,
+          "yPct": 45.8023,
+          "glowRadius": 19,
+          "clickRadius": 26
+        },
+        {
+          "day": 29,
+          "date": "2026-12-27",
+          "kind": "lantern",
+          "x": 943,
+          "y": 460,
+          "xPct": 56.3995,
+          "yPct": 48.8842,
+          "glowRadius": 14,
+          "clickRadius": 24
+        },
+        {
+          "day": 30,
+          "date": "2026-12-28",
+          "kind": "lantern",
+          "x": 963,
+          "y": 482,
+          "xPct": 57.5957,
+          "yPct": 51.2221,
+          "glowRadius": 11,
+          "clickRadius": 24
+        }
+      ],
+      "notesDe": [
+        "The last two streetlamp bulbs are small and close together in perspective. Check tapping and placement in the test viewer.",
+        "Additional wall-mounted house lanterns are architectural decoration, not daily stations."
+      ]
+    },
+    {
+      "stage": 8,
+      "titleDe": "Weihnachtlicher Dorfplatz",
+      "titleEn": "Christmas village square",
+      "image": "bilder/panoramen/etappe-08.png",
+      "startDay": 31,
+      "endDay": 34,
+      "lights": [
+        {
+          "day": 31,
+          "date": "2026-12-29",
+          "kind": "lantern",
+          "x": 434,
+          "y": 307,
+          "xPct": 25.9569,
+          "yPct": 32.6249,
+          "glowRadius": 46,
+          "clickRadius": 62
+        },
+        {
+          "day": 32,
+          "date": "2026-12-30",
+          "kind": "lantern",
+          "x": 699,
+          "y": 424,
+          "xPct": 41.8062,
+          "yPct": 45.0584,
+          "glowRadius": 31,
+          "clickRadius": 42
+        },
+        {
+          "day": 33,
+          "date": "2026-12-31",
+          "kind": "lantern",
+          "x": 1249,
+          "y": 440,
+          "xPct": 74.701,
+          "yPct": 46.7588,
+          "glowRadius": 31,
+          "clickRadius": 42
+        },
+        {
+          "day": 34,
+          "date": "2027-01-01",
+          "kind": "lantern",
+          "x": 1455,
+          "y": 355,
+          "xPct": 87.0215,
+          "yPct": 37.7258,
+          "glowRadius": 37,
+          "clickRadius": 50
+        }
+      ],
+      "notesDe": []
+    }
+  ]
+}
