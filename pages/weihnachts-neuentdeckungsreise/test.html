@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Weihnachten neu entdecken – Test</title>
+<style>
+:root{--mint:#05a89b;--mag:#cc247d;--night:#102d40;--ink:#162838;--muted:#607587;--bg:#f2f6f7;--line:#dce5e9;--warm:#f4c06a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.5}
+button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--mag);outline-offset:2px}
+.skip{position:absolute;left:-9999px}.skip:focus{left:1rem;top:1rem;z-index:40;background:white;padding:10px}.top{padding:18px max(22px,calc((100vw - 1620px)/2));background:#102e43;color:white;display:flex;gap:16px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.top h1{font-size:clamp(24px,3.2vw,41px);margin:0;font-weight:800;letter-spacing:-.025em}.top p{margin:3px 0 0;color:#d5e6ee}.top-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.mini{padding:9px 12px;border:1px solid #7899a8;border-radius:9px;background:transparent;color:white;font-weight:650}
+.mini[aria-pressed="true"]{background:var(--mint);border-color:var(--mint)}.test-tag{background:#ffd9e7;color:#692145;padding:6px 11px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.06em}
+main{max-width:1660px;margin:auto}.status{padding:16px 20px;display:flex;align-items:center;flex-wrap:wrap;gap:12px;justify-content:space-between}.status .stage{font-size:18px;font-weight:750}.status .date{font-size:14px;color:var(--muted)}
+.hero-wrap{position:relative;background:#0b2639;overflow:hidden;isolation:isolate}.hero{position:relative;width:100%;aspect-ratio:1672/941;overflow:hidden;background:#112639}.hero img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}.darkener{position:absolute;inset:0;z-index:1;background:#04132a;opacity:0;pointer-events:none;transition:opacity .8s ease}.star-layer{position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(circle at 80% 12%,rgba(242,252,255,.3) 0 1px,transparent 2px),radial-gradient(circle at 30% 20%,rgba(242,252,255,.3) 0 1px,transparent 2px);background-size:245px 190px;opacity:0;transition:opacity .8s}
+.lights{position:absolute;inset:0;z-index:4;width:100%;height:100%;touch-action:pan-y}.lights.calibrating{touch-action:none}.lights .light-target{cursor:pointer;fill:transparent;stroke:none;pointer-events:all}.lights .light-target.locked{cursor:not-allowed}.lights.calibrating .light-target{cursor:grab}.lights .light-target:focus{outline:none;stroke:#df408f;stroke-width:3;stroke-dasharray:6 5;fill:rgba(255,255,255,.12)}
+.stage-controls{position:absolute;left:12px;right:12px;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;z-index:6;pointer-events:none}.nav-arrow{pointer-events:auto;display:grid;place-items:center;border:1px solid rgba(255,255,255,.5);border-radius:50%;width:48px;height:48px;color:white;background:rgba(4,25,44,.65);backdrop-filter:blur(6px)}.nav-arrow:disabled{opacity:.25;cursor:not-allowed}.nav-arrow svg{width:24px;height:24px}
+.hero-caption{position:absolute;bottom:14px;left:16px;right:16px;z-index:6;pointer-events:none;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.caption-chip{color:white;background:rgba(8,27,44,.77);padding:7px 11px;border-radius:9px;font-weight:650;font-size:clamp(11px,1.4vw,14px)}
+.steps{display:flex;flex-wrap:wrap;gap:7px;padding:14px 20px 8px}.steps button{border:1px solid var(--line);border-radius:9px;padding:9px 13px;background:white;color:var(--ink);font-weight:650}.steps button[aria-current="step"]{background:var(--mint);border-color:var(--mint);color:white}.steps button:disabled{color:#9fb1bb;background:#ecf1f3;cursor:not-allowed}.explain{font-size:14px;color:var(--muted);padding:4px 20px 18px;margin:0}.foot{border-top:1px solid var(--line);padding:16px 20px;color:var(--muted);font-size:13px}
+.testpanel{margin:18px 20px;background:white;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 4px 22px #162f4211}.testpanel h2{margin:0 0 13px;font-size:19px}.testgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px}.control label{display:block;font-size:13px;font-weight:750;margin-bottom:5px}.control input{width:100%;border:1px solid #b9ccd2;border-radius:9px;padding:9px}.options{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:13px}.action{background:var(--night);color:white;border:0;border-radius:10px;padding:10px 14px;font-weight:750}.action.secondary{background:#e7f4f1;color:#006b5f}.action.warn{background:#fbe2ed;color:#8c1351}.options label{display:flex;gap:8px;align-items:center;font-size:13px}.warnbox{background:#fff7e7;border-left:4px solid #dba13d;padding:11px 13px;margin:10px 0;border-radius:7px;color:#593d12;font-size:14px}.testhint{font-size:13px;color:#476073}.test-only{display:block}
+.dialog{max-width:480px;width:calc(100% - 30px);border:0;padding:24px;border-radius:16px;box-shadow:0 20px 70px #06152b66}.dialog::backdrop{background:#06182a91}.dialog h2{margin:0 0 5px}.dialog p{margin:0 0 18px;color:var(--muted)}.dialog button{border:0;border-radius:9px;background:var(--mint);color:white;padding:10px 16px;font-weight:750}
+.fw{position:absolute;inset:0;pointer-events:none;z-index:5;display:none;width:100%;height:100%}.fw[aria-hidden="false"]{display:block}.nojs{background:#fff1ec;color:#832e13;padding:12px}
+@media(max-width:700px){.top{padding:14px}.status{padding:11px 12px}.steps{padding:10px 12px}.hero-caption{bottom:7px;left:6px;right:6px}.nav-arrow{width:38px;height:38px}.stage-controls{left:4px;right:4px}.caption-chip{padding:5px 7px}.testpanel{margin:10px}.explain{padding:6px 12px 18px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Zum Inhalt</a>
+<header class="top">
+  <div><h1 data-i18n="headline">Weihnachten neu entdecken</h1><p data-i18n="subtitle">34 Tage · 34 Lichter · Eine Reise voller Hoffnung</p></div>
+  <div class="top-controls"><span class="test-tag test-only" data-i18n="testbadge">TESTVERSION</span><button id="langDe" class="mini" aria-pressed="true" type="button">DE</button><button id="langEn" class="mini" aria-pressed="false" type="button">EN</button></div>
+</header>
+<main id="main">
+  <section class="testpanel test-only" aria-label="Teststeuerung">
+    <h2 data-i18n="testtitle">Zeitreise – Teststeuerung</h2>
+    <div class="testgrid">
+      <div class="control"><label for="simdate" data-i18n="simdate">Simuliertes Datum</label><input id="simdate" type="date" min="2026-11-29" max="2027-01-01" value="2026-11-29"></div>
+      <div class="control"><label for="simtime" data-i18n="simtime">Simulierte Uhrzeit</label><input id="simtime" type="time" value="17:00" step="60"></div>
+    </div>
+    <div class="options">
+      <button type="button" class="action secondary" id="realClock" data-i18n="now">Jetzt (echte Uhrzeit)</button>
+      <button type="button" class="action" id="testFireworks" data-i18n="fireworks">Feuerwerk testen</button>
+      <button type="button" class="action secondary" id="testReset" data-i18n="reset">Simulation zurücksetzen</button>
+      <label><input type="checkbox" id="showPoints" checked><span data-i18n="showpoints">Messpunkte einblenden</span></label>
+      <label><input type="checkbox" id="calibration"><span data-i18n="calibration">Messpunkte verschiebbar</span></label>
+      <button type="button" class="action secondary" id="exportPoints" data-i18n="export">Koordinaten als JSON speichern</button>
+      <button type="button" class="action warn" id="restorePoints" data-i18n="restore">Messpunkte zurücksetzen</button>
+    </div>
+    <p class="testhint" data-i18n="calibrationhint">Im Kalibriermodus die Markierungen direkt auf die Glühlampen ziehen. Änderungen bleiben nur auf diesem Gerät gespeichert, bis die JSON-Datei übernommen wird.</p>
+    <div class="warnbox" data-i18n="stage4warning">Prüfhinweis: Etappe 4 zeigt eine zusätzliche Straßenlaterne. Nach Bauplan werden nur drei Laternen und das Haus als vierte Station gesteuert.</div>
+  </section>
+  <div class="status" role="status" aria-live="polite"><div><div class="stage" id="stageName">Etappe 1</div><div class="date" id="dateText">29. November 2026</div></div><div class="date" id="dayInfo">Reisetag 1 / 34</div></div>
+  <section class="hero-wrap" aria-label="Panorama der Weihnachtsreise">
+    <div class="hero" id="hero">
+      <img id="panorama" src="bilder/panoramen/etappe-01.png" alt="Winterliches Bergpanorama mit verschneitem Wanderweg und Laternen" width="1672" height="941">
+      <div class="darkener" id="darkener"></div><div class="star-layer" id="stars"></div>
+      <svg id="lights" class="lights" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" role="group" aria-label="34 Lichtstationen"></svg>
+      <svg id="fireworkLayer" class="fw" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="stage-controls"><button type="button" class="nav-arrow" id="prevStage" aria-label="Vorherige Etappe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="nav-arrow" id="nextStage" aria-label="Nächste Etappe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div class="hero-caption"><span class="caption-chip" id="progressInfo">0 / 34 Lichter</span><button class="caption-chip" id="toggleNewYear" type="button" style="display:none;pointer-events:auto;border:1px solid #fff;cursor:pointer" data-i18n="newyearbutton">Neujahrsbild / Etappe 8</button><span class="caption-chip" id="timeInfo">Tageslicht</span></div>
+    </div>
+  </section>
+  <nav class="steps" id="steps" aria-label="Etappen auswählen"></nav>
+  <p class="explain" data-i18n="instructions">Jede freigegebene Lichtstation kann angeklickt werden. Die Tagesbotschaften werden im nächsten Bauabschnitt verbunden.</p>
+  <footer class="foot" data-i18n="footer">29. November 2026 bis 1. Januar 2027 · Alle Zeiten beziehen sich auf Europa/Berlin.</footer>
+</main>
+<dialog id="dayDialog" class="dialog"><h2 id="dialogTitle">Reisetag</h2><p id="dialogMessage"></p><button type="button" id="closeDialog" data-i18n="close">Schließen</button></dialog>
+<noscript><div class="nojs">JavaScript ist für die Zeitsteuerung dieser Reise erforderlich.</div></noscript>
+<script>
+'use strict';
+const TEST=true;
+const NS='http://www.w3.org/2000/svg';
+const T={de:{newyearbutton:'Neujahrsbild / Etappe 8',skip:'Zum Inhalt',headline:'Weihnachten neu entdecken',subtitle:'34 Tage · 34 Lichter · Eine Reise voller Hoffnung',testbadge:'TESTVERSION',testtitle:'Zeitreise – Teststeuerung',simdate:'Simuliertes Datum',simtime:'Simulierte Uhrzeit',now:'Jetzt (echte Uhrzeit)',fireworks:'Feuerwerk testen',reset:'Simulation zurücksetzen',showpoints:'Messpunkte einblenden',calibration:'Messpunkte verschiebbar',export:'Koordinaten als JSON speichern',restore:'Messpunkte zurücksetzen',calibrationhint:'Im Kalibriermodus die Markierungen direkt auf die Glühlampen ziehen. Änderungen bleiben nur auf diesem Gerät gespeichert, bis die JSON-Datei übernommen wird.',stage4warning:'Prüfhinweis: Etappe 4 zeigt eine zusätzliche Straßenlaterne. Nach Bauplan werden nur drei Laternen und das Haus als vierte Station gesteuert.',instructions:'Jede freigegebene Lichtstation kann angeklickt werden. Die Tagesbotschaften werden im nächsten Bauabschnitt verbunden.',footer:'29. November 2026 bis 1. Januar 2027 · Alle Zeiten beziehen sich auf Europa/Berlin.',close:'Schließen',stage:'Etappe',day:'Reisetag',lights:'Lichter',daylight:'Tageslicht',dusk:'Dämmerung',night:'Nacht',future:'Dieser Tag ist noch nicht freigegeben.',daypreview:'Die persönliche Tagesbotschaft wird im nächsten Bauabschnitt ergänzt.',unavailable:'Die Lichtpunkt-Daten konnten nicht geladen werden.',newyear:'Neujahr – Blick nach vorne',test:'Zeitreise (Test)',public:'Echte Reise'},en:{newyearbutton:'New Year image / Stage 8',skip:'Skip to content',headline:'Rediscover Christmas',subtitle:'34 days · 34 lights · A journey of hope',testbadge:'TEST VERSION',testtitle:'Time journey – test controls',simdate:'Simulated date',simtime:'Simulated time',now:'Now (real time)',fireworks:'Test fireworks',reset:'Reset simulation',showpoints:'Show light markers',calibration:'Drag calibration markers',export:'Save coordinates as JSON',restore:'Reset light markers',calibrationhint:'In calibration mode, drag the markers directly onto the bulbs. Changes remain on this device until the JSON is uploaded.',stage4warning:'Review: Stage 4 visibly contains one extra streetlamp. According to the plan, only three lamps plus the house are controlled.',instructions:'Each unlocked light can be selected. The daily message pages will be connected in the next build stage.',footer:'November 29, 2026 to January 1, 2027 · All times use Europe/Berlin.',close:'Close',stage:'Stage',day:'Travel day',lights:'Lights',daylight:'Daylight',dusk:'Twilight',night:'Night',future:'This day has not opened yet.',daypreview:'The personal daily message will be added in the next build stage.',unavailable:'Could not load the light position data.',newyear:'New Year – looking ahead',test:'Time journey (test)',public:'Real journey'}};
+let lang='de',DATA=null,stageIndex=0,autoStage=true,showSpecial='',manualFireworkUntil=0,fwParticles=[],raf=0,lastFireLaunch=0,drag=null,updateStamp=0,suppressClickUntil=0,newYearOverride=null;
+const $=id=>document.getElementById(id);
+const colors=['#d73394','#16c8b3','#5d8fe7','#e46d59','#b57bf1','#30afd5','#ebad54'];
+function svgNode(tag,attributes={},parent){const el=document.createElementNS(NS,tag);for(const [key,val] of Object.entries(attributes))el.setAttribute(key,String(val));if(parent)parent.appendChild(el);return el;}
+function berlinParts(){const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());const q=Object.fromEntries(p.filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return {date:`${q.year}-${q.month}-${q.day}`,time:`${q.hour}:${q.minute}`};}
+function simulated(){if(TEST)return {date:$('simdate').value||'2026-11-29',time:$('simtime').value||'12:00'};return berlinParts();}
+function todayIndex(date){return Math.max(0,Math.min(34,Math.round((Date.parse(date+'T12:00:00Z')-Date.parse('2026-11-29T12:00:00Z'))/86400000)+1));}
+function stageByDay(day){const i=DATA.stages.findIndex(s=>day<=s.endDay);return Math.max(0,i===-1?7:i);}
+function translator(key){return T[lang][key]||key;}
+function setLanguage(which){lang=which;document.documentElement.lang=lang;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=translator(el.dataset.i18n));$('langDe').setAttribute('aria-pressed',lang==='de');$('langEn').setAttribute('aria-pressed',lang==='en');render();}
+function lightingOpacity(hour){if(hour<5)return .72;if(hour<7)return .66-(hour-5)*.1;if(hour<9)return .46-(hour-7)*.23;if(hour<16)return 0;if(hour<17)return .14;if(hour<19)return .38+(hour-17)*.15;return .68;}
+function friendlyDate(d){return new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(d+'T12:00:00Z'));}
+function enterSpecial(now){if(!DATA)return '';
+ if(manualFireworkUntil>Date.now())return 'silvester';
+ if(now.date==='2026-12-31'&&now.time>='23:50')return 'silvester';
+ if(now.date==='2027-01-01'&&now.time<'00:03')return 'silvester';
+ if(now.date==='2027-01-01'&&now.time>='06:00'&&newYearOverride!==false)return 'newyear';
+ return '';
+}
+function showDialog(day){const now=simulated(),max=todayIndex(now.date);if(day>max){$('dialogTitle').textContent=translator('day')+' '+day;$('dialogMessage').textContent=translator('future');}else{$('dialogTitle').textContent=translator('day')+' '+day+' · '+friendlyDate(DATA.stages.flatMap(x=>x.lights).find(x=>x.day===day).date);$('dialogMessage').textContent=translator('daypreview');}
+ const d=$('dayDialog');if(!d.open)d.showModal();}
+function lightSvg(stage,maxDay){const s=$('lights');s.replaceChildren();if(showSpecial)return;
+ for(const light of stage.lights){const x=light.x,y=light.y,active=light.day===maxDay,old=light.day<maxDay,unlocked=light.day<=maxDay;const g=svgNode('g',{'data-light':light.day},s);
+  const r=light.glowRadius*(active?1.22:.9);
+  if(unlocked){const color=active?'#ffe3a3':colors[(light.day-1)%colors.length];const defs=svgNode('defs',{},g);const grad=svgNode('radialGradient',{id:'glow-'+light.day,cx:'50%',cy:'50%',r:'50%'},defs);
+   svgNode('stop',{offset:'0%', 'stop-color':active?'#fffceb':color,'stop-opacity':active?'.96':'.86'},grad);
+   svgNode('stop',{offset:'21%','stop-color':color,'stop-opacity':'.75'},grad);
+   svgNode('stop',{offset:'100%','stop-color':color,'stop-opacity':'0'},grad);
+   svgNode('circle',{cx:x,cy:y,r:Math.round(r*2.2),fill:`url(#glow-${light.day})`,opacity:active?'1':'.76','pointer-events':'none'},g);
+   svgNode('circle',{cx:x,cy:y,r:Math.max(2.7,Math.round(light.glowRadius*.17)),fill:active?'#fff8d2':color,opacity:'.89','pointer-events':'none'},g);
+  }
+  if(TEST&&$('showPoints').checked){svgNode('circle',{cx:x,cy:y,r:light.glowRadius,fill:'none',stroke:light.kind==='house'?'#ff52a2':'#16e3c7','stroke-width':4,'pointer-events':'none'},g);svgNode('path',{d:`M${x-11},${y} H${x+11} M${x},${y-11} V${y+11}`,stroke:light.kind==='house'?'#ff52a2':'#16e3c7','stroke-width':3,'pointer-events':'none'},g);const t=svgNode('text',{x:x+light.glowRadius+7,y:y-light.glowRadius+2,fill:'#ffffff','font-size':25,'font-weight':'bold',stroke:'#0e253c','stroke-width':3,'paint-order':'stroke','pointer-events':'none'},g);t.textContent=light.day;}
+  const target=svgNode('circle',{cx:x,cy:y,r:Math.max(light.clickRadius,TEST?26:22),class:'light-target'+(unlocked?'':' locked'),tabindex:'0',role:'button','aria-label':`${translator('day')} ${light.day}`, 'data-day':light.day},g);
+  target.addEventListener('click',()=>{if(Date.now()>suppressClickUntil)showDialog(light.day);});target.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();showDialog(light.day);}});
+  if(TEST){target.addEventListener('pointerdown',ev=>startDrag(ev,light));}
+ }
+}
+function startDrag(ev,light){if(!$('calibration').checked)return;ev.preventDefault();drag={pointer:ev.pointerId,day:light.day,moved:false,startX:light.x,startY:light.y};ev.target.setPointerCapture(ev.pointerId);}
+function pointFromPointer(ev){const svg=$('lights');const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(svg.getScreenCTM().inverse());}
+$('lights').addEventListener('pointermove',ev=>{if(!drag||ev.pointerId!==drag.pointer)return;const st=DATA.stages[stageIndex];const light=st.lights.find(x=>x.day===drag.day);if(!light)return;const p=pointFromPointer(ev);light.x=Math.max(0,Math.min(1672,Math.round(p.x)));light.y=Math.max(0,Math.min(941,Math.round(p.y)));light.xPct=+(100*light.x/1672).toFixed(4);light.yPct=+(100*light.y/941).toFixed(4);drag.moved=true;const svg=$('lights');const g=svg.querySelector('g[data-light="'+drag.day+'"]');if(g)g.setAttribute('transform',`translate(${light.x-drag.startX} ${light.y-drag.startY})`);});
+$('lights').addEventListener('pointerup',ev=>{if(drag&&ev.pointerId===drag.pointer){const moved=drag.moved;drag=null;if(moved){suppressClickUntil=Date.now()+600;localStorage.setItem('weihnachtsreise-calibration-v1',JSON.stringify(DATA));render();}}});$('lights').addEventListener('pointercancel',()=>{drag=null;});
+function render(){if(!DATA)return;const now=simulated(),max=todayIndex(now.date);if(autoStage)stageIndex=stageByDay(Math.max(1,max));const stage=DATA.stages[stageIndex],hour=Number(now.time.substring(0,2))+Number(now.time.substring(3,5))/60;
+ showSpecial=enterSpecial(now);$('toggleNewYear').style.display=(now.date==='2027-01-01'&&now.time>='06:00')?'inline-block':'none';const p=$('panorama');const file=showSpecial==='silvester'?'bilder/sondertage/silvester-ohne-feuerwerk.png':showSpecial==='newyear'?'bilder/sondertage/winterlicher_sonnenaufgang_in_den_alpen.png':stage.image;
+ if(p.getAttribute('src')!==file)p.src=file;
+ p.alt=(lang==='de'?stage.titleDe:stage.titleEn)+(showSpecial?', '+showSpecial:'');
+ $('stageName').textContent=showSpecial==='newyear'?translator('newyear'):`${translator('stage')} ${stage.stage} – ${lang==='de'?stage.titleDe:stage.titleEn}`;
+ $('dateText').textContent=friendlyDate(now.date)+' · '+now.time;
+ $('dayInfo').textContent=translator('day')+' '+max+' / 34';
+ $('progressInfo').textContent=stage.lights.filter(x=>x.day<=max).length+' / '+stage.lights.length+' '+translator('lights');
+ $('timeInfo').textContent=(hour<7||hour>=19)?translator('night'):hour<9||hour>=16?translator('dusk'):translator('daylight');
+ const opa=lightingOpacity(hour);$('darkener').style.opacity=showSpecial?(showSpecial==='silvester'?'0':'.0'):String(opa);$('stars').style.opacity=(hour<7||hour>=20)&&!showSpecial?'0.25':'0';
+ lightSvg(stage,max);
+ const buttons=$('steps');buttons.replaceChildren();DATA.stages.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.textContent=(lang==='de'?'Etappe ':'Stage ')+s.stage;b.setAttribute('aria-current',i===stageIndex?'step':'false');b.disabled=!TEST&&s.startDay>max;b.addEventListener('click',()=>{autoStage=false;stageIndex=i;manualFireworkUntil=0;if(now.date==='2027-01-01')newYearOverride=false;render();});buttons.append(b);});
+ $('prevStage').disabled=stageIndex===0;$('nextStage').disabled=stageIndex===7||(!TEST&&DATA.stages[stageIndex+1].startDay>max);
+ $('lights').classList.toggle('calibrating',TEST&&$('calibration').checked);
+ const isFw=showSpecial==='silvester'&&((now.date==='2027-01-01'&&now.time<'00:03')||manualFireworkUntil>Date.now());
+ if(isFw)startFireworks();else stopFireworks();
+}
+function navigate(d){const now=simulated(),max=todayIndex(now.date);const i=stageIndex+d;if(i<0||i>7||(!TEST&&DATA.stages[i].startDay>max))return;stageIndex=i;autoStage=false;manualFireworkUntil=0;render();}
+$('toggleNewYear').addEventListener('click',()=>{newYearOverride=showSpecial==='newyear'?false:true;render();});$('prevStage').addEventListener('click',()=>navigate(-1));$('nextStage').addEventListener('click',()=>navigate(1));
+$('langDe').addEventListener('click',()=>setLanguage('de'));$('langEn').addEventListener('click',()=>setLanguage('en'));$('closeDialog').addEventListener('click',()=>$('dayDialog').close());
+if(TEST){$('simdate').addEventListener('change',()=>{autoStage=true;manualFireworkUntil=0;render()});$('simtime').addEventListener('change',()=>{manualFireworkUntil=0;render()});$('realClock').addEventListener('click',()=>{const t=berlinParts();$('simdate').value=t.date;$('simtime').value=t.time;autoStage=true;render()});$('testReset').addEventListener('click',()=>{$('simdate').value='2026-11-29';$('simtime').value='17:00';autoStage=true;manualFireworkUntil=0;render()});$('showPoints').addEventListener('change',render);$('calibration').addEventListener('change',render);$('testFireworks').addEventListener('click',()=>{manualFireworkUntil=Date.now()+180000;render()});$('exportPoints').addEventListener('click',()=>{const b=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download='lichtpunkte-34-korrigiert.json';a.click();URL.revokeObjectURL(url);});$('restorePoints').addEventListener('click',()=>{localStorage.removeItem('weihnachtsreise-calibration-v1');location.reload()});}
+let burstTime=0;const fx=$('fireworkLayer');
+function launchBurst(now){const cx=350+Math.random()*970,cy=70+Math.random()*320;const cols=['#ffd772','#7eece0','#f785cd','#9cc2ff','#ffffff'];const color=cols[Math.floor(Math.random()*cols.length)];for(let i=0;i<36;i++){let a=(i/36)*Math.PI*2;let speed=1.6+Math.random()*2.4;const c=svgNode('circle',{cx,cy,r:3.1,fill:color,opacity:1},fx);fwParticles.push({el:c,x:cx,y:cy,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,life:70+Math.random()*40,initial:105});}}
+function fwTick(now){if(fx.getAttribute('aria-hidden')!=='false')return;if(now-burstTime>650){launchBurst(now);burstTime=now;}for(let i=fwParticles.length-1;i>=0;i--){const p=fwParticles[i];p.x+=p.vx*1.5;p.y+=p.vy*1.5;p.vy+=.048;p.life-=1;p.el.setAttribute('cx',p.x);p.el.setAttribute('cy',p.y);p.el.setAttribute('opacity',Math.max(0,p.life/p.initial));if(p.life<=0){p.el.remove();fwParticles.splice(i,1);}}raf=requestAnimationFrame(fwTick);}
+function startFireworks(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;if(fx.getAttribute('aria-hidden')==='false')return;fx.setAttribute('aria-hidden','false');burstTime=0;raf=requestAnimationFrame(fwTick);}
+function stopFireworks(){if(fx.getAttribute('aria-hidden')==='true')return;fx.setAttribute('aria-hidden','true');cancelAnimationFrame(raf);raf=0;fwParticles=[];fx.replaceChildren();}
+async function init(){try{const r=await fetch('./lichtpunkte-34.json?v=1',{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);DATA=await r.json();if(DATA.stages.length!==8||DATA.stages.reduce((a,s)=>a+s.lights.length,0)!==34)throw new Error('Invalid number of stages / lights');
+ if(TEST){try{const alt=JSON.parse(localStorage.getItem('weihnachtsreise-calibration-v1'));if(alt&&alt.stages&&alt.stages.length===8)DATA=alt;}catch{}}
+ if(!TEST){const day=todayIndex(berlinParts().date);stageIndex=stageByDay(Math.max(1,day));}
+ setLanguage('de');setInterval(()=>{if(!DATA)return;if(!TEST)render();else if(manualFireworkUntil&&Date.now()>manualFireworkUntil){manualFireworkUntil=0;render();}},1000);
+ }catch(err){$('stageName').textContent=translator('unavailable');console.error(err);}}
+init();
+</script>
+</body>
+</html>
