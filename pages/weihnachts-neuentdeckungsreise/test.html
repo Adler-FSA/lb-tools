@@ -21,6 +21,10 @@ main{max-width:1660px;margin:auto}.status{padding:16px 20px;display:flex;align-i
 .steps{display:flex;flex-wrap:wrap;gap:7px;padding:14px 20px 8px}.steps button{border:1px solid var(--line);border-radius:9px;padding:9px 13px;background:white;color:var(--ink);font-weight:650}.steps button[aria-current="step"]{background:var(--mint);border-color:var(--mint);color:white}.steps button:disabled{color:#9fb1bb;background:#ecf1f3;cursor:not-allowed}.explain{font-size:14px;color:var(--muted);padding:4px 20px 18px;margin:0}.foot{border-top:1px solid var(--line);padding:16px 20px;color:var(--muted);font-size:13px}
 .testpanel{margin:18px 20px;background:white;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:0 4px 22px #162f4211}.testpanel h2{margin:0 0 13px;font-size:19px}.testgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px}.control label{display:block;font-size:13px;font-weight:750;margin-bottom:5px}.control input{width:100%;border:1px solid #b9ccd2;border-radius:9px;padding:9px}.options{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:13px}.action{background:var(--night);color:white;border:0;border-radius:10px;padding:10px 14px;font-weight:750}.action.secondary{background:#e7f4f1;color:#006b5f}.action.warn{background:#fbe2ed;color:#8c1351}.options label{display:flex;gap:8px;align-items:center;font-size:13px}.warnbox{background:#fff7e7;border-left:4px solid #dba13d;padding:11px 13px;margin:10px 0;border-radius:7px;color:#593d12;font-size:14px}.testhint{font-size:13px;color:#476073}.test-only{display:block}.colorlegend{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:11px 2px 4px;font-size:13px;color:var(--ink)}.colorlegend>span{display:inline-flex;align-items:center;gap:7px}.color-dot{display:inline-block;flex:0 0 14px;width:14px;height:14px;border-radius:50%;border:1px solid #314658}.color-dot.current{background:#ffe6a8;box-shadow:0 0 9px #f4b854}.color-dot.past{background:linear-gradient(120deg,#d73394 0 25%,#16c8b3 25% 50%,#5d8fe7 50% 75%,#e46d59 75%)}.color-dot.future{background:#293f50;box-shadow:inset 0 0 3px #182631}
 .dialog{max-width:480px;width:calc(100% - 30px);border:0;padding:24px;border-radius:16px;box-shadow:0 20px 70px #06152b66}.dialog::backdrop{background:#06182a91}.dialog h2{margin:0 0 5px}.dialog p{margin:0 0 18px;color:var(--muted)}.dialog button{border:0;border-radius:9px;background:var(--mint);color:white;padding:10px 16px;font-weight:750}
+
+/* Während des Panoramawechsels verdeckt ein Vorhang alle Bildebenen gleichzeitig. */
+.scene-curtain{position:absolute;inset:0;z-index:5;background:#0c2034;opacity:0;pointer-events:none;transition:opacity .24s ease}
+.scene-curtain.scene-curtain-active{opacity:1}
 .fw{position:absolute;inset:0;pointer-events:none;z-index:5;display:none;width:100%;height:100%}.fw[aria-hidden="false"]{display:block}.nojs{background:#fff1ec;color:#832e13;padding:12px}
 @media(max-width:700px){.top{padding:14px}.status{padding:11px 12px}.steps{padding:10px 12px}.hero-caption{bottom:7px;left:6px;right:6px}.nav-arrow{width:38px;height:38px}.stage-controls{left:4px;right:4px}.caption-chip{padding:5px 7px}.testpanel{margin:10px}.explain{padding:6px 12px 18px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
@@ -66,6 +70,7 @@ main{max-width:1660px;margin:auto}.status{padding:16px 20px;display:flex;align-i
       <div class="darkener" id="darkener"></div><div class="star-layer" id="stars"></div>
       <svg id="lights" class="lights" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" role="group" aria-label="34 Lichtstationen"></svg>
       <svg id="fireworkLayer" class="fw" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div id="sceneCurtain" class="scene-curtain" aria-hidden="true"></div>
       <div class="stage-controls"><button type="button" class="nav-arrow" id="prevStage" aria-label="Vorherige Etappe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="nav-arrow" id="nextStage" aria-label="Nächste Etappe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="hero-caption"><span class="caption-chip" id="progressInfo">0 / 34 Lichter</span><button class="caption-chip" id="toggleNewYear" type="button" style="display:none;pointer-events:auto;border:1px solid #fff;cursor:pointer" data-i18n="newyearbutton">Neujahrsbild / Etappe 8</button><span class="caption-chip" id="timeInfo">Tageslicht</span></div>
     </div>
@@ -187,9 +192,61 @@ function startDrag(ev,light){if(!$('calibration').checked)return;ev.preventDefau
 function pointFromPointer(ev){const svg=$('lights');const p=svg.createSVGPoint();p.x=ev.clientX;p.y=ev.clientY;return p.matrixTransform(svg.getScreenCTM().inverse());}
 $('lights').addEventListener('pointermove',ev=>{if(!drag||ev.pointerId!==drag.pointer)return;const st=DATA.stages[stageIndex];const light=st.lights.find(x=>x.day===drag.day);if(!light)return;const p=pointFromPointer(ev);light.x=Math.max(0,Math.min(1672,Math.round(p.x)));light.y=Math.max(0,Math.min(941,Math.round(p.y)));light.xPct=+(100*light.x/1672).toFixed(4);light.yPct=+(100*light.y/941).toFixed(4);drag.moved=true;const svg=$('lights');const g=svg.querySelector('g[data-light="'+drag.day+'"]');if(g)g.setAttribute('transform',`translate(${light.x-drag.startX} ${light.y-drag.startY})`);});
 $('lights').addEventListener('pointerup',ev=>{if(drag&&ev.pointerId===drag.pointer){const moved=drag.moved;drag=null;if(moved){suppressClickUntil=Date.now()+600;localStorage.setItem('weihnachtsreise-calibration-v3',JSON.stringify(DATA));render();}}});$('lights').addEventListener('pointercancel',()=>{drag=null;});
+
+/* Szenenwechsel: Neues Panorama zuerst laden/dekodieren. Bis dahin bleiben
+   das bisherige Motiv und seine dazugehörigen Lichtreflexionen unverändert.
+   Bei schnellem Wechsel ist ausschließlich die letzte Anforderung gültig. */
+let sceneTransitionSeq=0,scenePendingFile='';
+const sceneCurtain=$('sceneCurtain');
+function requestSceneImage(file){
+ const seq=++sceneTransitionSeq;
+ scenePendingFile=file;
+ sceneCurtain.classList.remove('scene-curtain-active');
+ const preloaded=new Image();
+ preloaded.decoding='async';
+ preloaded.src=file;
+ const ready=typeof preloaded.decode==='function'
+  ? preloaded.decode()
+  : new Promise((resolve,reject)=>{
+     if(preloaded.complete){preloaded.naturalWidth?resolve():reject(new Error('Bild ohne Inhalt'));}
+     else{preloaded.onload=resolve;preloaded.onerror=reject;}
+    });
+ ready.then(async()=>{
+   if(seq!==sceneTransitionSeq)return;
+   sceneCurtain.classList.add('scene-curtain-active');
+   await new Promise(resolve=>setTimeout(resolve,260));
+   if(seq!==sceneTransitionSeq)return;
+   // Das neue Bild ist schon dekodiert; Austausch der Bildebenen unter dem Vorhang.
+   $('panorama').setAttribute('src',file);
+   scenePendingFile='';
+   render();
+   requestAnimationFrame(()=>requestAnimationFrame(()=>{
+     if(seq===sceneTransitionSeq)sceneCurtain.classList.remove('scene-curtain-active');
+   }));
+ }).catch(err=>{
+   if(seq!==sceneTransitionSeq)return;
+   scenePendingFile='';
+   sceneCurtain.classList.remove('scene-curtain-active');
+   console.error('Panorama konnte nicht geladen werden:',file,err);
+   $('stageName').textContent=translator('unavailable');
+ });
+}
+
 function render(){if(!DATA)return;const now=simulated(),max=todayIndex(now.date);if(autoStage)stageIndex=stageByDay(Math.max(1,max));const stage=DATA.stages[stageIndex],hour=Number(now.time.substring(0,2))+Number(now.time.substring(3,5))/60;
- showSpecial=enterSpecial(now);$('toggleNewYear').style.display=(now.date==='2027-01-01'&&now.time>='06:00')?'inline-block':'none';const p=$('panorama');const file=showSpecial==='silvester'?'bilder/sondertage/silvester-ohne-feuerwerk.png':showSpecial==='newyear'?'bilder/sondertage/winterlicher_sonnenaufgang_in_den_alpen.png':stage.image;
- if(p.getAttribute('src')!==file)p.src=file;
+ const nextSpecial=enterSpecial(now);
+ const p=$('panorama');
+ const file=nextSpecial==='silvester'?'bilder/sondertage/silvester-ohne-feuerwerk.png':nextSpecial==='newyear'?'bilder/sondertage/winterlicher_sonnenaufgang_in_den_alpen.png':stage.image;
+ if(p.getAttribute('src')!==file){
+  if(scenePendingFile!==file)requestSceneImage(file);
+  return; // Kein Licht der nächsten Etappe über dem bisherigen Panorama.
+ }
+ if(scenePendingFile){
+  sceneTransitionSeq++; // Rücksprung zum bereits angezeigten Bild: alte Ladeanforderung verwerfen.
+  scenePendingFile='';
+  sceneCurtain.classList.remove('scene-curtain-active');
+ }
+ showSpecial=nextSpecial;
+ $('toggleNewYear').style.display=(now.date==='2027-01-01'&&now.time>='06:00')?'inline-block':'none';
  p.alt=(lang==='de'?stage.titleDe:stage.titleEn)+(showSpecial?', '+showSpecial:'');
  $('stageName').textContent=showSpecial==='newyear'?translator('newyear'):`${translator('stage')} ${stage.stage} – ${lang==='de'?stage.titleDe:stage.titleEn}`;
  $('dateText').textContent=friendlyDate(now.date)+' · '+now.time;
