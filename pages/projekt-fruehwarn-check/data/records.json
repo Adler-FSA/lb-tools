@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-20T14:23:44Z",
+  "generated_at": "2026-11-20T15:22:47Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-19T15:40:34Z",
-      "records": 3615,
+      "last_success": "2026-11-20T15:22:47Z",
+      "records": 3612,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "21e3efdf2ad6a78de5b3e4c7210cb83b80f18a0dcf3ce074e1cf529a108011a2"
+      "response_sha256": "f88c63171a52c6a227d9a66c2efa0ecb3c324ded52480c4324a3080e69863d86"
     }
   },
   "records": [
@@ -17921,40 +17921,6 @@
         "ABS Bank Spółdzielczy",
         "259400M5PYXTOBEZ5D78",
         "8110"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-58f8ec89ea8fe17f19",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Abtsgmünder Bank - Raiffeisen - eG",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900FJUMZDJWF8QV72",
-      "lei": "529900FJUMZDJWF8QV72",
-      "national_reference": "102017",
-      "city": "Abtsgmünd",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Abtsgmünder Bank - Raiffeisen - eG",
-        "529900FJUMZDJWF8QV72",
-        "102017"
       ]
     },
     {
@@ -51030,7 +50996,7 @@
       "lei": "743700RFAN8QA5JFA150",
       "national_reference": "2192977-5",
       "city": "ESPOO",
-      "last_update": "20240928000000000",
+      "last_update": "20261001000000000",
       "match_terms": [
         "Bonum Pankki Oyj",
         "743700RFAN8QA5JFA150",
@@ -60040,7 +60006,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "Calenberger Kreditverein Calenberg-Göttingen- Grubenhagen- Hildesheim'scher ritterschaftlicher Kreditverein",
+      "name": "Calenberger Kreditverein Aktiengesellschaft",
       "aliases": [],
       "domains": [],
       "authority": "European Banking Authority / zuständige nationale Aufsicht",
@@ -60061,9 +60027,9 @@
       "lei": "529900ATAS3PCZAMFW02",
       "national_reference": "104047",
       "city": "Hannover",
-      "last_update": "20240928000000000",
+      "last_update": "20261116000000000",
       "match_terms": [
-        "Calenberger Kreditverein Calenberg-Göttingen- Grubenhagen- Hildesheim'scher ritterschaftlicher Kreditverein",
+        "Calenberger Kreditverein Aktiengesellschaft",
         "529900ATAS3PCZAMFW02",
         "104047"
       ]
@@ -83472,40 +83438,6 @@
       ]
     },
     {
-      "id": "eba-credit-institutions-cedcfbb93a95142ef6",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "MCE Bank GmbH",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-11-20",
-      "last_status_date": "2013-11-20",
-      "authorization_history": [
-        "2013-11-20"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "391200JSBVM7SPMPFX14",
-      "lei": "391200JSBVM7SPMPFX14",
-      "national_reference": "104132",
-      "city": "Flörsheim",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "MCE Bank GmbH",
-        "391200JSBVM7SPMPFX14",
-        "104132"
-      ]
-    },
-    {
       "id": "eba-credit-institutions-b126a4f64f11610c42",
       "source_id": "eba-credit-institutions",
       "region": "EU",
@@ -97202,40 +97134,6 @@
         "Raiffeisenbank Großgmain eGen",
         "529900IN46275E6A7F39",
         "281638"
-      ]
-    },
-    {
-      "id": "eba-credit-institutions-c8cb2b10c7d3952dd6",
-      "source_id": "eba-credit-institutions",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Raiffeisenbank Gruibingen eG.",
-      "aliases": [],
-      "domains": [],
-      "authority": "European Banking Authority / zuständige nationale Aufsicht",
-      "competent_authority_code": "DE_BAFIN",
-      "country": "DE",
-      "date": "2013-12-04",
-      "last_status_date": "2013-12-04",
-      "authorization_history": [
-        "2013-12-04"
-      ],
-      "title": "EBA – Kreditinstitut",
-      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
-      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
-      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
-      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "entity_type": "CRD_CRE_INS",
-      "entity_code": "529900Z2OHMF1O4SSZ52",
-      "lei": "529900Z2OHMF1O4SSZ52",
-      "national_reference": "106035",
-      "city": "Gruibingen",
-      "last_update": "20240928000000000",
-      "match_terms": [
-        "Raiffeisenbank Gruibingen eG.",
-        "529900Z2OHMF1O4SSZ52",
-        "106035"
       ]
     },
     {
