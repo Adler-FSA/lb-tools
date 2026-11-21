@@ -74,13 +74,175 @@ h2{font-size:57px;line-height:1.1;letter-spacing:-1.5px;margin:20px 255px 23px 0
 .packages .package-card ul{font-size:17px;gap:6px}
 .packages .package-card header{padding:9px}.packages .package-price{font-size:44px;margin:3px 0}
 .packages .package-card h3{margin:0 0 7px}.packages .package-disclaimer{font-size:12.5px;padding:7px 12px}
+
+/* 21.11.2026 — gezielte iPad-Passkorrektur der Folien 4, 6, 8, 9.
+   Andere Folien und das gemeinsame Navigationssystem bleiben unangetastet. */
+
+/* Folie 4: alle Regler und Reset-Aktion innerhalb des Simulatorfeldes halten */
+.sim-slide .simulator{
+  padding:11px 17px 12px;
+  gap:5px;
+  justify-content:space-between;
+  overflow:visible;
+}
+.sim-slide .scenario-options{gap:6px;}
+.sim-slide .scenario{padding:5px 4px;gap:2px;}
+.sim-slide .scenario b{font-size:14px;}
+.sim-slide .scenario small{font-size:12px;line-height:1.05;}
+.sim-slide .scenario-hint{
+  min-height:0;
+  margin:0;
+  font-size:12px;
+  line-height:1.18;
+}
+.sim-slide .control{gap:0 10px;}
+.sim-slide .control label{font-size:16px;line-height:1.16;}
+.sim-slide .control output{font-size:18px;line-height:1.1;}
+.sim-slide .control input{height:14px;margin:3px 0 1px;}
+.sim-slide .sim-meta{gap:9px;}
+.sim-slide .sim-meta>div{padding:7px 10px;gap:0;}
+.sim-slide .sim-meta small{font-size:13px;line-height:1.15;}
+.sim-slide .sim-meta b{font-size:22px;line-height:1.14;}
+.sim-slide .sim-result{padding:6px 10px;gap:0;}
+.sim-slide .sim-result>span{font-size:15px;line-height:1.15;}
+.sim-slide .sim-result strong{font-size:45px;line-height:1;}
+.sim-slide .sim-result small{font-size:12px;line-height:1.16;text-align:center;}
+.sim-slide .sim-actions{flex:none;align-items:center;}
+.sim-slide .sim-actions button{padding:5px 9px;font-size:13px;}
+.sim-slide .sim-actions>span{font-size:12px;}
+
+/* Folie 6: Premium-Box mit besserem Abstand am Unterrand */
+.slide[data-slide="6"] .vow-premium-panel{
+  padding:18px 22px;
+  gap:9px;
+  justify-content:flex-start;
+}
+.slide[data-slide="6"] .vow-premium-heading{font-size:47px;}
+.slide[data-slide="6"] .tier-grid{gap:12px;}
+.slide[data-slide="6"] .tier-card{
+  min-height:164px;
+  padding:12px 14px;
+  gap:4px;
+}
+.slide[data-slide="6"] .tier-number{font-size:32px;}
+.slide[data-slide="6"] .tier-card small{font-size:14px;line-height:1.22;}
+.slide[data-slide="6"] .energy-rate{margin-top:5px;padding-top:6px;font-size:15px;}
+.slide[data-slide="6"] .premium-price{font-size:14px;line-height:1.22;padding:9px 11px;}
+.slide[data-slide="6"] .vow-premium-panel .fine{font-size:14px;line-height:1.27;margin:0;}
+
+/* Folie 8: Sicherheitsprinzip, Hinweis und Risikoinformation im rechten Panel */
+.slide[data-slide="8"] .visual-panel{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  padding:20px 24px 18px;
+  gap:0;
+}
+.slide[data-slide="8"] .safety-grid{
+  gap:11px;
+  margin:18px 0 14px;
+}
+.slide[data-slide="8"] .safety-grid>div{
+  min-height:91px;
+  padding:10px 14px;
+  gap:12px;
+}
+.slide[data-slide="8"] .safety-grid strong{font-size:34px;}
+.slide[data-slide="8"] .safety-grid span{font-size:22px;}
+.slide[data-slide="8"] .message{
+  padding:13px 17px;
+  font-size:21px;
+  line-height:1.24;
+}
+.slide[data-slide="8"] .visual-panel .fine{
+  margin:12px 0 0;
+  font-size:15px;
+  line-height:1.30;
+}
+
+/* Folie 9: Karten ohne abgeschnittene Listen, ausreichender Platz für Hinweise */
+.slide.packages .top{height:41px;}
+.slide.packages h2{
+  font-size:50px;
+  line-height:1.08;
+  min-height:108px;
+  margin:13px 230px 12px 0;
+}
+.slide.packages .slide-foot{height:58px;margin-top:9px;}
+.slide.packages .package-wrap{gap:8px;min-height:0;}
+.slide.packages .package-intro{gap:18px;align-items:center;}
+.slide.packages .package-intro .keypoints{gap:5px;}
+.slide.packages .package-intro .keypoints li{font-size:17px;line-height:1.15;}
+.slide.packages .package-intro .bullet{margin-top:5px;}
+.slide.packages .package-toggle{padding:5px;gap:5px;flex:none;}
+.slide.packages .audience{font-size:14px;padding:9px 11px;}
+.slide.packages .package-grid{
+  gap:16px;
+  min-height:0;
+  align-items:stretch;
+}
+.slide.packages .package-card{
+  min-height:0;
+  overflow:visible;
+  padding:0 15px 12px;
+  gap:0;
+}
+.slide.packages .package-card header{
+  padding:7px 9px;
+  gap:1px;
+}
+.slide.packages .package-card header strong{font-size:23px;line-height:1.1;}
+.slide.packages .package-card header small{font-size:12px;}
+.slide.packages .package-price{
+  margin:2px 0;
+  font-size:40px;
+  line-height:1.07;
+}
+.slide.packages .package-card h3{
+  font-size:20px;
+  line-height:1.1;
+  margin:2px 0 6px;
+}
+.slide.packages .package-rewards{
+  padding:7px 8px;
+  margin:0 0 8px;
+  font-size:14px;
+  line-height:1.12;
+}
+.slide.packages .package-rewards.premium{gap:2px;}
+.slide.packages .package-rewards.premium strong{font-size:14px;line-height:1.12;}
+.slide.packages .package-rewards.premium small{font-size:12px;line-height:1.15;}
+.slide.packages .package-card ul{
+  padding-left:19px;
+  margin:0;
+  gap:4px;
+  font-size:16px;
+  line-height:1.16;
+}
+.slide.packages .package-disclaimer{
+  padding:9px 13px;
+  font-size:13px;
+  line-height:1.23;
+  flex:none;
+}
+.slide.packages .reflection{
+  flex:none;
+  margin:0;
+  padding:12px 18px;
+}
+.slide.packages .reflection strong{font-size:13px;}
+.slide.packages .reflection p{
+  margin-top:3px;
+  font-size:19px;
+  line-height:1.22;
+}
 </style></head>
 <body><div id="app"><main id="stage"><div id="deck"><section class="slide opening" data-slide="1" aria-hidden="true" aria-label="Folie 1" data-aria-de="Folie 1" data-aria-en="Slide 1">
  <div class="brand"><img src="../liquiditybooster-leistungswelt-webinar/liquiditybooster-logo.png" alt="LiquidityBooster – Mehr Geld. Mehr Freiheit. Mehr vom Leben." draggable="false"></div><div class="slide-inner"><header class="top"><div class="eyebrow"><span data-i18n data-de="DER EINSTIEG" data-en="THE OPENING">DER EINSTIEG</span></div></header>
  <h2><span data-i18n data-de="Wo bleibt eigentlich unser Geld?" data-en="Where does all our money go?">Wo bleibt eigentlich unser Geld?</span></h2><div class="slide-content"><div class="two-col"><div><ul class="keypoints"><li><i class="bullet"></i><span><span data-i18n data-de="Lebensmittel und tägliche Einkäufe" data-en="Groceries and everyday purchases">Lebensmittel und tägliche Einkäufe</span></span></li><li><i class="bullet"></i><span><span data-i18n data-de="Strom, Energie und Mobilität" data-en="Electricity, energy and transport">Strom, Energie und Mobilität</span></span></li><li><i class="bullet"></i><span><span data-i18n data-de="Abonnements und regelmäßige Rechnungen" data-en="Subscriptions and recurring bills">Abonnements und regelmäßige Rechnungen</span></span></li><li><i class="bullet"></i><span><span data-i18n data-de="Monat für Monat – Jahr für Jahr" data-en="Month after month – year after year">Monat für Monat – Jahr für Jahr</span></span></li></ul><div class="reflection"><strong><span data-i18n data-de="REFLEXIONSFRAGE" data-en="REFLECTION QUESTION">REFLEXIONSFRAGE</span></strong><p><span data-i18n data-de="Hast du schon einmal ausgerechnet, wie viel Geld du jedes Jahr für diese Dinge ausgibst?" data-en="Have you ever calculated how much you spend on these things in a year?">Hast du schon einmal ausgerechnet, wie viel Geld du jedes Jahr für diese Dinge ausgibst?</span></p></div></div>
 <div class="visual-panel centered"><div class="panel-tag"><span data-i18n data-de="DIE WIEDERKEHRENDE REALITÄT" data-en="THE RECURRING REALITY">DIE WIEDERKEHRENDE REALITÄT</span></div>
 <svg viewBox="0 0 400 280" width="410" height="275" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="30" y="22" width="340" height="230" rx="28" fill="#fff" stroke="#bfdee4" stroke-width="3"/><path d="M30 81h340" stroke="#d0e9ed" stroke-width="3"/><rect x="76" y="4" width="22" height="57" rx="9" fill="#1499a9"/><rect x="303" y="4" width="22" height="57" rx="9" fill="#1499a9"/><g fill="#c42b7b"><circle cx="100" cy="118" r="12"/><circle cx="198" cy="118" r="12"/><circle cx="295" cy="118" r="12"/></g><g fill="#b1d9df"><rect x="82" y="162" width="67" height="18" rx="9"/><rect x="172" y="162" width="67" height="18" rx="9"/><rect x="263" y="162" width="67" height="18" rx="9"/><rect x="82" y="196" width="67" height="18" rx="9"/><rect x="172" y="196" width="67" height="18" rx="9"/><rect x="263" y="196" width="67" height="18" rx="9"/></g></svg>
-<div class="big-center"><span data-i18n data-de="Jeden Monat. Immer wieder." data-en="Every month. Again and again.">Jeden Monat. Immer wieder.</span></div><p class="muted center"><span data-i18n data-de="5 Minuten Warm-up · 30 Minuten Präsentation · 5 Minuten Abschluss" data-en="5-minute warm-up · 30-minute presentation · 5-minute close">5 Minuten Warm-up · 30 Minuten Präsentation · 5 Minuten Abschluss</span></p>
+<div class="big-center"><span data-i18n data-de="Jeden Monat. Immer wieder." data-en="Every month. Again and again.">Jeden Monat. Immer wieder.</span></div>
 </div></div></div>
  <footer class="slide-foot"><button type="button" class="detail-btn" data-detail="1" aria-haspopup="dialog" aria-controls="detail-dialog" aria-expanded="false"><span data-i18n data-de="Mehrwert &amp; Reflexionsfrage" data-en="Value &amp; reflection question">Mehrwert &amp; Reflexionsfrage</span> <b>+</b></button><div class="slogan"><span data-i18n data-de="Mehr Geld. Mehr Freiheit. Mehr vom Leben." data-en="More money. More freedom. More from life.">Mehr Geld. Mehr Freiheit. Mehr vom Leben.</span></div></footer>
  </div><span class="slide-no">01 <i></i> 10</span></section>
