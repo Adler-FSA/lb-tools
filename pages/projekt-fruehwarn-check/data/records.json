@@ -1,16 +1,16 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-21T13:01:27Z",
+  "generated_at": "2026-11-21T13:28:51Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
-      "last_success": "2026-11-20T14:01:29Z",
+      "last_success": "2026-11-21T13:28:51Z",
       "records": 409,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv"
     },
     "esma-non-compliant": {
       "status": "available",
-      "last_success": "2026-11-20T14:01:29Z",
+      "last_success": "2026-11-21T13:28:51Z",
       "records": 217,
       "dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/NCASP.csv"
     },
@@ -394282,7 +394282,7 @@
       ]
     },
     {
-      "id": "esma-casp-34d7c0ebd691e9-399",
+      "id": "esma-casp-34d7c0ebd691e9-400",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394720,7 +394720,7 @@
       ]
     },
     {
-      "id": "esma-casp-af7f6ed50ec074-400",
+      "id": "esma-casp-af7f6ed50ec074-401",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -394825,6 +394825,34 @@
       ]
     },
     {
+      "id": "esma-casp-0faaa5354dfc67-397",
+      "source_id": "esma-casp",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "ILIRIKA borzno posredniška hiša d.d.",
+      "aliases": [
+        "Ilirika"
+      ],
+      "domains": [
+        "ilirika.si"
+      ],
+      "authority": "Securities Market Agency (ATVP)",
+      "country": "SI",
+      "date": "",
+      "title": "ESMA MiCA – autorisierter CASP",
+      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
+      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
+      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
+      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
+      "withdrawal_date": "",
+      "match_terms": [
+        "ILIRIKA borzno posredniška hiša d.d.",
+        "Ilirika",
+        "ilirika.si"
+      ]
+    },
+    {
       "id": "esma-casp-9390d9f6129eaf-266",
       "source_id": "esma-casp",
       "region": "EU",
@@ -394853,7 +394881,7 @@
       ]
     },
     {
-      "id": "esma-casp-51cb8b697c8956-397",
+      "id": "esma-casp-51cb8b697c8956-398",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -396508,7 +396536,7 @@
       ]
     },
     {
-      "id": "esma-casp-d464c0b06091c6-398",
+      "id": "esma-casp-d464c0b06091c6-399",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
@@ -399082,31 +399110,6 @@
     },
     {
       "id": "esma-casp-94bb221cfa1ddd-396",
-      "source_id": "esma-casp",
-      "region": "EU",
-      "type": "register",
-      "status": "authorized",
-      "name": "Uphold Digital Assets Europe, Unipessoal Lda",
-      "aliases": [],
-      "domains": [
-        "uphold.com"
-      ],
-      "authority": "Banco de Portugal",
-      "country": "PT",
-      "date": "",
-      "title": "ESMA MiCA – autorisierter CASP",
-      "summary_de": "Eintrag im offiziellen ESMA-MiCA-Register autorisierter Crypto-Asset Service Provider.",
-      "summary_en": "Entry in the official ESMA MiCA register of authorised crypto-asset service providers.",
-      "source_url": "https://www.esma.europa.eu/esmas-activities/digital-finance-and-innovation/markets-crypto-assets-regulation-mica",
-      "source_dataset": "https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv",
-      "withdrawal_date": "",
-      "match_terms": [
-        "Uphold Digital Assets Europe, Unipessoal Lda",
-        "uphold.com"
-      ]
-    },
-    {
-      "id": "esma-casp-94bb221cfa1ddd-401",
       "source_id": "esma-casp",
       "region": "EU",
       "type": "register",
