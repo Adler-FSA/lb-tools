@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Unabhängiger VOW.ID-Lernsimulator nach Brittas Excel-Beispiel mit v$- und VOW-Marktkursen, Wechselkursen und nachvollziehbaren Modellannahmen.">
+  <title>Vow-Id-Simulation</title>
+  <style>
+    :root {
+      --ink:#242633; --muted:#646879; --line:#e5e5ed; --subtle:#f7f7fb;
+      --violet:#6837f5; --violet-dark:#4924bc; --violet-soft:#f4f0ff;
+      --pink:#cf3abd; --coral:#ff635b; --orange:#ffac26;
+      --red:#af284a; --red-bg:#fff2f5; --green:#126d57;
+      --gradient:linear-gradient(105deg,#6837f5 0%,#c13dbd 41%,#ff625b 76%,#ffad22 100%);
+      --shadow:0 16px 50px rgba(35,29,67,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#f8f8fb;color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+    .topline{height:7px;background:var(--gradient)}
+    .wrap{max-width:1180px;margin:0 auto;padding:30px 22px 48px}
+    .brandline{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
+    .brand{display:flex;gap:12px;align-items:center;font-weight:850;letter-spacing:-.05em;font-size:27px;white-space:nowrap}
+    .brand-mark{width:27px;height:27px;flex:none;display:block}
+    .langbar{display:inline-flex;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px;gap:3px}
+    .langbar button{font-weight:750;border:0;background:transparent;border-radius:999px;padding:6px 13px;color:var(--muted)}
+    .langbar button.active{background:var(--violet);color:#fff}
+    .intro{margin-bottom:21px}
+    .eyebrow{color:var(--violet-dark);font-size:.8rem;font-weight:800;letter-spacing:.085em;text-transform:uppercase}
+    h1{font-size:clamp(30px,4.8vw,48px);letter-spacing:-.045em;line-height:1.07;margin:7px 0 13px}
+    .intro p{max-width:835px;margin:0;color:var(--muted);font-size:1.04rem}
+    .intro strong{color:var(--ink)}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+    .workspace{display:grid;grid-template-columns:minmax(300px,.89fr) minmax(400px,1.11fr);gap:20px;align-items:start}
+    .controls,.output{padding:26px}
+    .section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin:0 0 20px}
+    h2{font-size:1.25rem;line-height:1.3;letter-spacing:-.018em;margin:0}
+    .minor{color:var(--muted);font-size:.88rem;margin:4px 0 0}
+    .field{margin-bottom:21px}
+    .field:last-child{margin-bottom:0}
+    .labelrow{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .labelrow label,.labelrow .labeltext{font-size:.92rem;font-weight:720}
+    .secondary{color:var(--muted);font-size:.78rem;line-height:1.45}
+    .controlrow{display:grid;grid-template-columns:1fr auto;gap:10px}
+    .controlrow input,.field input[type=number],.field select{min-width:0;width:100%;height:48px;border:1px solid #cfd0dd;border-radius:12px;padding:9px 13px;color:var(--ink);background:#fff;font-weight:700}
+    .controlrow select{min-width:88px;width:auto}
+    .controlrow input:disabled,.field input:disabled{background:#f2f2f6;color:#7a7b88}
+    input[type=range]{width:100%;accent-color:var(--violet);cursor:pointer;margin:9px 0 0}
+    .value-flag{background:var(--violet-soft);color:var(--violet-dark);padding:5px 10px;border-radius:999px;font-weight:800;font-size:.83rem;white-space:nowrap}
+    .small-note{font-size:.78rem;line-height:1.48;color:var(--muted);margin:7px 0 0}
+    .marketrates{margin-top:20px;padding:19px;border:1px solid #e4def8;border-radius:17px;background:#fcfbff}
+    .rates-heading{display:flex;align-items:start;justify-content:space-between;gap:10px;margin:0 0 13px}
+    .rates-heading h3{font-size:.98rem;margin:0}
+    .btn{border:1px solid #d4d1e7;border-radius:11px;padding:9px 13px;background:#fff;color:var(--violet-dark);font-weight:750;font-size:.83rem;line-height:1.2}
+    .btn:hover{background:var(--violet-soft)}
+    .rategrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .rategrid .field{margin:0}
+    .rategrid label{display:block;color:var(--ink);font-size:.8rem;font-weight:700;margin-bottom:5px}
+    .rategrid input{height:43px;font-size:.96rem}
+    .price-origin{font-size:.72rem;font-weight:750;color:var(--muted);margin-top:3px;display:block}
+    .market-status{margin-top:11px;padding:11px 12px;border-radius:11px;background:#fff;border:1px solid #e2e0e9;color:var(--muted);font-size:.79rem;line-height:1.4}
+    .market-status.ok{color:var(--green);background:#eefaf5;border-color:#b8e3d0}
+    .market-status.warning{color:var(--red);background:var(--red-bg);border-color:#f2ced9}
+    .protocol{margin-top:18px;border-top:1px solid #e8e4f6;padding-top:16px}
+    .checkline{display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:.84rem;font-weight:700}
+    .checkline input{accent-color:var(--violet);width:18px;height:18px;flex:none;margin-top:2px}
+    .protocol .field{margin-top:13px;margin-bottom:0}
+    .out-head{margin-bottom:13px}
+    .result-highlight{border-radius:17px;background:var(--gradient);color:#fff;padding:20px 21px;margin-bottom:14px}
+    .result-highlight .metric-label{color:rgba(255,255,255,.91);font-size:.85rem;font-weight:750}
+    .result-highlight .metric-number{font-size:clamp(30px,4vw,44px);letter-spacing:-.045em;font-weight:850;line-height:1.14;margin:4px 0 5px;overflow-wrap:anywhere}
+    .result-highlight p{color:rgba(255,255,255,.93);font-size:.78rem;margin:0;line-height:1.45}
+    .metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .metric{background:var(--subtle);border:1px solid #eeeef4;border-radius:15px;padding:17px 16px;min-width:0}
+    .metric-label{font-size:.8rem;font-weight:650;color:var(--muted);line-height:1.35}
+    .metric-number{font-size:clamp(19px,2.3vw,28px);font-weight:820;letter-spacing:-.035em;line-height:1.23;overflow-wrap:anywhere;margin-top:7px;font-variant-numeric:tabular-nums}
+    .metric-note{margin-top:5px;font-size:.73rem;color:var(--muted);line-height:1.42}
+    .metric.negative .metric-number{color:var(--red)}
+    .accent-metric{border:1px solid #ded4ff;background:#f8f5ff}
+    .divider{height:1px;background:var(--line);margin:20px 0}
+    .comparison{background:#fff9f6;border:1px solid #fce1d2;padding:16px;border-radius:14px}
+    .comparison h3{font-size:.92rem;margin:0 0 6px}
+    .comparison .pair{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+    .comparison strong{font-size:1.5rem;letter-spacing:-.025em}
+    .comparison p{margin:7px 0 0;color:#755c54;font-size:.77rem;line-height:1.48}
+    details{margin-top:20px;border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+    summary{padding:15px 17px;cursor:pointer;font-weight:760;font-size:.9rem}
+    .math-detail{border-top:1px solid var(--line);padding:2px 17px 15px}
+    .math-row{display:flex;justify-content:space-between;align-items:baseline;gap:15px;padding:10px 0;border-bottom:1px solid #f1f1f5;font-size:.82rem}
+    .math-row:last-child{border-bottom:0}
+    .math-row span{color:var(--muted)}
+    .math-row strong{font-variant-numeric:tabular-nums;white-space:nowrap}
+    .legal{margin-top:20px;padding:20px 22px;border:1px solid #e1dded;border-radius:18px;background:#fff;font-size:.82rem;line-height:1.65;color:#575b69}
+    .legal strong{color:var(--ink)}
+    .legal h2{font-size:.99rem;margin-bottom:9px}
+    .legal p{margin:0 0 7px}
+    .legal p:last-child{margin-bottom:0}
+    .footerline{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:.76rem;color:var(--muted)}
+    .reset{color:var(--violet-dark)}
+    [hidden]{display:none!important}
+    @media(max-width:920px){.workspace{grid-template-columns:1fr}.wrap{padding:25px 16px 38px}.controls,.output{padding:22px}.intro p{font-size:.98rem}}
+    @media(max-width:540px){.wrap{padding:20px 12px 30px}.brandline{margin-bottom:17px}.brand{font-size:23px}.panel{border-radius:18px}.controls,.output{padding:17px}.metrics{gap:9px}.metric{padding:13px 12px}.metric-number{font-size:20px}.rategrid{gap:9px}.marketrates{padding:14px}.section-head{margin-bottom:15px}.intro{margin-bottom:16px}h1{font-size:32px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+  <div class="topline" aria-hidden="true"></div>
+  <div class="wrap">
+    <header>
+      <div class="brandline">
+        <div class="brand" aria-label="VOW.ID Simulation">
+          <svg class="brand-mark" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="simGradA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#773bfb"/><stop offset=".65" stop-color="#f04da1"/><stop offset="1" stop-color="#ffb01b"/></linearGradient><linearGradient id="simGradB" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#743bff"/><stop offset="1" stop-color="#ffac22"/></linearGradient></defs>
+            <path d="M18 31C8 22 3 17 3 11a8 8 0 0 1 15-3c3-5 12-5 15 1 3 9-5 15-15 22Z" fill="url(#simGradA)"/>
+            <path d="M18 31C10 22 12 15 18 8c4-5 12-4 15 1 3 9-5 15-15 22Z" fill="url(#simGradB)" opacity=".83"/>
+          </svg>
+          <span>vow.id</span>
+        </div>
+        <div class="langbar" role="group" aria-label="Language / Sprache">
+          <button id="deBtn" type="button" data-lang="de" class="active" aria-pressed="true">DE</button>
+          <button id="enBtn" type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+      <div class="intro">
+        <div class="eyebrow" data-i18n="eyebrow">Unabhängiger Lernsimulator · Brittas Excel-Modell</div>
+        <h1 data-i18n="title">Vow-Id-Simulation</h1>
+        <p data-i18n="lead">Wie lassen sich mögliche Member Rewards, der v$-Marktpreis und ein zusätzlicher VOW-Beitrag rechnerisch einordnen? Ändern Sie die Werte und vergleichen Sie Szenarien – <strong>ohne Wallet-Verbindung oder Transaktion.</strong></p>
+      </div>
+    </header>
+    <main>
+      <div class="workspace">
+        <section class="panel controls" aria-labelledby="inputTitle">
+          <div class="section-head">
+            <div><h2 id="inputTitle" data-i18n="inputsTitle">Ihre Annahmen</h2><p class="minor" data-i18n="inputsSub">Originalwerte der Excel sind vorausgefüllt.</p></div>
+            <button id="resetBtn" type="button" class="btn reset" data-i18n="reset">Zurücksetzen</button>
+          </div>
+          <div class="field">
+            <div class="labelrow"><label for="purchase" data-i18n="purchaseLabel">Ausgabebeleg / Einkaufsbetrag</label></div>
+            <div class="controlrow">
+              <input id="purchase" type="number" min="0" max="1000000000" step="0.01" value="250" inputmode="decimal">
+              <select id="currency" aria-label="Währung"><option value="USD">USD</option><option value="EUR">EUR</option></select>
+            </div>
+            <p class="small-note" data-i18n="purchaseNote">Nur eine Modellannahme. Ein Einkauf begründet keinen automatischen MR-Anspruch.</p>
+          </div>
+          <div class="field">
+            <div class="labelrow"><label for="rewardRate" data-i18n="rateLabel">Angenommene MR-Rate</label><span id="rateBubble" class="value-flag">40 %</span></div>
+            <input id="rewardRate" type="range" min="0" max="100" step="0.5" value="40">
+            <div class="controlrow" style="margin-top:5px"><input id="rateNumber" type="number" min="0" max="100" step="0.5" value="40" aria-label="MR-Rate in Prozent"><span class="value-flag" style="align-self:center" data-i18n="percentage">Prozent</span></div>
+            <p class="small-note" data-i18n="rateNote">40 % ist Brittas Rechenbeispiel, kein zugesagter Prämiensatz. Tatsächlich gelten die jeweiligen Angebote.</p>
+          </div>
+          <div class="field">
+            <div class="labelrow"><label for="vSlider" data-i18n="vPriceLabel">v$-Preis in USD – Handelswert / Szenario</label><span id="vBubble" class="value-flag">0,80 $</span></div>
+            <input id="vSlider" type="range" min="0.2" max="1.4" step="0.01" value="0.8" aria-label="v$-Kursszenario">
+            <p class="small-note" data-i18n="sliderNote">Mit dem Regler testen Sie ein eigenes Was-wäre-wenn-Szenario. Ein Live-Kurs wird separat geladen.</p>
+          </div>
+          <div class="marketrates" aria-labelledby="ratesTitle">
+            <div class="rates-heading">
+              <div><h3 id="ratesTitle" data-i18n="ratesTitle">Kurse und Annahmen</h3><p class="small-note" data-i18n="ratesSub">GeckoTerminal (BNB Chain) · Frankfurter (USD/EUR)</p></div>
+              <button id="refreshBtn" type="button" class="btn" data-i18n="refresh">Aktualisieren</button>
+            </div>
+            <div class="rategrid">
+              <div class="field"><label for="vUsd" data-i18n="vUsdLabel">1 v$ in USD</label><input id="vUsd" type="number" min="0.000001" step="any" value="0.8" inputmode="decimal"><span id="vOrigin" class="price-origin" data-i18n="exampleOrigin">Excel-Beispiel</span></div>
+              <div class="field"><label for="vowUsd" data-i18n="vowUsdLabel">1 VOW in USD</label><input id="vowUsd" type="number" min="0.000000001" step="any" value="" placeholder="—" inputmode="decimal"><span id="vowOrigin" class="price-origin" data-i18n="noRate">Kein Kurs geladen</span></div>
+              <div class="field" style="grid-column:1 / -1"><label for="fxRate" data-i18n="fxLabel">1 USD in EUR (Wechselkurs)</label><input id="fxRate" type="number" min="0.000001" step="any" value="" placeholder="—" inputmode="decimal"><span id="fxOrigin" class="price-origin" data-i18n="noRate">Kein Kurs geladen</span></div>
+            </div>
+            <div id="rateStatus" class="market-status" role="status" aria-live="polite">Kursdaten werden angefragt …</div>
+            <div class="protocol">
+              <label class="checkline"><input id="useDexProxy" type="checkbox" checked><span data-i18n="proxyLabel">DEX-Marktpreis als Modell-Näherung für den Protokollwert verwenden</span></label>
+              <p class="small-note" data-i18n="proxyWarning">Achtung: Die tatsächliche VOW-Beitragsberechnung verwendet einen Protokoll-/Chainlink-Wert. Der DEX-Kurs ist dafür nicht verbindlich.</p>
+              <div id="protocolManualWrap" class="field" hidden>
+                <label for="protocolUsd" data-i18n="protocolPriceLabel">Eigene Annahme: Protokollwert pro v$ (USD)</label>
+                <input id="protocolUsd" type="number" min="0.000001" step="any" value="0.8" inputmode="decimal">
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="panel output" aria-labelledby="resultsTitle">
+          <div class="section-head out-head"><div><h2 id="resultsTitle" data-i18n="resultsTitle">Rechenergebnis</h2><p class="minor" data-i18n="resultsSub">Theoretische Größen – keine garantierte Prämie oder Auszahlung.</p></div></div>
+          <div class="result-highlight">
+            <div class="metric-label" data-i18n="deltaTitle">Rechnerische Differenz zum DEX-Handelswert</div>
+            <div id="difference" class="metric-number" aria-live="polite">40,00 $</div>
+            <p data-i18n="deltaExplain">DEX-Handelswert minus modellierter VOW-Beitrag. Kein Bargeld, kein gesicherter Nettovorteil.</p>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-label" data-i18n="mrTitle">Mögliche MR (Modell)</div><div id="mr" class="metric-number">100 MR</div><div class="metric-note" data-i18n="mrNote">Nur wenn die vorgeschlagene Zuteilung genehmigt wird.</div></div>
+            <div class="metric"><div class="metric-label" data-i18n="vdollarTitle">v$ nach erfolgreicher MR-Ausübung</div><div id="vdollar" class="metric-number">100 v$</div><div class="metric-note" data-i18n="vdollarNote">Modell: 1 genehmigte MR → 1 v$.</div></div>
+            <div class="metric"><div class="metric-label" data-i18n="dexTitle">Theoretischer DEX-Handelswert</div><div id="dexValue" class="metric-number">80,00 $</div><div class="metric-note" data-i18n="dexNote">v$-Anzahl × beobachteter oder eingestellter Kurs.</div></div>
+            <div class="metric"><div class="metric-label" data-i18n="contribTitle">VOW-Beitrag (Modell)</div><div id="contribution" class="metric-number">40,00 $</div><div class="metric-note" data-i18n="contribNote">50 % der modellierten Protokollbewertung, nicht automatisch 50 % des DEX-Handelswerts.</div></div>
+            <div class="metric accent-metric"><div class="metric-label" data-i18n="vowQtyTitle">Benötigte VOW (rechnerisch)</div><div id="vowQty" class="metric-number">—</div><div class="metric-note" data-i18n="vowQtyNote">Auf Basis des VOW-DEX-Kurses; ohne Gebühren oder Slippage.</div></div>
+            <div class="metric accent-metric"><div class="metric-label" data-i18n="ratioTitle">Rechnerische Differenz / Einkauf</div><div id="ratio" class="metric-number">16,0 %</div><div class="metric-note" data-i18n="ratioNote">Reine Modellquote, keine Cashback-Rate.</div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="comparison">
+            <h3 data-i18n="nominalTitle">Vergleich: mögliche Nutzung zum Rabatt-Nennwert</h3>
+            <div class="pair"><span class="secondary" data-i18n="nominalLabel">Bei angenommener Annahme von 1 v$ = 1 USD Rabatt</span><strong id="nominalValue">100,00 $</strong></div>
+            <p data-i18n="nominalWarning">Ausschließlich ein Nutzungsszenario. Händler müssen v$ nicht akzeptieren; ein Rabatt, Verkauf oder eine Auszahlung ist nicht garantiert.</p>
+          </div>
+          <details>
+            <summary data-i18n="stepsTitle">Brittas Rechenweg anzeigen</summary>
+            <div class="math-detail">
+              <div class="math-row"><span data-i18n="formula1">1. Ausgaben × angenommene MR-Rate</span><strong id="fMr">100 MR</strong></div>
+              <div class="math-row"><span data-i18n="formula2">2. MR × 1 v$ (nach genehmigter Ausübung)</span><strong id="fVdollar">100 v$</strong></div>
+              <div class="math-row"><span data-i18n="formula3">3. v$ × DEX-Kurs</span><strong id="fDex">80,00 $</strong></div>
+              <div class="math-row"><span data-i18n="formula4">4. v$ × angenommener Protokollwert × 50 %</span><strong id="fClaim">40,00 $</strong></div>
+              <div class="math-row"><span data-i18n="formula5">5. Handelswert – VOW-Beitrag (Modell)</span><strong id="fDiff">40,00 $</strong></div>
+            </div>
+          </details>
+        </section>
+      </div>
+      <section class="legal" aria-labelledby="legalTitle">
+        <h2 id="legalTitle" data-i18n="legalTitle">Wichtige Hinweise zur Interpretation</h2>
+        <p data-i18n="legal1">Member Rewards (MR) sind weder Bargeld noch Cashback noch Token. Sie sind zunächst Vorschläge und müssen unabhängig geprüft werden. Genehmigte MR sind walletgebunden, nicht übertragbar und verfallen nach 60 Tagen, wenn sie nicht freiwillig ausgeübt werden.</p>
+        <p data-i18n="legal2">Die freiwillige Ausübung erfordert einen gesonderten, dauerhaften und nicht rückerstattbaren VOW-Beitrag nach Protokollregeln. Dessen Grundlage ist die maßgebliche Protokoll-/Chainlink-Bewertung und kann vom angezeigten DEX-Spotpreis abweichen. Premium enthält diesen Beitrag nicht.</p>
+        <p data-i18n="legal3">v$ sind digitale Rabattrechte, kein Bargeld. Marktpreise können schwanken; Liquidität, Slippage und Gebühren können Ergebnisse verändern. Die tatsächliche Annahme durch Händler und ein wirtschaftlicher Vorteil sind nicht garantiert. Dieser Rechner verbindet keine Wallet, löst keine Transaktionen aus und ist keine Anlageberatung.</p>
+        <p class="secondary" data-i18n="legalSource">Berechnungsgrundlage: Brittas Beispiel-Excel; Regelwerk: VOW.ID-Premium-Aufklärung (22.11.2026), offizielle Dokumentation. Kursdaten: GeckoTerminal (BNB Chain), Frankfurter (FX). Unabhängige Lernsimulation, kein offizielles VOW.ID-Produkt.</p>
+      </section>
+      <div class="footerline"><span id="footerState" data-i18n="footerDefault">Alle Ergebnisse sind Modellrechnungen.</span><span data-i18n="version">Vow-Id-Simulation · Stand 23.11.2026</span></div>
+    </main>
+  </div>
+  <script>
+    (() => {
+      'use strict';
+      const $=id=>document.getElementById(id);
+      const T={
+        de:{
+          eyebrow:'Unabhängiger Lernsimulator · Brittas Excel-Modell', title:'Vow-Id-Simulation',
+          lead:'Wie lassen sich mögliche Member Rewards, der v$-Marktpreis und ein zusätzlicher VOW-Beitrag rechnerisch einordnen? Ändern Sie die Werte und vergleichen Sie Szenarien – ohne Wallet-Verbindung oder Transaktion.',
+          inputsTitle:'Ihre Annahmen',inputsSub:'Originalwerte der Excel sind vorausgefüllt.',reset:'Zurücksetzen',purchaseLabel:'Ausgabebeleg / Einkaufsbetrag',purchaseNote:'Nur eine Modellannahme. Ein Einkauf begründet keinen automatischen MR-Anspruch.',rateLabel:'Angenommene MR-Rate',percentage:'Prozent',rateNote:'40 % ist Brittas Rechenbeispiel, kein zugesagter Prämiensatz. Tatsächlich gelten die jeweiligen Angebote.',vPriceLabel:'v$-Preis in USD – Handelswert / Szenario',sliderNote:'Mit dem Regler testen Sie ein eigenes Was-wäre-wenn-Szenario. Ein Live-Kurs wird separat geladen.',ratesTitle:'Kurse und Annahmen',ratesSub:'GeckoTerminal (BNB Chain) · Frankfurter (USD/EUR)',refresh:'Aktualisieren',loading:'Lade …',vUsdLabel:'1 v$ in USD',vowUsdLabel:'1 VOW in USD',fxLabel:'1 USD in EUR (Wechselkurs)',exampleOrigin:'Excel-Beispiel, kein Live-Kurs',noRate:'Kein Kurs geladen',liveOrigin:'DEX-Liveabruf',fxLiveOrigin:'FX-Liveabruf',manualOrigin:'Manuell eingegeben',proxyLabel:'DEX-Marktpreis als Modell-Näherung für den Protokollwert verwenden',proxyWarning:'Achtung: Die tatsächliche VOW-Beitragsberechnung verwendet einen Protokoll-/Chainlink-Wert. Der DEX-Kurs ist dafür nicht verbindlich.',protocolPriceLabel:'Eigene Annahme: Protokollwert pro v$ (USD)',resultsTitle:'Rechenergebnis',resultsSub:'Theoretische Größen – keine garantierte Prämie oder Auszahlung.',deltaTitle:'Rechnerische Differenz zum DEX-Handelswert',deltaExplain:'DEX-Handelswert minus modellierter VOW-Beitrag. Kein Bargeld, kein gesicherter Nettovorteil.',mrTitle:'Mögliche MR (Modell)',mrNote:'Nur wenn die vorgeschlagene Zuteilung genehmigt wird.',vdollarTitle:'v$ nach erfolgreicher MR-Ausübung',vdollarNote:'Modell: 1 genehmigte MR → 1 v$.',dexTitle:'Theoretischer DEX-Handelswert',dexNote:'v$-Anzahl × beobachteter oder eingestellter Kurs.',contribTitle:'VOW-Beitrag (Modell)',contribNote:'50 % der modellierten Protokollbewertung, nicht automatisch 50 % des DEX-Handelswerts.',vowQtyTitle:'Benötigte VOW (rechnerisch)',vowQtyNote:'Auf Basis des VOW-DEX-Kurses; ohne Gebühren oder Slippage.',ratioTitle:'Rechnerische Differenz / Einkauf',ratioNote:'Reine Modellquote, keine Cashback-Rate.',nominalTitle:'Vergleich: mögliche Nutzung zum Rabatt-Nennwert',nominalLabel:'Bei angenommener Annahme von 1 v$ = 1 USD Rabatt',nominalWarning:'Ausschließlich ein Nutzungsszenario. Händler müssen v$ nicht akzeptieren; ein Rabatt, Verkauf oder eine Auszahlung ist nicht garantiert.',stepsTitle:'Brittas Rechenweg anzeigen',formula1:'1. Ausgaben × angenommene MR-Rate',formula2:'2. MR × 1 v$ (nach genehmigter Ausübung)',formula3:'3. v$ × DEX-Kurs',formula4:'4. v$ × angenommener Protokollwert × 50 %',formula5:'5. Handelswert – VOW-Beitrag (Modell)',legalTitle:'Wichtige Hinweise zur Interpretation',legal1:'Member Rewards (MR) sind weder Bargeld noch Cashback noch Token. Sie sind zunächst Vorschläge und müssen unabhängig geprüft werden. Genehmigte MR sind walletgebunden, nicht übertragbar und verfallen nach 60 Tagen, wenn sie nicht freiwillig ausgeübt werden.',legal2:'Die freiwillige Ausübung erfordert einen gesonderten, dauerhaften und nicht rückerstattbaren VOW-Beitrag nach Protokollregeln. Dessen Grundlage ist die maßgebliche Protokoll-/Chainlink-Bewertung und kann vom angezeigten DEX-Spotpreis abweichen. Premium enthält diesen Beitrag nicht.',legal3:'v$ sind digitale Rabattrechte, kein Bargeld. Marktpreise können schwanken; Liquidität, Slippage und Gebühren können Ergebnisse verändern. Die tatsächliche Annahme durch Händler und ein wirtschaftlicher Vorteil sind nicht garantiert. Dieser Rechner verbindet keine Wallet, löst keine Transaktionen aus und ist keine Anlageberatung.',legalSource:'Berechnungsgrundlage: Brittas Beispiel-Excel; Regelwerk: VOW.ID-Premium-Aufklärung (22.11.2026), offizielle Dokumentation. Kursdaten: GeckoTerminal (BNB Chain), Frankfurter (FX). Unabhängige Lernsimulation, kein offizielles VOW.ID-Produkt.',footerDefault:'Alle Ergebnisse sind Modellrechnungen.',version:'Vow-Id-Simulation · Stand 23.11.2026',statusLoading:'Kursdaten werden angefragt …',statusAll:'Marktdaten geladen',statusPartial:'Nur ein Teil der Marktdaten konnte geladen werden',statusFail:'Kursabruf nicht verfügbar. Excel-Beispielwerte bzw. manuelle Annahmen verwenden.',statusTime:'Abruf',statusMissingFx:'Für EUR-Berechnungen bitte einen USD/EUR-Wechselkurs laden oder eingeben.',statusRateBusy:'Kursabruf läuft …',statusSimulation:'Eigenes v$-Kursszenario',statusLive:'Abgerufener v$-DEX-Kurs',footerLoaded:'Marktstand (Abruf): ',footerAssumed:'Szenario / eigene Annahme. Kein garantierter Wert.'
+        },
+        en:{
+          eyebrow:'Independent educational simulator · Britta’s Excel model',title:'Vow-Id-Simulation',lead:'How can potential Member Rewards, the v$ market price, and a separate VOW contribution be modeled? Adjust values and compare scenarios – without connecting a wallet or executing a transaction.',inputsTitle:'Your assumptions',inputsSub:'Original Excel example values are prefilled.',reset:'Reset',purchaseLabel:'Receipt / purchase amount',purchaseNote:'An assumption only. A purchase does not automatically establish entitlement to MR.',rateLabel:'Assumed MR rate',percentage:'Percent',rateNote:'40% is Britta’s spreadsheet example, not a promised rate. Actual offer conditions apply.',vPriceLabel:'v$ price in USD – market / scenario',sliderNote:'Use the slider to explore your own what-if scenario. A live market price is fetched separately.',ratesTitle:'Rates and assumptions',ratesSub:'GeckoTerminal (BNB Chain) · Frankfurter (USD/EUR)',refresh:'Refresh',loading:'Loading …',vUsdLabel:'1 v$ in USD',vowUsdLabel:'1 VOW in USD',fxLabel:'1 USD in EUR (FX rate)',exampleOrigin:'Excel example, not a live quote',noRate:'No rate loaded',liveOrigin:'DEX fetch',fxLiveOrigin:'FX fetch',manualOrigin:'Manually entered',proxyLabel:'Use the DEX price as an approximation of the protocol valuation for this model',proxyWarning:'Important: the actual VOW contribution is based on the protocol/Chainlink valuation. The DEX price is not binding for that purpose.',protocolPriceLabel:'Your assumption: protocol value per v$ (USD)',resultsTitle:'Calculation results',resultsSub:'Theoretical figures – no guaranteed rewards or payouts.',deltaTitle:'Calculated difference versus DEX market value',deltaExplain:'DEX market value minus modeled VOW contribution. Not cash or a secured net benefit.',mrTitle:'Potential MR (model)',mrNote:'Only if the proposed allocation is approved.',vdollarTitle:'v$ after successful MR exercise',vdollarNote:'Model: 1 approved MR → 1 v$.',dexTitle:'Theoretical DEX market value',dexNote:'v$ count × observed or assumed market price.',contribTitle:'VOW contribution (model)',contribNote:'50% of modeled protocol valuation; not necessarily 50% of DEX market value.',vowQtyTitle:'VOW required (approx.)',vowQtyNote:'Based on the VOW DEX price; excludes network fees and slippage.',ratioTitle:'Calculated difference / purchase',ratioNote:'Model ratio, not a cashback rate.',nominalTitle:'Comparison: possible use at face discount value',nominalLabel:'Assuming 1 v$ is accepted as a 1 USD discount',nominalWarning:'An illustrative usage scenario only. Merchants need not accept v$. A discount, resale or payout is not guaranteed.',stepsTitle:'Show Britta’s calculation steps',formula1:'1. Purchase amount × assumed MR rate',formula2:'2. MR × 1 v$ (after approval and exercise)',formula3:'3. v$ × DEX quote',formula4:'4. v$ × assumed protocol value × 50%',formula5:'5. Market value – modeled VOW contribution',legalTitle:'Important interpretation notes',legal1:'Member Rewards (MR) are neither cash, cashback nor tokens. They begin as proposals and require independent verification. Approved MR are wallet-bound, non-transferable and expire after 60 days unless voluntarily exercised.',legal2:'Voluntary exercise requires a separate, permanent and non-refundable VOW contribution subject to protocol rules. The applicable protocol/Chainlink valuation may differ from the displayed DEX spot price. Premium does not include this contribution.',legal3:'v$ are digital discount rights, not cash. Market prices fluctuate; liquidity, slippage and fees can change outcomes. Merchant acceptance and economic benefit are not guaranteed. This simulator does not connect wallets, execute transactions or provide investment advice.',legalSource:'Model: Britta’s sample spreadsheet. Rules: VOW.ID Premium Disclosure (22 Nov 2026), official documentation. Market data: GeckoTerminal (BNB Chain), Frankfurter (FX). Independent educational model; not an official VOW.ID product.',footerDefault:'All results are model calculations.',version:'Vow-Id-Simulation · 23 Nov 2026',statusLoading:'Fetching market data …',statusAll:'Market data loaded',statusPartial:'Only some market data could be loaded',statusFail:'Market feed unavailable. Use Excel example values or manual assumptions.',statusTime:'Fetched',statusMissingFx:'For EUR calculations, please fetch or manually enter a USD/EUR exchange rate.',statusRateBusy:'Market quote loading …',statusSimulation:'Your own v$ price scenario',statusLive:'Fetched v$ DEX rate',footerLoaded:'Market quote fetched: ',footerAssumed:'Scenario / assumptions. No guaranteed value.'
+        }
+      };
+      let lang='de';
+      const state={vOrigin:'example',vowOrigin:'none',fxOrigin:'none',rateStatus:'loading',lastDate:null};
+      const VPOOL='https://api.geckoterminal.com/api/v2/networks/bsc/pools/0x4cE91C45c140486A3a9d52b16015DD58254115B9';
+      const VOWPOOL='https://api.geckoterminal.com/api/v2/networks/bsc/pools/0xC6585bc17b53792f281a9739579DD60535c1F9FB';
+      const FX='https://api.frankfurter.dev/v2/rate/USD/EUR';
+      const safeNum=(id)=>{const s=$(id).value.trim();if(s==='')return NaN;const n=Number(s);return Number.isFinite(n)?n:NaN};
+      const cap=(n,min,max)=>Math.min(max,Math.max(min,n));
+      const valid=n=>Number.isFinite(n)&&n>=0;
+      const nice=(n,max=2,min=2)=>Number.isFinite(n)?new Intl.NumberFormat(lang==='de'?'de-DE':'en-US',{minimumFractionDigits:min,maximumFractionDigits:max}).format(n):'—';
+      const amount=(n,unit)=>Number.isFinite(n)?(unit==='EUR'?nice(n)+' €':(lang==='de'?nice(n)+' $':'$'+nice(n))):'—';
+      const count=(n,unit)=>Number.isFinite(n)?nice(n,2,0)+' '+unit:'—';
+      const rateOrigin=(kind)=>kind==='live'?'liveOrigin':kind==='manual'?'manualOrigin':kind==='example'?'exampleOrigin':'noRate';
+      const setStatus=(message,level)=>{const el=$('rateStatus');el.textContent=message;el.className='market-status'+(level?' '+level:'');};
+      function resetAll(){
+        $('purchase').value='250';$('currency').value='USD';$('rewardRate').value='40';$('rateNumber').value='40';
+        $('vUsd').value='0.8';$('vowUsd').value='';$('fxRate').value='';$('protocolUsd').value='0.8';$('useDexProxy').checked=true;
+        state.vOrigin='example';state.vowOrigin='none';state.fxOrigin='none';state.lastDate=null;state.rateStatus='example';
+        $('protocolManualWrap').hidden=true;setStatus(T[lang].statusFail,'warning');render();
+        fetchRates();
+      }
+      function render(){
+        const t=T[lang];
+        const spend=safeNum('purchase'),rate=cap(safeNum('rewardRate'),0,100),vPrice=safeNum('vUsd'),vowPrice=safeNum('vowUsd'),fx=safeNum('fxRate');
+        const ccy=$('currency').value;
+        const protocol=$('useDexProxy').checked?vPrice:safeNum('protocolUsd');
+        const amountUSD=valid(spend)?(ccy==='USD'?spend:(fx>0?spend/fx:NaN)):NaN;
+        const mr=Number.isFinite(amountUSD)&&valid(rate)?amountUSD*rate/100:NaN;
+        const dex=Number.isFinite(mr)&&vPrice>0?mr*vPrice:NaN;
+        const contribution=Number.isFinite(mr)&&protocol>0?mr*protocol*.5:NaN;
+        const diff=Number.isFinite(dex)&&Number.isFinite(contribution)?dex-contribution:NaN;
+        const normalized=n=>Number.isFinite(n)?(ccy==='EUR'?(fx>0?n*fx:NaN):n):NaN;
+        const show=n=>amount(normalized(n),ccy);
+        const mrText=count(mr,'MR'),vText=count(mr,'v$');
+        $('rateBubble').textContent=nice(rate,1,0)+' %';
+        $('vBubble').textContent=(Number.isFinite(vPrice)?nice(vPrice,4,2):'—')+' $';
+        const slider=$('vSlider'); if(vPrice>0){slider.min=String(Math.min(.2,Math.floor(vPrice*.75*100)/100));slider.max=String(Math.max(1.4,Math.ceil(vPrice*1.25*100)/100));slider.value=String(vPrice)}
+        $('mr').textContent=mrText;$('vdollar').textContent=vText;
+        $('dexValue').textContent=show(dex);$('contribution').textContent=show(contribution);
+        $('difference').textContent=show(diff);
+        $('vowQty').textContent=Number.isFinite(contribution)&&vowPrice>0?nice(contribution/vowPrice,6,2)+' VOW':'—';
+        const ratio=amountUSD>0&&Number.isFinite(diff)?diff/amountUSD*100:NaN;
+        $('ratio').textContent=Number.isFinite(ratio)?nice(ratio,1,1)+' %':'—';
+        $('nominalValue').textContent=show(mr); // 1 v$ accepted as 1 USD discount is a scenario, not a claim.
+        $('fMr').textContent=mrText;$('fVdollar').textContent=vText;$('fDex').textContent=show(dex);
+        $('fClaim').textContent=show(contribution);$('fDiff').textContent=show(diff);
+        $('vOrigin').textContent=t[rateOrigin(state.vOrigin)];$('vowOrigin').textContent=t[rateOrigin(state.vowOrigin)];$('fxOrigin').textContent=state.fxOrigin==='live'?t.fxLiveOrigin:t[rateOrigin(state.fxOrigin)];
+        const card=$('difference').closest('.result-highlight');card.style.background=Number.isFinite(diff)&&diff<0?'linear-gradient(110deg,#a42c59,#d54167)': 'var(--gradient)';
+        $('protocolManualWrap').hidden=$('useDexProxy').checked;
+        if(ccy==='EUR'&&!(fx>0))setStatus(t.statusMissingFx,'warning');
+        else if(state.rateStatus==='loading')setStatus(t.statusLoading,'');
+        else if(state.rateStatus==='failed')setStatus(t.statusFail,'warning');
+        else if(state.rateStatus==='partial')setStatus(t.statusPartial,'warning');
+        else if(state.rateStatus==='loaded')setStatus(t.statusAll+' · '+t.statusTime+' '+(state.lastDate?new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-US',{dateStyle:'short',timeStyle:'short'}).format(state.lastDate):''),'ok');
+        else setStatus(t.statusFail,'warning');
+        $('footerState').textContent=state.vOrigin==='live'&&state.lastDate?t.footerLoaded+new Intl.DateTimeFormat(lang==='de'?'de-DE':'en-US',{dateStyle:'short',timeStyle:'short'}).format(state.lastDate):t.footerAssumed;
+      }
+      const bind=(id,cb)=>$(id).addEventListener('input',cb||render);
+      function setLang(next){lang=next;document.documentElement.lang=lang;for(const el of document.querySelectorAll('[data-i18n]')){const key=el.dataset.i18n;if(T[lang][key]!==undefined)el.textContent=T[lang][key]};document.title='Vow-Id-Simulation';for(const b of document.querySelectorAll('.langbar button')){const yes=b.dataset.lang===lang;b.classList.toggle('active',yes);b.setAttribute('aria-pressed',String(yes))}render()}
+      for(const el of document.querySelectorAll('.langbar button'))el.addEventListener('click',()=>setLang(el.dataset.lang));
+      bind('purchase');$('currency').addEventListener('change',render);
+      bind('rewardRate',()=>{$('rateNumber').value=$('rewardRate').value;render()});
+      bind('rateNumber',()=>{const n=safeNum('rateNumber');if(!Number.isFinite(n))return;$('rewardRate').value=String(cap(n,0,100));$('rateNumber').value=$('rewardRate').value;render()});
+      bind('vSlider',()=>{$('vUsd').value=$('vSlider').value;state.vOrigin='manual';render()});
+      bind('vUsd',()=>{state.vOrigin='manual';render()});
+      bind('vowUsd',()=>{state.vowOrigin='manual';render()});
+      bind('fxRate',()=>{state.fxOrigin='manual';render()});
+      bind('protocolUsd');$('useDexProxy').addEventListener('change',()=>{if(!$('useDexProxy').checked){$('protocolUsd').value=$('vUsd').value;}render()});
+      $('resetBtn').addEventListener('click',resetAll);$('refreshBtn').addEventListener('click',()=>fetchRates(true));
+      async function fetchJson(url,signal){const res=await fetch(url,{cache:'no-store',signal,headers:{accept:'application/json'}});if(!res.ok)throw new Error('HTTP '+res.status);return res.json()}
+      function getPoolPrice(json,asset){
+        const a=json?.data?.attributes;if(!a)throw new Error('Missing attributes');
+        const name=String(a.name||'').toLowerCase().replace(/\s+/g,'');
+        let value=NaN;
+        if(asset==='v$'){
+          if(name.startsWith('v$/'))value=Number(a.base_token_price_usd);
+          else if(name.includes('/v$'))value=Number(a.quote_token_price_usd);
+        }else if(asset==='vow'){
+          if(name.startsWith('vow/'))value=Number(a.base_token_price_usd);
+          else if(name.includes('/vow'))value=Number(a.quote_token_price_usd);
+        }
+        if(!(value>0&&value<1e9))throw new Error('Invalid '+asset+' pool/price');
+        return value;
+      }
+      let requestNumber=0;
+      async function fetchRates(forceLive=false){
+        const serial=++requestNumber;const ctrl=new AbortController();const abortTimer=setTimeout(()=>ctrl.abort(),10500);
+        $('refreshBtn').disabled=true;$('refreshBtn').textContent=T[lang].loading;state.rateStatus='loading';render();
+        const prices=await Promise.allSettled([fetchJson(VPOOL,ctrl.signal).then(j=>getPoolPrice(j,'v$')),fetchJson(VOWPOOL,ctrl.signal).then(j=>getPoolPrice(j,'vow')),fetchJson(FX,ctrl.signal).then(j=>{const value=Number(j?.rate);if(!(value>0&&value<10))throw new Error('Invalid fx');return value})]);
+        clearTimeout(abortTimer);
+        if(serial!==requestNumber)return;
+        let ok=0;
+        if(prices[0].status==='fulfilled'){ok++;if(forceLive||state.vOrigin!=='manual'){$('vUsd').value=String(prices[0].value);state.vOrigin='live'}}
+        if(prices[1].status==='fulfilled'){ok++;if(forceLive||state.vowOrigin!=='manual'){$('vowUsd').value=String(prices[1].value);state.vowOrigin='live'}}
+        if(prices[2].status==='fulfilled'){ok++;if(forceLive||state.fxOrigin!=='manual'){$('fxRate').value=String(prices[2].value);state.fxOrigin='live'}}
+        state.rateStatus=ok===3?'loaded':ok>0?'partial':'failed';if(ok>0)state.lastDate=new Date();
+        $('refreshBtn').disabled=false;$('refreshBtn').textContent=T[lang].refresh;render();
+      }
+      render();fetchRates();
+    })();
+  </script>
+</body>
+</html>
