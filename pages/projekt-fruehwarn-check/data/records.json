@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-23T16:31:05Z",
+  "generated_at": "2026-11-23T17:58:53Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-22T14:29:57Z",
+      "last_success": "2026-11-23T17:58:53Z",
       "records": 3612,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "02673449ccff0b7e538a1a9d6ae974cac8290f55e78fe5ef47600f40bc40b69f"
+      "response_sha256": "d141969bb084f2f095b7cf027fa0c2a6db5a1b9de38b6503c26311938d86637c"
     }
   },
   "records": [
@@ -125312,7 +125312,7 @@
       "lei": "529900HO7D9PZWCL4924",
       "national_reference": "RB-PJR-40-067",
       "city": "Bucuresti",
-      "last_update": "20251231000000000",
+      "last_update": "20260531000000000",
       "match_terms": [
         "TECHVENTURES BANK S.A.",
         "529900HO7D9PZWCL4924",
