@@ -2,6 +2,22 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<script>
+/* Ignore the legacy sources fragment only on initial entry. */
+(function () {
+  if (window.location.hash !== "#quellen") return;
+  try {
+    window.history.replaceState(window.history.state, "", window.location.pathname + window.location.search);
+  } catch (error) {
+    // The initial scroll reset also covers restricted iframe history access.
+  }
+  window.addEventListener("pageshow", function (event) {
+    if (!event.persisted && (!window.location.hash || window.location.hash === "#quellen")) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, { once: true });
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f7f9f8">
 <meta name="description" content="Aktuelle Warnung zu manipulierten Wallet-Adressen: Clipboard Hijacking, Address Poisoning, sieben Schutzregeln, Virenschutz und Sofortmaßnahmen.">
