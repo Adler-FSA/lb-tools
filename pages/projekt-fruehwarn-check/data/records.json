@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-24T16:29:43Z",
+  "generated_at": "2026-11-24T17:37:25Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-23T17:58:53Z",
+      "last_success": "2026-11-24T17:37:25Z",
       "records": 3612,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "d141969bb084f2f095b7cf027fa0c2a6db5a1b9de38b6503c26311938d86637c"
+      "response_sha256": "b93c021c9028ae117d9f4a4b6bcc9e7c4ecfe8752b71da45d5754f7eeaa43ada"
     }
   },
   "records": [
@@ -30692,7 +30692,7 @@
       "region": "EU",
       "type": "register",
       "status": "authorized",
-      "name": "BANK OF EPIRUS SA",
+      "name": "Bank of Epirus SA",
       "aliases": [
         "Τράπεζα Ηπείρου Ανώνυμη Τραπεζική Εταιρεία"
       ],
@@ -30715,9 +30715,9 @@
       "lei": "213800AXQUILVAQS3374",
       "national_reference": "096069060",
       "city": "Ioannina",
-      "last_update": "20260915000000000",
+      "last_update": "20261106000000000",
       "match_terms": [
-        "BANK OF EPIRUS SA",
+        "Bank of Epirus SA",
         "Τράπεζα Ηπείρου Ανώνυμη Τραπεζική Εταιρεία",
         "213800AXQUILVAQS3374",
         "096069060"
@@ -88015,7 +88015,7 @@
       "lei": "RRUN0TCQ1K2JDV7MXO75",
       "national_reference": "54801",
       "city": "Linz",
-      "last_update": "20241231000000000",
+      "last_update": "20261031000000000",
       "match_terms": [
         "Oberbank AG",
         "RRUN0TCQ1K2JDV7MXO75",
