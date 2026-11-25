@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-25T16:08:49Z",
+  "generated_at": "2026-11-25T17:08:09Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-24T17:37:25Z",
+      "last_success": "2026-11-25T17:08:09Z",
       "records": 3612,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "b93c021c9028ae117d9f4a4b6bcc9e7c4ecfe8752b71da45d5754f7eeaa43ada"
+      "response_sha256": "703c635d2b25878fe63f676267b4c2611538c60e3070dd08a9bb4bef02f2bdd2"
     }
   },
   "records": [
@@ -18120,7 +18120,7 @@
       "lei": "724500973ODKK3IFQ447",
       "national_reference": "34259528",
       "city": "AMSTERDAM",
-      "last_update": "20260331000000000",
+      "last_update": "20260930000000000",
       "match_terms": [
         "Adyen N.V.",
         "724500973ODKK3IFQ447",
