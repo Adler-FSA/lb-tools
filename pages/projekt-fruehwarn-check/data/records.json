@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-26T15:49:35Z",
+  "generated_at": "2026-11-26T16:49:26Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-25T17:08:09Z",
-      "records": 3612,
+      "last_success": "2026-11-26T16:49:26Z",
+      "records": 3614,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "703c635d2b25878fe63f676267b4c2611538c60e3070dd08a9bb4bef02f2bdd2"
+      "response_sha256": "0fa69a5238f1f6248436dd3c8322e35c43560f8c09ffca6a7c91d232cffa5a8d"
     }
   },
   "records": [
@@ -19633,6 +19633,40 @@
         "Anyfin AB",
         "549300MJVXCIS6D02V62",
         "559094-8005"
+      ]
+    },
+    {
+      "id": "eba-credit-institutions-a3969e006cec88549d",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "ANZ Europe SA (ANZ EU)",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "FR_ACPR",
+      "country": "FR",
+      "date": "2026-07-31",
+      "last_status_date": "2026-07-31",
+      "authorization_history": [
+        "2026-07-31"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "2549003S0QOXTX8KF023",
+      "lei": "2549003S0QOXTX8KF023",
+      "national_reference": "17978",
+      "city": "PARIS",
+      "last_update": "20260731000000000",
+      "match_terms": [
+        "ANZ Europe SA (ANZ EU)",
+        "2549003S0QOXTX8KF023",
+        "17978"
       ]
     },
     {
@@ -46640,6 +46674,40 @@
         "Bankinter, S.A.",
         "VWMYAEQSTOPNV0SUGU82",
         "0128"
+      ]
+    },
+    {
+      "id": "eba-credit-institutions-6030e4cb10ee8b6f40",
+      "source_id": "eba-credit-institutions",
+      "region": "EU",
+      "type": "register",
+      "status": "authorized",
+      "name": "Banky AB",
+      "aliases": [],
+      "domains": [],
+      "authority": "European Banking Authority / zuständige nationale Aufsicht",
+      "competent_authority_code": "SE_FINA",
+      "country": "SE",
+      "date": "2026-11-25",
+      "last_status_date": "2026-11-25",
+      "authorization_history": [
+        "2026-11-25"
+      ],
+      "title": "EBA – Kreditinstitut",
+      "summary_de": "Offizieller Eintrag im EBA-Kreditinstitutsregister als Kreditinstitut. Die im EBA-Datensatz geführte Zulassungshistorie weist den Eintrag derzeit als aktiv aus. Das EBA-Register bündelt Angaben der zuständigen nationalen Aufsichtsbehörden; rechtlich maßgeblich bleiben die jeweiligen nationalen Register und Zuständigkeiten. Ein Registertreffer ist kein Gütesiegel für ein konkretes Angebot.",
+      "summary_en": "Official entry in the EBA credit institutions register as a credit institution. The authorisation history in the EBA dataset currently indicates an active entry. The EBA register consolidates information supplied by national competent authorities; the relevant national registers and competences remain legally authoritative. A register match is not a seal of approval for a specific offer.",
+      "source_url": "https://euclid.eba.europa.eu/register/cir/search",
+      "source_dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
+      "entity_type": "CRD_CRE_INS",
+      "entity_code": "636700233RJA37HPI652",
+      "lei": "636700233RJA37HPI652",
+      "national_reference": "559352-3524",
+      "city": "Stockholm",
+      "last_update": "20261125000000000",
+      "match_terms": [
+        "Banky AB",
+        "636700233RJA37HPI652",
+        "559352-3524"
       ]
     },
     {
