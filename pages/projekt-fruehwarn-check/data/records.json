@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "generated_at": "2026-11-27T15:37:57Z",
+  "generated_at": "2026-11-27T16:34:58Z",
   "source_status": {
     "esma-casp": {
       "status": "available",
@@ -49,10 +49,10 @@
     },
     "eba-credit-institutions": {
       "status": "available",
-      "last_success": "2026-11-26T16:49:26Z",
+      "last_success": "2026-11-27T16:34:58Z",
       "records": 3614,
       "dataset": "https://euclid.eba.europa.eu/register/api/search/entities",
-      "response_sha256": "0fa69a5238f1f6248436dd3c8322e35c43560f8c09ffca6a7c91d232cffa5a8d"
+      "response_sha256": "711a9d21f398875fac5dc80fc884baa4e71d83f65c938f4a74d59802594aff2a"
     }
   },
   "records": [
@@ -27947,7 +27947,7 @@
       "lei": "RRAN7P32P0W0YY4XQW79",
       "national_reference": "3025",
       "city": "MILANO",
-      "last_update": "20260331000000000",
+      "last_update": "20261104000000000",
       "match_terms": [
         "BANCA PROFILO S.P.A. (OVVERO PROFILOBANK S.P.A.)",
         "RRAN7P32P0W0YY4XQW79",
